@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Cari nama kontak"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Pemeriksa ejaan menggunakan entri dari daftar kontak Anda"</string>
     <string name="vibrate_on_keypress">"Getar jika tombol ditekan"</string>
@@ -114,20 +113,20 @@
     <string name="user_dict_settings_add_word_hint">"Ketik kata"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Pintasan opsional"</string>
     <string name="user_dict_settings_edit_dialog_title">"Edit kata"</string>
-    <string name="user_dict_settings_empty_text">"Tidak ada kata-kata dalam kamus pengguna. Untuk menambahkan kata, ketuk Tambahkan (+)."</string>
+    <string name="user_dict_settings_empty_text">Belum ada kata di dalam kamus pengguna Anda. Untuk menambahkan kata, ketuk tombol Tambahkan (+).</string>
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Bahasa lainnya…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="prefs_keyboard_height_scale">Skala tinggi keyboard</string>
     <string name="delete_swipe">Gestur hapus</string>
     <string name="delete_swipe_summary">Sentuh dan geser ke kiri pada tombol hapus untuk menghapus beberapa huruf/kata sekaligus</string>
-    <string name="settings_category_clipboard_history">Riwayat clipboard</string>
+    <string name="settings_category_clipboard_history">Riwayat papan klip</string>
     <string name="settings_no_limit">Tidak terbatas</string>
-    <string name="enable_clipboard_history">Aktifkan riwayat clipboard</string>
+    <string name="enable_clipboard_history">Aktifkan riwayat papan klip</string>
     <string name="clipboard_history_retention_time">Waktu simpan riwayat</string>
     <string name="show_hints">Tampilkan petunjuk tombol</string>
     <string name="number_row_summary">Selalu tampilkan baris angka</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>mnt.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>mnt</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="spell_checker_service_name">Pemeriksa Ejaan HeliBoard</string>
     <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan HeliBoard</string>
@@ -150,11 +149,11 @@
     <string name="key_borders">Batas tombol</string>
     <string name="day_night_mode">Mode siang/malam otomatis</string>
     <string name="day_night_mode_summary">Tampilan mengikuti pengaturan sistem</string>
-    <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon clipboard akan menempelkan konten yang disalin</string>
+    <string name="enable_clipboard_history_summary">Jika dinonaktifkan, menekan tombol ikon papan klip akan menempelkan konten yang disalin (jika ada)</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Spasi otomatis setelah tanda baca</string>
     <string name="autospace_after_punctuation_summary">Otomatis sisipkan spasi setelah tanda baca saat mengetik kata baru</string>
-    <string name="auto_correction_confidence">Konfidensi koreksi otomatis</string>
+    <string name="auto_correction_confidence">Tingkat ketepercayaan koreksi otomatis</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Gunakan bahasa sistem"</string>
     <string name="select_input_method">"Pilih metode masukan"</string>
     <string name="undo">"Urungkan"</string>
@@ -168,4 +167,173 @@
     <string name="label_search_key">"Telusur"</string>
     <string name="label_pause_key">"Jeda"</string>
     <string name="label_wait_key">"Tunggu"</string>
+    <string name="language_switch_key_switch_both">Ganti keduanya</string>
+    <string name="add_to_personal_dictionary">Tambahkan kata ke kamus pribadi</string>
+    <string name="add_to_personal_dictionary_summary">Gunakan kamus pribadi perangkat untuk menyimpan kata yang telah dipelajari</string>
+    <string name="more_autocorrect">Koreksi otomatis selengkapnya</string>
+    <string name="more_autocorrect_summary">Lakukan koreksi otomatis bahkan meski tidak diminta secara langsung oleh kolom input</string>
+    <string name="backup_restore_message">Simpan atau muat dari berkas. Peringatan: mengembalikan ke awal akan menimpa data yang lama</string>
+    <string name="backup_error">Kesalahan saat menyimpan data cadangan: %s</string>
+    <string name="restore_error">Gagal memuat data cadangan: %s</string>
+    <string name="button_backup">Cadangkan</string>
+    <string name="button_restore">Kembalikan</string>
+    <string name="down" tools:keep="@string/down">Bawah</string>
+    <string name="secondary_locale">Pengetikan multibahasa</string>
+    <string name="load_gesture_library">Muat pustaka pengetikan gestur</string>
+    <string name="load_gesture_library_summary">Tambahkan pustaka asli untuk mengaktifkan pengetikan dengan gestur</string>
+    <string name="checksum_mismatch_message">Berkas pustaka yang tak dikenal. Apakah Anda yakin telah mendapatkan pustaka ini dari sumber tepercaya dan untuk \'%s\'?</string>
+    <string name="load_gesture_library_button_load">Muat pustaka</string>
+    <string name="load_gesture_library_button_delete">Hapus pustaka</string>
+    <string name="show_popup_keys_title">Tampilkan lebih banyak huruf dengan diakritik pada layar sembulan</string>
+    <string name="show_popup_keys_normal">Tampilkan varian yang didefinisikan pada bahasa papan ketik (bawaan)</string>
+    <string name="show_popup_keys_more">Tambahkan varian umum</string>
+    <string name="show_popup_keys_all">Tambahkan semua varian yang tersedia</string>
+    <string name="url_detection_title">Deteksi URL</string>
+    <string name="language_and_layouts_title">Bahasa &amp; Tata Letak</string>
+    <string name="localized_number_row">Lokalisasi angka baris</string>
+    <string name="localized_number_row_summary">Utamakan angka yang telah dilokalisasi dibandingkan angka latin</string>
+    <string name="popup_order">Pilih urutan kunci layar sembulan</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Jumlah baris</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Bahasa</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Bahasa (prioritas)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Tata letak</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simbol</string>
+    <string name="toolbar_keys">Pilih tombol pada bilah perkakas</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Papan klip</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Hapus papan klip</string>
+    <string name="voice" tools:keep="@string/voice">Masukkan suara</string>
+    <string name="select_word" tools:keep="@string/select_word">Pilih kata</string>
+    <string name="full_left" tools:keep="@string/full_left">Kiri penuh</string>
+    <string name="full_right" tools:keep="@string/full_right">Kanan penuh</string>
+    <string name="left" tools:keep="@string/left">Kiri</string>
+    <string name="right" tools:keep="@string/right">Kanan</string>
+    <string name="up" tools:keep="@string/up">Atas</string>
+    <string name="show_popup_hints_summary">Tampilkan petunjuk jika menekan suatu tombol dengan lama memicu fungsi tambahan</string>
+    <string name="prefs_narrow_key_gaps">Sempitkan jarak antara tombol</string>
+    <string name="prefs_bottom_padding_scale">Skala bantalan bawah</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="button_load_custom">Muat file</string>
+    <string name="file_read_error">File tidak terbaca</string>
+    <string name="button_copy_existing_layout">Salin tata letak saat ini</string>
+    <string name="title_layout_name_select">Ubah nama tata letak</string>
+    <string name="delete_layout">Yakin ingin menghapus tata letak kustom %s?</string>
+    <string name="layout_error">Kesalahan tata letak: %s</string>
+    <string name="edit_layout">Tekan untuk mengubah tata letak versi polos</string>
+    <string name="disable_personalized_dicts_message">Peringatan: Menonaktifkan pengaturan ini akan menghapus data yang telah diperoleh</string>
+    <string name="prefs_always_show_suggestions">Selalu tampilkan saran</string>
+    <string name="backup_restore_title">Simpan data cadangan dan kembalikan</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Mode satu tangan</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="button_title_add_custom_layout">Tambahkan tata letak kustom</string>
+    <string name="split_spacer_scale">Pisahkan jarak</string>
+    <string name="prefs_always_show_suggestions_summary">Abaikan permintaan aplikasi lain untuk menonaktifkan saran (dapat menimbulkan masalah)</string>
+    <string name="load_gesture_library_message">Anda membutuhkan pustaka untuk \'%s\'. Pustaka yang tidak cocok mungkin bisa mengeluarkan Anda dari aplikasi secara tiba-tiba saat menggunakan pengetikan gestur.
+\n
+\nPeringatan: memuat kode eksternal dapat menimbulkan resiko keamanan. Gunakan pustaka yang hanya Anda percaya.</string>
+    <string name="url_detection_summary">Mencoba untuk mendeteksi URL dan sejenisnya sebagai kata tunggal</string>
+    <string name="show_popup_hints">Tampilkan petunjuk fungsional</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
+    <string name="message_add_custom_layout">Pilih file dalam format yang kompatibel. Informasi tentang format tersedia %s.</string>
+    <string name="switch_language">Ganti Bahasa</string>
+    <string name="hint_source">Pilih sumber petunjuk</string>
+    <string name="customize_symbols_number_layouts">Kustomisasi tata letak simbol dan angka</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Simbol</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simbol (bahasa Arab)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Lebih banyak simbol</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telepon</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simbol telepon</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Angka</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Papan nomor</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Papan nomor (mode bentang)</string>
+    <string name="customize_background_image">Ubah gambar latar belakang</string>
+    <string name="day_or_night_image">Ubah gambar untuk mode cerah atau malam?</string>
+    <string name="day_or_night_night">Malam</string>
+    <string name="day_or_night_day">Cerah</string>
+    <string name="dictionary_settings_category">Kamus</string>
+    <string name="internal_dictionary_summary">Kamus utama internal</string>
+    <string name="add_new_dictionary_title">Tambahkan kamus dari file</string>
+    <string name="button_select_language">Pilih bahasa</string>
+    <string name="replace_dictionary">Ganti kamus</string>
+    <string name="remove_dictionary_message">Yakin ingin menghapus kamus bawaan pengguna \"%s\"?</string>
+    <string name="add_dictionary">Pilih kamus yang akan ditambahkan. Kamus dalam format .dict dapat diunduh %s.</string>
+    <string name="dictionary_link_text">di sini</string>
+    <string name="available_dictionary_experimental">%s (eksperimental)</string>
+    <string name="dictionary_file_error">Kesalahan: File yang dipilih bukan file kamus yang valid</string>
+    <string name="dictionary_file_wrong_locale">File yang dipilih adalah untuk %1$s, tetapi yang diharapkan adalah %2$s. Apakah Anda masih ingin menggunakannya untuk %2$s?</string>
+    <string name="dictionary_file_wrong_script">Kesalahan: skrip tidak kompatibel dengan papan ketik ini</string>
+    <string name="dictionary_file_wrong_locale_ok">Masih digunakan</string>
+    <string name="dictionary_load_error">Gagal memuat file kamus</string>
+    <string name="user_dict_add_word_button">Tambahkan kata</string>
+    <string name="theme_style">Gaya</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Bulat</string>
+    <string name="theme_colors_night">Warna (mode malam)</string>
+    <string name="theme_navbar">Bilah navigasi warna</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Gelap gulita</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Warna dinamis</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Biru Abu-abu</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Coklat</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cokelat</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Laut</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Merah muda</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Pasir</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Tema yang ditentukan pengguna</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Tema yang ditentukan pengguna (mode malam)</string>
+    <string name="select_user_colors">Sesuaikan warna</string>
+    <string name="button_add_to_language">Tambahkan ke %s</string>
+    <string name="replace_dictionary_message">Yakin ingin mengganti kamus bawaan pengguna \"%1$s\"?
+\n
+\nKamus saat ini:
+\n%2$s
+\n
+\nKamus baru:
+\n%3$s</string>
+    <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;
+\n        Anda dapat mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
+    <string name="customize_symbols_number_layouts_summary">Tata letak (kecuali simbol) mengekspos pengaturan internal yang mungkin masih dapat berubah. Jika hal itu terjadi, tata letak kustom mungkin tidak akan berfungsi dengan baik lagi.</string>
+    <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
+    <string name="add_new_dictionary_ask_locale">Pada bahasa apa kamus \"%1$s\" untuk %2$s harus ditambahkan?</string>
+    <string name="no_dictionary_dont_show_again_button">Jangan tampilkan lagi</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Cerah</string>
+    <string name="user_dict_settings_add_weight_value">Berat:</string>
+    <string name="user_dict_word_already_present">Kata ini sudah ada dalam kamus pengguna %s. Silakan ketik kata yang lain.</string>
+    <string name="theme_colors">Warna</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Gelap</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Berawan</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Hutan</string>
+    <string name="action_none">Tidak ada</string>
+    <string name="space_swipe_move_cursor_entry">Gerakkan Kursor</string>
+    <string name="select_user_colors_night">Sesuaikan warna (mode malam)</string>
+    <string name="auto_user_color">Pilih warna secara otomatis</string>
+    <string name="main_colors">Tampilkan warna utama saja</string>
+    <string name="all_colors">Tampilkan semua warna</string>
+    <string name="hint_show_keyboard">Klik untuk melihat pratinjau</string>
+    <string name="select_user_colors_summary">Pilih warna untuk teks dan latar belakang</string>
+    <string name="select_color_background">Latar belakang papan ketik</string>
+    <string name="select_color_key">Tombol teks</string>
+    <string name="select_color_key_hint">Tombol teks petunjuk</string>
+    <string name="select_color_suggestion">Teks strip saran</string>
+    <string name="select_color_key_background">Warna latar belakang tombol</string>
+    <string name="select_color_functional_key_background">Warna latar belakang tombol fungsi</string>
+    <string name="select_color_accent">Warna aksen</string>
+    <string name="select_color_gesture">Warna input gestur</string>
+    <string name="settings_screen_about">Tentang</string>
+    <string name="version">Versi</string>
+    <string name="about_github_link">Lihat di GitHub</string>
+    <string name="save_log">Simpan log</string>
+    <string name="license">Lisensi sumber terbuka</string>
+    <string name="dialog_close">Tutup</string>
+    <string name="text_tap_languages">Tekan bahasa untuk membuka pengaturan</string>
+    <string name="settings_screen_appearance">Penampilan</string>
+    <string name="hidden_features_title">Penjelasan tentang fitur-fitur tersembunyi</string>
+    <string name="hidden_features_text">penyimpanan yang dilindungi perangkat</string>
+    <string name="select_color_spacebar_background">Warna latar belakang tombol spasi</string>
+    <string name="select_color_spacebar_text">Warna teks tombol spasi</string>
+    <string name="hidden_features_summary">Tampilkan fitur yang mungkin luput dari perhatian</string>
+    <string name="show_horizontal_space_swipe">Gerakan geser bilah spasi horizontal</string>
+    <string name="show_vertical_space_swipe">Gerakan geser bilah spasi vertikal</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Putih</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Ungu lembayung</string>
+    <string name="gnu_gpl">Lisensi Publik Umum GPU v3.0</string>
 </resources>

@@ -3,12 +3,10 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="spell_checker_service_name">ওপেনবোর্ড বানান পরীক্ষক</string>
-    <string name="ime_settings">ওপেনবোর্ড সেটিংস</string>
-    <string name="android_spell_checker_settings">ওপেনবোর্ড বানান পরীক্ষক সেটিংস</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="spell_checker_service_name">হেলিবোর্ড বানান পরীক্ষক</string>
+    <string name="ime_settings">হেলিবোর্ড সেটিংস</string>
+    <string name="android_spell_checker_settings">হেলিবোর্ড বানান পরীক্ষক সেটিংস</string>
     <string name="use_contacts_for_spellchecking_option_title">পরিচিতি তালিকায় নাম খুঁজুন</string>
     <string name="use_contacts_for_spellchecking_option_summary">বানান পরীক্ষক আপনার পরিচিতি তালিকা থেকে তথ্য ব্যবহার করবে</string>
     <string name="vibrate_on_keypress">কিপ্রেস কম্পন</string>
@@ -102,26 +100,7 @@
     <string name="hidden_features_title">প্রচ্ছন্ন বৈশিষ্ট্য</string>
     <string name="hidden_features_summary">অপরিদৃষ্ট হতে পারে এমন বৈশিষ্ট্যের বর্ণনা</string>
     <string name="hidden_features_text">ডিভাইস সুরক্ষিত স্টোরেজ</string>
-    <string name="hidden_features_message">
-        &#9658; ক্লিপবোর্ড বোতামে (পরামর্শ স্ট্রিপের ঐচ্ছিক বোতাম) দীর্ঘ চাপ দিলে সিস্টেম ক্লিপবোর্ডের আধেয় পেস্ট করবে। &lt;br&gt; &lt;br&gt;
-        &#9658; পরামর্শ স্ট্রিপে টুলবারের কোনো বোতামে দীর্ঘ চাপ দিলে তা পরামর্শ স্ট্রিপে আবদ্ধ হবে। &lt;br&gt; &lt;br&gt;
-        &#9658; কমা বোতামে দীর্ঘ চাপ দিলে ক্লিপবোর্ড ভিউ, ইমোজি ভিউ, একক হাত মোড, সেটিংস অথবা ভাষা পরিবর্তন বোতাম উপলব্ধ হবে: &lt;br&gt;
-        \t&#8226; সংশ্লিষ্ট বোতাম সক্ষম থাকলে ইমোজি ভিউ বা ভাষা পরিবর্তন বোতাম দৃশ্যমান থাকবে না; &lt;br&gt;
-        \t&#8226; কিছু লেআউটের জন্য কমা বোতাম নয়, কিন্তু একই জায়গার বোতামটি, যেমন: Dvorak লেআউটে \'q\' বোতাম। &lt;br&gt; &lt;br&gt;
-        &#9658; ছদ্মবেশী বোতামে চাপ দিলে টুলবার উপলব্ধ হবে। &lt;br&gt; &lt;br&gt;
-        &#9658; স্লাইডিং কি ইনপুট: বড়ো হাতের অক্ষর লেখার জন্য শিফট বোতাম থেকে অন্য বোতামে সোয়াইপ করুন: &lt;br&gt;
-        \t&#8226; সিম্বল কিবোর্ড থেকে সিম্বল এবং সম্পর্কিত অক্ষর লেখার জন্য \'?123\' বোতামেও এটি কাজ করে।&lt;br&gt; &lt;br&gt;
-        &#9658; পরামর্শ স্ট্রিপে কোনো পরামর্শে দীর্ঘ চাপ দিলে আরও পরামর্শ, অপসারণ করার জন্য অপসারণ বোতাম প্রদর্শিত হবে। &lt;br&gt; &lt;br&gt;
-        &#9658; আরও পরামর্শ খুলতে কোনো পরামর্শ থেকে উপরে সোয়াইপ করুন এবং নির্দিষ্ট পরামর্শ নির্বাচনের জন্য ছেড়ে দিন। &lt;br&gt; &lt;br&gt;
-        &#9658; আপনি ফাইল এক্সপ্লোরারে খোলার মাধ্যমে অভিধান সংযুক্ত করতে পারেন: &lt;br&gt;
-        \t&#8226; এটি কেবল &lt;i&gt;content-uris&lt;/i&gt; এর সাথে কাজ করে, &lt;i&gt;file-uris&lt;/i&gt; এর সাথে নয়। অর্থাৎ কিছু ফাইল এক্সপ্লোরারের সাথে নাও কাজ করতে পারে। &lt;br&gt; &lt;br&gt;
-        &lt;i&gt;কেবল ডিবাগ এপিকে&lt;/i&gt; &lt;br&gt;
-        &#9658; পরামর্শে দীর্ঘ চাপ দিলে তার উৎস-অভিধান দেখাবে। &lt;br&gt; &lt;br&gt;
-        &#9658; ডিবাগ সেটিংস উচ্চতর সেটিংসে উপলব্ধ। যদিও লগ ফাইলে অভিধান অবমুক্ত করা ছাড়া এর ব্যবহারযোগ্যতা সীমিত। &lt;br&gt; &lt;br&gt;
-        &#9658; অ্যাপ্লিকেশন ক্র্যাশের পরে সেটিংস খুললে আপনি ক্র্যাশ লগ চান কি না তা জিজ্ঞেস করা হবে৷ &lt;br&gt; &lt;br&gt;
-        &#9658; রুট উপলব্ধতাসহ ম্যানুয়াল ব্যাকআপ করা ব্যবহারকারীদের জন্য: Android 7 থেকে শেয়ারড্ প্রেফারেন্স ফাইল ডিফল্ট জায়গা নয়। কারণ অ্যাপ %s ব্যবহার করছে। &lt;br&gt;
-        ডিভাইস আনলকের আগে সেটিংস খোলার জন্য এটি প্রয়োজনীয়, যেমন: বুট করার সময়। &lt;br&gt;
-        ফাইলটি /data/user_de/0/package_id/shared_prefs/ থাকে। যদিও এটা ডিভাইস এবং অ্যান্ড্রয়েড সংস্করণের উপরে নির্ভর করে।</string>
+    <string name="hidden_features_message">► ক্লিপবোর্ড বোতামে (পরামর্শ ফলকের ঐচ্ছিক বোতাম) দীর্ঘ চাপ দিলে সিস্টেম ক্লিপবোর্ডের আধেয় পেস্ট করবে। &lt;br&gt; &lt;br&gt; ► পরামর্শ ফলকের টুলবারের কোনো বোতামে দীর্ঘ চাপ দিলে তা পরামর্শ ফলকে আবদ্ধ হবে। &lt;br&gt; &lt;br&gt; ► কমা বোতামে দীর্ঘ চাপ দিলে ক্লিপবোর্ড ভিউ, ইমোজি ভিউ, একক হাত মোড, সেটিংস অথবা ভাষা পরিবর্তন বোতাম উপলব্ধ হবে: &lt;br&gt; \t• সংশ্লিষ্ট বোতাম সক্ষম থাকলে ইমোজি ভিউ বা ভাষা পরিবর্তন বোতাম দৃশ্যমান থাকবে না; &lt;br&gt; \t• কিছু লেআউটের জন্য কমা বোতাম নয়, কিন্তু একই জায়গার বোতামটি, যেমন: Dvorak লেআউটে \'q\' বোতাম। &lt;br&gt; &lt;br&gt; ► ছদ্মবেশী বোতামে চাপ দিলে টুলবার উপলব্ধ হবে। &lt;br&gt; &lt;br&gt; ► স্লাইডিং কি ইনপুট: বড়ো হাতের অক্ষর লেখার জন্য শিফট বোতাম থেকে অন্য বোতামে সোয়াইপ করুন: &lt;br&gt; \t• সিম্বল কিবোর্ড থেকে সিম্বল এবং সম্পর্কিত অক্ষর লেখার জন্য \'?123\' বোতামেও এটি কাজ করে।&lt;br&gt; &lt;br&gt; ► পরামর্শ ফলকে কোনো পরামর্শে দীর্ঘ চাপ দিলে আরও পরামর্শ, অপসারণ করার জন্য অপসারণ বোতাম প্রদর্শিত হবে। &lt;br&gt; &lt;br&gt; ► আরও পরামর্শ খুলতে কোনো পরামর্শ থেকে উপরে সোয়াইপ করুন এবং নির্দিষ্ট পরামর্শ নির্বাচনের জন্য ছেড়ে দিন। &lt;br&gt; &lt;br&gt; ► আপনি ফাইল এক্সপ্লোরারে খোলার মাধ্যমে অভিধান সংযুক্ত করতে পারেন: &lt;br&gt; \t• এটি কেবল &lt;i&gt;content-uris&lt;/i&gt; এর সাথে কাজ করে, &lt;i&gt;file-uris&lt;/i&gt; এর সাথে নয়। অর্থাৎ কিছু ফাইল এক্সপ্লোরারের সাথে নাও কাজ করতে পারে। &lt;br&gt; &lt;br&gt; &lt;i&gt;কেবল ডিবাগ এপিকে&lt;/i&gt; &lt;br&gt; ► পরামর্শে দীর্ঘ চাপ দিলে তার উৎস-অভিধান দেখাবে। &lt;br&gt; &lt;br&gt; ► ডিবাগ সেটিংস উচ্চতর সেটিংসে উপলব্ধ। যদিও লগ ফাইলে অভিধান অবমুক্ত করা ছাড়া এর ব্যবহারযোগ্যতা সীমিত। &lt;br&gt; &lt;br&gt; ► অ্যাপ্লিকেশন ক্র্যাশের পরে সেটিংস খুললে আপনি ক্র্যাশ লগ চান কি না তা জিজ্ঞেস করা হবে৷ &lt;br&gt; &lt;br&gt; ► রুট উপলব্ধতাসহ ম্যানুয়াল ব্যাকআপ করা ব্যবহারকারীদের জন্য: Android 7 থেকে শেয়ারড্ প্রেফারেন্স ফাইল ডিফল্ট জায়গা নয়। কারণ অ্যাপ %s ব্যবহার করছে। &lt;br&gt; ডিভাইস আনলকের আগে সেটিংস খোলার জন্য এটি প্রয়োজনীয়, যেমন: বুট করার সময়। &lt;br&gt; ফাইলটি /data/user_de/0/package_id/shared_prefs/ থাকে। যদিও এটা ডিভাইস এবং অ্যান্ড্রয়েড সংস্করণের উপরে নির্ভর করে।</string>
     <string name="subtype_sr_Latn">সার্বীয় (ল্যাটিন)</string>
     <string name="subtype_with_layout_en_GB">ইংরেজি (ইউকে) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">ইংরেজি (ইউএস) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -191,9 +170,9 @@
     <string name="no_dictionary_message">অভিধান ব্যতীত কেবল পূর্বে প্রবেশিত শব্দের জন্য পরামর্শ পাওয়া যাবে।&lt;br&gt;
     আপনি অভিধান ডাউনলোড করতে পারেন %1$s, অথবা \"%2$s\" এর জন্য অভিধান সরাসরি ডাউনলোড করা যায় কি না যাচাই করতে পারেন %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">পুনরায় প্রদর্শন করবে না</string>
-    <string name="add_dictionary">"অভিধান যোগ করার জন্য নির্বাচন করুন। %s থেকে .dict ফরম্যাটে অভিধান ডাউনলোড করা যেতে পারে।"</string>
+    <string name="add_dictionary">অভিধান যোগ করার জন্য নির্বাচন করুন। %s .dict ফরম্যাটে অভিধান ডাউনলোড করা যেতে পারে।</string>
     <string name="dictionary_file_wrong_script">"ত্রুটি: স্ক্রিপ্ট এই কিবোর্ডের সাথে সামঞ্জস্যপূর্ণ নয়"</string>
-    <string name="dictionary_link_text">"এখান"</string>
+    <string name="dictionary_link_text">এখানে</string>
     <string name="dictionary_file_error">"ত্রুটি: নির্বাচিত ফাইলটি বৈধ অভিধান ফাইল নয়"</string>
     <string name="dictionary_file_wrong_locale">"নির্বাচিত ফাইলটি %1$s এর জন্য, %2$s এর জন্য ফাইল প্রয়োজন। তবুও %2$s এর জন্য ব্যবহৃত হবে?"</string>
     <string name="dictionary_file_wrong_locale_ok">"তবুও ব্যবহার করুন"</string>
@@ -219,9 +198,9 @@
     <string name="user_dict_fast_scroll_alphabet">\u0020অআইঈউঊঋএঐওঔংঃকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ</string>
     <string name="theme_style">শৈলী</string>
     <string name="theme_colors">রং</string>
-    <string name="theme_colors_night">রং (রাত্রি)</string>
+    <string name="theme_colors_night">রং (অন্ধকার)</string>
     <string name="key_borders">বোতামের প্রান্ত</string>
-    <string name="day_night_mode">স্বয়ংক্রিয় দিবা/রাত্রি মোড</string>
+    <string name="day_night_mode">স্বয়ংক্রিয় আলো/অন্ধকার মোড</string>
     <string name="day_night_mode_summary">অবয়ব সিস্টেম সেটিংসকে অনুসরণ করবে</string>
     <string name="theme_navbar">রঙিন ন্যাভিগেশন বার</string>
     <string name="theme_name_light">উজ্জ্বল</string>
@@ -230,9 +209,9 @@
     <string name="theme_name_darker">বেশি নিষ্প্রভ</string>
     <string name="theme_name_black">কালো</string>
     <string name="theme_name_user">ব্যবহারকারী নির্ধারিত</string>
-    <string name="theme_name_user_night">ব্যবহারকারী নির্ধারিত (রাত্রি)</string>
+    <string name="theme_name_user_night">ব্যবহারকারী নির্ধারিত (অন্ধকার)</string>
     <string name="select_user_colors">থিমের রং সমন্বয়</string>
-    <string name="select_user_colors_night">রং সমন্বয় (রাত্রি)</string>
+    <string name="select_user_colors_night">রং সমন্বয় (অন্ধকার)</string>
     <string name="auto_user_color">স্বয়ংক্রিয় রং নির্বাচন</string>
     <string name="hint_show_keyboard">প্রাকদর্শনের জন্য ক্লিক করুন</string>
     <string name="select_user_colors_summary">লেখা এবং পটভূমির জন্য রং নির্বাচন</string>
@@ -263,4 +242,98 @@
     <string name="label_search_key">"সন্ধান"</string>
     <string name="label_pause_key">"বিরাম"</string>
     <string name="label_wait_key">"অপেক্ষা"</string>
+    <string name="prefs_always_show_suggestions">সর্বদা পরামর্শ প্রদর্শন</string>
+    <string name="more_autocorrect_summary">ইনপুট ফিল্ড থেকে নির্দেশনা না থাকলেও স্বতঃসংশোধন করবে</string>
+    <string name="backup_restore_message">সংরক্ষণ অথবা ফাইল থেকে লোড। সতর্কতা পুনরুদ্ধার করলে তা বর্তমান তথ্যকে প্রতিস্থাপন করবে</string>
+    <string name="backup_error">ব্যাকআপ ত্রুটি: %s</string>
+    <string name="restore_error">ব্যাকআপ পুনরুদ্ধার করতে ত্রুটি: %s</string>
+    <string name="button_backup">ব্যাকআপ</string>
+    <string name="button_restore">পুনরুদ্ধার</string>
+    <string name="backup_restore_title">ব্যাকআপ এবং পুনরুদ্ধার</string>
+    <string name="checksum_mismatch_message">অপরিচিত লাইব্রেরি ফাইল। আপনি কি নিশ্চিত যে এটি একটি বিশ্বস্ত উৎস থেকে প্রাপ্ত এবং \'%s\' এর জন্য?</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">পরিবর্তনশীল রং</string>
+    <string name="subtype_xdq">কাইডাগ</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">কাইডাগ (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="main_colors">কেবল মূল রং প্রদর্শন</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">প্রতীক</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">প্রতীক (আরবি)</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">বাদামি</string>
+    <string name="action_none">কোনোটিই নয়</string>
+    <string name="space_swipe_move_cursor_entry">কার্সর স্থানান্তর</string>
+    <string name="show_popup_keys_more">সাধারণ বিকল্প যোগ</string>
+    <string name="show_popup_keys_all">উপলব্ধ সকল বিকল্প যোগ</string>
+    <string name="localized_number_row">নম্বর সারি স্থানীয়করণ</string>
+    <string name="hint_source">বোতামের পরামর্শের উৎস</string>
+    <string name="popup_order">পপআপ বোতামের ক্রমিক নির্ধারণ</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">নম্বর সারি</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">ভাষা</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">ভাষা (অগ্রাধিকার)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">লেআউট</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">প্রতীক</string>
+    <string name="clipboard" tools:keep="@string/clipboard">ক্লিপবোর্ড</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">ক্লিপবোর্ড নিকাশ</string>
+    <string name="voice" tools:keep="@string/voice">ভয়েস ইনপুট</string>
+    <string name="select_word" tools:keep="@string/select_word">শব্দ নির্বাচন</string>
+    <string name="one_handed" tools:keep="@string/one_handed">এক-হস্ত মোড</string>
+    <string name="full_left" tools:keep="@string/full_left">সম্পূর্ণ বাম</string>
+    <string name="left" tools:keep="@string/left">বাম</string>
+    <string name="right" tools:keep="@string/right">ডান</string>
+    <string name="up" tools:keep="@string/up">উপর</string>
+    <string name="down" tools:keep="@string/down">নিচ</string>
+    <string name="button_load_custom">ফাইল লোড</string>
+    <string name="file_read_error">অপঠনযোগ্য ফাইল</string>
+    <string name="button_copy_existing_layout">বিদ্যমান লেআউট অনুলিপি</string>
+    <string name="title_layout_name_select">লেআউটের নাম</string>
+    <string name="layout_error">লেআউট ত্রুটি: %s</string>
+    <string name="edit_layout">মূল লেআউট সম্পাদনা করতে ট্যাপ করুন</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">অধিক প্রতীক</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">ফোন</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">ফোন প্রতীক</string>
+    <string name="layout_number" tools:keep="@string/layout_number">সংখ্যা</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">নম্বর প্যাড (ল্যান্ডস্কেপ)</string>
+    <string name="customize_background_image">পটভূমির ছবি নির্বাচন</string>
+    <string name="day_or_night_day">আলো</string>
+    <string name="day_or_night_night">অন্ধকার</string>
+    <string name="available_dictionary_experimental">%s পরীক্ষামূলক</string>
+    <string name="user_dict_settings_add_weight_value">গুরুত্ব:</string>
+    <string name="user_dict_add_word_button">শব্দ সংযুক্তি</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">গোলাকার</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">ধূসর নীল</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">চকলেট</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">মেঘাচ্ছন্ন</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">অরণ্য</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">নীল</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">সমুদ্র</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">গোলাপি</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">বালুকা</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">বেগুনি</string>
+    <string name="all_colors">সব রং প্রদর্শন</string>
+    <string name="select_color_suggestion">পরমার্শ ফলকের লেখা</string>
+    <string name="select_color_functional_key_background">ফাংশন বোতামের পটভূমি</string>
+    <string name="select_color_spacebar_text">স্পেসবারের লেখা</string>
+    <string name="select_color_gesture">অঙ্গুলিহেলন ইনপুট</string>
+    <string name="save_log">লগ সংরক্ষণ</string>
+    <string name="split_spacer_scale">বিভক্তির দূরত্ব</string>
+    <string name="disable_personalized_dicts_message">সতর্কতা: নিষ্ক্রিয় করলে শেখা শব্দসমূহ মুছে যাবে</string>
+    <string name="more_autocorrect">অধিক স্বতঃসংশোধন</string>
+    <string name="prefs_always_show_suggestions_summary">পরমার্শ নিষ্ক্রিয়করণের জন্য অন্য অ্যাপের নির্দেশনা উপেক্ষা করবে (কিছু সমস্যা তৈরি হতে পারে)</string>
+    <string name="show_popup_keys_title">পপআপে উচ্চারণ চিহ্নসহ অধিক বর্ণ প্রদর্শন</string>
+    <string name="show_popup_keys_normal">কিবোর্ডের ভাষায় নির্ধারিত বিকল্প প্রদর্শন (ডিফল্ট)</string>
+    <string name="language_and_layouts_title">ভাষা ও লেআউট</string>
+    <string name="localized_number_row_summary">ল্যাটিন সংখ্যার চেয়ে স্থানীয় সংখ্যা প্রাধান্য দেবে</string>
+    <string name="toolbar_keys">টুলবার বোতাম নির্বাচন</string>
+    <string name="full_right" tools:keep="@string/full_right">সম্পূর্ণ ডান</string>
+    <string name="prefs_bottom_padding_scale">নিচের প্যাডিংয়ের স্কেল</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">বর্ণমালা (Bépo)</string>
+    <string name="message_add_custom_layout">সামঞ্জস্যপূর্ণ ফরম্যাটে ফাইল নির্বাচন করুন। %s ফরম্যাট সম্পর্কিত তথ্য রয়েছে।</string>
+    <string name="button_title_add_custom_layout">নিজস্বীকৃত লেআউট সংযুক্তি</string>
+    <string name="delete_layout">নিজস্বীকৃত লেআউট %s বিলোপ করতে নিশ্চিত?</string>
+    <string name="day_or_night_image">আলো অথবা অন্ধকার মোডের জন্য ছবি নির্বাচিত হবে?</string>
+    <string name="customize_symbols_number_layouts">প্রতীক এবং সংখ্যার লেআউট নিজস্বীকরণ</string>
+    <string name="customize_symbols_number_layouts_summary">লেআউট (প্রতীক ব্যতীত) এখনও পরিবর্তিত হতে পারে এমন অভ্যন্তরীণ সেটিংস প্রকাশ করে। এমন হলে নিজস্বীকৃত লেআউট সঠিকভাবে কাজ নাও করতে পারে।</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">নম্বর প্যাড</string>
+    <string name="user_dict_word_already_present">এই শব্দটি ইতোমধ্যে %s ব্যবহারকারী অভিধানে উপলব্ধ। অন্য আরেকটি শব্দ টাইপ করুন।</string>
+    <string name="select_color_spacebar_background">স্পেসবারের পটভূমি</string>
+    <string name="show_vertical_space_swipe">স্পেসবারে উল্লম্ব অঙ্গুলিহেলন</string>
+    <string name="show_horizontal_space_swipe">স্পেসবারে অনুভূমিক অঙ্গুলিহেলন</string>
 </resources>

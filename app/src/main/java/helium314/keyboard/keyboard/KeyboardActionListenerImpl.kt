@@ -16,6 +16,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
+        latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {

@@ -4,7 +4,13 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-<!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
+<!--
+tl;dr
+* search for duplicates also in closed issues
+* one issue per topic
+* reduce screenshot size
+
+Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
 If you want to report more issues / bugs, open multiple issues (one for each).
 If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
 
