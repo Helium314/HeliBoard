@@ -43,17 +43,27 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                 && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
         ) {
             get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
-        } else if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
+        } else if ((Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true)
+                || Settings.PREF_SHOW_SUGGESTIONS.equals(key)) && !prefs.getBoolean(key, true)) {
             new AlertDialog.Builder(requireContext())
                     .setMessage(R.string.disable_personalized_dicts_message)
                     .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
-                    .setPositiveButton(android.R.string.ok, null)
+                    .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                        if (Settings.PREF_SHOW_SUGGESTIONS.equals(key)) turnOffSuggestions();
+                        refreshEnabledSettings();
+                    })
                     .setOnCancelListener(dialogInterface -> ((TwoStatePreference) findPreference(key)).setChecked(true))
                     .show();
-        } else if (Settings.PREF_SHOW_SUGGESTIONS.equals(key) && !prefs.getBoolean(key, true)) {
-            ((TwoStatePreference)findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
-        }
-        refreshEnabledSettings();
+        } else refreshEnabledSettings();
+    }
+
+    private void turnOffSuggestions(){
+        ((TwoStatePreference) findPreference(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY)).setChecked(false);
+        ((TwoStatePreference) findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
+        ((TwoStatePreference) findPreference(Settings.PREF_BIGRAM_PREDICTIONS)).setChecked(false);
+        ((TwoStatePreference) findPreference(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT)).setChecked(false);
+        ((TwoStatePreference) findPreference(Settings.PREF_KEY_USE_PERSONALIZED_DICTS)).setChecked(false);
+        ((TwoStatePreference) findPreference(Settings.PREF_USE_CONTACTS)).setChecked(false);
     }
 
     // contacts and permission stuff from SpellCheckerSettingsFragment
@@ -76,6 +86,10 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         setPreferenceVisible(Settings.PREF_MORE_AUTO_CORRECTION, Settings.readAutoCorrectEnabled(getSharedPreferences()));
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         setPreferenceVisible(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
+        setPreferenceVisible(Settings.PREF_BIGRAM_PREDICTIONS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
+        setPreferenceVisible(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
+        setPreferenceVisible(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
+        setPreferenceVisible(Settings.PREF_USE_CONTACTS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
         turnOffLookupContactsIfNoPermission();
     }
 
