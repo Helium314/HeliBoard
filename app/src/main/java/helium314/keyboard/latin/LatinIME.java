@@ -1583,7 +1583,10 @@ public class LatinIME extends InputMethodService implements
         final boolean isEmptyApplicationSpecifiedCompletions =
                 currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                         && suggestedWords.isEmpty();
+        final boolean isClipboardSuggestion = (suggestedWords.size() == 1
+                && suggestedWords.getInfo(0).isKindOf(SuggestedWordInfo.KIND_CLIPBOARD));
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
+                || isClipboardSuggestion
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
 
@@ -1632,15 +1635,32 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 
-    // This will show either an empty suggestion strip (if prediction is enabled) or
-    // punctuation suggestions (if it's disabled).
+    // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
+    // interface
+    public void onClipboardSuggestionRemoved(String clipContent){
+        if (mSettings.getCurrent().mClipboardHistoryEnabled) {
+            mClipboardHistoryManager.removeEntry(clipContent);
+        }
+    }
+
+    // This will show a suggestion of the primary clipboard if present.
+    // Otherwise, an empty suggestion strip (if prediction is enabled)
+    // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
-                ? SuggestedWords.getEmptyInstance()
-                : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
-        setSuggestedWords(neutralSuggestions);
+        final String clipContent = mClipboardHistoryManager.retrieveClipboardContent().toString();
+        if (!clipContent.isEmpty()) {
+            EditorInfo editorInfo = getCurrentInputEditorInfo();
+            int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
+            setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+            return;
+        }
+        else if (!currentSettings.mBigramPredictionEnabled) {
+            setSuggestedWords(currentSettings.mSpacingAndPunctuations.mSuggestPuncList);
+            return;
+        }
+        setSuggestedWords(SuggestedWords.getEmptyInstance());
     }
 
     @Override

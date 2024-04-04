@@ -128,6 +128,10 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+    <!-- Option to enable the suggestion of clipboard content. This makes the primary clipboard content visible in the suggestion strip view. -->
+    <string name="suggest_clipboard_content">Suggest clipboard content</string>
+    <!-- Description for the "suggest clipboard content" option. The user can disable this setting to only have the clipboard unicode icon shown instead. -->
+    <string name="suggest_clipboard_content_summary">Show the content of the primary clipboard as a suggestion</string>
     <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
     <string name="gesture_input">Enable gesture typing</string>
     <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->

@@ -90,13 +90,19 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        latinIME.setNeutralSuggestionStrip() // get rid of any clipboard suggestion
     }
 
-    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
+    fun canRemove(index: Int) = index in 0 until historyEntries.size && !historyEntries[index].isPinned
 
     fun removeEntry(index: Int) {
         if (canRemove(index))
             historyEntries.removeAt(index)
+    }
+
+    fun removeEntry(content: String) {
+        val index = historyEntries.indexOfFirst { it.content.toString() == content }
+        removeEntry(index)
     }
 
     private fun sortHistoryEntries() {

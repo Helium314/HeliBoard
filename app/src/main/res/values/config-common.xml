@@ -10,6 +10,8 @@
     <!-- Default value for next word prediction: after entering a word and a space only, should we
          look at input history to suggest a hopefully helpful suggestions for the next word? -->
     <bool name="config_default_next_word_prediction">true</bool>
+    <!-- Default value for the setting to suggest clipboard content -->
+    <bool name="config_default_suggest_clipboard_content">true</bool>
 
     <!-- Maximum time for a clipboard history entry to be kept, in minutes. -->
     <integer name="config_clipboard_history_retention_time">10</integer>

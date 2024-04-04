@@ -117,6 +117,7 @@ public class SettingsValues {
     public final int mScoreLimitForAutocorrect;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
+    public final boolean mSuggestClipboardContent;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
 
@@ -167,6 +168,7 @@ public class SettingsValues {
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
+        mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
         final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
@@ -307,6 +309,11 @@ public class SettingsValues {
                                                        final Resources res) {
         return prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, res.getBoolean(
                 R.bool.config_default_next_word_prediction));
+    }
+    private static boolean readSuggestClipboardContent (SharedPreferences prefs,
+                                                        final Resources res) {
+        return prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, res.getBoolean(
+                R.bool.config_default_suggest_clipboard_content));
     }
 
     private static float readAutoCorrectionThreshold(final Resources res,
