@@ -1020,6 +1020,9 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
+        if (mSuggestionStripView != null) {
+            mSuggestionStripView.refreshStripView();
+        }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         setNeutralSuggestionStrip();
@@ -1648,6 +1651,7 @@ public class LatinIME extends InputMethodService implements
     // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
+        if (mSuggestionStripView != null && mSuggestionStripView.isInlineAutofillSuggestionsVisible()) return;
         final SettingsValues currentSettings = mSettings.getCurrent();
         final String clipContent = mClipboardHistoryManager.retrieveClipboardContent().toString();
         if (!clipContent.isEmpty()) {

@@ -285,9 +285,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void setInlineSuggestionsView(final View view) {
+        if (!isInlineAutofillSuggestionsVisible) {
+            clear();
+            isInlineAutofillSuggestionsVisible = true;
+            mSuggestionsStrip.addView(view);
+        }
+    }
+
+    public void refreshStripView(){
         clear();
-        isInlineAutofillSuggestionsVisible = true;
-        mSuggestionsStrip.addView(view);
+        updateKeys();
+    }
+
+    public boolean isInlineAutofillSuggestionsVisible() {
+        return isInlineAutofillSuggestionsVisible;
     }
 
     @Override
