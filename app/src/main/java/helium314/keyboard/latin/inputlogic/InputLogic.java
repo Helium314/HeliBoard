@@ -621,7 +621,7 @@ public final class InputLogic {
     public SuggestedWords getClipboardSuggestion(final String clipContent, final int inputType) {
         final ArrayList<SuggestedWordInfo> clipInfoList = new ArrayList<>(1);
         final int inputStyle = InputTypeUtils.isPasswordInputType(inputType) ?
-                SuggestedWords.INPUT_STYLE_PASSWORD : SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION;
+                SuggestedWords.INPUT_STYLE_PASSWORD : SuggestedWords.INPUT_STYLE_NONE;
         clipInfoList.add(new SuggestedWordInfo(
                 clipContent, "",
                 SuggestedWordInfo.MAX_SCORE,
