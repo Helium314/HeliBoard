@@ -91,9 +91,16 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
 }
 
 private fun transformLabel(label: String, params: KeyboardParams): String =
-    if (label == "$$$") { // currency key
-        if (params.mId.passwordInput()) "$"
-        else params.mLocaleKeyboardInfos.currencyKey.first
+    if (label.startsWith("$$$")) { // currency keys, todo: handing is similar to textKeyData, could it be merged?
+        if (label == "$$$") {
+            if (params.mId.passwordInput()) "$"
+            else params.mLocaleKeyboardInfos.currencyKey.first
+        } else {
+            val index = label.substringAfter("$$$").toIntOrNull()
+            if (index != null && index in 1..5)
+                params.mLocaleKeyboardInfos.currencyKey.second[index - 1]
+            else label
+        }
     } else if (params.mId.mSubtype.isRtlSubtype) {
         label.rtlLabel(params)
     } else label
