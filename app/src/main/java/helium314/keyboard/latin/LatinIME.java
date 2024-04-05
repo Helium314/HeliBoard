@@ -1465,6 +1465,7 @@ public class LatinIME extends InputMethodService implements
             switch (codePoint) {
                 case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
                 case KeyCode.TOGGLE_INCOGNITO_MODE -> {mSettings.toggleAlwaysIncognitoMode(); return; }
+                case KeyCode.CLOSE_VIEW -> {mKeyboardSwitcher.onToggleKeyboard(KeyboardSwitcher.KeyboardSwitchState.OTHER); return; }
             }
         }
         // TODO: this processing does not belong inside LatinIME, the caller should be doing this.

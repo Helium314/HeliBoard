@@ -50,5 +50,6 @@
         <item name="iconFullLeft">@drawable/ic_to_start_rounded</item>
         <item name="iconFullRight">@drawable/ic_to_end_rounded</item>
         <item name="iconSelectWord">@drawable/ic_select_rounded</item>
+        <item name="iconCloseView">@drawable/ic_close_view_rounded</item>
     </style>
 </resources>
