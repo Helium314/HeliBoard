@@ -21,6 +21,7 @@
         <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_holo</item>
         <item name="iconShortcutKeyDisabled">@drawable/sym_keyboard_voice_off_holo</item>
         <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch</item>
+        <item name="iconAutoCorrect">@drawable/ic_autocorrect</item>
         <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_holo</item>
         <item name="iconZwjKey">@drawable/sym_keyboard_zwj_holo</item>
         <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_holo</item>

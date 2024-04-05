@@ -69,7 +69,7 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     UNDO -> R.styleable.Keyboard_iconUndo
     REDO -> R.styleable.Keyboard_iconRedo
     INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
-    AUTOCORRECT -> R.styleable.Keyboard_iconLanguageSwitchKey
+    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
