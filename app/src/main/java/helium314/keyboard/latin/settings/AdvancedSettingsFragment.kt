@@ -176,7 +176,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 requireContext().assets.list("layouts")?.firstOrNull { it.startsWith("$layout.") }
                     ?.let { requireContext().assets.open("layouts" + File.separator + it).reader().readText() }
             }
-        val displayName = layout.getStringResourceOrName("layout", requireContext())
+        val displayName = layout.getStringResourceOrName("layout_", requireContext())
         editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.txt", requireContext(), originalLayout, displayName)
     }
 
