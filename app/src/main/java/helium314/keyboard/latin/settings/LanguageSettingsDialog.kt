@@ -375,12 +375,12 @@ class LanguageSettingsDialog(
     private fun setupPopupSettings() {
         binding.popupOrder.setOnClickListener {
             val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
-            reorderPopupKeysDialog(context, Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.popup_order)
+            reorderDialog(context, Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.popup_order)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
         binding.popupLabelPriority.setOnClickListener {
             val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
-            reorderPopupKeysDialog(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.hint_source)
+            reorderDialog(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.hint_source)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }

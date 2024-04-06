@@ -4,9 +4,12 @@ package helium314.keyboard.latin.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
@@ -54,6 +57,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
+    CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
 private fun getStyleableIconId(key: ToolbarKey) = when (key) {
@@ -71,22 +75,35 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     UNDO -> R.styleable.Keyboard_iconUndo
     REDO -> R.styleable.Keyboard_iconRedo
     INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
-    AUTOCORRECT -> R.styleable.Keyboard_iconLanguageSwitchKey
+    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
+    CLOSE_HISTORY -> R.styleable.Keyboard_iconCloseView
+}
+
+fun getToolbarIconByName(name: String, context: Context): Drawable? {
+    val key = entries.firstOrNull { it.name == name } ?: return null
+    val themeContext = ContextThemeWrapper(context, KeyboardTheme.getKeyboardTheme(context).mStyleId)
+    val attrs = themeContext.obtainStyledAttributes(null, R.styleable.Keyboard)
+    val icon = attrs.getDrawable(getStyleableIconId(key))?.mutate()
+    attrs.recycle()
+    return icon
 }
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD
+    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
+
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 
-val defaultToolbarPref = entries.joinToString(";") {
+
+val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
+
     when (it) {
         INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CLEAR_CLIPBOARD, CUT -> "${it.name},false"
         else -> "${it.name},true"

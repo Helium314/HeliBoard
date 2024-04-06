@@ -122,11 +122,15 @@
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ৃ" },
-      "default": { "label": "." }
+      "default": { "label": "।" }
     },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "ঁ" },
       "default": { "label": "্" }
     }
+  ],
+  [
+    { "label": "," },
+    { "label": "." }
   ]
 ]

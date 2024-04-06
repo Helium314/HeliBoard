@@ -26,6 +26,7 @@
         <item name="iconIncognitoKey">@drawable/sym_keyboard_incognito_lxx</item>
         <item name="iconSpaceKeyForNumberLayout">@drawable/sym_keyboard_space_lxx</item>
         <item name="iconLanguageSwitchKey">@drawable/sym_keyboard_language_switch_lxx</item>
+        <item name="iconAutoCorrect">@drawable/ic_autocorrect</item>
         <item name="iconZwnjKey">@drawable/sym_keyboard_zwnj_lxx</item>
         <item name="iconZwjKey">@drawable/sym_keyboard_zwj_lxx</item>
         <item name="iconEmojiActionKey">@drawable/sym_keyboard_smiley_lxx</item>
@@ -52,5 +53,6 @@
         <item name="iconFullLeft">@drawable/ic_to_start</item>
         <item name="iconFullRight">@drawable/ic_to_end</item>
         <item name="iconSelectWord">@drawable/ic_select</item>
+        <item name="iconCloseView">@drawable/ic_close_view</item>
     </style>
 </resources>

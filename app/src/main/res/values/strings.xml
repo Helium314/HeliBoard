@@ -317,6 +317,9 @@
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype [CHAR LIMIT=25]
          (Sebeolsik Final) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype [CHAR LIMIT=25]
+         (Student) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
 language, hence "No language".
@@ -756,7 +759,7 @@ New dictionary:
         \t&#8226; When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt;
         \t&#8226; In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
         \t&#8226; When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
-        \t&#8226; Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).
+        \t&#8226; Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled). &lt;br&gt; &lt;br&gt;
         &#9658; For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt;
         This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt;
         The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
