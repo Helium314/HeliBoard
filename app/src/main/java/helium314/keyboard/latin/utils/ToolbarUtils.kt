@@ -53,7 +53,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> null // not managed via code input
-    CLOSE_VIEW -> KeyCode.CLOSE_VIEW
+    CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
 private fun getStyleableIconId(key: ToolbarKey) = when (key) {
@@ -75,18 +75,18 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
-    CLOSE_VIEW -> R.styleable.Keyboard_iconCloseView
+    CLOSE_HISTORY -> R.styleable.Keyboard_iconCloseView
 }
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_VIEW
+    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 
-val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD || it == CLOSE_VIEW }.joinToString(";") {
+val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD || it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
         INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT -> "${it.name},false"
         else -> "${it.name},true"
