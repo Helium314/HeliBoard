@@ -55,6 +55,7 @@ Does not use internet permission, and thus is 100% offline.
   * __Glide typing is not working after loading a library__: Possibly the download was corrupted, or you downloaded the wrong file. If you get a "_unknown file_" confirmation popup, it is likely you are not using the correct file (or you might be using a different version of the library). In rare cases, there might be crashes when the file is not in internal storage, or some [Samsung-specific problems](https://stackoverflow.com/a/75286899). 
 * __German layout with / without umlauts__: _German (Germany)_ layout has umlauts, _German_ layout doesn't
 * __Spell checker is not checking all languages in multilingual typing__: Make sure you actually enabled HeliBoard spell checker. Usually it can be found in System Settings -> System -> Languages -> Advanced -> Spell Checker, but this may depend on Android version.
+* __Words added to Gboard dictionary are not suggested__: Gboard uses its own dictionary instead of the system's personal dictionary. See [here](https://github.com/Helium314/HeliBoard/issues/500#issuecomment-2032292161) for how to export the words.
 * __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
   > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
 
@@ -76,14 +77,16 @@ Features that may go unnoticed, and further potentially useful information
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
 * Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
 * Swipe left in clipboard view to remove an entry (except when it's pinned)
+* Select text and press shift to switch between uppercase, lowercase and capitalize words
 * You can add dictionaries by opening the file
   * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
-* _When using debug mode / debug APK_
+* _Debug mode / debug APK_
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
-  * When using debug APK, you can find Debug Settings within the Advanced Preferences, though the usefulness is limited except for dumping dictionaries into the log.
+  * When using debug APK, you can find _Debug Settings_ within the _Advanced Preferences_, though the usefulness is limited except for dumping dictionaries into the log.
+    * For a release APK, you need to tap the version in _About_ several times, then you can find debug settings in _Advanced Preferences_.
+    * When enabling _Show suggestion infos_, suggestions will have some tiny numbers on top showing some internal score and source dictionary.
   * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings.
   * When using multilingual typing, space bar will show an confidence value used for determining the currently used language.
-  * Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled)
 * For users doing manual backups with root access: Starting at Android 7, some files and the main shared preferences file are not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings and layout files can be read before the device is unlocked, e.g. at boot. The files are usually located in `/data/user_de/0/<package_id>/`, though the location may depend on the device and Android version.
 
 # Contributing ❤
