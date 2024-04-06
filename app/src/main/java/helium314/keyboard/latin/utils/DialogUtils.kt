@@ -1,8 +1,11 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -51,7 +54,13 @@ fun infoDialog(context: Context, message: String) {
  *  Items are semicolon-separated, see e.g. [POPUP_KEYS_LABEL_DEFAULT] for an example.
  */
 // this should probably be a class
-fun reorderDialog(context: Context, key: String, defaultSetting: String, @StringRes dialogTitleId: Int) {
+fun reorderDialog(
+    context: Context,
+    key: String,
+    defaultSetting: String,
+    @StringRes dialogTitleId: Int,
+    getIcon: (String) -> Drawable? = { null }
+) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val orderedItems = prefs.getString(key, defaultSetting)!!.split(";").mapTo(ArrayList()) {
         val both = it.split(",")
@@ -84,6 +93,11 @@ fun reorderDialog(context: Context, key: String, defaultSetting: String, @String
             switch?.setOnCheckedChangeListener { _, isChecked ->
                 val pos = orderedItems.indexOfFirst { it.first == text }
                 orderedItems[pos] = text to isChecked
+            }
+            val icon = getIcon(text)
+            viewHolder.itemView.findViewById<ImageView>(R.id.reorder_item_icon)?.let {
+                it.visibility = if (icon == null) View.GONE else View.VISIBLE
+                it.setImageDrawable(icon)
             }
         }
     }

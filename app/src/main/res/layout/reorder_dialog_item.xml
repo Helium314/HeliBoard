@@ -14,7 +14,8 @@
     <ImageView
         android:id="@+id/reorder_item_icon"
         android:visibility="gone"
-        android:layout_width="wrap_content"
+        android:paddingEnd="4dp"
+        android:layout_width="30dp"
         android:layout_height="match_parent" />
     <TextView
         android:id="@+id/reorder_item_name"
