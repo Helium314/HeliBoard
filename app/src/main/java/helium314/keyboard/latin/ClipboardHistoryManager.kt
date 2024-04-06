@@ -37,10 +37,10 @@ class ClipboardHistoryManager(
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         clipboardHistoryEnabled = latinIME.mSettings.current.mClipboardHistoryEnabled
         maxClipRetentionTime = latinIME.mSettings.current.mClipboardHistoryRetentionTime * ONE_MINUTE_MILLIS
-        onPrimaryClipChanged()
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
+        onPrimaryClipChanged()
         scheduleRetentionCheck()
         DeviceProtectedUtils.getSharedPreferences(latinIME).registerOnSharedPreferenceChangeListener(this)
     }
