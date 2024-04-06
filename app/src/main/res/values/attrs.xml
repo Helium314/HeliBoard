@@ -278,7 +278,7 @@
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />
         <attr name="iconRedo" format="reference" />
-        <attr name="iconCloseView" format="reference" />
+        <attr name="iconClose" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">

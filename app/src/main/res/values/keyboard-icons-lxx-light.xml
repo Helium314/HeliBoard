@@ -52,6 +52,6 @@
         <item name="iconFullLeft">@drawable/ic_to_start</item>
         <item name="iconFullRight">@drawable/ic_to_end</item>
         <item name="iconSelectWord">@drawable/ic_select</item>
-        <item name="iconCloseView">@drawable/ic_close_view</item>
+        <item name="iconClose">@drawable/ic_close</item>
     </style>
 </resources>
