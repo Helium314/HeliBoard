@@ -134,6 +134,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             removePreference("load_gesture_library")
         }
         setupKeyLongpressTimeoutSettings()
+        setupLanguageSwipeDistanceSettings()
+        updateLangSwipeDistanceVisibility(sharedPreferences)
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
@@ -496,20 +498,37 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
-    private fun updateLanguageSwipePrefVisibility(prefs: SharedPreferences) {
+    private fun setupLanguageSwipeDistanceSettings() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_LANGUAGE_SWIPE_DISTANCE)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = Settings.readLanguageSwipeDistance(prefs, resources)
+
+            override fun readDefaultValue(key: String) = Settings.readDefaultLanguageSwipeDistance(resources)
+
+            override fun getValueText(value: Int) = value.toString()
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
+    private fun updateLangSwipeDistanceVisibility(prefs: SharedPreferences) {
         val horizontalSpaceSwipe = Settings.readHorizontalSpaceSwipe(prefs)
         val verticalSpaceSwipe = Settings.readVerticalSpaceSwipe(prefs)
         val visibility = horizontalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
                 || verticalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
-        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_SENSITIVITY, visibility)
+        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, visibility)
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
-            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLanguageSwipePrefVisibility(prefs)
-            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLanguageSwipePrefVisibility(prefs)
+            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
+            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
         }
     }
 

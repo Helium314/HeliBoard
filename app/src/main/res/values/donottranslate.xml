@@ -127,14 +127,4 @@
         <item>@string/switch_language</item>
         <item>@string/action_none</item>
     </string-array>
-    <string-array name="language_swipe_sensitivity_entries">
-        <item>@string/option_high</item>
-        <item>@string/option_medium</item>
-        <item>@string/option_low</item>
-    </string-array>
-    <string-array name="language_swipe_sensitivity_values">
-        <item>high</item>
-        <item>medium</item>
-        <item>low</item>
-    </string-array>
 </resources>

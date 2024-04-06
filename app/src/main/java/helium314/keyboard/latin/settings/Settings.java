@@ -132,7 +132,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
-    public static final String PREF_LANGUAGE_SWIPE_SENSITIVITY = "language_swipe_sensitivity";
+    public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -403,13 +403,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         };
     }
 
-    public static int readLanguageSwipeSensitivity(final SharedPreferences prefs,
+    public static int readLanguageSwipeDistance(final SharedPreferences prefs,
                                                    final Resources res) {
-        return switch (prefs.getString(PREF_LANGUAGE_SWIPE_SENSITIVITY, "medium")) {
-            case "low" -> res.getInteger(R.integer.config_language_swipe_sensitivity_low);
-            case "high" -> res.getInteger(R.integer.config_language_swipe_sensitivity_high);
-            default -> res.getInteger(R.integer.config_language_swipe_sensitivity_medium);
-        };
+        final int sensitivity = prefs.getInt(
+                PREF_LANGUAGE_SWIPE_DISTANCE, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (sensitivity != UNDEFINED_PREFERENCE_VALUE_INT) ? sensitivity
+                : readDefaultLanguageSwipeDistance(res);
+    }
+
+    public static int readDefaultLanguageSwipeDistance(final Resources res) {
+        return res.getInteger(R.integer.config_default_language_swipe_distance);
     }
 
     public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {

@@ -97,6 +97,7 @@ public interface KeyboardActionListener {
      */
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
+    void resetSubtypeSwitchCount();
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -140,6 +141,8 @@ public interface KeyboardActionListener {
         public boolean onVerticalSpaceSwipe(int steps) {
             return false;
         }
+        @Override
+        public void resetSubtypeSwitchCount() {}
         @Override
         public void onMoveDeletePointer(int steps) {}
         @Override

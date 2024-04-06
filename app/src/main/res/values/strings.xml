@@ -782,12 +782,6 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
-    <!-- Title of the settings for adjusting the language swipe gesture sensitivity -->
-    <string name="prefs_language_swipe_sensitivity">Language swipe sensitivity</string>
-    <!-- Option low (currently only used for language swipe sensitivity) -->
-    <string name="option_low">Low</string>
-    <!-- Option medium (currently only used for language swipe sensitivity) -->
-    <string name="option_medium">Medium</string>
-    <!-- Option high (currently only used for language swipe sensitivity) -->
-    <string name="option_high">High</string>
+    <!-- Title of the settings for adjusting the language swipe gesture distance -->
+    <string name="prefs_language_swipe_distance">Language swipe distance</string>
 </resources>
