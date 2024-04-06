@@ -56,10 +56,12 @@ Does not use internet permission, and thus is 100% offline.
 * __German layout with / without umlauts__: _German (Germany)_ layout has umlauts, _German_ layout doesn't
 * __Spell checker is not checking all languages in multilingual typing__: Make sure you actually enabled HeliBoard spell checker. Usually it can be found in System Settings -> System -> Languages -> Advanced -> Spell Checker, but this may depend on Android version.
 * __Words added to Gboard dictionary are not suggested__: Gboard uses its own dictionary instead of the system's personal dictionary. See [here](https://github.com/Helium314/HeliBoard/issues/500#issuecomment-2032292161) for how to export the words.
-* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
+* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing, while the _nouserlib_ version does not. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
   > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
 
   The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
+  Note that if the the app is installed as a system app, both versions have access to the system glide typing library (if it is installed).
+* __App crashing when using as system app__: This happens if you do not install the app, but just copy the APK. Then the app's own library is not extracted from the APK, and not accessible to the app. You will need tp either install the app over itself, or provide a library.
 * (_to be expanded_...)
 
 ## Hidden Functionality
