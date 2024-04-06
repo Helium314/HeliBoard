@@ -21,6 +21,7 @@ import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -495,10 +496,20 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    private fun updateLanguageSwipePrefVisibility(prefs: SharedPreferences) {
+        val horizontalSpaceSwipe = Settings.readHorizontalSpaceSwipe(prefs)
+        val verticalSpaceSwipe = Settings.readVerticalSpaceSwipe(prefs)
+        val visibility = horizontalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+                || verticalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_SENSITIVITY, visibility)
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLanguageSwipePrefVisibility(prefs)
+            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLanguageSwipePrefVisibility(prefs)
         }
     }
 

@@ -28,6 +28,9 @@
     <bool name="config_default_vibration_enabled">false</bool>
     <integer name="config_max_vibration_duration">100</integer>
 
+    <integer name="config_language_swipe_sensitivity_high">4</integer>
+    <integer name="config_language_swipe_sensitivity_medium">12</integer>
+    <integer name="config_language_swipe_sensitivity_low">20</integer>
     <integer name="config_default_longpress_key_timeout">300</integer>
     <integer name="config_max_longpress_timeout">700</integer>
     <integer name="config_min_longpress_timeout">100</integer>

@@ -132,6 +132,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
+    public static final String PREF_LANGUAGE_SWIPE_SENSITIVITY = "language_swipe_sensitivity";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -399,6 +400,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
+        };
+    }
+
+    public static int readLanguageSwipeSensitivity(final SharedPreferences prefs,
+                                                   final Resources res) {
+        return switch (prefs.getString(PREF_LANGUAGE_SWIPE_SENSITIVITY, "medium")) {
+            case "low" -> res.getInteger(R.integer.config_language_swipe_sensitivity_low);
+            case "high" -> res.getInteger(R.integer.config_language_swipe_sensitivity_high);
+            default -> res.getInteger(R.integer.config_language_swipe_sensitivity_medium);
         };
     }
 
