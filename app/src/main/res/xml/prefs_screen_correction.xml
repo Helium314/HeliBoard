@@ -93,6 +93,13 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="add_to_personal_dictionary"
+            android:title="@string/add_to_personal_dictionary"
+            android:summary="@string/add_to_personal_dictionary_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="next_word_prediction"
             android:title="@string/bigram_prediction"
             android:summary="@string/bigram_prediction_summary"
@@ -110,13 +117,6 @@
             android:key="use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"
-            android:defaultValue="false"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="add_to_personal_dictionary"
-            android:title="@string/add_to_personal_dictionary"
-            android:summary="@string/add_to_personal_dictionary_summary"
             android:defaultValue="false"
             android:persistent="true" />
 
