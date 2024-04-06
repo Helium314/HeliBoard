@@ -1,27 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.Switch
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
-import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.Settings
-import java.util.Collections
 
 const val POPUP_KEYS_NUMBER = "popup_keys_number"
 private const val POPUP_KEYS_LANGUAGE_PRIORITY = "popup_keys_language_priority"
@@ -111,68 +96,4 @@ fun getEnabledPopupKeys(prefs: SharedPreferences, key: String, defaultSetting: S
         val split = it.split(",")
         if (split.last() == "true") split.first() else null
     } ?: emptyList()
-}
-
-/**
- *  show a dialog that allows re-ordering and dis/enabling the popup keys list for the pref [key]
- *  see e.g. [POPUP_KEYS_LABEL_DEFAULT] for the internally used format
- */
-fun reorderPopupKeysDialog(context: Context, key: String, defaultSetting: String, title: Int) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val orderedItems = prefs.getString(key, defaultSetting)!!.split(";").mapTo(ArrayList()) {
-        val both = it.split(",")
-        both.first() to both.last().toBoolean()
-    }
-    val rv = RecyclerView(context)
-    val padding = ResourceUtils.toPx(8, context.resources)
-    rv.setPadding(3 * padding, padding, padding, padding)
-    rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-    val callback = object : DiffUtil.ItemCallback<Pair<String, Boolean>>() {
-        override fun areItemsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
-        override fun areContentsTheSame(p0: Pair<String, Boolean>, p1: Pair<String, Boolean>) = p0 == p1
-    }
-    val bgColor = ContextCompat.getColor(context, R.color.sliding_items_background)
-    val adapter = object : ListAdapter<Pair<String, Boolean>, RecyclerView.ViewHolder>(callback) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val b = LayoutInflater.from(context).inflate(R.layout.popup_keys_list_item, rv, false)
-            b.setBackgroundColor(bgColor)
-            return object : RecyclerView.ViewHolder(b) { }
-        }
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-            val (text, wasChecked) = orderedItems[position]
-            val displayText = text.lowercase().getStringResourceOrName("", context)
-            viewHolder.itemView.findViewById<TextView>(R.id.popup_keys_type)?.text = displayText
-            val switch = viewHolder.itemView.findViewById<Switch>(R.id.popup_keys_switch)
-            switch?.setOnCheckedChangeListener(null)
-            switch?.isChecked = wasChecked
-            switch?.setOnCheckedChangeListener { _, isChecked ->
-                val pos = orderedItems.indexOfFirst { it.first == text }
-                orderedItems[pos] = text to isChecked
-            }
-        }
-    }
-    rv.adapter = adapter
-    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
-        override fun onMove(rv: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            val pos1 = viewHolder.absoluteAdapterPosition
-            val pos2 = target.absoluteAdapterPosition
-            Collections.swap(orderedItems, pos1, pos2)
-            adapter.notifyItemMoved(pos1, pos2)
-            return true
-        }
-        override fun onSwiped(rv: RecyclerView.ViewHolder, direction: Int) { }
-    }).attachToRecyclerView(rv)
-    adapter.submitList(orderedItems)
-    AlertDialog.Builder(context)
-        .setTitle(title)
-        .setPositiveButton(android.R.string.ok) { _, _ ->
-            val value = orderedItems.joinToString(";") { it.first + "," + it.second }
-            prefs.edit().putString(key, value).apply()
-        }
-        .setNegativeButton(android.R.string.cancel, null)
-        .setNeutralButton(R.string.button_default) { _, _ ->
-            prefs.edit().remove(key).apply()
-        }
-        .setView(rv)
-        .show()
 }

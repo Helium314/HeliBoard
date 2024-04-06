@@ -11,15 +11,20 @@
     android:minHeight="48dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
+    <ImageView
+        android:id="@+id/reorder_item_icon"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
     <TextView
-        android:id="@+id/popup_keys_type"
+        android:id="@+id/reorder_item_name"
         style="@style/PreferenceTitleText"
         android:layout_gravity="center_vertical"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content" />
     <Switch
-        android:id="@+id/popup_keys_switch"
+        android:id="@+id/reorder_item_switch"
         android:padding="6dp"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"

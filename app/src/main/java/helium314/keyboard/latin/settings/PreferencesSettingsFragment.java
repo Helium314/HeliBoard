@@ -20,6 +20,7 @@ import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
@@ -59,15 +60,15 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setLocalizedNumberRowVisibility();
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
         findPreference(Settings.PREF_POPUP_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
-            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_ORDER_DEFAULT, R.string.popup_order);
+            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_ORDER_DEFAULT, R.string.popup_order);
             return true;
         });
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setOnPreferenceClickListener((pref) -> {
-            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_POPUP_KEYS_LABELS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_LABEL_DEFAULT, R.string.hint_source);
+            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_POPUP_KEYS_LABELS_ORDER, PopupKeysUtilsKt.POPUP_KEYS_LABEL_DEFAULT, R.string.hint_source);
             return true;
         });
         findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
-            PopupKeysUtilsKt.reorderPopupKeysDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
+            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(), R.string.toolbar_keys);
             return true;
         });
     }
