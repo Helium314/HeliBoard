@@ -116,6 +116,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
+    public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
 
     // one-handed mode gravity, enablement and scale, stored separately per orientation
     public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled_p_";

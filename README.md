@@ -72,9 +72,8 @@ Features that may go unnoticed, and further potentially useful information
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
 * When incognito mode is enabled, no words will be learned, and no emojis will be added to recents.
-* Sliding key input: Swipe from shift to another key to type a single uppercase key
-  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys.
-* Long-press the `?123` from main view to directly open numpad.
+* Sliding key input: Swipe from shift or symbol key to another key. This will enter a single uppercase key or symbol and return to the previous keyboard.
+* Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard.
 * Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
 * Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
