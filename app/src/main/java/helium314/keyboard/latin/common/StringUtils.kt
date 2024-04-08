@@ -100,6 +100,10 @@ fun String.splitOnFirstSpacesOnly(): List<String> {
     return out
 }
 
+fun String.isValidNumber(): Boolean {
+    return this.toDoubleOrNull() != null
+}
+
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 fun isEmoji(s: String): Boolean = mightBeEmoji(s) && s.matches(emoRegex)

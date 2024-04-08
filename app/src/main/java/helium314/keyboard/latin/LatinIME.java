@@ -63,6 +63,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.define.ProductionFlags;
@@ -78,6 +79,7 @@ import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
+import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.Log;
@@ -313,7 +315,9 @@ public class LatinIME extends InputMethodService implements
             if (latinIme == null) {
                 return;
             }
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
+            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()
+                    && (!latinIme.mSettings.getCurrent().mSuggestClipboardContent
+                    || latinIme.mClipboardHistoryManager.retrieveRecentClipboardContent(false).isEmpty())) {
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
@@ -1020,8 +1024,9 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        if (mSuggestionStripView != null) {
-            mSuggestionStripView.refreshStripView();
+        // This will remove old "stuck" inline suggestions
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setInlineSuggestionsView(null);
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
@@ -1586,10 +1591,8 @@ public class LatinIME extends InputMethodService implements
         final boolean isEmptyApplicationSpecifiedCompletions =
                 currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                         && suggestedWords.isEmpty();
-        final boolean isClipboardSuggestion = (suggestedWords.size() == 1
-                && suggestedWords.getInfo(0).isKindOf(SuggestedWordInfo.KIND_CLIPBOARD));
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
-                || isClipboardSuggestion
+                || suggestedWords.isClipboardSuggestion()
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
 
@@ -1638,29 +1641,38 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 
-    // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
-    // interface
+    @Override
     public void onClipboardSuggestionRemoved(String clipContent){
         if (mSettings.getCurrent().mClipboardHistoryEnabled) {
             mClipboardHistoryManager.removeEntry(clipContent);
         }
     }
 
-    // This will show a suggestion of the primary clipboard if present.
+    @Override
+    public void onClipboardSuggestionPicked(){
+        mClipboardHistoryManager.markSuggestionAsPicked();
+    }
+
+    // This will show a suggestion of the primary clipboard
+    // if there is one and the setting is enabled.
     // Otherwise, an empty suggestion strip (if prediction is enabled)
     // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
-        if (mSuggestionStripView != null && mSuggestionStripView.isInlineAutofillSuggestionsVisible()) return;
         final SettingsValues currentSettings = mSettings.getCurrent();
-        final String clipContent = mClipboardHistoryManager.retrieveClipboardContent().toString();
-        if (!clipContent.isEmpty()) {
-            EditorInfo editorInfo = getCurrentInputEditorInfo();
-            int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
-            setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
-            return;
+        if (currentSettings.mSuggestClipboardContent) {
+            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent(true);
+            if (!clipContent.isEmpty()) {
+                EditorInfo editorInfo = getCurrentInputEditorInfo();
+                int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
+                // make sure content that is not a number is not suggested in a number input type
+                if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
+                    setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                    return;
+                }
+            }
         }
-        else if (!currentSettings.mBigramPredictionEnabled) {
+        if (!currentSettings.mBigramPredictionEnabled) {
             setSuggestedWords(currentSettings.mSpacingAndPunctuations.mSuggestPuncList);
             return;
         }

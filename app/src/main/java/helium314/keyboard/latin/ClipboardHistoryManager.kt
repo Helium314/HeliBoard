@@ -18,6 +18,9 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
+    private var recentEntry: String = ""
+    private var recentTimestamp: Long = 0L
+    private var suggestionPicked: Boolean = false;
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -90,7 +93,9 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
-        latinIME.setNeutralSuggestionStrip() // get rid of any clipboard suggestion
+        if (latinIME.mSettings.current.mSuggestClipboardContent) {
+            latinIME.setNeutralSuggestionStrip() // get rid of any clipboard suggestion
+        }
     }
 
     fun canRemove(index: Int) = index in 0 until historyEntries.size && !historyEntries[index].isPinned
@@ -135,6 +140,27 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+    }
+
+    fun retrieveRecentClipboardContent(updateEntry: Boolean): String {
+        val maxClipRetentionTime: Long =
+            latinIME.mSettings.current.mClipboardHistoryRetentionTime * 60000L
+        val clipContent = retrieveClipboardContent().toString()
+        val now = System.currentTimeMillis()
+        val isNewEntry = recentEntry != clipContent
+        val isRecent = (now - recentTimestamp) < maxClipRetentionTime
+        return if (isNewEntry || isRecent && !suggestionPicked || maxClipRetentionTime == 0L) {
+            if (updateEntry && isNewEntry) {
+                suggestionPicked = false
+                recentEntry = clipContent
+                recentTimestamp = now
+            }
+            clipContent
+        } else "" // empty string indicating clipboard is empty, not recent
+    }
+
+    fun markSuggestionAsPicked() {
+        suggestionPicked = true
     }
 
     // pinned clips are stored in default shared preferences, not in device protected preferences!

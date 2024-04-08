@@ -81,6 +81,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         void onTextInput(final String rawText);
         void removeSuggestion(final String word);
         void onClipboardSuggestionRemoved(String clipContent);
+        void onClipboardSuggestionPicked();
         CharSequence getSelection();
     }
 
@@ -116,6 +117,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
     private boolean isInlineAutofillSuggestionsVisible = false; // Required to disable the more suggestions if inline autofill suggestions are visible
+    private View mCurrentInlineAutofillSuggestionsView;
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -261,7 +263,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
         mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
-        isInlineAutofillSuggestionsVisible = false;
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -282,23 +283,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
+        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
     }
 
     public void setInlineSuggestionsView(final View view) {
-        if (!isInlineAutofillSuggestionsVisible) {
-            clear();
+        if (isInlineAutofillSuggestionsVisible) {
+            mSuggestionsStrip.removeView(mCurrentInlineAutofillSuggestionsView);
+            isInlineAutofillSuggestionsVisible = false;
+            mCurrentInlineAutofillSuggestionsView = null;
+        }
+        if (view != null) {
             isInlineAutofillSuggestionsVisible = true;
             mSuggestionsStrip.addView(view);
+            mCurrentInlineAutofillSuggestionsView = view;
         }
-    }
-
-    public void refreshStripView(){
-        clear();
-        updateKeys();
-    }
-
-    public boolean isInlineAutofillSuggestionsVisible() {
-        return isInlineAutofillSuggestionsVisible;
     }
 
     @Override
@@ -316,6 +314,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     private void clear() {
         mSuggestionsStrip.removeAllViews();
+        isInlineAutofillSuggestionsVisible = false;
         if (DEBUG_SUGGESTIONS)
             removeAllDebugInfoViews();
         if (mToolbarContainer.getVisibility() != VISIBLE)
@@ -431,7 +430,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         if (showIcon) {
             final Drawable icon = mBinIcon;
-            Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
+            Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.SUGGESTION_ICONS);
             int w = icon.getIntrinsicWidth();
             int h = icon.getIntrinsicWidth();
             wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -484,8 +483,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void removeClipboardSuggestion(final String content) {
         final ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         final ClipData clipData = clipboardManager.getPrimaryClip();
-        final boolean isContentVisible = Settings.getInstance().getCurrent().mSuggestClipboardContent
-                && mSuggestedWords.mInputStyle != SuggestedWords.INPUT_STYLE_PASSWORD;
+        final boolean isContentVisible = mSuggestedWords.mInputStyle != SuggestedWords.INPUT_STYLE_PASSWORD;
         if (clipData != null && clipData.getItemCount() > 0) {
             final String clipContent = clipData.getItemAt(0).coerceToText(getContext()).toString();
             if (content.equals(clipContent)) {
@@ -507,7 +505,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void removeSuggestion(TextView wordView) {
         final String word = wordView.getText().toString();
         // if it's a clipboard suggestion, clear the clipboard
-        if (!mSuggestedWords.isEmpty() && mSuggestedWords.getInfo(0).isKindOf(SuggestedWordInfo.KIND_CLIPBOARD)) {
+        if (mSuggestedWords.isClipboardSuggestion()) {
             removeClipboardSuggestion(mSuggestedWords.getInfo(0).mWord);
         }
         mListener.removeSuggestion(word);
@@ -537,6 +535,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestedWords.mSequenceNumber);
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
         mStripVisibilityGroup.showSuggestionsStrip();
     }
 
@@ -719,16 +718,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 return;
             }
             final SuggestedWordInfo wordInfo = mSuggestedWords.getInfo(index);
-            // make sure the latest clipboard entry is pasted
-            // if it's a clipboard suggestion and the content is hidden
-            if (wordInfo.isKindOf(SuggestedWordInfo.KIND_CLIPBOARD)
-                    && (mSuggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_PASSWORD
-                    || !Settings.getInstance().getCurrent().mSuggestClipboardContent))
-            {
-                onLongClickClipboardKey();
-            } else {
-                mListener.pickSuggestionManually(wordInfo);
+            if (wordInfo.isKindOf(SuggestedWordInfo.KIND_CLIPBOARD)) {
+                mListener.onClipboardSuggestionPicked();
+                if (mSuggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_PASSWORD) {
+                    // make sure the latest clipboard entry
+                    // is pasted since the content is hidden
+                    onLongClickClipboardKey();
+                    return;
+                }
             }
+            mListener.pickSuggestionManually(wordInfo);
         }
     }
 

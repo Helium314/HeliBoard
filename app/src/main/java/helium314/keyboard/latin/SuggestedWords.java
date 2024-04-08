@@ -169,6 +169,14 @@ public class SuggestedWords {
         return false;
     }
 
+    /**
+     * The predicator to tell whether this object represents a clipboard suggestion.
+     * @return false if this object doesn't represent a clipboard suggestion
+     */
+    public boolean isClipboardSuggestion(){
+        return !isEmpty() && getInfo(0).isKindOf(SuggestedWordInfo.KIND_CLIPBOARD);
+    }
+
     @Override
     public String toString() {
         // Pretty-print method to help debug

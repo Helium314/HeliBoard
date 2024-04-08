@@ -52,6 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hapticFeedbackEnabled="false"
+            android:gravity="center_horizontal"
             android:soundEffectsEnabled="false" />
         <LinearLayout
             android:id="@+id/pinned_keys"
