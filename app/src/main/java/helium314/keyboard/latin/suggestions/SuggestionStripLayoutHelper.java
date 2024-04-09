@@ -56,7 +56,7 @@ final class SuggestionStripLayoutHelper {
     private static final int DEFAULT_MAX_MORE_SUGGESTIONS_ROW = 2;
     private static final int PUNCTUATIONS_IN_STRIP = 5;
     private static final float MIN_TEXT_XSCALE = 0.70f;
-    private static final CharSequence PASSWORD_MASK = "********";
+    private static final int MAX_PASSWORD_LENGTH = 12;
 
     public final int mPadding;
     public final int mDividerWidth;
@@ -201,7 +201,8 @@ final class SuggestionStripLayoutHelper {
         final String word = suggestedWords.getLabel(indexInSuggestedWords);
         // If input type of the editor is that of a password, make sure the content is redacted
         if (suggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_PASSWORD) {
-            return PASSWORD_MASK;
+            int maskLength = Math.min(word.length(), MAX_PASSWORD_LENGTH);
+            return "*".repeat(maskLength);
         }
         // TODO: don't use the index to decide whether this is the auto-correction/typed word, as
         // this is brittle
