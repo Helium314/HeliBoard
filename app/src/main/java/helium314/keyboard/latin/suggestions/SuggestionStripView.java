@@ -284,6 +284,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
         setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
+        setToolbarVisibility(false);
     }
 
     public void setInlineSuggestionsView(final View view) {
@@ -296,7 +297,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             isInlineAutofillSuggestionsVisible = true;
             mSuggestionsStrip.addView(view);
             mCurrentInlineAutofillSuggestionsView = view;
+            setToolbarVisibility(false);
         }
+    }
+
+    public boolean isInlineAutofillSuggestionsVisible(){
+        return isInlineAutofillSuggestionsVisible;
     }
 
     @Override
@@ -312,7 +318,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
-    private void clear() {
+    public void clear() {
         mSuggestionsStrip.removeAllViews();
         isInlineAutofillSuggestionsVisible = false;
         if (DEBUG_SUGGESTIONS)
@@ -724,6 +730,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     // make sure the latest clipboard entry
                     // is pasted since the content is hidden
                     onLongClickClipboardKey();
+                    clear();
                     return;
                 }
             }

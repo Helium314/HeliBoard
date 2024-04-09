@@ -94,7 +94,7 @@ class ClipboardHistoryManager(
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
         if (latinIME.mSettings.current.mSuggestClipboardContent) {
-            latinIME.setNeutralSuggestionStrip() // get rid of any clipboard suggestion
+            latinIME.clearSuggestions() // get rid of any clipboard suggestion
         }
     }
 
@@ -143,13 +143,11 @@ class ClipboardHistoryManager(
     }
 
     fun retrieveRecentClipboardContent(updateEntry: Boolean): String {
-        val maxClipRetentionTime: Long =
-            latinIME.mSettings.current.mClipboardHistoryRetentionTime * 60000L
         val clipContent = retrieveClipboardContent().toString()
         val now = System.currentTimeMillis()
         val isNewEntry = recentEntry != clipContent
-        val isRecent = (now - recentTimestamp) < maxClipRetentionTime
-        return if (isNewEntry || isRecent && !suggestionPicked || maxClipRetentionTime == 0L) {
+        val isRecent = (now - recentTimestamp) < TWO_MINUTES_MILLIS
+        return if (isNewEntry || isRecent && !suggestionPicked) {
             if (updateEntry && isNewEntry) {
                 suggestionPicked = false
                 recentEntry = clipContent
@@ -185,5 +183,6 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
+        private const val TWO_MINUTES_MILLIS = 2 * 60 * 1000L
     }
 }
