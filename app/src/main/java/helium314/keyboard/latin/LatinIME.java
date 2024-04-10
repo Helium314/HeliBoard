@@ -315,9 +315,7 @@ public class LatinIME extends InputMethodService implements
             if (latinIme == null) {
                 return;
             }
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()
-                    && (!latinIme.mSettings.getCurrent().mSuggestClipboardContent
-                    || latinIme.mClipboardHistoryManager.retrieveRecentClipboardContent().isEmpty())) {
+            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
@@ -1647,36 +1645,35 @@ public class LatinIME extends InputMethodService implements
         mClipboardHistoryManager.markSuggestionAsPicked();
     }
 
-    // This will show a suggestion of the primary clipboard
-    // if there is one and the setting is enabled.
-    // If not, show the toolbar instead when there is no need to lookup suggestions yet.
+    // When there is no need to lookup suggestions yet (such as at the very start of an input field),
+    // this will show a suggestion of the primary clipboard (if there is one and the setting is enabled)
+    // or the toolbar view (if no clipboard suggestion is to be created).
     // Otherwise, an empty suggestion strip (if prediction is enabled)
     // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        if (currentSettings.mSuggestClipboardContent) {
-            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
-            if (!clipContent.isEmpty()) {
-                final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
-                // make sure content that is not a number is not suggested in a number input type
-                if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                    setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
-                    mSuggestionStripView.setToolbarVisibility(false);
-                    return;
+        final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
+        // by default or after a newline show a clipboard suggestion or the toolbar
+        if (codePoint == Constants.NOT_A_CODE || codePoint == Constants.CODE_ENTER) {
+            if (currentSettings.mSuggestClipboardContent) {
+                final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
+                if (!clipContent.isEmpty()) {
+                    final EditorInfo editorInfo = getCurrentInputEditorInfo();
+                    final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
+                    // make sure clipboard content that is not a number is not suggested in a number input type
+                    if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
+                        setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                        mSuggestionStripView.setToolbarVisibility(false);
+                        return;
+                    }
                 }
             }
-        }
-        // show the toolbar when we have just started composing,
-        // or when there is no need to lookup suggestions
-        // and there is no inline suggestion visible.
-        if (hasSuggestionStripView() && (mInputLogic.getComposingStart() <= 0
-                || (!mSettings.getCurrent().needsToLookupSuggestions()
-                && !mSuggestionStripView.isInlineAutofillSuggestionsVisible()))) {
-            clearSuggestions();
-            mSuggestionStripView.setToolbarVisibility(true);
-            return;
+            if (hasSuggestionStripView()) {
+                clearSuggestions();
+                mSuggestionStripView.setToolbarVisibility(true);
+                return;
+            }
         }
         if (!currentSettings.mBigramPredictionEnabled) {
             setSuggestedWords(currentSettings.mSpacingAndPunctuations.mSuggestPuncList);
