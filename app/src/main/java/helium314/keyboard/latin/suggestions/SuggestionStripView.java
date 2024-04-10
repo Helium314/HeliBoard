@@ -42,7 +42,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
-import helium314.keyboard.compat.ClipboardManagerCompat;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
@@ -80,7 +79,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
         void onTextInput(final String rawText);
         void removeSuggestion(final String word);
-        void onClipboardSuggestionRemoved(String clipContent);
         void onClipboardSuggestionPicked();
         CharSequence getSelection();
     }
@@ -94,6 +92,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final Drawable mBinIcon;
+    private final Drawable mCloseIcon;
     private final ViewGroup mToolbar;
     private final View mToolbarContainer;
     private final ViewGroup mPinnedKeys;
@@ -194,6 +193,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
         mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
         mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
+        mCloseIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClose);
 
         final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
@@ -284,7 +284,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
         setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
-        setToolbarVisibility(false);
     }
 
     public void setInlineSuggestionsView(final View view) {
@@ -435,10 +434,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 showIcon = false;
         }
         if (showIcon) {
-            final Drawable icon = mBinIcon;
+            final Drawable icon = mSuggestedWords.isClipboardSuggestion() ? mCloseIcon : mBinIcon;
             Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.SUGGESTION_ICONS);
-            int w = icon.getIntrinsicWidth();
-            int h = icon.getIntrinsicWidth();
+            int w = wordView.getWidth();
+            int h = wordView.getHeight();
             wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             wordView.setEllipsize(TextUtils.TruncateAt.END);
             AtomicBoolean downOk = new AtomicBoolean(false);
@@ -486,33 +485,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         uglyWorkaround.show();
     }
 
-    private void removeClipboardSuggestion(final String content) {
-        final ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        final ClipData clipData = clipboardManager.getPrimaryClip();
-        final boolean isContentVisible = mSuggestedWords.mInputStyle != SuggestedWords.INPUT_STYLE_PASSWORD;
-        if (clipData != null && clipData.getItemCount() > 0) {
-            final String clipContent = clipData.getItemAt(0).coerceToText(getContext()).toString();
-            if (content.equals(clipContent)) {
-                if (isContentVisible) { // clear the primary clipboard when it has the same content of the visible suggestion
-                    ClipboardManagerCompat.clearPrimaryClip(clipboardManager);
-                } else { // remove hidden content from internal history since it matches the primary clipboard
-                    mListener.onClipboardSuggestionRemoved(clipContent);
-                }
-            }
-        }
-        if (isContentVisible)
-            mListener.onClipboardSuggestionRemoved(content); // remove the visible suggestion from history
-        else { // content is redacted, clear the primary clipboard
-            ClipboardManagerCompat.clearPrimaryClip(clipboardManager);
-        }
-        SuggestedWords.clearSuggestedWordInfoList(mSuggestedWords);
-    }
-
     private void removeSuggestion(TextView wordView) {
         final String word = wordView.getText().toString();
         // if it's a clipboard suggestion, clear the clipboard
         if (mSuggestedWords.isClipboardSuggestion()) {
-            removeClipboardSuggestion(mSuggestedWords.getInfo(0).mWord);
+            mListener.onClipboardSuggestionPicked();
+            SuggestedWords.clearSuggestedWordInfoList(mSuggestedWords);
+            setToolbarVisibility(true);
         }
         mListener.removeSuggestion(word);
         mMoreSuggestionsView.dismissPopupKeysPanel();

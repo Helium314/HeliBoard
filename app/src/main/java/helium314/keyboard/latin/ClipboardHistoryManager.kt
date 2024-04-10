@@ -102,11 +102,6 @@ class ClipboardHistoryManager(
             historyEntries.removeAt(index)
     }
 
-    fun removeEntry(content: String) {
-        val index = historyEntries.indexOfFirst { it.content.toString() == content }
-        removeEntry(index)
-    }
-
     private fun sortHistoryEntries() {
         historyEntries.sort()
     }
@@ -139,13 +134,13 @@ class ClipboardHistoryManager(
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
     }
 
-    fun retrieveRecentClipboardContent(updateEntry: Boolean): String {
+    fun retrieveRecentClipboardContent(): String {
         val clipContent = retrieveClipboardContent().toString()
         val now = System.currentTimeMillis()
         val isNewEntry = recentEntry != clipContent
-        val isRecent = (now - recentTimestamp) < TWO_MINUTES_MILLIS
+        val isRecent = (now - recentTimestamp) < SUGGESTION_INTERVAL
         return if (isNewEntry || isRecent && !suggestionPicked) {
-            if (updateEntry && isNewEntry) {
+            if (isNewEntry) {
                 suggestionPicked = false
                 recentEntry = clipContent
                 recentTimestamp = now
@@ -180,9 +175,9 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
-        private const val TWO_MINUTES_MILLIS = 2 * 60 * 1000L
         private var recentEntry: String = ""
         private var recentTimestamp: Long = 0L
         private var suggestionPicked: Boolean = false
+        private const val SUGGESTION_INTERVAL = 3 * 60 * 1000L
     }
 }

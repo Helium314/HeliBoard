@@ -317,7 +317,7 @@ public class LatinIME extends InputMethodService implements
             }
             if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()
                     && (!latinIme.mSettings.getCurrent().mSuggestClipboardContent
-                    || latinIme.mClipboardHistoryManager.retrieveRecentClipboardContent(false).isEmpty())) {
+                    || latinIme.mClipboardHistoryManager.retrieveRecentClipboardContent().isEmpty())) {
                 return;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
@@ -1623,6 +1623,7 @@ public class LatinIME extends InputMethodService implements
             setNeutralSuggestionStrip();
         } else {
             setSuggestedWords(suggestedWords);
+            mSuggestionStripView.setToolbarVisibility(false);
         }
         // Cache the auto-correction in accessibility code so we can speak it if the user
         // touches a key that will insert it.
@@ -1642,13 +1643,6 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void onClipboardSuggestionRemoved(String clipContent){
-        if (mSettings.getCurrent().mClipboardHistoryEnabled) {
-            mClipboardHistoryManager.removeEntry(clipContent);
-        }
-    }
-
-    @Override
     public void onClipboardSuggestionPicked(){
         mClipboardHistoryManager.markSuggestionAsPicked();
     }
@@ -1662,13 +1656,14 @@ public class LatinIME extends InputMethodService implements
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
         if (currentSettings.mSuggestClipboardContent) {
-            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent(true);
+            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
             if (!clipContent.isEmpty()) {
                 final EditorInfo editorInfo = getCurrentInputEditorInfo();
                 final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
                 // make sure content that is not a number is not suggested in a number input type
                 if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
                     setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                    mSuggestionStripView.setToolbarVisibility(false);
                     return;
                 }
             }
