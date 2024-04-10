@@ -140,6 +140,10 @@ public final class Constants {
     // right for this.
     public static final int MAX_CHARACTERS_FOR_RECAPITALIZATION = 1024 * 100;
 
+    // How many characters can a composed word have before it is assumed to be non-suggestible.
+    // The length of the lengthy word "internationalization" is 20.
+    public static final int MAX_CHARACTERS_FOR_SUGGESTIONS = 20;
+
     // Key events coming any faster than this are long-presses.
     public static final int LONG_PRESS_MILLISECONDS = 200;
     // TODO: Set this value appropriately.
