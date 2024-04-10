@@ -278,7 +278,7 @@ class InputLogicTest {
 
     @Test fun noComposingForPasswordFields() {
         reset()
-        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
         input('a')
         input('b')
         assertEquals("", composingText)
