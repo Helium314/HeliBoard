@@ -115,13 +115,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             inputStyleIfNotPrediction
         }
 
-        if (hasAutoCorrection) {
-            // make sure typed word is shown, so user is able to override incoming autocorrection
+        // If there is no autocorrection, and autocorrection setting is enabled, show the typed word in the middle.
+        // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
+        val typedIndex = if (hasAutoCorrection) 2 else 1
+        if (Settings.getInstance().current.mAutoCorrectEnabled && suggestionsList.size >= typedIndex) {
             if (typedWordFirstOccurrenceWordInfo != null) {
                 if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString)
-                suggestionsList.add(2, typedWordFirstOccurrenceWordInfo)
-            } else {
-                suggestionsList.add(2,
+                suggestionsList.add(typedIndex, typedWordFirstOccurrenceWordInfo)
+            } else if (typedWordString.isNotEmpty()){
+                suggestionsList.add(typedIndex,
                     SuggestedWordInfo(typedWordString, "", 0, SuggestedWordInfo.KIND_TYPED,
                         Dictionary.DICTIONARY_USER_TYPED, SuggestedWordInfo.NOT_AN_INDEX, SuggestedWordInfo.NOT_A_CONFIDENCE)
                 )
