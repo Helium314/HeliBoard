@@ -251,6 +251,7 @@
         <attr name="iconShiftKeyShifted" format="reference" />
         <attr name="iconShortcutKeyDisabled" format="reference" />
         <attr name="iconLanguageSwitchKey" format="reference" />
+        <attr name="iconAutoCorrect" format="reference" />
         <attr name="iconZwnjKey" format="reference" />
         <attr name="iconZwjKey" format="reference" />
         <attr name="iconImeKey" format="reference" />
@@ -277,6 +278,7 @@
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />
         <attr name="iconRedo" format="reference" />
+        <attr name="iconClose" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">
