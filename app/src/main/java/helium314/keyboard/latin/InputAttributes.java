@@ -8,6 +8,8 @@ package helium314.keyboard.latin;
 
 import android.os.Build;
 import android.text.InputType;
+
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -85,7 +87,7 @@ public final class InputAttributes {
 
         // inputClass == InputType.TYPE_CLASS_TEXT
         final int variation = inputType & InputType.TYPE_MASK_VARIATION;
-        final boolean uriVariation = 0 != (variation & InputType.TYPE_TEXT_VARIATION_URI);
+        final boolean uriVariation = variation == InputType.TYPE_TEXT_VARIATION_URI;
         final boolean flagNoSuggestions = 0 != (inputType & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         final boolean flagMultiLine = 0 != (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         final boolean flagAutoCorrect = 0 != (inputType & InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
@@ -93,7 +95,8 @@ public final class InputAttributes {
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
-        mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions || uriVariation;
+        mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions
+                || (uriVariation && Settings.getInstance().getCurrent().mUrlDetectionEnabled);
         mMayOverrideShowingSuggestions = !mIsPasswordField;
 
         mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(inputType);
