@@ -18,9 +18,6 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
-    private var recentEntry: String = ""
-    private var recentTimestamp: Long = 0L
-    private var suggestionPicked: Boolean = false;
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -184,5 +181,8 @@ class ClipboardHistoryManager(
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
         private const val TWO_MINUTES_MILLIS = 2 * 60 * 1000L
+        private var recentEntry: String = ""
+        private var recentTimestamp: Long = 0L
+        private var suggestionPicked: Boolean = false
     }
 }
