@@ -716,6 +716,15 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
+            case KeyCode.CLIPBOARD_CUT:
+                if (mConnection.hasSelection()) {
+                    mConnection.copyText();
+                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
+                            event.getMX(), event.getMY(), event.isKeyRepeat());
+                    handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
+                    inputTransaction.setDidAffectContents();
+                }
+                break;
             case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
