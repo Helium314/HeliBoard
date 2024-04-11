@@ -114,6 +114,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
     private boolean isInlineAutofillSuggestionsVisible = false; // Required to disable the more suggestions if inline autofill suggestions are visible
+    private View mCurrentInlineAutofillSuggestionsView;
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -259,7 +260,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
         mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
-        isInlineAutofillSuggestionsVisible = false;
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -280,12 +280,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
+        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
     }
 
     public void setInlineSuggestionsView(final View view) {
-        clear();
-        isInlineAutofillSuggestionsVisible = true;
-        mSuggestionsStrip.addView(view);
+        if (isInlineAutofillSuggestionsVisible) {
+            mSuggestionsStrip.removeView(mCurrentInlineAutofillSuggestionsView);
+            isInlineAutofillSuggestionsVisible = false;
+            mCurrentInlineAutofillSuggestionsView = null;
+        }
+        if (view != null) {
+            isInlineAutofillSuggestionsVisible = true;
+            mSuggestionsStrip.addView(view);
+            mCurrentInlineAutofillSuggestionsView = view;
+        }
+    }
+
+    public boolean isInlineAutofillSuggestionsVisible(){
+        return isInlineAutofillSuggestionsVisible;
     }
 
     @Override
@@ -303,6 +315,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     private void clear() {
         mSuggestionsStrip.removeAllViews();
+        isInlineAutofillSuggestionsVisible = false;
         if (DEBUG_SUGGESTIONS)
             removeAllDebugInfoViews();
         if (mToolbarContainer.getVisibility() != VISIBLE)
@@ -497,6 +510,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestedWords.mSequenceNumber);
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
         mStripVisibilityGroup.showSuggestionsStrip();
     }
 

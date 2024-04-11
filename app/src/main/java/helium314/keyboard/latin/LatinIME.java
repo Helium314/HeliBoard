@@ -1020,6 +1020,10 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
+        // This will remove old "stuck" inline suggestions
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setInlineSuggestionsView(null);
+        }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         setNeutralSuggestionStrip();
@@ -1309,7 +1313,7 @@ public class LatinIME extends InputMethodService implements
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-        if (inlineSuggestions.isEmpty()) {
+        if (inlineSuggestions.isEmpty() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
             return false;
         }
 
@@ -1573,7 +1577,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
         mInputLogic.setSuggestedWords(suggestedWords);
         // TODO: Modify this when we support suggestions with hard keyboard
-        if (!hasSuggestionStripView()) {
+        if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
             return;
         }
         if (!onEvaluateInputViewShown()) {
