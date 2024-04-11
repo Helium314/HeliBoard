@@ -29,7 +29,6 @@
         <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_holo</item>
         <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_holo</item>
         <item name="iconCopyKey">@drawable/sym_keyboard_copy</item>
-        <item name="iconCutKey">@drawable/sym_keyboard_cut</item>
         <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_holo</item>
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_holo</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_holo</item>

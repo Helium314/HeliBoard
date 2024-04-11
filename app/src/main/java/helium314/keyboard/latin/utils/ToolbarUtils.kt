@@ -43,7 +43,6 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     CLIPBOARD -> KeyCode.CLIPBOARD
     SELECT_ALL -> KeyCode.CLIPBOARD_SELECT_ALL
     COPY -> KeyCode.CLIPBOARD_COPY
-    CUT -> KeyCode.CLIPBOARD_CUT
     ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
     LEFT -> KeyCode.ARROW_LEFT
     RIGHT -> KeyCode.ARROW_RIGHT
@@ -56,7 +55,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
-    CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
+    CLEAR_CLIPBOARD -> null // not managed via code input
     CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
@@ -66,7 +65,6 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
     SELECT_ALL -> R.styleable.Keyboard_iconSelectAll
     COPY -> R.styleable.Keyboard_iconCopyKey
-    CUT -> R.styleable.Keyboard_iconCutKey
     ONE_HANDED -> R.styleable.Keyboard_iconStartOneHandedMode
     LEFT -> R.styleable.Keyboard_iconArrowLeft
     RIGHT -> R.styleable.Keyboard_iconArrowRight
@@ -94,18 +92,15 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
+    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
     FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
-
 }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 
-
-val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
-
+val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD || it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CLEAR_CLIPBOARD, CUT -> "${it.name},false"
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT -> "${it.name},false"
         else -> "${it.name},true"
     }
 }

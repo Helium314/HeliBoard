@@ -69,7 +69,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CUT, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL, ToolbarKey.CLOSE_HISTORY)
+        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL, ToolbarKey.CLOSE_HISTORY)
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -236,6 +236,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
                 keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }
+            if (tag == ToolbarKey.CLEAR_CLIPBOARD)
+                clipboardHistoryManager?.clearHistory()
         }
     }
 

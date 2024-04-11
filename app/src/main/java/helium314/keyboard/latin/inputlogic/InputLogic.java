@@ -718,20 +718,6 @@ public final class InputLogic {
                         inputTransaction.getMSettingsValues().mClipboardHistoryEnabled
                                 && inputTransaction.getMSettingsValues().mCopyToInternalClipboard);
                 break;
-            case KeyCode.CLIPBOARD_CUT:
-                if (mConnection.hasSelection()) {
-                    mConnection.copyText(mLatinIME.getClipboardHistoryManager(),
-                            inputTransaction.getMSettingsValues().mClipboardHistoryEnabled
-                                    && inputTransaction.getMSettingsValues().mCopyToInternalClipboard);
-                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
-                            event.getMX(), event.getMY(), event.isKeyRepeat());
-                    handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
-                    inputTransaction.setDidAffectContents();
-                }
-                break;
-            case KeyCode.CLIPBOARD_CLEAR_HISTORY:
-                mLatinIME.getClipboardHistoryManager().clearHistory();
-                break;
             case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
