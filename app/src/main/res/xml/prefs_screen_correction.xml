@@ -100,6 +100,13 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="suggestions_toggle_toolbar"
+            android:title="@string/suggestions_toggle_toolbar"
+            android:summary="@string/suggestions_toggle_toolbar_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"

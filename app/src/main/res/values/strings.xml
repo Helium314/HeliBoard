@@ -788,4 +788,8 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the setting for expanding/collapsing the toolbar automatically -->
+    <string name="suggestions_toggle_toolbar">Suggestions toggle toolbar</string>
+    <!-- Description of the setting for expanding/collapsing the toolbar automatically -->
+    <string name="suggestions_toggle_toolbar_summary">Automatically expand/collapse the toolbar when suggestions change</string>
 </resources>

@@ -286,6 +286,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         clear();
         isInlineAutofillSuggestionsVisible = true;
         mSuggestionsStrip.addView(view);
+        if (Settings.getInstance().getCurrent().mSuggestionsToggleToolbar)
+            setToolbarVisibility(false);
     }
 
     @Override

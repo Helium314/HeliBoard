@@ -1576,7 +1576,7 @@ public class LatinIME extends InputMethodService implements
         if (!hasSuggestionStripView()) {
             return;
         }
-        if (!onEvaluateInputViewShown()) {
+        if (!onEvaluateInputViewShown() || !currentSettingsValues.isSuggestionsEnabledPerUserSettings()) {
             return;
         }
 
@@ -1594,6 +1594,8 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
+        if (currentSettingsValues.mSuggestionsToggleToolbar)
+            mSuggestionStripView.setToolbarVisibility(false);
     }
 
     // TODO[IL]: Move this out of LatinIME.
@@ -1640,6 +1642,16 @@ public class LatinIME extends InputMethodService implements
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
+        if (currentSettings.mSuggestionsToggleToolbar) {
+            final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (codePoint == Constants.NOT_A_CODE || codePoint == Constants.CODE_ENTER) {
+                if (hasSuggestionStripView()) {
+                    mInputLogic.setSuggestedWords(neutralSuggestions);
+                    mSuggestionStripView.setToolbarVisibility(true);
+                    return;
+                }
+            }
+        }
         setSuggestedWords(neutralSuggestions);
     }
 
