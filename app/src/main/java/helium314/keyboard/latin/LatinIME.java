@@ -1582,7 +1582,7 @@ public class LatinIME extends InputMethodService implements
         if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
             return;
         }
-        if (!onEvaluateInputViewShown()) {
+        if (!onEvaluateInputViewShown() || !currentSettingsValues.isSuggestionsEnabledPerUserSettings()) {
             return;
         }
 
@@ -1601,6 +1601,7 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
+        mSuggestionStripView.setToolbarVisibility(false);
     }
 
     // TODO[IL]: Move this out of LatinIME.
@@ -1621,7 +1622,6 @@ public class LatinIME extends InputMethodService implements
             setNeutralSuggestionStrip();
         } else {
             setSuggestedWords(suggestedWords);
-            mSuggestionStripView.setToolbarVisibility(false);
         }
         // Cache the auto-correction in accessibility code so we can speak it if the user
         // touches a key that will insert it.
@@ -1664,7 +1664,6 @@ public class LatinIME extends InputMethodService implements
                     // make sure clipboard content that is not a number is not suggested in a number input type
                     if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
                         setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
-                        mSuggestionStripView.setToolbarVisibility(false);
                         return;
                     }
                 }
