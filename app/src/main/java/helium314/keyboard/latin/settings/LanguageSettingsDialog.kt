@@ -141,7 +141,7 @@ class LanguageSettingsDialog(
             if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false // don't allow copying custom layout (at least for now)
                     && !layoutSetName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
                 layouts.add(layoutSetName)
-                displayNames.add(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+                displayNames.add(it.subtype.displayName(context).toString())
             }
         }
         if (infos.first().subtype.isAsciiCapable) {
@@ -171,7 +171,7 @@ class LanguageSettingsDialog(
         val layoutSetName = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "qwerty"
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
-                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype.subtype)
+                ?: subtype.subtype.displayName(context)
         if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
             row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
