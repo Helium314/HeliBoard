@@ -201,6 +201,7 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
         private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
+        private static final int MSG_SET_CLIPBOARD_SUGGESTION = 12;
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
 
@@ -259,6 +260,8 @@ public class LatinIME extends InputMethodService implements
                             latinIme.mSettings.getCurrent(),
                             latinIme.mKeyboardSwitcher.getCurrentKeyboardScript());
                     break;
+                case MSG_SET_CLIPBOARD_SUGGESTION:
+                    latinIme.setClipboardSuggestion();
                 case MSG_REOPEN_DICTIONARIES:
                     // We need to re-evaluate the currently composing word in case the script has
                     // changed.
@@ -315,11 +318,15 @@ public class LatinIME extends InputMethodService implements
             if (latinIme == null) {
                 return;
             }
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
-                return;
+            final int message;
+            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
+                if (latinIme.mSettings.getCurrent().mSuggestClipboardContent)
+                    message = MSG_SET_CLIPBOARD_SUGGESTION;
+                else return;
+            } else {
+                message = MSG_RESUME_SUGGESTIONS;
             }
             removeMessages(MSG_RESUME_SUGGESTIONS);
-            final int message = MSG_RESUME_SUGGESTIONS;
             if (shouldDelay) {
                 sendMessageDelayed(obtainMessage(message),
                         mDelayInMillisecondsToUpdateSuggestions);
@@ -1640,24 +1647,34 @@ public class LatinIME extends InputMethodService implements
         mClipboardHistoryManager.markSuggestionAsPicked();
     }
 
-    // This will show a suggestion of the primary clipboard (if there is one and the setting is enabled).
+    // This will set a new clipboard suggestion if the primary clipboard is not empty
+    // and the relevant setting is enabled.
+    // In case of input and content type mismatch, no suggestion will be shown.
+    // It returns true or false depending if the suggestions was set successfully.
+    public boolean setClipboardSuggestion(){
+        final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
+        if (!clipContent.isEmpty()) {
+            final EditorInfo editorInfo = getCurrentInputEditorInfo();
+            final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
+            // make sure clipboard content that is not a number is not suggested in a number input type
+            if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
+                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // This will show a suggestion of the primary clipboard
+    // (if there is one and the setting is enabled).
     // Otherwise, an empty suggestion strip (if prediction is enabled)
     // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        // by default or after a newline show a clipboard suggestion
         if (currentSettings.mSuggestClipboardContent) {
-            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
-            if (!clipContent.isEmpty()) {
-                final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
-                // make sure clipboard content that is not a number is not suggested in a number input type
-                if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                    setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
-                    return;
-                }
-            }
+            if (setClipboardSuggestion())
+                return; // clipboard suggestion has been set
         }
         if (!currentSettings.mBigramPredictionEnabled) {
             setSuggestedWords(currentSettings.mSpacingAndPunctuations.mSuggestPuncList);

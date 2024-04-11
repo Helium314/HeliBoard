@@ -1633,6 +1633,9 @@ public final class InputLogic {
         final SuggestedWords suggestedWords = holder.get(null,
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
         if (suggestedWords != null) {
+            if (suggestedWords.isEmpty()){
+                mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
+            }
             mSuggestionStripViewAccessor.showSuggestionStrip(suggestedWords);
         }
         if (DebugFlags.DEBUG_ENABLED) {
