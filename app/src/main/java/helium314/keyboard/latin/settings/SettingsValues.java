@@ -54,7 +54,7 @@ public class SettingsValues {
     public final Locale mLocale;
     public final boolean mHasHardwareKeyboard;
     public final int mDisplayOrientation;
-    // From preferences, in the same order as xml/prefs.xml:
+    // From preferences
     public final boolean mAutoCap;
     public final boolean mVibrateOn;
     public final boolean mSoundOn;
@@ -88,8 +88,7 @@ public class SettingsValues {
     public final List<String> mPopupKeyTypes;
     public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
-    // Use bigrams to predict the next word when there is no input for it yet
-    public final boolean mBigramPredictionEnabled;
+    public final boolean mBigramPredictionEnabled;// Use bigrams to predict the next word when there is no input for it yet
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
@@ -121,12 +120,13 @@ public class SettingsValues {
     private final boolean mOverrideShowingSuggestions;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
+    public final boolean mLongPressSymbolsForNumpad;
 
     // User-defined colors
     public final Colors mColors;
 
     @Nullable
-    public final String mAccount;
+    public final String mAccount; // todo: always null, remove?
 
     // creation of Colors and SpacingAndPunctuations are the slowest parts in here, but still ok
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
@@ -235,6 +235,7 @@ public class SettingsValues {
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

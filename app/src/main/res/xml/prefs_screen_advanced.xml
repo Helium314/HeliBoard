@@ -55,6 +55,12 @@
         android:defaultValue="true" />
 
     <SwitchPreference
+        android:key="long_press_symbols_for_numpad"
+        android:title="@string/prefs_long_press_symbol_for_numpad"
+        android:persistent="true"
+        android:defaultValue="false" />
+
+    <SwitchPreference
         android:key="enable_emoji_alt_physical_key"
         android:title="@string/prefs_enable_emoji_alt_physical_key"
         android:summary="@string/prefs_enable_emoji_alt_physical_key_summary"

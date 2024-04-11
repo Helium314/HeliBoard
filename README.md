@@ -2,6 +2,9 @@
 HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
 Does not use internet permission, and thus is 100% offline.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/helium314.keyboard/)
+[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Download APK from GitHub" height="80">](https://github.com/Helium314/HeliBoard/releases/latest)
+
 ## Table of Contents
 
 - [Features](#features)
@@ -56,10 +59,12 @@ Does not use internet permission, and thus is 100% offline.
 * __German layout with / without umlauts__: _German (Germany)_ layout has umlauts, _German_ layout doesn't
 * __Spell checker is not checking all languages in multilingual typing__: Make sure you actually enabled HeliBoard spell checker. Usually it can be found in System Settings -> System -> Languages -> Advanced -> Spell Checker, but this may depend on Android version.
 * __Words added to Gboard dictionary are not suggested__: Gboard uses its own dictionary instead of the system's personal dictionary. See [here](https://github.com/Helium314/HeliBoard/issues/500#issuecomment-2032292161) for how to export the words.
-* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
+* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing, while the _nouserlib_ version does not. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
   > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
 
   The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
+  Note that if the the app is installed as a system app, both versions have access to the system glide typing library (if it is installed).
+* __App crashing when using as system app__: This happens if you do not install the app, but just copy the APK. Then the app's own library is not extracted from the APK, and not accessible to the app. You will need tp either install the app over itself, or provide a library.
 * (_to be expanded_...)
 
 ## Hidden Functionality
@@ -70,9 +75,8 @@ Features that may go unnoticed, and further potentially useful information
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
 * When incognito mode is enabled, no words will be learned, and no emojis will be added to recents.
-* Sliding key input: Swipe from shift to another key to type a single uppercase key
-  * This also works for the `?123` key to type a single symbol from the symbols keyboard, and for related keys.
-* Long-press the `?123` from main view to directly open numpad.
+* Sliding key input: Swipe from shift or symbol key to another key. This will enter a single uppercase key or symbol and return to the previous keyboard.
+* Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard.
 * Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
 * Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
 * Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).

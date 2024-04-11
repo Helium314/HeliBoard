@@ -80,7 +80,7 @@ private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
-    CLOSE_HISTORY -> R.styleable.Keyboard_iconCloseView
+    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
 }
 
 fun getToolbarIconByName(name: String, context: Context): Drawable? {
