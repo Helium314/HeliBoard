@@ -87,6 +87,7 @@ public class SettingsValues {
     public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     public final boolean mBigramPredictionEnabled;// Use bigrams to predict the next word when there is no input for it yet
+    public final boolean mCenterSuggestionTextToCommit;
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
@@ -161,6 +162,7 @@ public class SettingsValues {
         mAutoCorrectEnabled = mAutoCorrectionEnabledPerUserSettings
                 && (mInputAttributes.mInputTypeShouldAutoCorrect || Settings.readMoreAutoCorrectEnabled(prefs))
                 && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
+        mCenterSuggestionTextToCommit = Settings.readCenterSuggestionTextToCommit(prefs, res);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
