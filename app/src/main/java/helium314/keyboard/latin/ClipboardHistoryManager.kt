@@ -91,7 +91,7 @@ class ClipboardHistoryManager(
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
         if (latinIME.mSettings.current.mSuggestClipboardContent) {
-            latinIME.clearSuggestions() // get rid of any clipboard suggestion
+            latinIME.mInputLogic?.setSuggestedWords(SuggestedWords.getEmptyInstance()) // get rid of any clipboard suggestion
         }
     }
 

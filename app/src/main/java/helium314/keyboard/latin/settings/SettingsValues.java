@@ -190,8 +190,8 @@ public class SettingsValues {
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
-        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions)
-                && readSuggestionsEnabled(prefs);
+        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
+                || mOverrideShowingSuggestions;
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
@@ -242,8 +242,8 @@ public class SettingsValues {
     }
 
     public boolean needsToLookupSuggestions() {
-        return isSuggestionsEnabledPerUserSettings()
-                || (mAutoCorrectEnabled && mInputAttributes.mShouldShowSuggestions);
+        return (mInputAttributes.mShouldShowSuggestions || mOverrideShowingSuggestions)
+                && (mAutoCorrectEnabled || isSuggestionsEnabledPerUserSettings());
     }
 
     public boolean isSuggestionsEnabledPerUserSettings() {

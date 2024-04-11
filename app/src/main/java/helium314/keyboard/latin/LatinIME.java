@@ -1022,10 +1022,6 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // This will remove old "stuck" inline suggestions
-        if (hasSuggestionStripView()) {
-            mSuggestionStripView.setInlineSuggestionsView(null);
-        }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         setNeutralSuggestionStrip();
@@ -1315,7 +1311,7 @@ public class LatinIME extends InputMethodService implements
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-        if (inlineSuggestions.isEmpty() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
+        if (inlineSuggestions.isEmpty()) {
             return false;
         }
 
@@ -1579,10 +1575,10 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
         mInputLogic.setSuggestedWords(suggestedWords);
         // TODO: Modify this when we support suggestions with hard keyboard
-        if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
+        if (!hasSuggestionStripView()) {
             return;
         }
-        if (!onEvaluateInputViewShown() || !currentSettingsValues.isSuggestionsEnabledPerUserSettings()) {
+        if (!onEvaluateInputViewShown()) {
             return;
         }
 
@@ -1601,7 +1597,6 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
-        mSuggestionStripView.setToolbarVisibility(false);
     }
 
     // TODO[IL]: Move this out of LatinIME.
@@ -1645,33 +1640,23 @@ public class LatinIME extends InputMethodService implements
         mClipboardHistoryManager.markSuggestionAsPicked();
     }
 
-    // When there is no need to lookup suggestions yet (such as at the very start of an input field),
-    // this will show a suggestion of the primary clipboard (if there is one and the setting is enabled)
-    // or the toolbar view (if no clipboard suggestion is to be created).
+    // This will show a suggestion of the primary clipboard (if there is one and the setting is enabled).
     // Otherwise, an empty suggestion strip (if prediction is enabled)
     // or punctuation suggestions (if it's disabled) will be shown.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
-        // by default or after a newline show a clipboard suggestion or the toolbar
-        if (codePoint == Constants.NOT_A_CODE || codePoint == Constants.CODE_ENTER) {
-            if (currentSettings.mSuggestClipboardContent) {
-                final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
-                if (!clipContent.isEmpty()) {
-                    final EditorInfo editorInfo = getCurrentInputEditorInfo();
-                    final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
-                    // make sure clipboard content that is not a number is not suggested in a number input type
-                    if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                        setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
-                        return;
-                    }
+        // by default or after a newline show a clipboard suggestion
+        if (currentSettings.mSuggestClipboardContent) {
+            final String clipContent = mClipboardHistoryManager.retrieveRecentClipboardContent();
+            if (!clipContent.isEmpty()) {
+                final EditorInfo editorInfo = getCurrentInputEditorInfo();
+                final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
+                // make sure clipboard content that is not a number is not suggested in a number input type
+                if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
+                    setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                    return;
                 }
-            }
-            if (hasSuggestionStripView()) {
-                clearSuggestions();
-                mSuggestionStripView.setToolbarVisibility(true);
-                return;
             }
         }
         if (!currentSettings.mBigramPredictionEnabled) {
@@ -1679,10 +1664,6 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         setSuggestedWords(SuggestedWords.getEmptyInstance());
-    }
-
-    public void clearSuggestions(){
-        mSuggestionStripView.clear();
     }
 
     @Override
