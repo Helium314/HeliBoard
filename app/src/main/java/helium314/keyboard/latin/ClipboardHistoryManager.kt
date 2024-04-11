@@ -23,7 +23,8 @@ class ClipboardHistoryManager(
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         fetchPrimaryClip()
         clipboardManager.addPrimaryClipChangedListener(this)
-        loadPinnedClips()
+        if (historyEntries.isEmpty())
+            loadPinnedClips()
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
