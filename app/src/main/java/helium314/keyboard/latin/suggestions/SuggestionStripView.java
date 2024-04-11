@@ -8,6 +8,8 @@ package helium314.keyboard.latin.suggestions;
 
 import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.ClipData;
@@ -661,6 +663,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     if (tag == ToolbarKey.INCOGNITO)
                         updateKeys(); // update icon
                     view.setActivated(!view.isActivated());
+                }
+                else if (tag == ToolbarKey.CLEAR_CLIPBOARD || tag == ToolbarKey.COPY) {
+                    Animator animator = AnimatorInflater.loadAnimator(getContext(), R.animator.button_alpha_transition);
+                    animator.setTarget(view);
+                    animator.start();
                 }
                 return;
             }
