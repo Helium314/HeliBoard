@@ -1576,7 +1576,7 @@ public class LatinIME extends InputMethodService implements
         if (!hasSuggestionStripView()) {
             return;
         }
-        if (!onEvaluateInputViewShown() || !currentSettingsValues.isSuggestionsEnabledPerUserSettings()) {
+        if (!onEvaluateInputViewShown()) {
             return;
         }
 
@@ -1594,7 +1594,7 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
-        if (currentSettingsValues.mSuggestionsToggleToolbar)
+        if (currentSettingsValues.mSuggestionsToggleToolbar && !suggestedWords.isEmpty())
             mSuggestionStripView.setToolbarVisibility(false);
     }
 
