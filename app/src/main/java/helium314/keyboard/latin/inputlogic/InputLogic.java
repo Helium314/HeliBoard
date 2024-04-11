@@ -716,6 +716,9 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
+            case KeyCode.CLIPBOARD_CLEAR_HISTORY:
+                mLatinIME.getClipboardHistoryManager().clearHistory();
+                break;
             case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
