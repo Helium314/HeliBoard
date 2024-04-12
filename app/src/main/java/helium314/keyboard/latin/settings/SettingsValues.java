@@ -203,7 +203,7 @@ public class SettingsValues {
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mClearPrimaryClipboard = Settings.readClearPrimaryClipboard(prefs);
-        mCopyToInternalClipboard = Settings.readCopyToInternalClipboard(prefs);
+        mCopyToInternalClipboard = mClipboardHistoryEnabled && Settings.readCopyToInternalClipboard(prefs);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         if (mOneHandedModeEnabled) {

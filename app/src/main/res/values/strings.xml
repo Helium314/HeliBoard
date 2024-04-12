@@ -153,7 +153,7 @@
     <!-- Preferences item for clearing primary clipboard -->
     <string name="copy_to_internal_clipboard">Copy to internal clipboard</string>
     <!-- Description for "copy_to_internal_clipboard" option. -->
-    <string name="copy_to_internal_clipboard_summary">If disabled, copy key will copy to the system primary clipboard as well</string>
+    <string name="copy_to_internal_clipboard_summary">If disabled, copy/cut keys will sync to the system primary clipboard</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->

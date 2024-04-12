@@ -45,7 +45,6 @@ class ClipboardHistoryManager(
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
-        if (historyEntries.isNotEmpty()) return
         historyEntries.addAll(pinnedClips)
         sortHistoryEntries()
         if (onHistoryChangeListener != null) {
@@ -96,24 +95,21 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0) return
         clipData.getItemAt(0)?.let { clipItem ->
-            // Starting from API 30, onPrimaryClipChanged() can be called multiple times
-            // for the same clip. We can identify clips with their timestamps since API 26.
-            // We use that to prevent unwanted duplicates.
-            ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
-                if (historyEntries.any { it.timeStamp == stamp }) return
-            }
-            copyTextToInternalClipboard(clipItem.coerceToText(latinIME))
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?: System.currentTimeMillis()
+            copyTextToInternalClipboard(clipItem.coerceToText(latinIME), timeStamp)
         }
     }
 
     // Copies a CharSequence to internal clipboard.
     // If there is already an entry with the same text,
     // then only its timestamp and position is updated.
-    fun copyTextToInternalClipboard(content: CharSequence, timeStamp: Long = System.currentTimeMillis()) {
+    fun copyTextToInternalClipboard(content: CharSequence, timeStamp: Long) {
         if (TextUtils.isEmpty(content)) return
         val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
         if (duplicateEntryIndex != -1) {
             val existingEntry = historyEntries[duplicateEntryIndex]
+            if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
+            // older entry with the same text already exists, update the timestamp and re-sort the list
             existingEntry.timeStamp = timeStamp
             sortHistoryEntries()
             val newIndex = historyEntries.indexOf(existingEntry)
