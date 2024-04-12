@@ -8,7 +8,6 @@ import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
@@ -110,19 +109,18 @@ class ClipboardHistoryManager(
     // Copies a CharSequence to internal clipboard.
     // If there is already an entry with the same text,
     // then only its timestamp and position is updated.
-    fun copyTextToInternalClipboard(text: CharSequence) {
-        if (TextUtils.isEmpty(text)) return
-        val timeStamp = System.currentTimeMillis()
-        val from = historyEntries.indexOfFirst { it.content.toString() == text.toString() }
-        if (from != -1) {
-            val historyEntry = historyEntries[from]
-            historyEntry.timeStamp = timeStamp
+    fun copyTextToInternalClipboard(content: CharSequence, timeStamp: Long = System.currentTimeMillis()) {
+        if (TextUtils.isEmpty(content)) return
+        val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
+        if (duplicateEntryIndex != -1) {
+            val existingEntry = historyEntries[duplicateEntryIndex]
+            existingEntry.timeStamp = timeStamp
             sortHistoryEntries()
-            val to = historyEntries.indexOf(historyEntry)
-            onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
+            val newIndex = historyEntries.indexOf(existingEntry)
+            onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
             return
         }
-        val entry = ClipboardHistoryEntry(timeStamp, text)
+        val entry = ClipboardHistoryEntry(timeStamp, content)
         historyEntries.add(entry)
         sortHistoryEntries()
         val at = historyEntries.indexOf(entry)
