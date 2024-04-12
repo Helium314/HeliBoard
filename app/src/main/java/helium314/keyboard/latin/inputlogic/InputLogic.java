@@ -719,6 +719,7 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
                     mConnection.copyText();
+                    // fake delete keypress to remove the text
                     final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
                     handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
