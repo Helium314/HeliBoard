@@ -4,25 +4,44 @@ package helium314.keyboard.latin
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
         private val latinIME: LatinIME
-) : ClipboardManager.OnPrimaryClipChangedListener {
+) : ClipboardManager.OnPrimaryClipChangedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
+    private var isRetentionCheckScheduled = false
+    private var clipboardHistoryEnabled = true
+    private var maxClipRetentionTime = DEFAULT_RETENTION_TIME_MIN * ONE_MINUTE_MILLIS
+    private val retentionCheckHandler = Handler(Looper.getMainLooper())
+    private val retentionCheckRunnable: Runnable = object : Runnable {
+        override fun run() {
+            checkClipRetentionElapsed()
+            retentionCheckHandler.postDelayed(this, maxClipRetentionTime)
+        }
+    }
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        fetchPrimaryClip()
+        clipboardHistoryEnabled = latinIME.mSettings.current.mClipboardHistoryEnabled
+        maxClipRetentionTime = latinIME.mSettings.current.mClipboardHistoryRetentionTime * ONE_MINUTE_MILLIS
         clipboardManager.addPrimaryClipChangedListener(this)
-        loadPinnedClips()
+        if (historyEntries.isEmpty())
+            loadPinnedClips()
+        onPrimaryClipChanged()
+        scheduleRetentionCheck()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).registerOnSharedPreferenceChangeListener(this)
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
@@ -37,12 +56,38 @@ class ClipboardHistoryManager(
 
     fun onDestroy() {
         clipboardManager.removePrimaryClipChangedListener(this)
+        cancelRetentionCheck()
     }
 
     override fun onPrimaryClipChanged() {
         // Make sure we read clipboard content only if history settings is set
-        if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true) {
+        if (clipboardHistoryEnabled) {
             fetchPrimaryClip()
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            Settings.PREF_ENABLE_CLIPBOARD_HISTORY -> {
+                clipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(sharedPreferences)
+                if (clipboardHistoryEnabled) {
+                    scheduleRetentionCheck()
+                } else {
+                    cancelRetentionCheck()
+                    clearHistory()
+                }
+            }
+            Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME -> {
+                val newRetentionTimeMinutes =
+                    sharedPreferences?.getInt(key, DEFAULT_RETENTION_TIME_MIN) ?: return
+                if (newRetentionTimeMinutes == 0) {
+                    cancelRetentionCheck()
+                }
+                else if (maxClipRetentionTime == 0L) { // retention limit has been enabled
+                    scheduleRetentionCheck(newRetentionTimeMinutes * ONE_MINUTE_MILLIS)
+                }
+                maxClipRetentionTime = newRetentionTimeMinutes * ONE_MINUTE_MILLIS
+            }
         }
     }
 
@@ -111,16 +156,24 @@ class ClipboardHistoryManager(
     }
 
     private fun checkClipRetentionElapsed() {
-        val mins = latinIME.mSettings.current.mClipboardHistoryRetentionTime
-        if (mins <= 0) return // No retention limit
-        val maxClipRetentionTime = mins * 60 * 1000L
         val now = System.currentTimeMillis()
+        if (latinIME.mSettings.current?.mClearPrimaryClipboard == true) {
+            ClipboardManagerCompat.clearPrimaryClip(clipboardManager)
+        }
         historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
     }
 
-    // We do not want to update history while user is visualizing it, so we check retention only
-    // when history is about to be shown
-    fun prepareClipboardHistory() = checkClipRetentionElapsed()
+    fun scheduleRetentionCheck(timeMillis: Long = maxClipRetentionTime) {
+        if (isRetentionCheckScheduled || !clipboardHistoryEnabled || timeMillis <= 0) return
+        retentionCheckHandler.postDelayed(retentionCheckRunnable, timeMillis)
+        isRetentionCheckScheduled = true
+    }
+
+    fun cancelRetentionCheck() {
+        if (!isRetentionCheckScheduled) return
+        retentionCheckHandler.removeCallbacksAndMessages(null)
+        isRetentionCheckScheduled = false
+    }
 
     fun getHistorySize() = historyEntries.size
 
@@ -160,5 +213,7 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
+        private const val ONE_MINUTE_MILLIS = 60 * 1000L
+        private const val DEFAULT_RETENTION_TIME_MIN = 10
     }
 }

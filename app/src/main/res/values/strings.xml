@@ -148,6 +148,8 @@
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="clipboard_history_retention_time">History retention time</string>
+    <!-- Preferences item for clearing primary clipboard -->
+    <string name="clear_primary_clipboard">Clear primary clipboard</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->

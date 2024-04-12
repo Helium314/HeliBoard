@@ -136,6 +136,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
+    public static final String PREF_CLEAR_PRIMARY_CLIPBOARD = "clear_primary_clipboard";
 
     public static final String PREF_SECONDARY_LOCALES_PREFIX = "secondary_locales_";
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
@@ -385,6 +386,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
+    }
+
+    public static boolean readClearPrimaryClipboard(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_CLEAR_PRIMARY_CLIPBOARD, false);
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
