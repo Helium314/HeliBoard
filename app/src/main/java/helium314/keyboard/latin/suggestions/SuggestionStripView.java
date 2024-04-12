@@ -91,6 +91,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final Drawable mBinIcon;
+    private final Drawable mCloseIcon;
     private final ViewGroup mToolbar;
     private final View mToolbarContainer;
     private final ViewGroup mPinnedKeys;
@@ -114,7 +115,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
     private boolean isInlineAutofillSuggestionsVisible = false; // Required to disable the more suggestions if inline autofill suggestions are visible
-    private View mCurrentInlineAutofillSuggestionsView;
+    private boolean areInlineSuggestionsDismissed = false;
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -191,6 +192,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
         mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
         mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
+        mCloseIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClose);
 
         final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
@@ -250,7 +252,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(ToolbarKey.VOICE);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        if (isInlineAutofillSuggestionsVisible){
+            mToolbarExpandKey.setImageDrawable(mCloseIcon);
+        } else {
+            mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        }
         mToolbarExpandKey.setScaleX((mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f) * mRtl);
 
         // hide pinned keys if device is locked, and avoid expanding toolbar
@@ -273,6 +279,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStripVisibilityGroup.setLayoutDirection(layoutDirection);
     }
 
+    public void updateSuggestedWords(final SuggestedWords suggestedWords){
+        mSuggestedWords = suggestedWords;
+    }
+
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
         setRtl(isRtlLanguage);
@@ -280,24 +290,27 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
-        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
     }
 
     public void setInlineSuggestionsView(final View view) {
-        if (isInlineAutofillSuggestionsVisible) {
-            mSuggestionsStrip.removeView(mCurrentInlineAutofillSuggestionsView);
-            isInlineAutofillSuggestionsVisible = false;
-            mCurrentInlineAutofillSuggestionsView = null;
-        }
-        if (view != null) {
-            isInlineAutofillSuggestionsVisible = true;
-            mSuggestionsStrip.addView(view);
-            mCurrentInlineAutofillSuggestionsView = view;
-        }
+        isInlineAutofillSuggestionsVisible = true;
+        mSuggestionsStrip.addView(view, 0);
+        setToolbarVisibility(false);
+        updateKeys();
+    }
+
+    public void resetInlineSuggestions(){
+        areInlineSuggestionsDismissed = false;
+        clear();
+        updateKeys();
     }
 
     public boolean isInlineAutofillSuggestionsVisible(){
         return isInlineAutofillSuggestionsVisible;
+    }
+
+    public boolean areInlineSuggestionsDismissed(){
+        return areInlineSuggestionsDismissed;
     }
 
     @Override
@@ -510,7 +523,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestedWords.mSequenceNumber);
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
-        setInlineSuggestionsView(mCurrentInlineAutofillSuggestionsView);
         mStripVisibilityGroup.showSuggestionsStrip();
     }
 
@@ -680,7 +692,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             }
         }
         if (view == mToolbarExpandKey) {
-            setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
+            if (isInlineAutofillSuggestionsVisible) {
+                areInlineSuggestionsDismissed = true;
+                setSuggestions(mSuggestedWords, mRtl == -1);
+            } else {
+                setToolbarVisibility(mToolbarContainer.getVisibility() != VISIBLE);
+            }
         }
 
 

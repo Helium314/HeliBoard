@@ -1022,7 +1022,7 @@ public class LatinIME extends InputMethodService implements
         }
         // This will remove old "stuck" inline suggestions
         if (hasSuggestionStripView()) {
-            mSuggestionStripView.setInlineSuggestionsView(null);
+            mSuggestionStripView.resetInlineSuggestions();
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
@@ -1312,8 +1312,13 @@ public class LatinIME extends InputMethodService implements
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
+        // Ignore spammy requests if inline suggestions are already displayed or dismissed
+        if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()
+                || mSuggestionStripView.areInlineSuggestionsDismissed()) {
+            return false;
+        }
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
-        if (inlineSuggestions.isEmpty() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
+        if (inlineSuggestions.isEmpty()) {
             return false;
         }
 
@@ -1577,7 +1582,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
         mInputLogic.setSuggestedWords(suggestedWords);
         // TODO: Modify this when we support suggestions with hard keyboard
-        if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()) {
+        if (!hasSuggestionStripView()) {
             return;
         }
         if (!onEvaluateInputViewShown()) {
@@ -1595,8 +1600,12 @@ public class LatinIME extends InputMethodService implements
                 || currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                 // We should clear the contextual strip if there is no suggestion from dictionaries.
                 || noSuggestionsFromDictionaries) {
-            mSuggestionStripView.setSuggestions(suggestedWords,
-                    mRichImm.getCurrentSubtype().isRtlSubtype());
+            if (mSuggestionStripView.isInlineAutofillSuggestionsVisible()){
+                mSuggestionStripView.updateSuggestedWords(suggestedWords);
+            } else {
+                mSuggestionStripView.setSuggestions(suggestedWords,
+                        mRichImm.getCurrentSubtype().isRtlSubtype());
+            }
         }
     }
 
