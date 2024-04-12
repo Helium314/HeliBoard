@@ -244,7 +244,7 @@
     <string name="label_wait_key">"অপেক্ষা"</string>
     <string name="prefs_always_show_suggestions">সর্বদা পরামর্শ প্রদর্শন</string>
     <string name="more_autocorrect_summary">ইনপুট ফিল্ড থেকে নির্দেশনা না থাকলেও স্বতঃসংশোধন করবে</string>
-    <string name="backup_restore_message">সংরক্ষণ অথবা ফাইল থেকে লোড। সতর্কতা পুনরুদ্ধার করলে তা বর্তমান তথ্যকে প্রতিস্থাপন করবে</string>
+    <string name="backup_restore_message">সংরক্ষণ অথবা ফাইল থেকে লোড। সতর্কতা: পুনরুদ্ধার করলে তা বর্তমান তথ্যকে প্রতিস্থাপন করবে</string>
     <string name="backup_error">ব্যাকআপ ত্রুটি: %s</string>
     <string name="restore_error">ব্যাকআপ পুনরুদ্ধার করতে ত্রুটি: %s</string>
     <string name="button_backup">ব্যাকআপ</string>

@@ -1,0 +1,9 @@
+* change icons for autocorrect and select all toolbar keys by @codokie (#524, #651)
+* add Chuvash layout by @tenextractor (#677)
+* add cut toolbar key by @codokie (#678)
+* update Probhat layout by @fahimscirex (#628)
+* show toolbar icons in toolbar key dialog
+* add close button in clipboard history by @codokie (#403, #649)
+* add Russian (Student) layout by @Zolax9 (#640)
+* make numpad on symbols key long press optional (#588)
+* minor fixes and improvements, including #632, #637, #638 by @RHJihan

@@ -3,8 +3,7 @@
     Copyright (C) The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="ime_settings">Configurações do HeliBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
@@ -96,7 +95,7 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Borda em teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do HeliBoard</string>
-    <string name="android_spell_checker_settings">Configurar corretor ortográfico do HeliBoard</string>
+    <string name="android_spell_checker_settings">Configurar o corretor ortográfico do HeliBoard</string>
     <string name="use_contacts_for_spellchecking_option_title">Procurar nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>
@@ -159,4 +158,188 @@
     <string name="select_input_method">"Selecione o método de entrada"</string>
     <string name="undo">"Desfazer"</string>
     <string name="redo">"Refazer"</string>
+    <string name="add_to_personal_dictionary_summary">Usar o dicionário pessoal do dispositivo para armazenar palavras aprendidas</string>
+    <string name="backup_error">Erro de backup: %s</string>
+    <string name="restore_error">Erro restaurando o backup: %s</string>
+    <string name="button_backup">Fazer backup</string>
+    <string name="button_restore">Restaurar</string>
+    <string name="prefs_narrow_key_gaps">Teclas com espaços estreitos</string>
+    <string name="secondary_locale">Digitação multilinguagem</string>
+    <string name="load_gesture_library">Carregar biblioteca de digitação por gesto</string>
+    <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para ativar a digitação por gesto</string>
+    <string name="load_gesture_library_message">Você precisará da biblioteca para \'%s\'.
+\nBibliotecas incompatíveis podem causar um crash quando a digitação por gesto é usada.
+\n
+\nAviso: carregar código externo pode ser um risco à segurança. Use somente uma biblioteca de uma fonte que você confia.</string>
+    <string name="checksum_mismatch_message">Arquivo de biblioteca desconhecido. Você tem certeza que você pegou ele de uma fonte confiável, e que é para \'%s\'?</string>
+    <string name="load_gesture_library_button_load">Carregar biblioteca</string>
+    <string name="show_popup_keys_normal">Mostrar variantes definidas nas línguas do teclado (padrão)</string>
+    <string name="show_popup_keys_more">Adicionar variantes comuns</string>
+    <string name="show_popup_keys_all">Adicionar todas as variantes disponíveis</string>
+    <string name="url_detection_title">Detecção de URL</string>
+    <string name="url_detection_summary">Tentar detectar URLs e similares como uma única palavra</string>
+    <string name="language_and_layouts_title">Línguas &amp; Layouts</string>
+    <string name="localized_number_row">Localizar linha de números</string>
+    <string name="hint_source">Selecionar fonte de dicas</string>
+    <string name="popup_order">Selecionar ordem do popup de teclas</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Linha de números</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Língua</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Língua (prioridade)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Área de transferência</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpar a área de transferência</string>
+    <string name="voice" tools:keep="@string/voice">Entrada de voz</string>
+    <string name="select_word" tools:keep="@string/select_word">Selecionar palavra</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Modo de uma mão só</string>
+    <string name="show_popup_hints">Mostrar dicas funcionais</string>
+    <string name="load_gesture_library_button_delete">Excluir biblioteca</string>
+    <string name="localized_number_row_summary">Preferir números localizados em vez de latim</string>
+    <string name="show_popup_keys_title">Mostrar mais letras com diacríticos no popup</string>
+    <string name="var_toolbar_direction">Direção da barra de ferramentas variável</string>
+    <string name="split_spacer_scale">Distância de separação</string>
+    <string name="language_switch_key_switch_both">Mudar ambos</string>
+    <string name="add_to_personal_dictionary">Adicionar palavras ao dicionário pessoal</string>
+    <string name="more_autocorrect">Mais autocorreção</string>
+    <string name="more_autocorrect_summary">Automaticamente corrigir mesmo quando não explicitamente solicitado pelo campo de entrada</string>
+    <string name="backup_restore_title">Fazer backup e restaurar</string>
+    <string name="backup_restore_message">Salvar ou carregar para/de um arquivo. Aviso: A restauração substituirá dados existentes</string>
+    <string name="button_load_custom">Carregar arquivo</string>
+    <string name="file_read_error">Não foi possível ler o arquivo</string>
+    <string name="title_layout_name_select">Definir nome do layout</string>
+    <string name="layout_error">Erro de layout: %s</string>
+    <string name="day_or_night_image">Definir imagem para o modo de dia ou noite?</string>
+    <string name="day_or_night_day">Dia</string>
+    <string name="day_or_night_night">Noite</string>
+    <string name="button_select_language">Selecionar língua</string>
+    <string name="use_personalized_dicts_summary">Aprender de suas comunicações e dados digitados para melhorar sugestões</string>
+    <string name="version">Versão</string>
+    <string name="prefs_always_show_suggestions">Sempre mostrar sugestões</string>
+    <string name="disable_personalized_dicts_message">Aviso: Desativar isso limpará dados aprendidos</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorar a solicitação de outros apps de desativar as sugestões (pode causar problemas)</string>
+    <string name="delete_layout">Deseja realmente excluir o layout customizado %s?</string>
+    <string name="customize_background_image">Definir imagem de fundo</string>
+    <string name="setup_step3_action">Configurar o teclado</string>
+    <string name="add_new_dictionary_title">Adicionar dicionário por um arquivo</string>
+    <string name="hint_show_keyboard">Clique para uma pré-visualização</string>
+    <string name="select_color_background">Fundo do teclado</string>
+    <string name="label_wait_key" tools:keep="@string/label_wait_key">Espera</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="no_dictionary_message">"Sem um dicionário, você só receberá sugestões de texto que você já escreveu. &lt;br&gt;
+\n        Você pode baixar dicionários %1$s, ou verificar se um dicionário para \"%2$s\" pode ser baixado diretamente. %3$s."</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabeto (Bépo)</string>
+    <string name="add_new_dictionary_ask_locale">Para qual língua o dicionário \"%1$s\" para %2$s deve ser adicionado?</string>
+    <string name="user_dict_word_already_present">Essa palavra já está presente no dicionário do usuário %s. Digite outra.</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido pelo usuário (noite)</string>
+    <string name="select_color_key">Texto da tecla</string>
+    <string name="select_color_spacebar_background">Fundo da barra de espaço</string>
+    <string name="hidden_features_summary">Mostrar funções que podem passar despercebido</string>
+    <string name="switch_language">Mudar língua</string>
+    <string name="toolbar_keys">Selecionar teclas da barra de ferramentas</string>
+    <string name="full_left" tools:keep="@string/full_left">Totalmente para a esquerda</string>
+    <string name="full_right" tools:keep="@string/full_right">Totalmente para a direita</string>
+    <string name="left" tools:keep="@string/left">Esquerda</string>
+    <string name="right" tools:keep="@string/right">Direita</string>
+    <string name="up" tools:keep="@string/up">Cima</string>
+    <string name="down" tools:keep="@string/down">Baixo</string>
+    <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla ativa funcionalidade adicional</string>
+    <string name="prefs_bottom_padding_scale">Escala do preenchimento inferior</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="select_color_accent">Acento</string>
+    <string name="hidden_features_message">► Toque longo no botão da área de transferência (o opcional, na faixa de sugestões) cola o conteúdo da área de transferência do sistema. &lt;br&gt; &lt;br&gt; ► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt; ► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt; \t• Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt; \t• For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s \'q\' for Dvorak layout). &lt;br&gt; &lt;br&gt; ► When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt; ► Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt; ► Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt; \t• This also works for the \'?123\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt; ► Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt; ► Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt; ► Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt; ► You can add dictionaries by opening them in a file explorer: &lt;br&gt; \t• This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug mode / debug APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Long-press a suggestion to show the source dictionary.&lt;br&gt; &lt;br&gt; \t• When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt; \t• In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt; \t• When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt; \t• Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled). ► For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt; This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt; The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
+    <string name="show_horizontal_space_swipe">Gesto de deslizar horizontal na barra de espaço</string>
+    <string name="space_swipe_move_cursor_entry">Mover cursor</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="button_title_add_custom_layout">Adicionar layout customizado</string>
+    <string name="message_add_custom_layout">Selecionar um arquivo num formato compatível. Infomações sobre os formatos estão disponíveis em %s.</string>
+    <string name="button_copy_existing_layout">Copiar layout existente</string>
+    <string name="edit_layout">Toque para editar o layout cru</string>
+    <string name="customize_symbols_number_layouts">Customizar símbolos e layouts de números</string>
+    <string name="customize_symbols_number_layouts_summary">Layouts (exceto símbolos) expõem configurações internas que podem mudar ainda. Se isso acontecer, o layout customizado pode não mais funcionar corretamente.</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mais símbolos</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefone</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símbolos de telefone</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Números</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (paisagem)</string>
+    <string name="dictionary_settings_category">Dicionários</string>
+    <string name="internal_dictionary_summary">Dicionário interno principal</string>
+    <string name="button_add_to_language">Adicionar para %s</string>
+    <string name="replace_dictionary_message">Deseja realmente substituir o dicionário \"%1$s\" adicionado pelo usuário?
+\n
+\nDicionário atual:
+\n%2$s
+\n
+\nDicionário novo:
+\n%3$s</string>
+    <string name="replace_dictionary">Substituir dicionário</string>
+    <string name="remove_dictionary_message">Deseja realmente excluir o dicionário \"%s\" adicionado pelo usuário?</string>
+    <string name="no_dictionary_dont_show_again_button">Não mostrar novamente</string>
+    <string name="add_dictionary">Selecione um dicionário para adicionar. Dicionários no formato .dict podem ser baixados %s.</string>
+    <string name="dictionary_link_text">aqui</string>
+    <string name="available_dictionary_experimental">%s (experimental)</string>
+    <string name="dictionary_file_error">Erro: Arquivo selecionado não é um arquivo de dicionário válido</string>
+    <string name="dictionary_file_wrong_locale">O arquivo selecionado é para %1$s, mas %2$s era esperado. Deseja ainda usar ele para %2$s?</string>
+    <string name="dictionary_file_wrong_script">Erro: script não compatível com esse teclado</string>
+    <string name="dictionary_file_wrong_locale_ok">Ainda usar</string>
+    <string name="dictionary_load_error">Erro carregando o arquivo de dicionário</string>
+    <string name="user_dict_settings_add_weight_value">Peso:</string>
+    <string name="user_dict_add_word_button">Adicionar palavra</string>
+    <string name="theme_style">Estilo</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arredondado</string>
+    <string name="theme_colors">Cores</string>
+    <string name="theme_colors_night">Cores (noite)</string>
+    <string name="theme_navbar">Cor da barra de navegação</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo White</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Escuro</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mais escuro</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Preto</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Cores dinâmicas</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Cinza azul</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrom</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nublado</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo usuário</string>
+    <string name="select_user_colors">Ajustar cores</string>
+    <string name="select_user_colors_night">Ajustar cores (noite)</string>
+    <string name="auto_user_color">Escolher cor automaticamente</string>
+    <string name="main_colors">Mostrar somente cores principais</string>
+    <string name="all_colors">Mostrar todas as cores</string>
+    <string name="select_user_colors_summary">Selecionar cores para texto e fundos</string>
+    <string name="select_color_key_hint">Texto da dica da tecla</string>
+    <string name="select_color_suggestion">Texto da faixa de sugestão</string>
+    <string name="select_color_key_background">Fundo da tecla</string>
+    <string name="select_color_functional_key_background">Fundo da tecla funcional</string>
+    <string name="select_color_spacebar_text">Texto da barra de espaço</string>
+    <string name="select_color_gesture">Entrada de gesto</string>
+    <string name="settings_screen_about">Sobre</string>
+    <string name="about_github_link">Veja no GitHub</string>
+    <string name="save_log">Salvar log</string>
+    <string name="license">Licença de código aberto</string>
+    <string name="dialog_close">Fechar</string>
+    <string name="text_tap_languages">Toque na língua para abrir configurações</string>
+    <string name="settings_screen_appearance">Aparência</string>
+    <string name="hidden_features_title">Descrição de funções escondidas</string>
+    <string name="hidden_features_text">armazenamento protegido pelo dispositivo</string>
+    <string name="label_go_key">Ir</string>
+    <string name="label_done_key">Pronto</string>
+    <string name="label_send_key">Enviar</string>
+    <string name="label_search_key">Pesquisar</string>
+    <string name="label_pause_key" tools:keep="@string/label_pause_key">Pausar</string>
+    <string name="label_previous_key">Prévio</string>
+    <string name="label_next_key">Próximo</string>
+    <string name="show_vertical_space_swipe">Gesto de deslizar vertical na barra de espaço</string>
+    <string name="action_none">Nenhum</string>
+    <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
 </resources>
