@@ -35,9 +35,9 @@ If you add screenshots, reduce the size or use thumbnails to keep the issue nice
 **App version**
 <!-- Which version of this app is affected? If you build the app yourself, please specify the latest commit included in the build -->
 
-**Device (please complete the following information):**
- - Model: <!-- [e.g. Samsung Galaxy S9] -->
- - OS: <!-- [e.g. Android 10] (add details if you are not using a version provided by the device manufacturer) -->
+**Device:**
+ - Model: [e.g. Samsung Galaxy S9]
+ - OS: [e.g. Android 10] (please also mention whether you are using the manufacturer's OS or a custom ROM)
 
 **Additional context**
 <!-- Add any other context about the problem here. -->
