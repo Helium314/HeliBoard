@@ -148,6 +148,14 @@
     <string name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="clipboard_history_retention_time">History retention time</string>
+    <!-- Preferences item for syncing the internal clipboard to the primary clipboard -->
+    <string name="sync_to_primary_clipboard">Sync to primary clipboard</string>
+    <!-- Description for "sync_to_primary_clipboard" option. If disabled, copy/cut toolbar keys will sync to the internal clipboard only -->
+    <string name="sync_to_primary_clipboard_summary">Control whether the internal clipboard should sync to the primary clipboard</string>
+    <!-- Preferences item for syncing the primary clipboard to the internal clipboard -->
+    <string name="sync_from_primary_clipboard">Sync from primary clipboard</string>
+    <!-- Description for "sync_from_primary_clipboard" option. If disabled, primary clipboard content won't be stored in history -->
+    <string name="sync_from_primary_clipboard_summary">Control whether the primary clipboard should sync to the internal clipboard</string>
     <!-- Preferences item for enabling swipe deletion -->
     <string name="delete_swipe">Delete swipe</string>
     <!-- Description for "delete_swipe" option. -->

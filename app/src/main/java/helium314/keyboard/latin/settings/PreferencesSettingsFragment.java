@@ -126,6 +126,10 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                 Settings.readKeypressSoundEnabled(prefs, res));
         setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
                 Settings.readClipboardHistoryEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_SYNC_TO_PRIMARY_CLIPBOARD,
+                Settings.readClipboardHistoryEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_SYNC_FROM_PRIMARY_CLIPBOARD,
+                Settings.readClipboardHistoryEnabled(prefs));
     }
 
     private void setupKeypressVibrationDurationSettings() {

@@ -121,6 +121,20 @@
             android:title="@string/clipboard_history_retention_time"
             latin:maxValue="120" /> <!-- minutes -->
 
+        <SwitchPreference
+            android:key="sync_from_primary_clipboard"
+            android:title="@string/sync_from_primary_clipboard"
+            android:summary="@string/sync_from_primary_clipboard_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="sync_to_primary_clipboard"
+            android:title="@string/sync_to_primary_clipboard"
+            android:summary="@string/sync_to_primary_clipboard_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
