@@ -98,7 +98,7 @@ class ClipboardHistoryManager(
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
         if (latinIME.mSettings.current.mSuggestClipboardContent) {
-            latinIME.mInputLogic?.setSuggestedWords(SuggestedWords.getEmptyInstance()) // get rid of any clipboard suggestion
+            latinIME.mHandler?.postResumeSuggestions(true) // get rid of any clipboard suggestion
         }
     }
 
@@ -135,25 +135,26 @@ class ClipboardHistoryManager(
         onHistoryChangeListener = l
     }
 
-    fun retrieveClipboardContent(): CharSequence {
+    // This will return the content of the primary clipboard if it is not empty.
+    // It may be specified whether only a recent clipboard item
+    // should be retrieved (relevant for clipboard suggestions).
+    fun retrieveClipboardContent(recentOnly : Boolean = false): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
-        return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
-    }
-
-    fun retrieveRecentClipboardContent(): String {
-        val clipContent = retrieveClipboardContent().toString()
-        val now = System.currentTimeMillis()
-        val isNewEntry = recentEntry != clipContent
-        val isRecent = (now - recentTimestamp) < SUGGESTION_INTERVAL
-        return if (isNewEntry || isRecent && !suggestionPicked) {
-            if (isNewEntry) {
-                suggestionPicked = false
-                recentEntry = clipContent
-                recentTimestamp = now
-            }
-            clipContent
-        } else "" // empty string indicating clipboard is empty, not recent
+        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+        return if (recentOnly) {
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+            val isNewEntry = recentEntry.toString() != clipContent.toString()
+            val isRecent = (timeStamp - recentTimestamp) < RECENT_TIME_MILLIS
+            if (isNewEntry || isRecent && !suggestionPicked) {
+                if (isNewEntry) {
+                    suggestionPicked = false
+                    recentEntry = clipContent
+                    recentTimestamp = timeStamp
+                }
+                clipContent
+            } else "" // empty string indicating clipboard is not recent
+        } else clipContent
     }
 
     fun markSuggestionAsPicked() {
@@ -182,9 +183,9 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
-        private var recentEntry: String = ""
+        private var recentEntry: CharSequence = ""
         private var recentTimestamp: Long = 0L
         private var suggestionPicked: Boolean = false
-        private const val SUGGESTION_INTERVAL = 3 * 60 * 1000L
+        private const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }
 }

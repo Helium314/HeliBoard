@@ -709,7 +709,7 @@ public final class InputLogic {
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
                     final CharSequence content = mLatinIME.getClipboardHistoryManager()
-                            .retrieveClipboardContent();
+                            .retrieveClipboardContent(false);
                     if (!TextUtils.isEmpty(content)) {
                         mConnection.commitText(content, 1);
                         inputTransaction.setDidAffectContents();
@@ -1643,9 +1643,6 @@ public final class InputLogic {
         final SuggestedWords suggestedWords = holder.get(null,
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
         if (suggestedWords != null) {
-            if (suggestedWords.isEmpty()){
-                mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
-            }
             mSuggestionStripViewAccessor.showSuggestionStrip(suggestedWords);
         }
         if (DebugFlags.DEBUG_ENABLED) {
