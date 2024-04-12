@@ -95,32 +95,31 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0) return
         clipData.getItemAt(0)?.let { clipItem ->
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?: System.currentTimeMillis()
-            copyTextToInternalClipboard(clipItem.coerceToText(latinIME), timeStamp)
-        }
-    }
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+            val content = clipItem.coerceToText(latinIME)
+            if (TextUtils.isEmpty(content)) return
 
-    // Copies a CharSequence to internal clipboard.
-    // If there is already an entry with the same text,
-    // then only its timestamp and position is updated.
-    fun copyTextToInternalClipboard(content: CharSequence, timeStamp: Long) {
-        if (TextUtils.isEmpty(content)) return
-        val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
-        if (duplicateEntryIndex != -1) {
-            val existingEntry = historyEntries[duplicateEntryIndex]
-            if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
-            // older entry with the same text already exists, update the timestamp and re-sort the list
-            existingEntry.timeStamp = timeStamp
+            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
+            if (duplicateEntryIndex != -1) {
+                val existingEntry = historyEntries[duplicateEntryIndex]
+                if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
+                // older entry with the same text already exists, update the timestamp and re-sort the list
+                existingEntry.timeStamp = timeStamp
+                historyEntries.removeAt(duplicateEntryIndex)
+                historyEntries.add(0, existingEntry)
+                sortHistoryEntries()
+                val newIndex = historyEntries.indexOf(existingEntry)
+                onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
+                return
+            }
+            if (historyEntries.any { it.content.toString() == content.toString() }) return
+
+            val entry = ClipboardHistoryEntry(timeStamp, content)
+            historyEntries.add(entry)
             sortHistoryEntries()
-            val newIndex = historyEntries.indexOf(existingEntry)
-            onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
-            return
+            val at = historyEntries.indexOf(entry)
+            onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
         }
-        val entry = ClipboardHistoryEntry(timeStamp, content)
-        historyEntries.add(entry)
-        sortHistoryEntries()
-        val at = historyEntries.indexOf(entry)
-        onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
     }
 
     fun toggleClipPinned(ts: Long) {

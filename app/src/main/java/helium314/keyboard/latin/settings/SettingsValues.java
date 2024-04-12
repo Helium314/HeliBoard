@@ -77,7 +77,6 @@ public class SettingsValues {
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
-    public final boolean mCopyToInternalClipboard;
     public final long mClipboardHistoryRetentionTime;
     public final boolean mClearPrimaryClipboard;
     public final boolean mOneHandedModeEnabled;
@@ -203,7 +202,6 @@ public class SettingsValues {
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
         mClearPrimaryClipboard = Settings.readClearPrimaryClipboard(prefs);
-        mCopyToInternalClipboard = mClipboardHistoryEnabled && Settings.readCopyToInternalClipboard(prefs);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         if (mOneHandedModeEnabled) {
