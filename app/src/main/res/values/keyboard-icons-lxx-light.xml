@@ -9,7 +9,7 @@
     <style name="KeyboardIcons.LXX_Light">
         <!-- Keyboard icons -->
         <item name="iconShiftKey">@drawable/sym_keyboard_shift_lxx</item>
-        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shifted</item>
+        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shifted_lxx</item>
         <item name="iconDeleteKey">@drawable/sym_keyboard_delete_lxx</item>
         <item name="iconTabKey">@drawable/sym_keyboard_tab_lxx</item>
         <item name="iconSettingsKey">@drawable/sym_keyboard_settings_lxx</item>
