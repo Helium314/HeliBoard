@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Шукати імена контактів"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Для перевірки правопису використовувати список контактів"</string>
     <string name="vibrate_on_keypress">"Вібр. при натисканні клавіш"</string>
@@ -16,7 +16,7 @@
     <string name="settings_screen_advanced">Додаткові</string>
     <string name="settings_screen_theme">"Тема"</string>
     <string name="enable_split_keyboard">"Увімкнути розділену клавіатуру"</string>
-    <string name="language_switch_key_switch_input_method">"Інші методи введення"</string>
+    <string name="language_switch_key_switch_input_method">Зміна методів введення</string>
     <string name="show_language_switch_key">"Клавіша зміни мови"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
     <string name="settings_system_default">"За умовчанням"</string>
@@ -78,7 +78,7 @@
     <string name="prefs_keypress_sound_volume_settings">Гучність натискання клавіш</string>
     <string name="prefs_key_longpress_timeout_settings">Затримка довгого натискання</string>
     <string name="prefs_enable_emoji_alt_physical_key">Смайли для фізичної клавіатури</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">Щоб переглянути смайли, натисніть фізичну клавішу Alt</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Фізична клавіша Alt показує усі доступні емодзі</string>
     <string name="button_default">За умовчанням</string>
     <string name="setup_welcome_title">Вітаємо в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">з функцією Ввід жестами</string>
@@ -122,9 +122,9 @@
     <string name="day_night_mode_summary">Вигляд наслідує системні налаштування</string>
     <string name="autospace_after_punctuation_summary">Автоматично вставляти пробіл після знаків пунктуації під час введення нового слова</string>
     <string name="theme_style">Стиль теми</string>
-    <string name="style_name_Rounded">Rounded</string>
+    <string name="style_name_Rounded">Закруглений</string>
     <string name="theme_colors">Кольори теми</string>
-    <string name="theme_colors_night">Кольори теми (темна тема)</string>
+    <string name="theme_colors_night">Кольори теми (Темна тема)</string>
     <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Аккгор)</string>
@@ -216,7 +216,19 @@
     <string name="language_and_layouts_title">Мови та розкладки</string>
     <string name="add_to_personal_dictionary">Додати слова до особистого словника</string>
     <string name="split_spacer_scale">Відстань розділення</string>
-    <string name="switch_language">Переключити мову</string>
+    <string name="switch_language">Зміна мови</string>
     <string name="disable_personalized_dicts_message">Попередження: Вимкнення цього параметра призведе до видалення отриманих даних</string>
-    <string name="language_switch_key_switch_both">Переключити обидва</string>
+    <string name="language_switch_key_switch_both">Зміна обох</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Хмарний</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Ліс</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Індиго</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Рожевий</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Віолетта</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Коричневий</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Біла</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамічні кольори</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пісок</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Сіро-блакитний</string>
 </resources>

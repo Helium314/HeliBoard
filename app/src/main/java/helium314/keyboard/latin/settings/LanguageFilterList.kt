@@ -24,6 +24,7 @@ import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.addEnabledSubtype
+import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.isAdditionalSubtype
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.removeEnabledSubtype
@@ -89,7 +90,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         var start = true
                         infos.forEach {
                             val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
-                                ?: SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(it.subtype))
+                                ?: it.subtype.displayName(context))
                             if (it.isEnabled)
                                 string.setSpan(StyleSpan(Typeface.BOLD), 0, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                             if (!start) {
