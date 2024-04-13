@@ -4,6 +4,7 @@ package helium314.keyboard.latin
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.text.InputType
 import android.text.TextUtils
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -97,8 +98,9 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        // get rid of any clipboard suggestion
         if (latinIME.mSettings.current.mSuggestClipboardContent) {
-            latinIME.mHandler?.postResumeSuggestions(true) // get rid of any clipboard suggestion
+            latinIME.mHandler?.postUpdateSuggestionStrip(latinIME.currentInputEditorInfo?.inputType ?: InputType.TYPE_NULL)
         }
     }
 
