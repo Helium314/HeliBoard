@@ -375,8 +375,27 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        if (ToolbarKey.CLIPBOARD == view.getTag() && view.getParent() == mPinnedKeys) {
-            onLongClickClipboardKey(); // long click pinned clipboard key
+        if (view.getParent() == mPinnedKeys) {
+            final ToolbarKey tag = (ToolbarKey) view.getTag();
+            if (tag.equals(ToolbarKey.CLIPBOARD)) {
+                onLongClickClipboardKey(); // long click pinned clipboard key
+            } else if (tag.equals(ToolbarKey.RIGHT)) {
+                mListener.onCodeInput(KeyCode.MOVE_END_OF_LINE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.LEFT)) {
+                mListener.onCodeInput(KeyCode.MOVE_START_OF_LINE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.UP)) {
+                mListener.onCodeInput(KeyCode.MOVE_PAGE_UP, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.DOWN)) {
+                mListener.onCodeInput(KeyCode.MOVE_PAGE_DOWN, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.UNDO)) {
+                mListener.onCodeInput(KeyCode.REDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.REDO)) {
+                mListener.onCodeInput(KeyCode.UNDO, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.SELECT_WORD)) {
+                mListener.onCodeInput(KeyCode.CLIPBOARD_SELECT_ALL, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            } else if (tag.equals(ToolbarKey.COPY)) {
+                mListener.onCodeInput(KeyCode.CLIPBOARD_COPY_ALL, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            }
         } else if (view.getParent() == mToolbar) {
             final ToolbarKey tag = (ToolbarKey) view.getTag();
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);

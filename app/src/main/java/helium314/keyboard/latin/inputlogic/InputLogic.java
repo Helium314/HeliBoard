@@ -716,6 +716,9 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
+            case KeyCode.CLIPBOARD_COPY_ALL:
+                mConnection.copyAllText();
+                break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
                     mConnection.copyText();
@@ -749,6 +752,12 @@ public final class InputLogic {
                 break;
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
+                break;
+            case KeyCode.MOVE_PAGE_UP:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
+                break;
+            case KeyCode.MOVE_PAGE_DOWN:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,

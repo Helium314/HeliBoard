@@ -42,6 +42,8 @@ object KeyCode {
     const val MOVE_END_OF_PAGE =             -26
     const val MOVE_START_OF_LINE =           -27
     const val MOVE_END_OF_LINE =             -28
+    const val MOVE_PAGE_UP =                 -29
+    const val MOVE_PAGE_DOWN =               -30
 
     const val CLIPBOARD_COPY =               -31
     const val CLIPBOARD_CUT =                -32
@@ -51,6 +53,7 @@ object KeyCode {
     const val CLIPBOARD_CLEAR_HISTORY =      -36
     const val CLIPBOARD_CLEAR_FULL_HISTORY = -37
     const val CLIPBOARD_CLEAR_PRIMARY_CLIP = -38
+    const val CLIPBOARD_COPY_ALL =           -39
 
     const val COMPACT_LAYOUT_TO_LEFT =      -111
     const val COMPACT_LAYOUT_TO_RIGHT =     -112

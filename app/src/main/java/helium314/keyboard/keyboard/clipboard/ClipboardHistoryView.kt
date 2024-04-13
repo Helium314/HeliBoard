@@ -34,7 +34,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
 ) : LinearLayout(context, attrs, defStyle), View.OnTouchListener, View.OnClickListener,
-        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener {
+        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context.resources)
     private val pinIconId: Int
@@ -69,7 +69,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CUT, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL, ToolbarKey.CLOSE_HISTORY)
+        listOf(ToolbarKey.ONE_HANDED, ToolbarKey.UNDO, ToolbarKey.UP, ToolbarKey.DOWN, ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.COPY, ToolbarKey.CUT, ToolbarKey.SELECT_WORD, ToolbarKey.CLOSE_HISTORY)
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -121,6 +121,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
+            it.setOnLongClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
             colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
@@ -238,6 +239,25 @@ class ClipboardHistoryView @JvmOverloads constructor(
             if (tag == ToolbarKey.CLEAR_CLIPBOARD)
                 clipboardHistoryManager?.clearHistory()
         }
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        val tag = view.tag
+        if (tag is ToolbarKey) {
+            val code = getCodeForToolbarKey(tag)
+            if (code != null) {
+                when (code) {
+                    KeyCode.ARROW_LEFT -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_START_OF_LINE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.ARROW_RIGHT -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_END_OF_LINE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.ARROW_UP -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_PAGE_UP, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.ARROW_DOWN -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_PAGE_DOWN, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.UNDO -> keyboardActionListener?.onCodeInput(KeyCode.REDO, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.CLIPBOARD_COPY -> keyboardActionListener?.onCodeInput(KeyCode.CLIPBOARD_COPY_ALL, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyCode.CLIPBOARD_SELECT_WORD -> keyboardActionListener?.onCodeInput(KeyCode.CLIPBOARD_SELECT_ALL, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                }
+            }
+        }
+        return true
     }
 
     override fun onKeyDown(clipId: Long) {
