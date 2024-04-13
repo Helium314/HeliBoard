@@ -653,7 +653,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
-    public void copyText(final ClipboardHistoryManager clipboardHistoryManager, final boolean syncToPrimaryClipboard) {
+    public void copyText(final ClipboardHistoryManager clipboardHistoryManager, final boolean internalOnly) {
+        if (internalOnly && clipboardHistoryManager == null) return;
         // copy selected text, and if nothing is selected copy the whole text
         CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
         if (text == null || text.length() == 0) {
@@ -666,11 +667,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             text = et.text;
         }
         if (text == null || text.length() == 0) return;
-        if (syncToPrimaryClipboard) {
+        if (internalOnly) {
+            clipboardHistoryManager.copyTextToInternalClipboard(text, System.currentTimeMillis());
+        } else {
             final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
             cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
-        } else if (clipboardHistoryManager != null) {
-            clipboardHistoryManager.copyTextToInternalClipboard(text, System.currentTimeMillis());
         }
     }
 

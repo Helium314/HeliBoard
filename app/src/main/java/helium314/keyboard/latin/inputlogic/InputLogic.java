@@ -715,12 +715,14 @@ public final class InputLogic {
                 break;
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText(mLatinIME.getClipboardHistoryManager(),
-                        inputTransaction.getMSettingsValues().mSyncToPrimaryClipboard);
+                        inputTransaction.getMSettingsValues().mClipboardHistoryEnabled
+                                && !inputTransaction.getMSettingsValues().mSyncToPrimaryClipboard);
                 break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(mLatinIME.getClipboardHistoryManager(),
-                            inputTransaction.getMSettingsValues().mSyncToPrimaryClipboard);
+                            inputTransaction.getMSettingsValues().mClipboardHistoryEnabled
+                                    && !inputTransaction.getMSettingsValues().mSyncToPrimaryClipboard);
                     // fake delete keypress to remove the text
                     final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
