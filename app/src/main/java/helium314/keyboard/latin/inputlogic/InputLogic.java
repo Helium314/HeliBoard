@@ -27,6 +27,7 @@ import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
+import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.LastComposedWord;
@@ -750,12 +751,15 @@ public final class InputLogic {
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
                 break;
+            case KeyCode.CAPS_LOCK:
+                if (inputTransaction.getMSettingsValues().mVibrateOn)
+                    AudioAndHapticFeedbackManager.getInstance().vibrate(inputTransaction.getMSettingsValues().mKeypressVibrationDuration);
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK:
             case KeyCode.ALPHA_SYMBOL:
             case KeyCode.ALPHA:
             case KeyCode.SYMBOL:
