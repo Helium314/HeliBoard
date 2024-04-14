@@ -29,6 +29,7 @@ public final class KeyboardIconsSet {
     private static final String NAME_UNDEFINED = "undefined";
     public static final String NAME_SHIFT_KEY = "shift_key";
     public static final String NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted";
+    public static final String NAME_SHIFT_KEY_LOCKED = "shift_key_locked";
     public static final String NAME_DELETE_KEY = "delete_key";
     public static final String NAME_SETTINGS_KEY = "settings_key";
     public static final String NAME_SPACE_KEY = "space_key";
@@ -81,6 +82,7 @@ public final class KeyboardIconsSet {
         NAME_INCOGNITO_KEY,               R.styleable.Keyboard_iconIncognitoKey,
         NAME_SPACE_KEY_FOR_NUMBER_LAYOUT, R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
         NAME_SHIFT_KEY_SHIFTED,           R.styleable.Keyboard_iconShiftKeyShifted,
+        NAME_SHIFT_KEY_LOCKED,            R.styleable.Keyboard_iconShiftKeyLocked,
         NAME_SHORTCUT_KEY_DISABLED,       R.styleable.Keyboard_iconShortcutKeyDisabled,
         NAME_LANGUAGE_SWITCH_KEY,         R.styleable.Keyboard_iconLanguageSwitchKey,
         NAME_ZWNJ_KEY,                    R.styleable.Keyboard_iconZwnjKey,

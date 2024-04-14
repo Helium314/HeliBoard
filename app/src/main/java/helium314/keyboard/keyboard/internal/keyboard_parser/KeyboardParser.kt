@@ -673,9 +673,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             return params.mLocaleKeyboardInfos.labelSymbol
         if (elementId == KeyboardId.ELEMENT_SYMBOLS)
             return params.mLocaleKeyboardInfos.getShiftSymbolLabel(isTablet())
-        if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-            || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
+        if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
             return "!icon/shift_key_shifted"
+        if (elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
+            return "!icon/shift_key_locked"
         return "!icon/shift_key"
     }
 
