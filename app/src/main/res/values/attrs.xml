@@ -251,6 +251,7 @@
         <attr name="iconShiftKeyShifted" format="reference" />
         <attr name="iconShortcutKeyDisabled" format="reference" />
         <attr name="iconLanguageSwitchKey" format="reference" />
+        <attr name="iconAutoCorrect" format="reference" />
         <attr name="iconZwnjKey" format="reference" />
         <attr name="iconZwjKey" format="reference" />
         <attr name="iconImeKey" format="reference" />
@@ -259,6 +260,7 @@
         <attr name="iconClipboardActionKey" format="reference" />
         <attr name="iconClipboardNormalKey" format="reference" />
         <attr name="iconCopyKey" format="reference" />
+        <attr name="iconCutKey" format="reference" />
         <attr name="iconClearClipboardKey" format="reference" />
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
@@ -277,6 +279,7 @@
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />
         <attr name="iconRedo" format="reference" />
+        <attr name="iconClose" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">

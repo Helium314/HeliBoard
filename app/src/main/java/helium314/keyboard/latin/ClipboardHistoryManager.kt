@@ -5,7 +5,6 @@ package helium314.keyboard.latin
 import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
-import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
@@ -51,15 +50,24 @@ class ClipboardHistoryManager(
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0) return
         clipData.getItemAt(0)?.let { clipItem ->
-            // Starting from API 30, onPrimaryClipChanged() can be called multiple times
-            // for the same clip. We can identify clips with their timestamps since API 26.
-            // We use that to prevent unwanted duplicates.
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
-                if (historyEntries.any { it.timeStamp == stamp }) return
-            } ?: System.currentTimeMillis()
-
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
             val content = clipItem.coerceToText(latinIME)
             if (TextUtils.isEmpty(content)) return
+
+            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
+            if (duplicateEntryIndex != -1) {
+                val existingEntry = historyEntries[duplicateEntryIndex]
+                if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
+                // older entry with the same text already exists, update the timestamp and re-sort the list
+                existingEntry.timeStamp = timeStamp
+                historyEntries.removeAt(duplicateEntryIndex)
+                historyEntries.add(0, existingEntry)
+                sortHistoryEntries()
+                val newIndex = historyEntries.indexOf(existingEntry)
+                onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
+                return
+            }
+            if (historyEntries.any { it.content.toString() == content.toString() }) return
 
             val entry = ClipboardHistoryEntry(timeStamp, content)
             historyEntries.add(entry)

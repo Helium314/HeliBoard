@@ -2,7 +2,7 @@ main,ar,
 main,hy,
 main,as,
 main,bn,
-main,by,
+main,be,
 main,bg,
 main,ca,
 main,hr,
@@ -64,6 +64,7 @@ main,ur,
 main,af,exp
 main,ar,exp
 main,bn,exp
+main,bn_BD,exp
 main,bg,exp
 main,cs,exp
 main,en_GB,exp

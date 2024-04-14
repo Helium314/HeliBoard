@@ -93,7 +93,7 @@
     <string name="setup_step2_action">"Byt inmatningsmetod"</string>
     <string name="setup_step3_title">Grattis, nu är allt klart!</string>
     <string name="setup_step3_instruction">Nu kan du skriva i alla dina favoritappar med <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <string name="setup_finish_action">"Slutförda"</string>
+    <string name="setup_finish_action">Slutförd</string>
     <string name="show_setup_wizard_icon">"Visa appikon"</string>
     <string name="show_setup_wizard_icon_summary">"Visa appikonen i startprogrammet"</string>
     <string name="dictionary_settings_title">"Tilläggsordlistor"</string>
