@@ -50,6 +50,8 @@ class ClipboardHistoryManager(
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0) return
+        // TODO: remove the following check when clipboard images or other media types are supported
+        if (clipData.description?.hasMimeType("text/*") == false) return
         clipData.getItemAt(0)?.let { clipItem ->
             val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
             val content = clipItem.coerceToText(latinIME)
@@ -143,6 +145,7 @@ class ClipboardHistoryManager(
     fun retrieveClipboardContent(recentOnly : Boolean = false): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
+        if (clipData.description?.hasMimeType("text/*") == false) return ""
         val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
         return if (recentOnly) {
             val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
