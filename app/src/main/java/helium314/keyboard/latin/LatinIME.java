@@ -63,6 +63,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.define.ProductionFlags;
@@ -878,6 +879,8 @@ public class LatinIME extends InputMethodService implements
         }
         // Try switching to a subtype matching the hint language.
         for (final Locale hintLocale : hintLocales) {
+            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3)
+                return; // current locale is already a good match, and we want to avoid unnecessary layout switches
             final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
