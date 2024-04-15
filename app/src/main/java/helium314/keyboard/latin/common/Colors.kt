@@ -275,7 +275,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         AUTOFILL_BACKGROUND_CHIP, GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
-        KEY_TEXT, SUGGESTION_AUTO_CORRECT, SUGGESTION_ICONS,
+        KEY_TEXT, SUGGESTION_AUTO_CORRECT, REMOVE_SUGGESTION_ICON,
             KEY_ICON, ONE_HANDED_MODE_BUTTON, EMOJI_CATEGORY, TOOL_BAR_KEY, FUNCTIONAL_KEY_TEXT -> keyText
         KEY_HINT_TEXT -> keyHintText
         SPACE_BAR_TEXT -> spaceBarText
@@ -322,7 +322,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
 
     private fun getColorFilter(color: ColorType): ColorFilter? = when (color) {
         EMOJI_CATEGORY_SELECTED, CLIPBOARD_PIN, SHIFT_KEY_ICON -> accentColorFilter
-        SUGGESTION_ICONS, EMOJI_CATEGORY, KEY_TEXT,
+        REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, KEY_TEXT,
             KEY_ICON, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> keyTextFilter
         KEY_PREVIEW -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
@@ -468,7 +468,7 @@ class DefaultColors (
         GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
-        KEY_TEXT, SUGGESTION_ICONS, FUNCTIONAL_KEY_TEXT, KEY_ICON -> keyText
+        KEY_TEXT, REMOVE_SUGGESTION_ICON, FUNCTIONAL_KEY_TEXT, KEY_ICON -> keyText
         KEY_HINT_TEXT -> keyHintText
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND -> functionalKey
@@ -539,7 +539,7 @@ class DefaultColors (
     private fun getColorFilter(color: ColorType): ColorFilter? = when (color) {
         EMOJI_CATEGORY_SELECTED, CLIPBOARD_PIN, SHIFT_KEY_ICON -> accentColorFilter
         KEY_TEXT, KEY_ICON -> keyTextFilter
-        SUGGESTION_ICONS, EMOJI_CATEGORY, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> suggestionTextFilter
+        REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> suggestionTextFilter
         KEY_PREVIEW -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
@@ -649,7 +649,7 @@ enum class ColorType {
     SPACE_BAR_BACKGROUND,
     SPACE_BAR_TEXT,
     ONE_HANDED_MODE_BUTTON,
-    SUGGESTION_ICONS,
+    REMOVE_SUGGESTION_ICON,
     STRIP_BACKGROUND,
     SUGGESTED_WORD,
     SUGGESTION_AUTO_CORRECT,

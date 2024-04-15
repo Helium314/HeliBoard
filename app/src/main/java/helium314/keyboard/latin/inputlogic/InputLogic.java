@@ -613,14 +613,13 @@ public final class InputLogic {
 
     /**
      * Creates a new clipboard suggestion.
-     * If the input type of the editor is that of a password, the suggestion input
+     * If the clipboard contains sensitive content, the suggestion input
      * style is updated in accordance to ensure the content is obscured.
      * @param clipContent The primary clipboard content as a string.
-     * @param inputType The input type of the current input editor.
      */
-    public SuggestedWords getClipboardSuggestion(final String clipContent, final int inputType) {
+    public SuggestedWords getClipboardSuggestion(final String clipContent) {
         final ArrayList<SuggestedWordInfo> clipInfoList = new ArrayList<>(1);
-        final int inputStyle = InputTypeUtils.isPasswordInputType(inputType) ?
+        final int inputStyle = mLatinIME.getClipboardHistoryManager().isClipSensitive() ?
                 SuggestedWords.INPUT_STYLE_PASSWORD : SuggestedWords.INPUT_STYLE_NONE;
         clipInfoList.add(new SuggestedWordInfo(
                 clipContent, "",

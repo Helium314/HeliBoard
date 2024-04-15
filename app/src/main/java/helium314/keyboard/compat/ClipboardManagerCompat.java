@@ -29,4 +29,12 @@ public class ClipboardManagerCompat {
         }
     }
 
+    public static Boolean getClipSensitivity(ClipData cd) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && cd.getDescription().getExtras() != null) {
+            return cd.getDescription().getExtras().getBoolean("android.content.extra.IS_SENSITIVE");
+        } else {
+            return false;
+        }
+    }
+
 }

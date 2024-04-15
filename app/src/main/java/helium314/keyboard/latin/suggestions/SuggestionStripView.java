@@ -421,7 +421,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         if (showIcon) {
             final Drawable icon = mSuggestedWords.isClipboardSuggestion() ? mCloseIcon : mBinIcon;
-            Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.SUGGESTION_ICONS);
+            Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
             int w = wordView.getWidth();
             int h = wordView.getHeight();
             wordView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -473,7 +473,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void removeSuggestion(TextView wordView) {
         final String word = wordView.getText().toString();
-        // if it's a clipboard suggestion, clear the clipboard
         if (mSuggestedWords.isClipboardSuggestion()) {
             mListener.onClipboardSuggestionPicked();
             SuggestedWords.clearSuggestedWordInfoList(mSuggestedWords);

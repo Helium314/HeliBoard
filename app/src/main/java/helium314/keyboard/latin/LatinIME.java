@@ -1661,7 +1661,7 @@ public class LatinIME extends InputMethodService implements
             final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
             // make sure clipboard content that is not a number is not suggested in a number input type
             if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent));
                 return true;
             }
         }

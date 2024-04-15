@@ -23,6 +23,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -56,7 +57,7 @@ final class SuggestionStripLayoutHelper {
     private static final int DEFAULT_MAX_MORE_SUGGESTIONS_ROW = 2;
     private static final int PUNCTUATIONS_IN_STRIP = 5;
     private static final float MIN_TEXT_XSCALE = 0.70f;
-    private static final int MAX_PASSWORD_LENGTH = 12;
+    private static final int MAX_CLIPBOARD_SUGGESTION_LENGTH = 18;
 
     public final int mPadding;
     public final int mDividerWidth;
@@ -86,6 +87,7 @@ final class SuggestionStripLayoutHelper {
     private final int mSuggestionTextPadding;
     private final Drawable mClipboardIcon;
     private final Drawable mMoreSuggestionsHint;
+    private final CharacterStyle mClipboardSuggestionSpan;
     private static final String MORE_SUGGESTIONS_HINT = "…";
 
     private static final CharacterStyle BOLD_SPAN = new StyleSpan(Typeface.BOLD);
@@ -125,6 +127,7 @@ final class SuggestionStripLayoutHelper {
         mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
         mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
         mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
+        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.MORE_SUGGESTIONS_BACKGROUND));
         final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
@@ -199,10 +202,8 @@ final class SuggestionStripLayoutHelper {
             return null;
         }
         final String word = suggestedWords.getLabel(indexInSuggestedWords);
-        // If input type of the editor is that of a password, make sure the content is redacted
-        if (suggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_PASSWORD) {
-            int maskLength = Math.min(word.length(), MAX_PASSWORD_LENGTH);
-            return "*".repeat(maskLength);
+        if (suggestedWords.isClipboardSuggestion()) {
+            return getStyledClipboardSuggestion(suggestedWords.mInputStyle, word);
         }
         // TODO: don't use the index to decide whether this is the auto-correction/typed word, as
         // this is brittle
@@ -224,6 +225,20 @@ final class SuggestionStripLayoutHelper {
             addStyleSpan(spannedWord, UNDERLINE_SPAN);
         }
         return spannedWord;
+    }
+
+    private Spannable getStyledClipboardSuggestion(final int inputStyle, final String word) {
+        final Spannable clipboardSuggestion;
+        // make sure sensitive content is obscured
+        if (inputStyle == SuggestedWords.INPUT_STYLE_PASSWORD) {
+            clipboardSuggestion = new SpannableString("*".repeat(Math.min(word.length(), MAX_CLIPBOARD_SUGGESTION_LENGTH)));
+        } else if (word.length() > MAX_CLIPBOARD_SUGGESTION_LENGTH) {
+            clipboardSuggestion = new SpannableString(word.substring(0, MAX_CLIPBOARD_SUGGESTION_LENGTH) + MORE_SUGGESTIONS_HINT);
+        } else {
+            clipboardSuggestion = new SpannableString(word);
+        }
+        addStyleSpan(clipboardSuggestion, mClipboardSuggestionSpan);
+        return clipboardSuggestion;
     }
 
     /**
@@ -361,10 +376,9 @@ final class SuggestionStripLayoutHelper {
             final int layoutWidth;
             final float layoutWeight;
             if (suggestedWords.isClipboardSuggestion()) {
-                Settings.getInstance().getCurrent().mColors.setColor(mClipboardIcon, ColorType.SUGGESTION_ICONS);
+                Settings.getInstance().getCurrent().mColors.setColor(mClipboardIcon, ColorType.KEY_ICON);
                 centerWordView.setCompoundDrawablesWithIntrinsicBounds(mClipboardIcon, null, null, null);
                 centerWordView.setCompoundDrawablePadding(mSuggestionTextPadding);
-                centerWordView.setEllipsize(TextUtils.TruncateAt.END);
                 layoutWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
                 layoutWeight = 0.0f;
             } else {
