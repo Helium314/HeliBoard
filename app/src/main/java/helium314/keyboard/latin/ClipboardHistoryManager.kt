@@ -24,7 +24,8 @@ class ClipboardHistoryManager(
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
-        onPrimaryClipChanged()
+        if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true)
+            fetchPrimaryClip()
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
