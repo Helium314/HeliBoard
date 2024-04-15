@@ -38,23 +38,22 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
+        if (Settings.PREF_USE_CONTACTS.equals(key)
+                && prefs.getBoolean(key, false)
+                && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)
+        ) {
+            get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
+        } else if (Settings.PREF_KEY_USE_PERSONALIZED_DICTS.equals(key) && !prefs.getBoolean(key, true)) {
             new AlertDialog.Builder(requireContext())
                     .setMessage(R.string.disable_personalized_dicts_message)
                     .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((TwoStatePreference) findPreference(key)).setChecked(true))
-                    .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> refreshEnabledSettings())
+                    .setPositiveButton(android.R.string.ok, null)
                     .setOnCancelListener(dialogInterface -> ((TwoStatePreference) findPreference(key)).setChecked(true))
                     .show();
-        } else {
-            if (Settings.PREF_USE_CONTACTS.equals(key)
-                    && prefs.getBoolean(key, false)
-                    && !PermissionsUtil.checkAllPermissionsGranted(getActivity(), Manifest.permission.READ_CONTACTS)) {
-                get(requireContext()).requestPermissions(this, getActivity(), Manifest.permission.READ_CONTACTS);
-            } else if (Settings.PREF_SHOW_SUGGESTIONS.equals(key) && !prefs.getBoolean(key, true)) {
-                ((TwoStatePreference) findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
-            }
-            refreshEnabledSettings();
+        } else if (Settings.PREF_SHOW_SUGGESTIONS.equals(key) && !prefs.getBoolean(key, true)) {
+            ((TwoStatePreference)findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
         }
+        refreshEnabledSettings();
     }
 
     // contacts and permission stuff from SpellCheckerSettingsFragment

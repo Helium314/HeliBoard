@@ -142,20 +142,20 @@ class ClipboardHistoryManager(
         // TODO: remove the following check when clipboard images or other media types are supported
         if (clipData.description?.hasMimeType("text/*") == false) return ""
         val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
-        return if (recentOnly) {
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+        if (recentOnly) {
+            val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
             val isNewEntry = recentEntry.toString() != clipContent.toString()
-            val isRecent = (timeStamp - recentTimestamp) < RECENT_TIME_MILLIS
-            if (isNewEntry || isRecent && !suggestionPicked) {
-                if (isNewEntry) {
-                    suggestionPicked = false
-                    recentEntry = clipContent
-                    recentTimestamp = timeStamp
-                    clipSensitivity = ClipboardManagerCompat.getClipSensitivity(clipData)
-                }
-                clipContent
-            } else "" // empty string indicating clipboard is not recent
-        } else clipContent
+                    || clipTimestamp != null && clipTimestamp > recentTimestamp
+            if (isNewEntry) {
+                suggestionPicked = false
+                recentEntry = clipContent
+                recentTimestamp = clipTimestamp ?: System.currentTimeMillis()
+                clipSensitivity = ClipboardManagerCompat.getClipSensitivity(clipData)
+            } else if ((System.currentTimeMillis() - recentTimestamp) > RECENT_TIME_MILLIS || suggestionPicked) {
+                return "" // empty string indicating clipboard is old or has been picked as a suggestion before
+            }
+        }
+        return clipContent
     }
 
     fun isClipSensitive() : Boolean {
