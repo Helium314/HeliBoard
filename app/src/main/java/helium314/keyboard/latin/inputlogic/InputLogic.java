@@ -620,11 +620,11 @@ public final class InputLogic {
     public SuggestedWords getClipboardSuggestion(final String clipContent) {
         final ArrayList<SuggestedWordInfo> clipInfoList = new ArrayList<>(1);
         final int inputStyle = mLatinIME.getClipboardHistoryManager().isClipSensitive() ?
-                SuggestedWords.INPUT_STYLE_PASSWORD : SuggestedWords.INPUT_STYLE_NONE;
+                SuggestedWords.INPUT_STYLE_CLIPBOARD_PASSWORD : SuggestedWords.INPUT_STYLE_CLIPBOARD;
         clipInfoList.add(new SuggestedWordInfo(
                 clipContent, "",
                 SuggestedWordInfo.MAX_SCORE,
-                SuggestedWordInfo.KIND_CLIPBOARD,
+                SuggestedWordInfo.KIND_HARDCODED,
                 Dictionary.DICTIONARY_HARDCODED,
                 SuggestedWordInfo.NOT_AN_INDEX,
                 SuggestedWordInfo.NOT_A_CONFIDENCE));

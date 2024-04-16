@@ -127,7 +127,7 @@ final class SuggestionStripLayoutHelper {
         mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
         mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
         mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
-        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.MORE_SUGGESTIONS_BACKGROUND));
+        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP));
         final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
@@ -230,7 +230,7 @@ final class SuggestionStripLayoutHelper {
     private Spannable getStyledClipboardSuggestion(final int inputStyle, final String word) {
         final Spannable clipboardSuggestion;
         // make sure sensitive content is obscured
-        if (inputStyle == SuggestedWords.INPUT_STYLE_PASSWORD) {
+        if (inputStyle == SuggestedWords.INPUT_STYLE_CLIPBOARD_PASSWORD) {
             clipboardSuggestion = new SpannableString("*".repeat(Math.min(word.length(), MAX_CLIPBOARD_SUGGESTION_LENGTH)));
         } else if (word.length() > MAX_CLIPBOARD_SUGGESTION_LENGTH) {
             clipboardSuggestion = new SpannableString(word.substring(0, MAX_CLIPBOARD_SUGGESTION_LENGTH) + MORE_SUGGESTIONS_HINT);

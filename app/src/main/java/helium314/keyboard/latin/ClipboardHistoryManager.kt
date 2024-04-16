@@ -49,29 +49,33 @@ class ClipboardHistoryManager(
 
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
-        val content = retrieveClipboardContent()
-        if (TextUtils.isEmpty(content)) return
-        val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
-        val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
-        if (duplicateEntryIndex != -1) {
-            val existingEntry = historyEntries[duplicateEntryIndex]
-            if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
-            // older entry with the same text already exists, update the timestamp and re-sort the list
-            existingEntry.timeStamp = timeStamp
-            historyEntries.removeAt(duplicateEntryIndex)
-            historyEntries.add(0, existingEntry)
-            sortHistoryEntries()
-            val newIndex = historyEntries.indexOf(existingEntry)
-            onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
-            return
-        }
-        if (historyEntries.any { it.content.toString() == content.toString() }) return
+        if (clipData.itemCount == 0) return
+        clipData.getItemAt(0)?.let { clipItem ->
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+            val content = clipItem.coerceToText(latinIME)
+            if (TextUtils.isEmpty(content)) return
 
-        val entry = ClipboardHistoryEntry(timeStamp, content)
-        historyEntries.add(entry)
-        sortHistoryEntries()
-        val at = historyEntries.indexOf(entry)
-        onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
+            if (duplicateEntryIndex != -1) {
+                val existingEntry = historyEntries[duplicateEntryIndex]
+                if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
+                // older entry with the same text already exists, update the timestamp and re-sort the list
+                existingEntry.timeStamp = timeStamp
+                historyEntries.removeAt(duplicateEntryIndex)
+                historyEntries.add(0, existingEntry)
+                sortHistoryEntries()
+                val newIndex = historyEntries.indexOf(existingEntry)
+                onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
+                return
+            }
+            if (historyEntries.any { it.content.toString() == content.toString() }) return
+
+            val entry = ClipboardHistoryEntry(timeStamp, content)
+            historyEntries.add(entry)
+            sortHistoryEntries()
+            val at = historyEntries.indexOf(entry)
+            onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+        }
     }
 
     fun toggleClipPinned(ts: Long) {
@@ -100,7 +104,7 @@ class ClipboardHistoryManager(
         }
     }
 
-    fun canRemove(index: Int) = index in 0 until historyEntries.size && !historyEntries[index].isPinned
+    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
 
     fun removeEntry(index: Int) {
         if (canRemove(index))
@@ -138,10 +142,8 @@ class ClipboardHistoryManager(
     // should be retrieved (relevant for clipboard suggestions).
     fun retrieveClipboardContent(recentOnly : Boolean = false): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
-        if (clipData.itemCount == 0) return ""
-        // TODO: remove the following check when clipboard images or other media types are supported
-        if (clipData.description?.hasMimeType("text/*") == false) return ""
-        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return ""
+        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: return ""
         if (recentOnly) {
             val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
             val isNewEntry = recentEntry.toString() != clipContent.toString()
