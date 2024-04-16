@@ -1648,6 +1648,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onClipboardSuggestionPicked(){
         mClipboardHistoryManager.markSuggestionAsPicked();
+        setNeutralSuggestionStrip();
     }
 
     // This will set a new clipboard suggestion if the primary clipboard is not empty

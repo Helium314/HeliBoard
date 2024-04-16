@@ -127,7 +127,7 @@ final class SuggestionStripLayoutHelper {
         mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
         mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
         mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
-        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.AUTOFILL_BACKGROUND_CHIP));
+        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.CLIP_SUGGESTION_BACKGROUND));
         final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(

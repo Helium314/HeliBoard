@@ -206,11 +206,6 @@ public class SuggestedWords {
         return SuggestedWords.EMPTY;
     }
 
-    public static void clearSuggestedWordInfoList(SuggestedWords suggestedWords){
-        if (suggestedWords == null || suggestedWords.isEmpty()) return;
-        suggestedWords.mSuggestedWordInfoList.clear();
-    }
-
     // Should get rid of the first one (what the user typed previously) from suggestions
     // and replace it with what the user currently typed.
     public static ArrayList<SuggestedWordInfo> getTypedWordAndPreviousSuggestions(

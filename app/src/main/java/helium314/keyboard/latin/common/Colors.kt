@@ -285,6 +285,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
+        CLIP_SUGGESTION_BACKGROUND -> if (hasKeyBorders) adjustedBackground else background
         NAVIGATION_BAR -> navBar
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedKeyText
         ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY -> Color.WHITE
@@ -477,6 +478,7 @@ class DefaultColors (
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
+        CLIP_SUGGESTION_BACKGROUND -> if (hasKeyBorders) adjustedBackground else background
         NAVIGATION_BAR -> navBar
         SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedSuggestionText
@@ -651,6 +653,7 @@ enum class ColorType {
     ONE_HANDED_MODE_BUTTON,
     REMOVE_SUGGESTION_ICON,
     STRIP_BACKGROUND,
+    CLIP_SUGGESTION_BACKGROUND,
     SUGGESTED_WORD,
     SUGGESTION_AUTO_CORRECT,
     SUGGESTION_TYPED_WORD,

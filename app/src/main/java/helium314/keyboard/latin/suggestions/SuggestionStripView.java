@@ -475,7 +475,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final String word = wordView.getText().toString();
         if (mSuggestedWords.isClipboardSuggestion()) {
             mListener.onClipboardSuggestionPicked();
-            SuggestedWords.clearSuggestedWordInfoList(mSuggestedWords);
+            return;
         }
         mListener.removeSuggestion(word);
         mMoreSuggestionsView.dismissPopupKeysPanel();
