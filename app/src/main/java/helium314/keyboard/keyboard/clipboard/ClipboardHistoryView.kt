@@ -5,6 +5,7 @@ package helium314.keyboard.keyboard.clipboard
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
@@ -41,6 +42,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
     private val spacebarBackground: Drawable
+    private val closeKeyBackground = GradientDrawable()
     private var initialized = false
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
@@ -116,13 +118,19 @@ class ClipboardHistoryView @JvmOverloads constructor(
         spacebar.tag = Constants.CODE_SPACE
         spacebar.setOnTouchListener(this)
         spacebar.setOnClickListener(this)
+        closeKeyBackground.shape = GradientDrawable.OVAL
+        closeKeyBackground.setColor(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND))
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
         toolbarKeys.forEach {
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            colors.setBackground(it, ColorType.STRIP_BACKGROUND)
+            if (it.tag == ToolbarKey.CLOSE_HISTORY){
+                it.scaleX = 0.75f
+                it.scaleY = 0.75f
+                it.background = closeKeyBackground
+            } else colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
         initialized = true
     }
