@@ -48,7 +48,7 @@ class ClipboardHistoryManager(
 
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
-        if (clipData.itemCount == 0) return
+        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return
         clipData.getItemAt(0)?.let { clipItem ->
             val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
             val content = clipItem.coerceToText(latinIME)
