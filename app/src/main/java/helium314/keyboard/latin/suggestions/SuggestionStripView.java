@@ -10,8 +10,6 @@ import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -376,7 +374,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void onLongClickToolKey(final View view) {
         if (ToolbarKey.CLIPBOARD == view.getTag() && view.getParent() == mPinnedKeys) {
-            onLongClickClipboardKey(); // long click pinned clipboard key
+            Log.d(TAG, "long click clipboard key");
+            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
         } else if (view.getParent() == mToolbar) {
             final ToolbarKey tag = (ToolbarKey) view.getTag();
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
@@ -388,22 +387,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
-            }
-        }
-    }
-
-    private void onLongClickClipboardKey() {
-        ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = clipboardManager.getPrimaryClip();
-        Log.d(TAG, "long click clipboard key");
-        if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
-            String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
-            if (clipString.length() == 1) {
-                mListener.onTextInput(clipString);
-            } else if (clipString.length() > 1) {
-                //awkward workaround
-                mListener.onTextInput(clipString.substring(0, clipString.length() - 1));
-                mListener.onTextInput(clipString.substring(clipString.length() - 1));
             }
         }
     }

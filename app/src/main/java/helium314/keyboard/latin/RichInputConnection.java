@@ -19,6 +19,7 @@ import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
@@ -26,6 +27,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
@@ -332,6 +335,21 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 }
             }
             mIC.commitText(mTempObjectForCommitText, newCursorPosition);
+        }
+    }
+
+    /**
+     * Calls {@link InputConnectionCompat#commitContent(InputConnection, EditorInfo, InputContentInfoCompat, int, Bundle)}.
+     *
+     * @param inputContentInfo The input content info to be committed.
+     * @param editorInfo The current editor info.
+     */
+    public void commitUri(@NonNull final InputContentInfoCompat inputContentInfo,
+                          @NonNull final EditorInfo editorInfo, final int flags) {
+        mIC = mParent.getCurrentInputConnection();
+        if (isConnected()) {
+            mIC.finishComposingText();
+            InputConnectionCompat.commitContent(mIC, editorInfo, inputContentInfo, flags, null);
         }
     }
 

@@ -1,5 +1,6 @@
 package helium314.keyboard.keyboard
 
+import android.net.Uri
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
@@ -27,6 +28,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         latinIME.onCodeInput(primaryCode, x, y, isKeyRepeat)
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
+
+    override fun onUriInput(uri: Uri) = latinIME.onUriInput(uri)
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()
 

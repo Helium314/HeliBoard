@@ -30,4 +30,17 @@
             android:ellipsize="end"
             android:maxLines="4"/>
 
+    <ImageView
+        android:id="@+id/clipboard_entry_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="200dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginHorizontal="8dp"
+        android:hapticFeedbackEnabled="false"
+        android:soundEffectsEnabled="false"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
 </LinearLayout>

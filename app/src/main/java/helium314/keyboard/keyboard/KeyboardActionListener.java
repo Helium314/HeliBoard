@@ -6,6 +6,8 @@
 
 package helium314.keyboard.keyboard;
 
+import android.net.Uri;
+
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
 
@@ -54,6 +56,13 @@ public interface KeyboardActionListener {
      * @param text the string of characters to be registered.
      */
     void onTextInput(String text);
+
+    /**
+     * Sends a URI to the listener.
+     *
+     * @param uri the URI to be registered.
+     */
+    void onUriInput(Uri uri);
 
     /**
      * Called when user started batch input.
@@ -116,6 +125,8 @@ public interface KeyboardActionListener {
         public void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat) {}
         @Override
         public void onTextInput(String text) {}
+        @Override
+        public void onUriInput(Uri uri) {}
         @Override
         public void onStartBatchInput() {}
         @Override

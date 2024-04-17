@@ -685,13 +685,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
-                    final CharSequence content = mLatinIME.getClipboardHistoryManager()
-                            .retrieveClipboardContent();
-                    if (!TextUtils.isEmpty(content)) {
-                        mConnection.commitText(content, 1);
-                        inputTransaction.setDidAffectContents();
-                    }
+                    mLatinIME.getClipboardHistoryManager().pasteClipboard();
                 }
+                break;
+            case KeyCode.CLIPBOARD_PASTE:
+                mLatinIME.getClipboardHistoryManager().pasteClipboard();
                 break;
             case KeyCode.SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,

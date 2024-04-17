@@ -7,6 +7,7 @@
 package helium314.keyboard.latin;
 
 import android.content.BroadcastReceiver;
+import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,6 +16,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -100,6 +102,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -1525,6 +1530,31 @@ public class LatinIME extends InputMethodService implements
                         mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    // Handles the input of a URI into the editor, granting necessary permissions and committing the content.
+    public void onUriInput(@NonNull final Uri uri) {
+        final String uriType = getContentResolver().getType(uri);
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        if (editorInfo == null || uriType == null) return;
+        final String[] editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo);
+        // Check if the editor supports the MIME type of the URI
+        for (String supportedType : editorMimeTypes) {
+            if (ClipDescription.compareMimeTypes(uriType, supportedType)) {
+                int flags = 0;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                    flags |= InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
+                } else {
+                    grantUriPermission(editorInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+                final InputContentInfoCompat inputContentInfo = new InputContentInfoCompat
+                        (uri, new ClipDescription(uriType, new String[]{uriType}), null);
+                mInputLogic.mConnection.commitUri(inputContentInfo, editorInfo, flags);
+                return;
+            }
+        }
+        //TODO: inform the user with a toast-like message regarding an unsupported MIME type
+        Log.w(TAG, "URI MIME type " + uriType + " is incompatible with the current editor");
     }
 
     public void onStartBatchInput() {
