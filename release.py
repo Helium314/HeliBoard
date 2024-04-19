@@ -18,10 +18,11 @@ def update_translations():
     url = "https://translate.codeberg.org/download/heliboard/?format=zip"
     zip_file_name = "translations.zip"
     urlretrieve(url, zip_file_name)
-    # extract all in heliboard/heliboard/app/src/main/res
+    # extract all in heliboard/heliboard/app/src/main/res and heliboard/heliboard/fastlane/metadata
     with zipfile.ZipFile(zip_file_name, "r") as f:
         for file in f.filelist:
-            if not file.filename.startswith("heliboard/heliboard/app/src/main/res"):
+            if not file.filename.startswith("heliboard/heliboard/app/src/main/res")\
+                    and not file.filename.startswith("heliboard/heliboard/fastlane/metadata"):
                 continue
             file.filename = file.filename.replace("heliboard/heliboard/", "")
             f.extract(file)
@@ -40,7 +41,7 @@ def update_dict_list():
 #    gradle = "gradlew"  # Linux
 #    gradle = "gradlew.bat"  # Windows
     gradle = "../../builder/realgradle.sh"  # weird path for historic reasons
-    result = subprocess.run([gradle, ":tools:make-dict-list:makeDictList"])
+    result = subprocess.run([gradle, ":tools:make-dict-list:makeDictList"])  # todo: replace with python code
     assert result.returncode == 0
 
 
