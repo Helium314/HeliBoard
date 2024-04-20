@@ -708,7 +708,7 @@ public final class InputLogic {
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
                     final CharSequence content = mLatinIME.getClipboardHistoryManager()
-                            .retrieveClipboardContent(false);
+                            .retrieveClipboardContent();
                     if (!TextUtils.isEmpty(content)) {
                         mConnection.commitText(content, 1);
                         inputTransaction.setDidAffectContents();

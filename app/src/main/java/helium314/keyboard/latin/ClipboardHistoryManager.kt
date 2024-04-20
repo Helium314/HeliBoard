@@ -75,6 +75,9 @@ class ClipboardHistoryManager(
             sortHistoryEntries()
             val at = historyEntries.indexOf(entry)
             onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            if (latinIME.mSettings?.current?.mSuggestClipboardContent == true) { // update clipboard suggestion with the new entry's content
+                latinIME.mHandler?.postUpdateSuggestionStrip(latinIME.currentInputEditorInfo?.inputType ?: InputType.TYPE_NULL)
+            }
         }
     }
 
@@ -137,25 +140,26 @@ class ClipboardHistoryManager(
         onHistoryChangeListener = l
     }
 
-    // This will return the content of the primary clipboard if it is not empty.
-    // It may be specified whether only a recent clipboard item
-    // should be retrieved (relevant for clipboard suggestions).
-    fun retrieveClipboardContent(recentOnly : Boolean = false): CharSequence {
+    fun retrieveClipboardContent(): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return ""
-        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME) ?: return ""
-        if (recentOnly) {
-            val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
-            val isNewEntry = recentEntry.toString() != clipContent.toString()
-                    || clipTimestamp != null && clipTimestamp > recentTimestamp
-            if (isNewEntry) {
-                suggestionPicked = false
-                recentEntry = clipContent
-                recentTimestamp = clipTimestamp ?: System.currentTimeMillis()
-                clipSensitivity = ClipboardManagerCompat.getClipSensitivity(clipData)
-            } else if ((System.currentTimeMillis() - recentTimestamp) > RECENT_TIME_MILLIS || suggestionPicked) {
-                return "" // empty string indicating clipboard is old or has been picked as a suggestion before
-            }
+        return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+    }
+
+    fun retrieveClipboardSuggestionContent(): String {
+        val clipData = clipboardManager.primaryClip ?: return ""
+        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return ""
+        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME)?.toString() ?: return ""
+        val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
+        val isNewEntry = recentEntry.toString() != clipContent
+                || clipTimestamp != null && clipTimestamp > recentTimestamp
+        if (isNewEntry) {
+            suggestionPicked = false
+            recentEntry = clipContent
+            recentTimestamp = clipTimestamp ?: System.currentTimeMillis()
+            clipSensitivity = ClipboardManagerCompat.getClipSensitivity(clipData)
+        } else if ((System.currentTimeMillis() - recentTimestamp) > RECENT_TIME_MILLIS || suggestionPicked) {
+            return "" // empty string indicating clipboard is old or has been picked as a suggestion before
         }
         return clipContent
     }

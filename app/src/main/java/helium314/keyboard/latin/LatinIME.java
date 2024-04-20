@@ -1656,7 +1656,7 @@ public class LatinIME extends InputMethodService implements
     // In case of input and content type mismatch, no suggestion will be shown.
     // It returns true or false depending if the suggestions was set successfully.
     public boolean setClipboardSuggestion(){
-        final String clipContent = mClipboardHistoryManager.retrieveClipboardContent(true).toString();
+        final String clipContent = mClipboardHistoryManager.retrieveClipboardSuggestionContent();
         if (!clipContent.isEmpty()) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
