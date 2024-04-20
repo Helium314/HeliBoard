@@ -795,7 +795,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         //  currently always holo is applied in readAttributes
         private fun layoutInfos(params: KeyboardParams): LayoutInfos {
             val layout = params.mId.mSubtype.keyboardLayoutSetName
-            val language = params.mId.locale.language
             // only for alphabet, but some exceptions for shift layouts
             val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (layout) {
                 "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
