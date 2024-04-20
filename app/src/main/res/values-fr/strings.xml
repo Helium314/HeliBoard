@@ -3,9 +3,9 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Rechercher les noms de contacts"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Le correcteur orthographique utilise les noms des contacts."</string>
+    <string name="use_contacts_for_spellchecking_option_summary">Le correcteur orthographique utilise les noms des contacts</string>
     <string name="vibrate_on_keypress">"Vibrer à chaque touche"</string>
     <string name="sound_on_keypress">"Émettre un son à chaque touche"</string>
     <string name="popup_on_keypress">"Agrandir les caractères"</string>
@@ -38,7 +38,7 @@
     <string name="prefs_show_suggestions">"Suggestions de correction"</string>
     <string name="prefs_show_suggestions_summary">"Affiche les mots suggérés lors de la saisie"</string>
     <string name="prefs_always_show_suggestions">Toujours afficher les suggestions</string>
-    <string name="prefs_always_show_suggestions_summary">Ignore les requêtes des autres applications qui désactivent les suggestions</string>
+    <string name="prefs_always_show_suggestions_summary">Ignore les requêtes des autres applications qui désactivent les suggestions (peut entraîner des problèmes)</string>
     <string name="prefs_block_potentially_offensive_title">"Blocage des termes choquants"</string>
     <string name="prefs_block_potentially_offensive_summary">"Ne suggère pas de mots potentiellement offensants"</string>
     <string name="autocorrect">"Correction automatique"</string>
@@ -88,7 +88,7 @@
     <string name="button_load_custom">Charger fichier</string>
     <string name="button_copy_existing_layout">Copier une disposition existante</string>
     <string name="title_layout_name_select">Définir le nom de la disposition</string>
-    <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s?</string>
+    <string name="delete_layout">Souhaitez-vous réellement supprimer la disposition personnalisée %s ?</string>
     <string name="layout_error">Erreur de disposition : %s</string>
     <string name="edit_layout">Appuyez pour modifier la disposition d\'origine</string>
     <string name="layout_symbols_shifted">Plus de symboles</string>
@@ -134,19 +134,19 @@ Dictionnaire actuel:
 Nouveau dictionnaire:
 %3$s"</string>
     <string name="replace_dictionary">"Remplacer dictionnaire"</string>
-    <string name="remove_dictionary_message">"Supprimer le dictionnaire utilisateur \"%1$s\" ?"</string>
+    <string name="remove_dictionary_message">Supprimer le dictionnaire utilisateur \"%s\" ?</string>
     <string name="no_dictionary_message">"Sans dictionnaire, vous n\'obtiendrez que des suggestions pour le texte que vous avez déjà saisi.&lt;br&gt;&lt;br&gt;
         Vous pouvez télécharger les dictionnaires %1$s, ou vérifier si un dictionnaire pour \"%2$s\" peut être téléchargé directement %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">"Ne plus afficher"</string>
     <string name="add_dictionary">"Selectionnez un dictionnaire à ajouter. Les dictionnaires au format .dict peuvent être téléchargés %s."</string>
     <string name="dictionary_link_text">"ici"</string>
-    <string name="dictionary_file_error">"Erreur: Le fichier sélectionné n\'est pas un fichier dictionnaire valide"</string>
+    <string name="dictionary_file_error">Erreur : Le fichier sélectionné n\'est pas un fichier dictionnaire valide</string>
     <string name="dictionary_file_wrong_locale">"Le fichier sélectionné est pour \"%1$s\", mais \"%2$s\" était attendu. L\'utiliser quand même pour \"%2$s\" ?"</string>
-    <string name="dictionary_file_wrong_script">"Erreur: script non compatible avec ce clavier"</string>
+    <string name="dictionary_file_wrong_script">Erreur : script non compatible avec ce clavier</string>
     <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
     <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
     <string name="dictionary_available">"Dictionnaire disponible"</string>
-    <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
+    <string name="cannot_connect_to_dict_service">Problème de connexion au service de dictionnaire</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="main_dict_description">"Dictionnaire principal"</string>
@@ -182,7 +182,7 @@ Nouveau dictionnaire:
     <string name="load_gesture_library_summary">Fournir une bibliothèque native pour activer la saisie gestuelle</string>
     <string name="load_gesture_library_message">Vous aurez besoin de la bibliothèque pour CPU \'%s\'. Les bibliothèques incompatibles peuvent crasher lors de l\'utilisation de la saisie gestuelle.
         \n\nAttention : le chargement de fichier externe peut constituer un risque pour la sécurité. N\'utilisez qu\'une bibliothèque provenant d\'une source en laquelle vous avez confiance.</string>
-    <string name="checksum_mismatch_message">Fichier de bibliothèque inconnu. Êtes-vous sûr qu\'il provient d\'une source fiable et que c\'est pour CPU \'%s\'?</string>
+    <string name="checksum_mismatch_message">Fichier de bibliothèque inconnu. Êtes-vous sûr qu\'il provient d\'une source fiable et que c\'est pour CPU \'%s\' ?</string>
     <string name="load_gesture_library_button_load">Charger bibliothèque</string>
     <string name="load_gesture_library_button_delete">Supprimer bibliothèque</string>
     <string name="ime_settings">Paramètres d\'HeliBoard</string>
@@ -311,7 +311,7 @@ Nouveau dictionnaire:
     <string name="label_previous_key">"Préc."</string>
     <string name="label_done_key">"OK"</string>
     <string name="label_send_key">"Envoyer"</string>
-    <string name="label_search_key">"Rech."</string>
+    <string name="label_search_key">Rechercher</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Attente"</string>
     <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
@@ -320,4 +320,26 @@ Nouveau dictionnaire:
     <string name="file_read_error">Impossible de lire le fichier</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="var_toolbar_direction">Sens variable de la barre d\'outils</string>
+    <string name="prefs_long_press_symbol_for_numpad">Appui long sur la touche des symboles pour afficher le pavé numérique</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Pavé téléphonique</string>
+    <string name="space_swipe_move_cursor_entry">Déplacer le curseur</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="customize_symbols_number_layouts">Personnaliser la disposition des symboles et des pavés numériques</string>
+    <string name="action_none">Aucun</string>
+    <string name="show_horizontal_space_swipe">Balayage horizontal de la barre d\'espace</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Pavé numérique (paysage)</string>
+    <string name="cut" tools:keep="@string/Cut">Couper</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboles (Arabe)</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symboles du pavé téléphonique</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Chiffres</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Pavé numérique</string>
+    <string name="gnu_gpl">Licence publique générale GNU v3.0</string>
+    <string name="show_vertical_space_swipe">Balayage vertical de la barre espace</string>
+    <string name="var_toolbar_direction_summary">Inverser le sens de la barre d\'outils lorsqu\'un clavier droite-gauche est sélectionné</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboles</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Étudiant)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="customize_symbols_number_layouts_summary">Les mises en page (à l\'exception des symboles) exposent des paramètres internes qui peuvent encore changer. Dans ce cas, la mise en page personnalisée risque de ne plus fonctionner correctement</string>
 </resources>

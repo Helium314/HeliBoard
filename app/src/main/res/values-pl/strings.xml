@@ -120,7 +120,7 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korekty</string>
     <string name="settings_category_miscellaneous">Różne</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
     <string name="settings_no_limit">Bez limitu</string>
     <string name="prefs_force_incognito_mode_summary">Wyłącz naukę nowych słów</string>
     <string name="more_keys_strip_description">Więcej klawiszy</string>
@@ -296,8 +296,8 @@
     <string name="user_dict_settings_add_weight_value">Wartość:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii (może powodować problemy)</string>
     <string name="title_layout_name_select">Nazwij układ</string>
-    <string name="no_dictionary_message">"Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
-\n        Słowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s."</string>
+    <string name="no_dictionary_message">Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
+\nSłowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s.</string>
     <string name="switch_language">Zmień język</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Wyczyść schowek</string>
     <string name="day_or_night_night">Nocny</string>
@@ -344,4 +344,5 @@
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="rosyjski">%s</xliff:g> (Uczeń)</string>
     <string name="prefs_long_press_symbol_for_numpad">Przytrzymaj klawisz symboli, aby wyświetlić klawiaturę numeryczną</string>
+    <string name="cut" tools:keep="@string/Cut">Wytnij</string>
 </resources>
