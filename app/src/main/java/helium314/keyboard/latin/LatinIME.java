@@ -199,9 +199,8 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
-        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
         // Update this when adding new messages
-        private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
+        private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
         private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
@@ -291,11 +290,6 @@ public class LatinIME extends InputMethodService implements
                     break;
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
                     latinIme.switchToSubtype((InputMethodSubtype) msg.obj);
-                    break;
-                case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
-                    @SuppressWarnings("unchecked")
-                    List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
-                    latinIme.mClipboardHistoryManager.onPinnedClipsAvailable(entries);
                     break;
             }
         }
@@ -409,10 +403,6 @@ public class LatinIME extends InputMethodService implements
 
         public void postSwitchLanguage(final InputMethodSubtype subtype) {
             obtainMessage(MSG_SWITCH_LANGUAGE_AUTOMATICALLY, subtype).sendToTarget();
-        }
-
-        public void postUpdateClipboardPinnedClips(final List<ClipboardHistoryEntry> clips) {
-            obtainMessage(MSG_UPDATE_CLIPBOARD_PINNED_CLIPS, clips).sendToTarget();
         }
 
         // Working variables for the following methods.
