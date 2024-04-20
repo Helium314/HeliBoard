@@ -540,10 +540,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             mKeyboardView.cancelAllOngoingEvents();
             mKeyboardView.deallocateMemory();
         }
-        if (mEmojiPalettesView != null) {
+        if (!isShowingEmojiPalettes()) {
             mEmojiPalettesView.stopEmojiPalettes();
         }
-        if (mClipboardHistoryView != null) {
+        if (!isShowingClipboardHistory()) {
             mClipboardHistoryView.stopClipboardHistory();
         }
     }
