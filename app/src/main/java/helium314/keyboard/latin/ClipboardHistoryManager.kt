@@ -23,9 +23,8 @@ class ClipboardHistoryManager(
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
-        if (latinIME.mSettings.current?.mSyncFromPrimaryClipboard == true) {
+        if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true)
             fetchPrimaryClip()
-        }
     }
 
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
@@ -51,7 +50,7 @@ class ClipboardHistoryManager(
 
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
-        if (clipData.itemCount == 0) return
+        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return
         clipData.getItemAt(0)?.let { clipItem ->
             val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
             copyTextToInternalClipboard(clipItem.coerceToText(latinIME), timeStamp)

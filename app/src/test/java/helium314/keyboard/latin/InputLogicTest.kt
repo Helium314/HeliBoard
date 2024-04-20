@@ -607,7 +607,7 @@ class InputLogicTest {
         settingsValues.mSpacingAndPunctuations,
         currentScript,
         false
-    ).mWord
+    )?.mWord
 
     private fun setCursorPosition(start: Int, end: Int = start, weirdTextField: Boolean = false) {
         val ei = EditorInfo()
