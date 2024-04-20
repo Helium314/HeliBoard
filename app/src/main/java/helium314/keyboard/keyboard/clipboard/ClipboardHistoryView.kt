@@ -125,12 +125,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
-            colors.setColor(it, ColorType.TOOL_BAR_KEY)
-            if (it.tag == ToolbarKey.CLOSE_HISTORY){
-                it.scaleX = 0.75f
-                it.scaleY = 0.75f
+            if (it.tag == ToolbarKey.CLOSE_HISTORY) {
+                colors.setColor(it, ColorType.TOOL_BAR_EXPAND_KEY)
+                it.scaleX = 0.78f
+                it.scaleY = 0.78f
                 it.background = closeKeyBackground
-            } else colors.setBackground(it, ColorType.STRIP_BACKGROUND)
+            } else {
+                colors.setColor(it, ColorType.TOOL_BAR_KEY)
+                colors.setBackground(it, ColorType.STRIP_BACKGROUND)
+            }
         }
         initialized = true
     }
