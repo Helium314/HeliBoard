@@ -2131,7 +2131,8 @@ public final class InputLogic {
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))
             return true;
         // "://" before typed word -> very much looks like URL
-        if (mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0).toString().startsWith("://"))
+        final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
+        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
             return true;
         return false;
     }

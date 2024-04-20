@@ -69,24 +69,27 @@ public class RichInputMethodManager {
         sInstance.initInternal(context);
     }
 
-    private boolean isInitialized() {
+    private boolean isInitializedInternal() {
         return mImm != null;
     }
 
+    public static boolean isInitialized() {
+        return sInstance.isInitializedInternal();
+    }
+
     private void checkInitialized() {
-        if (!isInitialized()) {
+        if (!isInitializedInternal()) {
             throw new RuntimeException(TAG + " is used before initialization");
         }
     }
 
     private void initInternal(final Context context) {
-        if (isInitialized()) {
+        if (isInitializedInternal()) {
             return;
         }
         mImm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         mContext = context;
-        mInputMethodInfoCache = new InputMethodInfoCache(
-                mImm, context.getPackageName());
+        mInputMethodInfoCache = new InputMethodInfoCache(mImm, context.getPackageName());
 
         // Initialize subtype utils.
         SubtypeLocaleUtils.init(context);

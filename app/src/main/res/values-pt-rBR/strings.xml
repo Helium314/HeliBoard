@@ -342,4 +342,8 @@
     <string name="show_vertical_space_swipe">Gesto de deslizar vertical na barra de espaço</string>
     <string name="action_none">Nenhum</string>
     <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
+    <string name="prefs_long_press_symbol_for_numpad">Toque longo na tecla de símbolos para abrir o numpad</string>
+    <string name="cut" tools:keep="@string/Cut">Cortar</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudante)</string>
+    <string name="gnu_gpl">Licença Pública Geral GNU v3.0</string>
 </resources>

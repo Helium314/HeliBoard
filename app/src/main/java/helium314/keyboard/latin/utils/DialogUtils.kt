@@ -1,6 +1,7 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,7 @@ fun reorderDialog(
     }
     val rv = RecyclerView(context)
     val bgColor = ContextCompat.getColor(context, R.color.sliding_items_background)
+    val fgColor = ContextCompat.getColor(context, R.color.foreground)
     val padding = ResourceUtils.toPx(8, context.resources)
     rv.setPadding(3 * padding, padding, padding, padding)
     rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -97,6 +99,7 @@ fun reorderDialog(
             val icon = getIcon(text)
             viewHolder.itemView.findViewById<ImageView>(R.id.reorder_item_icon)?.let {
                 it.visibility = if (icon == null) View.GONE else View.VISIBLE
+                it.setColorFilter(fgColor, PorterDuff.Mode.SRC_IN)
                 it.setImageDrawable(icon)
             }
         }

@@ -104,7 +104,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) steps = -steps
         val moveSteps: Int
         if (steps < 0) {
-            val availableCharacters: Int = inputLogic.mConnection.getTextBeforeCursor(64, 0).length
+            val availableCharacters = inputLogic.mConnection.getTextBeforeCursor(64, 0)?.length ?: return false
             moveSteps = if (availableCharacters < -steps) -availableCharacters else steps
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
@@ -116,7 +116,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 return true
             }
         } else {
-            val availableCharacters: Int = inputLogic.mConnection.getTextAfterCursor(64, 0).length
+            val availableCharacters = inputLogic.mConnection.getTextAfterCursor(64, 0)?.length ?: return false
             moveSteps = availableCharacters.coerceAtMost(steps)
             if (moveSteps == 0) {
                 while (steps != 0) {
