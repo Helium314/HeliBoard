@@ -716,6 +716,8 @@ public class LatinIME extends InputMethodService implements
         unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
         mStatsUtilsManager.onDestroy(this /* context */);
         super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+        deallocateMemory();
     }
 
     public void recycle() {
