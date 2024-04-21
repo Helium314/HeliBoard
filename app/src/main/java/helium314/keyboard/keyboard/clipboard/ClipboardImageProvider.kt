@@ -1,27 +1,25 @@
 package helium314.keyboard.keyboard.clipboard
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import helium314.keyboard.latin.ClipboardHistoryEntry
-import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.utils.Log
 import java.io.File
 
-class ClipboardImageManager(
-    private val latinIME: LatinIME
-) {
+class ClipboardImageManager(private val context: Context) {
     fun saveClipboardImage(imageUri: Uri, timeStamp: Long): Uri? {
-        val mimeType = latinIME.contentResolver?.getType(imageUri) ?: return null
+        val mimeType = context.contentResolver?.getType(imageUri) ?: return null
         val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType) ?: return null
         val fileName = "$timeStamp.$extension"
         try {
-            val imagesDir = File(latinIME.filesDir, IMAGES_DIR_NAME)
+            val imagesDir = File(context.filesDir, IMAGES_DIR_NAME)
             val imageFile = File(imagesDir, fileName)
-            FileUtils.copyContentUriToNewFile(imageUri, latinIME, imageFile)
-            return FileProvider.getUriForFile(latinIME, "${latinIME.packageName}.provider", imageFile)
+            FileUtils.copyContentUriToNewFile(imageUri, context, imageFile)
+            return FileProvider.getUriForFile(context, "${context.packageName}.provider", imageFile)
         } catch (e: IllegalArgumentException) {
             Log.e(TAG, "Could not get URI for file: $fileName, ${e.message}", e)
         } catch (e: Exception) {
@@ -36,10 +34,10 @@ class ClipboardImageManager(
             return
         }
         try {
-            val imagesDir = File(latinIME.filesDir, IMAGES_DIR_NAME)
+            val imagesDir = File(context.filesDir, IMAGES_DIR_NAME)
             val imageFile = File(imagesDir, fileName)
             if (imageFile.exists()) {
-                latinIME.revokeUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                context.revokeUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 if (!imageFile.delete()) {
                     Log.w(TAG, "Failed to delete clipboard image: $fileName")
                 }
@@ -53,7 +51,7 @@ class ClipboardImageManager(
 
     fun removeOrphanedImages(historyEntries: List<ClipboardHistoryEntry>) {
         val imageFiles = try {
-            File(latinIME.filesDir, IMAGES_DIR_NAME).listFiles() ?: return
+            File(context.filesDir, IMAGES_DIR_NAME).listFiles() ?: return
         } catch (e: Exception) {
             Log.e(TAG, "Could not get image files: ${e.message}", e)
             return
@@ -62,7 +60,7 @@ class ClipboardImageManager(
         val imagesToDelete = mutableListOf<Uri>()
         for (imageFile in imageFiles) {
             try {
-                val imageUri = FileProvider.getUriForFile(latinIME, "${latinIME.packageName}.provider", imageFile)
+                val imageUri = FileProvider.getUriForFile(context, "${context.packageName}.provider", imageFile)
                 if (imageUri !in historyUris) {
                     imagesToDelete.add(imageUri)
                 }

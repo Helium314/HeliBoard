@@ -19,7 +19,7 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
-    private val ClipboardImageManager = ClipboardImageManager(latinIME)
+    private val clipboardImageManager = ClipboardImageManager(latinIME)
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -71,7 +71,7 @@ class ClipboardHistoryManager(
                 val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
                 if (updateTimestamp(duplicateEntryIndex, timeStamp)) return // older entry with the same text already exists
             } else {
-                imageUri = ClipboardImageManager.saveClipboardImage(clipItem.uri, timeStamp) ?: return
+                imageUri = clipboardImageManager.saveClipboardImage(clipItem.uri, timeStamp) ?: return
                 content = clipData.description.label
             }
 
@@ -117,16 +117,16 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
-        ClipboardImageManager.removeOrphanedImages(historyEntries)
+        clipboardImageManager.removeOrphanedImages(historyEntries)
     }
 
-    fun canRemove(index: Int) = index in historyEntries.indices && !historyEntries[index].isPinned
+    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.let { !it.isPinned } ?: false
 
     fun removeEntry(index: Int) {
         if (canRemove(index)) {
             val imageUri = historyEntries[index].imageUri
             if (imageUri != null) {
-                ClipboardImageManager.deleteClipboardImage(imageUri)
+                clipboardImageManager.deleteClipboardImage(imageUri)
             }
             historyEntries.removeAt(index)
         }
@@ -142,7 +142,7 @@ class ClipboardHistoryManager(
         val maxClipRetentionTime = mins * 60 * 1000L
         val now = System.currentTimeMillis()
         historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
-        ClipboardImageManager.removeOrphanedImages(historyEntries)
+        clipboardImageManager.removeOrphanedImages(historyEntries)
     }
 
     // We do not want to update history while user is visualizing it, so we check retention only
