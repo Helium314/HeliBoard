@@ -39,4 +39,6 @@ jobs:
         with:
           name: reports
           path: '*/build/reports'
+          retention-days: 90
+          compression-level: 9
         if: ${{ failure() }}
