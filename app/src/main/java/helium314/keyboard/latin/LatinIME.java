@@ -201,8 +201,7 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
-        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
-        private static final int MSG_SET_CLIPBOARD_SUGGESTION = 12;
+        private static final int MSG_SET_CLIPBOARD_SUGGESTION = 11;
 
         // Update this when adding new messages
         private static final int MSG_LAST = MSG_SET_CLIPBOARD_SUGGESTION;
