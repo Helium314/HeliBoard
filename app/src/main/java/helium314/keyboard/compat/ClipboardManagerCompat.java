@@ -3,6 +3,7 @@
 package helium314.keyboard.compat;
 
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.os.Build;
 
@@ -29,11 +30,11 @@ public class ClipboardManagerCompat {
         }
     }
 
-    public static Boolean getClipSensitivity(ClipData cd) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && cd.getDescription().getExtras() != null) {
-            return cd.getDescription().getExtras().getBoolean("android.content.extra.IS_SENSITIVE");
+    public static Boolean getClipSensitivity(final ClipDescription cd, final boolean isPasswordInputType) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && cd != null && cd.getExtras() != null) {
+            return cd.getExtras().getBoolean("android.content.extra.IS_SENSITIVE");
         } else {
-            return false;
+            return isPasswordInputType;
         }
     }
 

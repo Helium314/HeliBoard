@@ -263,6 +263,7 @@ public class LatinIME extends InputMethodService implements
                     break;
                 case MSG_SET_CLIPBOARD_SUGGESTION:
                     latinIme.setClipboardSuggestion();
+                    break;
                 case MSG_REOPEN_DICTIONARIES:
                     // We need to re-evaluate the currently composing word in case the script has
                     // changed.
@@ -1647,7 +1648,7 @@ public class LatinIME extends InputMethodService implements
     // This will set a new clipboard suggestion if the primary clipboard is not empty
     // and the relevant setting is enabled.
     // In case of input and content type mismatch, no suggestion will be shown.
-    // It returns true or false depending if the suggestions was set successfully.
+    // It returns true or false depending if the suggestion has been set successfully.
     public boolean setClipboardSuggestion(){
         final String clipContent = mClipboardHistoryManager.retrieveClipboardSuggestionContent();
         if (!clipContent.isEmpty()) {
@@ -1655,7 +1656,7 @@ public class LatinIME extends InputMethodService implements
             final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
             // make sure clipboard content that is not a number is not suggested in a number input type
             if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent));
+                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
                 return true;
             }
         }

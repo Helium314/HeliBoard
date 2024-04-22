@@ -686,16 +686,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 return;
             }
             final SuggestedWordInfo wordInfo = mSuggestedWords.getInfo(index);
-            if (mSuggestedWords.isClipboardSuggestion()) {
-                // make sure the latest clipboard entry is pasted since the content is hidden
-                if (mSuggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_CLIPBOARD_PASSWORD)
-                    onLongClickClipboardKey();
-                else mListener.pickSuggestionManually(wordInfo);
-                if (view instanceof TextView)
-                    removeSuggestion((TextView) view);
-                return;
-            }
             mListener.pickSuggestionManually(wordInfo);
+            if (mSuggestedWords.isClipboardSuggestion()) {
+                mListener.onClipboardSuggestionPicked();
+            }
         }
     }
 

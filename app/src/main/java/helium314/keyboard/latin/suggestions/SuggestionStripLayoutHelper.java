@@ -57,7 +57,7 @@ final class SuggestionStripLayoutHelper {
     private static final int DEFAULT_MAX_MORE_SUGGESTIONS_ROW = 2;
     private static final int PUNCTUATIONS_IN_STRIP = 5;
     private static final float MIN_TEXT_XSCALE = 0.70f;
-    private static final int MAX_CLIPBOARD_SUGGESTION_LENGTH = 18;
+    private static final int MAX_CLIPBOARD_SUGGESTION_LENGTH = 15;
 
     public final int mPadding;
     public final int mDividerWidth;
@@ -127,7 +127,7 @@ final class SuggestionStripLayoutHelper {
         mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
         mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
         mColorSuggested = colors.get(ColorType.SUGGESTED_WORD);
-        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.CLIP_SUGGESTION_BACKGROUND));
+        mClipboardSuggestionSpan = new BackgroundColorSpan(colors.get(ColorType.CLIPBOARD_SUGGESTION_BACKGROUND));
         final int colorMoreSuggestionsHint = colors.get(ColorType.MORE_SUGGESTIONS_HINT);
 
         mSuggestionsCountInStrip = a.getInt(
