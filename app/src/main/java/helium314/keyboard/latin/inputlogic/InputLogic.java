@@ -716,6 +716,16 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
+            case KeyCode.CLIPBOARD_CUT:
+                if (mConnection.hasSelection()) {
+                    mConnection.copyText();
+                    // fake delete keypress to remove the text
+                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
+                            event.getMX(), event.getMY(), event.isKeyRepeat());
+                    handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
+                    inputTransaction.setDidAffectContents();
+                }
+                break;
             case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
@@ -2121,7 +2131,8 @@ public final class InputLogic {
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))
             return true;
         // "://" before typed word -> very much looks like URL
-        if (mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0).toString().startsWith("://"))
+        final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
+        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
             return true;
         return false;
     }

@@ -76,7 +76,7 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
         // ideally the repo would switch to language tag, but not sure how this is handled in the dictionary header
         // further, the dicts in the dictionaries repo should be compatible with other AOSP-based keyboards
         val dictLocale = localeString.constructLocale()
-        if (LocaleUtils.getMatchLevel(locale, dictLocale) < 3) return@forEachLine
+        if (LocaleUtils.getMatchLevel(locale, dictLocale) < LocaleUtils.LOCALE_GOOD_MATCH) return@forEachLine
         val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
         val dictString = if (experimental.isEmpty()) rawDictString
         else context.getString(R.string.available_dictionary_experimental, rawDictString)

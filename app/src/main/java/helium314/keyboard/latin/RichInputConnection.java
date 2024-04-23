@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Enrichment class for InputConnection to simplify interaction and add functionality.
- *
+ * <p>
  * This class serves as a wrapper to be able to simply add hooks to any calls to the underlying
  * InputConnection. It also keeps track of a number of things to avoid having to call upon IPC
  * all the time to find out what text is in the buffer, when we need it to determine caps mode
@@ -207,7 +207,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Reset the cached text and retrieve it again from the editor.
-     *
+     * <p>
      * This should be called when the cursor moved. It's possible that we can't connect to
      * the application when doing this; notably, this happens sometimes during rotation, probably
      * because of a race condition in the framework. In this case, we just can't retrieve the
@@ -346,7 +346,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Gets the caps modes we should be in after this specific string.
-     *
+     * <p>
      * This returns a bit set of TextUtils#CAP_MODE_*, masked by the inputType argument.
      * This method also supports faking an additional space after the string passed in argument,
      * to support cases where a space will be added automatically, like in phantom space
@@ -408,7 +408,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mCommittedTextBeforeComposingText.charAt(length - 2);
     }
 
-    public CharSequence getTextBeforeCursor(final int n, final int flags) {
+    @Nullable public CharSequence getTextBeforeCursor(final int n, final int flags) {
         final int cachedLength = mCommittedTextBeforeComposingText.length() + mComposingText.length();
         // If we have enough characters to satisfy the request, or if we have all characters in
         // the text field, then we can return the cached version right away.
@@ -437,7 +437,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 n, flags);
     }
 
-    private CharSequence getTextBeforeCursorAndDetectLaggyConnection(
+    @Nullable private CharSequence getTextBeforeCursorAndDetectLaggyConnection(
             final int operation, final long timeout, final int n, final int flags) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
@@ -449,14 +449,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return result;
     }
 
-    public CharSequence getTextAfterCursor(final int n, final int flags) {
+    @Nullable public CharSequence getTextAfterCursor(final int n, final int flags) {
         return getTextAfterCursorAndDetectLaggyConnection(
                 OPERATION_GET_TEXT_AFTER_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
                 n, flags);
     }
 
-    private CharSequence getTextAfterCursorAndDetectLaggyConnection(
+    @Nullable private CharSequence getTextAfterCursorAndDetectLaggyConnection(
             final int operation, final long timeout, final int n, final int flags) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
@@ -614,7 +614,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Set the selection of the text editor.
-     *
+     * <p>
      * Calls through to {@link InputConnection#setSelection(int, int)}.
      *
      * @param start the character index where the selection should start.
@@ -741,7 +741,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @param script the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
      * @return a range containing the text surrounding the cursor
      */
-    public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
+    @Nullable public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
             final String script, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
@@ -823,7 +823,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                         final char c = after.charAt(i);
                         if (spacingAndPunctuations.isSometimesWordConnector(c)) {
                             // if yes -> whitespace is next to the index
-                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);;
+                            startIndexInBefore = Math.max(StringUtils.charIndexOfLastWhitespace(before), 0);
                             final int firstSpaceAfter = StringUtils.charIndexOfFirstWhitespace(after);
                             endIndexInAfter = firstSpaceAfter == -1 ? after.length() : firstSpaceAfter - 1;
                             break;
@@ -886,12 +886,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
         int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
         final CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-        if (codePointBeforeCursor.length() == 0) return before;
+        if (codePointBeforeCursor == null || codePointBeforeCursor.length() == 0) return before;
 
         // now check whether they are the same if the last codepoint of before is removed
         final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
         final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
-        if (beforeCursor.length() != beforeWithoutLast.length()) return before;
+        if (beforeCursor == null || beforeCursor.length() != beforeWithoutLast.length()) return before;
         if (TextUtils.equals(beforeCursor, beforeWithoutLast))
             return beforeWithoutLast;
         return before;
@@ -989,7 +989,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Heuristic to determine if this is an expected update of the cursor.
-     *
+     * <p>
      * Sometimes updates to the cursor position are late because of their asynchronous nature.
      * This method tries to determine if this update is one, based on the values of the cursor
      * position in the update, and the currently expected position of the cursor according to
@@ -1029,7 +1029,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Looks at the text just before the cursor to find out if it looks like a URL.
-     *
+     * <p>
      * The weakest point here is, if we don't have enough text bufferized, we may fail to realize
      * we are in URL situation, but other places in this class have the same limitation and it
      * does not matter too much in the practice.
@@ -1086,7 +1086,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Looks at the text just before the cursor to find out if we are inside a double quote.
-     *
+     * <p>
      * As with #textBeforeCursorLooksLikeURL, this is dependent on how much text we have cached.
      * However this won't be a concrete problem in most situations, as the cache is almost always
      * long enough for this use.

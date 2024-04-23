@@ -63,6 +63,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.define.ProductionFlags;
@@ -198,9 +199,8 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
-        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
         // Update this when adding new messages
-        private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
+        private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
         private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
@@ -290,11 +290,6 @@ public class LatinIME extends InputMethodService implements
                     break;
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
                     latinIme.switchToSubtype((InputMethodSubtype) msg.obj);
-                    break;
-                case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
-                    @SuppressWarnings("unchecked")
-                    List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
-                    latinIme.mClipboardHistoryManager.onPinnedClipsAvailable(entries);
                     break;
             }
         }
@@ -408,10 +403,6 @@ public class LatinIME extends InputMethodService implements
 
         public void postSwitchLanguage(final InputMethodSubtype subtype) {
             obtainMessage(MSG_SWITCH_LANGUAGE_AUTOMATICALLY, subtype).sendToTarget();
-        }
-
-        public void postUpdateClipboardPinnedClips(final List<ClipboardHistoryEntry> clips) {
-            obtainMessage(MSG_UPDATE_CLIPBOARD_PINNED_CLIPS, clips).sendToTarget();
         }
 
         // Working variables for the following methods.
@@ -725,6 +716,8 @@ public class LatinIME extends InputMethodService implements
         unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
         mStatsUtilsManager.onDestroy(this /* context */);
         super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+        deallocateMemory();
     }
 
     public void recycle() {
@@ -878,6 +871,8 @@ public class LatinIME extends InputMethodService implements
         }
         // Try switching to a subtype matching the hint language.
         for (final Locale hintLocale : hintLocales) {
+            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3)
+                return; // current locale is already a good match, and we want to avoid unnecessary layout switches
             final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
@@ -1058,6 +1053,7 @@ public class LatinIME extends InputMethodService implements
 
     void onFinishInputInternal() {
         super.onFinishInput();
+        Log.i(TAG, "onFinishInput");
 
         mDictionaryFacilitator.onFinishInput(this);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
@@ -1068,6 +1064,7 @@ public class LatinIME extends InputMethodService implements
 
     void onFinishInputViewInternal(final boolean finishingInput) {
         super.onFinishInputView(finishingInput);
+        Log.i(TAG, "onFinishInputView");
         cleanupInternalStateForFinishInput();
     }
 
