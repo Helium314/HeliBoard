@@ -1594,8 +1594,9 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
-        if (currentSettingsValues.mSuggestionsToggleToolbar && !suggestedWords.isEmpty())
-            mSuggestionStripView.setToolbarVisibility(false);
+        if (currentSettingsValues.mSuggestionsToggleToolbar) {
+            mSuggestionStripView.setToolbarVisibility(suggestedWords.isEmpty());
+        }
     }
 
     // TODO[IL]: Move this out of LatinIME.
@@ -1636,23 +1637,21 @@ public class LatinIME extends InputMethodService implements
 
     // This will show either an empty suggestion strip (if prediction is enabled) or
     // punctuation suggestions (if it's disabled).
+    // The toolbar will toggle automatically if the relevant setting is enabled
+    // and there is no text before the cursor or it's the start of a new line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
-        if (currentSettings.mSuggestionsToggleToolbar) {
+        setSuggestedWords(neutralSuggestions);
+        if (hasSuggestionStripView() && currentSettings.mSuggestionsToggleToolbar) {
             final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
             if (codePoint == Constants.NOT_A_CODE || codePoint == Constants.CODE_ENTER) {
-                if (hasSuggestionStripView()) {
-                    mInputLogic.setSuggestedWords(neutralSuggestions);
-                    mSuggestionStripView.setToolbarVisibility(true);
-                    return;
-                }
+                mSuggestionStripView.setToolbarVisibility(true);
             }
         }
-        setSuggestedWords(neutralSuggestions);
     }
 
     @Override

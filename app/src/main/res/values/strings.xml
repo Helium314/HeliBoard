@@ -791,5 +791,5 @@ New dictionary:
     <!-- Title of the setting for expanding/collapsing the toolbar automatically -->
     <string name="suggestions_toggle_toolbar">Suggestions toggle toolbar</string>
     <!-- Description of the setting for expanding/collapsing the toolbar automatically -->
-    <string name="suggestions_toggle_toolbar_summary">Automatically expand/collapse the toolbar when suggestions change</string>
+    <string name="suggestions_toggle_toolbar_summary">Automatically toggle the toolbar when suggestions become available</string>
 </resources>
