@@ -40,7 +40,7 @@ public class KeyPreviewView extends AppCompatTextView {
 
     public KeyPreviewView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+        setGravity(Gravity.CENTER);
     }
 
     public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet,
