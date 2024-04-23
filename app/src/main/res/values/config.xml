@@ -38,7 +38,7 @@
     <dimen name="config_key_preview_height_holo">80dp</dimen>
     <dimen name="config_key_preview_offset_lxx">0dp</dimen>
     <dimen name="config_key_preview_height_lxx">111dp</dimen>
-    <fraction name="config_key_preview_text_ratio">65%</fraction>
+    <fraction name="config_key_preview_text_ratio">82%</fraction>
     <fraction name="config_key_letter_ratio_holo">55%</fraction>
     <fraction name="config_key_letter_ratio_lxx">55%</fraction>
     <fraction name="config_key_large_letter_ratio_holo">65%</fraction>
