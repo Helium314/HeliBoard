@@ -472,11 +472,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void removeSuggestion(TextView wordView) {
-        final String word = wordView.getText().toString();
         if (mSuggestedWords.isClipboardSuggestion()) {
             mListener.onClipboardSuggestionPicked();
             return;
         }
+        final String word = wordView.getText().toString();
         mListener.removeSuggestion(word);
         mMoreSuggestionsView.dismissPopupKeysPanel();
         // show suggestions, but without the removed word

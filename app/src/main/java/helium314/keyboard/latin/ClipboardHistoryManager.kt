@@ -59,6 +59,7 @@ class ClipboardHistoryManager(
                 sortHistoryEntries()
                 val newIndex = historyEntries.indexOf(existingEntry)
                 onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
+                updateClipboardSuggestion()
                 return
             }
             if (historyEntries.any { it.content.toString() == content.toString() }) return
@@ -68,11 +69,16 @@ class ClipboardHistoryManager(
             sortHistoryEntries()
             val at = historyEntries.indexOf(entry)
             onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
-            if (latinIME.mSettings.current?.mSuggestClipboardContent == true) { // update clipboard suggestion with the new entry's content
-                latinIME.mHandler?.postUpdateSuggestionStrip(latinIME.currentInputEditorInfo?.inputType ?: InputType.TYPE_NULL)
-            }
+            updateClipboardSuggestion()
         }
     }
+
+    private fun updateClipboardSuggestion() {
+        if (latinIME.mSettings.current?.mSuggestClipboardContent == true) {
+            latinIME.mHandler?.postUpdateSuggestionStrip(latinIME.currentInputEditorInfo?.inputType ?: InputType.TYPE_NULL)
+        }
+    }
+
 
     fun toggleClipPinned(ts: Long) {
         val from = historyEntries.indexOfFirst { it.timeStamp == ts }
@@ -94,10 +100,7 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
-        // get rid of any clipboard suggestion
-        if (latinIME.mSettings.current.mSuggestClipboardContent) {
-            latinIME.mHandler?.postUpdateSuggestionStrip(latinIME.currentInputEditorInfo?.inputType ?: InputType.TYPE_NULL)
-        }
+        updateClipboardSuggestion() // get rid of any clipboard suggestion
     }
 
     fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
