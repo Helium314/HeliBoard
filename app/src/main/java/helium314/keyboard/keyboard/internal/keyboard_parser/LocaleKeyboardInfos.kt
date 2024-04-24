@@ -45,12 +45,12 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         mutableListOf("ⁿ", "∅"),
     )
     val hasZwnjKey = when (locale.language) { // todo: move to the info file
-        "fa", "ne", "kn", "knx", "te" -> true
+        "fa", "ne", "kn", "te" -> true
         else -> false
     }
     val labelFlags = when (locale.language) { // todo: move to the info file
         "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
-        "kn", "knx", "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "kn", "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
         else -> 0
     }
 
@@ -290,7 +290,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
         return genericCurrencyKey(getCurrency(locale))
     if (locale.country != "IN" && locale.language == "ta")
         return genericCurrencyKey("௹")
-    if (locale.country == "IN" || locale.language.matches("hi|kn|knx|ml|mr|ta|te|gu".toRegex()))
+    if (locale.country == "IN" || locale.language.matches("hi|kn|ml|mr|ta|te|gu".toRegex()))
         return rupee
     if (locale.country == "GB")
         return pound

@@ -179,7 +179,7 @@ object ScriptUtils {
             "th" -> SCRIPT_THAI
             "ko" -> SCRIPT_HANGUL
             "hi", "mr", "ne" -> SCRIPT_DEVANAGARI
-            "kn", "knx" -> SCRIPT_KANNADA
+            "kn" -> SCRIPT_KANNADA
             "gu" -> SCRIPT_GUJARATI
             else -> SCRIPT_LATIN // use as fallback
         }
