@@ -11,12 +11,16 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import helium314.keyboard.latin.utils.Log;
+
+import android.os.Handler;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -51,6 +55,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private LinearLayout mClipboardStripView;
     private View mSuggestionStripView;
     private ClipboardHistoryView mClipboardHistoryView;
+    private TextView mFakeToastView;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
     private boolean mIsHardwareAcceleratedDrawingEnabled;
@@ -62,6 +67,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
     private int mCurrentUiMode;
+
+    private boolean isToastShowing;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -464,6 +471,22 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
     }
 
+    // Displays a toast-like message with the provided text resource ID for a specified duration.
+    public void showFakeToast(final int resId, final int timeMillis) {
+        if (isToastShowing) return;
+
+        mFakeToastView.setText(resId);
+        mFakeToastView.setVisibility(View.VISIBLE);
+        isToastShowing = true;
+        mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_in));
+
+        new Handler().postDelayed(() -> {
+            mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_out));
+            mFakeToastView.setVisibility(View.GONE);
+            isToastShowing = false;
+        }, timeMillis);
+    }
+
     // Implements {@link KeyboardState.SwitchActions}.
     @Override
     public boolean isInDoubleTapShiftKeyTimeout() {
@@ -559,6 +582,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mMainKeyboardFrame = mCurrentInputView.findViewById(R.id.main_keyboard_frame);
         mEmojiPalettesView = mCurrentInputView.findViewById(R.id.emoji_palettes_view);
         mClipboardHistoryView = mCurrentInputView.findViewById(R.id.clipboard_history_view);
+        mFakeToastView = mCurrentInputView.findViewById(R.id.fakeToast);
 
         mKeyboardViewWrapper = mCurrentInputView.findViewById(R.id.keyboard_view_wrapper);
         mKeyboardViewWrapper.setKeyboardActionListener(mLatinIME.mKeyboardActionListener);

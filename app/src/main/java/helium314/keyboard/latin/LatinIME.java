@@ -38,6 +38,7 @@ import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Toast;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -1611,6 +1612,17 @@ public class LatinIME extends InputMethodService implements
         }
         mInputLogic.getSuggestedWords(mSettings.getCurrent(), keyboard,
                 mKeyboardSwitcher.getKeyboardShiftMode(), inputStyle, sequenceNumber, callback);
+    }
+
+    public void showToast(final int resId, final int timeMillis, final boolean fallback){
+        // In API 32 and below, toasts can be shown without a notification permission.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2){
+            final Toast toast = Toast.makeText(this, resId, timeMillis);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (fallback) {
+            mKeyboardSwitcher.showFakeToast(resId, timeMillis); // workaround for API 33+.
+        }
     }
 
     @Override
