@@ -561,14 +561,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardHistoryView = mCurrentInputView.findViewById(R.id.clipboard_history_view);
 
         mKeyboardViewWrapper = mCurrentInputView.findViewById(R.id.keyboard_view_wrapper);
-        mKeyboardViewWrapper.setKeyboardActionListener(mLatinIME);
+        mKeyboardViewWrapper.setKeyboardActionListener(mLatinIME.mKeyboardActionListener);
         mKeyboardView = mCurrentInputView.findViewById(R.id.keyboard_view);
         mKeyboardView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
-        mKeyboardView.setKeyboardActionListener(mLatinIME);
+        mKeyboardView.setKeyboardActionListener(mLatinIME.mKeyboardActionListener);
         mEmojiPalettesView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
-        mEmojiPalettesView.setKeyboardActionListener(mLatinIME);
+        mEmojiPalettesView.setKeyboardActionListener(mLatinIME.mKeyboardActionListener);
         mClipboardHistoryView.setHardwareAcceleratedDrawingEnabled(isHardwareAcceleratedDrawingEnabled);
-        mClipboardHistoryView.setKeyboardActionListener(mLatinIME);
+        mClipboardHistoryView.setKeyboardActionListener(mLatinIME.mKeyboardActionListener);
         mEmojiTabStripView = mCurrentInputView.findViewById(R.id.emoji_tab_strip);
         mClipboardStripView = mCurrentInputView.findViewById(R.id.clipboard_strip);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);

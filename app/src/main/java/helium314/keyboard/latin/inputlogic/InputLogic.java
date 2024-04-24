@@ -8,6 +8,7 @@ package helium314.keyboard.latin.inputlogic;
 
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -715,6 +716,16 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY:
                 mConnection.copyText();
                 break;
+            case KeyCode.CLIPBOARD_CUT:
+                if (mConnection.hasSelection()) {
+                    mConnection.copyText();
+                    // fake delete keypress to remove the text
+                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
+                            event.getMX(), event.getMY(), event.isKeyRepeat());
+                    handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
+                    inputTransaction.setDidAffectContents();
+                }
+                break;
             case KeyCode.ARROW_LEFT:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;
@@ -968,6 +979,12 @@ public final class InputLogic {
 
             if (swapWeakSpace && trySwapSwapperAndSpace(event, inputTransaction)) {
                 mSpaceState = SpaceState.WEAK;
+            } else if ((settingsValues.mInputAttributes.mInputType & InputType.TYPE_MASK_CLASS) != InputType.TYPE_CLASS_TEXT
+                    && codePoint >= '0' && codePoint <= '9') {
+                // weird issue when committing text: https://github.com/Helium314/HeliBoard/issues/585
+                // but at the same time we don't always want to do it for numbers because it might interfere with url detection
+                // todo: consider always using sendDownUpKeyEvent for non-text-inputType
+                sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
             } else {
                 mConnection.commitCodePoint(codePoint);
             }
@@ -2104,9 +2121,8 @@ public final class InputLogic {
     }
 
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
-        final EditorInfo ei = getCurrentInputEditorInfo();
         // URL / mail field and no space -> may be URL
-        if (ei != null && (InputTypeUtils.isUriOrEmailType(ei.inputType)) &&
+        if (InputTypeUtils.isUriOrEmailType(settingsValues.mInputAttributes.mInputType) &&
                 // we never want to commit the first part of the url, but we want to insert autospace if text might be a normal word
                 (forAutoSpace ? mConnection.nonWordCodePointAndNoSpaceBeforeCursor(settingsValues.mSpacingAndPunctuations) // avoid detecting URL if it could be a word
                 : !mConnection.spaceBeforeCursor()))
@@ -2115,7 +2131,8 @@ public final class InputLogic {
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))
             return true;
         // "://" before typed word -> very much looks like URL
-        if (mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0).toString().startsWith("://"))
+        final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
+        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
             return true;
         return false;
     }

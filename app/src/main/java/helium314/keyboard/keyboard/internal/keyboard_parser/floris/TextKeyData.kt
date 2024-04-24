@@ -110,7 +110,7 @@ sealed interface KeyData : AbstractKeyData {
 
     fun isSpaceKey(): Boolean {
         return type == KeyType.CHARACTER && (code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE
-                || code == KeyCode.HALF_SPACE || code == KeyCode.KESHIDA)
+                || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA)
     }
 
     fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, additionalLabelFlags: Int = 0): Key.KeyParams {

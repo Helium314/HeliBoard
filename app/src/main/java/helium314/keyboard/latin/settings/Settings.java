@@ -94,6 +94,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "block_potentially_offensive";
     public static final String PREF_LANGUAGE_SWITCH_KEY = "language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "show_emoji_key";
+    public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
@@ -115,6 +116,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
+    public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
 
     // one-handed mode gravity, enablement and scale, stored separately per orientation
     public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled_p_";
@@ -614,7 +616,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
         final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
-                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARKER)
+                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
 

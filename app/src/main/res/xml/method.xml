@@ -23,6 +23,7 @@
     bn_IN: Bengali (India)/bengali
     ca: Catalan/qwerty+
     cs: Czech/qwertz
+    cv: Chuvash/chuvash
     da: Danish/qwerty+
     de: German/qwertz
     de_DE: German (Germany)/qwertz+
@@ -82,6 +83,7 @@
     pt_PT: Portuguese (Portugal)/qwerty
     ro: Romanian/qwerty
     ru: Russian/russian
+    ru: Russian (Student)/russian_student
     si_LK: Sinhala (Sri Lanka)/sinhala # This is a preliminary keyboard layout.
     sk: Slovak/qwerty
     sl: Slovenian/qwerty
@@ -234,6 +236,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_probhat_bn_BD"
+            android:subtypeId="0xa2144c0c"
+            android:imeSubtypeLocale="bn_BD"
+            android:languageTag="bn-BD"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali_probhat,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xbff5986c"
             android:imeSubtypeLocale="bn_IN"
@@ -259,6 +270,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xdf43fc1d"
+            android:imeSubtypeLocale="cv"
+            android:languageTag="cv"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=chuvash,EmojiCapable"
+            android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
@@ -802,6 +822,15 @@
             android:languageTag="ru"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic_student"
+            android:subtypeId="0x1bc335d0"
+            android:imeSubtypeLocale="ru"
+            android:languageTag="ru"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian_student,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- TODO: This Sinhala keyboard is a preliminary layout.

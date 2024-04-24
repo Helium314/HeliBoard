@@ -5,6 +5,11 @@ labels: enhancement
 ---
 
 <!--
+tl;dr
+* search for duplicates also in closed issues
+* one issue per topic
+* reduce screenshot size
+
 Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
 If you have more than one feature request, open multiple issues (one for each) unless the requests are closely related.
 Note that given the number of feature requests and available developer time, it may take a long time until the feature request gets attention.

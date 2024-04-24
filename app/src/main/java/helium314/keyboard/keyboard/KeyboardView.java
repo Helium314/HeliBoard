@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.keyboard.emoji.EmojiPageKeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
@@ -640,7 +641,7 @@ public class KeyboardView extends View {
         } else if (this instanceof PopupKeysKeyboardView) {
             // set color filter for long press comma key, should not trigger anywhere else
             mColors.setColor(icon, ColorType.KEY_ICON);
-        } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == 0x200C) {
+        } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == KeyCode.ZWNJ) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
             mColors.setColor(icon, ColorType.KEY_ICON);
         }

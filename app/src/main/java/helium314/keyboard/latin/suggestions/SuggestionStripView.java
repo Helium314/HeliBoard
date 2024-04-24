@@ -126,9 +126,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             showSuggestionsStrip();
         }
 
-        public void setLayoutDirection(final boolean isRtlLanguage) {
-            final int layoutDirection = isRtlLanguage ? ViewCompat.LAYOUT_DIRECTION_RTL
-                    : ViewCompat.LAYOUT_DIRECTION_LTR;
+        public void setLayoutDirection(final int layoutDirection) {
             ViewCompat.setLayoutDirection(mSuggestionStripView, layoutDirection);
             ViewCompat.setLayoutDirection(mSuggestionsStrip, layoutDirection);
         }
@@ -265,8 +263,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void setRtl(final boolean isRtlLanguage) {
-        mStripVisibilityGroup.setLayoutDirection(isRtlLanguage);
-        mRtl = isRtlLanguage ? -1 : 1;
+        final int layoutDirection;
+        if (!Settings.getInstance().getCurrent().mVarToolbarDirection)
+            layoutDirection = ViewCompat.LAYOUT_DIRECTION_LOCALE;
+        else{
+            layoutDirection = isRtlLanguage ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR;
+            mRtl = isRtlLanguage ? -1 : 1;
+        }
+        mStripVisibilityGroup.setLayoutDirection(layoutDirection);
     }
 
     public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {

@@ -5,36 +5,36 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Kontakte erkennen"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Rechtschreibprüfung kann Einträge aus meiner Kontaktliste verwenden"</string>
-    <string name="vibrate_on_keypress">"Bei Tastendruck vibrieren"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">Rechtschreibprüfung kann Einträge aus deiner Kontaktliste verwenden</string>
+    <string name="vibrate_on_keypress">Vibration bei Tastendruck</string>
     <string name="sound_on_keypress">"Ton bei Tastendruck"</string>
-    <string name="popup_on_keypress">"Bei Tastendruck Pop-up"</string>
-    <string name="settings_screen_preferences">Präferenzen</string>
+    <string name="popup_on_keypress">Popup bei Tastendruck</string>
+    <string name="settings_screen_preferences">Optionen</string>
     <string name="settings_screen_gesture">"Gesteneingabe"</string>
     <string name="settings_screen_correction">"Textkorrektur"</string>
     <string name="settings_screen_advanced">"Erweitert"</string>
     <string name="settings_screen_theme">"Design"</string>
     <string name="enable_split_keyboard">"Geteilte Tastatur aktivieren"</string>
     <string name="language_switch_key_switch_input_method">"Eingabemethoden wechseln"</string>
-    <string name="show_language_switch_key">"Sprachwechsel"</string>
+    <string name="show_language_switch_key">Sprachwechsel-Taste</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default">"Systemstandardeinstellung"</string>
+    <string name="settings_system_default">Systemstandard</string>
     <string name="use_contacts_dict">"Kontakte vorschlagen"</string>
-    <string name="use_contacts_dict_summary">Namen aus „Kontakte“ als Vorschläge und Korrekturmöglichkeiten anzeigen</string>
+    <string name="use_contacts_dict_summary">Namen aus Kontakten als Vorschläge und Korrekturmöglichkeiten anzeigen</string>
     <string name="use_personalized_dicts">"Personalisierte Vorschläge"</string>
     <string name="use_double_space_period">"Punkt plus Leerzeichen"</string>
     <string name="use_double_space_period_summary">"Doppeltippen auf Leertaste fügt Punkt und Leerzeichen ein"</string>
     <string name="auto_cap">"Autom. Groß-/Kleinschreibung"</string>
-    <string name="auto_cap_summary">"Das erste Wort jedes Satzes großschreiben"</string>
+    <string name="auto_cap_summary">Erstes Wort jedes Satzes großschreiben</string>
     <string name="edit_personal_dictionary">Persönliches Wörterbuch</string>
     <string name="configure_dictionaries_title">Zusatzwörterbücher</string>
     <string name="main_dictionary">Hauptwörterbuch</string>
     <string name="prefs_show_suggestions">"Änderungsvorschläge"</string>
     <string name="prefs_show_suggestions_summary">"Vorgeschlagene Wörter während des Tippens anzeigen"</string>
     <string name="prefs_block_potentially_offensive_title">"Anstößige Wörter sperren"</string>
-    <string name="prefs_block_potentially_offensive_summary">"Keine Vorschläge für potenziell anstößige Wörter unterbreiten"</string>
+    <string name="prefs_block_potentially_offensive_summary">Keine Vorschläge für potenziell anstößige Wörter anzeigen</string>
     <string name="autocorrect">"Autokorrektur"</string>
-    <string name="auto_correction_summary">"Korrektur fehlerhafter Wörter durch Leertaste und Satzzeichen"</string>
+    <string name="auto_correction_summary">Leertaste und Satzzeichen korrigieren automatisch fehlerhafte Wörter</string>
     <string name="auto_correction_threshold_mode_off">"Aus"</string>
     <string name="auto_correction_threshold_mode_modest">"Mäßig"</string>
     <string name="auto_correction_threshold_mode_aggressive">"Stark"</string>
@@ -44,7 +44,7 @@
     <string name="gesture_input">Gesteneingabe aktivieren</string>
     <string name="gesture_input_summary">"Durch Bewegen der Finger über die Buchstaben ein Wort eingeben"</string>
     <string name="gesture_preview_trail">"Spur der Touch-Geste anzeigen"</string>
-    <string name="gesture_floating_preview_text">"Dyn. unverankerter Vorschlag"</string>
+    <string name="gesture_floating_preview_text">Schwebender Echtzeit-Vorschlag</string>
     <string name="gesture_floating_preview_text_summary">"Vorgeschlagenes Wort bei Bewegung anzeigen"</string>
     <string name="gesture_space_aware">"Phrasengeste"</string>
     <string name="gesture_space_aware_summary">"Leerzeichen durch Bewegung über die Leertaste einfügen"</string>
@@ -54,7 +54,7 @@
     <string name="subtype_hi_Latn">Hinglisch</string>
     <string name="subtype_sr_Latn">"Serbisch (Lateinisch)"</string>
     <string name="subtype_with_layout_en_GB">Englisch (GB) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Englisch (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Englisch (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Spanisch (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_Latn">Hinglisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">Serbisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -85,11 +85,11 @@
     <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" unter der Systemeinstellung \"Sprachen und Eingabe\", damit die App auf deinem Gerät verwendet werden darf.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung \"Sprachen und Eingabe\" aktiviert. Weiter mit dem nächsten Schritt!</string>
+    <string name="setup_step1_instruction">Bitte aktiviere „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ unter der Systemeinstellung \"Sprachen und Eingabe\", damit die App auf deinem Gerät verwendet werden darf.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung „Sprachen und Eingabe“ aktiviert. Weiter mit dem nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
-    <string name="setup_step2_instruction">Wähle als nächstes \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" als deine aktive Bildschirmtastatur.</string>
+    <string name="setup_step2_instruction">Wähle als nächstes „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ als deine aktive Bildschirmtastatur.</string>
     <string name="setup_step2_action">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction">Jetzt kannst du in all deinen Lieblingsapps mit <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> schreiben.</string>
@@ -99,7 +99,7 @@
     <string name="dictionary_settings_title">"Erweiterte Wörterbücher"</string>
     <string name="dictionary_settings_summary">"Einstellungen für Wörterbücher"</string>
     <string name="dictionary_available">"Wörterbuch verfügbar"</string>
-    <string name="cannot_connect_to_dict_service">"Kein Wörterbuchdienst"</string>
+    <string name="cannot_connect_to_dict_service">Problem bei der Verbindung zum Wörterbuchdienst</string>
     <string name="no_dictionaries_available">"Keine Wörterbücher"</string>
     <string name="last_update">"Zuletzt aktualisiert"</string>
     <string name="main_dict_description">"Allgemeines Wörterbuch"</string>
@@ -113,7 +113,7 @@
     <string name="user_dict_settings_add_word_hint">"Wort eingeben"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Optionales Tastaturkürzel"</string>
     <string name="user_dict_settings_edit_dialog_title">"Wort bearbeiten"</string>
-    <string name="user_dict_settings_empty_text">"Es sind noch keine Wörter in deinem Wörterbuch vorhanden. Du kannst Wörter hinzufügen, indem du auf das \"+\"-Symbol tippst."</string>
+    <string name="user_dict_settings_empty_text">Es sind noch keine Wörter in deinem Wörterbuch vorhanden. Du kannst Wörter hinzufügen, indem du auf das „+“-Symbol tippst.</string>
     <string name="user_dict_settings_all_languages">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -122,12 +122,12 @@
     <string name="settings_category_clipboard_history">Verlauf der Zwischenablage</string>
     <string name="settings_category_correction">Korrekturen</string>
     <string name="settings_category_suggestions">Vorschläge</string>
-    <string name="android_spell_checker_settings">HeliBoard Rechtschreibprüfungs-Einstellungen</string>
-    <string name="ime_settings">HeliBoard Einstellungen</string>
+    <string name="android_spell_checker_settings">HeliBoard-Rechtschreibprüfungs-Einstellungen</string>
+    <string name="ime_settings">HeliBoard-Einstellungen</string>
     <string name="settings_category_experimental">Experimentell</string>
     <string name="settings_no_limit">Keine Begrenzung</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> Min.</string>
-    <string name="spell_checker_service_name">HeliBoard Rechtschreibprüfung</string>
+    <string name="spell_checker_service_name">HeliBoard-Rechtschreibprüfung</string>
     <string name="show_emoji_key">Emoji-Taste</string>
     <string name="settings_category_input">Eingabe</string>
     <string name="settings_category_additional_keys">Zusätzliche Tasten</string>
@@ -138,8 +138,8 @@
     <string name="delete_swipe">Löschen durch Wischen</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiviert das Lernen von neuen Wörtern</string>
     <string name="more_keys_strip_description">Mehr Tasten</string>
-    <string name="number_row_summary">Zeigt die Ziffernreihe immer an</string>
-    <string name="number_row">Ziffernreihe</string>
+    <string name="number_row_summary">Zeigt die Zahlenzeile immer an</string>
+    <string name="number_row">Zahlenzeile</string>
     <string name="show_hints">Tasten-Hinweise anzeigen</string>
     <string name="incognito">Inkognito-Modus erzwingen</string>
     <string name="enable_clipboard_history_summary">Wenn deaktiviert, fügt die Zwischenablage-Taste den Inhalt der Zwischenablage ein (falls vorhanden)</string>
@@ -155,7 +155,7 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Bengali)</string>
     <string name="subtype_no_language_workman">Lat. Alphabet (Workman)</string>
     <string name="subtype_no_language_colemak_dh">Lat. Alphabet (Colemak Mod-DH)</string>
-    <string name="auto_correction_confidence">Vertrauenslevel der Autokorrektur</string>
+    <string name="auto_correction_confidence">Vertrauen in die Autokorrektur</string>
     <string name="undo">"Rückgängig machen"</string>
     <string name="redo">"Wiederholen"</string>
     <string name="use_personalized_dicts_summary">"Vorschläge anhand bisheriger Nachrichten und Eingaben verbessern"</string>
@@ -177,48 +177,48 @@
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamische Farben</string>
     <string name="settings_screen_appearance">Aussehen</string>
     <string name="show_popup_hints">Funktionale Hinweise anzeigen</string>
-    <string name="message_add_custom_layout">Datei in einem kompatiblen Format auswählen. Information zu den Formaten ist verfügbar %s.</string>
+    <string name="message_add_custom_layout">Datei in einem kompatiblen Format auswählen. Information zu den Formaten ist %s verfügbar.</string>
     <string name="select_color_key_background">Tastenhintergrund</string>
     <string name="restore_error">Fehler beim Wiederherstellen der Sicherung: %s</string>
     <string name="theme_colors">Farben</string>
     <string name="select_color_functional_key_background">Funktionstastenhintergrund</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="add_to_personal_dictionary_summary">Persönliches Wörterbuch des Gerätes verwenden um gelernte Wörter zu speichern</string>
-    <string name="user_dict_word_already_present">Dieses Wort ist bereits im %s Benutzer-Wörterbuch vorhanden. Bitte geben Sie ein anderes ein.</string>
+    <string name="add_to_personal_dictionary_summary">Persönliches Wörterbuch des Gerätes verwenden, um gelernte Wörter zu speichern</string>
+    <string name="user_dict_word_already_present">Dieses Wort ist bereits im Benutzer-Wörterbuch %s vorhanden. Bitte gib ein anderes Wort ein.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Abgerundet</string>
     <string name="button_backup">Sicherung</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Schwarz</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Schokolade</string>
-    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch \"%s\" wirklich entfernt werden?</string>
+    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%s“ wirklich entfernt werden?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Wolkig</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="day_or_night_day">Tag</string>
-    <string name="dictionary_file_wrong_script">Fehler: Skript ist kompatibel mit dieser Tastatur</string>
+    <string name="dictionary_file_wrong_script">Fehler: Skript ist nicht kompatibel mit dieser Tastatur</string>
     <string name="hidden_features_title">Beschreibung der versteckten Features</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Sprache (Priorität)</string>
     <string name="add_to_personal_dictionary">Wörter zum persönlichen Wörterbuch hinzufügen</string>
     <string name="customize_background_image">Hintergrundbild festlegen</string>
-    <string name="edit_layout">Tippen um das Rohlayout zu bearbeiten</string>
+    <string name="edit_layout">Tippen, um das Rohlayout zu bearbeiten</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pink</string>
     <string name="language_and_layouts_title">Sprachen &amp; Layouts</string>
     <string name="file_read_error">Datei kann nicht gelesen werden</string>
     <string name="dictionary_link_text">hier</string>
     <string name="dictionary_file_error">Fehler: Ausgewählte Datei ist keine gültige Wörterbuchdatei</string>
     <string name="hidden_features_text">gerätegeschützter Speicher</string>
-    <string name="theme_navbar">Farbe der Navigationsleiste</string>
-    <string name="dictionary_file_wrong_locale_ok">trotzdem benutzen</string>
+    <string name="theme_navbar">Navigationsleiste einfärben</string>
+    <string name="dictionary_file_wrong_locale_ok">Trotzdem benutzen</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Wald</string>
-    <string name="load_gesture_library_message">Sie benötigen die Bibliothek für \'%s\'. Inkompatible Bibliotheken können zu Abstürzen bei der Gesteneingabe führen.
+    <string name="load_gesture_library_message">Du benötigst die Bibliothek für \'%s\'. Inkompatible Bibliotheken können zu Abstürzen bei der Gesteneingabe führen.
 \n
-\nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwenden Sie nur Bibliotheken aus Quellen den Sie vertrauen.</string>
+\nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können heruntergeladen werden %s.</string>
     <string name="load_gesture_library_button_delete">Bibliothek löschen</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Sprache</string>
     <string name="right" tools:keep="@string/right">Rechts</string>
     <string name="dictionary_load_error">Fehler beim Laden der Wörterbuchdatei</string>
     <string name="localized_number_row_summary">Bevorzuge lokalisierte gegenüber lateinischen Zahlen</string>
-    <string name="checksum_mismatch_message">Unbekannte Bibliotheksdatei. Sind Sie sicher, dass Sie es von einer vertrauenswürdigen Quelle erhalten haben und es ist für \'%s\'?</string>
+    <string name="checksum_mismatch_message">Unbekannte Bibliotheksdatei. Bist du sicher, dass du sie von einer vertrauenswürdigen Quelle erhalten hast und sie für \'%s\' ist?</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau-Grau</string>
     <string name="select_color_spacebar_text">Beschriftung Leertaste</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Hell</string>
@@ -235,13 +235,13 @@
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
     <string name="select_color_accent">Akzent</string>
     <string name="about_github_link">Auf GitHub ansehen</string>
-    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zahlenreihe</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zahlenzeile</string>
     <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
     <string name="button_restore">Wiederherstellen</string>
     <string name="popup_order">Popup-Tastenreihenfolge wählen</string>
     <string name="version">Version</string>
     <string name="hint_source">Hinweis-Quelle wählen</string>
-    <string name="load_gesture_library_summary">Native Bibliothek bereitstellen um Gesteneingabe zu aktivieren</string>
+    <string name="load_gesture_library_summary">Native Bibliothek bereitstellen, um Gesteneingabe zu aktivieren</string>
     <string name="layout_symbols_shifted">Mehr Symbole</string>
     <string name="url_detection_summary">Versuche URLs und ähnliches als einzelnes Wort zu erkennen</string>
     <string name="button_select_language">Sprache auswählen</string>
@@ -267,9 +267,9 @@
     <string name="theme_colors_night">Farben (Nacht)</string>
     <string name="left" tools:keep="@string/left">Links</string>
     <string name="all_colors">Alle Farben zeigen</string>
-    <string name="delete_layout">Benutzerdefinierte Layout %s wirklich löschen?</string>
+    <string name="delete_layout">Benutzerdefiniertes Layout %s wirklich löschen?</string>
     <string name="dictionary_settings_category">Wörterbücher</string>
-    <string name="button_title_add_custom_layout">Benutzerdefiniertes Layout hinzu</string>
+    <string name="button_title_add_custom_layout">Benutzerdefiniertes Layout hinzufügen</string>
     <string name="select_user_colors_summary">Farben für Text und Hintergrund wählen</string>
     <string name="select_color_key_hint">Tasten-Hinweistext</string>
     <string name="setup_step3_action">Tastatur konfigurieren</string>
@@ -277,7 +277,7 @@
     <string name="add_new_dictionary_title">Wörterbuch aus Datei hinzufügen</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Benutzerdefiniert (Nacht)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Braun</string>
-    <string name="replace_dictionary_message">Das vom Benutzer hinzugefügte Wörterbuch \"%1$s\" wirklich ersetzen?
+    <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden?
 \n
 \nAktuelles Wörterbuch:
 \n%2$s
@@ -285,22 +285,22 @@
 \nNeues Wörterbuch:
 \n%3$s</string>
     <string name="url_detection_title">URL-Erkennung</string>
-    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violette</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violett</string>
     <string name="full_right" tools:keep="@string/full_right">Ganz rechts</string>
-    <string name="localized_number_row">Nummernzeile lokalisieren</string>
+    <string name="localized_number_row">Zahlenzeile lokalisieren</string>
     <string name="show_popup_keys_all">Alle verfügbaren Varianten hinzufügen</string>
     <string name="more_autocorrect">Mehr Autokorrektur</string>
     <string name="split_spacer_scale">Teilungsabstand</string>
-    <string name="add_new_dictionary_ask_locale">Zu welcher Sprache soll das Wörterbuch \"%1$s\" für %2$s hinzugefügt werden?</string>
-    <string name="user_dict_settings_add_weight_value">Schriftstärke:</string>
-    <string name="prefs_always_show_suggestions_summary">Ignoriere andere App-Anfragen um Vorschläge zu deaktivieren</string>
+    <string name="add_new_dictionary_ask_locale">Zu welcher Sprache soll das Wörterbuch „%1$s“ für %2$s hinzugefügt werden?</string>
+    <string name="user_dict_settings_add_weight_value">Gewichtung:</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoriere Anfragen anderer Apps, Vorschläge zu deaktivieren (kann Probleme verursachen)</string>
     <string name="title_layout_name_select">Layout-Name festlegen</string>
     <string name="switch_language">Sprache wechseln</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Zwischenablage löschen</string>
     <string name="day_or_night_night">Nacht</string>
     <string name="prefs_narrow_key_gaps">Enge Tastenlücken</string>
     <string name="no_dictionary_dont_show_again_button">Nicht noch einmal zeigen</string>
-    <string name="dictionary_file_wrong_locale">Die ausgewählte Datei ist für %1$s , es wurde jedoch %2$s erwartet. Trotzdem für %2$s verwenden?</string>
+    <string name="dictionary_file_wrong_locale">Die ausgewählte Datei ist für %1$s, es wurde jedoch %2$s erwartet. Trotzdem für %2$s verwenden?</string>
     <string name="disable_personalized_dicts_message">Warnung: Deaktivieren dieser Einstellung löscht gelernte Daten</string>
     <string name="load_gesture_library_button_load">Bibliothek laden</string>
     <string name="button_load_custom">Datei laden</string>
@@ -314,15 +314,15 @@
     <string name="layout_error">Layoutfehler: %s</string>
     <string name="select_user_colors">Farben anpassen</string>
     <string name="secondary_locale">Mehrsprachiges Tippen</string>
-    <string name="backup_restore_message">Speichern oder laden aus Datei. Warnung: Die Wiederherstellung überschreibt vorhandene Daten</string>
+    <string name="backup_restore_message">Speichern oder Laden aus Datei. Warnung: Die Wiederherstellung überschreibt vorhandene Daten</string>
     <string name="save_log">Protokoll speichern</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="more_autocorrect_summary">Autokorrektur, auch wenn dies vom Eingabefeld nicht explizit angefordert wird</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
-    <string name="hidden_features_message">► Durch langes Drücken der Zwischenablagetaste (die optionale Taste in der Vorschlagsleiste) wird der Inhalt der Systemzwischenablage eingefügt. &lt;br&gt; &lt;br&gt; ► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; ► Halten Sie die Komma-Taste gedrückt, um auf die Zwischenablageansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder den Sprachwechsel zuzugreifen: &lt;br&gt; • Die Emoji-Ansicht und der Sprachwechsel verschwinden, wenn Sie über die entsprechende Taste verfügen ermöglicht; &lt;br&gt; • Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an derselben Position (z. B. ist es „q“ für das Dvorak-Layout). &lt;br&gt; &lt;br&gt; ► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den letzten hinzugefügt. &lt;br&gt; &lt;br&gt; ► Drücken Sie auf das Inkognito-Symbol, um auf die Symbolleiste zuzugreifen. &lt;br&gt; &lt;br&gt; ► Schiebetasteneingabe: Wischen Sie von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; • Dies funktioniert auch für die Taste „?123“, um ein einzelnes Symbol über die Symboltastatur einzugeben, und für zugehörige Schlüssel. &lt;br&gt; &lt;br&gt; ► Drücken Sie lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und klicken Sie auf die Schaltfläche „Löschen“, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; ► Wischen Sie von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lassen Sie den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; ► Drücken Sie lange auf einen Eintrag im Verlauf der Zwischenablage, um ihn anzuheften (belassen Sie ihn in der Zwischenablage, bis Sie die Anheftung aufheben). &lt;br&gt; &lt;br&gt; ► Sie können Wörterbücher hinzufügen, indem Sie sie in einem Datei-Explorer öffnen: &lt;br&gt; • Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt; Dies bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug-Modus / Debug-APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Drücken Sie lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen.&lt;br&gt; &lt;br&gt; • Wenn Sie Debug-APK verwenden, können Sie dies tun Suchen Sie in den erweiterten Einstellungen nach den Debug-Einstellungen. Der Nutzen ist jedoch begrenzt, mit Ausnahme der Speicherung von Wörterbüchern im Protokoll. &lt;br&gt; &lt;br&gt; • Im Falle eines Anwendungsabsturzes werden Sie beim Öffnen der Einstellungen gefragt, ob Sie die Absturzprotokolle wünschen. &lt;br&gt; &lt;br&gt; • Bei mehrsprachiger Eingabe zeigt die Leertaste einen Konfidenzwert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; • Vorschläge werden oben einige kleine Zahlen haben, die eine interne Bewertung und ein Quellwörterbuch anzeigen (kann deaktiviert werden). ► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: Ab Android 7 befindet sich die gemeinsame Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. &lt;br&gt; Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z.B. beim Booten. &lt;br&gt; Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, dies kann jedoch vom Gerät und der Android-Version abhängen.</string>
-    <string name="no_dictionary_message">"Ohne Wörterbuch erhalten Sie nur Vorschläge für Text, den Sie zuvor eingegeben haben.&lt;br&gt;
-\n        Sie können Wörterbücher %1$s herunterladen oder überprüfen, ob ein Wörterbuch für \"%2$s\" direkt heruntergeladen werden kann %3$s."</string>
+    <string name="hidden_features_message">► Durch langes Drücken der Zwischenablagetaste (die optionale Taste in der Vorschlagsleiste) wird der Inhalt der Systemzwischenablage eingefügt. &lt;br&gt; &lt;br&gt; ► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; ► Halte die Komma-Taste gedrückt, um auf die Zwischenablageansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder den Sprachwechsel zuzugreifen: &lt;br&gt; • Die Emoji-Ansicht und der Sprachwechsel verschwinden, wenn du über die entsprechende Taste aktiviert hast; &lt;br&gt; • Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an derselben Position (z. B. ist es „q“ für das Dvorak-Layout). &lt;br&gt; &lt;br&gt; ► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den letzten hinzugefügt. &lt;br&gt; &lt;br&gt; ► Drücke auf das Inkognito-Symbol, um auf die Symbolleiste zuzugreifen. &lt;br&gt; &lt;br&gt; ► Schiebetasteneingabe: Wische von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; • Dies funktioniert auch für die Taste „?123“, um ein einzelnes Symbol über die Symboltastatur einzugeben, und für zugehörige Schlüssel. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und tippe auf die Schaltfläche „Löschen“, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; ► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Eintrag im Verlauf der Zwischenablage, um ihn anzuheften (belässt ihn in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; ► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; • Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;. Das bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug-Modus / Debug-APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen.&lt;br&gt; &lt;br&gt; • Wenn du die Debug-APK verwendest, kannst du Debug-Einstellungen in den erweiterten Einstellungen finden. Der Nutzen ist jedoch begrenzt, mit Ausnahme der Speicherung von Wörterbüchern im Protokoll. &lt;br&gt; &lt;br&gt; • Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle wünschst. &lt;br&gt; &lt;br&gt; • Bei mehrsprachiger Eingabe zeigt die Leertaste einen Konfidenzwert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; • Vorschläge werden oben einige kleine Zahlen haben, die eine interne Bewertung und ein Quellwörterbuch anzeigen (kann deaktiviert werden). &lt;br&gt; &lt;br&gt; ► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: Ab Android 7 befindet sich die gemeinsame Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. &lt;br&gt; Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z.B. beim Booten. &lt;br&gt; Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, dies kann jedoch vom Gerät und der Android-Version abhängen.</string>
+    <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;
+\n        Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für „%2$s“ direkt heruntergeladen werden kann."</string>
     <string name="available_dictionary_experimental">%s (experimentell)</string>
     <string name="customize_symbols_number_layouts">Symbole und Zahlenlayouts anpassen</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
@@ -335,4 +335,14 @@
     <string name="customize_symbols_number_layouts_summary">Layouts (außer Symbole) legen interne Einstellungen offen, die sich möglicherweise noch ändern. In diesem Fall funktioniert das benutzerdefinierte Layout möglicherweise nicht mehr ordnungsgemäß.</string>
     <string name="subtype_xdq">Kaitakisch</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitakisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="show_vertical_space_swipe">Vertikale Wischgeste der Leertaste</string>
+    <string name="action_none">Nichts</string>
+    <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
+    <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
+    <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
+    <string name="cut" tools:keep="@string/Cut">Ausschneiden</string>
+    <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
+    <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
 </resources>

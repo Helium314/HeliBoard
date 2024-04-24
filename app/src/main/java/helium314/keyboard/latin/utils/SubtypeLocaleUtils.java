@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
  * A helper class to deal with subtype locales.
   */
 // TODO: consolidate this into RichInputMethodSubtype
+// todo (later): see whether this complicated mess can be simplified
 public final class SubtypeLocaleUtils {
     static final String TAG = SubtypeLocaleUtils.class.getSimpleName();
 

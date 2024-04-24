@@ -4,7 +4,13 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-<!-- Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
+<!--
+tl;dr
+* search for duplicates also in closed issues
+* one issue per topic
+* reduce screenshot size
+
+Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
 If you want to report more issues / bugs, open multiple issues (one for each).
 If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
 
@@ -29,9 +35,9 @@ If you add screenshots, reduce the size or use thumbnails to keep the issue nice
 **App version**
 <!-- Which version of this app is affected? If you build the app yourself, please specify the latest commit included in the build -->
 
-**Device (please complete the following information):**
- - Model: <!-- [e.g. Samsung Galaxy S9] -->
- - OS: <!-- [e.g. Android 10] (add details if you are not using a version provided by the device manufacturer) -->
+**Device:**
+ - Model: [e.g. Samsung Galaxy S9]
+ - OS: [e.g. Android 10] (please also mention whether you are using the manufacturer's OS or a custom ROM)
 
 **Additional context**
 <!-- Add any other context about the problem here. -->

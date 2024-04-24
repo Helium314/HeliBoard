@@ -120,7 +120,7 @@
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korekty</string>
     <string name="settings_category_miscellaneous">Różne</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
     <string name="settings_no_limit">Bez limitu</string>
     <string name="prefs_force_incognito_mode_summary">Wyłącz naukę nowych słów</string>
     <string name="more_keys_strip_description">Więcej klawiszy</string>
@@ -219,7 +219,7 @@
     <string name="dictionary_load_error">Błąd podczas dodawania słownika</string>
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
-    <string name="hidden_features_message">► Długie naciśnięcie klawisza schowka (opcjonalnego na pasku sugestii) spowoduje wklejenie zawartości schowka systemowego. &lt;br&gt; &lt;br&gt; ► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; ► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \t•Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; ► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; ► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; ► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; ► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; ► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; ► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; ► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; &lt;i&gt;Tryb debugowania / aplikacja w wersji debug&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Przytrzymaj sugestię, aby wyświetlić słownik źródłowy.&lt;br&gt; &lt;br&gt; \t• Korzystając z aplikacji w wersji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; &lt;br&gt; \t• W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \t• Podczas pisywania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \t• Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć). ► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. &lt;br&gt; Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt; Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida.</string>
+    <string name="hidden_features_message">► Długie naciśnięcie klawisza schowka (opcjonalnego na pasku sugestii) spowoduje wklejenie zawartości schowka systemowego. &lt;br&gt; &lt;br&gt; ► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; ► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; ► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; ► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; ► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; ► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; ► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; ► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; ► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; &lt;i&gt;Tryb debugowania / aplikacja w wersji debug&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Przytrzymaj sugestię, aby wyświetlić słownik źródłowy.&lt;br&gt; &lt;br&gt; \t• Korzystając z aplikacji w wersji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; &lt;br&gt; \t• W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \t• Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \t• Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć). &lt;br&gt; &lt;br&gt; ► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. &lt;br&gt; Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt; Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida.</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Niebiesko-szare</string>
     <string name="select_color_spacebar_text">Tekst spacji</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Jasne</string>
@@ -294,10 +294,10 @@
     <string name="split_spacer_scale">Szerokość podziału</string>
     <string name="add_new_dictionary_ask_locale">Do którego języka dodać słownik \"%1$s\" przeznaczony dla: %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Wartość:</string>
-    <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii (może powodować problemy)</string>
     <string name="title_layout_name_select">Nazwij układ</string>
-    <string name="no_dictionary_message">"Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
-\n        Słowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s."</string>
+    <string name="no_dictionary_message">Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
+\nSłowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s.</string>
     <string name="switch_language">Zmień język</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Wyczyść schowek</string>
     <string name="day_or_night_night">Nocny</string>
@@ -329,10 +329,20 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
-    <string name="subtype_xdq">Kaitag</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_xdq">kaitag</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Klawiatura numeryczna</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Klawiatura numeryczna (poziomo)</string>
     <string name="layout_number" tools:keep="@string/layout_number">Liczby</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symbole telefonu</string>
+    <string name="show_vertical_space_swipe">Spacja - przesuwanie pionowe</string>
+    <string name="show_horizontal_space_swipe">Spacja - przesuwanie poziome</string>
+    <string name="space_swipe_move_cursor_entry">Przesuń kursor</string>
+    <string name="action_none">Brak przesuwania</string>
+    <string name="var_toolbar_direction_summary">Odwróć kierunek po wybraniu układu klawiatury od prawej do lewej</string>
+    <string name="var_toolbar_direction">Zmienny kierunek paska narzędzi</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="rosyjski">%s</xliff:g> (Uczeń)</string>
+    <string name="prefs_long_press_symbol_for_numpad">Przytrzymaj klawisz symboli, aby wyświetlić klawiaturę numeryczną</string>
+    <string name="cut" tools:keep="@string/Cut">Wytnij</string>
 </resources>

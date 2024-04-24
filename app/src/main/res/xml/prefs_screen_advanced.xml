@@ -24,13 +24,14 @@
         latin:stepValue="@integer/config_longpress_timeout_step" />
 
     <ListPreference
-        android:defaultValue="none"
+        android:defaultValue="move_cursor"
         android:entries="@array/horizontal_space_swipe_entries"
         android:entryValues="@array/horizontal_space_swipe_values"
         android:key="horizontal_space_swipe"
         android:persistent="true"
         android:summary="%s"
-        android:title="@string/show_horizontal_space_swipe" />
+        android:title="@string/show_horizontal_space_swipe"
+        latin:singleLineTitle="false" />
 
     <ListPreference
         android:defaultValue="none"
@@ -39,7 +40,8 @@
         android:key="vertical_space_swipe"
         android:persistent="true"
         android:summary="%s"
-        android:title="@string/show_vertical_space_swipe" />
+        android:title="@string/show_vertical_space_swipe"
+        latin:singleLineTitle="false" />
 
     <SwitchPreference
         android:key="delete_swipe"
@@ -53,6 +55,12 @@
         android:summary="@string/prefs_long_press_keyboard_to_change_lang_summary"
         android:persistent="true"
         android:defaultValue="true" />
+
+    <SwitchPreference
+        android:key="long_press_symbols_for_numpad"
+        android:title="@string/prefs_long_press_symbol_for_numpad"
+        android:persistent="true"
+        android:defaultValue="false" />
 
     <SwitchPreference
         android:key="enable_emoji_alt_physical_key"
@@ -75,7 +83,8 @@
         android:entryValues="@array/show_popup_keys_values"
         android:defaultValue="normal"
         android:summary="%s"
-        android:persistent="true" />
+        android:persistent="true"
+        latin:singleLineTitle="false" />
 
     <Preference
         android:key="backup_restore"
