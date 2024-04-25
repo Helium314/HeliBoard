@@ -189,15 +189,13 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
     private static final int CHECKABILITY_CHECKABLE = 0;
 
-    private static final int CHECKABILITY_CONTAINS_PERIOD = 1;
-    private static final int CHECKABILITY_EMAIL_OR_URL = 2;
+    private static final int CHECKABILITY_EMAIL_OR_URL = 1;
 
-    private static final int CHECKABILITY_TOO_SHORT = 3;
+    private static final int CHECKABILITY_TOO_SHORT = 2;
     /**
      * Finds out whether a particular string should be filtered out of spell checking.
      * <p>
-     * This will match URLs if URL detection is enabled, as well as text that has a period
-     * or is too short.
+     * This will match URLs if URL detection is enabled, as well as text that is too short.
      * @param text the string to evaluate.
      * @return one of the FILTER_OUT_* constants above.
      */
@@ -209,13 +207,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         // Filter out e-mail address and URL
         if (Settings.getInstance().getCurrent().mUrlDetectionEnabled && StringUtils.findURLEndIndex(text) != -1) {
             return CHECKABILITY_EMAIL_OR_URL;
-        }
-        // If the string contains a period, native returns strange suggestions (it seems
-        // to return suggestions for everything up to the period only and to ignore the
-        // rest), so we suppress lookup if there is a period.
-        // TODO: investigate why native returns these suggestions and remove this code.
-        if (text.indexOf(Constants.CODE_PERIOD) != -1) {
-            return CHECKABILITY_CONTAINS_PERIOD;
         }
         return CHECKABILITY_CHECKABLE;
     }
@@ -300,29 +291,9 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
             // Handle special patterns like email, URI, text with at least one period.
             final int checkability = getCheckability(text);
+            // Do not check uncheckable words against the dictionary.
             if (CHECKABILITY_CHECKABLE != checkability) {
-                // CHECKABILITY_CONTAINS_PERIOD Typo should not be reported when text is a valid word followed by a single period (end of sentence).
-                if (CHECKABILITY_CONTAINS_PERIOD == checkability) {
-                    boolean periodOnlyAtLastIndex = text.indexOf(Constants.CODE_PERIOD) == (text.length() - 1);
-                    final String[] splitText = text.split(Constants.REGEXP_PERIOD);
-                    boolean allWordsAreValid = true;
-                    // Validate all words on both sides of periods, skip empty tokens due to periods at first/last index
-                    for (final String word : splitText) {
-                        if (!word.isEmpty() && !mService.isValidWord(mLocale, word) && !mService.isValidWord(mLocale, word.toLowerCase(mLocale))) {
-                            allWordsAreValid = false;
-                            break;
-                        }
-                    }
-                    if (allWordsAreValid && !periodOnlyAtLastIndex) {
-                        return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO
-                                | SuggestionsInfo.RESULT_ATTR_HAS_RECOMMENDED_SUGGESTIONS,
-                                new String[] {
-                                        TextUtils.join(Constants.STRING_SPACE, splitText) });
-                    }
-                    return (allWordsAreValid) ? AndroidSpellCheckerService.getInDictEmptySuggestions() :
-                       AndroidSpellCheckerService.getNotInDictEmptySuggestions(!periodOnlyAtLastIndex);
-                }
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false); // uncheckable so can't be proven to be typo
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
             }
 
             // Handle normal words.

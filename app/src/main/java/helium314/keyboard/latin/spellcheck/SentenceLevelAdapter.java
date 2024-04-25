@@ -81,19 +81,7 @@ public class SentenceLevelAdapter {
             while (index < length) {
                 final int codePoint = Character.codePointAt(sequence, index);
                 if (mSpacingAndPunctuations.isWordSeparator(codePoint)) {
-                    // If it's a period, we want to stop here only if it's followed by another
-                    // word separator. In all other cases we stop here.
-                    if (Constants.CODE_PERIOD == codePoint) {
-                        final int indexOfNextCodePoint =
-                                index + Character.charCount(Constants.CODE_PERIOD);
-                        if (indexOfNextCodePoint < length
-                                && mSpacingAndPunctuations.isWordSeparator(
-                                        Character.codePointAt(sequence, indexOfNextCodePoint))) {
-                            return index;
-                        }
-                    } else {
-                        return index;
-                    }
+                    return index;
                 }
                 index += Character.charCount(codePoint);
             }
