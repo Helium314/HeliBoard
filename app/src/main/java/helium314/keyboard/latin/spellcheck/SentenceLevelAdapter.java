@@ -80,7 +80,7 @@ public class SentenceLevelAdapter {
             }
             while (index < length) {
                 final int codePoint = Character.codePointAt(sequence, index);
-                if (mSpacingAndPunctuations.isWordSeparator(codePoint)) {
+                if (mSpacingAndPunctuations.isWordSeparator(codePoint) || mSpacingAndPunctuations.isWordConnector(codePoint)) {
                     return index;
                 }
                 index += Character.charCount(codePoint);
