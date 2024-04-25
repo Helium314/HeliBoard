@@ -42,8 +42,6 @@ object KeyCode {
     const val MOVE_END_OF_PAGE =             -26
     const val MOVE_START_OF_LINE =           -27
     const val MOVE_END_OF_LINE =             -28
-    const val MOVE_PAGE_UP =                 -29
-    const val MOVE_PAGE_DOWN =               -30
 
     const val CLIPBOARD_COPY =               -31
     const val CLIPBOARD_CUT =                -32
@@ -132,8 +130,10 @@ object KeyCode {
     const val SHIFT_ENTER =               -10005
     const val ACTION_NEXT =               -10006
     const val ACTION_PREVIOUS =           -10007
+    const val MOVE_PAGE_UP =              -10008
+    const val MOVE_PAGE_DOWN =            -10009
     // Code value representing the code is not specified.
-    const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
+    const val NOT_SPECIFIED =             -10010 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {

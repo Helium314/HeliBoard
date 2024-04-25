@@ -246,14 +246,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)
             if (code != null) {
-                when (code) {
-                    KeyCode.ARROW_LEFT -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_START_OF_LINE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.ARROW_RIGHT -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_END_OF_LINE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.ARROW_UP -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_PAGE_UP, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.ARROW_DOWN -> keyboardActionListener?.onCodeInput(KeyCode.MOVE_PAGE_DOWN, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.UNDO -> keyboardActionListener?.onCodeInput(KeyCode.REDO, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.CLIPBOARD_COPY -> keyboardActionListener?.onCodeInput(KeyCode.CLIPBOARD_COPY_ALL, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    KeyCode.CLIPBOARD_SELECT_WORD -> keyboardActionListener?.onCodeInput(KeyCode.CLIPBOARD_SELECT_ALL, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                val longClickCode =
+                    keyboardActionListener?.getLongClickToolbarKeyCode(code) ?: Constants.NOT_A_CODE
+                if (longClickCode != Constants.NOT_A_CODE) {
+                    keyboardActionListener?.onCodeInput(
+                        longClickCode,
+                        Constants.SUGGESTION_STRIP_COORDINATE,
+                        Constants.SUGGESTION_STRIP_COORDINATE,
+                        false
+                    )
                 }
             }
         }

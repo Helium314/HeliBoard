@@ -49,6 +49,14 @@ public interface KeyboardActionListener {
     void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
 
     /**
+     * Maps a given key code point to its corresponding long-click toolbar key code.
+     *
+     * @param primaryCode The key code point to be mapped.
+     * @return The corresponding long-click toolbar key code.
+     */
+    int getLongClickToolbarKeyCode(int primaryCode);
+
+    /**
      * Sends a string of characters to the listener.
      *
      * @param text the string of characters to be registered.
@@ -114,6 +122,8 @@ public interface KeyboardActionListener {
         public void onReleaseKey(int primaryCode, boolean withSliding) {}
         @Override
         public void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat) {}
+        @Override
+        public int getLongClickToolbarKeyCode(int primaryCode) {return Constants.NOT_A_CODE;}
         @Override
         public void onTextInput(String text) {}
         @Override
