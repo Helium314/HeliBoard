@@ -101,10 +101,13 @@ Features that may go unnoticed, and further potentially useful information
 Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/Helium314/HeliBoard/issues). Your help is always welcome!
 
 Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues). Please search open and closed issues.
+ - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/Helium314/HeliBoard/issues?q=). Please search open and closed issues.
  - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
+ - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
  - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
 Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, not providing a proper description, or addressing multiple topics).
+
+If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html
 
 ## Translation
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
@@ -129,7 +132,8 @@ HeliBoard is a complex application, when contributing, you must take a step back
 - **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it.
 If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated contributions into a single PR is hard to review and can get messy.
-- **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps a lot for understanding what is going on, and for separating wanted from unintended changes in behavior.
+- **Is finished or a draft**. When you keep changing the PR without reviewer's feedback, any attempt to review it is doomed and a waste of time. Better mark it as a draft in this case.
+- **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps _a lot_ for understanding what is going on, and for separating wanted from unintended changes in behavior.
 - **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
 - **Has a low footprint**. Some parts of the code are executed very frequently, and the keyboard should stay responsive even on older devices.
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
@@ -169,7 +173,7 @@ __Planned features and improvements:__
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
 * Internal cleanup (a lot of over-complicated and convoluted code)
-* (optionally?) move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
+* optionally move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__
