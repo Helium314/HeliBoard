@@ -16,11 +16,13 @@
         <ListPreference
             android:key="theme_style"
             android:title="@string/theme_style"
-            android:defaultValue="Material"/>
+            android:defaultValue="Material"
+            latin:singleLineTitle="false" />
 
         <ListPreference
             android:key="theme_colors"
-            android:title="@string/theme_colors"/>
+            android:title="@string/theme_colors"
+            latin:singleLineTitle="false" />
 
         <PreferenceScreen
             android:fragment="helium314.keyboard.latin.settings.ColorsSettingsFragment"
@@ -40,13 +42,15 @@
 
         <ListPreference
             android:key="theme_colors_night"
-            android:title="@string/theme_colors_night"/>
+            android:title="@string/theme_colors_night"
+            latin:singleLineTitle="false" />
 
         <PreferenceScreen
             android:fragment="helium314.keyboard.latin.settings.ColorsNightSettingsFragment"
             android:key="theme_select_colors_night"
             android:title="@string/select_user_colors_night"
-            android:summary="@string/select_user_colors_summary"/>
+            android:summary="@string/select_user_colors_summary"
+            latin:singleLineTitle="false" />
 
         <SwitchPreference
             android:key="navbar_color"

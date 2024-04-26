@@ -83,7 +83,6 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_ignoreAltCodeKeyTimeout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewLayout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewOffset
- * @attr ref R.styleable#MainKeyboardView_keyPreviewHeight
  * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardLayout
  * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardForActionLayout
  * @attr ref R.styleable#MainKeyboardView_backgroundDimAlpha
