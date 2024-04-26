@@ -333,11 +333,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             final Keyboard keyboard = mService.getKeyboardForLocale(mLocale);
-            if (null == keyboard) {
-                Log.w(TAG, "onGetSuggestionsInternal() : No keyboard for locale: " + mLocale);
-                // If there is no keyboard for this locale, don't do any spell-checking.
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
-            }
 
             final WordComposer composer = new WordComposer();
             final int[] codePoints = StringUtils.toCodePointArray(text);
