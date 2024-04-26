@@ -15,7 +15,6 @@ import android.os.SystemClock;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
-import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
@@ -59,7 +58,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     private static final boolean DEBUG_BATCH_NESTING = false;
     private static final int NUM_CHARS_TO_GET_BEFORE_CURSOR = 40;
     private static final int NUM_CHARS_TO_GET_AFTER_CURSOR = 40;
-    private static final int NUM_CHARS_TO_GET_ADVANCED_URL = 128;
     private static final int INVALID_CURSOR_POSITION = -1;
 
     /**
@@ -746,21 +744,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
             final String script, final boolean justDeleted) {
         mIC = mParent.getCurrentInputConnection();
-        final boolean urlDetection = Settings.getInstance().getCurrent().mUrlDetectionEnabled;
-        final int numCharsToGetBeforeCursor = (urlDetection) ? NUM_CHARS_TO_GET_ADVANCED_URL : NUM_CHARS_TO_GET_BEFORE_CURSOR;
-        final int numCharsToGetAfterCursor = (urlDetection) ? NUM_CHARS_TO_GET_ADVANCED_URL : NUM_CHARS_TO_GET_AFTER_CURSOR;
         if (!isConnected()) {
             return null;
         }
         CharSequence before = getTextBeforeCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
-                numCharsToGetBeforeCursor,
+                NUM_CHARS_TO_GET_BEFORE_CURSOR,
                 InputConnection.GET_TEXT_WITH_STYLES);
         final CharSequence after = getTextAfterCursorAndDetectLaggyConnection(
                 OPERATION_GET_WORD_RANGE_AT_CURSOR,
                 SLOW_INPUT_CONNECTION_ON_PARTIAL_RELOAD_MS,
-                numCharsToGetAfterCursor,
+                NUM_CHARS_TO_GET_AFTER_CURSOR,
                 InputConnection.GET_TEXT_WITH_STYLES);
         if (before == null || after == null) {
             return null;

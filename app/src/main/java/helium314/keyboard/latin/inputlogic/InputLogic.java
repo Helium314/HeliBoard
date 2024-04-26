@@ -44,7 +44,6 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
-import helium314.keyboard.latin.define.DecoderSpecificConstants;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -1591,8 +1590,7 @@ public final class InputLogic {
             return;
         }
 
-        if (!mWordComposer.isComposingWord() && !settingsValues.mBigramPredictionEnabled
-                || mWordComposer.size() > DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH) {
+        if (!mWordComposer.isComposingWord() && !settingsValues.mBigramPredictionEnabled) {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             return;
         }
@@ -2348,11 +2346,6 @@ public final class InputLogic {
     public void getSuggestedWords(final SettingsValues settingsValues,
             final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
-        // don't get suggestions if composed word is very long
-        if (mWordComposer.size() > DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH) {
-            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
-            return;
-        }
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mSuggest.getSuggestedWords(mWordComposer,
