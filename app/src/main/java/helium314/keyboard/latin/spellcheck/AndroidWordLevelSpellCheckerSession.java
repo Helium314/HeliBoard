@@ -25,7 +25,6 @@ import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.WordComposer;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
@@ -47,6 +46,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final String TAG = AndroidWordLevelSpellCheckerSession.class.getSimpleName();
 
     public final static String[] EMPTY_STRING_ARRAY = new String[0];
+
+    public final static int FLAG_UNCHECKABLE = 0;
 
     // Immutable, but not available in the constructor.
     private Locale mLocale;
@@ -73,9 +74,11 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final class SuggestionsParams {
         public final String[] mSuggestions;
         public final int mFlags;
-        public SuggestionsParams(String[] suggestions, int flags) {
+        public final Locale mLocale;
+        public SuggestionsParams(String[] suggestions, int flags, Locale locale) {
             mSuggestions = suggestions;
             mFlags = flags;
+            mLocale = locale;
         }
     }
 
@@ -93,13 +96,13 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         }
 
         public void putSuggestionsToCache(
-                final String query, final String[] suggestions, final int flags) {
+                final String query, final String[] suggestions, final int flags, final Locale locale) {
             if (suggestions == null || TextUtils.isEmpty(query)) {
                 return;
             }
             mUnigramSuggestionsInfoCache.put(
                     generateKey(query),
-                    new SuggestionsParams(suggestions, flags));
+                    new SuggestionsParams(suggestions, flags, locale));
         }
 
         public void clearCache() {
@@ -128,7 +131,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             mLocale = (null == localeString) ? null
                     : LocaleUtils.constructLocale(localeString);
             if (mLocale == null) mScript = ScriptUtils.SCRIPT_UNKNOWN;
-                else mScript = ScriptUtils.script(mLocale);
+            else mScript = ScriptUtils.script(mLocale);
         }
         if (localesToCheck.isEmpty())
             localesToCheck.add(mLocale);
@@ -256,20 +259,34 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             updateLocale();
             // It's good to keep this not local specific since the standard
             // ones may show up in other languages also.
-            String text = textInfo.getText()
+            final String textWithLocalePunctuations = textInfo.getText()
                     .replaceAll(AndroidSpellCheckerService.APOSTROPHE, AndroidSpellCheckerService.SINGLE_QUOTE)
                     .replaceAll("^" + quotesRegexp, "")
                     .replaceAll(quotesRegexp + "$", "");
 
+            // Return quickly when suggestions are cached
+            final SuggestionsParams suggestionsParams = mSuggestionsCache.getSuggestionsFromCache(textWithLocalePunctuations);
+            if (suggestionsParams != null) {
+                final int flag = suggestionsParams.mFlags;
+                if (flag == FLAG_UNCHECKABLE) {
+                    return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
+                } else if (flag == SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY) {
+                    return AndroidSpellCheckerService.getInDictEmptySuggestions();
+                } else if (suggestionsParams.mLocale.equals(mLocale)) {
+                    // Return corrective suggestions only if the locales match
+                    return new SuggestionsInfo(suggestionsParams.mFlags, suggestionsParams.mSuggestions);
+                }
+            }
+
             // Find out which locale should be used
             boolean foundLocale = false;
-            for (int i = 0, length = text.length(); !foundLocale && i < length; i++) {
-                final int codePoint = text.codePointAt(i);
+            for (int i = 0, length = textWithLocalePunctuations.length(); !foundLocale && i < length; i++) {
+                final int codePoint = textWithLocalePunctuations.codePointAt(i);
                 for (Locale locale : localesToCheck) {
                     String localeScript = ScriptUtils.script(locale);
                     if (ScriptUtils.isLetterPartOfScript(codePoint, localeScript)) {
                         if (!mLocale.equals(locale)) {
-                            Log.d(TAG, "Updating locale from " + mLocale.toString() + " to " + locale.toString());
+                            Log.d(TAG, "Updating locale from " + mLocale + " to " + locale);
                             mLocale = locale;
                             mScript = localeScript;
                         }
@@ -281,18 +298,22 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             // If no locales were found, then the text probably contains numbers
             // or special characters only, so it should not be spell checked.
             if (!foundLocale || !mService.hasMainDictionaryForLocale(mLocale)) {
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
                 return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
             }
             final String localeRegex = scriptToPunctuationRegexMap.get(ScriptUtils.script(mLocale));
-
+            final String text;
             if (localeRegex != null) {
-                text = text.replaceAll(localeRegex, "");
+                text = textWithLocalePunctuations.replaceAll(localeRegex, "");
+            } else {
+                text = textWithLocalePunctuations;
             }
 
-            // Handle special patterns like email, URI, text with at least one period.
+            // Check if the text is too short and handle special patterns like email, URI.
             final int checkability = getCheckability(text);
             // Do not check uncheckable words against the dictionary.
             if (CHECKABILITY_CHECKABLE != checkability) {
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
                 return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
             }
 
@@ -303,6 +324,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                 if (DebugFlags.DEBUG_ENABLED) {
                     Log.i(TAG, "onGetSuggestionsInternal() : [" + text + "] is a valid word");
                 }
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY,
+                        SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY, mLocale);
                 return AndroidSpellCheckerService.getInDictEmptySuggestions();
             }
             if (DebugFlags.DEBUG_ENABLED) {
@@ -351,7 +374,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                             ? SuggestionsInfo.RESULT_ATTR_HAS_RECOMMENDED_SUGGESTIONS
                             : 0);
             final SuggestionsInfo retval = new SuggestionsInfo(flags, result.mSuggestions);
-            mSuggestionsCache.putSuggestionsToCache(text, result.mSuggestions, flags);
+            mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, result.mSuggestions, flags, mLocale);
             return retval;
         } catch (RuntimeException e) {
             // Don't kill the keyboard if there is a bug in the spell checker
