@@ -133,19 +133,32 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             if (mLocale == null) mScript = ScriptUtils.SCRIPT_UNKNOWN;
             else mScript = ScriptUtils.script(mLocale);
         }
-        if (localesToCheck.isEmpty())
-            localesToCheck.add(mLocale);
-        else if (!localesToCheck.get(0).equals(mLocale)) {
-            // Set mLocale to be at the beginning so it is checked first
-            localesToCheck.add(0, mLocale);
-            // Make sure no other locales with the same script are checked
-            for (int i = localesToCheck.size() - 1; i >= 1; i--) {
-                Locale locale = localesToCheck.get(i);
-                if (ScriptUtils.script(locale).equals(mScript)) {
-                    localesToCheck.remove(i);
+        if (!localesToCheck.contains(mLocale)) {
+            final List<Locale> updatedLocalesToCheck = new ArrayList<>();
+            updatedLocalesToCheck.add(mLocale);
+            // Make sure no other locales with mScript are added
+            for (int i = 0; i < localesToCheck.size(); i++) {
+                final Locale locale = localesToCheck.get(i);
+                if (!ScriptUtils.script(locale).equals(mScript)) {
+                    updatedLocalesToCheck.add(localesToCheck.get(i));
+                }
+            }
+            localesToCheck = updatedLocalesToCheck;
+        }
+    }
+
+    // Finds the enabled locale with a script matching one of the letters in the given text.
+    public Locale findLikelyLocaleOfText(final String text) {
+        for (int i = 0, length = text.length(); i < length; i++) {
+            final int codePoint = text.codePointAt(i);
+            for (Locale locale : localesToCheck) {
+                final String localeScript = ScriptUtils.script(locale);
+                if (ScriptUtils.isLetterPartOfScript(codePoint, localeScript)) {
+                    return locale;
                 }
             }
         }
+        return null;
     }
 
     @Override
@@ -205,8 +218,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static int getCheckability(final String text) {
         if (TextUtils.isEmpty(text) || text.length() <= 1) return CHECKABILITY_TOO_SHORT;
 
-        // TODO: check if an equivalent processing can't be done more quickly with a
-        // compiled regexp.
         // Filter out e-mail address and URL
         if (Settings.getInstance().getCurrent().mUrlDetectionEnabled && StringUtils.findURLEndIndex(text) != -1) {
             return CHECKABILITY_EMAIL_OR_URL;
@@ -256,7 +267,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     protected SuggestionsInfo onGetSuggestionsInternal(
             final TextInfo textInfo, final NgramContext ngramContext, final int suggestionsLimit) {
         try {
-            updateLocale();
             // It's good to keep this not local specific since the standard
             // ones may show up in other languages also.
             final String textWithLocalePunctuations = textInfo.getText()
@@ -264,43 +274,38 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     .replaceAll("^" + quotesRegexp, "")
                     .replaceAll(quotesRegexp + "$", "");
 
-            // Return quickly when suggestions are cached
-            final SuggestionsParams suggestionsParams = mSuggestionsCache.getSuggestionsFromCache(textWithLocalePunctuations);
-            if (suggestionsParams != null) {
-                final int flag = suggestionsParams.mFlags;
+            final SuggestionsParams cachedSuggestions = mSuggestionsCache.getSuggestionsFromCache(textWithLocalePunctuations);
+            // Return quickly when the text is cached as uncheckable or as a word in dictionary
+            if (cachedSuggestions != null) {
+                final int flag = cachedSuggestions.mFlags;
                 if (flag == FLAG_UNCHECKABLE) {
                     return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
                 } else if (flag == SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY) {
                     return AndroidSpellCheckerService.getInDictEmptySuggestions();
-                } else if (suggestionsParams.mLocale.equals(mLocale)) {
-                    // Return corrective suggestions only if the locales match
-                    return new SuggestionsInfo(suggestionsParams.mFlags, suggestionsParams.mSuggestions);
                 }
             }
 
             // Find out which locale should be used
-            boolean foundLocale = false;
-            for (int i = 0, length = textWithLocalePunctuations.length(); !foundLocale && i < length; i++) {
-                final int codePoint = textWithLocalePunctuations.codePointAt(i);
-                for (Locale locale : localesToCheck) {
-                    String localeScript = ScriptUtils.script(locale);
-                    if (ScriptUtils.isLetterPartOfScript(codePoint, localeScript)) {
-                        if (!mLocale.equals(locale)) {
-                            Log.d(TAG, "Updating locale from " + mLocale + " to " + locale);
-                            mLocale = locale;
-                            mScript = localeScript;
-                        }
-                        foundLocale = true;
-                        break;
-                    }
-                }
-            }
-            // If no locales were found, then the text probably contains numbers
+            updateLocale();
+            final Locale likelyLocale = findLikelyLocaleOfText(textWithLocalePunctuations);
+
+            // If no locale was found, then the text probably contains numbers
             // or special characters only, so it should not be spell checked.
-            if (!foundLocale || !mService.hasMainDictionaryForLocale(mLocale)) {
+            if (likelyLocale == null || !mService.hasMainDictionaryForLocale(mLocale)) {
                 mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
                 return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
+            } else if (!likelyLocale.equals(mLocale)) {
+                Log.d(TAG, "Updating locale from " + mLocale + " to " + likelyLocale);
+                mLocale = likelyLocale;
+                mScript = ScriptUtils.script(likelyLocale);
             }
+
+            // Return cached suggestions for a word not in dictionary
+            // only if the current locale matches the cached locale.
+            if (cachedSuggestions != null && cachedSuggestions.mLocale.equals(mLocale)) {
+                return new SuggestionsInfo(cachedSuggestions.mFlags, cachedSuggestions.mSuggestions);
+            }
+
             final String localeRegex = scriptToPunctuationRegexMap.get(ScriptUtils.script(mLocale));
             final String text;
             if (localeRegex != null) {
@@ -311,10 +316,9 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
             // Check if the text is too short and handle special patterns like email, URI.
             final int checkability = getCheckability(text);
-            // Do not check uncheckable words against the dictionary.
             if (CHECKABILITY_CHECKABLE != checkability) {
                 mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false); // Typo should not be reported when text is uncheckable
             }
 
             // Handle normal words.
@@ -333,7 +337,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             final Keyboard keyboard = mService.getKeyboardForLocale(mLocale);
-
             final WordComposer composer = new WordComposer();
             final int[] codePoints = StringUtils.toCodePointArray(text);
             final int[] coordinates;
