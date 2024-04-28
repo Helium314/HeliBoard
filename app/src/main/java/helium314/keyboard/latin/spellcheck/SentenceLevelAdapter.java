@@ -11,6 +11,7 @@ import android.view.textservice.SentenceSuggestionsInfo;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
+import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
@@ -79,7 +80,7 @@ public class SentenceLevelAdapter {
             }
             while (index < length) {
                 final int codePoint = Character.codePointAt(sequence, index);
-                if (mSpacingAndPunctuations.isWordSeparator(codePoint) || mSpacingAndPunctuations.isWordConnector(codePoint)) {
+                if (mSpacingAndPunctuations.isWordSeparator(codePoint) || codePoint == Constants.CODE_DASH) {
                     return index;
                 }
                 index += Character.charCount(codePoint);
