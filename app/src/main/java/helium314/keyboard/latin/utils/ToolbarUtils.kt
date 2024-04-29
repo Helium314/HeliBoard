@@ -60,6 +60,19 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
+fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
+    RIGHT -> KeyCode.MOVE_END_OF_LINE
+    LEFT -> KeyCode.MOVE_START_OF_LINE
+    UP -> KeyCode.MOVE_PAGE_UP
+    DOWN -> KeyCode.MOVE_PAGE_DOWN
+    UNDO -> KeyCode.REDO
+    REDO -> KeyCode.UNDO
+    COPY -> KeyCode.CLIPBOARD_COPY_ALL
+    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
+    CLIPBOARD -> KeyCode.CLIPBOARD_COPY
+    else -> KeyCode.UNSPECIFIED
+}
+
 private fun getStyleableIconId(key: ToolbarKey) = when (key) {
     VOICE -> R.styleable.Keyboard_iconShortcutKey
     SETTINGS -> R.styleable.Keyboard_iconSettingsKey

@@ -26,10 +26,6 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
         latinIME.onCodeInput(primaryCode, x, y, isKeyRepeat)
 
-    override fun getLongClickToolbarKeyCode(primaryCode: Int): Int {
-        return latinIME.getLongClickToolbarKeyCode(primaryCode)
-    }
-
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()

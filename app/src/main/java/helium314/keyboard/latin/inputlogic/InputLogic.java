@@ -778,25 +778,6 @@ public final class InputLogic {
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
     }
-    /**
-     * Maps a given key code point to its corresponding long-click toolbar key code.
-     *
-     * @param codePoint The key code point to be mapped.
-     * @return The corresponding long-click toolbar key code.
-     */
-    public int getLongClickToolbarKeyCode(final int codePoint) {
-        return switch (codePoint) {
-            case KeyCode.ARROW_RIGHT -> KeyCode.MOVE_END_OF_LINE;
-            case KeyCode.ARROW_LEFT -> KeyCode.MOVE_START_OF_LINE;
-            case KeyCode.ARROW_UP -> KeyCode.MOVE_PAGE_UP;
-            case KeyCode.ARROW_DOWN -> KeyCode.MOVE_PAGE_DOWN;
-            case KeyCode.UNDO -> KeyCode.REDO;
-            case KeyCode.REDO -> KeyCode.UNDO;
-            case KeyCode.CLIPBOARD_COPY -> KeyCode.CLIPBOARD_COPY_ALL;
-            case KeyCode.CLIPBOARD_SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL;
-            default -> Constants.NOT_A_CODE;
-        };
-    }
 
     /**
      * Handle an event that is not a functional event.

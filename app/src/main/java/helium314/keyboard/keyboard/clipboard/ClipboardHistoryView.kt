@@ -28,6 +28,7 @@ import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
@@ -244,18 +245,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onLongClick(view: View): Boolean {
         val tag = view.tag
         if (tag is ToolbarKey) {
-            val code = getCodeForToolbarKey(tag)
-            if (code != null) {
-                val longClickCode =
-                    keyboardActionListener?.getLongClickToolbarKeyCode(code) ?: Constants.NOT_A_CODE
-                if (longClickCode != Constants.NOT_A_CODE) {
-                    keyboardActionListener?.onCodeInput(
-                        longClickCode,
-                        Constants.SUGGESTION_STRIP_COORDINATE,
-                        Constants.SUGGESTION_STRIP_COORDINATE,
-                        false
-                    )
-                }
+            val longClickCode = getCodeForToolbarKeyLongClick(tag)
+            if (longClickCode != KeyCode.UNSPECIFIED) {
+                keyboardActionListener?.onCodeInput(
+                    longClickCode,
+                    Constants.SUGGESTION_STRIP_COORDINATE,
+                    Constants.SUGGESTION_STRIP_COORDINATE,
+                    false
+                )
             }
         }
         return true

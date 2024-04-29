@@ -1483,12 +1483,6 @@ public class LatinIME extends InputMethodService implements
         onEvent(event);
     }
 
-    // Maps a key code point to its corresponding long-click toolbar key code
-    @Override
-    public int getLongClickToolbarKeyCode(final int codePoint) {
-        return mInputLogic.getLongClickToolbarKeyCode(codePoint);
-    }
-
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
