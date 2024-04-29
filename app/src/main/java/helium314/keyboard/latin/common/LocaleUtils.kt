@@ -187,6 +187,9 @@ object LocaleUtils {
             val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
             if (resId != 0) return context.getString(resId)
         }
-        return locale.getDisplayName(context.resources.configuration.locale())
+        val localeDisplayName = locale.getDisplayName(context.resources.configuration.locale())
+        return if (localeDisplayName == languageTag)
+            locale.getDisplayName(Locale.US)
+        else localeDisplayName
     }
 }
