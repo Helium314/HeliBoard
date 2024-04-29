@@ -69,7 +69,7 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     REDO -> KeyCode.UNDO
     COPY -> KeyCode.CLIPBOARD_COPY_ALL
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
-    CLIPBOARD -> KeyCode.CLIPBOARD_COPY
+    CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
     else -> KeyCode.UNSPECIFIED
 }
 
