@@ -188,7 +188,7 @@ object LocaleUtils {
             if (resId != 0) return context.getString(resId)
         }
         val localeDisplayName = locale.getDisplayName(context.resources.configuration.locale())
-        return if (localeDisplayName == languageTag)
+        return if (localeDisplayName.lowercase() == languageTag.lowercase())
             locale.getDisplayName(Locale.US)
         else localeDisplayName
     }
