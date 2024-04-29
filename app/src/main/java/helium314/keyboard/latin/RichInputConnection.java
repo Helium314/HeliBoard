@@ -673,7 +673,8 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void copyAllText() {
         final CharSequence beforeText = getTextBeforeCursor(Integer.MAX_VALUE, InputConnection.GET_TEXT_WITH_STYLES);
         final CharSequence afterText = getTextAfterCursor(Integer.MAX_VALUE, InputConnection.GET_TEXT_WITH_STYLES);
-        final String allText = beforeText.toString() + afterText.toString();
+        if (beforeText == null || afterText == null) return;
+        final String allText = beforeText + afterText.toString();
         if (allText.isEmpty()) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", allText));

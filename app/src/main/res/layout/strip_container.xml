@@ -28,11 +28,9 @@
         android:id="@+id/clipboard_strip_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:scrollbarThumbHorizontal="@color/toolbar_scrollbar" >
         <LinearLayout
             android:id="@+id/clipboard_strip"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="?attr/suggestionStripViewStyle" >
