@@ -78,6 +78,7 @@
     nl: Dutch/qwerty
     nl_BE: Dutch (Belgium)/azerty
     pl: Polish/qwerty
+    pms: Piedmontese/qwerty
     pt_BR: Portuguese (Brazil)/qwerty
     pt_PT: Portuguese (Portugal)/qwerty
     ro: Romanian/qwerty
@@ -774,6 +775,15 @@
             android:subtypeId="0x43098a5c"
             android:imeSubtypeLocale="pl"
             android:languageTag="pl"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xdabe79d8"
+            android:imeSubtypeLocale="pms"
+            android:languageTag="pms"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
