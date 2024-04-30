@@ -100,10 +100,10 @@
             android:persistent="true" />
 
         <SwitchPreference
-            android:key="center_suggestion_text_to_commit"
-            android:title="@string/center_suggestion_text_to_commit"
-            android:summary="@string/center_suggestion_text_to_commit_summary"
-            android:defaultValue="@bool/config_center_suggestion_text_to_commit"
+            android:key="center_suggestion_text_to_enter"
+            android:title="@string/center_suggestion_text_to_enter"
+            android:summary="@string/center_suggestion_text_to_enter_summary"
+            android:defaultValue="@bool/config_center_suggestion_text_to_enter"
             android:persistent="true" />
 
         <SwitchPreference

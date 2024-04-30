@@ -87,7 +87,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
-    public static final String PREF_CENTER_SUGGESTION_TEXT_TO_COMMIT = "center_suggestion_text_to_commit";
+    public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "use_personalized_dicts";
@@ -288,8 +288,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
-    public static boolean readCenterSuggestionTextToCommit(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_CENTER_SUGGESTION_TEXT_TO_COMMIT, res.getBoolean(R.bool.config_center_suggestion_text_to_commit));
+    public static boolean readCenterSuggestionTextToEnter(final SharedPreferences prefs, final Resources res) {
+        return prefs.getBoolean(PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, res.getBoolean(R.bool.config_center_suggestion_text_to_enter));
     }
 
     public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs, final Resources res) {
