@@ -131,6 +131,9 @@ object KeyCode {
     const val ACTION_PREVIOUS =           -10007
     // Code value representing the code is not specified.
     const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
+    const val CLIPBOARD_COPY_ALL =        -10009
+    const val PAGE_UP =              -10010
+    const val PAGE_DOWN =            -10011
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {

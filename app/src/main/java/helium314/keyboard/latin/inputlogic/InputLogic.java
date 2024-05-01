@@ -637,6 +637,18 @@ public final class InputLogic {
     }
 
     /**
+     * Handles the action of pasting content from the clipboard.
+     * Retrieves content from the clipboard history manager and commits it to the input connection.
+     *
+     */
+    private void handleClipboardPaste() {
+        final String clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent().toString();
+        if (!clipboardContent.isEmpty()) {
+            mLatinIME.onTextInput(clipboardContent);
+        }
+    }
+
+    /**
      * Handle a functional key event.
      * <p>
      * A functional event is a special key, like delete, shift, emoji, or the settings key.
@@ -685,13 +697,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
-                    final CharSequence content = mLatinIME.getClipboardHistoryManager()
-                            .retrieveClipboardContent();
-                    if (!TextUtils.isEmpty(content)) {
-                        mConnection.commitText(content, 1);
-                        inputTransaction.setDidAffectContents();
-                    }
+                    handleClipboardPaste();
                 }
+                break;
+            case KeyCode.CLIPBOARD_PASTE:
+                handleClipboardPaste();
                 break;
             case KeyCode.SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
@@ -714,11 +724,14 @@ public final class InputLogic {
                 mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScript);
                 break;
             case KeyCode.CLIPBOARD_COPY:
-                mConnection.copyText();
+                mConnection.copyText(true);
+                break;
+            case KeyCode.CLIPBOARD_COPY_ALL:
+                mConnection.copyText(false);
                 break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
-                    mConnection.copyText();
+                    mConnection.copyText(true);
                     // fake delete keypress to remove the text
                     final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
@@ -749,6 +762,12 @@ public final class InputLogic {
                 break;
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
+                break;
+            case KeyCode.PAGE_UP:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
+                break;
+            case KeyCode.PAGE_DOWN:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
