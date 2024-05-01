@@ -233,7 +233,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val tag = view.tag
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)
-            if (code != null) {
+            if (code != KeyCode.UNSPECIFIED) {
                 keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }

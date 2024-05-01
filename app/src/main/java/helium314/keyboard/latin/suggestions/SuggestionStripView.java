@@ -75,7 +75,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
-        void onTextInput(final String rawText);
         void removeSuggestion(final String word);
         CharSequence getSelection();
     }
@@ -376,9 +375,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (!(view.getTag() instanceof ToolbarKey tag)) return;
         if (view.getParent() == mPinnedKeys) {
             final int longClickCode = getCodeForToolbarKeyLongClick(tag);
-            if (longClickCode != KeyCode.UNSPECIFIED) {
+//            if (longClickCode != KeyCode.UNSPECIFIED) {
                 mListener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-            }
+//            }
         } else if (view.getParent() == mToolbar) {
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
             if (pinnedKeyView == null) {
@@ -639,7 +638,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Object tag = view.getTag();
         if (tag instanceof ToolbarKey) {
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
-            if (code != null) {
+            if (code != KeyCode.UNSPECIFIED) {
                 Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {

@@ -1509,8 +1509,6 @@ public class LatinIME extends InputMethodService implements
         return Event.createSoftwareKeypressEvent(codePoint, keyCode, keyX, keyY, isKeyRepeat);
     }
 
-    // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
         final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS);

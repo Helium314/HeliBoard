@@ -70,7 +70,8 @@ Does not use internet permission, and thus is 100% offline.
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents.
+* Long-pressing pinned toolbar keys results in additional functionality
+  * clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo, 
 * Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip.
 * Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;

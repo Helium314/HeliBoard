@@ -56,7 +56,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
-    CLEAR_CLIPBOARD -> null // not managed via code input
+    CLEAR_CLIPBOARD -> KeyCode.UNSPECIFIED // not managed via code input
     CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
