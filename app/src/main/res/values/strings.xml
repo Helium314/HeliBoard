@@ -249,6 +249,9 @@
     <string name="down" tools:keep="@string/down">Down</string>
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
+    <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
+    <!-- Title of the settings to set clipboard toolbar keys -->
+    <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->

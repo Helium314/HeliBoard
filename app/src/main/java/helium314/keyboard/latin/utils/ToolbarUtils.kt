@@ -120,15 +120,26 @@ val defaultToolbarPref = entries.filterNot { it == CLEAR_CLIPBOARD || it == CLOS
     }
 }
 
+val defaultClipboardToolbarPref by lazy {
+    val default = listOf(ONE_HANDED, UNDO, UP, DOWN, LEFT, RIGHT, CLEAR_CLIPBOARD, COPY, CUT, SELECT_WORD, CLOSE_HISTORY)
+    val others = entries.filterNot { it in default }
+    default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
+}
+
 /** add missing keys, typically because a new key has been added */
-fun upgradeToolbarPref(prefs: SharedPreferences) {
-    val list = prefs.getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!.split(";").toMutableList()
+fun upgradeToolbarPrefs(prefs: SharedPreferences) {
+    upgradeToolbarPref(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref, "true")
+    upgradeToolbarPref(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref, "false")
+}
+
+private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: String, defaultEnabled: String) {
+    val list = prefs.getString(pref, default)!!.split(";").toMutableList()
     val splitDefault = defaultToolbarPref.split(";")
     if (list.size == splitDefault.size) return
     splitDefault.forEach { entry ->
         val keyWithComma = entry.substringBefore(",") + ","
         if (list.none { it.startsWith(keyWithComma) })
-            list.add("${keyWithComma}true")
+            list.add("${keyWithComma}$defaultEnabled")
     }
     // likely not needed, but better prepare for possibility of key removal
     list.removeAll {
@@ -142,8 +153,12 @@ fun upgradeToolbarPref(prefs: SharedPreferences) {
     prefs.edit { putString(Settings.PREF_TOOLBAR_KEYS, list.joinToString(";")) }
 }
 
-fun getEnabledToolbarKeys(prefs: SharedPreferences): List<ToolbarKey> {
-    val string = prefs.getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!
+fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
+
+fun getEnabledClipboardToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
+
+private fun getEnabledToolbarKeys(prefs: SharedPreferences, pref: String, default: String): List<ToolbarKey> {
+    val string = prefs.getString(pref, default)!!
     return string.split(";").mapNotNull {
         val split = it.split(",")
         if (split.last() == "true") {

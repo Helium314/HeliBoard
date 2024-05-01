@@ -24,11 +24,13 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
+import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
@@ -70,7 +72,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        listOf(ToolbarKey.ONE_HANDED, ToolbarKey.UNDO, ToolbarKey.UP, ToolbarKey.DOWN, ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.COPY, ToolbarKey.CUT, ToolbarKey.SELECT_WORD, ToolbarKey.CLOSE_HISTORY)
+        getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }

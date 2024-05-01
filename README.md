@@ -169,7 +169,6 @@ __Planned features and improvements:__
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
 * Customizable currency keys
-* Customizable clipboard toolbar keys (#513, #403)
 * Ability to export/import (share) custom colors
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
