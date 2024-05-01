@@ -601,7 +601,7 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_knx"
+        android:label="@string/subtype_generic_extended"
         android:subtypeId="0x8c69420f"
         android:imeSubtypeLocale="kn_IN"
         android:languageTag="kn-IN"

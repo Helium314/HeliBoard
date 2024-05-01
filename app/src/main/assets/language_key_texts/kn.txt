@@ -54,7 +54,6 @@
 [labels]
 alphabet: ಅಆಇ
 symbol: ?೧೨೩
-period: .
 
 [number_row]
 ೧ ೨ ೩ ೪ ೫ ೬ ೭ ೮ ೯ ೦
