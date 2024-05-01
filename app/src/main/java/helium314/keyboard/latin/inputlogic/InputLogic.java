@@ -639,15 +639,12 @@ public final class InputLogic {
     /**
      * Handles the action of pasting content from the clipboard.
      * Retrieves content from the clipboard history manager and commits it to the input connection.
-     * Sets a flag in the input transaction to indicate that the operation has affected the input contents.
      *
-     * @param inputTransaction The transaction in progress.
      */
-    private void handleClipboardPaste(final InputTransaction inputTransaction) {
-        final CharSequence clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent();
-        if (!TextUtils.isEmpty(clipboardContent)) {
-            mConnection.commitText(clipboardContent, 1);
-            inputTransaction.setDidAffectContents();
+    private void handleClipboardPaste() {
+        final String clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent().toString();
+        if (!clipboardContent.isEmpty()) {
+            mLatinIME.onTextInput(clipboardContent);
         }
     }
 
@@ -700,11 +697,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
-                    handleClipboardPaste(inputTransaction);
+                    handleClipboardPaste();
                 }
                 break;
             case KeyCode.CLIPBOARD_PASTE:
-                handleClipboardPaste(inputTransaction);
+                handleClipboardPaste();
                 break;
             case KeyCode.SHIFT_ENTER:
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
