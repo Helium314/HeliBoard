@@ -653,9 +653,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
-    public void copyText() {
-        // copy selected text, and if nothing is selected copy the whole text
-        CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+    public void copyText(final boolean getSelection) {
+        CharSequence text = "";
+        if (getSelection) {
+            // copy selected text, and if nothing is selected copy the whole text
+            text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+        }
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
             final ExtractedTextRequest etr = new ExtractedTextRequest();
@@ -668,16 +671,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
-    }
-
-    public void copyAllText() {
-        final CharSequence beforeText = getTextBeforeCursor(Integer.MAX_VALUE, InputConnection.GET_TEXT_WITH_STYLES);
-        final CharSequence afterText = getTextAfterCursor(Integer.MAX_VALUE, InputConnection.GET_TEXT_WITH_STYLES);
-        if (beforeText == null || afterText == null) return;
-        final String allText = beforeText + afterText.toString();
-        if (allText.isEmpty()) return;
-        final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
-        cm.setPrimaryClip(ClipData.newPlainText("copied text", allText));
     }
 
     public void commitCorrection(final CorrectionInfo correctionInfo) {
