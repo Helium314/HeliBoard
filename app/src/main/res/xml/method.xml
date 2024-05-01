@@ -686,7 +686,7 @@
             android:imeSubtypeLocale="mhr"
             android:languageTag="mhr"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=mari_mhr,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=mari,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
