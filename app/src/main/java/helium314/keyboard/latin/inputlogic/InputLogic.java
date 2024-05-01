@@ -766,10 +766,10 @@ public final class InputLogic {
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
                 break;
-            case KeyCode.MOVE_PAGE_UP:
+            case KeyCode.PAGE_UP:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
                 break;
-            case KeyCode.MOVE_PAGE_DOWN:
+            case KeyCode.PAGE_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
             case KeyCode.VOICE_INPUT:

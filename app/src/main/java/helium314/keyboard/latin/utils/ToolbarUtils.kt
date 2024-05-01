@@ -63,8 +63,8 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     RIGHT -> KeyCode.MOVE_END_OF_LINE
     LEFT -> KeyCode.MOVE_START_OF_LINE
-    UP -> KeyCode.MOVE_PAGE_UP
-    DOWN -> KeyCode.MOVE_PAGE_DOWN
+    UP -> KeyCode.PAGE_UP
+    DOWN -> KeyCode.PAGE_DOWN
     UNDO -> KeyCode.REDO
     REDO -> KeyCode.UNDO
     COPY -> KeyCode.CLIPBOARD_COPY_ALL
