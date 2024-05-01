@@ -67,6 +67,7 @@
     lo_LA: Lao (Laos)/lao
     lt: Lithuanian/qwerty
     lv: Latvian/qwerty
+    mhr: Mari (Eastern)
     mk: Macedonian/macedonian
     ml_IN: Malayalam (India)/malayalam
     mn_MN: Mongolian (Mongolia)/mongolian
@@ -679,6 +680,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
+    />
+     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic"
+            android:subtypeId="0xb84023bf"
+            android:imeSubtypeLocale="mhr"
+            android:languageTag="mhr"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=mari,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
