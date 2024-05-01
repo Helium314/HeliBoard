@@ -249,13 +249,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
             if (longClickCode != KeyCode.UNSPECIFIED) {
                 keyboardActionListener?.onCodeInput(
                     longClickCode,
-                    Constants.SUGGESTION_STRIP_COORDINATE,
-                    Constants.SUGGESTION_STRIP_COORDINATE,
+                    Constants.NOT_A_COORDINATE,
+                    Constants.NOT_A_COORDINATE,
                     false
                 )
             }
+            return true
         }
-        return true
+        return false
     }
 
     override fun onKeyDown(clipId: Long) {

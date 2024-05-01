@@ -373,7 +373,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        final ToolbarKey tag = (ToolbarKey) view.getTag();
+        if (!(view.getTag() instanceof ToolbarKey tag)) return;
         if (view.getParent() == mPinnedKeys) {
             final int longClickCode = getCodeForToolbarKeyLongClick(tag);
             if (longClickCode != KeyCode.UNSPECIFIED) {
