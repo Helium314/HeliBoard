@@ -11,7 +11,7 @@ import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.upgradeToolbarPref
+import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
 class App : Application() {
@@ -37,7 +37,7 @@ fun checkVersionUpgrade(context: Context) {
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
-    upgradeToolbarPref(prefs)
+    upgradeToolbarPrefs(prefs)
     // clear extracted dictionaries, in case updated version contains newer ones
     DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
         if (!it.isDirectory) return@forEach

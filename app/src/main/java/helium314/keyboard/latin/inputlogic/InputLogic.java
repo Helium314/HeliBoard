@@ -712,11 +712,14 @@ public final class InputLogic {
                 mConnection.selectWord(inputTransaction.getMSettingsValues().mSpacingAndPunctuations, currentKeyboardScript);
                 break;
             case KeyCode.CLIPBOARD_COPY:
-                mConnection.copyText();
+                mConnection.copyText(true);
+                break;
+            case KeyCode.CLIPBOARD_COPY_ALL:
+                mConnection.copyText(false);
                 break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
-                    mConnection.copyText();
+                    mConnection.copyText(true);
                     // fake delete keypress to remove the text
                     final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
@@ -747,6 +750,12 @@ public final class InputLogic {
                 break;
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
+                break;
+            case KeyCode.PAGE_UP:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
+                break;
+            case KeyCode.PAGE_DOWN:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -2129,7 +2138,8 @@ public final class InputLogic {
         if (settingsValues.mUrlDetectionEnabled && settingsValues.mSpacingAndPunctuations.containsSometimesWordConnector(mWordComposer.getTypedWord()))
             return true;
         // "://" before typed word -> very much looks like URL
-        if (mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0).toString().startsWith("://"))
+        final CharSequence textBeforeCursor = mConnection.getTextBeforeCursor(mWordComposer.getTypedWord().length() + 3, 0);
+        if (textBeforeCursor != null && textBeforeCursor.toString().startsWith("://"))
             return true;
         return false;
     }

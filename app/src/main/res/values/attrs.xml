@@ -102,8 +102,6 @@
         <attr name="keyPreviewBackground" format="reference" />
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
-        <!-- Height of the key press feedback popup. -->
-        <attr name="keyPreviewHeight" format="dimension" />
         <!-- Layout resource for popup keys keyboard -->
         <attr name="popupKeysKeyboardLayout" format="reference" />
         <!-- Layout resource for popup keys keyboard of action key -->

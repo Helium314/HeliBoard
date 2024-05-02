@@ -102,6 +102,13 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="center_suggestion_text_to_enter"
+            android:title="@string/center_suggestion_text_to_enter"
+            android:summary="@string/center_suggestion_text_to_enter_summary"
+            android:defaultValue="@bool/config_center_suggestion_text_to_enter"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"
