@@ -299,6 +299,9 @@
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype [CHAR LIMIT=25]
+         (Extended) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>

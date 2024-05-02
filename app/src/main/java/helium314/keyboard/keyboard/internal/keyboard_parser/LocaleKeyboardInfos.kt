@@ -50,7 +50,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     }
     val labelFlags = when (locale.language) { // todo: move to the info file
         "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
-        "kn", "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "kn" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
 
