@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import helium314.keyboard.latin.utils.Log;
-
-import android.os.Handler;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -480,7 +478,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         isToastShowing = true;
         mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_in));
 
-        new Handler().postDelayed(() -> {
+        mFakeToastView.postDelayed(() -> {
             mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_out));
             mFakeToastView.setVisibility(View.GONE);
             isToastShowing = false;

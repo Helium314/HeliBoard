@@ -1614,14 +1614,23 @@ public class LatinIME extends InputMethodService implements
                 mKeyboardSwitcher.getKeyboardShiftMode(), inputStyle, sequenceNumber, callback);
     }
 
-    public void showToast(final int resId, final int timeMillis, final boolean fallback){
+    /**
+     * Displays a toast message.
+     *
+     * @param resId The resource ID of the string to display in the toast message.
+     * @param briefToast If true, the toast duration will be short; otherwise, it will last longer.
+     * @param fallback If true, falls back to a workaround for API 33+ to display the toast.
+     */
+    public void showToast(final int resId, final boolean briefToast, final boolean fallback){
         // In API 32 and below, toasts can be shown without a notification permission.
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2){
-            final Toast toast = Toast.makeText(this, resId, timeMillis);
+            final int toastLength = briefToast ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
+            final Toast toast = Toast.makeText(this, resId, toastLength);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else if (fallback) {
-            mKeyboardSwitcher.showFakeToast(resId, timeMillis); // workaround for API 33+.
+            final int toastLength = briefToast ? 2000 : 3500;
+            mKeyboardSwitcher.showFakeToast(resId, toastLength);
         }
     }
 
