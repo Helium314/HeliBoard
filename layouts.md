@@ -54,7 +54,7 @@ Some special key labels will be implemented, most are already working in the (cu
   * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
   * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)
   * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. The new string should be added to default [`strings.xml`](/app/src/main/res/values/strings.xml), and optionally to other languages. `%s` will be replaced with the language.
-* If you add a new language, you might want to provide a [language_key_texts](/app/src/main/assets/language_key_texts) file
+* If you add a new language, you might want to provide a [locale_key_texts](/app/src/main/assets/locale_key_texts) file
   * `[popup_keys]` section contains popup keys that are similar to the letter (like `a` and `ä` or `य` and `य़`)
     * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones.
     * The popup keys will be added to the "_Language_" popup key group (relevant for setting popup key order).
