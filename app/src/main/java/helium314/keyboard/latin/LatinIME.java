@@ -1617,20 +1617,20 @@ public class LatinIME extends InputMethodService implements
     /**
      * Displays a toast message.
      *
-     * @param resId The resource ID of the string to display in the toast message.
+     * @param text The text to display in the toast message.
      * @param briefToast If true, the toast duration will be short; otherwise, it will last longer.
      * @param fallback If true, falls back to a workaround for API 33+ to display the toast.
      */
-    public void showToast(final int resId, final boolean briefToast, final boolean fallback){
+    public void showToast(final String text, final boolean briefToast, final boolean fallback){
         // In API 32 and below, toasts can be shown without a notification permission.
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2){
             final int toastLength = briefToast ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
-            final Toast toast = Toast.makeText(this, resId, toastLength);
+            final Toast toast = Toast.makeText(this, text, toastLength);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else if (fallback) {
             final int toastLength = briefToast ? 2000 : 3500;
-            mKeyboardSwitcher.showFakeToast(resId, toastLength);
+            mKeyboardSwitcher.showFakeToast(text, toastLength);
         }
     }
 

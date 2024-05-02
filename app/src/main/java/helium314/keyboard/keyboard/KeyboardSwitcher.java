@@ -469,11 +469,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
     }
 
-    // Displays a toast-like message with the provided text resource ID for a specified duration.
-    public void showFakeToast(final int resId, final int timeMillis) {
+    // Displays a toast-like message with the provided text for a specified duration.
+    public void showFakeToast(final String text, final int timeMillis) {
         if (isToastShowing) return;
 
-        mFakeToastView.setText(resId);
+        mFakeToastView.setText(text);
         mFakeToastView.setVisibility(View.VISIBLE);
         isToastShowing = true;
         mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_in));

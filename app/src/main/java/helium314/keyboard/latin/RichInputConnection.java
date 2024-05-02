@@ -668,7 +668,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
-        ((LatinIME)mParent).showToast(R.string.toast_msg_clipboard_copy, true, false);
+        ((LatinIME)mParent).showToast(mParent.getString(R.string.toast_msg_clipboard_copy), true, false);
     }
 
     public void commitCorrection(final CorrectionInfo correctionInfo) {

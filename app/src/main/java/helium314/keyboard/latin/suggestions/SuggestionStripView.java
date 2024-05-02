@@ -79,6 +79,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
         void onTextInput(final String rawText);
         void removeSuggestion(final String word);
+        void showToast(final String text, final boolean briefToast, final boolean fallback);
         CharSequence getSelection();
     }
 
@@ -460,12 +461,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
         if (!info.getWord().equals(word)) return;
         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-        // apparently toast is not working on some Android versions, probably
-        // Android 13 with the notification permission
-        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtilsKt.getPlatformDialogThemeContext(getContext()), wordView);
-        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
-        uglyWorkaround.show();
+        mListener.showToast(text, true, true);
     }
 
     private void removeSuggestion(TextView wordView) {
