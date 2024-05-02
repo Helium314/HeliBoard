@@ -113,7 +113,7 @@ sealed interface KeyData : AbstractKeyData {
                 || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA)
     }
 
-    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultRelativeKeyWidth, additionalLabelFlags: Int = 0): Key.KeyParams {
+    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultKeyWidth, additionalLabelFlags: Int = 0): Key.KeyParams {
         // todo: remove checks here, do only when reading json layouts
         // numeric keys are assigned a higher width in number layouts
         require(type == KeyType.CHARACTER || type == KeyType.NUMERIC) { "only KeyType CHARACTER or NUMERIC is supported" }

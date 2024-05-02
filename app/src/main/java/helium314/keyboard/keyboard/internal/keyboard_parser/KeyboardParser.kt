@@ -76,7 +76,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         // rescale height if we have more than 4 rows
         val heightRescale = if (keysInRows.size > 4) 4f / keysInRows.size else 1f
         if (heightRescale != 1f) {
-            keysInRows.forEach { row -> row.forEach { it.mRelativeHeight *= heightRescale } }
+            keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
         }
 
         return keysInRows
@@ -113,14 +113,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val paramsRow = ArrayList<KeyParams>(functionalKeysLeft)
 
             // determine key width, maybe scale factor for keys, and spacers to add
-            val usedKeyWidth = params.mDefaultRelativeKeyWidth * row.size
-            val functionalKeyWidth = (functionalKeysLeft.sumOf { it.mRelativeWidth }) + (functionalKeysRight.sumOf { it.mRelativeWidth })
+            val usedKeyWidth = params.mDefaultKeyWidth * row.size
+            val functionalKeyWidth = (functionalKeysLeft.sumOf { it.mWidth }) + (functionalKeysRight.sumOf { it.mWidth })
             val availableWidth = 1f - functionalKeyWidth
             var keyWidth: Float
             val spacerWidth: Float
             if (availableWidth - usedKeyWidth > 0.0001f) { // don't add spacers if only a tiny bit is empty
                 // width available, add spacer
-                keyWidth = params.mDefaultRelativeKeyWidth
+                keyWidth = params.mDefaultKeyWidth
                 spacerWidth = (availableWidth - usedKeyWidth) / 2
             } else {
                 // need more width, re-scale
@@ -130,13 +130,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             if (spacerWidth != 0f) {
                 paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
             }
-            if (keyWidth < params.mDefaultRelativeKeyWidth * 0.82 && spacerWidth == 0f) {
+            if (keyWidth < params.mDefaultKeyWidth * 0.82 && spacerWidth == 0f) {
                 // keys are very narrow, also rescale the functional keys to make keys a little wider
                 // 0.82 is just some guess for "too narrow"
-                val allKeyScale = 1f / (functionalKeyWidth + row.size * params.mDefaultRelativeKeyWidth)
-                keyWidth = params.mDefaultRelativeKeyWidth * allKeyScale
-                functionalKeysLeft.forEach { it.mRelativeWidth *= allKeyScale }
-                functionalKeysRight.forEach { it.mRelativeWidth *= allKeyScale }
+                val allKeyScale = 1f / (functionalKeyWidth + row.size * params.mDefaultKeyWidth)
+                keyWidth = params.mDefaultKeyWidth * allKeyScale
+                functionalKeysLeft.forEach { it.mWidth *= allKeyScale }
+                functionalKeysRight.forEach { it.mWidth *= allKeyScale }
             }
 
             for (key in row) {
@@ -214,20 +214,20 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val rowAboveLast = keysInRows[keysInRows.lastIndex - 1]
         if (lastRow.any { it.isSpacer } || rowAboveLast.any { it.isSpacer })
             return // annoying to deal with, and probably no resize needed anyway
-        val lastNormalRowKeyWidth = lastRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
-        val rowAboveLastNormalRowKeyWidth = rowAboveLast.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mRelativeWidth
+        val lastNormalRowKeyWidth = lastRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mWidth
+        val rowAboveLastNormalRowKeyWidth = rowAboveLast.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mWidth
         if (lastNormalRowKeyWidth <= rowAboveLastNormalRowKeyWidth + 0.0001f)
             return // no need
         if (lastNormalRowKeyWidth / rowAboveLastNormalRowKeyWidth > 1.1f)
             return // don't resize on large size difference
-        if (lastRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mRelativeWidth != lastNormalRowKeyWidth })
+        if (lastRow.any { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL && it.mWidth != lastNormalRowKeyWidth })
             return // normal keys have different width, don't deal with this
         val numberOfNormalKeys = lastRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }
         val widthBefore = numberOfNormalKeys * lastNormalRowKeyWidth
         val widthAfter = numberOfNormalKeys * rowAboveLastNormalRowKeyWidth
         val spacerWidth = (widthBefore - widthAfter) / 2
         // resize keys and add spacers
-        lastRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mRelativeWidth = rowAboveLastNormalRowKeyWidth }
+        lastRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mWidth = rowAboveLastNormalRowKeyWidth }
         lastRow.add(lastRow.indexOfFirst { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }, KeyParams.newSpacer(params, spacerWidth))
         lastRow.add(lastRow.indexOfLast { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL } + 1, KeyParams.newSpacer(params, spacerWidth))
     }
@@ -296,19 +296,19 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     // make those keys same width as numeric keys except in numpad layout
                     // but determine from row size instead of from elementId, in case user wants to adjust numpad layout
                     if (row.size == baseKeys[0].size) {
-                        paramsRow.getOrNull(n - 1)?.mRelativeWidth = paramsRow[n].mRelativeWidth
-                        paramsRow.getOrNull(n + 1)?.mRelativeWidth = paramsRow[n].mRelativeWidth
+                        paramsRow.getOrNull(n - 1)?.mWidth = paramsRow[n].mWidth
+                        paramsRow.getOrNull(n + 1)?.mWidth = paramsRow[n].mWidth
                     } else if (row.size == baseKeys[0].size + 2) {
                         // numpad last row -> make sure the keys next to 0 fit nicely
-                        paramsRow.getOrNull(n - 1)?.mRelativeWidth = paramsRow[n].mRelativeWidth * 0.55f
-                        paramsRow.getOrNull(n - 2)?.mRelativeWidth = paramsRow[n].mRelativeWidth * 0.45f
-                        paramsRow.getOrNull(n + 1)?.mRelativeWidth = paramsRow[n].mRelativeWidth * 0.55f
-                        paramsRow.getOrNull(n + 2)?.mRelativeWidth = paramsRow[n].mRelativeWidth * 0.45f
+                        paramsRow.getOrNull(n - 1)?.mWidth = paramsRow[n].mWidth * 0.55f
+                        paramsRow.getOrNull(n - 2)?.mWidth = paramsRow[n].mWidth * 0.45f
+                        paramsRow.getOrNull(n + 1)?.mWidth = paramsRow[n].mWidth * 0.55f
+                        paramsRow.getOrNull(n + 2)?.mWidth = paramsRow[n].mWidth * 0.45f
                     }
                 }
             }
-            val widthSum = paramsRow.sumOf { it.mRelativeWidth }
-            paramsRow.forEach { it.mRelativeWidth /= widthSum }
+            val widthSum = paramsRow.sumOf { it.mWidth }
+            paramsRow.forEach { it.mWidth /= widthSum }
             keysInRows.add(paramsRow)
         }
         return keysInRows
@@ -352,7 +352,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     bottomRow.add(KeyParams(
                         adjustedKeys?.get(1)?.label ?: "/",
                         params,
-                        params.mDefaultRelativeKeyWidth,
+                        params.mDefaultKeyWidth,
                         defaultLabelFlags,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(1)?.popup
@@ -361,7 +361,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     bottomRow.add(KeyParams(
                         (adjustedKeys?.get(1)?.label ?: "<").rtlLabel(params),
                         params,
-                        params.mDefaultRelativeKeyWidth,
+                        params.mDefaultKeyWidth,
                         defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(1)?.popup ?: SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«"))
@@ -370,7 +370,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     bottomRow.add(KeyParams(
                         (adjustedKeys?.get(2)?.label ?: ">").rtlLabel(params),
                         params,
-                        params.mDefaultRelativeKeyWidth,
+                        params.mDefaultKeyWidth,
                         defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
                         Key.BACKGROUND_TYPE_FUNCTIONAL,
                         adjustedKeys?.get(2)?.popup ?: SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»"))
@@ -390,7 +390,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         // set space width
         val space = bottomRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
-        space.mRelativeWidth = 1f - bottomRow.filter { it != space }.sumOf { it.mRelativeWidth }
+        space.mWidth = 1f - bottomRow.filter { it != space }.sumOf { it.mWidth }
         return bottomRow
     }
 
@@ -403,13 +403,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val split = def.trim().splitOnWhitespace()
         val key = FunctionalKey.valueOf(split[0].uppercase())
         val width = if (split.size == 2) split[1].substringBefore("%").toFloat() / 100f
-            else params.mDefaultRelativeKeyWidth
+            else params.mDefaultKeyWidth
         return getFunctionalKeyParams(key, width, label, popupKeys)
     }
 
     private fun getFunctionalKeyParams(key: FunctionalKey, relativeWidth: Float? = null, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
         // for comma and period: label will override default, popupKeys will be appended
-        val width = relativeWidth ?: params.mDefaultRelativeKeyWidth
+        val width = relativeWidth ?: params.mDefaultKeyWidth
         return when (key) {
             FunctionalKey.SYMBOL_ALPHA -> KeyParams(
                 if (params.mId.isAlphabetKeyboard) getToSymbolLabel() else params.mLocaleKeyboardInfos.labelAlphabet,

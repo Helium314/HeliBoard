@@ -70,7 +70,7 @@ public final class PopupKeySpec {
     public Key buildKey(final int x, final int y, final int labelFlags,
             @NonNull final KeyboardParams params) {
         return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
-                Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultKeyWidth, params.mDefaultRowHeight,
+                Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight,
                 params.mHorizontalGap, params.mVerticalGap);
     }
 

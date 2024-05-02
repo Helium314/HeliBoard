@@ -308,17 +308,17 @@ public class Key implements Comparable<Key> {
         final float horizontalGapFloat = isSpacer() ? 0 : (keyParams.mKeyboardParams.mRelativeHorizontalGap * keyParams.mKeyboardParams.mOccupiedWidth);
         mHorizontalGap = Math.round(horizontalGapFloat);
         mVerticalGap = Math.round(keyParams.mKeyboardParams.mRelativeVerticalGap * keyParams.mKeyboardParams.mOccupiedHeight);
-        mWidth = Math.round(keyParams.mFullWidth - horizontalGapFloat);
+        mWidth = Math.round(keyParams.mAbsoluteWidth - horizontalGapFloat);
         // height is always rounded down, because rounding up may make the keyboard too high to fit, leading to issues
-        mHeight = (int) (keyParams.mFullHeight - keyParams.mKeyboardParams.mVerticalGap);
+        mHeight = (int) (keyParams.mAbsoluteHeight - keyParams.mKeyboardParams.mVerticalGap);
         if (!isSpacer() && (mWidth == 0 || mHeight == 0)) {
             throw new IllegalStateException("key needs positive width and height");
         }
         // Horizontal gap is divided equally to both sides of the key.
         mX = Math.round(keyParams.xPos + horizontalGapFloat / 2);
         mY = Math.round(keyParams.yPos);
-        mHitBox.set(Math.round(keyParams.xPos), Math.round(keyParams.yPos), Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
-                Math.round(keyParams.yPos + keyParams.mFullHeight));
+        mHitBox.set(Math.round(keyParams.xPos), Math.round(keyParams.yPos), Math.round(keyParams.xPos + keyParams.mAbsoluteWidth) + 1,
+                Math.round(keyParams.yPos + keyParams.mAbsoluteHeight));
         mHashCode = computeHashCode(this);
     }
 
@@ -954,12 +954,12 @@ public class Key implements Comparable<Key> {
         // params for building
         public boolean isSpacer;
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
-        public float mRelativeWidth;
-        public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
+        public float mWidth;
+        public float mHeight; // also should allow negative values, indicating absolute height is defined
 
         // params that may change
-        public float mFullWidth;
-        public float mFullHeight;
+        public float mAbsoluteWidth;
+        public float mAbsoluteHeight;
         public float xPos;
         public float yPos;
 
@@ -977,10 +977,10 @@ public class Key implements Comparable<Key> {
         @Nullable public final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
-        public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
+        public static KeyParams newSpacer(final KeyboardParams params, final float width) {
             final KeyParams spacer = new KeyParams(params);
-            spacer.mRelativeWidth = relativeWidth;
-            spacer.mRelativeHeight = params.mDefaultRelativeRowHeight;
+            spacer.mWidth = width;
+            spacer.mHeight = params.mDefaultRowHeight;
             return spacer;
         }
 
@@ -990,17 +990,17 @@ public class Key implements Comparable<Key> {
         }
 
         public void setDimensionsFromRelativeSize(final float newX, final float newY) {
-            if (mRelativeHeight == 0)
-                mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight;
-            if (!isSpacer && mRelativeWidth == 0)
-                mRelativeWidth = mKeyboardParams.mDefaultRelativeKeyWidth;
-            if (mRelativeHeight < 0)
+            if (mHeight == 0)
+                mHeight = mKeyboardParams.mDefaultRowHeight;
+            if (!isSpacer && mWidth == 0)
+                mWidth = mKeyboardParams.mDefaultKeyWidth;
+            if (mHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing popupKeys or moreSuggestions
                 throw new IllegalStateException("can't (yet) deal with absolute height");
             xPos = newX;
             yPos = newY;
-            mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
-            mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
+            mAbsoluteWidth = mWidth * mKeyboardParams.mBaseWidth;
+            mAbsoluteHeight = mHeight * mKeyboardParams.mBaseHeight;
         }
 
         private static int getPopupKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] popupKeys) {
@@ -1052,7 +1052,7 @@ public class Key implements Comparable<Key> {
                 @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (avoid using !text, should be removed)
                 final int code,
                 @NonNull final KeyboardParams params,
-                final float relativeWidth,
+                final float width,
                 final int labelFlags,
                 final int backgroundType,
                 @Nullable final PopupSet<?> popupSet
@@ -1060,8 +1060,8 @@ public class Key implements Comparable<Key> {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
             mLabelFlags = labelFlags;
-            mRelativeWidth = relativeWidth;
-            mRelativeHeight = params.mDefaultRelativeRowHeight;
+            mWidth = width;
+            mHeight = params.mDefaultRowHeight;
             mIconId = KeySpecParser.getIconId(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
@@ -1237,8 +1237,8 @@ public class Key implements Comparable<Key> {
         public KeyParams(final KeyParams keyParams) {
             xPos = keyParams.xPos;
             yPos = keyParams.yPos;
-            mRelativeWidth = keyParams.mRelativeWidth;
-            mRelativeHeight = keyParams.mRelativeHeight;
+            mWidth = keyParams.mWidth;
+            mHeight = keyParams.mHeight;
             isSpacer = keyParams.isSpacer;
             mKeyboardParams = keyParams.mKeyboardParams;
             mEnabled = keyParams.mEnabled;
@@ -1248,8 +1248,8 @@ public class Key implements Comparable<Key> {
             mHintLabel = keyParams.mHintLabel;
             mLabelFlags = keyParams.mLabelFlags;
             mIconId = keyParams.mIconId;
-            mFullWidth = keyParams.mFullWidth;
-            mFullHeight = keyParams.mFullHeight;
+            mAbsoluteWidth = keyParams.mAbsoluteWidth;
+            mAbsoluteHeight = keyParams.mAbsoluteHeight;
             mPopupKeys = keyParams.mPopupKeys;
             mPopupKeysColumnAndFlags = keyParams.mPopupKeysColumnAndFlags;
             mBackgroundType = keyParams.mBackgroundType;
