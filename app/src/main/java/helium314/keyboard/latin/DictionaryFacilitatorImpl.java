@@ -11,6 +11,7 @@ import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
 
+import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -588,7 +589,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // if suggestion was auto-capitalized, check against both the suggestion and the de-capitalized suggestion
         final String decapitalizedSuggestion;
         if (wasAutoCapitalized)
-            decapitalizedSuggestion = word.substring(0, 1).toLowerCase() + word.substring(1);
+            decapitalizedSuggestion = StringUtilsKt.decapitalize(word, getCurrentLocale());
         else
             decapitalizedSuggestion = word;
         for (int i = 0; i < mDictionaryGroups.size(); i ++) {
@@ -667,7 +668,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (wasAutoCapitalized) {
             // used word with lower-case first letter instead of all lower-case, as auto-capitalize
             // does not affect the other letters
-            final String decapitalizedWord = word.substring(0, 1).toLowerCase(dictionaryGroup.mLocale) + word.substring(1);
+            final String decapitalizedWord = StringUtilsKt.decapitalize(word, dictionaryGroup.mLocale);
             if (isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup) && !isValidWord(decapitalizedWord, ALL_DICTIONARY_TYPES, dictionaryGroup)) {
                 // If the word was auto-capitalized and exists only as a capitalized word in the
                 // dictionary, then we must not downcase it before registering it. For example,

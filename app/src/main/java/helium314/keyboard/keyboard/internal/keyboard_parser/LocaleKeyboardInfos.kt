@@ -238,9 +238,9 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (popupKeysSetting == POPUP_KEYS_MORE)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/all_popup_keys.txt"))
     else if (popupKeysSetting == POPUP_KEYS_ALL)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context))
@@ -250,11 +250,11 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt")
-        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt")
+        else context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language}.txt")
+            context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.language}.txt")
         } catch (_: Exception) {
             null
         }
@@ -335,4 +335,4 @@ const val POPUP_KEYS_ALL = 2
 const val POPUP_KEYS_MORE = 1
 const val POPUP_KEYS_NORMAL = 0
 
-const val LANGUAGE_TEXTS_FOLDER = "language_key_texts"
+private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
