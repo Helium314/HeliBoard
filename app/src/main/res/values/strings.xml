@@ -124,6 +124,10 @@
     <string name="auto_correction_threshold_mode_aggressive">Aggressive</string>
     <!-- Option to suggest auto correction suggestions very aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_very_aggressive">Very aggressive</string>
+    <!-- Option to show the text to be entered as the middle middle suggestion -->
+    <string name="center_suggestion_text_to_enter">Always use middle suggestion</string>
+    <!-- Description for the center text to enter setting -->
+    <string name="center_suggestion_text_to_enter_summary">On pressing space or punctuation, the middle suggestion will be entered</string>
     <!-- Option to enable using next word suggestions. After the user types a space, with this option on, the keyboard will try to predict the next word. -->
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
@@ -253,6 +257,9 @@
     <string name="down" tools:keep="@string/down">Down</string>
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
+    <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
+    <!-- Title of the settings to set clipboard toolbar keys -->
+    <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
@@ -300,6 +307,9 @@
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype [CHAR LIMIT=25]
+         (Extended) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>

@@ -99,6 +99,10 @@
             android:key="toolbar_keys"
             android:title="@string/toolbar_keys" />
 
+        <Preference
+            android:key="clipboard_toolbar_keys"
+            android:title="@string/clipboard_toolbar_keys" />
+
         <SwitchPreference
             android:key="var_toolbar_direction"
             android:title="@string/var_toolbar_direction"

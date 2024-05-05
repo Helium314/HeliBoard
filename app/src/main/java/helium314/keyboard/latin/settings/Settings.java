@@ -87,6 +87,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
+    public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "use_personalized_dicts";
@@ -150,6 +151,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
     public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
+    public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -287,6 +289,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
         return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
+    }
+
+    public static boolean readCenterSuggestionTextToEnter(final SharedPreferences prefs, final Resources res) {
+        return prefs.getBoolean(PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, res.getBoolean(R.bool.config_center_suggestion_text_to_enter));
     }
 
     public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs, final Resources res) {

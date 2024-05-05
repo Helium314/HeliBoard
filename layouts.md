@@ -41,8 +41,8 @@ Some special key labels will be implemented, most are already working in the (cu
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
-* There is no need for specifying a code, it will be determined from the label automatically
-  * You can still specify it, but it's only necessary if you want key label and code to be different
+* There is no need for specifying a `code`, it will be determined from the label automatically
+  * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
 * You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
@@ -54,7 +54,7 @@ Some special key labels will be implemented, most are already working in the (cu
   * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
   * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)
   * If you add a layout to an existing language, add a string with the layout name to use instead of `subtype_generic`. The new string should be added to default [`strings.xml`](/app/src/main/res/values/strings.xml), and optionally to other languages. `%s` will be replaced with the language.
-* If you add a new language, you might want to provide a [language_key_texts](/app/src/main/assets/language_key_texts) file
+* If you add a new language, you might want to provide a [locale_key_texts](/app/src/main/assets/locale_key_texts) file
   * `[popup_keys]` section contains popup keys that are similar to the letter (like `a` and `ä` or `य` and `य़`)
     * Such forms should _not_ be in the layout. They will apply to all layouts of that language, even custom ones.
     * The popup keys will be added to the "_Language_" popup key group (relevant for setting popup key order).

@@ -653,10 +653,19 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
-    public void copyText(final ClipboardHistoryManager clipboardHistoryManager, final boolean internalOnly) {
-        if (internalOnly && clipboardHistoryManager == null) return;
-        // copy selected text, and if nothing is selected copy the whole text
-        CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+    public void copyText(final ClipboardHistoryManager clipboardHistoryManager,
+                         final SettingsValues settingsValues, final boolean getSelection) {
+        // If history is enabled and the sync to the primary clipboard is disabled,
+        // copy the text to the internal clipboard only.
+        final boolean internalOnly = settingsValues.mClipboardHistoryEnabled
+                && !settingsValues.mSyncToPrimaryClipboard;
+        if (internalOnly && clipboardHistoryManager == null)
+            return;
+        CharSequence text = null;
+        if (getSelection) {
+            // copy selected text, and if nothing is selected copy the whole text
+            text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+        }
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
             final ExtractedTextRequest etr = new ExtractedTextRequest();

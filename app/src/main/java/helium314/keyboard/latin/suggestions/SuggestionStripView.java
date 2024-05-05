@@ -10,8 +10,6 @@ import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -77,7 +75,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
-        void onTextInput(final String rawText);
         void removeSuggestion(final String word);
         CharSequence getSelection();
     }
@@ -375,10 +372,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        if (ToolbarKey.CLIPBOARD == view.getTag() && view.getParent() == mPinnedKeys) {
-            onLongClickClipboardKey(); // long click pinned clipboard key
+        if (!(view.getTag() instanceof ToolbarKey tag)) return;
+        if (view.getParent() == mPinnedKeys) {
+            final int longClickCode = getCodeForToolbarKeyLongClick(tag);
+//            if (longClickCode != KeyCode.UNSPECIFIED) {
+                mListener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+//            }
         } else if (view.getParent() == mToolbar) {
-            final ToolbarKey tag = (ToolbarKey) view.getTag();
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag);
@@ -388,22 +388,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
-            }
-        }
-    }
-
-    private void onLongClickClipboardKey() {
-        ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = clipboardManager.getPrimaryClip();
-        Log.d(TAG, "long click clipboard key");
-        if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
-            String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
-            if (clipString.length() == 1) {
-                mListener.onTextInput(clipString);
-            } else if (clipString.length() > 1) {
-                //awkward workaround
-                mListener.onTextInput(clipString.substring(0, clipString.length() - 1));
-                mListener.onTextInput(clipString.substring(clipString.length() - 1));
             }
         }
     }
@@ -654,7 +638,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Object tag = view.getTag();
         if (tag instanceof ToolbarKey) {
             final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
-            if (code != null) {
+            if (code != KeyCode.UNSPECIFIED) {
                 Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {

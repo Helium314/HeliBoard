@@ -9,6 +9,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
@@ -23,18 +24,8 @@ class ClipboardHistoryManager(
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
-        if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true)
+        if (Settings.readClipboardHistoryEnabled(DeviceProtectedUtils.getSharedPreferences(latinIME)))
             fetchPrimaryClip()
-    }
-
-    fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
-        historyEntries.addAll(pinnedClips)
-        sortHistoryEntries()
-        if (onHistoryChangeListener != null) {
-            pinnedClips.forEach {
-                onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))
-            }
-        }
     }
 
     fun onDestroy() {
@@ -146,7 +137,13 @@ class ClipboardHistoryManager(
         val pinnedClipString = Settings.readPinnedClipString(latinIME)
         if (pinnedClipString.isEmpty()) return
         val pinnedClips: List<ClipboardHistoryEntry> = Json.decodeFromString(pinnedClipString)
-        latinIME.mHandler.postUpdateClipboardPinnedClips(pinnedClips)
+        historyEntries.addAll(pinnedClips)
+        sortHistoryEntries()
+        if (onHistoryChangeListener != null) {
+            pinnedClips.forEach {
+                onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))
+            }
+        }
     }
 
     private fun savePinnedClips() {

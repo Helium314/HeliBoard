@@ -50,7 +50,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     }
     val labelFlags = when (locale.language) { // todo: move to the info file
         "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
-        "kn", "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "kn" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
 
@@ -237,9 +238,9 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (popupKeysSetting == POPUP_KEYS_MORE)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/all_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/all_popup_keys.txt"))
     else if (popupKeysSetting == POPUP_KEYS_ALL)
-        lkt.addFile(context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context))
@@ -249,11 +250,11 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LANGUAGE_TEXTS_FOLDER/more_popup_keys.txt")
-        else context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt")
+        else context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
-            context.assets.open("$LANGUAGE_TEXTS_FOLDER/${locale.language}.txt")
+            context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.language}.txt")
         } catch (_: Exception) {
             null
         }
@@ -334,4 +335,4 @@ const val POPUP_KEYS_ALL = 2
 const val POPUP_KEYS_MORE = 1
 const val POPUP_KEYS_NORMAL = 0
 
-const val LANGUAGE_TEXTS_FOLDER = "language_key_texts"
+private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
