@@ -66,7 +66,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         val baseKeys: MutableList<List<KeyData>> = parseCoreLayout(layoutContent)
         val keysInRows: ArrayList<ArrayList<KeyParams>>
-        if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+        if (params.mId.isAlphaOrSymbolKeyboard) {
             keysInRows = createAlphaSymbolRows(baseKeys)
         } else if (params.mId.isNumberLayout) {
             keysInRows = createNumericRows(baseKeys)
@@ -92,7 +92,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val functionalKeys = parseFunctionalKeys(R.string.key_def_functional)
         val functionalKeysTop = parseFunctionalKeys(R.string.key_def_functional_top_row)
 
-        // todo: this loop could use some performance improvements
+        // todo: this loop could use some performance improvements (re-check after changes!)
         baseKeys.forEachIndexed { i, it ->
             val row: List<KeyData> = if (i == baseKeys.lastIndex && isTablet()) {
                 // add bottom row extra keys
@@ -101,59 +101,85 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             } else {
                 it
             }
+
+            // todo: determine functional keys from initial data (needs to be in correct row!)
+            // todo: test it, compare screenshots with old (after all is done)
+            //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
+            //  check danish because of the special key shrink
+            //  check serbian latin because of the functional key shrink
+            //  check numeric layouts
+            //  check parsing performance (compare with old, measure time for parseLayoutString)
+            //  check whether the mark-as-edge still works
+
+            // todo:
+            //  below is the old way of determining functional keys, it should be removed / replaced by json
+            //   initially it's fine (for testing whether the rest works)
+            //  later the resource strings should be replaced by json files
+            //   should work similar to current style
+            //   florisoard jsons should work correctly
+            //    not sure what to do with the "special key" (emoji or language switch)
+            //    consider that currently bottom row is not parsed here
+            //   top and bottom rows can be separated by a line containing a single width 0 placeholder
+            //    actually how to do it? probably needs to see lack of placeholder as bottom-only, which could be a little confusing
             // parse functional keys for this row (if any)
             val offset = baseKeys.size - functionalKeys.size
             val functionalKeysDefs = if (i >= offset) functionalKeys[i - offset] // functional keys are aligned to bottom
-            else emptyList<String>() to emptyList()
+                else emptyList<String>() to emptyList()
             val outerFunctionalKeyDefs = if (i == 0 && functionalKeysTop.isNotEmpty()) functionalKeysTop.first() // top row
                 else emptyList<String>() to emptyList()
             // if we have a top row and top row entries from normal functional key defs, use top row as outer keys
             val functionalKeysLeft = outerFunctionalKeyDefs.first.map { getFunctionalKeyParams(it) } + functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
             val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) } + outerFunctionalKeyDefs.second.map { getFunctionalKeyParams(it) }
-            val paramsRow = ArrayList<KeyParams>(functionalKeysLeft)
 
-            // determine key width, maybe scale factor for keys, and spacers to add
-            val usedKeyWidth = params.mDefaultKeyWidth * row.size
-            val functionalKeyWidth = (functionalKeysLeft.sumOf { it.mWidth }) + (functionalKeysRight.sumOf { it.mWidth })
-            val availableWidth = 1f - functionalKeyWidth
-            var keyWidth: Float
-            val spacerWidth: Float
-            if (availableWidth - usedKeyWidth > 0.0001f) { // don't add spacers if only a tiny bit is empty
-                // width available, add spacer
-                keyWidth = params.mDefaultKeyWidth
-                spacerWidth = (availableWidth - usedKeyWidth) / 2
-            } else {
-                // need more width, re-scale
-                spacerWidth = 0f
-                keyWidth = availableWidth / row.size
-            }
-            if (spacerWidth != 0f) {
-                paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
-            }
-            if (keyWidth < params.mDefaultKeyWidth * 0.82 && spacerWidth == 0f) {
-                // keys are very narrow, also rescale the functional keys to make keys a little wider
-                // 0.82 is just some guess for "too narrow"
-                val allKeyScale = 1f / (functionalKeyWidth + row.size * params.mDefaultKeyWidth)
-                keyWidth = params.mDefaultKeyWidth * allKeyScale
-                functionalKeysLeft.forEach { it.mWidth *= allKeyScale }
-                functionalKeysRight.forEach { it.mWidth *= allKeyScale }
-            }
-
-            for (key in row) {
+            // from here is the new part
+//           val functionalKeys = listOf<KeyData>().map { it.toKeyParams(params) } // no special label flags!
+            val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
                 val keyData = key.compute(params)
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
-                val keyParams = keyData.toKeyParams(params, keyWidth, defaultLabelFlags or extraFlags)
-                paramsRow.add(keyParams)
+                keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
-            if (spacerWidth != 0f) {
-                paramsRow.add(KeyParams.newSpacer(params, spacerWidth))
+//            val (functionalKeysLeft, functionalKeysRight) = functionalKeys.splitAt { it.isSpacer && it.mWidth == 0f }
+
+            // sum up width, excluding -1 elements (but count those!)
+            val varWidthKeys = mutableListOf<KeyParams>()
+            var totalWidth = 0f
+            val allKeys = functionalKeysLeft + keys + functionalKeysRight
+            allKeys.forEach {
+                if (it.mWidth == -1f) varWidthKeys.add(it)
+                else totalWidth += it.mWidth
             }
-            functionalKeysRight.forEach { paramsRow.add(it) }
-            keysInRows.add(paramsRow)
+
+            // set width for varWidthKeys
+            if (varWidthKeys.isNotEmpty()) {
+                val width = if (totalWidth + varWidthKeys.size * params.mDefaultKeyWidth > 1)
+                    params.mDefaultKeyWidth // never go below default width
+                else (1f - totalWidth) / varWidthKeys.size // split remaining space evenly
+                varWidthKeys.forEach { it.mWidth = width }
+                // re-calculate total width
+                totalWidth = allKeys.sumOf { it.mWidth }
+            }
+
+            // re-scale total width, or add spacers (or do nothing if totalWidth is almost 1)
+            if (totalWidth < 0.9999f) { // add spacers
+                val spacerWidth = (1f - totalWidth) / 2
+                val paramsRow = ArrayList<KeyParams>(functionalKeysLeft + KeyParams.newSpacer(params, spacerWidth) + keys +
+                        KeyParams.newSpacer(params, spacerWidth) + functionalKeysRight)
+                keysInRows.add(paramsRow)
+            } else {
+                if (totalWidth > 1.0001f) { // re-scale total width
+                    val normalKeysWith = keys.sumOf { it.mWidth }
+                    val functionalKeysWidth = totalWidth - normalKeysWith
+                    val scaleFactor = (1f - functionalKeysWidth) / normalKeysWith
+                    // re-scale normal  keys if factor is > 0.82, otherwise re-scale all keys
+                    if (scaleFactor > 0.82f) keys.forEach { it.mWidth *= scaleFactor }
+                    else allKeys.forEach { it.mWidth /= totalWidth }
+                }
+                keysInRows.add(ArrayList(allKeys))
+            }
         }
         resizeLastRowIfNecessaryForAlignment(keysInRows)
         keysInRows.add(bottomRow)
@@ -264,7 +290,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                             KeyboardId.ELEMENT_PHONE_SYMBOLS -> 0
                             else -> Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
                         }
-                        key.compute(params).toKeyParams(params, 0.17f, labelFlags or defaultLabelFlags)
+                        key.compute(params).toKeyParams(params, labelFlags or defaultLabelFlags)
                     } else if (key.label.length == 1 && (params.mId.mElementId == KeyboardId.ELEMENT_PHONE || params.mId.mElementId == KeyboardId.ELEMENT_NUMBER))
                         key.compute(params).toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO or defaultLabelFlags)
                     else
@@ -399,6 +425,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             it.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
         }
 
+    // todo: this needs to be completely changed
     private fun getFunctionalKeyParams(def: String, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
         val split = def.trim().splitOnWhitespace()
         val key = FunctionalKey.valueOf(split[0].uppercase())

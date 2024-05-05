@@ -37,6 +37,7 @@ sealed interface KeyData : AbstractKeyData {
     val label: String
     val groupId: Int
     val popup: PopupSet<AbstractKeyData> // not nullable because can't add number otherwise
+    val width: Float // in percent of keyboard width, 0 is default (depends on key), -1 is fill (like space bar)
     val labelFlags: Int
 
     // groups (currently) not supported
@@ -94,16 +95,17 @@ sealed interface KeyData : AbstractKeyData {
             if (newLabel == "$$$") {
                 val finalLabel = currencyKey.first + currencyCodeAsString
                 // the flag is to match old parser, but why is it there for main currency key and not for others?
-                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, SimplePopups(currencyKey.second), labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
+                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId,
+                    SimplePopups(currencyKey.second), width, labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
             }
             val n = newLabel.substringAfter("$$$").toIntOrNull()
             if (n != null && n <= 5 && n > 0) {
                 val finalLabel = currencyKey.second[n - 1] + currencyCodeAsString
-                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, popup, labelFlags)
+                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, popup, width, labelFlags)
             }
         }
         if (newCode != code || newLabel != label)
-            return TextKeyData(type, newCode, newLabel, groupId, popup, labelFlags).compute(params)
+            return TextKeyData(type, newCode, newLabel, groupId, popup, width, labelFlags).compute(params)
         return this
     }
 
@@ -113,13 +115,16 @@ sealed interface KeyData : AbstractKeyData {
                 || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA)
     }
 
-    fun toKeyParams(params: KeyboardParams, width: Float = params.mDefaultKeyWidth, additionalLabelFlags: Int = 0): Key.KeyParams {
+    // todo: width in units of keyboard width, or in percent? (currently the plan was percent, but actually fractions are used)
+    fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
         // todo: remove checks here, do only when reading json layouts
-        // numeric keys are assigned a higher width in number layouts
+        // numeric keys are assigned a higher width in number layouts (todo: not true any more, also maybe they could have width -1 instead?)
+        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
         require(type == KeyType.CHARACTER || type == KeyType.NUMERIC) { "only KeyType CHARACTER or NUMERIC is supported" }
         // allow GROUP_ENTER negative codes so original florisboard number layouts can be used, bu actually it's ignored
         require(groupId == GROUP_DEFAULT || groupId == GROUP_ENTER) { "currently only GROUP_DEFAULT or GROUP_ENTER is supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
+        val actualWidth = if (width == 0f) getDefaultWidth(params) else width
 
         return if (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
@@ -130,7 +135,7 @@ sealed interface KeyData : AbstractKeyData {
                     "$label|$outputText",
                     code,
                     params,
-                    width,
+                    actualWidth,
                     labelFlags or additionalLabelFlags,
                     Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
                     popup,
@@ -139,7 +144,7 @@ sealed interface KeyData : AbstractKeyData {
                 Key.KeyParams(
                     label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                     params,
-                    width,
+                    actualWidth,
                     labelFlags or additionalLabelFlags,
                     Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
                     popup,
@@ -150,12 +155,18 @@ sealed interface KeyData : AbstractKeyData {
                 label.ifEmpty { StringUtils.newSingleCodePointString(code) },
                 code,
                 params,
-                width,
+                actualWidth,
                 labelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL,
                 popup,
             )
         }
+    }
+
+    private fun getDefaultWidth(params: KeyboardParams): Float {
+        return if (label == "space" && params.mId.isAlphaOrSymbolKeyboard) -1f
+        else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f
+        else params.mDefaultKeyWidth
     }
 }
 
@@ -178,6 +189,7 @@ class TextKeyData(
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
     override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
     override fun asString(isForDisplay: Boolean): String {
@@ -209,6 +221,7 @@ class AutoTextKeyData(
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
     override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
 
@@ -238,6 +251,7 @@ class MultiTextKeyData(
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
     override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS

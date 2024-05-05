@@ -111,7 +111,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             fillGapsWithSpacers(row)
             var currentX = mParams.mLeftPadding.toFloat()
             row.forEach {
-                it.setDimensionsFromRelativeSize(currentX, currentY)
+                it.setAbsoluteDimensions(currentX, currentY)
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
                 currentX += it.mAbsoluteWidth
@@ -201,7 +201,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             var currentX = 0f
             row.forEach {
                 it.mWidth *= widthFactor
-                it.setDimensionsFromRelativeSize(currentX, y)
+                it.setAbsoluteDimensions(currentX, y)
                 currentX += it.mAbsoluteWidth
             }
         }

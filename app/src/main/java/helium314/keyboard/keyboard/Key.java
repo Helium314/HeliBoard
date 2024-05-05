@@ -989,11 +989,11 @@ public class Key implements Comparable<Key> {
             return new Key(this);
         }
 
-        public void setDimensionsFromRelativeSize(final float newX, final float newY) {
+        public void setAbsoluteDimensions(final float newX, final float newY) {
             if (mHeight == 0)
                 mHeight = mKeyboardParams.mDefaultRowHeight;
             if (!isSpacer && mWidth == 0)
-                mWidth = mKeyboardParams.mDefaultKeyWidth;
+                throw new IllegalStateException("width = 0 should have been evaluated already");
             if (mHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing popupKeys or moreSuggestions
                 throw new IllegalStateException("can't (yet) deal with absolute height");
