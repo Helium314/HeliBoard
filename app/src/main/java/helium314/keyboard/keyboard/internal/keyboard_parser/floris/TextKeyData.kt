@@ -120,7 +120,8 @@ sealed interface KeyData : AbstractKeyData {
         // todo: remove checks here, do only when reading json layouts
         // numeric keys are assigned a higher width in number layouts (todo: not true any more, also maybe they could have width -1 instead?)
         if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC) { "only KeyType CHARACTER or NUMERIC is supported" }
+        // todo: allow all types, but define / document what they do (probably only effect on background?)
+        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC || type == KeyType.ENTER_EDITING || type == KeyType.SYSTEM_GUI || type == KeyType.MODIFIER) { "only KeyType CHARACTER or NUMERIC is supported" }
         // allow GROUP_ENTER negative codes so original florisboard number layouts can be used, bu actually it's ignored
         require(groupId == GROUP_DEFAULT || groupId == GROUP_ENTER) { "currently only GROUP_DEFAULT or GROUP_ENTER is supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
@@ -163,7 +164,8 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    private fun getDefaultWidth(params: KeyboardParams): Float {
+    // todo: only public for lazy workaround, make private again
+    fun getDefaultWidth(params: KeyboardParams): Float {
         return if (label == "space" && params.mId.isAlphaOrSymbolKeyboard) -1f
         else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f
         else params.mDefaultKeyWidth

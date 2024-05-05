@@ -17,3 +17,23 @@ fun CharSequence.getStringResourceOrName(prefix: String, context: Context): Char
     val resId = context.resources.getIdentifier(prefix + this, "string", context.packageName)
     return if (resId == 0) this else context.getString(resId)
 }
+
+/**
+ *  Splits the collection into a pair of lists on the first match of [condition], discarding the element first matching the condition.
+ *  If [condition] is not met, all elements are in the first list.
+ */
+fun <T> Collection<T>.splitAt(condition: (T) -> Boolean): Pair<List<T>, List<T>> {
+    var conditionMet = false
+    val first = mutableListOf<T>()
+    val second = mutableListOf<T>()
+    forEach {
+        if (conditionMet) {
+            second.add(it)
+        } else {
+            conditionMet = condition(it)
+            if (!conditionMet)
+                first.add(it)
+        }
+    }
+    return first to second
+}

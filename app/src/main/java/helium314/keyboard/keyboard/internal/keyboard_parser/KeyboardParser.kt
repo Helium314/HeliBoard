@@ -16,6 +16,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
@@ -32,6 +33,7 @@ import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.getLayoutFile
 import helium314.keyboard.latin.utils.runInLocale
+import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
 import java.io.File
 
@@ -82,15 +84,75 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
+    // this is what the json layout should be parsed as
+    private fun getFunctionalKeysTemp(): List<List<KeyData>> {
+        val keys: MutableList<List<KeyData>> = mutableListOf()
+        if (isTablet()) {
+            val topRow = mutableListOf<KeyData>()
+            topRow.add(TextKeyData(KeyType.PLACEHOLDER)) // nothing on left side
+            topRow.add(TextKeyData(KeyType.ENTER_EDITING, label = "delete", width = 0.1f))
+            keys.add(topRow)
+            keys.add(listOf(TextKeyData(KeyType.PLACEHOLDER))) // separate top from bottom rows
+            keys.add(listOf(TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.ENTER_EDITING, label = "action", width = 0.1f)))
+            keys.add(listOf(TextKeyData(KeyType.MODIFIER, label = "shift", width = 0.1f), TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.MODIFIER, label = "shift")))
+            val bottomRow = mutableListOf<KeyData>()
+            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "symbol_alpha"))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "comma"))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "space"))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "period"))
+            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "emoji_com"))
+            keys.add(bottomRow)
+        } else {
+            keys.add(listOf(TextKeyData(KeyType.MODIFIER, label = "shift", width = 0.15f), TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.ENTER_EDITING, label = "delete", width = 0.15f)))
+            val bottomRow = mutableListOf<KeyData>()
+            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "symbol_alpha", width = 0.15f))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "comma"))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "space"))
+            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "period"))
+            bottomRow.add(TextKeyData(KeyType.ENTER_EDITING, label = "action", width = 0.15f))
+            keys.add(bottomRow)
+        }
+        return keys
+    }
+
+    // to be replaced, but currently it's just to have it work
+    private fun KeyData.toFunctionalKeyParams(): KeyParams {
+        val key = try {
+            FunctionalKey.valueOf(label.uppercase())
+        } catch (e: Exception) {
+            return toKeyParams(params)
+        }
+        val actualWidth = if (width == 0f) getDefaultWidth(params) else width
+        return getFunctionalKeyParams(key, actualWidth)
+    }
+
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         addNumberRowOrPopupKeys(baseKeys)
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
-        val bottomRow = getBottomRowAndAdjustBaseKeys(baseKeys) // not really fast, but irrelevant compared to the loop
 
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
-        val functionalKeys = parseFunctionalKeys(R.string.key_def_functional)
-        val functionalKeysTop = parseFunctionalKeys(R.string.key_def_functional_top_row)
+        val functionalKeysTop: List<List<KeyData>>
+        val functionalKeysBottom: List<List<KeyData>>
+        val allFunctionalKeys = getFunctionalKeysTemp()
+
+        // todo (later): this sort of special treatment is not nice, but does the job for now
+        //  maybe at least move to a separate function
+        if (allFunctionalKeys.any { it.singleOrNull()?.type == KeyType.PLACEHOLDER }) { // todo: add width check too, also below
+            val a = allFunctionalKeys.splitAt { it.singleOrNull()?.type == KeyType.PLACEHOLDER }
+            functionalKeysTop = a.first
+            functionalKeysBottom = a.second
+        } else {
+            functionalKeysBottom = allFunctionalKeys
+            functionalKeysTop = emptyList()
+        }
+
+        // offset for bottom
+        val bottomIndexOffset = baseKeys.size - functionalKeysBottom.size + 1
+
+        // todo: sometimes this is not necessary, deal with it!
+        //  some sort of restrictions are necessary... otherwise there could be crashes e.g. in resizeLastRowIfNecessaryForAlignment
+        baseKeys.add(emptyList()) // add a bottom row
 
         // todo: this loop could use some performance improvements (re-check after changes!)
         baseKeys.forEachIndexed { i, it ->
@@ -102,8 +164,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 it
             }
 
-            // todo: determine functional keys from initial data (needs to be in correct row!)
-            // todo: test it, compare screenshots with old (after all is done)
+            // todo:
+            //  the resource strings should be replaced by json files
+            //   should work similar to current style
+            //   florisoard jsons should work correctly
+            //    stick with floris style: add language switch and emoji keys in layout instead of in space bar, but remove key when disabled (where?)
+            //   top and bottom rows can be separated by a line containing a single width 0 placeholder
+            //    actually how to do it? probably needs to see lack of placeholder as bottom-only, which could be a little confusing
+            //  make sure the popups work with the different style of getting functional keys!
+            //  make sure the space bar is parsed correctly (with the extra keys)
+            //  make sure the customizable bottom keys work (though it could be done in a different style)
+            // todo (later): test it, compare screenshots with old (after all is done)
             //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
             //  check danish because of the special key shrink
             //  check serbian latin because of the functional key shrink
@@ -111,28 +182,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             //  check parsing performance (compare with old, measure time for parseLayoutString)
             //  check whether the mark-as-edge still works
 
-            // todo:
-            //  below is the old way of determining functional keys, it should be removed / replaced by json
-            //   initially it's fine (for testing whether the rest works)
-            //  later the resource strings should be replaced by json files
-            //   should work similar to current style
-            //   florisoard jsons should work correctly
-            //    not sure what to do with the "special key" (emoji or language switch)
-            //    consider that currently bottom row is not parsed here
-            //   top and bottom rows can be separated by a line containing a single width 0 placeholder
-            //    actually how to do it? probably needs to see lack of placeholder as bottom-only, which could be a little confusing
-            // parse functional keys for this row (if any)
-            val offset = baseKeys.size - functionalKeys.size
-            val functionalKeysDefs = if (i >= offset) functionalKeys[i - offset] // functional keys are aligned to bottom
-                else emptyList<String>() to emptyList()
-            val outerFunctionalKeyDefs = if (i == 0 && functionalKeysTop.isNotEmpty()) functionalKeysTop.first() // top row
-                else emptyList<String>() to emptyList()
-            // if we have a top row and top row entries from normal functional key defs, use top row as outer keys
-            val functionalKeysLeft = outerFunctionalKeyDefs.first.map { getFunctionalKeyParams(it) } + functionalKeysDefs.first.map { getFunctionalKeyParams(it) }
-            val functionalKeysRight = functionalKeysDefs.second.map { getFunctionalKeyParams(it) } + outerFunctionalKeyDefs.second.map { getFunctionalKeyParams(it) }
+            // todo (later): is is ugly (but should get the job done correctly)
+            //  maybe just move into a separate function?
+            // functional keys from top list
+            val functionalKeysFromTop = functionalKeysTop.getOrNull(i) ?: emptyList()
+            // functional keys from bottom list
+            val functionalKeysFromBottom = functionalKeysBottom.getOrNull(i - bottomIndexOffset) ?: emptyList()
+            val (functionalKeysFromTopLeft, functionalKeysFromTopRight) = functionalKeysFromTop.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
+            val (functionalKeysFromBottomLeft, functionalKeysFromBottomRight) = functionalKeysFromBottom.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
+            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).map { it.compute(params).toFunctionalKeyParams() }.toMutableList()
+            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).map { it.compute(params).toFunctionalKeyParams() }.toMutableList()
 
-            // from here is the new part
-//           val functionalKeys = listOf<KeyData>().map { it.toKeyParams(params) } // no special label flags!
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
@@ -141,13 +201,12 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
                 keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
-            }
-//            val (functionalKeysLeft, functionalKeysRight) = functionalKeys.splitAt { it.isSpacer && it.mWidth == 0f }
+            }.toMutableList()
 
             // sum up width, excluding -1 elements (but count those!)
             val varWidthKeys = mutableListOf<KeyParams>()
             var totalWidth = 0f
-            val allKeys = functionalKeysLeft + keys + functionalKeysRight
+            val allKeys = (functionalKeysLeft + keys + functionalKeysRight).toMutableList()
             allKeys.forEach {
                 if (it.mWidth == -1f) varWidthKeys.add(it)
                 else totalWidth += it.mWidth
@@ -159,6 +218,72 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mDefaultKeyWidth // never go below default width
                 else (1f - totalWidth) / varWidthKeys.size // split remaining space evenly
                 varWidthKeys.forEach { it.mWidth = width }
+                // todo: if any of those keys is space, add the other keys
+                //  old style below
+                //  get the bottom row if the number of adjustable keys is correct, and remove it from the baseKeys
+                //   idea how to do it: layouts can have a dynamic number of "adjustable keys", which is all that's not a functional key
+                //   or just 2 adjustable keys (comma and period)
+                //  get the actual bottom row layout and loop over the keys
+                //   get the correct functional key (must be one)
+                //   it it's space, add the special keys (keep this initially and improve it in the next commit)
+                //    keys: (shift) symbols special keys (the 3 or 4), alpha special keys (emoji, language switch, zwnj)
+                //  set space width
+                val spaceBar = varWidthKeys.singleOrNull { it.mCode == Constants.CODE_SPACE && it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
+                // todo: how to replace space key with more keys? this is annoying, better consider from the start
+                //  currently just made the lists mutable, but that's not how things should go... because then i should at least not have the allKeys list
+                // for now just add the necessary keys exactly like previously
+                if (spaceBar != null) {
+                    val spaceReplaceKeys = mutableListOf<KeyParams>()
+                    val adjustedKeys: List<KeyData>? = null // todo: this should be the customizable labels, properly extract them, understand them instead of baseKeys.add(emptyList())
+                    if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+                        spaceReplaceKeys.add(getFunctionalKeyParams(FunctionalKey.NUMPAD))
+                        spaceReplaceKeys.add(spaceBar)
+                        spaceReplaceKeys.add(KeyParams(
+                            adjustedKeys?.get(1)?.label ?: "/",
+                            params,
+                            params.mDefaultKeyWidth,
+                            defaultLabelFlags,
+                            Key.BACKGROUND_TYPE_FUNCTIONAL,
+                            adjustedKeys?.get(1)?.popup
+                        ))
+                    } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+                        spaceReplaceKeys.add(KeyParams(
+                            (adjustedKeys?.get(1)?.label ?: "<").rtlLabel(params),
+                            params,
+                            params.mDefaultKeyWidth,
+                            defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
+                            Key.BACKGROUND_TYPE_FUNCTIONAL,
+                            adjustedKeys?.get(1)?.popup ?: SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«"))
+                        ))
+                        spaceReplaceKeys.add(spaceBar)
+                        spaceReplaceKeys.add(KeyParams(
+                            (adjustedKeys?.get(2)?.label ?: ">").rtlLabel(params),
+                            params,
+                            params.mDefaultKeyWidth,
+                            defaultLabelFlags or Key.LABEL_FLAGS_HAS_POPUP_HINT,
+                            Key.BACKGROUND_TYPE_FUNCTIONAL,
+                            adjustedKeys?.get(2)?.popup ?: SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»"))
+                        ))
+                    } else { // alphabet
+                        if (params.mId.mLanguageSwitchKeyEnabled)
+                            spaceReplaceKeys.add(getFunctionalKeyParams(FunctionalKey.LANGUAGE_SWITCH))
+                        if (params.mId.mEmojiKeyEnabled)
+                            spaceReplaceKeys.add(getFunctionalKeyParams(FunctionalKey.EMOJI))
+                        spaceReplaceKeys.add(spaceBar)
+                        if (params.mLocaleKeyboardInfos.hasZwnjKey)
+                            spaceReplaceKeys.add(getFunctionalKeyParams(FunctionalKey.ZWNJ))
+                    }
+                    // re-size the space bar
+                    spaceBar.mWidth = (spaceBar.mWidth - (spaceReplaceKeys.size - 1) * params.mDefaultKeyWidth).coerceAtLeast(params.mDefaultKeyWidth)
+                    // replace the spacebar
+                    listOf(functionalKeysLeft, functionalKeysRight, keys, allKeys).forEach { keysWithSpace -> // todo: maybe remove "keys" because space should not be in there
+                        if (!keysWithSpace.contains(spaceBar)) return@forEach
+                        val spaceIndex = keysWithSpace.indexOf(spaceBar)
+                        keysWithSpace.removeAt(spaceIndex)
+                        spaceReplaceKeys.reversed().forEach { keysWithSpace.add(spaceIndex, it) }
+                    }
+                }
+
                 // re-calculate total width
                 totalWidth = allKeys.sumOf { it.mWidth }
             }
@@ -182,7 +307,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             }
         }
         resizeLastRowIfNecessaryForAlignment(keysInRows)
-        keysInRows.add(bottomRow)
+//        keysInRows.add(bottomRow)
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
         return keysInRows
@@ -236,8 +361,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     private fun resizeLastRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
         if (keysInRows.size < 3)
             return
-        val lastRow = keysInRows.last()
-        val rowAboveLast = keysInRows[keysInRows.lastIndex - 1]
+        // todo: now last row is not actually the last any more...
+        val lastRow = keysInRows[keysInRows.lastIndex - 1]
+        val rowAboveLast = keysInRows[keysInRows.lastIndex - 2]
         if (lastRow.any { it.isSpacer } || rowAboveLast.any { it.isSpacer })
             return // annoying to deal with, and probably no resize needed anyway
         val lastNormalRowKeyWidth = lastRow.first { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }.mWidth
@@ -842,7 +968,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
     }
 
-    protected enum class FunctionalKey {
+    enum class FunctionalKey {
         EMOJI, LANGUAGE_SWITCH, COM, EMOJI_COM, ACTION, DELETE, PERIOD, COMMA, SPACE, SHIFT, NUMPAD, SYMBOL, ALPHA, SYMBOL_ALPHA, ZWNJ
     }
 
