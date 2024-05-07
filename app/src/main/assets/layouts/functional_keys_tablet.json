@@ -1,0 +1,28 @@
+[
+  [
+    { "type": "placeholder" },
+    { "label": "delete", "width": 0.1 }
+  ],
+  [
+    { "type": "placeholder" }
+  ],
+  [
+    { "type": "placeholder" },
+    { "label": "action", "width": 0.1 }
+  ],
+  [
+    { "label": "shift", "width": 0.1 },
+    { "type": "placeholder" },
+    { "label": "shift" }
+  ],
+  [
+    { "label": "symbol_alpha" },
+    { "label": "comma" },
+    { "label": "language_switch" },
+    { "label": "emoji" },
+    { "label": "numpad" },
+    { "label": "space" },
+    { "label": "period" },
+    { "label": "emoji_com" }
+  ]
+]

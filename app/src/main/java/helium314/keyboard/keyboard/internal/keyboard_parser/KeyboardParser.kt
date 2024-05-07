@@ -84,50 +84,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    // todo: emoji and language switch
-    //  2 modes: functional layout for each of alpha, symbol, shift symbol; same layout for all
-    //  if we have per-layout functional keys, everything is used as in layout (except for comma and period adjustments, assuming both are present)
-    //  default: have the same for all
-    //   layout should be: comma (emoji, language switch, numpad) space period
-    //   comma and period labels adjustable like previously, both are adjusted for dvorak and shift symbols
-    //   () keys get removed depending on settings and layout
-
-    // this is what the json layout should be parsed as
-    private fun getFunctionalKeysTemp(): List<MutableList<KeyData>> {
-        val keys: MutableList<MutableList<KeyData>> = mutableListOf()
-        if (isTablet()) {
-            val topRow = mutableListOf<KeyData>()
-            topRow.add(TextKeyData(KeyType.PLACEHOLDER)) // nothing on left side
-            topRow.add(TextKeyData(KeyType.ENTER_EDITING, label = "delete", width = 0.1f))
-            keys.add(topRow)
-            keys.add(mutableListOf(TextKeyData(KeyType.PLACEHOLDER))) // separate top from bottom rows
-            keys.add(mutableListOf(TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.ENTER_EDITING, label = "action", width = 0.1f)))
-            keys.add(mutableListOf(TextKeyData(KeyType.MODIFIER, label = "shift", width = 0.1f), TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.MODIFIER, label = "shift")))
-            val bottomRow = mutableListOf<KeyData>()
-            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "symbol_alpha"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "comma"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "language_switch"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "emoji"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "numpad"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "space"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "period"))
-            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "emoji_com"))
-            keys.add(bottomRow)
-        } else {
-            keys.add(mutableListOf(TextKeyData(KeyType.MODIFIER, label = "shift", width = 0.15f), TextKeyData(KeyType.PLACEHOLDER), TextKeyData(KeyType.ENTER_EDITING, label = "delete", width = 0.15f)))
-            val bottomRow = mutableListOf<KeyData>()
-            bottomRow.add(TextKeyData(KeyType.SYSTEM_GUI, label = "symbol_alpha", width = 0.15f))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "comma"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "language_switch"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "emoji"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "numpad"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "space"))
-            bottomRow.add(TextKeyData(KeyType.CHARACTER, label = "period"))
-            bottomRow.add(TextKeyData(KeyType.ENTER_EDITING, label = "action", width = 0.15f))
-            keys.add(bottomRow)
-        }
-        return keys
-    }
+    // todo for cleanup / proper working
+    //  emoji_com could be replaced with a variation selector
+    //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
+    //  keyType is not in json layout, and currently does nothing anyway (except placeholder or numeric)
+    //  move / from bottom row to symbols layout
+    //  make the default popups for comma and period appear after the additional popups, not before
+    //  move getFunctionalKeyParams to TextKeyData
+    //   and maybe make it depend on the functional key names as string, so we have string values for each of them and can remove FunctionalKey enum class
+    //  make sure the popups work with the different style of getting functional keys!
+    //  make sure the customizable bottom keys work (though it could be done in a different style)
+    //   the bottom row key popups should get priority over the default ones
+    //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
 
     // to be replaced, but currently it's just to have it work
     private fun KeyData.toFunctionalKeyParams(): KeyParams {
@@ -145,6 +113,24 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return getFunctionalKeyParams(key, actualWidth) // todo: does not consider popup keys
     }
 
+    // this should be ready for customizable functional layouts, but needs cleanup
+    private fun getFunctionalKeyLayoutText(): String {
+        if (!params.mId.isAlphaOrSymbolKeyboard) throw IllegalStateException("functional key layout only for aloha and symbol layouts")
+        val layouts = Settings.getLayoutsDir(context).list()
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+            if ("functional_keys_symbols_shifted.json" in layouts)
+                return getLayoutFile("functional_keys_symbols_shifted.json", context).readText()
+        }
+        if (!params.mId.isAlphabetKeyboard) {
+            if ("functional_keys_symbols.json" in layouts)
+                return getLayoutFile("functional_keys_symbols.json", context).readText()
+        }
+        if ("functional_keys.json" in layouts)
+            return getLayoutFile("functional_keys.json", context).readText()
+        val fileName = if (isTablet()) "functional_keys_tablet.json" else "functional_keys.json"
+        return context.readAssetsLayoutFile(fileName)
+    }
+
     private fun createAlphaSymbolRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         addNumberRowOrPopupKeys(baseKeys)
         if (params.mId.isAlphabetKeyboard)
@@ -153,16 +139,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
         val functionalKeysTop: List<List<KeyData>>
         val functionalKeysBottom: List<MutableList<KeyData>>
-        val allFunctionalKeys = getFunctionalKeysTemp()
+        // getFunctionalKeyLayoutName
+        val allFunctionalKeys = JsonKeyboardParser(params, context).parseCoreLayout(getFunctionalKeyLayoutText())
 
         // todo (later): this sort of special treatment is not nice, but does the job for now
         //  maybe at least move to a separate function
         if (allFunctionalKeys.any { it.singleOrNull()?.type == KeyType.PLACEHOLDER }) { // todo: add width check too, also below
             val a = allFunctionalKeys.splitAt { it.singleOrNull()?.type == KeyType.PLACEHOLDER }
             functionalKeysTop = a.first
-            functionalKeysBottom = a.second
+            functionalKeysBottom = a.second.map { it.toMutableList() }
         } else {
-            functionalKeysBottom = allFunctionalKeys
+            functionalKeysBottom = allFunctionalKeys.map { it.toMutableList() }
             functionalKeysTop = emptyList()
         }
 
@@ -210,20 +197,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 it
             }
 
-            // todo:
-            //  the resource strings should be replaced by json files
-            //   should work similar to current style
-            //   florisoard jsons should work correctly
-            //    stick with floris style: add language switch and emoji keys in layout instead of in space bar, but remove key when disabled (where?)
-            //    dammit: instead of "period" there is groupid 2, instead of comma there is groupid 1
-            //     but if we take this over, it would actually be helpful!
-            //   top and bottom rows can be separated by a line containing a single width 0 placeholder
-            //    actually how to do it? probably needs to see lack of placeholder as bottom-only, which could be a little confusing
-            //  make sure the popups work with the different style of getting functional keys!
-            //  make sure the space bar is parsed correctly (with the extra keys)
-            //  make sure the customizable bottom keys work (though it could be done in a different style)
-            //   the bottom row key popups should get priority over the default ones
-            //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
             // todo (later): test it, compare screenshots with old (after all is done)
             //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
             //  check danish because of the special key shrink
@@ -381,7 +354,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 else SimpleKeyboardParser(params, context, false)
             parser.parseCoreLayout(getLayoutFile(layoutName, context).readText())
         } else {
-            SimpleKeyboardParser(params, context, false).parseCoreLayout(context.readAssetsFile("layouts/$layoutName.txt"))
+            SimpleKeyboardParser(params, context, false).parseCoreLayout(context.readAssetsLayoutFile("$layoutName.txt"))
         }
         layout.forEachIndexed { i, row ->
             val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
@@ -876,15 +849,15 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             }
             val layoutFileNames = context.assets.list("layouts")!!
             if (layoutFileNames.contains("$layoutName.json")) {
-                return JsonKeyboardParser(params, context).parseLayoutString(context.readAssetsFile("layouts${File.separator}$layoutName.json"))
+                return JsonKeyboardParser(params, context).parseLayoutString(context.readAssetsLayoutFile("$layoutName.json"))
             }
             if (layoutFileNames.contains("$layoutName.txt")) {
-                return SimpleKeyboardParser(params, context).parseLayoutString(context.readAssetsFile("layouts${File.separator}$layoutName.txt"))
+                return SimpleKeyboardParser(params, context).parseLayoutString(context.readAssetsLayoutFile("$layoutName.txt"))
             }
             throw IllegalStateException("can't parse layout $layoutName with id ${params.mId} and elementId ${params.mId.mElementId}")
         }
 
-        private fun Context.readAssetsFile(name: String) = assets.open(name).reader().readText()
+        private fun Context.readAssetsLayoutFile(name: String) = assets.open("layouts${File.separator}$name").reader().readText()
 
         private fun getLayoutFileName(params: KeyboardParams, context: Context, overrideElementId: Int? = null): String {
             var checkForCustom = true
