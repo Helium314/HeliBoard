@@ -40,6 +40,8 @@ sealed interface KeyData : AbstractKeyData {
     val width: Float // in percent of keyboard width, 0 is default (depends on key), -1 is fill (like space bar)
     val labelFlags: Int
 
+    fun withGroupId(newGroupId: Int): KeyData
+
     // groups (currently) not supported
     companion object {
         /**
@@ -51,12 +53,14 @@ sealed interface KeyData : AbstractKeyData {
         /**
          * Constant for the Left modifier key group. Any key belonging to this group will get the
          * popups specified for "~left" in the popup mapping.
+         * todo: now it will be popups for comma key
          */
         const val GROUP_LEFT: Int = 1
 
         /**
          * Constant for the right modifier key group. Any key belonging to this group will get the
          * popups specified for "~right" in the popup mapping.
+         * todo: now it will be popups for period key
          */
         const val GROUP_RIGHT: Int = 2
 
@@ -121,9 +125,8 @@ sealed interface KeyData : AbstractKeyData {
         // numeric keys are assigned a higher width in number layouts (todo: not true any more, also maybe they could have width -1 instead?)
         if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
         // todo: allow all types, but define / document what they do (probably only effect on background?)
-        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC || type == KeyType.ENTER_EDITING || type == KeyType.SYSTEM_GUI || type == KeyType.MODIFIER) { "only KeyType CHARACTER or NUMERIC is supported" }
-        // allow GROUP_ENTER negative codes so original florisboard number layouts can be used, bu actually it's ignored
-        require(groupId == GROUP_DEFAULT || groupId == GROUP_ENTER) { "currently only GROUP_DEFAULT or GROUP_ENTER is supported" }
+        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC || type == KeyType.ENTER_EDITING || type == KeyType.SYSTEM_GUI || type == KeyType.MODIFIER) { "KeyType not supported" }
+        require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
         val actualWidth = if (width == 0f) getDefaultWidth(params) else width
 
@@ -211,6 +214,8 @@ class TextKeyData(
         return "${TextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
 
+    override fun withGroupId(newGroupId: Int) = TextKeyData(type, code, label, newGroupId, popup, width, labelFlags)
+
 }
 
 // AutoTextKeyData is just for converting case with shift, which HeliBoard always does anyway
@@ -243,6 +248,9 @@ class AutoTextKeyData(
     override fun toString(): String {
         return "${AutoTextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
+
+    override fun withGroupId(newGroupId: Int) = AutoTextKeyData(type, code, label, newGroupId, popup, width, labelFlags)
+
 }
 
 @Serializable
@@ -279,6 +287,9 @@ class MultiTextKeyData(
     override fun toString(): String {
         return "${MultiTextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
+
+    override fun withGroupId(newGroupId: Int) = MultiTextKeyData(type, codePoints, label, newGroupId, popup, width, labelFlags)
+
 }
 
 fun String.toTextKey(popupKeys: Collection<String>? = null, labelFlags: Int = 0): TextKeyData =

@@ -50,6 +50,11 @@ class ParserTest {
         ShadowLog.stream = System.out
     }
 
+    // todo: add more tests
+    //  (popup) keys with label and code
+    //  (popup) keys with icon
+    //  (popup) keys with that are essentially toolbar keys (yes, this should work at some point!)
+
     @Test fun simpleParser() {
         val params = KeyboardParams()
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
