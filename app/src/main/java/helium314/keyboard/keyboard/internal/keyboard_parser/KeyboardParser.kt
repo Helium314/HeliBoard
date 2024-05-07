@@ -84,9 +84,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    // todo for cleanup / proper working
-    //  emoji_com could be replaced with a variation selector
-    //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
+    // todo
+    //  create functional keys in TextKeyData.toKeyParams
+    //   should consider the keyType for background!
     //  keyType is not in json layout, and currently does nothing anyway (except placeholder or numeric)
     //  move / from bottom row to symbols layout
     //  make the default popups for comma and period appear after the additional popups, not before
@@ -96,6 +96,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  make sure the customizable bottom keys work (though it could be done in a different style)
     //   the bottom row key popups should get priority over the default ones
     //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
+    //  emoji_com could be replaced with a variation selector
+    //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
 
     // to be replaced, but currently it's just to have it work
     private fun KeyData.toFunctionalKeyParams(): KeyParams {
@@ -116,7 +118,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // this should be ready for customizable functional layouts, but needs cleanup
     private fun getFunctionalKeyLayoutText(): String {
         if (!params.mId.isAlphaOrSymbolKeyboard) throw IllegalStateException("functional key layout only for aloha and symbol layouts")
-        val layouts = Settings.getLayoutsDir(context).list()
+        val layouts = Settings.getLayoutsDir(context).list() ?: emptyArray()
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             if ("functional_keys_symbols_shifted.json" in layouts)
                 return getLayoutFile("functional_keys_symbols_shifted.json", context).readText()
@@ -171,6 +173,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             ))
         }
 
+        if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
+            // add zwnj key next to space
+            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == "space" && it.width <= 0 } // 0 or -1
+            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "zwnj"))
+        }
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
+            // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
+            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == "space" }
+            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/")) // todo: functional background -> different type
+        }
+
         if (baseKeys.last().size == 2) { // adjust comma and period keys in bottom row of functionalKeysBottom
             // essentially just replace the key with the specified one, and add a groupId
             for (i in functionalKeysBottom.last().indices) {
@@ -220,8 +233,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 else if (it.label == "numpad" && params.mId.isAlphabetKeyboard) false
                 else true
             }
-            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }.toMutableList()
-            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }.toMutableList()
+            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }
+            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }
 
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
@@ -231,12 +244,12 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
                 keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
-            }.toMutableList()
+            }
 
             // sum up width, excluding -1 elements (but count those!)
             val varWidthKeys = mutableListOf<KeyParams>()
             var totalWidth = 0f
-            val allKeys = (functionalKeysLeft + keys + functionalKeysRight).toMutableList()
+            val allKeys = (functionalKeysLeft + keys + functionalKeysRight)
             allKeys.forEach {
                 if (it.mWidth == -1f) varWidthKeys.add(it)
                 else totalWidth += it.mWidth
@@ -248,50 +261,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mDefaultKeyWidth // never go below default width
                 else (1f - totalWidth) / varWidthKeys.size // split remaining space evenly
                 varWidthKeys.forEach { it.mWidth = width }
-                // todo: if any of those keys is space, add the other keys
-                //  old style below
-                //  get the bottom row if the number of adjustable keys is correct, and remove it from the baseKeys
-                //   idea how to do it: layouts can have a dynamic number of "adjustable keys", which is all that's not a functional key
-                //   or just 2 adjustable keys (comma and period)
-                //  get the actual bottom row layout and loop over the keys
-                //   get the correct functional key (must be one)
-                //   it it's space, add the special keys (keep this initially and improve it in the next commit)
-                //    keys: (shift) symbols special keys (the 3 or 4), alpha special keys (emoji, language switch, zwnj)
-                //  set space width
-                val spaceBar = varWidthKeys.singleOrNull { it.mCode == Constants.CODE_SPACE && it.mBackgroundType == Key.BACKGROUND_TYPE_SPACEBAR }
-                // todo: how to replace space key with more keys? this is annoying, better consider from the start
-                //  currently just made the lists mutable, but that's not how things should go... because then i should at least not have the allKeys list
-                // for now just add the necessary keys exactly like previously
-                if (spaceBar != null) {
-                    val spaceReplaceKeys = mutableListOf<KeyParams>()
-                    val adjustedKeys: List<KeyData>? = null // todo: this should be the customizable labels, properly extract them, understand them instead of baseKeys.add(emptyList())
-                    if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-                        spaceReplaceKeys.add(spaceBar)
-                        spaceReplaceKeys.add(KeyParams( // todo: should be moved into symbols layout (then also some popup workarounds can be adjusted!)
-                            adjustedKeys?.get(1)?.label ?: "/",
-                            params,
-                            params.mDefaultKeyWidth,
-                            defaultLabelFlags,
-                            Key.BACKGROUND_TYPE_FUNCTIONAL,
-                            adjustedKeys?.get(1)?.popup
-                        ))
-                    } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-                        spaceReplaceKeys.add(spaceBar)
-                    } else { // alphabet
-                        spaceReplaceKeys.add(spaceBar)
-                        if (params.mLocaleKeyboardInfos.hasZwnjKey)
-                            spaceReplaceKeys.add(getFunctionalKeyParams(FunctionalKey.ZWNJ))
-                    }
-                    // re-size the space bar
-                    spaceBar.mWidth = (spaceBar.mWidth - (spaceReplaceKeys.size - 1) * params.mDefaultKeyWidth).coerceAtLeast(params.mDefaultKeyWidth)
-                    // replace the spacebar
-                    listOf(functionalKeysLeft, functionalKeysRight, keys, allKeys).forEach { keysWithSpace -> // todo: maybe remove "keys" because space should not be in there
-                        if (!keysWithSpace.contains(spaceBar)) return@forEach
-                        val spaceIndex = keysWithSpace.indexOf(spaceBar)
-                        keysWithSpace.removeAt(spaceIndex)
-                        spaceReplaceKeys.reversed().forEach { keysWithSpace.add(spaceIndex, it) }
-                    }
-                }
 
                 // re-calculate total width
                 totalWidth = allKeys.sumOf { it.mWidth }
