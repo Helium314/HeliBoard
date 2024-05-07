@@ -11,7 +11,7 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.convertFlorisLabel
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils

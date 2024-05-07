@@ -14,6 +14,7 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
@@ -175,21 +176,21 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
             // add zwnj key next to space
-            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == "space" && it.width <= 0 } // 0 or -1
-            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "zwnj"))
+            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // 0 or -1
+            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = KeyLabel.ZWNJ))
         }
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == "space" }
+            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE }
             functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/")) // todo: functional background -> different type
         }
 
         if (baseKeys.last().size == 2) { // adjust comma and period keys in bottom row of functionalKeysBottom
             // essentially just replace the key with the specified one, and add a groupId
             for (i in functionalKeysBottom.last().indices) {
-                if (functionalKeysBottom.last()[i].label == "comma") {
+                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA) {
                     functionalKeysBottom.last()[i] = baseKeys.last()[0].withGroupId(1)
-                } else if (functionalKeysBottom.last()[i].label == "period") {
+                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD) {
                     functionalKeysBottom.last()[i] = baseKeys.last()[1].withGroupId(2)
                 }
             }
@@ -227,10 +228,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val (functionalKeysFromTopLeft, functionalKeysFromTopRight) = functionalKeysFromTop.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
             val (functionalKeysFromBottomLeft, functionalKeysFromBottomRight) = functionalKeysFromBottom.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
             val functionalKeyFilter: (KeyData) -> Boolean = {
+                // todo: when removing emoji_com key, emoji should only remove the first emoji key!
                 // if (!Settings.getInstance().current.mSingleFunctionalLayout) true else todo: add this setting later when functional key layouts can be customized
-                if (it.label == "emoji" && (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)) false
-                else if (it.label == "language_switch" && (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)) false
-                else if (it.label == "numpad" && params.mId.isAlphabetKeyboard) false
+                if (it.label == KeyLabel.EMOJI && (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)) false
+                else if (it.label == KeyLabel.LANGUAGE_SWITCH && (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)) false
+                else if (it.label == KeyLabel.NUMPAD && params.mId.isAlphabetKeyboard) false
                 else true
             }
             val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }
@@ -378,8 +380,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 // todo: note that this is ignoring code on those keys, if any
                 val functionalKeyName = when (key.label) {
                     // todo (later): maybe add special popupKeys for phone and number layouts?
-                    "." -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "period" else "."
-                    "," -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) "comma" else ","
+                    "." -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) KeyLabel.PERIOD else "."
+                    "," -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) KeyLabel.COMMA else ","
                     else -> key.label
                 }
                 if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) { // todo: why exception for numeric?
