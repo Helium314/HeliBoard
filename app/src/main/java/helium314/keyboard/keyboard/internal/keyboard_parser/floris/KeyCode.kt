@@ -122,7 +122,7 @@ object KeyCode {
     const val CJK_SPACE =                  12288
 
     // heliboard only codes
-    const val ALPHA_SYMBOL =              -10001
+    const val ALPHA_SYMBOL =              -10001 // todo: rename to symbol_alpha for consistency?
     const val START_ONE_HANDED_MODE =     -10002
     const val STOP_ONE_HANDED_MODE =      -10003
     const val SWITCH_ONE_HANDED_MODE =    -10004

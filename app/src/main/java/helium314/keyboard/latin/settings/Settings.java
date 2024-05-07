@@ -706,4 +706,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return wrapper;
     }
 
+    public boolean isTablet() {
+        return mContext.getResources().getInteger(R.integer.config_screen_metrics) >= 3;
+    }
 }

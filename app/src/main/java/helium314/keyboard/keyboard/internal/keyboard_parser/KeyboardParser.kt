@@ -9,10 +9,9 @@ import androidx.annotation.StringRes
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
-import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.EmptyPopups
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
@@ -22,7 +21,6 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.isEmoji
-import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
@@ -86,35 +84,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  create functional keys in TextKeyData.toKeyParams
-    //   should consider the keyType for background!
+    //  there are some issues with keys, e.g. space now doesn't have a long press action
+    //  dvorak has 0 and ? popups everywhere
+    //  TextKeyData.toKeyParams should consider the keyType for background!
     //  keyType is not in json layout, and currently does nothing anyway (except placeholder or numeric)
-    //  move / from bottom row to symbols layout
     //  make the default popups for comma and period appear after the additional popups, not before
-    //  move getFunctionalKeyParams to TextKeyData
-    //   and maybe make it depend on the functional key names as string, so we have string values for each of them and can remove FunctionalKey enum class
     //  make sure the popups work with the different style of getting functional keys!
-    //  make sure the customizable bottom keys work (though it could be done in a different style)
-    //   the bottom row key popups should get priority over the default ones
     //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
     //  emoji_com could be replaced with a variation selector
     //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
-
-    // to be replaced, but currently it's just to have it work
-    private fun KeyData.toFunctionalKeyParams(): KeyParams {
-        val key = try {
-            FunctionalKey.valueOf(label.uppercase())
-        } catch (e: Exception) {
-            return when (groupId) { // consider groupId has similar effect as comma or period label
-                // todo: just labels for popups is not good, better make it take a popup set
-                1 -> getFunctionalKeyParams(FunctionalKey.COMMA, if (width == 0f) getDefaultWidth(params) else width, label, popup.getPopupKeyLabels(params))
-                2 -> getFunctionalKeyParams(FunctionalKey.PERIOD, if (width == 0f) getDefaultWidth(params) else width, label, popup.getPopupKeyLabels(params))
-                else -> toKeyParams(params)
-            }
-        }
-        val actualWidth = if (width == 0f) getDefaultWidth(params) else width
-        return getFunctionalKeyParams(key, actualWidth) // todo: does not consider popup keys
-    }
+    //  replacement of comma and period should have their respective background
+    //  does it still work for rtl?
+    //  later: move / from bottom row to symbols layout
 
     // this should be ready for customizable functional layouts, but needs cleanup
     private fun getFunctionalKeyLayoutText(): String {
@@ -185,12 +166,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/")) // todo: functional background -> different type
         }
 
-        if (baseKeys.last().size == 2) { // adjust comma and period keys in bottom row of functionalKeysBottom
+        // adjust comma and period keys in bottom row of functionalKeysBottom
+        // but also base it on the group, because otherwise changed labels for e.g. dvorak would not be found
+        if (baseKeys.last().size == 2) {
             // essentially just replace the key with the specified one, and add a groupId
             for (i in functionalKeysBottom.last().indices) {
-                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA) {
+                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_LEFT) {
                     functionalKeysBottom.last()[i] = baseKeys.last()[0].withGroupId(1)
-                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD) {
+                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_RIGHT) {
                     functionalKeysBottom.last()[i] = baseKeys.last()[1].withGroupId(2)
                 }
             }
@@ -235,8 +218,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 else if (it.label == KeyLabel.NUMPAD && params.mId.isAlphabetKeyboard) false
                 else true
             }
-            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }
-            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).filter(functionalKeyFilter).map { it.toFunctionalKeyParams() }
+            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.processActionAndPeriodKeys().toKeyParams(params) }
+            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).filter(functionalKeyFilter).map { it.processActionAndPeriodKeys().toKeyParams(params) }
 
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
@@ -287,10 +270,27 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             }
         }
         resizeLastRowIfNecessaryForAlignment(keysInRows)
-//        keysInRows.add(bottomRow)
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
         return keysInRows
+    }
+
+    // this is not nice in here, but otherwise we'd need context for toKeyParams, which might also not be optimal
+    private fun KeyData.processActionAndPeriodKeys(): KeyData {
+        if (label == KeyLabel.PERIOD) {
+            // todo: this is weird, can it be removed (see also comment in TextKeyData)
+            return TextKeyData(type, code, label, groupId, popup, width, labelFlags = labelFlags or defaultLabelFlags)
+        }
+        if (label != KeyLabel.ACTION) return this
+        return TextKeyData(
+            label = "${getActionKeyLabel()}|${getActionKeyCode()}",
+            popup = getActionKeyPopupKeys()?.let { SimplePopups(it) } ?: EmptyPopups,
+            type = type,
+            code = code,
+            groupId = groupId,
+            width = width,
+            labelFlags = labelFlags
+        )
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<List<KeyData>>) {
@@ -384,9 +384,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     "," -> if (params.mId.mElementId == KeyboardId.ELEMENT_NUMPAD) KeyLabel.COMMA else ","
                     else -> key.label
                 }
-                if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) { // todo: why exception for numeric?
+                if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) {
                     try {
-                        keyParams = getFunctionalKeyParams(functionalKeyName)
+                        // todo: this works, but: needs the correct background
+                        keyParams = TextKeyData(label = functionalKeyName).processActionAndPeriodKeys().toKeyParams(params)
                     } catch (_: Throwable) {} // just use normal label
                 }
                 if (keyParams == null) {
@@ -446,170 +447,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    private fun parseFunctionalKeys(@StringRes id: Int): List<Pair<List<String>, List<String>>> =
-        context.getString(id).split("\n").mapNotNull { line ->
-            if (line.isBlank()) return@mapNotNull null
-            val p = line.split(";")
-            splitFunctionalKeyDefs(p.first()) to splitFunctionalKeyDefs(p.last())
-        }
-
-    private fun splitFunctionalKeyDefs(def: String): List<String> {
-        if (def.isBlank()) return emptyList()
-        return def.split(",").filter { infos.hasShiftKey || !it.trim().startsWith("shift") }
-    }
-
     private fun getNumberRow(): ArrayList<KeyParams> =
         params.mLocaleKeyboardInfos.getNumberRow().mapTo(ArrayList()) {
             it.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
         }
-
-    // todo: this needs to be completely changed
-    private fun getFunctionalKeyParams(def: String, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
-        val split = def.trim().splitOnWhitespace()
-        val key = FunctionalKey.valueOf(split[0].uppercase())
-        val width = if (split.size == 2) split[1].substringBefore("%").toFloat() / 100f
-            else params.mDefaultKeyWidth
-        return getFunctionalKeyParams(key, width, label, popupKeys)
-    }
-
-    private fun getFunctionalKeyParams(key: FunctionalKey, relativeWidth: Float? = null, label: String? = null, popupKeys: Collection<String>? = null): KeyParams {
-        // for comma and period: label will override default, popupKeys will be appended
-        val width = relativeWidth ?: params.mDefaultKeyWidth
-        return when (key) {
-            FunctionalKey.SYMBOL_ALPHA -> KeyParams(
-                if (params.mId.isAlphabetKeyboard) getToSymbolLabel() else params.mLocaleKeyboardInfos.labelAlphabet,
-                KeyCode.ALPHA_SYMBOL,
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.SYMBOL -> KeyParams(
-                getToSymbolLabel(),
-                KeyCode.SYMBOL,
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.ALPHA -> KeyParams(
-                params.mLocaleKeyboardInfos.labelAlphabet,
-                KeyCode.ALPHA,
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.COMMA -> KeyParams(
-                label ?: getCommaLabel(),
-                params,
-                width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT, // previously only if normal comma, but always is more correct
-                if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL // mimic behavior of old dvorak and halmak layouts
-                    else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(popupKeys?.let { getCommaPopupKeys() + it } ?: getCommaPopupKeys())
-            )
-            FunctionalKey.PERIOD -> KeyParams(
-                label ?: getPeriodLabel(),
-                params,
-                width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT or defaultLabelFlags,
-                if (label?.first()?.isLetter() == true) Key.BACKGROUND_TYPE_NORMAL
-                    else Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(popupKeys?.let { getPunctuationPopupKeys() + it } ?: getPunctuationPopupKeys())
-            )
-            FunctionalKey.SPACE -> KeyParams(
-                getSpaceLabel(),
-                params,
-                width, // will not be used for normal space (only in number layouts)
-                if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0,
-                Key.BACKGROUND_TYPE_SPACEBAR,
-                null
-            )
-            FunctionalKey.ACTION -> KeyParams(
-                "${getActionKeyLabel()}|${getActionKeyCode()}",
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE
-                        or Key.LABEL_FLAGS_AUTO_X_SCALE
-                        or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO
-                        or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
-                        or Key.LABEL_FLAGS_HAS_POPUP_HINT
-                        or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId),
-                Key.BACKGROUND_TYPE_ACTION,
-                getActionKeyPopupKeys()?.let { SimplePopups(it) }
-            )
-            FunctionalKey.DELETE -> KeyParams(
-                "!icon/delete_key|!code/key_delete",
-                params,
-                width,
-                0,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.SHIFT -> KeyParams(
-                "${getShiftLabel()}|!code/key_shift",
-                params,
-                width,
-                Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0,
-                // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
-                if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
-                    Key.BACKGROUND_TYPE_STICKY_ON
-                else Key.BACKGROUND_TYPE_STICKY_OFF,
-                if (params.mId.isAlphabetKeyboard) SimplePopups(listOf("!noPanelAutoPopupKey!", " |!code/key_capslock")) else null // why the alphabet popup keys actually?
-            )
-            FunctionalKey.EMOJI -> KeyParams(
-                "!icon/emoji_normal_key|!code/key_emoji",
-                params,
-                width,
-                KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId),
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            // tablet layout has an emoji key that changes to com key in url / mail
-            FunctionalKey.EMOJI_COM -> if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL)
-                        getFunctionalKeyParams(FunctionalKey.COM, width)
-                    else getFunctionalKeyParams(FunctionalKey.EMOJI, width)
-            FunctionalKey.COM -> KeyParams(
-                // todo (later): label and popupKeys could be in localeKeyTexts, handled similar to currency key
-                //  better not in the text files, because it should be handled per country
-                ".com",
-                params,
-                width,
-                Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
-            )
-            FunctionalKey.LANGUAGE_SWITCH -> KeyParams(
-                "!icon/language_switch_key|!code/key_language_switch",
-                params,
-                width,
-                0,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.NUMPAD -> KeyParams(
-                "!icon/numpad_key|!code/key_numpad",
-                params,
-                width,
-                0,
-                Key.BACKGROUND_TYPE_FUNCTIONAL,
-                null
-            )
-            FunctionalKey.ZWNJ -> KeyParams(
-                "!icon/zwnj_key|\u200C",
-                params,
-                width,
-                Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                // this may not be a good place to make this choice, but probably it's fine (though reading from settings here is not good)
-                if (Settings.getInstance().current.mColors.hasKeyBorders) Key.BACKGROUND_TYPE_SPACEBAR else Key.BACKGROUND_TYPE_NORMAL,
-                SimplePopups(listOf("!icon/zwj_key|\u200D"))
-            )
-        }
-    }
 
     private fun getActionKeyLabel(): String {
         if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
@@ -727,83 +568,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return runInLocale(context, locale) { it.getString(id) }
     }
 
-    private fun getToSymbolLabel() =
-        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            params.mLocaleKeyboardInfos.labelAlphabet
-        else params.mLocaleKeyboardInfos.labelSymbol
-
-    private fun getShiftLabel(): String {
-        val elementId = params.mId.mElementId
-        if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            return params.mLocaleKeyboardInfos.labelSymbol
-        if (elementId == KeyboardId.ELEMENT_SYMBOLS)
-            return params.mLocaleKeyboardInfos.getShiftSymbolLabel(isTablet())
-        if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-            || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
-            return "!icon/shift_key_shifted"
-        return "!icon/shift_key"
-    }
-
-    private fun getPeriodLabel(): String {
-        if (params.mId.isNumberLayout) return "."
-        if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa")) // todo: this exception is not so great...
-            return params.mLocaleKeyboardInfos.labelPeriod
-        return "."
-    }
-
-    private fun getCommaLabel(): String {
-        if (params.mId.mMode == KeyboardId.MODE_URL && params.mId.isAlphabetKeyboard)
-            return "/"
-        if (params.mId.mMode == KeyboardId.MODE_EMAIL && params.mId.isAlphabetKeyboard)
-            return "\\@"
-        if (params.mId.isNumberLayout)
-            return ","
-        return params.mLocaleKeyboardInfos.labelComma
-    }
-
-    private fun getCommaPopupKeys(): List<String> {
-        val keys = mutableListOf<String>()
-        if (!params.mId.mDeviceLocked)
-            keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
-        if (!params.mId.mEmojiKeyEnabled && !params.mId.isNumberLayout)
-            keys.add("!icon/emoji_normal_key|!code/key_emoji")
-        if (!params.mId.mLanguageSwitchKeyEnabled)
-            keys.add("!icon/language_switch_key|!code/key_language_switch")
-        if (!params.mId.mOneHandedModeEnabled)
-            keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
-        if (!params.mId.mDeviceLocked)
-            keys.add("!icon/settings_key|!code/key_settings")
-        return keys
-    }
-
-    private fun getPunctuationPopupKeys(): List<String> {
-        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            return listOf("…")
-        if (params.mId.isNumberLayout)
-            return listOf(":", "…", ";", "∞", "π", "√", "°", "^")
-        val popupKeys = params.mLocaleKeyboardInfos.getPopupKeys("punctuation")!!.toMutableList()
-        if (params.mId.mSubtype.isRtlSubtype) {
-            for (i in popupKeys.indices)
-                popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
-        }
-        if (isTablet() && popupKeys.contains("!") && popupKeys.contains("?")) {
-            // remove ! and ? keys and reduce number in autoColumnOrder
-            // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
-            popupKeys[popupKeys.indexOf("!")] = ""
-            popupKeys[popupKeys.indexOf("?")] = ""
-            val columns = popupKeys[0].substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
-            if (columns != null)
-                popupKeys[0] = "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
-        }
-        return popupKeys
-    }
-
-    private fun getSpaceLabel(): String =
-        if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-            "!icon/space_key|!code/key_space"
-        else "!icon/space_key_for_number_layout|!code/key_space"
-
-    private fun isTablet() = context.resources.getInteger(R.integer.config_screen_metrics) >= 3
+    private fun isTablet() = Settings.getInstance().isTablet // todo: put it in params?
 
     companion object {
         private const val TAG = "KeyboardParser"
@@ -878,10 +643,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
             return LayoutInfos(enableProximityCharsCorrection, allowRedundantPopupKeys, touchPositionCorrectionData, hasShiftKey, numbersOnTopRow)
         }
-    }
-
-    enum class FunctionalKey {
-        EMOJI, LANGUAGE_SWITCH, COM, EMOJI_COM, ACTION, DELETE, PERIOD, COMMA, SPACE, SHIFT, NUMPAD, SYMBOL, ALPHA, SYMBOL_ALPHA, ZWNJ
     }
 
 }

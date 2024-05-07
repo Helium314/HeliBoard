@@ -9,12 +9,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
+import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.settings.Settings
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
@@ -36,7 +39,7 @@ sealed interface KeyData : AbstractKeyData {
     val code: Int
     val label: String
     val groupId: Int
-    val popup: PopupSet<AbstractKeyData> // not nullable because can't add number otherwise
+    val popup: PopupSet<out AbstractKeyData> // not nullable because can't add number otherwise
     val width: Float // in percent of keyboard width, 0 is default (depends on key), -1 is fill (like space bar)
     val labelFlags: Int
 
@@ -75,6 +78,85 @@ sealed interface KeyData : AbstractKeyData {
          * popups specified for "~kana" in the popup mapping.
          */
         const val GROUP_KANA: Int = 97
+
+        // todo: revisit these functions, maybe adjust or replace with other things
+        private fun isTablet() = Settings.getInstance().isTablet // todo: replace?
+
+        private fun getToSymbolLabel(params: KeyboardParams) =
+            if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+                params.mLocaleKeyboardInfos.labelAlphabet
+            else params.mLocaleKeyboardInfos.labelSymbol
+
+        private fun getShiftLabel(params: KeyboardParams): String {
+            val elementId = params.mId.mElementId
+            if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+                return params.mLocaleKeyboardInfos.labelSymbol
+            if (elementId == KeyboardId.ELEMENT_SYMBOLS)
+                return params.mLocaleKeyboardInfos.getShiftSymbolLabel(isTablet())
+            if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
+                || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
+                return "!icon/shift_key_shifted"
+            return "!icon/shift_key"
+        }
+
+        private fun getPeriodLabel(params: KeyboardParams): String {
+            if (params.mId.isNumberLayout) return "."
+            if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa")) // todo: this exception is not so great...
+                return params.mLocaleKeyboardInfos.labelPeriod
+            return "."
+        }
+
+        private fun getCommaLabel(params: KeyboardParams): String {
+            if (params.mId.mMode == KeyboardId.MODE_URL && params.mId.isAlphabetKeyboard)
+                return "/"
+            if (params.mId.mMode == KeyboardId.MODE_EMAIL && params.mId.isAlphabetKeyboard)
+                return "\\@"
+            if (params.mId.isNumberLayout)
+                return ","
+            return params.mLocaleKeyboardInfos.labelComma
+        }
+
+        private fun getSpaceLabel(params: KeyboardParams): String =
+            if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+                "!icon/space_key|!code/key_space"
+            else "!icon/space_key_for_number_layout|!code/key_space"
+
+        private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
+            val keys = mutableListOf<String>()
+            if (!params.mId.mDeviceLocked)
+                keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
+            if (!params.mId.mEmojiKeyEnabled && !params.mId.isNumberLayout)
+                keys.add("!icon/emoji_normal_key|!code/key_emoji")
+            if (!params.mId.mLanguageSwitchKeyEnabled)
+                keys.add("!icon/language_switch_key|!code/key_language_switch")
+            if (!params.mId.mOneHandedModeEnabled)
+                keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
+            if (!params.mId.mDeviceLocked)
+                keys.add("!icon/settings_key|!code/key_settings")
+            return keys
+        }
+
+        private fun getPunctuationPopupKeys(params: KeyboardParams): List<String> {
+            if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+                return listOf("…")
+            if (params.mId.isNumberLayout)
+                return listOf(":", "…", ";", "∞", "π", "√", "°", "^")
+            val popupKeys = params.mLocaleKeyboardInfos.getPopupKeys("punctuation")!!.toMutableList()
+            if (params.mId.mSubtype.isRtlSubtype) {
+                for (i in popupKeys.indices)
+                    popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
+            }
+            if (isTablet() && popupKeys.contains("!") && popupKeys.contains("?")) {
+                // remove ! and ? keys and reduce number in autoColumnOrder
+                // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
+                popupKeys[popupKeys.indexOf("!")] = ""
+                popupKeys[popupKeys.indexOf("?")] = ""
+                val columns = popupKeys[0].substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
+                if (columns != null)
+                    popupKeys[0] = "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
+            }
+            return popupKeys
+        }
     }
 
     // make it non-nullable for simplicity, and to reflect current implementations
@@ -83,6 +165,8 @@ sealed interface KeyData : AbstractKeyData {
         val newCode = code.checkAndConvertCode()
 
         // resolve currency keys
+        // todo: this should also be done in the processXX functions
+        //  and in toKeyParams (or is there a reason it's here instead? if so, write it down)
         if (newLabel.startsWith("$$$") || newCode in KeyCode.Spec.CURRENCY) {
             val currencyKey = params.mLocaleKeyboardInfos.currencyKey
             val currencyCodeAsString = if (newCode in KeyCode.Spec.CURRENCY) {
@@ -119,6 +203,7 @@ sealed interface KeyData : AbstractKeyData {
                 || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA)
     }
 
+    /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
     // todo: width in units of keyboard width, or in percent? (currently the plan was percent, but actually fractions are used)
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
         // todo: remove checks here, do only when reading json layouts
@@ -130,48 +215,148 @@ sealed interface KeyData : AbstractKeyData {
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
         val actualWidth = if (width == 0f) getDefaultWidth(params) else width
 
-        return if (code == KeyCode.UNSPECIFIED || code == KeyCode.MULTIPLE_CODE_POINTS) {
+        val newLabel = processLabel(params)
+        val newCode = processCode()
+        val newLabelFlags = labelFlags or getAdditionalLabelFlags(params)
+        val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
+        // todo:
+        //  background colors missing (in layout and the processing here)
+        //   could set default backgrounds... but then it's impossible to set character because this is the base when nothing is defined...
+
+        return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
             // but also longer labels should work without issues, also for MultiTextKeyData
             if (this is MultiTextKeyData) {
                 val outputText = String(codePoints, 0, codePoints.size)
                 Key.KeyParams(
-                    "$label|$outputText",
-                    code,
+                    "$newLabel|$outputText",
+                    newCode,
                     params,
                     actualWidth,
-                    labelFlags or additionalLabelFlags,
+                    newLabelFlags or additionalLabelFlags,
                     Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
-                    popup,
+                    newPopupKeys,
                 )
             } else {
                 Key.KeyParams(
-                    label.rtlLabel(params), // todo (when supported): convert special labels to keySpec
+                    newLabel.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                     params,
                     actualWidth,
-                    labelFlags or additionalLabelFlags,
+                    newLabelFlags or additionalLabelFlags,
                     Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
-                    popup,
+                    newPopupKeys,
                 )
             }
         } else {
             Key.KeyParams(
-                label.ifEmpty { StringUtils.newSingleCodePointString(code) },
-                code,
+                newLabel.ifEmpty { StringUtils.newSingleCodePointString(newCode) },
+                newCode,
                 params,
                 actualWidth,
-                labelFlags or additionalLabelFlags,
+                newLabelFlags or additionalLabelFlags,
                 Key.BACKGROUND_TYPE_NORMAL,
-                popup,
+                newPopupKeys,
             )
         }
     }
 
     // todo: only public for lazy workaround, make private again
     fun getDefaultWidth(params: KeyboardParams): Float {
-        return if (label == "space" && params.mId.isAlphaOrSymbolKeyboard) -1f
-        else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f
+        return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
+        else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f // todo (later) consider making this -1?
         else params.mDefaultKeyWidth
+    }
+
+    // todo (later): encoding the code in the label should not be done
+    private fun processLabel(params: KeyboardParams): String {
+        return when (label) {
+            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) getToSymbolLabel(params) else params.mLocaleKeyboardInfos.labelAlphabet
+            KeyLabel.SYMBOL -> getToSymbolLabel(params)
+            KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
+            KeyLabel.COMMA -> getCommaLabel(params)
+            KeyLabel.PERIOD -> getPeriodLabel(params)
+            KeyLabel.SPACE -> getSpaceLabel(params)
+//            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
+            KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
+            KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
+            KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
+            KeyLabel.EMOJI_COM -> {
+                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL) ".com"
+                else "!icon/emoji_normal_key|!code/key_emoji"
+            } // todo...
+            // todo (later): label and popupKeys for .com could be in localeKeyTexts, handled similar to currency key
+            //  better not in the text files, because it should be handled per country
+            KeyLabel.COM -> ".com"
+            KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
+            KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
+            KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
+            else -> label
+        }
+    }
+
+    private fun processCode(): Int {
+        if (code != KeyCode.UNSPECIFIED) return code
+        return when (label) {
+            KeyLabel.SYMBOL_ALPHA -> KeyCode.ALPHA_SYMBOL
+            KeyLabel.SYMBOL -> KeyCode.SYMBOL
+            KeyLabel.ALPHA -> KeyCode.ALPHA
+            else -> code
+        }
+    }
+
+    private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
+        return when (label) {
+            KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
+            KeyLabel.PERIOD, KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT // todo: period also has defaultLabelFlags -> when is this relevant?
+            KeyLabel.ACTION -> {
+                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
+                        Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
+                        Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+            }
+            KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
+            KeyLabel.SHIFT -> {
+                // todo (later): iirc sticky is related to shift state indicator, currently it should only have a very slight effect in holo
+                if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
+                    Key.BACKGROUND_TYPE_STICKY_ON
+                else Key.BACKGROUND_TYPE_STICKY_OFF
+            }
+            KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+            KeyLabel.EMOJI_COM -> {
+                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL) {
+                    Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
+                } else KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+            }
+            KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
+            KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
+            else -> 0
+        }
+    }
+
+    // todo: popup keys should be merged with existing keys!
+    private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
+        if (groupId == GROUP_LEFT) return SimplePopups(getCommaPopupKeys(params))
+        if (groupId == GROUP_RIGHT) return SimplePopups(getPunctuationPopupKeys(params))
+        return when (label) {
+            KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
+            KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))
+//            KeyLabel.ACTION -> getActionKeyPopupKeys(params)?.let { SimplePopups(it) }
+            KeyLabel.SHIFT -> {
+                if (params.mId.isAlphabetKeyboard) SimplePopups(
+                    listOf(
+                        "!noPanelAutoPopupKey!",
+                        " |!code/key_capslock"
+                    )
+                ) else null // why the alphabet popup keys actually?
+            }
+            KeyLabel.EMOJI_COM -> {
+                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL)
+                    SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+                else null
+            }
+            KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+            KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
+            else -> null
+        }
     }
 }
 
@@ -193,7 +378,7 @@ class TextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
@@ -227,7 +412,7 @@ class AutoTextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
@@ -260,7 +445,7 @@ class MultiTextKeyData(
     val codePoints: IntArray = intArrayOf(),
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<AbstractKeyData> = PopupSet(),
+    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {

@@ -15,7 +15,7 @@ object KeyLabel {
     const val SYMBOL_ALPHA = "symbol_alpha"
     const val PERIOD = "period"
     const val COMMA = "comma"
-    const val SPACE = "splace"
+    const val SPACE = "space"
     const val ZWNJ = "zwnj"
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */

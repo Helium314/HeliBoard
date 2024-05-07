@@ -37,3 +37,10 @@ fun <T> Collection<T>.splitAt(condition: (T) -> Boolean): Pair<List<T>, List<T>>
     }
     return first to second
 }
+
+// like plus, but for nullable collections
+fun <T> addCollections(a: Collection<T>?, b: Collection<T>?): Collection<T>? {
+    if (a.isNullOrEmpty()) return b
+    if (b.isNullOrEmpty()) return a
+    return a + b
+}
