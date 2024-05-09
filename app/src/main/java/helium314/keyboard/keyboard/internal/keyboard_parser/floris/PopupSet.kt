@@ -33,8 +33,13 @@ open class PopupSet<T : AbstractKeyData>(
     fun <U : AbstractKeyData> merge(other: PopupSet<U>?): PopupSet<out AbstractKeyData> {
         if (other == null || other.isEmpty()) return this
         if (this.isEmpty()) return other
-        if (this is SimplePopups && other is SimplePopups)
-            return SimplePopups(addCollections(popupKeys, other.popupKeys))
+        if (this is SimplePopups) {
+            if (other is SimplePopups)
+                return SimplePopups(addCollections(popupKeys, other.popupKeys))
+            return PopupSet(other.main, addCollections(popupKeys?.map { it.toTextKey() }, other.relevant))
+        } else if (other is SimplePopups) {
+            return PopupSet(main, addCollections(relevant, other.popupKeys?.map { it.toTextKey() }))
+        }
         val newMain = if (main == null) other.main else main
         val newRelevant = addCollections(relevant, other.relevant)
         if (main != null && other.main != null)
