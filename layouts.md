@@ -52,8 +52,14 @@ Some special key labels will be implemented, most are already working in the (cu
   * todo: add the special keys `case_selector`, `shift_state_selector`, `variation_selector`, `layout_direction_selector`
 ### Properties
 * A key can have the following properties:
-* `type`: only specific values, HeliBoard uses this to determine color (todo: even for space?), determined automatically by default
-  * todo: which types do what?
+* `type`: only specific values, HeliBoard mostly uses this to determine color, determined automatically by default
+  * `character`: normal key color
+  * `function`: functional key color
+  * `space`: space bar color
+  * `action`: action key color
+  * `unspecified`: no background color
+  * `placeholder`: no background color, no label, and pressing the key does nothing
+  * there are some more values, but they do nothing
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, or a number of special values, determined from code if empty

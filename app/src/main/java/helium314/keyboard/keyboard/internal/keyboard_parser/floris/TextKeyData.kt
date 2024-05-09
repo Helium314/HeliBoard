@@ -35,7 +35,7 @@ import helium314.keyboard.latin.settings.Settings
  * @property popup The popups for ths key. Can also dynamically be provided via popup extensions.
  */
 sealed interface KeyData : AbstractKeyData {
-    val type: KeyType
+    val type: KeyType?
     val code: Int
     val label: String
     val groupId: Int
@@ -43,7 +43,7 @@ sealed interface KeyData : AbstractKeyData {
     val width: Float // in percent of keyboard width, 0 is default (depends on key), -1 is fill (like space bar)
     val labelFlags: Int
 
-    fun copy(newType: KeyType = type, newCode: Int = code, newLabel: String = label, newGroupId: Int = groupId,
+    fun copy(newType: KeyType? = type, newCode: Int = code, newLabel: String = label, newGroupId: Int = groupId,
              newPopup: PopupSet<out AbstractKeyData> = popup, newWidth: Float = width, newLabelFlags: Int = labelFlags): KeyData
 
     // groups (currently) not supported
@@ -161,8 +161,7 @@ sealed interface KeyData : AbstractKeyData {
         val newCode = code.checkAndConvertCode()
 
         // resolve currency keys
-        // todo: this should also be done in the processXX functions
-        //  and in toKeyParams (or is there a reason it's here instead? if so, write it down)
+        // todo: see whether we can handle this in toKeyParams (or is there a reason it's here instead? if so, write it down)
         if (newLabel.startsWith("$$$") || newCode in KeyCode.Spec.CURRENCY) {
             val currencyKey = params.mLocaleKeyboardInfos.currencyKey
             val currencyCodeAsString = if (newCode in KeyCode.Spec.CURRENCY) {
@@ -180,16 +179,16 @@ sealed interface KeyData : AbstractKeyData {
                 val finalLabel = currencyKey.first + currencyCodeAsString
                 // the flag is to match old parser, but why is it there for main currency key and not for others?
                 return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId,
-                    SimplePopups(currencyKey.second), width, labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
+                    popup.merge(SimplePopups(currencyKey.second)), width, labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
             }
             val n = newLabel.substringAfter("$$$").toIntOrNull()
             if (n != null && n <= 5 && n > 0) {
                 val finalLabel = currencyKey.second[n - 1] + currencyCodeAsString
-                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId, popup, width, labelFlags)
+                copy(newCode = KeyCode.UNSPECIFIED, newLabel = finalLabel)
             }
         }
         if (newCode != code || newLabel != label)
-            return TextKeyData(type, newCode, newLabel, groupId, popup, width, labelFlags).compute(params)
+            copy(newCode = newCode, newLabel = newLabel)
         return this
     }
 
@@ -205,8 +204,6 @@ sealed interface KeyData : AbstractKeyData {
         // todo: remove checks here, do only when reading json layouts
         // numeric keys are assigned a higher width in number layouts (todo: not true any more, also maybe they could have width -1 instead?)
         if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-        // todo: allow all types, but define / document what they do (probably only effect on background?)
-        require(type == KeyType.CHARACTER || type == KeyType.NUMERIC || type == KeyType.ENTER_EDITING || type == KeyType.SYSTEM_GUI || type == KeyType.MODIFIER) { "KeyType not supported" }
         require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
         require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
         val actualWidth = if (width == 0f) getDefaultWidth(params) else width
@@ -215,9 +212,16 @@ sealed interface KeyData : AbstractKeyData {
         val newCode = processCode()
         val newLabelFlags = labelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
-        // todo:
-        //  background colors missing (in layout and the processing here)
-        //   could set default backgrounds... but then it's impossible to set character because this is the base when nothing is defined...
+
+        val background = when (type) {
+            KeyType.CHARACTER, KeyType.NUMERIC -> Key.BACKGROUND_TYPE_NORMAL
+            KeyType.FUNCTION, KeyType.MODIFIER, KeyType.SYSTEM_GUI -> Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> Key.BACKGROUND_TYPE_EMPTY
+            KeyType.NAVIGATION -> Key.BACKGROUND_TYPE_SPACEBAR
+            KeyType.ENTER_EDITING -> Key.BACKGROUND_TYPE_ACTION
+            KeyType.LOCK -> determineShiftBackground(params)
+            null -> defaultBackground(params)
+        }
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
@@ -230,7 +234,7 @@ sealed interface KeyData : AbstractKeyData {
                     params,
                     actualWidth,
                     newLabelFlags or additionalLabelFlags,
-                    Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
+                    background,
                     newPopupKeys,
                 )
             } else {
@@ -239,7 +243,7 @@ sealed interface KeyData : AbstractKeyData {
                     params,
                     actualWidth,
                     newLabelFlags or additionalLabelFlags,
-                    Key.BACKGROUND_TYPE_NORMAL, // todo (when supported): determine type
+                    background,
                     newPopupKeys,
                 )
             }
@@ -250,10 +254,34 @@ sealed interface KeyData : AbstractKeyData {
                 params,
                 actualWidth,
                 newLabelFlags or additionalLabelFlags,
-                Key.BACKGROUND_TYPE_NORMAL,
+                background,
                 newPopupKeys,
             )
         }
+    }
+
+    private fun defaultBackground(params: KeyboardParams): Int {
+        // functional keys
+        when (label) { // or use code?
+            KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
+            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.EMOJI_COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
+            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
+            // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
+            //  but iirc there is some attempt in reviving the sticky thing, right?
+            KeyLabel.SHIFT -> return determineShiftBackground(params)
+        }
+        // todo (later): this is more like a workaround, should be improved
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED && (groupId == GROUP_COMMA || groupId == GROUP_PERIOD))
+            return Key.BACKGROUND_TYPE_FUNCTIONAL
+        if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
+        return Key.BACKGROUND_TYPE_NORMAL
+    }
+
+    private fun determineShiftBackground(params: KeyboardParams): Int {
+        return if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) Key.BACKGROUND_TYPE_STICKY_ON
+        else Key.BACKGROUND_TYPE_STICKY_OFF
     }
 
     // todo: only public for lazy workaround, make private again
@@ -360,7 +388,7 @@ sealed interface KeyData : AbstractKeyData {
  * Data class which describes a single key and its attributes.
  *
  * @property type The type of the key. Some actions require both [code] and [type] to match in order
- *  to be successfully executed. Defaults to [KeyType.CHARACTER].
+ *  to be successfully executed. Defaults to null.
  * @property code The UTF-8 encoded code of the character. The code defined here is used as the
  *  data passed to the system. Defaults to 0.
  * @property label The string used to display the key in the UI. Is not used for the actual data
@@ -370,7 +398,7 @@ sealed interface KeyData : AbstractKeyData {
 @Serializable
 @SerialName("text_key")
 class TextKeyData(
-    override val type: KeyType = KeyType.CHARACTER,
+    override val type: KeyType? = null,
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
@@ -396,7 +424,7 @@ class TextKeyData(
     }
 
     override fun copy(
-        newType: KeyType,
+        newType: KeyType?,
         newCode: Int,
         newLabel: String,
         newGroupId: Int,
@@ -412,7 +440,7 @@ class TextKeyData(
 @Serializable
 @SerialName("auto_text_key")
 class AutoTextKeyData(
-    override val type: KeyType = KeyType.CHARACTER,
+    override val type: KeyType? = null,
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
@@ -439,7 +467,7 @@ class AutoTextKeyData(
     }
 
     override fun copy(
-        newType: KeyType,
+        newType: KeyType?,
         newCode: Int,
         newLabel: String,
         newGroupId: Int,
@@ -453,7 +481,7 @@ class AutoTextKeyData(
 @Serializable
 @SerialName("multi_text_key")
 class MultiTextKeyData(
-    override val type: KeyType = KeyType.CHARACTER,
+    override val type: KeyType? = null,
     val codePoints: IntArray = intArrayOf(),
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
@@ -486,7 +514,7 @@ class MultiTextKeyData(
     }
 
     override fun copy(
-        newType: KeyType,
+        newType: KeyType?,
         newCode: Int,
         newLabel: String,
         newGroupId: Int,

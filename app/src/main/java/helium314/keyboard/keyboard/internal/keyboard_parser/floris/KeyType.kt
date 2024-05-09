@@ -5,6 +5,8 @@
  */
 package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
+import helium314.keyboard.keyboard.Key
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -12,6 +14,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonNames
 
 // taken from FlorisBoard, not actually used (only CHARACTER allowed)
 /**
@@ -21,18 +24,16 @@ import kotlinx.serialization.encoding.Encoder
  */
 @Serializable(with = KeyTypeSerializer::class)
 enum class KeyType {
-    // todo: implement the effect on background
-    //  also, how to get that specific space bar background?
     CHARACTER,      // default
-    ENTER_EDITING,  // enter/insert/delete, gets functional key background (if not action key)
+    ENTER_EDITING,  // should be enter/insert/delete, but always gets action key background
     FUNCTION,       // f1..., gets functional key background
-    LOCK,           // scroll lock, num lock, caps lock, gets functional key background
+    LOCK,           // scroll lock, num lock, caps lock, gets sticky on/off background, which currently is the same as functional background
     MODIFIER,       // alt, ctrl, shift, gets functional key background
-    NAVIGATION,     // home, page up, page down, tab, arrows, geta default background
-    SYSTEM_GUI,     // esc, print, pause, meta, (keyboard layout switch), geta functional background
-    NUMERIC,        // numpad keys, get larger letter and larger width
-    PLACEHOLDER,    // other keys go here, e.g. in shift, placeholder, delete the placeholder gets (typically) replaced by the bottom keyboard row
-    UNSPECIFIED;    // treated like default
+    NAVIGATION,     // home, page up, page down, tab, arrows, gets space background because it'S still the most suitable type
+    SYSTEM_GUI,     // esc, print, pause, meta, (keyboard layout switch), gets functional background
+    NUMERIC,        // numpad keys, get larger letter and larger width in number layouts, and default background
+    PLACEHOLDER,    // spacer, or actual placeholder when used in functional key layouts
+    UNSPECIFIED;    // empty background
 
     override fun toString(): String {
         return super.toString().lowercase()
@@ -40,7 +41,13 @@ enum class KeyType {
 
     companion object {
         fun fromString(string: String): KeyType {
-            return valueOf(string.uppercase())
+            // resolve alternative names
+            return when (string) {
+                "space" -> NAVIGATION
+                "action" -> ENTER_EDITING
+                "shift" -> LOCK
+                else -> valueOf(string.uppercase())
+            }
         }
     }
 }

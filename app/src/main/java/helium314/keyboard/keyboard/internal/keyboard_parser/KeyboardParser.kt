@@ -84,17 +84,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  key type -> color
-    //   TextKeyData.toKeyParams should consider the keyType for background!
-    //   type should have @JsonName("alternative") so without changing anything, keys can be parsed with more suitable names
-    //    maybe rename the classes too, but the old serializable name should be understood
-    //   default type is character, which is fine in principle, but now there is the clash between auto-determining type for color, and being able to force "normal" color on a key
-    //    make it nullable?
-    //   document which type results in which background
-    //  escaping: just start everything with "!"?
-    //  there are some issues with keys, e.g. space now doesn't have a long press action
-    //  dvorak has 0 and ? popups everywhere
-    //  keyType is not in json layout, and currently does nothing anyway (except placeholder or numeric)
+    //  remove dependency on BACKGROUND_TYPE_*, because now this can be set arbitrarily!
+    //   this is especially relevant for space!
+    //  escaping: just start everything with "!"? this should then also be in the label strings in KeyLabel!
+    //   and still floris keys should be parsed correctly, so e.g. we would need a space > !space conversion
     //  make the default popups for comma and period appear after the additional popups, not before
     //  make sure the popups work with the different style of getting functional keys!
     //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
@@ -105,9 +98,13 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  is width ignored when adding to a popup key?
     //  finish documentation, but for that need to actually use the colors
     //  set alternative names for types?
-    //  later commit: move "/" from bottom row to symbols layout
-    //  later commit: consider parsing number layouts same way as normal
-    //  later commit: parse labels that match a toolbar key, also with icon(!)
+    // todo: issues:
+    //  $$$1 & co main keys not parsed
+    //  dvorak has 0 and ? popups everywhere, what's going on?
+    // todo: later commits
+    //  move "/" from bottom row to symbols layout
+    //  consider parsing number layouts same way as normal
+    //  parse labels that match a toolbar key, also with icon(!)
 
     // this should be ready for customizable functional layouts, but needs cleanup
     private fun getFunctionalKeyLayoutText(): String {
@@ -154,13 +151,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             baseKeys.add(listOf(
                 TextKeyData(
-                    type = KeyType.CHARACTER, // todo: should have functional background, but not yet determined from type
                     label = "<",
                     popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
                     labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT
                 ),
                 TextKeyData(
-                    type = KeyType.CHARACTER, // todo: should have functional background, but not yet determined from type
                     label = ">",
                     popup = SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»")),
                     labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT
@@ -212,6 +207,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             //   also in landscape!
             //  what happens if we only have top functional keys and then a placeholder?
             //  check danish because of the special key shrink
+            //  do comma and period show the correct symbols? see armenian and arabic
             //  check serbian latin because of the functional key shrink
             //  check numeric layouts
             //  check parsing performance (compare with old, measure time for parseLayoutString)
@@ -293,18 +289,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // this is not nice in here, but otherwise we'd need context for toKeyParams, which might also not be optimal
     private fun KeyData.processActionAndPeriodKeys(): KeyData {
         if (label == KeyLabel.PERIOD) {
-            // todo: this is weird, can it be removed (see also comment in TextKeyData)
-            return TextKeyData(type, code, label, groupId, popup, width, labelFlags = labelFlags or defaultLabelFlags)
+            return copy(newLabelFlags = labelFlags or defaultLabelFlags)
         }
         if (label != KeyLabel.ACTION) return this
-        return TextKeyData(
-            label = "${getActionKeyLabel()}|${getActionKeyCode()}",
-            popup = getActionKeyPopupKeys()?.let { SimplePopups(it) } ?: EmptyPopups,
-            type = type,
-            code = code,
-            groupId = groupId,
-            width = width,
-            labelFlags = labelFlags
+        return copy(
+            newLabel = "${getActionKeyLabel()}|${getActionKeyCode()}",
+            newPopup = popup.merge(getActionKeyPopupKeys()?.let { SimplePopups(it) }),
+            // the label change is messing with toKeyParams, so we need to supply the appropriate BG type here
+            newType = KeyType.ENTER_EDITING
         )
     }
 
