@@ -84,9 +84,16 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
+    //  key type -> color
+    //   TextKeyData.toKeyParams should consider the keyType for background!
+    //   type should have @JsonName("alternative") so without changing anything, keys can be parsed with more suitable names
+    //    maybe rename the classes too, but the old serializable name should be understood
+    //   default type is character, which is fine in principle, but now there is the clash between auto-determining type for color, and being able to force "normal" color on a key
+    //    make it nullable?
+    //   document which type results in which background
+    //  escaping: just start everything with "!"?
     //  there are some issues with keys, e.g. space now doesn't have a long press action
     //  dvorak has 0 and ? popups everywhere
-    //  TextKeyData.toKeyParams should consider the keyType for background!
     //  keyType is not in json layout, and currently does nothing anyway (except placeholder or numeric)
     //  make the default popups for comma and period appear after the additional popups, not before
     //  make sure the popups work with the different style of getting functional keys!
@@ -98,7 +105,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  is width ignored when adding to a popup key?
     //  finish documentation, but for that need to actually use the colors
     //  set alternative names for types?
-    //  later: move / from bottom row to symbols layout
+    //  later commit: move "/" from bottom row to symbols layout
+    //  later commit: consider parsing number layouts same way as normal
+    //  later commit: parse labels that match a toolbar key, also with icon(!)
 
     // this should be ready for customizable functional layouts, but needs cleanup
     private fun getFunctionalKeyLayoutText(): String {
@@ -131,6 +140,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         // todo (later): this sort of special treatment is not nice, but does the job for now
         //  maybe at least move to a separate function
+        //  hmm, or just add a placeholder if there is none?
         if (allFunctionalKeys.any { it.singleOrNull()?.type == KeyType.PLACEHOLDER }) { // todo: add width check too, also below
             val a = allFunctionalKeys.splitAt { it.singleOrNull()?.type == KeyType.PLACEHOLDER }
             functionalKeysTop = a.first
@@ -200,6 +210,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             // todo (later): test it, compare screenshots with old (after all is done)
             //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
             //   also in landscape!
+            //  what happens if we only have top functional keys and then a placeholder?
             //  check danish because of the special key shrink
             //  check serbian latin because of the functional key shrink
             //  check numeric layouts

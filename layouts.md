@@ -44,19 +44,30 @@ Some special key labels will be implemented, most are already working in the (cu
 * There is no need for specifying a `code`, it will be determined from the label automatically
   * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
-* You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
-* HeliBoard allows specifying a numeric `width` property for a key
-  * The unit of `width` is the screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen
+* Key classes: specified with `$`, usually you can omit them in HeliBoard 
+  * `text_key`: normal key, default
+  * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, HeliBoard does that anyway unless disabled with a _labelFlag_
+  * `multi_text_key`: key with an array of code points, e.g. `{ "$": "multi_text_key", "codePoints": [2509, 2480], "label": "্র" }`
+  * todo: add the special keys `case_selector`, `shift_state_selector`, `variation_selector`, `layout_direction_selector`
+### Properties
+* A key can have the following properties:
+* `type`: only specific values, HeliBoard uses this to determine color (todo: even for space?), determined automatically by default
+  * todo: which types do what?
+* `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
+* `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
+* `label`: text to display on the key, or a number of special values, determined from code if empty
+  * special values: todo
+* `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, and `2` adds the period popup keys
+* `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
+* `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
-  * Not specifying a width is then same as using `0`
   * `0` is interpreted as follows
     * `-1` on the `space` key in alphabet or symbols layouts
     * `0.17` for keys with `"type": numeric` in number layouts
     * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets (todo: test this!)
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
-* The `type` is used to determine the color of a key
-  * todo: finish code and this documentation
+* `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
@@ -77,3 +88,15 @@ Some special key labels will be implemented, most are already working in the (cu
 * If you add a new language for which Android does not have a display name, it will be displayed using the language tag
   * Avoiding this currently is more complicated than necessary: add the language tag to [LocaleUtils.getLocaleDisplayNameInSystemLocale](/app/src/main/java/helium314/keyboard/latin/common/LocaleUtils.kt#L181) to have an exception, and add a string named `subtype_<langage tag, but with _ instead of ->` to [`strings.xml`](/app/src/main/res/values/strings.xml). Further you may need to add a `subtype_in_root_locale_<language tag>` to [donottranslate.xml](/app/src/main/res/values/donottranslate.xml), and add the language tag to `subtype_locale_exception_keys` and `subtype_locale_displayed_in_root_locale`.
 * If a newly added language does not use latin script, please update the default scripts method `Locale.script` in [ScriptUtils](app/src/main/java/helium314/keyboard/latin/utils/ScriptUtils.kt)
+
+## Functional key layouts
+This is not yet customizable, but will be soon!
+Mostly customizing functional keys works like other layouts, with some specific adjustments:
+* you can either have a single layout for functional keys (default), or separate layouts for symbols and shift symbols
+  * when using a single layout
+    * emoji and language switch keys will only show in alphabet layout and when the option is enabled
+    * numpad key will only show in symbols layout
+  * otherwise the layout will be shown as it is in the layout file
+* use keys with `"type": "placeholder"` for
+  * separating left and right functional keys (e.g. shift and delete in default layout)
+  * separating top and bottom rows in case you want to have functional key rows aligned to the top of the keyboard

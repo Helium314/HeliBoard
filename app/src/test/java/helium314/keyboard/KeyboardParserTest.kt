@@ -54,6 +54,7 @@ class ParserTest {
     //  (popup) keys with label and code
     //  (popup) keys with icon
     //  (popup) keys with that are essentially toolbar keys (yes, this should work at some point!)
+    //  correct background type, depending on key type and maybe sth else
 
     @Test fun simpleParser() {
         val params = KeyboardParams()
