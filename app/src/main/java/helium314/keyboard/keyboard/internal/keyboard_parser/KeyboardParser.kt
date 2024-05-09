@@ -109,7 +109,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         if ("functional_keys.json" in layouts)
             return getLayoutFile("functional_keys.json", context).readText()
-        val fileName = if (isTablet()) "functional_keys_tablet.json" else "functional_keys.json"
+        val fileName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
         return context.readAssetsLayoutFile(fileName)
     }
 
@@ -119,25 +119,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             addSymbolPopupKeys(baseKeys)
 
         val keysInRows = ArrayList<ArrayList<KeyParams>>()
-        val functionalKeysTop: List<List<KeyData>>
-        val functionalKeysBottom: List<MutableList<KeyData>>
-        // getFunctionalKeyLayoutName
         // todo performance: this is needlessly slow, add a cache with nothing computed?
         //  then there is no need to parse, and no need to read text from disk
         val allFunctionalKeys = JsonKeyboardParser(params, context).parseCoreLayout(getFunctionalKeyLayoutText())
 
-        // todo (later): this sort of special treatment is not nice, but does the job for now
-        //  maybe at least move to a separate function
-        //  hmm, or just add a placeholder if there is none?
-        if (allFunctionalKeys.any { it.singleOrNull()?.type == KeyType.PLACEHOLDER }) { // todo: add width check too, also below
-            val a = allFunctionalKeys.splitAt { it.singleOrNull()?.type == KeyType.PLACEHOLDER }
-            functionalKeysTop = a.first
-            functionalKeysBottom = a.second.map { it.toMutableList() }
-        } else {
-            functionalKeysBottom = allFunctionalKeys.map { it.toMutableList() }
-            functionalKeysTop = emptyList()
-        }
+        if (allFunctionalKeys.none { it.singleOrNull()?.type == KeyType.PLACEHOLDER })
+            // add a placeholder so splitAt does what we really want
+            allFunctionalKeys.add(0, listOf(TextKeyData(type = KeyType.PLACEHOLDER)))
+        val (functionalKeysTop, functionalKeysBottom0) = allFunctionalKeys.splitAt { it.singleOrNull()?.type == KeyType.PLACEHOLDER }
 
+        // add / remove some keys from bottom row, so list needs to be mutable... maybe remove this
+        val functionalKeysBottom = functionalKeysBottom0.map { it.toMutableList() }
         if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
             // add zwnj key next to space
             val spaceIndex = functionalKeysBottom.lastOrNull()?.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } ?: -1 // 0 or -1
@@ -192,7 +184,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val bottomIndexOffset = baseKeys.size - functionalKeysBottom.size
 
         baseKeys.forEachIndexed { i, it ->
-            val row: List<KeyData> = if (i == baseKeys.lastIndex - 1 && isTablet()) {
+            val row: List<KeyData> = if (i == baseKeys.lastIndex - 1 && Settings.getInstance().isTablet) {
                 // add bottom row extra keys, todo (later): this can make very customized layouts look awkward
                 val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.mElementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
@@ -555,7 +547,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
         // (probably not necessary, but whatever)
-        if (isTablet() && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
+        if (Settings.getInstance().isTablet && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
             val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
             if (i > -1) {
                 val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
@@ -589,8 +581,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             else params.mId.locale
         return runInLocale(context, locale) { it.getString(id) }
     }
-
-    private fun isTablet() = Settings.getInstance().isTablet // todo: put it in params?
 
     companion object {
         private const val TAG = "KeyboardParser"
