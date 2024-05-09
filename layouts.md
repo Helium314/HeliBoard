@@ -46,6 +46,17 @@ Some special key labels will be implemented, most are already working in the (cu
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
 * You can add the numeric value of a _labelFlag_ to a key for some specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values.
 * More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
+* HeliBoard allows specifying a numeric `width` property for a key
+  * The unit of `width` is the screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen
+  * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
+  * Not specifying a width is then same as using `0`
+  * `0` is interpreted as follows
+    * `-1` on the `space` key in alphabet or symbols layouts
+    * `0.17` for keys with `"type": numeric` in number layouts
+    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets
+  * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
+* The `type` is used to determine the color of a key
+  * todo: finish code and this documentation
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)

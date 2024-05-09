@@ -95,6 +95,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
     //  replacement of comma and period should have their respective background
     //  does it still work for rtl?
+    //  is width ignored when adding to a popup key?
+    //  finish documentation, but for that need to actually use the colors
+    //  set alternative names for types?
     //  later: move / from bottom row to symbols layout
 
     // this should be ready for customizable functional layouts, but needs cleanup
