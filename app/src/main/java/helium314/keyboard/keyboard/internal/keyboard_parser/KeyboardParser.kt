@@ -85,22 +85,19 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // todo
     //  escaping: just start everything with "!"? this should then also be in the label strings in KeyLabel!
     //   and still floris keys should be parsed correctly, so e.g. we would need a space > !space conversion
-    //  make the default popups for comma and period appear after the additional popups, not before
     //  make sure the popups work with the different style of getting functional keys!
-    //  maybe in this PR, maybe later: numeric rows should also be parsed in this function (might need adjusted layouts)
-    //  emoji_com could be replaced with a variation selector
-    //  same for the comma key label (hmm, but here the replacement label should go first... and with this change it wouldn't)
-    //  replacement of comma and period should have their respective background
-    //  does it still work for rtl?
+    //  tablet extra keys are one line too low
+    //  tablet has either no or 2 emoji keys -> remove only one!
     //  is width ignored when adding to a popup key?
     //  finish documentation, but for that need to actually use the colors
-    //  set alternative names for types?
+    //  any way to avoid "type": "function" in functional key layouts? but how can i reasonably set per-file defaults?
     // todo (when mostly done): test it, compare screenshots with old (after all is done)
     //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
     //   also in landscape!
     //  what happens if we only have top functional keys and then a placeholder?
     //  check danish because of the special key shrink
     //  do comma and period show the correct symbols? see armenian and arabic
+    //  does it still work for rtl?
     //  check serbian latin because of the functional key shrink
     //  check numeric layouts
     //  check issues with merge popup keys and special labels (relevant for comma and period)
@@ -184,13 +181,18 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         // adjust comma and period keys in bottom row of functionalKeysBottom
         // but also base it on the group, because otherwise changed labels for e.g. dvorak would not be found
+        // todo: this is awkward...
         if (baseKeys.last().size == 2) {
             // essentially just replace the key with the specified one, and add a groupId
+            var commaReplaced = false
+            var periodReplaced = false
             for (i in functionalKeysBottom.last().indices) {
-                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_COMMA) {
-                    functionalKeysBottom.last()[i] = baseKeys.last()[0].copy(newGroupId = 1)
-                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_PERIOD) {
-                    functionalKeysBottom.last()[i] = baseKeys.last()[1].copy(newGroupId = 2)
+                if (!commaReplaced && (functionalKeysBottom.last()[i].label == KeyLabel.COMMA || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_COMMA)) {
+                    functionalKeysBottom.last()[i] = baseKeys.last()[0].copy(newGroupId = 1, newType = baseKeys.last()[0].type ?: functionalKeysBottom.last()[i].type)
+                    commaReplaced = true
+                } else if (!periodReplaced && (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_PERIOD)) {
+                    functionalKeysBottom.last()[i] = baseKeys.last()[1].copy(newGroupId = 2, newType = baseKeys.last()[1].type ?: functionalKeysBottom.last()[i].type)
+                    periodReplaced = true
                 }
             }
             baseKeys.removeLast() // todo: always remove? or only if sth was replaced?
@@ -216,18 +218,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val functionalKeysFromTop = functionalKeysTop.getOrNull(i) ?: emptyList()
             // functional keys from bottom list
             val functionalKeysFromBottom = functionalKeysBottom.getOrNull(i - bottomIndexOffset) ?: emptyList()
-            val (functionalKeysFromTopLeft, functionalKeysFromTopRight) = functionalKeysFromTop.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
-            val (functionalKeysFromBottomLeft, functionalKeysFromBottomRight) = functionalKeysFromBottom.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
-            val functionalKeyFilter: (KeyData) -> Boolean = {
-                // todo: when removing emoji_com key, emoji should only remove the first emoji key!
-                // if (!Settings.getInstance().current.mSingleFunctionalLayout) true else todo: add this setting later when functional key layouts can be customized
-                if (it.label == KeyLabel.EMOJI && (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)) false
-                else if (it.label == KeyLabel.LANGUAGE_SWITCH && (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)) false
-                else if (it.label == KeyLabel.NUMPAD && params.mId.isAlphabetKeyboard) false
-                else true
-            }
-            val functionalKeysLeft = (functionalKeysFromTopLeft + functionalKeysFromBottomLeft).filter(functionalKeyFilter).map { it.processActionAndPeriodKeys().toKeyParams(params) }
-            val functionalKeysRight = (functionalKeysFromBottomRight + functionalKeysFromTopRight).filter(functionalKeyFilter).map { it.processActionAndPeriodKeys().toKeyParams(params) }
+            val (functionalKeysLeft, functionalKeysRight) = getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom, i == baseKeys.lastIndex)
 
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
@@ -281,6 +272,41 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (params.mId.mNumberRowEnabled)
             keysInRows.add(0, getNumberRow())
         return keysInRows
+    }
+
+    private fun getFunctionalKeysBySide(functionalKeysFromTop: List<KeyData>, functionalKeysFromBottom: List<KeyData>, isBottomRow: Boolean): Pair<List<KeyParams>, List<KeyParams>> {
+        val (functionalKeysFromTopLeft, functionalKeysFromTopRight) = functionalKeysFromTop.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
+        val (functionalKeysFromBottomLeft, functionalKeysFromBottomRight) = functionalKeysFromBottom.splitAt { it.type == KeyType.PLACEHOLDER && it.width == 0f }
+        // functional keys from top rows are the outermost, if there are some in the same row
+        functionalKeysFromTopLeft.addAll(functionalKeysFromBottomLeft)
+        functionalKeysFromBottomRight.addAll(functionalKeysFromTopRight)
+        if (isBottomRow /* && Settings.getInstance().current.mSingleFunctionalLayout */) { // remove emoji, language switch, and numpad keys if necessary, todo with the customizable functional layout
+            // this is awkwardly complicated, but gets the job done
+            fun removeKeys(functionalKeys: MutableList<KeyData>) {
+                var removeEmoji = !Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard
+                var removeLanguageSwitch = !Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard
+                var removeNumpad = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
+                val iter = functionalKeys.iterator()
+                while (iter.hasNext()) {
+                    val key = iter.next()
+                    if (removeEmoji && key.label == KeyLabel.EMOJI) {
+                        iter.remove()
+                        removeEmoji = false
+                    } else if (removeLanguageSwitch && key.label == KeyLabel.LANGUAGE_SWITCH) {
+                        iter.remove()
+                        removeLanguageSwitch = false
+                    } else if (removeNumpad && key.label == KeyLabel.NUMPAD) {
+                        iter.remove()
+                        removeNumpad = false
+                    }
+                }
+            }
+            removeKeys(functionalKeysFromTopLeft)
+            removeKeys(functionalKeysFromBottomRight)
+        }
+        val functionalKeysLeft = functionalKeysFromTopLeft.map { it.processActionAndPeriodKeys().toKeyParams(params) }
+        val functionalKeysRight = functionalKeysFromBottomRight.map { it.processActionAndPeriodKeys().toKeyParams(params) }
+        return functionalKeysLeft to functionalKeysRight
     }
 
     // this is not nice in here, but otherwise we'd need context for toKeyParams, which might also not be optimal

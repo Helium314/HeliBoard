@@ -102,16 +102,6 @@ sealed interface KeyData : AbstractKeyData {
             return "."
         }
 
-        private fun getCommaLabel(params: KeyboardParams): String {
-            if (params.mId.mMode == KeyboardId.MODE_URL && params.mId.isAlphabetKeyboard)
-                return "/"
-            if (params.mId.mMode == KeyboardId.MODE_EMAIL && params.mId.isAlphabetKeyboard)
-                return "\\@"
-            if (params.mId.isNumberLayout)
-                return ","
-            return params.mLocaleKeyboardInfos.labelComma
-        }
-
         private fun getSpaceLabel(params: KeyboardParams): String =
             if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 "!icon/space_key|!code/key_space"
@@ -194,8 +184,7 @@ sealed interface KeyData : AbstractKeyData {
 
 
     fun isSpaceKey(): Boolean {
-        return type == KeyType.CHARACTER && (code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE
-                || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA)
+        return code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA
     }
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
@@ -264,16 +253,13 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.EMOJI_COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
             //  but iirc there is some attempt in reviving the sticky thing, right?
             KeyLabel.SHIFT -> return determineShiftBackground(params)
         }
-        // todo (later): this is more like a workaround, should be improved
-        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED && (groupId == GROUP_COMMA || groupId == GROUP_PERIOD))
-            return Key.BACKGROUND_TYPE_FUNCTIONAL
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
         return Key.BACKGROUND_TYPE_NORMAL
     }
@@ -297,17 +283,13 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) getToSymbolLabel(params) else params.mLocaleKeyboardInfos.labelAlphabet
             KeyLabel.SYMBOL -> getToSymbolLabel(params)
             KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.COMMA -> getCommaLabel(params)
+            KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
             KeyLabel.PERIOD -> getPeriodLabel(params)
             KeyLabel.SPACE -> getSpaceLabel(params)
-//            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
+//            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}" would need context
             KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
             KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
             KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
-            KeyLabel.EMOJI_COM -> {
-                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL) ".com"
-                else "!icon/emoji_normal_key|!code/key_emoji"
-            } // todo...
             // todo (later): label and popupKeys for .com could be in localeKeyTexts, handled similar to currency key
             //  better not in the text files, because it should be handled per country
             KeyLabel.COM -> ".com"
@@ -340,11 +322,6 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
             KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
             KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
-            KeyLabel.EMOJI_COM -> {
-                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL) {
-                    Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
-                } else KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
-            }
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             else -> 0
@@ -366,11 +343,6 @@ sealed interface KeyData : AbstractKeyData {
                         " |!code/key_capslock"
                     )
                 ) else null // why the alphabet popup keys actually?
-            }
-            KeyLabel.EMOJI_COM -> {
-                if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL)
-                    SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
-                else null
             }
             KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))

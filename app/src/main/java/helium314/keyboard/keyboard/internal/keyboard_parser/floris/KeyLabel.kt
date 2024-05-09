@@ -3,7 +3,6 @@ package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 /** labels for functional / special keys */
 object KeyLabel {
     const val EMOJI = "emoji"
-    const val EMOJI_COM = "emoji_com" // todo: remove / replace with variation selector
     const val COM = "com"
     const val LANGUAGE_SWITCH = "language_switch"
     const val ACTION = "action"

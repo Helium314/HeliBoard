@@ -17,12 +17,20 @@
   ],
   [
     { "label": "symbol_alpha" },
-    { "label": "comma" },
+    { "$": "variation_selector",
+      "default":  { "label": "comma" },
+      "email":    { "label": "@", "groupId": 1, "type": "function" },
+      "uri":      { "label": "/", "groupId": 1, "type": "function" }
+    },
     { "label": "language_switch" },
     { "label": "emoji" },
     { "label": "numpad" },
     { "label": "space" },
     { "label": "period" },
-    { "label": "emoji_com" }
+    { "$": "variation_selector",
+      "default":  { "label": "emoji" },
+      "email":    { "label": "com" },
+      "uri":      { "label": "com" }
+    }
   ]
 ]

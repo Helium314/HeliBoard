@@ -22,7 +22,7 @@ fun CharSequence.getStringResourceOrName(prefix: String, context: Context): Char
  *  Splits the collection into a pair of lists on the first match of [condition], discarding the element first matching the condition.
  *  If [condition] is not met, all elements are in the first list.
  */
-fun <T> Collection<T>.splitAt(condition: (T) -> Boolean): Pair<List<T>, List<T>> {
+fun <T> Collection<T>.splitAt(condition: (T) -> Boolean): Pair<MutableList<T>, MutableList<T>> {
     var conditionMet = false
     val first = mutableListOf<T>()
     val second = mutableListOf<T>()

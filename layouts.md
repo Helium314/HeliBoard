@@ -22,7 +22,6 @@ Some special key labels will be implemented, most are already working in the (cu
 * _numpad_ / _view_numeric_advanced_: switch to numpad layout
 * _emoji_: switch to emoji view
 * _com_: display common TLDs (.com and similar)
-* _emoji_com_: emoji key, but in URL and email fields it's a com key
 * _language_switch_: language switch key
 * _action_ / _enter_: the action (enter) key
 * _delete_: delete key
@@ -31,6 +30,8 @@ Some special key labels will be implemented, most are already working in the (cu
 * _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
 * _space_: space key, with icon when using a number layout
 * _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
+
+If the layout has exactly 2 keys in the bottom row, these keys will replace comma and period keys. More exactly: the first key will replace the first functional key with `"groupId": 1` in the bottom row, and the second key with replace the first key with `"groupId": 2`.
 
 ## Simple format
 * One key per line
