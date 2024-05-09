@@ -86,6 +86,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  phone: label for *# and phone symbols 123 is smaller
     //  check parsing performance (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
+    //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
     //  ... go through everything and find weird code
     // todo: later commits
     //  move "/" from bottom row to symbols layout, and remove the weird addition of < and > (when making functional layouts customizable)
@@ -121,6 +122,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         val functionalKeysTop: List<List<KeyData>>
         val functionalKeysBottom: List<MutableList<KeyData>>
         // getFunctionalKeyLayoutName
+        // todo performance: this is needlessly slow, add a cache with nothing computed?
+        //  then there is no need to parse, and no need to read text from disk
         val allFunctionalKeys = JsonKeyboardParser(params, context).parseCoreLayout(getFunctionalKeyLayoutText())
 
         // todo (later): this sort of special treatment is not nice, but does the job for now
@@ -188,7 +191,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         // offset for bottom
         val bottomIndexOffset = baseKeys.size - functionalKeysBottom.size
 
-        // todo: this loop could use some performance improvements (re-check after changes!)
         baseKeys.forEachIndexed { i, it ->
             val row: List<KeyData> = if (i == baseKeys.lastIndex - 1 && isTablet()) {
                 // add bottom row extra keys, todo (later): this can make very customized layouts look awkward
@@ -204,8 +206,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val functionalKeysFromTop = functionalKeysTop.getOrNull(i) ?: emptyList()
             // functional keys from bottom list
             val functionalKeysFromBottom = functionalKeysBottom.getOrNull(i - bottomIndexOffset) ?: emptyList()
+            // todo performance: this appears to be slower than necessary, but first improve the loop below
             val (functionalKeysLeft, functionalKeysRight) = getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom, i == baseKeys.lastIndex)
 
+            // todo performance: 2-4 times as long as getFunctionalKeysBySide
+            //  2/3 toKeyParams, 1/3 compute
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
