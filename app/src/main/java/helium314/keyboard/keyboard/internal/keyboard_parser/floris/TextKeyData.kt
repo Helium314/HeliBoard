@@ -11,6 +11,7 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
@@ -78,21 +79,12 @@ sealed interface KeyData : AbstractKeyData {
          */
         const val GROUP_KANA: Int = 97
 
-        private fun getToSymbolLabel(params: KeyboardParams) =
-            if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-                params.mLocaleKeyboardInfos.labelAlphabet
-            else params.mLocaleKeyboardInfos.labelSymbol
-
-        private fun getShiftLabel(params: KeyboardParams): String {
-            val elementId = params.mId.mElementId
-            if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
-                return params.mLocaleKeyboardInfos.labelSymbol
-            if (elementId == KeyboardId.ELEMENT_SYMBOLS)
-                return params.mLocaleKeyboardInfos.getShiftSymbolLabel(Settings.getInstance().isTablet)
-            if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-                || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
-                return "!icon/shift_key_shifted"
-            return "!icon/shift_key"
+        private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
+            KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(Settings.getInstance().isTablet)
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED,
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
+            else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
         }
 
         private fun getPeriodLabel(params: KeyboardParams): String {
@@ -168,8 +160,7 @@ sealed interface KeyData : AbstractKeyData {
             if (newLabel == "$$$") {
                 val finalLabel = currencyKey.first + currencyCodeAsString
                 // the flag is to match old parser, but why is it there for main currency key and not for others?
-                return TextKeyData(type, KeyCode.UNSPECIFIED, finalLabel, groupId,
-                    popup.merge(SimplePopups(currencyKey.second)), width, labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
+                return copy(newLabel = finalLabel, newPopup = popup.merge(SimplePopups(currencyKey.second)), newLabelFlags = labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
             }
             val n = newLabel.substringAfter("$$$").toIntOrNull()
             if (n != null && n <= 5 && n > 0) {
@@ -280,8 +271,8 @@ sealed interface KeyData : AbstractKeyData {
     // todo (later): encoding the code in the label should not be done
     private fun processLabel(params: KeyboardParams): String {
         return when (label) {
-            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) getToSymbolLabel(params) else params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.SYMBOL -> getToSymbolLabel(params)
+            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
+            KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
             KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
             KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
             KeyLabel.PERIOD -> getPeriodLabel(params)
@@ -328,10 +319,10 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    // todo: popup keys should be merged with existing keys!
     private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
         if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
+//        if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)?.let { SimplePopups(it) }
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
             KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))

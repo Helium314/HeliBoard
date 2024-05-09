@@ -83,7 +83,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  phone: label for *# and phone symbols 123 is smaller
+    //  fix
+    //   do the floris conversion things in the parser, not in compute!
+    //   try moving $$$ stuff to toKeyParams (should be simple to test whether it works)
+    //   THEN continue checking textKeyData (starting at toKeyParams, go down), then KeyboardParser
+    //   phone: label for *# and phone symbols 123 is smaller
     //  check parsing performance (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
     //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
