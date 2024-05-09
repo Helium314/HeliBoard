@@ -84,8 +84,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  remove dependency on BACKGROUND_TYPE_*, because now this can be set arbitrarily!
-    //   this is especially relevant for space!
     //  escaping: just start everything with "!"? this should then also be in the label strings in KeyLabel!
     //   and still floris keys should be parsed correctly, so e.g. we would need a space > !space conversion
     //  make the default popups for comma and period appear after the additional popups, not before
@@ -101,10 +99,22 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // todo: issues:
     //  $$$1 & co main keys not parsed
     //  dvorak has 0 and ? popups everywhere, what's going on?
+    //  hmm, better keep default shift symbol layout for now / next release
+    // todo (when mostly done): test it, compare screenshots with old (after all is done)
+    //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
+    //   also in landscape!
+    //  what happens if we only have top functional keys and then a placeholder?
+    //  check danish because of the special key shrink
+    //  do comma and period show the correct symbols? see armenian and arabic
+    //  check serbian latin because of the functional key shrink
+    //  check numeric layouts
+    //  check parsing performance (compare with old, measure time for parseLayoutString)
+    //  check whether the mark-as-edge still works
     // todo: later commits
     //  move "/" from bottom row to symbols layout
-    //  consider parsing number layouts same way as normal
+    //  parse number layouts same way as normal layouts, requires adjusting the layouts
     //  parse labels that match a toolbar key, also with icon(!)
+    //  improve popups of non-action keys with action background
 
     // this should be ready for customizable functional layouts, but needs cleanup
     private fun getFunctionalKeyLayoutText(): String {
@@ -202,17 +212,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 it
             }
 
-            // todo (later): test it, compare screenshots with old (after all is done)
-            //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
-            //   also in landscape!
-            //  what happens if we only have top functional keys and then a placeholder?
-            //  check danish because of the special key shrink
-            //  do comma and period show the correct symbols? see armenian and arabic
-            //  check serbian latin because of the functional key shrink
-            //  check numeric layouts
-            //  check parsing performance (compare with old, measure time for parseLayoutString)
-            //  check whether the mark-as-edge still works
-
             // todo (later): is is ugly (but should get the job done correctly)
             //  maybe just move into a separate function?
             // functional keys from top list
@@ -296,7 +295,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             newLabel = "${getActionKeyLabel()}|${getActionKeyCode()}",
             newPopup = popup.merge(getActionKeyPopupKeys()?.let { SimplePopups(it) }),
             // the label change is messing with toKeyParams, so we need to supply the appropriate BG type here
-            newType = KeyType.ENTER_EDITING
+            newType = type ?: KeyType.ENTER_EDITING
         )
     }
 
@@ -345,6 +344,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // resize keys in last row if they are wider than keys in the row above
     // this is done so the keys align with the keys above, like in original layouts
     // e.g. for nordic and swiss layouts
+    // todo: this will break for users that don't use default key backgrounds!
     private fun resizeLastRowIfNecessaryForAlignment(keysInRows: ArrayList<ArrayList<KeyParams>>) {
         if (keysInRows.size < 3)
             return

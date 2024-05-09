@@ -540,7 +540,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
         }
 
-        final View container = key.isActionKey() ? mPopupKeysKeyboardForActionContainer
+        final View container = key.hasActionKeyBackground() ? mPopupKeysKeyboardForActionContainer
                 : mPopupKeysKeyboardContainer;
         final PopupKeysKeyboardView popupKeysKeyboardView =
                 container.findViewById(R.id.popup_keys_keyboard_view);

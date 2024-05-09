@@ -504,7 +504,7 @@ public class Key implements Comparable<Key> {
         return this instanceof Spacer;
     }
 
-    public final boolean isActionKey() {
+    public final boolean hasActionKeyBackground() {
         return mBackgroundType == BACKGROUND_TYPE_ACTION;
     }
 
@@ -906,7 +906,7 @@ public class Key implements Comparable<Key> {
         final Drawable background;
         if (isAccentColored()) {
             background = actionKeyBackground;
-        } else if (isFunctional()) {
+        } else if (hasFunctionalBackground()) {
             background = functionalKeyBackground;
         } else if (mBackgroundType == BACKGROUND_TYPE_SPACEBAR) {
             background = spacebarBackground;
@@ -919,7 +919,7 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isAccentColored() {
-        if (isActionKey()) return true;
+        if (hasActionKeyBackground()) return true;
         final String iconName = KeyboardIconsSet.getIconName(getIconId());
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
@@ -927,7 +927,7 @@ public class Key implements Comparable<Key> {
                 || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
 
-    public boolean isFunctional() {
+    public boolean hasFunctionalBackground() {
         return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_ON;
@@ -1144,7 +1144,7 @@ public class Key implements Comparable<Key> {
             }
 
             // action flags don't need to be specified, they can be deduced from the key
-            if (backgroundType == BACKGROUND_TYPE_SPACEBAR
+            if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
                     || (mCode == KeyCode.ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
             )

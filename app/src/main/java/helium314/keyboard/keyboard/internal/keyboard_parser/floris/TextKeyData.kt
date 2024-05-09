@@ -338,12 +338,7 @@ sealed interface KeyData : AbstractKeyData {
                         Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             }
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
-            KeyLabel.SHIFT -> {
-                // todo (later): iirc sticky is related to shift state indicator, currently it should only have a very slight effect in holo
-                if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED)
-                    Key.BACKGROUND_TYPE_STICKY_ON
-                else Key.BACKGROUND_TYPE_STICKY_OFF
-            }
+            KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
             KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.EMOJI_COM -> {
                 if (params.mId.mMode == KeyboardId.MODE_URL || params.mId.mMode == KeyboardId.MODE_EMAIL) {
