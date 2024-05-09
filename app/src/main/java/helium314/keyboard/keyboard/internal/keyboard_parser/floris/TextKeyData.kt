@@ -184,11 +184,11 @@ sealed interface KeyData : AbstractKeyData {
             val n = newLabel.substringAfter("$$$").toIntOrNull()
             if (n != null && n <= 5 && n > 0) {
                 val finalLabel = currencyKey.second[n - 1] + currencyCodeAsString
-                copy(newCode = KeyCode.UNSPECIFIED, newLabel = finalLabel)
+                return copy(newCode = KeyCode.UNSPECIFIED, newLabel = finalLabel)
             }
         }
         if (newCode != code || newLabel != label)
-            copy(newCode = newCode, newLabel = newLabel)
+            return copy(newCode = newCode, newLabel = newLabel)
         return this
     }
 

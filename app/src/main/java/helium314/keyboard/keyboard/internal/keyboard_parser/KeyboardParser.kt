@@ -97,8 +97,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  finish documentation, but for that need to actually use the colors
     //  set alternative names for types?
     // todo: issues:
-    //  $$$1 & co main keys not parsed
-    //  dvorak has 0 and ? popups everywhere, what's going on?
+    //  json layouts have 0 and ? popups everywhere, what's going on?
     //  hmm, better keep default shift symbol layout for now / next release
     // todo (when mostly done): test it, compare screenshots with old (after all is done)
     //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
@@ -108,6 +107,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  do comma and period show the correct symbols? see armenian and arabic
     //  check serbian latin because of the functional key shrink
     //  check numeric layouts
+    //  check issues with merge popup keys and special labels (relevant for comma and period)
     //  check parsing performance (compare with old, measure time for parseLayoutString)
     //  check whether the mark-as-edge still works
     // todo: later commits
