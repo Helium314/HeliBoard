@@ -43,7 +43,8 @@ sealed interface KeyData : AbstractKeyData {
     val width: Float // in percent of keyboard width, 0 is default (depends on key), -1 is fill (like space bar)
     val labelFlags: Int
 
-    fun withGroupId(newGroupId: Int): KeyData
+    fun copy(newType: KeyType = type, newCode: Int = code, newLabel: String = label, newGroupId: Int = groupId,
+             newPopup: PopupSet<out AbstractKeyData> = popup, newWidth: Float = width, newLabelFlags: Int = labelFlags): KeyData
 
     // groups (currently) not supported
     companion object {
@@ -55,17 +56,15 @@ sealed interface KeyData : AbstractKeyData {
 
         /**
          * Constant for the Left modifier key group. Any key belonging to this group will get the
-         * popups specified for "~left" in the popup mapping.
-         * todo: now it will be popups for comma key
+         * popups specified for the comma key.
          */
-        const val GROUP_LEFT: Int = 1
+        const val GROUP_COMMA: Int = 1
 
         /**
          * Constant for the right modifier key group. Any key belonging to this group will get the
-         * popups specified for "~right" in the popup mapping.
-         * todo: now it will be popups for period key
+         * popups specified for the period key.
          */
-        const val GROUP_RIGHT: Int = 2
+        const val GROUP_PERIOD: Int = 2
 
         /**
          * Constant for the enter modifier key group. Any key belonging to this group will get the
@@ -79,9 +78,6 @@ sealed interface KeyData : AbstractKeyData {
          */
         const val GROUP_KANA: Int = 97
 
-        // todo: revisit these functions, maybe adjust or replace with other things
-        private fun isTablet() = Settings.getInstance().isTablet // todo: replace?
-
         private fun getToSymbolLabel(params: KeyboardParams) =
             if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 params.mLocaleKeyboardInfos.labelAlphabet
@@ -92,7 +88,7 @@ sealed interface KeyData : AbstractKeyData {
             if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 return params.mLocaleKeyboardInfos.labelSymbol
             if (elementId == KeyboardId.ELEMENT_SYMBOLS)
-                return params.mLocaleKeyboardInfos.getShiftSymbolLabel(isTablet())
+                return params.mLocaleKeyboardInfos.getShiftSymbolLabel(Settings.getInstance().isTablet)
             if (elementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || elementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
                 || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED || elementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED)
                 return "!icon/shift_key_shifted"
@@ -146,7 +142,7 @@ sealed interface KeyData : AbstractKeyData {
                 for (i in popupKeys.indices)
                     popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
             }
-            if (isTablet() && popupKeys.contains("!") && popupKeys.contains("?")) {
+            if (Settings.getInstance().isTablet && popupKeys.contains("!") && popupKeys.contains("?")) {
                 // remove ! and ? keys and reduce number in autoColumnOrder
                 // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
                 popupKeys[popupKeys.indexOf("!")] = ""
@@ -334,8 +330,8 @@ sealed interface KeyData : AbstractKeyData {
 
     // todo: popup keys should be merged with existing keys!
     private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
-        if (groupId == GROUP_LEFT) return SimplePopups(getCommaPopupKeys(params))
-        if (groupId == GROUP_RIGHT) return SimplePopups(getPunctuationPopupKeys(params))
+        if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
+        if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
             KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))
@@ -399,7 +395,15 @@ class TextKeyData(
         return "${TextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
 
-    override fun withGroupId(newGroupId: Int) = TextKeyData(type, code, label, newGroupId, popup, width, labelFlags)
+    override fun copy(
+        newType: KeyType,
+        newCode: Int,
+        newLabel: String,
+        newGroupId: Int,
+        newPopup: PopupSet<out AbstractKeyData>,
+        newWidth: Float,
+        newLabelFlags: Int
+    ) = TextKeyData(newType, newCode, newLabel, newGroupId, newPopup, newWidth, newLabelFlags)
 
 }
 
@@ -434,7 +438,15 @@ class AutoTextKeyData(
         return "${AutoTextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
 
-    override fun withGroupId(newGroupId: Int) = AutoTextKeyData(type, code, label, newGroupId, popup, width, labelFlags)
+    override fun copy(
+        newType: KeyType,
+        newCode: Int,
+        newLabel: String,
+        newGroupId: Int,
+        newPopup: PopupSet<out AbstractKeyData>,
+        newWidth: Float,
+        newLabelFlags: Int
+    ) = AutoTextKeyData(newType, newCode, newLabel, newGroupId, newPopup, newWidth, newLabelFlags)
 
 }
 
@@ -473,7 +485,15 @@ class MultiTextKeyData(
         return "${MultiTextKeyData::class.simpleName} { type=$type code=$code label=\"$label\" groupId=$groupId }"
     }
 
-    override fun withGroupId(newGroupId: Int) = MultiTextKeyData(type, codePoints, label, newGroupId, popup, width, labelFlags)
+    override fun copy(
+        newType: KeyType,
+        newCode: Int,
+        newLabel: String,
+        newGroupId: Int,
+        newPopup: PopupSet<out AbstractKeyData>,
+        newWidth: Float,
+        newLabelFlags: Int
+    ) = MultiTextKeyData(newType, codePoints, newLabel, newGroupId, newPopup, newWidth, newLabelFlags)
 
 }
 

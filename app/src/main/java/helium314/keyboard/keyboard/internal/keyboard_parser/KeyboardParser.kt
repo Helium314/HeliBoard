@@ -174,10 +174,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (baseKeys.last().size == 2) {
             // essentially just replace the key with the specified one, and add a groupId
             for (i in functionalKeysBottom.last().indices) {
-                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_LEFT) {
-                    functionalKeysBottom.last()[i] = baseKeys.last()[0].withGroupId(1)
-                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_RIGHT) {
-                    functionalKeysBottom.last()[i] = baseKeys.last()[1].withGroupId(2)
+                if (functionalKeysBottom.last()[i].label == KeyLabel.COMMA || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_COMMA) {
+                    functionalKeysBottom.last()[i] = baseKeys.last()[0].copy(newGroupId = 1)
+                } else if (functionalKeysBottom.last()[i].label == KeyLabel.PERIOD || functionalKeysBottom.last()[i].groupId == KeyData.GROUP_PERIOD) {
+                    functionalKeysBottom.last()[i] = baseKeys.last()[1].copy(newGroupId = 2)
                 }
             }
             baseKeys.removeLast() // todo: always remove? or only if sth was replaced?
@@ -199,6 +199,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
             // todo (later): test it, compare screenshots with old (after all is done)
             //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
+            //   also in landscape!
             //  check danish because of the special key shrink
             //  check serbian latin because of the functional key shrink
             //  check numeric layouts

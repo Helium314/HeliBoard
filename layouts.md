@@ -53,7 +53,7 @@ Some special key labels will be implemented, most are already working in the (cu
   * `0` is interpreted as follows
     * `-1` on the `space` key in alphabet or symbols layouts
     * `0.17` for keys with `"type": numeric` in number layouts
-    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets
+    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets (todo: test this!)
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
 * The `type` is used to determine the color of a key
   * todo: finish code and this documentation
