@@ -303,7 +303,7 @@ sealed interface KeyData : AbstractKeyData {
     private fun processCode(): Int {
         if (code != KeyCode.UNSPECIFIED) return code
         return when (label) {
-            KeyLabel.SYMBOL_ALPHA -> KeyCode.ALPHA_SYMBOL
+            KeyLabel.SYMBOL_ALPHA -> KeyCode.SYMBOL_ALPHA
             KeyLabel.SYMBOL -> KeyCode.SYMBOL
             KeyLabel.ALPHA -> KeyCode.ALPHA
             else -> code

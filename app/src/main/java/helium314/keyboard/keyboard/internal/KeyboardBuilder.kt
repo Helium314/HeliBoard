@@ -211,7 +211,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // todo: this assumes fixed layout for symbols keys, which will change soon!
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
-        val symbolKey = row.firstOrNull { it.mCode == KeyCode.ALPHA_SYMBOL }
+        val symbolKey = row.firstOrNull { it.mCode == KeyCode.SYMBOL_ALPHA }
         val symbolKeyWidth = symbolKey?.mWidth ?: 0f
         if (symbolKeyWidth > mParams.mDefaultKeyWidth) {
             val widthToChange = symbolKey!!.mWidth - mParams.mDefaultKeyWidth

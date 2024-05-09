@@ -490,7 +490,7 @@ public final class InputLogic {
         }
         if (!inputTransaction.didAutoCorrect() && processedEvent.getMKeyCode() != KeyCode.SHIFT
                 && processedEvent.getMKeyCode() != KeyCode.CAPS_LOCK
-                && processedEvent.getMKeyCode() != KeyCode.ALPHA_SYMBOL
+                && processedEvent.getMKeyCode() != KeyCode.SYMBOL_ALPHA
                 && processedEvent.getMKeyCode() != KeyCode.ALPHA
                 && processedEvent.getMKeyCode() != KeyCode.SYMBOL)
             mLastComposedWord.deactivate();
@@ -775,7 +775,7 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK:
-            case KeyCode.ALPHA_SYMBOL:
+            case KeyCode.SYMBOL_ALPHA:
             case KeyCode.ALPHA:
             case KeyCode.SYMBOL:
             case KeyCode.NUMPAD:

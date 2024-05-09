@@ -513,7 +513,7 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isModifier() {
-        return mCode == KeyCode.SHIFT || mCode == KeyCode.ALPHA_SYMBOL || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
+        return mCode == KeyCode.SHIFT || mCode == KeyCode.SYMBOL_ALPHA || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
     }
 
     public final boolean isRepeatable() {
@@ -1146,7 +1146,7 @@ public class Key implements Comparable<Key> {
             // action flags don't need to be specified, they can be deduced from the key
             if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
-                    || (mCode == KeyCode.ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
+                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.isAlphabetKeyboard())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS)

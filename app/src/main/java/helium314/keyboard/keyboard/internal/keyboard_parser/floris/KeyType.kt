@@ -5,8 +5,6 @@
  */
 package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
-import helium314.keyboard.keyboard.Key
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -14,7 +12,6 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.JsonNames
 
 // taken from FlorisBoard, not actually used (only CHARACTER allowed)
 /**
