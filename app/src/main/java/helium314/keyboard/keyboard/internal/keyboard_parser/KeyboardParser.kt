@@ -95,8 +95,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  is width ignored when adding to a popup key?
     //  finish documentation, but for that need to actually use the colors
     //  set alternative names for types?
-    // todo: issues:
-    //  hmm, better keep default shift symbol layout for now / next release
     // todo (when mostly done): test it, compare screenshots with old (after all is done)
     //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
     //   also in landscape!
@@ -155,22 +153,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             functionalKeysTop = emptyList()
         }
 
-        // todo: this is a crappy temp workaround for the new shift symbols layout that should have a "fake bottom row" like dvorak
-        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-            baseKeys.add(listOf(
-                TextKeyData(
-                    label = "<",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT
-                ),
-                TextKeyData(
-                    label = ">",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT
-                ),
-            ))
-        }
-
         if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
             // add zwnj key next to space
             val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // 0 or -1
@@ -179,7 +161,25 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
             val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE }
-            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/")) // todo: functional background -> different type
+            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/", type = KeyType.FUNCTION))
+        }
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+            // add < and > keys next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
+            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE }
+            val key1 = TextKeyData(
+                label = "<",
+                popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
+                labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
+                type = KeyType.FUNCTION
+            )
+            val key2 = TextKeyData(
+                label = ">",
+                popup = SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»")),
+                labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
+                type = KeyType.FUNCTION
+            )
+            functionalKeysBottom.last().add(spaceIndex + 1, key2)
+            functionalKeysBottom.last().add(spaceIndex - 1, key1)
         }
 
         // adjust comma and period keys in bottom row of functionalKeysBottom
