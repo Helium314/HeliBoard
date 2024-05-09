@@ -50,9 +50,13 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * `text_key`: normal key, default
   * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, HeliBoard does that anyway unless disabled with a _labelFlag_
   * `multi_text_key`: key with an array of code points, e.g. `{ "$": "multi_text_key", "codePoints": [2509, 2480], "label": "্র" }`
-  * todo: add the special keys `case_selector`, `shift_state_selector`, `variation_selector`, `layout_direction_selector`
+  * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
+    * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
+    * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all opttional)
+    * `variation_selector`: keys for `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all opttional)
+    * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
-* A key can have the following properties:
+* A (non-selector) key can have the following properties:
 * `type`: only specific values, HeliBoard mostly uses this to determine background color and type, determined automatically by default
   * `character`: normal key color
   * `function`: functional key color
@@ -64,15 +68,16 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, or a number of special values, determined from code if empty
-  * special values: todo
+  * there are some special values for functional keys and setting icons, which will be documented later
 * `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, and `2` adds the period popup keys
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
+  * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
 * `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
   * `0` is interpreted as follows
     * `-1` on the `space` key in alphabet or symbols layouts
     * `0.17` for keys with `"type": numeric` in number layouts
-    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets (todo: test this!)
+    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
 * `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
 

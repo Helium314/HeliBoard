@@ -83,29 +83,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  escaping: just start everything with "!"? this should then also be in the label strings in KeyLabel!
-    //   and still floris keys should be parsed correctly, so e.g. we would need a space > !space conversion
-    //  make sure the popups work with the different style of getting functional keys!
-    //  tablet extra keys are one line too low
-    //  tablet has either no or 2 emoji keys -> remove only one!
-    //  is width ignored when adding to a popup key?
-    //  finish documentation, but for that need to actually use the colors
-    //  any way to avoid "type": "function" in functional key layouts? but how can i reasonably set per-file defaults?
-    // todo (when mostly done): test it, compare screenshots with old (after all is done)
-    //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
-    //   also in landscape!
-    //  what happens if we only have top functional keys and then a placeholder?
-    //  check danish because of the special key shrink
-    //  do comma and period show the correct symbols? see armenian and arabic
-    //  does it still work for rtl?
-    //  check serbian latin because of the functional key shrink
-    //  check numeric layouts
-    //  check issues with merge popup keys and special labels (relevant for comma and period)
+    //  phone: label for *# and phone symbols 123 is smaller
     //  check parsing performance (compare with old, measure time for parseLayoutString)
-    //  check whether the mark-as-edge still works
+    //    now: typically 40-50 ms after warmup
+    //  ... go through everything and find weird code
     // todo: later commits
     //  move "/" from bottom row to symbols layout, and remove the weird addition of < and > (when making functional layouts customizable)
     //  parse number layouts same way as normal layouts, requires adjusting the layouts
+    //  resizeLastRowIfNecessaryForAlignment depends on key type, which now is bad!
     //  parse labels that match a toolbar key, also with icon(!)
     //  improve popups of non-action keys with action background
 
@@ -152,17 +137,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
         if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
             // add zwnj key next to space
-            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // 0 or -1
-            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = KeyLabel.ZWNJ))
+            val spaceIndex = functionalKeysBottom.lastOrNull()?.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } ?: -1 // 0 or -1
+            functionalKeysBottom.lastOrNull()?.add(spaceIndex + 1, TextKeyData(label = KeyLabel.ZWNJ))
         }
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE }
-            functionalKeysBottom.last().add(spaceIndex + 1, TextKeyData(label = "/", type = KeyType.FUNCTION))
+            val spaceIndex = functionalKeysBottom.lastOrNull()?.indexOfFirst { it.label == KeyLabel.SPACE } ?: -1
+            functionalKeysBottom.lastOrNull()?.add(spaceIndex + 1, TextKeyData(label = "/", type = KeyType.FUNCTION))
         }
         if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             // add < and > keys next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-            val spaceIndex = functionalKeysBottom.last().indexOfFirst { it.label == KeyLabel.SPACE }
+            val spaceIndex = functionalKeysBottom.lastOrNull()?.indexOfFirst { it.label == KeyLabel.SPACE } ?: -1
             val key1 = TextKeyData(
                 label = "<",
                 popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
@@ -175,8 +160,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
                 type = KeyType.FUNCTION
             )
-            functionalKeysBottom.last().add(spaceIndex + 1, key2)
-            functionalKeysBottom.last().add(spaceIndex - 1, key1)
+            functionalKeysBottom.lastOrNull()?.add(spaceIndex + 1, key2)
+            functionalKeysBottom.lastOrNull()?.add(spaceIndex - 1, key1)
         }
 
         // adjust comma and period keys in bottom row of functionalKeysBottom
@@ -198,14 +183,15 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             baseKeys.removeLast() // todo: always remove? or only if sth was replaced?
         }
 
-        baseKeys.add(emptyList()) // add an empty bottom row so the loop works as expected
+        if (functionalKeysBottom.isNotEmpty())
+            baseKeys.add(emptyList()) // add an empty bottom row so stuff works as expected
         // offset for bottom
         val bottomIndexOffset = baseKeys.size - functionalKeysBottom.size
 
         // todo: this loop could use some performance improvements (re-check after changes!)
         baseKeys.forEachIndexed { i, it ->
-            val row: List<KeyData> = if (i == baseKeys.lastIndex && isTablet()) {
-                // add bottom row extra keys
+            val row: List<KeyData> = if (i == baseKeys.lastIndex - 1 && isTablet()) {
+                // add bottom row extra keys, todo (later): this can make very customized layouts look awkward
                 val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.mElementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
             } else {
