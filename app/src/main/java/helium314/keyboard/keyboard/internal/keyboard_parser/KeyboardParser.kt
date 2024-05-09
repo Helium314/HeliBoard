@@ -11,7 +11,6 @@ import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.EmptyPopups
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
@@ -97,7 +96,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  finish documentation, but for that need to actually use the colors
     //  set alternative names for types?
     // todo: issues:
-    //  json layouts have 0 and ? popups everywhere, what's going on?
     //  hmm, better keep default shift symbol layout for now / next release
     // todo (when mostly done): test it, compare screenshots with old (after all is done)
     //  check tablet layouts, is the 9% default width necessary, or does it result from the number of keys anyway?
@@ -111,7 +109,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  check parsing performance (compare with old, measure time for parseLayoutString)
     //  check whether the mark-as-edge still works
     // todo: later commits
-    //  move "/" from bottom row to symbols layout
+    //  move "/" from bottom row to symbols layout, and remove the weird addition of < and > (when making functional layouts customizable)
     //  parse number layouts same way as normal layouts, requires adjusting the layouts
     //  parse labels that match a toolbar key, also with icon(!)
     //  improve popups of non-action keys with action background

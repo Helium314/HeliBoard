@@ -397,7 +397,7 @@ class TextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
+    override val popup: PopupSet<out AbstractKeyData> = SimplePopups(null),
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
@@ -439,7 +439,7 @@ class AutoTextKeyData(
     override val code: Int = KeyCode.UNSPECIFIED,
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
+    override val popup: PopupSet<out AbstractKeyData> = SimplePopups(null),
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {
@@ -480,7 +480,7 @@ class MultiTextKeyData(
     val codePoints: IntArray = intArrayOf(),
     override val label: String = "",
     override val groupId: Int = KeyData.GROUP_DEFAULT,
-    override val popup: PopupSet<out AbstractKeyData> = EmptyPopups,
+    override val popup: PopupSet<out AbstractKeyData> = SimplePopups(null),
     override val width: Float = 0f,
     override val labelFlags: Int = 0
 ) : KeyData {

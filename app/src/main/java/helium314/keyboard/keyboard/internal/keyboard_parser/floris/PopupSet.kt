@@ -25,13 +25,14 @@ open class PopupSet<T : AbstractKeyData>(
         if (popupKeys.isEmpty()) return null
         return popupKeys
     }
+    open fun isEmpty(): Boolean = main == null && relevant.isNullOrEmpty()
 
     var numberIndex: Int? = null
     var symbol: String? = null // maybe list of keys?
 
     fun <U : AbstractKeyData> merge(other: PopupSet<U>?): PopupSet<out AbstractKeyData> {
-        if (other == null || other == EmptyPopups) return this
-        if (this == EmptyPopups) return other
+        if (other == null || other.isEmpty()) return this
+        if (this.isEmpty()) return other
         if (this is SimplePopups && other is SimplePopups)
             return SimplePopups(addCollections(popupKeys, other.popupKeys))
         val newMain = if (main == null) other.main else main
@@ -44,10 +45,5 @@ open class PopupSet<T : AbstractKeyData>(
 
 class SimplePopups(val popupKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
     override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys
-}
-
-object EmptyPopups: PopupSet<AbstractKeyData>() {
-    override fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
-        return null
-    }
+    override fun isEmpty(): Boolean = popupKeys.isNullOrEmpty()
 }
