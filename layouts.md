@@ -64,11 +64,12 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * `action`: action key color
   * `unspecified`: no background color
   * `placeholder`: no background color, no label, and pressing the key does nothing
-  * there are some more values, but they do nothing
+  * There are some more values, but they do nothing
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
+  * There are special negative values available, e.g. the ones used by functional keys, see [KeyCode.kt](/app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyCode.kt). There are several not yet supported key codes in there, you can see in the function `checkAndConvertCode` which ones are working.
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, or a number of special values, determined from code if empty
-  * there are some special values for functional keys and setting icons, which will be documented later
+  * There are some special values for functional keys and setting icons, which will be documented later
 * `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, and `2` adds the period popup keys
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`

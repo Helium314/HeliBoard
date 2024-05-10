@@ -142,32 +142,6 @@ sealed interface KeyData : AbstractKeyData {
         val newLabel = label.convertFlorisLabel()
         val newCode = code.checkAndConvertCode()
 
-        // resolve currency keys
-        // todo: see whether we can handle this in toKeyParams (or is there a reason it's here instead? if so, write it down)
-        if (newLabel.startsWith("$$$") || newCode in KeyCode.Spec.CURRENCY) {
-            val currencyKey = params.mLocaleKeyboardInfos.currencyKey
-            val currencyCodeAsString = if (newCode in KeyCode.Spec.CURRENCY) {
-                when (newCode) {
-                    KeyCode.CURRENCY_SLOT_1 -> "|" + currencyKey.first
-                    KeyCode.CURRENCY_SLOT_2 -> "|" + currencyKey.second[0]
-                    KeyCode.CURRENCY_SLOT_3 -> "|" + currencyKey.second[1]
-                    KeyCode.CURRENCY_SLOT_4 -> "|" + currencyKey.second[2]
-                    KeyCode.CURRENCY_SLOT_5 -> "|" + currencyKey.second[3]
-                    KeyCode.CURRENCY_SLOT_6 -> "|" + currencyKey.second[4]
-                    else -> ""
-                }
-            } else ""
-            if (newLabel == "$$$") {
-                val finalLabel = currencyKey.first + currencyCodeAsString
-                // the flag is to match old parser, but why is it there for main currency key and not for others?
-                return copy(newLabel = finalLabel, newPopup = popup.merge(SimplePopups(currencyKey.second)), newLabelFlags = labelFlags or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO)
-            }
-            val n = newLabel.substringAfter("$$$").toIntOrNull()
-            if (n != null && n <= 5 && n > 0) {
-                val finalLabel = currencyKey.second[n - 1] + currencyCodeAsString
-                return copy(newCode = KeyCode.UNSPECIFIED, newLabel = finalLabel)
-            }
-        }
         if (newCode != code || newLabel != label)
             return copy(newCode = newCode, newLabel = newLabel)
         return this
@@ -287,6 +261,12 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
             KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
             KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
+            KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
+            KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
+            KeyLabel.CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
+            KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
+            KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
+            KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
             else -> label
         }
     }
@@ -301,6 +281,7 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
+    // todo (later): add explanations / reasoning, often this is just taken from conversion from AOSP layouts
     private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
@@ -315,6 +296,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
+            KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
             else -> 0
         }
     }
@@ -337,6 +319,7 @@ sealed interface KeyData : AbstractKeyData {
             }
             KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
+            KeyLabel.CURRENCY -> SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second)
             else -> null
         }
     }

@@ -16,6 +16,12 @@ object KeyLabel {
     const val COMMA = "comma"
     const val SPACE = "space"
     const val ZWNJ = "zwnj"
+    const val CURRENCY = "$$$"
+    const val CURRENCY1 = "$$$1"
+    const val CURRENCY2 = "$$$2"
+    const val CURRENCY3 = "$$$3"
+    const val CURRENCY4 = "$$$4"
+    const val CURRENCY5 = "$$$5"
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */
     // resulting special labels should be names of FunctionalKey enum, case insensitive
@@ -28,12 +34,12 @@ object KeyLabel {
         "ime_ui_mode_media" -> EMOJI
         "ime_ui_mode_clipboard" -> "clipboard" // todo: is this supported? when yes -> add to readme, and add a test
         "ime_ui_mode_text" -> ALPHA
-        "currency_slot_1" -> "$$$"
-        "currency_slot_2" -> "$$$1"
-        "currency_slot_3" -> "$$$2"
-        "currency_slot_4" -> "$$$3"
-        "currency_slot_5" -> "$$$4"
-        "currency_slot_6" -> "$$$5"
+        "currency_slot_1" -> CURRENCY
+        "currency_slot_2" -> CURRENCY1
+        "currency_slot_3" -> CURRENCY2
+        "currency_slot_4" -> CURRENCY3
+        "currency_slot_5" -> CURRENCY4
+        "currency_slot_6" -> CURRENCY5
         "enter" -> ACTION
         "half_space" -> ZWNJ
         else -> this
