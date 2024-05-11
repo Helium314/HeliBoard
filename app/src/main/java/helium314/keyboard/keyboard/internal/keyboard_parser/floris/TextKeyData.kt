@@ -144,11 +144,21 @@ sealed interface KeyData : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData {
         require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
+        require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel()
         val newCode = code.checkAndConvertCode()
+        val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
+            if (type == KeyType.NUMERIC) {
+                when (params.mId.mElementId) {
+                    KeyboardId.ELEMENT_PHONE -> Key.LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER or Key.LABEL_FLAGS_HAS_HINT_LABEL or Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
+                    KeyboardId.ELEMENT_PHONE_SYMBOLS -> 0
+                    else -> Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
+                }
+            } else 0
+        } else labelFlags
 
-        if (newCode != code || newLabel != label)
-            return copy(newCode = newCode, newLabel = newLabel)
+        if (newCode != code || newLabel != label || labelFlags != newLabelFlags)
+            return copy(newCode = newCode, newLabel = newLabel, newLabelFlags = newLabelFlags)
         return this
     }
 
@@ -258,7 +268,7 @@ sealed interface KeyData : AbstractKeyData {
 
     private fun getDefaultWidth(params: KeyboardParams): Float {
         return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
-        else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f // todo (later) consider making this -1?
+        else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) -1f
         else params.mDefaultKeyWidth
     }
 

@@ -38,12 +38,13 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 ### Properties
 * A (non-selector) key can have the following properties:
 * `type`: only specific values, HeliBoard mostly uses this to determine background color and type, determined automatically by default
-  * `character`: normal key color
+  * `normal`: normal key color
   * `function`: functional key color
   * `space`: space bar color
   * `action`: action key color
   * `unspecified`: no background color
   * `placeholder`: no background color, no label, and pressing the key does nothing
+  * `numeric`: normal key color, only in number layouts: sets default width to `-1` and sets default label flags if none specified
   * There are some more values, but they do nothing
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
   * There are special negative values available, e.g. the ones used by functional keys, see [KeyCode.kt](/app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyCode.kt). There are several not yet supported key codes in there, you can see in the function `checkAndConvertCode` which ones are working.
@@ -57,9 +58,10 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
   * `0` is interpreted as follows
-    * `-1` on the `space` key in alphabet or symbols layouts
-    * `0.17` for keys with `"type": numeric` in number layouts
-    * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets
+    * `-1` on the `space` key in alphabet or symbols layouts, and for keys with `"type": numeric` in number layouts
+    * `0.17` for number layouts
+    * `0.1` for phones
+    * `0.09` for tablets
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
 * `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
 

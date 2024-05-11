@@ -43,6 +43,7 @@ enum class KeyType {
                 "space" -> NAVIGATION
                 "action" -> ENTER_EDITING
                 "shift" -> LOCK
+                "normal" -> CHARACTER
                 else -> valueOf(string.uppercase())
             }
         }
