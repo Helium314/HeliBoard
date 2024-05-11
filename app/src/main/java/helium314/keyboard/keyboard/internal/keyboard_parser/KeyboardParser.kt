@@ -86,23 +86,24 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //  fix
     //   check KeyboardParser changes (here there will be a lot of weirdness)
     //   phone: label for *# and phone symbols 123 is smaller
-    //   try parser tests
+    //    adding LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO does not work
+    //    so why does it parse differently? maybe just work on this later when adjusting the number layout parsing
+    //    also space label seems to parse differently now, according to test (but null vs empty, so nur really important)
+    //   at least make the parser test work, maybe better add some new tests
     //   there are already more supported key codes, at least the ones below not_specified
     //  check parsing performance on A3 (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
     //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
-    //  ... go through everything and find weird code
+    //  go through everything and find weird code
     //  check what happens with a label like a|!code/key_delete when a code is specified
-    //   also document this style of ecoding?
-    //  check "weird" things like currency key label with different code
-    // todo: later commits
-    //  move "/" from bottom row to symbols layout, and remove the weird addition of < and > (when making functional layouts customizable)
-    //  parse number layouts same way as normal layouts, requires adjusting the layouts
-    //  resizeLastRowIfNecessaryForAlignment depends on key type, which now is bad!
-    //  parse labels that match a toolbar key, also with icon(!)
-    //  improve popups of non-action keys with action background
+    //   also document this style of encoding?
+    //  compare before and after this pr
+    //   all of alpha/symbol/number/phone/numpad
+    //   tablet and phone (alpha should be enough)
+    //   alpha for qwerty, armenian, kannada_extended, persion, some + layout (e.g. danish, german, ...)
 
     // this should be ready for customizable functional layouts, but needs cleanup
+    // todo (later): remove this as part of adding a cache for parsed layouts
     private fun getFunctionalKeyLayoutText(): String {
         if (!params.mId.isAlphaOrSymbolKeyboard) throw IllegalStateException("functional key layout only for aloha and symbol layouts")
         val layouts = Settings.getLayoutsDir(context).list() ?: emptyArray()
@@ -209,7 +210,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val (functionalKeysLeft, functionalKeysRight) = getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom, i == baseKeys.lastIndex)
 
             // todo performance: 2-4 times as long as getFunctionalKeysBySide
-            //  2/3 toKeyParams, 1/3 compute
+            //  try removing the when (label) stuff from toKeyParams and check whether it's a significant speedup (if yes, use enum instead)
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE

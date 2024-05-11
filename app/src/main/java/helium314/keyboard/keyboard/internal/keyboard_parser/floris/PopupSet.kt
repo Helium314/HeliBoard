@@ -20,8 +20,8 @@ open class PopupSet<T : AbstractKeyData>(
     open fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
         if (main == null && relevant == null) return null
         val popupKeys = mutableListOf<String>()
-        main?.getPopupLabel(params)?.let { popupKeys.add(it) }
-        relevant?.let { popupKeys.addAll(it.map { it.getPopupLabel(params) }) }
+        main?.compute(params)?.getPopupLabel(params)?.let { popupKeys.add(it) }
+        relevant?.let { popupKeys.addAll(it.mapNotNull { it.compute(params)?.getPopupLabel(params) }) }
         if (popupKeys.isEmpty()) return null
         return popupKeys
     }

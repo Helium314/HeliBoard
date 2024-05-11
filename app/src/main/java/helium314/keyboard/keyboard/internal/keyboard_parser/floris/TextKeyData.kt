@@ -19,6 +19,14 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonClassDiscriminator
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
@@ -143,7 +151,7 @@ sealed interface KeyData : AbstractKeyData {
     // make it non-nullable for simplicity, and to reflect current implementations
     override fun compute(params: KeyboardParams): KeyData {
         require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
-        require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
+        require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         val newLabel = label.convertFlorisLabel()
         val newCode = code.checkAndConvertCode()
 
@@ -162,8 +170,27 @@ sealed interface KeyData : AbstractKeyData {
         if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
 
         val newWidth = if (width == 0f) getDefaultWidth(params) else width
-        val newLabel = processLabel(params)
-        val newCode = processCode()
+        val newCode: Int
+        val newLabel: String
+        if (code in KeyCode.Spec.CURRENCY) {
+            // special treatment necessary, because we may need to encode it in the label
+            // (currency is a string, so might have more than 1 codepoint)
+            newCode = 0
+            val l = processLabel(params)
+            newLabel = when (code) {
+                // consider currency codes for label
+                KeyCode.CURRENCY_SLOT_1 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.first}"
+                KeyCode.CURRENCY_SLOT_2 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[0]}"
+                KeyCode.CURRENCY_SLOT_3 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[1]}"
+                KeyCode.CURRENCY_SLOT_4 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[2]}"
+                KeyCode.CURRENCY_SLOT_5 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[3]}"
+                KeyCode.CURRENCY_SLOT_6 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[4]}"
+                else -> throw IllegalStateException("code in currency range, but not in currency range?")
+            }
+        } else {
+            newCode = processCode()
+            newLabel = processLabel(params)
+        }
         val newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
 
@@ -315,7 +342,8 @@ sealed interface KeyData : AbstractKeyData {
             }
             KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
-            KeyLabel.CURRENCY -> SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second)
+            // only add currency popups if there are none defined on the key
+            KeyLabel.CURRENCY -> if (popup.isEmpty()) SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second) else null
             else -> null
         }
     }
