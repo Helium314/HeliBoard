@@ -84,7 +84,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     // todo
     //  issues:
     //   zwnj popup weirdly high (persian)
-    //   top functional keys don't consider number row (was an issue previously as well, no need to fix now)
+    //    why? no changes in label flags...
     //  re-do the functional key things, should parse nicer into a list of pairs, and then use it as helper for resizing the bottom keys
 
     // this should be ready for customizable functional layouts, but needs cleanup
