@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.utils.ToolbarKey;
 
 import java.util.HashMap;
 
@@ -95,6 +96,26 @@ public final class KeyboardIconsSet {
         NAME_START_ONEHANDED_KEY,         R.styleable.Keyboard_iconStartOneHandedMode,
         NAME_STOP_ONEHANDED_KEY,          R.styleable.Keyboard_iconStopOneHandedMode,
         NAME_SWITCH_ONEHANDED_KEY,        R.styleable.Keyboard_iconSwitchOneHandedMode,
+        ToolbarKey.VOICE.name(),          R.styleable.Keyboard_iconShortcutKey,
+        ToolbarKey.SETTINGS.name(),       R.styleable.Keyboard_iconSettingsKey,
+        ToolbarKey.CLIPBOARD.name(),      R.styleable.Keyboard_iconClipboardNormalKey,
+        ToolbarKey.SELECT_ALL.name(),     R.styleable.Keyboard_iconSelectAll,
+        ToolbarKey.COPY.name(),           R.styleable.Keyboard_iconCopyKey,
+        ToolbarKey.CUT.name(),            R.styleable.Keyboard_iconCutKey,
+        ToolbarKey.ONE_HANDED.name(),     R.styleable.Keyboard_iconStartOneHandedMode,
+        ToolbarKey.LEFT.name(),           R.styleable.Keyboard_iconArrowLeft,
+        ToolbarKey.RIGHT.name(),          R.styleable.Keyboard_iconArrowRight,
+        ToolbarKey.UP.name(),             R.styleable.Keyboard_iconArrowUp,
+        ToolbarKey.DOWN.name(),           R.styleable.Keyboard_iconArrowDown,
+        ToolbarKey.UNDO.name(),           R.styleable.Keyboard_iconUndo,
+        ToolbarKey.REDO.name(),           R.styleable.Keyboard_iconRedo,
+        ToolbarKey.INCOGNITO.name(),      R.styleable.Keyboard_iconIncognitoKey,
+        ToolbarKey.AUTOCORRECT.name(),    R.styleable.Keyboard_iconAutoCorrect,
+        ToolbarKey.CLEAR_CLIPBOARD.name(),R.styleable.Keyboard_iconClearClipboardKey,
+        ToolbarKey.FULL_LEFT.name(),      R.styleable.Keyboard_iconFullLeft,
+        ToolbarKey.FULL_RIGHT.name(),     R.styleable.Keyboard_iconFullRight,
+        ToolbarKey.SELECT_WORD.name(),    R.styleable.Keyboard_iconSelectWord,
+        ToolbarKey.CLOSE_HISTORY.name(),  R.styleable.Keyboard_iconClose,
     };
 
     private static final int NUM_ICONS = NAMES_AND_ATTR_IDS.length / 2;

@@ -166,9 +166,7 @@ public final class KeySpecParser {
                 // See {@link #getCode(Resources, String)}.
                 return null;
             }
-            if (outputText.isEmpty() && DebugFlags.DEBUG_ENABLED) {
-                throw new KeySpecParserError("Empty outputText: " + keySpec);
-            }
+            // also empty output texts are acceptable
             return outputText;
         }
         final String label = getLabel(keySpec);
