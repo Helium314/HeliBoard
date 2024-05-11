@@ -8,7 +8,6 @@ package helium314.keyboard.keyboard;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
@@ -40,8 +39,6 @@ public final class KeyboardLayoutSet {
     private static final String TAG = KeyboardLayoutSet.class.getSimpleName();
     private static final boolean DEBUG_CACHE = false;
 
-    private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
-
     private final Context mContext;
     @NonNull
     private final Params mParams;
@@ -55,8 +52,7 @@ public final class KeyboardLayoutSet {
     // will stay in the cache. So we forcibly keep some references in an array to prevent
     // them from disappearing from sKeyboardCache.
     private static final Keyboard[] sForcibleKeyboardCache = new Keyboard[FORCIBLE_CACHE_SIZE];
-    private static final HashMap<KeyboardId, SoftReference<Keyboard>> sKeyboardCache =
-            new HashMap<>();
+    private static final HashMap<KeyboardId, SoftReference<Keyboard>> sKeyboardCache = new HashMap<>();
     @NonNull
     private static final UniqueKeysCache sUniqueKeysCache = UniqueKeysCache.newInstance();
 
@@ -70,7 +66,6 @@ public final class KeyboardLayoutSet {
     }
 
     public static final class Params {
-        String mKeyboardLayoutSetName; // this is only for xml, can be removed together with xmls
         int mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
@@ -116,25 +111,17 @@ public final class KeyboardLayoutSet {
     public Keyboard getKeyboard(final int baseKeyboardLayoutSetElementId) {
         final int keyboardLayoutSetElementId;
         switch (mParams.mMode) {
-            case KeyboardId.MODE_PHONE:
+            case KeyboardId.MODE_PHONE -> {
                 if (baseKeyboardLayoutSetElementId == KeyboardId.ELEMENT_SYMBOLS) {
                     keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE_SYMBOLS;
                 } else {
                     keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
                 }
-                break;
-            case KeyboardId.MODE_NUMPAD:
-                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
-                break;
-            case KeyboardId.MODE_NUMBER:
-            case KeyboardId.MODE_DATE:
-            case KeyboardId.MODE_TIME:
-            case KeyboardId.MODE_DATETIME:
-                keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMBER;
-                break;
-            default:
-                keyboardLayoutSetElementId = baseKeyboardLayoutSetElementId;
-                break;
+            }
+            case KeyboardId.MODE_NUMPAD -> keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
+            case KeyboardId.MODE_NUMBER, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME ->
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMBER;
+            default -> keyboardLayoutSetElementId = baseKeyboardLayoutSetElementId;
         }
 
         // Note: The keyboard for each shift state, and mode are represented as an elementName
@@ -196,7 +183,6 @@ public final class KeyboardLayoutSet {
 
     public static final class Builder {
         private final Context mContext;
-        private final Resources mResources;
 
         private final Params mParams = new Params();
 
@@ -204,7 +190,6 @@ public final class KeyboardLayoutSet {
 
         public Builder(final Context context, @Nullable final EditorInfo ei) {
             mContext = context;
-            mResources = context.getResources();
             final Params params = mParams;
 
             final EditorInfo editorInfo = (ei != null) ? ei : EMPTY_EDITOR_INFO;
@@ -232,12 +217,9 @@ public final class KeyboardLayoutSet {
         public Builder setSubtype(@NonNull final RichInputMethodSubtype subtype) {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
             final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0;
-            final RichInputMethodSubtype keyboardSubtype = (forceAscii && !asciiCapable)
+            mParams.mSubtype = (forceAscii && !asciiCapable)
                     ? RichInputMethodSubtype.getNoLanguageSubtype()
                     : subtype;
-            mParams.mSubtype = keyboardSubtype;
-            mParams.mKeyboardLayoutSetName = KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX
-                    + keyboardSubtype.getKeyboardLayoutSetName();
             return this;
         }
 
@@ -296,14 +278,11 @@ public final class KeyboardLayoutSet {
                 case InputType.TYPE_CLASS_NUMBER:
                     return KeyboardId.MODE_NUMBER;
                 case InputType.TYPE_CLASS_DATETIME:
-                    switch (variation) {
-                        case InputType.TYPE_DATETIME_VARIATION_DATE:
-                            return KeyboardId.MODE_DATE;
-                        case InputType.TYPE_DATETIME_VARIATION_TIME:
-                            return KeyboardId.MODE_TIME;
-                        default: // InputType.TYPE_DATETIME_VARIATION_NORMAL
-                            return KeyboardId.MODE_DATETIME;
-                    }
+                    return switch (variation) {
+                        case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardId.MODE_DATE;
+                        case InputType.TYPE_DATETIME_VARIATION_TIME -> KeyboardId.MODE_TIME;
+                        default -> KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
+                    };
                 case InputType.TYPE_CLASS_PHONE:
                     return KeyboardId.MODE_PHONE;
                 case InputType.TYPE_CLASS_TEXT:
