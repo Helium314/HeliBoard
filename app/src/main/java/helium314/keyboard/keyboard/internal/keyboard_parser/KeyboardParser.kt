@@ -84,15 +84,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     // todo
     //  fix
-    //   do the floris conversion things in the parser, not in compute!
-    //   THEN continue checking textKeyData (starting at toKeyParams, go down), then KeyboardParser
+    //   check KeyboardParser changes (here there will be a lot of weirdness)
     //   phone: label for *# and phone symbols 123 is smaller
     //   try parser tests
     //   there are already more supported key codes, at least the ones below not_specified
-    //  check parsing performance (compare with old, measure time for parseLayoutString)
+    //  check parsing performance on A3 (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
     //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
     //  ... go through everything and find weird code
+    //  check what happens with a label like a|!code/key_delete when a code is specified
+    //   also document this style of ecoding?
+    //  check "weird" things like currency key label with different code
     // todo: later commits
     //  move "/" from bottom row to symbols layout, and remove the weird addition of < and > (when making functional layouts customizable)
     //  parse number layouts same way as normal layouts, requires adjusting the layouts
@@ -212,10 +214,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
-                val keyData = key.compute(params)
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
-                keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
+                    Log.d(TAG, "adding key ${key.label}, ${key.code}")
+                key.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
 
             // sum up width, excluding -1 elements (but count those!)
@@ -416,11 +417,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                             KeyboardId.ELEMENT_PHONE_SYMBOLS -> 0
                             else -> Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
                         }
-                        key.compute(params).toKeyParams(params, labelFlags or defaultLabelFlags)
+                        key.toKeyParams(params, labelFlags or defaultLabelFlags)
                     } else if (key.label.length == 1 && (params.mId.mElementId == KeyboardId.ELEMENT_PHONE || params.mId.mElementId == KeyboardId.ELEMENT_NUMBER))
-                        key.compute(params).toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO or defaultLabelFlags)
+                        key.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO or defaultLabelFlags)
                     else
-                        key.compute(params).toKeyParams(params, additionalLabelFlags = defaultLabelFlags)
+                        key.toKeyParams(params, additionalLabelFlags = defaultLabelFlags)
                 }
                 if (key.type != KeyType.NUMERIC && keyParams.mBackgroundType != Key.BACKGROUND_TYPE_ACTION)
                     keyParams.mBackgroundType = Key.BACKGROUND_TYPE_FUNCTIONAL

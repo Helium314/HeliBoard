@@ -87,9 +87,12 @@ sealed interface KeyData : AbstractKeyData {
             else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
         }
 
+        // todo (later): try avoiding this weirdness
+        //  maybe just remove it and if users want it they can use custom functional layouts?
+        //  but it has been like this "forever" and actually seems to make sense
         private fun getPeriodLabel(params: KeyboardParams): String {
             if (params.mId.isNumberLayout) return "."
-            if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa")) // todo: this exception is not so great...
+            if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa"))
                 return params.mLocaleKeyboardInfos.labelPeriod
             return "."
         }
@@ -139,6 +142,8 @@ sealed interface KeyData : AbstractKeyData {
 
     // make it non-nullable for simplicity, and to reflect current implementations
     override fun compute(params: KeyboardParams): KeyData {
+        require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
+        require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
         val newLabel = label.convertFlorisLabel()
         val newCode = code.checkAndConvertCode()
 
@@ -153,18 +158,13 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
-    // todo: width in units of keyboard width, or in percent? (currently the plan was percent, but actually fractions are used)
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
-        // todo: remove checks here, do only when reading json layouts
-        // numeric keys are assigned a higher width in number layouts (todo: not true any more, also maybe they could have width -1 instead?)
         if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-        require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
-        require(code != KeyCode.UNSPECIFIED || label.isNotEmpty()) { "key has no code and no label" }
-        val actualWidth = if (width == 0f) getDefaultWidth(params) else width
 
+        val newWidth = if (width == 0f) getDefaultWidth(params) else width
         val newLabel = processLabel(params)
         val newCode = processCode()
-        val newLabelFlags = labelFlags or getAdditionalLabelFlags(params)
+        val newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
 
         val background = when (type) {
@@ -173,8 +173,8 @@ sealed interface KeyData : AbstractKeyData {
             KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> Key.BACKGROUND_TYPE_EMPTY
             KeyType.NAVIGATION -> Key.BACKGROUND_TYPE_SPACEBAR
             KeyType.ENTER_EDITING -> Key.BACKGROUND_TYPE_ACTION
-            KeyType.LOCK -> determineShiftBackground(params)
-            null -> defaultBackground(params)
+            KeyType.LOCK -> getShiftBackground(params)
+            null -> getDefaultBackground(params)
         }
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
@@ -186,8 +186,8 @@ sealed interface KeyData : AbstractKeyData {
                     "$newLabel|$outputText",
                     newCode,
                     params,
-                    actualWidth,
-                    newLabelFlags or additionalLabelFlags,
+                    newWidth,
+                    newLabelFlags,
                     background,
                     newPopupKeys,
                 )
@@ -195,8 +195,8 @@ sealed interface KeyData : AbstractKeyData {
                 Key.KeyParams(
                     newLabel.rtlLabel(params), // todo (when supported): convert special labels to keySpec
                     params,
-                    actualWidth,
-                    newLabelFlags or additionalLabelFlags,
+                    newWidth,
+                    newLabelFlags,
                     background,
                     newPopupKeys,
                 )
@@ -206,69 +206,65 @@ sealed interface KeyData : AbstractKeyData {
                 newLabel.ifEmpty { StringUtils.newSingleCodePointString(newCode) },
                 newCode,
                 params,
-                actualWidth,
-                newLabelFlags or additionalLabelFlags,
+                newWidth,
+                newLabelFlags,
                 background,
                 newPopupKeys,
             )
         }
     }
 
-    private fun defaultBackground(params: KeyboardParams): Int {
+    private fun getDefaultBackground(params: KeyboardParams): Int {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
-            // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
-            //  but iirc there is some attempt in reviving the sticky thing, right?
-            KeyLabel.SHIFT -> return determineShiftBackground(params)
+            KeyLabel.SHIFT -> return getShiftBackground(params)
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
         return Key.BACKGROUND_TYPE_NORMAL
     }
 
-    private fun determineShiftBackground(params: KeyboardParams): Int {
+    // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
+    //  but iirc there is some attempt in reviving the sticky thing, right?
+    private fun getShiftBackground(params: KeyboardParams): Int {
         return if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) Key.BACKGROUND_TYPE_STICKY_ON
         else Key.BACKGROUND_TYPE_STICKY_OFF
     }
 
-    // todo: only public for lazy workaround, make private again
-    fun getDefaultWidth(params: KeyboardParams): Float {
+    private fun getDefaultWidth(params: KeyboardParams): Float {
         return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
         else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) 0.17f // todo (later) consider making this -1?
         else params.mDefaultKeyWidth
     }
 
-    // todo (later): encoding the code in the label should not be done
-    private fun processLabel(params: KeyboardParams): String {
-        return when (label) {
-            KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
-            KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
-            KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
-            KeyLabel.PERIOD -> getPeriodLabel(params)
-            KeyLabel.SPACE -> getSpaceLabel(params)
-//            KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}" would need context
-            KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
-            KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-            KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
-            // todo (later): label and popupKeys for .com could be in localeKeyTexts, handled similar to currency key
-            //  better not in the text files, because it should be handled per country
-            KeyLabel.COM -> ".com"
-            KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-            KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
-            KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
-            KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
-            KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
-            KeyLabel.CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
-            KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
-            KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
-            KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-            else -> label
-        }
+    // todo (later): encoding the code in the label should be avoided, because we know it already
+    private fun processLabel(params: KeyboardParams): String = when (label) {
+        KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
+        KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
+        KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
+        KeyLabel.COMMA -> params.mLocaleKeyboardInfos.labelComma
+        KeyLabel.PERIOD -> getPeriodLabel(params)
+        KeyLabel.SPACE -> getSpaceLabel(params)
+//        KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}" would need context
+        KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
+        KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
+        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
+        // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
+        KeyLabel.COM -> ".com"
+        KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
+        KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
+        KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
+        KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
+        KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
+        KeyLabel.CURRENCY2 -> params.mLocaleKeyboardInfos.currencyKey.second[1]
+        KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
+        KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
+        KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
+        else -> label
     }
 
     private fun processCode(): Int {
