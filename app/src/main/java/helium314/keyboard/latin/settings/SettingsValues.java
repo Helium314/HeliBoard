@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.settings;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -23,6 +24,7 @@ import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Colors;
+import helium314.keyboard.latin.permissions.PermissionsUtil;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
@@ -225,7 +227,7 @@ public class SettingsValues {
         mPopupKeyLabelSources = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
-        mUseContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, false);
+        mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
@@ -342,6 +344,11 @@ public class SettingsValues {
             return Float.MAX_VALUE;
         }
         return autoCorrectionThreshold;
+    }
+
+    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
+        return prefs.getBoolean(Settings.PREF_USE_CONTACTS, false)
+                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS);
     }
 
     public String dump() {
