@@ -19,14 +19,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonClassDiscriminator
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
@@ -164,6 +156,8 @@ sealed interface KeyData : AbstractKeyData {
     fun isSpaceKey(): Boolean {
         return code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA
     }
+
+    fun isKeyPlaceholder() = type == KeyType.PLACEHOLDER && code == KeyCode.UNSPECIFIED && width == 0f
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
