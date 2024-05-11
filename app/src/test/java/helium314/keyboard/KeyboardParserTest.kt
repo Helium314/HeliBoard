@@ -149,6 +149,10 @@ f""", // no newline at the end
             Expected(null, null, ' '.code, null),
             Expected("(", null, '('.code, listOf("<", "[", "{")),
             Expected("$", null, '$'.code, listOf("£", "₱", "€", "¢", "¥")),
+            Expected("a", null, ' '.code, null),
+            Expected("a", null, ' '.code, null),
+            Expected(null, null, KeyCode.CLIPBOARD, null), // todo: expect an icon
+            Expected(null, null, KeyCode.MULTIPLE_CODE_POINTS, null), // todo: this works here, but crashes on phone
             Expected("p", null, 'p'.code, null),
         )
         val layoutString = """
@@ -236,6 +240,10 @@ f""", // no newline at the end
         { "code": -805, "label": "currency_slot_5" }
       ]
     } },
+    { "code": 32, "label": "a|!code/key_delete" },
+    { "code": 32, "label": "a|b" },
+    { "label": "!icon/clipboard_action_key|!code/key_clipboard" },
+    { "label": "!icon/clipboard_action_key" },
     { "label": "p" }
   ],
   [
@@ -263,7 +271,6 @@ f""", // no newline at the end
         val keys = JsonKeyboardParser(params, latinIME).parseCoreLayout(layoutString)
         keys.first().forEachIndexed { index, keyData ->
             println("data: key ${keyData.label}: code ${keyData.code}, popups: ${keyData.popup.getPopupKeyLabels(params)}")
-//            if (keyData.type == KeyType.ENTER_EDITING || keyData.type == KeyType.SYSTEM_GUI) return@forEachIndexed // todo: currently not accepted, but should be (see below)
             val keyParams = keyData.toKeyParams(params)
             println("params: key ${keyParams.mLabel}: code ${keyParams.mCode}, popups: ${keyParams.mPopupKeys?.toList()}")
             assertEquals(expected[index].label, keyParams.mLabel)

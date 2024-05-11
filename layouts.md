@@ -1,35 +1,15 @@
 A compilation of information about the layout formats usable in this app.
 
 There are two distinct formats:
-* the _simple_ format is a text file with one key per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/qwerty.txt)
+* the _simple_ format is a text file with one key label per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/qwerty.txt)
 * the _json_ format taken from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout), but only "normal" keys are supported (i.e. no action keys and similar), [example](app/src/main/assets/layouts/azerty.json)
 
 ## General notes
-Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions.
+Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions (popup keys are especially prone for this).
 There are some sanity checks when adding a layout to avoid such issues, but they do not cover all possible cases.
 Further there is no check whether the layout actually contains characters of the selected language.
 
 If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
-
-There are special key labels that are intended for internal use only, but can (currently) be set on custom layouts too. An example is `!icon/previous_key|!code/key_action_previous`, so it's unlikely you will stumble upon issues here when not intentionally provoking it.
-One special label that might be wanted though is `$$$`, which will be replaced by the local currency. `$$$1` - `$$$5` will be replaced by currencies available on long-pressing the currency key.
-If you want different key label and use text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
-
-Some special key labels will be implemented, most are already working in the (currently experimental) customization of number layouts (numpad and similar). Some keys have two names for compatibility to FlorisBoard layouts.
-* _alpha_ / _view_characters_: switch to alphabet keyboard (or main phone keyboard in case of phone layout)
-* _symbol_ / _view_symbols_: switch to symbol keyboard (or phone symbols keyboard in case of phone layout)
-* _symbol_alpha_: toggle alpha / symbol keyboard
-* _numpad_ / _view_numeric_advanced_: switch to numpad layout
-* _emoji_: switch to emoji view
-* _com_: display common TLDs (.com and similar)
-* _language_switch_: language switch key
-* _action_ / _enter_: the action (enter) key
-* _delete_: delete key
-* _shift_: shift key, will change label when in symbols layout
-* _period_: `.` key with punctuation popups, will adapt to language-specific period
-* _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
-* _space_: space key, with icon when using a number layout
-* _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
 
 If the layout has exactly 2 keys in the bottom row, these keys will replace comma and period keys. More exactly: the first key will replace the first functional key with `"groupId": 1` in the bottom row, and the second key with replace the first key with `"groupId": 2`.
 
@@ -68,11 +48,12 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
   * There are special negative values available, e.g. the ones used by functional keys, see [KeyCode.kt](/app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyCode.kt). There are several not yet supported key codes in there, you can see in the function `checkAndConvertCode` which ones are working.
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
-* `label`: text to display on the key, or a number of special values, determined from code if empty
-  * There are some special values for functional keys and setting icons, which will be documented later
+* `label`: text to display on the key, determined from code if empty
+  * There are some special values, see the [label section](#labels)
 * `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, and `2` adds the period popup keys
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
+  * When specifying a _selector_ key class in a popup key, it will be evaluated correctly (e.g. for changing popups dependent on shift state)
 * `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
   * `0` is interpreted as follows
@@ -81,6 +62,31 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * Otherwise the default width is used, which is `0.1` for phones and `0.09` for tablets
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
 * `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
+
+## Labels
+In the simple format you only specify labels, in json layouts you do it explicitly via the `label` property.
+Usually the label is what is displayed on the key. However, there are some special labels:
+* Currency keys
+  * `$$$` will be replaced by the local currency, depending on your current layout language. If you define a key with `$$$` without defining popup keys, it will get the first 4 additional currencies (see below) as popup
+  * `$$$1` - `$$$5` will be replaced by currencies available on long-pressing the currency key
+* Functional keys (incomplete list)
+  * _alpha_: switch to alphabet keyboard (or main phone keyboard in case of phone layout)
+  * _symbol_: switch to symbol keyboard (or phone symbols keyboard in case of phone layout)
+  * _symbol_alpha_: toggle alpha / symbol keyboard
+  * _numpad_: switch to numpad layout
+  * _emoji_: switch to emoji view
+  * _com_: display common TLDs (.com and similar, currently not localized)
+  * _language_switch_: language switch key
+  * _action_: the action (enter) key
+  * _delete_: delete key
+  * _shift_: shift key, will change label when in symbols layout
+  * _period_: `.` key with punctuation popups, will adapt to language-specific period
+  * _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
+  * _space_: space key, with icon when using a number layout
+  * _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
+* If you want different key label and use text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
+You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
+It's also possible to specify an icon together with a code `!icon/previous_key|!code/key_action_previous`, but this is not fully supported yet.
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)

@@ -84,23 +84,17 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
 
     // todo
     //  fix
-    //   check KeyboardParser changes (here there will be a lot of weirdness)
     //   phone: label for *# and phone symbols 123 is smaller
     //    adding LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO does not work
     //    so why does it parse differently? maybe just work on this later when adjusting the number layout parsing
-    //    also space label seems to parse differently now, according to test (but null vs empty, so nur really important)
-    //   at least make the parser test work, maybe better add some new tests
-    //   there are already more supported key codes, at least the ones below not_specified
+    //  check KeyboardParser changes (here there will be a lot of weirdness)
     //  check parsing performance on A3 (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
     //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
-    //  go through everything and find weird code
-    //  check what happens with a label like a|!code/key_delete when a code is specified
-    //   also document this style of encoding?
     //  compare before and after this pr
     //   all of alpha/symbol/number/phone/numpad
     //   tablet and phone (alpha should be enough)
-    //   alpha for qwerty, armenian, kannada_extended, persion, some + layout (e.g. danish, german, ...)
+    //   alpha for qwerty, armenian, kannada_extended, persian, some + layout (e.g. danish, german, ...)
 
     // this should be ready for customizable functional layouts, but needs cleanup
     // todo (later): remove this as part of adding a cache for parsed layouts
