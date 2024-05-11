@@ -106,7 +106,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         addNumberRowOrPopupKeys(baseKeys)
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
-        // todo: add number row now already?
+        if (params.mId.mNumberRowEnabled)
+            baseKeys.add(
+                0,
+                params.mLocaleKeyboardInfos.getNumberRow()
+                    .map { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
 
         val allFunctionalKeys = JsonKeyboardParser(params, context).parseCoreLayout(getFunctionalKeyLayoutText())
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
@@ -147,10 +151,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 key.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
         }
-        val keysInRows = setReasonableWidths(baseKeyParams, functionalKeys)
-        if (params.mId.mNumberRowEnabled)
-            keysInRows.add(0, getNumberRow())
-        return keysInRows
+        return setReasonableWidths(baseKeyParams, functionalKeys)
     }
 
     /** interprets key width -1, adjusts row size to nicely fit on screen, adds spacers if necessary */
@@ -442,11 +443,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
         return keysInRows
     }
-
-    private fun getNumberRow(): ArrayList<KeyParams> =
-        params.mLocaleKeyboardInfos.getNumberRow().mapTo(ArrayList()) {
-            it.toKeyParams(params, additionalLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags)
-        }
 
     private fun getActionKeyLabel(): String {
         if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
