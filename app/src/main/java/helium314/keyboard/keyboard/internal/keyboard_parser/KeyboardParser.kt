@@ -83,10 +83,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     // todo
-    //  fix
-    //   phone: label for *# and phone symbols 123 is smaller
-    //    adding LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO does not work
-    //    so why does it parse differently? maybe just work on this later when adjusting the number layout parsing
     //  check KeyboardParser changes (here there will be a lot of weirdness)
     //  check parsing performance (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
@@ -403,7 +399,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 if (functionalKeyName.length > 1 && key.type != KeyType.NUMERIC) {
                     try {
                         // todo: this works, but: needs the correct background
-                        keyParams = TextKeyData(label = functionalKeyName).processActionAndPeriodKeys().toKeyParams(params)
+                        keyParams = key.copy(newLabel = functionalKeyName).processActionAndPeriodKeys().toKeyParams(params)
                     } catch (_: Throwable) {} // just use normal label
                 }
                 if (keyParams == null) {
