@@ -88,9 +88,11 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     //    adding LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO does not work
     //    so why does it parse differently? maybe just work on this later when adjusting the number layout parsing
     //  check KeyboardParser changes (here there will be a lot of weirdness)
-    //  check parsing performance on A3 (compare with old, measure time for parseLayoutString)
+    //  check parsing performance (compare with old, measure time for parseLayoutString)
     //    now: typically 40-50 ms after warmup
     //    old: 10-20 ms -> this is a considerable slowdown if we consider older devices
+    //    re-check new on s4 mini
+    //    work on performance todos
     //  compare before and after this pr
     //   all of alpha/symbol/number/phone/numpad
     //   tablet and phone (alpha should be enough)
@@ -204,7 +206,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val (functionalKeysLeft, functionalKeysRight) = getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom, i == baseKeys.lastIndex)
 
             // todo performance: 2-4 times as long as getFunctionalKeysBySide
-            //  try removing the when (label) stuff from toKeyParams and check whether it's a significant speedup (if yes, use enum instead)
             val keys = row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
