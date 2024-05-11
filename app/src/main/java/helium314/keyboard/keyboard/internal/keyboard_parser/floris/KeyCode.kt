@@ -14,7 +14,7 @@ object KeyCode {
 
         const val INTERNAL_FLORIS_MIN = -9999
         const val INTERNAL_FLORIS_MAX = -1
-        val INTERNAL_FLORIS = INTERNAL_FLORIS_MIN..INTERNAL_FLORIS_MAX
+        val INTERNAL_FLORIS = INTERNAL_FLORIS_MIN..INTERNAL_FLORIS_MAX // do NOT add key codes in this range
         val INTERNAL_HELI = -19999..-10000 // for keys exclusive to this app
         val CURRENCY = CURRENCY_SLOT_6..CURRENCY_SLOT_1
     }
@@ -122,7 +122,7 @@ object KeyCode {
     const val CJK_SPACE =                  12288
 
     // heliboard only codes
-    const val ALPHA_SYMBOL =              -10001
+    const val SYMBOL_ALPHA =              -10001
     const val START_ONE_HANDED_MODE =     -10002
     const val STOP_ONE_HANDED_MODE =      -10003
     const val SWITCH_ONE_HANDED_MODE =    -10004
@@ -132,8 +132,8 @@ object KeyCode {
     // Code value representing the code is not specified.
     const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
     const val CLIPBOARD_COPY_ALL =        -10009
-    const val PAGE_UP =              -10010
-    const val PAGE_DOWN =            -10011
+    const val PAGE_UP =                   -10010
+    const val PAGE_DOWN =                 -10011
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -145,8 +145,8 @@ object KeyCode {
         SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED,
 
         // heliboard only
-        ALPHA_SYMBOL, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
-        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED
+        SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
+        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN
         -> this
 
         // conversion
@@ -155,27 +155,5 @@ object KeyCode {
         VIEW_PHONE2 -> SYMBOL
 
         else -> throw IllegalStateException("key code $this not yet supported")
-    }
-
-    /** to make sure a FlorisBoard label works when reading a JSON layout */
-    // resulting special labels should be names of FunctionalKey enum, case insensitive
-    fun String.convertFlorisLabel(): String = when (this) {
-        "view_characters" -> "alpha"
-        "view_symbols" -> "symbol"
-        "view_numeric_advanced" -> "numpad"
-        "view_phone" -> "alpha" // phone keyboard is treated like alphabet, just with different layout
-        "view_phone2" -> "symbols" // phone symbols
-        "ime_ui_mode_media" -> "emoji"
-        "ime_ui_mode_clipboard" -> "clipboard" // todo: is this supported? when yes -> add to readme, and add a test
-        "ime_ui_mode_text" -> "alpha"
-        "currency_slot_1" -> "$$$"
-        "currency_slot_2" -> "$$$1"
-        "currency_slot_3" -> "$$$2"
-        "currency_slot_4" -> "$$$3"
-        "currency_slot_5" -> "$$$4"
-        "currency_slot_6" -> "$$$5"
-        "enter" -> "action"
-        "half_space" -> "zwnj"
-        else -> this
     }
 }

@@ -201,7 +201,7 @@ public final class Constants {
         switch (code) {
         case KeyCode.SHIFT: return "shift";
         case KeyCode.CAPS_LOCK: return "capslock";
-        case KeyCode.ALPHA_SYMBOL: return "alpha_symbol";
+        case KeyCode.SYMBOL_ALPHA: return "symbol_alpha";
         case KeyCode.ALPHA: return "alpha";
         case KeyCode.SYMBOL: return "symbol";
         case KeyCode.MULTIPLE_CODE_POINTS: return "text";
