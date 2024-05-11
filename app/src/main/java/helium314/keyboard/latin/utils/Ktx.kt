@@ -44,3 +44,13 @@ fun <T> addCollections(a: Collection<T>?, b: Collection<T>?): Collection<T>? {
     if (b.isNullOrEmpty()) return a
     return a + b
 }
+
+fun <T> MutableList<T>.removeFirst(predicate: (T) -> Boolean) {
+    val i = indexOfFirst(predicate)
+    if (i >= 0) removeAt(i)
+}
+
+fun <T> MutableList<T>.replaceFirst(predicate: (T) -> Boolean, with: (T) -> T) {
+    val i = indexOfFirst(predicate)
+    if (i >= 0) this[i] = with(this[i])
+}
