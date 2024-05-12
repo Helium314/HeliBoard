@@ -535,6 +535,16 @@ class InputLogicTest {
         assertEquals("\"this i", text)
     }
 
+    @Test fun `double space results in period and space, and delete removes the period`() {
+        reset()
+        chainInput("hello")
+        input(' ')
+        input(' ')
+        assertEquals("hello. ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello ", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -566,7 +576,9 @@ class InputLogicTest {
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (currentScript != ScriptUtils.SCRIPT_HANGUL) { // check fails if hangul combiner merges symbols
+        if (currentScript != ScriptUtils.SCRIPT_HANGUL // check fails if hangul combiner merges symbols
+            && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
+            ) {
             if (phantomSpaceToInsert.isEmpty())
                 assertEquals(oldBefore + insert, textBeforeCursor)
             else // in some cases autospace might be suppressed
