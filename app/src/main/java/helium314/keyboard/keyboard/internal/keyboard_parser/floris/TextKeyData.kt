@@ -251,7 +251,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
-            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
+//            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return getShiftBackground(params)
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
@@ -313,11 +313,11 @@ sealed interface KeyData : AbstractKeyData {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
             KeyLabel.PERIOD, KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT // todo: period also has defaultLabelFlags -> when is this relevant?
-            KeyLabel.ACTION -> {
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
-                        Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
-                        Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
-            }
+//            KeyLabel.ACTION -> {
+//                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
+//                        Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
+//                        Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+//            }
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
             KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
             KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)

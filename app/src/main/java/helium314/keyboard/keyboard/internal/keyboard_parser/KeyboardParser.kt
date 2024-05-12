@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
@@ -315,7 +316,10 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             newLabel = "${getActionKeyLabel()}|${getActionKeyCode()}",
             newPopup = popup.merge(getActionKeyPopupKeys()?.let { SimplePopups(it) }),
             // the label change is messing with toKeyParams, so we need to supply the appropriate BG type here
-            newType = type ?: KeyType.ENTER_EDITING
+            newType = type ?: KeyType.ENTER_EDITING,
+            newLabelFlags = Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
+                    Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
+                    Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
         )
         else -> {
             // this is ugly...
