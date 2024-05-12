@@ -43,19 +43,18 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height)
     }
 
-    fun setAllowRedundantPopupKeys(enabled: Boolean) {
-        mParams.mAllowRedundantPopupKeys = enabled
-    }
-
     fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
-            setAllowRedundantPopupKeys(true)
+            mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
                 val sv = Settings.getInstance().current
+                // previously was false for nordic and serbian_qwertz, true for all others
+                // todo: add setting? maybe users want it in a custom layout
+                mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
                 addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
                 mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
                 // add label source only if popup key type enabled

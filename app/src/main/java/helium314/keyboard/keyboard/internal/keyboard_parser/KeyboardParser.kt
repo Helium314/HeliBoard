@@ -63,7 +63,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
         params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
-        params.mAllowRedundantPopupKeys = infos.allowRedundantPopupKeys
         if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
             params.mTouchPositionCorrection.load(emptyArray())
         else
@@ -551,7 +550,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                     params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 else -> true
             }
-            val allowRedundantPopupKeys = params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS // todo: always set to false?
             // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
             // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
             val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && layout in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
@@ -561,7 +559,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             val hasShiftKey = !params.mId.isAlphabetKeyboard
                     || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")
             val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
-            return LayoutInfos(enableProximityCharsCorrection, allowRedundantPopupKeys, touchPositionCorrectionData, hasShiftKey, numbersOnTopRow)
+            return LayoutInfos(enableProximityCharsCorrection, touchPositionCorrectionData, hasShiftKey, numbersOnTopRow)
         }
     }
 
@@ -572,8 +570,6 @@ data class LayoutInfos(
     // disabled by default, but enabled for all alphabet layouts
     // currently set in keyboardLayoutSet
     val enableProximityCharsCorrection: Boolean = false,
-    // previously was false for nordic and serbian_qwertz, true for all others
-    val allowRedundantPopupKeys: Boolean = true,
     // there is holo, default and null
     // null only for popupKeys keyboard
     val touchPositionCorrectionData: Int? = null,
