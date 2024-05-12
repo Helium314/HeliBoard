@@ -221,18 +221,17 @@ public final class KeySpecParser {
         return defaultCode;
     }
 
-    public static int getIconId(@Nullable final String keySpec) {
+    @NonNull
+    public static String getIconName(@Nullable final String keySpec) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return KeyboardIconsSet.ICON_UNDEFINED;
+            return KeyboardIconsSet.NAME_UNDEFINED;
         }
         if (!hasIcon(keySpec)) {
-            return KeyboardIconsSet.ICON_UNDEFINED;
+            return KeyboardIconsSet.NAME_UNDEFINED;
         }
         final int labelEnd = indexOfLabelEnd(keySpec);
-        final String iconName = getBeforeLabelEnd(keySpec, labelEnd)
-                .substring(KeyboardIconsSet.PREFIX_ICON.length());
-        return KeyboardIconsSet.getIconId(iconName);
+        return getBeforeLabelEnd(keySpec, labelEnd).substring(KeyboardIconsSet.PREFIX_ICON.length()).intern();
     }
 
     public static final class KeySpecParserError extends RuntimeException {

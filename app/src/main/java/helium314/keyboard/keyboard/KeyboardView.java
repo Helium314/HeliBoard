@@ -39,6 +39,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestions;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;

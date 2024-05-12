@@ -230,8 +230,8 @@ public final class MoreSuggestions extends Keyboard {
 
         public MoreSuggestionKey(final String word, final String info, final int index,
                 final MoreSuggestionsParam params) {
-            super(word /* label */, KeyboardIconsSet.ICON_UNDEFINED, KeyCode.MULTIPLE_CODE_POINTS,
-                    word /* outputText */, info, 0 /* labelFlags */, Key.BACKGROUND_TYPE_NORMAL,
+            super(word, KeyboardIconsSet.NAME_UNDEFINED, KeyCode.MULTIPLE_CODE_POINTS,
+                    word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
                     params.getX(index), params.getY(index), params.getWidth(index),
                     params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
             mSuggestedWordIndex = index;

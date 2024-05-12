@@ -141,9 +141,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
     }
 
-    private fun setupDeleteKey(key: ImageButton, iconId: Int) {
+    private fun setupDeleteKey(key: ImageButton, icon: Drawable?) {
         key.apply {
-            setImageResource(iconId)
+            setImageDrawable(icon)
             Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
             Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
         }
@@ -189,7 +189,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
         setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
-        setupDeleteKey(deleteKey, iconSet.getIconResourceId(KeyboardIconsSet.NAME_DELETE_KEY))
+        setupDeleteKey(deleteKey, iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY))
         setupClipKey(params)
 
         placeholderView.apply {

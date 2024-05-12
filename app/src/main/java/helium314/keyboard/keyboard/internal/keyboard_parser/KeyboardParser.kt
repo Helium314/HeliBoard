@@ -467,7 +467,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     }
 
     private fun String.replaceIconWithLabelIfNoDrawable(): String {
-        if (params.mIconsSet.getIconDrawable(KeyboardIconsSet.getIconId(this)) != null) return this
+        if (params.mIconsSet.getIconDrawable(this) != null) return this
         if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
                 && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
                 && !params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.EMOJI_CAPABLE)

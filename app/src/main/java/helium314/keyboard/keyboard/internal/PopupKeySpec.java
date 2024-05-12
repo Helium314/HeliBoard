@@ -40,7 +40,8 @@ public final class PopupKeySpec {
     public final String mLabel;
     @Nullable
     public final String mOutputText;
-    public final int mIconId;
+    @NonNull
+    public final String mIconName;
 
     public PopupKeySpec(@NonNull final String popupKeySpec, boolean needsToUpperCase,
                         @NonNull final Locale locale) {
@@ -63,13 +64,13 @@ public final class PopupKeySpec {
             mOutputText = needsToUpperCase
                     ? StringUtils.toTitleCaseOfKeyLabel(outputText, locale) : outputText;
         }
-        mIconId = KeySpecParser.getIconId(popupKeySpec);
+        mIconName = KeySpecParser.getIconName(popupKeySpec);
     }
 
     @NonNull
     public Key buildKey(final int x, final int y, final int labelFlags,
             @NonNull final KeyboardParams params) {
-        return new Key(mLabel, mIconId, mCode, mOutputText, null /* hintLabel */, labelFlags,
+        return new Key(mLabel, mIconName, mCode, mOutputText, null /* hintLabel */, labelFlags,
                 Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight,
                 params.mHorizontalGap, params.mVerticalGap);
     }
@@ -77,7 +78,7 @@ public final class PopupKeySpec {
     @Override
     public int hashCode() {
         int hashCode = 31 + mCode;
-        hashCode = hashCode * 31 + mIconId;
+        hashCode = hashCode * 31 + mIconName.hashCode();
         final String label = mLabel;
         hashCode = hashCode * 31 + (label == null ? 0 : label.hashCode());
         final String outputText = mOutputText;
@@ -93,7 +94,7 @@ public final class PopupKeySpec {
         if (o instanceof PopupKeySpec) {
             final PopupKeySpec other = (PopupKeySpec)o;
             return mCode == other.mCode
-                    && mIconId == other.mIconId
+                    && mIconName.equals(other.mIconName)
                     && TextUtils.equals(mLabel, other.mLabel)
                     && TextUtils.equals(mOutputText, other.mOutputText);
         }
@@ -102,8 +103,8 @@ public final class PopupKeySpec {
 
     @Override
     public String toString() {
-        final String label = (mIconId == KeyboardIconsSet.ICON_UNDEFINED ? mLabel
-                : KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(mIconId));
+        final String label = (mIconName.equals(KeyboardIconsSet.NAME_UNDEFINED) ? mLabel
+                : KeyboardIconsSet.PREFIX_ICON + mIconName);
         final String output = (mCode == KeyCode.MULTIPLE_CODE_POINTS ? mOutputText
                 : Constants.printableCode(mCode));
         if (StringUtils.codePointCount(label) == 1 && label.codePointAt(0) == mCode) {

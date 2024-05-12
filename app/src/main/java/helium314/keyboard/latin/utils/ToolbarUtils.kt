@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.KeyboardTheme
-import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
@@ -74,8 +73,7 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     else -> KeyCode.UNSPECIFIED
 }
 
-// todo: get the icons from KeyboardIconsSet (but currently it's loaded too late)
-private fun getStyleableIconId(key: ToolbarKey) = when (key) {
+fun getStyleableIconId(key: ToolbarKey) = when (key) {
     VOICE -> R.styleable.Keyboard_iconShortcutKey
     SETTINGS -> R.styleable.Keyboard_iconSettingsKey
     CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
