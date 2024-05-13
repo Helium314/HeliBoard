@@ -362,7 +362,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public boolean onLongClick(final View view) {
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.NOT_A_CODE, this);
-        if (mToolbar.findViewWithTag(view.getTag()) != null) {
+        if (view.getTag() instanceof ToolbarKey) {
             onLongClickToolKey(view);
             return true;
         }
@@ -375,9 +375,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (!(view.getTag() instanceof ToolbarKey tag)) return;
         if (view.getParent() == mPinnedKeys) {
             final int longClickCode = getCodeForToolbarKeyLongClick(tag);
-//            if (longClickCode != KeyCode.UNSPECIFIED) {
+            if (longClickCode != KeyCode.UNSPECIFIED) {
                 mListener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//            }
+            }
         } else if (view.getParent() == mToolbar) {
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
             if (pinnedKeyView == null) {
