@@ -1098,7 +1098,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final int code = key.getCode();
         if (code == KeyCode.LANGUAGE_SWITCH
-                || (code == Constants.CODE_SPACE && Settings.getInstance().getCurrent().mSpaceForLangChange)
+                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getInstance().getCurrent().mSpaceForLangChange)
         ) {
             // Long pressing the space key invokes IME switcher dialog.
             if (sListener.onCustomRequest(Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)) {
