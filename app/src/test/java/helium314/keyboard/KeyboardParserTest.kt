@@ -12,13 +12,10 @@ import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
 import helium314.keyboard.keyboard.internal.UniqueKeysCache
-import helium314.keyboard.keyboard.internal.keyboard_parser.JsonKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.MultiTextKeyData
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
@@ -120,7 +117,7 @@ f""", // no newline at the end
         val wantedKeyLabels = listOf(listOf("a", "b", "c"), listOf("d", "e", "f"))
         layoutStrings.forEachIndexed { i, layout ->
             println(i)
-            val keyLabels = SimpleKeyboardParser(params, latinIME).parseCoreLayout(layout).map { it.map { it.label } }
+            val keyLabels = RawKeyboardParser.parseSimpleString(layout).map { it.map { it.toKeyParams(params).mLabel } }
             assertEquals(wantedKeyLabels, keyLabels)
         }
     }
@@ -268,7 +265,7 @@ f""", // no newline at the end
   ]
 ]
         """.trimIndent()
-        val keys = JsonKeyboardParser(params, latinIME).parseCoreLayout(layoutString)
+        val keys = RawKeyboardParser.parseJsonString(layoutString).map { it.mapNotNull { it.compute(params) } }
         keys.first().forEachIndexed { index, keyData ->
             println("data: key ${keyData.label}: code ${keyData.code}, popups: ${keyData.popup.getPopupKeyLabels(params)}")
             val keyParams = keyData.toKeyParams(params)
@@ -298,13 +295,13 @@ f""", // no newline at the end
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
-        assertEquals(keys[0].size, 11)
-        assertEquals(keys[1].size, 11)
-        assertEquals(keys[2].size, 10)
+        assertEquals(11, keys[0].size)
+        assertEquals(11, keys[1].size)
+        assertEquals(10, keys[2].size)
         val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
-        assertEquals(keys2[0].size, 11)
-        assertEquals(keys2[1].size, 11)
-        assertEquals(keys2[2].size, 10)
+        assertEquals(11, keys2[0].size)
+        assertEquals(11, keys2[1].size)
+        assertEquals(10, keys2[2].size)
     }
 
     @Test fun `popup key count does not depend on shift for (for simple layout)`() {

@@ -36,7 +36,6 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.ColorUtilKt;
-import helium314.keyboard.latin.utils.CustomLayoutUtilsKt;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -546,22 +545,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
             default -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
         };
-    }
-
-    /** @return custom layout name if there is one for the given layout, else returns "layout" */
-    public static String readLayoutName(final String layout, final Context context) {
-        String[] layouts = getLayoutsDir(context).list();
-        if (layouts != null) {
-            for (String name : layouts) {
-                if (name.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX + layout + "."))
-                    return name;
-            }
-        }
-        return layout;
-    }
-
-    public static File getLayoutsDir(final Context context) {
-        return new File(DeviceProtectedUtils.getFilesDir(context), "layouts");
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {

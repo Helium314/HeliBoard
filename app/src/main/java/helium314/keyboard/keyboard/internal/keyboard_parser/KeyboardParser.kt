@@ -24,19 +24,16 @@ import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import helium314.keyboard.latin.utils.getLayoutFile
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.runInLocale
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
-import java.io.File
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -47,7 +44,7 @@ import java.io.File
  * By default, all normal keys have the same width and flags, which may cause issues with the
  * requirements of certain non-latin languages.
  */
-abstract class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
+class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
     private val infos = layoutInfos(params)
     private val defaultLabelFlags = when {
         params.mId.isAlphabetKeyboard -> params.mLocaleKeyboardInfos.labelFlags
@@ -57,10 +54,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         else -> 0
     }
 
-    abstract fun parseCoreLayout(layoutContent: String): MutableList<List<KeyData>>
-
-    // this thing does too much... make it more understandable after everything is implemented
-    fun parseLayoutString(layoutContent: String): ArrayList<ArrayList<KeyParams>> {
+    fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
         params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
         if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
@@ -68,7 +62,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         else
             params.mTouchPositionCorrection.load(context.resources.getStringArray(infos.touchPositionCorrectionData))
 
-        val baseKeys = parseCoreLayout(layoutContent)
+        val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
         // rescale height if we have anything but the usual 4 rows
         val heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
@@ -79,26 +73,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         return keysInRows
     }
 
-    // this should be ready for customizable functional layouts, but needs cleanup
-    // todo (later): remove this as part of adding a cache for parsed layouts
-    private fun getFunctionalKeyLayoutText(): String {
-        if (params.mId.isNumberLayout) return "[]" // empty list
-        val layouts = Settings.getLayoutsDir(context).list() ?: emptyArray()
-        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-            if ("functional_keys_symbols_shifted.json" in layouts)
-                return getLayoutFile("functional_keys_symbols_shifted.json", context).readText()
-        }
-        if (!params.mId.isAlphabetKeyboard) {
-            if ("functional_keys_symbols.json" in layouts)
-                return getLayoutFile("functional_keys_symbols.json", context).readText()
-        }
-        if ("functional_keys.json" in layouts)
-            return getLayoutFile("functional_keys.json", context).readText()
-        val fileName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
-        return context.readAssetsLayoutFile(fileName)
-    }
-
-    private fun createRows(baseKeys: MutableList<List<KeyData>>): ArrayList<ArrayList<KeyParams>> {
+    private fun createRows(baseKeys: MutableList<MutableList<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // add padding for number layouts in landscape mode (maybe do it some other way later)
         if (params.mId.isNumberLayout && params.mId.mElementId != KeyboardId.ELEMENT_NUMPAD
                 && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -112,14 +87,14 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
             addSymbolPopupKeys(baseKeys)
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
             baseKeys.add(0, params.mLocaleKeyboardInfos.getNumberRow()
-                .map { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+                .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
 
-        val allFunctionalKeys = JsonKeyboardParser(params, context).parseCoreLayout(getFunctionalKeyLayoutText())
+        val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
 
         if (allFunctionalKeys.none { it.singleOrNull()?.isKeyPlaceholder() == true })
             // add a placeholder so splitAt does what we really want
-            allFunctionalKeys.add(0, listOf(TextKeyData(type = KeyType.PLACEHOLDER)))
+            allFunctionalKeys.add(0, mutableListOf(TextKeyData(type = KeyType.PLACEHOLDER)))
 
         val (functionalKeysTop, functionalKeysBottom) = allFunctionalKeys.splitAt { it.singleOrNull()?.isKeyPlaceholder() == true }
 
@@ -235,8 +210,8 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
      *  does nothing if not isAlphaOrSymbolKeyboard or assumptions not met
      *  adds an empty row to baseKeys, to have a baseKey row for the bottom functional row
      */
-    private fun adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys: MutableList<List<KeyData>>, baseKeys: MutableList<List<KeyData>>) {
-        val functionalKeysBottom = allFunctionalKeys.lastOrNull()?.toMutableList() ?: return
+    private fun adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys: MutableList<MutableList<KeyData>>, baseKeys: MutableList<MutableList<KeyData>>) {
+        val functionalKeysBottom = allFunctionalKeys.lastOrNull() ?: return
         if (!params.mId.isAlphaOrSymbolKeyboard || functionalKeysBottom.isEmpty() || functionalKeysBottom.any { it.isKeyPlaceholder() })
             return
         if (true /* Settings.getInstance().current.mSingleFunctionalLayout */) { // todo with the customizable functional layout
@@ -287,8 +262,7 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
                 functionalKeysBottom.add(spaceIndex, key1)
             }
         }
-        allFunctionalKeys[allFunctionalKeys.lastIndex] = functionalKeysBottom
-        baseKeys.add(emptyList())
+        baseKeys.add(mutableListOf())
     }
 
     // ideally we would get all functional keys in a nice list of pairs from the start, but at least it works...
@@ -331,12 +305,12 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
     }
 
-    private fun addNumberRowOrPopupKeys(baseKeys: MutableList<List<KeyData>>) {
+    private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row, but use the labels as popupKeys
             val numberRow = params.mLocaleKeyboardInfos.getNumberRow()
             numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
-            baseKeys[0] = numberRow
+            baseKeys[0] = numberRow.toMutableList()
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && infos.numbersOnTopRow) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
@@ -356,15 +330,9 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
         }
     }
 
-    private fun addSymbolPopupKeys(baseKeys: MutableList<List<KeyData>>) {
-        val layoutName = getLayoutFileName(params, context, overrideElementId = KeyboardId.ELEMENT_SYMBOLS)
-        val layout = if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-            val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
-                else SimpleKeyboardParser(params, context, false)
-            parser.parseCoreLayout(getLayoutFile(layoutName, context).readText())
-        } else {
-            SimpleKeyboardParser(params, context, false).parseCoreLayout(context.readAssetsLayoutFile("$layoutName.txt"))
-        }
+    private fun addSymbolPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
+        val layoutName = if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
+        val layout = RawKeyboardParser.parseLayout(layoutName, params, context)
         layout.forEachIndexed { i, row ->
             val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
             row.forEachIndexed { j, key ->
@@ -492,49 +460,6 @@ abstract class KeyboardParser(private val params: KeyboardParams, private val co
     companion object {
         private const val TAG = "KeyboardParser"
 
-        // todo: this is somewhat awkward and could be re-organized
-        //  simple and json parser should just parse the core layout
-        //  adding extra keys should be done in KeyboardParser
-        fun parseLayout(params: KeyboardParams, context: Context): ArrayList<ArrayList<KeyParams>> {
-            val layoutName = getLayoutFileName(params, context)
-            if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-                val parser = if (layoutName.endsWith("json")) JsonKeyboardParser(params, context)
-                    else SimpleKeyboardParser(params, context)
-                return parser.parseLayoutString(getLayoutFile(layoutName, context).readText())
-            }
-            val layoutFileNames = context.assets.list("layouts")!!
-            if (layoutFileNames.contains("$layoutName.json")) {
-                return JsonKeyboardParser(params, context).parseLayoutString(context.readAssetsLayoutFile("$layoutName.json"))
-            }
-            if (layoutFileNames.contains("$layoutName.txt")) {
-                return SimpleKeyboardParser(params, context).parseLayoutString(context.readAssetsLayoutFile("$layoutName.txt"))
-            }
-            throw IllegalStateException("can't parse layout $layoutName with id ${params.mId} and elementId ${params.mId.mElementId}")
-        }
-
-        private fun Context.readAssetsLayoutFile(name: String) = assets.open("layouts${File.separator}$name").reader().readText()
-
-        private fun getLayoutFileName(params: KeyboardParams, context: Context, overrideElementId: Int? = null): String {
-            var checkForCustom = true
-            val layoutName = when (overrideElementId ?: params.mId.mElementId) {
-                KeyboardId.ELEMENT_SYMBOLS -> if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
-                KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LAYOUT_SYMBOLS_SHIFTED
-                KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    LAYOUT_NUMPAD_LANDSCAPE
-                else
-                    LAYOUT_NUMPAD
-                KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
-                KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
-                KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
-                else -> {
-                    checkForCustom = false // "custom" is already in keyboardLayoutSetName
-                    params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
-                }
-            }
-            return if (checkForCustom) Settings.readLayoutName(layoutName, context)
-            else layoutName
-        }
-
         // todo:
         //  layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
         //  or somewhere else... some replacement for keyboard_layout_set xml maybe
@@ -619,3 +544,7 @@ const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
 const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
+const val FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED = "functional_keys_symbols_shifted"
+const val FUNCTIONAL_LAYOUT_SYMBOLS = "functional_keys_symbols"
+const val FUNCTIONAL_LAYOUT = "functional_keys"
+const val FUNCTIONAL_LAYOUT_TABLET = "functional_keys_tablet"

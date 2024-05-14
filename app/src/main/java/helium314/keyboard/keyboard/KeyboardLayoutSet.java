@@ -17,6 +17,7 @@ import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -99,6 +100,7 @@ public final class KeyboardLayoutSet {
     private static void clearKeyboardCache() {
         sKeyboardCache.clear();
         sUniqueKeysCache.clear();
+        RawKeyboardParser.INSTANCE.clearCache();
     }
 
     KeyboardLayoutSet(final Context context, @NonNull final Params params) {

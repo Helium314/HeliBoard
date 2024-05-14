@@ -13,9 +13,8 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardParams
-import helium314.keyboard.keyboard.internal.keyboard_parser.JsonKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
@@ -65,7 +64,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
             name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
-            val file = getLayoutFile(name, context)
+            val file = getCustomLayoutFile(name, context)
             if (file.exists())
                 file.delete()
             file.parentFile?.mkdir()
@@ -81,21 +80,21 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
-        val keys = JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
+        val keys = RawKeyboardParser.parseJsonString(layoutContent).map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return true
     } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     try {
-        val keys = SimpleKeyboardParser(params, context).parseLayoutString(layoutContent)
+        val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { it.map { it.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
     if (layoutContent.startsWith("[")) {
-        // layout can't be loaded, assume it's json -> try json layout again because of error message readout
+        // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
-            JsonKeyboardParser(params, context).parseLayoutString(layoutContent)
+            RawKeyboardParser.parseJsonString(layoutContent).map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     }
     return null
@@ -129,8 +128,10 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     return true
 }
 
-fun getLayoutFile(layoutName: String, context: Context) =
-    File(Settings.getLayoutsDir(context), layoutName)
+fun getCustomLayoutFile(layoutName: String, context: Context) =
+    File(getCustomLayoutsDir(context), layoutName)
+
+fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
@@ -141,11 +142,11 @@ fun getLayoutDisplayName(layoutName: String) =
     }
 
 fun removeCustomLayoutFile(layoutName: String, context: Context) {
-    getLayoutFile(layoutName, context).delete()
+    getCustomLayoutFile(layoutName, context).delete()
 }
 
 fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
-    val file = getLayoutFile(layoutName, context)
+    val file = getCustomLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
     }

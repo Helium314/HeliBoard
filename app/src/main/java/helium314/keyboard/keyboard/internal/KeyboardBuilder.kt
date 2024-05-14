@@ -59,7 +59,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
                 // add label source only if popup key type enabled
                 sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
-                keysInRows = KeyboardParser.parseLayout(mParams, mContext)
+                keysInRows = KeyboardParser(mParams, mContext).parseLayout()
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
