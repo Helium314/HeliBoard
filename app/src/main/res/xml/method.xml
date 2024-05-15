@@ -50,7 +50,8 @@
     hi: Hindi/hindi_compact
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
     hr: Croatian/qwertz
-    hu: Hungarian/qwertz, hungarian_qwertz
+    hu: Hungarian/qwertz
+    hu: Hungarian/hungarian_qwertz
     hu_HU: Hungarian/qwerty
     hy_AM: Armenian (Armenia) Phonetic/armenian_phonetic
     in: Indonesian/qwerty    # "id" is the official language code of Indonesian.
