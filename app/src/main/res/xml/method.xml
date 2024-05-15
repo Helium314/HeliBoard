@@ -508,7 +508,7 @@
         android:imeSubtypeLocale="hu"
         android:languageTag="hu"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=hungarian_qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=hungarian_extended_qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="true"
         />
     <subtype android:icon="@drawable/ic_ime_switcher"
