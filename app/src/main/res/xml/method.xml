@@ -50,7 +50,7 @@
     hi: Hindi/hindi_compact
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
     hr: Croatian/qwertz
-    hu: Hungarian/hungarian_qwertz
+    hu: Hungarian/qwertz, hungarian_qwertz
     hu_HU: Hungarian/qwerty
     hy_AM: Armenian (Armenia) Phonetic/armenian_phonetic
     in: Indonesian/qwerty    # "id" is the official language code of Indonesian.
@@ -498,9 +498,18 @@
             android:imeSubtypeLocale="hu"
             android:languageTag="hu"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=hungarian_qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
     />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic_extended"
+        android:subtypeId="0x35e198ee"
+        android:imeSubtypeLocale="hu"
+        android:languageTag="hu"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=hungarian_qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
+        />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xe39ac3ca"
