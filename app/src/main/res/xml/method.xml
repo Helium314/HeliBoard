@@ -728,7 +728,7 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_generic"
+        android:label="@string/subtype_mns"
         android:subtypeId="0x1056a464"
         android:imeSubtypeLocale="mns"
         android:languageTag="mns"
