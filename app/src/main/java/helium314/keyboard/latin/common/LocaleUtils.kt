@@ -58,7 +58,7 @@ object LocaleUtils {
     // The compared locales are fully identical. This is the best match level.
     private const val LOCALE_FULL_MATCH = 30
 
-    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
 
     /**
      * Return how well a tested locale matches a reference locale.

@@ -121,6 +121,7 @@ object RawKeyboardParser {
         else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
     }
 
+    // todo (later, see also keyboardParser): use Settings.getInstance().current.mSingleFunctionalLayout
     private fun getFunctionalLayoutName(params: KeyboardParams) = when (params.mId.mElementId) {
         KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
         KeyboardId.ELEMENT_SYMBOLS -> FUNCTIONAL_LAYOUT_SYMBOLS

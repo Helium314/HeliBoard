@@ -73,6 +73,7 @@ import java.util.zip.ZipOutputStream
  * - Improve keyboard
  * - Debug settings
  */
+@Suppress("KotlinConstantConditions") // build type might be a constant, but depends on... build type!
 class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
@@ -436,8 +437,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
-        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
+        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
+        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
         reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)

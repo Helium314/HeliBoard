@@ -57,7 +57,7 @@ public final class PermissionsActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(EXTRA_PERMISSION_REQUEST_CODE, mPendingRequestCode);
     }
@@ -68,8 +68,8 @@ public final class PermissionsActivity
         // Only do request when there is no pending request to avoid duplicated requests.
         if (mPendingRequestCode == INVALID_REQUEST_CODE) {
             final Bundle extras = getIntent().getExtras();
-            final String[] permissionsToRequest =
-                    extras.getStringArray(EXTRA_PERMISSION_REQUESTED_PERMISSIONS);
+            if (extras == null) return;
+            final String[] permissionsToRequest = extras.getStringArray(EXTRA_PERMISSION_REQUESTED_PERMISSIONS);
             mPendingRequestCode = extras.getInt(EXTRA_PERMISSION_REQUEST_CODE);
             // Assuming that all supplied permissions are not granted yet, so that we don't need to
             // check them again.

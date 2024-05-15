@@ -97,9 +97,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         return true
     }
 
-    private fun onMoveCursorHorizontally(_steps: Int): Boolean {
-        if (_steps == 0) return false
-        var steps = _steps
+    private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
+        if (rawSteps == 0) return false
+        var steps = rawSteps
         // for RTL languages we want to invert pointer movement
         if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) steps = -steps
         val moveSteps: Int

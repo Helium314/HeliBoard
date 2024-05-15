@@ -35,11 +35,11 @@ public interface KeyboardActionListener {
      * Send a key code to the listener.
      *
      * @param primaryCode this is the code of the key that was pressed
-     * @param x x-coordinate pixel of touched event. If {@link #onCodeInput} is not called by
+     * @param x x-coordinate pixel of touched event. If onCodeInput is not called by
      *            {@link PointerTracker} or so, the value should be
      *            {@link Constants#NOT_A_COORDINATE}. If it's called on insertion from the
      *            suggestion strip, it should be {@link Constants#SUGGESTION_STRIP_COORDINATE}.
-     * @param y y-coordinate pixel of touched event. If {@link #onCodeInput} is not called by
+     * @param y y-coordinate pixel of touched event. If #onCodeInput is not called by
      *            {@link PointerTracker} or so, the value should be
      *            {@link Constants#NOT_A_COORDINATE}.If it's called on insertion from the
      *            suggestion strip, it should be {@link Constants#SUGGESTION_STRIP_COORDINATE}.
@@ -103,9 +103,9 @@ public interface KeyboardActionListener {
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
 
-    static int SWIPE_NO_ACTION = 0;
-    static int SWIPE_MOVE_CURSOR = 1;
-    static int SWIPE_SWITCH_LANGUAGE = 2;
+    int SWIPE_NO_ACTION = 0;
+    int SWIPE_MOVE_CURSOR = 1;
+    int SWIPE_SWITCH_LANGUAGE = 2;
 
     class Adapter implements KeyboardActionListener {
         @Override

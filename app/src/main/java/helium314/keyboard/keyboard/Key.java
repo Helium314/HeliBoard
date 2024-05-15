@@ -191,7 +191,7 @@ public class Key implements Comparable<Key> {
     /**
      * Constructor for a key on <code>PopupKeyKeyboard</code> and on <code>MoreSuggestions</code>.
      */
-    public Key(@Nullable final String label, final String iconName, final int code,
+    public Key(@Nullable final String label, @NonNull final String iconName, final int code,
             @Nullable final String outputText, @Nullable final String hintLabel,
             final int labelFlags, final int backgroundType, final int x, final int y,
             final int width, final int height, final int horizontalGap, final int verticalGap) {
@@ -404,7 +404,7 @@ public class Key implements Comparable<Key> {
                 && o.mCode == mCode
                 && TextUtils.equals(o.mLabel, mLabel)
                 && TextUtils.equals(o.mHintLabel, mHintLabel)
-                && o.mIconName == mIconName
+                && o.mIconName.equals(mIconName)
                 && o.mBackgroundType == mBackgroundType
                 && Arrays.equals(o.mPopupKeys, mPopupKeys)
                 && TextUtils.equals(o.getOutputText(), getOutputText())
@@ -429,6 +429,7 @@ public class Key implements Comparable<Key> {
         return o instanceof Key && equalsInternal((Key)o);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toShortString() + " " + getX() + "," + getY() + " " + getWidth() + "x" + getHeight();
@@ -654,7 +655,7 @@ public class Key implements Comparable<Key> {
         return (mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0;
     }
 
-    private final boolean isShiftedLetterActivated() {
+    private boolean isShiftedLetterActivated() {
         return (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
                 && !TextUtils.isEmpty(mHintLabel);
     }

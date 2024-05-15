@@ -25,6 +25,7 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 
+@Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
     ShadowLocaleManagerCompat::class,

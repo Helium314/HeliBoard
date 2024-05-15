@@ -236,8 +236,7 @@ final class DynamicGridKeyboard extends Keyboard {
             if (o instanceof Integer) {
                 final int code = (Integer)o;
                 key = getKeyByCode(keyboards, code);
-            } else if (o instanceof String) {
-                final String outputText = (String)o;
+            } else if (o instanceof final String outputText) {
                 key = getKeyByOutputText(keyboards, outputText);
             } else {
                 Log.w(TAG, "Invalid object: " + o);
@@ -267,18 +266,20 @@ final class DynamicGridKeyboard extends Keyboard {
         return row * mVerticalStep + mVerticalGap / 2;
     }
 
+    @NonNull
     @Override
     public List<Key> getSortedKeys() {
         synchronized (mLock) {
             if (mCachedGridKeys != null) {
                 return mCachedGridKeys;
             }
-            final ArrayList<Key> cachedKeys = new ArrayList<Key>(mGridKeys);
+            final ArrayList<Key> cachedKeys = new ArrayList<>(mGridKeys);
             mCachedGridKeys = Collections.unmodifiableList(cachedKeys);
             return mCachedGridKeys;
         }
     }
 
+    @NonNull
     @Override
     public List<Key> getNearestKeys(final int x, final int y) {
         // TODO: Calculate the nearest key index in mGridKeys from x and y.
@@ -312,13 +313,13 @@ final class DynamicGridKeyboard extends Keyboard {
 
         @Override
         public boolean equals(final Object o) {
-            if (!(o instanceof Key)) return false;
-            final Key key = (Key)o;
+            if (!(o instanceof final Key key)) return false;
             if (getCode() != key.getCode()) return false;
             if (!TextUtils.equals(getLabel(), key.getLabel())) return false;
             return TextUtils.equals(getOutputText(), key.getOutputText());
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "GridKey: " + super.toString();

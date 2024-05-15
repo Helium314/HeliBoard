@@ -7,9 +7,11 @@
 package helium314.keyboard.latin.suggestions;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
@@ -45,12 +47,11 @@ public final class MoreSuggestions extends Keyboard {
 
         public int layout(final SuggestedWords suggestedWords, final int fromIndex,
                 final int maxWidth, final int minWidth, final int maxRow, final Paint paint,
-                final Resources res) {
+                final Context context) {
             clearKeys();
-            mDivider = res.getDrawable(R.drawable.more_suggestions_divider);
-            mDividerWidth = mDivider.getIntrinsicWidth();
-            final float padding = res.getDimension(
-                    R.dimen.config_more_suggestions_key_horizontal_padding);
+            mDivider = ContextCompat.getDrawable(context, R.drawable.more_suggestions_divider);
+            mDividerWidth = mDivider == null ? 0 : mDivider.getIntrinsicWidth();
+            final float padding = context.getResources().getDimension(R.dimen.config_more_suggestions_key_horizontal_padding);
 
             int row = 0;
             int index = fromIndex;
@@ -186,7 +187,7 @@ public final class MoreSuggestions extends Keyboard {
             mParams.mVerticalGap = mParams.mTopPadding = parentKeyboard.mVerticalGap / 2;
             mPaneView.updateKeyboardGeometry(mParams.mDefaultAbsoluteRowHeight);
             final int count = mParams.layout(suggestedWords, fromIndex, maxWidth, minWidth, maxRow,
-                    mPaneView.newLabelPaint(null /* key */), mResources);
+                    mPaneView.newLabelPaint(null /* key */), getMContext());
             mFromIndex = fromIndex;
             mToIndex = fromIndex + count;
             mSuggestedWords = suggestedWords;
@@ -194,7 +195,7 @@ public final class MoreSuggestions extends Keyboard {
         }
 
         @Override
-        public MoreSuggestions build() {
+        @NonNull public MoreSuggestions build() {
             final MoreSuggestionsParam params = mParams;
             for (int index = mFromIndex; index < mToIndex; index++) {
                 final int x = params.getX(index);

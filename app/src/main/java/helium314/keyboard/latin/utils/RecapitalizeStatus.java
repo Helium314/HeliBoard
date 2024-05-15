@@ -29,7 +29,7 @@ public class RecapitalizeStatus {
         CAPS_MODE_ALL_UPPER
     };
 
-    private static final int getStringMode(final String string, final int[] sortedSeparators) {
+    private static int getStringMode(final String string, final int[] sortedSeparators) {
         if (StringUtils.isIdenticalAfterUpcase(string)) {
             return CAPS_MODE_ALL_UPPER;
         } else if (StringUtils.isIdenticalAfterDowncase(string)) {
@@ -42,14 +42,14 @@ public class RecapitalizeStatus {
     }
 
     public static String modeToString(final int recapitalizeMode) {
-        switch (recapitalizeMode) {
-        case NOT_A_RECAPITALIZE_MODE: return "undefined";
-        case CAPS_MODE_ORIGINAL_MIXED_CASE: return "mixedCase";
-        case CAPS_MODE_ALL_LOWER: return "allLower";
-        case CAPS_MODE_FIRST_WORD_UPPER: return "firstWordUpper";
-        case CAPS_MODE_ALL_UPPER: return "allUpper";
-        default: return "unknown<" + recapitalizeMode + ">";
-        }
+        return switch (recapitalizeMode) {
+            case NOT_A_RECAPITALIZE_MODE -> "undefined";
+            case CAPS_MODE_ORIGINAL_MIXED_CASE -> "mixedCase";
+            case CAPS_MODE_ALL_LOWER -> "allLower";
+            case CAPS_MODE_FIRST_WORD_UPPER -> "firstWordUpper";
+            case CAPS_MODE_ALL_UPPER -> "allUpper";
+            default -> "unknown<" + recapitalizeMode + ">";
+        };
     }
 
     /**
@@ -145,21 +145,10 @@ public class RecapitalizeStatus {
             }
             ++count;
             switch (ROTATION_STYLE[mRotationStyleCurrentIndex]) {
-            case CAPS_MODE_ORIGINAL_MIXED_CASE:
-                mStringAfter = mStringBefore;
-                break;
-            case CAPS_MODE_ALL_LOWER:
-                mStringAfter = mStringBefore.toLowerCase(mLocale);
-                break;
-            case CAPS_MODE_FIRST_WORD_UPPER:
-                mStringAfter = StringUtils.capitalizeEachWord(mStringBefore, mSortedSeparators,
-                        mLocale);
-                break;
-            case CAPS_MODE_ALL_UPPER:
-                mStringAfter = mStringBefore.toUpperCase(mLocale);
-                break;
-            default:
-                mStringAfter = mStringBefore;
+                case CAPS_MODE_ALL_LOWER -> mStringAfter = mStringBefore.toLowerCase(mLocale);
+                case CAPS_MODE_FIRST_WORD_UPPER -> mStringAfter = StringUtils.capitalizeEachWord(mStringBefore, mSortedSeparators, mLocale);
+                case CAPS_MODE_ALL_UPPER -> mStringAfter = mStringBefore.toUpperCase(mLocale);
+                default -> mStringAfter = mStringBefore;
             }
         } while (mStringAfter.equals(oldResult) && count < ROTATION_STYLE.length + 1);
         mCursorEndAfter = mCursorStartAfter + mStringAfter.length();

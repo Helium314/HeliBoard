@@ -18,7 +18,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
-import helium314.keyboard.latin.settings.Settings
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
@@ -80,13 +79,13 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
-        val keys = RawKeyboardParser.parseJsonString(layoutContent).map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+        val keys = RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return true
     } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     try {
-        val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { it.map { it.toKeyParams(params) } }
+        val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return false
@@ -94,7 +93,7 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     if (layoutContent.startsWith("[")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
-            RawKeyboardParser.parseJsonString(layoutContent).map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+            RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
     }
     return null
@@ -109,19 +108,19 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many rows")
         return false
     }
-    if (keys.any { it.size > 20 }) {
+    if (keys.any { row -> row.size > 20 }) {
         Log.w(TAG, "too many keys in one row")
         return false
     }
-    if (keys.any { it.any { ((it.mLabel?.length ?: 0) > 6) } }) {
+    if (keys.any { row -> row.any { ((it.mLabel?.length ?: 0) > 6) } }) {
         Log.w(TAG, "too long text on key")
         return false
     }
-    if (keys.any { it.any { (it.mPopupKeys?.size ?: 0) > 20 } }) {
+    if (keys.any { row -> row.any { (it.mPopupKeys?.size ?: 0) > 20 } }) {
         Log.w(TAG, "too many popup keys on a key")
         return false
     }
-    if (keys.any { it.any { it.mPopupKeys?.any { (it.mLabel?.length ?: 0) > 10 } == true } }) {
+    if (keys.any { row -> row.any { it.mPopupKeys?.any { popupKey -> (popupKey.mLabel?.length ?: 0) > 10 } == true } }) {
         Log.w(TAG, "too long text on popup key")
         return false
     }

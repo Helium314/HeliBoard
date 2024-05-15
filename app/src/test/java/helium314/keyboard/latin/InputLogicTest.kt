@@ -867,7 +867,7 @@ private val ic = object : InputConnection {
         // update selection
         selectionStart -= beforeLength
         selectionEnd -= beforeLength
-        return true;
+        return true
     }
     override fun sendKeyEvent(p0: KeyEvent): Boolean {
         if (p0.action != KeyEvent.ACTION_DOWN) return true // only change the text on key down, like RichInputConnection does
@@ -908,7 +908,7 @@ private val ic = object : InputConnection {
     override fun clearMetaKeyStates(p0: Int): Boolean = TODO("Not yet implemented")
     override fun reportFullscreenMode(p0: Boolean): Boolean = TODO("Not yet implemented")
     override fun performPrivateCommand(p0: String?, p1: Bundle?): Boolean = TODO("Not yet implemented")
-    override fun getHandler(): Handler? = TODO("Not yet implemented")
+    override fun getHandler(): Handler = TODO("Not yet implemented")
     override fun closeConnection() = TODO("Not yet implemented")
     override fun commitContent(p0: InputContentInfo, p1: Int, p2: Bundle?): Boolean = TODO("Not yet implemented")
 }

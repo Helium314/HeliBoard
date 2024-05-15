@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -783,6 +784,7 @@ public class LatinIME extends InputMethodService implements
      * Starts from {@link android.os.Build.VERSION_CODES#S_V2}, the returning context object has
      * became to IME context self since it ends up capable of updating its resources internally.
      */
+    @SuppressWarnings("deprecation")
     private @NonNull Context getDisplayContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
             // IME context sources is now managed by WindowProviderService from Android 12L.
@@ -1102,10 +1104,6 @@ public class LatinIME extends InputMethodService implements
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
         }
-    }
-
-    public CharSequence getSelection() {
-        return mInputLogic.mConnection.getSelectedText(0);
     }
 
     /**
@@ -1667,14 +1665,11 @@ public class LatinIME extends InputMethodService implements
      */
     private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
         switch (inputTransaction.getRequiredShiftUpdate()) {
-            case InputTransaction.SHIFT_UPDATE_LATER:
-                mHandler.postUpdateShiftState();
-                break;
-            case InputTransaction.SHIFT_UPDATE_NOW:
-                mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
-                        getCurrentRecapitalizeState());
-                break;
-            default: // SHIFT_NO_UPDATE
+            case InputTransaction.SHIFT_UPDATE_LATER -> mHandler.postUpdateShiftState();
+            case InputTransaction.SHIFT_UPDATE_NOW -> mKeyboardSwitcher
+                    .requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            default -> {
+            } // SHIFT_NO_UPDATE
         }
         if (inputTransaction.requiresUpdateSuggestions()) {
             final int inputStyle;
@@ -1897,6 +1892,7 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
+    @SuppressLint("SwitchIntDef")
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
