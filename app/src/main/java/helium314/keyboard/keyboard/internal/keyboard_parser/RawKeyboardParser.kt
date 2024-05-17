@@ -65,7 +65,7 @@ object RawKeyboardParser {
      *   codes of multi_text_key not used, only the label
      *   (currently) popups is always read to [number, main, relevant] layoutPopupKeys, no choice of which to use or which hint is provided
      */
-    fun parseJsonString(layoutText: String): List<List<AbstractKeyData>> = florisJsonConfig.decodeFromString(layoutText)
+    fun parseJsonString(layoutText: String): List<List<AbstractKeyData>> = florisJsonConfig.decodeFromString(layoutText.stripCommentLines())
 
     /** Parse simple layouts, defined only as rows of (normal) keys with popup keys. */
     fun parseSimpleString(layoutText: String): List<List<KeyData>> {
@@ -165,6 +165,10 @@ object RawKeyboardParser {
             assetsFiles.firstOrNull { it.startsWith(searchName) } ?: "qwerty.txt" // in case it was removed
         }
     }
+
+    // allow commenting lines by starting them with "//"
+    private fun String.stripCommentLines(): String =
+        split("\n").filterNot { it.startsWith("//") }.joinToString("\n")
 
     /*
      * Copyright (C) 2021 Patrick Goldinger
