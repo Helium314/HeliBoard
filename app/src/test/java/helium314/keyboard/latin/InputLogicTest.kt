@@ -545,6 +545,26 @@ class InputLogicTest {
         assertEquals("hello ", text)
     }
 
+    @Test fun `autospace in json editor`() {
+        reset()
+        chainInput("{\"label\":\"")
+        assertEquals("{\"label\": \"", text)
+        input('c')
+        assertEquals("{\"label\": \"c", text)
+    }
+
+    // todo: the test fails because assert wants it as it's in app
+    //  but actually the "failing text" is the wanted behavior -> how to get it in app?
+    @Test fun `autospace in json editor 2`() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+        setText("[\n[\n{ \"label\": \"a\" },\n")
+        chainInput("{\"label\":\"")
+        assertEquals("[\n[\n{ \"label\": \"a\" },\n{\"label\":\"", text)
+        input('c')
+        assertEquals("[\n[\n{ \"label\": \"a\" },\n{\"label\":\" c", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
