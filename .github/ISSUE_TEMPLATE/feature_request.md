@@ -10,7 +10,7 @@ tl;dr:
 * a single issue per topic
 * reduce screenshot size
 
-<!-- issue template below -->
+<!-- issue template below, please remove above text before submitting (and the template too if you think it's a good idea) -->
 
 **Is your feature request related to a problem? Please describe.**
 

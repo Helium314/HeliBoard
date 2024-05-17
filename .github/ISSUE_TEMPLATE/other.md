@@ -8,3 +8,5 @@ tl;dr:
 * search for duplicates, also in closed issues
 * a single issue per topic
 * reduce screenshot size
+
+<!-- please remove above text before submitting -->
