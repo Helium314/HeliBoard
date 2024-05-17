@@ -128,18 +128,19 @@ val defaultClipboardToolbarPref by lazy {
 
 /** add missing keys, typically because a new key has been added */
 fun upgradeToolbarPrefs(prefs: SharedPreferences) {
-    upgradeToolbarPref(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref, "true")
-    upgradeToolbarPref(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref, "false")
+    upgradeToolbarPref(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
+    upgradeToolbarPref(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
 }
 
-private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: String, defaultEnabled: String) {
+private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: String) {
+    if (!prefs.contains(pref)) return
     val list = prefs.getString(pref, default)!!.split(";").toMutableList()
     val splitDefault = defaultToolbarPref.split(";")
     if (list.size == splitDefault.size) return
     splitDefault.forEach { entry ->
         val keyWithComma = entry.substringBefore(",") + ","
         if (list.none { it.startsWith(keyWithComma) })
-            list.add("${keyWithComma}$defaultEnabled")
+            list.add("${keyWithComma}false")
     }
     // likely not needed, but better prepare for possibility of key removal
     list.removeAll {
