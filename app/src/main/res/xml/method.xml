@@ -738,6 +738,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_mns"
+        android:subtypeId="0x1056a464"
+        android:imeSubtypeLocale="mns"
+        android:languageTag="mns"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=mansi_north,EmojiCapable"
+        android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x747b9f03"
             android:imeSubtypeLocale="mr_IN"
