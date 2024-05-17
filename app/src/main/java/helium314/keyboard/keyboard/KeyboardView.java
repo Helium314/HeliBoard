@@ -39,41 +39,12 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestions;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
-import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
 
-/**
- * A view that renders a virtual {@link Keyboard}.
- *
- * @attr ref R.styleable#KeyboardView_keyBackground
- * @attr ref R.styleable#KeyboardView_functionalKeyBackground
- * @attr ref R.styleable#KeyboardView_spacebarBackground
- * @attr ref R.styleable#KeyboardView_spacebarIconWidthRatio
- * @attr ref R.styleable#Keyboard_Key_keyLabelFlags
- * @attr ref R.styleable#KeyboardView_keyHintLetterPadding
- * @attr ref R.styleable#KeyboardView_keyPopupHintLetter
- * @attr ref R.styleable#KeyboardView_keyPopupHintLetterPadding
- * @attr ref R.styleable#KeyboardView_keyShiftedLetterHintPadding
- * @attr ref R.styleable#KeyboardView_keyTextShadowRadius
- * @attr ref R.styleable#KeyboardView_verticalCorrection
- * @attr ref R.styleable#Keyboard_Key_keyTypeface
- * @attr ref R.styleable#Keyboard_Key_keyLetterSize
- * @attr ref R.styleable#Keyboard_Key_keyLabelSize
- * @attr ref R.styleable#Keyboard_Key_keyLargeLetterRatio
- * @attr ref R.styleable#Keyboard_Key_keyLargeLabelRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLetterRatio
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelRatio
- * @attr ref R.styleable#Keyboard_Key_keyLabelOffCenterRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelOffCenterRatio
- * @attr ref R.styleable#Keyboard_Key_keyPreviewTextRatio
- * @attr ref R.styleable#Keyboard_Key_keyTextColorDisabled
- * @attr ref R.styleable#Keyboard_Key_keyTextShadowColor
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintInactivatedColor
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintActivatedColor
- */
+/** A view that renders a virtual {@link Keyboard}. */
+// todo: this ThemeStyle-dependent stuff really should not be in here!
 public class KeyboardView extends View {
     // XML attributes
     private final KeyVisualAttributes mKeyVisualAttributes;
