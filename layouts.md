@@ -22,10 +22,10 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
+* Lines _starting_ with `//` are ignored.
 * There is no need for specifying a `code`, it will be determined from the label automatically
   * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
-* More details on the formal will be provided. For now you can check other layouts, often you just need to copy lines and change the labels.
 * Key classes: specified with `$`, usually you can omit them in HeliBoard 
   * `text_key`: normal key, default
   * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, HeliBoard does that anyway unless disabled with a _labelFlag_
@@ -48,6 +48,9 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * There are some more values, but they do nothing
 * `code`: code point that is entered when the key is pressed, determined from the label by default, not available for `multi_text_key`
   * There are special negative values available, e.g. the ones used by functional keys, see [KeyCode.kt](/app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyCode.kt). There are several not yet supported key codes in there, you can see in the function `checkAndConvertCode` which ones are working.
+  * Special notes for the modifier keys `CTRL`, `ALT`, `FN`, `META`
+    * Currently there is no special lock-treatment, so you need to hold the key and press another key at the same time (like on a hardware keyboard)
+    * this means you should avoid putting popups on modifier keys (or press the other key quickly)
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, determined from code if empty
   * There are some special values, see the [label section](#labels)

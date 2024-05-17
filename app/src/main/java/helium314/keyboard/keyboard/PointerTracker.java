@@ -737,6 +737,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         if (!sInGesture && key != null && Character.isLetter(key.getCode())
                 && mBatchInputArbiter.mayStartBatchInput(this)) {
+            sListener.resetMetaState(); // avoid metaState getting stuck, doesn't work with gesture typing anyway
             sInGesture = true;
         }
         if (sInGesture) {
@@ -1116,6 +1117,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
         if (popupKeysPanel == null) {
             return;
+        }
+        if (code == KeyCode.CTRL || code == KeyCode.ALT || code == KeyCode.FN || code == KeyCode.META) {
+            // avoid metaState getting stuck
+            sListener.onReleaseKey(code, false);
         }
         final int translatedX = popupKeysPanel.translateX(mLastX);
         final int translatedY = popupKeysPanel.translateY(mLastY);

@@ -514,6 +514,8 @@ public class Key implements Comparable<Key> {
 
     public final boolean isModifier() {
         return mCode == KeyCode.SHIFT || mCode == KeyCode.SYMBOL_ALPHA || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
+        // todo: if this is used, sliding input starts on those keys, but it's not yet implemented
+//                || mCode == KeyCode.CTRL || mCode == KeyCode.ALT || mCode == KeyCode.FN || mCode == KeyCode.META;
     }
 
     public final boolean isRepeatable() {

@@ -5,6 +5,8 @@
  */
 package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
+import android.view.KeyEvent
+
 // taken from FlorisBoard and modified
 object KeyCode {
     object Spec {
@@ -134,6 +136,8 @@ object KeyCode {
     const val CLIPBOARD_COPY_ALL =        -10009
     const val PAGE_UP =                   -10010
     const val PAGE_DOWN =                 -10011
+    const val META =                      -10012
+    const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT(/FN LOCK codes, not sure whether this will be used
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -142,7 +146,7 @@ object KeyCode {
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD,
         UNDO, REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
-        SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED,
+        SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT, FN, META,
 
         // heliboard only
         SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
@@ -155,5 +159,48 @@ object KeyCode {
         VIEW_PHONE2 -> SYMBOL
 
         else -> throw IllegalStateException("key code $this not yet supported")
+    }
+
+    // todo: add more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
+    // maybe not toChar for conversion of some special keys?
+    /** convert a codePoint to a KeyEvent.KEYCODE_<xxx>, fallback to KeyEvent.KEYCODE_UNKNOWN */
+    fun Int.toKeyEventCode(): Int = when (this.toChar().uppercaseChar()) {
+        '0' -> KeyEvent.KEYCODE_0
+        '1' -> KeyEvent.KEYCODE_1
+        '2' -> KeyEvent.KEYCODE_2
+        '3' -> KeyEvent.KEYCODE_3
+        '4' -> KeyEvent.KEYCODE_4
+        '5' -> KeyEvent.KEYCODE_5
+        '6' -> KeyEvent.KEYCODE_6
+        '7' -> KeyEvent.KEYCODE_7
+        '8' -> KeyEvent.KEYCODE_8
+        '9' -> KeyEvent.KEYCODE_9
+        'A' -> KeyEvent.KEYCODE_A
+        'B' -> KeyEvent.KEYCODE_B
+        'C' -> KeyEvent.KEYCODE_C
+        'D' -> KeyEvent.KEYCODE_D
+        'E' -> KeyEvent.KEYCODE_E
+        'F' -> KeyEvent.KEYCODE_F
+        'G' -> KeyEvent.KEYCODE_G
+        'H' -> KeyEvent.KEYCODE_H
+        'I' -> KeyEvent.KEYCODE_I
+        'J' -> KeyEvent.KEYCODE_J
+        'K' -> KeyEvent.KEYCODE_K
+        'L' -> KeyEvent.KEYCODE_L
+        'M' -> KeyEvent.KEYCODE_M
+        'N' -> KeyEvent.KEYCODE_N
+        'O' -> KeyEvent.KEYCODE_O
+        'P' -> KeyEvent.KEYCODE_P
+        'Q' -> KeyEvent.KEYCODE_Q
+        'R' -> KeyEvent.KEYCODE_R
+        'S' -> KeyEvent.KEYCODE_S
+        'T' -> KeyEvent.KEYCODE_T
+        'U' -> KeyEvent.KEYCODE_U
+        'V' -> KeyEvent.KEYCODE_V
+        'W' -> KeyEvent.KEYCODE_W
+        'X' -> KeyEvent.KEYCODE_X
+        'Y' -> KeyEvent.KEYCODE_Y
+        'Z' -> KeyEvent.KEYCODE_Z
+        else -> KeyEvent.KEYCODE_UNKNOWN
     }
 }

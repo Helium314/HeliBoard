@@ -298,7 +298,6 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             // this is ugly...
             if (label.length > 8 && label.startsWith("!string/")) {
                 val id = context.resources.getIdentifier(label.substringAfter("!string/"), "string", context.packageName)
-                Log.i("test", "id of $label: $id")
                 if (id != 0) copy(newLabel = getInLocale(id))
                 else this
             } else this

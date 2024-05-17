@@ -100,6 +100,7 @@ public interface KeyboardActionListener {
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
+    void resetMetaState();
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
 
@@ -144,5 +145,7 @@ public interface KeyboardActionListener {
         public void onMoveDeletePointer(int steps) {}
         @Override
         public void onUpWithDeletePointerActive() {}
+        @Override
+        public void resetMetaState() {}
     }
 }

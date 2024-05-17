@@ -591,7 +591,7 @@ class InputLogicTest {
 
     private fun functionalKeyPress(keyCode: Int) {
         require(keyCode < 0) { "not a functional key code: $keyCode" }
-        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
+        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, 0, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
         handleMessages()
         checkConnectionConsistency()
     }

@@ -704,8 +704,9 @@ public final class InputLogic {
                 handleClipboardPaste();
                 break;
             case KeyCode.SHIFT_ENTER:
+                // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
                 final Event tmpEvent = Event.createSoftwareKeypressEvent(Constants.CODE_ENTER,
-                        event.getMKeyCode(), event.getMX(), event.getMY(), event.isKeyRepeat());
+                        event.getMKeyCode(), 0, event.getMX(), event.getMY(), event.isKeyRepeat());
                 handleNonSpecialCharacterEvent(tmpEvent, inputTransaction, handler);
                 // Shift + Enter is treated as a functional key but it results in adding a new
                 // line, so that does affect the contents of the editor.
@@ -733,7 +734,7 @@ public final class InputLogic {
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(true);
                     // fake delete keypress to remove the text
-                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE,
+                    final Event backspaceEvent = LatinIME.createSoftwareKeypressEvent(KeyCode.DELETE, 0,
                             event.getMX(), event.getMY(), event.isKeyRepeat());
                     handleBackspaceEvent(backspaceEvent, inputTransaction, currentKeyboardScript);
                     inputTransaction.setDidAffectContents();
@@ -783,9 +784,18 @@ public final class InputLogic {
             case KeyCode.START_ONE_HANDED_MODE:
             case KeyCode.STOP_ONE_HANDED_MODE:
             case KeyCode.SWITCH_ONE_HANDED_MODE:
+            case KeyCode.CTRL:
+            case KeyCode.ALT:
+            case KeyCode.FN:
+            case KeyCode.META:
                 break;
             default:
-                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                if (event.getMMetaState() != 0) {
+                    // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
+                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMCodePoint());
+                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                } else
+                    throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
     }
 

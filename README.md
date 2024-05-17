@@ -159,7 +159,10 @@ See make-dict-list tool [README](tools/make-dict-list/README.md).
 __Planned features and improvements:__
 * Customizable functional key layout
   * Will likely result in having the same functional key layout for alphabet and symbols layouts
-* Support for _alt_, _ctrl_, _meta_ and _fn_ (#479)
+* Improve support for modifier keys (_alt_, _ctrl_, _meta_ and _fn_), some ideas:
+  * keep modifier keys on with long press
+  * keep modifier keys on until the next key press
+  * use sliding input
 * Less complicated addition of new keyboard languages (e.g. #519)
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
