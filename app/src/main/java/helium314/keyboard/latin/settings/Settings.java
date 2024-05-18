@@ -23,6 +23,7 @@ import android.view.Gravity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
@@ -691,5 +692,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public boolean isTablet() {
         return mContext.getResources().getInteger(R.integer.config_screen_metrics) >= 3;
+    }
+
+    public int getStringResIdByName(final String name) {
+        return mContext.getResources().getIdentifier(name, "string", mContext.getPackageName());
+    }
+
+    public String getInLocale(@StringRes final int resId, final Locale locale) {
+        return RunInLocaleKt.runInLocale(mContext, locale, (ctx) -> ctx.getString(resId));
     }
 }
