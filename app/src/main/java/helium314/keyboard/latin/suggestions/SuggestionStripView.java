@@ -485,6 +485,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
         mStripVisibilityGroup.showSuggestionsStrip();
+        if (mSuggestedWords.isEmpty() && Settings.getInstance().getCurrent().mAutoShowToolbar){
+            setToolbarVisibility(true);
+        }
     }
 
     boolean showMoreSuggestions() {
