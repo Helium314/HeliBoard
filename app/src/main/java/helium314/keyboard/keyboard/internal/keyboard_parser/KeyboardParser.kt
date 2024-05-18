@@ -103,14 +103,13 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val functionalKeysFromBottom = functionalKeysBottom.getOrNull(i - bottomIndexOffset) ?: emptyList()
             functionalKeys.add(getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom))
 
-            row.mapNotNull { key ->
+            row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
-                val keyData = key.processFunctionalKeys() ?: return@mapNotNull null // all keys could actually be functional keys...
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
-                keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
+                    Log.d(TAG, "adding key ${key.label}, ${key.code}")
+                key.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
         }
         return setReasonableWidths(baseKeyParams, functionalKeys)
@@ -256,16 +255,9 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         // functional keys from top rows are the outermost, if there are some in the same row
         functionalKeysFromTopLeft.addAll(functionalKeysFromBottomLeft)
         functionalKeysFromBottomRight.addAll(functionalKeysFromTopRight)
-        val functionalKeysLeft = functionalKeysFromTopLeft.mapNotNull { it.processFunctionalKeys()?.toKeyParams(params) }
-        val functionalKeysRight = functionalKeysFromBottomRight.mapNotNull { it.processFunctionalKeys()?.toKeyParams(params) }
+        val functionalKeysLeft = functionalKeysFromTopLeft.map { it.toKeyParams(params) }
+        val functionalKeysRight = functionalKeysFromBottomRight.map { it.toKeyParams(params) }
         return functionalKeysLeft to functionalKeysRight
-    }
-
-    // todo: try moving defaultLabelFlags and layoutInfo into KeyboardParams
-    private fun KeyData.processFunctionalKeys(): KeyData? = when (label) {
-        // todo: why defaultLabelFlags exactly here? is this for armenian or bengali period labels? try removing also check in holo theme
-        KeyLabel.PERIOD -> copy(newLabelFlags = labelFlags or defaultLabelFlags)
-        else -> this
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {

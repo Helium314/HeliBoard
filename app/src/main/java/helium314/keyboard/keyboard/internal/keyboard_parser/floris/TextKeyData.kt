@@ -459,7 +459,9 @@ sealed interface KeyData : AbstractKeyData {
     private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
-            KeyLabel.PERIOD, KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT // todo: period also has defaultLabelFlags -> when is this relevant?
+            KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT
+            // essentially this only changes the appearance of the armenian period key in holo theme
+            KeyLabel.PERIOD -> Key.LABEL_FLAGS_HAS_POPUP_HINT and if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
                         Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
