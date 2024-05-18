@@ -53,6 +53,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             try {
                 setupParams()
                 keysInRows = KeyboardParser(mParams, mContext).parseLayout()
+                if (keysInRows.size != 4) // that was effectively the default for OpenBoard
+                    mParams.mTouchPositionCorrection.load(mContext.resources.getStringArray(R.array.touch_position_correction_data_default))
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
@@ -63,9 +65,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun setupParams() {
-        val sv = Settings.getInstance().current
-        val layoutName = mParams.mId.mSubtype.keyboardLayoutSetName
-
         // previously was false for nordic and serbian_qwertz, true for all others
         // todo: add setting? maybe users want it in a custom layout
         mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
@@ -73,6 +72,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
+        val sv = Settings.getInstance().current
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
         // add label source only if popup key type enabled

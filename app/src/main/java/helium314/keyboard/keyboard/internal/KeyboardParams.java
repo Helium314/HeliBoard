@@ -20,7 +20,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
@@ -98,8 +97,7 @@ public class KeyboardParams {
     public boolean mProximityCharsCorrectionEnabled;
 
     @NonNull
-    public final TouchPositionCorrection mTouchPositionCorrection =
-            new TouchPositionCorrection();
+    public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
     private static final Comparator<Key> ROW_COLUMN_COMPARATOR = (lhs, rhs) -> {
@@ -269,28 +267,12 @@ public class KeyboardParams {
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             mIconsSet.loadIcons(keyboardAttr);
 
-            // todo: this clashes with the other way of doing it... now both moved here, in same order
-            //  need to check OpenBoard how it was done there
-            // also, popup keys should have an empty array
+            // touchPositionResId currently is 0 for popups, and touch_position_correction_data_holo for others
             final int touchPositionResId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
             if (touchPositionResId != 0) {
-                final String[] data = context.getResources().getStringArray(touchPositionResId);
+                final int actualId = mId.isAlphabetKeyboard() ? touchPositionResId : R.array.touch_position_correction_data_default;
+                final String[] data = context.getResources().getStringArray(actualId);
                 mTouchPositionCorrection.load(data);
-            }
-            // so this is the new way:
-            final int touchPositionResIdNew;
-            if (mId.isAlphabetKeyboard()) {
-                touchPositionResIdNew = switch (mId.mSubtype.getKeyboardLayoutSetName()) {
-                    case "armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai" -> R.array.touch_position_correction_data_default;
-                    default -> R.array.touch_position_correction_data_holo;
-                };
-            } else touchPositionResIdNew = R.array.touch_position_correction_data_holo;
-            if (touchPositionResIdNew != touchPositionResId) {
-                Log.i("KeyboardParams", "overriding touchPositionCorrection "+touchPositionResId+" with "+touchPositionResIdNew);
-                if (touchPositionResIdNew != 0) {
-                    final String[] data = context.getResources().getStringArray(touchPositionResIdNew);
-                    mTouchPositionCorrection.load(data);
-                }
             }
         } finally {
             keyAttr.recycle();
