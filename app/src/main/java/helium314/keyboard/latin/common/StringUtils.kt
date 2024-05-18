@@ -6,6 +6,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
+import java.util.Locale
 
 fun loopOverCodePoints(s: CharSequence, run: (Int) -> Boolean) {
     val text = if (s is String) s else s.toString()
@@ -98,6 +99,12 @@ fun String.splitOnFirstSpacesOnly(): List<String> {
     if (sb.isNotBlank())
         out.add(sb.toString())
     return out
+}
+
+fun String.decapitalize(locale: Locale): String {
+    if (isEmpty() || !this[0].isUpperCase())
+        return this
+    return replaceFirstChar { it.lowercase(locale) }
 }
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))

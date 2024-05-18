@@ -11,7 +11,8 @@ import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.upgradeToolbarPref
+import helium314.keyboard.latin.utils.getCustomLayoutsDir
+import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
 class App : Application() {
@@ -37,7 +38,7 @@ fun checkVersionUpgrade(context: Context) {
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
-    upgradeToolbarPref(prefs)
+    upgradeToolbarPrefs(prefs)
     // clear extracted dictionaries, in case updated version contains newer ones
     DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
         if (!it.isDirectory) return@forEach
@@ -50,7 +51,7 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
-        val layoutsDir = Settings.getLayoutsDir(context)
+        val layoutsDir = getCustomLayoutsDir(context)
         val oldShiftSymbolsFile = File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}shift_symbols")
         if (oldShiftSymbolsFile.exists()) {
             oldShiftSymbolsFile.renameTo(File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}symbols_shifted"))
@@ -79,7 +80,7 @@ fun checkVersionUpgrade(context: Context) {
 private fun upgradesWhenComingFromOldAppName(context: Context) {
     // move layout files
     try {
-        val layoutsDir = Settings.getLayoutsDir(context)
+        val layoutsDir = getCustomLayoutsDir(context)
         File(context.filesDir, "layouts").listFiles()?.forEach {
             it.copyTo(File(layoutsDir, it.name), true)
             it.delete()

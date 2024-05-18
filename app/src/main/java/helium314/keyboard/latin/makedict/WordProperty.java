@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.makedict;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
@@ -20,7 +21,7 @@ import java.util.Arrays;
 
 /**
  * Utility class for a word with a probability.
- *
+ * <p>
  * This is chiefly used to iterate a dictionary.
  */
 public final class WordProperty implements Comparable<WordProperty> {
@@ -150,7 +151,7 @@ public final class WordProperty implements Comparable<WordProperty> {
 
     /**
      * Three-way comparison.
-     *
+     * <p>
      * A Word x is greater than a word y if x has a higher frequency. If they have the same
      * frequency, they are sorted in lexicographic order.
      */
@@ -163,15 +164,14 @@ public final class WordProperty implements Comparable<WordProperty> {
 
     /**
      * Equality test.
-     *
+     * <p>
      * Words are equal if they have the same frequency, the same spellings, and the same
      * attributes.
      */
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof WordProperty)) return false;
-        WordProperty w = (WordProperty)o;
+        if (!(o instanceof WordProperty w)) return false;
         return mProbabilityInfo.equals(w.mProbabilityInfo) && mWord.equals(w.mWord)
                 && mShortcutTargets.equals(w.mShortcutTargets) && equals(mNgrams, w.mNgrams)
                 && mIsNotAWord == w.mIsNotAWord && mIsPossiblyOffensive == w.mIsPossiblyOffensive
@@ -199,7 +199,7 @@ public final class WordProperty implements Comparable<WordProperty> {
     }
 
     @Override
-    public String toString() {
+    @NonNull public String toString() {
         return CombinedFormatUtils.formatWordProperty(this);
     }
 }

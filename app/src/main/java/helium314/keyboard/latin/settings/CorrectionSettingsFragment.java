@@ -77,6 +77,7 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
         setPreferenceVisible(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, getSharedPreferences().getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true));
         setPreferenceVisible(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
         setPreferenceVisible(Settings.PREF_SUGGESTIONS_TOGGLE_TOOLBAR, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
+        setPreferenceVisible(Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, getSharedPreferences().getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true));
         turnOffLookupContactsIfNoPermission();
     }
 

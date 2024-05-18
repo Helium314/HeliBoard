@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -783,6 +784,7 @@ public class LatinIME extends InputMethodService implements
      * Starts from {@link android.os.Build.VERSION_CODES#S_V2}, the returning context object has
      * became to IME context self since it ends up capable of updating its resources internally.
      */
+    @SuppressWarnings("deprecation")
     private @NonNull Context getDisplayContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
             // IME context sources is now managed by WindowProviderService from Android 12L.
@@ -1073,6 +1075,7 @@ public class LatinIME extends InputMethodService implements
         mHandler.cancelUpdateSuggestionStrip();
         // Should do the following in onFinishInputInternal but until JB MR2 it's not called :(
         mInputLogic.finishInput();
+        mKeyboardActionListener.resetMetaState();
     }
 
     protected void deallocateMemory() {
@@ -1102,10 +1105,6 @@ public class LatinIME extends InputMethodService implements
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
         }
-    }
-
-    public CharSequence getSelection() {
-        return mInputLogic.mConnection.getSelectedText(0);
     }
 
     /**
@@ -1455,9 +1454,13 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
-    // Implementation of {@link KeyboardActionListener}.
+    // Implementation of {@link SuggestionStripView.Listener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
+        onCodeInput(codePoint, 0, x, y, isKeyRepeat);
+    }
+
+    public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat) {
         if (codePoint < 0) {
             switch (codePoint) {
                 case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
@@ -1473,7 +1476,7 @@ public class LatinIME extends InputMethodService implements
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(codePoint, keyX, keyY, isKeyRepeat);
+        final Event event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
         onEvent(event);
     }
 
@@ -1495,8 +1498,8 @@ public class LatinIME extends InputMethodService implements
     // squashed into the same variable, and this method should be removed.
     // public for testing, as we don't want to copy the same logic into test code
     @NonNull
-    public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int keyX,
-                                                    final int keyY, final boolean isKeyRepeat) {
+    public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int metaState,
+                                                    final int keyX, final int keyY, final boolean isKeyRepeat) {
         final int keyCode;
         final int codePoint;
         if (keyCodeOrCodePoint <= 0) {
@@ -1506,11 +1509,9 @@ public class LatinIME extends InputMethodService implements
             keyCode = Event.NOT_A_KEY_CODE;
             codePoint = keyCodeOrCodePoint;
         }
-        return Event.createSoftwareKeypressEvent(codePoint, keyCode, keyX, keyY, isKeyRepeat);
+        return Event.createSoftwareKeypressEvent(codePoint, keyCode, metaState, keyX, keyY, isKeyRepeat);
     }
 
-    // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
         final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS);
@@ -1518,6 +1519,7 @@ public class LatinIME extends InputMethodService implements
                 mInputLogic.onTextInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
@@ -1679,14 +1681,11 @@ public class LatinIME extends InputMethodService implements
      */
     private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
         switch (inputTransaction.getRequiredShiftUpdate()) {
-            case InputTransaction.SHIFT_UPDATE_LATER:
-                mHandler.postUpdateShiftState();
-                break;
-            case InputTransaction.SHIFT_UPDATE_NOW:
-                mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
-                        getCurrentRecapitalizeState());
-                break;
-            default: // SHIFT_NO_UPDATE
+            case InputTransaction.SHIFT_UPDATE_LATER -> mHandler.postUpdateShiftState();
+            case InputTransaction.SHIFT_UPDATE_NOW -> mKeyboardSwitcher
+                    .requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            default -> {
+            } // SHIFT_NO_UPDATE
         }
         if (inputTransaction.requiresUpdateSuggestions()) {
             final int inputStyle;
@@ -1909,6 +1908,7 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
+    @SuppressLint("SwitchIntDef")
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);

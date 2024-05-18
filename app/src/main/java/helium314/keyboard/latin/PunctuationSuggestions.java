@@ -6,11 +6,11 @@
 
 package helium314.keyboard.latin;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import helium314.keyboard.keyboard.internal.KeySpecParser;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 /**
  * The extended {@link SuggestedWords} class to represent punctuation suggestions.
- *
+ * <p>
  * Each punctuation specification string is the key specification that can be parsed by
  * {@link KeySpecParser}.
  */
@@ -44,7 +44,7 @@ public final class PunctuationSuggestions extends SuggestedWords {
     public static PunctuationSuggestions newPunctuationSuggestions(
             @Nullable final String[] punctuationSpecs) {
         if (punctuationSpecs == null || punctuationSpecs.length == 0) {
-            return new PunctuationSuggestions(new ArrayList<SuggestedWordInfo>(0));
+            return new PunctuationSuggestions(new ArrayList<>(0));
         }
         final ArrayList<SuggestedWordInfo> punctuationList =
                 new ArrayList<>(punctuationSpecs.length);
@@ -99,7 +99,7 @@ public final class PunctuationSuggestions extends SuggestedWords {
     }
 
     @Override
-    public String toString() {
+    @NonNull public String toString() {
         return "PunctuationSuggestions: "
                 + " words=" + Arrays.toString(mSuggestedWordInfoList.toArray());
     }

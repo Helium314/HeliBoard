@@ -192,7 +192,7 @@ public final class SubtypeLocaleUtils {
         if (exceptionalNameResId != null) {
             displayName = RunInLocaleKt.runInLocale(sResources, displayLocale, res -> res.getString(exceptionalNameResId));
         } else {
-            displayName = locale.getDisplayName(displayLocale);
+            displayName = LocaleUtils.getLocaleDisplayNameInLocale(locale, sResources, displayLocale);
         }
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale);
     }

@@ -4,40 +4,29 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-<!--
-tl;dr
-* search for duplicates also in closed issues
-* one issue per topic
+Please see the appropriate readme section for issue reporting guidelines: https://github.com/Helium314/HeliBoard?tab=readme-ov-file#reporting-issues
+tl;dr:
+* search for duplicates, also in closed issues
+* a single issue per topic
 * reduce screenshot size
 
-Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
-If you want to report more issues / bugs, open multiple issues (one for each).
-If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html -->
+<!-- issue template below, please remove above text before submitting (and the template too if you think it's a good idea) -->
 
 **Describe the bug**
-<!-- A clear and concise description of what the bug is. -->
 
 **To Reproduce**
-<!-- If possible, provide clear steps to reproduce the behavior, e.g.:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
--->
+If possible, provide all the necessary steps to reproduce your problem, including the involved apps or settings if relevant.
 
 **Expected behavior**
-<!-- A clear and concise description of what you expected to happen. -->
+If it's not obvious (e.g. not crash), describe how you think the app should behave.
 
 **Screenshots**
-<!-- ONLY if applicable and helpful, add screenshots to help explain your problem.
-If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable. -->
+ONLY add screenshots if applicable and helpful.
+If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable.
 
 **App version**
-<!-- Which version of this app is affected? If you build the app yourself, please specify the latest commit included in the build -->
+Please provide the explicit version, or if you build the app yourself specify the latest commit.
 
 **Device:**
  - Model: [e.g. Samsung Galaxy S9]
  - OS: [e.g. Android 10] (please also mention whether you are using the manufacturer's OS or a custom ROM)
-
-**Additional context**
-<!-- Add any other context about the problem here. -->

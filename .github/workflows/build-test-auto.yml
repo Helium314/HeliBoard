@@ -2,11 +2,12 @@ name: Test build
 # builds only for a single abi and does not produce an APK
 
 on:
-  push:
+# disabled on push: when I push to non-main, I do a PR anyway
+#  push:
     # don't run on main. I noticed I often don't push commits to avoid unnecessary workflow runs
-    branches-ignore: [ main ]
-    paths:
-      - 'app/**'
+#    branches-ignore: [ main ]
+#    paths:
+#      - 'app/**'
   pull_request:
     paths:
       - 'app/**'
@@ -32,7 +33,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: ./gradlew -Pandroid.injected.build.abi=arm64-v8a assembleDebug
 
       - name: Archive reports for failed job
         uses: actions/upload-artifact@v4

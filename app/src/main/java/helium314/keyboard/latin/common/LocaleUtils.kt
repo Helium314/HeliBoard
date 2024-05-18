@@ -6,7 +6,9 @@
 package helium314.keyboard.latin.common
 
 import android.content.Context
+import android.content.res.Resources
 import helium314.keyboard.compat.locale
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
@@ -56,7 +58,7 @@ object LocaleUtils {
     // The compared locales are fully identical. This is the best match level.
     private const val LOCALE_FULL_MATCH = 30
 
-    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
 
     /**
      * Return how well a tested locale matches a reference locale.
@@ -181,12 +183,26 @@ object LocaleUtils {
 
     @JvmStatic
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
+        return getLocaleDisplayNameInLocale(locale, context.resources, context.resources.configuration.locale())
+    }
+
+    @JvmStatic
+    fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
-        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return context.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script() || locale.language == "xdq") {
-            val resId = context.resources.getIdentifier("subtype_${languageTag.replace("-", "_")}", "string", context.packageName)
-            if (resId != 0) return context.getString(resId)
+        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
+        if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq") {
+            val resId = resources.getIdentifier(
+                "subtype_${languageTag.replace("-", "_")}",
+                "string",
+                BuildConfig.APPLICATION_ID // replaces context.packageName, see https://stackoverflow.com/a/24525379
+            )
+            if (resId != 0) return resources.getString(resId)
         }
-        return locale.getDisplayName(context.resources.configuration.locale())
+        val localeDisplayName = locale.getDisplayName(displayLocale)
+        return if (localeDisplayName == languageTag) {
+            locale.getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/Helium314/HeliBoard/pull/748
+        } else {
+            localeDisplayName
+        }
     }
 }

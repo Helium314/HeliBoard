@@ -102,6 +102,13 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="center_suggestion_text_to_enter"
+            android:title="@string/center_suggestion_text_to_enter"
+            android:summary="@string/center_suggestion_text_to_enter_summary"
+            android:defaultValue="@bool/config_center_suggestion_text_to_enter"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="suggestions_toggle_toolbar"
             android:title="@string/suggestions_toggle_toolbar"
             android:summary="@string/suggestions_toggle_toolbar_summary"
