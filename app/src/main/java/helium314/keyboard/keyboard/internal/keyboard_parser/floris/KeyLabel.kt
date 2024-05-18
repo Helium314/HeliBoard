@@ -1,5 +1,7 @@
 package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
+import helium314.keyboard.keyboard.internal.KeyboardParams
+
 /** labels for functional / special keys */
 object KeyLabel {
     const val EMOJI = "emoji"
@@ -43,6 +45,29 @@ object KeyLabel {
         "enter" -> ACTION
         "half_space" -> ZWNJ
         else -> this
+    }
+
+    fun String.rtlLabel(params: KeyboardParams): String {
+        if (!params.mId.mSubtype.isRtlSubtype || params.mId.isNumberLayout) return this
+        return when (this) {
+            "{" -> "{|}"
+            "}" -> "}|{"
+            "(" -> "(|)"
+            ")" -> ")|("
+            "[" -> "[|]"
+            "]" -> "]|["
+            "<" -> "<|>"
+            ">" -> ">|<"
+            "≤" -> "≤|≥"
+            "≥" -> "≥|≤"
+            "«" -> "«|»"
+            "»" -> "»|«"
+            "‹" -> "‹|›"
+            "›" -> "›|‹"
+            "﴾" -> "﴾|﴿"
+            "﴿" -> "﴿|﴾"
+            else -> this
+        }
     }
 
 }

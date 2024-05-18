@@ -51,14 +51,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
-                val sv = Settings.getInstance().current
-                // previously was false for nordic and serbian_qwertz, true for all others
-                // todo: add setting? maybe users want it in a custom layout
-                mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
-                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
-                mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
-                // add label source only if popup key type enabled
-                sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
+                setupParams()
                 keysInRows = KeyboardParser(mParams, mContext).parseLayout()
                 determineAbsoluteValues()
             } catch (e: Exception) {
@@ -67,6 +60,27 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             }
         }
         return this
+    }
+
+    private fun setupParams() {
+        val sv = Settings.getInstance().current
+        val layoutName = mParams.mId.mSubtype.keyboardLayoutSetName
+
+        // previously was false for nordic and serbian_qwertz, true for all others
+        // todo: add setting? maybe users want it in a custom layout
+        mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
+
+        // todo: should this be in subtype extra values?
+        mParams.mProximityCharsCorrectionEnabled = mParams.mId.isAlphabetKeyboard && when (layoutName) {
+            "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
+                mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET // not for shifted layouts
+            else -> true
+        }
+
+        addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
+        mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
+        // add label source only if popup key type enabled
+        sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
     }
 
     // todo: remnant of old parser, replace it if reasonably simple

@@ -16,7 +16,7 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
-import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
@@ -284,12 +284,15 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
-    // make it non-nullable for simplicity, and to reflect current implementations
-    override fun compute(params: KeyboardParams): KeyData {
+    override fun compute(params: KeyboardParams): KeyData? {
         require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
+        if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard
+                && params.mId.mSubtype.keyboardLayoutSetName in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")) {
+            return null // these layouts have no shift key, todo: should be in subtype extras
+        }
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
             if (type == KeyType.NUMERIC) {

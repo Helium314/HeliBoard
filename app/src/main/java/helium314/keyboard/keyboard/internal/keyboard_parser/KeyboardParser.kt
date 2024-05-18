@@ -13,7 +13,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
@@ -36,7 +35,6 @@ import helium314.keyboard.latin.utils.sumOf
  * requirements of certain non-latin languages.
  */
 class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
-    private val infos = layoutInfos(params)
     private val defaultLabelFlags = when {
         params.mId.isAlphabetKeyboard -> params.mLocaleKeyboardInfos.labelFlags
         // reproduce the no-hints in symbol layouts
@@ -47,11 +45,6 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
     fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
-        params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
-        if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
-            params.mTouchPositionCorrection.load(emptyArray())
-        else
-            params.mTouchPositionCorrection.load(context.resources.getStringArray(infos.touchPositionCorrectionData))
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
@@ -272,7 +265,6 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     private fun KeyData.processFunctionalKeys(): KeyData? = when (label) {
         // todo: why defaultLabelFlags exactly here? is this for armenian or bengali period labels? try removing also check in holo theme
         KeyLabel.PERIOD -> copy(newLabelFlags = labelFlags or defaultLabelFlags)
-        KeyLabel.SHIFT -> if (infos.hasShiftKey) this else null
         else -> this
     }
 
@@ -282,7 +274,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val numberRow = params.mLocaleKeyboardInfos.getNumberRow()
             numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRow.toMutableList()
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && infos.numbersOnTopRow) {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && hasNumbersOnTopRow()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
                     val layout = it.indexOf(POPUP_KEYS_LAYOUT)
@@ -312,74 +304,14 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         }
     }
 
+    // some layouts have different number layout, and there we don't want the numbers on the top row
+    // todo: actually should not be in here, but in subtype extra values
+    private fun hasNumbersOnTopRow() = params.mId.mSubtype.keyboardLayoutSetName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+
     companion object {
         private const val TAG = "KeyboardParser"
-
-        // todo:
-        //  layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
-        //  or somewhere else... some replacement for keyboard_layout_set xml maybe
-        //  some assets file?
-        //  some extended version of locale_key_texts? that would be good, just need to rename the class and file
-        // touchPositionCorrectionData is just the resId, needs to be loaded in parser
-        //  currently always holo is applied in readAttributes
-        private fun layoutInfos(params: KeyboardParams): LayoutInfos {
-            val layout = params.mId.mSubtype.keyboardLayoutSetName
-            // only for alphabet, but some exceptions for shift layouts
-            val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (layout) {
-                "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
-                    params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
-                else -> true
-            }
-            // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
-            // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
-            val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && layout in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
-                    R.array.touch_position_correction_data_default
-                else R.array.touch_position_correction_data_holo
-            // custom non-json layout for non-uppercase language should not have shift key
-            val hasShiftKey = !params.mId.isAlphabetKeyboard
-                    || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")
-            val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
-            return LayoutInfos(enableProximityCharsCorrection, touchPositionCorrectionData, hasShiftKey, numbersOnTopRow)
-        }
     }
 
-}
-
-// todo: actually this should be in some separate file
-data class LayoutInfos(
-    // disabled by default, but enabled for all alphabet layouts
-    // currently set in keyboardLayoutSet
-    val enableProximityCharsCorrection: Boolean = false,
-    // there is holo, default and null
-    // null only for popupKeys keyboard
-    val touchPositionCorrectionData: Int? = null,
-    // some layouts do not have a shift key
-    val hasShiftKey: Boolean = true,
-    // some layouts have different number layout, e.g. thai or korean_sebeolsik
-    val numbersOnTopRow: Boolean = true,
-)
-
-fun String.rtlLabel(params: KeyboardParams): String {
-    if (!params.mId.mSubtype.isRtlSubtype || params.mId.isNumberLayout) return this
-    return when (this) {
-        "{" -> "{|}"
-        "}" -> "}|{"
-        "(" -> "(|)"
-        ")" -> ")|("
-        "[" -> "[|]"
-        "]" -> "]|["
-        "<" -> "<|>"
-        ">" -> ">|<"
-        "≤" -> "≤|≥"
-        "≥" -> "≥|≤"
-        "«" -> "«|»"
-        "»" -> "»|«"
-        "‹" -> "‹|›"
-        "›" -> "›|‹"
-        "﴾" -> "﴾|﴿"
-        "﴿" -> "﴿|﴾"
-        else -> this
-    }
 }
 
 const val LAYOUT_SYMBOLS = "symbols"
