@@ -53,12 +53,14 @@
     <string name="subtype_en_US">Английский (США)</string>
     <string name="subtype_es_US">Испанский (США)</string>
     <string name="subtype_hi_Latn">хинглиш</string>
+    <string name="subtype_mns">Мансийский</string>
     <string name="subtype_xdq">кайтагский</string>
     <string name="subtype_sr_Latn">сербский (латиница)</string>
     <string name="subtype_with_layout_en_GB">Английский (Великобритания) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Английский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Испанский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_Latn">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_mns">Мансийский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_xdq">Кайтагский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальский">%s</xliff:g> (Традиционная)</string>

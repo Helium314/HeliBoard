@@ -149,6 +149,10 @@ public final class KeyboardId {
         return elementId < ELEMENT_SYMBOLS;
     }
 
+    public boolean isAlphaOrSymbolKeyboard() {
+        return mElementId <= ELEMENT_SYMBOLS_SHIFTED;
+    }
+
     public boolean isAlphabetKeyboard() {
         return isAlphabetKeyboard(mElementId);
     }

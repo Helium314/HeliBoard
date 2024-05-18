@@ -29,7 +29,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         put(KeyCode.SETTINGS, R.string.spoken_description_settings)
         put(KeyCode.SHIFT, R.string.spoken_description_shift)
         put(KeyCode.VOICE_INPUT, R.string.spoken_description_mic)
-        put(KeyCode.ALPHA_SYMBOL, R.string.spoken_description_to_symbol)
+        put(KeyCode.SYMBOL_ALPHA, R.string.spoken_description_to_symbol)
         put(Constants.CODE_TAB, R.string.spoken_description_tab)
         put(KeyCode.LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
         put(KeyCode.ACTION_NEXT, R.string.spoken_description_action_next)
@@ -58,7 +58,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
      */
     fun getDescriptionForKey(context: Context, keyboard: Keyboard?, key: Key, shouldObscure: Boolean): String? {
         val code = key.code
-        if (code == KeyCode.ALPHA_SYMBOL || code == KeyCode.SYMBOL || code == KeyCode.ALPHA) {
+        if (code == KeyCode.SYMBOL_ALPHA || code == KeyCode.SYMBOL || code == KeyCode.ALPHA) {
             val description = getDescriptionForSwitchAlphaSymbol(context, keyboard)
             if (description != null) {
                 return description

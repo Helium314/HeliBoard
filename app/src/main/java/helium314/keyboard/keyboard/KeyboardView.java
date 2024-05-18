@@ -39,6 +39,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.MoreSuggestions;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
@@ -430,7 +431,13 @@ public class KeyboardView extends View {
                 paint.setTextAlign(Align.CENTER);
             }
             if (key.needsAutoXScale()) {
-                final float ratio = Math.min(1.0f, (keyWidth * MAX_LABEL_RATIO) / TypefaceUtils.getStringWidth(label, paint));
+                final int width;
+                if (key.needsToKeepBackgroundAspectRatio(mDefaultKeyLabelFlags)) {
+                    // make sure the text stays inside bounds of background drawable
+                    Drawable bg = key.selectBackgroundDrawable(mKeyBackground, mFunctionalKeyBackground, mSpacebarBackground, mActionKeyBackground);
+                    width = Math.min(bg.getBounds().bottom, bg.getBounds().right);
+                } else width = keyWidth;
+                final float ratio = Math.min(1.0f, (width * MAX_LABEL_RATIO) / TypefaceUtils.getStringWidth(label, paint));
                 if (key.needsAutoScale()) {
                     final float autoSize = paint.getTextSize() * ratio;
                     paint.setTextSize(autoSize);
@@ -442,6 +449,8 @@ public class KeyboardView extends View {
             if (key.isEnabled()) {
                 if (StringUtils.mightBeEmoji(label))
                     paint.setColor(key.selectTextColor(params) | 0xFF000000); // ignore alpha for emojis (though actually color isn't applied anyway and we could just set white)
+                else if (key.hasActionKeyBackground())
+                    paint.setColor(mColors.get(ColorType.ACTION_KEY_ICON));
                 else
                     paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
@@ -472,7 +481,7 @@ public class KeyboardView extends View {
             blendAlpha(paint, params.mAnimAlpha);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
-            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional();
+            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.hasFunctionalBackground();
             final float hintX, hintBaseline;
             if (key.hasHintLabel()) {
                 // The hint label is placed just right of the key label. Used mainly on
@@ -555,7 +564,7 @@ public class KeyboardView extends View {
             if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR)
                 hintX = keyWidth + hintBaseline + labelCharWidth * 0.1f;
             else
-                hintX = key.isFunctional() || key.isActionKey() ? keyWidth / 2.0f : keyWidth - mKeyHintLetterPadding - labelCharWidth / 2.0f;
+                hintX = key.hasFunctionalBackground() || key.hasActionKeyBackground() ? keyWidth / 2.0f : keyWidth - mKeyHintLetterPadding - labelCharWidth / 2.0f;
         } else {
             hintX = keyWidth - mKeyHintLetterPadding - TypefaceUtils.getReferenceCharWidth(paint) / 2.0f;
         }
@@ -644,6 +653,8 @@ public class KeyboardView extends View {
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == KeyCode.ZWNJ) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
             mColors.setColor(icon, ColorType.KEY_ICON);
+        } else {
+            mColors.setColor(icon, ColorType.KEY_TEXT);
         }
     }
 

@@ -47,10 +47,9 @@ open class KeyboardAccessibilityDelegate<KV : KeyboardView>(
     /**
      * Called when the keyboard layout changes.
      *
-     *
      * **Note:** This method will be called even if accessibility is not
      * enabled.
-     * @param keyboard The keyboard that is being set to the wrapping view.
+     * [keyboard]: The keyboard that is being set to the wrapping view.
      */
     open var keyboard: Keyboard?
         get() = mKeyboard

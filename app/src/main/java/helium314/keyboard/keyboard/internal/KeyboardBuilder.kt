@@ -43,24 +43,23 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         mParams.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height)
     }
 
-    fun setAllowRedundantPopupKeys(enabled: Boolean) {
-        mParams.mAllowRedundantPopupKeys = enabled
-    }
-
     fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
-            setAllowRedundantPopupKeys(true)
+            mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
                 val sv = Settings.getInstance().current
+                // previously was false for nordic and serbian_qwertz, true for all others
+                // todo: add setting? maybe users want it in a custom layout
+                mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
                 addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
                 mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
                 // add label source only if popup key type enabled
                 sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
-                keysInRows = KeyboardParser.parseLayout(mParams, mContext)
+                keysInRows = KeyboardParser(mParams, mContext).parseLayout()
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
@@ -111,12 +110,12 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             fillGapsWithSpacers(row)
             var currentX = mParams.mLeftPadding.toFloat()
             row.forEach {
-                it.setDimensionsFromRelativeSize(currentX, currentY)
+                it.setAbsoluteDimensions(currentX, currentY)
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mFullWidth.toInt()}")
-                currentX += it.mFullWidth
+                    Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
+                currentX += it.mAbsoluteWidth
             }
-            currentY += row.first().mFullHeight
+            currentY += row.first().mAbsoluteHeight
         }
     }
 
@@ -140,7 +139,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
                 i++
                 currentX += currentKeyXPos - currentX
             }
-            currentX += row[i].mFullWidth
+            currentX += row[i].mAbsoluteWidth
             i++
         }
         if (currentX < mParams.mOccupiedWidth) {
@@ -161,48 +160,48 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         for (row in keysInRows) {
             fillGapsWithSpacers(row)
             val y = row.first().yPos // all have the same y, so this is fine
-            val relativeWidthSum = row.sumOf { it.mRelativeWidth } // sum up relative widths
+            val relativeWidthSum = row.sumOf { it.mWidth } // sum up relative widths
             val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)
             // insert spacer before first key that starts right of the center (also consider gap)
-            var insertIndex = row.indexOfFirst { it.xPos + it.mFullWidth / 3 > mParams.mOccupiedWidth / 2 }
+            var insertIndex = row.indexOfFirst { it.xPos + it.mAbsoluteWidth / 3 > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
             if (row.any { it.mCode == Constants.CODE_SPACE }) {
                 val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
                 reduceSymbolAndActionKeyWidth(row)
                 insertIndex = row.indexOf(spaceLeft) + 1
-                val widthBeforeSpace = row.subList(0, insertIndex - 1).sumOf { it.mRelativeWidth }
-                val widthAfterSpace = row.subList(insertIndex, row.size).sumOf { it.mRelativeWidth }
-                val spaceLeftWidth = (maxWidthBeforeSpacer - widthBeforeSpace).coerceAtLeast(mParams.mDefaultRelativeKeyWidth)
-                val spaceRightWidth = (maxWidthAfterSpacer - widthAfterSpace).coerceAtLeast(mParams.mDefaultRelativeKeyWidth)
-                val spacerWidth = spaceLeft.mRelativeWidth + spacerRelativeWidth - spaceLeftWidth - spaceRightWidth
+                val widthBeforeSpace = row.subList(0, insertIndex - 1).sumOf { it.mWidth }
+                val widthAfterSpace = row.subList(insertIndex, row.size).sumOf { it.mWidth }
+                val spaceLeftWidth = (maxWidthBeforeSpacer - widthBeforeSpace).coerceAtLeast(mParams.mDefaultKeyWidth)
+                val spaceRightWidth = (maxWidthAfterSpacer - widthAfterSpace).coerceAtLeast(mParams.mDefaultKeyWidth)
+                val spacerWidth = spaceLeft.mWidth + spacerRelativeWidth - spaceLeftWidth - spaceRightWidth
                 if (spacerWidth > 0.05f) {
                     // only insert if the spacer has a reasonable width
                     val spaceRight = KeyParams(spaceLeft)
-                    spaceLeft.mRelativeWidth = spaceLeftWidth
-                    spaceRight.mRelativeWidth = spaceRightWidth
-                    spacer.mRelativeWidth = spacerWidth
+                    spaceLeft.mWidth = spaceLeftWidth
+                    spaceRight.mWidth = spaceRightWidth
+                    spacer.mWidth = spacerWidth
                     row.add(insertIndex, spaceRight)
                     row.add(insertIndex, spacer)
                 } else {
                     // otherwise increase space width, so other keys are resized properly
-                    spaceLeft.mRelativeWidth += spacerWidth
+                    spaceLeft.mWidth += spacerWidth
                 }
             } else {
-                val widthBeforeSpacer = row.subList(0, insertIndex).sumOf { it.mRelativeWidth }
-                val widthAfterSpacer = row.subList(insertIndex, row.size).sumOf { it.mRelativeWidth }
+                val widthBeforeSpacer = row.subList(0, insertIndex).sumOf { it.mWidth }
+                val widthAfterSpacer = row.subList(insertIndex, row.size).sumOf { it.mWidth }
                 maxWidthBeforeSpacer = maxWidthBeforeSpacer.coerceAtLeast(widthBeforeSpacer)
                 maxWidthAfterSpacer = maxWidthAfterSpacer.coerceAtLeast(widthAfterSpacer)
                 row.add(insertIndex, spacer)
             }
             // re-calculate relative widths
-            val relativeWidthSumNew = row.sumOf { it.mRelativeWidth }
+            val relativeWidthSumNew = row.sumOf { it.mWidth }
             val widthFactor = relativeWidthSum / relativeWidthSumNew
             // re-calculate absolute sizes and positions
             var currentX = 0f
             row.forEach {
-                it.mRelativeWidth *= widthFactor
-                it.setDimensionsFromRelativeSize(currentX, y)
-                currentX += it.mFullWidth
+                it.mWidth *= widthFactor
+                it.setAbsoluteDimensions(currentX, y)
+                currentX += it.mAbsoluteWidth
             }
         }
     }
@@ -211,19 +210,19 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     // todo: this assumes fixed layout for symbols keys, which will change soon!
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
-        val symbolKey = row.firstOrNull { it.mCode == KeyCode.ALPHA_SYMBOL }
-        val symbolKeyWidth = symbolKey?.mRelativeWidth ?: 0f
-        if (symbolKeyWidth > mParams.mDefaultRelativeKeyWidth) {
-            val widthToChange = symbolKey!!.mRelativeWidth - mParams.mDefaultRelativeKeyWidth
-            symbolKey.mRelativeWidth -= widthToChange
-            spaceKey.mRelativeWidth += widthToChange
+        val symbolKey = row.firstOrNull { it.mCode == KeyCode.SYMBOL_ALPHA }
+        val symbolKeyWidth = symbolKey?.mWidth ?: 0f
+        if (symbolKeyWidth > mParams.mDefaultKeyWidth) {
+            val widthToChange = symbolKey!!.mWidth - mParams.mDefaultKeyWidth
+            symbolKey.mWidth -= widthToChange
+            spaceKey.mWidth += widthToChange
         }
         val actionKey = row.firstOrNull { it.mBackgroundType == Key.BACKGROUND_TYPE_ACTION }
-        val actionKeyWidth = actionKey?.mRelativeWidth ?: 0f
-        if (actionKeyWidth > mParams.mDefaultRelativeKeyWidth * 1.1f) { // allow it to stay a little wider
-            val widthToChange = actionKey!!.mRelativeWidth - mParams.mDefaultRelativeKeyWidth * 1.1f
-            actionKey.mRelativeWidth -= widthToChange
-            spaceKey.mRelativeWidth += widthToChange
+        val actionKeyWidth = actionKey?.mWidth ?: 0f
+        if (actionKeyWidth > mParams.mDefaultKeyWidth * 1.1f) { // allow it to stay a little wider
+            val widthToChange = actionKey!!.mWidth - mParams.mDefaultKeyWidth * 1.1f
+            actionKey.mWidth -= widthToChange
+            spaceKey.mWidth += widthToChange
         }
     }
 

@@ -19,7 +19,6 @@ import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
@@ -55,13 +54,13 @@ public class KeyboardParams {
     @Nullable
     public KeyVisualAttributes mKeyVisualAttributes;
 
-    public float mDefaultRelativeRowHeight;
-    public float mDefaultRelativeKeyWidth;
+    public float mDefaultRowHeight;
+    public float mDefaultKeyWidth;
     public float mRelativeHorizontalGap;
     public float mRelativeVerticalGap;
     // relative values multiplied with baseHeight / baseWidth
-    public int mDefaultRowHeight;
-    public int mDefaultKeyWidth;
+    public int mDefaultAbsoluteRowHeight;
+    public int mDefaultAbsoluteKeyWidth;
     public int mHorizontalGap;
     public int mVerticalGap;
 
@@ -225,11 +224,12 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
-            final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2
-                    ? 0.9f : 1f;
-            mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+            final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
+            mDefaultKeyWidth = mId.isNumberLayout()
+                    ? 0.17f
+                    : keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     1, 1, defaultKeyWidthFactor / DEFAULT_KEYBOARD_COLUMNS);
-            mDefaultKeyWidth = (int) (mDefaultRelativeKeyWidth * mBaseWidth);
+            mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
 
             // todo: maybe settings should not be accessed from here?
             if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
@@ -250,13 +250,13 @@ public class KeyboardParams {
             mVerticalGap = (int) (mRelativeVerticalGap * height);
 
             mBaseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
-            mDefaultRelativeRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
+            mDefaultRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
                     R.styleable.Keyboard_rowHeight, 1, 1f / DEFAULT_KEYBOARD_ROWS);
-            if (mDefaultRelativeRowHeight > 1) { // can be absolute size, in that case will be > 1
-                mDefaultRowHeight = (int) mDefaultRelativeRowHeight;
-                mDefaultRelativeRowHeight *= -1; // make it negative when it's absolute
+            if (mDefaultRowHeight > 1) { // can be absolute size, in that case will be > 1
+                mDefaultAbsoluteRowHeight = (int) mDefaultRowHeight;
+                mDefaultRowHeight *= -1; // make it negative when it's absolute
             } else {
-                mDefaultRowHeight = (int) (mDefaultRelativeRowHeight * mBaseHeight);
+                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight);
             }
 
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);

@@ -83,7 +83,6 @@ import java.util.WeakHashMap;
  * @attr ref R.styleable#MainKeyboardView_ignoreAltCodeKeyTimeout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewLayout
  * @attr ref R.styleable#MainKeyboardView_keyPreviewOffset
- * @attr ref R.styleable#MainKeyboardView_keyPreviewHeight
  * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardLayout
  * @attr ref R.styleable#MainKeyboardView_popupKeysKeyboardForActionLayout
  * @attr ref R.styleable#MainKeyboardView_backgroundDimAlpha
@@ -541,7 +540,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
         }
 
-        final View container = key.isActionKey() ? mPopupKeysKeyboardForActionContainer
+        final View container = key.hasActionKeyBackground() ? mPopupKeysKeyboardForActionContainer
                 : mPopupKeysKeyboardContainer;
         final PopupKeysKeyboardView popupKeysKeyboardView =
                 container.findViewById(R.id.popup_keys_keyboard_view);
