@@ -141,7 +141,9 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 picker.showHex(true)
                 picker.showPreview(true)
                 picker.color = initialColor
-                picker.addColorObserver { observer ->
+                // without the observer, the color previews in the background don't update
+                // but storing the pref and resetting on cancel is really bad style, so this is disabled for now
+/*                picker.addColorObserver { observer ->
                     prefs.edit { putInt(prefPrefix + colorPref, observer.color) }
                     if (!csb.colorSwitch.isChecked) {
                         prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
@@ -153,21 +155,23 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                         return@addColorObserver
                     }
                     updateColorPreviews()
-                }
+                }*/
                 val builder = AlertDialog.Builder(requireContext())
                 builder
                     .setTitle(colorPrefName)
                     .setView(picker)
-                    .setNegativeButton(android.R.string.cancel) { _, _ ->
-                        // If the slider is disabled, we simply want to close the dialog when no color is selected.
-                        if (csb.colorSwitch.isChecked)
-                            picker.color = initialColor
-                    }
+                    .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        // When the slider is disabled, we want to define the default color as a custom color
+                        prefs.edit { putInt(prefPrefix + colorPref, picker.color) }
                         if (!csb.colorSwitch.isChecked) {
-                            csb.colorSwitch.toggle()
-                            picker.color = initialColor
+                            prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
+                            csb.colorSwitch.setOnCheckedChangeListener(null)
+                            csb.colorSwitch.isChecked = true
+                            csb.colorSummary.text = ""
+                            csb.colorSwitch.setOnCheckedChangeListener(switchListener)
+                            updateColorPreviews()
+                        } else {
+                            updateColorPreviews()
                         }
                         reloadKeyboard(hidden)
                     }
@@ -175,10 +179,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 if (csb.colorSwitch.isChecked) {
                     // Reset the color and the color picker to their initial state
                     builder.setNeutralButton(R.string.button_default) { _, _ ->
+                        prefs.edit { remove(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX) }
                         csb.colorSwitch.isChecked = false
-                        val resetColor = Settings.readUserColor(prefs, requireContext(), colorPref, isNight)
-                        picker.color = resetColor
-                        csb.colorSwitch.toggle()
                     }
                 }
                 val dialog = builder.create()
