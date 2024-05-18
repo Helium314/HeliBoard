@@ -70,12 +70,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         // todo: add setting? maybe users want it in a custom layout
         mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
 
-        // todo: should this be in subtype extra values?
-        mParams.mProximityCharsCorrectionEnabled = mParams.mId.isAlphabetKeyboard && when (layoutName) {
-            "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
-                mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET // not for shifted layouts
-            else -> true
-        }
+        mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
+                || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)

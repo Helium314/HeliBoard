@@ -290,8 +290,8 @@ sealed interface KeyData : AbstractKeyData {
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
         if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard
-                && params.mId.mSubtype.keyboardLayoutSetName in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")) {
-            return null // these layouts have no shift key, todo: should be in subtype extras
+                && params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
+            return null
         }
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {

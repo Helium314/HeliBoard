@@ -72,6 +72,12 @@ public final class Constants {
              */
             public static final String EMOJI_CAPABLE = "EmojiCapable";
 
+            /** Indicates that the subtype does not have a shift key */
+            public static final String NO_SHIFT_KEY = "NoShiftKey";
+
+            /** Indicates that for this subtype corrections should not be based on proximity of keys for when shifted */
+            public static final String NO_SHIFT_PROXIMITY_CORRECTION = "NoShiftProximityCorrection";
+
             /**
              * The subtype extra value used to indicate that the display name of this subtype
              * contains a "%s" for printf-like replacement and it should be replaced by
