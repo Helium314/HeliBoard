@@ -105,7 +105,8 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
-    public final boolean mSuggestionsToggleToolbar;
+    public final boolean mAutoShowToolbar;
+    public final boolean mAutoHideToolbar;
 
     // From the input box
     @NonNull
@@ -238,7 +239,8 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
-        mSuggestionsToggleToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_SUGGESTIONS_TOGGLE_TOOLBAR, true);
+        mAutoShowToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, true);
+        mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

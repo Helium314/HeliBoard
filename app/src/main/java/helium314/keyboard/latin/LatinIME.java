@@ -1023,6 +1023,11 @@ public class LatinIME extends InputMethodService implements
 
         mHandler.cancelUpdateSuggestionStrip();
 
+        if (currentSettingsValues.mAutoShowToolbar && hasSuggestionStripView()
+                && !mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
+            mSuggestionStripView.setToolbarVisibility(true);
+        }
+
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
         mainKeyboardView.setSlidingKeyInputPreviewEnabled(currentSettingsValues.mSlidingKeyInputPreviewEnabled);
@@ -1593,8 +1598,9 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
-        if (currentSettingsValues.mSuggestionsToggleToolbar) {
-            mSuggestionStripView.setToolbarVisibility(suggestedWords.isEmpty());
+
+        if (currentSettingsValues.mAutoHideToolbar && !suggestedWords.isEmpty()) {
+            mSuggestionStripView.setToolbarVisibility(false);
         }
     }
 
@@ -1636,8 +1642,8 @@ public class LatinIME extends InputMethodService implements
 
     // This will show either an empty suggestion strip (if prediction is enabled) or
     // punctuation suggestions (if it's disabled).
-    // The toolbar will toggle automatically if the relevant setting is enabled
-    // and there is no text before the cursor or it's the start of a new line.
+    // The toolbar will be shown automatically if the relevant setting is enabled
+    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1645,9 +1651,11 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
-        if (hasSuggestionStripView() && currentSettings.mSuggestionsToggleToolbar) {
+        if (currentSettings.mAutoShowToolbar && hasSuggestionStripView()) {
             final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
-            if (codePoint == Constants.NOT_A_CODE || codePoint == Constants.CODE_ENTER) {
+            if (mInputLogic.mConnection.hasSelection()
+                    || codePoint == Constants.NOT_A_CODE
+                    || codePoint == Constants.CODE_ENTER) {
                 mSuggestionStripView.setToolbarVisibility(true);
             }
         }

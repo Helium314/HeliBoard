@@ -256,7 +256,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
-        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
+        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : mSuggestionsStrip.getVisibility());
         isInlineAutofillSuggestionsVisible = false;
     }
 
@@ -284,7 +284,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         clear();
         isInlineAutofillSuggestionsVisible = true;
         mSuggestionsStrip.addView(view);
-        if (Settings.getInstance().getCurrent().mSuggestionsToggleToolbar)
+        if (Settings.getInstance().getCurrent().mAutoHideToolbar)
             setToolbarVisibility(false);
     }
 

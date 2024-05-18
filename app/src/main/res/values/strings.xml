@@ -802,8 +802,12 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
-    <!-- Title of the setting for expanding/collapsing the toolbar automatically -->
-    <string name="suggestions_toggle_toolbar">Suggestions toggle toolbar</string>
-    <!-- Description of the setting for expanding/collapsing the toolbar automatically -->
-    <string name="suggestions_toggle_toolbar_summary">Automatically toggle the toolbar when suggestions become available</string>
+    <!-- Title of the setting for showing the toolbar automatically -->
+    <string name="auto_show_toolbar">Auto show toolbar</string>
+    <!-- Description of the setting for showing the toolbar automatically -->
+    <string name="auto_show_toolbar_summary">Shows the toolbar if there are no suggestions when input starts</string>
+    <!-- Title of the setting for hiding the toolbar automatically -->
+    <string name="auto_hide_toolbar">Auto hide toolbar</string>
+    <!-- Description of the setting for hiding the toolbar automatically -->
+    <string name="auto_hide_toolbar_summary">Hides the toolbar when suggestions become available</string>
 </resources>
