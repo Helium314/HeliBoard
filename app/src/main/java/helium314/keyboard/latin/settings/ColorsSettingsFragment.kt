@@ -2,6 +2,7 @@
 package helium314.keyboard.latin.settings
 
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,12 +16,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
-import androidx.core.view.get
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.readAllColorsMap
+import helium314.keyboard.latin.common.writeAllColorsMap
 import helium314.keyboard.latin.databinding.ColorSettingBinding
 import helium314.keyboard.latin.databinding.ColorSettingsBinding
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
@@ -32,9 +36,14 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     private val binding by viewBinding(ColorSettingsBinding::bind)
     open val isNight = false
     open val titleResId = R.string.select_user_colors
-    private var moreColors: Boolean
-        get() = prefs.getBoolean(Settings.PREF_SHOW_ALL_COLORS, false)
-        set(value) { prefs.edit().putBoolean(Settings.PREF_SHOW_ALL_COLORS, value).apply() }
+
+    // 0 for default
+    // 1 for more colors
+    // 2 for all colors
+    private var moreColors: Int
+        get() = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
+        set(value) { prefs.edit().putInt(Settings.PREF_SHOW_MORE_COLORS, value).apply() }
+
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
 
     private val colorPrefsAndNames by lazy {
@@ -83,23 +92,27 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
-        if (menu.size() == 1) menu[0].setTitle(getMenuTitle())
-        else menu.add(Menu.NONE, 1, Menu.NONE, getMenuTitle())
+        menu.add(Menu.NONE, 0, Menu.NONE, R.string.main_colors)
+        menu.add(Menu.NONE, 1, Menu.NONE, R.string.more_colors)
+        menu.add(Menu.NONE, 2, Menu.NONE, R.string.all_colors)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         // necessary, even though we only have a single menu item
         // because the back arrow on top absurdly is implemented as a menu item
-        if (menuItem.itemId == 1) {
-            moreColors = !moreColors
-            menuItem.setTitle(getMenuTitle())
+        if (menuItem.itemId in 0..2) {
+            if (moreColors == menuItem.itemId) return true
+            if (moreColors == 2 || menuItem.itemId == 2) {
+                RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                reloadKeyboard(false)
+            }
+            moreColors = menuItem.itemId
+            binding.info.isGone = menuItem.itemId != 2
             updateColorPrefs()
             return true
         }
         return false
     }
-
-    private fun getMenuTitle() = if (moreColors) R.string.main_colors else R.string.all_colors
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -110,10 +123,61 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
 
     private fun updateColorPrefs() {
         binding.colorSettingsContainer.removeAllViews()
+        if (moreColors == 2) showAllColors()
+        else showMainColors()
+    }
+
+    private fun showAllColors() {
+        val colors = readAllColorsMap(prefs, isNight)
+        ColorType.entries.forEach { type ->
+            val color = colors[type] ?: Color.GRAY
+            val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
+            csb.root.tag = type
+            csb.colorSwitch.isGone = true
+            csb.colorPreview.setColorFilter(color)
+            csb.colorText.text = type.name
+
+            val clickListener = View.OnClickListener {
+                val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                val picker = ColorPickerView(requireContext())
+                picker.showAlpha(type != ColorType.MAIN_BACKGROUND) // background behind background looks broken and sometimes is dark, sometimes light
+                picker.showHex(true)
+                picker.showPreview(true)
+                picker.color = color
+                val builder = AlertDialog.Builder(requireContext())
+                builder
+                    .setTitle(type.name)
+                    .setView(picker)
+                    .setCancelable(false)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        val colorMap = readAllColorsMap(prefs, isNight) // better re-read it
+                        colorMap[type] = picker.color
+                        writeAllColorsMap(colorMap, prefs, isNight)
+                        updateAllColorPreviews()
+                        reloadKeyboard(hidden)
+                    }
+                val dialog = builder.create()
+                dialog.show()
+                // Reduce the size of the dialog in portrait mode
+                val wrapContent = WindowManager.LayoutParams.WRAP_CONTENT
+                val widthPortrait = (resources.displayMetrics.widthPixels * 0.80f).toInt()
+                val orientation = (resources.configuration.orientation)
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    dialog.window?.setLayout(wrapContent, wrapContent)
+                else
+                    dialog.window?.setLayout(widthPortrait, wrapContent)
+            }
+            csb.colorTextContainer.setOnClickListener(clickListener)
+            csb.colorPreview.setOnClickListener(clickListener)
+        }
+    }
+
+    private fun showMainColors() {
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefsAndNames.forEachIndexed { index, (colorPref, colorPrefName) ->
             val autoColor = prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
-            if (!moreColors && colorPref in colorPrefsToHideInitially && autoColor)
+            if (moreColors == 0 && colorPref in colorPrefsToHideInitially && autoColor)
                 return@forEachIndexed
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
             csb.root.tag = index
@@ -129,7 +193,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 if (b) csb.colorSummary.text = ""
                 else csb.colorSummary.setText(R.string.auto_user_color)
                 reloadKeyboard(hidden)
-                updateColorPreviews()
+                updateMainColorPreviews()
             }
             csb.colorSwitch.setOnCheckedChangeListener(switchListener)
 
@@ -160,6 +224,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 builder
                     .setTitle(colorPrefName)
                     .setView(picker)
+                    .setCancelable(false)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         prefs.edit { putInt(prefPrefix + colorPref, picker.color) }
@@ -169,9 +234,9 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                             csb.colorSwitch.isChecked = true
                             csb.colorSummary.text = ""
                             csb.colorSwitch.setOnCheckedChangeListener(switchListener)
-                            updateColorPreviews()
+                            updateMainColorPreviews()
                         } else {
-                            updateColorPreviews()
+                            updateMainColorPreviews()
                         }
                         reloadKeyboard(hidden)
                     }
@@ -199,10 +264,19 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         }
     }
 
-    private fun updateColorPreviews() {
+    private fun updateMainColorPreviews() {
         binding.colorSettingsContainer.forEach { view ->
-            val index = view.tag as Int
+            val index = view.tag as? Int ?: return@forEach
             val color = Settings.readUserColor(prefs, requireContext(), colorPrefsAndNames[index].first, isNight)
+            view.findViewById<ImageView>(R.id.color_preview)?.setColorFilter(color)
+        }
+    }
+
+    private fun updateAllColorPreviews() {
+        val colorMap = readAllColorsMap(prefs, isNight)
+        binding.colorSettingsContainer.forEach { view ->
+            val type = view.tag as? ColorType ?: return@forEach
+            val color = colorMap[type] ?: Color.GRAY
             view.findViewById<ImageView>(R.id.color_preview)?.setColorFilter(color)
         }
     }

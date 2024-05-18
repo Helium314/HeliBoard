@@ -133,7 +133,6 @@ __Planned features and improvements:__
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
 * Ability to enter all emojis independent of Android version (optional, #297)
-* (limited) support for customizing _all_ internally used colors
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
