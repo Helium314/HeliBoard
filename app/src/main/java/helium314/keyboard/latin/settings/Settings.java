@@ -303,16 +303,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
-    public static boolean readFromBuildConfigIfToShowKeyPreviewPopupOption(final Resources res) {
-        return res.getBoolean(R.bool.config_enable_show_key_preview_popup_option);
-    }
-
     public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
-        final boolean defaultKeyPreviewPopup = res.getBoolean(
-                R.bool.config_default_key_preview_popup);
-        if (!readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            return defaultKeyPreviewPopup;
-        }
+        final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
         return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
     }
 

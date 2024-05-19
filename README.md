@@ -147,7 +147,7 @@ __Planned features and improvements:__
 __What will _not_ be added:__
 * Material 3 (not worth adding 1.5 MB to app size)
 * Dictionaries for more languages (you can still download them)
-* Anything that requires additional permissions
+* Anything that requires additional permissions, unless there is a very good reason
 
 # License
 

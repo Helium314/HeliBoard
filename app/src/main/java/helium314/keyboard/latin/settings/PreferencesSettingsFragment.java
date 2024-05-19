@@ -49,9 +49,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
         }
-        if (!Settings.readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            removePreference(Settings.PREF_POPUP_ON);
-        }
 
         setupKeypressVibrationDurationSettings();
         setupKeypressSoundVolumeSettings();
