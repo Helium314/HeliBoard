@@ -18,7 +18,7 @@ import helium314.keyboard.latin.settings.SettingsValues;
 
 /**
  * This class gathers audio feedback and haptic feedback functions.
- *
+ * <p>
  * It offers a consistent and simple interface that allows LatinIME to forget about the
  * complexity of settings and the like.
  */
@@ -81,21 +81,12 @@ public final class AudioAndHapticFeedbackManager {
         if (!mSoundOn) {
             return;
         }
-        final int sound;
-        switch (code) {
-        case KeyCode.DELETE:
-            sound = AudioManager.FX_KEYPRESS_DELETE;
-            break;
-        case Constants.CODE_ENTER:
-            sound = AudioManager.FX_KEYPRESS_RETURN;
-            break;
-        case Constants.CODE_SPACE:
-            sound = AudioManager.FX_KEYPRESS_SPACEBAR;
-            break;
-        default:
-            sound = AudioManager.FX_KEYPRESS_STANDARD;
-            break;
-        }
+        final int sound = switch (code) {
+            case KeyCode.DELETE -> AudioManager.FX_KEYPRESS_DELETE;
+            case Constants.CODE_ENTER -> AudioManager.FX_KEYPRESS_RETURN;
+            case Constants.CODE_SPACE -> AudioManager.FX_KEYPRESS_SPACEBAR;
+            default -> AudioManager.FX_KEYPRESS_STANDARD;
+        };
         mAudioManager.playSoundEffect(sound, mSettingsValues.mKeypressSoundVolume);
     }
 

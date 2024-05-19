@@ -360,10 +360,7 @@ public final class EmojiPalettesView extends LinearLayout
                                    final KeyVisualAttributes keyVisualAttr,
                                    final KeyboardIconsSet iconSet) {
         initialize();
-        final int deleteIconResId = iconSet.getIconResourceId(KeyboardIconsSet.NAME_DELETE_KEY);
-        if (deleteIconResId != 0) {
-            mDeleteKey.setImageResource(deleteIconResId);
-        }
+        mDeleteKey.setImageDrawable(iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY));
         mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.action_bar));
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);

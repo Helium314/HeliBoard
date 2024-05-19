@@ -26,8 +26,6 @@ import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import java.util.Arrays;
 import java.util.Locale;
 
-import static helium314.keyboard.keyboard.internal.KeyboardIconsSet.ICON_UNDEFINED;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -80,7 +78,7 @@ public class Key implements Comparable<Key> {
     public static final int LABEL_FLAGS_DISABLE_ADDITIONAL_POPUP_KEYS = 0x80000000;
 
     /** Icon to display instead of a label. Icon takes precedence over a label */
-    private final int mIconId;
+    @NonNull private final String mIconName;
 
     /** Width of the key, excluding the gap */
     private final int mWidth;
@@ -156,29 +154,29 @@ public class Key implements Comparable<Key> {
         public final String mOutputText;
         public final int mAltCode;
         /** Icon for disabled state */
-        public final int mDisabledIconId;
+        public final String mDisabledIconName;
         /** The visual insets */
         public final int mVisualInsetsLeft;
         public final int mVisualInsetsRight;
 
         private OptionalAttributes(final String outputText, final int altCode,
-                final int disabledIconId, final int visualInsetsLeft, final int visualInsetsRight) {
+                final String disabledIconName, final int visualInsetsLeft, final int visualInsetsRight) {
             mOutputText = outputText;
             mAltCode = altCode;
-            mDisabledIconId = disabledIconId;
+            mDisabledIconName = disabledIconName;
             mVisualInsetsLeft = visualInsetsLeft;
             mVisualInsetsRight = visualInsetsRight;
         }
 
         @Nullable
         public static OptionalAttributes newInstance(final String outputText, final int altCode,
-                final int disabledIconId, final int visualInsetsLeft, final int visualInsetsRight) {
+                final String disabledIconName, final int visualInsetsLeft, final int visualInsetsRight) {
             if (outputText == null && altCode == KeyCode.NOT_SPECIFIED
-                    && disabledIconId == ICON_UNDEFINED && visualInsetsLeft == 0
+                    && disabledIconName.equals(KeyboardIconsSet.NAME_UNDEFINED) && visualInsetsLeft == 0
                     && visualInsetsRight == 0) {
                 return null;
             }
-            return new OptionalAttributes(outputText, altCode, disabledIconId, visualInsetsLeft,
+            return new OptionalAttributes(outputText, altCode, disabledIconName, visualInsetsLeft,
                     visualInsetsRight);
         }
     }
@@ -193,7 +191,7 @@ public class Key implements Comparable<Key> {
     /**
      * Constructor for a key on <code>PopupKeyKeyboard</code> and on <code>MoreSuggestions</code>.
      */
-    public Key(@Nullable final String label, final int iconId, final int code,
+    public Key(@Nullable final String label, @NonNull final String iconName, final int code,
             @Nullable final String outputText, @Nullable final String hintLabel,
             final int labelFlags, final int backgroundType, final int x, final int y,
             final int width, final int height, final int horizontalGap, final int verticalGap) {
@@ -210,10 +208,10 @@ public class Key implements Comparable<Key> {
         mPopupKeysColumnAndFlags = 0;
         mLabel = label;
         mOptionalAttributes = OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED,
-                ICON_UNDEFINED, 0 /* visualInsetsLeft */, 0 /* visualInsetsRight */);
+                KeyboardIconsSet.NAME_UNDEFINED, 0, 0);
         mCode = code;
         mEnabled = (code != KeyCode.NOT_SPECIFIED);
-        mIconId = iconId;
+        mIconName = iconName;
         // Horizontal gap is divided equally to both sides of the key.
         mX = x + mHorizontalGap / 2;
         mY = y;
@@ -238,7 +236,7 @@ public class Key implements Comparable<Key> {
         mLabel = key.mLabel;
         mHintLabel = labelHint;
         mLabelFlags = key.mLabelFlags;
-        mIconId = key.mIconId;
+        mIconName = key.mIconName;
         mWidth = key.mWidth;
         mHeight = key.mHeight;
         mHorizontalGap = key.mHorizontalGap;
@@ -266,7 +264,7 @@ public class Key implements Comparable<Key> {
         mLabel = outputText == null ? StringUtils.newSingleCodePointString(code) : outputText;
         mHintLabel = labelHint;
         mLabelFlags = key.mLabelFlags;
-        mIconId = key.mIconId;
+        mIconName = key.mIconName;
         mWidth = key.mWidth;
         mHeight = key.mHeight;
         mHorizontalGap = key.mHorizontalGap;
@@ -279,7 +277,8 @@ public class Key implements Comparable<Key> {
         mBackgroundType = backgroundType;
         mActionFlags = key.mActionFlags;
         mKeyVisualAttributes = key.mKeyVisualAttributes;
-        mOptionalAttributes = outputText == null ? null : Key.OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED, ICON_UNDEFINED, 0, 0);
+        mOptionalAttributes = outputText == null ? null
+                : Key.OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED, KeyboardIconsSet.NAME_UNDEFINED, 0, 0);
         mHashCode = key.mHashCode;
         // Key state.
         mPressed = key.mPressed;
@@ -293,7 +292,7 @@ public class Key implements Comparable<Key> {
         mLabel = keyParams.mLabel;
         mHintLabel = keyParams.mHintLabel;
         mLabelFlags = keyParams.mLabelFlags;
-        mIconId = keyParams.mIconId;
+        mIconName = keyParams.mIconName;
         mPopupKeys = keyParams.mPopupKeys;
         mPopupKeysColumnAndFlags = keyParams.mPopupKeysColumnAndFlags;
         mBackgroundType = keyParams.mBackgroundType;
@@ -308,17 +307,17 @@ public class Key implements Comparable<Key> {
         final float horizontalGapFloat = isSpacer() ? 0 : (keyParams.mKeyboardParams.mRelativeHorizontalGap * keyParams.mKeyboardParams.mOccupiedWidth);
         mHorizontalGap = Math.round(horizontalGapFloat);
         mVerticalGap = Math.round(keyParams.mKeyboardParams.mRelativeVerticalGap * keyParams.mKeyboardParams.mOccupiedHeight);
-        mWidth = Math.round(keyParams.mFullWidth - horizontalGapFloat);
+        mWidth = Math.round(keyParams.mAbsoluteWidth - horizontalGapFloat);
         // height is always rounded down, because rounding up may make the keyboard too high to fit, leading to issues
-        mHeight = (int) (keyParams.mFullHeight - keyParams.mKeyboardParams.mVerticalGap);
+        mHeight = (int) (keyParams.mAbsoluteHeight - keyParams.mKeyboardParams.mVerticalGap);
         if (!isSpacer() && (mWidth == 0 || mHeight == 0)) {
             throw new IllegalStateException("key needs positive width and height");
         }
         // Horizontal gap is divided equally to both sides of the key.
         mX = Math.round(keyParams.xPos + horizontalGapFloat / 2);
         mY = Math.round(keyParams.yPos);
-        mHitBox.set(Math.round(keyParams.xPos), Math.round(keyParams.yPos), Math.round(keyParams.xPos + keyParams.mFullWidth) + 1,
-                Math.round(keyParams.yPos + keyParams.mFullHeight));
+        mHitBox.set(Math.round(keyParams.xPos), Math.round(keyParams.yPos), Math.round(keyParams.xPos + keyParams.mAbsoluteWidth) + 1,
+                Math.round(keyParams.yPos + keyParams.mAbsoluteHeight));
         mHashCode = computeHashCode(this);
     }
 
@@ -328,7 +327,7 @@ public class Key implements Comparable<Key> {
         mLabel = key.mLabel;
         mHintLabel = key.mHintLabel;
         mLabelFlags = key.mLabelFlags;
-        mIconId = key.mIconId;
+        mIconName = key.mIconName;
         mWidth = key.mWidth;
         mHeight = key.mHeight;
         mHorizontalGap = key.mHorizontalGap;
@@ -378,7 +377,7 @@ public class Key implements Comparable<Key> {
                 key.mCode,
                 key.mLabel,
                 key.mHintLabel,
-                key.mIconId,
+                key.mIconName,
                 key.mBackgroundType,
                 Arrays.hashCode(key.mPopupKeys),
                 key.getOutputText(),
@@ -405,7 +404,7 @@ public class Key implements Comparable<Key> {
                 && o.mCode == mCode
                 && TextUtils.equals(o.mLabel, mLabel)
                 && TextUtils.equals(o.mHintLabel, mHintLabel)
-                && o.mIconId == mIconId
+                && o.mIconName.equals(mIconName)
                 && o.mBackgroundType == mBackgroundType
                 && Arrays.equals(o.mPopupKeys, mPopupKeys)
                 && TextUtils.equals(o.getOutputText(), getOutputText())
@@ -430,6 +429,7 @@ public class Key implements Comparable<Key> {
         return o instanceof Key && equalsInternal((Key)o);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return toShortString() + " " + getX() + "," + getY() + " " + getWidth() + "x" + getHeight();
@@ -444,9 +444,9 @@ public class Key implements Comparable<Key> {
     }
 
     public String toLongString() {
-        final int iconId = getIconId();
-        final String topVisual = (iconId == KeyboardIconsSet.ICON_UNDEFINED)
-                ? KeyboardIconsSet.PREFIX_ICON + KeyboardIconsSet.getIconName(iconId) : getLabel();
+        final String iconName = getIconName();
+        final String topVisual = (iconName.equals(KeyboardIconsSet.NAME_UNDEFINED))
+                ? KeyboardIconsSet.PREFIX_ICON + iconName : getLabel();
         final String hintLabel = getHintLabel();
         final String visual = (hintLabel == null) ? topVisual : topVisual + "^" + hintLabel;
         return toString() + " " + visual + "/" + backgroundName(mBackgroundType);
@@ -504,7 +504,7 @@ public class Key implements Comparable<Key> {
         return this instanceof Spacer;
     }
 
-    public final boolean isActionKey() {
+    public final boolean hasActionKeyBackground() {
         return mBackgroundType == BACKGROUND_TYPE_ACTION;
     }
 
@@ -513,7 +513,9 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isModifier() {
-        return mCode == KeyCode.SHIFT || mCode == KeyCode.ALPHA_SYMBOL || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
+        return mCode == KeyCode.SHIFT || mCode == KeyCode.SYMBOL_ALPHA || mCode == KeyCode.ALPHA || mCode == KeyCode.SYMBOL;
+        // todo: if this is used, sliding input starts on those keys, but it's not yet implemented
+//                || mCode == KeyCode.CTRL || mCode == KeyCode.ALT || mCode == KeyCode.FN || mCode == KeyCode.META;
     }
 
     public final boolean isRepeatable() {
@@ -655,7 +657,7 @@ public class Key implements Comparable<Key> {
         return (mLabelFlags & LABEL_FLAGS_FROM_CUSTOM_ACTION_LABEL) != 0;
     }
 
-    private final boolean isShiftedLetterActivated() {
+    private boolean isShiftedLetterActivated() {
         return (mLabelFlags & LABEL_FLAGS_SHIFTED_LETTER_ACTIVATED) != 0
                 && !TextUtils.isEmpty(mHintLabel);
     }
@@ -702,16 +704,15 @@ public class Key implements Comparable<Key> {
         return (attrs != null) ? attrs.mAltCode : KeyCode.NOT_SPECIFIED;
     }
 
-    public int getIconId() {
-        return mIconId;
+    public String getIconName() {
+        return mIconName;
     }
 
     @Nullable
     public Drawable getIcon(final KeyboardIconsSet iconSet, final int alpha) {
         final OptionalAttributes attrs = mOptionalAttributes;
-        final int disabledIconId = (attrs != null) ? attrs.mDisabledIconId : ICON_UNDEFINED;
-        final int iconId = mEnabled ? getIconId() : disabledIconId;
-        final Drawable icon = iconSet.getIconDrawable(iconId);
+        final String iconName = mEnabled ? getIconName() : ((attrs != null) ? attrs.mDisabledIconName : KeyboardIconsSet.NAME_UNDEFINED);
+        final Drawable icon = iconSet.getIconDrawable(iconName);
         if (icon != null) {
             icon.setAlpha(alpha);
         }
@@ -720,7 +721,7 @@ public class Key implements Comparable<Key> {
 
     @Nullable
     public Drawable getPreviewIcon(final KeyboardIconsSet iconSet) {
-        return iconSet.getIconDrawable(getIconId());
+        return iconSet.getIconDrawable(getIconName());
     }
 
     /**
@@ -902,11 +903,11 @@ public class Key implements Comparable<Key> {
     public final Drawable selectBackgroundDrawable(@NonNull final Drawable keyBackground,
             @NonNull final Drawable functionalKeyBackground,
             @NonNull final Drawable spacebarBackground,
-           @NonNull final Drawable actionKeyBackground) {
+            @NonNull final Drawable actionKeyBackground) {
         final Drawable background;
         if (isAccentColored()) {
             background = actionKeyBackground;
-        } else if (isFunctional()) {
+        } else if (hasFunctionalBackground()) {
             background = functionalKeyBackground;
         } else if (mBackgroundType == BACKGROUND_TYPE_SPACEBAR) {
             background = spacebarBackground;
@@ -919,15 +920,15 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isAccentColored() {
-        if (isActionKey()) return true;
-        final String iconName = KeyboardIconsSet.getIconName(getIconId());
+        if (hasActionKeyBackground()) return true;
+        final String iconName = getIconName();
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
 
-    public boolean isFunctional() {
+    public boolean hasFunctionalBackground() {
         return mBackgroundType == BACKGROUND_TYPE_FUNCTIONAL
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_OFF
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_ON;
@@ -943,8 +944,8 @@ public class Key implements Comparable<Key> {
          */
         protected Spacer(final KeyboardParams params, final int x, final int y, final int width,
                 final int height) {
-            super(null /* label */, ICON_UNDEFINED, KeyCode.NOT_SPECIFIED, null /* outputText */,
-                    null /* hintLabel */, 0 /* labelFlags */, BACKGROUND_TYPE_EMPTY, x, y, width,
+            super(null, KeyboardIconsSet.NAME_UNDEFINED, KeyCode.NOT_SPECIFIED, null,
+                    null, 0, BACKGROUND_TYPE_EMPTY, x, y, width,
                     height, params.mHorizontalGap, params.mVerticalGap);
         }
     }
@@ -954,12 +955,12 @@ public class Key implements Comparable<Key> {
         // params for building
         public boolean isSpacer;
         private final KeyboardParams mKeyboardParams; // for reading gaps and keyboard width / height
-        public float mRelativeWidth;
-        public float mRelativeHeight; // also should allow negative values, indicating absolute height is defined
+        public float mWidth;
+        public float mHeight; // also should allow negative values, indicating absolute height is defined
 
         // params that may change
-        public float mFullWidth;
-        public float mFullHeight;
+        public float mAbsoluteWidth;
+        public float mAbsoluteHeight;
         public float xPos;
         public float yPos;
 
@@ -968,7 +969,7 @@ public class Key implements Comparable<Key> {
         @Nullable public String mLabel;
         @Nullable public final String mHintLabel;
         public final int mLabelFlags;
-        public final int mIconId;
+        @NonNull public final String mIconName;
         @Nullable public PopupKeySpec[] mPopupKeys;
         public final int mPopupKeysColumnAndFlags;
         public int mBackgroundType;
@@ -977,10 +978,10 @@ public class Key implements Comparable<Key> {
         @Nullable public final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
 
-        public static KeyParams newSpacer(final KeyboardParams params, final float relativeWidth) {
+        public static KeyParams newSpacer(final KeyboardParams params, final float width) {
             final KeyParams spacer = new KeyParams(params);
-            spacer.mRelativeWidth = relativeWidth;
-            spacer.mRelativeHeight = params.mDefaultRelativeRowHeight;
+            spacer.mWidth = width;
+            spacer.mHeight = params.mDefaultRowHeight;
             return spacer;
         }
 
@@ -989,18 +990,18 @@ public class Key implements Comparable<Key> {
             return new Key(this);
         }
 
-        public void setDimensionsFromRelativeSize(final float newX, final float newY) {
-            if (mRelativeHeight == 0)
-                mRelativeHeight = mKeyboardParams.mDefaultRelativeRowHeight;
-            if (!isSpacer && mRelativeWidth == 0)
-                mRelativeWidth = mKeyboardParams.mDefaultRelativeKeyWidth;
-            if (mRelativeHeight < 0)
+        public void setAbsoluteDimensions(final float newX, final float newY) {
+            if (mHeight == 0)
+                mHeight = mKeyboardParams.mDefaultRowHeight;
+            if (!isSpacer && mWidth == 0)
+                throw new IllegalStateException("width = 0 should have been evaluated already");
+            if (mHeight < 0)
                 // todo (later): deal with it properly when it needs to be adjusted, i.e. when changing popupKeys or moreSuggestions
                 throw new IllegalStateException("can't (yet) deal with absolute height");
             xPos = newX;
             yPos = newY;
-            mFullWidth = mRelativeWidth * mKeyboardParams.mBaseWidth;
-            mFullHeight = mRelativeHeight * mKeyboardParams.mBaseHeight;
+            mAbsoluteWidth = mWidth * mKeyboardParams.mBaseWidth;
+            mAbsoluteHeight = mHeight * mKeyboardParams.mBaseHeight;
         }
 
         private static int getPopupKeysColumnAndFlagsAndSetNullInArray(final KeyboardParams params, final String[] popupKeys) {
@@ -1052,7 +1053,7 @@ public class Key implements Comparable<Key> {
                 @NonNull final String keySpec, // key text or some special string for KeySpecParser, e.g. "!icon/shift_key|!code/key_shift" (avoid using !text, should be removed)
                 final int code,
                 @NonNull final KeyboardParams params,
-                final float relativeWidth,
+                final float width,
                 final int labelFlags,
                 final int backgroundType,
                 @Nullable final PopupSet<?> popupSet
@@ -1060,9 +1061,9 @@ public class Key implements Comparable<Key> {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
             mLabelFlags = labelFlags;
-            mRelativeWidth = relativeWidth;
-            mRelativeHeight = params.mDefaultRelativeRowHeight;
-            mIconId = KeySpecParser.getIconId(keySpec);
+            mWidth = width;
+            mHeight = params.mDefaultRowHeight;
+            mIconName = KeySpecParser.getIconName(keySpec);
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
@@ -1144,9 +1145,9 @@ public class Key implements Comparable<Key> {
             }
 
             // action flags don't need to be specified, they can be deduced from the key
-            if (backgroundType == BACKGROUND_TYPE_SPACEBAR
+            if (mCode == Constants.CODE_SPACE
                     || mCode == KeyCode.LANGUAGE_SWITCH
-                    || (mCode == KeyCode.ALPHA_SYMBOL && !params.mId.isAlphabetKeyboard())
+                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.isAlphabetKeyboard())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS)
@@ -1167,7 +1168,7 @@ public class Key implements Comparable<Key> {
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
                     // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    KeyboardIconsSet.ICON_UNDEFINED, 0, 0);
+                    KeyboardIconsSet.NAME_UNDEFINED, 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color
             mKeyVisualAttributes = null;
@@ -1207,11 +1208,11 @@ public class Key implements Comparable<Key> {
 
             mLabel = label;
             mOptionalAttributes = code == KeyCode.MULTIPLE_CODE_POINTS
-                    ? OptionalAttributes.newInstance(label, KeyCode.NOT_SPECIFIED, ICON_UNDEFINED, 0, 0)
+                    ? OptionalAttributes.newInstance(label, KeyCode.NOT_SPECIFIED, KeyboardIconsSet.NAME_UNDEFINED, 0, 0)
                     : null;
             mCode = code;
             mEnabled = (code != KeyCode.NOT_SPECIFIED);
-            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mIconName = KeyboardIconsSet.NAME_UNDEFINED;
             mKeyVisualAttributes = null;
         }
 
@@ -1225,7 +1226,7 @@ public class Key implements Comparable<Key> {
             mHintLabel = null;
             mKeyVisualAttributes = null;
             mOptionalAttributes = null;
-            mIconId = KeyboardIconsSet.ICON_UNDEFINED;
+            mIconName = KeyboardIconsSet.NAME_UNDEFINED;
             mBackgroundType = BACKGROUND_TYPE_NORMAL;
             mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
             mPopupKeys = null;
@@ -1237,8 +1238,8 @@ public class Key implements Comparable<Key> {
         public KeyParams(final KeyParams keyParams) {
             xPos = keyParams.xPos;
             yPos = keyParams.yPos;
-            mRelativeWidth = keyParams.mRelativeWidth;
-            mRelativeHeight = keyParams.mRelativeHeight;
+            mWidth = keyParams.mWidth;
+            mHeight = keyParams.mHeight;
             isSpacer = keyParams.isSpacer;
             mKeyboardParams = keyParams.mKeyboardParams;
             mEnabled = keyParams.mEnabled;
@@ -1247,9 +1248,9 @@ public class Key implements Comparable<Key> {
             mLabel = keyParams.mLabel;
             mHintLabel = keyParams.mHintLabel;
             mLabelFlags = keyParams.mLabelFlags;
-            mIconId = keyParams.mIconId;
-            mFullWidth = keyParams.mFullWidth;
-            mFullHeight = keyParams.mFullHeight;
+            mIconName = keyParams.mIconName;
+            mAbsoluteWidth = keyParams.mAbsoluteWidth;
+            mAbsoluteHeight = keyParams.mAbsoluteHeight;
             mPopupKeys = keyParams.mPopupKeys;
             mPopupKeysColumnAndFlags = keyParams.mPopupKeysColumnAndFlags;
             mBackgroundType = keyParams.mBackgroundType;

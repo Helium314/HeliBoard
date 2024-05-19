@@ -6,6 +6,8 @@
 
 package helium314.keyboard.latin.makedict;
 
+import androidx.annotation.NonNull;
+
 import helium314.keyboard.latin.define.DecoderSpecificConstants;
 
 import java.util.Date;
@@ -237,19 +239,6 @@ public final class FormatSpec {
     static final int MAXIMAL_ONE_BYTE_CHARACTER_VALUE = 0xFF;
 
     /**
-     * Options about file format.
-     */
-    public static final class FormatOptions {
-        public final int mVersion;
-        public final boolean mHasTimestamp;
-
-        public FormatOptions(final int version, final boolean hasTimestamp) {
-            mVersion = version;
-            mHasTimestamp = hasTimestamp;
-        }
-    }
-
-    /**
      * Options global to the dictionary.
      */
     public static final class DictionaryOptions {
@@ -258,7 +247,7 @@ public final class FormatSpec {
             mAttributes = attributes;
         }
         @Override
-        public String toString() { // Convenience method
+        @NonNull public String toString() { // Convenience method
             return toString(0, false);
         }
         public String toString(final int indentCount, final boolean plumbing) {
@@ -277,8 +266,7 @@ public final class FormatSpec {
                 s.append(" = ");
                 if ("date".equals(optionKey) && !plumbing) {
                     // Date needs a number of milliseconds, but the dictionary contains seconds
-                    s.append(new Date(
-                            1000 * Long.parseLong(mAttributes.get(optionKey))).toString());
+                    s.append(new Date(1000 * Long.parseLong(mAttributes.get(optionKey))));
                 } else {
                     s.append(mAttributes.get(optionKey));
                 }

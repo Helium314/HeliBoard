@@ -21,7 +21,6 @@ import helium314.keyboard.latin.R;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.view.ViewCompat;
 
 public final class SetupStartIndicatorView extends LinearLayout {
     public SetupStartIndicatorView(final Context context, final AttributeSet attrs) {
@@ -72,13 +71,13 @@ public final class SetupStartIndicatorView extends LinearLayout {
         @Override
         protected void onDraw(@NonNull final Canvas canvas) {
             super.onDraw(canvas);
-            final int layoutDirection = ViewCompat.getLayoutDirection(this);
+            final int layoutDirection = getLayoutDirection();
             final int width = getWidth();
             final int height = getHeight();
             final float halfHeight = height / 2.0f;
             final Path path = mIndicatorPath;
             path.rewind();
-            if (layoutDirection == ViewCompat.LAYOUT_DIRECTION_RTL) {
+            if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
                 // Left arrow
                 path.moveTo(width, 0.0f);
                 path.lineTo(0.0f, halfHeight);

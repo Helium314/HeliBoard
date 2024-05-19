@@ -5,14 +5,15 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings_screen_correction"
     android:key="screen_correction">
 
     <PreferenceScreen
         android:fragment="helium314.keyboard.latin.settings.UserDictionaryListFragment"
         android:key="edit_personal_dictionary"
-        android:title="@string/edit_personal_dictionary">
-    </PreferenceScreen>
+        android:title="@string/edit_personal_dictionary"
+        latin:singleLineTitle="false" />
 
     <PreferenceCategory
         android:title="@string/settings_category_correction">
@@ -44,7 +45,8 @@
             android:summary="%s"
             android:entries="@array/auto_correction_threshold_modes"
             android:entryValues="@array/auto_correction_threshold_mode_indexes"
-            android:defaultValue="@string/auto_correction_threshold_mode_index_modest" />
+            android:defaultValue="@string/auto_correction_threshold_mode_index_modest"
+            latin:singleLineTitle="false" />
 
         <SwitchPreference
             android:key="auto_cap"
@@ -97,6 +99,13 @@
             android:title="@string/bigram_prediction"
             android:summary="@string/bigram_prediction_summary"
             android:defaultValue="true"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="center_suggestion_text_to_enter"
+            android:title="@string/center_suggestion_text_to_enter"
+            android:summary="@string/center_suggestion_text_to_enter_summary"
+            android:defaultValue="@bool/config_center_suggestion_text_to_enter"
             android:persistent="true" />
 
         <SwitchPreference

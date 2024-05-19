@@ -4,30 +4,20 @@ about: Suggest an idea for this project
 labels: enhancement
 ---
 
-<!--
-tl;dr
-* search for duplicates also in closed issues
-* one issue per topic
+Please see the appropriate readme section for issue reporting guidelines: https://github.com/Helium314/HeliBoard?tab=readme-ov-file#reporting-issues
+tl;dr:
+* search for duplicates, also in closed issues
+* a single issue per topic
 * reduce screenshot size
 
-Please search open and closed issues to avoid duplicates. Maybe what you want has already been discussed or is mentioned in the readme.
-If you have more than one feature request, open multiple issues (one for each) unless the requests are closely related.
-Note that given the number of feature requests and available developer time, it may take a long time until the feature request gets attention.
-When a "PR" or "contributor needed" label is added, the feature request is accepted, and interested contributors are welcome to work on this (please comment when you're working on an issue).
--->
+<!-- issue template below, please remove above text before submitting (and the template too if you think it's a good idea) -->
 
 **Is your feature request related to a problem? Please describe.**
-<!-- A clear and concise description of what the problem is. -->
 
 **Describe the solution you'd like**
-<!-- A clear and concise description of what you want to happen. -->
+Please provide a description of what you would like to have. The clearer it is described, the better it can be implemented the way you want it.
 
 **Use case**
-<!-- Provide a clear and concise description of *your use case* and what you thus think is missing, and why. -->
+Provide a clear and concise description of *your use case* and what you thus think is missing, and why.
 
-**Describe alternatives you've considered**
-<!-- A clear and concise description of any alternative solutions or features you've considered (if you can think of any). -->
-
-**Additional context**
-<!-- Add any other context or screenshots about the feature request here if suitable and useful.
-If you add screenshots, reduce the size or use thumbnails to keep the issue nicely readable. -->
+**Describe alternatives you've considered (if any)**

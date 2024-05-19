@@ -1,0 +1,7 @@
+- update Serbian Cyrillic layout by @markokocic (#704, #705)
+- update Estonia layout by @tenextractor (#693)
+- fix duplicate entries in clipboard history by @codokie (#616, #680)
+- only add text entries to clipboard history by @codokie (#711)
+- better images in metadata by @RHJihan (#713)
+- properly set color of icons in toolbar selection dialog by @codokie (#715, #716)
+- other fixes (#684, #723 and more)

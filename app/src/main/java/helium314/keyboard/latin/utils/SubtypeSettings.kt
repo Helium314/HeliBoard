@@ -195,6 +195,7 @@ private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
 /** string for for identifying a subtype, does not contain all necessary information to actually create it */
 private fun InputMethodSubtype.prefString(): String {
     if (DebugFlags.DEBUG_ENABLED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && locale().toLanguageTag() == "und") {
+        @Suppress("deprecation") // it's debug logging, better get all information
         Log.e(TAG, "unknown language, should not happen ${locale}, $languageTag, $extraValue, ${hashCode()}, $nameResId")
     }
     return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
@@ -244,7 +245,7 @@ private fun loadResourceSubtypes(resources: Resources) {
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
-    val customSubtypeFiles by lazy { Settings.getLayoutsDir(context).list() }
+    val customSubtypeFiles by lazy { getCustomLayoutsDir(context).list() }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")

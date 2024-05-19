@@ -10,8 +10,6 @@ import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -69,17 +67,15 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.view.ViewCompat;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
         OnLongClickListener {
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
-        void onTextInput(final String rawText);
         void removeSuggestion(final String word);
-        CharSequence getSelection();
     }
 
     public static boolean DEBUG_SUGGESTIONS;
@@ -127,8 +123,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         public void setLayoutDirection(final int layoutDirection) {
-            ViewCompat.setLayoutDirection(mSuggestionStripView, layoutDirection);
-            ViewCompat.setLayoutDirection(mSuggestionsStrip, layoutDirection);
+            mSuggestionStripView.setLayoutDirection(layoutDirection);
+            mSuggestionsStrip.setLayoutDirection(layoutDirection);
         }
 
         public void showSuggestionsStrip() {
@@ -144,6 +140,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         this(context, attrs, R.attr.suggestionStripViewStyle);
     }
 
+    @SuppressLint("InflateParams") // does not seem suitable here
     public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
@@ -186,6 +183,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 R.dimen.config_more_suggestions_modal_tolerance);
         mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
+        @SuppressLint("CustomViewStyleable")
         final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
         mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
@@ -265,9 +263,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void setRtl(final boolean isRtlLanguage) {
         final int layoutDirection;
         if (!Settings.getInstance().getCurrent().mVarToolbarDirection)
-            layoutDirection = ViewCompat.LAYOUT_DIRECTION_LOCALE;
+            layoutDirection = View.LAYOUT_DIRECTION_LOCALE;
         else{
-            layoutDirection = isRtlLanguage ? ViewCompat.LAYOUT_DIRECTION_RTL : ViewCompat.LAYOUT_DIRECTION_LTR;
+            layoutDirection = isRtlLanguage ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR;
             mRtl = isRtlLanguage ? -1 : 1;
         }
         mStripVisibilityGroup.setLayoutDirection(layoutDirection);
@@ -365,7 +363,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public boolean onLongClick(final View view) {
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(Constants.NOT_A_CODE, this);
-        if (mToolbar.findViewWithTag(view.getTag()) != null) {
+        if (view.getTag() instanceof ToolbarKey) {
             onLongClickToolKey(view);
             return true;
         }
@@ -375,10 +373,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     private void onLongClickToolKey(final View view) {
-        if (ToolbarKey.CLIPBOARD == view.getTag() && view.getParent() == mPinnedKeys) {
-            onLongClickClipboardKey(); // long click pinned clipboard key
+        if (!(view.getTag() instanceof ToolbarKey tag)) return;
+        if (view.getParent() == mPinnedKeys) {
+            final int longClickCode = getCodeForToolbarKeyLongClick(tag);
+            if (longClickCode != KeyCode.UNSPECIFIED) {
+                mListener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            }
         } else if (view.getParent() == mToolbar) {
-            final ToolbarKey tag = (ToolbarKey) view.getTag();
             final View pinnedKeyView = mPinnedKeys.findViewWithTag(tag);
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag);
@@ -388,22 +389,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
-            }
-        }
-    }
-
-    private void onLongClickClipboardKey() {
-        ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clipData = clipboardManager.getPrimaryClip();
-        Log.d(TAG, "long click clipboard key");
-        if (clipData != null && clipData.getItemCount() > 0 && clipData.getItemAt(0) != null) {
-            String clipString = clipData.getItemAt(0).coerceToText(getContext()).toString();
-            if (clipString.length() == 1) {
-                mListener.onTextInput(clipString);
-            } else if (clipString.length() > 1) {
-                //awkward workaround
-                mListener.onTextInput(clipString.substring(0, clipString.length() - 1));
-                mListener.onTextInput(clipString.substring(clipString.length() - 1));
             }
         }
     }
@@ -544,7 +529,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final GestureDetector.OnGestureListener mMoreSuggestionsSlidingListener =
             new GestureDetector.SimpleOnGestureListener() {
         @Override
-        public boolean onScroll(MotionEvent down, MotionEvent me, float deltaX, float deltaY) {
+        public boolean onScroll(@Nullable MotionEvent down, @NonNull MotionEvent me, float deltaX, float deltaY) {
+            if (down == null) return false;
             final float dy = me.getY() - down.getY();
             if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
                 return showMoreSuggestions();
@@ -653,8 +639,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
         final Object tag = view.getTag();
         if (tag instanceof ToolbarKey) {
-            final Integer code = getCodeForToolbarKey((ToolbarKey) tag);
-            if (code != null) {
+            final int code = getCodeForToolbarKey((ToolbarKey) tag);
+            if (code != KeyCode.UNSPECIFIED) {
                 Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {

@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Manages all interactions with Contacts DB.
- *
+ * <p>
  * The manager provides an API for listening to meaning full updates by keeping a
  * measure of the current state of the content provider.
  */
@@ -65,7 +65,7 @@ public class ContactsManager {
          * - How many times it has been contacted
          * - How long since the last contact.
          * - Whether the contact is in the visible group (i.e., Contacts list).
-         *
+         * <p>
          * Note: This affinity is limited by the fact that some apps currently do not update the
          * LAST_TIME_CONTACTED or TIMES_CONTACTED counters. As a result, a frequently messaged
          * contact may still have 0 affinity.
@@ -101,13 +101,13 @@ public class ContactsManager {
      * The number of contacts observed in the most recent instance of
      * contacts content provider.
      */
-    private AtomicInteger mContactCountAtLastRebuild = new AtomicInteger(0);
+    private final AtomicInteger mContactCountAtLastRebuild = new AtomicInteger(0);
 
     /**
      * The hash code of list of valid contacts names in the most recent dictionary
      * rebuild.
      */
-    private AtomicInteger mHashCodeAtLastRebuild = new AtomicInteger(0);
+    private final AtomicInteger mHashCodeAtLastRebuild = new AtomicInteger(0);
 
     private final Context mContext;
     private final ContactsContentObserver mObserver;
@@ -134,7 +134,7 @@ public class ContactsManager {
      * Returns all the valid names in the Contacts DB. Callers should also
      * call {@link #updateLocalState(ArrayList)} after they are done with result
      * so that the manager can cache local state for determining updates.
-     *
+     * <p>
      * These names are sorted by their affinity to the user, with favorite
      * contacts appearing first.
      */
@@ -183,22 +183,15 @@ public class ContactsManager {
      * Returns the number of contacts in contacts content provider.
      */
     public int getContactCount() {
-        // TODO: consider switching to a rawQuery("select count(*)...") on the database if
-        // performance is a bottleneck.
-        Cursor cursor = null;
-        try {
-            cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
-                    ContactsDictionaryConstants.PROJECTION_ID_ONLY, null, null, null);
-            if (null == cursor) {
+        // TODO: consider switching to a rawQuery("select count(*)...") on the database if performance is a bottleneck.
+        try (Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
+                ContactsDictionaryConstants.PROJECTION_ID_ONLY, null, null, null)
+        ) {
+            if (null == cursor)
                 return 0;
-            }
             return cursor.getCount();
         } catch (final SQLiteException e) {
             Log.e(TAG, "SQLiteException in the remote Contacts process.", e);
-        } finally {
-            if (null != cursor) {
-                cursor.close();
-            }
         }
         return 0;
     }

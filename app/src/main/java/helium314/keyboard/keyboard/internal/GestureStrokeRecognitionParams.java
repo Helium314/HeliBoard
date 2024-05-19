@@ -14,17 +14,6 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 /**
  * This class holds parameters to control how a gesture stroke is sampled and recognized.
  * This class also has parameters to distinguish gesture input events from fast typing events.
- *
- * @attr ref R.styleable#MainKeyboardView_gestureStaticTimeThresholdAfterFastTyping
- * @attr ref R.styleable#MainKeyboardView_gestureDetectFastMoveSpeedThreshold
- * @attr ref R.styleable#MainKeyboardView_gestureDynamicThresholdDecayDuration
- * @attr ref R.styleable#MainKeyboardView_gestureDynamicTimeThresholdFrom
- * @attr ref R.styleable#MainKeyboardView_gestureDynamicTimeThresholdTo
- * @attr ref R.styleable#MainKeyboardView_gestureDynamicDistanceThresholdFrom
- * @attr ref R.styleable#MainKeyboardView_gestureDynamicDistanceThresholdTo
- * @attr ref R.styleable#MainKeyboardView_gestureSamplingMinimumDistance
- * @attr ref R.styleable#MainKeyboardView_gestureRecognitionMinimumTime
- * @attr ref R.styleable#MainKeyboardView_gestureRecognitionSpeedThreshold
  */
 public final class GestureStrokeRecognitionParams {
     // Static threshold for gesture after fast typing

@@ -116,8 +116,7 @@ class MainKeyboardAccessibilityDelegate(
      */
     private fun announceKeyboardType(keyboard: Keyboard, lastKeyboard: Keyboard) {
         val lastElementId = lastKeyboard.mId.mElementId
-        val resId: Int
-        resId = when (keyboard.mId.mElementId) {
+        val resId = when (keyboard.mId.mElementId) {
             KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET -> {
                 if (lastElementId == KeyboardId.ELEMENT_ALPHABET
                         || lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {

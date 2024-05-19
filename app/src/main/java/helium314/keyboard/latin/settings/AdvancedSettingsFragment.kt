@@ -32,6 +32,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
@@ -46,6 +47,7 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.editCustomLayout
+import helium314.keyboard.latin.utils.getCustomLayoutsDir
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
@@ -71,6 +73,7 @@ import java.util.zip.ZipOutputStream
  * - Improve keyboard
  * - Debug settings
  */
+@Suppress("KotlinConstantConditions") // build type might be a constant, but depends on... build type!
 class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
@@ -157,27 +160,27 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     private fun showCustomizeLayoutsDialog() {
-        val layouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC, LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
-        val layoutNames = layouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
+        val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_symbols_number_layouts)
             .setItems(layoutNames) { di, i ->
                 di.dismiss()
-                customizeLayout(layouts[i])
+                customizeSymbolNumberLayout(RawKeyboardParser.symbolAndNumberLayouts[i])
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
-    private fun customizeLayout(layout: String) {
-        val customLayoutName = Settings.readLayoutName(layout, context).takeIf { it.startsWith(CUSTOM_LAYOUT_PREFIX) }
+    private fun customizeSymbolNumberLayout(layoutName: String) {
+        val customLayoutName = getCustomLayoutsDir(requireContext()).list()
+            ?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
         val originalLayout = if (customLayoutName != null) null
             else {
-                requireContext().assets.list("layouts")?.firstOrNull { it.startsWith("$layout.") }
+                requireContext().assets.list("layouts")?.firstOrNull { it.startsWith("$layoutName.") }
                     ?.let { requireContext().assets.open("layouts" + File.separator + it).reader().readText() }
             }
-        val displayName = layout.getStringResourceOrName("layout_", requireContext())
-        editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.txt", requireContext(), originalLayout, displayName)
+        val displayName = layoutName.getStringResourceOrName("layout_", requireContext())
+        editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layoutName.txt", requireContext(), originalLayout, displayName)
     }
 
     @SuppressLint("ApplySharedPref")
@@ -434,8 +437,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources);
-        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
+        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
+        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
         reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)
