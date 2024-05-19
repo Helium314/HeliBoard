@@ -1,14 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-    SPDX-FileCopyrightText: Material Design Authors / Google LLC
-    SPDX-License-Identifier: Apache-2.0
--->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="960"
-    android:viewportHeight="960">
-    <path
-        android:fillColor="#FFF"
-        android:pathData="m508.62,360.62 l182.77,182.77a40.47,40.47 90,0 1,0 57.23,39.61 39.61,1.26 0,1 -56,-1.23L480,444 324.62,599.38a40.47,40.47 0,0 1,-57.23 0,39.61 39.61,91.26 0,1 1.23,-56l182.77,-182.77a40.47,40.47 0,0 1,57.23 0z"/>
-</vector>
+<!-- it's the arrow up icon, but with a different name -->
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_arrow_up_rounded">
+</rotate>

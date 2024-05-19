@@ -1,12 +1,4 @@
-<!--
-    SPDX-FileCopyrightText: Material Design Authors / Google LLC
-    SPDX-License-Identifier: Apache-2.0
--->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportHeight="960"
-    android:viewportWidth="960"  >
-    <path android:fillColor="#FFF"
-        android:pathData="m480,332 l240,240 -56,56 -184,-184 -184,184 -56,-56z"/>
-</vector>
+<!-- it's the arrow up icon, but with a different name -->
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_arrow_up">
+</rotate>
