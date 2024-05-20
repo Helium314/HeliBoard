@@ -1,0 +1,20 @@
+* neues Icon von @FabianOvrWrt mit Beiträgen von @the-eclectic-dyslexic (#517, #592)
+* anpassbareres Leertaste-Trackpad und Sprachschalter von @arcarum (#486)
+* % zum Layout der Schaltsymbole hinzufügen (#568, #428)
+* Verhalten verbessern, wenn die Sprachumschalttaste so eingestellt ist, dass sowohl Sprache als auch Tastatur umgeschaltet werden
+* Beim Hinzufügen eines Wörterbuchs Links zu vorhandenen Wörterbüchern anzeigen
+* Kaitag-Layout von @alkaitagi hinzufügen (#519)
+* Probhat-Layout von @fahimscirex hinzufügen (#489)
+* optional umgekehrte Symbolleistenreihenfolge für RTL-Sprachen von @codokie (#557, #574)
+* ermöglicht das Anpassen spezieller Layouts (Nummernblock, Telefon, ...)
+   * Noch experimentell, da sich die Grundlayouts ändern können
+* Rechtschreibprüfung.xml aktualisiert, um Gebietsschemata einzuschließen, in denen Wörterbücher verfügbar, aber nicht in der App enthalten sind
+* Übersetzungen aktualisieren (Danke an alle Übersetzer!)
+* ndk aktualisieren von @Syphyr (#560)
+* Inline-Autofill-Code von @arcarum aktualisieren (#595)
+* Problem mit dem Tastendialog in der Symbolleiste behoben (#505)
+* Problem mit türkischem Layout behoben (#508)
+* Falsche Schalterzustände beim Drehen im Bildschirm „Farben anpassen“ behoben (#563)
+* Problem behoben, bei dem aktuelle Emojis nicht geladen wurden (#527)
+* Problem behoben, bei dem Zahlen in bestimmten Feldern nicht angezeigt wurden (#585)
+* einige kleinere Korrekturen

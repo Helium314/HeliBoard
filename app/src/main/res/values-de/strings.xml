@@ -345,4 +345,9 @@
     <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="center_suggestion_text_to_enter_summary">Bei Eingabe eines Leerzeichens oder eines Punktes wird der mittlere Vorschlag gewählt</string>
+    <string name="close_history" tools:keep="@string/close_history">Schließe Zwischenablagen-Verlauf</string>
+    <string name="center_suggestion_text_to_enter">Immer mittleren Vorschlag verwenden</string>
+    <string name="clipboard_toolbar_keys">Wähle die Tasten der Symbolleiste für die Zwischenablage</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
 </resources>

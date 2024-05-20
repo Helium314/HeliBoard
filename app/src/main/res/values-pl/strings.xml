@@ -59,8 +59,8 @@
     <string name="subtype_with_layout_es_US">Hiszpański (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_hi_Latn">hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">serbski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradycyjny)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktowa)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="nepalski">%s</xliff:g> (tradycyjny)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="hinduski">%s</xliff:g> (kompaktowy)</string>
     <string name="subtype_no_language">standardowy (Alfabet)</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
@@ -143,7 +143,7 @@
     <string name="show_hints">Pokazuj wskazówki klawiszy</string>
     <string name="prefs_keyboard_height_scale">Skala wysokości klawiatury</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Akkhor)</string>
     <string name="ime_settings">Ustawienia HeliBoard</string>
     <string name="settings_category_additional_keys">Dodatkowe klawisze</string>
     <string name="settings_category_input">Wprowadzanie</string>
@@ -219,7 +219,40 @@
     <string name="dictionary_load_error">Błąd podczas dodawania słownika</string>
     <string name="localized_number_row_summary">Preferuj liczby lokalne zamiast łacińskich</string>
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
-    <string name="hidden_features_message">► Długie naciśnięcie klawisza schowka (opcjonalnego na pasku sugestii) spowoduje wklejenie zawartości schowka systemowego. &lt;br&gt; &lt;br&gt; ► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt; ► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt; \t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt; \t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt; ► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt; ► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt; ► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt; \t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt; ► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt; ► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt; ► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt; ► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt; \t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt; &lt;i&gt;Tryb debugowania / aplikacja w wersji debug&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Przytrzymaj sugestię, aby wyświetlić słownik źródłowy.&lt;br&gt; &lt;br&gt; \t• Korzystając z aplikacji w wersji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt; &lt;br&gt; \t• W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt; \t• Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt; \t• Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć). &lt;br&gt; &lt;br&gt; ► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. &lt;br&gt; Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt; Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida.</string>
+    <string name="hidden_features_message">► Długie naciśnięcie przypiętych klawiszy paska narzędzi zapewnia dodatkową funkcję: &lt;br&gt;
+\n\t• schowek &amp;#65515; wklej &lt;br&gt;
+\n\t• w lewo/w prawo &amp;#65515; na początek/na koniec &lt;br&gt;
+\n\t• w górę/w dół &amp;#65515; strona w górę/w dół &lt;br&gt;
+\n\t• skopiuj &amp;#65515; skopiuj wszystko &lt;br&gt;
+\n\t• wybierz słowo &amp;#65515; zaznacz wszystko &lt;br&gt;
+\n\t• cofnij &amp;#8596; ponów &lt;br&gt; &lt;br&gt;
+\n► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt;
+\n► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt;
+\n\t• Przyciski emotikonów i zmiany języka znikną, jeśli masz włączone odpowiednie klawisze; &lt;br&gt;
+\n\t• W niektórych układach nie jest to klawisz przecinka, tylko inny w tym samym miejscu (np. w układzie Dvorak jest to \'q\'). &lt;br&gt; &lt;br&gt;
+\n► Gdy tryb incognito jest włączony, słowa nie będą pamiętane, a emotikony nie zostaną dodane do ostatnio używanych. &lt;br&gt; &lt;br&gt;
+\n► Dotknij ikonkę incognito, aby uzyskać dostęp do paska narzędzi. &lt;br&gt; &lt;br&gt;
+\n► Pisanie za pomocą przesuwania po klawiszu: przesuń palcem od klawisza Shift do innego klawisza, aby wpisać pojedynczą wielką literę: &lt;br&gt;
+\n\t• Działa to również w przypadku klawisza \\\'?123\\\' do wpisywania pojedynczego symbolu z klawiatury symboli oraz podobnych klawiszy. &lt;br&gt; &lt;br&gt;
+\n► Przytrzymaj Shift lub klawisz symboli, naciśnij jeden lub więcej klawiszy, a następnie puść Shift lub klawisz symboli, aby powrócić do poprzedniej klawiatury. &lt;br&gt; &lt;br&gt;
+\n► Przytrzymaj sugestię na pasku sugestii, aby wyświetlić więcej sugestii oraz przycisk usuwania, aby ją usunąć. &lt;br&gt; &lt;br&gt;
+\n► Przesuń palcem w górę na sugestii, aby wyświetlić więcej sugestii i puść, aby wybrać sugestię. &lt;br&gt; &lt;br&gt;
+\n► Przytrzymaj wpis w schowku, aby go przypiąć (pozostanie w schowku do czasu odpięcia). &lt;br&gt; &lt;br&gt;
+\n► Przesuń w lewo w widoku schowka, aby usunąć wpis (jeśli nie jest przypięty) &lt;br&gt; &lt;br&gt;
+\n► Zaznacz tekst i naciśnij Shift, aby przełączać się między wielkimi i małymi literami. &lt;br&gt; &lt;br&gt;
+\n► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt;
+\n\t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt;
+\n► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: &lt;br&gt;
+\n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt;
+\n\t• Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida. &lt;br&gt; &lt;br&gt;
+\n&lt;i&gt;&lt;b&gt;Tryb debugowania / aplikacja debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+\n► Przytrzymaj sugestię, aby wyświetlić słownik źródłowy. &lt;br&gt; &lt;br&gt;
+\n► Korzystając z aplikacji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt;
+\n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania. &lt;br&gt;
+\n\t• Po włączeniu opcji &lt;i&gt;Pokaż informacje o sugestii&lt;/i&gt;, sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy. &lt;br&gt; &lt;br&gt;
+\n► W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt;
+\n► Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt;
+\n► Sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy (można to wyłączyć).</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Niebiesko-szare</string>
     <string name="select_color_spacebar_text">Tekst spacji</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Jasne</string>
@@ -243,7 +276,7 @@
     <string name="version">Wersja</string>
     <string name="hint_source">Wybierz źródło wskazówek</string>
     <string name="load_gesture_library_summary">Dodaj natywną bibliotekę, aby umożliwić pisanie gestami</string>
-    <string name="layout_symbols_shifted">Więcej symboli</string>
+    <string name="layout_symbols_shifted">Dodatkowe symbole</string>
     <string name="url_detection_summary">Próbuj wykrywać adresy URL i podobne jako pojedyncze słowo</string>
     <string name="button_select_language">Wybierz język</string>
     <string name="select_color_key">Tekst klawiszy</string>
@@ -345,4 +378,13 @@
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="rosyjski">%s</xliff:g> (Uczeń)</string>
     <string name="prefs_long_press_symbol_for_numpad">Przytrzymaj klawisz symboli, aby wyświetlić klawiaturę numeryczną</string>
     <string name="cut" tools:keep="@string/Cut">Wytnij</string>
+    <string name="center_suggestion_text_to_enter">Zawsze używaj środkowej sugestii</string>
+    <string name="center_suggestion_text_to_enter_summary">Po naciśnięciu spacji lub znaku interpunkcyjnego zostanie wpisana środkowa sugestia</string>
+    <string name="close_history" tools:keep="@string/close_history">Zamknij schowek</string>
+    <string name="clipboard_toolbar_keys">Wybierz klawisze paska narzędzi w schowku</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="kanadyjski">%s</xliff:g> (rozszerzony)</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">mansyjski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_mns">mansyjski</string>
+    <string name="more_colors">Pokaż więcej kolorów</string>
+    <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Nie ma domyślnego koloru, a nazwy nie zostaną przetłumaczone.</string>
 </resources>

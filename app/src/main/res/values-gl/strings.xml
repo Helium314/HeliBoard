@@ -345,4 +345,13 @@
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudante)</string>
     <string name="prefs_long_press_symbol_for_numpad">Tecla con pulsación longa para teclado numérico</string>
     <string name="cut" tools:keep="@string/Cut">Cortar</string>
+    <string name="center_suggestion_text_to_enter">Usar sempre a suxestión do medio</string>
+    <string name="center_suggestion_text_to_enter_summary">Ao premer no espazo ou puntuación, escríbese a suxestión do medio</string>
+    <string name="clipboard_toolbar_keys">Escoller teclas da barra de ferramentas do portapapeis</string>
+    <string name="close_history" tools:keep="@string/close_history">Pechar historial do portapapeis</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="more_colors">Mostrar máis cores</string>
+    <string name="all_colors_warning">Este axuste expón todas as cores que se usan internamente. A lista de cores pode cambiar en calquera momento. Non hai cor por defecto, e os nomes non serán traduciddos.</string>
 </resources>

@@ -15,8 +15,8 @@
     <string name="settings_screen_advanced">"Avancerat"</string>
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Aktivera delat tangentbord"</string>
-    <string name="language_switch_key_switch_input_method">"Byt till annan inmatning"</string>
-    <string name="show_language_switch_key">"Knapp för att byta språk"</string>
+    <string name="language_switch_key_switch_input_method">Byt till andra inmatningsmet.</string>
+    <string name="show_language_switch_key">Språkbytestangent</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <string name="settings_system_default">"Standardinställning"</string>
     <string name="use_contacts_dict">"Föreslå kontaktnamn"</string>
@@ -44,7 +44,7 @@
     <string name="gesture_input">"Aktivera svepskrivning"</string>
     <string name="gesture_input_summary">"Skriv genom att dra från tecken till tecken utan att lyfta handen"</string>
     <string name="gesture_preview_trail">"Visa spår efter rörelse"</string>
-    <string name="gesture_floating_preview_text">"Visa ordförslag vid svepskrivning"</string>
+    <string name="gesture_floating_preview_text">Dynamisk flytande förhandsvis.</string>
     <string name="gesture_floating_preview_text_summary">"Ordförslaget visas i rörelsen medan du skriver"</string>
     <string name="gesture_space_aware">"Frasrörelse"</string>
     <string name="gesture_space_aware_summary">"Infoga blanksteg genom att dra fingret över blankstegstangenten"</string>
@@ -98,9 +98,9 @@
     <string name="show_setup_wizard_icon_summary">"Visa appikonen i startprogrammet"</string>
     <string name="dictionary_settings_title">"Tilläggsordlistor"</string>
     <string name="dictionary_settings_summary">"Inställningar för ordlistor"</string>
-    <string name="dictionary_available">"En ordlista är tillgänglig"</string>
+    <string name="dictionary_available">Ordlista tillgänglig</string>
     <string name="cannot_connect_to_dict_service">"Problem med att ansluta till ordlistetjänsten"</string>
-    <string name="no_dictionaries_available">"Inga ordlistor finns"</string>
+    <string name="no_dictionaries_available">Inga ordlistor tillgängliga</string>
     <string name="last_update">"Informationen uppdaterades senast"</string>
     <string name="main_dict_description">"Huvudordlista"</string>
     <string name="settings">"Inställningar"</string>
@@ -121,7 +121,7 @@
     <string name="settings_category_suggestions">Förslag</string>
     <string name="settings_category_experimental">Experimentella</string>
     <string name="settings_category_miscellaneous">Diverse</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Ingen gräns</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Långtryckning på mellanslagstangenten öppnar menyn för val av inmatningsmetod</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ändra inmatningsmetod med mellanslagstangenten</string>
@@ -139,14 +139,14 @@
     <string name="prefs_force_incognito_mode_summary">Inaktivera inlärningen av nya ord</string>
     <string name="settings_category_input">Inmatning</string>
     <string name="enable_clipboard_history">Aktivera urklippshistorik</string>
-    <string name="enable_clipboard_history_summary">Urklippsknappen kommer att klistra in eventuellt urklippsinnehåll om denna är inaktiverad</string>
+    <string name="enable_clipboard_history_summary">Om inaktiverad, kommer urklippstangenten att klistra in eventuellt urklippsinnehåll</string>
     <string name="clipboard_history_retention_time">Lagringstid för historik</string>
     <string name="delete_swipe">Backstegssvepning</string>
     <string name="delete_swipe_summary">Gör en svepning från backstegstangenten för att markera och ta bort större mängder text på en gång</string>
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>
-    <string name="prefs_keyboard_height_scale">Tangentbordets höjdskala</string>
+    <string name="prefs_keyboard_height_scale">Skala för tangentbordets höjd</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
@@ -196,4 +196,78 @@
     <string name="backup_restore_title">Säkerhetskopiering och återställning</string>
     <string name="dialog_close">Stäng</string>
     <string name="user_dict_add_word_button">Lägg till ett ord</string>
+    <string name="language_switch_key_switch_both">Byt båda</string>
+    <string name="add_to_personal_dictionary">Lägg till ord i personlig ordbok</string>
+    <string name="add_to_personal_dictionary_summary">Använd enhetens personliga ordbok för lagring av inlärda ord</string>
+    <string name="prefs_always_show_suggestions">Visa alltid förslag</string>
+    <string name="more_autocorrect">Mer autokorrigering</string>
+    <string name="backup_restore_message">Spara till eller ladda från fil. Varning: Återställning kommer att skriva över befintliga data</string>
+    <string name="switch_language">Byt språk</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorera andra appars begäran om att inaktivera förslag (kan orsaka problem)</string>
+    <string name="all_colors">Visa alla färger</string>
+    <string name="more_autocorrect_summary">Autokorrigera även när det inte uttryckligen begärs av inmatningsfältet</string>
+    <string name="disable_personalized_dicts_message">Varning: Inaktivering av denna inställning kommer att rensa inlärda data</string>
+    <string name="text_tap_languages">Tryck på språket för att öppna inställningar</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blågrått</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brunt</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Ljust</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamiska färger</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Mörkt</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mörkare</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Choklad</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Molnigt</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skog</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_style">Stil</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Avrundad</string>
+    <string name="theme_colors">Färger</string>
+    <string name="theme_colors_night">Färger (natt)</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Hav</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sand</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violett</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Användardefinierat</string>
+    <string name="prefs_narrow_key_gaps">Smala tangentmellanrum</string>
+    <string name="prefs_bottom_padding_scale">Skala för avstånd till nederkant</string>
+    <string name="select_user_colors_summary">Välj färger på text och bakgrunder</string>
+    <string name="split_spacer_scale">Delningsavstånd</string>
+    <string name="main_colors">Visa endast huvudfärger</string>
+    <string name="theme_navbar">Färga navigeringsfält</string>
+    <string name="select_user_colors">Anpassa färger</string>
+    <string name="select_user_colors_night">Anpassa färger (natt)</string>
+    <string name="internal_dictionary_summary">Intern huvudordlista</string>
+    <string name="popup_order">Välj ordning på popup-tangenter</string>
+    <string name="hint_source">Välj tipskälla</string>
+    <string name="day_or_night_night">Natt</string>
+    <string name="add_new_dictionary_title">Lägg till ordlista från fil</string>
+    <string name="add_dictionary">Välj en ordlista att lägga till. Ordlistor i .dict-format kan laddas ner %s.</string>
+    <string name="button_select_language">Välj språk</string>
+    <string name="dictionary_link_text">här</string>
+    <string name="day_or_night_day">Dag</string>
+    <string name="secondary_locale">Flerspråkigt skrivande</string>
+    <string name="select_color_key_hint">Tangenttipstext</string>
+    <string name="dictionary_settings_category">Ordlistor</string>
+    <string name="left" tools:keep="@string/left">Vänster</string>
+    <string name="right" tools:keep="@string/right">Höger</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Språk (prioriterat)</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Sifferrad</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboler</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Språk</string>
+    <string name="toolbar_keys">Välj verktygsfältstangenter</string>
+    <string name="close_history" tools:keep="@string/close_history">Stäng urklippshistorik</string>
+    <string name="clipboard_toolbar_keys">Välj urklippsverktygsfältstangenter</string>
+    <string name="show_popup_hints_summary">Visa tips om långtryck på en tangent aktiverar ytterligare funktionalitet</string>
+    <string name="show_popup_hints">Visa funktionalitetstips</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Urklipp</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Rensa urklipp</string>
+    <string name="voice" tools:keep="@string/voice">Röstinmatning</string>
+    <string name="select_word" tools:keep="@string/select_word">Markera ord</string>
+    <string name="cut" tools:keep="@string/Cut">Klipp ut</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Enhandsläge</string>
+    <string name="up" tools:keep="@string/up">Upp</string>
+    <string name="down" tools:keep="@string/down">Ner</string>
+    <string name="full_left" tools:keep="@string/full_left">Längst åt vänster</string>
+    <string name="full_right" tools:keep="@string/full_right">Längst åt höger</string>
 </resources>

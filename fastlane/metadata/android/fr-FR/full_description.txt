@@ -1,0 +1,29 @@
+HeliBoard est un clavier open-source respectueux de la vie privée, basé sur AOSP / OpenBoard.
+N'utilise pas l'autorisation internet et est donc 100% hors ligne.
+
+Caractéristiques :
+<ul>
+  <li>Ajouter des dictionnaires pour les suggestions et la vérification de l'orthographe</li>
+  <ul>
+    <li>construisez les vôtres ou obtenez-les  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">ici</a>, ou dans la section <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">expérimental</a> (la qualité peut varier)</li>
+    <li>des dictionnaires supplémentaires pour les emojis ou les symboles scientifiques peuvent être utilisés pour fournir des suggestions (similaires à la "recherche d'emojis")</li>
+    <li>Notez que pour les mises en page coréennes, les suggestions ne fonctionnent qu'en utilisant <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">ce dictionnaire</a> ; les outils du dépôt des dictionnaires ne sont pas en mesure de créer des dictionnaires fonctionnels</li>
+  </ul>
+  <li>Personnalisation des thèmes du clavier (style, couleurs et image de fond)</li>
+  <ul>
+    <li>peut utiliser les paramètres jour/nuit du système sur Android 10+ (et sur certaines versions d'Android 9)</li>
+    <li>peut utiliser les couleurs dynamiques pour Android 12+</li>
+  </ul>
+  <li>Personnaliser les <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">dispositions</a> du clavier (disponible uniquement lorsque l'option <i>"utiliser les langues du système"</i> est désactivée)</li>
+  <li>Saisie multilingue</li>
+  <li>Saisie par glissement (<i>uniquement avec une bibliothèque à code source privé</i> ☹️)</li>
+  <ul>
+    <li>bibliothèque non incluse dans l'application car il n'y a pas de bibliothèque open source compatible disponible</li>
+    <li>peut être extraite des paquets GApps ("<i>swypelibs</i>"), ou téléchargée <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">ici</a></li>
+  </ul>
+  <li>Historique du presse-papiers</li>
+  <li>Mode à une main</li>
+  <li>Clavier fractionné (disponible uniquement si l'écran est suffisamment grand)</li>
+  <li>Pavé numérique</li>
+  <li>Sauvegarde et restauration des mots appris et des historiques</li>
+</ul>

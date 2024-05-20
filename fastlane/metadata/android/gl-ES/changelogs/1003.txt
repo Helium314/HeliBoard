@@ -1,0 +1,9 @@
+* cambia as iconas para a corrección automática e selecciona todas as teclas da barra de ferramentas por @codokie (#524, #651)
+* engadir a disposición Chuvash por @tenextractor (#677)
+* engadir a tecla de Cortar á barra por @codokie (#678)
+* actualizar a disposición Probhat por @fahimscirex (#628)
+* mostrar as iconas da barra de ferramentas no diálogo de teclas da barra de ferramentas
+* engadir o botón de pechar no historial do portapapeis por @codokie (#403, #649)
+* engadir o disposición rusa (Studet) por @Zolax9 (#640)
+* facer que o teclado numérico sexa optativo coa pulsación longa da tecla de símbolos (#588)
+* arranxos e melloras menores, incluíndo #632, #637, #638 por @RHJihan

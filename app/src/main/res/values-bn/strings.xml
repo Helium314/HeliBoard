@@ -336,4 +336,9 @@
     <string name="select_color_spacebar_background">স্পেসবারের পটভূমি</string>
     <string name="show_vertical_space_swipe">স্পেসবারে উল্লম্ব অঙ্গুলিহেলন</string>
     <string name="show_horizontal_space_swipe">স্পেসবারে অনুভূমিক অঙ্গুলিহেলন</string>
+    <string name="cut" tools:keep="@string/Cut">কাটো</string>
+    <string name="prefs_long_press_symbol_for_numpad">নাম্বারপ্যাডের জন্য সিম্বল বোতাম কিছুক্ষণ ধরে রাখো</string>
+    <string name="var_toolbar_direction">পরিবর্তনশীল টুলবার দিক</string>
+    <string name="var_toolbar_direction_summary">ডান থেকে বাম কিবোর্ড নির্বাচন করলে উল্টো দিকে যাও</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (শিক্ষার্থী)</string>
 </resources>

@@ -94,7 +94,7 @@
     <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках «Язык и ввод». Перейдите к следующему шагу!</string>
     <string name="setup_step1_action">Включить в настройках</string>
     <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Выберите приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" как текущий способ ввода.</string>
+    <string name="setup_step2_instruction">Выберите «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» текущем методом ввода.</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
     <string name="setup_step3_instruction">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
@@ -160,7 +160,7 @@
     <string name="theme_style">Стиль темы</string>
     <string name="style_name_Rounded">Закруглённый</string>
     <string name="theme_colors">Цвета темы</string>
-    <string name="theme_colors_night">Цвета темы (Тёмная тема)</string>
+    <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена будет вставлять содержимое буфера обмена, если таковое имеется</string>
@@ -181,9 +181,9 @@
     <string name="theme_name_darker">Серая</string>
     <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
-    <string name="theme_name_user_night">Пользовательская (Тёмная тема)</string>
+    <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="select_user_colors">Настройка цветов темы</string>
-    <string name="select_user_colors_night">Настройка цветов темы (Тёмная тема)</string>
+    <string name="select_user_colors_night">Настройка цветов темы (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
     <string name="hint_show_keyboard">Нажмите для предпросмотра</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>

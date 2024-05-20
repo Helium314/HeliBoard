@@ -90,7 +90,7 @@
     <string name="setup_step1_finished_instruction">Застосунок <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже увімкнено в налаштуваннях «Мова та введення». Переходьте до наступного кроку!</string>
     <string name="setup_step1_action">Увімкнути в налаштуваннях</string>
     <string name="setup_step2_title">Перемкнути на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Далі виберіть \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як ваш активний спосіб введення тексту.</string>
+    <string name="setup_step2_instruction">Виберіть «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» поточним методом введення.</string>
     <string name="setup_step2_action">Змінити метод введення</string>
     <string name="setup_step3_title">Вітаємо, налаштування завершено!</string>
     <string name="setup_step3_instruction">Тепер ви можете писати в усіх улюблених застосунках за допомогою <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -124,7 +124,7 @@
     <string name="theme_style">Стиль теми</string>
     <string name="style_name_Rounded">Закруглений</string>
     <string name="theme_colors">Кольори теми</string>
-    <string name="theme_colors_night">Кольори теми (Темна тема)</string>
+    <string name="theme_colors_night">Кольори теми (темна тема)</string>
     <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальська">%s</xliff:g> (Аккгор)</string>
@@ -176,7 +176,7 @@
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>
     <string name="show_hints_summary">Показувати підказки довгим натисканням</string>
     <string name="show_hints">Показувати підказки клавіш</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Змінювати спосіб введення клавішею пробіл</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Змінювати метод введення клавішею пробіл</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Довге натискання клавіші пробіл виводить меню вибору способу введення</string>
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="spell_checker_service_name">Перевірка правопису HeliBoard</string>

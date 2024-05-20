@@ -336,8 +336,9 @@
     <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
     <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
     <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
-    <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;
-\n         يمكنك تنزيل القواميس %1$s، أو التحقق من إمكانية تنزيل قاموس \"%2$s\" مباشرة %3$s."</string>
+    <string name="no_dictionary_message">بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;
+\n
+\n . . . . . . . .يمكنك تنزيل القواميس %1$s، أو التحقق من إمكانية تنزيل قاموس \"%2$s\" مباشرة %3$s.</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="البنقالية">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="الكورية">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
@@ -345,4 +346,13 @@
     <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
     <string name="cut" tools:keep="@string/Cut">قصّ</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (طالب)</string>
+    <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
+    <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>
+    <string name="close_history" tools:keep="@string/close_history">إغلاق تاريخ الحافظة</string>
+    <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="الكاندا">%s</xliff:g> (Extended)</string>
+    <string name="subtype_mns">مانسي</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">مانسي (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="more_colors">عرض المزيد من الالوان</string>
+    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. لا يوجد لون افتراضي، ولن تتم ترجمة الأسماء.</string>
 </resources>
