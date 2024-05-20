@@ -135,7 +135,7 @@
     <!-- Option to enable the suggestion of clipboard content. -->
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
-    <string name="suggest_clipboard_content_summary">Show the content of the primary clipboard as a suggestion</string>
+    <string name="suggest_clipboard_content_summary">Show recently copied clipboard content as a suggestion</string>
     <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
     <string name="gesture_input">Enable gesture typing</string>
     <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
