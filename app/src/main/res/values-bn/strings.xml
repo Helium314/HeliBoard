@@ -330,13 +330,12 @@
     <string name="delete_layout">নিজস্বীকৃত লেআউট %s বিলোপ করতে নিশ্চিত?</string>
     <string name="day_or_night_image">আলো অথবা অন্ধকার মোডের জন্য ছবি নির্বাচিত হবে?</string>
     <string name="customize_symbols_number_layouts">প্রতীক এবং সংখ্যার লেআউট নিজস্বীকরণ</string>
-    <string name="customize_symbols_number_layouts_summary">লেআউট (প্রতীক ব্যতীত) এখনও পরিবর্তিত হতে পারে এমন অভ্যন্তরীণ সেটিংস প্রকাশ করে। এমন হলে নিজস্বীকৃত লেআউট সঠিকভাবে কাজ নাও করতে পারে।</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">নম্বর প্যাড</string>
     <string name="user_dict_word_already_present">এই শব্দটি ইতোমধ্যে %s ব্যবহারকারী অভিধানে উপলব্ধ। অন্য আরেকটি শব্দ টাইপ করুন।</string>
     <string name="select_color_spacebar_background">স্পেসবারের পটভূমি</string>
     <string name="show_vertical_space_swipe">স্পেসবারে উল্লম্ব অঙ্গুলিহেলন</string>
     <string name="show_horizontal_space_swipe">স্পেসবারে অনুভূমিক অঙ্গুলিহেলন</string>
-    <string name="cut" tools:keep="@string/Cut">কাটো</string>
+    <string name="cut" tools:keep="@string/cut">কাটো</string>
     <string name="prefs_long_press_symbol_for_numpad">নাম্বারপ্যাডের জন্য সিম্বল বোতাম কিছুক্ষণ ধরে রাখো</string>
     <string name="var_toolbar_direction">পরিবর্তনশীল টুলবার দিক</string>
     <string name="var_toolbar_direction_summary">ডান থেকে বাম কিবোর্ড নির্বাচন করলে উল্টো দিকে যাও</string>

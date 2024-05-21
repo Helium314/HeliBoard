@@ -9,7 +9,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -103,18 +102,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         restore(uri)
     }
 
-    private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-        val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, false)
-    }
-
-    private val nightImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-        val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, true)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupPreferences()
@@ -138,7 +125,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         setupKeyLongpressTimeoutSettings()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
-        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
 
         findPreference<Preference>("custom_symbols_number_layouts")?.setOnPreferenceClickListener {
             showCustomizeLayoutsDialog()
@@ -237,55 +223,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             tmpfile.delete()
             // should inform user, but probably the issues will only come when reading the library
         }
-    }
-
-    private fun onClickLoadImage(): Boolean {
-        if (Settings.readDayNightPref(sharedPreferences, resources)) {
-            AlertDialog.Builder(requireContext())
-                .setMessage(R.string.day_or_night_image)
-                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
-                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true) }
-                .setNeutralButton(android.R.string.cancel, null)
-                .show()
-        } else {
-            customImageDialog(false)
-        }
-        return true
-    }
-
-    private fun customImageDialog(night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
-        val builder = AlertDialog.Builder(requireContext())
-            .setMessage(R.string.customize_background_image)
-            .setPositiveButton(R.string.button_load_custom) { _, _ ->
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    .addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType("image/*")
-                if (night) nightImageFilePicker.launch(intent)
-                else dayImageFilePicker.launch(intent)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-        if (imageFile.exists()) {
-            builder.setNeutralButton(R.string.delete) { _, _ ->
-                imageFile.delete()
-                Settings.clearCachedBackgroundImages()
-                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
-            }
-        }
-        builder.show()
-    }
-
-    private fun loadImage(uri: Uri, night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
-        FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
-        try {
-            BitmapFactory.decodeFile(imageFile.absolutePath)
-        } catch (_: Exception) {
-            infoDialog(requireContext(), R.string.file_read_error)
-            imageFile.delete()
-        }
-        Settings.clearCachedBackgroundImages()
-        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     @SuppressLint("ApplySharedPref")

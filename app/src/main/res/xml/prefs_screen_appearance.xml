@@ -56,6 +56,10 @@
             android:key="navbar_color"
             android:title="@string/theme_navbar"/>
 
+        <Preference
+            android:key="custom_background_image"
+            android:title="@string/customize_background_image" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

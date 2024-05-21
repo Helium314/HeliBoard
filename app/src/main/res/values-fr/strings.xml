@@ -362,7 +362,7 @@ Nouveau dictionnaire:
     <string name="action_none">Aucun</string>
     <string name="show_horizontal_space_swipe">Balayage horizontal de la barre d\'espace</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Pavé numérique (paysage)</string>
-    <string name="cut" tools:keep="@string/Cut">Couper</string>
+    <string name="cut" tools:keep="@string/cut">Couper</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboles (Arabe)</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Symboles du pavé téléphonique</string>
@@ -374,7 +374,6 @@ Nouveau dictionnaire:
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboles</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Étudiant)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <string name="customize_symbols_number_layouts_summary">Les mises en page (à l\'exception des symboles) exposent des paramètres internes qui peuvent encore changer. Dans ce cas, la mise en page personnalisée risque de ne plus fonctionner correctement</string>
     <string name="center_suggestion_text_to_enter">Toujours utiliser la suggestion du milieu</string>
     <string name="center_suggestion_text_to_enter_summary">En appuyant sur espace ou sur un signe de ponctuation, la suggestion du milieu sera saisie</string>
     <string name="close_history" tools:keep="@string/close_history">Fermer le presse-papiers</string>

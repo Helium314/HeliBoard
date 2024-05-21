@@ -255,7 +255,6 @@
     <string name="button_copy_existing_layout">Copiar layout existente</string>
     <string name="edit_layout">Toque para editar o layout bruto</string>
     <string name="customize_symbols_number_layouts">Customizar layouts de símbolos ou números</string>
-    <string name="customize_symbols_number_layouts_summary">Layouts (exceto símbolos) expõem configurações internas que podem mudar ainda. Se isso acontecer, o layout customizado pode não mais funcionar corretamente.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mais símbolos</string>
@@ -341,7 +340,7 @@
     <string name="action_none">Nenhum</string>
     <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
     <string name="prefs_long_press_symbol_for_numpad">Toque longo na tecla de símbolos para abrir o numpad</string>
-    <string name="cut" tools:keep="@string/Cut">Cortar</string>
+    <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudante)</string>
     <string name="gnu_gpl">Licença Pública Geral GNU v3.0</string>
     <string name="center_suggestion_text_to_enter">Sempre usar a sugestão do meio</string>

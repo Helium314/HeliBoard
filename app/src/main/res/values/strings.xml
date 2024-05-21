@@ -233,7 +233,7 @@
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
-    <string name="cut" tools:keep="@string/Cut">Cut</string>
+    <string name="cut" tools:keep="@string/cut">Cut</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
@@ -462,8 +462,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title for customizing symbols or number layouts -->
     <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
-    <!-- Summary for customizing symbols or number layouts -->
-    <string name="customize_symbols_number_layouts_summary">Layouts (except symbols) expose internal settings which may still change. If that happens, the custom layout may not work properly any more.</string>
     <!-- Name for symbols layout -->
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbols</string>
     <!-- Name for symbols layout for arabic language -->

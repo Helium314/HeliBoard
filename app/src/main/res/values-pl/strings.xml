@@ -358,7 +358,6 @@
     <string name="language_switch_key_switch_both">Zmień oba</string>
     <string name="available_dictionary_experimental">%s (eksperymentalny)</string>
     <string name="customize_symbols_number_layouts">Dostosuj układ symboli i liczb</string>
-    <string name="customize_symbols_number_layouts_summary">Układy (z wyjątkiem symbolicznych) zależą od ustawień wewnętrznych, które mogą jeszcze ulec zmianie. W takim przypadku układy niestandardowe mogą przestać działać poprawnie.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
@@ -377,7 +376,7 @@
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="rosyjski">%s</xliff:g> (Uczeń)</string>
     <string name="prefs_long_press_symbol_for_numpad">Przytrzymaj klawisz symboli, aby wyświetlić klawiaturę numeryczną</string>
-    <string name="cut" tools:keep="@string/Cut">Wytnij</string>
+    <string name="cut" tools:keep="@string/cut">Wytnij</string>
     <string name="center_suggestion_text_to_enter">Zawsze używaj środkowej sugestii</string>
     <string name="center_suggestion_text_to_enter_summary">Po naciśnięciu spacji lub znaku interpunkcyjnego zostanie wpisana środkowa sugestia</string>
     <string name="close_history" tools:keep="@string/close_history">Zamknij schowek</string>

@@ -332,7 +332,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">Zahlen</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Ziffernblock</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Ziffernblock (Querformat)</string>
-    <string name="customize_symbols_number_layouts_summary">Layouts (außer Symbole) legen interne Einstellungen offen, die sich möglicherweise noch ändern. In diesem Fall funktioniert das benutzerdefinierte Layout möglicherweise nicht mehr ordnungsgemäß.</string>
     <string name="subtype_xdq">Kaitakisch</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitakisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="show_vertical_space_swipe">Vertikale Wischgeste der Leertaste</string>
@@ -340,7 +339,7 @@
     <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
     <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
     <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
-    <string name="cut" tools:keep="@string/Cut">Ausschneiden</string>
+    <string name="cut" tools:keep="@string/cut">Ausschneiden</string>
     <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
     <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-Links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>

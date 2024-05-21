@@ -232,7 +232,7 @@
     <string name="gnu_gpl">Licencia Pública General GNU v3.0</string>
     <string name="dialog_close">Cerrar</string>
     <string name="hidden_features_title">Descripción de los elementos ocultos</string>
-    <string name="cut" tools:keep="@string/Cut">Cortar</string>
+    <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpiar portapapeles</string>
     <string name="voice" tools:keep="@string/voice">Entrada de voz</string>
     <string name="select_word" tools:keep="@string/select_word">Seleccionar palabra</string>
@@ -257,7 +257,6 @@
     <string name="layout_error">Error de diseño: %s</string>
     <string name="edit_layout">Pulse para editar el diseño sin procesar</string>
     <string name="customize_symbols_number_layouts">Personaliza los símbolos y la disposición de los números</string>
-    <string name="customize_symbols_number_layouts_summary">Los diseños (excepto los símbolos) exponen ajustes internos que aún pueden cambiar. Si esto ocurre, es posible que el diseño personalizado deje de funcionar correctamente.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (árabe)</string>
     <string name="customize_background_image">Establecer imagen de fondo</string>

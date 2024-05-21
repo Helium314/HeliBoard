@@ -259,7 +259,6 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة ارقام</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
     <string name="customize_symbols_number_layouts">تخصيص الرموز وتخطيطات الأرقام</string>
-    <string name="customize_symbols_number_layouts_summary">تكشف التخطيطات (باستثناء الرموز) عن الإعدادات الداخلية التي قد تتغير. إذا حدث ذلك، فقد لا يعمل التخطيط المخصص بشكل صحيح بعد الآن.</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة رقمية (أفقي)</string>
     <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
@@ -344,7 +343,7 @@
     <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">الأبجدية (بيبو)</string>
     <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
-    <string name="cut" tools:keep="@string/Cut">قصّ</string>
+    <string name="cut" tools:keep="@string/cut">قصّ</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (طالب)</string>
     <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
     <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>

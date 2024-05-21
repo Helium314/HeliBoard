@@ -197,7 +197,7 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jazyk (prioritní)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozvržení</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboly</string>
-    <string name="cut" tools:keep="@string/Cut">Vyjmout</string>
+    <string name="cut" tools:keep="@string/cut">Vyjmout</string>
     <string name="select_word" tools:keep="@string/select_word">Vybrat slovo</string>
     <string name="one_handed" tools:keep="@string/one_handed">Režim ovládání jednou rukou</string>
     <string name="full_left" tools:keep="@string/full_left">Úplně vlevo</string>
@@ -237,7 +237,6 @@
     <string name="delete_layout">Opravdu odstranit vlastní rozložení %s?</string>
     <string name="layout_error">Chyba rozložení: %s</string>
     <string name="edit_layout">Klepnutím lze upravit původní rozvržení</string>
-    <string name="customize_symbols_number_layouts_summary">Rozložení (kromě symbolů) obsahují vnitřní nastavení, které se může ještě změnit. Pokud se tak stane, vlastní rozvržení již nemusí fungovat správně.</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numerická klávesnice (na šířku)</string>
     <string name="customize_background_image">Nastavení obrázku na pozadí</string>
     <string name="day_or_night_image">Nastavit obrázek pro denní nebo noční režim?</string>

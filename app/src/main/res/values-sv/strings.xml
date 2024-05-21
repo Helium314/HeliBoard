@@ -264,7 +264,7 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Rensa urklipp</string>
     <string name="voice" tools:keep="@string/voice">Röstinmatning</string>
     <string name="select_word" tools:keep="@string/select_word">Markera ord</string>
-    <string name="cut" tools:keep="@string/Cut">Klipp ut</string>
+    <string name="cut" tools:keep="@string/cut">Klipp ut</string>
     <string name="one_handed" tools:keep="@string/one_handed">Enhandsläge</string>
     <string name="up" tools:keep="@string/up">Upp</string>
     <string name="down" tools:keep="@string/down">Ner</string>
