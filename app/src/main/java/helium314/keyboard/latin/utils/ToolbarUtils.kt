@@ -14,6 +14,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
+import java.util.Locale
 
 fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
@@ -56,7 +57,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
-    CLEAR_CLIPBOARD -> KeyCode.UNSPECIFIED // not managed via code input
+    CLEAR_CLIPBOARD -> KeyCode.UNSPECIFIED // not managed via code input. todo: probably it should be
     CLOSE_HISTORY -> KeyCode.ALPHA
 }
 
@@ -110,6 +111,8 @@ enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
     FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
 }
+
+val toolbarKeyStrings: Set<String> = entries.mapTo(HashSet()) { it.toString().lowercase(Locale.US) }
 
 fun toToolbarKeyString(keys: Collection<ToolbarKey>) = keys.joinToString(";") { it.name }
 

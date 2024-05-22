@@ -89,12 +89,16 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
   * _space_: space key, with icon when using a number layout
   * _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
+  * You can also use [toolbar keys](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. _undo_.
+  * See [KeyLabel.kt](app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyLabel.kt) for more available labels
+* In case a label clashes with text you want to add, put a `\` in front of the text you want, e.g. `\space` will write the label `space` instead of adding a space bar.
+  * Note that you need to escape the `\` in json files by adding a second `\`.
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
 You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
   * For normal keys, even if you specify a code, you will need to add a `|` to the label, e.g. `!icon/go_key|` or `!icon/go_key|ignored` (to be fixed).
   * For popups keys, you must _not_ add a `|` (to be fixed).
-  * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.java). You can also use toolbar key icons using the uppercase name of the toolbar key, e.g. `!icon/REDO`
+  * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)

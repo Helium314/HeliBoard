@@ -7,6 +7,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getStyleableIconId
+import java.util.Locale
 
 class KeyboardIconsSet {
     private val iconsByName = HashMap<String, Drawable>(styleableIdByName.size)
@@ -94,6 +95,6 @@ class KeyboardIconsSet {
             NAME_START_ONEHANDED_KEY to         R.styleable.Keyboard_iconStartOneHandedMode,
             NAME_STOP_ONEHANDED_KEY to          R.styleable.Keyboard_iconStopOneHandedMode,
             NAME_SWITCH_ONEHANDED_KEY to        R.styleable.Keyboard_iconSwitchOneHandedMode,
-        ).apply { ToolbarKey.entries.forEach { put(it.name, getStyleableIconId(it)) } }
+        ).apply { ToolbarKey.entries.forEach { put(it.name.lowercase(Locale.US), getStyleableIconId(it)) } }
     }
 }

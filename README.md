@@ -123,8 +123,6 @@ See [Contribution Guidelines](CONTRIBUTING.md)
 
 # To-do
 __Planned features and improvements:__
-* Customizable functional key layout
-  * Will likely result in having the same functional key layout for alphabet and symbols layouts
 * Improve support for modifier keys (_alt_, _ctrl_, _meta_ and _fn_), some ideas:
   * keep modifier keys on with long press
   * keep modifier keys on until the next key press

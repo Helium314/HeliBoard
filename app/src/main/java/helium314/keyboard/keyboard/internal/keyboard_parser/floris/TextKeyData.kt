@@ -24,6 +24,10 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKey
+import helium314.keyboard.latin.utils.toolbarKeyStrings
+import java.util.Locale
 
 // taken from FlorisBoard, small modifications (see also KeyData)
 //  internal keys removed (currently no plan to support them)
@@ -396,7 +400,8 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
+            KeyLabel.FN, KeyLabel.META -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return getShiftBackground(params)
@@ -445,7 +450,12 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
         KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
         KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-        else -> label
+        KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> label.uppercase(Locale.US)
+        else -> {
+            if (label in toolbarKeyStrings) {
+                "!icon/$label|"
+            } else label
+        }
     }
 
     private fun processCode(): Int {
@@ -454,7 +464,15 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SYMBOL_ALPHA -> KeyCode.SYMBOL_ALPHA
             KeyLabel.SYMBOL -> KeyCode.SYMBOL
             KeyLabel.ALPHA -> KeyCode.ALPHA
-            else -> code
+            KeyLabel.CTRL -> KeyCode.CTRL
+            KeyLabel.ALT -> KeyCode.ALT
+            KeyLabel.FN -> KeyCode.FN
+            KeyLabel.META -> KeyCode.META
+            else -> {
+                if (label in toolbarKeyStrings) {
+                    getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
+                } else code
+            }
         }
     }
 
@@ -476,6 +494,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
+            KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> Key.LABEL_FLAGS_PRESERVE_CASE
             else -> 0
         }
     }

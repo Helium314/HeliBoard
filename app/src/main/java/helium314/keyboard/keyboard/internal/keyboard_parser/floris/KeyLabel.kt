@@ -24,6 +24,10 @@ object KeyLabel {
     const val CURRENCY3 = "$$$3"
     const val CURRENCY4 = "$$$4"
     const val CURRENCY5 = "$$$5"
+    const val CTRL = "ctrl"
+    const val ALT = "alt"
+    const val FN = "fn"
+    const val META = "meta"
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */
     // resulting special labels should be names of FunctionalKey enum, case insensitive
