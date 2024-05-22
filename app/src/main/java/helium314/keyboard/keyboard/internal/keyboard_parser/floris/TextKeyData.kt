@@ -402,6 +402,9 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.SHIFT -> return getShiftBackground(params)
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
+        if ((params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+                && (groupId == GROUP_COMMA || groupId == GROUP_PERIOD))
+            return Key.BACKGROUND_TYPE_FUNCTIONAL
         return Key.BACKGROUND_TYPE_NORMAL
     }
 

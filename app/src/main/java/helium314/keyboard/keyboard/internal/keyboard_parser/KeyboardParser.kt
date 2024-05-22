@@ -218,31 +218,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             )
             baseKeys.removeLast()
         }
-        //   add those extra keys depending on layout (remove later)
-        val spaceIndex = functionalKeysBottom.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // 0 or -1
+        // add zwnj key next to space if necessary
+        val spaceIndex = functionalKeysBottom.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // width could be 0 or -1
         if (spaceIndex >= 0) {
             if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
-                // add zwnj key next to space
                 functionalKeysBottom.add(spaceIndex + 1, TextKeyData(label = KeyLabel.ZWNJ))
-            } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-                // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-                functionalKeysBottom.add(spaceIndex + 1, TextKeyData(label = "/", type = KeyType.FUNCTION))
-            } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-                // add < and > keys next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-                val key1 = TextKeyData(
-                    label = "<",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                    type = KeyType.FUNCTION
-                )
-                val key2 = TextKeyData(
-                    label = ">",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                    type = KeyType.FUNCTION
-                )
-                functionalKeysBottom.add(spaceIndex + 1, key2)
-                functionalKeysBottom.add(spaceIndex, key1)
             }
         }
         baseKeys.add(mutableListOf())
