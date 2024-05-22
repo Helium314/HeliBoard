@@ -25,6 +25,7 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
+import helium314.keyboard.latin.utils.CustomLayoutUtilsKt;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
@@ -122,6 +123,7 @@ public class SettingsValues {
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
+    public final boolean mHasCustomFunctionalLayout;
 
     // User-defined colors
     public final Colors mColors;
@@ -237,6 +239,7 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
+        mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

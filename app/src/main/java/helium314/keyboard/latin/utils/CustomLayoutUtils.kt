@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.InputType
+import android.view.inputmethod.InputMethodSubtype
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
@@ -17,6 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
 import java.io.File
 import java.io.IOException
@@ -112,7 +114,7 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many keys in one row")
         return false
     }
-    if (keys.any { row -> row.any { ((it.mLabel?.length ?: 0) > 6) } }) {
+    if (keys.any { row -> row.any { ((it.mLabel?.length ?: 0) > 20) } }) {
         Log.w(TAG, "too long text on key")
         return false
     }
@@ -127,10 +129,24 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     return true
 }
 
+/** don't rename or delete the file without calling [onCustomLayoutFileListChanged] */
 fun getCustomLayoutFile(layoutName: String, context: Context) =
     File(getCustomLayoutsDir(context), layoutName)
 
-fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
+// cache to avoid frequently listing files
+/** don't rename or delete files without calling [onCustomLayoutFileListChanged] */
+fun getCustomLayoutFiles(context: Context): List<File> {
+    customLayouts?.let { return it }
+    val layouts = getCustomLayoutsDir(context).listFiles()?.toList() ?: emptyList()
+    customLayouts = layouts
+    return layouts
+}
+
+fun onCustomLayoutFileListChanged() {
+    customLayouts = null
+}
+
+private fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
@@ -164,6 +180,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
                 file.writeText(content)
                 if (isJson != wasJson) // unlikely to be needed, but better be safe
                     file.renameTo(File(file.absolutePath.substringBeforeLast(".") + "." + if (isJson) "json" else "txt"))
+                onCustomLayoutFileListChanged()
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             }
         }
@@ -173,6 +190,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             builder.setNeutralButton(R.string.delete) { _, _ ->
                 confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(R.string.delete)) {
                     file.delete()
+                    onCustomLayoutFileListChanged()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }
             }
@@ -182,6 +200,45 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
     builder.show()
 }
 
+fun hasCustomFunctionalLayout(subtype: InputMethodSubtype, context: Context): Boolean {
+    val anyCustomFunctionalLayout = getCustomFunctionalLayoutName(KeyboardId.ELEMENT_ALPHABET, subtype, context)
+        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS, subtype, context)
+        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
+    return anyCustomFunctionalLayout != null
+}
+
+fun getCustomFunctionalLayoutName(elementId: Int, subtype: InputMethodSubtype, context: Context): String? {
+    val customFunctionalLayoutNames = getCustomLayoutFiles(context).filter { it.name.contains("functional") }.map { it.name.substringBeforeLast(".") + "." }
+    if (customFunctionalLayoutNames.isEmpty()) return null
+    val languageTag = subtype.locale().toLanguageTag()
+    val mainLayoutName = subtype.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
+
+    if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED) }, mainLayoutName, languageTag)
+            ?.let { return it }
+    }
+    if (elementId == KeyboardId.ELEMENT_SYMBOLS) {
+        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS) }, mainLayoutName, languageTag)
+            ?.let { return it }
+    }
+    return findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL) }, mainLayoutName, languageTag)
+}
+
+// todo (when adding custom layouts per locale or main layout): adjust mainLayoutName for custom layouts?
+//  remove language tag and file ending (currently name is e.g. custom.en-US.abcdfdsg3.json, and we could use abcdfdsg3 only)
+//  this way, custom layouts with same name could use same custom functional layouts
+//  currently there is no way to set the language tag or main layout name, so changes don't break backwards compatibility
+private fun findMatchingLayout(layoutNames: List<String>, mainLayoutName: String, languageTag: String): String? {
+    // first find layout with matching locale and main layout
+    return layoutNames.firstOrNull { it.endsWith(".$languageTag.$mainLayoutName.") }
+    // then find matching main layout
+        ?: layoutNames.firstOrNull { it.endsWith(".$mainLayoutName.") }
+        // then find matching language
+        ?: layoutNames.firstOrNull { it.endsWith(".$languageTag.") }
+        // then find "normal" functional layout (make use of the '.' separator
+        ?: layoutNames.firstOrNull { it.count { it == '.' } == 2 }
+}
+
 private fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
 
 private fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
@@ -189,3 +246,8 @@ private fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().
 // this goes into prefs and file names, so do not change!
 const val CUSTOM_LAYOUT_PREFIX = "custom."
 private const val TAG = "CustomLayoutUtils"
+private var customLayouts: List<File>? = null
+
+const val CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED = "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols_shifted."
+const val CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS = "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols."
+const val CUSTOM_FUNCTIONAL_LAYOUT_NORMAL = "${CUSTOM_LAYOUT_PREFIX}functional_keys."

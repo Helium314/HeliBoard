@@ -462,6 +462,14 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title for customizing symbols or number layouts -->
     <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
+    <!-- Title for customizing functional key layouts -->
+    <string name="customize_functional_key_layouts">Customize functional key layouts</string>
+    <!-- Name for functional keys layout -->
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
+    <!-- Name for functional keys layout when showing symbols layout -->
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
+    <!-- Name for functional keys layout when showing more symbols layout -->
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Functional keys (More symbols)</string>
     <!-- Name for symbols layout -->
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbols</string>
     <!-- Name for symbols layout for arabic language -->

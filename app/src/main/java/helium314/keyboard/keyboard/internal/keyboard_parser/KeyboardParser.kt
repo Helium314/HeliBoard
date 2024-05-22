@@ -197,8 +197,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val functionalKeysBottom = allFunctionalKeys.lastOrNull() ?: return
         if (!params.mId.isAlphaOrSymbolKeyboard || functionalKeysBottom.isEmpty() || functionalKeysBottom.any { it.isKeyPlaceholder() })
             return
-        if (true /* Settings.getInstance().current.mSingleFunctionalLayout */) { // todo with the customizable functional layout
-            //   remove unwanted keys (emoji, numpad, language switch)
+        if (!Settings.getInstance().current.mHasCustomFunctionalLayout) {
+            // remove keys that should only exist on specific layouts or depend on setting (emoji, numpad, language switch)
             if (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)
                 functionalKeysBottom.removeFirst { it.label == KeyLabel.EMOJI }
             if (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)
@@ -314,7 +314,3 @@ const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
 const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
-const val FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED = "functional_keys_symbols_shifted"
-const val FUNCTIONAL_LAYOUT_SYMBOLS = "functional_keys_symbols"
-const val FUNCTIONAL_LAYOUT = "functional_keys"
-const val FUNCTIONAL_LAYOUT_TABLET = "functional_keys_tablet"

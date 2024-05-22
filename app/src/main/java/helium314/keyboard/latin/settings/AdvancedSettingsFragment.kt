@@ -41,12 +41,15 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.editCustomLayout
-import helium314.keyboard.latin.utils.getCustomLayoutsDir
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
@@ -127,7 +130,11 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
         findPreference<Preference>("custom_symbols_number_layouts")?.setOnPreferenceClickListener {
-            showCustomizeLayoutsDialog()
+            showCustomizeSymbolNumberLayoutsDialog()
+            true
+        }
+        findPreference<Preference>("custom_functional_key_layouts")?.setOnPreferenceClickListener {
+            showCustomizeFunctionalKeyLayoutsDialog()
             true
         }
     }
@@ -145,7 +152,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
     }
 
-    private fun showCustomizeLayoutsDialog() {
+    private fun showCustomizeSymbolNumberLayoutsDialog() {
         val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_symbols_number_layouts)
@@ -158,8 +165,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     private fun customizeSymbolNumberLayout(layoutName: String) {
-        val customLayoutName = getCustomLayoutsDir(requireContext()).list()
-            ?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
+        val customLayoutName = getCustomLayoutFiles(requireContext()).map { it.name }
+            .firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
         val originalLayout = if (customLayoutName != null) null
             else {
                 requireContext().assets.list("layouts")?.firstOrNull { it.startsWith("$layoutName.") }
@@ -167,6 +174,32 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
         val displayName = layoutName.getStringResourceOrName("layout_", requireContext())
         editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layoutName.txt", requireContext(), originalLayout, displayName)
+    }
+
+    private fun showCustomizeFunctionalKeyLayoutsDialog() {
+        val list = listOf(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED)
+            .map { it.substringBeforeLast(".") }
+        val layoutNames = list.map { it.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.customize_functional_key_layouts)
+            .setItems(layoutNames) { di, i ->
+                di.dismiss()
+                customizeFunctionalKeysLayout(list[i])
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun customizeFunctionalKeysLayout(layoutName: String) {
+        val customLayoutName = getCustomLayoutFiles(requireContext()).map { it.name }
+            .firstOrNull { it.startsWith("$layoutName.") }
+        val originalLayout = if (customLayoutName != null) null
+            else {
+                val defaultLayoutName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
+                requireContext().assets.open("layouts" + File.separator + defaultLayoutName).reader().readText()
+            }
+        val displayName = layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext())
+        editCustomLayout(customLayoutName ?: "$layoutName.json", requireContext(), originalLayout, displayName)
     }
 
     @SuppressLint("ApplySharedPref")

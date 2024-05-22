@@ -117,13 +117,15 @@ You can also specify special key codes like `a|!code/key_action_previous`, but i
 * If a newly added language does not use latin script, please update the default scripts method `Locale.script` in [ScriptUtils](app/src/main/java/helium314/keyboard/latin/utils/ScriptUtils.kt)
 
 ## Functional key layouts
-This is not yet customizable, but will be soon!
-Mostly customizing functional keys works like other layouts, with some specific adjustments:
-* you can either have a single layout for functional keys (default), or separate layouts for symbols and shift symbols
-  * when using a single layout
-    * emoji and language switch keys will only show in alphabet layout and when the option is enabled
-    * numpad key will only show in symbols layout
-  * otherwise the layout will be shown as it is in the layout file
+Customizing functional keys mostly works like other layouts, with some specific adjustments:
+* When using the default functional layout, emoji, language switch and numpad keys are actually always in the layout, but get removed depending on settings and the main layout (alphabet, symbols or more symbols). This removal is disabled when you customize any functional layout, so to not block you from adding e.g. a numpad key in alphabet layout.
+* When you use a language that has a ZWNJ key, the key will automatically be added to the right of the (first) space bar in the bottom row
+* Adding popups to keys that switch layout does not work properly, as usually the layout is switched as soon as the key gets pressed.
 * use keys with `"type": "placeholder"` for
   * separating left and right functional keys (e.g. shift and delete in default layout)
-  * separating top and bottom rows in case you want to have functional key rows aligned to the top of the keyboard
+  * separating top and bottom rows in case you want to have functional key rows aligned to the top of the keyboard (add a row with the placeholder as the only key)
+* if the last row in functional keys does not contain a placeholder, it is used as bottom row (like in the default functional layout)
+* When you functional keys only for some of alphabet, symbols and more symbols, behavior is as follows
+  * more symbols will fall back to symbols, then normal
+  * symbols will fall back to normal, then default (if you only customized more symbols functional layout)
+  * normal will fall back to default (if you only customized symbols and/or more symbols functional layout)

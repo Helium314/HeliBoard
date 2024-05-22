@@ -11,7 +11,8 @@ import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.getCustomLayoutsDir
+import helium314.keyboard.latin.utils.getCustomLayoutFile
+import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
@@ -51,10 +52,9 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
-        val layoutsDir = getCustomLayoutsDir(context)
-        val oldShiftSymbolsFile = File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}shift_symbols")
+        val oldShiftSymbolsFile = getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}shift_symbols", context)
         if (oldShiftSymbolsFile.exists()) {
-            oldShiftSymbolsFile.renameTo(File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}symbols_shifted"))
+            oldShiftSymbolsFile.renameTo(getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}symbols_shifted", context))
         }
 
         // rename subtype setting, and clean old subtypes that might remain in some cases
@@ -73,6 +73,7 @@ fun checkVersionUpgrade(context: Context) {
             putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
         }
     }
+    onCustomLayoutFileListChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 
@@ -80,9 +81,8 @@ fun checkVersionUpgrade(context: Context) {
 private fun upgradesWhenComingFromOldAppName(context: Context) {
     // move layout files
     try {
-        val layoutsDir = getCustomLayoutsDir(context)
         File(context.filesDir, "layouts").listFiles()?.forEach {
-            it.copyTo(File(layoutsDir, it.name), true)
+            it.copyTo(getCustomLayoutFile(it.name, context), true)
             it.delete()
         }
     } catch (_: Exception) {}
