@@ -25,6 +25,7 @@ import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.WordComposer;
+import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
@@ -204,20 +205,26 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     }
 
     private static final int CHECKABILITY_CHECKABLE = 0;
-
     private static final int CHECKABILITY_EMAIL_OR_URL = 1;
-
-    private static final int CHECKABILITY_TOO_SHORT = 2;
+    private static final int CHECKABILITY_FIRST_LETTER_UNCHECKABLE = 2;
+    private static final int CHECKABILITY_TOO_SHORT = 3;
     /**
      * Finds out whether a particular string should be filtered out of spell checking.
      * <p>
-     * This will match URLs if URL detection is enabled, as well as text that is too short.
+     * This will match URLs if URL detection is enabled,
+     * as well as text that is too short or starts with a special symbol.
      * @param text the string to evaluate.
      * @return one of the FILTER_OUT_* constants above.
      */
     private static int getCheckability(final String text) {
         if (TextUtils.isEmpty(text) || text.length() <= 1) return CHECKABILITY_TOO_SHORT;
-
+        // Filter by first letter
+        final int firstCodePoint = text.codePointAt(0);
+        // Filter out words that start with '@' (at sign),
+        // which usually indicates the word is a username.
+        if (firstCodePoint == Constants.CODE_COMMERCIAL_AT) {
+            return CHECKABILITY_FIRST_LETTER_UNCHECKABLE;
+        }
         // Filter out e-mail address and URL
         if (Settings.getInstance().getCurrent().mUrlDetectionEnabled && StringUtils.findURLEndIndex(text) != -1) {
             return CHECKABILITY_EMAIL_OR_URL;
