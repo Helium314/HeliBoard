@@ -261,7 +261,7 @@ class DeadKeyCombiner : Combiner {
             var lastEvent: Event? = null
             do {
                 val codePoint = Character.codePointBefore(text, index)
-                lastEvent = Event.createHardwareKeypressEvent(codePoint, originalEvent.mKeyCode, lastEvent, false)
+                lastEvent = Event.createHardwareKeypressEvent(codePoint, originalEvent.mKeyCode, 0, lastEvent, false)
                 index -= Character.charCount(codePoint)
             } while (index > 0)
             // can't be null because

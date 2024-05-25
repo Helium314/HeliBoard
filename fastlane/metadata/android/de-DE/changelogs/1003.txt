@@ -1,0 +1,9 @@
+* Symbole für die Autokorrektur ändern und alle Symbolleistentasten auswählen von @codokie (#524, #651)
+* Tschuwaschisches Layout von @tenextractor hinzufügen (#677)
+* Ausschneiden-Symbolleistentaste von @codokie hinzufügen (#678)
+* Probhat-Layout von @fahimscirex aktualisieren (#628)
+* Symbolleistensymbole im Tastendialog der Symbolleiste anzeigen
+* Schaltfläche „Schließen“ im Verlauf der Zwischenablage hinzufügen von @codokie (#403, #649)
+* Russisches (Studenten-)Layout von @Zolax9 hinzufügen (#640)
+* Nummernblock auf Symboltaste durch langes Drücken optional machen (#588)
+* kleinere Korrekturen und Verbesserungen, einschließlich #632, #637, #638 von @RHJihan

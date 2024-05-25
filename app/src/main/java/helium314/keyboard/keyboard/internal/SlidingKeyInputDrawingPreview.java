@@ -19,13 +19,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
 
-/**
- * Draw rubber band preview graphics during sliding key input.
- *
- * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewWidth
- * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewBodyRatio
- * @attr ref R.styleable#MainKeyboardView_slidingKeyInputPreviewShadowRatio
- */
+/** Draw rubber band preview graphics during sliding key input. */
 public final class SlidingKeyInputDrawingPreview extends AbstractDrawingPreview {
     private final float mPreviewBodyRadius;
 

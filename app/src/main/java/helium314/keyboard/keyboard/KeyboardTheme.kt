@@ -12,9 +12,11 @@ import android.os.Build
 import android.os.Build.VERSION_CODES
 import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.AllColors
 import helium314.keyboard.latin.common.Colors
 import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
+import helium314.keyboard.latin.common.readAllColorsMap
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
@@ -101,10 +103,11 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         @JvmStatic
         fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences): Colors {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-            val useNightImage = Settings.readDayNightPref(prefs, context.resources) && ResourceUtils.isNight(context.resources)
-            val backgroundImage = Settings.readUserBackgroundImage(context, useNightImage)
+            val useNightMode = Settings.readDayNightPref(prefs, context.resources) && ResourceUtils.isNight(context.resources)
+            val backgroundImage = Settings.readUserBackgroundImage(context, useNightMode)
             return when (themeColors) {
-                THEME_USER -> DefaultColors(
+                THEME_USER -> if (prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0) == 2) AllColors(readAllColorsMap(prefs, false), themeStyle, hasBorders, backgroundImage)
+                else DefaultColors(
                     themeStyle,
                     hasBorders,
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
@@ -119,7 +122,8 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                     keyboardBackground = backgroundImage
                 )
-                THEME_USER_NIGHT -> DefaultColors(
+                THEME_USER_NIGHT -> if (prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0) == 2) AllColors(readAllColorsMap(prefs, true), themeStyle, hasBorders, backgroundImage)
+                else DefaultColors(
                     themeStyle,
                     hasBorders,
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),

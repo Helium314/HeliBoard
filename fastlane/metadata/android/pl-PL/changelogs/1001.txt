@@ -1,0 +1,20 @@
+* nowa ikona autorstwa @FabianOvrWrt we współpracy z @the-eclectic-dyslexic (#517, #592)
+* bardziej konfigurowalne przesuwanie po spacji i zmiana języka dzięki @arcarum (#486)
+* dodano % do układu dodatkowych symboli (#568, #428)
+* poprawiono zachowanie, gdy klawisz przełączania języka jest ustawiony na przełączanie obu języków i klawiatury
+* wyświetlanie linków do istniejących słowników podczas dodawania słownika
+* dodano układ kaitag dzięki @alkaitagi (#519)
+* dodano układ probhat dzięki @fahimscirex (#489)
+* opcjonalne odwrócenie kolejności na pasku narzędzi dla języków RTL dzięki @codokie (#557, #574)
+* możliwość dostosowywania układów specjalnych (klawiatura numeryczna, telefon, ...)
+  * wciąż eksperymentalne, ponieważ podstawowe układy mogą ulec zmianie
+* zaktualizowano spellchecker.xml, aby uwzględniał lokalizacje, w których słowniki są dostępne, ale nie są zawarte w aplikacji
+* aktualizacja tłumaczeń (dzięki wszystkim tłumaczom!)
+* aktualizacja ndk dzięki @Syphyr (#560)
+* aktualizacja kodu autouzupełniania dzięki @arcarum (#595)
+* naprawiono błąd z oknem wybierania przycisków paska narzędzi (#505)
+* poprawka błędu w układzie tureckim (#508)
+* naprawiono nieprawidłowe stany przełączników na ekranie dostosowywania kolorów po obróceniu urządzenia (#563)
+* naprawiono błąd związany z brakiem ładowania najnowszych emoji (#527)
+* naprawiono błąd powodujący, że liczby nie pojawiały się w niektórych polach (#585)
+* kilka drobnych poprawek

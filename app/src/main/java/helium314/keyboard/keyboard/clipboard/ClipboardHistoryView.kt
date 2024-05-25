@@ -24,17 +24,21 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
+import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 
+@SuppressLint("CustomViewStyleable")
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
 ) : LinearLayout(context, attrs, defStyle), View.OnTouchListener, View.OnClickListener,
-        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener {
+        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context.resources)
     private val pinIconId: Int
@@ -69,7 +73,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        listOf(ToolbarKey.LEFT, ToolbarKey.RIGHT, ToolbarKey.COPY, ToolbarKey.CUT, ToolbarKey.CLEAR_CLIPBOARD, ToolbarKey.SELECT_WORD, ToolbarKey.SELECT_ALL, ToolbarKey.CLOSE_HISTORY)
+        getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -121,6 +125,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
+            it.setOnLongClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
             colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
@@ -137,9 +142,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
     }
 
-    private fun setupDeleteKey(key: ImageButton, iconId: Int) {
+    private fun setupDeleteKey(key: ImageButton, icon: Drawable?) {
         key.apply {
-            setImageResource(iconId)
+            setImageDrawable(icon)
             Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
             Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
         }
@@ -156,7 +161,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     private fun setupToolbarKeys() {
         // set layout params
-        val toolbarKeyLayoutParams = LayoutParams(getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width), LayoutParams.MATCH_PARENT)
+        val toolbarKeyLayoutParams = LayoutParams(resources.getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width), LayoutParams.MATCH_PARENT)
         toolbarKeys.forEach { it.layoutParams = toolbarKeyLayoutParams }
     }
 
@@ -185,7 +190,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
         setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
-        setupDeleteKey(deleteKey, iconSet.getIconResourceId(KeyboardIconsSet.NAME_DELETE_KEY))
+        setupDeleteKey(deleteKey, iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY))
         setupClipKey(params)
 
         placeholderView.apply {
@@ -231,11 +236,28 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val tag = view.tag
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)
-            if (code != null) {
+            if (code != KeyCode.UNSPECIFIED) {
                 keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }
         }
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        val tag = view.tag
+        if (tag is ToolbarKey) {
+            val longClickCode = getCodeForToolbarKeyLongClick(tag)
+            if (longClickCode != KeyCode.UNSPECIFIED) {
+                keyboardActionListener?.onCodeInput(
+                    longClickCode,
+                    Constants.NOT_A_COORDINATE,
+                    Constants.NOT_A_COORDINATE,
+                    false
+                )
+            }
+            return true
+        }
+        return false
     }
 
     override fun onKeyDown(clipId: Long) {

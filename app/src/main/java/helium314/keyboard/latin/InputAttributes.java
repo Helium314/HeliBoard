@@ -20,6 +20,8 @@ import java.util.Arrays;
 import static helium314.keyboard.latin.common.Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW;
 import static helium314.keyboard.latin.common.Constants.ImeOption.NO_MICROPHONE;
 
+import androidx.annotation.NonNull;
+
 /**
  * Class to hold attributes of the input field.
  */
@@ -100,6 +102,7 @@ public final class InputAttributes {
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
                 || hasNoMicrophoneKeyOption()
+                || !RichInputMethodManager.isInitialized() // avoid crash when only using spell checker
                 || !RichInputMethodManager.getInstance().hasShortcutIme();
         mShouldShowVoiceInputKey = !noMicrophone;
 
@@ -161,92 +164,60 @@ public final class InputAttributes {
     }
 
     private static String toInputClassString(final int inputClass) {
-        switch (inputClass) {
-        case InputType.TYPE_CLASS_TEXT:
-            return "TYPE_CLASS_TEXT";
-        case InputType.TYPE_CLASS_PHONE:
-            return "TYPE_CLASS_PHONE";
-        case InputType.TYPE_CLASS_NUMBER:
-            return "TYPE_CLASS_NUMBER";
-        case InputType.TYPE_CLASS_DATETIME:
-            return "TYPE_CLASS_DATETIME";
-        default:
-            return String.format("unknownInputClass<0x%08x>", inputClass);
-        }
+        return switch (inputClass) {
+            case InputType.TYPE_CLASS_TEXT -> "TYPE_CLASS_TEXT";
+            case InputType.TYPE_CLASS_PHONE -> "TYPE_CLASS_PHONE";
+            case InputType.TYPE_CLASS_NUMBER -> "TYPE_CLASS_NUMBER";
+            case InputType.TYPE_CLASS_DATETIME -> "TYPE_CLASS_DATETIME";
+            default -> String.format("unknownInputClass<0x%08x>", inputClass);
+        };
     }
 
     private static String toVariationString(final int inputClass, final int variation) {
-        switch (inputClass) {
-        case InputType.TYPE_CLASS_TEXT:
-            return toTextVariationString(variation);
-        case InputType.TYPE_CLASS_NUMBER:
-            return toNumberVariationString(variation);
-        case InputType.TYPE_CLASS_DATETIME:
-            return toDatetimeVariationString(variation);
-        default:
-            return "";
-        }
+        return switch (inputClass) {
+            case InputType.TYPE_CLASS_TEXT -> toTextVariationString(variation);
+            case InputType.TYPE_CLASS_NUMBER -> toNumberVariationString(variation);
+            case InputType.TYPE_CLASS_DATETIME -> toDatetimeVariationString(variation);
+            default -> "";
+        };
     }
 
     private static String toTextVariationString(final int variation) {
-        switch (variation) {
-        case InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-            return " TYPE_TEXT_VARIATION_EMAIL_ADDRESS";
-        case InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
-            return "TYPE_TEXT_VARIATION_EMAIL_SUBJECT";
-        case InputType.TYPE_TEXT_VARIATION_FILTER:
-            return "TYPE_TEXT_VARIATION_FILTER";
-        case InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE:
-            return "TYPE_TEXT_VARIATION_LONG_MESSAGE";
-        case InputType.TYPE_TEXT_VARIATION_NORMAL:
-            return "TYPE_TEXT_VARIATION_NORMAL";
-        case InputType.TYPE_TEXT_VARIATION_PASSWORD:
-            return "TYPE_TEXT_VARIATION_PASSWORD";
-        case InputType.TYPE_TEXT_VARIATION_PERSON_NAME:
-            return "TYPE_TEXT_VARIATION_PERSON_NAME";
-        case InputType.TYPE_TEXT_VARIATION_PHONETIC:
-            return "TYPE_TEXT_VARIATION_PHONETIC";
-        case InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS:
-            return "TYPE_TEXT_VARIATION_POSTAL_ADDRESS";
-        case InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
-            return "TYPE_TEXT_VARIATION_SHORT_MESSAGE";
-        case InputType.TYPE_TEXT_VARIATION_URI:
-            return "TYPE_TEXT_VARIATION_URI";
-        case InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
-            return "TYPE_TEXT_VARIATION_VISIBLE_PASSWORD";
-        case InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT:
-            return "TYPE_TEXT_VARIATION_WEB_EDIT_TEXT";
-        case InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-            return "TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS";
-        case InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-            return "TYPE_TEXT_VARIATION_WEB_PASSWORD";
-        default:
-            return String.format("unknownVariation<0x%08x>", variation);
-        }
+        return switch (variation) {
+            case InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS -> " TYPE_TEXT_VARIATION_EMAIL_ADDRESS";
+            case InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT -> "TYPE_TEXT_VARIATION_EMAIL_SUBJECT";
+            case InputType.TYPE_TEXT_VARIATION_FILTER -> "TYPE_TEXT_VARIATION_FILTER";
+            case InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE -> "TYPE_TEXT_VARIATION_LONG_MESSAGE";
+            case InputType.TYPE_TEXT_VARIATION_NORMAL -> "TYPE_TEXT_VARIATION_NORMAL";
+            case InputType.TYPE_TEXT_VARIATION_PASSWORD -> "TYPE_TEXT_VARIATION_PASSWORD";
+            case InputType.TYPE_TEXT_VARIATION_PERSON_NAME -> "TYPE_TEXT_VARIATION_PERSON_NAME";
+            case InputType.TYPE_TEXT_VARIATION_PHONETIC -> "TYPE_TEXT_VARIATION_PHONETIC";
+            case InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS -> "TYPE_TEXT_VARIATION_POSTAL_ADDRESS";
+            case InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE -> "TYPE_TEXT_VARIATION_SHORT_MESSAGE";
+            case InputType.TYPE_TEXT_VARIATION_URI -> "TYPE_TEXT_VARIATION_URI";
+            case InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD -> "TYPE_TEXT_VARIATION_VISIBLE_PASSWORD";
+            case InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT -> "TYPE_TEXT_VARIATION_WEB_EDIT_TEXT";
+            case InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS -> "TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS";
+            case InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD -> "TYPE_TEXT_VARIATION_WEB_PASSWORD";
+            default -> String.format("unknownVariation<0x%08x>", variation);
+        };
     }
 
     private static String toNumberVariationString(final int variation) {
-        switch (variation) {
-        case InputType.TYPE_NUMBER_VARIATION_NORMAL:
-            return "TYPE_NUMBER_VARIATION_NORMAL";
-        case InputType.TYPE_NUMBER_VARIATION_PASSWORD:
-            return "TYPE_NUMBER_VARIATION_PASSWORD";
-        default:
-            return String.format("unknownVariation<0x%08x>", variation);
-        }
+        return switch (variation) {
+            case InputType.TYPE_NUMBER_VARIATION_NORMAL -> "TYPE_NUMBER_VARIATION_NORMAL";
+            case InputType.TYPE_NUMBER_VARIATION_PASSWORD -> "TYPE_NUMBER_VARIATION_PASSWORD";
+            default -> String.format("unknownVariation<0x%08x>", variation);
+        };
     }
 
     private static String toDatetimeVariationString(final int variation) {
-        switch (variation) {
-        case InputType.TYPE_DATETIME_VARIATION_NORMAL:
-            return "TYPE_DATETIME_VARIATION_NORMAL";
-        case InputType.TYPE_DATETIME_VARIATION_DATE:
-            return "TYPE_DATETIME_VARIATION_DATE";
-        case InputType.TYPE_DATETIME_VARIATION_TIME:
-            return "TYPE_DATETIME_VARIATION_TIME";
-        default:
-            return String.format("unknownVariation<0x%08x>", variation);
-        }
+        return switch (variation) {
+            case InputType.TYPE_DATETIME_VARIATION_NORMAL -> "TYPE_DATETIME_VARIATION_NORMAL";
+            case InputType.TYPE_DATETIME_VARIATION_DATE -> "TYPE_DATETIME_VARIATION_DATE";
+            case InputType.TYPE_DATETIME_VARIATION_TIME -> "TYPE_DATETIME_VARIATION_TIME";
+            default -> String.format("unknownVariation<0x%08x>", variation);
+        };
     }
 
     private static String toFlagsString(final int flags) {
@@ -271,6 +242,7 @@ public final class InputAttributes {
     }
 
     // Pretty print
+    @NonNull
     @Override
     public String toString() {
         return String.format(

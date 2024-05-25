@@ -1,0 +1,9 @@
+* zmiana ikon na pasku narzędzi dla autokorekty i wybierania wszystkiego dzięki @codokie (#524, #651)
+* dodano układ czuwaski dzięki @tenextractor (#677)
+* dodano przycisk wycinania dzięki @codokie (#678)
+* aktualizacja układu probhat dzięki @fahimscirex (#628)
+* pokazywanie ikon paska narzędzi w oknie wybierania przycisków
+* dodano przycisk zamykania historii schowka dzięki @codokie (#403, #649)
+* dodano układ rosyjski (uczeń) dzięki @Zolax9 (#640)
+* wyświetlanie klawiatury numerycznej poprzez przytrzymanie klawisza symboli jest teraz opcjonalne (#588)
+* drobne poprawki i ulepszenia, w tym #632, #637, #638 dzięki @RHJihan

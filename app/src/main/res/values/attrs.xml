@@ -102,8 +102,6 @@
         <attr name="keyPreviewBackground" format="reference" />
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
-        <!-- Height of the key press feedback popup. -->
-        <attr name="keyPreviewHeight" format="dimension" />
         <!-- Layout resource for popup keys keyboard -->
         <attr name="popupKeysKeyboardLayout" format="reference" />
         <!-- Layout resource for popup keys keyboard of action key -->
@@ -249,6 +247,7 @@
         <attr name="iconIncognitoKey" format="reference" />
         <attr name="iconSpaceKeyForNumberLayout" format="reference" />
         <attr name="iconShiftKeyShifted" format="reference" />
+        <attr name="iconShiftKeyLocked" format="reference" />
         <attr name="iconShortcutKeyDisabled" format="reference" />
         <attr name="iconLanguageSwitchKey" format="reference" />
         <attr name="iconAutoCorrect" format="reference" />
@@ -289,17 +288,6 @@
         <attr name="altCode" format="string" />
         <!-- Maximum column of popup keys keyboard -->
         <attr name="maxPopupKeysColumn" format="integer" />
-        <attr name="backgroundType" format="enum">
-            <!-- This should be aligned with
-                 {@link helium314.keyboard.keyboard.Key#BACKGROUND_TYPE_NORMAL} etc. -->
-            <enum name="empty" value="0" />
-            <enum name="normal" value="1" />
-            <enum name="functional" value="2" />
-            <enum name="stickyOff" value="3" />
-            <enum name="stickyOn" value="4" />
-            <enum name="action" value="5" />
-            <enum name="spacebar" value="6" />
-        </attr>
         <!-- The key action flags. -->
         <attr name="keyActionFlags" format="integer">
             <!-- This should be aligned with

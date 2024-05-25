@@ -1,6 +1,6 @@
 [
   [
-    { "label": "+", "popup": {
+    { "label": "+", "type":  "function", "popup": {
       "relevant": [
         { "label": "(" },
         { "label": "<" },
@@ -10,10 +10,10 @@
     { "label": "1", "type": "numeric" },
     { "label": "2", "type": "numeric" },
     { "label": "3", "type": "numeric" },
-    { "label": "%", "popup": { "main": { "label": "$$$"} }, "labelFlags": 512 }
+    { "label": "%", "type":  "function", "popup": { "main": { "label": "$$$"} }, "labelFlags": 512 }
   ],
   [
-    { "label": "-", "popup": {
+    { "label": "-", "type":  "function", "popup": {
       "relevant": [
         { "label": ")" },
         { "label": ">" },
@@ -23,10 +23,10 @@
     { "label": "4", "type": "numeric" },
     { "label": "5", "type": "numeric" },
     { "label": "6", "type": "numeric" },
-    { "label": "space" }
+    { "label": "space", "type":  "function" }
   ],
   [
-    { "label": "*", "popup": {
+    { "label": "*", "type":  "function", "popup": {
       "relevant": [
         { "label": "/" },
         { "label": "×" },
@@ -40,11 +40,11 @@
   ],
   [
     { "label": "alpha" },
-    { "label": "comma" },
-    { "label": "symbol" },
+    { "label": "comma", "width":  0.1 },
+    { "label": "symbol", "type": "character", "width":  0.12 },
     { "label": "0", "type": "numeric" },
-    { "label": "=", "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
-    { "label": "period" },
-    { "label": "enter" }
+    { "label": "=", "width":  0.12, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "period", "width":  0.1 },
+    { "label": "action" }
   ]
 ]

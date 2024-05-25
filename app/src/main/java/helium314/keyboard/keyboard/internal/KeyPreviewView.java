@@ -43,11 +43,9 @@ public class KeyPreviewView extends AppCompatTextView {
         setGravity(Gravity.CENTER);
     }
 
-    public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet,
-            final KeyDrawParams drawParams) {
+    public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams) {
         // What we show as preview should match what we show on a key top in onDraw().
-        final int iconId = key.getIconId();
-        if (iconId != KeyboardIconsSet.ICON_UNDEFINED) {
+        if (!key.getIconName().equals(KeyboardIconsSet.NAME_UNDEFINED)) {
             setCompoundDrawables(null, null, null, key.getPreviewIcon(iconsSet));
             setText(null);
             return;
