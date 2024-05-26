@@ -228,8 +228,14 @@ public final class InputLogic {
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mConnection.beginBatchEdit();
         if (mWordComposer.isComposingWord()) {
-            commitCurrentAutoCorrection(settingsValues, rawText, handler);
-            addToHistoryIfEmoji(rawText, settingsValues); // add emoji after committing text
+            if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+                // stop composing, otherwise the text will end up at the end of the current word
+                mConnection.finishComposingText();
+                resetComposingState(false);
+            } else {
+                commitCurrentAutoCorrection(settingsValues, rawText, handler);
+                addToHistoryIfEmoji(rawText, settingsValues); // add emoji after committing text
+            }
         } else {
             addToHistoryIfEmoji(rawText, settingsValues); // add emoji before resetting, otherwise lastComposedWord is empty
             resetComposingState(true /* alsoResetLastComposedWord */);
