@@ -451,6 +451,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
         KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
         KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> label.uppercase(Locale.US)
+        KeyLabel.TAB -> "!icon/tab_key|"
         else -> {
             if (label in toolbarKeyStrings) {
                 "!icon/$label|"
@@ -468,6 +469,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.ALT -> KeyCode.ALT
             KeyLabel.FN -> KeyCode.FN
             KeyLabel.META -> KeyCode.META
+            KeyLabel.TAB -> KeyCode.TAB
             else -> {
                 if (label in toolbarKeyStrings) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))

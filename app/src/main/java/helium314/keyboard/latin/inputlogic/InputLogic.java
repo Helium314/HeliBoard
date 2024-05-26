@@ -773,6 +773,9 @@ public final class InputLogic {
             case KeyCode.PAGE_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
+            case KeyCode.TAB:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.

@@ -90,7 +90,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _space_: space key, with icon when using a number layout
   * _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
   * You can also use [toolbar keys](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. _undo_.
-  * See [KeyLabel.kt](app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyLabel.kt) for more available labels
+  * See [KeyLabel.kt](app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyLabel.kt) for more available labels that are parsed to the corresponding key.
 * In case a label clashes with text you want to add, put a `\` in front of the text you want, e.g. `\space` will write the label `space` instead of adding a space bar.
   * Note that you need to escape the `\` in json files by adding a second `\`.
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.

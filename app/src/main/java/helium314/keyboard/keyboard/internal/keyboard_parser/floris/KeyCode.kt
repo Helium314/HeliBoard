@@ -138,6 +138,7 @@ object KeyCode {
     const val PAGE_DOWN =                 -10011
     const val META =                      -10012
     const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT(/FN LOCK codes, not sure whether this will be used
+    const val TAB =                       -10014
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -150,7 +151,7 @@ object KeyCode {
 
         // heliboard only
         SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
-        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META
+        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META, TAB
         -> this
 
         // conversion
