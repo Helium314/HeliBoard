@@ -5,22 +5,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/info"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        android:text="@string/all_colors_warning"
+        style="?android:attr/textAppearanceSmall" />
     <ScrollView
+        android:id="@+id/colors_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/info"
         android:layout_above="@id/dummy_text">
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/color_settings_container"
             android:paddingTop="6dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/color_settings_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
     </ScrollView>
     <EditText
         android:id="@+id/dummy_text"

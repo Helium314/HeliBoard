@@ -29,6 +29,7 @@ import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import helium314.keyboard.latin.common.ColorType.*
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.adjustLuminosityAndKeepAlpha
 import helium314.keyboard.latin.utils.brighten
 import helium314.keyboard.latin.utils.brightenOrDarken
@@ -63,7 +64,7 @@ interface Colors {
     /** returns a colored drawable selected from [attr], which must contain using R.styleable.KeyboardView_* */
     fun selectAndColorDrawable(attr: TypedArray, color: ColorType): Drawable {
         val drawable = when (color) {
-            KEY_BACKGROUND, BACKGROUND, ACTION_KEY_POPUP_KEYS_BACKGROUND, POPUP_KEYS_BACKGROUND ->
+            KEY_BACKGROUND, MORE_SUGGESTIONS_WORD_BACKGROUND, ACTION_KEY_POPUP_KEYS_BACKGROUND, POPUP_KEYS_BACKGROUND ->
                 attr.getDrawable(R.styleable.KeyboardView_keyBackground)
             FUNCTIONAL_KEY_BACKGROUND -> attr.getDrawable(R.styleable.KeyboardView_functionalKeyBackground)
             SPACE_BAR_BACKGROUND -> {
@@ -281,7 +282,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND -> functionalKey
         SPACE_BAR_BACKGROUND -> spaceBar
-        BACKGROUND, MAIN_BACKGROUND -> background
+        MORE_SUGGESTIONS_WORD_BACKGROUND, MAIN_BACKGROUND -> background
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
@@ -292,7 +293,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
 
     override fun setColor(drawable: Drawable, color: ColorType) {
         val colorStateList = when (color) {
-            BACKGROUND -> backgroundStateList
+            MORE_SUGGESTIONS_WORD_BACKGROUND -> backgroundStateList
             KEY_BACKGROUND -> keyStateList
             FUNCTIONAL_KEY_BACKGROUND -> functionalKeyStateList
             ACTION_KEY_BACKGROUND -> actionKeyStateList
@@ -334,8 +335,8 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
         when (color) {
             KEY_PREVIEW -> view.background.colorFilter = adjustedBackgroundFilter
-            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
-            ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) BACKGROUND else STRIP_BACKGROUND)
+            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, MORE_SUGGESTIONS_WORD_BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
+            ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) MAIN_BACKGROUND else STRIP_BACKGROUND)
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             POPUP_KEYS_BACKGROUND ->
                 if (themeStyle != STYLE_HOLO)
@@ -473,7 +474,7 @@ class DefaultColors (
         SPACE_BAR_TEXT -> spaceBarText
         FUNCTIONAL_KEY_BACKGROUND -> functionalKey
         SPACE_BAR_BACKGROUND -> spaceBar
-        BACKGROUND, MAIN_BACKGROUND -> background
+        MORE_SUGGESTIONS_WORD_BACKGROUND, MAIN_BACKGROUND -> background
         KEY_BACKGROUND -> keyBackground
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
@@ -485,7 +486,7 @@ class DefaultColors (
 
     override fun setColor(drawable: Drawable, color: ColorType) {
         val colorStateList = when (color) {
-            BACKGROUND -> backgroundStateList
+            MORE_SUGGESTIONS_WORD_BACKGROUND -> backgroundStateList
             KEY_BACKGROUND -> keyStateList
             FUNCTIONAL_KEY_BACKGROUND -> functionalKeyStateList
             ACTION_KEY_BACKGROUND -> actionKeyStateList
@@ -518,8 +519,8 @@ class DefaultColors (
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
         when (color) {
             KEY_PREVIEW, POPUP_KEYS_BACKGROUND -> view.background.colorFilter = adjustedBackgroundFilter
-            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
-            ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) BACKGROUND else STRIP_BACKGROUND)
+            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, MORE_SUGGESTIONS_WORD_BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
+            ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) MAIN_BACKGROUND else STRIP_BACKGROUND)
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
@@ -546,17 +547,12 @@ class DefaultColors (
     }
 }
 
-// todo: allow users to use this class
-//  the colorMap should be stored in settings
-//   settings read and write untested
-//  color settings should add another menu option for "all colors"
-//   just show all ColorTypes with current value read from the map (default to black, same as in get)
-//   no string name, as it is not stable
-class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val themeStyle: String, override val hasKeyBorders: Boolean) : Colors {
-    private var keyboardBackground: Drawable? = null
+class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val themeStyle: String, override val hasKeyBorders: Boolean, backgroundImage: Drawable?) : Colors {
+    private var keyboardBackground: Drawable? = backgroundImage
     private val stateListMap = EnumMap<ColorType, ColorStateList>(ColorType::class.java)
     private var backgroundSetupDone = false
-    override fun get(color: ColorType): Int = colorMap[color] ?: Color.BLACK
+    private val colorFilters = hashMapOf<ColorType, ColorFilter>()
+    override fun get(color: ColorType): Int = colorMap[color] ?: Color.GRAY
 
     override fun setColor(drawable: Drawable, color: ColorType) {
         val colorStateList = stateListMap.getOrPut(color) { stateList(brightenOrDarken(get(color), true), get(color)) }
@@ -565,14 +561,18 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     }
 
     override fun setColor(view: ImageView, color: ColorType) {
-        setColor(view.drawable, color)
+        if (color == TOOL_BAR_KEY) {
+            setColor(view.drawable, color)
+            return
+        }
+        view.colorFilter = getColorFilter(color)
     }
 
     override fun setBackground(view: View, color: ColorType) {
         if (view.background == null)
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
         when (color) {
-            ONE_HANDED_MODE_BUTTON -> setColor(view.background, BACKGROUND) // button has no separate background color
+            ONE_HANDED_MODE_BUTTON -> setColor(view.background, MAIN_BACKGROUND) // button has no separate background color
             MAIN_BACKGROUND -> {
                 if (keyboardBackground != null) {
                     if (!backgroundSetupDone) {
@@ -587,25 +587,32 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
             else -> setColor(view.background, color)
         }
     }
+
+    private fun getColorFilter(color: ColorType) = colorFilters.getOrPut(color) { colorFilter(get(color)) }
 }
 
-fun readAllColorsMap(prefs: SharedPreferences): EnumMap<ColorType, Int> {
-    val s = prefs.getString("all_colors", "") ?: ""
-    val c = EnumMap<ColorType, Int>(ColorType::class.java)
-    s.split(";").forEach {
+fun readAllColorsMap(prefs: SharedPreferences, isNight: Boolean): EnumMap<ColorType, Int> {
+    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
+    val colorsString = prefs.getString(prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX, "") ?: ""
+    val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
+    colorsString.split(";").forEach {
         val ct = try {
             ColorType.valueOf(it.substringBefore(",").uppercase())
         } catch (_: Exception) { // todo: which one?
             return@forEach
         }
         val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
-        c[ct] = i
+        colorMap[ct] = i
     }
-    return c
+    return colorMap
 }
 
-fun writeAllColorsMap(c: EnumMap<ColorType, Int>, prefs: SharedPreferences) {
-    prefs.edit { putString("all_colors", c.map { "${it.key},${it.value}" }.joinToString(";")) }
+fun writeAllColorsMap(colorMap: EnumMap<ColorType, Int>, prefs: SharedPreferences, isNight: Boolean) {
+    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
+    prefs.edit { putString(
+        prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX,
+        colorMap.map { "${it.key},${it.value}" }.joinToString(";")
+    ) }
 }
 
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {
@@ -628,7 +635,6 @@ enum class ColorType {
     ACTION_KEY_BACKGROUND,
     ACTION_KEY_POPUP_KEYS_BACKGROUND,
     AUTOFILL_BACKGROUND_CHIP,
-    BACKGROUND,
     CLIPBOARD_PIN,
     EMOJI_CATEGORY,
     EMOJI_CATEGORY_SELECTED,
@@ -643,6 +649,7 @@ enum class ColorType {
     KEY_PREVIEW,
     MORE_SUGGESTIONS_HINT,
     MORE_SUGGESTIONS_BACKGROUND,
+    MORE_SUGGESTIONS_WORD_BACKGROUND,
     POPUP_KEYS_BACKGROUND,
     NAVIGATION_BAR,
     SHIFT_KEY_ICON,

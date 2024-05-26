@@ -79,6 +79,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
+    public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -160,7 +161,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
-    public static final String PREF_SHOW_ALL_COLORS = "show_all_colors";
+    public static final String PREF_SHOW_MORE_COLORS = "show_more_colors";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
@@ -184,7 +185,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
-        add(PREF_SHOW_ALL_COLORS);
+        add(PREF_SHOW_MORE_COLORS);
         add(PREF_SELECTED_SUBTYPE);
     }};
 
@@ -304,16 +305,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
-    public static boolean readFromBuildConfigIfToShowKeyPreviewPopupOption(final Resources res) {
-        return res.getBoolean(R.bool.config_enable_show_key_preview_popup_option);
-    }
-
     public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
-        final boolean defaultKeyPreviewPopup = res.getBoolean(
-                R.bool.config_default_key_preview_popup);
-        if (!readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            return defaultKeyPreviewPopup;
-        }
+        final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
         return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
     }
 

@@ -1,0 +1,10 @@
+* add basic support for modifier keys
+* add long press functions to more toolbar keys
+* and more clipboard history toolbar keys
+* make clipboard history toolbar customizable
+* allow customizing all colors
+* add setting to always show word to be enterd as middle suggestion
+* add caps lock indicator
+* add Piedmontese, Eastern Mari, Mansi, extended layouts for Kannada and Hungarian
+* fix cut off text in key preview popup on some devices
+* further fixes and improvements, see release notes

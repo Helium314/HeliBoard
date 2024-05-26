@@ -123,8 +123,6 @@ See [Contribution Guidelines](CONTRIBUTING.md)
 
 # To-do
 __Planned features and improvements:__
-* Customizable functional key layout
-  * Will likely result in having the same functional key layout for alphabet and symbols layouts
 * Improve support for modifier keys (_alt_, _ctrl_, _meta_ and _fn_), some ideas:
   * keep modifier keys on with long press
   * keep modifier keys on until the next key press
@@ -133,7 +131,6 @@ __Planned features and improvements:__
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
 * Ability to enter all emojis independent of Android version (optional, #297)
-* (limited) support for customizing _all_ internally used colors
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
@@ -148,7 +145,7 @@ __Planned features and improvements:__
 __What will _not_ be added:__
 * Material 3 (not worth adding 1.5 MB to app size)
 * Dictionaries for more languages (you can still download them)
-* Anything that requires additional permissions
+* Anything that requires additional permissions, unless there is a very good reason
 
 # License
 

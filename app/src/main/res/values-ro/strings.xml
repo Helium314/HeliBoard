@@ -219,7 +219,6 @@
     <string name="title_layout_name_select">Setează numele aspectului</string>
     <string name="edit_layout">Atinge pentru a edita aspectul brut</string>
     <string name="customize_symbols_number_layouts">Personalizează simbolurile și modelele de numere</string>
-    <string name="customize_symbols_number_layouts_summary">Aspectele (cu excepția simbolurilor) expun setările interne care se pot schimba în continuare. Dacă se întâmplă acest lucru, este posibil ca aspectul personalizat să nu mai funcționeze corect.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboluri</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboluri (Arabă)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mai multe simboluri</string>

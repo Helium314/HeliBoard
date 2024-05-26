@@ -7,6 +7,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getStyleableIconId
+import java.util.Locale
 
 class KeyboardIconsSet {
     private val iconsByName = HashMap<String, Drawable>(styleableIdByName.size)
@@ -32,6 +33,7 @@ class KeyboardIconsSet {
         const val NAME_UNDEFINED = "undefined"
         const val NAME_SHIFT_KEY = "shift_key"
         const val NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted"
+        const val NAME_SHIFT_KEY_LOCKED = "shift_key_locked"
         const val NAME_DELETE_KEY = "delete_key"
         const val NAME_SETTINGS_KEY = "settings_key"
         const val NAME_SPACE_KEY = "space_key"
@@ -78,6 +80,7 @@ class KeyboardIconsSet {
             NAME_INCOGNITO_KEY to               R.styleable.Keyboard_iconIncognitoKey,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
             NAME_SHIFT_KEY_SHIFTED to           R.styleable.Keyboard_iconShiftKeyShifted,
+            NAME_SHIFT_KEY_LOCKED to            R.styleable.Keyboard_iconShiftKeyLocked,
             NAME_SHORTCUT_KEY_DISABLED to       R.styleable.Keyboard_iconShortcutKeyDisabled,
             NAME_LANGUAGE_SWITCH_KEY to         R.styleable.Keyboard_iconLanguageSwitchKey,
             NAME_ZWNJ_KEY to                    R.styleable.Keyboard_iconZwnjKey,
@@ -92,6 +95,6 @@ class KeyboardIconsSet {
             NAME_START_ONEHANDED_KEY to         R.styleable.Keyboard_iconStartOneHandedMode,
             NAME_STOP_ONEHANDED_KEY to          R.styleable.Keyboard_iconStopOneHandedMode,
             NAME_SWITCH_ONEHANDED_KEY to        R.styleable.Keyboard_iconSwitchOneHandedMode,
-        ).apply { ToolbarKey.entries.forEach { put(it.name, getStyleableIconId(it)) } }
+        ).apply { ToolbarKey.entries.forEach { put(it.name.lowercase(Locale.US), getStyleableIconId(it)) } }
     }
 }
