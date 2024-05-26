@@ -327,20 +327,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static float readKeypressSoundVolume(final SharedPreferences prefs, final Resources res) {
-        final float volume = prefs.getFloat(
-                PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (volume != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? volume
-                : readDefaultKeypressSoundVolume(res);
-    }
-
-    // Default keypress sound volume for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_SOUND_VOLUME = Float.toString(-1.0f);
-
-    public static float readDefaultKeypressSoundVolume(final Resources res) {
-        return Float.parseFloat(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_volumes, DEFAULT_KEYPRESS_SOUND_VOLUME));
+    public static float readKeypressSoundVolume(final SharedPreferences prefs) {
+        return prefs.getFloat(PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
     }
 
     public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
@@ -354,20 +342,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_default_longpress_key_timeout);
     }
 
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultKeypressVibrationDuration(res);
-    }
-
-    // Default keypress vibration duration for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_VIBRATION_DURATION = Integer.toString(-1);
-
-    public static int readDefaultKeypressVibrationDuration(final Resources res) {
-        return Integer.parseInt(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_vibration_durations, DEFAULT_KEYPRESS_VIBRATION_DURATION));
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs) {
+        return prefs.getInt(PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
     }
 
     public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {

@@ -185,8 +185,8 @@ public class SettingsValues {
 
         // Compute other readable settings
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
-        mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
-        mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
+        mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs);
+        mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs);
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);

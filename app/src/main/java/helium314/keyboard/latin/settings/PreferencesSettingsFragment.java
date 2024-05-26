@@ -151,12 +151,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readKeypressVibrationDuration(prefs, res);
+                return Settings.readKeypressVibrationDuration(prefs);
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return Settings.readDefaultKeypressVibrationDuration(res);
+                return -1;
             }
 
             @Override
@@ -206,12 +206,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs, res));
+                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs));
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return getPercentageFromValue(Settings.readDefaultKeypressSoundVolume(res));
+                return getPercentageFromValue(-1f);
             }
 
             @Override
