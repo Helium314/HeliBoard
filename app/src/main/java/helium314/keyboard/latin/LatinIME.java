@@ -353,6 +353,10 @@ public class LatinIME extends InputMethodService implements
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public boolean hasPendingResumeSuggestions() {
+            return hasMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingReopenDictionaries() {
             return hasMessages(MSG_REOPEN_DICTIONARIES);
         }
@@ -1019,13 +1023,8 @@ public class LatinIME extends InputMethodService implements
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
-        setNeutralSuggestionStrip();
-
-        mHandler.cancelUpdateSuggestionStrip();
-
-        if (currentSettingsValues.mAutoShowToolbar && hasSuggestionStripView()
-                && !mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
-            mSuggestionStripView.setToolbarVisibility(true);
+        if (!mHandler.hasPendingResumeSuggestions() && !mHandler.hasPendingUpdateSuggestions()) {
+            setNeutralSuggestionStrip();
         }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
@@ -1149,7 +1148,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
-        if (mSuggestionStripView != null)
+        if (mSuggestionStripView != null && !mSettings.getCurrent().mAutoShowToolbar)
             mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
@@ -1599,8 +1598,18 @@ public class LatinIME extends InputMethodService implements
                     mRichImm.getCurrentSubtype().isRtlSubtype());
         }
 
-        if (currentSettingsValues.mAutoHideToolbar && !suggestedWords.isEmpty()) {
-            mSuggestionStripView.setToolbarVisibility(false);
+        if (!suggestedWords.isEmpty()) {
+            if (currentSettingsValues.mAutoHideToolbar) {
+                mSuggestionStripView.setToolbarVisibility(false);
+            }
+        } else if (currentSettingsValues.mAutoShowToolbar) {
+            final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (mInputLogic.mLastComposedWord == LastComposedWord.NOT_A_COMPOSED_WORD
+                    || mInputLogic.mConnection.hasSelection()
+                    || codePoint == Constants.NOT_A_CODE
+                    || codePoint == Constants.CODE_ENTER) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
         }
     }
 
@@ -1642,8 +1651,6 @@ public class LatinIME extends InputMethodService implements
 
     // This will show either an empty suggestion strip (if prediction is enabled) or
     // punctuation suggestions (if it's disabled).
-    // The toolbar will be shown automatically if the relevant setting is enabled
-    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1651,14 +1658,6 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
-        if (currentSettings.mAutoShowToolbar && hasSuggestionStripView()) {
-            final int codePoint = mInputLogic.mConnection.getCodePointBeforeCursor();
-            if (mInputLogic.mConnection.hasSelection()
-                    || codePoint == Constants.NOT_A_CODE
-                    || codePoint == Constants.CODE_ENTER) {
-                mSuggestionStripView.setToolbarVisibility(true);
-            }
-        }
     }
 
     @Override
