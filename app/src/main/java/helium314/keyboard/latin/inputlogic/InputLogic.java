@@ -1574,10 +1574,15 @@ public final class InputLogic {
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
         // mInputTypeNoAutoCorrect changed to !isSuggestionsEnabledPerUserSettings because this was cancelling learning way too often
-        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
+        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || TextUtils.isEmpty(suggestion))
             return;
         final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);
+        if (settingsValues.mIncognitoModeEnabled) {
+            // still adjust confidences, otherwise incognito input fields can be very annoying when wrong language is active
+            mDictionaryFacilitator.adjustConfidences(word, wasAutoCapitalized);
+            return;
+        }
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,
             // turn off learning to guard against adding typos that the user later deletes.
