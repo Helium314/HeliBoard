@@ -11,6 +11,9 @@
     android:layout_height="wrap_content"
     style="?attr/inputViewStyle">
     <include
+        android:id="@+id/fakeToast"
+        layout="@layout/fake_toast" />
+    <include
         android:id="@+id/main_keyboard_frame"
         layout="@layout/main_keyboard_frame" />
 </helium314.keyboard.latin.InputView>

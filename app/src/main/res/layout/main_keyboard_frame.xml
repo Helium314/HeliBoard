@@ -60,18 +60,6 @@
             android:scaleType="fitCenter"
             style="?attr/suggestionWordStyle" />
 
-        <TextView
-            android:id="@+id/fakeToast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:background="@drawable/toast_background"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:visibility="gone" />
-
     </helium314.keyboard.latin.KeyboardWrapperView>
 
 </LinearLayout>

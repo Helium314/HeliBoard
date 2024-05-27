@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import helium314.keyboard.latin.utils.Log;
+
+import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -476,6 +478,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void showFakeToast(final String text, final int timeMillis) {
         if (isToastShowing) return;
 
+        final Drawable appIcon = mFakeToastView.getCompoundDrawables()[0];
+        if (appIcon != null) {
+            final int bound = mFakeToastView.getLineHeight();
+            appIcon.setBounds(0, 0, bound, bound);
+            mFakeToastView.setCompoundDrawables(appIcon, null, null, null);
+        }
         mFakeToastView.setText(text);
         mFakeToastView.setVisibility(View.VISIBLE);
         isToastShowing = true;
