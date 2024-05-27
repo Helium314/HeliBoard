@@ -108,10 +108,11 @@ sealed interface KeyData : AbstractKeyData {
         }
 
         private fun getSpaceLabel(params: KeyboardParams): String =
-            if (params.mId.mElementId <= KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+            if (params.mId.isAlphaOrSymbolKeyboard)
                 "!icon/space_key|!code/key_space"
             else "!icon/space_key_for_number_layout|!code/key_space"
 
+        // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
         private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
             val keys = mutableListOf<String>()
             if (!params.mId.mDeviceLocked)

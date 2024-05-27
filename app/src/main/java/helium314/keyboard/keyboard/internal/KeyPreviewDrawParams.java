@@ -10,7 +10,6 @@ import android.content.res.TypedArray;
 import android.view.View;
 
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.settings.Settings;
 
 public final class KeyPreviewDrawParams {
     // XML attributes of {@link MainKeyboardView}.
