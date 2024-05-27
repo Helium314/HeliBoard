@@ -44,8 +44,6 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
-import helium314.keyboard.latin.utils.ToolbarKey;
-import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,6 +146,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_USE_SYSTEM_LOCALES = "use_system_locales";
     public static final String PREF_URL_DETECTION = "url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
+    public static final String PREF_QUICK_PIN_TOOLBAR_KEYS = "quick_pin_toolbar_keys";
     public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
     public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
@@ -484,29 +483,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
         }
-    }
-
-    public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
-        final ArrayList<ToolbarKey> list = new ArrayList<>();
-        for (final String key : prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, "").split(";")) {
-            try {
-                list.add(ToolbarKey.valueOf(key));
-            } catch (IllegalArgumentException ignored) { } // may happen if toolbar key is removed from app
-        }
-        return list;
-    }
-
-    public static void addPinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
-        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
-        if (keys.contains(key)) return;
-        keys.add(key);
-        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
-    }
-
-    public static void removePinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
-        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
-        keys.remove(key);
-        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {

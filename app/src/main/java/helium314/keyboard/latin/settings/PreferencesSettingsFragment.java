@@ -71,9 +71,14 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                     R.string.toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
             return true;
         });
+        findPreference(Settings.PREF_PINNED_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
+            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultPinnedToolbarPref(),
+                    R.string.pinned_toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
+            return true;
+        });
         findPreference(Settings.PREF_CLIPBOARD_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
             DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultClipboardToolbarPref(),
-                    R.string.toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
+                    R.string.clipboard_toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
             return true;
         });
     }
@@ -89,7 +94,8 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (key == null) return;
         switch (key) {
             case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
-                    Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS,
+                    Settings.PREF_PINNED_TOOLBAR_KEYS, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS
                     -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS

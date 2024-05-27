@@ -100,8 +100,19 @@
             android:title="@string/toolbar_keys" />
 
         <Preference
+            android:key="pinned_toolbar_keys"
+            android:title="@string/pinned_toolbar_keys" />
+
+        <Preference
             android:key="clipboard_toolbar_keys"
             android:title="@string/clipboard_toolbar_keys" />
+
+        <SwitchPreference
+            android:key="quick_pin_toolbar_keys"
+            android:title="@string/quick_pin_toolbar_keys"
+            android:summary="@string/quick_pin_toolbar_keys_summary"
+            android:defaultValue="false"
+            android:persistent="true" />
 
         <SwitchPreference
             android:key="var_toolbar_direction"
