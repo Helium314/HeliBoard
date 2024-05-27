@@ -90,7 +90,7 @@
     <string name="setup_step1_finished_instruction">Праграма <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ўжо ўключана ў наладах «Мова і ўвод». Перайдзіце да наступнага кроку!</string>
     <string name="setup_step1_action">Ўключыць ў наладах</string>
     <string name="setup_step2_title">Пераключыцца на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Выберыце \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як актыўны метад ўводу тэксту.</string>
+    <string name="setup_step2_instruction">Выберыце «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» бягучым метадам ўводу.</string>
     <string name="setup_step2_action">Змена спосабаў ўводу</string>
     <string name="setup_step3_title">Ўсё гатова!</string>
     <string name="setup_step3_instruction">Цяпер вы можаце пісаць ва ўсіх вашых любімых праграмах з дапамогай <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -152,9 +152,9 @@
     <string name="theme_name_darker">Шэрая</string>
     <string name="theme_name_black">Чорная</string>
     <string name="theme_name_user">Карыстацкая</string>
-    <string name="theme_name_user_night">Карыстацкая (Цёмная тэма)</string>
+    <string name="theme_name_user_night">Карыстацкая (цёмная тэма)</string>
     <string name="select_user_colors">Настройка колераў тэмы</string>
-    <string name="select_user_colors_night">Настройка колераў тэмы (Цёмная тэма)</string>
+    <string name="select_user_colors_night">Настройка колераў тэмы (цёмная тэма)</string>
     <string name="auto_user_color">Аўтаматычны выбар колеру</string>
     <string name="hint_show_keyboard">Націсніце для прадпрагляду</string>
     <string name="select_user_colors_summary">Абярыце колеру для тэксту і фону</string>
@@ -194,7 +194,7 @@
     <string name="theme_style">Стыль тэмы</string>
     <string name="style_name_Rounded">Закруглены</string>
     <string name="theme_colors">Колеры тэмы</string>
-    <string name="theme_colors_night">Колеры тэмы (Цёмная тэма)</string>
+    <string name="theme_colors_night">Колеры тэмы (цёмная тэма)</string>
     <string name="key_borders">Контуры клавіш</string>
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
     <string name="autospace_after_punctuation_summary">Аўтаматычна ўстаўляць прабел пасля знакаў прыпынку пры ўводзе новага слова</string>
@@ -275,7 +275,6 @@
     <string name="dictionary_load_error">Памылка загрузкі файла слоўніка</string>
     <string name="subtype_xdq">кайтагскі</string>
     <string name="customize_symbols_number_layouts">Настройка размяшчэння знакаў і лікаў</string>
-    <string name="customize_symbols_number_layouts_summary">Раскладкі (акрамя знакавых) залежаць ад ўнутраных налад, якія яшчэ могуць мяняцца. Калі гэта адбудзецца, кастамныя раскладкі могуць перастаць працаваць карэктна.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Сімвалы</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Сімвалы (арабскія)</string>
     <string name="show_vertical_space_swipe">Вертыкальны свайп па прабелу</string>
@@ -283,7 +282,7 @@
     <string name="show_horizontal_space_swipe">Гарызантальны свайп па прабелу</string>
     <string name="localized_number_row_summary">Аддаваць перавагу лакалізаваныя лацінскія лічбы</string>
     <string name="show_popup_hints_summary">Паказваць падказкі, калі працяглы націск клавішы запускае дадатковыя функцыі</string>
-    <string name="cut" tools:keep="@string/Cut">Выразаць</string>
+    <string name="cut" tools:keep="@string/cut">Выразаць</string>
     <string name="layout_error">Памылка раскладкі: %s</string>
     <string name="edit_layout">Націсніце, каб адрэдагаваць базавую раскладку</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Больш сімвалаў</string>
@@ -291,7 +290,7 @@
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Сімвалы тэлефона</string>
     <string name="layout_number" tools:keep="@string/layout_number">Лічбы</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Лічбавая клавіятура</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Лічбавая клавіятура(гарызантальная)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Лічбавая клавіятура (гарызантальная)</string>
     <string name="customize_background_image">Ўсталяваць фонавы малюнак</string>
     <string name="day_or_night_image">Ўсталяваць малюнак для дзённага ці начнога рэжыму?</string>
     <string name="day_or_night_day">Дзень</string>

@@ -653,9 +653,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
-    public void copyText() {
-        // copy selected text, and if nothing is selected copy the whole text
-        CharSequence text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+    public void copyText(final boolean getSelection) {
+        CharSequence text = null;
+        if (getSelection) {
+            // copy selected text, and if nothing is selected copy the whole text
+            text = getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+        }
         if (text == null || text.length() == 0) {
             // we have no selection, get the whole text
             final ExtractedTextRequest etr = new ExtractedTextRequest();

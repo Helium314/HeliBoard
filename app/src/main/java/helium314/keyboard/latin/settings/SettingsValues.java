@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin.settings;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -23,6 +24,8 @@ import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Colors;
+import helium314.keyboard.latin.permissions.PermissionsUtil;
+import helium314.keyboard.latin.utils.CustomLayoutUtilsKt;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
@@ -87,6 +90,7 @@ public class SettingsValues {
     public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
     public final boolean mBigramPredictionEnabled;// Use bigrams to predict the next word when there is no input for it yet
+    public final boolean mCenterSuggestionTextToEnter;
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
@@ -119,6 +123,7 @@ public class SettingsValues {
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
+    public final boolean mHasCustomFunctionalLayout;
 
     // User-defined colors
     public final Colors mColors;
@@ -161,6 +166,7 @@ public class SettingsValues {
         mAutoCorrectEnabled = mAutoCorrectionEnabledPerUserSettings
                 && (mInputAttributes.mInputTypeShouldAutoCorrect || Settings.readMoreAutoCorrectEnabled(prefs))
                 && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
+        mCenterSuggestionTextToEnter = Settings.readCenterSuggestionTextToEnter(prefs, res);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? readAutoCorrectionThreshold(res, prefs)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
@@ -179,8 +185,8 @@ public class SettingsValues {
 
         // Compute other readable settings
         mKeyLongpressTimeout = Settings.readKeyLongpressTimeout(prefs, res);
-        mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs, res);
-        mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs, res);
+        mKeypressVibrationDuration = Settings.readKeypressVibrationDuration(prefs);
+        mKeypressSoundVolume = Settings.readKeypressSoundVolume(prefs);
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
@@ -223,7 +229,7 @@ public class SettingsValues {
         mPopupKeyLabelSources = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyLabelDefault);
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
-        mUseContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, false);
+        mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
@@ -233,6 +239,7 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
+        mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -340,6 +347,11 @@ public class SettingsValues {
             return Float.MAX_VALUE;
         }
         return autoCorrectionThreshold;
+    }
+
+    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
+        return prefs.getBoolean(Settings.PREF_USE_CONTACTS, false)
+                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS);
     }
 
     public String dump() {

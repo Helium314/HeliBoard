@@ -291,7 +291,6 @@
     <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;
 \n        Anda dapat mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
-    <string name="customize_symbols_number_layouts_summary">Tata letak (kecuali simbol) mengekspos pengaturan internal yang mungkin masih dapat berubah. Jika hal itu terjadi, tata letak kustom mungkin tidak akan berfungsi dengan baik lagi.</string>
     <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
     <string name="add_new_dictionary_ask_locale">Pada bahasa apa kamus \"%1$s\" untuk %2$s harus ditambahkan?</string>
     <string name="no_dictionary_dont_show_again_button">Jangan tampilkan lagi</string>

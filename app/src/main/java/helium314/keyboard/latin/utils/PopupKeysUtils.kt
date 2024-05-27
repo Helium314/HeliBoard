@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
-import helium314.keyboard.keyboard.internal.keyboard_parser.rtlLabel
 
 const val POPUP_KEYS_NUMBER = "popup_keys_number"
 private const val POPUP_KEYS_LANGUAGE_PRIORITY = "popup_keys_language_priority"

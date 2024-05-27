@@ -1,0 +1,7 @@
+- aktualizace rozložení srbské cyrilice od @markokocic (#704, #705)
+- aktualizace rozvržení Estonsko od @tenextractor (#693)
+- oprava duplicitních záznamů v historii schránky od @codokie (#616, #680)
+- do historie schránky přidávat pouze textové záznamy od @codokie (#711)
+- lepší obrázky v metadatech od @RHJihan (#713)
+- správně nastavit barvu ikon v dialogovém okně výběru panelu nástrojů od @codokie (#715, #716)
+- další opravy (#684, #723 a další)

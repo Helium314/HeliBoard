@@ -56,7 +56,6 @@
         parent="KeyboardView.HoloBase"
     >
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_holo_white</item>
-        <item name="keyPreviewHeight">@dimen/config_key_preview_height_holo</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_holo</item>
         <item name="languageOnSpacebarTextShadowRadius">1.0</item>
         <item name="languageOnSpacebarTextShadowColor">@color/spacebar_text_shadow_color_holo</item>

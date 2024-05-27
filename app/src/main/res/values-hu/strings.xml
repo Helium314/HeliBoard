@@ -229,7 +229,6 @@
     <string name="text_tap_languages">Nyomjon a nyelvre a beállítások megnyitásához</string>
     <string name="hidden_features_title">Rejtett funkciók leírása</string>
     <string name="customize_symbols_number_layouts">Szimbólumok és számok elrendezésének testre szabása</string>
-    <string name="customize_symbols_number_layouts_summary">Elrendezések (kivéve a szimbólumok) felfedik a belső beállításokat, melyek tovább változhatnak. Ha ez megtörténik, az egyéni elrendezés nem fog tovább működni.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Szimbólumok</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Saját ízlés szerint</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Saját ízlés szerint (éjjel)</string>

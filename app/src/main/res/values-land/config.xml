@@ -29,9 +29,7 @@
     <!-- config_popup_keys_keyboard_key_height x -0.5 -->
     <dimen name="config_popup_keys_keyboard_vertical_correction_holo">-22.4dp</dimen>
     <dimen name="config_key_preview_offset_holo">1.6dp</dimen>
-    <dimen name="config_key_preview_height_holo">80dp</dimen>
     <dimen name="config_key_preview_offset_lxx">0dp</dimen>
-    <dimen name="config_key_preview_height_lxx">122dp</dimen>
     <fraction name="config_key_preview_text_ratio">90%</fraction>
     <fraction name="config_key_letter_ratio_holo">65%</fraction>
     <fraction name="config_key_letter_ratio_lxx">65%</fraction>

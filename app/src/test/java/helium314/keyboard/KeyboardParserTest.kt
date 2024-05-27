@@ -12,13 +12,10 @@ import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
 import helium314.keyboard.keyboard.internal.UniqueKeysCache
-import helium314.keyboard.keyboard.internal.keyboard_parser.JsonKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.SimpleKeyboardParser
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.MultiTextKeyData
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
@@ -49,6 +46,12 @@ class ParserTest {
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
     }
+
+    // todo: add more tests
+    //  (popup) keys with label and code
+    //  (popup) keys with icon
+    //  (popup) keys with that are essentially toolbar keys (yes, this should work at some point!)
+    //  correct background type, depending on key type and maybe sth else
 
     @Test fun simpleParser() {
         val params = KeyboardParams()
@@ -114,7 +117,7 @@ f""", // no newline at the end
         val wantedKeyLabels = listOf(listOf("a", "b", "c"), listOf("d", "e", "f"))
         layoutStrings.forEachIndexed { i, layout ->
             println(i)
-            val keyLabels = SimpleKeyboardParser(params, latinIME).parseCoreLayout(layout).map { it.map { it.label } }
+            val keyLabels = RawKeyboardParser.parseSimpleString(layout).map { it.map { it.toKeyParams(params).mLabel } }
             assertEquals(wantedKeyLabels, keyLabels)
         }
     }
@@ -124,10 +127,11 @@ f""", // no newline at the end
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
-        data class Expected(val label: String, val text: String?, val code: Int, val popups: List<String>?)
+        data class Expected(val label: String?, val text: String?, val code: Int, val popups: List<String>? = null)
         val expected = listOf(
             Expected("a", null, 'a'.code, null),
             Expected("a", null, 'a'.code, null),
+            Expected("a", null, 'b'.code, listOf("b")), // todo: should also check whether code is "a"
             Expected("$", null, '$'.code, listOf("£", "€", "¢", "¥", "₱")),
             Expected("$", null, '¥'.code, listOf("£", "€", "¢", "¥", "₱")),
             Expected("i", null, 105, null),
@@ -137,11 +141,15 @@ f""", // no newline at the end
             Expected(".", null, '.'.code, listOf(">")),
             Expected("'", null, '\''.code, listOf("!", "\"")),
             Expected("9", null, '9'.code, null), // todo (later): also should have different background or whatever is related to type
-            Expected("", null, -7, null), // todo: expect an icon
-            Expected("?123", null, -207, null),
-            Expected("", null, ' '.code, null),
+            Expected(null, null, -7, null), // todo: expect an icon
+            Expected("?123", "?123", -202, null),
+            Expected(null, null, ' '.code, null),
             Expected("(", null, '('.code, listOf("<", "[", "{")),
             Expected("$", null, '$'.code, listOf("£", "₱", "€", "¢", "¥")),
+            Expected("a", null, ' '.code, null),
+            Expected("a", null, ' '.code, null),
+            Expected(null, null, KeyCode.CLIPBOARD, null), // todo: expect an icon
+            Expected(null, null, KeyCode.MULTIPLE_CODE_POINTS, null), // todo: this works here, but crashes on phone
             Expected("p", null, 'p'.code, null),
         )
         val layoutString = """
@@ -149,6 +157,7 @@ f""", // no newline at the end
   [
     { "$": "auto_text_key" "label": "a" },
     { "$": "text_key" "label": "a" },
+    { "$": "text_key" "label": "a|b", "popup": { "main": { "label": "b|a" } } },
     { "label": "$$$" },
     { "label": "$$$", code: -805 },
     { "$": "case_selector",
@@ -228,6 +237,10 @@ f""", // no newline at the end
         { "code": -805, "label": "currency_slot_5" }
       ]
     } },
+    { "code": 32, "label": "a|!code/key_delete" },
+    { "code": 32, "label": "a|b" },
+    { "label": "!icon/clipboard_action_key|!code/key_clipboard" },
+    { "label": "!icon/clipboard_action_key" },
     { "label": "p" }
   ],
   [
@@ -252,13 +265,11 @@ f""", // no newline at the end
   ]
 ]
         """.trimIndent()
-        val keys = JsonKeyboardParser(params, latinIME).parseCoreLayout(layoutString)
+        val keys = RawKeyboardParser.parseJsonString(layoutString).map { it.mapNotNull { it.compute(params) } }
         keys.first().forEachIndexed { index, keyData ->
-            println("key ${keyData.label}: code ${keyData.code}, popups: ${keyData.popup.getPopupKeyLabels(params)}")
-            if (keyData.type == KeyType.ENTER_EDITING || keyData.type == KeyType.SYSTEM_GUI) return@forEachIndexed // todo: currently not accepted, but should be (see below)
+            println("data: key ${keyData.label}: code ${keyData.code}, popups: ${keyData.popup.getPopupKeyLabels(params)}")
             val keyParams = keyData.toKeyParams(params)
-            println("key ${keyParams.mLabel}: code ${keyParams.mCode}, popups: ${keyParams.mPopupKeys?.toList()}")
-            if (keyParams.outputText == "space") return@forEachIndexed // todo: only works for numeric layouts... idea: parse space anywhere, and otherwise only if special type
+            println("params: key ${keyParams.mLabel}: code ${keyParams.mCode}, popups: ${keyParams.mPopupKeys?.toList()}")
             assertEquals(expected[index].label, keyParams.mLabel)
             assertEquals(expected[index].code, keyParams.mCode)
             assertEquals(expected[index].popups?.sorted(), keyParams.mPopupKeys?.mapNotNull { it.mLabel }?.sorted()) // todo (later): what's wrong with order?
@@ -284,13 +295,13 @@ f""", // no newline at the end
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
-        assertEquals(keys[0].size, 11)
-        assertEquals(keys[1].size, 11)
-        assertEquals(keys[2].size, 10)
+        assertEquals(11, keys[0].size)
+        assertEquals(11, keys[1].size)
+        assertEquals(10, keys[2].size)
         val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
-        assertEquals(keys2[0].size, 11)
-        assertEquals(keys2[1].size, 11)
-        assertEquals(keys2[2].size, 10)
+        assertEquals(11, keys2[0].size)
+        assertEquals(11, keys2[1].size)
+        assertEquals(10, keys2[2].size)
     }
 
     @Test fun `popup key count does not depend on shift for (for simple layout)`() {

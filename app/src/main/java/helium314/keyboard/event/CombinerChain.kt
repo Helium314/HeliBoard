@@ -9,7 +9,6 @@ package helium314.keyboard.event
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.common.Constants
 import java.util.*
 
 /**
@@ -23,6 +22,12 @@ import java.util.*
  * finished combining part, will be shown normally as the composing string, while the second is
  * feedback on the composing state and will typically be shown with different styling such as
  * a colored background.
+ *
+ * The combiner chain takes events as inputs and outputs code points and combining state.
+ * For example, if the input language is Japanese, the combining chain will typically perform
+ * kana conversion. This takes a string for initial text, taken to be present before the
+ * cursor: we'll start after this.
+ * @param initialText The text that has already been combined so far.
  */
 class CombinerChain(initialText: String) {
     // The already combined text, as described above
@@ -45,16 +50,6 @@ class CombinerChain(initialText: String) {
                 mCombiners.add(HangulCombiner())
         }
 
-    /**
-     * Create an combiner chain.
-     *
-     * The combiner chain takes events as inputs and outputs code points and combining state.
-     * For example, if the input language is Japanese, the combining chain will typically perform
-     * kana conversion. This takes a string for initial text, taken to be present before the
-     * cursor: we'll start after this.
-     *
-     * @param initialText The text that has already been combined so far.
-     */
     init {
         // The dead key combiner is always active, and always first
         mCombiners.add(DeadKeyCombiner())
