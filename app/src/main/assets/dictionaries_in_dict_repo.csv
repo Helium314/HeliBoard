@@ -59,10 +59,12 @@ main,te,
 main,tok,
 main,tcy,
 main,tr,
+emoji,uk,
 main,uk,
 main,ur,
 main,af,exp
 main,ar,exp
+main,bn_BD,exp
 main,bn,exp
 main,bg,exp
 main,cs,exp
@@ -73,10 +75,12 @@ symbols,fr,exp
 main,fr,exp
 main,de_AT,exp
 main,de,exp
+main,he,exp
 main,id,exp
 main,it,exp
 main,kab,exp
 addon,ml_ZZ,exp
+main,pms,exp
 main,ru,exp
 main,sk,exp
 main,es,exp

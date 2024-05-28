@@ -39,6 +39,9 @@ class Event private constructor(
         // this to be equal to mCodePoint for convenience. If this is not a key, this must contain
         // NOT_A_KEY_CODE.
         val mKeyCode: Int,
+        // State of meta keys (currently ctrl, alt, fn, meta)
+        // same value as https://developer.android.com/reference/android/view/KeyEvent#getMetaState()
+        val mMetaState: Int,
         // Coordinates of the touch event, if relevant. If useful, we may want to replace this with
         // a MotionEvent or something in the future. This is only relevant when the keypress is from
         // a software keyboard obviously, unless there are touch-sensitive hardware keyboards in the
@@ -57,7 +60,7 @@ class Event private constructor(
     // Returns whether this is a function key like backspace, ctrl, settings... as opposed to keys
     // that result in input like letters or space.
     val isFunctionalKeyEvent: Boolean
-        get() = NOT_A_CODE_POINT == mCodePoint // This logic may need to be refined in the future
+        get() = NOT_A_CODE_POINT == mCodePoint || mMetaState != 0 // This logic may need to be refined in the future
 
     // Returns whether this event is for a dead character. @see {@link #FLAG_DEAD}
     val isDead: Boolean get() = 0 != FLAG_DEAD and mFlags
@@ -131,24 +134,22 @@ class Event private constructor(
         private const val FLAG_COMBINING = 0x8
 
         @JvmStatic
-        fun createSoftwareKeypressEvent(codePoint: Int, keyCode: Int,
-                                        x: Int, y: Int, isKeyRepeat: Boolean): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, keyCode, x, y,
-                    null /* suggestedWordInfo */, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, null)
+        fun createSoftwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, isKeyRepeat: Boolean): Event {
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState, x, y,
+                    null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, null)
         }
 
-        fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int,
-                                        next: Event?, isKeyRepeat: Boolean): Event {
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, keyCode,
+        fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean): Event {
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
-                    null /* suggestedWordInfo */, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, next)
+                    null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, next)
         }
 
         // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
-        fun createDeadEvent(codePoint: Int, keyCode: Int, next: Event?): Event { // TODO: add an argument or something if we ever create a software layout with dead keys.
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, keyCode,
+        fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?): Event { // TODO: add an argument or something if we ever create a software layout with dead keys.
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
-                    null /* suggestedWordInfo */, FLAG_DEAD, next)
+                    null, FLAG_DEAD, next)
         }
 
         /**
@@ -160,9 +161,8 @@ class Event private constructor(
          */
         @JvmStatic
         fun createEventForCodePointFromUnknownSource(codePoint: Int): Event { // TODO: should we have a different type of event for this? After all, it's not a key press.
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, NOT_A_KEY_CODE,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
-                    null /* suggestedWordInfo */, FLAG_NONE, null /* next */)
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, NOT_A_KEY_CODE, 0,
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
 
         /**
@@ -176,8 +176,8 @@ class Event private constructor(
         @JvmStatic
         fun createEventForCodePointFromAlreadyTypedText(codePoint: Int,
                                                         x: Int, y: Int): Event { // TODO: should we have a different type of event for this? After all, it's not a key press.
-            return Event(EVENT_TYPE_INPUT_KEYPRESS, null /* text */, codePoint, NOT_A_KEY_CODE,
-                    x, y, null /* suggestedWordInfo */, FLAG_NONE, null /* next */)
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, NOT_A_KEY_CODE, 0,
+                    x, y, null, FLAG_NONE, null)
         }
 
         /**
@@ -187,9 +187,9 @@ class Event private constructor(
         @JvmStatic
         fun createSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo): Event {
             return Event(EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord,
-                    NOT_A_CODE_POINT, NOT_A_KEY_CODE,
+                    NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
                     Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE,
-                    suggestedWordInfo, FLAG_NONE, null /* next */)
+                    suggestedWordInfo, FLAG_NONE, null)
         }
 
         /**
@@ -203,9 +203,8 @@ class Event private constructor(
          */
         @JvmStatic
         fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, next: Event?): Event {
-            return Event(EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode,
-                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
-                null /* suggestedWordInfo */, FLAG_NONE, next)
+            return Event(EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode, 0,
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,null, FLAG_NONE, next)
         }
 
         @JvmStatic
@@ -217,13 +216,10 @@ class Event private constructor(
          * @return an event for this suggestion pick.
          */
         @JvmStatic
-        fun createPunctuationSuggestionPickedEvent(
-                suggestedWordInfo: SuggestedWordInfo): Event {
+        fun createPunctuationSuggestionPickedEvent(suggestedWordInfo: SuggestedWordInfo): Event {
             val primaryCode = suggestedWordInfo.mWord[0].code
-            return Event(EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord, primaryCode,
-                    NOT_A_KEY_CODE, Constants.SUGGESTION_STRIP_COORDINATE,
-                    Constants.SUGGESTION_STRIP_COORDINATE, suggestedWordInfo, FLAG_NONE,
-                    null /* next */)
+            return Event(EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord, primaryCode, NOT_A_KEY_CODE, 0,
+                Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, suggestedWordInfo, FLAG_NONE,null)
         }
 
         /**
@@ -234,7 +230,7 @@ class Event private constructor(
          */
         @JvmStatic
         fun createCursorMovedEvent(moveAmount: Int): Event {
-            return Event(EVENT_TYPE_CURSOR_MOVE, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE,
+            return Event(EVENT_TYPE_CURSOR_MOVE, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
                     moveAmount, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
 
@@ -244,21 +240,18 @@ class Event private constructor(
          * @return an identical event marked as consumed.
          */
         fun createConsumedEvent(source: Event): Event { // A consumed event should not input any text at all, so we pass the empty string as text.
-            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode,
-                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_CONSUMED,
-                    source.mNextEvent)
+            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode, source.mMetaState,
+                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_CONSUMED, source.mNextEvent)
         }
 
         fun createCombiningEvent(source: Event): Event {
-            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode,
-                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING,
-                    source.mNextEvent)
+            return Event(source.mEventType, source.mText, source.mCodePoint, source.mKeyCode, source.mMetaState,
+                    source.mX, source.mY, source.mSuggestedWordInfo, source.mFlags or FLAG_COMBINING, source.mNextEvent)
         }
 
         fun createNotHandledEvent(): Event {
-            return Event(EVENT_TYPE_NOT_HANDLED, null /* text */, NOT_A_CODE_POINT, NOT_A_KEY_CODE,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
-                    null /* suggestedWordInfo */, FLAG_NONE, null)
+            return Event(EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
     }
 

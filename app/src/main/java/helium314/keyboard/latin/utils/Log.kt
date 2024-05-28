@@ -17,8 +17,8 @@ object Log {
     }
 
     @JvmStatic
-    fun e(tag: String?, message: String, e: Throwable) {
-        log(LogLine('E', tag, "$message\n${e.stackTraceToString()}"))
+    fun e(tag: String?, message: String, e: Throwable?) {
+        log(LogLine('E', tag, "$message\n${e?.stackTraceToString()}"))
         android.util.Log.e(tag, message, e)
     }
 
@@ -29,8 +29,8 @@ object Log {
     }
 
     @JvmStatic
-    fun w(tag: String?, message: String, e: Throwable) {
-        log(LogLine('W', tag, "$message\n${e.stackTraceToString()}"))
+    fun w(tag: String?, message: String, e: Throwable?) {
+        log(LogLine('W', tag, "$message\n${e?.stackTraceToString()}"))
         android.util.Log.w(tag, message, e)
     }
 
@@ -41,8 +41,8 @@ object Log {
     }
 
     @JvmStatic
-    fun i(tag: String?, message: String, e: Throwable) {
-        log(LogLine('I', tag, "$message\n${e.stackTraceToString()}"))
+    fun i(tag: String?, message: String, e: Throwable?) {
+        log(LogLine('I', tag, "$message\n${e?.stackTraceToString()}"))
         android.util.Log.i(tag, message, e)
     }
 
@@ -53,8 +53,8 @@ object Log {
     }
 
     @JvmStatic
-    fun d(tag: String?, message: String, e: Throwable) {
-        log(LogLine('D', tag, "$message\n${e.stackTraceToString()}"))
+    fun d(tag: String?, message: String, e: Throwable?) {
+        log(LogLine('D', tag, "$message\n${e?.stackTraceToString()}"))
         android.util.Log.d(tag, message, e)
     }
 

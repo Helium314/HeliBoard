@@ -152,7 +152,7 @@
     <string name="autospace_after_punctuation">ضع مسافةً بعد علامات الترقيم تلقائيًا</string>
     <string name="autospace_after_punctuation_summary">أدرج مسافةً تلقائيًا بعد علامة الترقيم عند كتابة كلمة جديدة</string>
     <string name="incognito">افرض وضع التخفي</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>]دقيقة.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="subtype_no_language_colemak_dh">الأبجدية (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">الأبجدية (Workman)</string>
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
@@ -243,4 +243,115 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">وردي</string>
     <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى مسح البيانات التي تم تعلمها</string>
     <string name="add_to_personal_dictionary">إضافة كلمات إلى القاموس الشخصي</string>
+    <string name="select_color_key_hint">نص تلميح رئيسي</string>
+    <string name="var_toolbar_direction_summary">عكس الاتجاه عند تحديد نوع فرعي من لوحة المفاتيح من اليمين إلى اليسار</string>
+    <string name="var_toolbar_direction">اتجاه شريط الأدوات المتغير</string>
+    <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
+    <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
+    <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
+    <string name="add_new_dictionary_ask_locale">إلى أي لغة يجب إضافة القاموس \"%1$s\" لـ %2$s؟</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">النيلي</string>
+    <string name="subtype_xdq">كايتاج</string>
+    <string name="add_dictionary">حدد قاموسًا لإضافته. يمكن تنزيل القواميس بتنسيق .dict %s.</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">الرموز(العربية)</string>
+    <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة ارقام</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
+    <string name="customize_symbols_number_layouts">تخصيص الرموز وتخطيطات الأرقام</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة رقمية (أفقي)</string>
+    <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
+    <string name="dictionary_file_error">خطأ: الملف المحدد ليس ملف قاموس صالح</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">اسود</string>
+    <string name="show_horizontal_space_swipe">إيماءة التمرير بشريط المسافة الأفقي</string>
+    <string name="show_vertical_space_swipe">إيماءة التمرير بشريط المسافة العمودي</string>
+    <string name="action_none">لاشيء</string>
+    <string name="space_swipe_move_cursor_entry">حرك المؤشر</string>
+    <string name="backup_error">خطأ النسخ الاحتياطي: %s</string>
+    <string name="restore_error">خطأ في استعادة النسخة الاحتياطية: %s</string>
+    <string name="load_gesture_library_summary">قم بتوفير مكتبة أصلية لتمكين الكتابة بالإيماءات</string>
+    <string name="load_gesture_library_message">ستحتاج إلى مكتبة \'%s\'. قد تتعطل المكتبات غير المتوافقة عند استخدام الكتابة بالإيماءات.
+\n
+\nتحذير: تحميل التعليمات البرمجية الخارجية يمكن أن يشكل خطراً أمنياً. استخدم فقط مكتبة من مصدر تثق به.</string>
+    <string name="checksum_mismatch_message">ملف مكتبة غير معروف. هل أنت متأكد أنك حصلت عليه من مصدر موثوق به وأنه مخصص لـ \'%s\'؟</string>
+    <string name="show_popup_keys_title">عرض المزيد من الحروف مع علامات التشكيل في النافذة المنبثقة</string>
+    <string name="show_popup_keys_more">إضافة المتغيرات المشتركة</string>
+    <string name="show_popup_keys_all">إضافة جميع المتغيرات المتاحة</string>
+    <string name="url_detection_title">كشف عنوان URL</string>
+    <string name="url_detection_summary">حاول اكتشاف عناوين URL وما شابه ذلك من كلمة واحدة</string>
+    <string name="language_and_layouts_title">اللغات والتخطيطات</string>
+    <string name="hint_source">حدد مصدر التلميح</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">تَخطِيط</string>
+    <string name="toolbar_keys">حدد مفاتيح شريط الأدوات</string>
+    <string name="full_left" tools:keep="@string/full_left">اليسار الكامل</string>
+    <string name="full_right" tools:keep="@string/full_right">اليمين الكامل</string>
+    <string name="show_popup_hints_summary">قم بعرض التلميحات إذا كان الضغط لفترة طويلة على المفتاح يؤدي إلى تشغيل وظائف إضافية</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">كايتاج (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="day_or_night_image">تعيين الصورة لوضع النهار أو الليل؟</string>
+    <string name="day_or_night_day">صباح</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="كورية">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="message_add_custom_layout">حدد ملفًا بتنسيق متوافق. المعلومات حول التنسيقات متاحة %s.</string>
+    <string name="button_copy_existing_layout">انسخ التخطيط الموجود</string>
+    <string name="title_layout_name_select">تعيين اسم التخطيط</string>
+    <string name="delete_layout">هل تريد حقًا حذف التخطيط المخصص %s؟</string>
+    <string name="layout_error">خطأ في التخطيط: %s</string>
+    <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
+    <string name="day_or_night_night">ليل</string>
+    <string name="customize_background_image">تعيين صورة الخلفية</string>
+    <string name="replace_dictionary_message">هل تريد حقًا استبدال القاموس الذي أضافه المستخدم \"%1$s\"؟
+\n
+\nالقاموس الحالي:
+\n%2$s
+\n
+\nقاموس جديد:
+\n%3$s</string>
+    <string name="dictionary_load_error">حدث خطأ أثناء تحميل ملف القاموس</string>
+    <string name="dictionary_file_wrong_locale">الملف المحدد مخصص لـ %1$s، لكن %2$s كان متوقعًا. هل مازلت تستخدمه لـ %2$s؟</string>
+    <string name="theme_colors_night">الألوان (الليل)</string>
+    <string name="select_color_accent">اللون الثانوي</string>
+    <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
+    <string name="select_color_suggestion">نص شريط الاقتراح</string>
+    <string name="main_colors">عرض الألوان الرئيسية فقط</string>
+    <string name="select_user_colors_night">ضبط الألوان (ليلا)</string>
+    <string name="select_user_colors">ضبط الألوان</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">محدد من قبل المستخدم (ليلا)</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">هولو الأبيض</string>
+    <string name="theme_navbar">شريط التنقل الملون</string>
+    <string name="hidden_features_text">تخزين محمي بالجهاز</string>
+    <string name="hidden_features_summary">إظهار الميزات التي قد تمر دون أن يلاحظها أحد</string>
+    <string name="hidden_features_title">وصف الميزات المخفية</string>
+    <string name="text_tap_languages">اضغط على اللغة لفتح الإعدادات</string>
+    <string name="language_switch_key_switch_both">التبديل بينهما</string>
+    <string name="prefs_always_show_suggestions_summary">تجاهل طلب التطبيقات الأخرى لتعطيل الاقتراحات (قد يسبب مشاكل)</string>
+    <string name="show_popup_hints">إظهار التلميحات الوظيفية</string>
+    <string name="dictionary_file_wrong_script">خطأ: البرنامج النصي غير متوافق مع لوحة المفاتيح هذه</string>
+    <string name="show_popup_keys_normal">إظهار المتغيرات المحددة بلغات لوحة المفاتيح (افتراضي)</string>
+    <string name="prefs_bottom_padding_scale">مقياس الحشو السفلي</string>
+    <string name="hidden_features_message">► يؤدي الضغط لفترة طويلة على مفتاح الحافظة (المفتاح الاختياري الموجود في شريط الاقتراحات) إلى لصق محتويات حافظة النظام. &lt;br&gt; &lt;br&gt; ► يؤدي الضغط لفترة طويلة على المفاتيح في شريط أدوات شريط الاقتراحات إلى تثبيتها في شريط الاقتراحات. &lt;br&gt; &lt;br&gt; ► اضغط لفترة طويلة على مفتاح الفاصلة للوصول إلى عرض الحافظة، أو عرض الرموز التعبيرية، أو الوضع بيد واحدة، أو الإعدادات، أو تبديل اللغة: &lt;br&gt; • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّن؛ &lt;br&gt; • بالنسبة لبعض التخطيطات، لا يكون مفتاح الفاصلة هو المفتاح، بل المفتاح الموجود في نفس الموضع (على سبيل المثال، يكون \"q\" لتخطيط دفوراك). &lt;br&gt; &lt;br&gt; ► عند تمكين وضع التصفح المتخفي، لن يتم تعلم أي كلمات، ولن تتم إضافة أي رموز تعبيرية إلى الأحدث. &lt;br&gt; &lt;br&gt; ► اضغط على أيقونة التصفح المتخفي للوصول إلى شريط الأدوات. &lt;br&gt; &lt;br&gt; ► إدخال المفتاح المنزلق: اسحب من مفتاح Shift إلى مفتاح آخر لكتابة مفتاح واحد كبير: &lt;br&gt; • يعمل هذا أيضًا مع المفتاح \"?123\" لكتابة رمز واحد من لوحة مفاتيح الرموز، ولـ المفاتيح ذات الصلة. &lt;br&gt; &lt;br&gt; ► اضغط لفترة طويلة على أحد الاقتراحات في شريط الاقتراحات لإظهار المزيد من الاقتراحات، ثم اضغط على زر الحذف لإزالة هذا الاقتراح. &lt;br&gt; &lt;br&gt; ► اسحب لأعلى من أحد الاقتراحات لفتح المزيد من الاقتراحات، ثم حرر الاقتراح لتحديده. &lt;br&gt; &lt;br&gt; ► اضغط لفترة طويلة على أحد الإدخالات في سجل الحافظة لتثبيته (احتفظ به في الحافظة حتى تقوم بإلغاء تثبيته). &lt;br&gt; &lt;br&gt; ► يمكنك إضافة قواميس عن طريق فتحها في مستكشف الملفات: &lt;br&gt; • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt; مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt; &lt;br&gt; &lt;i&gt;وضع التصحيح / تصحيح APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • اضغط لفترة طويلة على اقتراح لإظهار القاموس المصدر.&lt;br&gt; &lt;br&gt; • عند استخدام تصحيح APK، يمكنك ابحث عن إعدادات التصحيح ضمن التفضيلات المتقدمة، على الرغم من أن الفائدة محدودة باستثناء تفريغ القواميس في السجل. &lt;br&gt; &lt;br&gt; • في حالة تعطل التطبيق، سيتم سؤالك عما إذا كنت تريد سجلات التعطل عند فتح الإعدادات. &lt;br&gt; &lt;br&gt; • عند استخدام الكتابة متعددة اللغات، سيُظهر شريط المسافة قيمة الثقة المستخدمة لتحديد اللغة المستخدمة حاليًا. &lt;br&gt; &lt;br&gt; • ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لتظهر بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيلها). &lt;br&gt; &lt;br&gt; ► بالنسبة للمستخدمين الذين يقومون بالنسخ الاحتياطي اليدوي مع الوصول إلى الجذر: بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. &lt;br&gt; يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد. &lt;br&gt; الملف موجود في /data/user_de/0/package_id/shared_prefs/، على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android.</string>
+    <string name="gnu_gpl">رخصة جنو العامة v3.0</string>
+    <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
+    <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
+    <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
+    <string name="no_dictionary_message">بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;
+\n
+\n . . . . . . . .يمكنك تنزيل القواميس %1$s، أو التحقق من إمكانية تنزيل قاموس \"%2$s\" مباشرة %3$s.</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="البنقالية">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="الكورية">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">الأبجدية (بيبو)</string>
+    <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
+    <string name="cut" tools:keep="@string/cut">قصّ</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (طالب)</string>
+    <string name="center_suggestion_text_to_enter">استخدم دائمًا الاقتراح الأوسط</string>
+    <string name="center_suggestion_text_to_enter_summary">عند الضغط على مسافة أو علامات الترقيم، سيتم إدخال الاقتراح الأوسط</string>
+    <string name="close_history" tools:keep="@string/close_history">إغلاق تاريخ الحافظة</string>
+    <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="الكاندا">%s</xliff:g> (Extended)</string>
+    <string name="subtype_mns">مانسي</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">مانسي (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="more_colors">عرض المزيد من الالوان</string>
+    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. لا يوجد لون افتراضي، ولن تتم ترجمة الأسماء.</string>
 </resources>

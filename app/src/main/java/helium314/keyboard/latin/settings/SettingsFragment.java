@@ -30,6 +30,7 @@ import helium314.keyboard.latin.utils.DictionaryUtilsKt;
 import helium314.keyboard.latin.utils.ExecutorUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.List;
 import java.io.BufferedOutputStream;
@@ -89,7 +90,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)
                 sb.append(", ");
-            sb.append(subtype.getDisplayName(getActivity(), requireContext().getPackageName(), requireContext().getApplicationInfo()));
+            sb.append(SubtypeUtilsKt.displayName(subtype, requireContext()));
         }
         return sb.toString();
     }

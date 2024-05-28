@@ -25,7 +25,8 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
     val enabledSubtypes = mutableListOf<Pair<InputMethodInfo, InputMethodSubtype?>>()
     var currentSubtypeIndex = 0
     enabledImis.forEach { imi ->
-        val subtypes = richImm.getEnabledInputMethodSubtypeList(imi, true)
+        val subtypes = if (imi != thisImi) richImm.getEnabledInputMethodSubtypeList(imi, true)
+            else richImm.getEnabledInputMethodSubtypeList(imi, true).sortedBy { it.displayName(latinIme).toString() }
         if (subtypes.isEmpty()) {
             enabledSubtypes.add(imi to null)
         } else {
@@ -43,9 +44,9 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
     for (imiAndSubtype in enabledSubtypes) {
         val (imi, subtype) = imiAndSubtype
 
-        val title = SpannableString(subtype?.getDisplayName(latinIme, imi.packageName, imi.serviceInfo.applicationInfo)
-            ?.ifBlank { imi.loadLabel(pm) }
-            ?: imi.loadLabel(pm))
+        val subtypeName = if (imi == thisImi) subtype?.displayName(latinIme)
+            else subtype?.getDisplayName(latinIme, imi.packageName, imi.serviceInfo.applicationInfo)
+        val title = SpannableString(subtypeName?.ifBlank { imi.loadLabel(pm) } ?: imi.loadLabel(pm))
         val subtitle = SpannableString(if (subtype == null) "" else "\n${imi.loadLabel(pm)}")
         title.setSpan(
             RelativeSizeSpan(0.9f), 0, title.length,

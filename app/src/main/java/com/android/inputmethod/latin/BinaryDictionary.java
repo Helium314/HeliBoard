@@ -21,7 +21,6 @@ import helium314.keyboard.latin.common.FileUtils;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.makedict.DictionaryHeader;
-import helium314.keyboard.latin.makedict.FormatSpec;
 import helium314.keyboard.latin.makedict.FormatSpec.DictionaryOptions;
 import helium314.keyboard.latin.makedict.UnsupportedFormatException;
 import helium314.keyboard.latin.makedict.WordProperty;
@@ -245,10 +244,7 @@ public final class BinaryDictionary extends Dictionary {
                     outAttributeValues.get(i));
             attributes.put(attributeKey, attributeValue);
         }
-        final boolean hasHistoricalInfo = DictionaryHeader.ATTRIBUTE_VALUE_TRUE.equals(
-                attributes.get(DictionaryHeader.HAS_HISTORICAL_INFO_KEY));
-        return new DictionaryHeader(outHeaderSize[0], new DictionaryOptions(attributes),
-                new FormatSpec.FormatOptions(outFormatVersion[0], hasHistoricalInfo));
+        return new DictionaryHeader(new DictionaryOptions(attributes));
     }
 
     @Override

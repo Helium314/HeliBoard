@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
  * A helper class to deal with subtype locales.
   */
 // TODO: consolidate this into RichInputMethodSubtype
+// todo (later): see whether this complicated mess can be simplified
 public final class SubtypeLocaleUtils {
     static final String TAG = SubtypeLocaleUtils.class.getSimpleName();
 
@@ -191,7 +192,7 @@ public final class SubtypeLocaleUtils {
         if (exceptionalNameResId != null) {
             displayName = RunInLocaleKt.runInLocale(sResources, displayLocale, res -> res.getString(exceptionalNameResId));
         } else {
-            displayName = locale.getDisplayName(displayLocale);
+            displayName = LocaleUtils.getLocaleDisplayNameInLocale(locale, sResources, displayLocale);
         }
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale);
     }

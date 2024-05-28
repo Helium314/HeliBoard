@@ -15,10 +15,10 @@
     <string name="settings_screen_correction">"Выпраўленне тэксту"</string>
     <string name="settings_screen_advanced">"Дадатковыя"</string>
     <string name="settings_screen_theme">"Тэма"</string>
-    <string name="enable_split_keyboard">"Уключыць раздзеленую клавіятуру"</string>
-    <string name="language_switch_key_switch_input_method">Пераключаць метады ўводу</string>
-    <string name="show_language_switch_key">"Кнопка пераключэння мовы"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> мс"</string>
+    <string name="enable_split_keyboard">Ўключыць раздзеленую клавіятуру</string>
+    <string name="language_switch_key_switch_input_method">Змена метадаў ўводу</string>
+    <string name="show_language_switch_key">Клавіша змены мовы</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">"Стандартныя сістэмныя"</string>
     <string name="use_contacts_dict">"Падказваць імёны кантактаў"</string>
     <string name="use_contacts_dict_summary">"Выкарыстоўваць імёны са спісу кантактаў для прапаноў і выпраўл."</string>
@@ -36,19 +36,19 @@
     <string name="prefs_block_potentially_offensive_summary">"Не прапануйце патэнцыяльна абразлівых слоў"</string>
     <string name="autocorrect">"Аўтавыпраўленне"</string>
     <string name="auto_correction_summary">"Прабелы і пунктуацыйныя знакі дазваляюць аўтаматычна выпраўляць памылкова ўведзеныя словы"</string>
-    <string name="auto_correction_threshold_mode_off">"Адключаны"</string>
+    <string name="auto_correction_threshold_mode_off">Адкл.</string>
     <string name="auto_correction_threshold_mode_modest">"Сціплы"</string>
     <string name="auto_correction_threshold_mode_aggressive">"Агрэсіўна"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"Вельмі агрэсіўна"</string>
     <string name="bigram_prediction">"Падказкi для наступнага слова"</string>
     <string name="bigram_prediction_summary">"Выкарыстоўваць папярэдняе слова, каб атрымлiваць падказкi"</string>
-    <string name="gesture_input">Уключыць ўвод жэстамі</string>
-    <string name="gesture_input_summary">"Уводзьце слова, перасоўваючы палец па літарах"</string>
+    <string name="gesture_input">Ўключыць ўвод жэстамі</string>
+    <string name="gesture_input_summary">Ўвядзіце слова, перасоўваючы палец па літарах</string>
     <string name="gesture_preview_trail">"Паказаць след жэста"</string>
     <string name="gesture_floating_preview_text">"Дынамічны плаваючы прагляд"</string>
     <string name="gesture_floating_preview_text_summary">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware">"Жэст фразы"</string>
-    <string name="gesture_space_aware_summary">"Уводзьце прабелы паміж жэстамі, праводзячы па клавішы прабелу"</string>
+    <string name="gesture_space_aware_summary">Ўвядзіце прабелы паміж жэстамі, праводзячы па клавішы прабелу</string>
     <string name="subtype_en_GB">"Англійская (Вялікабрытанія)"</string>
     <string name="subtype_en_US">"Англійская (ЗША)"</string>
     <string name="subtype_es_US">"Іспанская (ЗША)"</string>
@@ -57,10 +57,10 @@
     <string name="subtype_with_layout_en_GB">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Традыцыйная)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Кампактная)</string>
+    <string name="subtype_with_layout_hi_Latn">Хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальская">%s</xliff:g> (Традыцыйная)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хіндзі">%s</xliff:g> (Кампактная)</string>
     <string name="subtype_no_language">стандартная (лацініца)</string>
     <string name="subtype_no_language_qwerty">"Лацініца (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Лацініца (QWERTZ)"</string>
@@ -80,23 +80,23 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Эмодзі для фізічнай клавіятуры"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Фізічная клавіша Alt паказвае ўсе даступныя эмодзі"</string>
     <string name="button_default">"Па змаўчанні"</string>
-    <string name="setup_welcome_title">Вітаем у прыкладанні <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">"з уводам жэстамі"</string>
+    <string name="setup_welcome_title">Вітаем ў <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">з ўводам жэстамі</string>
     <string name="setup_start_action">"Пачаць"</string>
     <string name="setup_next_action">"Далей"</string>
-    <string name="setup_steps_title">Наладка прыкладання <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Уключыць прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Праверце праграму \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" у сваіх наладах параметра \"Мовы і ўвод\". Гэта дазволіць ёй працаваць на вашай прыладзе.</string>
-    <string name="setup_step1_finished_instruction">Праграма <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ужо ўключана ў вашых наладах параметра \"Мовы і ўвод\", так што гэты крок зроблены. Пераходзім да наступнага!</string>
-    <string name="setup_step1_action">"Уключыць у наладах"</string>
-    <string name="setup_step2_title">Пераключыцца на прыкладанне <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Выберыце \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як актыўны метад уводу тэксту.</string>
-    <string name="setup_step2_action">"Пераключэнне метадаў уводу"</string>
-    <string name="setup_step3_title">"Усё гатова!"</string>
-    <string name="setup_step3_instruction">Цяпер вы можаце ўводзіць ўсе свае любімыя прыкладанні з iмем <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_steps_title">Наладка <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Ўключыць <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Праверце праграму \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ў сваіх наладах «Мова і ўвод». Гэта дазволіць ёй працаваць на вашай прыладзе.</string>
+    <string name="setup_step1_finished_instruction">Праграма <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ўжо ўключана ў наладах «Мова і ўвод». Перайдзіце да наступнага кроку!</string>
+    <string name="setup_step1_action">Ўключыць ў наладах</string>
+    <string name="setup_step2_title">Пераключыцца на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Выберыце «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» бягучым метадам ўводу.</string>
+    <string name="setup_step2_action">Змена спосабаў ўводу</string>
+    <string name="setup_step3_title">Ўсё гатова!</string>
+    <string name="setup_step3_instruction">Цяпер вы можаце пісаць ва ўсіх вашых любімых праграмах з дапамогай <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Гатова"</string>
     <string name="show_setup_wizard_icon">"Паказаць значок прыкладання"</string>
-    <string name="show_setup_wizard_icon_summary">"Паказаць значок прыкладання ў панэлi запуску"</string>
+    <string name="show_setup_wizard_icon_summary">Паказаць значок праграмы ў панэлi запуску</string>
     <string name="dictionary_settings_title">"Дадатковыя слоўнікі"</string>
     <string name="dictionary_settings_summary">"Налады для слоўнікаў"</string>
     <string name="dictionary_available">"Даступны слоўнік"</string>
@@ -108,35 +108,35 @@
     <string name="delete">"Выдаліць"</string>
     <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Дадаць"</string>
-    <string name="user_dict_settings_add_dialog_title">"Дадаць у слоўнік"</string>
+    <string name="user_dict_settings_add_dialog_title">Дадаць ў слоўнік</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Гарачая клавіша:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Мова:"</string>
-    <string name="user_dict_settings_add_word_hint">"Увядзіце слова"</string>
+    <string name="user_dict_settings_add_word_hint">Ўвядзіце слова</string>
     <string name="user_dict_settings_add_shortcut_hint">"Неабавязковая гарачая клавіша"</string>
     <string name="user_dict_settings_edit_dialog_title">"Рэдагаваць слова"</string>
-    <string name="user_dict_settings_empty_text">"У карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі \"Дадаць\" (+)."</string>
+    <string name="user_dict_settings_empty_text">Ў карыстальніцкім слоўніку няма ніводнага слова. Каб дадаць слова, дакраніце да кнопкі «Дадаць» (+).</string>
     <string name="user_dict_settings_all_languages">"Для ўсіх моў"</string>
     <string name="user_dict_settings_more_languages">"Іншыя мовы…"</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ'"</string>
     <string name="settings_category_clipboard_history">Гісторыя буфера абмену</string>
     <string name="settings_category_correction">Выпраўленні</string>
     <string name="settings_category_suggestions">Прапановы</string>
-    <string name="settings_category_experimental">Эксперыментальныя функцыі</string>
+    <string name="settings_category_experimental">Эксперыментальныя</string>
     <string name="settings_category_miscellaneous">Рознае</string>
     <string name="settings_no_limit">Без абмежаванняў</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>Мін.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> хв.</string>
     <string name="android_spell_checker_settings">Налады праверкі правапісу HeliBoard</string>
     <string name="show_emoji_key">Клавіша эмодзі</string>
     <string name="ime_settings">Налады HeliBoard</string>
     <string name="settings_category_input">Ўвод</string>
     <string name="settings_category_additional_keys">Дадатковыя клавішы</string>
     <string name="spell_checker_service_name">Праверка правапісу HeliBoard</string>
-    <string name="enable_clipboard_history">Уключыць гісторыю буфера абмену</string>
+    <string name="enable_clipboard_history">Ўключыць гісторыю буфера абмену</string>
     <string name="enable_clipboard_history_summary">Калі выключана, клавіша буфера абмену будзе ўстаўляць змесціва буфера абмену, калі яно ёсць</string>
     <string name="clipboard_history_retention_time">Час захоўвання гісторыі буфера абмену</string>
     <string name="prefs_force_incognito_mode_summary">Адключыць вывучэнне новых слоў</string>
     <string name="backup_restore_title">Рэзервовае капіраванне і аднаўленне</string>
-    <string name="backup_restore_message">Захавайце ці загрузіце з файла. Увага: аднаўленне перазапіша існуючыя дадзеныя</string>
+    <string name="backup_restore_message">Захавайце ці загрузіце з файла. Ўвага: аднаўленне перазапіша існуючыя дадзеныя</string>
     <string name="backup_error">Памылка рэзервовага капіявання: %s</string>
     <string name="restore_error">Памылка аднаўлення з рэзервовай копіі: %s</string>
     <string name="button_backup">Рэзервовае капіраванне</string>
@@ -174,12 +174,12 @@
     <string name="dialog_close">Закрыць</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Выкарыстоўваць мовы сістэмы"</string>
     <string name="text_tap_languages">Націсніце на мову, каб адкрыць наладкі</string>
-    <string name="select_input_method">"Выберыце метад уводу"</string>
+    <string name="select_input_method">Выберыце метад ўводу</string>
     <string name="hidden_features_title">Апісанне схаваных функцый</string>
     <string name="hidden_features_summary">Паказаць функцыі, якія могуць застацца незаўважанымі</string>
     <string name="number_row_summary">Заўсёды паказваць лічбавы радок</string>
     <string name="delete_swipe">Выдаліць свайпам</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальская">%s</xliff:g> (Акхор)</string>
     <string name="prefs_narrow_key_gaps">Павялічаныя клавішы</string>
     <string name="prefs_keyboard_height_scale">Шкала вышыні клавіятуры</string>
     <string name="url_detection_title">Выяўленне URL-адрасу</string>
@@ -192,7 +192,7 @@
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="day_night_mode">Выкарыстоўваць тэму сістэмы</string>
     <string name="theme_style">Стыль тэмы</string>
-    <string name="style_name_Rounded">Rounded</string>
+    <string name="style_name_Rounded">Закруглены</string>
     <string name="theme_colors">Колеры тэмы</string>
     <string name="theme_colors_night">Колеры тэмы (цёмная тэма)</string>
     <string name="key_borders">Контуры клавіш</string>
@@ -201,9 +201,9 @@
     <string name="autospace_after_punctuation">Аўтапрабел пасля знакаў прыпынку</string>
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="day_night_mode_summary">Знешні выгляд будзе адпавядаць наладам сістэмы</string>
-    <string name="auto_correction_confidence">Упэўненасць у аўтавыпраўленні</string>
+    <string name="auto_correction_confidence">Канфідэнцыяльнасць аўтавыпраўлення</string>
     <string name="undo">"Адрабіць"</string>
-    <string name="redo">"Узнавіць"</string>
+    <string name="redo">Паўтарыць</string>
     <string name="use_personalized_dicts_summary">"Запам. паведамл. і даныя, якія вы ўводзіце, для паляпшэння прапаноў"</string>
     <string name="label_go_key">"Пачаць"</string>
     <string name="label_next_key">"Далей"</string>
@@ -226,16 +226,16 @@
     <string name="show_popup_keys_all">Дадаць ўсе даступныя варыянты</string>
     <string name="more_autocorrect">Больш аўтакарэкцыі</string>
     <string name="split_spacer_scale">Адлегласць падзелу</string>
-    <string name="prefs_always_show_suggestions_summary">Ігнараваць запыты іншых праграм на адключэнне прапаноў</string>
-    <string name="switch_language">Пераключыць мову</string>
+    <string name="prefs_always_show_suggestions_summary">Ігнараваць запыты іншых праграм на адключэнне прапаноў (можа выклікаць праблемы)</string>
+    <string name="switch_language">Змена мовы</string>
     <string name="disable_personalized_dicts_message">Папярэджанне: Адключэнне гэтай налады прывядзе да выдалення атрыманых дадзеных</string>
     <string name="load_gesture_library_button_load">Загрузіць бібліятэку</string>
     <string name="show_popup_keys_title">Паказаць больш літар з дыякрытычнымі знакамі пры ўтрыманні</string>
     <string name="more_autocorrect_summary">Аўтавыпраўленне, нават калі гэта відавочна не запытана ў полі ўводу</string>
-    <string name="language_switch_key_switch_both">Пераключаць абодва</string>
-    <string name="up" tools:keep="@string/up">Уверх</string>
+    <string name="language_switch_key_switch_both">Змена абодвух</string>
+    <string name="up" tools:keep="@string/up">Ўверх</string>
     <string name="show_popup_hints">Паказаць функцыянальныя падказкі</string>
-    <string name="message_add_custom_layout">Выберыце файл у сумяшчальным фармаце. Інфармацыя пра фарматы даступна %s.</string>
+    <string name="message_add_custom_layout">Выберыце файл ў сумяшчальным фармаце. Інфармацыя пра фарматы даступна %s.</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Мова (прыярытэт)</string>
     <string name="file_read_error">Немагчыма прачытаць файл</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Мова</string>
@@ -243,12 +243,12 @@
     <string name="clipboard" tools:keep="@string/clipboard">Буфер абмену</string>
     <string name="down" tools:keep="@string/down">Ўніз</string>
     <string name="toolbar_keys">Выберыце клавішы панэлі інструментаў</string>
-    <string name="full_left" tools:keep="@string/full_left">У левы канец</string>
+    <string name="full_left" tools:keep="@string/full_left">Ў левы канец</string>
     <string name="select_word" tools:keep="@string/select_word">Выберыце слова</string>
     <string name="left" tools:keep="@string/left">Налева</string>
-    <string name="button_title_add_custom_layout">Дадаць уласную раскладку</string>
+    <string name="button_title_add_custom_layout">Дадаць карыстацкую раскладку</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Сімвалы</string>
-    <string name="full_right" tools:keep="@string/full_right">У правы канец</string>
+    <string name="full_right" tools:keep="@string/full_right">Ў правы канец</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Ачысціць буфер абмену</string>
     <string name="button_load_custom">Загрузіць файл</string>
     <string name="prefs_bottom_padding_scale">Вышыня ніжняй водступу</string>
@@ -256,4 +256,91 @@
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
     <string name="localized_number_row">Лакалізаваць лікавы радок</string>
     <string name="add_to_personal_dictionary_summary">Выкарыстоўваць асабісты слоўнік прылады для захоўвання вывучаных слоў</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Кайтагская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальская">%s</xliff:g> (Прабгат)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Карэйская">%s</xliff:g> (Себяольсік 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Карэйская">%s</xliff:g> (Себяольсік фінальная)</string>
+    <string name="add_new_dictionary_ask_locale">Да якой мовы трэба дадаць слоўнік «%1$s» для %2$s?</string>
+    <string name="remove_dictionary_message">Выдаліць карыстальніцкі слоўнік «%s»?</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Шэраг з лічбамі</string>
+    <string name="popup_order">Выберыце парадак ўсплывальных клавіш</string>
+    <string name="hint_source">Выберыце крыніцу падказкі</string>
+    <string name="var_toolbar_direction">Пераменны напрамак панэлі інструментаў</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шакалад</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Воблачна</string>
+    <string name="prefs_long_press_symbol_for_numpad">Доўгі націск клавішы сімвалаў для лічбавай клавіятуры</string>
+    <string name="button_copy_existing_layout">Скапіяваць бягучую раскладку</string>
+    <string name="title_layout_name_select">Задаць імя раскладкі</string>
+    <string name="delete_layout">Сапраўды выдаліць карыстацкую раскладку %s?</string>
+    <string name="dictionary_load_error">Памылка загрузкі файла слоўніка</string>
+    <string name="subtype_xdq">кайтагскі</string>
+    <string name="customize_symbols_number_layouts">Настройка размяшчэння знакаў і лікаў</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Сімвалы</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Сімвалы (арабскія)</string>
+    <string name="show_vertical_space_swipe">Вертыкальны свайп па прабелу</string>
+    <string name="action_none">Бяздзейнасць</string>
+    <string name="show_horizontal_space_swipe">Гарызантальны свайп па прабелу</string>
+    <string name="localized_number_row_summary">Аддаваць перавагу лакалізаваныя лацінскія лічбы</string>
+    <string name="show_popup_hints_summary">Паказваць падказкі, калі працяглы націск клавішы запускае дадатковыя функцыі</string>
+    <string name="cut" tools:keep="@string/cut">Выразаць</string>
+    <string name="layout_error">Памылка раскладкі: %s</string>
+    <string name="edit_layout">Націсніце, каб адрэдагаваць базавую раскладку</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Больш сімвалаў</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Тэлефон</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Сімвалы тэлефона</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Лічбы</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Лічбавая клавіятура</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Лічбавая клавіятура (гарызантальная)</string>
+    <string name="customize_background_image">Ўсталяваць фонавы малюнак</string>
+    <string name="day_or_night_image">Ўсталяваць малюнак для дзённага ці начнога рэжыму?</string>
+    <string name="day_or_night_day">Дзень</string>
+    <string name="day_or_night_night">Ноч</string>
+    <string name="button_select_language">Абярыце мову</string>
+    <string name="button_add_to_language">Дадаць ў %s</string>
+    <string name="replace_dictionary">Замяніць слоўнік</string>
+    <string name="no_dictionary_dont_show_again_button">Больш не паказваць</string>
+    <string name="available_dictionary_experimental">%s (эксперыментальны)</string>
+    <string name="dictionary_file_error">Памылка: абраны файл не з\'яўляецца карэктным слоўнікам</string>
+    <string name="dictionary_file_wrong_locale">Выбраны файл прызначаны для %1$s, але чакаўся %2$s. Вы яшчэ карыстаецеся ім для %2$s?</string>
+    <string name="dictionary_file_wrong_script">Памылка: скрыпт несумяшчальны з гэтай клавіятурай</string>
+    <string name="dictionary_file_wrong_locale_ok">Ўсё яшчэ выкарыстоўваецца</string>
+    <string name="user_dict_add_word_button">Дадаць слова</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Дынамічныя колеры</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Шэра-блакітны</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Індыга</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Акіян</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Ружовы</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пясок</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Віялета</string>
+    <string name="main_colors">Паказваць толькі асноўныя колеры</string>
+    <string name="all_colors">Паказваць ўсе колеры</string>
+    <string name="select_color_suggestion">Тэкст паласы прапаноў</string>
+    <string name="space_swipe_move_cursor_entry">Перамяшчэнне курсора</string>
+    <string name="setup_step3_action">Наладка клавіятуры</string>
+    <string name="dictionary_settings_category">Слоўнікі</string>
+    <string name="internal_dictionary_summary">Ўнутраны асноўны слоўнік</string>
+    <string name="add_dictionary">Абярыце для дадання слоўніка. Слоўнікі ў фармаце .dict можна скачаць %s.</string>
+    <string name="dictionary_link_text">тут</string>
+    <string name="user_dict_word_already_present">Гэтае слова ўжо прысутнічае ў карыстацкім слоўніку %s. Калі ласка, ўвядзіце іншае.</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Карычневы</string>
+    <string name="select_color_gesture">Ўвод жэстамі</string>
+    <string name="save_log">Захаваць лог</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Алфавіт (Бепо)</string>
+    <string name="replace_dictionary_message">Замяніць карыстацкі слоўнік «%1$s»?
+\n
+\nБягучы слоўнік:
+\n%2$s
+\n
+\nНовы слоўнік:
+\n%3$s</string>
+    <string name="no_dictionary_message">Без слоўніка вы будзеце атрымліваць прапановы толькі для ўведзенага раней тэксту.&lt;br&gt;
+\nВы можаце загрузіць слоўнікі %1$s або праверыць, ці можна загрузіць слоўнік для «%2$s» напрамую %3$s.</string>
+    <string name="hidden_features_text">сховішча, абароненае прыладай</string>
+    <string name="var_toolbar_direction_summary">Зваротны напрамак, калі выбраны падтып клавіятуры з пісьмом справа налева</string>
+    <string name="add_new_dictionary_title">Дадаць слоўнік з файла</string>
+    <string name="user_dict_settings_add_weight_value">Вага:</string>
+    <string name="label_search_key">Пошук</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Руская">%s</xliff:g> (Студэнцкая)</string>
 </resources>

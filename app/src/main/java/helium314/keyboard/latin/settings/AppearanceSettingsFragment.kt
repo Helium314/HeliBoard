@@ -2,10 +2,16 @@
 
 package helium314.keyboard.latin.settings
 
+import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.util.TypedValueCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -13,7 +19,9 @@ import androidx.preference.TwoStatePreference
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.infoDialog
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -33,6 +41,18 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
     private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
 
+    private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, false)
+    }
+
+    private val nightImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, true)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.prefs_screen_appearance)
@@ -51,6 +71,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 true
             }
         }
+        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
     }
 
     override fun onPause() {
@@ -142,6 +163,55 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         colorsNightPref?.isVisible = dayNightPref?.isChecked == true
         userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
         userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+    }
+
+    private fun onClickLoadImage(): Boolean {
+        if (Settings.readDayNightPref(sharedPreferences, resources)) {
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.day_or_night_image)
+                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
+                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true) }
+                .setNeutralButton(android.R.string.cancel, null)
+                .show()
+        } else {
+            customImageDialog(false)
+        }
+        return true
+    }
+
+    private fun customImageDialog(night: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+        val builder = AlertDialog.Builder(requireContext())
+            .setMessage(R.string.customize_background_image)
+            .setPositiveButton(R.string.button_load_custom) { _, _ ->
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("image/*")
+                if (night) nightImageFilePicker.launch(intent)
+                else dayImageFilePicker.launch(intent)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+        if (imageFile.exists()) {
+            builder.setNeutralButton(R.string.delete) { _, _ ->
+                imageFile.delete()
+                Settings.clearCachedBackgroundImages()
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            }
+        }
+        builder.show()
+    }
+
+    private fun loadImage(uri: Uri, night: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+        FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
+        try {
+            BitmapFactory.decodeFile(imageFile.absolutePath)
+        } catch (_: Exception) {
+            infoDialog(requireContext(), R.string.file_read_error)
+            imageFile.delete()
+        }
+        Settings.clearCachedBackgroundImages()
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     private fun setupScalePrefs(prefKey: String, defaultValue: Float) {

@@ -6,10 +6,8 @@
 
 package helium314.keyboard.latin.makedict
 
-import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.makedict.FormatSpec.DictionaryOptions
-import helium314.keyboard.latin.makedict.FormatSpec.FormatOptions
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -18,12 +16,8 @@ import java.util.Locale
  * Class representing dictionary header.
  */
 class DictionaryHeader(
-    headerSize: Int,
-    @JvmField
-    val mDictionaryOptions: DictionaryOptions,
-    val mFormatOptions: FormatOptions
+    @JvmField val mDictionaryOptions: DictionaryOptions,
 ) {
-    val mBodyOffset = if (mFormatOptions.mVersion < FormatSpec.VERSION4) headerSize else 0
     val mLocaleString = mDictionaryOptions.mAttributes[DICTIONARY_LOCALE_KEY]
         ?: throw UnsupportedFormatException("Cannot create a FileHeader without a locale")
     @JvmField
@@ -34,7 +28,7 @@ class DictionaryHeader(
     @JvmField
     val mIdString = mDictionaryOptions.mAttributes[DICTIONARY_ID_KEY]
         ?: throw UnsupportedFormatException("Cannot create a FileHeader without an ID")
-    val mDate = mDictionaryOptions.mAttributes[DICTIONARY_DATE_KEY]?.toIntOrNull()
+    private val mDate = mDictionaryOptions.mAttributes[DICTIONARY_DATE_KEY]?.toIntOrNull()
 
     val description: String?
         // Helper method to get the description

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Verificare nume în agendă"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Verificatorul ortografic utilizează intrări din lista de contacte"</string>
     <string name="vibrate_on_keypress">"Vibrare la apăsarea tastei"</string>
@@ -15,13 +14,13 @@
     <string name="settings_screen_correction">"Corectarea textului"</string>
     <string name="settings_screen_advanced">"Avansate"</string>
     <string name="settings_screen_theme">"Temă"</string>
-    <string name="enable_split_keyboard">"Activați tastatura divizată"</string>
+    <string name="enable_split_keyboard">Activează tastatura divizată</string>
     <string name="language_switch_key_switch_input_method">"Comut. alte metode de introd."</string>
     <string name="show_language_switch_key">"Tastă comutare limbi"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> msec."</string>
     <string name="settings_system_default">"Valoare prestabilită"</string>
-    <string name="use_contacts_dict">"Sugerați nume din Agendă"</string>
-    <string name="use_contacts_dict_summary">"Utilizați numele din Agendă pentru sugestii și corecții"</string>
+    <string name="use_contacts_dict">Sugerează nume din Agendă</string>
+    <string name="use_contacts_dict_summary">Utilizează numele din Agendă pentru sugestii și corecții</string>
     <string name="use_personalized_dicts">"Sugestii personalizate"</string>
     <string name="use_double_space_period">"Inserează punct spațiu"</string>
     <string name="use_double_space_period_summary">"Dubla atingere a barei de spațiu inserează punct urmat de spațiu"</string>
@@ -30,9 +29,9 @@
     <string name="edit_personal_dictionary">"Dicționar personal"</string>
     <string name="configure_dictionaries_title">"Dicționare suplimentare"</string>
     <string name="main_dictionary">"Dicționar principal"</string>
-    <string name="prefs_show_suggestions">"Afișați sugestii de corectare"</string>
+    <string name="prefs_show_suggestions">Afișează sugestii de corectare</string>
     <string name="prefs_show_suggestions_summary">"Afișează sugestii de cuvinte în timpul introducerii textului"</string>
-    <string name="prefs_block_potentially_offensive_title">"Blocați cuvintele jignitoare"</string>
+    <string name="prefs_block_potentially_offensive_title">Blochează cuvintele jignitoare</string>
     <string name="prefs_block_potentially_offensive_summary">"Nu se sugerează cuvinte potențial jignitoare"</string>
     <string name="autocorrect">"Autocorectare"</string>
     <string name="auto_correction_summary">"Corectare automată cuvinte prin bară spațiu/semne punctuație"</string>
@@ -42,13 +41,13 @@
     <string name="auto_correction_threshold_mode_very_aggressive">"Foarte agresivă"</string>
     <string name="bigram_prediction">"Sugestii pentru cuvântul următor"</string>
     <string name="bigram_prediction_summary">"Utilizează cuvântul anterior pentru sugestii"</string>
-    <string name="gesture_input">"Activați tastarea gestuală"</string>
-    <string name="gesture_input_summary">"Introduceți un cuvânt glisând ușor între litere"</string>
+    <string name="gesture_input">Activează tastarea gestuală</string>
+    <string name="gesture_input_summary">Introdu un cuvânt glisând ușor între litere</string>
     <string name="gesture_preview_trail">"Se afișează urma gestului"</string>
     <string name="gesture_floating_preview_text">"Sugestie flotantă dinamică"</string>
-    <string name="gesture_floating_preview_text_summary">"Afișați cuvântul sugerat când utilizați gesturi"</string>
+    <string name="gesture_floating_preview_text_summary">Afișează cuvântul sugerat când utilizezi gesturi</string>
     <string name="gesture_space_aware">"Gest expresie"</string>
-    <string name="gesture_space_aware_summary">"Introduceți spații în timpul gesturilor, glisând pe tasta spațiu"</string>
+    <string name="gesture_space_aware_summary">Introdu spații în timpul gesturilor, glisând pe tasta spațiu</string>
     <string name="subtype_en_GB">"engleză (Regatul Unit)"</string>
     <string name="subtype_en_US">"engleză (S.U.A.)"</string>
     <string name="subtype_es_US">"spaniolă (S.U.A.)"</string>
@@ -69,9 +68,9 @@
     <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
-    <string name="add">"Adăugați"</string>
-    <string name="remove">"Eliminați"</string>
-    <string name="save">"Salvați"</string>
+    <string name="add">Adaugă</string>
+    <string name="remove">Elimină</string>
+    <string name="save">Salvează</string>
     <string name="subtype_locale">"Limbă"</string>
     <string name="keyboard_layout_set">"Aspect"</string>
     <string name="prefs_keypress_vibration_duration_settings">"Vibrare după apăsarea tastei"</string>
@@ -82,21 +81,21 @@
     <string name="button_default">"Prestabilit"</string>
     <string name="setup_welcome_title">"Bun venit la <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"cu Tastarea gestuală"</string>
-    <string name="setup_start_action">"Începeți"</string>
+    <string name="setup_start_action">Începe</string>
     <string name="setup_next_action">"Pasul următor"</string>
-    <string name="setup_steps_title">"Configurarea <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Activați <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Bifați „<xliff:g id="APPLICATION_NAME">%s</xliff:g>” în „Limbi și introducerea textului”. Astfel, o veți autoriza să ruleze pe dispozitiv."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> este activată deja în „Limbi și introducerea textului”, deci ați finalizat pasul. Treceți la următorul!"</string>
-    <string name="setup_step1_action">"Activați în Setări"</string>
-    <string name="setup_step2_title">"Comutați la <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step2_instruction">"Apoi, selectați „<xliff:g id="APPLICATION_NAME">%s</xliff:g>” ca metodă de introducere a textului activă."</string>
-    <string name="setup_step2_action">"Comutați între metodele de introducere a textului"</string>
-    <string name="setup_step3_title">"Felicitări, sunteți gata!"</string>
-    <string name="setup_step3_instruction">"Acum, puteți introduce text în toate aplicațiile preferate, utilizând <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_steps_title">Se configurează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Activează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Bifează \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" în „Limbi și introducerea textului”. Astfel, o vei autoriza să ruleze pe dispozitiv.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> este activată deja în „Limbi și introducerea textului”, deci ai finalizat pasul. Treci la următorul!</string>
+    <string name="setup_step1_action">Activează în Setări</string>
+    <string name="setup_step2_title">Comută la <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Apoi, selectează \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ca metodă de introducere a textului.</string>
+    <string name="setup_step2_action">Comută între metodele de introducere a textului</string>
+    <string name="setup_step3_title">Felicitări, ai finalizat!</string>
+    <string name="setup_step3_instruction">Acum, poți introduce text în toate aplicațiile preferate, utilizând <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Finalizat"</string>
-    <string name="show_setup_wizard_icon">"Afișați pictograma aplicației"</string>
-    <string name="show_setup_wizard_icon_summary">"Afișați pictograma aplicației în lansator"</string>
+    <string name="show_setup_wizard_icon">Afișează pictograma aplicației</string>
+    <string name="show_setup_wizard_icon_summary">Afișează pictograma aplicației în lansator</string>
     <string name="dictionary_settings_title">"Dicționare suplimentare"</string>
     <string name="dictionary_settings_summary">"Setări pentru dicționare"</string>
     <string name="dictionary_available">"Dicționar disponibil"</string>
@@ -105,31 +104,242 @@
     <string name="last_update">"Data ultimei modificări"</string>
     <string name="main_dict_description">"Dicționar principal"</string>
     <string name="settings">"Setări"</string>
-    <string name="delete">"Ștergeți"</string>
-    <string name="version_text">"Versiunea <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="delete">Șterge</string>
+    <string name="version_text">Versiunea <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Adăugați"</string>
-    <string name="user_dict_settings_add_dialog_title">"Adăugați în dicționar"</string>
+    <string name="user_dict_settings_add_dialog_title">Adaugă în dicționar</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Comandă rapidă:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Limbă:"</string>
-    <string name="user_dict_settings_add_word_hint">"Introduceți un cuvânt"</string>
+    <string name="user_dict_settings_add_word_hint">Introdu un cuvânt</string>
     <string name="user_dict_settings_add_shortcut_hint">"Comandă rapidă opțională"</string>
-    <string name="user_dict_settings_edit_dialog_title">"Editați cuvântul"</string>
-    <string name="user_dict_settings_empty_text">"Nu aveți niciun cuvânt în dicționarul utilizatorului. Pentru a adăuga un cuvânt, atingeți butonul Adăugați (+)."</string>
+    <string name="user_dict_settings_edit_dialog_title">Editează cuvântul</string>
+    <string name="user_dict_settings_empty_text">Nu ai niciun cuvânt în dicționarul utilizatorului. Pentru a adăuga un cuvânt, atinge butonul Adaugă (+).</string>
     <string name="user_dict_settings_all_languages">"Pentru toate limbile"</string>
     <string name="user_dict_settings_more_languages">"Mai multe limbi…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Folosește limbile sistemului"</string>
     <string name="select_input_method">"Alege metoda de introducere de text"</string>
     <string name="settings_screen_appearance">"Aspect"</string>
-    <string name="undo">"Anulați"</string>
-    <string name="redo">"Repetați"</string>
+    <string name="undo">Anulează</string>
+    <string name="redo">Repetă</string>
     <string name="use_personalized_dicts_summary">"Utilizează mesajele și datele introduse pt. a îmbunătăți sugestiile"</string>
     <string name="label_go_key">"Start"</string>
-    <string name="label_next_key">"Înai."</string>
-    <string name="label_previous_key">"Înap."</string>
+    <string name="label_next_key">Înainte</string>
+    <string name="label_previous_key">Înapoi</string>
     <string name="label_done_key">"Gata"</string>
-    <string name="label_send_key">"Trim."</string>
-    <string name="label_search_key">"Căutați"</string>
+    <string name="label_send_key">Trimite</string>
+    <string name="label_search_key">Caută</string>
     <string name="label_pause_key">"Pauză"</string>
-    <string name="label_wait_key">"Așt."</string>
+    <string name="label_wait_key">Așteaptă</string>
+    <string name="ime_settings">Setări HeliBoard</string>
+    <string name="settings_category_additional_keys">Chei suplimentare</string>
+    <string name="settings_category_correction">Corectări</string>
+    <string name="settings_category_suggestions">Sugestii</string>
+    <string name="settings_category_experimental">Experimental</string>
+    <string name="settings_category_miscellaneous">Diverse</string>
+    <string name="split_spacer_scale">Distanță divizare</string>
+    <string name="language_switch_key_switch_both">Comută ambele</string>
+    <string name="show_emoji_key">Tasta Emoji</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="settings_no_limit">Fără limită</string>
+    <string name="add_to_personal_dictionary">Adaugă cuvinte în dicționarul personal</string>
+    <string name="add_to_personal_dictionary_summary">Utilizează dicționarul personal al dispozitivului pentru a stoca cuvintele învățate</string>
+    <string name="prefs_always_show_suggestions">Afișează sugestii întotdeauna</string>
+    <string name="more_autocorrect">Mai multă auto-corecție</string>
+    <string name="auto_correction_confidence">Încrederea în corecție automată</string>
+    <string name="clipboard_history_retention_time">Timpul de păstrare a istoricului</string>
+    <string name="settings_category_input">Introducere</string>
+    <string name="spell_checker_service_name">Verificator ortografic HeliBoard</string>
+    <string name="android_spell_checker_settings">Setări pentru verificarea ortografică HeliBoard</string>
+    <string name="settings_category_clipboard_history">Istoric clipboard</string>
+    <string name="enable_clipboard_history">Activează istoricul clipboard-ului</string>
+    <string name="disable_personalized_dicts_message">Avertisment: dezactivarea acestei setări va șterge datele învățate</string>
+    <string name="prefs_always_show_suggestions_summary">Ignoră solicitarea altor aplicații de a dezactiva sugestiile (poate cauza probleme)</string>
+    <string name="more_autocorrect_summary">Corectează automat chiar și atunci când nu este solicitat în mod explicit de câmpul de intrare</string>
+    <string name="enable_clipboard_history_summary">Dacă este dezactivată, tasta clipboard va lipi conținutul clipboard-ului, dacă există</string>
+    <string name="switch_language">Schimbă limba</string>
+    <string name="backup_restore_message">Salvează sau încarcă din fișier. Avertisment: restaurarea va suprascrie datele existente</string>
+    <string name="backup_error">Eroare copie de rezervă: %s</string>
+    <string name="restore_error">Eroare la restaurarea copiei de rezervă: %s</string>
+    <string name="button_backup">Copie de rezervă</string>
+    <string name="delete_swipe">Ștergere prin glisare</string>
+    <string name="delete_swipe_summary">Efectuează o glisare de la tasta de ștergere pentru a selecta și a elimina simultan porțiuni mai mari de text</string>
+    <string name="backup_restore_title">Copie de rezervă și restaurare</string>
+    <string name="popup_order">Selectează ordinea tastelor pop-up</string>
+    <string name="number_row">Rând de numere</string>
+    <string name="number_row_summary">Se afișează întotdeauna rândul de numere</string>
+    <string name="localized_number_row">Localizează rândul de numere</string>
+    <string name="localized_number_row_summary">Preferă numerele localizate în detrimentul celor latine</string>
+    <string name="show_hints">Se afișează indicii tastelor</string>
+    <string name="show_hints_summary">Afișare sugestii la apăsarea lungă</string>
+    <string name="button_restore">Restaurare</string>
+    <string name="secondary_locale">Tastare multilingvă</string>
+    <string name="load_gesture_library">Încarcă biblioteca de tastare prin gesturi</string>
+    <string name="load_gesture_library_summary">Furnizează o bibliotecă nativă pentru a activa tastarea prin gesturi</string>
+    <string name="show_popup_keys_more">Adaugă variante comune</string>
+    <string name="show_popup_keys_all">Adaugă toate variantele disponibile</string>
+    <string name="url_detection_title">Detectare URL</string>
+    <string name="url_detection_summary">Încearcă să detectezi adrese URL și similare ca un singur cuvânt</string>
+    <string name="incognito">Forțează modul incognito</string>
+    <string name="prefs_force_incognito_mode_summary">Dezactivează învățarea cuvintelor noi</string>
+    <string name="more_keys_strip_description">Mai multe taste</string>
+    <string name="language_and_layouts_title">Limbi și aspecte</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rând de numere</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Limbă</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Limbă (prioritate)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Aspect</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboluri</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Șterge clipboard-ul</string>
+    <string name="voice" tools:keep="@string/voice">Intrare vocală</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Modul cu o singură mână</string>
+    <string name="select_word" tools:keep="@string/select_word">Selectare cuvânt</string>
+    <string name="left" tools:keep="@string/left">Stânga</string>
+    <string name="right" tools:keep="@string/right">Dreapta</string>
+    <string name="up" tools:keep="@string/up">Sus</string>
+    <string name="down" tools:keep="@string/down">Jos</string>
+    <string name="show_popup_hints_summary">Afișează sugestii dacă apăsarea lungă a unei taste declanșează funcționalități suplimentare</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Schimbă metoda de introducere cu tasta spațiu</string>
+    <string name="prefs_narrow_key_gaps">Goluri înguste ale tastelor</string>
+    <string name="load_gesture_library_message">Vei avea nevoie de biblioteca pentru „%s”. Bibliotecile incompatibile se pot bloca atunci când utilizezi tastarea prin gesturi.
+\n
+\nAtenție: încărcarea codului extern poate reprezenta un risc de securitate. Utilizează doar o bibliotecă dintr-o sursă în care ai încredere.</string>
+    <string name="toolbar_keys">Selectează tastele barei de instrumente</string>
+    <string name="show_popup_hints">Afișează sugestii funcționale</string>
+    <string name="hint_source">Selectează sursa indicilor</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Apăsarea lungă a tastei spațiu va solicita meniul de selectare a metodei de introducere</string>
+    <string name="var_toolbar_direction_summary">Inversează direcția când este selectat un subtip de tastatură de la dreapta la stânga</string>
+    <string name="var_toolbar_direction">Direcție variabilă a barei de instrumente</string>
+    <string name="prefs_long_press_symbol_for_numpad">Apasă lung tasta simbol pentru tastatura numerică</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alfabet (Workman)</string>
+    <string name="button_title_add_custom_layout">Adaugă un aspect personalizat</string>
+    <string name="message_add_custom_layout">Selectează un fișier într-un format compatibil. Informațiile despre formate sunt disponibile %s.</string>
+    <string name="button_load_custom">Încarcă fișierul</string>
+    <string name="file_read_error">Nu se poate citi fișierul</string>
+    <string name="title_layout_name_select">Setează numele aspectului</string>
+    <string name="edit_layout">Atinge pentru a edita aspectul brut</string>
+    <string name="customize_symbols_number_layouts">Personalizează simbolurile și modelele de numere</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboluri</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboluri (Arabă)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mai multe simboluri</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboluri ale telefonului</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Numere</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (peisaj)</string>
+    <string name="add_new_dictionary_ask_locale">În ce limbă ar trebui adăugat dicționarul „%1$s” pentru %2$s?</string>
+    <string name="button_select_language">Selectează limba</string>
+    <string name="replace_dictionary">Înlocuiește dicționarul</string>
+    <string name="remove_dictionary_message">Elimini cu adevărat dicționarul adăugat de utilizator „%s”?</string>
+    <string name="no_dictionary_dont_show_again_button">Nu mai afișa din nou</string>
+    <string name="dictionary_link_text">aici</string>
+    <string name="dictionary_file_error">Eroare: fișierul selectat nu este un fișier de dicționar valid</string>
+    <string name="dictionary_file_wrong_locale">Fișierul selectat este pentru %1$s, dar se aștepta %2$s. Îl mai folosești pentru %2$s?</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Neagră</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Culori dinamice</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Gri albastru</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Maro</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Ciocolată</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Noros</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Pădure</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="hint_show_keyboard">Clic pentru previzualizare</string>
+    <string name="select_user_colors_summary">Selectează culorile pentru text și fundal</string>
+    <string name="select_color_background">Fundalul tastaturii</string>
+    <string name="hidden_features_title">Descrierea caracteristicilor ascunse</string>
+    <string name="hidden_features_summary">Afișează caracteristici care pot trece neobservate</string>
+    <string name="show_horizontal_space_swipe">Gest de glisare pe bara de spațiu orizontală</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="available_dictionary_experimental">%s (experimental)</string>
+    <string name="dictionary_file_wrong_locale_ok">Folosește oricum</string>
+    <string name="dictionary_load_error">Eroare la încărcarea fișierului dicționar</string>
+    <string name="dictionary_file_wrong_script">Eroare: scriptul nu este compatibil cu această tastatură</string>
+    <string name="user_dict_add_word_button">Adaugă un cuvânt</string>
+    <string name="user_dict_word_already_present">Acest cuvânt este deja prezent în dicționarul utilizatorului %s. Introdu altul.</string>
+    <string name="theme_colors">Culori</string>
+    <string name="theme_navbar">Bară de navigare colorată</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Luminoasă</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo alb</string>
+    <string name="theme_colors_night">Culori (noapte)</string>
+    <string name="key_borders">Chenar taste</string>
+    <string name="day_night_mode">Mod automat zi/noapte</string>
+    <string name="day_night_mode_summary">Aspectul va urma setările sistemului</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roz</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Nisip</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definită de utilizator (noapte)</string>
+    <string name="select_user_colors">Ajustează culorile</string>
+    <string name="all_colors">Afișează toate culorile</string>
+    <string name="auto_user_color">Alege culoarea automat</string>
+    <string name="gnu_gpl">Licență GNU General Public v3.0</string>
+    <string name="layout_error">Eroare de aspect: %s</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
+    <string name="add_new_dictionary_title">Adaugă dicționar din fișier</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
+    <string name="delete_layout">Ștergi cu adevărat aspectul personalizat %s?</string>
+    <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;
+\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
+    <string name="user_dict_settings_add_weight_value">Greutate:</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
+    <string name="select_user_colors_night">Ajustează culorile (noapte)</string>
+    <string name="button_copy_existing_layout">Copiază aspectul existent</string>
+    <string name="dictionary_settings_category">Dicționare</string>
+    <string name="internal_dictionary_summary">Dicționar principal intern</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ocean</string>
+    <string name="select_color_suggestion">Text bandă de sugestii</string>
+    <string name="hidden_features_text">stocarea protejată a dispozitivului</string>
+    <string name="button_add_to_language">Adaugă la %s</string>
+    <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”?
+\n
+\nDicționarul curent:
+\n%2$s
+\n
+\nDicționarul nou:
+\n%3$s</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mai întunecată</string>
+    <string name="main_colors">Afișează numai culorile principale</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rotunjit</string>
+    <string name="theme_style">Stil</string>
+    <string name="select_color_gesture">Introducere prin gesturi</string>
+    <string name="settings_screen_about">Despre</string>
+    <string name="version">Versiune</string>
+    <string name="select_color_accent">Accent</string>
+    <string name="checksum_mismatch_message">Fișier de bibliotecă necunoscut. Ești sigur că l-ai luat dintr-o sursă de încredere și este pentru „%s”?</string>
+    <string name="load_gesture_library_button_load">Încarcă biblioteca</string>
+    <string name="load_gesture_library_button_delete">Șterge biblioteca</string>
+    <string name="autospace_after_punctuation">Spațiu automat după punctuație</string>
+    <string name="autospace_after_punctuation_summary">Se introduce automat spațiu după semnul de punctuație atunci când introduci un cuvânt nou</string>
+    <string name="show_popup_keys_title">Afișează mai multe litere cu semne diacritice în pop-up</string>
+    <string name="show_popup_keys_normal">Afișează variantele definite în limbile tastaturii (implicit)</string>
+    <string name="prefs_keyboard_height_scale">Scala de înălțime a tastaturii</string>
+    <string name="prefs_bottom_padding_scale">Scala de umplere inferioară</string>
+    <string name="full_left" tools:keep="@string/full_left">Stânga integral</string>
+    <string name="full_right" tools:keep="@string/full_right">Dreapta integral</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="add_dictionary">Selectează un dicționar de adăugat. Dicționarele în format .dict pot fi descărcate %s.</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Întunecată</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="customize_background_image">Setează imaginea de fundal</string>
+    <string name="day_or_night_image">Setezi imaginea pentru modul zi sau noapte?</string>
+    <string name="day_or_night_day">Zi</string>
+    <string name="day_or_night_night">Noapte</string>
+    <string name="setup_step3_action">Configurează tastatura</string>
+    <string name="dialog_close">Închide</string>
+    <string name="text_tap_languages">Atinge limba pentru a deschide setările</string>
+    <string name="select_color_key">Textul tastelor</string>
+    <string name="select_color_key_hint">Textul indicilor tastelor</string>
+    <string name="select_color_key_background">Fundal taste</string>
+    <string name="select_color_functional_key_background">Fundal tastă funcțională</string>
+    <string name="select_color_spacebar_background">Fundal bară de spațiu</string>
+    <string name="select_color_spacebar_text">Text bară de spațiu</string>
+    <string name="about_github_link">Vezi pe GitHub</string>
+    <string name="save_log">Salvează jurnalul</string>
+    <string name="license">Licență open-source</string>
+    <string name="show_vertical_space_swipe">Gest de glisare pe bara de spațiu verticală</string>
+    <string name="action_none">Fără</string>
+    <string name="space_swipe_move_cursor_entry">Mută cursorul</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
 </resources>

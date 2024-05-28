@@ -9,6 +9,7 @@
         <!-- Keyboard icons -->
         <item name="iconShiftKey">@drawable/sym_keyboard_shift_rounded</item>
         <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_rounded</item>
+        <item name="iconShiftKeyLocked">@drawable/sym_keyboard_shift_lock_rounded</item>
         <item name="iconDeleteKey">@drawable/sym_keyboard_delete_rounded</item>
         <item name="iconTabKey">@drawable/sym_keyboard_tab_rounded</item>
         <item name="iconSettingsKey">@drawable/sym_keyboard_settings_rounded</item>
@@ -33,6 +34,7 @@
         <item name="iconClipboardActionKey">@drawable/sym_keyboard_clipboard_rounded</item>
         <item name="iconClipboardNormalKey">@drawable/sym_keyboard_clipboard_rounded</item>
         <item name="iconCopyKey">@drawable/sym_keyboard_copy_rounded</item>
+        <item name="iconCutKey">@drawable/sym_keyboard_cut</item>
         <item name="iconClearClipboardKey">@drawable/sym_keyboard_clear_clipboard_rounded</item>
         <item name="iconStartOneHandedMode">@drawable/sym_keyboard_start_onehanded_rounded</item>
         <item name="iconStopOneHandedMode">@drawable/sym_keyboard_stop_onehanded_rounded</item>
