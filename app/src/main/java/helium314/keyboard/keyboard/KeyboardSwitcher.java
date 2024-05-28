@@ -13,7 +13,9 @@ import android.content.res.Resources;
 import helium314.keyboard.latin.utils.Log;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -22,6 +24,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -472,6 +475,25 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void switchOneHandedMode() {
         mKeyboardViewWrapper.switchOneHandedModeSide();
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
+    }
+
+    /**
+     * Displays a toast message.
+     *
+     * @param text The text to display in the toast message.
+     * @param briefToast If true, the toast duration will be short; otherwise, it will last longer.
+     */
+    public void showToast(final String text, final boolean briefToast){
+        // In API 32 and below, toasts can be shown without a notification permission.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            final int toastLength = briefToast ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
+            final Toast toast = Toast.makeText(mLatinIME, text, toastLength);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else {
+            final int toastLength = briefToast ? 2000 : 3500;
+            showFakeToast(text, toastLength);
+        }
     }
 
     // Displays a toast-like message with the provided text for a specified duration.

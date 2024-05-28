@@ -10,11 +10,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
+
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
@@ -671,7 +674,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (text == null || text.length() == 0) return;
         final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
-        ((LatinIME)mParent).showToast(mParent.getString(R.string.toast_msg_clipboard_copy), true, false);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            KeyboardSwitcher.getInstance().showToast(mParent.getString(R.string.toast_msg_clipboard_copy), true);
+        }
     }
 
     public void commitCorrection(final CorrectionInfo correctionInfo) {

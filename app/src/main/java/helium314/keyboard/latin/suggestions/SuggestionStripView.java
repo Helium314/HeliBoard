@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -76,7 +77,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
         void removeSuggestion(final String word);
-        void showToast(final String text, final boolean briefToast, final boolean fallback);
     }
 
     public static boolean DEBUG_SUGGESTIONS;
@@ -446,7 +446,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
         if (!info.getWord().equals(word)) return;
         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-        mListener.showToast(text, true, true);
+        KeyboardSwitcher.getInstance().showToast(text, true);
     }
 
     private void removeSuggestion(TextView wordView) {
