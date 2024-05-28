@@ -446,6 +446,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
         if (!info.getWord().equals(word)) return;
         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
+        if (isShowingMoreSuggestionPanel()) {
+            mMoreSuggestionsView.dismissPopupKeysPanel();
+        }
         KeyboardSwitcher.getInstance().showToast(text, true);
     }
 

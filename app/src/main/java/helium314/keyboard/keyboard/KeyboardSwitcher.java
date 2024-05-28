@@ -508,6 +508,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
         mFakeToastView.setText(text);
         mFakeToastView.setVisibility(View.VISIBLE);
+        mFakeToastView.bringToFront();
         isToastShowing = true;
         mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_in));
 
