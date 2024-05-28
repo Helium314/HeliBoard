@@ -26,6 +26,12 @@
         android:icon="@drawable/ic_settings_appearance"
         latin:singleLineTitle="false" />
     <PreferenceScreen
+        android:fragment="helium314.keyboard.latin.settings.ToolbarSettingsFragment"
+        android:title="@string/settings_screen_toolbar"
+        android:key="screen_toolbar"
+        android:icon="@drawable/ic_settings_toolbar"
+        latin:singleLineTitle="false" />
+    <PreferenceScreen
         android:fragment="helium314.keyboard.latin.settings.GestureSettingsFragment"
         android:title="@string/settings_screen_gesture"
         android:key="screen_gesture"

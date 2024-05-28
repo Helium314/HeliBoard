@@ -756,8 +756,10 @@ New dictionary:
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
-    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">"Appearance"</string>
+    <!-- Settings screen title for appearance preferences -->
+    <string name="settings_screen_appearance">Appearance</string>
+    <!-- Settings screen title for toolbar preferences -->
+    <string name="settings_screen_toolbar">Toolbar</string>
     <!-- Hidden features title -->
     <string name="hidden_features_title">Description of hidden features</string>
     <!-- Hidden features summary -->
