@@ -241,7 +241,7 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
-        mAutoShowToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, true);
+        mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, true);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, true);
         mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
     }
