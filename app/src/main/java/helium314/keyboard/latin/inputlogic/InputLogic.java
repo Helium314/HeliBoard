@@ -612,31 +612,6 @@ public final class InputLogic {
     }
 
     /**
-     * Creates a new clipboard suggestion.
-     * If the clipboard contains sensitive content, the suggestion input
-     * style is updated in accordance to ensure the content is obscured.
-     * @param clipContent The primary clipboard content as a string.
-     * @param inputType The input type of the current editor.
-     */
-    public SuggestedWords getClipboardSuggestion(final String clipContent, final int inputType) {
-        final ArrayList<SuggestedWordInfo> clipInfoList = new ArrayList<>(1);
-        // In API 24+, a flag for sensitive clipboard content is available, which should be prioritized
-        // over the input type of the editor to determine if the clipboard content should be redacted.
-        final int inputStyle = mLatinIME.getClipboardHistoryManager().isClipSensitive(InputTypeUtils.isPasswordInputType(inputType))
-                ? SuggestedWords.INPUT_STYLE_CLIPBOARD_PASSWORD : SuggestedWords.INPUT_STYLE_CLIPBOARD;
-        clipInfoList.add(new SuggestedWordInfo(
-                clipContent, "",
-                SuggestedWordInfo.MAX_SCORE,
-                SuggestedWordInfo.KIND_HARDCODED,
-                Dictionary.DICTIONARY_HARDCODED,
-                SuggestedWordInfo.NOT_AN_INDEX,
-                SuggestedWordInfo.NOT_A_CONFIDENCE));
-        return new SuggestedWords(clipInfoList, null /* rawSuggestions */, null /* typedWord */,
-                false /* typedWordValid */, false /* willAutoCorrect */, false /* isObsoleteSuggestions */,
-                inputStyle, SuggestedWords.NOT_A_SEQUENCE_NUMBER);
-    }
-
-    /**
      * Handle a consumed event.
      * <p>
      * Consumed events represent events that have already been consumed, typically by the

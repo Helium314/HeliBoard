@@ -1594,7 +1594,6 @@ public class LatinIME extends InputMethodService implements
                 currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                         && suggestedWords.isEmpty();
         final boolean noSuggestionsFromDictionaries = suggestedWords.isEmpty()
-                || suggestedWords.isClipboardSuggestion()
                 || suggestedWords.isPunctuationSuggestions()
                 || isEmptyApplicationSpecifiedCompletions;
 
@@ -1644,23 +1643,28 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void onClipboardSuggestionPicked(){
+    public void onClipboardSuggestionPicked(final String clipContent) {
         mClipboardHistoryManager.markSuggestionAsPicked();
-        setNeutralSuggestionStrip();
+        onTextInput(clipContent);
     }
 
     // This will set a new clipboard suggestion if the primary clipboard is not empty
     // and the relevant setting is enabled.
     // In case of input and content type mismatch, no suggestion will be shown.
-    // It returns true or false depending if the suggestion has been set successfully.
-    public boolean setClipboardSuggestion(){
+    // It returns true or false depending on whether the suggestion has been set successfully.
+    public boolean setClipboardSuggestion() {
+        if (!hasSuggestionStripView()) return false;
         final String clipContent = mClipboardHistoryManager.retrieveClipboardSuggestionContent();
         if (!clipContent.isEmpty()) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
             // make sure clipboard content that is not a number is not suggested in a number input type
             if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                setSuggestedWords(mInputLogic.getClipboardSuggestion(clipContent, inputType));
+                setSuggestedWords(SuggestedWords.getEmptyInstance()); // reset old suggested words
+                // In API 24+, a flag for sensitive clipboard content is available, which should be prioritized
+                // over the input type of the editor to determine if the clipboard content should be redacted.
+                final boolean isSensitive = getClipboardHistoryManager().isClipSensitive(InputTypeUtils.isPasswordInputType(inputType));
+                mSuggestionStripView.setClipboardSuggestion(clipContent, isSensitive);
                 return true;
             }
         }
@@ -1674,20 +1678,22 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        if (currentSettings.mSuggestClipboardContent) {
-            if (setClipboardSuggestion())
-                return; // clipboard suggestion has been set
+        if (currentSettings.mSuggestClipboardContent && setClipboardSuggestion()) {
+            return; // clipboard suggestion has been set
         }
-        if (!currentSettings.mBigramPredictionEnabled) {
-            setSuggestedWords(currentSettings.mSpacingAndPunctuations.mSuggestPuncList);
-            return;
-        }
-        setSuggestedWords(SuggestedWords.getEmptyInstance());
+        final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
+                ? SuggestedWords.getEmptyInstance()
+                : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
+        setSuggestedWords(neutralSuggestions);
     }
 
     @Override
-    public void removeSuggestion(final String word) {
-        mDictionaryFacilitator.removeWord(word);
+    public void removeSuggestion(final String word, final boolean isClipboardSuggestion) {
+        if (isClipboardSuggestion) {
+            mClipboardHistoryManager.markSuggestionAsPicked();
+        } else {
+            mDictionaryFacilitator.removeWord(word);
+        }
     }
 
     private void loadKeyboard() {

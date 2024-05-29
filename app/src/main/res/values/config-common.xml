@@ -12,8 +12,6 @@
     <!-- Default value for next word prediction: after entering a word and a space only, should we
          look at input history to suggest a hopefully helpful suggestions for the next word? -->
     <bool name="config_default_next_word_prediction">true</bool>
-    <!-- Default value for the setting to suggest clipboard content -->
-    <bool name="config_default_suggest_clipboard_content">true</bool>
 
     <!-- Maximum time for a clipboard history entry to be kept, in minutes. -->
     <integer name="config_clipboard_history_retention_time">10</integer>
@@ -99,6 +97,11 @@
     <dimen name="config_more_suggestions_bottom_gap">6dp</dimen>
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>
     <fraction name="config_more_suggestions_info_ratio">18%</fraction>
+
+    <!-- Common clipboard suggestion configuration. -->
+    <bool name="config_default_suggest_clipboard_content">true</bool>
+    <dimen name="config_clipboard_suggestion_horizontal_padding">12dp</dimen>
+    <dimen name="config_clipboard_suggestion_drawable_padding">3dp</dimen>
 
     <!-- Common gesture trail parameters -->
     <!-- Minimum distance between gesture trail sampling points. -->

@@ -32,8 +32,6 @@ public class SuggestedWords {
     public static final int INPUT_STYLE_RECORRECTION = 5;
     public static final int INPUT_STYLE_PREDICTION = 6;
     public static final int INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION = 7;
-    public static final int INPUT_STYLE_CLIPBOARD = 8;
-    public static final int INPUT_STYLE_CLIPBOARD_PASSWORD = 9;
 
     // The maximum number of suggestions available.
     public static final int MAX_SUGGESTIONS = 18;
@@ -168,15 +166,6 @@ public class SuggestedWords {
      */
     public boolean isPunctuationSuggestions() {
         return false;
-    }
-
-    /**
-     * The predicator to tell whether this object represents a clipboard suggestion.
-     * @return false if this object doesn't represent a clipboard suggestion
-     */
-    public boolean isClipboardSuggestion(){
-        return mInputStyle == SuggestedWords.INPUT_STYLE_CLIPBOARD_PASSWORD
-                || mInputStyle == SuggestedWords.INPUT_STYLE_CLIPBOARD;
     }
 
     @Override

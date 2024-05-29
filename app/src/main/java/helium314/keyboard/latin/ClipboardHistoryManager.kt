@@ -199,6 +199,6 @@ class ClipboardHistoryManager(
         private var recentEntry: String = ""
         private var recentTimestamp: Long = 0L
         private var suggestionPicked: Boolean = false
-        private const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
+        const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }
 }

@@ -519,7 +519,7 @@ class DefaultColors (
             view.setBackgroundColor(Color.WHITE) // set white to make the color filters work
         when (color) {
             KEY_PREVIEW, POPUP_KEYS_BACKGROUND -> view.background.colorFilter = adjustedBackgroundFilter
-            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND -> setColor(view.background, color)
+            FUNCTIONAL_KEY_BACKGROUND, KEY_BACKGROUND, BACKGROUND, SPACE_BAR_BACKGROUND, STRIP_BACKGROUND, CLIPBOARD_SUGGESTION_BACKGROUND -> setColor(view.background, color)
             ONE_HANDED_MODE_BUTTON -> setColor(view.background, if (keyboardBackground == null) BACKGROUND else STRIP_BACKGROUND)
             MORE_SUGGESTIONS_BACKGROUND -> view.background.colorFilter = backgroundFilter
             MAIN_BACKGROUND -> {

@@ -111,7 +111,7 @@
         <SwitchPreference
             android:key="suggest_clipboard_content"
             android:title="@string/suggest_clipboard_content"
-            android:defaultValue="true"
+            android:defaultValue="@bool/config_default_suggest_clipboard_content"
             android:summary="@string/suggest_clipboard_content_summary"
             android:persistent="true" />
 
