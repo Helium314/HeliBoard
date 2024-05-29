@@ -1025,7 +1025,8 @@ public class LatinIME extends InputMethodService implements
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
-        if (!mHandler.hasPendingResumeSuggestions() && !mHandler.hasPendingUpdateSuggestions()) {
+        if (!mHandler.hasPendingResumeSuggestions()) {
+            mHandler.cancelUpdateSuggestionStrip();
             setNeutralSuggestionStrip();
             if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar) {
                 mSuggestionStripView.setToolbarVisibility(true);
@@ -1657,7 +1658,7 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
-        if (currentSettings.mAutoShowToolbar) {
+        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
             final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
             if (mInputLogic.mConnection.hasSelection()
                     || codePointBeforeCursor == Constants.NOT_A_CODE

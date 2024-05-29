@@ -825,7 +825,7 @@ New dictionary:
     <!-- Title of the setting for showing the toolbar automatically -->
     <string name="auto_show_toolbar">Auto show toolbar</string>
     <!-- Description of the setting for showing the toolbar automatically -->
-    <string name="auto_show_toolbar_summary">Shows the toolbar if there are no suggestions when input starts</string>
+    <string name="auto_show_toolbar_summary">Shows the toolbar when you start typing or select text</string>
     <!-- Title of the setting for hiding the toolbar automatically -->
     <string name="auto_hide_toolbar">Auto hide toolbar</string>
     <!-- Description of the setting for hiding the toolbar automatically -->
