@@ -49,9 +49,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
         }
-        if (!Settings.readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            removePreference(Settings.PREF_POPUP_ON);
-        }
 
         setupKeypressVibrationDurationSettings();
         setupKeypressSoundVolumeSettings();
@@ -154,12 +151,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readKeypressVibrationDuration(prefs, res);
+                return Settings.readKeypressVibrationDuration(prefs);
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return Settings.readDefaultKeypressVibrationDuration(res);
+                return -1;
             }
 
             @Override
@@ -209,12 +206,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs, res));
+                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs));
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return getPercentageFromValue(Settings.readDefaultKeypressSoundVolume(res));
+                return getPercentageFromValue(-1f);
             }
 
             @Override

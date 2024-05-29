@@ -87,6 +87,14 @@
         latin:singleLineTitle="false" />
 
     <Preference
+        android:key="custom_symbols_number_layouts"
+        android:title="@string/customize_symbols_number_layouts" />
+
+    <Preference
+        android:key="custom_functional_key_layouts"
+        android:title="@string/customize_functional_key_layouts" />
+
+    <Preference
         android:key="backup_restore"
         android:title="@string/backup_restore_title" />
 
@@ -105,15 +113,6 @@
             android:title="@string/url_detection_title"
             android:summary="@string/url_detection_summary"
             android:defaultValue="false" />
-
-        <Preference
-            android:key="custom_background_image"
-            android:title="@string/customize_background_image" />
-
-        <Preference
-            android:key="custom_symbols_number_layouts"
-            android:title="@string/customize_symbols_number_layouts"
-            android:summary="@string/customize_symbols_number_layouts_summary" />
 
         <Preference
             android:key="load_gesture_library"

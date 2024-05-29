@@ -958,6 +958,13 @@ public class LatinIME extends InputMethodService implements
         // Note: This call should be done by InputMethodService?
         updateFullscreenMode();
 
+        // we need to reload the setting before using them, e.g. in startInput or in postResumeSuggestions
+        // not sure why it was further below, but this introduced inconsistent behavior where wrong input attributes were used
+        if (isDifferentTextField ||
+                !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
+            loadSettings();
+            currentSettingsValues = mSettings.getCurrent();
+        }
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
         // be fine, but this is horribly confusing and must be fixed AS SOON AS POSSIBLE.
@@ -1001,14 +1008,8 @@ public class LatinIME extends InputMethodService implements
             needToCallLoadKeyboardLater = false;
         }
 
-        if (isDifferentTextField ||
-                !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
-            loadSettings();
-        }
         if (isDifferentTextField) {
             mainKeyboardView.closing();
-            currentSettingsValues = mSettings.getCurrent();
-
             if (currentSettingsValues.mAutoCorrectEnabled) {
                 suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
             }

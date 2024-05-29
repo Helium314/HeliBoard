@@ -4,34 +4,24 @@ package helium314.keyboard.keyboard.internal.keyboard_parser
 import android.content.Context
 import android.content.res.Configuration
 import helium314.keyboard.latin.utils.Log
-import android.view.inputmethod.EditorInfo
-import androidx.annotation.StringRes
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
-import helium314.keyboard.keyboard.KeyboardTheme
-import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
-import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.Constants
-import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
-import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.replaceFirst
-import helium314.keyboard.latin.utils.runInLocale
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
 
@@ -45,7 +35,6 @@ import helium314.keyboard.latin.utils.sumOf
  * requirements of certain non-latin languages.
  */
 class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
-    private val infos = layoutInfos(params)
     private val defaultLabelFlags = when {
         params.mId.isAlphabetKeyboard -> params.mLocaleKeyboardInfos.labelFlags
         // reproduce the no-hints in symbol layouts
@@ -56,11 +45,6 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
     fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
-        params.mProximityCharsCorrectionEnabled = infos.enableProximityCharsCorrection
-        if (infos.touchPositionCorrectionData == null) // need to set correctly, as it's not properly done in readAttributes with attr = null
-            params.mTouchPositionCorrection.load(emptyArray())
-        else
-            params.mTouchPositionCorrection.load(context.resources.getStringArray(infos.touchPositionCorrectionData))
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
@@ -119,14 +103,13 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val functionalKeysFromBottom = functionalKeysBottom.getOrNull(i - bottomIndexOffset) ?: emptyList()
             functionalKeys.add(getFunctionalKeysBySide(functionalKeysFromTop, functionalKeysFromBottom))
 
-            row.mapNotNull { key ->
+            row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
                         Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
-                val keyData = key.processFunctionalKeys() ?: return@mapNotNull null // all keys could actually be functional keys...
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "adding key ${keyData.label}, ${keyData.code}")
-                keyData.toKeyParams(params, defaultLabelFlags or extraFlags)
+                    Log.d(TAG, "adding key ${key.label}, ${key.code}")
+                key.toKeyParams(params, defaultLabelFlags or extraFlags)
             }
         }
         return setReasonableWidths(baseKeyParams, functionalKeys)
@@ -214,8 +197,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val functionalKeysBottom = allFunctionalKeys.lastOrNull() ?: return
         if (!params.mId.isAlphaOrSymbolKeyboard || functionalKeysBottom.isEmpty() || functionalKeysBottom.any { it.isKeyPlaceholder() })
             return
-        if (true /* Settings.getInstance().current.mSingleFunctionalLayout */) { // todo with the customizable functional layout
-            //   remove unwanted keys (emoji, numpad, language switch)
+        if (!Settings.getInstance().current.mHasCustomFunctionalLayout) {
+            // remove keys that should only exist on specific layouts or depend on setting (emoji, numpad, language switch)
             if (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)
                 functionalKeysBottom.removeFirst { it.label == KeyLabel.EMOJI }
             if (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)
@@ -235,31 +218,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             )
             baseKeys.removeLast()
         }
-        //   add those extra keys depending on layout (remove later)
-        val spaceIndex = functionalKeysBottom.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // 0 or -1
+        // add zwnj key next to space if necessary
+        val spaceIndex = functionalKeysBottom.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // width could be 0 or -1
         if (spaceIndex >= 0) {
             if (params.mLocaleKeyboardInfos.hasZwnjKey && params.mId.isAlphabetKeyboard) {
-                // add zwnj key next to space
                 functionalKeysBottom.add(spaceIndex + 1, TextKeyData(label = KeyLabel.ZWNJ))
-            } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
-                // add / key next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-                functionalKeysBottom.add(spaceIndex + 1, TextKeyData(label = "/", type = KeyType.FUNCTION))
-            } else if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-                // add < and > keys next to space, todo (later): not any more, but keep it so this PR can be released without too many people complaining
-                val key1 = TextKeyData(
-                    label = "<",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "‹", "≤", "«")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                    type = KeyType.FUNCTION
-                )
-                val key2 = TextKeyData(
-                    label = ">",
-                    popup = SimplePopups(listOf("!fixedColumnOrder!3", "›", "≥", "»")),
-                    labelFlags = Key.LABEL_FLAGS_HAS_POPUP_HINT,
-                    type = KeyType.FUNCTION
-                )
-                functionalKeysBottom.add(spaceIndex + 1, key2)
-                functionalKeysBottom.add(spaceIndex, key1)
             }
         }
         baseKeys.add(mutableListOf())
@@ -272,36 +235,9 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         // functional keys from top rows are the outermost, if there are some in the same row
         functionalKeysFromTopLeft.addAll(functionalKeysFromBottomLeft)
         functionalKeysFromBottomRight.addAll(functionalKeysFromTopRight)
-        val functionalKeysLeft = functionalKeysFromTopLeft.mapNotNull { it.processFunctionalKeys()?.toKeyParams(params) }
-        val functionalKeysRight = functionalKeysFromBottomRight.mapNotNull { it.processFunctionalKeys()?.toKeyParams(params) }
+        val functionalKeysLeft = functionalKeysFromTopLeft.map { it.toKeyParams(params) }
+        val functionalKeysRight = functionalKeysFromBottomRight.map { it.toKeyParams(params) }
         return functionalKeysLeft to functionalKeysRight
-    }
-
-    // this is not nice in here, but otherwise we'd need context, and defaultLabelFlags and infos for toKeyParams
-    // improve it later, but currently this messy way is still ok
-    private fun KeyData.processFunctionalKeys(): KeyData? = when (label) {
-        // todo: why defaultLabelFlags exactly here? is this for armenian or bengali period labels? try removing also check in holo theme
-        KeyLabel.PERIOD -> copy(newLabelFlags = labelFlags or defaultLabelFlags)
-        KeyLabel.SHIFT -> if (infos.hasShiftKey) this else null
-        KeyLabel.ACTION -> copy(
-            // todo: evaluating the label should actually only happen in toKeyParams
-            //  this label change already makes it necessary to provide the background in here too, because toKeyParams can't use action as label
-            newLabel = "${getActionKeyLabel()}|${getActionKeyCode()}",
-            newPopup = popup.merge(getActionKeyPopupKeys()?.let { SimplePopups(it) }),
-            // the label change is messing with toKeyParams, so we need to supply the appropriate BG type here
-            newType = type ?: KeyType.ENTER_EDITING,
-            newLabelFlags = Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
-                    Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
-                    Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
-        )
-        else -> {
-            // this is ugly...
-            if (label.length > 8 && label.startsWith("!string/")) {
-                val id = context.resources.getIdentifier(label.substringAfter("!string/"), "string", context.packageName)
-                if (id != 0) copy(newLabel = getInLocale(id))
-                else this
-            } else this
-        }
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
@@ -310,7 +246,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val numberRow = params.mLocaleKeyboardInfos.getNumberRow()
             numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRow.toMutableList()
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && infos.numbersOnTopRow) {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && hasNumbersOnTopRow()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
                     val layout = it.indexOf(POPUP_KEYS_LAYOUT)
@@ -340,200 +276,15 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         }
     }
 
-    private fun getActionKeyLabel(): String {
-        if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-            return "!icon/enter_key"
-        val iconName = when (params.mId.imeAction()) {
-            EditorInfo.IME_ACTION_GO -> KeyboardIconsSet.NAME_GO_KEY
-            EditorInfo.IME_ACTION_SEARCH -> KeyboardIconsSet.NAME_SEARCH_KEY
-            EditorInfo.IME_ACTION_SEND -> KeyboardIconsSet.NAME_SEND_KEY
-            EditorInfo.IME_ACTION_NEXT -> KeyboardIconsSet.NAME_NEXT_KEY
-            EditorInfo.IME_ACTION_DONE -> KeyboardIconsSet.NAME_DONE_KEY
-            EditorInfo.IME_ACTION_PREVIOUS -> KeyboardIconsSet.NAME_PREVIOUS_KEY
-            InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
-            else -> return "!icon/enter_key"
-        }
-        val replacement = iconName.replaceIconWithLabelIfNoDrawable()
-        return if (iconName == replacement) // i.e. icon exists
-            "!icon/$iconName"
-        else
-            replacement
-    }
-
-    private fun getActionKeyCode() =
-        if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
-            "!code/key_shift_enter"
-        else "!code/key_enter"
-
-    private fun getActionKeyPopupKeys(): Collection<String>? {
-        val action = params.mId.imeAction()
-        val navigatePrev = params.mId.navigatePrevious()
-        val navigateNext = params.mId.navigateNext()
-        return when {
-            params.mId.passwordInput() -> when {
-                navigatePrev && action == EditorInfo.IME_ACTION_NEXT -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
-                action == EditorInfo.IME_ACTION_NEXT -> null
-                navigateNext && action == EditorInfo.IME_ACTION_PREVIOUS -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
-                action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS_NEXT)
-                navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
-                navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
-                else -> null
-            }
-            // could change definition of numbers to query a range, or have a pre-defined list, but not that crucial
-            params.mId.isNumberLayout || params.mId.mMode in listOf(KeyboardId.MODE_EMAIL, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME) -> when {
-                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
-                action == EditorInfo.IME_ACTION_NEXT -> null
-                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
-                action == EditorInfo.IME_ACTION_PREVIOUS -> null
-                navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS_NEXT)
-                navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_NEXT)
-                navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_PREVIOUS)
-                else -> null
-            }
-            action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS)
-            action == EditorInfo.IME_ACTION_NEXT -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
-            action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_NEXT)
-            action == EditorInfo.IME_ACTION_PREVIOUS -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
-            navigateNext && navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT)
-            navigateNext -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_NEXT)
-            navigatePrev -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS)
-            else -> createPopupKeys(POPUP_EYS_NAVIGATE_EMOJI)
-        }
-    }
-
-    private fun createPopupKeys(popupKeysDef: String): List<String> {
-        val popupKeys = mutableListOf<String>()
-        for (popupKey in popupKeysDef.split(",")) {
-            val iconPrefixRemoved = popupKey.substringAfter("!icon/")
-            if (iconPrefixRemoved == popupKey) { // i.e. there is no !icon/
-                popupKeys.add(popupKey)
-                continue
-            }
-            val iconName = iconPrefixRemoved.substringBefore("|")
-            val replacementText = iconName.replaceIconWithLabelIfNoDrawable()
-            if (replacementText == iconName) { // i.e. we have the drawable
-                popupKeys.add(popupKey)
-            } else {
-                popupKeys.add(Key.POPUP_KEYS_HAS_LABELS)
-                popupKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
-            }
-        }
-        // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
-        // (probably not necessary, but whatever)
-        if (Settings.getInstance().isTablet && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
-            val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
-            if (i > -1) {
-                val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
-                if (n != null)
-                    popupKeys[i] = popupKeys[i].replace(n.toString(), (n - 1).toString())
-            }
-        }
-        return popupKeys
-    }
-
-    private fun String.replaceIconWithLabelIfNoDrawable(): String {
-        if (params.mIconsSet.getIconDrawable(this) != null) return this
-        if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
-                && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
-                && !params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.EMOJI_CAPABLE)
-            )
-            // fake keyboard that is used by spell checker (for key coordinates), but not shown to the user
-            // often this doesn't have any icons loaded, and there is no need to bother with this
-            return this
-        val id = context.resources.getIdentifier("label_$this", "string", context.packageName)
-        if (id == 0) {
-            Log.w(TAG, "no resource for label $this in ${params.mId}")
-            return this
-        }
-        return getInLocale(id)
-    }
-
-    private fun getInLocale(@StringRes id: Int): String {
-        // todo: hi-Latn strings instead of this workaround?
-        val locale = if (params.mId.locale.toLanguageTag() == "hi-Latn") "en_IN".constructLocale()
-            else params.mId.locale
-        return runInLocale(context, locale) { it.getString(id) }
-    }
+    // some layouts have different number layout, and there we don't want the numbers on the top row
+    // todo: actually should not be in here, but in subtype extra values
+    private fun hasNumbersOnTopRow() = params.mId.mSubtype.keyboardLayoutSetName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
 
     companion object {
         private const val TAG = "KeyboardParser"
-
-        // todo:
-        //  layoutInfos should be stored in method.xml (imeSubtypeExtraValue)
-        //  or somewhere else... some replacement for keyboard_layout_set xml maybe
-        //  some assets file?
-        //  some extended version of locale_key_texts? that would be good, just need to rename the class and file
-        // touchPositionCorrectionData is just the resId, needs to be loaded in parser
-        //  currently always holo is applied in readAttributes
-        private fun layoutInfos(params: KeyboardParams): LayoutInfos {
-            val layout = params.mId.mSubtype.keyboardLayoutSetName
-            // only for alphabet, but some exceptions for shift layouts
-            val enableProximityCharsCorrection = params.mId.isAlphabetKeyboard && when (layout) {
-                "bengali_akkhor", "georgian", "hindi", "lao", "nepali_romanized", "nepali_traditional", "sinhala", "thai" ->
-                    params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
-                else -> true
-            }
-            // essentially this is default for 4 row and non-alphabet layouts, maybe this could be determined automatically instead of using a list
-            // todo: check the difference between default (i.e. none) and holo (test behavior on keyboard)
-            val touchPositionCorrectionData = if (params.mId.isAlphabetKeyboard && layout in listOf("armenian_phonetic", "khmer", "lao", "malayalam", "pcqwerty", "thai"))
-                    R.array.touch_position_correction_data_default
-                else R.array.touch_position_correction_data_holo
-            // custom non-json layout for non-uppercase language should not have shift key
-            val hasShiftKey = !params.mId.isAlphabetKeyboard
-                    || layout !in listOf("hindi_compact", "bengali", "arabic", "arabic_pc", "hebrew", "kannada", "kannada_extended","malayalam", "marathi", "farsi", "tamil", "telugu")
-            val numbersOnTopRow = layout !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
-            return LayoutInfos(enableProximityCharsCorrection, touchPositionCorrectionData, hasShiftKey, numbersOnTopRow)
-        }
     }
 
 }
-
-// todo: actually this should be in some separate file
-data class LayoutInfos(
-    // disabled by default, but enabled for all alphabet layouts
-    // currently set in keyboardLayoutSet
-    val enableProximityCharsCorrection: Boolean = false,
-    // there is holo, default and null
-    // null only for popupKeys keyboard
-    val touchPositionCorrectionData: Int? = null,
-    // some layouts do not have a shift key
-    val hasShiftKey: Boolean = true,
-    // some layouts have different number layout, e.g. thai or korean_sebeolsik
-    val numbersOnTopRow: Boolean = true,
-)
-
-fun String.rtlLabel(params: KeyboardParams): String {
-    if (!params.mId.mSubtype.isRtlSubtype || params.mId.isNumberLayout) return this
-    return when (this) {
-        "{" -> "{|}"
-        "}" -> "}|{"
-        "(" -> "(|)"
-        ")" -> ")|("
-        "[" -> "[|]"
-        "]" -> "]|["
-        "<" -> "<|>"
-        ">" -> ">|<"
-        "≤" -> "≤|≥"
-        "≥" -> "≥|≤"
-        "«" -> "«|»"
-        "»" -> "»|«"
-        "‹" -> "‹|›"
-        "›" -> "›|‹"
-        "﴾" -> "﴾|﴿"
-        "﴿" -> "﴿|﴾"
-        else -> this
-    }
-}
-
-// could make arrays right away, but they need to be copied anyway as popupKeys arrays are modified when creating KeyParams
-private const val POPUP_EYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
-private const val POPUP_EYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-private const val POPUP_EYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-private const val POPUP_EYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
-private const val POPUP_EYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
 
 const val LAYOUT_SYMBOLS = "symbols"
 const val LAYOUT_SYMBOLS_SHIFTED = "symbols_shifted"
@@ -543,7 +294,3 @@ const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
 const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
-const val FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED = "functional_keys_symbols_shifted"
-const val FUNCTIONAL_LAYOUT_SYMBOLS = "functional_keys_symbols"
-const val FUNCTIONAL_LAYOUT = "functional_keys"
-const val FUNCTIONAL_LAYOUT_TABLET = "functional_keys_tablet"

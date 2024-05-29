@@ -22,8 +22,9 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.getCustomFunctionalLayoutName
 import helium314.keyboard.latin.utils.getCustomLayoutFile
-import helium314.keyboard.latin.utils.getCustomLayoutsDir
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -35,13 +36,12 @@ object RawKeyboardParser {
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
         LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
 
-    // todo: cache is by layout name, this is inefficient for functional keys by default
     fun clearCache() = rawLayoutCache.clear()
 
     fun parseLayout(params: KeyboardParams, context: Context, isFunctional: Boolean = false): MutableList<MutableList<KeyData>> {
         val layoutName = if (isFunctional) {
             if (!params.mId.isAlphaOrSymbolKeyboard) return mutableListOf(mutableListOf())
-            else getFunctionalLayoutName(params)
+            else getFunctionalLayoutName(params, context)
         } else {
             getLayoutName(params, context)
         }
@@ -121,43 +121,24 @@ object RawKeyboardParser {
         else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
     }
 
-    // todo (later, see also keyboardParser): use Settings.getInstance().current.mSingleFunctionalLayout
-    private fun getFunctionalLayoutName(params: KeyboardParams) = when (params.mId.mElementId) {
-        KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
-        KeyboardId.ELEMENT_SYMBOLS -> FUNCTIONAL_LAYOUT_SYMBOLS
-        else -> if (Settings.getInstance().isTablet) FUNCTIONAL_LAYOUT_TABLET else FUNCTIONAL_LAYOUT
+    private fun getFunctionalLayoutName(params: KeyboardParams, context: Context): String {
+        if (Settings.getInstance().current.mHasCustomFunctionalLayout) {
+            getCustomFunctionalLayoutName(params.mId.mElementId, params.mId.mSubtype.rawSubtype, context)
+                ?.let { return it }
+        }
+        return if (Settings.getInstance().isTablet) "functional_keys_tablet" else "functional_keys"
     }
 
     /** returns the file name matching the layout name, making sure the file exists (falling back to qwerty.txt) */
     private fun getLayoutFileName(layoutName: String, context: Context): String {
-        val customFiles = getCustomLayoutsDir(context).list()
+        val customFiles = getCustomLayoutFiles(context).map { it.name }
         if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-            return if (customFiles?.contains(layoutName) == true) layoutName
-            else "qwerty.txt" // fallback
+            return customFiles.firstOrNull { it.startsWith(layoutName)}
+                ?: if (layoutName.contains("functional")) "functional_keys.json" else "qwerty.txt" // fallback to defaults
         }
         val assetsFiles by lazy { context.assets.list("layouts")!! }
-        if (layoutName.startsWith("functional")) {
-            // return custom match if we have one
-            val customMatch = customFiles?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
-            if (customMatch != null) return customMatch
-            if (layoutName == FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED) {
-                // no custom symbols shifted layout, try custom symbols layout
-                val customSymbols = customFiles?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$FUNCTIONAL_LAYOUT_SYMBOLS.") }
-                if (customSymbols != null) return customSymbols
-            }
-            // no custom symbols layout, try custom functional layout
-            if (Settings.getInstance().isTablet) {
-                val customTablet = customFiles?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$FUNCTIONAL_LAYOUT_TABLET.") }
-                if (customTablet != null) return customTablet
-            }
-            val customFunctional = customFiles?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$FUNCTIONAL_LAYOUT.") }
-            if (customFunctional != null) return customFunctional
-            // no custom functional layout, use the default functional layout
-            return if (Settings.getInstance().isTablet) "$FUNCTIONAL_LAYOUT_TABLET.json"
-            else "$FUNCTIONAL_LAYOUT.json"
-        }
         return if (layoutName in symbolAndNumberLayouts) {
-            customFiles?.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.")}
+            customFiles.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.")}
                 ?: assetsFiles.first { it.startsWith(layoutName) }
         } else {
             // can't be custom layout, so it must be in assets

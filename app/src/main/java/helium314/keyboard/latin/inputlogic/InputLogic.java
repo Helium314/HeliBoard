@@ -228,8 +228,14 @@ public final class InputLogic {
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mConnection.beginBatchEdit();
         if (mWordComposer.isComposingWord()) {
-            commitCurrentAutoCorrection(settingsValues, rawText, handler);
-            addToHistoryIfEmoji(rawText, settingsValues); // add emoji after committing text
+            if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+                // stop composing, otherwise the text will end up at the end of the current word
+                mConnection.finishComposingText();
+                resetComposingState(false);
+            } else {
+                commitCurrentAutoCorrection(settingsValues, rawText, handler);
+                addToHistoryIfEmoji(rawText, settingsValues); // add emoji after committing text
+            }
         } else {
             addToHistoryIfEmoji(rawText, settingsValues); // add emoji before resetting, otherwise lastComposedWord is empty
             resetComposingState(true /* alsoResetLastComposedWord */);
@@ -730,6 +736,9 @@ public final class InputLogic {
             case KeyCode.CLIPBOARD_COPY_ALL:
                 mConnection.copyText(false);
                 break;
+            case KeyCode.CLIPBOARD_CLEAR_HISTORY:
+                mLatinIME.getClipboardHistoryManager().clearHistory();
+                break;
             case KeyCode.CLIPBOARD_CUT:
                 if (mConnection.hasSelection()) {
                     mConnection.copyText(true);
@@ -769,6 +778,9 @@ public final class InputLogic {
                 break;
             case KeyCode.PAGE_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
+                break;
+            case KeyCode.TAB:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -1571,10 +1583,15 @@ public final class InputLogic {
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
         // mInputTypeNoAutoCorrect changed to !isSuggestionsEnabledPerUserSettings because this was cancelling learning way too often
-        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || settingsValues.mIncognitoModeEnabled || TextUtils.isEmpty(suggestion))
+        if (!settingsValues.isSuggestionsEnabledPerUserSettings() || TextUtils.isEmpty(suggestion))
             return;
         final boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         final String word = stripWordSeparatorsFromEnd(suggestion, settingsValues);
+        if (settingsValues.mIncognitoModeEnabled) {
+            // still adjust confidences, otherwise incognito input fields can be very annoying when wrong language is active
+            mDictionaryFacilitator.adjustConfidences(word, wasAutoCapitalized);
+            return;
+        }
         if (mConnection.hasSlowInputConnection()) {
             // Since we don't unlearn when the user backspaces on a slow InputConnection,
             // turn off learning to guard against adding typos that the user later deletes.

@@ -3,10 +3,9 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Потражи имена контаката"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Контролор правописа користи уносе са листе контаката"</string>
+    <string name="use_contacts_for_spellchecking_option_summary">Контрола правописа користи уносе са листе контаката</string>
     <string name="vibrate_on_keypress">"Вибрирај на притисак тастера"</string>
     <string name="sound_on_keypress">"Звук на притисак тастера"</string>
     <string name="popup_on_keypress">"Искачући прозор приликом притиска тастера"</string>
@@ -18,12 +17,12 @@
     <string name="enable_split_keyboard">"Омогући подељену тастатуру"</string>
     <string name="language_switch_key_switch_input_method">"Пребаци на друге методе уноса"</string>
     <string name="show_language_switch_key">"Тастер за пребацивање језика"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс</string>
     <string name="settings_system_default">"Подразумевано"</string>
     <string name="use_contacts_dict">"Предложи имена контаката"</string>
     <string name="use_contacts_dict_summary">"Користи имена из Контаката за предлоге и исправке"</string>
     <string name="use_personalized_dicts">"Персонализовани предлози"</string>
-    <string name="use_double_space_period">"Тачка и размак"</string>
+    <string name="use_double_space_period">Дупли размак тачка</string>
     <string name="use_double_space_period_summary">"Двоструким додиром размака умеће се тачка праћена размаком"</string>
     <string name="auto_cap">"Аутоматски унос великих слова"</string>
     <string name="auto_cap_summary">"Писање великог слова на почетку сваке реченице"</string>
@@ -120,9 +119,9 @@
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Користи језике система"</string>
     <string name="select_input_method">"Избор метода уноса"</string>
-    <string name="spell_checker_service_name">ОпенБоард провера правописа</string>
-    <string name="android_spell_checker_settings">ОпенБоард подешавања провере правописа</string>
-    <string name="ime_settings">ОпенБоард подешавања</string>
+    <string name="spell_checker_service_name">ХелиБоард провера правописа</string>
+    <string name="android_spell_checker_settings">ХелиБоард подешавања провере правописа</string>
+    <string name="ime_settings">ХелиБоард подешавања</string>
     <string name="settings_category_input">Унос</string>
     <string name="settings_category_additional_keys">Додатни кључеви</string>
     <string name="auto_correction_confidence">Поузданост ауто-корекције</string>
@@ -147,7 +146,7 @@
     <string name="enable_clipboard_history">Омогући историју међуспремника</string>
     <string name="clipboard_history_retention_time">Време задржавања историје</string>
     <string name="prefs_keyboard_height_scale">Висина тастатуре</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин</string>
     <string name="show_hints_summary">Прикажи савете за дуги притисак</string>
     <string name="delete_swipe">Уклањање превлачењем</string>
     <string name="show_emoji_key">Емоји кључ</string>
@@ -168,4 +167,14 @@
     <string name="label_search_key">"Тражи"</string>
     <string name="label_pause_key">"Пауза"</string>
     <string name="label_wait_key">"Чекај"</string>
+    <string name="language_switch_key_switch_both">Променити обоје</string>
+    <string name="add_to_personal_dictionary">Додати речи у лични речник</string>
+    <string name="add_to_personal_dictionary_summary">Користити лични речник уређаја за чување научених речи</string>
+    <string name="prefs_always_show_suggestions">Увек приказати сугестије</string>
+    <string name="more_autocorrect">Више ауткорекције</string>
+    <string name="more_autocorrect_summary">Аутокорекција чак и кад није експлицитно захтевана од поља за унос</string>
+    <string name="localized_number_row">Локализуј ред бројева</string>
+    <string name="show_popup_keys_more">Додај уобичајене варијанте</string>
+    <string name="switch_language">Промена језика</string>
+    <string name="disable_personalized_dicts_message">Упозорење: онемогућавање овог подешавања ће обрисати научене податке</string>
 </resources>

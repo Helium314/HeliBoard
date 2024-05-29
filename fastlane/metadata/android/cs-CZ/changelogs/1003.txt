@@ -1,0 +1,9 @@
+* změna ikon pro automatickou opravu a výběr všech kláves na panelu nástrojů od @codokie (#524, #651)
+* přidání čuvašského rozložení od @tenextractor (#677)
+* přidání klávesy pro řezání na panelu nástrojů od @codokie (#678)
+* aktualizovat rozložení Probhat od @fahimscirex (#628)
+* zobrazit ikony panelu nástrojů v dialogovém okně klíče panelu nástrojů
+* přidat tlačítko zavřít v historii schránky od @codokie (#403, #649)
+* přidat ruské (studentské) rozložení od @Zolax9 (#640)
+* volitelný numerický blok při dlouhém stisku klávesy se symboly (#588)
+* drobné opravy a vylepšení, včetně #632, #637, #638 od @RHJihan

@@ -15,7 +15,7 @@ tl;dr:
 **Describe the bug**
 
 **To Reproduce**
-If possible, provide all the necessary steps to reproduce your problem.
+If possible, provide all the necessary steps to reproduce your problem, including the involved apps or settings if relevant.
 
 **Expected behavior**
 If it's not obvious (e.g. not crash), describe how you think the app should behave.

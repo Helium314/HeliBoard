@@ -89,12 +89,16 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _comma_: `,` key with special popups, will adapt to language-specific comma, or display `/` in URL fields and `@` in email fields
   * _space_: space key, with icon when using a number layout
   * _zwnj_: Zero-width non-joiner (automatically added next to space in alphabet layout for some languages)
+  * You can also use [toolbar keys](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. _undo_.
+  * See [KeyLabel.kt](app/src/main/java/helium314/keyboard/keyboard/internal/keyboard_parser/floris/KeyLabel.kt) for more available labels that are parsed to the corresponding key.
+* In case a label clashes with text you want to add, put a `\` in front of the text you want, e.g. `\space` will write the label `space` instead of adding a space bar.
+  * Note that you need to escape the `\` in json files by adding a second `\`.
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
 You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
   * For normal keys, even if you specify a code, you will need to add a `|` to the label, e.g. `!icon/go_key|` or `!icon/go_key|ignored` (to be fixed).
   * For popups keys, you must _not_ add a `|` (to be fixed).
-  * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.java). You can also use toolbar key icons using the uppercase name of the toolbar key, e.g. `!icon/REDO`
+  * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
@@ -117,13 +121,15 @@ You can also specify special key codes like `a|!code/key_action_previous`, but i
 * If a newly added language does not use latin script, please update the default scripts method `Locale.script` in [ScriptUtils](app/src/main/java/helium314/keyboard/latin/utils/ScriptUtils.kt)
 
 ## Functional key layouts
-This is not yet customizable, but will be soon!
-Mostly customizing functional keys works like other layouts, with some specific adjustments:
-* you can either have a single layout for functional keys (default), or separate layouts for symbols and shift symbols
-  * when using a single layout
-    * emoji and language switch keys will only show in alphabet layout and when the option is enabled
-    * numpad key will only show in symbols layout
-  * otherwise the layout will be shown as it is in the layout file
+Customizing functional keys mostly works like other layouts, with some specific adjustments:
+* When using the default functional layout, emoji, language switch and numpad keys are actually always in the layout, but get removed depending on settings and the main layout (alphabet, symbols or more symbols). This removal is disabled when you customize any functional layout, so to not block you from adding e.g. a numpad key in alphabet layout.
+* When you use a language that has a ZWNJ key, the key will automatically be added to the right of the (first) space bar in the bottom row
+* Adding popups to keys that switch layout does not work properly, as usually the layout is switched as soon as the key gets pressed.
 * use keys with `"type": "placeholder"` for
   * separating left and right functional keys (e.g. shift and delete in default layout)
-  * separating top and bottom rows in case you want to have functional key rows aligned to the top of the keyboard
+  * separating top and bottom rows in case you want to have functional key rows aligned to the top of the keyboard (add a row with the placeholder as the only key)
+* if the last row in functional keys does not contain a placeholder, it is used as bottom row (like in the default functional layout)
+* When you functional keys only for some of alphabet, symbols and more symbols, behavior is as follows
+  * more symbols will fall back to symbols, then normal
+  * symbols will fall back to normal, then default (if you only customized more symbols functional layout)
+  * normal will fall back to default (if you only customized symbols and/or more symbols functional layout)

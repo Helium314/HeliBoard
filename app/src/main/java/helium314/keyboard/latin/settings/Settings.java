@@ -23,6 +23,7 @@ import android.view.Gravity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
@@ -78,6 +79,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
+    public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -158,7 +160,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
-    public static final String PREF_SHOW_ALL_COLORS = "show_all_colors";
+    public static final String PREF_SHOW_MORE_COLORS = "show_more_colors";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
 
     private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
@@ -182,7 +184,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
-        add(PREF_SHOW_ALL_COLORS);
+        add(PREF_SHOW_MORE_COLORS);
         add(PREF_SELECTED_SUBTYPE);
     }};
 
@@ -302,16 +304,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
-    public static boolean readFromBuildConfigIfToShowKeyPreviewPopupOption(final Resources res) {
-        return res.getBoolean(R.bool.config_enable_show_key_preview_popup_option);
-    }
-
     public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
-        final boolean defaultKeyPreviewPopup = res.getBoolean(
-                R.bool.config_default_key_preview_popup);
-        if (!readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            return defaultKeyPreviewPopup;
-        }
+        final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
         return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
     }
 
@@ -334,20 +328,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static float readKeypressSoundVolume(final SharedPreferences prefs, final Resources res) {
-        final float volume = prefs.getFloat(
-                PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (volume != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? volume
-                : readDefaultKeypressSoundVolume(res);
-    }
-
-    // Default keypress sound volume for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_SOUND_VOLUME = Float.toString(-1.0f);
-
-    public static float readDefaultKeypressSoundVolume(final Resources res) {
-        return Float.parseFloat(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_volumes, DEFAULT_KEYPRESS_SOUND_VOLUME));
+    public static float readKeypressSoundVolume(final SharedPreferences prefs) {
+        return prefs.getFloat(PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
     }
 
     public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
@@ -361,20 +343,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_default_longpress_key_timeout);
     }
 
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultKeypressVibrationDuration(res);
-    }
-
-    // Default keypress vibration duration for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_VIBRATION_DURATION = Integer.toString(-1);
-
-    public static int readDefaultKeypressVibrationDuration(final Resources res) {
-        return Integer.parseInt(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_vibration_durations, DEFAULT_KEYPRESS_VIBRATION_DURATION));
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs) {
+        return prefs.getInt(PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
     }
 
     public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
@@ -692,5 +662,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public boolean isTablet() {
         return mContext.getResources().getInteger(R.integer.config_screen_metrics) >= 3;
+    }
+
+    public int getStringResIdByName(final String name) {
+        return mContext.getResources().getIdentifier(name, "string", mContext.getPackageName());
+    }
+
+    public String getInLocale(@StringRes final int resId, final Locale locale) {
+        return RunInLocaleKt.runInLocale(mContext, locale, (ctx) -> ctx.getString(resId));
     }
 }

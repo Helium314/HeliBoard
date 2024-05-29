@@ -93,11 +93,11 @@ public class KeyboardParams {
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;
 
+    // should be enabled for all alphabet layouts, except for specific layouts when shifted
     public boolean mProximityCharsCorrectionEnabled;
 
     @NonNull
-    public final TouchPositionCorrection mTouchPositionCorrection =
-            new TouchPositionCorrection();
+    public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
     private static final Comparator<Key> ROW_COLUMN_COMPARATOR = (lhs, rhs) -> {
@@ -267,9 +267,11 @@ public class KeyboardParams {
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             mIconsSet.loadIcons(keyboardAttr);
 
-            final int resourceId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
-            if (resourceId != 0) {
-                final String[] data = context.getResources().getStringArray(resourceId);
+            // touchPositionResId currently is 0 for popups, and touch_position_correction_data_holo for others
+            final int touchPositionResId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
+            if (touchPositionResId != 0) {
+                final int actualId = mId.isAlphabetKeyboard() ? touchPositionResId : R.array.touch_position_correction_data_default;
+                final String[] data = context.getResources().getStringArray(actualId);
                 mTouchPositionCorrection.load(data);
             }
         } finally {

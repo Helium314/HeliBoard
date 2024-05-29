@@ -216,7 +216,6 @@
     <string name="license">Open-source lisens</string>
     <string name="hidden_features_text">enhetsbeskyttet lagring</string>
     <string name="customize_symbols_number_layouts">Tilpass symboler og talloppsett</string>
-    <string name="customize_symbols_number_layouts_summary">Oppsett (unntatt symboler) viser interne innstillinger som fortsatt kan endres. Hvis det skjer, kan det hende at det tilpassede oppsettet ikke fungerer som det skal lenger.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (Arabisk)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Flere symboler</string>

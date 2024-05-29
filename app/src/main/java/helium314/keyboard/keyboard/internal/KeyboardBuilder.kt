@@ -51,15 +51,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             keysInRows = EmojiParser(mParams, mContext).parse()
         } else {
             try {
-                val sv = Settings.getInstance().current
-                // previously was false for nordic and serbian_qwertz, true for all others
-                // todo: add setting? maybe users want it in a custom layout
-                mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
-                addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
-                mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
-                // add label source only if popup key type enabled
-                sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
+                setupParams()
                 keysInRows = KeyboardParser(mParams, mContext).parseLayout()
+                if (keysInRows.size != 4) // that was effectively the default for OpenBoard
+                    mParams.mTouchPositionCorrection.load(mContext.resources.getStringArray(R.array.touch_position_correction_data_default))
                 determineAbsoluteValues()
             } catch (e: Exception) {
                 Log.e(TAG, "error parsing layout $id ${id.mElementId}", e)
@@ -67,6 +62,21 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             }
         }
         return this
+    }
+
+    private fun setupParams() {
+        // previously was false for nordic and serbian_qwertz, true for all others
+        // todo: add setting? maybe users want it in a custom layout
+        mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
+
+        mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
+                || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
+
+        val sv = Settings.getInstance().current
+        addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
+        mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
+        // add label source only if popup key type enabled
+        sv.mPopupKeyLabelSources.forEach { if (it in sv.mPopupKeyTypes) mParams.mPopupKeyLabelSources.add(it) }
     }
 
     // todo: remnant of old parser, replace it if reasonably simple
