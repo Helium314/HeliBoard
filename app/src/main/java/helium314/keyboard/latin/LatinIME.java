@@ -1601,9 +1601,7 @@ public class LatinIME extends InputMethodService implements
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
             // Auto hide the toolbar if dictionary suggestions are available
-            if (currentSettingsValues.mAutoHideToolbar
-                    && !noSuggestionsFromDictionaries
-                    && (!suggestedWords.isPrediction() || !currentSettingsValues.mAutoShowToolbar)) {
+            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
                 mSuggestionStripView.setToolbarVisibility(false);
             }
         }
