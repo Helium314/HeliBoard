@@ -149,8 +149,7 @@ class ClipboardHistoryManager(
     }
 
     private fun updateSuggestionIfNew(clipContent: Any) {
-        val clipData = clipboardManager.primaryClip ?: return
-        val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
+        val clipTimestamp = clipboardManager.primaryClip?.description?.timestamp
         if (clipTimestamp != null && clipTimestamp > suggestionTimestamp || suggestionContent != clipContent) {
             suggestionPicked = false
             suggestionContent = clipContent

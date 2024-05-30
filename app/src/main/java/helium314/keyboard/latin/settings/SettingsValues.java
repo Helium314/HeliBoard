@@ -318,6 +318,7 @@ public class SettingsValues {
         return prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, res.getBoolean(
                 R.bool.config_default_next_word_prediction));
     }
+
     private static boolean readSuggestClipboardContent (SharedPreferences prefs,
                                                         final Resources res) {
         return prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, res.getBoolean(

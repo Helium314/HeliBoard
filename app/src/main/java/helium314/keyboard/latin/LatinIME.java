@@ -317,7 +317,7 @@ public class LatinIME extends InputMethodService implements
                 return;
             }
             final int message;
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()){
+            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
                 if (latinIme.mSettings.getCurrent().mSuggestClipboardContent)
                     message = MSG_SET_CLIPBOARD_SUGGESTION;
                 else return;
