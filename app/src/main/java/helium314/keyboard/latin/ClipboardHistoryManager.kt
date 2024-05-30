@@ -139,30 +139,33 @@ class ClipboardHistoryManager(
     fun retrieveClipboardContent(): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
-        return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+        return clipData.getItemAt(0)?.text ?: ""
     }
 
     fun retrieveClipboardSuggestionContent(): String {
-        val clipData = clipboardManager.primaryClip ?: return ""
-        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return ""
-        val clipContent = clipData.getItemAt(0)?.coerceToText(latinIME)?.toString() ?: return ""
-        val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
-        val isNewEntry = recentEntry != clipContent
-                || clipTimestamp != null && clipTimestamp > recentTimestamp
-        if (isNewEntry) {
-            suggestionPicked = false
-            recentEntry = clipContent
-            recentTimestamp = clipTimestamp ?: System.currentTimeMillis()
-        } else if ((System.currentTimeMillis() - recentTimestamp) > RECENT_TIME_MILLIS || suggestionPicked) {
-            return "" // empty string indicating clipboard is old or has been picked as a suggestion before
-        }
-        return clipContent
+        val clipContent = retrieveClipboardContent().toString()
+        updateSuggestionIfNew(clipContent)
+        return if (isSuggestionRecent() && !suggestionPicked) clipContent else ""
     }
 
-    fun isClipSensitive(isPasswordInputType: Boolean) : Boolean {
-        val clipDescription = clipboardManager.primaryClip?.description ?: return isPasswordInputType
-        return ClipboardManagerCompat.getClipSensitivity(clipDescription, isPasswordInputType)
+    private fun updateSuggestionIfNew(clipContent: Any) {
+        val clipData = clipboardManager.primaryClip ?: return
+        val clipTimestamp = ClipboardManagerCompat.getClipTimestamp(clipData)
+        if (clipTimestamp != null && clipTimestamp > suggestionTimestamp || suggestionContent != clipContent) {
+            suggestionPicked = false
+            suggestionContent = clipContent
+            suggestionTimestamp = clipTimestamp ?: System.currentTimeMillis()
+        }
     }
+
+    private fun isSuggestionRecent(): Boolean =
+        (System.currentTimeMillis() - suggestionTimestamp) <= RECENT_TIME_MILLIS
+
+    fun isClipSensitive(isPasswordInputType: Boolean): Boolean =
+        ClipboardManagerCompat.getClipSensitivity(
+            clipboardManager.primaryClip?.description,
+            isPasswordInputType
+        )
 
     fun markSuggestionAsPicked() {
         suggestionPicked = true
@@ -196,8 +199,8 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
-        private var recentEntry: String = ""
-        private var recentTimestamp: Long = 0L
+        private var suggestionContent: Any = ""
+        private var suggestionTimestamp: Long = 0L
         private var suggestionPicked: Boolean = false
         const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }

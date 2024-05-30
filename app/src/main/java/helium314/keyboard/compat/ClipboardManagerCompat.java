@@ -31,8 +31,8 @@ public class ClipboardManagerCompat {
     }
 
     public static Boolean getClipSensitivity(final ClipDescription cd, final boolean isPasswordInputType) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && cd != null && cd.getExtras() != null) {
-            return cd.getExtras().getBoolean("android.content.extra.IS_SENSITIVE");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return cd != null && cd.getExtras() != null && cd.getExtras().getBoolean("android.content.extra.IS_SENSITIVE");
         } else {
             return isPasswordInputType;
         }
