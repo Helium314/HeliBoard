@@ -299,6 +299,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mClipboardSuggestionView.setMaxWidth((int)(mSuggestionsStrip.getWidth() / 1.5));
         mClipboardSuggestionView.setOnClickListener(v -> {
             AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
+            mClipboardSuggestionView.setVisibility(GONE);
             mListener.onClipboardSuggestionPicked(clipContent);
         });
         if (isSensitive) {
