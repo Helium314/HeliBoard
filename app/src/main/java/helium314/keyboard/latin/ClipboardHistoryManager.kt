@@ -48,7 +48,7 @@ class ClipboardHistoryManager(
         }
     }
 
-    // Copies a CharSequence to internal clipboard.
+    // Copies text content to the internal clipboard.
     // If there is already an entry with the same text,
     // then only its timestamp and position is updated.
     fun copyTextToInternalClipboard(content: CharSequence, timeStamp: Long) {
@@ -59,11 +59,14 @@ class ClipboardHistoryManager(
             if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
             // older entry with the same text already exists, update the timestamp and re-sort the list
             existingEntry.timeStamp = timeStamp
+            historyEntries.removeAt(duplicateEntryIndex)
+            historyEntries.add(0, existingEntry)
             sortHistoryEntries()
             val newIndex = historyEntries.indexOf(existingEntry)
             onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
             return
         }
+
         val entry = ClipboardHistoryEntry(timeStamp, content)
         historyEntries.add(entry)
         sortHistoryEntries()
