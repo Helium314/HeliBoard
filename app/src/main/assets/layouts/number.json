@@ -19,15 +19,15 @@
   ],
   [
     { "$": "variation_selector",
-      "default": { "label": ",", "type": "numeric" },
-      "date": { "label": ".", "type": "numeric" },
-      "time": { "label": ".", "type": "numeric", "popup": { "relevant": [
+      "default": { "label": ",", "type": "numeric", "groupId": 1 },
+      "date": { "label": ".", "type": "numeric", "groupId": 1 },
+      "time": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
         { "label": "PM" }
       ] } },
-      "datetime": { "label": ".", "type": "numeric", "popup": { "relevant": [
+      "datetime": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
