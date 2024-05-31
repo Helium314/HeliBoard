@@ -348,6 +348,10 @@ public class LatinIME extends InputMethodService implements
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public boolean hasPendingResumeSuggestions() {
+            return hasMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingReopenDictionaries() {
             return hasMessages(MSG_REOPEN_DICTIONARIES);
         }
@@ -984,6 +988,9 @@ public class LatinIME extends InputMethodService implements
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
                 mInputLogic.mConnection.tryFixLyingCursorPosition();
+                if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
+                    mHandler.postResumeSuggestions(true /* shouldDelay */);
+                }
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -1012,9 +1019,12 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-
-        mHandler.cancelUpdateSuggestionStrip();
-        mHandler.postResumeSuggestions(true /* shouldDelay */);
+        // This will set the punctuation suggestions if next word suggestion is off;
+        // otherwise it will clear the suggestion strip.
+        if (!mHandler.hasPendingResumeSuggestions()) {
+            mHandler.cancelUpdateSuggestionStrip();
+            setNeutralSuggestionStrip();
+        }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
