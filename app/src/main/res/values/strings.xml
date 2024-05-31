@@ -832,4 +832,6 @@ New dictionary:
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Toast message to inform the user that the URI is unsupported -->
+    <string name="toast_msg_unsupported_uri">Unsupported URI</string>
 </resources>

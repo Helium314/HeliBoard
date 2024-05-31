@@ -269,7 +269,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (clipContent?.imageUri != null) {
             keyboardActionListener?.onUriInput(clipContent.imageUri)
         } else {
-            keyboardActionListener?.onTextInput(clipContent?.content.toString())
+            keyboardActionListener?.onTextInput(clipContent?.text.toString())
         }
         keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
     }

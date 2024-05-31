@@ -15,32 +15,16 @@
             android:layout_marginVertical="8dp"
             android:layout_marginStart="4dp"/>
 
-    <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
-         We just need to ignore the system's audio and haptic feedback settings. -->
     <TextView
-            android:id="@+id/clipboard_entry_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginHorizontal="8dp"
-            android:hapticFeedbackEnabled="false"
-            android:soundEffectsEnabled="false"
+            android:id="@+id/clipboard_entry_text"
             android:ellipsize="end"
-            android:maxLines="4"/>
+            android:maxLines="4"
+            style="@style/ClipboardHistoryEntry" />
 
     <ImageView
         android:id="@+id/clipboard_entry_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="200dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginHorizontal="8dp"
-        android:hapticFeedbackEnabled="false"
-        android:soundEffectsEnabled="false"
+        android:maxHeight="@dimen/config_clipboard_history_entry_image_max_height"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        style="@style/ClipboardHistoryEntry" />
 
 </LinearLayout>

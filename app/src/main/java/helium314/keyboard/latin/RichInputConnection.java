@@ -7,9 +7,11 @@
 package helium314.keyboard.latin;
 
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -344,16 +346,21 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     /**
      * Calls {@link InputConnectionCompat#commitContent(InputConnection, EditorInfo, InputContentInfoCompat, int, Bundle)}.
      *
-     * @param inputContentInfo The input content info to be committed.
+     * @param uri The URI to be committed.
+     * @param uriType The MIME type of the URI.
      * @param editorInfo The current editor info.
+     * @param permissionGranted Whether URI permission has already been granted.
+     * @return true if this request is accepted by the application, false otherwise.
      */
-    public void commitUri(@NonNull final InputContentInfoCompat inputContentInfo,
-                          @NonNull final EditorInfo editorInfo, final int flags) {
+    public boolean commitUri(final Uri uri, final String uriType,
+                             final EditorInfo editorInfo, final boolean permissionGranted) {
         mIC = mParent.getCurrentInputConnection();
-        if (isConnected()) {
-            mIC.finishComposingText();
-            InputConnectionCompat.commitContent(mIC, editorInfo, inputContentInfo, flags, null);
-        }
+        if (!isConnected()) return false;
+        final InputContentInfoCompat inputContentInfo = new InputContentInfoCompat
+                (uri, new ClipDescription(uriType, new String[]{uriType}), null);
+        final int flags = permissionGranted ? 0 : InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
+        finishComposingText();
+        return InputConnectionCompat.commitContent(mIC, editorInfo, inputContentInfo, flags, null);
     }
 
     @Nullable

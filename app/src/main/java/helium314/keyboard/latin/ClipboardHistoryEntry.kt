@@ -14,7 +14,7 @@ import kotlinx.serialization.encoding.Encoder
 data class ClipboardHistoryEntry (
         var timeStamp: Long,
         @Serializable(with = CharSequenceStringSerializer::class)
-        val content: CharSequence,
+        val text: CharSequence,
         @Serializable(with = UriSerializer::class)
         val imageUri: Uri?,
         var isPinned: Boolean = false

@@ -7,6 +7,7 @@
 package helium314.keyboard.latin.inputlogic;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -643,6 +644,23 @@ public final class InputLogic {
     }
 
     /**
+     * Handles the action of pasting content from the clipboard.
+     * Retrieves content from the clipboard history manager and commits it to the input connection.
+     *
+     */
+    private void handleClipboardPaste() {
+        final Uri clipboardURI = mLatinIME.getClipboardHistoryManager().retrieveClipboardUri();
+        if (clipboardURI != null) {
+            mLatinIME.onUriInput(clipboardURI);
+        } else {
+            final CharSequence clipboardText = mLatinIME.getClipboardHistoryManager().retrieveClipboardText();
+            if (!TextUtils.isEmpty(clipboardText)) {
+                mLatinIME.onTextInput(clipboardText.toString());
+            }
+        }
+    }
+
+    /**
      * Handle a functional key event.
      * <p>
      * A functional event is a special key, like delete, shift, emoji, or the settings key.
@@ -691,11 +709,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!inputTransaction.getMSettingsValues().mClipboardHistoryEnabled) {
-                    mLatinIME.getClipboardHistoryManager().pasteClipboard();
+                    handleClipboardPaste();
                 }
                 break;
             case KeyCode.CLIPBOARD_PASTE:
-                mLatinIME.getClipboardHistoryManager().pasteClipboard();
+                handleClipboardPaste();
                 break;
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe

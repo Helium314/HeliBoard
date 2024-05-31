@@ -50,7 +50,7 @@ class ClipboardAdapter(
     ) : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnTouchListener, View.OnLongClickListener {
 
         private val pinnedIconView: ImageView
-        private val contentView: TextView
+        private val textView: TextView
         private val imageView: ImageView
 
         init {
@@ -65,7 +65,7 @@ class ClipboardAdapter(
                 visibility = View.GONE
                 setImageResource(pinnedIconResId)
             }
-            contentView = view.findViewById<TextView>(R.id.clipboard_entry_content).apply {
+            textView = view.findViewById<TextView>(R.id.clipboard_entry_text).apply {
                 typeface = itemTypeFace
                 setTextColor(itemTextColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize)
@@ -79,13 +79,13 @@ class ClipboardAdapter(
         fun setContent(historyEntry: ClipboardHistoryEntry?) {
             itemView.tag = historyEntry?.timeStamp
             if (historyEntry?.imageUri != null) {
-                contentView.visibility = View.GONE
+                textView.visibility = View.GONE
                 imageView.setImageURI(historyEntry.imageUri)
                 imageView.visibility = View.VISIBLE
             } else {
                 imageView.visibility = View.GONE
-                contentView.text = historyEntry?.content
-                contentView.visibility = View.VISIBLE
+                textView.text = historyEntry?.text
+                textView.visibility = View.VISIBLE
             }
             pinnedIconView.visibility = if (historyEntry?.isPinned == true) View.VISIBLE else View.GONE
         }

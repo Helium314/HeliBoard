@@ -97,6 +97,19 @@
          attributes. -->
     <style name="EmojiPalettesView" />
     <style name="ClipboardHistoryView" />
+    <style name="ClipboardHistoryEntry" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">@dimen/config_clipboard_history_entry_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/config_clipboard_history_entry_bottom_margin</item>
+        <item name="android:layout_marginRight">@dimen/config_clipboard_history_entry_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/config_clipboard_history_entry_horizontal_margin</item>
+        <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
+         We just need to ignore the system's audio and haptic feedback settings. -->
+        <item name="android:hapticFeedbackEnabled">false</item>
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
     <style name="PopupKeysKeyboardView" />
     <style name="SuggestionStripView" />
     <style name="SuggestionWord">

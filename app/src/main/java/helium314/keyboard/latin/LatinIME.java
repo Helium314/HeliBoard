@@ -8,7 +8,6 @@ package helium314.keyboard.latin;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
-import android.content.ClipDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -103,9 +102,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.inputmethod.EditorInfoCompat;
-import androidx.core.view.inputmethod.InputConnectionCompat;
-import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -1534,24 +1530,21 @@ public class LatinIME extends InputMethodService implements
         final String uriType = getContentResolver().getType(uri);
         final EditorInfo editorInfo = getCurrentInputEditorInfo();
         if (editorInfo == null || uriType == null) return;
-        final String[] editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo);
-        // Check if the editor supports the MIME type of the URI
-        for (String supportedType : editorMimeTypes) {
-            if (ClipDescription.compareMimeTypes(uriType, supportedType)) {
-                int flags = 0;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                    flags |= InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
-                } else {
-                    grantUriPermission(editorInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                }
-                final InputContentInfoCompat inputContentInfo = new InputContentInfoCompat
-                        (uri, new ClipDescription(uriType, new String[]{uriType}), null);
-                mInputLogic.mConnection.commitUri(inputContentInfo, editorInfo, flags);
-                return;
-            }
+        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, uriType)) {
+            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
+            return;
         }
-        //TODO: inform the user with a toast-like message regarding an unsupported MIME type
-        Log.w(TAG, "URI MIME type " + uriType + " is incompatible with the current editor");
+        final boolean permissionGranted;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            grantUriPermission(editorInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            permissionGranted = true;
+        } else {
+            permissionGranted = false;
+        }
+        // Commit the URI and show a toast if it is rejected by the application.
+        if (!mInputLogic.mConnection.commitUri(uri, uriType, editorInfo, permissionGranted)) {
+            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
+        }
     }
 
     public void onStartBatchInput() {
