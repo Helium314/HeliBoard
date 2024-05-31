@@ -23,7 +23,7 @@ public final class PopupKeysKeyboard extends Keyboard {
 
     PopupKeysKeyboard(final PopupKeysKeyboardParams params) {
         super(params);
-        mDefaultKeyCoordX = params.getDefaultKeyCoordX() + params.mDefaultAbsoluteKeyWidth / 2;
+        mDefaultKeyCoordX = params.getDefaultKeyCoordX() + params.mAbsolutePopupKeyWidth / 2;
     }
 
     public int getDefaultCoordX() {
@@ -287,8 +287,8 @@ public final class PopupKeysKeyboard extends Keyboard {
                 final float padding = context.getResources().getDimension(
                         R.dimen.config_popup_keys_keyboard_key_horizontal_padding)
                         + (key.hasLabelsInPopupKeys()
-                                ? mParams.mDefaultAbsoluteKeyWidth * LABEL_PADDING_RATIO : 0.0f);
-                keyWidth = getMaxKeyWidth(key, mParams.mDefaultAbsoluteKeyWidth, padding, paintToMeasure);
+                                ? mParams.mAbsolutePopupKeyWidth * LABEL_PADDING_RATIO : 0.0f);
+                keyWidth = getMaxKeyWidth(key, mParams.mAbsolutePopupKeyWidth, padding, paintToMeasure);
                 rowHeight = keyboard.mMostCommonKeyHeight;
             }
             final int dividerWidth;
@@ -342,7 +342,7 @@ public final class PopupKeysKeyboard extends Keyboard {
                 // left of the default position.
                 if (params.mDividerWidth > 0 && pos != 0) {
                     final int dividerX = (pos > 0) ? x - params.mDividerWidth
-                            : x + params.mDefaultAbsoluteKeyWidth;
+                            : x + params.mAbsolutePopupKeyWidth;
                     final Key divider = new PopupKeyDivider(
                             params, dividerX, y, params.mDividerWidth, params.mDefaultAbsoluteRowHeight);
                     params.onAddKey(divider);

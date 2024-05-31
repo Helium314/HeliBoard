@@ -66,6 +66,8 @@ public class KeyboardParams {
 
     public int mPopupKeysTemplate;
     public int mMaxPopupKeysKeyboardColumn;
+    // popup key width is separate from mDefaultAbsoluteKeyWidth because it should not depend on alpha or number layout
+    public int mAbsolutePopupKeyWidth;
 
     public int GRID_WIDTH;
     public int GRID_HEIGHT;
@@ -225,11 +227,11 @@ public class KeyboardParams {
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
             final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
-            mDefaultKeyWidth = mId.isNumberLayout()
-                    ? 0.17f
-                    : keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+            final float alphaSymbolKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     1, 1, defaultKeyWidthFactor / DEFAULT_KEYBOARD_COLUMNS);
+            mDefaultKeyWidth = mId.isNumberLayout() ? 0.17f : alphaSymbolKeyWidth;
             mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
+            mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
             // todo: maybe settings should not be accessed from here?
             if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
