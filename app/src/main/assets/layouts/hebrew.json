@@ -3,42 +3,86 @@
     { "$": "variation_selector",
       "email": { "label": "-" },
       "url": { "label": "-" },
-      "default": { "label": "'", "popup": { "main": { "label": "\"" } } }
+      "default": { "label": "'", "popup": { "relevant": [{ "label": "׳" }, { "label": "״" }, { "label": "\"" }] } }
     },
     { "$": "variation_selector",
       "email": { "label": "_" },
       "url": { "label": "_" },
-      "default": { "label": "-", "popup": { "main": { "label": "_" } } }
+      "default": { "label": "-", "popup": { "relevant": [{ "label": "־" }, { "label": "_" }] } }
     },
-    { "label": "ק" },
-    { "label": "ר" },
+    { "label": "ק", "popup": {
+      "relevant": [
+        { "label": "\u05b8" },
+        { "label": "\u05b3" },
+        { "label": "\u05bb" }
+      ]
+    } },
+    { "label": "ר", "popup": {
+      "relevant": [
+        { "label": "\u05bf" }
+      ]
+    } },
     { "label": "א" },
     { "label": "ט" },
-    { "label": "ו" },
+    { "label": "ו", "popup": {
+      "relevant": [
+        { "label": "ו\u05b9" },
+        { "label": "ו\u05bc" }
+      ]
+    } },
     { "label": "ן" },
     { "label": "ם" },
-    { "label": "פ" }
+    { "label": "פ", "popup": {
+      "relevant": [
+        { "label": "\u05b7" },
+        { "label": "\u05b2" }
+      ]
+    } }
   ],
   [
-    { "label": "ש" },
-    { "label": "ד" },
+    { "label": "ש", "popup": {
+      "relevant": [
+        { "label": "\u05b0" },
+        { "label": "ש\u05c2" },
+        { "label": "ש\u05c1" }
+      ]
+    } },
+    { "label": "ד", "popup": {
+      "relevant": [
+        { "label": "\u05bc" }
+      ]
+    } },
     { "label": "ג" },
     { "label": "כ" },
     { "label": "ע" },
     { "label": "י" },
-    { "label": "ח" },
+    { "label": "ח", "popup": {
+      "relevant": [
+        { "label": "\u05b4" },
+        { "label": "\u05b9" }
+      ]
+    } },
     { "label": "ל" },
     { "label": "ך" },
     { "label": "ף" }
   ],
   [
     { "label": "ז" },
-    { "label": "ס" },
+    { "label": "ס", "popup": {
+      "relevant": [
+        { "label": "\u05b6" },
+        { "label": "\u05b1" }
+      ]
+    } },
     { "label": "ב" },
     { "label": "ה" },
     { "label": "נ" },
     { "label": "מ" },
-    { "label": "צ" },
+    { "label": "צ", "popup": {
+      "relevant": [
+        { "label": "\u05b5" }
+      ]
+    } },
     { "label": "ת" },
     { "label": "ץ" }
   ]

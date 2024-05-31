@@ -1,0 +1,7 @@
+- aktualizacja układu serbskiego (cyrylica) dzięki @markokocic (#704, #705)
+- aktualizacja układu estońskiego dzięki @tenextractor (#693)
+- naprawa zduplikowanych wpisów w historii schowka dzięki @codokie (#616, #680)
+- dodawanie tylko wpisów tekstowych do historii schowka dzięki @codokie (#711)
+- lepsze obrazy w metadanych dzięki @RHJihan (#713)
+- prawidłowe ustawienie koloru ikon w oknie wybierania przycisków paska narzędzi dzięki @codokie (#715, #716)
+- inne poprawki (#684, #723 i więcej)

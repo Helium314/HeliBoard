@@ -26,3 +26,6 @@ $$$4
 % ℅
 [
 ]
+
+< !fixedColumnOrder!3 ‹ ≤ «
+> !fixedColumnOrder!3 › ≥ »

@@ -51,6 +51,7 @@
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
     hr: Croatian/qwertz
     hu: Hungarian/qwertz
+    hu: Hungarian/hungarian_qwertz
     hu_HU: Hungarian/qwerty
     hy_AM: Armenian (Armenia) Phonetic/armenian_phonetic
     in: Indonesian/qwerty    # "id" is the official language code of Indonesian.
@@ -162,7 +163,7 @@
             android:imeSubtypeLocale="ar"
             android:languageTag="ar"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -171,7 +172,7 @@
             android:imeSubtypeLocale="ar"
             android:languageTag="ar"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic_pc,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic_pc,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -234,7 +235,7 @@
             android:imeSubtypeLocale="bn_BD"
             android:languageTag="bn-BD"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali_akkhor,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali_akkhor,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -252,7 +253,7 @@
             android:imeSubtypeLocale="bn_IN"
             android:languageTag="bn-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=bengali,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -396,7 +397,7 @@
             android:imeSubtypeLocale="fa"
             android:languageTag="fa"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=farsi,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=farsi,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -459,7 +460,7 @@
             android:imeSubtypeLocale="hi"
             android:languageTag="hi"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -468,7 +469,7 @@
             android:imeSubtypeLocale="hi"
             android:languageTag="hi"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- This Hinglish keyboard is a preliminary layout.
@@ -501,6 +502,15 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
     />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic_extended"
+        android:subtypeId="0x35e198ee"
+        android:imeSubtypeLocale="hu"
+        android:languageTag="hu"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=hungarian_extended_qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="true"
+        />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xe39ac3ca"
@@ -554,7 +564,7 @@
             android:imeSubtypeLocale="iw"
             android:languageTag="he"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=hebrew,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hebrew,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -572,7 +582,7 @@
             android:imeSubtypeLocale="ka_GE"
             android:languageTag="ka-GE"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=georgian,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=georgian,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -599,7 +609,7 @@
             android:imeSubtypeLocale="kn_IN"
             android:languageTag="kn-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -608,7 +618,7 @@
         android:imeSubtypeLocale="kn_IN"
         android:languageTag="kn-IN"
         android:imeSubtypeMode="keyboard"
-        android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada_extended,SupportTouchPositionCorrection,EmojiCapable"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=kannada_extended,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
         />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -670,7 +680,7 @@
             android:imeSubtypeLocale="lo_LA"
             android:languageTag="lo-LA"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=lao,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=lao,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -715,7 +725,7 @@
             android:imeSubtypeLocale="ml_IN"
             android:languageTag="ml-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=malayalam,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=malayalam,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -728,12 +738,21 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_mns"
+        android:subtypeId="0x1056a464"
+        android:imeSubtypeLocale="mns"
+        android:languageTag="mns"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=mansi_north,EmojiCapable"
+        android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x747b9f03"
             android:imeSubtypeLocale="mr_IN"
             android:languageTag="mr-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=marathi,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=marathi,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -760,7 +779,7 @@
             android:imeSubtypeLocale="ne_NP"
             android:languageTag="ne-NP"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_romanized,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_romanized,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -769,7 +788,7 @@
             android:imeSubtypeLocale="ne_NP"
             android:languageTag="ne-NP"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_traditional,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=nepali_traditional,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -862,7 +881,7 @@
             android:imeSubtypeLocale="si_LK"
             android:languageTag="si-LK"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=sinhala,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=sinhala,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -927,7 +946,7 @@
             android:imeSubtypeLocale="ta_IN"
             android:languageTag="ta-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <!-- TODO: Enabling/Disabling ta_LK subtype must be aligned with si_LK subtype. -->
@@ -948,7 +967,7 @@
             android:imeSubtypeLocale="ta_SG"
             android:languageTag="ta-SG"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=tamil,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -957,7 +976,7 @@
             android:imeSubtypeLocale="te_IN"
             android:languageTag="te-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=telugu,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=telugu,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -966,7 +985,7 @@
             android:imeSubtypeLocale="th"
             android:languageTag="th"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=thai,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=thai,NoShiftProximityCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"

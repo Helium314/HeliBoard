@@ -12,3 +12,5 @@ tl;dr:
 
 Make sure you actually enabled HeliBoard spell checker. Usually it can be found in System Settings -> System -> Languages -> Advanced -> Spell Checker, but this may depend on Android version.
 Note that the menu when tapping a word underlined in red is coming form the Android system and is not under control of HeliBoard.
+
+<!-- please remove above text before submitting -->

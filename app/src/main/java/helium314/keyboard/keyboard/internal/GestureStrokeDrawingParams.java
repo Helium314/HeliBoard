@@ -10,14 +10,7 @@ import android.content.res.TypedArray;
 
 import helium314.keyboard.latin.R;
 
-/**
- * This class holds parameters to control how a gesture stroke is sampled and drawn on the screen.
- *
- * @attr ref R.styleable#MainKeyboardView_gestureTrailMinSamplingDistance
- * @attr ref R.styleable#MainKeyboardView_gestureTrailMaxInterpolationAngularThreshold
- * @attr ref R.styleable#MainKeyboardView_gestureTrailMaxInterpolationDistanceThreshold
- * @attr ref R.styleable#MainKeyboardView_gestureTrailMaxInterpolationSegments
- */
+/** This class holds parameters to control how a gesture stroke is sampled and drawn on the screen. */
 public final class GestureStrokeDrawingParams {
     public final double mMinSamplingDistance; // in pixel
     public final double mMaxInterpolationAngularThreshold; // in radian

@@ -13,9 +13,9 @@ Does not use internet permission, and thus is 100% offline.
    * [Hidden Functionality](#hidden-functionality)
 - [Contributing](#contributing-)
    * [Reporting Issues](#reporting-issues)
-   * [Translation](#translation)
+   * [Translations](#translations)
    * [Dictionary Creation](#dictionary-creation)
-   * [Code Contribution](#code-contribution)
+   * [Code Contribution](CONTRIBUTING.md)
 - [To-do](#to-do)
 - [License](#license)
 - [Credits](#credits)
@@ -38,7 +38,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
   <ul>
     <li>library not included in the app, as there is no compatible open source library available</li>
-    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a></li>
+    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a> (click on the file and then "raw" or the tiny download button)</li>
   </ul>
   <li>Clipboard history</li>
   <li>One-handed mode</li>
@@ -66,13 +66,10 @@ Does not use internet permission, and thus is 100% offline.
   The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
   Note that if the the app is installed as a system app, both versions have access to the system glide typing library (if it is installed).
 * __App crashing when using as system app__: This happens if you do not install the app, but just copy the APK. Then the app's own library is not extracted from the APK, and not accessible to the app. You will need tp either install the app over itself, or provide a library.
-* (_to be expanded_...)
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing pinned toolbar keys results in additional functionality
-  * clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo, 
-* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip.
+* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo
 * Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
@@ -110,7 +107,7 @@ Note that issues that that ignore part of the issue template will likely get tre
 
 If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html
 
-## Translation
+## Translations
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
@@ -119,52 +116,18 @@ There will not be any further dictionaries bundled in this app. However, you can
 To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme.
 
 ## Code Contribution
-
-### Getting Started
-
-HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).
-Of course you can also use any other compatible IDE, or work with text editor and command line.
-
-Once everything is up correctly, you're ready to go!
-
-### Guidelines
-
-HeliBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
-- **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it.
-If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
-- **Is only about a single thing**. Mixing unrelated contributions into a single PR is hard to review and can get messy.
-- **Is finished or a draft**. When you keep changing the PR without reviewer's feedback, any attempt to review it is doomed and a waste of time. Better mark it as a draft in this case.
-- **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps _a lot_ for understanding what is going on, and for separating wanted from unintended changes in behavior.
-- **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
-- **Has a low footprint**. Some parts of the code are executed very frequently, and the keyboard should stay responsive even on older devices.
-- **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
-If your contribution contains code that is not your own, provide a link to the source.
-- **Complies with the user privacy principle HeliBoard follows**. 
-
-In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
-
-### Adding Layouts
-
-See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app.
-
-### Update Emojis
-
-See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
-
-### Update List of Existing Dictionaries
-
-See make-dict-list tool [README](tools/make-dict-list/README.md).
+See [Contribution Guidelines](CONTRIBUTING.md)
 
 # To-do
 __Planned features and improvements:__
-* Customizable functional key layout
-  * Will likely result in having the same functional key layout for alphabet and symbols layouts
-* Support for _alt_, _ctrl_, _meta_ and _fn_ (#479)
+* Improve support for modifier keys (_alt_, _ctrl_, _meta_ and _fn_), some ideas:
+  * keep modifier keys on with long press
+  * keep modifier keys on until the next key press
+  * use sliding input
 * Less complicated addition of new keyboard languages (e.g. #519)
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
 * Ability to enter all emojis independent of Android version (optional, #297)
-* (limited) support for customizing _all_ internally used colors
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
@@ -173,13 +136,12 @@ __Planned features and improvements:__
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
 * Internal cleanup (a lot of over-complicated and convoluted code)
-* optionally move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__
 * Material 3 (not worth adding 1.5 MB to app size)
 * Dictionaries for more languages (you can still download them)
-* Anything that requires additional permissions
+* Anything that requires additional permissions, unless there is a very good reason
 
 # License
 

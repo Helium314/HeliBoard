@@ -2,7 +2,6 @@ package helium314.keyboard
 
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.common.Constants
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

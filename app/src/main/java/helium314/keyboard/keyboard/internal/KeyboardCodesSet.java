@@ -58,7 +58,7 @@ public final class KeyboardCodesSet {
         Constants.CODE_SPACE,
         KeyCode.SHIFT,
         KeyCode.CAPS_LOCK,
-        KeyCode.ALPHA_SYMBOL,
+        KeyCode.SYMBOL_ALPHA,
         KeyCode.ALPHA,
         KeyCode.SYMBOL,
         KeyCode.MULTIPLE_CODE_POINTS,

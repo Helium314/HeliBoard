@@ -3,13 +3,13 @@
     { "label": "1", "type": "numeric" },
     { "label": "2", "type": "numeric" },
     { "label": "3", "type": "numeric" },
-    { "label": "-", "popup": { "main": { "label": "+" } }, "labelFlags": 1073742336 }
+    { "label": "-", "type": "function", "popup": { "main": { "label": "+" } }, "labelFlags": 64 }
   ],
   [
     { "label": "4", "type": "numeric" },
     { "label": "5", "type": "numeric" },
     { "label": "6", "type": "numeric" },
-    {  "label": "space" }
+    { "label": "space", "type": "function" }
   ],
   [
     { "label": "7", "type": "numeric" },
@@ -19,15 +19,15 @@
   ],
   [
     { "$": "variation_selector",
-      "default": { "label": "," },
-      "date": { "label": "." },
-      "time": { "label": ".", "popup": { "relevant": [
+      "default": { "label": ",", "type": "numeric", "groupId": 1 },
+      "date": { "label": ".", "type": "numeric", "groupId": 1 },
+      "time": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
         { "label": "PM" }
       ] } },
-      "datetime": { "label": ".", "popup": { "relevant": [
+      "datetime": { "label": ".", "type": "numeric", "groupId": 1, "popup": { "relevant": [
         { "label": "!fixedColumnOrder!2" },
         { "label": "!hasLabels!" },
         { "label": "AM" },
@@ -36,10 +36,10 @@
     },
     { "label": "0", "type": "numeric" },
     { "$": "variation_selector",
-      "default": { "label": "." },
-      "date": { "label": "/" },
-      "time": { "label": ":" },
-      "datetime": { "label": "/ :|/", "popup": { "relevant": [
+      "default": { "label": ".", "type": "numeric" },
+      "date": { "label": "/", "type": "numeric" },
+      "time": { "label": ":", "type": "numeric" },
+      "datetime": { "label": "/ :|/", "type": "numeric", "popup": { "relevant": [
         { "label": "!noPanelAutoPopupKey!" },
         { "label": "," }
       ] } }

@@ -95,21 +95,6 @@
             android:defaultValue="false"
             android:persistent="true" />
 
-        <Preference
-            android:key="toolbar_keys"
-            android:title="@string/toolbar_keys" />
-
-        <Preference
-            android:key="clipboard_toolbar_keys"
-            android:title="@string/clipboard_toolbar_keys" />
-
-        <SwitchPreference
-            android:key="var_toolbar_direction"
-            android:title="@string/var_toolbar_direction"
-            android:summary="@string/var_toolbar_direction_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">

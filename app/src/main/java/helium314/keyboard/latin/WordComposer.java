@@ -15,7 +15,6 @@ import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.StringUtils;
@@ -167,7 +166,7 @@ public final class WordComposer {
 
     /**
      * Apply a processed input event.
-     *
+     * <p>
      * All input events should be supported, including software/hardware events, characters as well
      * as deletions, multiple inputs and gestures.
      *
@@ -320,7 +319,7 @@ public final class WordComposer {
     /**
      * Whether this composer is composing or about to compose a word in which only the first letter
      * is a capital.
-     *
+     * <p>
      * If we do have a composing word, we just return whether the word has indeed only its first
      * character capitalized. If we don't, then we return a value based on the capitalized mode,
      * which tell us what is likely to happen for the next composing word.
@@ -370,7 +369,7 @@ public final class WordComposer {
 
     /**
      * Saves the caps mode at the start of composing.
-     *
+     * <p>
      * WordComposer needs to know about the caps mode for several reasons. The first is, we need
      * to know after the fact what the reason was, to register the correct form into the user
      * history dictionary: if the word was automatically capitalized, we should insert it in
@@ -385,7 +384,7 @@ public final class WordComposer {
 
     /**
      * Before fetching suggestions, we don't necessarily know about the capitalized mode yet.
-     *
+     * <p>
      * If we don't have a composing word yet, we take a note of this mode so that we can then
      * supply this information to the suggestion process. If we have a composing word, then
      * the previous mode has priority over this.

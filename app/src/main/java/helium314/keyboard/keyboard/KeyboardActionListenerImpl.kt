@@ -1,6 +1,7 @@
 package helium314.keyboard.keyboard
 
 import android.net.Uri
+import android.view.KeyEvent
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
@@ -14,18 +15,34 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
+    private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
+
+    // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
+    private fun adjustMetaState(code: Int, remove: Boolean) {
+        val metaCode = when (code) {
+            KeyCode.CTRL -> KeyEvent.META_CTRL_ON
+            KeyCode.ALT -> KeyEvent.META_ALT_ON
+            KeyCode.FN -> KeyEvent.META_FUNCTION_ON
+            KeyCode.META -> KeyEvent.META_META_ON
+            else -> return
+        }
+        metaState = if (remove) metaState and metaCode.inv()
+            else metaState or metaCode
+    }
 
     override fun onPressKey(primaryCode: Int, repeatCount: Int, isSinglePointer: Boolean) {
+        adjustMetaState(primaryCode, false)
         keyboardSwitcher.onPressKey(primaryCode, isSinglePointer, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
         latinIME.hapticAndAudioFeedback(primaryCode, repeatCount)
     }
 
     override fun onReleaseKey(primaryCode: Int, withSliding: Boolean) {
+        adjustMetaState(primaryCode, true)
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
-        latinIME.onCodeInput(primaryCode, x, y, isKeyRepeat)
+        latinIME.onCodeInput(primaryCode, metaState, x, y, isKeyRepeat)
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
@@ -77,6 +94,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
+    override fun resetMetaState() {
+        metaState = 0
+    }
+
     private fun onLanguageSlide(steps: Int): Boolean {
         if (abs(steps) < 4) return false
         val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
@@ -100,9 +121,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         return true
     }
 
-    private fun onMoveCursorHorizontally(_steps: Int): Boolean {
-        if (_steps == 0) return false
-        var steps = _steps
+    private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
+        if (rawSteps == 0) return false
+        var steps = rawSteps
         // for RTL languages we want to invert pointer movement
         if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) steps = -steps
         val moveSteps: Int

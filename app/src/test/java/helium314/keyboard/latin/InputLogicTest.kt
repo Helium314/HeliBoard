@@ -535,6 +535,36 @@ class InputLogicTest {
         assertEquals("\"this i", text)
     }
 
+    @Test fun `double space results in period and space, and delete removes the period`() {
+        reset()
+        chainInput("hello")
+        input(' ')
+        input(' ')
+        assertEquals("hello. ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello ", text)
+    }
+
+    @Test fun `autospace in json editor`() {
+        reset()
+        chainInput("{\"label\":\"")
+        assertEquals("{\"label\": \"", text)
+        input('c')
+        assertEquals("{\"label\": \"c", text)
+    }
+
+    // todo: the test fails because assert wants it as it's in app
+    //  but actually the "failing text" is the wanted behavior -> how to get it in app?
+    @Test fun `autospace in json editor 2`() {
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+        setText("[\n[\n{ \"label\": \"a\" },\n")
+        chainInput("{\"label\":\"")
+        assertEquals("[\n[\n{ \"label\": \"a\" },\n{\"label\":\"", text)
+        input('c')
+        assertEquals("[\n[\n{ \"label\": \"a\" },\n{\"label\":\" c", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -566,7 +596,9 @@ class InputLogicTest {
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (currentScript != ScriptUtils.SCRIPT_HANGUL) { // check fails if hangul combiner merges symbols
+        if (currentScript != ScriptUtils.SCRIPT_HANGUL // check fails if hangul combiner merges symbols
+            && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
+            ) {
             if (phantomSpaceToInsert.isEmpty())
                 assertEquals(oldBefore + insert, textBeforeCursor)
             else // in some cases autospace might be suppressed
@@ -579,7 +611,7 @@ class InputLogicTest {
 
     private fun functionalKeyPress(keyCode: Int) {
         require(keyCode < 0) { "not a functional key code: $keyCode" }
-        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
+        latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT, keyCode, 0, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
         handleMessages()
         checkConnectionConsistency()
     }
@@ -855,7 +887,7 @@ private val ic = object : InputConnection {
         // update selection
         selectionStart -= beforeLength
         selectionEnd -= beforeLength
-        return true;
+        return true
     }
     override fun sendKeyEvent(p0: KeyEvent): Boolean {
         if (p0.action != KeyEvent.ACTION_DOWN) return true // only change the text on key down, like RichInputConnection does
@@ -896,7 +928,7 @@ private val ic = object : InputConnection {
     override fun clearMetaKeyStates(p0: Int): Boolean = TODO("Not yet implemented")
     override fun reportFullscreenMode(p0: Boolean): Boolean = TODO("Not yet implemented")
     override fun performPrivateCommand(p0: String?, p1: Bundle?): Boolean = TODO("Not yet implemented")
-    override fun getHandler(): Handler? = TODO("Not yet implemented")
+    override fun getHandler(): Handler = TODO("Not yet implemented")
     override fun closeConnection() = TODO("Not yet implemented")
     override fun commitContent(p0: InputContentInfo, p1: Int, p2: Bundle?): Boolean = TODO("Not yet implemented")
 }

@@ -245,12 +245,12 @@ private fun loadResourceSubtypes(resources: Resources) {
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
-    val customSubtypeFiles by lazy { Settings.getLayoutsDir(context).list() }
+    val customSubtypeFiles by lazy { getCustomLayoutFiles(context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")
         if (!name.startsWith(CUSTOM_LAYOUT_PREFIX)) return@forEach
-        if (customSubtypeFiles?.contains(name) != true)
+        if (name !in customSubtypeFiles)
             subtypesToRemove.add(it)
     }
     if (subtypesToRemove.isEmpty()) return

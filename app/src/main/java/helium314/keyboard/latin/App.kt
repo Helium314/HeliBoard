@@ -11,6 +11,10 @@ import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
+import helium314.keyboard.latin.utils.getCustomLayoutFile
+import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
@@ -37,7 +41,6 @@ fun checkVersionUpgrade(context: Context) {
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
-    upgradeToolbarPrefs(prefs)
     // clear extracted dictionaries, in case updated version contains newer ones
     DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
         if (!it.isDirectory) return@forEach
@@ -50,10 +53,9 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
-        val layoutsDir = Settings.getLayoutsDir(context)
-        val oldShiftSymbolsFile = File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}shift_symbols")
+        val oldShiftSymbolsFile = getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}shift_symbols", context)
         if (oldShiftSymbolsFile.exists()) {
-            oldShiftSymbolsFile.renameTo(File(layoutsDir, "${CUSTOM_LAYOUT_PREFIX}symbols_shifted"))
+            oldShiftSymbolsFile.renameTo(getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}symbols_shifted", context))
         }
 
         // rename subtype setting, and clean old subtypes that might remain in some cases
@@ -72,6 +74,23 @@ fun checkVersionUpgrade(context: Context) {
             putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
         }
     }
+    if (oldVersion <= 2000) {
+        // upgrade pinned toolbar keys pref
+        val oldPinnedKeysPref = prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, "")!!
+        val pinnedKeys = oldPinnedKeysPref.split(";").mapNotNull {
+            try {
+                ToolbarKey.valueOf(it)
+            } catch (_: IllegalArgumentException) {
+                null
+            }
+        }
+        val newPinnedKeysPref = (pinnedKeys.map { "${it.name},true" } + defaultPinnedToolbarPref.split(";"))
+            .distinctBy { it.split(",").first() }
+            .joinToString(";")
+        prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
+    }
+    upgradeToolbarPrefs(prefs)
+    onCustomLayoutFileListChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 
@@ -79,9 +98,8 @@ fun checkVersionUpgrade(context: Context) {
 private fun upgradesWhenComingFromOldAppName(context: Context) {
     // move layout files
     try {
-        val layoutsDir = Settings.getLayoutsDir(context)
         File(context.filesDir, "layouts").listFiles()?.forEach {
-            it.copyTo(File(layoutsDir, it.name), true)
+            it.copyTo(getCustomLayoutFile(it.name, context), true)
             it.delete()
         }
     } catch (_: Exception) {}

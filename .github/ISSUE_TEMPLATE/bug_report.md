@@ -10,12 +10,12 @@ tl;dr:
 * a single issue per topic
 * reduce screenshot size
 
-<!-- issue template below -->
+<!-- issue template below, please remove above text before submitting (and the template too if you think it's a good idea) -->
 
 **Describe the bug**
 
 **To Reproduce**
-If possible, provide all the necessary steps to reproduce your problem.
+If possible, provide all the necessary steps to reproduce your problem, including the involved apps or settings if relevant.
 
 **Expected behavior**
 If it's not obvious (e.g. not crash), describe how you think the app should behave.
