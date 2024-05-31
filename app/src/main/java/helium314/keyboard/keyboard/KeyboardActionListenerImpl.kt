@@ -14,6 +14,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
+    private var mSubtypeSwitchCount = 0 // for use with onLanguageSlide()
     private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
 
     // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
@@ -96,9 +97,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     private fun onLanguageSlide(steps: Int): Boolean {
-        if (abs(steps) < 4) return false
+        if (abs(steps) < settings.current.mLanguageSwipeDistance) return false
         val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
-        if (subtypes.size <= 1) { // only allow if we have more than one subtype
+        if (subtypes.size - 1 <= abs(mSubtypeSwitchCount)) { // only allow if we are yet to cycle through all subtypes
             return false
         }
         // decide next or previous dependent on up or down
@@ -108,7 +109,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (wantedIndex < 0)
             wantedIndex += subtypes.size
         KeyboardSwitcher.getInstance().switchToSubtype(subtypes[wantedIndex])
+        if (steps > 0) mSubtypeSwitchCount++ else mSubtypeSwitchCount--
         return true
+    }
+
+    override fun resetSubtypeSwitchCount(){
+        mSubtypeSwitchCount = 0
     }
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
