@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -445,12 +446,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
         if (!info.getWord().equals(word)) return;
         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-        // apparently toast is not working on some Android versions, probably
-        // Android 13 with the notification permission
-        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtilsKt.getPlatformDialogThemeContext(getContext()), wordView);
-        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
-        uglyWorkaround.show();
+        if (isShowingMoreSuggestionPanel()) {
+            mMoreSuggestionsView.dismissPopupKeysPanel();
+        }
+        KeyboardSwitcher.getInstance().showToast(text, true);
     }
 
     private void removeSuggestion(TextView wordView) {

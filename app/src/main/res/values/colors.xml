@@ -68,6 +68,7 @@
     <color name="foreground">#000</color>
     <color name="foreground_weak">#555</color>
     <color name="almost_background">#AAA</color>
+    <color name="toast_background">#666666</color>
     <color name="highlight_color_lxx_light">#1A73E8</color> <!-- todo: remove / replace with accent? -->
     <color name="keyboard_background">@color/keyboard_background_light</color>
 

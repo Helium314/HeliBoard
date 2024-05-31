@@ -6,6 +6,7 @@
     <color name="foreground">#FFF</color>
     <color name="foreground_weak">#BBB</color>
     <color name="almost_background">#666</color>
+    <color name="toast_background">#444444</color>
 
     <color name="keyboard_background">@color/keyboard_background_dark</color>
 

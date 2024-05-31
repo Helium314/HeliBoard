@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="16dp"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
+    android:drawablePadding="12dp"
+    android:drawableStart="@mipmap/ic_launcher_round"
+    android:background="@drawable/toast_background"
+    android:textColor="@android:color/white"
+    android:textAppearance="?android:textAppearanceMedium"
+    android:visibility="gone" />
