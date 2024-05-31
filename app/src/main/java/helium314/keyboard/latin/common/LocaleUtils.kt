@@ -58,7 +58,7 @@ object LocaleUtils {
     // The compared locales are fully identical. This is the best match level.
     private const val LOCALE_FULL_MATCH = 30
 
-    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+    const val LOCALE_GOOD_MATCH = LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER
 
     /**
      * Return how well a tested locale matches a reference locale.
@@ -190,7 +190,7 @@ object LocaleUtils {
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script() || locale.language == "xdq") {
+        if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq") {
             val resId = resources.getIdentifier(
                 "subtype_${languageTag.replace("-", "_")}",
                 "string",

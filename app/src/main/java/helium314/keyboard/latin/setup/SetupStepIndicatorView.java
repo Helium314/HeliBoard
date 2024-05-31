@@ -13,9 +13,9 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
-import helium314.keyboard.latin.R;
+import androidx.annotation.NonNull;
 
-import androidx.core.view.ViewCompat;
+import helium314.keyboard.latin.R;
 
 public final class SetupStepIndicatorView extends View {
     private final Path mIndicatorPath = new Path();
@@ -29,17 +29,17 @@ public final class SetupStepIndicatorView extends View {
     }
 
     public void setIndicatorPosition(final int stepPos, final int totalStepNum) {
-        final int layoutDirection = ViewCompat.getLayoutDirection(this);
+        final int layoutDirection = getLayoutDirection();
         // The indicator position is the center of the partition that is equally divided into
         // the total step number.
         final float partionWidth = 1.0f / totalStepNum;
         final float pos = stepPos * partionWidth + partionWidth / 2.0f;
-        mXRatio = (layoutDirection == ViewCompat.LAYOUT_DIRECTION_RTL) ? 1.0f - pos : pos;
+        mXRatio = (layoutDirection == View.LAYOUT_DIRECTION_RTL) ? 1.0f - pos : pos;
         invalidate();
     }
 
     @Override
-    protected void onDraw(final Canvas canvas) {
+    protected void onDraw(@NonNull final Canvas canvas) {
         super.onDraw(canvas);
         final int xPos = (int)(getWidth() * mXRatio);
         final int height = getHeight();

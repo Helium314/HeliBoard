@@ -24,7 +24,6 @@ import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
-import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import kotlin.collections.ArraysKt;
 
@@ -37,7 +36,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_preferences);
 
-        final Resources res = getResources();
         final Context context = getActivity();
 
         // When we are called from the Settings application but we are not already running, some
@@ -48,9 +46,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
-        }
-        if (!Settings.readFromBuildConfigIfToShowKeyPreviewPopupOption(res)) {
-            removePreference(Settings.PREF_POPUP_ON);
         }
 
         setupKeypressVibrationDurationSettings();
@@ -69,16 +64,6 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
                     PopupKeysUtilsKt.POPUP_KEYS_LABEL_DEFAULT, R.string.hint_source, (x) -> null);
             return true;
         });
-        findPreference(Settings.PREF_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
-            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultToolbarPref(),
-                    R.string.toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
-            return true;
-        });
-        findPreference(Settings.PREF_CLIPBOARD_TOOLBAR_KEYS).setOnPreferenceClickListener((pref) -> {
-            DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, ToolbarUtilsKt.getDefaultClipboardToolbarPref(),
-                    R.string.toolbar_keys, (name) -> ToolbarUtilsKt.getToolbarIconByName(name, requireContext()));
-            return true;
-        });
     }
 
     @Override
@@ -92,8 +77,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (key == null) return;
         switch (key) {
             case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
-                    Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS
-                    -> mReloadKeyboard = true;
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS
                     -> findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
@@ -158,12 +142,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readKeypressVibrationDuration(prefs, res);
+                return Settings.readKeypressVibrationDuration(prefs);
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return Settings.readDefaultKeypressVibrationDuration(res);
+                return -1;
             }
 
             @Override
@@ -213,12 +197,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs, res));
+                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs));
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return getPercentageFromValue(Settings.readDefaultKeypressSoundVolume(res));
+                return getPercentageFromValue(-1f);
             }
 
             @Override

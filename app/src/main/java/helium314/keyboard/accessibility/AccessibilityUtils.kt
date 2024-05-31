@@ -7,7 +7,6 @@
 package helium314.keyboard.accessibility
 
 import android.content.Context
-import android.media.AudioDeviceInfo
 import android.media.AudioDeviceInfo.*
 import android.media.AudioManager
 import android.os.Build

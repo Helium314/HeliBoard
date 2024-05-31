@@ -27,7 +27,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.keyboard.emoji.EmojiPageKeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -43,36 +42,8 @@ import helium314.keyboard.latin.utils.TypefaceUtils;
 
 import java.util.HashSet;
 
-/**
- * A view that renders a virtual {@link Keyboard}.
- *
- * @attr ref R.styleable#KeyboardView_keyBackground
- * @attr ref R.styleable#KeyboardView_functionalKeyBackground
- * @attr ref R.styleable#KeyboardView_spacebarBackground
- * @attr ref R.styleable#KeyboardView_spacebarIconWidthRatio
- * @attr ref R.styleable#Keyboard_Key_keyLabelFlags
- * @attr ref R.styleable#KeyboardView_keyHintLetterPadding
- * @attr ref R.styleable#KeyboardView_keyPopupHintLetter
- * @attr ref R.styleable#KeyboardView_keyPopupHintLetterPadding
- * @attr ref R.styleable#KeyboardView_keyShiftedLetterHintPadding
- * @attr ref R.styleable#KeyboardView_keyTextShadowRadius
- * @attr ref R.styleable#KeyboardView_verticalCorrection
- * @attr ref R.styleable#Keyboard_Key_keyTypeface
- * @attr ref R.styleable#Keyboard_Key_keyLetterSize
- * @attr ref R.styleable#Keyboard_Key_keyLabelSize
- * @attr ref R.styleable#Keyboard_Key_keyLargeLetterRatio
- * @attr ref R.styleable#Keyboard_Key_keyLargeLabelRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLetterRatio
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelRatio
- * @attr ref R.styleable#Keyboard_Key_keyLabelOffCenterRatio
- * @attr ref R.styleable#Keyboard_Key_keyHintLabelOffCenterRatio
- * @attr ref R.styleable#Keyboard_Key_keyPreviewTextRatio
- * @attr ref R.styleable#Keyboard_Key_keyTextColorDisabled
- * @attr ref R.styleable#Keyboard_Key_keyTextShadowColor
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintInactivatedColor
- * @attr ref R.styleable#Keyboard_Key_keyShiftedLetterHintActivatedColor
- */
+/** A view that renders a virtual {@link Keyboard}. */
+// todo: this ThemeStyle-dependent stuff really should not be in here!
 public class KeyboardView extends View {
     // XML attributes
     private final KeyVisualAttributes mKeyVisualAttributes;
@@ -135,8 +106,8 @@ public class KeyboardView extends View {
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        if (this instanceof EmojiPageKeyboardView || this instanceof PopupSuggestionsView)
-            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.BACKGROUND);
+        if (this instanceof PopupSuggestionsView)
+            mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.MORE_SUGGESTIONS_WORD_BACKGROUND);
         else if (this instanceof PopupKeysKeyboardView)
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.POPUP_KEYS_BACKGROUND);
         else
@@ -430,7 +401,13 @@ public class KeyboardView extends View {
                 paint.setTextAlign(Align.CENTER);
             }
             if (key.needsAutoXScale()) {
-                final float ratio = Math.min(1.0f, (keyWidth * MAX_LABEL_RATIO) / TypefaceUtils.getStringWidth(label, paint));
+                final int width;
+                if (key.needsToKeepBackgroundAspectRatio(mDefaultKeyLabelFlags)) {
+                    // make sure the text stays inside bounds of background drawable
+                    Drawable bg = key.selectBackgroundDrawable(mKeyBackground, mFunctionalKeyBackground, mSpacebarBackground, mActionKeyBackground);
+                    width = Math.min(bg.getBounds().bottom, bg.getBounds().right);
+                } else width = keyWidth;
+                final float ratio = Math.min(1.0f, (width * MAX_LABEL_RATIO) / TypefaceUtils.getStringWidth(label, paint));
                 if (key.needsAutoScale()) {
                     final float autoSize = paint.getTextSize() * ratio;
                     paint.setTextSize(autoSize);
@@ -442,6 +419,8 @@ public class KeyboardView extends View {
             if (key.isEnabled()) {
                 if (StringUtils.mightBeEmoji(label))
                     paint.setColor(key.selectTextColor(params) | 0xFF000000); // ignore alpha for emojis (though actually color isn't applied anyway and we could just set white)
+                else if (key.hasActionKeyBackground())
+                    paint.setColor(mColors.get(ColorType.ACTION_KEY_ICON));
                 else
                     paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
@@ -472,7 +451,7 @@ public class KeyboardView extends View {
             blendAlpha(paint, params.mAnimAlpha);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
-            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.isFunctional();
+            final boolean isFunctionalKeyAndRoundedStyle = mColors.getThemeStyle().equals(STYLE_ROUNDED) && key.hasFunctionalBackground();
             final float hintX, hintBaseline;
             if (key.hasHintLabel()) {
                 // The hint label is placed just right of the key label. Used mainly on
@@ -555,7 +534,7 @@ public class KeyboardView extends View {
             if (key.getBackgroundType() == Key.BACKGROUND_TYPE_SPACEBAR)
                 hintX = keyWidth + hintBaseline + labelCharWidth * 0.1f;
             else
-                hintX = key.isFunctional() || key.isActionKey() ? keyWidth / 2.0f : keyWidth - mKeyHintLetterPadding - labelCharWidth / 2.0f;
+                hintX = key.hasFunctionalBackground() || key.hasActionKeyBackground() ? keyWidth / 2.0f : keyWidth - mKeyHintLetterPadding - labelCharWidth / 2.0f;
         } else {
             hintX = keyWidth - mKeyHintLetterPadding - TypefaceUtils.getReferenceCharWidth(paint) / 2.0f;
         }
@@ -644,6 +623,8 @@ public class KeyboardView extends View {
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == KeyCode.ZWNJ) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
             mColors.setColor(icon, ColorType.KEY_ICON);
+        } else {
+            mColors.setColor(icon, ColorType.KEY_TEXT);
         }
     }
 

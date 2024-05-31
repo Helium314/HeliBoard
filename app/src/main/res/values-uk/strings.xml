@@ -90,7 +90,7 @@
     <string name="setup_step1_finished_instruction">Застосунок <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже увімкнено в налаштуваннях «Мова та введення». Переходьте до наступного кроку!</string>
     <string name="setup_step1_action">Увімкнути в налаштуваннях</string>
     <string name="setup_step2_title">Перемкнути на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Далі виберіть \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" як ваш активний спосіб введення тексту.</string>
+    <string name="setup_step2_instruction">Виберіть «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» поточним методом введення.</string>
     <string name="setup_step2_action">Змінити метод введення</string>
     <string name="setup_step3_title">Вітаємо, налаштування завершено!</string>
     <string name="setup_step3_instruction">Тепер ви можете писати в усіх улюблених застосунках за допомогою <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -124,7 +124,7 @@
     <string name="theme_style">Стиль теми</string>
     <string name="style_name_Rounded">Закруглений</string>
     <string name="theme_colors">Кольори теми</string>
-    <string name="theme_colors_night">Кольори теми (Темна тема)</string>
+    <string name="theme_colors_night">Кольори теми (темна тема)</string>
     <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальська">%s</xliff:g> (Аккгор)</string>
@@ -176,7 +176,7 @@
     <string name="prefs_force_incognito_mode_summary">Вимкнути вивчення нових слів</string>
     <string name="show_hints_summary">Показувати підказки довгим натисканням</string>
     <string name="show_hints">Показувати підказки клавіш</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Змінювати спосіб введення клавішею пробіл</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Змінювати метод введення клавішею пробіл</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Довге натискання клавіші пробіл виводить меню вибору способу введення</string>
     <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="spell_checker_service_name">Перевірка правопису HeliBoard</string>
@@ -261,7 +261,7 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистити буфер обміну</string>
     <string name="voice" tools:keep="@string/voice">Голосове введення</string>
     <string name="down" tools:keep="@string/down">Вниз</string>
-    <string name="cut" tools:keep="@string/Cut">Вирізати</string>
+    <string name="cut" tools:keep="@string/cut">Вирізати</string>
     <string name="select_word" tools:keep="@string/select_word">Виберіть слово</string>
     <string name="one_handed" tools:keep="@string/one_handed">Режим однієї руки</string>
     <string name="full_left" tools:keep="@string/full_left">У лівий кінець</string>
@@ -310,7 +310,6 @@
     <string name="hidden_features_text">сховище, захищене пристроєм</string>
     <string name="dictionary_settings_category">Словники</string>
     <string name="add_new_dictionary_ask_locale">До якої мови слід додати словник «%1$s» для %2$s?</string>
-    <string name="customize_symbols_number_layouts_summary">Розкладки (крім символьних) залежать від внутрішніх налаштувань, які можуть змінюватися. Якщо це станеться, кастомні розкладки можуть не працювати коректно.</string>
     <string name="day_or_night_day">День</string>
     <string name="day_or_night_night">Ніч</string>
     <string name="setup_step3_action">Налаштування клавіатури</string>

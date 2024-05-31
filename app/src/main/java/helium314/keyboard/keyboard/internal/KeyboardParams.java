@@ -19,7 +19,6 @@ import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
@@ -55,18 +54,20 @@ public class KeyboardParams {
     @Nullable
     public KeyVisualAttributes mKeyVisualAttributes;
 
-    public float mDefaultRelativeRowHeight;
-    public float mDefaultRelativeKeyWidth;
+    public float mDefaultRowHeight;
+    public float mDefaultKeyWidth;
     public float mRelativeHorizontalGap;
     public float mRelativeVerticalGap;
     // relative values multiplied with baseHeight / baseWidth
-    public int mDefaultRowHeight;
-    public int mDefaultKeyWidth;
+    public int mDefaultAbsoluteRowHeight;
+    public int mDefaultAbsoluteKeyWidth;
     public int mHorizontalGap;
     public int mVerticalGap;
 
     public int mPopupKeysTemplate;
     public int mMaxPopupKeysKeyboardColumn;
+    // popup key width is separate from mDefaultAbsoluteKeyWidth because it should not depend on alpha or number layout
+    public int mAbsolutePopupKeyWidth;
 
     public int GRID_WIDTH;
     public int GRID_HEIGHT;
@@ -94,11 +95,11 @@ public class KeyboardParams {
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;
 
+    // should be enabled for all alphabet layouts, except for specific layouts when shifted
     public boolean mProximityCharsCorrectionEnabled;
 
     @NonNull
-    public final TouchPositionCorrection mTouchPositionCorrection =
-            new TouchPositionCorrection();
+    public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
     private static final Comparator<Key> ROW_COLUMN_COMPARATOR = (lhs, rhs) -> {
@@ -225,11 +226,12 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
-            final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2
-                    ? 0.9f : 1f;
-            mDefaultRelativeKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
+            final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
+            final float alphaSymbolKeyWidth = keyAttr.getFraction(R.styleable.Keyboard_Key_keyWidth,
                     1, 1, defaultKeyWidthFactor / DEFAULT_KEYBOARD_COLUMNS);
-            mDefaultKeyWidth = (int) (mDefaultRelativeKeyWidth * mBaseWidth);
+            mDefaultKeyWidth = mId.isNumberLayout() ? 0.17f : alphaSymbolKeyWidth;
+            mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
+            mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
             // todo: maybe settings should not be accessed from here?
             if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
@@ -250,13 +252,13 @@ public class KeyboardParams {
             mVerticalGap = (int) (mRelativeVerticalGap * height);
 
             mBaseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
-            mDefaultRelativeRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
+            mDefaultRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
                     R.styleable.Keyboard_rowHeight, 1, 1f / DEFAULT_KEYBOARD_ROWS);
-            if (mDefaultRelativeRowHeight > 1) { // can be absolute size, in that case will be > 1
-                mDefaultRowHeight = (int) mDefaultRelativeRowHeight;
-                mDefaultRelativeRowHeight *= -1; // make it negative when it's absolute
+            if (mDefaultRowHeight > 1) { // can be absolute size, in that case will be > 1
+                mDefaultAbsoluteRowHeight = (int) mDefaultRowHeight;
+                mDefaultRowHeight *= -1; // make it negative when it's absolute
             } else {
-                mDefaultRowHeight = (int) (mDefaultRelativeRowHeight * mBaseHeight);
+                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight);
             }
 
             mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
@@ -267,9 +269,11 @@ public class KeyboardParams {
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
             mIconsSet.loadIcons(keyboardAttr);
 
-            final int resourceId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
-            if (resourceId != 0) {
-                final String[] data = context.getResources().getStringArray(resourceId);
+            // touchPositionResId currently is 0 for popups, and touch_position_correction_data_holo for others
+            final int touchPositionResId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);
+            if (touchPositionResId != 0) {
+                final int actualId = mId.isAlphabetKeyboard() ? touchPositionResId : R.array.touch_position_correction_data_default;
+                final String[] data = context.getResources().getStringArray(actualId);
                 mTouchPositionCorrection.load(data);
             }
         } finally {

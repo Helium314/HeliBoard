@@ -3,24 +3,24 @@
     { "label": "(", "type": "numeric" },
     { "label": "/", "type": "numeric" },
     { "label": ")", "type": "numeric" },
-    { "label": "-", "popup": { "main": { "label": "+" } } }
+    { "label": "-", "type": "function", "labelFlags": 1073742400, "popup": { "main": { "label": "+" } } }
   ],
   [
     { "label": "N", "type": "numeric" },
-    { "label": "!string/label_pause_key|,", "type": "numeric" },
+    { "label": "!string/label_pause_key", "code": 44, "type": "numeric" },
     { "label": ",", "type": "numeric" },
-    { "label": "space" }
+    { "label": "space", "type": "function" }
   ],
   [
     { "label": "＊|*", "type": "numeric" },
-    { "label": "!string/label_wait_key|;", "type": "numeric" },
+    { "label": "!string/label_wait_key", "code": 59, "type": "numeric" },
     { "label": "\\#", "type": "numeric" },
     { "label": "delete" }
   ],
   [
-    { "label": "123|!code/key_switch_alpha_symbol", "labelFlags": 524432 },
+    { "label": "123|!code/key_switch_alpha_symbol", "type": "numeric", "labelFlags": 524432 },
     { "label": "+", "type": "numeric" },
-    { "label": "." },
+    { "label": ".", "type": "numeric", "groupId": 1 },
     { "label": "action" }
   ]
 ]

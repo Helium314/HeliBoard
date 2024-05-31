@@ -215,21 +215,21 @@
     <string name="more_keys_strip_description">More keys</string>
     <!-- Title for input language & layout selection screen -->
     <string name="language_and_layouts_title">Languages &amp; Layouts</string>
-    <!-- Title of the settings to enable number row -->
+    <!-- Title of the setting to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
     <string name="number_row_summary">Always show number row</string>
-    <!-- Title of the settings to localize number row -->
+    <!-- Title of the setting to localize number row -->
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
-    <!-- Title of the settings to show key hints -->
+    <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
-    <!-- Title of the settings to select key hints source -->
+    <!-- Title of the setting to select key hints source -->
     <string name="hint_source">Select hint source</string>
-    <!-- Title of the settings to set popup key order -->
+    <!-- Title of the setting to set popup key order -->
     <string name="popup_order">Select popup key order</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
@@ -237,11 +237,11 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
-    <!-- Title of the settings to set toolbar keys -->
+    <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
-    <string name="cut" tools:keep="@string/Cut">Cut</string>
+    <string name="cut" tools:keep="@string/cut">Cut</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
@@ -258,9 +258,15 @@
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
-    <!-- Title of the settings to set clipboard toolbar keys -->
+    <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
-    <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
+    <!-- Title of the setting to set pinned toolbar keys -->
+    <string name="pinned_toolbar_keys">Select pinned toolbar keys</string>
+    <!-- Title of the setting to quick-pin toolbar keys -->
+    <string name="quick_pin_toolbar_keys">Pin toolbar key on long press</string>
+    <!-- Description of the setting to quick-pin toolbar keys -->
+    <string name="quick_pin_toolbar_keys_summary">This will disable other long press actions for toolbar keys that are not pinned</string>
+    <!-- Title of the setting to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
     <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
@@ -272,9 +278,9 @@
     <string name="prefs_long_press_symbol_for_numpad">Long press symbols key for numpad</string>
     <!-- Title of the setting for reduced distance between keys -->
     <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
-    <!-- Title of the settings for setting keyboard height -->
+    <!-- Title of the setting for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
-    <!-- Title of the settings for setting bottom padding height -->
+    <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
@@ -287,6 +293,8 @@
     <string name="subtype_es_US">Spanish (US)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_hi_Latn">Hinglish</string>
+    <!-- Description for Mansi (https://en.wikipedia.org/wiki/Mansi_languages) keyboard subtype -->
+    <string name="subtype_mns">Mansi</string>
     <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype [CHAR LIMIT=25] -->
     <string name="subtype_xdq">Kaitag</string>
     <!-- Description for Serbian (Latin) keyboard subtype [CHAR LIMIT=25]
@@ -312,6 +320,7 @@
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->      
@@ -467,8 +476,14 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="edit_layout">Tap to edit raw layout</string>
     <!-- Title for customizing symbols or number layouts -->
     <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
-    <!-- Summary for customizing symbols or number layouts -->
-    <string name="customize_symbols_number_layouts_summary">Layouts (except symbols) expose internal settings which may still change. If that happens, the custom layout may not work properly any more.</string>
+    <!-- Title for customizing functional key layouts -->
+    <string name="customize_functional_key_layouts">Customize functional key layouts</string>
+    <!-- Name for functional keys layout -->
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
+    <!-- Name for functional keys layout when showing symbols layout -->
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
+    <!-- Name for functional keys layout when showing more symbols layout -->
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Functional keys (More symbols)</string>
     <!-- Name for symbols layout -->
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbols</string>
     <!-- Name for symbols layout for arabic language -->
@@ -493,13 +508,13 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="day_or_night_day">Day</string>
     <!-- Button for selecting night -->
     <string name="day_or_night_night">Night</string>
-    <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
-    <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress sound volume [CHAR LIMIT=35] -->
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
-    <!-- Title of the settings for key long press delay [CHAR LIMIT=35] -->
+    <!-- Title of the setting for key long press delay [CHAR LIMIT=35] -->
     <string name="prefs_key_longpress_timeout_settings">Key long press delay</string>
-    <!-- Title of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
+    <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
@@ -699,8 +714,12 @@ New dictionary:
     <string name="auto_user_color">Choose color automatically</string>
     <!-- Menu item for showing fewer colors -->
     <string name="main_colors">Show main colors only</string>
+    <!-- Menu item for showing more colors -->
+    <string name="more_colors">Show more colors</string>
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
+    <!-- Warning message displayed when showing all colors -->
+    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. There is no default color, and the names will not be translated.</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
@@ -745,8 +764,10 @@ New dictionary:
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
-    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">"Appearance"</string>
+    <!-- Settings screen title for appearance preferences -->
+    <string name="settings_screen_appearance">Appearance</string>
+    <!-- Settings screen title for toolbar preferences -->
+    <string name="settings_screen_toolbar">Toolbar</string>
     <!-- Hidden features title -->
     <string name="hidden_features_title">Description of hidden features</string>
     <!-- Hidden features summary -->
@@ -754,30 +775,40 @@ New dictionary:
     <!-- Title of the link to the web page inserted into messages -->
     <string name="hidden_features_text">device protected storage</string>
     <!-- Hidden features text -->
-    <string name="hidden_features_message">
-        &#9658; Long-pressing the Clipboard Key (the optional one in the suggestion strip) pastes system clipboard contents. &lt;br&gt; &lt;br&gt;
-        &#9658; Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
-        &#9658; Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
-        \t&#8226; Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
-        \t&#8226; For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s \'q\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
-        &#9658; When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt;
-        &#9658; Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
-        &#9658; Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
-        \t&#8226; This also works for the \'?123\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
-        &#9658; Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
-        &#9658; Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
-        &#9658; Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
-        &#9658; You can add dictionaries by opening them in a file explorer: &lt;br&gt;
-        \t&#8226; This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
-        &lt;i&gt;Debug mode / debug APK&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-        \t&#8226; Long-press a suggestion to show the source dictionary.&lt;br&gt; &lt;br&gt;
-        \t&#8226; When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt; &lt;br&gt;
-        \t&#8226; In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
-        \t&#8226; When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
-        \t&#8226; Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled). &lt;br&gt; &lt;br&gt;
-        &#9658; For users doing manual backups with root access: Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. &lt;br&gt;
-        This is necessary so the settings can be read before the device is unlocked, e.g. at boot. &lt;br&gt;
-        The file is located in /data/user_de/0/package_id/shared_prefs/, though this may depend on the device and Android version.</string>
+    <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
+\n\t• clipboard &amp;#65515; paste &lt;br&gt;
+\n\t• move left/right &amp;#65515; move full left/right &lt;br&gt;
+\n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
+\n\t• copy &amp;#65515; copy all &lt;br&gt;
+\n\t• select word &amp;#65515; select all &lt;br&gt;
+\n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
+\n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
+\n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
+\n\t• Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
+\n\t• For some layouts it\\\'s not the Comma-key, but the key at the same position (e.g. it\\\'s \\\'q\\\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
+\n► When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt;
+\n► Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
+\n► Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
+\n\t• This also works for the \\\'?123\\\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
+\n► Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard. &lt;br&gt; &lt;br&gt;
+\n► Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
+\n► Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
+\n► Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
+\n► Swipe left in clipboard view to remove an entry (except when it\\\'s pinned) &lt;br&gt; &lt;br&gt;
+\n► Select text and press shift to switch between uppercase, lowercase and capitalize words. &lt;br&gt; &lt;br&gt;
+\n► You can add dictionaries by opening them in a file explorer: &lt;br&gt;
+\n\t• This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
+\n► For users doing manual backups with root access: &lt;br&gt;
+\n\t• Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. This is necessary so the settings can be read before the device is unlocked, e.g. at boot; &lt;br&gt;
+\n\t• The file is located in /data/user_de/0/package_id/shared_prefs/ though this may depend on the device and Android version. &lt;br&gt; &lt;br&gt;
+\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+\n► Long-press a suggestion to show the source dictionary. &lt;br&gt; &lt;br&gt;
+\n► When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt;
+\n\t• For a release APK, you need to tap the version in &lt;i&gt;About&lt;/i&gt; several times, then you can find debug settings in &lt;i&gt;Advanced Preferences&lt;/i&gt;. &lt;br&gt;
+\n\t• When enabling &lt;i&gt;Show suggestion infos&lt;/i&gt;, suggestions will have some tiny numbers on top showing some internal score and source dictionary. &lt;br&gt; &lt;br&gt;
+\n► In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
+\n► When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
+\n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
     <string name="use_personalized_dicts_summary">Learn from your communications and typed data to improve suggestions</string>
     <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. [CHAR LIMIT=7] -->
     <string name="label_go_key">Go</string>
@@ -795,16 +826,18 @@ New dictionary:
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
     <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
-    <!-- Title of the settings for horizontal spacebar swipe gesture -->
+    <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
-    <!-- Title of the settings for vertical spacebar swipe gesture -->
+    <!-- Title of the setting for vertical spacebar swipe gesture -->
     <string name="show_vertical_space_swipe">Vertical spacebar swipe gesture</string>
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
-    <!-- Title of the settings for variable toolbar direction -->
+    <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Toast message shown when content is copied to the clipboard -->
+    <string name="toast_msg_clipboard_copy">Content copied</string>
 </resources>

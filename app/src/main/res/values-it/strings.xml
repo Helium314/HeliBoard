@@ -328,7 +328,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">Numeri</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Tastierino numerico (orizzontale)</string>
     <string name="customize_symbols_number_layouts">Personalizzazione dei simboli e dei layout dei numeri</string>
-    <string name="customize_symbols_number_layouts_summary">I layout (eccetto i simboli) espongono impostazioni interne che possono essere modificate. In tal caso, il layout personalizzato potrebbe non funzionare più correttamente.</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Tastierino numerico</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboli telefono</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (studenti)</string>
@@ -340,7 +339,7 @@
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
     <string name="prefs_long_press_symbol_for_numpad">Premi a lungo il tasto dei simboli per il tastierino numerico</string>
-    <string name="cut" tools:keep="@string/Cut">Taglia</string>
+    <string name="cut" tools:keep="@string/cut">Taglia</string>
     <string name="var_toolbar_direction_summary">Inverte la direzione quando è selezionato un sottotipo di tastiera da destra a sinistra</string>
     <string name="var_toolbar_direction">Direzione barra strumenti variabile</string>
     <string name="select_color_accent">Colore accento</string>
