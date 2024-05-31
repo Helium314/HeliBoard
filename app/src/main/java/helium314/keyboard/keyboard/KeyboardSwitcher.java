@@ -10,8 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import helium314.keyboard.latin.utils.Log;
-
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
@@ -43,6 +41,7 @@ import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -72,8 +71,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
     private int mCurrentUiMode;
-
-    private boolean isToastShowing;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -498,7 +495,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     // Displays a toast-like message with the provided text for a specified duration.
     public void showFakeToast(final String text, final int timeMillis) {
-        if (isToastShowing) return;
+        if (mFakeToastView.getVisibility() == View.VISIBLE) return;
 
         final Drawable appIcon = mFakeToastView.getCompoundDrawables()[0];
         if (appIcon != null) {
@@ -509,13 +506,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mFakeToastView.setText(text);
         mFakeToastView.setVisibility(View.VISIBLE);
         mFakeToastView.bringToFront();
-        isToastShowing = true;
         mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_in));
 
         mFakeToastView.postDelayed(() -> {
             mFakeToastView.startAnimation(AnimationUtils.loadAnimation(mLatinIME, R.anim.fade_out));
             mFakeToastView.setVisibility(View.GONE);
-            isToastShowing = false;
         }, timeMillis);
     }
 
