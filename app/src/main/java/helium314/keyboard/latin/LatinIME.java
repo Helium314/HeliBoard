@@ -202,10 +202,8 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
-        private static final int MSG_SET_CLIPBOARD_SUGGESTION = 11;
-
         // Update this when adding new messages
-        private static final int MSG_LAST = MSG_SET_CLIPBOARD_SUGGESTION;
+        private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
         private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
@@ -262,9 +260,6 @@ public class LatinIME extends InputMethodService implements
                             latinIme.mSettings.getCurrent(),
                             latinIme.mKeyboardSwitcher.getCurrentKeyboardScript());
                     break;
-                case MSG_SET_CLIPBOARD_SUGGESTION:
-                    latinIme.setClipboardSuggestion();
-                    break;
                 case MSG_REOPEN_DICTIONARIES:
                     // We need to re-evaluate the currently composing word in case the script has
                     // changed.
@@ -312,19 +307,8 @@ public class LatinIME extends InputMethodService implements
         }
 
         public void postResumeSuggestions(final boolean shouldDelay) {
-            final LatinIME latinIme = getOwnerInstance();
-            if (latinIme == null) {
-                return;
-            }
-            final int message;
-            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
-                if (latinIme.mSettings.getCurrent().mSuggestClipboardContent)
-                    message = MSG_SET_CLIPBOARD_SUGGESTION;
-                else return;
-            } else {
-                message = MSG_RESUME_SUGGESTIONS;
-            }
             removeMessages(MSG_RESUME_SUGGESTIONS);
+            final int message = MSG_RESUME_SUGGESTIONS;
             if (shouldDelay) {
                 sendMessageDelayed(obtainMessage(message),
                         mDelayInMillisecondsToUpdateSuggestions);
@@ -1000,7 +984,6 @@ public class LatinIME extends InputMethodService implements
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
                 mInputLogic.mConnection.tryFixLyingCursorPosition();
-                mHandler.postResumeSuggestions(true /* shouldDelay */);
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -1029,11 +1012,9 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // This will set the punctuation suggestions if next word suggestion is off;
-        // otherwise it will clear the suggestion strip.
-        setNeutralSuggestionStrip();
 
         mHandler.cancelUpdateSuggestionStrip();
+        mHandler.postResumeSuggestions(true /* shouldDelay */);
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
