@@ -1,0 +1,29 @@
+HeliBoard ist eine datenschutzbewusste quelloffene Tastatur, die auf AOSP / OpenBoard basiert.
+Verwendet keine Internetberechtigung und ist daher zu 100 % offline.
+
+Features:
+<ul>
+   <li>Wörterbücher für Vorschläge und Rechtschreibprüfung hinzufügen</li>
+   <ul>
+     <li>Erstelle deine eigene oder hole sie sich <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hier</a> oder im <a href="https:// codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimenteller</a> Abschnitt (Qualität kann variieren)</li>
+     <li>Zusätzliche Wörterbücher für Emojis oder wissenschaftliche Symbole können zur Bereitstellung von Vorschlägen genutzt werden (ähnlich wie bei der „Emoji-Suche“)</li>
+     <li>Beachten Sie, dass Vorschläge für koreanische Layouts nur mit <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">diesem Wörterbuch</a>, den Tools im Wörterbuch-Repository, funktionieren können keine funktionierenden Wörterbücher erstellen</li>
+   </ul>
+   <li>Tastaturdesigns anpassen (Stil, Farben und Hintergrundbild)</li>
+   <ul>
+     <li>kann die Tag-/Nachteinstellung des Systems auf Android 10+ (und auf einigen Versionen von Android 9) verfolgen</li>
+     <li>kann dynamischen Farben für Android 12+ folgen</li>
+   </ul>
+   <li>Tastatur-<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layouts</a> anpassen (nur verfügbar, wenn <i>Systemsprachen verwenden</i deaktiviert ist >)</li>
+   <li>Mehrsprachiges Tippen</li>
+   <li>Glide Typing (<i>nur mit quellgeschlossener Bibliothek</i> ☹️)</li>
+   <ul>
+     <li>Bibliothek nicht in der App enthalten, da keine kompatible quelloffene Bibliothek verfügbar ist</li>
+     <li>kann aus GApps-Paketen („<i>swypelibs</i>“) extrahiert oder heruntergeladen werden <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main /jniLibs">hier</a></li>
+   </ul>
+   <li>Zwischenablageverlauf</li>
+   <li>Einhandmodus</li>
+   <li>Geteilte Tastatur (nur verfügbar, wenn der Bildschirm groß genug ist)</li>
+   <li>Ziffernblock</li>
+   <li>Sichere gelernte Wort-/Verlaufsdaten und stelle sie wieder her</li>
+</ul>

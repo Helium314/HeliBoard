@@ -422,7 +422,7 @@ public final class KeyboardState {
             onPressShift();
         } else if (code == KeyCode.CAPS_LOCK) {
             // Nothing to do here. See {@link #onReleaseKey(int,boolean)}.
-        } else if (code == KeyCode.ALPHA_SYMBOL) {
+        } else if (code == KeyCode.SYMBOL_ALPHA) {
             onPressAlphaSymbol(autoCapsFlags, recapitalizeMode);
         } else if (code == KeyCode.SYMBOL) {
             // don't start sliding, causes issues with fully customizable layouts
@@ -463,7 +463,7 @@ public final class KeyboardState {
             onReleaseShift(withSliding, autoCapsFlags, recapitalizeMode);
         } else if (code == KeyCode.CAPS_LOCK) {
             setShiftLocked(!mAlphabetShiftState.isShiftLocked());
-        } else if (code == KeyCode.ALPHA_SYMBOL) {
+        } else if (code == KeyCode.SYMBOL_ALPHA) {
             onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         } else if (code == KeyCode.SYMBOL) {
             onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
@@ -700,7 +700,7 @@ public final class KeyboardState {
 
         switch (mSwitchState) {
         case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL:
-            if (code == KeyCode.ALPHA_SYMBOL) {
+            if (code == KeyCode.SYMBOL_ALPHA) {
                 // Detected only the mode change key has been pressed, and then released.
                 if (mMode == MODE_ALPHABET) {
                     mSwitchState = SWITCH_STATE_ALPHA;

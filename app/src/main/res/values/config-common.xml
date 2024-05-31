@@ -6,6 +6,8 @@
 -->
 
 <resources>
+    <!-- By default, the centered suggestion will not show the word that should be entered -->
+    <bool name="config_center_suggestion_text_to_enter">false</bool>
     <bool name="config_block_potentially_offensive">true</bool>
     <!-- Default value for next word prediction: after entering a word and a space only, should we
          look at input history to suggest a hopefully helpful suggestions for the next word? -->

@@ -28,7 +28,7 @@ class InputTransaction(// Initial conditions
      * @param updateType What type of shift update this requires.
      */
     fun requireShiftUpdate(updateType: Int) {
-        requiredShiftUpdate = Math.max(requiredShiftUpdate, updateType)
+        requiredShiftUpdate = requiredShiftUpdate.coerceAtLeast(updateType)
     }
 
     /**

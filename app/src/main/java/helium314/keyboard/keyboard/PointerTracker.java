@@ -37,7 +37,6 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -84,10 +83,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static final int sPointerStep = (int)TypedValueCompat.dpToPx(10, Resources.getSystem().getDisplayMetrics());
     private static GestureStrokeRecognitionParams sGestureStrokeRecognitionParams;
     private static GestureStrokeDrawingParams sGestureStrokeDrawingParams;
-    private static boolean sNeedsPhantomSuddenMoveEventHack;
-    // Move this threshold to resource.
-    // TODO: Device specific parameter would be better for device specific hack?
-    private static final float PHANTOM_SUDDEN_MOVE_THRESHOLD = 0.25f; // in keyWidth
 
     private static final ArrayList<PointerTracker> sTrackers = new ArrayList<>();
     private static final PointerTrackerQueue sPointerTrackerQueue = new PointerTrackerQueue();
@@ -102,7 +97,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // when new {@link Keyboard} is set by {@link #setKeyDetector(KeyDetector)}.
     private KeyDetector mKeyDetector = new KeyDetector();
     private Keyboard mKeyboard;
-    private int mPhantomSuddenMoveThreshold;
     private final BogusMoveEventDetector mBogusMoveEventDetector = new BogusMoveEventDetector();
 
     private boolean mIsDetectingGesture = false; // per PointerTracker.
@@ -166,9 +160,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 sParams.mSuppressKeyPreviewAfterBatchInputDuration);
 
         final Resources res = mainKeyboardViewAttr.getResources();
-        sNeedsPhantomSuddenMoveEventHack = Boolean.parseBoolean(
-                ResourceUtils.getDeviceOverrideValue(res,
-                        R.array.phantom_sudden_move_event_device_list, Boolean.FALSE.toString()));
         BogusMoveEventDetector.init(res);
 
         sTimerProxy = timerProxy;
@@ -365,7 +356,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Keep {@link #mCurrentKey} that comes from previous keyboard. The key preview of
         // {@link #mCurrentKey} will be dismissed by {@setReleasedKeyGraphics(Key)} via
         // {@link onMoveEventInternal(int,int,long)} or {@link #onUpEventInternal(int,int,long)}.
-        mPhantomSuddenMoveThreshold = (int)(keyWidth * PHANTOM_SUDDEN_MOVE_THRESHOLD);
         mBogusMoveEventDetector.setKeyboardGeometry(keyWidth, keyHeight);
     }
 
@@ -705,7 +695,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void startKeySelectionByDraggingFinger(final Key key) {
         if (!mIsInDraggingFinger) {
-            mIsInSlidingKeyInput = key.isModifier();
+            final int code = key.getCode(); // todo: no sliding input yet for those keys, but it would be really useful
+            mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL && code != KeyCode.ALT && code != KeyCode.FN && code != KeyCode.META;
         }
         mIsInDraggingFinger = true;
     }
@@ -737,6 +728,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         if (!sInGesture && key != null && Character.isLetter(key.getCode())
                 && mBatchInputArbiter.mayStartBatchInput(this)) {
+            sListener.resetMetaState(); // avoid metaState getting stuck, doesn't work with gesture typing anyway
             sInGesture = true;
         }
         if (sInGesture) {
@@ -797,20 +789,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         setPressedKeyGraphics(key, eventTime);
     }
 
-    private void processPhantomSuddenMoveHack(final Key key, final int x, final int y,
-            final long eventTime, final Key oldKey, final int lastX, final int lastY) {
-        if (DEBUG_MODE) {
-            Log.w(TAG, String.format(Locale.US, "[%d] onMoveEvent:"
-                    + " phantom sudden move event (distance=%d) is translated to "
-                    + "up[%d,%d,%s]/down[%d,%d,%s] events", mPointerId,
-                    getDistance(x, y, lastX, lastY),
-                    lastX, lastY, Constants.printableCode(oldKey.getCode()),
-                    x, y, Constants.printableCode(key.getCode())));
-        }
-        onUpEventInternal(x, y, eventTime);
-        onDownEventInternal(x, y, eventTime);
-    }
-
     private void processProximateBogusDownMoveUpEventHack(final Key key, final int x, final int y,
             final long eventTime, final Key oldKey, final int lastX, final int lastY) {
         if (DEBUG_MODE) {
@@ -846,14 +824,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         startRepeatKey(key);
         if (mIsAllowedDraggingFinger) {
             processDraggingFingerInToNewKey(key, x, y, eventTime);
-        }
-        // HACK: On some devices, quick successive touches may be reported as a sudden move by
-        // touch panel firmware. This hack detects such cases and translates the move event to
-        // successive up and down events.
-        // TODO: Should find a way to balance gesture detection and this hack.
-        else if (sNeedsPhantomSuddenMoveEventHack
-                && getDistance(x, y, lastX, lastY) >= mPhantomSuddenMoveThreshold) {
-            processPhantomSuddenMoveHack(key, x, y, eventTime, oldKey, lastX, lastY);
         }
         // HACK: On some devices, quick successive proximate touches may be reported as a bogus
         // down-move-up event by touch panel firmware. This hack detects such cases and breaks
@@ -1099,7 +1069,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final int code = key.getCode();
         if (code == KeyCode.LANGUAGE_SWITCH
-                || (code == Constants.CODE_SPACE && Settings.getInstance().getCurrent().mSpaceForLangChange)
+                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getInstance().getCurrent().mSpaceForLangChange)
         ) {
             // Long pressing the space key invokes IME switcher dialog.
             if (sListener.onCustomRequest(Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)) {
@@ -1108,7 +1078,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 return;
             }
         }
-        if (code == KeyCode.ALPHA_SYMBOL && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
+        if (code == KeyCode.SYMBOL_ALPHA && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
             sListener.onCodeInput(KeyCode.NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
             return;
         }
@@ -1117,6 +1087,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final PopupKeysPanel popupKeysPanel = sDrawingProxy.showPopupKeysKeyboard(key, this);
         if (popupKeysPanel == null) {
             return;
+        }
+        if (code == KeyCode.CTRL || code == KeyCode.ALT || code == KeyCode.FN || code == KeyCode.META) {
+            // avoid metaState getting stuck
+            sListener.onReleaseKey(code, false);
         }
         final int translatedX = popupKeysPanel.translateX(mLastX);
         final int translatedY = popupKeysPanel.translateY(mLastY);

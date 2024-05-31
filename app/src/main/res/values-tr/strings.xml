@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Kişi adlarını denetle"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Yazım denetleyici, kişi listenizdeki girişleri kullanır"</string>
     <string name="vibrate_on_keypress">"Tuşa basıldığında titret"</string>
@@ -168,4 +167,20 @@
     <string name="label_search_key">"Arama"</string>
     <string name="label_pause_key">"Dur"</string>
     <string name="label_wait_key">"Bekle"</string>
+    <string name="disable_personalized_dicts_message">Uyarı: Bu ayarı devre dışı bırakmak öğrenilmiş verileri temizler</string>
+    <string name="add_to_personal_dictionary">Kişisel sözlüğe kelime ekleyin</string>
+    <string name="prefs_always_show_suggestions">Her zaman önerileri göster</string>
+    <string name="language_switch_key_switch_both">İkisini de değiştir</string>
+    <string name="button_backup">Yedekleme</string>
+    <string name="backup_restore_title">Yedekle ve geri yükle</string>
+    <string name="backup_error">Yedekleme hatası: %s</string>
+    <string name="restore_error">Yedeklemeyi yüklerken hata: %s</string>
+    <string name="switch_language">Dili Değiştir</string>
+    <string name="button_restore">Geri yükle</string>
+    <string name="secondary_locale">Çok dilli yazmak</string>
+    <string name="load_gesture_library_button_load">Kitaplığı yükle</string>
+    <string name="load_gesture_library_button_delete">Kitaplığı sil</string>
+    <string name="language_and_layouts_title">Diller ve Düzenler</string>
+    <string name="more_autocorrect">Daha fazla otomatik düzenleme</string>
+    <string name="add_to_personal_dictionary_summary">Öğrenilmiş kelimeleri depolamak için cihaz kişisel sözlüğünü kullan</string>
 </resources>
