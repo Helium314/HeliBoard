@@ -18,6 +18,8 @@ public final class InputTypeUtils implements InputType {
             TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD;
     private static final int TEXT_VISIBLE_PASSWORD_INPUT_TYPE =
             TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+    private static final int TEXT_NUMBER_INPUT_TYPE =
+            TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL;
     private static final int[] SUPPRESSING_AUTO_SPACES_FIELD_VARIATION = {
         InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS,
         InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
@@ -44,6 +46,10 @@ public final class InputTypeUtils implements InputType {
 
     private static boolean isWebEmailAddressVariation(int variation) {
         return variation == TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
+    }
+
+    public static boolean isNumberInputType(final int inputType) {
+        return (inputType & TEXT_NUMBER_INPUT_TYPE) != 0;
     }
 
     public static boolean isEmailVariation(final int variation) {

@@ -46,6 +46,7 @@ import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
+import helium314.keyboard.latin.ClipboardHistoryManager;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
@@ -76,7 +77,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
-        void removeSuggestion(final String word);
+        void removeSuggestion(final String word, final boolean isClipboardSuggestion);
+        void onClipboardSuggestionPicked(final String clipContent);
     }
 
     public static boolean DEBUG_SUGGESTIONS;
@@ -88,6 +90,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final Drawable mIncognitoIcon;
     private final Drawable mToolbarArrowIcon;
     private final Drawable mBinIcon;
+    private final Drawable mCloseIcon;
+    private final Drawable mClipboardIcon;
     private final ViewGroup mToolbar;
     private final View mToolbarContainer;
     private final ViewGroup mPinnedKeys;
@@ -102,6 +106,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ArrayList<TextView> mWordViews = new ArrayList<>();
     private final ArrayList<TextView> mDebugInfoViews = new ArrayList<>();
     private final ArrayList<View> mDividerViews = new ArrayList<>();
+    private final TextView mClipboardSuggestionView;
 
     Listener mListener;
     private SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
@@ -189,6 +194,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
         mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
         mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
+        mCloseIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClose);
+        mClipboardIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey);
+
+        mClipboardSuggestionView = findViewById(R.id.clipboard_suggestion);
+        mClipboardSuggestionView.setTextColor(colors.get(ColorType.KEY_TEXT));
+        mClipboardSuggestionView.setOnLongClickListener(this);
+        colors.setBackground(mClipboardSuggestionView, ColorType.CLIPBOARD_SUGGESTION_BACKGROUND);
 
         final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
@@ -281,6 +293,26 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
     }
 
+    public void setClipboardSuggestion(final String clipContent, final boolean isSensitive) {
+        clear();
+        Settings.getInstance().getCurrent().mColors.setColor(mClipboardIcon, ColorType.KEY_ICON);
+        mClipboardSuggestionView.setCompoundDrawablesWithIntrinsicBounds(mClipboardIcon, null, null, null);
+        mClipboardSuggestionView.setMaxWidth((int)(mSuggestionsStrip.getWidth() / 1.5));
+        mClipboardSuggestionView.setOnClickListener(v -> {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
+            mClipboardSuggestionView.setVisibility(GONE);
+            mListener.onClipboardSuggestionPicked(clipContent);
+        });
+        if (isSensitive) {
+            mClipboardSuggestionView.setText("*".repeat(clipContent.length()));
+        } else {
+            mClipboardSuggestionView.setText(clipContent);
+        }
+        mSuggestionsStrip.addView(mClipboardSuggestionView);
+        mClipboardSuggestionView.setVisibility(VISIBLE);
+        mClipboardSuggestionView.postDelayed(() -> mClipboardSuggestionView.setVisibility(GONE), ClipboardHistoryManager.RECENT_TIME_MILLIS);
+    }
+
     public void setInlineSuggestionsView(final View view) {
         clear();
         isInlineAutofillSuggestionsVisible = true;
@@ -297,12 +329,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(visibility);
     }
 
+    public boolean isClipboardSuggestionSet() {
+        return mSuggestionsStrip.indexOfChild(mClipboardSuggestionView) != -1;
+    }
+
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }
 
     @SuppressLint("ClickableViewAccessibility") // why would "null" need to call View#performClick?
     private void clear() {
+        if (mClipboardSuggestionView.getHandler() != null)
+            mClipboardSuggestionView.getHandler().removeCallbacksAndMessages(null);
         mSuggestionsStrip.removeAllViews();
         if (DEBUG_SUGGESTIONS)
             removeAllDebugInfoViews();
@@ -312,6 +350,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         for (final TextView word : mWordViews) {
             word.setOnTouchListener(null);
         }
+        mClipboardSuggestionView.setOnTouchListener(null);
     }
 
     private void removeAllDebugInfoViews() {
@@ -370,8 +409,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             onLongClickToolKey(view);
             return true;
         }
-        if (view instanceof TextView && mWordViews.contains(view)) {
-            return onLongClickSuggestion((TextView) view);
+        if (view instanceof TextView && mWordViews.contains(view) || mClipboardSuggestionView == view) {
+            onLongClickSuggestion((TextView) view);
+            return true;
         } else return showMoreSuggestions();
     }
 
@@ -397,7 +437,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
-    private boolean onLongClickSuggestion(final TextView wordView) {
+    private void onLongClickSuggestion(final TextView wordView) {
         boolean showIcon = true;
         if (wordView.getTag() instanceof Integer) {
             final int index = (int) wordView.getTag();
@@ -405,7 +445,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 showIcon = false;
         }
         if (showIcon) {
-            final Drawable icon = mBinIcon;
+            final Drawable icon = (wordView == mClipboardSuggestionView) ? mCloseIcon : mBinIcon;
             Settings.getInstance().getCurrent().mColors.setColor(icon, ColorType.REMOVE_SUGGESTION_ICON);
             int w = icon.getIntrinsicWidth();
             int h = icon.getIntrinsicWidth();
@@ -432,10 +472,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 return false;
             });
         }
+        if (wordView == mClipboardSuggestionView) {
+            return;
+        }
         if (DebugFlags.DEBUG_ENABLED && (isShowingMoreSuggestionPanel() || !showMoreSuggestions())) {
             showSourceDict(wordView);
-            return true;
-        } else return showMoreSuggestions();
+        } else showMoreSuggestions();
     }
 
     private void showSourceDict(final TextView wordView) {
@@ -456,7 +498,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void removeSuggestion(TextView wordView) {
         final String word = wordView.getText().toString();
-        mListener.removeSuggestion(word);
+        mListener.removeSuggestion(word, wordView == mClipboardSuggestionView);
         mMoreSuggestionsView.dismissPopupKeysPanel();
         // show suggestions, but without the removed word
         final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();

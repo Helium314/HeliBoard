@@ -109,6 +109,13 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="suggest_clipboard_content"
+            android:title="@string/suggest_clipboard_content"
+            android:defaultValue="@bool/config_default_suggest_clipboard_content"
+            android:summary="@string/suggest_clipboard_content_summary"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="auto_show_toolbar"
             android:title="@string/auto_show_toolbar"
             android:summary="@string/auto_show_toolbar_summary"

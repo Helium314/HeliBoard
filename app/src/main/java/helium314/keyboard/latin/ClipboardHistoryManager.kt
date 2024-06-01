@@ -58,6 +58,7 @@ class ClipboardHistoryManager(
                 sortHistoryEntries()
                 val newIndex = historyEntries.indexOf(existingEntry)
                 onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
+                updateClipboardSuggestion()
                 return
             }
             if (historyEntries.any { it.content.toString() == content.toString() }) return
@@ -67,8 +68,16 @@ class ClipboardHistoryManager(
             sortHistoryEntries()
             val at = historyEntries.indexOf(entry)
             onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            updateClipboardSuggestion()
         }
     }
+
+    private fun updateClipboardSuggestion() {
+        if (latinIME.mSettings.current?.mSuggestClipboardContent == true) {
+            latinIME.mHandler?.postResumeSuggestions(true)
+        }
+    }
+
 
     fun toggleClipPinned(ts: Long) {
         val from = historyEntries.indexOfFirst { it.timeStamp == ts }
@@ -90,6 +99,7 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        updateClipboardSuggestion() // get rid of any clipboard suggestion
     }
 
     fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
@@ -128,7 +138,35 @@ class ClipboardHistoryManager(
     fun retrieveClipboardContent(): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
-        return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+        return clipData.getItemAt(0)?.text ?: ""
+    }
+
+    fun retrieveClipboardSuggestionContent(): String {
+        val clipContent = retrieveClipboardContent().toString()
+        updateSuggestionIfNew(clipContent)
+        return if (isSuggestionRecent() && !suggestionPicked) clipContent else ""
+    }
+
+    private fun updateSuggestionIfNew(clipContent: Any) {
+        val clipTimestamp = clipboardManager.primaryClip?.description?.timestamp
+        if (clipTimestamp != null && clipTimestamp > suggestionTimestamp || suggestionContent != clipContent) {
+            suggestionPicked = false
+            suggestionContent = clipContent
+            suggestionTimestamp = clipTimestamp ?: System.currentTimeMillis()
+        }
+    }
+
+    private fun isSuggestionRecent(): Boolean =
+        (System.currentTimeMillis() - suggestionTimestamp) <= RECENT_TIME_MILLIS
+
+    fun isClipSensitive(isPasswordInputType: Boolean): Boolean =
+        ClipboardManagerCompat.getClipSensitivity(
+            clipboardManager.primaryClip?.description,
+            isPasswordInputType
+        )
+
+    fun markSuggestionAsPicked() {
+        suggestionPicked = true
     }
 
     // pinned clips are stored in default shared preferences, not in device protected preferences!
@@ -159,5 +197,9 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
+        private var suggestionContent: Any = ""
+        private var suggestionTimestamp: Long = 0L
+        private var suggestionPicked: Boolean = false
+        const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }
 }

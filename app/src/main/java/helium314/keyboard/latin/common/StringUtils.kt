@@ -101,6 +101,10 @@ fun String.splitOnFirstSpacesOnly(): List<String> {
     return out
 }
 
+fun String.isValidNumber(): Boolean {
+    return this.toDoubleOrNull() != null
+}
+
 fun String.decapitalize(locale: Locale): String {
     if (isEmpty() || !this[0].isUpperCase())
         return this
