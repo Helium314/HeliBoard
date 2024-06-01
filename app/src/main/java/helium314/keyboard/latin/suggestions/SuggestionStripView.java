@@ -329,6 +329,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(visibility);
     }
 
+    public boolean isClipboardSuggestionSet() {
+        return mSuggestionsStrip.indexOfChild(mClipboardSuggestionView) != -1;
+    }
+
     public void setMoreSuggestionsHeight(final int remainingHeight) {
         mLayoutHelper.setMoreSuggestionsHeight(remainingHeight);
     }

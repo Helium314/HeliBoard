@@ -1019,12 +1019,12 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // This will set the punctuation suggestions if next word suggestion is off;
-        // otherwise it will clear the suggestion strip.
+        // Set neutral suggestions and show the toolbar if the "Auto show toolbar" setting is enabled.
         if (!mHandler.hasPendingResumeSuggestions()) {
             mHandler.cancelUpdateSuggestionStrip();
             setNeutralSuggestionStrip();
-            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar) {
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar
+                    && !mSuggestionStripView.isClipboardSuggestionSet()) {
                 mSuggestionStripView.setToolbarVisibility(true);
             }
         }
@@ -1670,16 +1670,19 @@ public class LatinIME extends InputMethodService implements
         return false;
     }
 
-    // This will show a suggestion of the primary clipboard
+    // This will set a suggestion of the primary clipboard
     // (if there is one and the setting is enabled).
+    // On success, the toolbar will be hidden if the "Auto hide toolbar" is enabled.
     // Otherwise, an empty suggestion strip (if prediction is enabled)
-    // or punctuation suggestions (if it's disabled) will be shown.
-    // The toolbar will be shown automatically if the relevant setting is enabled
+    // or punctuation suggestions (if it's disabled) will be set.
+    // Then, the toolbar will be shown automatically if the relevant setting is enabled
     // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
         if (currentSettings.mSuggestClipboardContent && setClipboardSuggestion()) {
+            if (hasSuggestionStripView() && currentSettings.mAutoHideToolbar)
+                mSuggestionStripView.setToolbarVisibility(false);
             return; // clipboard suggestion has been set
         }
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
