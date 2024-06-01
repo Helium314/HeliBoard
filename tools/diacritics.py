@@ -5,8 +5,16 @@ import os
 import re
 
 
+# script for generating information about actual diacritics use from language data
+# input could be word lists (one word per line), or *-words.txt files from https://www.wortschatz.uni-leipzig.de/en/download
+# diacritics.txt contains language and in next line diacritics for that language, but should ideally
+# contain many languages for better results regarding foreign diacritics
+# resulting data is usage count for language diacritics, and list of words containing non-language diacritics
+
+
 file_ending_filter = "-words.txt"
 word_lists_dir = "../../wordlists/"
+diacritics_file = "../../diacritics.txt"
 
 
 def find_word_lists(language: str) -> list[str]:
@@ -24,6 +32,9 @@ def find_word_lists(language: str) -> list[str]:
 def check_diacritics(language: str, diacritics: list[str], all_diacritics: set[str]):
     word_lists = find_word_lists(language)
     if len(word_lists) == 0:
+        return
+    report_file = f"diacritics_report_{language}.txt"
+    if os.path.isfile(report_file):
         return
     for dia in diacritics:
         all_diacritics.remove(dia)
@@ -55,7 +66,7 @@ def check_diacritics(language: str, diacritics: list[str], all_diacritics: set[s
     dia_results = dia_results + f"language diacritics counts: {dia_count}\n"
     dia_results = dia_results + "foreign diacritics:\n"
     dia_results = dia_results + "\n".join(foreigns)
-    with open(f"diacritics_report_{language}.txt", 'w') as f:
+    with open(report_file, 'w') as f:
         f.write(dia_results)
 
 
@@ -70,7 +81,7 @@ def make_all_diacritics(dia_lists: list[list[str]]) -> set[str]:
 def read_diacritics() -> dict[str, list[str]]:
     d = dict()
     language = ""
-    with open("diacritics.txt") as f:
+    with open(diacritics_file) as f:
         for line in f:
             if language == "":
                 language = line.strip()

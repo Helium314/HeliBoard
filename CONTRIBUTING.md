@@ -30,10 +30,6 @@ See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new la
 
 See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 
-# Update List of Existing Dictionaries
-
-See make-dict-list tool [README](tools/make-dict-list/README.md).
-
 # Translations
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
