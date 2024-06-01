@@ -257,7 +257,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
-        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
+        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : mSuggestionsStrip.getVisibility());
         isInlineAutofillSuggestionsVisible = false;
     }
 
@@ -285,6 +285,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         clear();
         isInlineAutofillSuggestionsVisible = true;
         mSuggestionsStrip.addView(view);
+        if (Settings.getInstance().getCurrent().mAutoHideToolbar)
+            setToolbarVisibility(false);
     }
 
     @Override
@@ -482,6 +484,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
         mStripVisibilityGroup.showSuggestionsStrip();
+        // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
+        if (mSuggestedWords.isEmpty() && Settings.getInstance().getCurrent().mAutoShowToolbar){
+            setToolbarVisibility(true);
+        }
     }
 
     boolean showMoreSuggestions() {

@@ -830,6 +830,14 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the setting for showing the toolbar automatically -->
+    <string name="auto_show_toolbar">Auto show toolbar</string>
+    <!-- Description of the setting for showing the toolbar automatically -->
+    <string name="auto_show_toolbar_summary">Show the toolbar if input starts or text is selected</string>
+    <!-- Title of the setting for hiding the toolbar automatically -->
+    <string name="auto_hide_toolbar">Auto hide toolbar</string>
+    <!-- Description of the setting for hiding the toolbar automatically -->
+    <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
 </resources>

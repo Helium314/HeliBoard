@@ -353,6 +353,10 @@ public class LatinIME extends InputMethodService implements
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public boolean hasPendingResumeSuggestions() {
+            return hasMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingReopenDictionaries() {
             return hasMessages(MSG_REOPEN_DICTIONARIES);
         }
@@ -989,7 +993,9 @@ public class LatinIME extends InputMethodService implements
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
                 mInputLogic.mConnection.tryFixLyingCursorPosition();
-                mHandler.postResumeSuggestions(true /* shouldDelay */);
+                if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
+                    mHandler.postResumeSuggestions(true /* shouldDelay */);
+                }
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -1020,9 +1026,13 @@ public class LatinIME extends InputMethodService implements
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
-        setNeutralSuggestionStrip();
-
-        mHandler.cancelUpdateSuggestionStrip();
+        if (!mHandler.hasPendingResumeSuggestions()) {
+            mHandler.cancelUpdateSuggestionStrip();
+            setNeutralSuggestionStrip();
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
@@ -1593,6 +1603,10 @@ public class LatinIME extends InputMethodService implements
                 || noSuggestionsFromDictionaries) {
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
+            // Auto hide the toolbar if dictionary suggestions are available
+            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
+                mSuggestionStripView.setToolbarVisibility(false);
+            }
         }
     }
 
@@ -1634,6 +1648,8 @@ public class LatinIME extends InputMethodService implements
 
     // This will show either an empty suggestion strip (if prediction is enabled) or
     // punctuation suggestions (if it's disabled).
+    // The toolbar will be shown automatically if the relevant setting is enabled
+    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1641,6 +1657,14 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
+        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
+            final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (mInputLogic.mConnection.hasSelection()
+                    || codePointBeforeCursor == Constants.NOT_A_CODE
+                    || codePointBeforeCursor == Constants.CODE_ENTER) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
     }
 
     @Override

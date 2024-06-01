@@ -149,6 +149,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_QUICK_PIN_TOOLBAR_KEYS = "quick_pin_toolbar_keys";
     public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
+    public static final String PREF_AUTO_SHOW_TOOLBAR = "auto_show_toolbar";
+    public static final String PREF_AUTO_HIDE_TOOLBAR = "auto_hide_toolbar";
     public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
 
     // Emoji
