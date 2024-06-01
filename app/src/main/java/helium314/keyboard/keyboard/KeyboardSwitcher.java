@@ -7,6 +7,7 @@
 package helium314.keyboard.keyboard;
 
 import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -472,6 +473,17 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void switchOneHandedMode() {
         mKeyboardViewWrapper.switchOneHandedModeSide();
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
+    }
+
+    // Implements {@link KeyboardState.SwitchActions}.
+    @Override
+    public boolean isDeviceLocked() {
+        final KeyguardManager km = (KeyguardManager) mLatinIME.getSystemService(Context.KEYGUARD_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+            return km.isDeviceLocked();
+        else {
+            return km.isKeyguardLocked();
+        }
     }
 
     /**
