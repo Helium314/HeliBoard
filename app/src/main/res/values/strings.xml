@@ -58,6 +58,8 @@
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key [CHAR LIMIT=30] -->
     <string name="show_language_switch_key">Language switch key</string>
+    <!-- Option for setting whether language switch key should switch internal layouts only, or also to other keyboards -->
+    <string name="language_switch_key_behavior">Language switch key behavior</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
