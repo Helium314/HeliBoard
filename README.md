@@ -66,13 +66,10 @@ Does not use internet permission, and thus is 100% offline.
   The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
   Note that if the the app is installed as a system app, both versions have access to the system glide typing library (if it is installed).
 * __App crashing when using as system app__: This happens if you do not install the app, but just copy the APK. Then the app's own library is not extracted from the APK, and not accessible to the app. You will need tp either install the app over itself, or provide a library.
-* (_to be expanded_...)
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing pinned toolbar keys results in additional functionality
-  * clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo, 
-* Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip.
+* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo
 * Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
@@ -139,7 +136,6 @@ __Planned features and improvements:__
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
 * Internal cleanup (a lot of over-complicated and convoluted code)
-* optionally move toolbar key pinning to a setting, so long press actions on unpinned toolbar keys are available
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__

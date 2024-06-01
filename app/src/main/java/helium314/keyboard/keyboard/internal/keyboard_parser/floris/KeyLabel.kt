@@ -28,6 +28,7 @@ object KeyLabel {
     const val ALT = "alt"
     const val FN = "fn"
     const val META = "meta"
+    const val TAB = "tab"
 
     /** to make sure a FlorisBoard label works when reading a JSON layout */
     // resulting special labels should be names of FunctionalKey enum, case insensitive

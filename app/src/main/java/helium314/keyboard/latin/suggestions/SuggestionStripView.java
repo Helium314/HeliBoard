@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -217,13 +218,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
-        for (final ToolbarKey pinnedKey : Settings.readPinnedKeys(prefs)) {
+        for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
             final ImageButton button = createToolbarKey(context, keyboardAttr, pinnedKey);
             button.setLayoutParams(toolbarKeyLayoutParams);
             setupKey(button, colors);
             mPinnedKeys.addView(button);
             final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
-            if (pinnedKeyInToolbar != null)
+            if (pinnedKeyInToolbar != null && Settings.getInstance().getCurrent().mQuickPinToolbarKeys)
                 pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
         }
 
@@ -376,7 +377,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void onLongClickToolKey(final View view) {
         if (!(view.getTag() instanceof ToolbarKey tag)) return;
-        if (view.getParent() == mPinnedKeys) {
+        if (view.getParent() == mPinnedKeys || !Settings.getInstance().getCurrent().mQuickPinToolbarKeys) {
             final int longClickCode = getCodeForToolbarKeyLongClick(tag);
             if (longClickCode != KeyCode.UNSPECIFIED) {
                 mListener.onCodeInput(longClickCode, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
@@ -386,9 +387,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag);
                 mToolbar.findViewWithTag(tag).setBackground(mEnabledToolKeyBackground);
-                Settings.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
             } else {
-                Settings.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
             }
@@ -447,12 +448,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final SuggestedWordInfo info = mSuggestedWords.getInfo(index);
         if (!info.getWord().equals(word)) return;
         final String text = info.mSourceDict.mDictType + ":" + info.mSourceDict.mLocale;
-        // apparently toast is not working on some Android versions, probably
-        // Android 13 with the notification permission
-        // Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-        final PopupMenu uglyWorkaround = new PopupMenu(DialogUtilsKt.getPlatformDialogThemeContext(getContext()), wordView);
-        uglyWorkaround.getMenu().add(Menu.NONE, 1, Menu.NONE, text);
-        uglyWorkaround.show();
+        if (isShowingMoreSuggestionPanel()) {
+            mMoreSuggestionsView.dismissPopupKeysPanel();
+        }
+        KeyboardSwitcher.getInstance().showToast(text, true);
     }
 
     private void removeSuggestion(TextView wordView) {

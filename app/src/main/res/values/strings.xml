@@ -207,21 +207,21 @@
     <string name="more_keys_strip_description">More keys</string>
     <!-- Title for input language & layout selection screen -->
     <string name="language_and_layouts_title">Languages &amp; Layouts</string>
-    <!-- Title of the settings to enable number row -->
+    <!-- Title of the setting to enable number row -->
     <string name="number_row">Number row</string>
     <!-- Description of the settings to enable number row -->
     <string name="number_row_summary">Always show number row</string>
-    <!-- Title of the settings to localize number row -->
+    <!-- Title of the setting to localize number row -->
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
-    <!-- Title of the settings to show key hints -->
+    <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
-    <!-- Title of the settings to select key hints source -->
+    <!-- Title of the setting to select key hints source -->
     <string name="hint_source">Select hint source</string>
-    <!-- Title of the settings to set popup key order -->
+    <!-- Title of the setting to set popup key order -->
     <string name="popup_order">Select popup key order</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
@@ -229,7 +229,7 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
-    <!-- Title of the settings to set toolbar keys -->
+    <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
@@ -250,9 +250,15 @@
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
-    <!-- Title of the settings to set clipboard toolbar keys -->
+    <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
-    <!-- Title of the settings to show "..." as hints for more functionality on long-press -->
+    <!-- Title of the setting to set pinned toolbar keys -->
+    <string name="pinned_toolbar_keys">Select pinned toolbar keys</string>
+    <!-- Title of the setting to quick-pin toolbar keys -->
+    <string name="quick_pin_toolbar_keys">Pin toolbar key on long press</string>
+    <!-- Description of the setting to quick-pin toolbar keys -->
+    <string name="quick_pin_toolbar_keys_summary">This will disable other long press actions for toolbar keys that are not pinned</string>
+    <!-- Title of the setting to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
     <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
@@ -264,9 +270,9 @@
     <string name="prefs_long_press_symbol_for_numpad">Long press symbols key for numpad</string>
     <!-- Title of the setting for reduced distance between keys -->
     <string name="prefs_narrow_key_gaps">Narrow key gaps</string>
-    <!-- Title of the settings for setting keyboard height -->
+    <!-- Title of the setting for setting keyboard height -->
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
-    <!-- Title of the settings for setting bottom padding height -->
+    <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
@@ -494,13 +500,13 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="day_or_night_day">Day</string>
     <!-- Button for selecting night -->
     <string name="day_or_night_night">Night</string>
-    <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
-    <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress sound volume [CHAR LIMIT=35] -->
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
-    <!-- Title of the settings for key long press delay [CHAR LIMIT=35] -->
+    <!-- Title of the setting for key long press delay [CHAR LIMIT=35] -->
     <string name="prefs_key_longpress_timeout_settings">Key long press delay</string>
-    <!-- Title of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
+    <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
@@ -750,8 +756,10 @@ New dictionary:
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
     <string name="select_input_method">Choose input method</string>
-    <!-- Settings screen title for appearance preferences [CHAR LIMIT=33] -->
-    <string name="settings_screen_appearance">"Appearance"</string>
+    <!-- Settings screen title for appearance preferences -->
+    <string name="settings_screen_appearance">Appearance</string>
+    <!-- Settings screen title for toolbar preferences -->
+    <string name="settings_screen_toolbar">Toolbar</string>
     <!-- Hidden features title -->
     <string name="hidden_features_title">Description of hidden features</string>
     <!-- Hidden features summary -->
@@ -810,15 +818,15 @@ New dictionary:
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
     <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
-    <!-- Title of the settings for horizontal spacebar swipe gesture -->
+    <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
-    <!-- Title of the settings for vertical spacebar swipe gesture -->
+    <!-- Title of the setting for vertical spacebar swipe gesture -->
     <string name="show_vertical_space_swipe">Vertical spacebar swipe gesture</string>
     <!-- Option for no action when (currently only used for swiping the spacebar) -->
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
-    <!-- Title of the settings for variable toolbar direction -->
+    <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
@@ -830,4 +838,6 @@ New dictionary:
     <string name="auto_hide_toolbar">Auto hide toolbar</string>
     <!-- Description of the setting for hiding the toolbar automatically -->
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
+    <!-- Toast message shown when content is copied to the clipboard -->
+    <string name="toast_msg_clipboard_copy">Content copied</string>
 </resources>

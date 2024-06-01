@@ -175,8 +175,13 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             // insert spacer before first key that starts right of the center (also consider gap)
             var insertIndex = row.indexOfFirst { it.xPos + it.mAbsoluteWidth / 3 > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
-            if (row.any { it.mCode == Constants.CODE_SPACE }) {
-                val spaceLeft = row.single { it.mCode == Constants.CODE_SPACE }
+            val indexOfProperSpace = row.indexOfFirst {
+                // should work reasonably with customizable layouts, where space key might be completely different:
+                // "normal" width space keys are ignored, and the possibility of space being first in row is considered
+                it.mCode == Constants.CODE_SPACE && it.mWidth > row.first { !it.isSpacer && it.mCode != Constants.CODE_SPACE }.mWidth * 1.5f
+            }
+            if (indexOfProperSpace >= 0) {
+                val spaceLeft = row[indexOfProperSpace]
                 reduceSymbolAndActionKeyWidth(row)
                 insertIndex = row.indexOf(spaceLeft) + 1
                 val widthBeforeSpace = row.subList(0, insertIndex - 1).sumOf { it.mWidth }

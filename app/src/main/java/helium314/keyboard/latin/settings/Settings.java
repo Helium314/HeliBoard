@@ -44,8 +44,6 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
-import helium314.keyboard.latin.utils.ToolbarKey;
-import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,6 +146,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_USE_SYSTEM_LOCALES = "use_system_locales";
     public static final String PREF_URL_DETECTION = "url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
+    public static final String PREF_QUICK_PIN_TOOLBAR_KEYS = "quick_pin_toolbar_keys";
     public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
     public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
     public static final String PREF_AUTO_SHOW_TOOLBAR = "auto_show_toolbar";
@@ -329,20 +328,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static float readKeypressSoundVolume(final SharedPreferences prefs, final Resources res) {
-        final float volume = prefs.getFloat(
-                PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-        return (volume != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? volume
-                : readDefaultKeypressSoundVolume(res);
-    }
-
-    // Default keypress sound volume for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_SOUND_VOLUME = Float.toString(-1.0f);
-
-    public static float readDefaultKeypressSoundVolume(final Resources res) {
-        return Float.parseFloat(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_volumes, DEFAULT_KEYPRESS_SOUND_VOLUME));
+    public static float readKeypressSoundVolume(final SharedPreferences prefs) {
+        return prefs.getFloat(PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
     }
 
     public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
@@ -356,20 +343,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_default_longpress_key_timeout);
     }
 
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultKeypressVibrationDuration(res);
-    }
-
-    // Default keypress vibration duration for unknown devices.
-    // The negative value means system default.
-    private static final String DEFAULT_KEYPRESS_VIBRATION_DURATION = Integer.toString(-1);
-
-    public static int readDefaultKeypressVibrationDuration(final Resources res) {
-        return Integer.parseInt(ResourceUtils.getDeviceOverrideValue(res,
-                R.array.keypress_vibration_durations, DEFAULT_KEYPRESS_VIBRATION_DURATION));
+    public static int readKeypressVibrationDuration(final SharedPreferences prefs) {
+        return prefs.getInt(PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
     }
 
     public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
@@ -510,29 +485,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
         }
-    }
-
-    public static ArrayList<ToolbarKey> readPinnedKeys(final SharedPreferences prefs) {
-        final ArrayList<ToolbarKey> list = new ArrayList<>();
-        for (final String key : prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, "").split(";")) {
-            try {
-                list.add(ToolbarKey.valueOf(key));
-            } catch (IllegalArgumentException ignored) { } // may happen if toolbar key is removed from app
-        }
-        return list;
-    }
-
-    public static void addPinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
-        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
-        if (keys.contains(key)) return;
-        keys.add(key);
-        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
-    }
-
-    public static void removePinnedKey(final SharedPreferences prefs, final ToolbarKey key) {
-        final ArrayList<ToolbarKey> keys = readPinnedKeys(prefs);
-        keys.remove(key);
-        prefs.edit().putString(Settings.PREF_PINNED_TOOLBAR_KEYS, ToolbarUtilsKt.toToolbarKeyString(keys)).apply();
     }
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {
