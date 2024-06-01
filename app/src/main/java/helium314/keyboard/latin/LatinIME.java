@@ -1155,6 +1155,8 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
+        if (mSuggestionStripView != null)
+            mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
         if (TRACE) Debug.stopMethodTracing();
