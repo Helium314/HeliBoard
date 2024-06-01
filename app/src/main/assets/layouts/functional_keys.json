@@ -15,7 +15,7 @@
     { "label": "emoji" },
     { "label": "numpad" },
     { "label": "space" },
-    { "label": "period" },
+    { "label": "period", "labelFlags": 1073741824 },
     { "label": "action", "width": 0.15 }
   ]
 ]

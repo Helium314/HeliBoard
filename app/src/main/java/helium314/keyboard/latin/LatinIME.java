@@ -1024,6 +1024,9 @@ public class LatinIME extends InputMethodService implements
         if (!mHandler.hasPendingResumeSuggestions()) {
             mHandler.cancelUpdateSuggestionStrip();
             setNeutralSuggestionStrip();
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
         }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
@@ -1595,6 +1598,10 @@ public class LatinIME extends InputMethodService implements
                 || noSuggestionsFromDictionaries) {
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
+            // Auto hide the toolbar if dictionary suggestions are available
+            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
+                mSuggestionStripView.setToolbarVisibility(false);
+            }
         }
     }
 
@@ -1667,6 +1674,8 @@ public class LatinIME extends InputMethodService implements
     // (if there is one and the setting is enabled).
     // Otherwise, an empty suggestion strip (if prediction is enabled)
     // or punctuation suggestions (if it's disabled) will be shown.
+    // The toolbar will be shown automatically if the relevant setting is enabled
+    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1677,6 +1686,14 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
+        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
+            final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (mInputLogic.mConnection.hasSelection()
+                    || codePointBeforeCursor == Constants.NOT_A_CODE
+                    || codePointBeforeCursor == Constants.CODE_ENTER) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
     }
 
     @Override

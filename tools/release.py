@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 import zipfile
 from urllib.request import urlretrieve
 
@@ -10,7 +11,9 @@ from urllib.request import urlretrieve
 def check_git():
     result = subprocess.run(["git", "diff", "--name-only"], capture_output=True)
     if result.returncode != 0 or len(result.stdout) != 0:
-        raise ValueError("uncommitted changes")
+        cont = input("uncommitted changes found, continue? [y/N] ")
+        if cont != "y":
+            sys.exit()
 
 
 # download and update translations
@@ -36,22 +39,65 @@ def check_default_values_diff():
         raise ValueError("default strings changed after translation import, something is wrong")
 
 
-# run that task
+def read_dicts_readme() -> list[str]:
+    dicts_readme_file = "../dictionaries/README.md"
+    if os.path.isfile(dicts_readme_file):
+        f = open(dicts_readme_file)
+        lines = f.readlines()
+        f.close()
+        return lines
+    readme_url = "https://codeberg.org/Helium314/aosp-dictionaries/raw/branch/main/README.md"
+    tmp_readme = "dicts_readme_tmp.md"
+    urlretrieve(readme_url, tmp_readme)
+    f = open(tmp_readme)
+    lines = f.readlines()
+    f.close()
+    os.remove(tmp_readme)
+    return lines
+
+
+# generate a list of dictionaries available in the dictionaries repository at (https://codeberg.org/Helium314/aosp-dictionaries
+# for convenient linking when adding dictionaries in HeliBoard.
 def update_dict_list():
-#    gradle = "gradlew"  # Linux
-#    gradle = "gradlew.bat"  # Windows
-    gradle = "../../builder/realgradle.sh"  # weird path for historic reasons
-    result = subprocess.run([gradle, ":tools:make-dict-list:makeDictList"])  # todo: replace with python code
-    assert result.returncode == 0
+    lines = read_dicts_readme()
+    mode = 0
+    dicts = []
+    for line in lines:
+        line = line.strip()
+        if line.startswith("#"):
+            if line == "# Dictionaries":
+                mode = 1
+            elif line == "# Experimental dictionaries":
+                mode = 2
+            else:
+                mode = 0
+        if mode == 0 or not line.startswith("*"):
+            continue
+        dict_name = line.split("]")[1].split("(")[1].split(")")[0].split("/")[-1].split(".dict")[0]
+        (dict_type, locale) = dict_name.split("_", 1)
+        if "_" in locale:
+            sp = locale.split("_")
+            locale = sp[0]
+            for s in sp[1:]:
+                locale = locale + "_" + s.upper()
+        if mode == 2:
+            dicts.append(f"{dict_type},{locale},exp\n")
+        else:
+            dicts.append(f"{dict_type},{locale},\n")
+    target_file = "app/src/main/assets/dictionaries_in_dict_repo.csv"
+    with open(target_file, 'w') as f:
+        f.writelines(dicts)
 
 
 # check whether there is a changelog file for current version and print result and version code
 def check_changelog():
     changelog_dir = "fastlane/metadata/android/en-US/changelogs"
     assert os.path.isdir(changelog_dir)
-    filenames = list(os.scandir(changelog_dir))
+    filenames = []
+    for file in os.scandir(changelog_dir):
+        filenames.append(file.name)
     filenames.sort()
-    changelog_version = filenames[-1].name.replace(".txt", "")
+    changelog_version = filenames[-1].replace(".txt", "")
     version = ""
     with open("app/build.gradle") as f:
         for line in f:
@@ -66,6 +112,8 @@ def check_changelog():
 
 
 def main():
+    if os.getcwd().endswith("tools"):
+        os.chdir("../")
     check_git()
     update_translations()
     check_default_values_diff()

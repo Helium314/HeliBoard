@@ -98,10 +98,12 @@ object RawKeyboardParser {
             return { params ->
                 simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
                     val newRow = row.toMutableList()
-                    val extraKeys = params.mId.mSubtype.keyboardLayoutSetName.endsWith("+") && params.mId.isAlphabetKeyboard
-                    if (extraKeys)
+                    if (params.mId.isAlphabetKeyboard
+                            && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
+                            && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
+                        ) {
                         params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
-                    println("${newRow.size}: ${newRow.map { it.label }}")
+                    }
                     newRow
                 }
             }
