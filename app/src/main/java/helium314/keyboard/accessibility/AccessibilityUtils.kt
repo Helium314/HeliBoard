@@ -7,6 +7,7 @@
 package helium314.keyboard.accessibility
 
 import android.content.Context
+import android.media.AudioDeviceInfo.*
 import android.media.AudioManager
 import android.os.Build
 import android.os.SystemClock
@@ -72,7 +73,19 @@ class AccessibilityUtils private constructor() {
             if (speakPassword) return false
         }
         // Always speak if the user is listening through headphones.
-        return if (mAudioManager.isWiredHeadsetOn || mAudioManager.isBluetoothA2dpOn) {
+        val listeningThroughHeadphones = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            @Suppress("deprecation") // no replacement available
+            mAudioManager.isWiredHeadsetOn || mAudioManager.isBluetoothA2dpOn
+        } else {
+            // try the same as the deprecated thing above, for what we can assume to be headphones
+            mAudioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS).any {
+                when (it.type) {
+                    TYPE_WIRED_HEADSET, TYPE_WIRED_HEADPHONES, TYPE_BLUETOOTH_SCO, TYPE_BLUETOOTH_A2DP, TYPE_USB_HEADSET, TYPE_HEARING_AID, TYPE_BLE_HEADSET -> true
+                    else -> false
+                }
+            }
+        }
+        return if (listeningThroughHeadphones) {
             false
         } else InputTypeUtils.isPasswordInputType(editorInfo.inputType)
         // Don't speak if the IME is connected to a password field.

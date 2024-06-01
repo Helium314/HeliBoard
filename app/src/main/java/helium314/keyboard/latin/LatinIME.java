@@ -6,6 +6,7 @@
 
 package helium314.keyboard.latin;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -199,9 +200,8 @@ public class LatinIME extends InputMethodService implements
         private static final int MSG_WAIT_FOR_DICTIONARY_LOAD = 8;
         private static final int MSG_DEALLOCATE_MEMORY = 9;
         private static final int MSG_SWITCH_LANGUAGE_AUTOMATICALLY = 10;
-        private static final int MSG_UPDATE_CLIPBOARD_PINNED_CLIPS = 11;
         // Update this when adding new messages
-        private static final int MSG_LAST = MSG_UPDATE_CLIPBOARD_PINNED_CLIPS;
+        private static final int MSG_LAST = MSG_SWITCH_LANGUAGE_AUTOMATICALLY;
 
         private static final int ARG1_NOT_GESTURE_INPUT = 0;
         private static final int ARG1_DISMISS_GESTURE_FLOATING_PREVIEW_TEXT = 1;
@@ -292,11 +292,6 @@ public class LatinIME extends InputMethodService implements
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
                     latinIme.switchToSubtype((InputMethodSubtype) msg.obj);
                     break;
-                case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
-                    @SuppressWarnings("unchecked")
-                    List<ClipboardHistoryEntry> entries = (List<ClipboardHistoryEntry>) msg.obj;
-                    latinIme.mClipboardHistoryManager.onPinnedClipsAvailable(entries);
-                    break;
             }
         }
 
@@ -358,6 +353,10 @@ public class LatinIME extends InputMethodService implements
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public boolean hasPendingResumeSuggestions() {
+            return hasMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingReopenDictionaries() {
             return hasMessages(MSG_REOPEN_DICTIONARIES);
         }
@@ -409,10 +408,6 @@ public class LatinIME extends InputMethodService implements
 
         public void postSwitchLanguage(final InputMethodSubtype subtype) {
             obtainMessage(MSG_SWITCH_LANGUAGE_AUTOMATICALLY, subtype).sendToTarget();
-        }
-
-        public void postUpdateClipboardPinnedClips(final List<ClipboardHistoryEntry> clips) {
-            obtainMessage(MSG_UPDATE_CLIPBOARD_PINNED_CLIPS, clips).sendToTarget();
         }
 
         // Working variables for the following methods.
@@ -726,6 +721,8 @@ public class LatinIME extends InputMethodService implements
         unregisterReceiver(mRestartAfterDeviceUnlockReceiver);
         mStatsUtilsManager.onDestroy(this /* context */);
         super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+        deallocateMemory();
     }
 
     public void recycle() {
@@ -791,6 +788,7 @@ public class LatinIME extends InputMethodService implements
      * Starts from {@link android.os.Build.VERSION_CODES#S_V2}, the returning context object has
      * became to IME context self since it ends up capable of updating its resources internally.
      */
+    @SuppressWarnings("deprecation")
     private @NonNull Context getDisplayContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
             // IME context sources is now managed by WindowProviderService from Android 12L.
@@ -953,6 +951,13 @@ public class LatinIME extends InputMethodService implements
         // Note: This call should be done by InputMethodService?
         updateFullscreenMode();
 
+        // we need to reload the setting before using them, e.g. in startInput or in postResumeSuggestions
+        // not sure why it was further below, but this introduced inconsistent behavior where wrong input attributes were used
+        if (isDifferentTextField ||
+                !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
+            loadSettings();
+            currentSettingsValues = mSettings.getCurrent();
+        }
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should
         // be fine, but this is horribly confusing and must be fixed AS SOON AS POSSIBLE.
@@ -988,7 +993,9 @@ public class LatinIME extends InputMethodService implements
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
                 mInputLogic.mConnection.tryFixLyingCursorPosition();
-                mHandler.postResumeSuggestions(true /* shouldDelay */);
+                if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
+                    mHandler.postResumeSuggestions(true /* shouldDelay */);
+                }
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -996,14 +1003,8 @@ public class LatinIME extends InputMethodService implements
             needToCallLoadKeyboardLater = false;
         }
 
-        if (isDifferentTextField ||
-                !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
-            loadSettings();
-        }
         if (isDifferentTextField) {
             mainKeyboardView.closing();
-            currentSettingsValues = mSettings.getCurrent();
-
             if (currentSettingsValues.mAutoCorrectEnabled) {
                 suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
             }
@@ -1029,9 +1030,13 @@ public class LatinIME extends InputMethodService implements
         }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
-        setNeutralSuggestionStrip();
-
-        mHandler.cancelUpdateSuggestionStrip();
+        if (!mHandler.hasPendingResumeSuggestions()) {
+            mHandler.cancelUpdateSuggestionStrip();
+            setNeutralSuggestionStrip();
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
@@ -1065,6 +1070,7 @@ public class LatinIME extends InputMethodService implements
 
     void onFinishInputInternal() {
         super.onFinishInput();
+        Log.i(TAG, "onFinishInput");
 
         mDictionaryFacilitator.onFinishInput(this);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
@@ -1075,6 +1081,7 @@ public class LatinIME extends InputMethodService implements
 
     void onFinishInputViewInternal(final boolean finishingInput) {
         super.onFinishInputView(finishingInput);
+        Log.i(TAG, "onFinishInputView");
         cleanupInternalStateForFinishInput();
     }
 
@@ -1083,6 +1090,7 @@ public class LatinIME extends InputMethodService implements
         mHandler.cancelUpdateSuggestionStrip();
         // Should do the following in onFinishInputInternal but until JB MR2 it's not called :(
         mInputLogic.finishInput();
+        mKeyboardActionListener.resetMetaState();
     }
 
     protected void deallocateMemory() {
@@ -1112,10 +1120,6 @@ public class LatinIME extends InputMethodService implements
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
         }
-    }
-
-    public CharSequence getSelection() {
-        return mInputLogic.mConnection.getSelectedText(0);
     }
 
     /**
@@ -1470,9 +1474,13 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
-    // Implementation of {@link KeyboardActionListener}.
+    // Implementation of {@link SuggestionStripView.Listener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
+        onCodeInput(codePoint, 0, x, y, isKeyRepeat);
+    }
+
+    public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat) {
         if (codePoint < 0) {
             switch (codePoint) {
                 case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
@@ -1488,7 +1496,7 @@ public class LatinIME extends InputMethodService implements
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(codePoint, keyX, keyY, isKeyRepeat);
+        final Event event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
         onEvent(event);
     }
 
@@ -1510,8 +1518,8 @@ public class LatinIME extends InputMethodService implements
     // squashed into the same variable, and this method should be removed.
     // public for testing, as we don't want to copy the same logic into test code
     @NonNull
-    public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int keyX,
-                                                    final int keyY, final boolean isKeyRepeat) {
+    public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int metaState,
+                                                    final int keyX, final int keyY, final boolean isKeyRepeat) {
         final int keyCode;
         final int codePoint;
         if (keyCodeOrCodePoint <= 0) {
@@ -1521,11 +1529,9 @@ public class LatinIME extends InputMethodService implements
             keyCode = Event.NOT_A_KEY_CODE;
             codePoint = keyCodeOrCodePoint;
         }
-        return Event.createSoftwareKeypressEvent(codePoint, keyCode, keyX, keyY, isKeyRepeat);
+        return Event.createSoftwareKeypressEvent(codePoint, keyCode, metaState, keyX, keyY, isKeyRepeat);
     }
 
-    // Called from PointerTracker through the KeyboardActionListener interface
-    @Override
     public void onTextInput(final String rawText) {
         // TODO: have the keyboard pass the correct key code when we need it.
         final Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS);
@@ -1533,6 +1539,7 @@ public class LatinIME extends InputMethodService implements
                 mInputLogic.onTextInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
+        mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
     }
 
@@ -1608,6 +1615,9 @@ public class LatinIME extends InputMethodService implements
             } else {
                 mSuggestionStripView.setSuggestions(suggestedWords,
                         mRichImm.getCurrentSubtype().isRtlSubtype());
+                // Auto hide the toolbar if dictionary suggestions are available
+                if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries)
+                    mSuggestionStripView.setToolbarVisibility(false);
             }
         }
     }
@@ -1650,6 +1660,8 @@ public class LatinIME extends InputMethodService implements
 
     // This will show either an empty suggestion strip (if prediction is enabled) or
     // punctuation suggestions (if it's disabled).
+    // The toolbar will be shown automatically if the relevant setting is enabled
+    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1657,6 +1669,14 @@ public class LatinIME extends InputMethodService implements
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
+        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
+            final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (mInputLogic.mConnection.hasSelection()
+                    || codePointBeforeCursor == Constants.NOT_A_CODE
+                    || codePointBeforeCursor == Constants.CODE_ENTER) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
     }
 
     @Override
@@ -1687,14 +1707,11 @@ public class LatinIME extends InputMethodService implements
      */
     private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
         switch (inputTransaction.getRequiredShiftUpdate()) {
-            case InputTransaction.SHIFT_UPDATE_LATER:
-                mHandler.postUpdateShiftState();
-                break;
-            case InputTransaction.SHIFT_UPDATE_NOW:
-                mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
-                        getCurrentRecapitalizeState());
-                break;
-            default: // SHIFT_NO_UPDATE
+            case InputTransaction.SHIFT_UPDATE_LATER -> mHandler.postUpdateShiftState();
+            case InputTransaction.SHIFT_UPDATE_NOW -> mKeyboardSwitcher
+                    .requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            default -> {
+            } // SHIFT_NO_UPDATE
         }
         if (inputTransaction.requiresUpdateSuggestions()) {
             final int inputStyle;
@@ -1917,6 +1934,7 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
+    @SuppressLint("SwitchIntDef")
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);

@@ -1,0 +1,29 @@
+O HeliBoard é um teclado que é consciente sobre a privacidade, e de código de aberto, baseado no do AOSP / OpenBoard.
+Não usa a permissão de internet, e então é 100% offline.
+
+Recursos:
+<ul>
+  <li>Adicione dicionários para sugestões ou verificação de ortografia</li>
+  <ul>
+    <li>faça os seus, ou obtenha-os  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">aqui</a>, ou na seção <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimental</a> (a qualidade pode variar)</li>
+    <li>dicionários adicionas de emojis ou símbolos podem ser usados para dar sugestões (similar à "pesquisa de emoji")</li>
+    <li>é importante notar que para layouts Coreanos, sugestões só funcionam usando <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">este dicionário</a>, as ferramentas no repositório de dicionários não conseguem criar dicionários funcionais</li>
+  </ul>
+  <li>Customize o tema do teclado (estilo, cores e a imagem de fundo)</li>
+  <ul>
+    <li>pode seguir a configuração de dia/noite do sistema no Android 10+ (e em alguns versões do Android 9)</li>
+    <li>pode seguir as cores dinâmicas no Android 12+</li>
+  </ul>
+  <li>Customize os <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> do teclado (disponível somente quando a opção  <i>Usar idiomas do sistema</i> é desativada)</li>
+  <li>Escrita multi-linguagem</li>
+  <li>Escrita por Gestos (<i>somente com uma biblioteca proprietária</i> ☹️)</li>
+  <ul>
+    <li>a biblioteca não é inclusa no app, pois não existe uma alternativa de código aberto</li>
+    <li>pode ser extraída de pacotes GApps ("<i>swypelibs</i>"), ou baixados <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">aqui</a></li>
+  </ul>
+  <li>Histórico da área de transferência</li>
+  <li>Modo de uma mão só</li>
+  <li>Teclado separado (só disponível quando a tela é grande o sucifiente)</li>
+  <li>Teclado númerico</li>
+  <li>Faça backup e restaure seus dados de palavras aprendidas ou de histórico</li>
+</ul>

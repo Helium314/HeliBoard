@@ -25,7 +25,7 @@ class HangulCombiner : Combiner {
                 return when {
                     history.size == 1 && composingWord.isEmpty() || history.isEmpty() && composingWord.length == 1 -> {
                         reset()
-                        Event.createHardwareKeypressEvent(0x20, Constants.CODE_SPACE, event, event.isKeyRepeat)
+                        Event.createHardwareKeypressEvent(0x20, Constants.CODE_SPACE, 0, event, event.isKeyRepeat)
                     }
                     history.isNotEmpty() -> {
                         history.removeAt(history.lastIndex)

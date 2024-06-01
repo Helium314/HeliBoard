@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="key_def_functional">"
-;action 10%
-shift 10%; shift"</string>
-    <string name="key_def_functional_top_row" translatable="false">";delete 10%"</string>
-    <string name="key_def_bottom_row">"symbol_alpha, comma, space, period, emoji_com"</string>
-</resources>

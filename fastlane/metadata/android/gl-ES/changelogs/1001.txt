@@ -1,0 +1,20 @@
+* nova icona por @FabianOvrWrt coa colaboración de @the-eclectic-dyslexic (#517, #592)
+* barra de espazo de cambio de idioma máis personalizables, por @arcarum (#486)
+* engadir % á disposición alternativa de símbolos (#568, #428)
+* mellora do comportamento cando a tecla de cambio de idioma se configura para cambiar de teclado e de idioma
+* mostra ligazón aos dicionarios existentes ao engadir un dicionario
+* disposición Kaitag por @alkaitagi (#519)
+* disposición Probhat por @fahimscirex (#489)
+* darlle a volta á barra de ferramentas para idiomas RTL por @codokie (#557, #574)
+* permitir personalizar disposicións especiais (telcado numérico, teléfono, ...)
+  * aínda experimental, polo que podería cambiar a disposición base
+* actualizado spellchecker.xml para incluír os idiomas cando están dispoñibles os dicionarios, pero non incluídos na app
+* traducións actualizadas (grazas ás tradutoras!)
+* actualización de ndk por @Syphyr (#560)
+* actualización do código do autocompletado por  @arcarum (#595)
+* arranxo da incidencia co diálogo da tecla da barra de ferramentas (#505)
+* arranco da incidencia coa disposición do teclado turco (#508)
+* arranxo dos estados non válidos ao rotar o dispositivo na pantalla de cores personalizadas (#563)
+* arranxo da incidencia dos emojis recentes que non se cargaban (#527)
+* arranxo da incidencia cos número que non aparecían en determinados campos (#585)
+* outros arranxos menores

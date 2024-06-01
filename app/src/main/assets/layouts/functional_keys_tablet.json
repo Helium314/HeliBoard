@@ -1,0 +1,36 @@
+[
+  [
+    { "type": "placeholder" },
+    { "label": "delete", "width": 0.1 }
+  ],
+  [
+    { "type": "placeholder" }
+  ],
+  [
+    { "type": "placeholder" },
+    { "label": "action", "width": 0.1 }
+  ],
+  [
+    { "label": "shift", "width": 0.1 },
+    { "type": "placeholder" },
+    { "label": "shift" }
+  ],
+  [
+    { "label": "symbol_alpha" },
+    { "$": "variation_selector",
+      "default":  { "label": "comma" },
+      "email":    { "label": "@", "groupId": 1, "type": "function" },
+      "uri":      { "label": "/", "groupId": 1, "type": "function" }
+    },
+    { "label": "language_switch" },
+    { "label": "emoji" },
+    { "label": "numpad" },
+    { "label": "space" },
+    { "label": "period" },
+    { "$": "variation_selector",
+      "default":  { "label": "emoji" },
+      "email":    { "label": "com" },
+      "uri":      { "label": "com" }
+    }
+  ]
+]

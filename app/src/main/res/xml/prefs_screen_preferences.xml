@@ -86,23 +86,13 @@
             android:entryValues="@array/language_switch_key_values"
             android:defaultValue="off"
             android:summary="%s"
-            android:persistent="true" />
+            android:persistent="true"
+            latin:singleLineTitle="false" />
 
         <SwitchPreference
             android:key="show_emoji_key"
             android:title="@string/show_emoji_key"
             android:defaultValue="false"
-            android:persistent="true" />
-
-        <Preference
-            android:key="toolbar_keys"
-            android:title="@string/toolbar_keys" />
-
-        <SwitchPreference
-            android:key="var_toolbar_direction"
-            android:title="@string/var_toolbar_direction"
-            android:summary="@string/var_toolbar_direction_summary"
-            android:defaultValue="true"
             android:persistent="true" />
 
     </PreferenceCategory>

@@ -7,9 +7,11 @@
 package helium314.keyboard.latin.suggestions;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
@@ -19,7 +21,6 @@ import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
-import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 public final class MoreSuggestions extends Keyboard {
@@ -46,12 +47,11 @@ public final class MoreSuggestions extends Keyboard {
 
         public int layout(final SuggestedWords suggestedWords, final int fromIndex,
                 final int maxWidth, final int minWidth, final int maxRow, final Paint paint,
-                final Resources res) {
+                final Context context) {
             clearKeys();
-            mDivider = res.getDrawable(R.drawable.more_suggestions_divider);
-            mDividerWidth = mDivider.getIntrinsicWidth();
-            final float padding = res.getDimension(
-                    R.dimen.config_more_suggestions_key_horizontal_padding);
+            mDivider = ContextCompat.getDrawable(context, R.drawable.more_suggestions_divider);
+            mDividerWidth = mDivider == null ? 0 : mDivider.getIntrinsicWidth();
+            final float padding = context.getResources().getDimension(R.dimen.config_more_suggestions_key_horizontal_padding);
 
             int row = 0;
             int index = fromIndex;
@@ -87,7 +87,7 @@ public final class MoreSuggestions extends Keyboard {
             mNumRows = row + 1;
             mBaseWidth = mOccupiedWidth = Math.max(
                     minWidth, calcurateMaxRowWidth(fromIndex, index));
-            mBaseHeight = mOccupiedHeight = mNumRows * mDefaultRowHeight + mVerticalGap;
+            mBaseHeight = mOccupiedHeight = mNumRows * mDefaultAbsoluteRowHeight + mVerticalGap;
             return index - fromIndex;
         }
 
@@ -138,7 +138,7 @@ public final class MoreSuggestions extends Keyboard {
 
         public int getY(final int index) {
             final int row = mRowNumbers[index];
-            return (mNumRows -1 - row) * mDefaultRowHeight + mTopPadding;
+            return (mNumRows -1 - row) * mDefaultAbsoluteRowHeight + mTopPadding;
         }
 
         public int getWidth(final int index) {
@@ -185,9 +185,9 @@ public final class MoreSuggestions extends Keyboard {
             mParams.mId = parentKeyboard.mId;
             readAttributes(xmlId);
             mParams.mVerticalGap = mParams.mTopPadding = parentKeyboard.mVerticalGap / 2;
-            mPaneView.updateKeyboardGeometry(mParams.mDefaultRowHeight);
+            mPaneView.updateKeyboardGeometry(mParams.mDefaultAbsoluteRowHeight);
             final int count = mParams.layout(suggestedWords, fromIndex, maxWidth, minWidth, maxRow,
-                    mPaneView.newLabelPaint(null /* key */), mResources);
+                    mPaneView.newLabelPaint(null /* key */), getMContext());
             mFromIndex = fromIndex;
             mToIndex = fromIndex + count;
             mSuggestedWords = suggestedWords;
@@ -195,7 +195,7 @@ public final class MoreSuggestions extends Keyboard {
         }
 
         @Override
-        public MoreSuggestions build() {
+        @NonNull public MoreSuggestions build() {
             final MoreSuggestionsParam params = mParams;
             for (int index = mFromIndex; index < mToIndex; index++) {
                 final int x = params.getX(index);
@@ -218,7 +218,7 @@ public final class MoreSuggestions extends Keyboard {
                 final int numColumnInRow = params.getNumColumnInRow(index);
                 if (columnNumber < numColumnInRow - 1) {
                     final Divider divider = new Divider(params, params.mDivider, x + width, y,
-                            params.mDividerWidth, params.mDefaultRowHeight);
+                            params.mDividerWidth, params.mDefaultAbsoluteRowHeight);
                     params.onAddKey(divider);
                 }
             }
@@ -231,10 +231,10 @@ public final class MoreSuggestions extends Keyboard {
 
         public MoreSuggestionKey(final String word, final String info, final int index,
                 final MoreSuggestionsParam params) {
-            super(word /* label */, KeyboardIconsSet.ICON_UNDEFINED, KeyCode.MULTIPLE_CODE_POINTS,
-                    word /* outputText */, info, 0 /* labelFlags */, Key.BACKGROUND_TYPE_NORMAL,
+            super(word, KeyboardIconsSet.NAME_UNDEFINED, KeyCode.MULTIPLE_CODE_POINTS,
+                    word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
                     params.getX(index), params.getY(index), params.getWidth(index),
-                    params.mDefaultRowHeight, params.mHorizontalGap, params.mVerticalGap);
+                    params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
             mSuggestedWordIndex = index;
         }
     }

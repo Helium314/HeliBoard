@@ -7,7 +7,6 @@
 
 <!-- Configuration values for Small Tablet. -->
 <resources>
-    <bool name="config_enable_show_key_preview_popup_option">false</bool>
     <!-- Whether or not Popup on key press is enabled by default -->
     <bool name="config_default_key_preview_popup">false</bool>
     <bool name="config_default_sound_enabled">false</bool>

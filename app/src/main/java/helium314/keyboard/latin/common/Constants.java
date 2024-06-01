@@ -72,6 +72,12 @@ public final class Constants {
              */
             public static final String EMOJI_CAPABLE = "EmojiCapable";
 
+            /** Indicates that the subtype does not have a shift key */
+            public static final String NO_SHIFT_KEY = "NoShiftKey";
+
+            /** Indicates that for this subtype corrections should not be based on proximity of keys for when shifted */
+            public static final String NO_SHIFT_PROXIMITY_CORRECTION = "NoShiftProximityCorrection";
+
             /**
              * The subtype extra value used to indicate that the display name of this subtype
              * contains a "%s" for printf-like replacement and it should be replaced by
@@ -201,7 +207,7 @@ public final class Constants {
         switch (code) {
         case KeyCode.SHIFT: return "shift";
         case KeyCode.CAPS_LOCK: return "capslock";
-        case KeyCode.ALPHA_SYMBOL: return "alpha_symbol";
+        case KeyCode.SYMBOL_ALPHA: return "symbol_alpha";
         case KeyCode.ALPHA: return "alpha";
         case KeyCode.SYMBOL: return "symbol";
         case KeyCode.MULTIPLE_CODE_POINTS: return "text";

@@ -23,7 +23,7 @@ public final class PopupKeysKeyboard extends Keyboard {
 
     PopupKeysKeyboard(final PopupKeysKeyboardParams params) {
         super(params);
-        mDefaultKeyCoordX = params.getDefaultKeyCoordX() + params.mDefaultKeyWidth / 2;
+        mDefaultKeyCoordX = params.getDefaultKeyCoordX() + params.mAbsolutePopupKeyWidth / 2;
     }
 
     public int getDefaultCoordX() {
@@ -71,8 +71,8 @@ public final class PopupKeysKeyboard extends Keyboard {
                 throw new IllegalArgumentException("Keyboard is too small to hold popup keys: "
                         + parentKeyboardWidth + " " + keyWidth + " " + numKeys + " " + numColumn);
             }
-            mDefaultKeyWidth = keyWidth;
-            mDefaultRowHeight = rowHeight;
+            mDefaultAbsoluteKeyWidth = keyWidth;
+            mDefaultAbsoluteRowHeight = rowHeight;
 
             mNumRows = (numKeys + numColumn - 1) / numColumn;
             final int numColumns = isPopupKeysFixedColumn ? Math.min(numKeys, numColumn)
@@ -116,10 +116,10 @@ public final class PopupKeysKeyboard extends Keyboard {
             mTopRowAdjustment = isPopupKeysFixedOrder ? getFixedOrderTopRowAdjustment()
                     : getAutoOrderTopRowAdjustment();
             mDividerWidth = dividerWidth;
-            mColumnWidth = mDefaultKeyWidth + mDividerWidth;
+            mColumnWidth = mDefaultAbsoluteKeyWidth + mDividerWidth;
             mBaseWidth = mOccupiedWidth = mNumColumns * mColumnWidth - mDividerWidth;
             // Need to subtract the bottom row's gutter only.
-            mBaseHeight = mOccupiedHeight = mNumRows * mDefaultRowHeight - mVerticalGap
+            mBaseHeight = mOccupiedHeight = mNumRows * mDefaultAbsoluteRowHeight - mVerticalGap
                     + mTopPadding + mBottomPadding;
         }
 
@@ -227,7 +227,7 @@ public final class PopupKeysKeyboard extends Keyboard {
         }
 
         public int getY(final int row) {
-            return (mNumRows - 1 - row) * mDefaultRowHeight + mTopPadding;
+            return (mNumRows - 1 - row) * mDefaultAbsoluteRowHeight + mTopPadding;
         }
 
         public void markAsEdgeKey(final Key key, final int row) {
@@ -287,8 +287,8 @@ public final class PopupKeysKeyboard extends Keyboard {
                 final float padding = context.getResources().getDimension(
                         R.dimen.config_popup_keys_keyboard_key_horizontal_padding)
                         + (key.hasLabelsInPopupKeys()
-                                ? mParams.mDefaultKeyWidth * LABEL_PADDING_RATIO : 0.0f);
-                keyWidth = getMaxKeyWidth(key, mParams.mDefaultKeyWidth, padding, paintToMeasure);
+                                ? mParams.mAbsolutePopupKeyWidth * LABEL_PADDING_RATIO : 0.0f);
+                keyWidth = getMaxKeyWidth(key, mParams.mAbsolutePopupKeyWidth, padding, paintToMeasure);
                 rowHeight = keyboard.mMostCommonKeyHeight;
             }
             final int dividerWidth;
@@ -342,9 +342,9 @@ public final class PopupKeysKeyboard extends Keyboard {
                 // left of the default position.
                 if (params.mDividerWidth > 0 && pos != 0) {
                     final int dividerX = (pos > 0) ? x - params.mDividerWidth
-                            : x + params.mDefaultKeyWidth;
+                            : x + params.mAbsolutePopupKeyWidth;
                     final Key divider = new PopupKeyDivider(
-                            params, dividerX, y, params.mDividerWidth, params.mDefaultRowHeight);
+                            params, dividerX, y, params.mDividerWidth, params.mDefaultAbsoluteRowHeight);
                     params.onAddKey(divider);
                 }
             }
