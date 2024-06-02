@@ -32,14 +32,14 @@
         android:key="auto_show_toolbar"
         android:title="@string/auto_show_toolbar"
         android:summary="@string/auto_show_toolbar_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:persistent="true" />
 
     <SwitchPreference
         android:key="auto_hide_toolbar"
         android:title="@string/auto_hide_toolbar"
         android:summary="@string/auto_hide_toolbar_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:persistent="true" />
 
     <SwitchPreference
