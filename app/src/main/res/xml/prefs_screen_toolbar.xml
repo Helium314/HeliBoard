@@ -6,8 +6,19 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings_screen_toolbar"
     android:key="screen_toolbar">
+
+    <ListPreference
+        android:defaultValue="expandable_toolbar_mode"
+        android:entries="@array/toolbar_mode_entries"
+        android:entryValues="@array/toolbar_mode_values"
+        android:key="toolbar_mode"
+        android:persistent="true"
+        android:summary="%s"
+        android:title="@string/toolbar_mode"
+        latin:singleLineTitle="false" />
 
     <Preference
         android:key="toolbar_keys"

@@ -859,8 +859,12 @@ public class LatinIME extends InputMethodService implements
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
-        if (mSuggestionStripView != null)
+        if (mSuggestionStripView != null) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
+            if (mSettings.getCurrent().mVarToolbarDirection) {
+                mSuggestionStripView.updateKeys();
+            }
+        }
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
@@ -1024,6 +1028,11 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
+        // Update the toolbar keys
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
+            mSuggestionStripView.updateKeys();
+        }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         if (!mHandler.hasPendingResumeSuggestions()) {
@@ -1155,8 +1164,6 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
-        if (mSuggestionStripView != null)
-            mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
         if (TRACE) Debug.stopMethodTracing();
@@ -1315,6 +1322,9 @@ public class LatinIME extends InputMethodService implements
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
+        if (mSettings.getCurrent().mSuggestionStripHiddenPerUserSettings) {
+            return false;
+        }
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
         if (inlineSuggestions.isEmpty()) {
             return false;
@@ -1586,7 +1596,7 @@ public class LatinIME extends InputMethodService implements
         if (!hasSuggestionStripView()) {
             return;
         }
-        if (!onEvaluateInputViewShown()) {
+        if (!onEvaluateInputViewShown() || mSettings.getCurrent().mSuggestionStripHiddenPerUserSettings) {
             return;
         }
 
@@ -1601,8 +1611,7 @@ public class LatinIME extends InputMethodService implements
                 || currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                 // We should clear the contextual strip if there is no suggestion from dictionaries.
                 || noSuggestionsFromDictionaries) {
-            mSuggestionStripView.setSuggestions(suggestedWords,
-                    mRichImm.getCurrentSubtype().isRtlSubtype());
+            mSuggestionStripView.setSuggestions(suggestedWords);
             // Auto hide the toolbar if dictionary suggestions are available
             if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
                 mSuggestionStripView.setToolbarVisibility(false);

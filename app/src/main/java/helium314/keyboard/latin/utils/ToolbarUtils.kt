@@ -112,6 +112,10 @@ enum class ToolbarKey {
     FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
 }
 
+enum class ToolbarMode {
+    HIDDEN, TOOLBAR_KEYS, SUGGESTION_STRIP, EXPANDABLE
+}
+
 val toolbarKeyStrings: Set<String> = entries.mapTo(HashSet()) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
