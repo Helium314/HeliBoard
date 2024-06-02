@@ -383,4 +383,17 @@ Nouveau dictionnaire:
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Afficher plus de couleurs</string>
     <string name="all_colors_warning">Ce paramètre expose toutes les couleurs utilisées en interne. La liste des couleurs peut être modifiée à tout moment. Il n\'y a pas de couleur par défaut et les noms ne seront pas traduits.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Touches fonctionnelles</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Touches fonctionnelles (Plus de symboles)</string>
+    <string name="customize_functional_key_layouts">Personnaliser la disposition des touches fonctionnelles</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Touches fonctionnelles (Symboles)</string>
+    <string name="quick_pin_toolbar_keys">Épingler les touches de la barre d\'outils lors d\'un appui-long</string>
+    <string name="settings_screen_toolbar">Barre d\'outils</string>
+    <string name="pinned_toolbar_keys">Sélectionner les touches épinglées de la barre d\'outils</string>
+    <string name="quick_pin_toolbar_keys_summary">Cela désactivera les autres actions lors d\'un appui-long sur les touches de la barre d\'outils qui ne sont pas épinglées</string>
+    <string name="toast_msg_clipboard_copy">Contenu copié</string>
+    <string name="auto_hide_toolbar">Masquer automatiquement la barre d\'outils</string>
+    <string name="auto_hide_toolbar_summary">La barre d\'outils est masquée lorsque les suggestions sont disponibles</string>
+    <string name="auto_show_toolbar_summary">La barre d\'outils s\'affiche si la saisie débute ou si le texte est sélectionné</string>
+    <string name="auto_show_toolbar">Afficher automatiquement la barre d\'outils</string>
 </resources>

@@ -1,0 +1,10 @@
+* engadir soporte básico para teclas modificadas
+* engadir funcións de pulsación longa a máis teclas da barra
+* e máis teclas da barra para historial do portapapeis
+* facer personalizable o historial do portapapeis
+* permitir personalizar todas as cores
+* engadir axuste para mostrar a palabra para ser engadida como suxestión do medio
+* engadir indicador de maiúsculas
+* engadir disposicións Piedmontese, Eastern Mari, Mansi e disposicións extendidas para Kannada e Húngaro
+* arranxo do texto recortado no emerxente dalgunhas teclas en algúns dispositivos
+* máis melloras e arranxos, ver notas da versión
