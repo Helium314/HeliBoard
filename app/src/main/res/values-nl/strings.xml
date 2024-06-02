@@ -286,7 +286,7 @@
     <string name="button_copy_existing_layout">Bestaande lay-out kopiëren</string>
     <string name="layout_error">Fout bij lay-out: %s</string>
     <string name="edit_layout">Tik om lay-out te bewerken</string>
-    <string name="customize_symbols_number_layouts_summary">Lay-outs (behalve symbolen) geven interne instellingen weer die mogelijk nog veranderen. Als dat gebeurt, werkt de aangepaste lay-out mogelijk niet meer goed.</string>
+<!--    <string name="customize_symbols_number_layouts_summary">Lay-outs (behalve symbolen) geven interne instellingen weer die mogelijk nog veranderen. Als dat gebeurt, werkt de aangepaste lay-out mogelijk niet meer goed.</string>-->
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Meer symbolen</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefoon</string>
     <string name="dictionary_settings_category">Woordenboeken</string>
