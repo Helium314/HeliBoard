@@ -531,6 +531,15 @@
             android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_en_US"
+            android:subtypeId="0xc6194f98"
+            android:imeSubtypeLocale="ipa"
+            android:languageTag="ipa"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="TrySuppressingImeSwitcher,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x7df519e5"
             android:imeSubtypeLocale="is"
