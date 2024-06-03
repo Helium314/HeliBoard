@@ -25,7 +25,7 @@ class ClipboardLayoutParams(res: Resources) {
     }
 
     init {
-        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
+        val defaultKeyboardHeight = ResourceUtils.getAuxiliaryKeyboardHeight(res, Settings.getInstance().current)
         val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
 
         if (Settings.getInstance().current.mNarrowKeyGaps) {
