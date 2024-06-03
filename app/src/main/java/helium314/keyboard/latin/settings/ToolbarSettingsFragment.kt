@@ -71,5 +71,6 @@ class ToolbarSettingsFragment : SubScreenFragment() {
         setPreferenceVisible(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, toolbarMode == ToolbarMode.EXPANDABLE)
         setPreferenceVisible(Settings.PREF_AUTO_SHOW_TOOLBAR, toolbarMode == ToolbarMode.EXPANDABLE)
         setPreferenceVisible(Settings.PREF_AUTO_HIDE_TOOLBAR, toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, toolbarMode != ToolbarMode.HIDDEN)
     }
 }
