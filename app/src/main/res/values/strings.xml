@@ -233,8 +233,6 @@
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
     <!-- Title of the setting to set the toolbar mode -->
     <string name="toolbar_mode">Toolbar mode</string>
-    <!-- Option to set the toolbar mode to hidden -->
-    <string name="hidden_mode">Hidden</string>
     <!-- Option to set the toolbar mode to show the toolbar keys only -->
     <string name="toolbar_keys_mode">Toolbar keys</string>
     <!-- Option to set the toolbar mode to show the suggestions strip only -->

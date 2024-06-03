@@ -368,7 +368,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
         return switch (prefs.getString(PREF_TOOLBAR_MODE, "toolbar_and_suggestions_mode")) {
-            case "hidden_mode" -> ToolbarMode.HIDDEN;
             case "toolbar_keys_mode" -> ToolbarMode.TOOLBAR_KEYS;
             case "suggestion_strip_mode" -> ToolbarMode.SUGGESTION_STRIP;
             default -> ToolbarMode.EXPANDABLE;
