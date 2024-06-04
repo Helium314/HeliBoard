@@ -248,11 +248,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
         mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
         mToolbarExpandKey.setScaleX((mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f) * mRtl);
-
-        // hide pinned keys if device is locked, and avoid expanding toolbar
-        final boolean hideToolbarKeys = KeyboardSwitcher.getInstance().isDeviceLocked();
-        mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
-        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : mSuggestionsStrip.getVisibility());
         isInlineAutofillSuggestionsVisible = false;
     }
 
