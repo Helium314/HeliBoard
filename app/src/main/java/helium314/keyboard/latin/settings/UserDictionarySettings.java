@@ -33,6 +33,7 @@ import androidx.fragment.app.ListFragment;
 
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.LocaleUtils;
+import helium314.keyboard.latin.utils.RunInLocaleKt;
 
 import java.util.Locale;
 
@@ -323,7 +324,7 @@ public class UserDictionarySettings extends ListFragment {
             super(context, layout, c, from, to, 0 /* flags */);
 
             if (null != c) {
-                final String alphabet = context.getString(R.string.user_dict_fast_scroll_alphabet);
+                final String alphabet = RunInLocaleKt.runInLocale(context, mLocale, (ctx) -> ctx.getString(R.string.user_dict_fast_scroll_alphabet));
                 final int wordColIndex = c.getColumnIndexOrThrow(UserDictionary.Words.WORD);
                 mIndexer = new AlphabetIndexer(c, wordColIndex, alphabet);
             }

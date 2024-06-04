@@ -88,13 +88,11 @@
     <!-- default value for auto-day/night setting -->
     <bool name="day_night_default">false</bool>
     <string-array name="language_switch_key_values">
-        <item>off</item>
         <item>internal</item>
         <item>input_method</item>
         <item>both</item>
     </string-array>
     <string-array name="language_switch_key_entries">
-        <item>@string/auto_correction_threshold_mode_off</item> <!-- maybe use a separate string -->
         <item>@string/switch_language</item>
         <item>@string/language_switch_key_switch_input_method</item>
         <item>@string/language_switch_key_switch_both</item>

@@ -103,6 +103,7 @@ You can also specify special key codes like `a|!code/key_action_previous`, but i
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
   * Popup keys in the layout will be in the "_Layout_" popup key group.
+  * If you add a json layout, only add key type (`$`) and `code` if necessary
 * Add a layout entry to [`method.xml`](app/src/main/res/xml/method.xml)
   * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
   * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)

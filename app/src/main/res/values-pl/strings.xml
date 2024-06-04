@@ -117,7 +117,7 @@
     <string name="user_dict_settings_empty_text">"Brak słów w słowniku użytkownika. Aby dodać słowo, kliknij przycisk Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages">"Dla wszystkich języków"</string>
     <string name="user_dict_settings_more_languages">"Więcej języków…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEĘFGHIJKLŁMNOÓPQRSŚTUVWXYZŻ"</string>
     <string name="settings_category_correction">Korekty</string>
     <string name="settings_category_miscellaneous">Różne</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
@@ -386,4 +386,18 @@
     <string name="subtype_mns">mansyjski</string>
     <string name="more_colors">Pokaż więcej kolorów</string>
     <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Nie ma domyślnego koloru, a nazwy nie zostaną przetłumaczone.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Klawisze funkcyjne</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Klawisze funkcyjne (dodatkowe symbole)</string>
+    <string name="customize_functional_key_layouts">Dostosuj układy klawiszy funkcyjnych</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Klawisze funkcyjne (symbole)</string>
+    <string name="quick_pin_toolbar_keys">Przypnij klawisz paska narzędzi po długim naciśnięciu</string>
+    <string name="settings_screen_toolbar">Pasek narzędzi</string>
+    <string name="quick_pin_toolbar_keys_summary">Spowoduje to wyłączenie funkcji związanych z długim naciśnięciem klawiszy, które nie zostały przypięte</string>
+    <string name="pinned_toolbar_keys">Wybierz przypięte klawisze paska narzędzi</string>
+    <string name="toast_msg_clipboard_copy">Skopiowano</string>
+    <string name="auto_hide_toolbar_summary">Ukryj pasek narzędzi, jeśli są dostępne sugestie</string>
+    <string name="auto_show_toolbar_summary">Pokaż pasek narzędzi, jeśli rozpocznie się wprowadzanie lub tekst zostanie zaznaczony</string>
+    <string name="auto_hide_toolbar">Automatyczne ukrywanie paska narzędzi</string>
+    <string name="auto_show_toolbar">Automatyczne wyświetlanie paska narzędzi</string>
+    <string name="language_switch_key_behavior">Zachowanie klawisza zmiany języka</string>
 </resources>

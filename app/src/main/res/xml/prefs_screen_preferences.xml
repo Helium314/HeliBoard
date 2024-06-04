@@ -79,12 +79,18 @@
             android:defaultValue="true"
             android:persistent="true" />
 
+        <SwitchPreference
+            android:key="show_language_switch_key"
+            android:title="@string/show_language_switch_key"
+            android:defaultValue="false"
+            android:persistent="true" />
+
         <ListPreference
             android:key="language_switch_key"
-            android:title="@string/show_language_switch_key"
+            android:title="@string/language_switch_key_behavior"
             android:entries="@array/language_switch_key_entries"
             android:entryValues="@array/language_switch_key_values"
-            android:defaultValue="off"
+            android:defaultValue="internal"
             android:summary="%s"
             android:persistent="true"
             latin:singleLineTitle="false" />

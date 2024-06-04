@@ -348,4 +348,10 @@
     <string name="center_suggestion_text_to_enter_summary">Zuriunea edo puntuazioa sakatzean, erdiko iradokizuna sartuko da</string>
     <string name="close_history" tools:keep="@string/close_history">Itxi arbelaren historia</string>
     <string name="clipboard_toolbar_keys">Hautatu arbeleko tresna-barrako teklak</string>
+    <string name="more_colors">Erakutsi kolore gehiago</string>
+    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Ez dago kolore lehenetsirik, eta izenak ez dira itzuliko.</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funtzio-teklak</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
+    <string name="customize_functional_key_layouts">Pertsonalizatu funtzio-teklen diseinua</string>
 </resources>

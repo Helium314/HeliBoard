@@ -88,6 +88,10 @@ fun checkVersionUpgrade(context: Context) {
             .distinctBy { it.split(",").first() }
             .joinToString(";")
         prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
+
+        // enable language switch key if it was enabled previously
+        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
+            prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
     upgradeToolbarPrefs(prefs)
     onCustomLayoutFileListChanged() // just to be sure

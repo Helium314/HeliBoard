@@ -29,6 +29,20 @@
         android:persistent="true" />
 
     <SwitchPreference
+        android:key="auto_show_toolbar"
+        android:title="@string/auto_show_toolbar"
+        android:summary="@string/auto_show_toolbar_summary"
+        android:defaultValue="false"
+        android:persistent="true" />
+
+    <SwitchPreference
+        android:key="auto_hide_toolbar"
+        android:title="@string/auto_hide_toolbar"
+        android:summary="@string/auto_hide_toolbar_summary"
+        android:defaultValue="false"
+        android:persistent="true" />
+
+    <SwitchPreference
         android:key="var_toolbar_direction"
         android:title="@string/var_toolbar_direction"
         android:summary="@string/var_toolbar_direction_summary"

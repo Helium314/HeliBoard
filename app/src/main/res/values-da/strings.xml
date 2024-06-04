@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Anvend kontaktnavne"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Stavekontrollen bruger ord fra dine kontaktpersondata"</string>
     <string name="vibrate_on_keypress">"Vibration ved tastetryk"</string>
@@ -168,4 +167,16 @@
     <string name="label_search_key">"Søg"</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Vent"</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorer andre apps\' forespørgsel om at slå anbefalinger fra (kan skabe problemer)</string>
+    <string name="button_backup">Backup</string>
+    <string name="language_switch_key_switch_both">Skift begge</string>
+    <string name="add_to_personal_dictionary">Tilføj ord til din personlige ordbog</string>
+    <string name="add_to_personal_dictionary_summary">Brug enhedens personlige ordbog til at gemme de lærte ord</string>
+    <string name="prefs_always_show_suggestions">Altid vis anbefalinger</string>
+    <string name="more_autocorrect">Mere autokorrekt</string>
+    <string name="more_autocorrect_summary">Autokorrekt selv om der ikke eksplicit er anmodet om det af inputfeltet</string>
+    <string name="center_suggestion_text_to_enter">Altid brug den midterste anbefaling</string>
+    <string name="switch_language">Skift sprog</string>
+    <string name="button_restore">Gendan</string>
+    <string name="secondary_locale">Flersproget skrivning</string>
 </resources>
