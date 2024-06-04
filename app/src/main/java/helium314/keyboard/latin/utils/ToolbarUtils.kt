@@ -59,6 +59,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
     CLOSE_HISTORY -> KeyCode.ALPHA
+    EMOJI -> KeyCode.EMOJI
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
@@ -95,6 +96,7 @@ fun getStyleableIconId(key: ToolbarKey) = when (key) {
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
     CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
+    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
 }
 
 fun getToolbarIconByName(name: String, context: Context): Drawable? {
@@ -109,14 +111,14 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
+    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI
 }
 
 val toolbarKeyStrings: Set<String> = entries.mapTo(HashSet()) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD -> "${it.name},false"
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
         else -> "${it.name},true"
     }
 }

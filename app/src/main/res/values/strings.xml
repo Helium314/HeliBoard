@@ -252,6 +252,7 @@
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
