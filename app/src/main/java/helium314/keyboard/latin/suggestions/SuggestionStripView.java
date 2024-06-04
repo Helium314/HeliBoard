@@ -706,15 +706,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void setToolbarVisibility(final boolean visible) {
-        final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
-        final boolean locked = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
-                ? km.isDeviceLocked()
-                : km.isKeyguardLocked();
-        if (locked) {
-            mPinnedKeys.setVisibility(GONE);
-            mSuggestionsStrip.setVisibility(GONE);
-            mToolbarContainer.setVisibility(GONE);
-        } else if (visible) {
+        if (visible) {
             mPinnedKeys.setVisibility(GONE);
             mSuggestionsStrip.setVisibility(GONE);
             mToolbarContainer.setVisibility(VISIBLE);
@@ -723,7 +715,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
-        mToolbarExpandKey.setScaleX((visible && !locked ? -1f : 1f) * mRtl);
+        mToolbarExpandKey.setScaleX((visible ? -1f : 1f) * mRtl);
     }
 
     private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {
