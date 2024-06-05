@@ -74,7 +74,7 @@ class ClipboardHistoryManager(
 
     private fun updateClipboardSuggestion() {
         if (latinIME.mSettings.current?.mSuggestClipboardContent == true) {
-            latinIME.mHandler?.postResumeSuggestions(true)
+            latinIME.mHandler?.postUpdateSuggestionStrip(SuggestedWords.INPUT_STYLE_NONE)
         }
     }
 
