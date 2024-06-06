@@ -15,15 +15,16 @@ Features:
     <li>can follow dynamic colors for Android 12+</li>
   </ul>
   <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Customize special layouts, like symbols, number,  or functional key layout</li>
   <li>Multilingual typing</li>
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
   <ul>
     <li>library not included in the app, as there is no compatible open source library available</li>
-    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a></li>
+    <li>can be extracted from GApps packages ("<i>swypelibs</i>"), or downloaded <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">here</a> (click on the file and then "raw" or the tiny download button)</li>
   </ul>
   <li>Clipboard history</li>
   <li>One-handed mode</li>
   <li>Split keyboard (only available if the screen is large enough)</li>
   <li>Number pad</li>
-  <li>Backup and restore your learned word / history data</li>
+  <li>Backup and restore your settings and learned word / history data</li>
 </ul>

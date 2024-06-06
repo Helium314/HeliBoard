@@ -34,6 +34,7 @@ Does not use internet permission, and thus is 100% offline.
     <li>can follow dynamic colors for Android 12+</li>
   </ul>
   <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Customize special layouts, like symbols, number,  or functional key layout</li>
   <li>Multilingual typing</li>
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
   <ul>
@@ -44,7 +45,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>One-handed mode</li>
   <li>Split keyboard (only available if the screen is large enough)</li>
   <li>Number pad</li>
-  <li>Backup and restore your learned word / history data</li>
+  <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
 ## FAQ / Common Issues
