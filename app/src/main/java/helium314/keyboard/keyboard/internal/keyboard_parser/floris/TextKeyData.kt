@@ -303,10 +303,25 @@ sealed interface KeyData : AbstractKeyData {
         }
         if (code >= 32)
             return "${newLabel}|${StringUtils.newSingleCodePointString(code)}"
-        if (code in KeyCode.Spec.CURRENCY)
-            return newLabel // should be treated correctly here, currently this is done in PopupKeysUtils
+        if (code in KeyCode.Spec.CURRENCY) {
+            return getCurrencyLabel(params)
+        }
         return if (newLabel.endsWith("|")) "${newLabel}!code/${processCode()}" // for toolbar keys
         else "${newLabel}|!code/${processCode()}"
+    }
+
+    fun getCurrencyLabel(params: KeyboardParams): String {
+        val newLabel = processLabel(params)
+        return when (code) {
+            // consider currency codes for label
+            KeyCode.CURRENCY_SLOT_1 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.first}"
+            KeyCode.CURRENCY_SLOT_2 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[0]}"
+            KeyCode.CURRENCY_SLOT_3 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[1]}"
+            KeyCode.CURRENCY_SLOT_4 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[2]}"
+            KeyCode.CURRENCY_SLOT_5 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[3]}"
+            KeyCode.CURRENCY_SLOT_6 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[4]}"
+            else -> throw IllegalStateException("code in currency range, but not in currency range?")
+        }
     }
 
     override fun compute(params: KeyboardParams): KeyData? {
@@ -350,19 +365,9 @@ sealed interface KeyData : AbstractKeyData {
         val newLabel: String
         if (code in KeyCode.Spec.CURRENCY) {
             // special treatment necessary, because we may need to encode it in the label
-            // (currency is a string, so might have more than 1 codepoint)
+            // (currency is a string, so might have more than 1 codepoint, e.g. for Nepal)
             newCode = 0
-            val l = processLabel(params)
-            newLabel = when (code) {
-                // consider currency codes for label
-                KeyCode.CURRENCY_SLOT_1 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.first}"
-                KeyCode.CURRENCY_SLOT_2 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[0]}"
-                KeyCode.CURRENCY_SLOT_3 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[1]}"
-                KeyCode.CURRENCY_SLOT_4 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[2]}"
-                KeyCode.CURRENCY_SLOT_5 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[3]}"
-                KeyCode.CURRENCY_SLOT_6 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[4]}"
-                else -> throw IllegalStateException("code in currency range, but not in currency range?")
-            }
+            newLabel = getCurrencyLabel(params)
         } else {
             newCode = processCode()
             newLabel = processLabel(params)

@@ -145,7 +145,7 @@ f""", // no newline at the end
             Expected("?123", "?123", -202, null),
             Expected(null, null, ' '.code, null),
             Expected("(", null, '('.code, listOf("<", "[", "{")),
-            Expected("$", null, '$'.code, listOf("£", "₱", "€", "¢", "¥")),
+            Expected("$", null, '$'.code, listOf("£", "₱", "€", "¢", "¥", "¥")),
             Expected("a", null, ' '.code, null),
             Expected("a", null, ' '.code, null),
             Expected(null, null, KeyCode.CLIPBOARD, null), // todo: expect an icon
@@ -234,7 +234,8 @@ f""", // no newline at the end
         { "code": -806, "label": "currency_slot_6" },
         { "code": -803, "label": "currency_slot_3" },
         { "code": -804, "label": "currency_slot_4" },
-        { "code": -805, "label": "currency_slot_5" }
+        { "code": -805, "label": "currency_slot_5" },
+        { "code": -804, "label": "$$$4" }
       ]
     } },
     { "code": 32, "label": "a|!code/key_delete" },
