@@ -256,9 +256,15 @@ f""", // no newline at the end
     { "label": "m", "popup": { "main": { "label": "/" } } }
   ],
   [
-    { "label": "w" },
-    { "label": "x" },
-    { "label": "c" },
+    { "label": "w", "popup": {
+          "main": { "code":   55, "label": "!" }
+    } },
+    { "label": "x", "popup": {
+          "main": { "label": "undo" }
+    } },
+    { "label": "c", "popup": {
+          "main": { "code":   -10001, "label": "x" }
+    } },
     { "label": "v" },
     { "label": "b" },
     { "label": "n" }
@@ -275,6 +281,13 @@ f""", // no newline at the end
             assertEquals(expected[index].popups?.sorted(), keyParams.mPopupKeys?.mapNotNull { it.mLabel }?.sorted()) // todo (later): what's wrong with order?
             assertEquals(expected[index].text, keyParams.outputText)
         }
+        assertEquals("!", keys.last()[0].toKeyParams(params).mPopupKeys?.first()?.mLabel)
+        assertEquals('7'.code, keys.last()[0].toKeyParams(params).mPopupKeys?.first()?.mCode)
+        assertEquals(null, keys.last()[1].toKeyParams(params).mPopupKeys?.first()?.mLabel)
+        assertEquals("undo", keys.last()[1].toKeyParams(params).mPopupKeys?.first()?.mIconName)
+        assertEquals(KeyCode.UNDO, keys.last()[1].toKeyParams(params).mPopupKeys?.first()?.mCode)
+        assertEquals("x", keys.last()[2].toKeyParams(params).mPopupKeys?.first()?.mLabel)
+        assertEquals(-10001, keys.last()[2].toKeyParams(params).mPopupKeys?.first()?.mCode)
     }
 
     @Test fun canLoadKeyboard() {

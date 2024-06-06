@@ -22,7 +22,13 @@ public final class KeyboardCodesSet {
 
     public static int getCode(final String name) {
         Integer id = sNameToIdMap.get(name);
-        if (id == null) throw new RuntimeException("Unknown key code: " + name);
+        if (id == null) {
+            try {
+                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name));
+            } catch (final Exception e) {
+                throw new RuntimeException("Unknown key code: " + name);
+            }
+        }
         return DEFAULT[id];
     }
 

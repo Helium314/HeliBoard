@@ -289,6 +289,26 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
+    /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */
+    // this mashes the code into the popup label to make it work
+    // actually that's a bad approach, but at the same time doing things properly and with reasonable performance requires much more work
+    // so better only do it in case the popup stuff needs more improvements
+    // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
+    fun getPopupLabel(params: KeyboardParams): String {
+        val newLabel = processLabel(params)
+        if (code == KeyCode.UNSPECIFIED) {
+            return if (newLabel == label) label
+            else if (newLabel.endsWith("|")) "${newLabel}!code/${processCode()}" // for toolbar keys
+            else "${newLabel}|!code/${processCode()}"
+        }
+        if (code >= 32)
+            return "${newLabel}|${StringUtils.newSingleCodePointString(code)}"
+        if (code in KeyCode.Spec.CURRENCY)
+            return newLabel // should be treated correctly here, currently this is done in PopupKeysUtils
+        return if (newLabel.endsWith("|")) "${newLabel}!code/${processCode()}" // for toolbar keys
+        else "${newLabel}|!code/${processCode()}"
+    }
+
     override fun compute(params: KeyboardParams): KeyData? {
         require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
