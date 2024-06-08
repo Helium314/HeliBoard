@@ -921,6 +921,8 @@ public class Key implements Comparable<Key> {
     public final boolean isAccentColored() {
         if (hasActionKeyBackground()) return true;
         final String iconName = getIconName();
+        // todo: other way of identifying the color?
+        //  if yes, NAME_CLIPBOARD_ACTION_KEY and NAME_CLIPBOARD_NORMAL_KEY could be merged
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
                 || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
@@ -1149,12 +1151,15 @@ public class Key implements Comparable<Key> {
                     || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.isAlphabetKeyboard())
             )
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
-            if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS)
+            if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName.equals(KeyboardIconsSet.NAME_UNDEFINED))
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
+            switch (mCode) {
+                case KeyCode.DELETE, KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE,
+                        KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA -> actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
+                case KeyCode.SETTINGS, KeyCode.LANGUAGE_SWITCH -> actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
+            }
             if (mCode == KeyCode.DELETE)
                 actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
-            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
-                actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
             mActionFlags = actionFlags;
 
             final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing

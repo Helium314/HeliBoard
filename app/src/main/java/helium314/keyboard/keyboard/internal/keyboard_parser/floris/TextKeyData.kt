@@ -113,6 +113,7 @@ sealed interface KeyData : AbstractKeyData {
             else "!icon/space_key_for_number_layout|!code/key_space"
 
         // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
+        //  keys could be replaced with toolbar keys, but parsing needs to be adjusted (should happen anyway...)
         private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
             val keys = mutableListOf<String>()
             if (!params.mId.mDeviceLocked)

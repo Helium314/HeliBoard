@@ -221,7 +221,7 @@ public final class KeySpecParser {
         return defaultCode;
     }
 
-    @NonNull
+    @NonNull // todo: why not null instead of NAME_UNDEFINED?
     public static String getIconName(@Nullable final String keySpec) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
