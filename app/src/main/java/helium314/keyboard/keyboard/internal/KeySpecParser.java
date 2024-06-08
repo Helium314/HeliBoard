@@ -221,14 +221,14 @@ public final class KeySpecParser {
         return defaultCode;
     }
 
-    @NonNull // todo: why not null instead of NAME_UNDEFINED?
+    @Nullable
     public static String getIconName(@Nullable final String keySpec) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return KeyboardIconsSet.NAME_UNDEFINED;
+            return null;
         }
         if (!hasIcon(keySpec)) {
-            return KeyboardIconsSet.NAME_UNDEFINED;
+            return null;
         }
         final int labelEnd = indexOfLabelEnd(keySpec);
         return getBeforeLabelEnd(keySpec, labelEnd).substring(KeyboardIconsSet.PREFIX_ICON.length()).intern();
