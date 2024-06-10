@@ -449,6 +449,21 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final long startTime = SystemClock.uptimeMillis();
         final CharSequence result = mIC.getTextBeforeCursor(n, flags);
         detectLaggyConnection(operation, timeout, startTime);
+        if (result != null && result.length() > 1 && (mComposingText.length() > 0 || mCommittedTextBeforeComposingText.length() > 0)) {
+            final char actualLastChar = result.charAt(result.length() - 1);
+            final char cachedLastChar = mComposingText.length() > 0
+                    ? mComposingText.charAt(mComposingText.length() - 1)
+                    : mCommittedTextBeforeComposingText.charAt(mCommittedTextBeforeComposingText.length() - 1);
+            if (actualLastChar != cachedLastChar) {
+                Log.w(TAG, "cached text out of sync, reloading");
+                ExtractedTextRequest r = new ExtractedTextRequest();
+                final ExtractedText et = mIC.getExtractedText(r, 0);
+                mExpectedSelStart = et.selectionStart + et.startOffset;
+                mExpectedSelEnd = et.selectionEnd + et.startOffset;
+                if (!DebugLogUtils.getStackTrace(2).contains("reloadTextCache")) // clunky bur effective protection against circular reference
+                    reloadTextCache();
+            }
+        }
         return result;
     }
 
