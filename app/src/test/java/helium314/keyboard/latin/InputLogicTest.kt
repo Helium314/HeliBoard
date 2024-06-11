@@ -635,11 +635,7 @@ class InputLogicTest {
         checkConnectionConsistency()
     }
 
-    private fun getWordAtCursor() = connection.getWordRangeAtCursor(
-        settingsValues.mSpacingAndPunctuations,
-        currentScript,
-        false
-    )?.mWord
+    private fun getWordAtCursor() = connection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentScript)?.mWord
 
     private fun setCursorPosition(start: Int, end: Int = start, weirdTextField: Boolean = false) {
         val ei = EditorInfo()
@@ -917,9 +913,16 @@ private val ic = object : InputConnection {
         }
         return true
     }
+    // implementation is only to work with getTextBeforeCursorAndDetectLaggyConnection
+    override fun getExtractedText(p0: ExtractedTextRequest?, p1: Int): ExtractedText {
+        return ExtractedText().also {
+            it.startOffset = 0
+            it.selectionStart = selectionStart
+            it.selectionEnd = selectionEnd
+        }
+    }
     // implement only when necessary
     override fun getCursorCapsMode(p0: Int): Int = TODO("Not yet implemented")
-    override fun getExtractedText(p0: ExtractedTextRequest?, p1: Int): ExtractedText = TODO("Not yet implemented")
     override fun deleteSurroundingTextInCodePoints(p0: Int, p1: Int): Boolean = TODO("Not yet implemented")
     override fun commitCompletion(p0: CompletionInfo?): Boolean = TODO("Not yet implemented")
     override fun commitCorrection(p0: CorrectionInfo?): Boolean = TODO("Not yet implemented")
