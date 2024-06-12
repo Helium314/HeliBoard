@@ -391,4 +391,15 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">المفاتيح الوظيفية (الرموز)</string>
+    <string name="quick_pin_toolbar_keys">تثبيت مفتاح شريط الأدوات عند الضغط لفترة طويلة</string>
+    <string name="quick_pin_toolbar_keys_summary">سيؤدي هذا إلى تعطيل إجراءات الضغط لفترة طويلة الأخرى لمفاتيح شريط الأدوات غير المثبتة</string>
+    <string name="pinned_toolbar_keys">حدد مفاتيح شريط الأدوات المثبتة</string>
+    <string name="toast_msg_clipboard_copy">تم نسخ المحتوى</string>
+    <string name="language_switch_key_behavior">سلوك مفتاح تبديل اللغة</string>
+    <string name="auto_show_toolbar">إظهار شريط الأدوات تلقائيًا</string>
+    <string name="auto_show_toolbar_summary">إظهار شريط الأدوات في حالة بدء الإدخال أو تحديد النص</string>
+    <string name="auto_hide_toolbar">إخفاء شريط الأدوات تلقائيًا</string>
+    <string name="auto_hide_toolbar_summary">إخفاء شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
+    <string name="settings_screen_toolbar">شريط الأدوات</string>
+    <string name="emoji" tools:keep="@string/emoji">رمز تعبيري</string>
 </resources>

@@ -396,4 +396,6 @@ Nouveau dictionnaire:
     <string name="auto_hide_toolbar_summary">La barre d\'outils est masquée lorsque les suggestions sont disponibles</string>
     <string name="auto_show_toolbar_summary">La barre d\'outils s\'affiche si la saisie débute ou si le texte est sélectionné</string>
     <string name="auto_show_toolbar">Afficher automatiquement la barre d\'outils</string>
+    <string name="language_switch_key_behavior">Comportement de la touche de changement de langue</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
 </resources>

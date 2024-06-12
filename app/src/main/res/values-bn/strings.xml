@@ -340,4 +340,5 @@
     <string name="var_toolbar_direction">পরিবর্তনশীল টুলবার দিক</string>
     <string name="var_toolbar_direction_summary">ডান থেকে বাম কিবোর্ড নির্বাচন করলে উল্টো দিকে যাও</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (শিক্ষার্থী)</string>
+    <string name="language_switch_key_behavior">ভাষা পরিবর্তন বোতাম</string>
 </resources>

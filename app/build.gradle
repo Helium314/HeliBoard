@@ -10,8 +10,8 @@ android {
         applicationId "helium314.keyboard"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 2001
-        versionName '2.0-beta1'
+        versionCode 2002
+        versionName '2.0-beta2'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }

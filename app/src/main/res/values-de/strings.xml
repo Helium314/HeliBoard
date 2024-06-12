@@ -349,4 +349,23 @@
     <string name="center_suggestion_text_to_enter">Immer mittleren Vorschlag verwenden</string>
     <string name="clipboard_toolbar_keys">Wähle die Tasten der Symbolleiste für die Zwischenablage</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="pinned_toolbar_keys">Angeheftete Tasten der Symbolleiste auswählen</string>
+    <string name="quick_pin_toolbar_keys_summary">Dadurch werden andere Langdruck-Aktionen für Tasten der Symbolleiste, die nicht angeheftet sind, deaktiviert</string>
+    <string name="toast_msg_clipboard_copy">Inhalt kopiert</string>
+    <string name="auto_show_toolbar">Symbolleiste automatisch anzeigen</string>
+    <string name="auto_show_toolbar_summary">Symbolleiste anzeigen, wenn die Eingabe beginnt oder Text ausgewählt ist</string>
+    <string name="auto_hide_toolbar">Symbolleiste automatisch ausblenden</string>
+    <string name="auto_hide_toolbar_summary">Ausblenden der Symbolleiste, wenn Vorschläge verfügbar sind</string>
+    <string name="language_switch_key_behavior">Verhalten der Sprachumschalttaste</string>
+    <string name="quick_pin_toolbar_keys">Pin-Symbolleisten-Taste bei langem Drücken</string>
+    <string name="settings_screen_toolbar">Symbolleiste</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="more_colors">Mehr Farben anzeigen</string>
+    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Es gibt keine Standardfarbe, und die Namen werden nicht übersetzt.</string>
+    <string name="customize_functional_key_layouts">Anpassen von Funktionstasten-Layouts</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstasten</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstasten (Symbole)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstasten (Mehr Symbole)</string>
 </resources>

@@ -1,0 +1,11 @@
+* De mogelijkheid om layout funtietoetsen aan te passen
+* Aanpassing van Symbolen met meer lay-outs
+* Opties voor automatisch weergeven/verbergen van werkbalk
+* Pop-upmelding bij het kopiëren van tekst
+* Scheiding van gedrag en activering van de taalkeuzetoets
+* Pop-ups met kommatoetsen toegevoegd voor nummer- en telefoonlayouts
+* Optionele mogelijkheid van lang indrukken in de werkbalk
+* Werkbalkinstellingen in een aparte sectie
+* Tab-toets toegevoegd
+* Voorziening voor Ctrl, werkbalk en andere belangrijke labels in lay-outs
+* kleine fixes en verbeteringen

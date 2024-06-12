@@ -362,4 +362,10 @@
     <string name="quick_pin_toolbar_keys_summary">Esto desactivará outras accións de pulsación longa para teclas da barra que non están fixadas</string>
     <string name="settings_screen_toolbar">Barra de ferramentas</string>
     <string name="toast_msg_clipboard_copy">Copiouse o contido</string>
+    <string name="auto_show_toolbar">Mostrar ferramentas automáticamente</string>
+    <string name="auto_show_toolbar_summary">Mostra a barra de ferramentas ao comezar a escribir ou seleccionar texto</string>
+    <string name="auto_hide_toolbar">Agochar ferramentas</string>
+    <string name="auto_hide_toolbar_summary">Agocha a barra de ferramentas ao estar dispoñibles as suxestións</string>
+    <string name="language_switch_key_behavior">Comportamento da tecla de cambio de idioma</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
 </resources>

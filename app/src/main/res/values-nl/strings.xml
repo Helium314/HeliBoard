@@ -131,27 +131,27 @@
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
     <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Nummerrij altijd weergeven</string>
-    <string name="delete_swipe_summary">Voer een veegbeweging uit vanaf de delete-toets om grotere delen van tekst tegelijk te selecteren en te verwijderen</string>
+    <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
     <string name="spell_checker_service_name">HeliBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
     <string name="number_row">Nummerrij</string>
-    <string name="incognito">Incognitomodus forceren</string>
+    <string name="incognito">Incognito-modus afdwingen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>
     <string name="settings_category_suggestions">Suggesties</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Druk lang op de spatietoets voor het selectiemenu van de invoermethode</string>
-    <string name="auto_correction_confidence">Autocorrectie vertrouwen</string>
+    <string name="auto_correction_confidence">Betrouwbaarheid autocorrectie</string>
     <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembord-toets de inhoud van het klembord</string>
     <string name="show_hints">Hints bij toetsen weergeven</string>
     <string name="prefs_force_incognito_mode_summary">Het leren van nieuwe woorden uitschakelen</string>
-    <string name="show_hints_summary">Hints voor lang indrukken weergeven</string>
+    <string name="show_hints_summary">Hints bij lang indrukken weergeven</string>
     <string name="prefs_keyboard_height_scale">Toetsenbordhoogte schaal</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Invoermethode schakelen met spatietoets</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="key_borders">Toetsen met randen</string>
+    <string name="key_borders">Toetsranden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
     <string name="ime_settings">HeliBoard instellingen</string>
     <string name="settings_category_input">Invoer</string>
@@ -400,4 +400,5 @@
     <string name="auto_hide_toolbar_summary">Verberg de werkbalk wanneer er suggesties beschikbaar komen</string>
     <string name="auto_show_toolbar_summary">Toon de werkbalk bij invoer of selectie van tekst</string>
     <string name="language_switch_key_behavior">Gedrag taalkeuze-toets</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
 </resources>

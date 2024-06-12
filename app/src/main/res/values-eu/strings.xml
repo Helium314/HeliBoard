@@ -354,4 +354,14 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
     <string name="customize_functional_key_layouts">Pertsonalizatu funtzio-teklen diseinua</string>
+    <string name="pinned_toolbar_keys">Hautatu ainguratu beharreko tresna-barrako teklak</string>
+    <string name="quick_pin_toolbar_keys">Ainguratu tresna-barrako tekla luze sakatzean</string>
+    <string name="auto_hide_toolbar">Ezkutatu automatikoki tresna-barra</string>
+    <string name="auto_show_toolbar">Erakutsi automatikoki tresna-barra</string>
+    <string name="auto_show_toolbar_summary">Erakutsi tresna-barra sarrera hastean edo testua hautatzean</string>
+    <string name="quick_pin_toolbar_keys_summary">Honek ainguratuta ez dauden tresna-barrako teklak sakatu luzeko beste ekintza batzuk desgaituko ditu</string>
+    <string name="settings_screen_toolbar">Tresna-barra</string>
+    <string name="toast_msg_clipboard_copy">Kopiatu da edukia</string>
+    <string name="language_switch_key_behavior">Hizkuntza aldatzeko teklaren portaera</string>
+    <string name="auto_hide_toolbar_summary">Ezkutatu tresna-barra iradokizunak erabilgarri daudenean</string>
 </resources>
