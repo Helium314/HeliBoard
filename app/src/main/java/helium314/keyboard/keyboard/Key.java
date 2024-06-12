@@ -1156,9 +1156,10 @@ public class Key implements Comparable<Key> {
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
             switch (mCode) {
                 case KeyCode.DELETE, KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
-                        KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA -> actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
-                case KeyCode.SETTINGS, KeyCode.LANGUAGE_SWITCH -> actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
+                        KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD -> actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
             }
+            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
+                actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
             if (mCode == KeyCode.DELETE)
                 actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
             mActionFlags = actionFlags;
