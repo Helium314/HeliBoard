@@ -1072,10 +1072,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public int getCharCountToDeleteBeforeCursor() {
         final int lastCodePoint = getCodePointBeforeCursor();
-        if (!Character.isSupplementaryCodePoint(lastCodePoint)) return 1;
-        if (!StringUtils.mightBeEmoji(lastCodePoint)) return 2;
-        final String text = mCommittedTextBeforeComposingText.toString() + mComposingText;
-        return StringUtilsKt.getFullEmojiAtEnd(text).length();
+        if (StringUtils.mightBeEmoji(lastCodePoint)) {
+            final String text = mCommittedTextBeforeComposingText.toString() + mComposingText;
+            final int emojiLength = StringUtilsKt.getFullEmojiAtEnd(text).length();
+            if (emojiLength > 0) return emojiLength;
+        }
+        return Character.isSupplementaryCodePoint(lastCodePoint) ? 2 : 1;
     }
 
     public boolean hasLetterBeforeLastSpaceBeforeCursor() {
