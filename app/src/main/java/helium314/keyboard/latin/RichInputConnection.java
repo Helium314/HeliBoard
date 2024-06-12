@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
@@ -651,7 +652,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
     }
 
-    public void setComposingText(final CharSequence text, final int newCursorPosition) {
+    // return whether the text was (probably) set correctly
+    // unfortunately this is necessary in some cases
+    public boolean setComposingText(final CharSequence text, final int newCursorPosition) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         mExpectedSelStart += text.length() - mComposingText.length();
@@ -662,8 +665,20 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         //  newCursorPosition != 1.
         if (isConnected()) {
             mIC.setComposingText(text, newCursorPosition);
+            if (!Settings.getInstance().getCurrent().mInputAttributes.mShouldShowSuggestions && text.length() > 0) {
+                // We have a field that disables suggestions, but still committed text is set.
+                // This might lead to weird bugs (e.g. https://github.com/Helium314/HeliBoard/issues/225), so better do
+                // a sanity check whether the wanted text has been set.
+                // Note that the check may also fail because the text field is not yet updated, so we don't want to check everything!
+                final CharSequence lastChar = mIC.getTextBeforeCursor(1, 0);
+                if (lastChar == null || lastChar.length() == 0 || text.charAt(text.length() - 1) != lastChar.charAt(0)) {
+                    Log.w(TAG, "did set " + text + ", but got " + mIC.getTextBeforeCursor(text.length(), 0) + " as last character");
+                    return false;
+                }
+            }
         }
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        return true;
     }
 
     /**
