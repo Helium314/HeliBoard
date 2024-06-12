@@ -109,7 +109,7 @@ fun String.decapitalize(locale: Locale): String {
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
-fun isEmoji(s: String): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
+fun isEmoji(s: CharSequence): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
 
 fun String.splitOnWhitespace() = split(whitespaceSplitRegex)
 
