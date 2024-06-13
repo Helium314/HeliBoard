@@ -144,7 +144,6 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
     if (!prefs.contains(pref)) return
     val list = prefs.getString(pref, default)!!.split(";").toMutableList()
     val splitDefault = defaultToolbarPref.split(";")
-    if (list.size == splitDefault.size) return
     splitDefault.forEach { entry ->
         val keyWithComma = entry.substringBefore(",") + ","
         if (list.none { it.startsWith(keyWithComma) })
@@ -159,7 +158,7 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
             true
         }
     }
-    prefs.edit { putString(Settings.PREF_TOOLBAR_KEYS, list.joinToString(";")) }
+    prefs.edit { putString(pref, list.joinToString(";")) }
 }
 
 fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
