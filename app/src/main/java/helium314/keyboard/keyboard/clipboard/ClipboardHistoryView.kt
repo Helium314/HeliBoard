@@ -179,7 +179,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     ) {
         initialize()
         setupToolbarKeys()
-        historyManager.prepareClipboardHistory()
+        historyManager.cancelRetentionCheck()
         historyManager.setHistoryChangeListener(this)
         clipboardHistoryManager = historyManager
         clipboardAdapter.clipboardHistoryManager = historyManager
@@ -207,6 +207,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     fun stopClipboardHistory() {
         if (!initialized) return
         clipboardRecyclerView.adapter = null
+        clipboardHistoryManager?.scheduleRetentionCheck()
         clipboardHistoryManager?.setHistoryChangeListener(null)
         clipboardHistoryManager = null
         clipboardAdapter.clipboardHistoryManager = null

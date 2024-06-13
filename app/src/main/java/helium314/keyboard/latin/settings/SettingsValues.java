@@ -82,6 +82,7 @@ public class SettingsValues {
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
     public final long mClipboardHistoryRetentionTime;
+    public final boolean mClearPrimaryClipboard;
     public final boolean mOneHandedModeEnabled;
     public final int mOneHandedModeGravity;
     public final float mOneHandedModeScale;
@@ -212,7 +213,7 @@ public class SettingsValues {
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
-
+        mClearPrimaryClipboard = Settings.readClearPrimaryClipboard(prefs);
         mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
         if (mOneHandedModeEnabled) {
