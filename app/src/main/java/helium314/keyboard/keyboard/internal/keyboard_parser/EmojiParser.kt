@@ -43,12 +43,13 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
 
         // determine key width for default settings (no number row, no one-handed mode, 100% height and bottom padding scale)
         // this is a bit long, but ensures that emoji size stays the same, independent of these settings
+        val settingsValues = Settings.getInstance().current
         val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context.resources) - params.mLeftPadding - params.mRightPadding) * params.mDefaultKeyWidth
-        val keyWidth = defaultKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)
-        val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
+        val keyWidth = defaultKeyWidth * sqrt(settingsValues.mKeyboardHeightScale)
+        val defaultKeyboardHeight = ResourceUtils.getAuxiliaryKeyboardHeight(context.resources, settingsValues)
         val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
-        val emojiKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false) * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
-        val keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getInstance().current.mKeyboardHeightScale // still apply height scale to key
+        val emojiKeyboardHeight = defaultKeyboardHeight * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
+        val keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * settingsValues.mKeyboardHeightScale // still apply height scale to key
 
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, popupEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed

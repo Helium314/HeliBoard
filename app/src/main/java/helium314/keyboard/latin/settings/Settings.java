@@ -44,6 +44,7 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -153,6 +154,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_SHOW_TOOLBAR = "auto_show_toolbar";
     public static final String PREF_AUTO_HIDE_TOOLBAR = "auto_hide_toolbar";
     public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
+    public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -362,6 +364,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
+    }
+
+    public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
+        return switch (prefs.getString(PREF_TOOLBAR_MODE, "toolbar_and_suggestions_mode")) {
+            case "hidden_mode" -> ToolbarMode.HIDDEN;
+            case "toolbar_keys_mode" -> ToolbarMode.TOOLBAR_KEYS;
+            case "suggestion_strip_mode" -> ToolbarMode.SUGGESTION_STRIP;
+            default -> ToolbarMode.EXPANDABLE;
+        };
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

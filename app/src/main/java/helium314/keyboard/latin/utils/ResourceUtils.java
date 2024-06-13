@@ -63,6 +63,15 @@ public final class ResourceUtils {
         return (int)Math.max(Math.min(keyboardHeight, maxKeyboardHeight), minKeyboardHeight);
     }
 
+    public static int getAuxiliaryKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
+        final int keyboardHeight = getKeyboardHeight(res, settingsValues);
+        if (settingsValues.mToolbarMode == ToolbarMode.HIDDEN) {
+            // Small adjustment to match the height of the main keyboard which has a hidden strip container.
+            return keyboardHeight - (int) res.getDimension(R.dimen.config_suggestions_strip_height);
+        }
+        return keyboardHeight;
+    }
+
     public static boolean isValidFraction(final float fraction) {
         return fraction >= 0.0f;
     }
