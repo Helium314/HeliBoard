@@ -22,6 +22,8 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
+import helium314.keyboard.latin.utils.ToolbarKey;
+import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -207,10 +209,11 @@ public class Key implements Comparable<Key> {
         mPopupKeys = null;
         mPopupKeysColumnAndFlags = 0;
         mLabel = label;
-        mOptionalAttributes = OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED, null, 0, 0);
         mCode = code;
         mEnabled = (code != KeyCode.NOT_SPECIFIED);
         mIconName = iconName;
+        mOptionalAttributes = OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED,
+                mIconName == null ? null : getDisabledIconName(mIconName), 0, 0);
         // Horizontal gap is divided equally to both sides of the key.
         mX = x + mHorizontalGap / 2;
         mY = y;
@@ -943,6 +946,12 @@ public class Key implements Comparable<Key> {
                 || mBackgroundType == BACKGROUND_TYPE_STICKY_ON;
     }
 
+    @Nullable private static String getDisabledIconName(@NonNull final String iconName) {
+        if (iconName.equals(ToolbarUtilsKt.getToolbarKeyStrings().get(ToolbarKey.VOICE)))
+            return KeyboardIconsSet.NAME_SHORTCUT_KEY_DISABLED;
+        return null;
+    }
+
     public static class Spacer extends Key {
         private Spacer(KeyParams keyParams) {
             super(keyParams);
@@ -1180,8 +1189,8 @@ public class Key implements Comparable<Key> {
                     ? StringUtils.toTitleCaseOfKeyCode(altCodeInAttr, localeForUpcasing)
                     : altCodeInAttr;
             mOptionalAttributes = OptionalAttributes.newInstance(outputText, altCode,
-                    // disabled icon only ever for old version of shortcut key, visual insets can be replaced with spacer
-                    null, 0, 0);
+                    // disabled icon only shortcut / voice key, visual insets can be replaced with spacer
+                    mIconName == null ? null : getDisabledIconName(mIconName), 0, 0);
             // KeyVisualAttributes for a key essentially are what the theme has, but on a per-key base
             // could be used e.g. for having a color gradient on key color
             mKeyVisualAttributes = null;
