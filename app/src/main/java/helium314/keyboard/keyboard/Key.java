@@ -524,6 +524,13 @@ public class Key implements Comparable<Key> {
         return (mActionFlags & ACTION_FLAGS_NO_KEY_PREVIEW) != 0;
     }
 
+    /**
+     *  altCodeWhileTyping is a weird thing.
+     *  When user pressed a typing key less than ignoreAltCodeKeyTimeout (config_ignore_alt_code_key_timeout / 350 ms) ago,
+     *  this code will be used instead. There is no documentation, but it appears the purpose is to avoid unintentional layout switches.
+     *  Assuming this is true, the key still is used now if pressed near the center, where we assume it's less likely to be accidental.
+     *  See PointerTracker.isClearlyInsideKey
+     */
     public final boolean altCodeWhileTyping() {
         return (mActionFlags & ACTION_FLAGS_ALT_CODE_WHILE_TYPING) != 0;
     }
@@ -1165,7 +1172,7 @@ public class Key implements Comparable<Key> {
             mActionFlags = actionFlags;
 
             final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing
-            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
+            if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH || mCode == KeyCode.EMOJI || mCode == KeyCode.CLIPBOARD)
                 altCodeInAttr = Constants.CODE_SPACE;
             else
                 altCodeInAttr = KeyCode.NOT_SPECIFIED;

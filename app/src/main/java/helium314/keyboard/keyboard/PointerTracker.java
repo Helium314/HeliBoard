@@ -270,7 +270,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void callListenerOnCodeInput(final Key key, final int primaryCode, final int x,
             final int y, final long eventTime, final boolean isKeyRepeat) {
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
-        final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState();
+        final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState() && !isClearlyInsideKey(key, x, y);
         final int code = altersCode ? key.getAltCode() : primaryCode;
         if (DEBUG_LISTENER) {
             final String output = code == KeyCode.MULTIPLE_CODE_POINTS
@@ -1184,6 +1184,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return longpressTimeout * MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
         }
         return longpressTimeout;
+    }
+
+    private boolean isClearlyInsideKey(final Key key, final int x, final int y) {
+        // less than 15% of width from edge
+        return x > key.getX() + key.getWidth() * 0.15 && x < key.getX() + key.getWidth() * 0.85
+                && y > key.getY() + key.getHeight() * 0.15 && y < key.getY() + key.getHeight() * 0.85;
     }
 
     private void detectAndSendKey(final Key key, final int x, final int y, final long eventTime) {
