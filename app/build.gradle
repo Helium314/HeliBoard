@@ -21,14 +21,14 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
         }
         nouserlib { // same as release, but does not allow the user to provide a library
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
