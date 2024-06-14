@@ -122,7 +122,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             row.forEach {
                 it.setAbsoluteDimensions(currentX, currentY)
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
+                    Log.d(TAG, "setting size and position for ${it.mLabel ?: it.mIconName}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
                 currentX += it.mAbsoluteWidth
             }
             currentY += row.first().mAbsoluteHeight
