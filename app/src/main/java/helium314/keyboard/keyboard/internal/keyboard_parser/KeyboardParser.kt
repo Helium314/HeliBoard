@@ -19,10 +19,12 @@ import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
+import helium314.keyboard.latin.utils.toolbarKeyStrings
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -199,7 +201,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (!Settings.getInstance().current.mHasCustomFunctionalLayout) {
             // remove keys that should only exist on specific layouts or depend on setting (emoji, numpad, language switch)
             if (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)
-                functionalKeysBottom.removeFirst { it.label == KeyLabel.EMOJI }
+                functionalKeysBottom.removeFirst { it.label == toolbarKeyStrings[ToolbarKey.EMOJI] }
             if (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)
                 functionalKeysBottom.removeFirst { it.label == KeyLabel.LANGUAGE_SWITCH }
             if (params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS)

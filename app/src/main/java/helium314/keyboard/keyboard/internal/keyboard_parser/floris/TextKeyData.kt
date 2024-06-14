@@ -427,8 +427,8 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
+            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return getShiftBackground(params)
@@ -465,7 +465,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
         KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
         KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
+//        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
         // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
         KeyLabel.COM -> ".com"
         KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
@@ -480,7 +480,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> label.uppercase(Locale.US)
         KeyLabel.TAB -> "!icon/tab_key|"
         else -> {
-            if (label in toolbarKeyStrings) {
+            if (label in toolbarKeyStrings.values) {
                 "!icon/$label|"
             } else label
         }
@@ -498,7 +498,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.META -> KeyCode.META
             KeyLabel.TAB -> KeyCode.TAB
             else -> {
-                if (label in toolbarKeyStrings) {
+                if (label in toolbarKeyStrings.values) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
                 } else code
             }
@@ -519,7 +519,7 @@ sealed interface KeyData : AbstractKeyData {
             }
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
             KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
-            KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+            toolbarKeyStrings[ToolbarKey.EMOJI] -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
