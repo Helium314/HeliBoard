@@ -9,7 +9,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
-import helium314.keyboard.latin.common.StringUtils
 
 // taken from FlorisBoard, small modifications
 //  popup not nullable (maybe change back, but currently that's necessary for number keys)
@@ -131,9 +130,7 @@ class ShiftStateSelector(
 }
 
 /**
- * Allows to select an [AbstractKeyData] based on the current variation. Note that this type of selector only really
- * makes sense in a text context, though technically speaking it can be used anywhere, so this implementation allows
- * for any [AbstractKeyData] to be used here. The JSON class identifier for this selector is `variation_selector`.
+ * Allows to select an [AbstractKeyData] based on the current variation. The JSON class identifier for this selector is `variation_selector`.
  *
  * Example usage in a layout JSON file:
  * ```
@@ -155,6 +152,12 @@ class ShiftStateSelector(
  *  [default] will be used instead.
  * @property password The key data to use if [KeyboardId.passwordInput] return true. If this value is
  *  null, [default] will be used instead.
+ * @property date The key data to use if [KeyboardId.MODE_DATE] is active. If this value is null,
+ *  null, [default] will be used instead.
+ * @property time The key data to use if [KeyboardId.MODE_TIME] is active. If this value is null,
+ *  null, [default] will be used instead.
+ * @property datetime The key data to use if [KeyboardId.MODE_DATETIME] is active. If this value is null,
+ *  null, [default] will be used instead.
  */
 @Serializable
 @SerialName("variation_selector")
@@ -170,17 +173,57 @@ data class VariationSelector(
 ) : AbstractKeyData {
     override fun compute(params: KeyboardParams): KeyData? {
         return when {
-            // todo: what is normal and all?
-//            KeyVariation.ALL -> default
-//            KeyVariation.NORMAL -> normal ?: default
             params.mId.passwordInput() -> password ?: default
             params.mId.mMode == KeyboardId.MODE_EMAIL -> email ?: default
             params.mId.mMode == KeyboardId.MODE_URL -> uri ?: default
             params.mId.mMode == KeyboardId.MODE_DATE -> date ?: default
             params.mId.mMode == KeyboardId.MODE_TIME -> time ?: default
             params.mId.mMode == KeyboardId.MODE_DATETIME -> datetime ?: default
-            else -> default
+            else -> normal ?: default
         }?.compute(params)
+    }
+
+    override fun asString(isForDisplay: Boolean): String {
+        return ""
+    }
+}
+
+/**
+ * Allows to select an [AbstractKeyData] based on states saved in [KeyboardId].
+ * The JSON class identifier for this selector is `keyboard_state_selector`.
+ * Note that the conditions are checked in order as given below, and the first non-null AbstractKeyData is selected.
+ *
+ * @property emojiKeyEnabled The key data to use if [KeyboardId.mEmojiKeyEnabled] is true.
+ * @property languageKeyEnabled The key data to use if [KeyboardId.mLanguageSwitchKeyEnabled] is true.
+ * @property symbols The key data to use if [KeyboardId.mElementId] is [KeyboardId.ELEMENT_SYMBOLS].
+ * @property moreSymbols The key data to use if [KeyboardId.mElementId] is [KeyboardId.ELEMENT_SYMBOLS_SHIFTED].
+ * @property alphabet The key data to use if [KeyboardId.isAlphabetKeyboard] is true.
+ * @property default The default key data which should be used in case none of the other conditions have a matching non-null
+ * AbstractKeyData. Can be null, in this case no key is displayed.
+ */
+@Serializable
+@SerialName("keyboard_state_selector")
+class KeyboardStateSelector(
+    val emojiKeyEnabled: AbstractKeyData? = null,
+    val languageKeyEnabled: AbstractKeyData? = null,
+    val symbols: AbstractKeyData? = null,
+    val moreSymbols: AbstractKeyData? = null,
+    val alphabet: AbstractKeyData? = null,
+    val default: AbstractKeyData? = null,
+) : AbstractKeyData {
+    override fun compute(params: KeyboardParams): KeyData? {
+        if (params.mId.mEmojiKeyEnabled)
+            emojiKeyEnabled?.compute(params)?.let { return it }
+        if (params.mId.mLanguageSwitchKeyEnabled)
+            languageKeyEnabled?.compute(params)?.let { return it }
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS)
+            symbols?.compute(params)?.let { return it }
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+            moreSymbols?.compute(params)?.let { return it }
+        if (params.mId.isAlphabetKeyboard)
+            alphabet?.compute(params)?.let { return it }
+
+        return default?.compute(params)
     }
 
     override fun asString(isForDisplay: Boolean): String {

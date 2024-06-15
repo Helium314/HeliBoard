@@ -84,6 +84,7 @@ Features that may go unnoticed, and further potentially useful information
 * Select text and press shift to switch between uppercase, lowercase and capitalize words
 * You can add dictionaries by opening the file
   * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
+* Not really a feature, but you can restart the keyboard by going to the settings and swiping it away from recents
 * _Debug mode / debug APK_
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
   * When using debug APK, you can find _Debug Settings_ within the _Advanced Preferences_, though the usefulness is limited except for dumping dictionaries into the log.

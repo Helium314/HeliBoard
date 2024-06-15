@@ -198,16 +198,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val functionalKeysBottom = allFunctionalKeys.lastOrNull() ?: return
         if (!params.mId.isAlphaOrSymbolKeyboard || functionalKeysBottom.isEmpty() || functionalKeysBottom.any { it.isKeyPlaceholder() })
             return
-        if (!Settings.getInstance().current.mHasCustomFunctionalLayout) {
-            // remove keys that should only exist on specific layouts or depend on setting (emoji, numpad, language switch)
-            if (!Settings.getInstance().current.mShowsEmojiKey || !params.mId.isAlphabetKeyboard)
-                functionalKeysBottom.removeFirst { it.label == toolbarKeyStrings[ToolbarKey.EMOJI] }
-            if (!Settings.getInstance().current.isLanguageSwitchKeyEnabled || !params.mId.isAlphabetKeyboard)
-                functionalKeysBottom.removeFirst { it.label == KeyLabel.LANGUAGE_SWITCH }
-            if (params.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS)
-                functionalKeysBottom.removeFirst { it.label == KeyLabel.NUMPAD }
-        }
-        //   replace comma / period if 2 keys in normal bottom row
+        // replace comma / period if 2 keys in normal bottom row
         if (baseKeys.last().size == 2) {
             functionalKeysBottom.replaceFirst(
                 { it.label == KeyLabel.COMMA || it.groupId == KeyData.GROUP_COMMA},

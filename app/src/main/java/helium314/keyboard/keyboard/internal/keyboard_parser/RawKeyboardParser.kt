@@ -11,6 +11,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CaseSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.CharWidthSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KanaSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyboardStateSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.LayoutDirectionSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.MultiTextKeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.ShiftStateSelector
@@ -171,6 +172,7 @@ object RawKeyboardParser {
                 subclass(CaseSelector::class, CaseSelector.serializer())
                 subclass(ShiftStateSelector::class, ShiftStateSelector.serializer())
                 subclass(VariationSelector::class, VariationSelector.serializer())
+                subclass(KeyboardStateSelector::class, KeyboardStateSelector.serializer())
                 subclass(LayoutDirectionSelector::class, LayoutDirectionSelector.serializer())
                 subclass(CharWidthSelector::class, CharWidthSelector.serializer())
                 subclass(KanaSelector::class, KanaSelector.serializer())

@@ -33,7 +33,9 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
     * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
-    * `variation_selector`: keys for `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
+    * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
+    * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `alphabet`, `default` (all optional)
+      * the `keyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:
