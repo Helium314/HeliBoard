@@ -21,6 +21,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.getCustomFunctionalLayoutName
@@ -32,6 +33,7 @@ import kotlinx.serialization.modules.polymorphic
 import java.io.File
 
 object RawKeyboardParser {
+    private const val TAG = "RawKeyboardParser"
     private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
@@ -85,8 +87,15 @@ object RawKeyboardParser {
 
     private fun createCacheLambda(layoutName: String, context: Context): (KeyboardParams) -> MutableList<MutableList<KeyData>> {
         val layoutFileName = getLayoutFileName(layoutName, context)
-        val layoutText = if (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) getCustomLayoutFile(layoutFileName, context).readText()
-            else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
+        val layoutText = if (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+            try {
+                getCustomLayoutFile(layoutFileName, context).readText()
+            } catch (e: Exception) { // fall back to defaults if for some reason file is broken
+                val name = if (layoutName.contains("functional")) "functional_keys.json" else "qwerty.txt"
+                Log.e(TAG, "cannot open layout $layoutName, falling back to $name", e)
+                context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
+            }
+        } else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
         if (layoutFileName.endsWith(".json")) {
             val florisKeyData = parseJsonString(layoutText)
             return { params ->
