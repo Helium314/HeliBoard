@@ -127,30 +127,30 @@ f""", // no newline at the end
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
-        data class Expected(val label: String?, val text: String?, val code: Int, val popups: List<String>? = null)
+        data class Expected(val label: String?, val icon: String?, val text: String?, val code: Int, val popups: List<Pair<String, Int>>? = null)
         val expected = listOf(
-            Expected("a", null, 'a'.code, null),
-            Expected("a", null, 'a'.code, null),
-            Expected("a", null, 'b'.code, listOf("b")), // todo: should also check whether code is "a"
-            Expected("$", null, '$'.code, listOf("£", "€", "¢", "¥", "₱")),
-            Expected("$", null, '¥'.code, listOf("£", "€", "¢", "¥", "₱")),
-            Expected("i", null, 105, null),
-            Expected("্র", "্র", KeyCode.MULTIPLE_CODE_POINTS, null),
-            Expected("x", "্র", KeyCode.MULTIPLE_CODE_POINTS, null),
-            Expected(";", null, ';'.code, listOf(":")),
-            Expected(".", null, '.'.code, listOf(">")),
-            Expected("'", null, '\''.code, listOf("!", "\"")),
-            Expected("9", null, '9'.code, null), // todo (later): also should have different background or whatever is related to type
-            Expected(null, null, -7, null), // todo: expect an icon
-            Expected("?123", "?123", -202, null),
-            Expected(null, null, ' '.code, null),
-            Expected("(", null, '('.code, listOf("<", "[", "{")),
-            Expected("$", null, '$'.code, listOf("£", "₱", "€", "¢", "¥", "¥")),
-            Expected("a", null, ' '.code, null),
-            Expected("a", null, ' '.code, null),
-            Expected(null, null, KeyCode.CLIPBOARD, null), // todo: expect an icon
-            Expected(null, null, KeyCode.MULTIPLE_CODE_POINTS, null), // todo: this works here, but crashes on phone
-            Expected("p", null, 'p'.code, null),
+            Expected("a", null, null, 'a'.code, null),
+            Expected("a", null, null, 'a'.code, null),
+            Expected("a", null, null, 'b'.code, listOf("b" to 'a'.code)),
+            Expected("$", null, null, '$'.code, listOf("£", "€", "¢", "¥", "₱").map { it to it.first().code }),
+            Expected("$", null, null, '¥'.code, listOf("£", "€", "¢", "¥", "₱").map { it to it.first().code }),
+            Expected("i", null, null, 105, null),
+            Expected("্র", null, "্র", KeyCode.MULTIPLE_CODE_POINTS, null),
+            Expected("x", null, "্র", KeyCode.MULTIPLE_CODE_POINTS, null),
+            Expected(";", null, null, ';'.code, listOf(":").map { it to it.first().code }),
+            Expected(".", null, null, '.'.code, listOf(">").map { it to it.first().code }),
+            Expected("'", null, null, '\''.code, listOf("!", "\"").map { it to it.first().code }),
+            Expected("9", null, null, '9'.code, null), // todo (later): also should have different background or whatever is related to type
+            Expected(null, "delete_key", null, -7, null),
+            Expected("?123", null, "?123", -202, null),
+            Expected(null, "space_key", null, ' '.code, null),
+            Expected("(", null, null, '('.code, listOf("<", "[", "{").map { it to it.first().code }),
+            Expected("$", null, null, '$'.code, listOf("£" to '£'.code, "₱" to '₱'.code, "€" to '€'.code, "¢" to '¢'.code, "¥" to '¥'.code, "¥" to '€'.code)),
+            Expected("a", null, null, ' '.code, null),
+            Expected("a", null, null, ' '.code, null),
+            Expected(null, "clipboard_action_key", null, KeyCode.CLIPBOARD, null),
+            Expected(null, "clipboard_action_key", null, KeyCode.MULTIPLE_CODE_POINTS, null), // todo: this works here, but crashes on phone
+            Expected("p", null, null, 'p'.code, listOf("$" to '$'.code)),
         )
         val layoutString = """
 [
@@ -242,7 +242,7 @@ f""", // no newline at the end
     { "code": 32, "label": "a|b" },
     { "label": "!icon/clipboard_action_key|!code/key_clipboard" },
     { "label": "!icon/clipboard_action_key" },
-    { "label": "p" }
+    { "label": "p", "popup": { "main": { "label": "$$$" } } }
   ],
   [
     { "label": "q" },
@@ -278,8 +278,10 @@ f""", // no newline at the end
             val keyParams = keyData.toKeyParams(params)
             println("params: key ${keyParams.mLabel}: code ${keyParams.mCode}, popups: ${keyParams.mPopupKeys?.toList()}")
             assertEquals(expected[index].label, keyParams.mLabel)
+            assertEquals(expected[index].icon, keyParams.mIconName)
             assertEquals(expected[index].code, keyParams.mCode)
-            assertEquals(expected[index].popups?.sorted(), keyParams.mPopupKeys?.mapNotNull { it.mLabel }?.sorted()) // todo (later): what's wrong with order?
+            // todo (later): what's wrong with popup order?
+            assertEquals(expected[index].popups?.sortedBy { it.first }, keyParams.mPopupKeys?.mapNotNull { it.mLabel to it.mCode }?.sortedBy { it.first })
             assertEquals(expected[index].text, keyParams.outputText)
         }
         assertEquals("!", keys.last()[0].toKeyParams(params).mPopupKeys?.first()?.mLabel)

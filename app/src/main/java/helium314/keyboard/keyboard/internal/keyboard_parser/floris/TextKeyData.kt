@@ -298,9 +298,10 @@ sealed interface KeyData : AbstractKeyData {
     fun getPopupLabel(params: KeyboardParams): String {
         val newLabel = processLabel(params)
         if (code == KeyCode.UNSPECIFIED) {
-            return if (newLabel == label) label
-            else if (newLabel.endsWith("|")) "${newLabel}!code/${processCode()}" // for toolbar keys
-            else "${newLabel}|!code/${processCode()}"
+            if (newLabel == label) return label
+            val newCode = processCode()
+            if (newLabel.endsWith("|")) return "${newLabel}!code/$newCode" // for toolbar keys
+            return if (newCode == code) newLabel else "${newLabel}|!code/$newCode"
         }
         if (code >= 32)
             return "${newLabel}|${StringUtils.newSingleCodePointString(code)}"
