@@ -997,7 +997,7 @@ public class LatinIME extends InputMethodService implements
                 // didn't move (the keyboard having been closed with the back key),
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
-                mInputLogic.mConnection.tryFixLyingCursorPosition();
+                mInputLogic.mConnection.tryFixIncorrectCursorPosition();
                 if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
                     mHandler.postResumeSuggestions(true /* shouldDelay */);
                 }

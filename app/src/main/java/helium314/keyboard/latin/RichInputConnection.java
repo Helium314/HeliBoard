@@ -227,13 +227,20 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     public boolean resetCachesUponCursorMoveAndReturnSuccess(final int newSelStart,
             final int newSelEnd, final boolean shouldFinishComposition) {
-        mExpectedSelStart = newSelStart;
-        mExpectedSelEnd = newSelEnd;
         mComposingText.setLength(0);
         final boolean didReloadTextSuccessfully = reloadTextCache();
         if (!didReloadTextSuccessfully) {
             Log.d(TAG, "Will try to retrieve text later.");
+            // selection is set to INVALID_CURSOR_POSITION if reloadTextCache return false
             return false;
+        }
+        if (mExpectedSelStart != newSelStart || mExpectedSelEnd != newSelEnd) {
+            mExpectedSelStart = newSelStart;
+            mExpectedSelEnd = newSelEnd;
+            reloadTextCache();
+            if (mExpectedSelStart != newSelStart || mExpectedSelEnd != newSelEnd) {
+                Log.i(TAG, "resetCachesUponCursorMove: tried to set "+newSelStart+"/"+newSelEnd+", but input field has "+mExpectedSelStart+"/"+mExpectedSelEnd);
+            }
         }
         if (isConnected() && shouldFinishComposition) {
             mIC.finishComposingText();
@@ -270,6 +277,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
         mCommittedTextBeforeComposingText.append(textBeforeCursor);
         return true;
+    }
+
+    private void reloadCursorPosition() {
+        if (!isConnected()) return;
+        final ExtractedText et = mIC.getExtractedText(new ExtractedTextRequest(), 0);
+        if (et == null) return;
+        mExpectedSelStart = et.selectionStart + et.startOffset;
+        mExpectedSelEnd = et.selectionEnd + et.startOffset;
     }
 
     private void checkBatchEdit() {
@@ -458,10 +473,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         if (result != null) {
             if (!checkTextBeforeCursorConsistency(result)) {
                 Log.w(TAG, "cached text out of sync, reloading");
-                ExtractedTextRequest r = new ExtractedTextRequest();
-                final ExtractedText et = mIC.getExtractedText(r, 0);
-                mExpectedSelStart = et.selectionStart + et.startOffset;
-                mExpectedSelEnd = et.selectionEnd + et.startOffset;
+                reloadCursorPosition();
                 if (!DebugLogUtils.getStackTrace(2).contains("reloadTextCache")) // clunky bur effective protection against circular reference
                     reloadTextCache();
             }
@@ -1130,8 +1142,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * means to get the real value, try at least to ask the text view for some characters and
      * detect the most damaging cases: when the cursor position is declared to be much smaller
      * than it really is.
+     * (renamed the method, because we clearly ask the editorInfo to provide initial selection, no reason to complain about it
+     * being initial and thus possibly outdated)
      */
-    public void tryFixLyingCursorPosition() {
+    public void tryFixIncorrectCursorPosition() {
         mIC = mParent.getCurrentInputConnection();
         final CharSequence textBeforeCursor = getTextBeforeCursor(
                 Constants.EDITOR_CONTENTS_CACHE_SIZE, 0);
@@ -1167,6 +1181,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 if (wasEqual || mExpectedSelStart > mExpectedSelEnd) {
                     mExpectedSelEnd = mExpectedSelStart;
                 }
+            } else {
+                // better re-read the correct position instead of guessing from incomplete data
+                reloadCursorPosition();
             }
         }
     }

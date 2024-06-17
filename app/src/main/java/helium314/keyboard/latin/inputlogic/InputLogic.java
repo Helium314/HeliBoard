@@ -148,9 +148,9 @@ public final class InputLogic {
         mRecapitalizeStatus.disable(); // Do not perform recapitalize until the cursor is moved once
         mCurrentlyPressedHardwareKeys.clear();
         mSuggestedWords = SuggestedWords.getEmptyInstance();
-        // In some cases (namely, after rotation of the device) editorInfo.initialSelStart is lying
-        // so we try using some heuristics to find out about these and fix them.
-        mConnection.tryFixLyingCursorPosition();
+        // In some cases (e.g. after rotation of the device, or when scrolling the text before bringing up keyboard)
+        // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
+        mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
         if (InputLogicHandler.NULL_HANDLER == mInputLogicHandler) {
             mInputLogicHandler = new InputLogicHandler(mLatinIME, this);
@@ -2380,7 +2380,7 @@ public final class InputLogic {
             // If remainingTries is 0, we should stop waiting for new tries, however we'll still
             // return true as we need to perform other tasks (for example, loading the keyboard).
         }
-        mConnection.tryFixLyingCursorPosition();
+        mConnection.tryFixIncorrectCursorPosition();
         if (tryResumeSuggestions) {
             handler.postResumeSuggestions(true /* shouldDelay */);
         }
