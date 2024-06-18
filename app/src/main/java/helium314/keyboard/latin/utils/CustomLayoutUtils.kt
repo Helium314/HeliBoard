@@ -114,16 +114,28 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many keys in one row")
         return false
     }
-    if (keys.any { row -> row.any { ((it.mLabel?.length ?: 0) > 20) } }) {
-        Log.w(TAG, "too long text on key")
+    if (keys.any { row -> row.any {
+            if ((it.mLabel?.length ?: 0) > 20) {
+                Log.w(TAG, "too long text on key: ${it.mLabel}")
+                true
+            } else false
+    } }) {
         return false
     }
-    if (keys.any { row -> row.any { (it.mPopupKeys?.size ?: 0) > 20 } }) {
-        Log.w(TAG, "too many popup keys on a key")
+    if (keys.any { row -> row.any {
+        if ((it.mPopupKeys?.size ?: 0) > 20) {
+            Log.w(TAG, "too many popup keys on key ${it.mLabel}")
+            true
+        } else false
+    } }) {
         return false
     }
-    if (keys.any { row -> row.any { it.mPopupKeys?.any { popupKey -> (popupKey.mLabel?.length ?: 0) > 10 } == true } }) {
-        Log.w(TAG, "too long text on popup key")
+    if (keys.any { row -> row.any { true == it.mPopupKeys?.any { popupKey ->
+        if ((popupKey.mLabel?.length ?: 0) > 10) {
+            Log.w(TAG, "too long text on popup key: ${popupKey.mLabel}")
+            true
+        } else false
+    } } }) {
         return false
     }
     return true
