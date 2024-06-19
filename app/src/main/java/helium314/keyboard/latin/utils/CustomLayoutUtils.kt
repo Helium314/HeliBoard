@@ -92,7 +92,7 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
             return null
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
-    if (layoutContent.startsWith("[")) {
+    if (layoutContent.trimStart().startsWith("[")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
             RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
@@ -101,7 +101,7 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     return null
 }
 
-private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
+fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     if (keys.isEmpty() || keys.any { it.isEmpty() }) {
         Log.w(TAG, "empty rows")
         return false

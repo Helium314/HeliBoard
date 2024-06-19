@@ -60,7 +60,7 @@ public final class PopupKeySpec {
             mOutputText = mLabel;
         } else {
             mCode = code;
-            final String outputText = KeySpecParser.getOutputText(popupKeySpec);
+            final String outputText = KeySpecParser.getOutputText(popupKeySpec, code);
             mOutputText = needsToUpperCase
                     ? StringUtils.toTitleCaseOfKeyLabel(outputText, locale) : outputText;
         }

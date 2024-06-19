@@ -98,8 +98,6 @@ Usually the label is what is displayed on the key. However, there are some speci
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
 You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
-  * For normal keys, even if you specify a code, you will need to add a `|` to the label, e.g. `!icon/go_key|` or `!icon/go_key|ignored` (to be fixed).
-  * For popups keys, you must _not_ add a `|` (to be fixed).
   * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 
 ## Adding new layouts / languages

@@ -12,6 +12,7 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
@@ -303,13 +304,21 @@ sealed interface KeyData : AbstractKeyData {
             if (newLabel.endsWith("|")) return "${newLabel}!code/$newCode" // for toolbar keys
             return if (newCode == code) newLabel else "${newLabel}|!code/$newCode"
         }
-        if (code >= 32)
-            return "${newLabel}|${StringUtils.newSingleCodePointString(code)}"
+        if (code >= 32) {
+            if (newLabel.startsWith(KeyboardIconsSet.PREFIX_ICON)) {
+                // we ignore everything after the first |
+                // todo (later): for now this is fine, but it should rather be done when creating the popup key,
+                //  and it should be consistent with other popups and also with normal keys
+                return "${newLabel.substringBefore("|")}|${StringUtils.newSingleCodePointString(code)}"
+            }
+            return "$newLabel|${StringUtils.newSingleCodePointString(code)}"
+
+        }
         if (code in KeyCode.Spec.CURRENCY) {
             return getCurrencyLabel(params)
         }
-        return if (newLabel.endsWith("|")) "${newLabel}!code/${processCode()}" // for toolbar keys
-        else "${newLabel}|!code/${processCode()}"
+        return if (newLabel.endsWith("|")) "$newLabel!code/${processCode()}" // for toolbar keys
+        else "$newLabel|!code/${processCode()}"
     }
 
     fun getCurrencyLabel(params: KeyboardParams): String {

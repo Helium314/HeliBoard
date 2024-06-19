@@ -1130,7 +1130,7 @@ public class Key implements Comparable<Key> {
                         : hintLabel;
             }
 
-            String outputText = KeySpecParser.getOutputText(keySpec);
+            String outputText = KeySpecParser.getOutputText(keySpec, code);
             if (needsToUpcase) {
                 outputText = StringUtils.toTitleCaseOfKeyLabel(outputText, localeForUpcasing);
             }
