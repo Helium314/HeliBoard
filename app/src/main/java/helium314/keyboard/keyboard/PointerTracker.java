@@ -870,45 +870,47 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
         final SettingsValues sv = Settings.getInstance().getCurrent();
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
-            // reason for timeout: https://github.com/openboard-team/openboard/issues/411
-            final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (mStartTime + longpressTimeout > System.currentTimeMillis())
-                return;
-            int dX = x - mStartX;
-            int dY = y - mStartY;
+        if (!mIsInSlidingKeyInput) {
+            if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+                // reason for timeout: https://github.com/openboard-team/openboard/issues/411
+                final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
+                if (mStartTime + longpressTimeout > System.currentTimeMillis())
+                    return;
+                int dX = x - mStartX;
+                int dY = y - mStartY;
 
-            // vertical movement
-            int stepsY = dY / sPointerStep;
-            if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
-                mInVerticalSwipe = true;
-                if (sListener.onVerticalSpaceSwipe(stepsY)) {
-                    mStartY += stepsY * sPointerStep;
+                // vertical movement
+                int stepsY = dY / sPointerStep;
+                if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
+                    mInVerticalSwipe = true;
+                    if (sListener.onVerticalSpaceSwipe(stepsY)) {
+                        mStartY += stepsY * sPointerStep;
+                    }
+                    return;
+                }
+
+                // Horizontal movement
+                int stepsX = dX / sPointerStep;
+                if (stepsX != 0 && !mInVerticalSwipe) {
+                    mInHorizontalSwipe = true;
+                    if (sListener.onHorizontalSpaceSwipe(stepsX)) {
+                        mStartX += stepsX * sPointerStep;
+                    }
                 }
                 return;
             }
 
-            // Horizontal movement
-            int stepsX = dX / sPointerStep;
-            if (stepsX != 0 && !mInVerticalSwipe) {
-                mInHorizontalSwipe = true;
-                if (sListener.onHorizontalSpaceSwipe(stepsX)) {
-                    mStartX += stepsX * sPointerStep;
+            if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+                // Delete slider
+                int steps = (x - mStartX) / sPointerStep;
+                if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInHorizontalSwipe = true;
+                    mStartX += steps * sPointerStep;
+                    sListener.onMoveDeletePointer(steps);
                 }
+                return;
             }
-            return;
-        }
-
-        if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
-            // Delete slider
-            int steps = (x - mStartX) / sPointerStep;
-            if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
-                sTimerProxy.cancelKeyTimersOf(this);
-                mInHorizontalSwipe = true;
-                mStartX += steps * sPointerStep;
-                sListener.onMoveDeletePointer(steps);
-            }
-            return;
         }
 
         final Key newKey = onMoveKey(x, y);
