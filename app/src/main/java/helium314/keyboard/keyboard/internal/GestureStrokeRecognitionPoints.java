@@ -6,6 +6,7 @@
 
 package helium314.keyboard.keyboard.internal;
 
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 
 import helium314.keyboard.latin.common.Constants;
@@ -104,7 +105,7 @@ public final class GestureStrokeRecognitionPoints {
     public void addDownEventPoint(final int x, final int y, final int elapsedTimeSinceFirstDown,
             final int elapsedTimeSinceLastTyping) {
         reset();
-        if (elapsedTimeSinceLastTyping < mRecognitionParams.mStaticTimeThresholdAfterFastTyping) {
+        if (!Settings.getInstance().getCurrent().mGestureAlwaysStartEnabled && elapsedTimeSinceLastTyping < mRecognitionParams.mStaticTimeThresholdAfterFastTyping) {
             mAfterFastTyping = true;
         }
         if (DEBUG) {
