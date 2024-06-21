@@ -870,7 +870,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
         final SettingsValues sv = Settings.getInstance().getCurrent();
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+        // todo (later): move key swipe stuff to a separate function (and finally extend it)
+        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
             // reason for timeout: https://github.com/openboard-team/openboard/issues/411
             final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
             if (mStartTime + longpressTimeout > System.currentTimeMillis())
@@ -899,7 +900,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
