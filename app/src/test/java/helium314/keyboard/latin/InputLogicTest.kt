@@ -545,8 +545,50 @@ class InputLogicTest {
         assertEquals("hello ", text)
     }
 
+    @Test fun `no weird space inside multi-"`() {
+        reset()
+        chainInput("\"\"\"")
+        assertEquals("\"\"\"", text)
+
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("\"\"\"")
+        assertEquals("\"\"\"", text)
+    }
+
+    @Test fun `autospace still happens after "`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("\"hello\"you")
+        assertEquals("\"hello\" you", text)
+    }
+
+    @Test fun `autospace still happens after " if next word is in quotes`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("\"hello\"\"you\"")
+        assertEquals("\"hello\" \"you\"", text)
+    }
+
+    @Test fun `autospace propagates over "`() {
+        reset()
+        input('"')
+        pickSuggestion("hello")
+        assertEquals(spaceState, SpaceState.PHANTOM) // picking a suggestion sets phantom space state
+        chainInput("\"you")
+        assertEquals("\"hello\" you", text)
+    }
+
+    @Test fun `autospace still happens after " if nex word is in " and after comma`() {
+        reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        chainInput("\"hello\",\"you\"")
+        assertEquals("\"hello\", \"you\"", text)
+    }
+
     @Test fun `autospace in json editor`() {
         reset()
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("{\"label\":\"")
         assertEquals("{\"label\": \"", text)
         input('c')
