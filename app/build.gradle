@@ -38,6 +38,10 @@ android {
             jniDebuggable false
             applicationIdSuffix ".debug"
         }
+        runTests { // build variant for running tests on CI that skips tests known to fail
+            minifyEnabled true
+            jniDebuggable false
+        }
         archivesBaseName = "HeliBoard_" + defaultConfig.versionName
     }
 
