@@ -167,7 +167,7 @@
     <string name="label_search_key">"Zoeken"</string>
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Wacht"</string>
-    <string name="one_handed" tools:keep="@string/one_handed">Enkele handmodus</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Bediening met één hand</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roze</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
@@ -359,7 +359,7 @@
 \n\t• woord selecteren &amp;#65515; alles selecteren&lt;br&gt;
 \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
 \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Enkele handmodus, Instellingen, of de taal te wisselen: &lt;br&gt;
+\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
 \n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt;
 \n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt;
 \n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt;

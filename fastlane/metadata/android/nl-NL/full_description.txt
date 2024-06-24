@@ -23,7 +23,7 @@ Kenmerken:
     <li> kan worden ontleend uit GApps-pakketten ("<i> swypelibs </i>"), of <a href = "https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hier downloaden</a> (klik op het bestand en klik vervolgens op "raw" of de kleine download-knop)</li>
   </u>
   <li> Klembordgeschiedenis </li>
-  <li> Enkele handmodus </li>
+  <li> Bediening met één hand</li>
   <li> Gesplitst toetsenbord (alleen beschikbaar als het scherm groot genoeg is) </li>
   <li> Numpad </li>
   <li> Back-up en herstel van instellingen en geleerde woorden / geschiedenisgegevens </li>

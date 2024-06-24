@@ -1,0 +1,4 @@
+* Emoji-werkbalktoets toegevoegd, door @codokie (#845, #837)
+* verbeteringen met betrekking tot gedupliceerde letters (#225 en misschien anderen)
+* Vermijd het plaatsen van de cursor in emoji's (#859)
+* Kleine correcties voor recent toegevoegde functies
