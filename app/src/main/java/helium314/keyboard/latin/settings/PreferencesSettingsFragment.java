@@ -77,7 +77,8 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (key == null) return;
         switch (key) {
             case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
-                    Settings.PREF_POPUP_KEYS_LABELS_ORDER -> mReloadKeyboard = true;
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_LANGUAGE_SWITCH_KEY,
+                    Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY -> mReloadKeyboard = true;
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
             case Settings.PREF_SHOW_HINTS
                     -> findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));

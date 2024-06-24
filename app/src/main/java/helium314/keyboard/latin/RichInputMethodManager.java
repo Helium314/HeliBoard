@@ -360,6 +360,14 @@ public class RichInputMethodManager {
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
+    public boolean canSwitchLanguage() {
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && hasMultipleEnabledSubtypesInThisIme(false))
+            return true;
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && mImm.getEnabledInputMethodList().size() > 1)
+            return true;
+        return false;
+    }
+
     // todo: is shortcutIme only voice input, or can it be something else?
     //  if always voice input, rename it and other things like mHasShortcutKey
     private void updateShortcutIme() {

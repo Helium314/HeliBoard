@@ -1412,10 +1412,11 @@ public class LatinIME extends InputMethodService implements
         if (switchIme && !switchSubtype && switchInputMethod())
             return;
         final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
-        // switch subtype if wanted and possible
-        if (switchSubtype && !switchIme && hasMoreThanOneSubtype) {
-            // switch to previous subtype if current one was used, otherwise cycle through list
-            mSubtypeState.switchSubtype(mRichImm);
+        // switch subtype if wanted, do nothing if no other subtype is available
+        if (switchSubtype && !switchIme) {
+            if (hasMoreThanOneSubtype)
+                // switch to previous subtype if current one was used, otherwise cycle through list
+                mSubtypeState.switchSubtype(mRichImm);
             return;
         }
         // language key set to switch both, or language key is not shown on keyboard -> switch both
