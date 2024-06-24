@@ -1112,32 +1112,32 @@ public final class InputLogic {
                 mConnection.commitCodePoint(codePoint);
             }
         } else {
-            if ((SpaceState.PHANTOM == inputTransaction.getMSpaceState()
-                    && settingsValues.isUsuallyFollowedBySpace(codePoint))
-                    || (Constants.CODE_DOUBLE_QUOTE == codePoint
-                            && isInsideDoubleQuoteOrAfterDigit)) {
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && (settingsValues.isUsuallyFollowedBySpace(codePoint) || isInsideDoubleQuoteOrAfterDigit)) {
                 // If we are in phantom space state, and the user presses a separator, we want to
                 // stay in phantom space state so that the next keypress has a chance to add the
                 // space. For example, if I type "Good dat", pick "day" from the suggestion strip
                 // then insert a comma and go on to typing the next word, I want the space to be
                 // inserted automatically before the next word, the same way it is when I don't
-                // input the comma. A double quote behaves like it's usually followed by space if
-                // we're inside a double quote.
+                // input the comma. Also when closing a quote the phantom state should be preserved.
                 // The case is a little different if the separator is a space stripper. Such a
                 // separator does not normally need a space on the right (that's the difference
                 // between swappers and strippers), so we should not stay in phantom space state if
                 // the separator is a stripper. Hence the additional test above.
                 mSpaceState = SpaceState.PHANTOM;
-            } else
+            } else {
                 // mSpaceState is still SpaceState.NONE, but some characters should typically
                 // be followed by space. Set phantom space state for such characters if the user
                 // enabled the setting and was not composing a word. The latter avoids setting
                 // phantom space state when typing decimal numbers, with the drawback of not
                 // setting phantom space state after ending a sentence with a non-word.
+                // A double quote behaves like it's usually followed by space if we're inside
+                // a double quote.
                 if (wasComposingWord
                         && settingsValues.mAutospaceAfterPunctuationEnabled
-                        && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                        && (settingsValues.isUsuallyFollowedBySpace(codePoint) || isInsideDoubleQuoteOrAfterDigit)) {
                     mSpaceState = SpaceState.PHANTOM;
+                }
             }
 
             mConnection.commitCodePoint(codePoint);
