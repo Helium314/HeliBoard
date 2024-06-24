@@ -370,9 +370,9 @@ sealed interface KeyData : AbstractKeyData {
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
-        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-
         val newWidth = if (width == 0f) getDefaultWidth(params) else width
+        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, newWidth)
+
         val newCode: Int
         val newLabel: String
         if (code in KeyCode.Spec.CURRENCY) {
