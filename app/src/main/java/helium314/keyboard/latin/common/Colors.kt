@@ -552,7 +552,7 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     private val stateListMap = EnumMap<ColorType, ColorStateList>(ColorType::class.java)
     private var backgroundSetupDone = false
     private val colorFilters = hashMapOf<ColorType, ColorFilter>()
-    override fun get(color: ColorType): Int = colorMap[color] ?: Color.GRAY
+    override fun get(color: ColorType): Int = colorMap[color] ?: color.default()
 
     override fun setColor(drawable: Drawable, color: ColorType) {
         val colorStateList = stateListMap.getOrPut(color) { stateList(brightenOrDarken(get(color), true), get(color)) }
@@ -668,3 +668,5 @@ enum class ColorType {
     TOOL_BAR_KEY_ENABLED_BACKGROUND,
     MAIN_BACKGROUND,
 }
+
+fun ColorType.default() = ColorUtils.setAlphaComponent(name.hashCode() and 0xffffff, 255)
