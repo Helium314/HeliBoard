@@ -57,6 +57,7 @@
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>
+    <integer name="config_gesture_fast_typing_cooldown_step">10</integer>
     <!-- Static threshold for starting gesture detection (keyWidth%/sec) -->
     <fraction name="config_gesture_detect_fast_move_speed_threshold">150%</fraction>
     <!-- Dynamic threshold for gesture after fast typing (msec) -->

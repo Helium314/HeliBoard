@@ -146,8 +146,12 @@
     <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
-    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.[CHAR LIMIT=65]-->
+    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
     <string name="gesture_space_aware_summary">Input spaces during gestures by gliding to the space key</string>
+    <!-- Title of the setting to adjust the fast-typing gesture cooldown [CHAR LIMIT=35]-->
+    <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
+    <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
+    <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->

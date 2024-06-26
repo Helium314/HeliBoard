@@ -115,6 +115,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
+    public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
@@ -362,6 +363,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
+    }
+
+    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFastTypingCooldown(res);
+    }
+
+    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
