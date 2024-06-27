@@ -915,8 +915,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
 
         // todo (later): extend key swipe stuff
-        if (!mIsInSlidingKeyInput && !mDidShowPopupKeys && oldKey != null
-                && keySwipe(oldKey.getCode(), x, y)) return;
+        if (!mIsInSlidingKeyInput && !mDidShowPopupKeys && mCurrentRepeatingKeyCode == Constants.NOT_A_CODE
+                && oldKey != null && keySwipe(oldKey.getCode(), x, y)) return;
 
         final Key newKey = onMoveKey(x, y);
         final int lastX = mLastX;
