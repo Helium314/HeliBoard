@@ -278,6 +278,8 @@
         <attr name="iconPageDown" format="reference" />
         <attr name="iconFullLeft" format="reference" />
         <attr name="iconFullRight" format="reference" />
+        <attr name="iconPageStart" format="reference" />
+        <attr name="iconPageEnd" format="reference" />
         <attr name="iconSelectWord" format="reference" />
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />

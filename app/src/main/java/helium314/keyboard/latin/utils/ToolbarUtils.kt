@@ -62,6 +62,8 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
+    PAGE_START -> KeyCode.MOVE_START_OF_PAGE
+    PAGE_END -> KeyCode.MOVE_END_OF_PAGE
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
     CLOSE_HISTORY -> KeyCode.ALPHA
@@ -108,6 +110,8 @@ fun getStyleableIconId(key: ToolbarKey) = when (key) {
     CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
+    PAGE_START -> R.styleable.Keyboard_iconPageStart
+    PAGE_END -> R.styleable.Keyboard_iconPageEnd
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
     CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
     EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
@@ -125,8 +129,8 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD,
-    CLOSE_HISTORY, EMOJI
+    WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END, INCOGNITO, AUTOCORRECT,
+    CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI
 }
 
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
@@ -134,7 +138,7 @@ val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java))
 val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
         INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN,
-        FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
+        FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
         else -> "${it.name},true"
     }
 }

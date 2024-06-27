@@ -56,6 +56,8 @@
         <item name="iconRedo">@drawable/ic_redo_rounded</item>
         <item name="iconFullLeft">@drawable/ic_to_start_rounded</item>
         <item name="iconFullRight">@drawable/ic_to_end_rounded</item>
+        <item name="iconPageStart">@drawable/ic_page_start_rounded</item>
+        <item name="iconPageEnd">@drawable/ic_page_end_rounded</item>
         <item name="iconSelectWord">@drawable/ic_select_rounded</item>
         <item name="iconClose">@drawable/ic_close</item>
     </style>

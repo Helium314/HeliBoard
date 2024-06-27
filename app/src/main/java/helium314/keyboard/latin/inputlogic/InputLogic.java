@@ -775,17 +775,25 @@ public final class InputLogic {
             case KeyCode.PAGE_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
-            case KeyCode.UNDO:
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
-                break;
-            case KeyCode.REDO:
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
-                break;
             case KeyCode.MOVE_START_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
                 break;
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
+                break;
+            case KeyCode.MOVE_START_OF_PAGE:
+                // todo: this approach is error-prone
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.MOVE_END_OF_PAGE:
+                // todo: this approach is error-prone
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.UNDO:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.REDO:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
             case KeyCode.TAB:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
