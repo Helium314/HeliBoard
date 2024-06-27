@@ -749,6 +749,12 @@ public final class InputLogic {
                     inputTransaction.setDidAffectContents();
                 }
                 break;
+            case KeyCode.WORD_LEFT:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.WORD_RIGHT:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;

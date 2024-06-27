@@ -46,6 +46,10 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     RIGHT -> KeyCode.ARROW_RIGHT
     UP -> KeyCode.ARROW_UP
     DOWN -> KeyCode.ARROW_DOWN
+    WORD_LEFT -> KeyCode.WORD_LEFT
+    WORD_RIGHT -> KeyCode.WORD_RIGHT
+    PAGE_UP -> KeyCode.PAGE_UP
+    PAGE_DOWN -> KeyCode.PAGE_DOWN
     UNDO -> KeyCode.UNDO
     REDO -> KeyCode.REDO
     INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
@@ -59,10 +63,14 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
-    RIGHT -> KeyCode.MOVE_END_OF_LINE
-    LEFT -> KeyCode.MOVE_START_OF_LINE
+    LEFT -> KeyCode.WORD_LEFT
+    RIGHT -> KeyCode.WORD_RIGHT
     UP -> KeyCode.PAGE_UP
     DOWN -> KeyCode.PAGE_DOWN
+    WORD_LEFT -> KeyCode.MOVE_START_OF_LINE
+    WORD_RIGHT -> KeyCode.MOVE_END_OF_LINE
+    PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
+    PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
     UNDO -> KeyCode.REDO
     REDO -> KeyCode.UNDO
     COPY -> KeyCode.CLIPBOARD_COPY_ALL
@@ -83,6 +91,10 @@ fun getStyleableIconId(key: ToolbarKey) = when (key) {
     RIGHT -> R.styleable.Keyboard_iconArrowRight
     UP -> R.styleable.Keyboard_iconArrowUp
     DOWN -> R.styleable.Keyboard_iconArrowDown
+    WORD_LEFT -> R.styleable.Keyboard_iconWordLeft
+    WORD_RIGHT -> R.styleable.Keyboard_iconWordRight
+    PAGE_UP -> R.styleable.Keyboard_iconPageUp
+    PAGE_DOWN -> R.styleable.Keyboard_iconPageDown
     UNDO -> R.styleable.Keyboard_iconUndo
     REDO -> R.styleable.Keyboard_iconRedo
     INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
@@ -107,14 +119,16 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI
+    WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD,
+    CLOSE_HISTORY, EMOJI
 }
 
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN,
+        FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
         else -> "${it.name},true"
     }
 }
