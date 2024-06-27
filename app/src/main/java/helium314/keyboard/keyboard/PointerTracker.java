@@ -130,7 +130,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // the popup keys panel currently being shown. equals null if no panel is active.
     private PopupKeysPanel mPopupKeysPanel;
-    private boolean mDidShowPopupKeys = false;
 
     private static final int MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT = 3;
     // true if this pointer is in the dragging finger mode.
@@ -143,6 +142,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // true if dragging finger is allowed.
     private boolean mIsAllowedDraggingFinger;
+    // true if key swipes are allowed.
+    private boolean mKeySwipeAllowed;
 
     private final BatchInputArbiter mBatchInputArbiter;
     private final GestureStrokeDrawingPoints mGestureStrokeDrawingPoints;
@@ -695,6 +696,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (!mIsInDraggingFinger) {
             final int code = key.getCode(); // todo: no sliding input yet for those keys, but it would be really useful
             mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL && code != KeyCode.ALT && code != KeyCode.FN && code != KeyCode.META;
+            mKeySwipeAllowed = !mIsInSlidingKeyInput;
         }
         mIsInDraggingFinger = true;
     }
@@ -702,6 +704,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void resetKeySelectionByDraggingFinger() {
         mIsInDraggingFinger = false;
         mIsInSlidingKeyInput = false;
+        mKeySwipeAllowed = true;
         sDrawingProxy.showSlidingKeyInputPreview(null);
     }
 
@@ -886,7 +889,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
 
             // Horizontal movement
-            if (sv.mSpaceSwipeHorizontal == KeyboardActionListener.SWIPE_NO_ACTION) return false;
+            if (sv.mSpaceSwipeHorizontal == KeyboardActionListener.SWIPE_NO_ACTION)
+                return false;
             int stepsX = dX / sPointerStep;
             if (stepsX != 0 && !mInVerticalSwipe) {
                 mInHorizontalSwipe = true;
@@ -915,8 +919,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
 
         // todo (later): extend key swipe stuff
-        if (!mIsInSlidingKeyInput && !mDidShowPopupKeys && mCurrentRepeatingKeyCode == Constants.NOT_A_CODE
-                && oldKey != null && keySwipe(oldKey.getCode(), x, y)) return;
+        if (mKeySwipeAllowed && oldKey != null && keySwipe(oldKey.getCode(), x, y))
+            return;
 
         final Key newKey = onMoveKey(x, y);
         final int lastX = mLastX;
@@ -991,6 +995,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mCurrentKey = null;
         final int currentRepeatingKeyCode = mCurrentRepeatingKeyCode;
         mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
+        mKeySwipeAllowed = true;
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
@@ -998,7 +1003,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sListener.onUpWithDeletePointerActive();
         }
 
-        mDidShowPopupKeys = false;
         if (isShowingPopupKeysPanel()) {
             if (!mIsTrackingForActionDisabled) {
                 final int translatedX = mPopupKeysPanel.translateX(x);
@@ -1103,7 +1107,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int translatedY = popupKeysPanel.translateY(mLastY);
         popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
         mPopupKeysPanel = popupKeysPanel;
-        mDidShowPopupKeys = true;
+        mKeySwipeAllowed = false;
     }
 
     private void cancelKeyTracking() {
@@ -1226,9 +1230,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key key = getKey();
         if (key == null || key.getCode() != code) {
             mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
+            mKeySwipeAllowed = true;
             return;
         }
         mCurrentRepeatingKeyCode = code;
+        mKeySwipeAllowed = false;
         mIsDetectingGesture = false;
         final int nextRepeatCount = repeatCount + 1;
         startKeyRepeatTimer(nextRepeatCount);
