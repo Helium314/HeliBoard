@@ -1171,7 +1171,8 @@ public class Key implements Comparable<Key> {
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
             switch (mCode) {
-                case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN:
+                case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN,
+                        KeyCode.WORD_LEFT, KeyCode.WORD_RIGHT, KeyCode.PAGE_UP, KeyCode.PAGE_DOWN:
                     // todo: it would be ideal if the cursor keys didn't keep making sound when scraping
                     // the edge of a text field (like the delete key)
                     actionFlags |= ACTION_FLAGS_IS_REPEATABLE;

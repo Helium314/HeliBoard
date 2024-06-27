@@ -761,6 +761,20 @@ public final class InputLogic {
             case KeyCode.ARROW_DOWN:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
                 break;
+            case KeyCode.WORD_LEFT:
+                // todo: this approach is error-prone
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.WORD_RIGHT:
+                // todo: this approach is error-prone
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.PAGE_UP:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
+                break;
+            case KeyCode.PAGE_DOWN:
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
+                break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
@@ -772,12 +786,6 @@ public final class InputLogic {
                 break;
             case KeyCode.MOVE_END_OF_LINE:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
-                break;
-            case KeyCode.PAGE_UP:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
-                break;
-            case KeyCode.PAGE_DOWN:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
                 break;
             case KeyCode.TAB:
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
