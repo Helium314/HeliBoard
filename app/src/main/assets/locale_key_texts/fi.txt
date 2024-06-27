@@ -1,9 +1,8 @@
 [popup_keys]
-a ä å æ à á â ã ā
-o ö ø ô ò ó õ œ ō
-u ü
-s š ß ś
-z ž ź ż
+a ä å
+o ö
+s š
+z ž
 
 [extra_keys]
 1: å
