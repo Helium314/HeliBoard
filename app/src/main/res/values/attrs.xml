@@ -94,8 +94,6 @@
         <attr name="keyRepeatStartTimeout" format="integer" />
         <!-- Key repeat interval in millisecond. -->
         <attr name="keyRepeatInterval" format="integer" />
-        <!-- Long press timeout of shift key to shift lock in millisecond. -->
-        <attr name="longPressShiftLockTimeout" format="integer" />
         <!-- Ignore special key timeout while typing in millisecond. -->
         <attr name="ignoreAltCodeKeyTimeout" format="integer" />
         <!-- Background resource for key press feedback.-->
