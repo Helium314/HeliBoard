@@ -130,6 +130,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // the popup keys panel currently being shown. equals null if no panel is active.
     private PopupKeysPanel mPopupKeysPanel;
+    private boolean mDidShowPopupKeysPanel = false;
 
     private static final int MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT = 3;
     // true if this pointer is in the dragging finger mode.
@@ -863,41 +864,39 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private void onMoveEventInternal(final int x, final int y, final long eventTime) {
-        final Key oldKey = mCurrentKey;
+    private boolean keySwipe(final int code, final int x, final int y) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
-
-        // todo (later): move key swipe stuff to a separate function (and finally extend it)
-        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+        if (code == Constants.CODE_SPACE) {
             // reason for timeout: https://github.com/openboard-team/openboard/issues/411
             final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
             if (mStartTime + longpressTimeout > System.currentTimeMillis())
-                return;
+                return true;
             int dX = x - mStartX;
             int dY = y - mStartY;
 
-            // vertical movement
+            // Vertical movement
             int stepsY = dY / sPointerStep;
-            if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
+            if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe
+                    && sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION) {
                 mInVerticalSwipe = true;
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
-                return;
+                return true;
             }
 
             // Horizontal movement
             int stepsX = dX / sPointerStep;
-            if (stepsX != 0 && !mInVerticalSwipe) {
+            if (stepsX != 0 && !mInVerticalSwipe && sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION) {
                 mInHorizontalSwipe = true;
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
                 }
             }
-            return;
+            return true;
         }
 
-        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+        if (code == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
@@ -906,8 +905,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
-            return;
+            return true;
         }
+        return false;
+    }
+
+    private void onMoveEventInternal(final int x, final int y, final long eventTime) {
+        final Key oldKey = mCurrentKey;
+
+        // todo (later): extend key swipe stuff
+        if (!mIsInSlidingKeyInput && !mDidShowPopupKeysPanel && oldKey != null
+                && keySwipe(oldKey.getCode(), x, y)) return;
 
         final Key newKey = onMoveKey(x, y);
         final int lastX = mLastX;
@@ -985,10 +993,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if(mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
+        if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
+        mDidShowPopupKeysPanel = false;
         if (isShowingPopupKeysPanel()) {
             if (!mIsTrackingForActionDisabled) {
                 final int translatedX = mPopupKeysPanel.translateX(x);
@@ -1093,6 +1102,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int translatedY = popupKeysPanel.translateY(mLastY);
         popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
         mPopupKeysPanel = popupKeysPanel;
+        mDidShowPopupKeysPanel = true;
     }
 
     private void cancelKeyTracking() {
