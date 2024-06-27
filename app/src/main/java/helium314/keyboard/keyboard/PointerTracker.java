@@ -886,8 +886,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
 
             // Horizontal movement
+            if (sv.mSpaceSwipeHorizontal == KeyboardActionListener.SWIPE_NO_ACTION) return false;
             int stepsX = dX / sPointerStep;
-            if (stepsX != 0 && !mInVerticalSwipe && sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION) {
+            if (stepsX != 0 && !mInVerticalSwipe) {
                 mInHorizontalSwipe = true;
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
