@@ -1171,13 +1171,15 @@ public class Key implements Comparable<Key> {
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
             switch (mCode) {
-                case KeyCode.DELETE, KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
-                        KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD -> actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
+                case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN:
+                    actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
+                    // fallthrough
+                case KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,
+                        KeyCode.SYMBOL, KeyCode.SYMBOL_ALPHA, KeyCode.LANGUAGE_SWITCH, KeyCode.EMOJI, KeyCode.CLIPBOARD:
+                    actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW; // no preview even if icon!
             }
             if (mCode == KeyCode.SETTINGS || mCode == KeyCode.LANGUAGE_SWITCH)
                 actionFlags |= ACTION_FLAGS_ALT_CODE_WHILE_TYPING;
-            if (mCode == KeyCode.DELETE)
-                actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
             mActionFlags = actionFlags;
 
             final int altCodeInAttr; // settings and language switch keys have alt code space, all others nothing
