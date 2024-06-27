@@ -253,6 +253,10 @@
     <string name="right" tools:keep="@string/right">Right</string>
     <string name="up" tools:keep="@string/up">Up</string>
     <string name="down" tools:keep="@string/down">Down</string>
+    <string name="word_left" tools:keep="@string/word_left">Word left</string>
+    <string name="word_right" tools:keep="@string/word_right">Word right</string>
+    <string name="page_up" tools:keep="@string/page_up">Page up</string>
+    <string name="page_down" tools:keep="@string/page_down">Page down</string>
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>

@@ -48,6 +48,10 @@
         <item name="iconArrowRight">@drawable/ic_dpad_right</item>
         <item name="iconArrowUp">@drawable/ic_dpad_up</item>
         <item name="iconArrowDown">@drawable/ic_dpad_down</item>
+        <item name="iconWordLeft">@drawable/ic_word_left</item>
+        <item name="iconWordRight">@drawable/ic_word_right</item>
+        <item name="iconPageUp">@drawable/ic_page_up</item>
+        <item name="iconPageDown">@drawable/ic_page_down</item>
         <item name="iconBin">@drawable/ic_delete</item>
         <item name="iconUndo">@drawable/ic_undo</item>
         <item name="iconRedo">@drawable/ic_redo</item>

@@ -139,6 +139,8 @@ object KeyCode {
     const val META =                      -10012
     const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
     const val TAB =                       -10014
+    const val WORD_LEFT =                 -10015
+    const val WORD_RIGHT =                -10016
     const val ESCAPE =                    -10017
     const val INSERT =                    -10018
     const val SLEEP =                     -10019
@@ -175,9 +177,9 @@ object KeyCode {
 
         // heliboard only
         SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
-        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META, TAB,
-        ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT, MEDIA_PREVIOUS,
-        VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
+        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
+        PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
+        MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
         -> this
 
         // conversion
