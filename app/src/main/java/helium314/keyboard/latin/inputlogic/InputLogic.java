@@ -755,6 +755,12 @@ public final class InputLogic {
             case KeyCode.WORD_RIGHT:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
                 break;
+            case KeyCode.MOVE_START_OF_PAGE:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
+                break;
+            case KeyCode.MOVE_END_OF_PAGE:
+                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
+                break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;

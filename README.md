@@ -70,7 +70,7 @@ Does not use internet permission, and thus is 100% offline.
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo
+* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> word left/right, move up/down -> page up/down, word left/right -> line start/end, page up/down -> page start/end, copy -> copy all, select word -> select all, undo <-> redo
 * Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
