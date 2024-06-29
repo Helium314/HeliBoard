@@ -501,6 +501,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
+    <!-- Title for customizing currencies -->
+    <string name="customize_currencies">Customize currencies</string>
+    <!-- Info for customizing currencies -->
+    <string name="customize_currencies_detail">Set main and secondary currency symbols, separated with space</string>
     <!-- Message for selecting day or night background image -->
     <string name="day_or_night_image">Set image for day or night mode?</string>
     <!-- Button for selecting day -->

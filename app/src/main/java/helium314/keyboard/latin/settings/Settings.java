@@ -127,6 +127,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
+    public static final String PREF_CUSTOM_CURRENCY_KEY = "custom_currency_key";
 
     public static final String PREF_SHOW_HINTS = "show_hints";
     public static final String PREF_POPUP_KEYS_ORDER = "popup_keys_order";
@@ -660,5 +661,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public String getInLocale(@StringRes final int resId, final Locale locale) {
         return RunInLocaleKt.runInLocale(mContext, locale, (ctx) -> ctx.getString(resId));
+    }
+
+    public String readCustomCurrencyKey() {
+        return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, "");
     }
 }
