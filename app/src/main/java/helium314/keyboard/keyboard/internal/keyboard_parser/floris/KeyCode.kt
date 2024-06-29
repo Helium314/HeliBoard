@@ -134,13 +134,13 @@ object KeyCode {
     // Code value representing the code is not specified.
     const val NOT_SPECIFIED =             -10008 // todo: not sure if there is need to have the "old" unspecified keyCode different, just test it and maybe merge
     const val CLIPBOARD_COPY_ALL =        -10009
-    const val WORD_LEFT =                 -10010
-    const val WORD_RIGHT =                -10011
-    const val PAGE_UP =                   -10012
-    const val PAGE_DOWN =                 -10013
-    const val META =                      -10014
-    const val META_LOCK =                 -10015 // to be consistent with the CTRL/ALT(/FN LOCK codes, not sure whether this will be used
-    const val TAB =                       -10016
+    const val PAGE_UP =                   -10010
+    const val PAGE_DOWN =                 -10011
+    const val META =                      -10012
+    const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT(/FN LOCK codes, not sure whether this will be used
+    const val TAB =                       -10014
+    const val WORD_LEFT =                 -10015
+    const val WORD_RIGHT =                -10016
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
