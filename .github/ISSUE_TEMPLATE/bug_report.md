@@ -10,7 +10,10 @@ tl;dr:
 * a single issue per topic
 * reduce screenshot size
 
-<!-- issue template below, please remove above text before submitting (and the template too if you think it's a good idea) -->
+<!--
+issue template below, please remove above text before submitting (and the template too if you think it's a good idea)
+Please choose a meaningful title for your issue
+-->
 
 **Describe the bug**
 

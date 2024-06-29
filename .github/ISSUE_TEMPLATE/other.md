@@ -9,4 +9,4 @@ tl;dr:
 * a single issue per topic
 * reduce screenshot size
 
-<!-- please remove above text before submitting -->
+<!-- please remove above text before submitting, and choose a meaningful title for your issue -->
