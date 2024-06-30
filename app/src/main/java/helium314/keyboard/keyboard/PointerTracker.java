@@ -668,6 +668,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mIsAllowedDraggingFinger = sParams.mKeySelectionByDraggingFinger
                 || (key != null && key.isModifier())
                 || mKeyDetector.alwaysAllowsKeySelectionByDraggingFinger();
+        mKeySwipeAllowed = key != null && isSwiper(key.getCode());
         mKeyboardLayoutHasBeenChanged = false;
         mIsTrackingForActionDisabled = false;
         resetKeySelectionByDraggingFinger();
@@ -696,7 +697,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (!mIsInDraggingFinger) {
             final int code = key.getCode(); // todo: no sliding input yet for those keys, but it would be really useful
             mIsInSlidingKeyInput = key.isModifier() && code != KeyCode.CTRL && code != KeyCode.ALT && code != KeyCode.FN && code != KeyCode.META;
-            mKeySwipeAllowed = !mIsInSlidingKeyInput;
         }
         mIsInDraggingFinger = true;
     }
@@ -704,8 +704,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void resetKeySelectionByDraggingFinger() {
         mIsInDraggingFinger = false;
         mIsInSlidingKeyInput = false;
-        mKeySwipeAllowed = true;
         sDrawingProxy.showSlidingKeyInputPreview(null);
+    }
+
+    private boolean isSwiper(final int code) {
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        return switch (code) {
+            case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION
+                    || sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION;
+            case KeyCode.DELETE -> sv.mDeleteSwipeEnabled;
+            default -> false;
+        };
     }
 
     private void onGestureMoveEvent(final int x, final int y, final long eventTime,
@@ -867,7 +876,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private boolean keySwipe(final int code, final int x, final int y) {
+    private boolean keySwipe(final Key key, final int x, final int y) {
+        final int code = key.getCode();
         final SettingsValues sv = Settings.getInstance().getCurrent();
         if (code == Constants.CODE_SPACE) {
             // reason for timeout: https://github.com/openboard-team/openboard/issues/411
@@ -889,8 +899,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
 
             // Horizontal movement
-            if (sv.mSpaceSwipeHorizontal == KeyboardActionListener.SWIPE_NO_ACTION)
-                return false;
             int stepsX = dX / sPointerStep;
             if (stepsX != 0 && !mInVerticalSwipe) {
                 mInHorizontalSwipe = true;
@@ -901,7 +909,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return true;
         }
 
-        if (code == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+        if (code == KeyCode.DELETE) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
@@ -919,7 +927,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
 
         // todo (later): extend key swipe stuff
-        if (mKeySwipeAllowed && oldKey != null && keySwipe(oldKey.getCode(), x, y))
+        if (mKeySwipeAllowed && keySwipe(oldKey, x, y))
             return;
 
         final Key newKey = onMoveKey(x, y);
@@ -995,7 +1003,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mCurrentKey = null;
         final int currentRepeatingKeyCode = mCurrentRepeatingKeyCode;
         mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
-        mKeySwipeAllowed = true;
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
@@ -1230,7 +1237,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key key = getKey();
         if (key == null || key.getCode() != code) {
             mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
-            mKeySwipeAllowed = true;
             return;
         }
         mCurrentRepeatingKeyCode = code;
