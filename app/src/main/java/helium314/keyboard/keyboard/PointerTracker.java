@@ -877,7 +877,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private boolean keySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
-        final int fastTypingTimeout = 3 * sv.mKeyLongpressTimeout / 4;
+        final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
         // we don't want keyswipes to start immediately if the user is fast-typing,
         // see https://github.com/openboard-team/openboard/issues/411
         if (System.currentTimeMillis() < mStartTime + fastTypingTimeout && sTypingTimeRecorder.isInFastTyping(eventTime))
