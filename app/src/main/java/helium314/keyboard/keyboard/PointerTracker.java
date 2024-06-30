@@ -933,7 +933,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void onMoveEventInternal(final int x, final int y, final long eventTime) {
         final Key oldKey = mCurrentKey;
 
-        // todo (later): extend key swipe stuff
+        // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
         if (mKeySwipeAllowed && keySwipe(oldKey.getCode(), x, y, eventTime))
             return;
 
