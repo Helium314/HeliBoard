@@ -277,7 +277,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
     Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let {
         val split = it.trim().splitOnWhitespace()
         if (split.isNotEmpty())
-            return split[0] to (split.toSet() + genericCurrencyPopupKeys).filterNot { it == split[0] }
+            return split[0] to (split.toSet() + genericCurrencyPopupKeys).filterNot { it == split[0] }.take(6)
     }
     if (locale.country.matches(euroCountries))
         return euro

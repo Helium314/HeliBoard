@@ -19,6 +19,7 @@ import helium314.keyboard.latin.utils.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
+import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
@@ -43,6 +44,7 @@ import helium314.keyboard.latin.SystemBroadcastReceiver
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
@@ -469,7 +471,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         layout.addView(et)
         val padding = ResourceUtils.toPx(8, resources)
         layout.setPadding(3 * padding, padding, padding, padding)
-        AlertDialog.Builder(requireContext())
+        val d = AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_currencies)
             .setView(layout)
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -478,7 +480,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .setNeutralButton(R.string.button_default) { _, _ -> sharedPreferences.edit { putString(Settings.PREF_CUSTOM_CURRENCY_KEY, "") } }
-            .show()
+            .create()
+        et.doAfterTextChanged { d.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = et.text.toString().splitOnWhitespace().none { it.length > 8 } }
+        d.show()
     }
 
     private fun setupKeyLongpressTimeoutSettings() {
