@@ -42,8 +42,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     // 1 for more colors
     // 2 for all colors
     private var moreColors: Int
-        get() = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
-        set(value) { prefs.edit().putInt(Settings.PREF_SHOW_MORE_COLORS, value).apply() }
+        get() = prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0)
+        set(value) { prefs.edit().putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), value).apply() }
 
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
 
