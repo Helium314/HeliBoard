@@ -243,13 +243,13 @@
     <string name="setup_step3_action">Configura la tastiera</string>
     <string name="day_or_night_night">Scuro</string>
     <string name="prefs_bottom_padding_scale">Spaziatura dal bordo in basso</string>
-    <string name="select_user_colors_night">Colori (Tema scuro)</string>
+    <string name="select_user_colors_night">Colori personalizzati (tema scuro)</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Scuro</string>
     <string name="main_colors">Mostra solo i colori principali</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colori dinamici</string>
     <string name="settings_screen_appearance">Aspetto</string>
     <string name="select_color_key_background">Sfondo tasti</string>
-    <string name="theme_colors">Colori (tema chiaro)</string>
+    <string name="theme_colors">Tema chiaro</string>
     <string name="select_color_functional_key_background">Sfondo dei tasti funzione</string>
     <string name="user_dict_word_already_present">La parola è già presente nel dizionario utente %s.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrotondato</string>
@@ -275,7 +275,7 @@
     <string name="user_dict_add_word_button">Aggiungi una parola</string>
     <string name="select_color_suggestion">Testo dei suggerimenti</string>
     <string name="hint_show_keyboard">Tocca per vedere l\'anteprima</string>
-    <string name="theme_name_user" tools:keep="@string/theme_name_user">Personalizzato (Tema chiaro)</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Personalizzato (tema chiaro)</string>
     <string name="replace_dictionary">Sostituisci dizionario</string>
     <string name="button_add_to_language">Aggiungi a %s</string>
     <string name="select_color_background">Sfondo della tastiera</string>
@@ -293,11 +293,11 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sabbia</string>
     <string name="theme_style">Stile</string>
     <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
-    <string name="theme_colors_night">Colori (tema scuro)</string>
+    <string name="theme_colors_night">Tema scuro</string>
     <string name="all_colors">Mostra tutti i colori</string>
     <string name="select_user_colors_summary">Seleziona i colori per il testo e gli sfondi</string>
     <string name="select_color_key_hint">Caratteri degli indicatori dei tasti</string>
-    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Personalizzato (Tema scuro)</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Personalizzato (tema scuro)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
     <string name="replace_dictionary_message">Vuoi davvero sostituire il dizionario aggiunto dall\'utente \"%1$s\"?
 \n
@@ -316,7 +316,7 @@
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
     <string name="text_tap_languages">Tocca la lingua per aprire le impostazioni</string>
-    <string name="select_user_colors">Colori (Tema chiaro)</string>
+    <string name="select_user_colors">Colori personalizzati (tema chiaro)</string>
     <string name="save_log">Salva log</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
     <string name="internal_dictionary_summary">Dizionario interno principale</string>
@@ -396,4 +396,5 @@
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mostra altri colori</string>
     <string name="all_colors_warning">Questa impostazione mostra tutti i colori utilizzati internamente. L\'elenco dei colori può cambiare in qualsiasi momento. Non esiste un colore predefinito e i nomi non sono tradotti.</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
 </resources>

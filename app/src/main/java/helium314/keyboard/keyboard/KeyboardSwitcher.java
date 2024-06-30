@@ -71,6 +71,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
     private int mCurrentUiMode;
+    private int mCurrentOrientation;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -111,14 +112,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context,
             final KeyboardTheme keyboardTheme) {
-        final boolean nightModeChanged = (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK)
-                != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
-        if (mThemeContext == null || !keyboardTheme.equals(mKeyboardTheme) || nightModeChanged
+        if (mThemeContext == null
+                || !keyboardTheme.equals(mKeyboardTheme)
+                || mCurrentOrientation != context.getResources().getConfiguration().orientation
+                || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 || !mThemeContext.getResources().equals(context.getResources())
                 || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
             mCurrentUiMode = context.getResources().getConfiguration().uiMode;
+            mCurrentOrientation = context.getResources().getConfiguration().orientation;
             KeyboardLayoutSet.onKeyboardThemeChanged();
             return true;
         }

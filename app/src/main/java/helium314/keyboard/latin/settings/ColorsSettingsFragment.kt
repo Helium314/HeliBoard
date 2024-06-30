@@ -2,7 +2,6 @@
 package helium314.keyboard.latin.settings
 
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,12 +16,14 @@ import androidx.core.content.edit
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.default
 import helium314.keyboard.latin.common.readAllColorsMap
 import helium314.keyboard.latin.common.writeAllColorsMap
 import helium314.keyboard.latin.databinding.ColorSettingBinding
@@ -107,7 +108,6 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 reloadKeyboard(false)
             }
             moreColors = menuItem.itemId
-            binding.info.isGone = menuItem.itemId != 2
             updateColorPrefs()
             return true
         }
@@ -128,9 +128,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     private fun showAllColors() {
+        binding.info.isVisible = true
         val colors = readAllColorsMap(prefs, isNight)
         ColorType.entries.forEach { type ->
-            val color = colors[type] ?: Color.GRAY
+            val color = colors[type] ?: type.default()
+
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
             csb.root.tag = type
             csb.colorSwitch.isGone = true
@@ -174,6 +176,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     private fun showMainColors() {
+        binding.info.isGone = true
         val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefsAndNames.forEachIndexed { index, (colorPref, colorPrefName) ->
             val autoColor = prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
@@ -276,7 +279,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         val colorMap = readAllColorsMap(prefs, isNight)
         binding.colorSettingsContainer.forEach { view ->
             val type = view.tag as? ColorType ?: return@forEach
-            val color = colorMap[type] ?: Color.GRAY
+            val color = colorMap[type] ?: type.default()
             view.findViewById<ImageView>(R.id.color_preview)?.setColorFilter(color)
         }
     }

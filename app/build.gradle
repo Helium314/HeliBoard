@@ -10,8 +10,8 @@ android {
         applicationId "helium314.keyboard"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 2002
-        versionName '2.0-beta2'
+        versionCode 2003
+        versionName '2.0'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
@@ -37,6 +37,10 @@ android {
             minifyEnabled true
             jniDebuggable false
             applicationIdSuffix ".debug"
+        }
+        runTests { // build variant for running tests on CI that skips tests known to fail
+            minifyEnabled true
+            jniDebuggable false
         }
         archivesBaseName = "HeliBoard_" + defaultConfig.versionName
     }

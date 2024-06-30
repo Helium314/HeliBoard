@@ -18,6 +18,7 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
@@ -121,7 +122,7 @@ sealed interface KeyData : AbstractKeyData {
                 keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
             if (!params.mId.mEmojiKeyEnabled && !params.mId.isNumberLayout)
                 keys.add("!icon/emoji_normal_key|!code/key_emoji")
-            if (!params.mId.mLanguageSwitchKeyEnabled && !params.mId.isNumberLayout)
+            if (!params.mId.mLanguageSwitchKeyEnabled && !params.mId.isNumberLayout && RichInputMethodManager.getInstance().canSwitchLanguage())
                 keys.add("!icon/language_switch_key|!code/key_language_switch")
             if (!params.mId.mOneHandedModeEnabled)
                 keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
@@ -369,9 +370,9 @@ sealed interface KeyData : AbstractKeyData {
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
-        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-
         val newWidth = if (width == 0f) getDefaultWidth(params) else width
+        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, newWidth)
+
         val newCode: Int
         val newLabel: String
         if (code in KeyCode.Spec.CURRENCY) {

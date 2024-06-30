@@ -9,20 +9,22 @@ Adding too many keys or too long texts will make the keyboard look awkward or br
 There are some sanity checks when adding a layout to avoid such issues, but they do not cover all possible cases.
 Further there is no check whether the layout actually contains characters of the selected language.
 
-If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
+If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single character.
 
 If the layout has exactly 2 keys in the bottom row, these keys will replace comma and period keys. More exactly: the first key will replace the first functional key with `"groupId": 1` in the bottom row, and the second key with replace the first key with `"groupId": 2`.
 
 ## Simple format
 * One key per line
   * Key format: [label] [popup keys], all separated by space, e.g. `a 0 + *` will create a key with text `a`, and the keys `0`, `+`, and `*` on long press
+  * see [below](#labels) for information about special labels
 * Two consecutive newlines mark beginning of a new row
 
 ## Json format
+* Normal json layout with [lenient](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/is-lenient.html) parsing, and ignoring lines starting with `//`.
+  * For anything else than small changes and copy/pasting text the in-app editor is unsuitable. A proper text editor (e.g. Kate or Notepad++) can significantly simplify work on json files.
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
-* Lines _starting_ with `//` are ignored.
 * There is no need for specifying a `code`, it will be determined from the label automatically
   * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported

@@ -12,9 +12,13 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import helium314.keyboard.latin.utils.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
@@ -48,6 +52,7 @@ import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.editCustomLayout
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.getStringResourceOrName
@@ -135,6 +140,11 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         findPreference<Preference>("custom_functional_key_layouts")?.setOnPreferenceClickListener {
             showCustomizeFunctionalKeyLayoutsDialog()
+            true
+        }
+
+        findPreference<Preference>(Settings.PREF_CUSTOM_CURRENCY_KEY)?.setOnPreferenceClickListener {
+            customCurrencyDialog()
             true
         }
     }
@@ -449,6 +459,26 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
             else -> originalName
         }
+    }
+
+    private fun customCurrencyDialog() {
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(TextView(requireContext()).apply { setText(R.string.customize_currencies_detail) })
+        val et = EditText(requireContext()).apply { setText(sharedPreferences.getString(Settings.PREF_CUSTOM_CURRENCY_KEY, "")) }
+        layout.addView(et)
+        val padding = ResourceUtils.toPx(8, resources)
+        layout.setPadding(3 * padding, padding, padding, padding)
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.customize_currencies)
+            .setView(layout)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                sharedPreferences.edit { putString(Settings.PREF_CUSTOM_CURRENCY_KEY, et.text.toString()) }
+                KeyboardLayoutSet.onSystemLocaleChanged()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.button_default) { _, _ -> sharedPreferences.edit { putString(Settings.PREF_CUSTOM_CURRENCY_KEY, "") } }
+            .show()
     }
 
     private fun setupKeyLongpressTimeoutSettings() {
