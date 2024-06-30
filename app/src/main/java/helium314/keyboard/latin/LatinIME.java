@@ -1734,14 +1734,12 @@ public class LatinIME extends InputMethodService implements
             // No need to feedback when repeat delete/cursor keys will have no effect.
             switch (code) {
             case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_UP:
-                if (!mInputLogic.mConnection.canDeleteCharacters()) {
+                if (!mInputLogic.mConnection.canDeleteCharacters())
                     return;
-                }
                 break;
             case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN:
-                if (!mInputLogic.mConnection.canForwardDeleteCharacters()) {
+                if (!mInputLogic.mConnection.canForwardDeleteCharacters())
                     return;
-                }
                 break;
             }
             // TODO: Use event time that the last feedback has been generated instead of relying on
