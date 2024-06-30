@@ -56,7 +56,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         public final int mSuppressKeyPreviewAfterBatchInputDuration;
         public final int mKeyRepeatStartTimeout;
         public final int mKeyRepeatInterval;
-        public final int mLongPressShiftLockTimeout;
 
         public PointerTrackerParams(final TypedArray mainKeyboardViewAttr) {
             mKeySelectionByDraggingFinger = mainKeyboardViewAttr.getBoolean(
@@ -71,8 +70,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     R.styleable.MainKeyboardView_keyRepeatStartTimeout, 0);
             mKeyRepeatInterval = mainKeyboardViewAttr.getInt(
                     R.styleable.MainKeyboardView_keyRepeatInterval, 0);
-            mLongPressShiftLockTimeout = mainKeyboardViewAttr.getInt(
-                    R.styleable.MainKeyboardView_longPressShiftLockTimeout, 0);
         }
     }
 
@@ -1176,12 +1173,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private int getLongPressTimeout(final int code) {
-        if (code == KeyCode.SHIFT) {
-            return sParams.mLongPressShiftLockTimeout;
-        }
         final int longpressTimeout = Settings.getInstance().getCurrent().mKeyLongpressTimeout;
-        if (mIsInSlidingKeyInput) {
-            // We use longer timeout for sliding finger input started from the modifier key.
+        if (code == KeyCode.SHIFT || code == KeyCode.SYMBOL_ALPHA) {
+            // We use slightly longer timeout for shift-lock and the numpad long-press.
+            return longpressTimeout * 3 / 2;
+        } else if (mIsInSlidingKeyInput) {
+            // We use longer timeout for sliding finger input started from a modifier key.
             return longpressTimeout * MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
         }
         return longpressTimeout;
