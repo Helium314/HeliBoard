@@ -891,7 +891,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             int stepsY = dY / sPointerStep;
             if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe
                     && sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION) {
-                mInVerticalSwipe = true;
+                if (!mInVerticalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInVerticalSwipe = true;
+                }
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
@@ -901,7 +904,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             // Horizontal movement
             int stepsX = dX / sPointerStep;
             if (stepsX != 0 && !mInVerticalSwipe) {
-                mInHorizontalSwipe = true;
+                if (!mInHorizontalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInHorizontalSwipe = true;
+                }
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
                 }
@@ -913,8 +919,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
-                sTimerProxy.cancelKeyTimersOf(this);
-                mInHorizontalSwipe = true;
+                if (!mInHorizontalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInHorizontalSwipe = true;
+                }
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
@@ -1068,9 +1076,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     public void onLongPressed() {
         sTimerProxy.cancelLongPressTimersOf(this);
         if (isShowingPopupKeysPanel()) {
-            return;
-        }
-        if(mInHorizontalSwipe || mInVerticalSwipe) {
             return;
         }
         final Key key = getKey();
