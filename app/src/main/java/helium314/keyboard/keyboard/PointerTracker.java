@@ -141,7 +141,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // true if dragging finger is allowed.
     private boolean mIsAllowedDraggingFinger;
-    // true if a keyswipe gesture is enabled and allowed.
+    // true if a keyswipe gesture is enabled and warranted.
     private boolean mKeySwipeAllowed = false;
 
     private final BatchInputArbiter mBatchInputArbiter;
