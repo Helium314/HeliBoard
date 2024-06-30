@@ -1,6 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.settings
 
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -9,7 +14,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.CompoundButton
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -17,6 +26,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -25,12 +35,19 @@ import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.default
 import helium314.keyboard.latin.common.readAllColorsMap
+import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.common.writeAllColorsMap
 import helium314.keyboard.latin.databinding.ColorSettingBinding
 import helium314.keyboard.latin.databinding.ColorSettingsBinding
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.infoDialog
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.util.EnumMap
 
 open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvider {
 
@@ -96,6 +113,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         menu.add(Menu.NONE, 0, Menu.NONE, R.string.main_colors)
         menu.add(Menu.NONE, 1, Menu.NONE, R.string.more_colors)
         menu.add(Menu.NONE, 2, Menu.NONE, R.string.all_colors)
+        menu.add(Menu.NONE, 3, Menu.NONE, R.string.save)
+        menu.add(Menu.NONE, 4, Menu.NONE, R.string.load)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -109,6 +128,14 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             }
             moreColors = menuItem.itemId
             updateColorPrefs()
+            return true
+        }
+        if (menuItem.itemId == 3) {
+            saveDialog()
+            return true
+        }
+        if (menuItem.itemId == 4) {
+            loadDialog()
             return true
         }
         return false
@@ -298,6 +325,117 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     companion object {
         var forceOppositeTheme = false
     }
+
+    // ----------------- stuff for import / export ---------------------------
+    @Serializable
+    private data class SaveThoseColors(val moreColors: Int, val colors: Map<String, Pair<Int?, Boolean>>)
+
+    private fun saveDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.save)
+            .setPositiveButton(R.string.button_save_file) { _, _ ->
+                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .putExtra(Intent.EXTRA_TITLE,"theme.json")
+                    .setType("application/json")
+                saveFilePicker.launch(intent)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.copy_to_clipboard) { _, _ ->
+                val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                cm.setPrimaryClip(ClipData.newPlainText("HeliBoard theme", getColorString()))
+            }
+            .show()
+    }
+
+    private fun loadDialog() {
+        val layout = LinearLayout(requireContext())
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(TextView(requireContext()).apply { setText(R.string.load_will_overwrite) })
+        val et = EditText(requireContext())
+        layout.addView(et)
+        val padding = ResourceUtils.toPx(8, resources)
+        layout.setPadding(3 * padding, padding, padding, padding)
+        val d = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.load)
+            .setView(layout)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                loadColorString(et.text.toString())
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .setNeutralButton(R.string.button_load_custom) { _, _ ->
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream", "application/json"))
+                    .setType("*/*")
+                loadFilePicker.launch(intent)
+            }
+            .create()
+        et.doAfterTextChanged { d.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = et.text.toString().isNotBlank() }
+        d.show()
+        d.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = false
+    }
+
+    private fun loadColorString(colorString: String) {
+        // show dialog
+        // load from file or from text field
+        // do some sanity check (only write correct settings, consider current night mode)
+        try {
+            val that = Json.decodeFromString<SaveThoseColors>(colorString)
+            // save mode to moreColors and PREF_SHOW_MORE_COLORS (with night dependence!)
+            that.colors.forEach {
+                val pref = Settings.getColorPref(it.key, isNight)
+                if (it.value.first == null)
+                    prefs.edit { remove(pref) }
+                else prefs.edit { putInt(pref, it.value.first!!) }
+                prefs.edit { putBoolean(pref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, it.value.second) }
+            }
+            moreColors = that.moreColors
+        } catch (e: SerializationException) {
+            try {
+                val allColorsStringMap = Json.decodeFromString<Map<String, Int>>(colorString)
+                val allColors = EnumMap<ColorType, Int>(ColorType::class.java)
+                allColorsStringMap.forEach {
+                    try {
+                        allColors[ColorType.valueOf(it.key)] = it.value
+                    } catch (_: IllegalArgumentException) {}
+                }
+                writeAllColorsMap(allColors, prefs, isNight)
+                moreColors = 2
+            } catch (e: SerializationException) {
+                infoDialog(requireContext(), "error")
+            }
+        }
+        updateColorPrefs()
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+    }
+
+    private fun getColorString(): String {
+        if (moreColors == 2)
+            return Json.encodeToString(readAllColorsMap(prefs, isNight).map { it.key.name to it.value }.toMap())
+        // read the actual prefs!
+        val colors = colorPrefsAndNames.associate {
+            val pref = Settings.getColorPref(it.first, isNight)
+            val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
+            it.first to (color to prefs.getBoolean(pref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true))
+        }
+        return Json.encodeToString(SaveThoseColors(moreColors, colors))
+    }
+
+    private val saveFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        activity?.contentResolver?.openOutputStream(uri)?.writer()?.use { it.write(getColorString()) }
+    }
+
+    private val loadFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        activity?.contentResolver?.openInputStream(uri)?.use {
+            loadColorString(it.reader().readText())
+        } ?: infoDialog(requireContext(), R.string.file_read_error)
+    }
+
 }
 
 class ColorsNightSettingsFragment : ColorsSettingsFragment() {
