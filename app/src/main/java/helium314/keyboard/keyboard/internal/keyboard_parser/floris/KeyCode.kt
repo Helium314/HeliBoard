@@ -137,8 +137,32 @@ object KeyCode {
     const val PAGE_UP =                   -10010
     const val PAGE_DOWN =                 -10011
     const val META =                      -10012
-    const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT(/FN LOCK codes, not sure whether this will be used
+    const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
     const val TAB =                       -10014
+    const val ESCAPE =                    -10017
+    const val INSERT =                    -10018
+    const val SLEEP =                     -10019
+    const val MEDIA_PLAY =                -10020
+    const val MEDIA_PAUSE =               -10021
+    const val MEDIA_PLAY_PAUSE =          -10022
+    const val MEDIA_NEXT =                -10023
+    const val MEDIA_PREVIOUS =            -10024
+    const val VOL_UP =                    -10025
+    const val VOL_DOWN =                  -10026
+    const val MUTE =                      -10027
+    const val F1 =                        -10028
+    const val F2 =                        -10029
+    const val F3 =                        -10030
+    const val F4 =                        -10031
+    const val F5 =                        -10032
+    const val F6 =                        -10033
+    const val F7 =                        -10034
+    const val F8 =                        -10035
+    const val F9 =                        -10036
+    const val F10 =                       -10037
+    const val F11 =                       -10038
+    const val F12 =                       -10039
+    const val BACK =                      -10040
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -151,7 +175,9 @@ object KeyCode {
 
         // heliboard only
         SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
-        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META, TAB
+        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META, TAB,
+        ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT, MEDIA_PREVIOUS,
+        VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
         -> this
 
         // conversion
@@ -162,46 +188,97 @@ object KeyCode {
         else -> throw IllegalStateException("key code $this not yet supported")
     }
 
-    // todo: add more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
-    // maybe not toChar for conversion of some special keys?
-    /** convert a codePoint to a KeyEvent.KEYCODE_<xxx>, fallback to KeyEvent.KEYCODE_UNKNOWN */
-    fun Int.toKeyEventCode(): Int = when (this.toChar().uppercaseChar()) {
-        '0' -> KeyEvent.KEYCODE_0
-        '1' -> KeyEvent.KEYCODE_1
-        '2' -> KeyEvent.KEYCODE_2
-        '3' -> KeyEvent.KEYCODE_3
-        '4' -> KeyEvent.KEYCODE_4
-        '5' -> KeyEvent.KEYCODE_5
-        '6' -> KeyEvent.KEYCODE_6
-        '7' -> KeyEvent.KEYCODE_7
-        '8' -> KeyEvent.KEYCODE_8
-        '9' -> KeyEvent.KEYCODE_9
-        'A' -> KeyEvent.KEYCODE_A
-        'B' -> KeyEvent.KEYCODE_B
-        'C' -> KeyEvent.KEYCODE_C
-        'D' -> KeyEvent.KEYCODE_D
-        'E' -> KeyEvent.KEYCODE_E
-        'F' -> KeyEvent.KEYCODE_F
-        'G' -> KeyEvent.KEYCODE_G
-        'H' -> KeyEvent.KEYCODE_H
-        'I' -> KeyEvent.KEYCODE_I
-        'J' -> KeyEvent.KEYCODE_J
-        'K' -> KeyEvent.KEYCODE_K
-        'L' -> KeyEvent.KEYCODE_L
-        'M' -> KeyEvent.KEYCODE_M
-        'N' -> KeyEvent.KEYCODE_N
-        'O' -> KeyEvent.KEYCODE_O
-        'P' -> KeyEvent.KEYCODE_P
-        'Q' -> KeyEvent.KEYCODE_Q
-        'R' -> KeyEvent.KEYCODE_R
-        'S' -> KeyEvent.KEYCODE_S
-        'T' -> KeyEvent.KEYCODE_T
-        'U' -> KeyEvent.KEYCODE_U
-        'V' -> KeyEvent.KEYCODE_V
-        'W' -> KeyEvent.KEYCODE_W
-        'X' -> KeyEvent.KEYCODE_X
-        'Y' -> KeyEvent.KEYCODE_Y
-        'Z' -> KeyEvent.KEYCODE_Z
+    // todo: three are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
+    /** convert a keyCode / codePoint to a KeyEvent.KEYCODE_<xxx>, fallback to KeyEvent.KEYCODE_UNKNOWN */
+    fun Int.toKeyEventCode(): Int = if (this > 0)
+        when (this.toChar().uppercaseChar()) {
+            '/' -> KeyEvent.KEYCODE_SLASH
+            '\\' -> KeyEvent.KEYCODE_BACKSLASH
+            ';' -> KeyEvent.KEYCODE_SEMICOLON
+            ',' -> KeyEvent.KEYCODE_COMMA
+            '.' -> KeyEvent.KEYCODE_PERIOD
+            '\'' -> KeyEvent.KEYCODE_APOSTROPHE
+            '`' -> KeyEvent.KEYCODE_GRAVE
+            '*' -> KeyEvent.KEYCODE_STAR
+            ']' -> KeyEvent.KEYCODE_RIGHT_BRACKET
+            '[' -> KeyEvent.KEYCODE_LEFT_BRACKET
+            '+' -> KeyEvent.KEYCODE_PLUS
+            '-' -> KeyEvent.KEYCODE_MINUS
+            '=' -> KeyEvent.KEYCODE_EQUALS
+            '\n' -> KeyEvent.KEYCODE_ENTER
+            '\t' -> KeyEvent.KEYCODE_TAB
+            '0' -> KeyEvent.KEYCODE_0
+            '1' -> KeyEvent.KEYCODE_1
+            '2' -> KeyEvent.KEYCODE_2
+            '3' -> KeyEvent.KEYCODE_3
+            '4' -> KeyEvent.KEYCODE_4
+            '5' -> KeyEvent.KEYCODE_5
+            '6' -> KeyEvent.KEYCODE_6
+            '7' -> KeyEvent.KEYCODE_7
+            '8' -> KeyEvent.KEYCODE_8
+            '9' -> KeyEvent.KEYCODE_9
+            'A' -> KeyEvent.KEYCODE_A
+            'B' -> KeyEvent.KEYCODE_B
+            'C' -> KeyEvent.KEYCODE_C
+            'D' -> KeyEvent.KEYCODE_D
+            'E' -> KeyEvent.KEYCODE_E
+            'F' -> KeyEvent.KEYCODE_F
+            'G' -> KeyEvent.KEYCODE_G
+            'H' -> KeyEvent.KEYCODE_H
+            'I' -> KeyEvent.KEYCODE_I
+            'J' -> KeyEvent.KEYCODE_J
+            'K' -> KeyEvent.KEYCODE_K
+            'L' -> KeyEvent.KEYCODE_L
+            'M' -> KeyEvent.KEYCODE_M
+            'N' -> KeyEvent.KEYCODE_N
+            'O' -> KeyEvent.KEYCODE_O
+            'P' -> KeyEvent.KEYCODE_P
+            'Q' -> KeyEvent.KEYCODE_Q
+            'R' -> KeyEvent.KEYCODE_R
+            'S' -> KeyEvent.KEYCODE_S
+            'T' -> KeyEvent.KEYCODE_T
+            'U' -> KeyEvent.KEYCODE_U
+            'V' -> KeyEvent.KEYCODE_V
+            'W' -> KeyEvent.KEYCODE_W
+            'X' -> KeyEvent.KEYCODE_X
+            'Y' -> KeyEvent.KEYCODE_Y
+            'Z' -> KeyEvent.KEYCODE_Z
+            else -> KeyEvent.KEYCODE_UNKNOWN
+        }
+    else when (this) {
+        ARROW_UP -> KeyEvent.KEYCODE_DPAD_UP
+        ARROW_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT
+        ARROW_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN
+        ARROW_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT
+        MOVE_START_OF_LINE -> KeyEvent.KEYCODE_MOVE_HOME
+        MOVE_END_OF_LINE -> KeyEvent.KEYCODE_MOVE_END
+        TAB -> KeyEvent.KEYCODE_TAB
+        PAGE_UP -> KeyEvent.KEYCODE_PAGE_UP
+        PAGE_DOWN -> KeyEvent.KEYCODE_PAGE_DOWN
+        ESCAPE -> KeyEvent.KEYCODE_ESCAPE
+        INSERT -> KeyEvent.KEYCODE_INSERT
+        SLEEP -> KeyEvent.KEYCODE_SLEEP
+        MEDIA_PLAY -> KeyEvent.KEYCODE_MEDIA_PLAY
+        MEDIA_PAUSE -> KeyEvent.KEYCODE_MEDIA_PAUSE
+        MEDIA_PLAY_PAUSE -> KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
+        MEDIA_NEXT -> KeyEvent.KEYCODE_MEDIA_NEXT
+        MEDIA_PREVIOUS -> KeyEvent.KEYCODE_MEDIA_PREVIOUS
+        VOL_UP -> KeyEvent.KEYCODE_VOLUME_UP
+        VOL_DOWN -> KeyEvent.KEYCODE_VOLUME_DOWN
+        MUTE -> KeyEvent.KEYCODE_VOLUME_MUTE
+        BACK -> KeyEvent.KEYCODE_BACK
+        F1 -> KeyEvent.KEYCODE_F1
+        F2 -> KeyEvent.KEYCODE_F2
+        F3 -> KeyEvent.KEYCODE_F3
+        F4 -> KeyEvent.KEYCODE_F4
+        F5 -> KeyEvent.KEYCODE_F5
+        F6 -> KeyEvent.KEYCODE_F6
+        F7 -> KeyEvent.KEYCODE_F7
+        F8 -> KeyEvent.KEYCODE_F8
+        F9 -> KeyEvent.KEYCODE_F9
+        F10 -> KeyEvent.KEYCODE_F10
+        F11 -> KeyEvent.KEYCODE_F11
+        F12 -> KeyEvent.KEYCODE_F12
         else -> KeyEvent.KEYCODE_UNKNOWN
     }
 }
