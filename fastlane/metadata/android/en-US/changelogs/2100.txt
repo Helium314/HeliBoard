@@ -1,0 +1,8 @@
+* fix broken functional key layout for tablets
+* only show language switch key when there is something to switch to
+* make default colors for "all colors" setting random instead of gray
+* allow customizing start lag for gestures during typing, by @devycarol
+* allow customizing currency keys
+* reduce long-press time for shift -> caps lock, by @devycarol
+* extend superscript popups in number row and symbols layout, by @b02860de585071a2
+* minor fixes and improvements

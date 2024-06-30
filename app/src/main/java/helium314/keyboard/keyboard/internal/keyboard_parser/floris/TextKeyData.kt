@@ -488,7 +488,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
         KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
         KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-        KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> label.uppercase(Locale.US)
+        KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
         KeyLabel.TAB -> "!icon/tab_key|"
         else -> {
             if (label in toolbarKeyStrings.values) {

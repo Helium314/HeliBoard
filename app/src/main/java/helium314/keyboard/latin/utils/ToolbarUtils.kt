@@ -24,11 +24,6 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
-        // arrows look a little awkward when not scaled
-        button.scaleX = 1.2f
-        button.scaleY = 1.2f
-    }
     button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled

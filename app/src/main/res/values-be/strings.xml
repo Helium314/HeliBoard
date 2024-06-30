@@ -21,7 +21,7 @@
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">"Стандартныя сістэмныя"</string>
     <string name="use_contacts_dict">"Падказваць імёны кантактаў"</string>
-    <string name="use_contacts_dict_summary">"Выкарыстоўваць імёны са спісу кантактаў для прапаноў і выпраўл."</string>
+    <string name="use_contacts_dict_summary">Падказваць выпраўленні на аснове імёнаў са спісу кантактаў</string>
     <string name="use_personalized_dicts">"Персанальныя прапановы"</string>
     <string name="use_double_space_period">"Падвойны iнтэрвал"</string>
     <string name="use_double_space_period_summary">"Падвойнае нацiсканне на клавішу прабелу ўстаўляе кропку з наступным прабелам"</string>
@@ -82,7 +82,7 @@
     <string name="button_default">"Па змаўчанні"</string>
     <string name="setup_welcome_title">Вітаем ў <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">з ўводам жэстамі</string>
-    <string name="setup_start_action">"Пачаць"</string>
+    <string name="setup_start_action">Пачаць працу</string>
     <string name="setup_next_action">"Далей"</string>
     <string name="setup_steps_title">Наладка <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Ўключыць <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
@@ -205,7 +205,7 @@
     <string name="undo">"Адрабіць"</string>
     <string name="redo">Паўтарыць</string>
     <string name="use_personalized_dicts_summary">"Запам. паведамл. і даныя, якія вы ўводзіце, для паляпшэння прапаноў"</string>
-    <string name="label_go_key">"Пачаць"</string>
+    <string name="label_go_key">ОК</string>
     <string name="label_next_key">"Далей"</string>
     <string name="label_previous_key">"Назад"</string>
     <string name="label_done_key">"Гатова"</string>
@@ -343,4 +343,30 @@
     <string name="user_dict_settings_add_weight_value">Вага:</string>
     <string name="label_search_key">Пошук</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Руская">%s</xliff:g> (Студэнцкая)</string>
+    <string name="gesture_fast_typing_cooldown_instant">Заўсёды пачынаць неадкладна</string>
+    <string name="auto_hide_toolbar_summary">Хаваць панэль інструментаў пры з\'яўленні прапаноў</string>
+    <string name="quick_pin_toolbar_keys">Замацоўваць клавішы панэлі інструментаў пры працяглым націску</string>
+    <string name="language_switch_key_behavior">Паводзіны клавішы змены мовы</string>
+    <string name="center_suggestion_text_to_enter">Заўсёды выкарыстоўваць сярэднюю прапанову</string>
+    <string name="gesture_fast_typing_cooldown">Час аднаўлення хуткага друку</string>
+    <string name="clipboard_toolbar_keys">Выбраць клавішы панэлі інструментаў буфера абмену</string>
+    <string name="all_colors_warning">Гэтая настройка паказвае ўсе колеры, якія выкарыстоўваюцца ўнутры праграмы. Спіс колераў можа мяняцца. Колер па змаўчанні з\'яўляецца выпадковым, і імёны не будуць перакладзены.</string>
+    <string name="auto_show_toolbar_summary">Паказваць панэль інструментаў пры ўводзе ці пры выбары тэксту</string>
+    <string name="auto_hide_toolbar">Хаваць панэль інструментаў аўтаматычна</string>
+    <string name="toast_msg_clipboard_copy">Кантэнт скапіяваны</string>
+    <string name="auto_show_toolbar">Паказваць панэль інструментаў аўтаматычна</string>
+    <string name="center_suggestion_text_to_enter_summary">Пры націску кропкі або пунктуацыі будзе выкарыстана сярэдняя прапанова</string>
+    <string name="quick_pin_toolbar_keys_summary">Гэта адключыць астатнія функцыі клавіш панэлі інструментаў пры працяглым націску</string>
+    <string name="close_history" tools:keep="@string/close_history">Закрыць буфер абмену</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Пашыраная)</string>
+    <string name="emoji" tools:keep="@string/emoji">Эмодзі</string>
+    <string name="pinned_toolbar_keys">Выбраць замацаваныя клавішы панэлі інструментаў</string>
+    <string name="settings_screen_toolbar">Панэль інструментаў</string>
+    <string name="subtype_mns">Мансійская</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Мансійская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="more_colors">Паказаць больш колераў</string>
+    <string name="customize_functional_key_layouts">Змяніць раскладку функцыянальных клавіш</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функцыянальныя клавішы</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функцыянальныя клавішы (Сімвалы)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функцыянальныя клавішы (Дадатковыя сімвалы)</string>
 </resources>

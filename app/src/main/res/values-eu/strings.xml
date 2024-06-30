@@ -364,4 +364,10 @@
     <string name="toast_msg_clipboard_copy">Kopiatu da edukia</string>
     <string name="language_switch_key_behavior">Hizkuntza aldatzeko teklaren portaera</string>
     <string name="auto_hide_toolbar_summary">Ezkutatu tresna-barra iradokizunak erabilgarri daudenean</string>
+    <string name="gesture_fast_typing_cooldown_instant">Hasi beti berehala</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="gesture_fast_typing_cooldown">Idazketa azkarra berrerabiltzeko denbora</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="emoji" tools:keep="@string/emoji">Emojia</string>
+    <string name="subtype_mns">Mansi</string>
 </resources>

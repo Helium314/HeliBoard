@@ -37,9 +37,6 @@
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
     <integer name="config_max_popup_keys_column">5</integer>
 
-    <!-- Long pressing shift will invoke caps-lock if > 0, never invoke caps-lock if == 0 -->
-    <integer name="config_longpress_shift_lock_timeout">1200</integer>
-
     <!-- Sliding key input preview parameters -->
     <dimen name="config_sliding_key_input_preview_width">8.0dp</dimen>
     <!-- Percentages of sliding key input preview body and shadow, in proportion to the width.

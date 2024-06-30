@@ -314,7 +314,7 @@
     <string name="main_colors">Alleen hoofdkleuren weergeven</string>
     <string name="more_colors">Meer kleuren tonen</string>
     <string name="all_colors">Alle kleuren tonen</string>
-    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is geen standaardkleur en de namen worden niet vertaald.</string>
+    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is een willekeurige standaardkleur en de namen worden niet vertaald.</string>
     <string name="hint_show_keyboard">Klik voor een voorbeeld</string>
     <string name="select_color_background">Toetsenbord-achtergrond</string>
     <string name="select_color_key">Toetstekst</string>
@@ -340,8 +340,8 @@
     <string name="load_gesture_library_message">Een bibliotheek is nodig voor \'%s\'. Incompatibele bibliotheken kunnen crashen bij het typen van gebaren.
 \n
 \nWaarschuwing: het laden van externe code kan een veiligheidsrisico vormen. Gebruik alleen een bibliotheek van een vertrouwde bron.</string>
-    <string name="no_dictionary_message">"Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
-\n        Je kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden."</string>
+    <string name="no_dictionary_message">Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
+\nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
     <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven (standaard)</string>
     <string name="show_popup_hints">Functionele hints weergeven</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
@@ -401,4 +401,8 @@
     <string name="auto_show_toolbar_summary">Toon de werkbalk bij invoer of selectie van tekst</string>
     <string name="language_switch_key_behavior">Gedrag taalkeuze-toets</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown_instant">Altijd direct starten</string>
+    <string name="gesture_fast_typing_cooldown">Afkoelperiode bij snel typen</string>
+    <string name="customize_currencies_detail">Stel hoofd- en secundaire valutasymbolen in, gescheiden door spatie</string>
+    <string name="customize_currencies">Valuta\'s aanpassen</string>
 </resources>

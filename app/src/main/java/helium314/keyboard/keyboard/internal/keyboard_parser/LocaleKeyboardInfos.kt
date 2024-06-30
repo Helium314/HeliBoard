@@ -37,12 +37,12 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         mutableListOf("²", "⅔"),
         mutableListOf("³", "¾", "⅜"),
         mutableListOf("⁴"),
-        mutableListOf("⅝"),
-        mutableListOf(),
-        mutableListOf("⅞"),
-        mutableListOf(),
-        mutableListOf(),
-        mutableListOf("ⁿ", "∅"),
+        mutableListOf("⁵", "⅝"),
+        mutableListOf("⁶"),
+        mutableListOf("⁷", "⅞"),
+        mutableListOf("⁸"),
+        mutableListOf("⁹"),
+        mutableListOf("⁰", "ⁿ", "∅"),
     )
     val hasZwnjKey = when (locale.language) { // todo: move to the info file
         "fa", "ne", "kn", "te" -> true
@@ -274,6 +274,11 @@ private const val READER_MODE_NUMBER_ROW = 4
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
+    Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let {
+        val split = it.trim().splitOnWhitespace()
+        if (split.isNotEmpty())
+            return split[0] to (split.toSet() + genericCurrencyPopupKeys).filterNot { it == split[0] }.take(6)
+    }
     if (locale.country.matches(euroCountries))
         return euro
     if (locale.toString().matches(euroLocales))

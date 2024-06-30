@@ -43,10 +43,10 @@
         <item name="iconNumpadKey">@drawable/sym_keyboard_numpad_key_lxx</item>
         <item name="iconToolbarKey">@drawable/ic_arrow_right_rounded</item>
         <item name="iconSelectAll">@drawable/ic_select_all_rounded</item>
-        <item name="iconArrowLeft">@drawable/ic_arrow_left_rounded</item>
-        <item name="iconArrowRight">@drawable/ic_arrow_right_rounded</item>
-        <item name="iconArrowUp">@drawable/ic_arrow_up_rounded</item>
-        <item name="iconArrowDown">@drawable/ic_arrow_down_rounded</item>
+        <item name="iconArrowLeft">@drawable/ic_dpad_left_rounded</item>
+        <item name="iconArrowRight">@drawable/ic_dpad_right_rounded</item>
+        <item name="iconArrowUp">@drawable/ic_dpad_up_rounded</item>
+        <item name="iconArrowDown">@drawable/ic_dpad_down_rounded</item>
         <item name="iconBin">@drawable/ic_delete_rounded</item>
         <item name="iconUndo">@drawable/ic_undo_rounded</item>
         <item name="iconRedo">@drawable/ic_redo_rounded</item>

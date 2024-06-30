@@ -19,7 +19,7 @@ HeliBoard is a complex application, when contributing, you must take a step back
   If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle HeliBoard follows**.
 
-(and please leave dependency upgrades to the maintainers, unless it's an actual security issue)
+(and leave dependency upgrades to the maintainers, unless it's an actual security issue)
 In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
 
 # Adding Layouts

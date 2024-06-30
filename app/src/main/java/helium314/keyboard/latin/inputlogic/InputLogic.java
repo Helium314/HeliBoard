@@ -749,65 +749,37 @@ public final class InputLogic {
                     inputTransaction.setDidAffectContents();
                 }
                 break;
-            case KeyCode.ARROW_LEFT:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
-                break;
-            case KeyCode.ARROW_RIGHT:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT);
-                break;
-            case KeyCode.ARROW_UP:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_UP);
-                break;
-            case KeyCode.ARROW_DOWN:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
-                break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCode.REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
-            case KeyCode.MOVE_START_OF_LINE:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
-                break;
-            case KeyCode.MOVE_END_OF_LINE:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
-                break;
-            case KeyCode.PAGE_UP:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
-                break;
-            case KeyCode.PAGE_DOWN:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
-                break;
-            case KeyCode.TAB:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
-                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK:
-            case KeyCode.SYMBOL_ALPHA:
-            case KeyCode.ALPHA:
-            case KeyCode.SYMBOL:
-            case KeyCode.NUMPAD:
-            case KeyCode.EMOJI:
-            case KeyCode.START_ONE_HANDED_MODE:
-            case KeyCode.STOP_ONE_HANDED_MODE:
-            case KeyCode.SWITCH_ONE_HANDED_MODE:
-            case KeyCode.CTRL:
-            case KeyCode.ALT:
-            case KeyCode.FN:
-            case KeyCode.META:
+            case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
+                    KeyCode.START_ONE_HANDED_MODE, KeyCode.STOP_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
+                    KeyCode.CTRL, KeyCode.ALT, KeyCode.FN, KeyCode.META:
                 break;
             default:
                 if (event.getMMetaState() != 0) {
                     // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMCodePoint());
-                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
-                } else
-                    throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                    final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
+                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(codeToConvert);
+                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN)
+                        sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                    return; // never crash if user inputs sth we don't have a KeyEvent.KEYCODE for
+                } else if (event.getMKeyCode() < 0) {
+                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMKeyCode());
+                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
+                        sendDownUpKeyEvent(keyEventCode);
+                        return;
+                    }
+                }
+                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
     }
 
