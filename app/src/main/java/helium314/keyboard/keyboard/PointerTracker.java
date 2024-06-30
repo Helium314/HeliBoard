@@ -875,14 +875,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private boolean keySwipe(final Key key, final int x, final int y, final long eventTime) {
+    private boolean keySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
         final int fastTypingTimeout = 3 * sv.mKeyLongpressTimeout / 4;
         // we don't want keyswipes to start immediately if the user is fast-typing,
         // see https://github.com/openboard-team/openboard/issues/411
         if (System.currentTimeMillis() < mStartTime + fastTypingTimeout && sTypingTimeRecorder.isInFastTyping(eventTime))
             return true;
-        final int code = key.getCode();
         if (code == Constants.CODE_SPACE) {
             int dX = x - mStartX;
             int dY = y - mStartY;
@@ -935,7 +934,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
 
         // todo (later): extend key swipe stuff
-        if (mKeySwipeAllowed && keySwipe(oldKey, x, y, eventTime))
+        if (mKeySwipeAllowed && keySwipe(oldKey.getCode(), x, y, eventTime))
             return;
 
         final Key newKey = onMoveKey(x, y);
