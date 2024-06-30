@@ -2,6 +2,7 @@ main,ar,
 main,hy,
 main,as,
 main,bn,
+main,eu,
 main,be,
 main,bg,
 main,ca,
@@ -65,7 +66,6 @@ main,ur,
 main,af,exp
 main,ar,exp
 main,bn_BD,exp
-main,eu,exp
 main,bn,exp
 main,bg,exp
 main,cs,exp
@@ -80,6 +80,7 @@ main,he,exp
 main,id,exp
 main,it,exp
 main,kab,exp
+main,kk,exp
 addon,ml_ZZ,exp
 main,pms,exp
 main,ru,exp

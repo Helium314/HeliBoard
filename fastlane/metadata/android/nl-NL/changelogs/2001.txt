@@ -7,5 +7,5 @@
 * Optionele mogelijkheid van lang indrukken in de werkbalk
 * Werkbalkinstellingen in een aparte sectie
 * Tab-toets toegevoegd
-* Voorziening voor Ctrl, werkbalk en andere belangrijke labels in lay-outs
-* kleine fixes en verbeteringen
+* Voorziening voor ctrl, werkbalk en andere belangrijke labels in lay-outs
+* kleine oplossingen en verbeteringen
