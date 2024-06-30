@@ -37,12 +37,12 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         mutableListOf("²", "⅔"),
         mutableListOf("³", "¾", "⅜"),
         mutableListOf("⁴"),
-        mutableListOf("⅝"),
-        mutableListOf(),
-        mutableListOf("⅞"),
-        mutableListOf(),
-        mutableListOf(),
-        mutableListOf("ⁿ", "∅"),
+        mutableListOf("⁵", "⅝"),
+        mutableListOf("⁶"),
+        mutableListOf("⁷", "⅞"),
+        mutableListOf("⁸"),
+        mutableListOf("⁹"),
+        mutableListOf("⁰", "ⁿ", "∅"),
     )
     val hasZwnjKey = when (locale.language) { // todo: move to the info file
         "fa", "ne", "kn", "te" -> true
