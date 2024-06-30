@@ -1174,8 +1174,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private int getLongPressTimeout(final int code) {
         final int longpressTimeout = Settings.getInstance().getCurrent().mKeyLongpressTimeout;
-        if (mIsInSlidingKeyInput) {
-            // We use longer timeout for sliding finger input started from the modifier key.
+        if (code == KeyCode.SHIFT || code == KeyCode.SYMBOL_ALPHA) {
+            // We use slightly longer timeout for shift-lock and the numpad long-press.
+            return longpressTimeout * 3 / 2;
+        } else if (mIsInSlidingKeyInput) {
+            // We use longer timeout for sliding finger input started from a modifier key.
             return longpressTimeout * MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
         }
         return longpressTimeout;
