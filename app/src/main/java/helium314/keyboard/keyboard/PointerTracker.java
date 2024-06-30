@@ -902,7 +902,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
             // Horizontal movement
             int stepsX = dX / sPointerStep;
-            if (stepsX != 0 && !mInVerticalSwipe) {
+            if (stepsX != 0 && !mInVerticalSwipe && sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION) {
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInHorizontalSwipe = true;
