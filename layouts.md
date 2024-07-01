@@ -62,6 +62,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
   * When specifying a _selector_ key class in a popup key, it will be evaluated correctly (e.g. for changing popups dependent on shift state)
+  * If popups are added to repeating keys (e.g. delete, arrow keys), repetition will be disabled.
 * `width`: width of the key in units of screen width, e.g. a key with `"width": 0.1` has a width of 10% of the screen, defaults to `0`
   * A special value is `-1`, which means the key expands to the available space not already used by other keys (e.g. the space bar)
   * `0` is interpreted as follows
