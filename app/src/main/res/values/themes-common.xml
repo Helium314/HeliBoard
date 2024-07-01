@@ -61,7 +61,6 @@
         <item name="slidingKeyInputPreviewShadowRatio">@integer/config_sliding_key_input_preview_shadow_ratio</item>
         <item name="keyRepeatStartTimeout">@integer/config_key_repeat_start_timeout</item>
         <item name="keyRepeatInterval">@integer/config_key_repeat_interval</item>
-        <item name="longPressShiftLockTimeout">@integer/config_longpress_shift_lock_timeout</item>
         <item name="ignoreAltCodeKeyTimeout">@integer/config_ignore_alt_code_key_timeout</item>
         <item name="popupKeysKeyboardLayout">@layout/popup_keys_keyboard</item>
         <item name="showPopupKeysKeyboardAtTouchedPoint">@bool/config_show_popup_keys_keyboard_at_touched_point</item>

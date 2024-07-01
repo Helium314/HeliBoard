@@ -150,7 +150,7 @@ public final class KeySpecParser {
     }
 
     @Nullable
-    public static String getOutputText(@Nullable final String keySpec) {
+    public static String getOutputText(@Nullable final String keySpec, final int code) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
             return null;
@@ -170,7 +170,9 @@ public final class KeySpecParser {
             return outputText;
         }
         final String label = getLabel(keySpec);
-        if (label == null && DebugFlags.DEBUG_ENABLED) {
+        if (label == null) {
+            if (keySpec.startsWith(KeyboardIconsSet.PREFIX_ICON) && code != KeyCode.UNSPECIFIED && code != KeyCode.MULTIPLE_CODE_POINTS)
+                return null; // allow empty label in case of icon & actual code
             throw new KeySpecParserError("Empty label: " + keySpec);
         }
         // Code is automatically generated for one letter label. See {@link getCode()}.
@@ -221,14 +223,14 @@ public final class KeySpecParser {
         return defaultCode;
     }
 
-    @NonNull
+    @Nullable
     public static String getIconName(@Nullable final String keySpec) {
         if (keySpec == null) {
             // TODO: Throw {@link KeySpecParserError} once Key.keyLabel attribute becomes mandatory.
-            return KeyboardIconsSet.NAME_UNDEFINED;
+            return null;
         }
         if (!hasIcon(keySpec)) {
-            return KeyboardIconsSet.NAME_UNDEFINED;
+            return null;
         }
         final int labelEnd = indexOfLabelEnd(keySpec);
         return getBeforeLabelEnd(keySpec, labelEnd).substring(KeyboardIconsSet.PREFIX_ICON.length()).intern();

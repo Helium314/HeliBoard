@@ -9,20 +9,22 @@ Adding too many keys or too long texts will make the keyboard look awkward or br
 There are some sanity checks when adding a layout to avoid such issues, but they do not cover all possible cases.
 Further there is no check whether the layout actually contains characters of the selected language.
 
-If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single letter.
+If you use an external glide typing library, you likely will have issues if your layout contains duplicate keys, or keys with text longer than a single character.
 
 If the layout has exactly 2 keys in the bottom row, these keys will replace comma and period keys. More exactly: the first key will replace the first functional key with `"groupId": 1` in the bottom row, and the second key with replace the first key with `"groupId": 2`.
 
 ## Simple format
 * One key per line
   * Key format: [label] [popup keys], all separated by space, e.g. `a 0 + *` will create a key with text `a`, and the keys `0`, `+`, and `*` on long press
+  * see [below](#labels) for information about special labels
 * Two consecutive newlines mark beginning of a new row
 
 ## Json format
+* Normal json layout with [lenient](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json/kotlinx.serialization.json/-json-builder/is-lenient.html) parsing, and ignoring lines starting with `//`.
+  * For anything else than small changes and copy/pasting text the in-app editor is unsuitable. A proper text editor (e.g. Kate or Notepad++) can significantly simplify work on json files.
 * Allows more flexibility than the simple format, e.g. changing keys depending on input type, shift state or layout direction
 * You can use character layouts from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout)
   * Support is not 100% there yet, notably `kana_selector` and `char_width_selector` do not work.
-* Lines _starting_ with `//` are ignored.
 * There is no need for specifying a `code`, it will be determined from the label automatically
   * You can still specify it, but it's only necessary if you want key label and code to be different (please avoid contributing layout with unnecessary codes to HeliBoard)
   * Note that not all _special codes_ (negative numbers) from FlorisBoard are supported
@@ -32,8 +34,10 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * `multi_text_key`: key with an array of code points, e.g. `{ "$": "multi_text_key", "codePoints": [2509, 2480], "label": "্র" }`
   * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
     * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
-    * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all opttional)
-    * `variation_selector`: keys for `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all opttional)
+    * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
+    * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
+    * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `alphabet`, `default` (all optional)
+      * the `keyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:
@@ -96,13 +100,12 @@ Usually the label is what is displayed on the key. However, there are some speci
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
 You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
-  * For normal keys, even if you specify a code, you will need to add a `|` to the label, e.g. `!icon/go_key|` or `!icon/go_key|ignored` (to be fixed).
-  * For popups keys, you must _not_ add a `|` (to be fixed).
   * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 
 ## Adding new layouts / languages
 * You need a layout file in one of the formats above, and add it to [layouts](app/src/main/assets/layouts)
   * Popup keys in the layout will be in the "_Layout_" popup key group.
+  * If you add a json layout, only add key type (`$`) and `code` if necessary
 * Add a layout entry to [`method.xml`](app/src/main/res/xml/method.xml)
   * `KeyboardLayoutSet` in `android:imeSubtypeExtraValue` must be set to the name of your layout file (without file ending)
   * `android:subtypeId` must be set to a value that is unique in this file (please use the same length as for other layouts)

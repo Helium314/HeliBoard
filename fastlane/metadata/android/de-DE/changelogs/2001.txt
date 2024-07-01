@@ -1,0 +1,11 @@
+* Anpassung des Layouts der Funktionstasten ermöglichen
+* leichte Anpassung der Symbole und weitere Symbol-Layouts
+* Optionen zum automatischen Ein-/Ausblenden der Symbolleiste hinzugefügt
+* Toast-Benachrichtigung beim Kopieren von Text hinzugefügt
+* Verhalten der Sprachumschalttaste von der Aktivierung trennen
+* Hinzufügen von Komma-Popups für Nummern- und Telefon-Layouts
+* Anheften in der Symbolleiste durch langes Drücken optional machen
+* Symbolleisteneinstellungen in einen separaten Abschnitt verschieben
+* Tabulator-Taste hinzugefügt
+* Strg, Symbolleiste und andere Tastenbeschriftungen in Layouts verstehen
+* kleinere Korrekturen und Verbesserungen

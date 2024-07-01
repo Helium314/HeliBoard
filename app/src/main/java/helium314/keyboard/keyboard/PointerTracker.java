@@ -56,7 +56,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         public final int mSuppressKeyPreviewAfterBatchInputDuration;
         public final int mKeyRepeatStartTimeout;
         public final int mKeyRepeatInterval;
-        public final int mLongPressShiftLockTimeout;
 
         public PointerTrackerParams(final TypedArray mainKeyboardViewAttr) {
             mKeySelectionByDraggingFinger = mainKeyboardViewAttr.getBoolean(
@@ -71,8 +70,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     R.styleable.MainKeyboardView_keyRepeatStartTimeout, 0);
             mKeyRepeatInterval = mainKeyboardViewAttr.getInt(
                     R.styleable.MainKeyboardView_keyRepeatInterval, 0);
-            mLongPressShiftLockTimeout = mainKeyboardViewAttr.getInt(
-                    R.styleable.MainKeyboardView_longPressShiftLockTimeout, 0);
         }
     }
 
@@ -270,7 +267,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private void callListenerOnCodeInput(final Key key, final int primaryCode, final int x,
             final int y, final long eventTime, final boolean isKeyRepeat) {
         final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
-        final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState();
+        final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState() && !isClearlyInsideKey(key, x, y);
         final int code = altersCode ? key.getAltCode() : primaryCode;
         if (DEBUG_LISTENER) {
             final String output = code == KeyCode.MULTIPLE_CODE_POINTS
@@ -870,7 +867,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final Key oldKey = mCurrentKey;
         final SettingsValues sv = Settings.getInstance().getCurrent();
 
-        if (oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
+        // todo (later): move key swipe stuff to a separate function (and finally extend it)
+        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
             // reason for timeout: https://github.com/openboard-team/openboard/issues/411
             final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
             if (mStartTime + longpressTimeout > System.currentTimeMillis())
@@ -899,7 +897,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
@@ -1175,15 +1173,21 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private int getLongPressTimeout(final int code) {
-        if (code == KeyCode.SHIFT) {
-            return sParams.mLongPressShiftLockTimeout;
-        }
         final int longpressTimeout = Settings.getInstance().getCurrent().mKeyLongpressTimeout;
-        if (mIsInSlidingKeyInput) {
-            // We use longer timeout for sliding finger input started from the modifier key.
+        if (code == KeyCode.SHIFT || code == KeyCode.SYMBOL_ALPHA) {
+            // We use slightly longer timeout for shift-lock and the numpad long-press.
+            return longpressTimeout * 3 / 2;
+        } else if (mIsInSlidingKeyInput) {
+            // We use longer timeout for sliding finger input started from a modifier key.
             return longpressTimeout * MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
         }
         return longpressTimeout;
+    }
+
+    private boolean isClearlyInsideKey(final Key key, final int x, final int y) {
+        // less than 15% of width from edge
+        return x > key.getX() + key.getWidth() * 0.15 && x < key.getX() + key.getWidth() * 0.85
+                && y > key.getY() + key.getHeight() * 0.15 && y < key.getY() + key.getHeight() * 0.85;
     }
 
     private void detectAndSendKey(final Key key, final int x, final int y, final long eventTime) {

@@ -148,9 +148,9 @@ public final class InputLogic {
         mRecapitalizeStatus.disable(); // Do not perform recapitalize until the cursor is moved once
         mCurrentlyPressedHardwareKeys.clear();
         mSuggestedWords = SuggestedWords.getEmptyInstance();
-        // In some cases (namely, after rotation of the device) editorInfo.initialSelStart is lying
-        // so we try using some heuristics to find out about these and fix them.
-        mConnection.tryFixLyingCursorPosition();
+        // In some cases (e.g. after rotation of the device, or when scrolling the text before bringing up keyboard)
+        // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
+        mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
         if (InputLogicHandler.NULL_HANDLER == mInputLogicHandler) {
             mInputLogicHandler = new InputLogicHandler(mLatinIME, this);
@@ -749,65 +749,37 @@ public final class InputLogic {
                     inputTransaction.setDidAffectContents();
                 }
                 break;
-            case KeyCode.ARROW_LEFT:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT);
-                break;
-            case KeyCode.ARROW_RIGHT:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT);
-                break;
-            case KeyCode.ARROW_UP:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_UP);
-                break;
-            case KeyCode.ARROW_DOWN:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_DOWN);
-                break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCode.REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
-            case KeyCode.MOVE_START_OF_LINE:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_HOME);
-                break;
-            case KeyCode.MOVE_END_OF_LINE:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_MOVE_END);
-                break;
-            case KeyCode.PAGE_UP:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_UP);
-                break;
-            case KeyCode.PAGE_DOWN:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_PAGE_DOWN);
-                break;
-            case KeyCode.TAB:
-                sendDownUpKeyEvent(KeyEvent.KEYCODE_TAB);
-                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
-            case KeyCode.CAPS_LOCK:
-            case KeyCode.SYMBOL_ALPHA:
-            case KeyCode.ALPHA:
-            case KeyCode.SYMBOL:
-            case KeyCode.NUMPAD:
-            case KeyCode.EMOJI:
-            case KeyCode.START_ONE_HANDED_MODE:
-            case KeyCode.STOP_ONE_HANDED_MODE:
-            case KeyCode.SWITCH_ONE_HANDED_MODE:
-            case KeyCode.CTRL:
-            case KeyCode.ALT:
-            case KeyCode.FN:
-            case KeyCode.META:
+            case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
+                    KeyCode.START_ONE_HANDED_MODE, KeyCode.STOP_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
+                    KeyCode.CTRL, KeyCode.ALT, KeyCode.FN, KeyCode.META:
                 break;
             default:
                 if (event.getMMetaState() != 0) {
                     // need to convert codepoint to KeyEvent.KEYCODE_<xxx>
-                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMCodePoint());
-                    sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
-                } else
-                    throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
+                    final int codeToConvert = event.getMKeyCode() < 0 ? event.getMKeyCode() : event.getMCodePoint();
+                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(codeToConvert);
+                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN)
+                        sendDownUpKeyEventWithMetaState(keyEventCode, event.getMMetaState());
+                    return; // never crash if user inputs sth we don't have a KeyEvent.KEYCODE for
+                } else if (event.getMKeyCode() < 0) {
+                    int keyEventCode = KeyCode.INSTANCE.toKeyEventCode(event.getMKeyCode());
+                    if (keyEventCode != KeyEvent.KEYCODE_UNKNOWN) {
+                        sendDownUpKeyEvent(keyEventCode);
+                        return;
+                    }
+                }
+                throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
     }
 
@@ -1112,32 +1084,32 @@ public final class InputLogic {
                 mConnection.commitCodePoint(codePoint);
             }
         } else {
-            if ((SpaceState.PHANTOM == inputTransaction.getMSpaceState()
-                    && settingsValues.isUsuallyFollowedBySpace(codePoint))
-                    || (Constants.CODE_DOUBLE_QUOTE == codePoint
-                            && isInsideDoubleQuoteOrAfterDigit)) {
+            if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
+                    && (settingsValues.isUsuallyFollowedBySpace(codePoint) || isInsideDoubleQuoteOrAfterDigit)) {
                 // If we are in phantom space state, and the user presses a separator, we want to
                 // stay in phantom space state so that the next keypress has a chance to add the
                 // space. For example, if I type "Good dat", pick "day" from the suggestion strip
                 // then insert a comma and go on to typing the next word, I want the space to be
                 // inserted automatically before the next word, the same way it is when I don't
-                // input the comma. A double quote behaves like it's usually followed by space if
-                // we're inside a double quote.
+                // input the comma. Also when closing a quote the phantom state should be preserved.
                 // The case is a little different if the separator is a space stripper. Such a
                 // separator does not normally need a space on the right (that's the difference
                 // between swappers and strippers), so we should not stay in phantom space state if
                 // the separator is a stripper. Hence the additional test above.
                 mSpaceState = SpaceState.PHANTOM;
-            } else
+            } else {
                 // mSpaceState is still SpaceState.NONE, but some characters should typically
                 // be followed by space. Set phantom space state for such characters if the user
                 // enabled the setting and was not composing a word. The latter avoids setting
                 // phantom space state when typing decimal numbers, with the drawback of not
                 // setting phantom space state after ending a sentence with a non-word.
+                // A double quote behaves like it's usually followed by space if we're inside
+                // a double quote.
                 if (wasComposingWord
                         && settingsValues.mAutospaceAfterPunctuationEnabled
-                        && settingsValues.isUsuallyFollowedBySpace(codePoint)) {
+                        && (settingsValues.isUsuallyFollowedBySpace(codePoint) || isInsideDoubleQuoteOrAfterDigit)) {
                     mSpaceState = SpaceState.PHANTOM;
+                }
             }
 
             mConnection.commitCodePoint(codePoint);
@@ -1311,7 +1283,7 @@ public final class InputLogic {
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
-                    final int lengthToDelete = Character.isSupplementaryCodePoint(codePointBeforeCursor)
+                    final int lengthToDelete = codePointBeforeCursor > 0xFE00
                             ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                     mConnection.deleteTextBeforeCursor(lengthToDelete);
                     int totalDeletedLength = lengthToDelete;
@@ -1324,7 +1296,7 @@ public final class InputLogic {
                         final int codePointBeforeCursorToDeleteAgain =
                                 mConnection.getCodePointBeforeCursor();
                         if (codePointBeforeCursorToDeleteAgain != Constants.NOT_A_CODE) {
-                            final int lengthToDeleteAgain = Character.isSupplementaryCodePoint(codePointBeforeCursorToDeleteAgain)
+                            final int lengthToDeleteAgain = codePointBeforeCursor > 0xFE00
                                     ? mConnection.getCharCountToDeleteBeforeCursor() : 1;
                             mConnection.deleteTextBeforeCursor(lengthToDeleteAgain);
                             totalDeletedLength += lengthToDeleteAgain;
@@ -1353,9 +1325,7 @@ public final class InputLogic {
         if (!mConnection.hasSelection()
                 && settingsValues.isSuggestionsEnabledPerUserSettings()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces) {
-            final TextRange range = mConnection.getWordRangeAtCursor(
-                    settingsValues.mSpacingAndPunctuations,
-                    currentKeyboardScript, false);
+            final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
             if (range != null) {
                 return range.mWord.toString();
             }
@@ -1713,8 +1683,7 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        final TextRange range =
-                mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript, true);
+        final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
@@ -2387,7 +2356,7 @@ public final class InputLogic {
             // If remainingTries is 0, we should stop waiting for new tries, however we'll still
             // return true as we need to perform other tasks (for example, loading the keyboard).
         }
-        mConnection.tryFixLyingCursorPosition();
+        mConnection.tryFixIncorrectCursorPosition();
         if (tryResumeSuggestions) {
             handler.postResumeSuggestions(true /* shouldDelay */);
         }
@@ -2458,7 +2427,9 @@ public final class InputLogic {
             spannable.setSpan(backgroundColorSpan, 0, spanLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE | Spanned.SPAN_COMPOSING);
             composingTextToBeSet = spannable;
         }
-        mConnection.setComposingText(composingTextToBeSet, newCursorPosition);
+        if (!mConnection.setComposingText(composingTextToBeSet, newCursorPosition))
+            // inconsistency in set and found composing text, better cancel composing (should be restarted automatically)
+            mWordComposer.reset();
     }
 
     /**

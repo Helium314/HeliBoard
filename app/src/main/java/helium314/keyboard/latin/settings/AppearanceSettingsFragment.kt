@@ -156,8 +156,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             summary = entries[entryValues.indexOfFirst { it == value }]
         }
         dayNightPref?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
-            colorsNightPref?.isVisible = value as Boolean
-            userColorsPrefNight?.isVisible = value && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+            val yesThisIsBoolean = value as Boolean // apparently kotlin smartcast got less smart with 2.0.0
+            colorsNightPref?.isVisible = yesThisIsBoolean
+            userColorsPrefNight?.isVisible = yesThisIsBoolean && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
             true
         }
         colorsNightPref?.isVisible = dayNightPref?.isChecked == true

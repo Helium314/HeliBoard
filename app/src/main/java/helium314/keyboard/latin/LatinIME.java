@@ -848,6 +848,11 @@ public class LatinIME extends InputMethodService implements
     public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
         // Note that the calling sequence of onCreate() and onCurrentInputMethodSubtypeChanged()
         // is not guaranteed. It may even be called at the same time on a different thread.
+        if (subtype.hashCode() == 0xf000000f) {
+            // For some reason sometimes the system wants to set the dummy subtype, which messes with the currently enabled subtype.
+            // Now that the dummy subtype has a fixed id, we can easily avoid enabling it.
+            return;
+        }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
         mRichImm.onSubtypeChanged(subtype);
@@ -987,7 +992,7 @@ public class LatinIME extends InputMethodService implements
                 // didn't move (the keyboard having been closed with the back key),
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
-                mInputLogic.mConnection.tryFixLyingCursorPosition();
+                mInputLogic.mConnection.tryFixIncorrectCursorPosition();
                 if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
                     mHandler.postResumeSuggestions(true /* shouldDelay */);
                 }
@@ -1402,10 +1407,11 @@ public class LatinIME extends InputMethodService implements
         if (switchIme && !switchSubtype && switchInputMethod())
             return;
         final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
-        // switch subtype if wanted and possible
-        if (switchSubtype && !switchIme && hasMoreThanOneSubtype) {
-            // switch to previous subtype if current one was used, otherwise cycle through list
-            mSubtypeState.switchSubtype(mRichImm);
+        // switch subtype if wanted, do nothing if no other subtype is available
+        if (switchSubtype && !switchIme) {
+            if (hasMoreThanOneSubtype)
+                // switch to previous subtype if current one was used, otherwise cycle through list
+                mSubtypeState.switchSubtype(mRichImm);
             return;
         }
         // language key set to switch both, or language key is not shown on keyboard -> switch both

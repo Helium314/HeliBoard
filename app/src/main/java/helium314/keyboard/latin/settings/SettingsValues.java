@@ -65,6 +65,7 @@ public class SettingsValues {
     public final boolean mShowsVoiceInputKey;
     public final boolean mLanguageSwitchKeyToOtherImes;
     public final boolean mLanguageSwitchKeyToOtherSubtypes;
+    private final boolean mShowsLanguageSwitchKey;
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
     public final boolean mShowsHints;
@@ -94,6 +95,7 @@ public class SettingsValues {
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
+    public final int mGestureFastTypingCooldown;
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
@@ -151,9 +153,10 @@ public class SettingsValues {
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
         mShowsVoiceInputKey = mInputAttributes.mShouldShowVoiceInputKey;
-        final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "off");
+        final String languagePref = prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "internal");
         mLanguageSwitchKeyToOtherImes = languagePref.equals("input_method") || languagePref.equals("both");
         mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
+        mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false); // only relevant for default functional key layout
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
@@ -184,7 +187,7 @@ public class SettingsValues {
         mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && displayWidthDp > 600; // require display width of 600 dp for split
         // determine spacerWidth from display width and scale setting
         mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
-                ? Math.min(Math.max((displayWidthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
                 : 0f;
         mQuickPinToolbarKeys = prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
@@ -199,6 +202,7 @@ public class SettingsValues {
         mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
                 || mOverrideShowingSuggestions;
@@ -245,8 +249,8 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
-        mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, true);
-        mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, true);
+        mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
+        mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
         mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
     }
 
@@ -289,7 +293,7 @@ public class SettingsValues {
     }
 
     public boolean isLanguageSwitchKeyEnabled() {
-        if (!mLanguageSwitchKeyToOtherImes && !mLanguageSwitchKeyToOtherSubtypes) {
+        if (!mShowsLanguageSwitchKey) {
             return false;
         }
         final RichInputMethodManager imm = RichInputMethodManager.getInstance();

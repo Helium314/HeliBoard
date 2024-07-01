@@ -24,6 +24,7 @@ import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 
@@ -106,6 +107,11 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
             mAccessibilityDelegate.setKeyboard(keyboard);
         } else {
             mAccessibilityDelegate = null;
+        }
+        final Key shortcutKey = keyboard.getKey(KeyCode.VOICE_INPUT);
+        if (shortcutKey != null) {
+            shortcutKey.setEnabled(RichInputMethodManager.getInstance().isShortcutImeReady());
+            invalidateKey(shortcutKey);
         }
     }
 

@@ -14,16 +14,17 @@ Funkcje:
     <li>może śledzić ustawienie dzień/noc w systemie Android 10+ (oraz w niektórych wersjach Androida 9)</li>
     <li>może stosować dynamiczne kolory w systemie Android 12+</li>
   </ul>
-  <li>Dostosuj <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">układ</a> klawiatury (możliwe tylko po wyłączeniu opcji <i>użyj języków systemu</i>)</li>
+  <li>Dostosuj <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">układy</a> klawiatury (możliwe tylko po wyłączeniu opcji <i>użyj języków systemu</i>)</li>
+  <li>Dostosuj układy specjalne, takie jak symbole, liczby lub układ klawiszy funkcyjnych</li>
   <li>Pisanie wielojęzyczne</li>
   <li>Pisanie gestami (<i>tylko z zamkniętą biblioteką</i> ☹️)</li>
   <ul>
     <li>biblioteka nie znajduje się w aplikacji, ponieważ nie ma kompatybilnej biblioteki typu open source</li>
-    <li>można ją wyodrębnić z pakietów GApps ("<i>swypelibs</i>"), lub pobrać <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">stąd</a></li>
+    <li>można ją wyodrębnić z pakietów GApps ("<i>swypelibs</i>"), lub pobrać <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">stąd</a> (kliknij plik, a następnie "raw" lub mały przycisk pobierania)</li>
   </ul>
   <li>Historia schowka</li>
   <li>Tryb jednej ręki</li>
   <li>Podzielona klawiatura (jeśli ekran jest wystarczająco duży)</li>
   <li>Klawiatura numeryczna</li>
-  <li>Tworzenie kopii zapasowych i przywracanie nauczonych słów / danych</li>
+  <li>Tworzenie kopii zapasowych i przywracanie ustawień oraz nauczonych słów/danych</li>
 </ul>

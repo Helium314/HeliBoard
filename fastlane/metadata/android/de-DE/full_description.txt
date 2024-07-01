@@ -14,16 +14,18 @@ Features:
      <li>kann die Tag-/Nachteinstellung des Systems auf Android 10+ (und auf einigen Versionen von Android 9) verfolgen</li>
      <li>kann dynamischen Farben für Android 12+ folgen</li>
    </ul>
-   <li>Tastatur-<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layouts</a> anpassen (nur verfügbar, wenn <i>Systemsprachen verwenden</i deaktiviert ist >)</li>
+   <li>Tastatur-<a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">Layouts</a> anpassen (nur verfügbar, wenn <i>Systemsprachen verwenden</i deaktiviert ist >)
+   </li>Anpassen spezieller Layouts, wie Symbole, Zahlen oder Funktionstastenlayout</li>
    <li>Mehrsprachiges Tippen</li>
    <li>Glide Typing (<i>nur mit quellgeschlossener Bibliothek</i> ☹️)</li>
    <ul>
      <li>Bibliothek nicht in der App enthalten, da keine kompatible quelloffene Bibliothek verfügbar ist</li>
-     <li>kann aus GApps-Paketen („<i>swypelibs</i>“) extrahiert oder heruntergeladen werden <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main /jniLibs">hier</a></li>
+     <li>kann aus GApps-Paketen („<i>swypelibs</i>“) extrahiert oder heruntergeladen werden <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main /jniLibs">hier</a>
+(klicken auf die Datei und dann auf "raw" oder den kleinen Download-Button)</li>
    </ul>
    <li>Zwischenablageverlauf</li>
    <li>Einhandmodus</li>
    <li>Geteilte Tastatur (nur verfügbar, wenn der Bildschirm groß genug ist)</li>
    <li>Ziffernblock</li>
-   <li>Sichere gelernte Wort-/Verlaufsdaten und stelle sie wieder her</li>
+   <li>Sichere und stelle deine Einstellungen und gelernte Wort-/Verlaufsdaten wieder her</li>
 </ul>

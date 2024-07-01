@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodSubtype
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.LocaleListCompat
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.common.StringUtils
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
@@ -27,7 +28,9 @@ object ShadowLocaleManagerCompat {
 class ShadowInputMethodManager2 : ShadowInputMethodManager() {
     @Implementation
     override fun getInputMethodList() = listOf(
-        InputMethodInfo("helium314.keyboard.debug", "LatinIME", "HeliBoard debug", null),
+        if (BuildConfig.BUILD_TYPE == "debug")
+            InputMethodInfo("helium314.keyboard.debug", "LatinIME", "HeliBoard debug", null)
+        else InputMethodInfo("helium314.keyboard", "LatinIME", "HeliBoard", null),
     )
     @Implementation
     fun getShortcutInputMethodsAndSubtypes() = emptyMap<InputMethodInfo, List<InputMethodSubtype>>()

@@ -116,20 +116,6 @@
             android:persistent="true" />
 
         <SwitchPreference
-            android:key="auto_show_toolbar"
-            android:title="@string/auto_show_toolbar"
-            android:summary="@string/auto_show_toolbar_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreference
-            android:key="auto_hide_toolbar"
-            android:title="@string/auto_hide_toolbar"
-            android:summary="@string/auto_hide_toolbar_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-
-        <SwitchPreference
             android:key="use_contacts"
             android:title="@string/use_contacts_dict"
             android:summary="@string/use_contacts_dict_summary"

@@ -14,6 +14,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
+import java.util.EnumMap
 import java.util.Locale
 
 fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey): ImageButton {
@@ -23,11 +24,6 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
-        // arrows look a little awkward when not scaled
-        button.scaleX = 1.2f
-        button.scaleY = 1.2f
-    }
     button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
@@ -59,6 +55,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
     CLOSE_HISTORY -> KeyCode.ALPHA
+    EMOJI -> KeyCode.EMOJI
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
@@ -95,6 +92,7 @@ fun getStyleableIconId(key: ToolbarKey) = when (key) {
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
     CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
+    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
 }
 
 fun getToolbarIconByName(name: String, context: Context): Drawable? {
@@ -109,14 +107,14 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
     VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
+    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI
 }
 
-val toolbarKeyStrings: Set<String> = entries.mapTo(HashSet()) { it.toString().lowercase(Locale.US) }
+val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
     when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD -> "${it.name},false"
+        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
         else -> "${it.name},true"
     }
 }
@@ -142,7 +140,6 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
     if (!prefs.contains(pref)) return
     val list = prefs.getString(pref, default)!!.split(";").toMutableList()
     val splitDefault = defaultToolbarPref.split(";")
-    if (list.size == splitDefault.size) return
     splitDefault.forEach { entry ->
         val keyWithComma = entry.substringBefore(",") + ","
         if (list.none { it.startsWith(keyWithComma) })
@@ -157,7 +154,7 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
             true
         }
     }
-    prefs.edit { putString(Settings.PREF_TOOLBAR_KEYS, list.joinToString(";")) }
+    prefs.edit { putString(pref, list.joinToString(";")) }
 }
 
 fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)

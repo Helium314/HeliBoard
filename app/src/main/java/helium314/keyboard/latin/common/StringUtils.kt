@@ -64,6 +64,8 @@ fun getFullEmojiAtEnd(s: CharSequence): String {
         // stop if codepoint can't be emoji
         if (!mightBeEmoji(codepoint)) return ""
         offset -= Character.charCount(codepoint)
+        // todo: if codepoint in 0x1F3FB..0x1F3FF -> combine with other emojis in front, but only if they actually combine
+        //  why isn't this done with zwj like everything else? skin tones can be emojis by themselves...
         if (offset > 0 && text[offset - 1].code == KeyCode.ZWJ) {
             offset -= 1
             continue
@@ -113,7 +115,7 @@ fun String.decapitalize(locale: Locale): String {
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
-fun isEmoji(s: String): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
+fun isEmoji(s: CharSequence): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
 
 fun String.splitOnWhitespace() = split(whitespaceSplitRegex)
 

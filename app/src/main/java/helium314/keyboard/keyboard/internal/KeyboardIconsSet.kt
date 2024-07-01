@@ -24,13 +24,12 @@ class KeyboardIconsSet {
         }
     }
 
-    fun getIconDrawable(name: String) = iconsByName[name]
+    fun getIconDrawable(name: String?) = iconsByName[name]
 
     companion object {
         private val TAG = KeyboardIconsSet::class.simpleName
         const val PREFIX_ICON = "!icon/"
 
-        const val NAME_UNDEFINED = "undefined"
         const val NAME_SHIFT_KEY = "shift_key"
         const val NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted"
         const val NAME_SHIFT_KEY_LOCKED = "shift_key_locked"

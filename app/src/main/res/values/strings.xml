@@ -58,6 +58,8 @@
     <string name="language_switch_key_switch_both">Switch both</string>
     <!-- Option to show language switch key [CHAR LIMIT=30] -->
     <string name="show_language_switch_key">Language switch key</string>
+    <!-- Option for setting whether language switch key should switch internal layouts only, or also to other keyboards -->
+    <string name="language_switch_key_behavior">Language switch key behavior</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
@@ -148,8 +150,12 @@
     <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
-    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.[CHAR LIMIT=65]-->
+    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
     <string name="gesture_space_aware_summary">Input spaces during gestures by gliding to the space key</string>
+    <!-- Title of the setting to adjust the fast-typing gesture cooldown [CHAR LIMIT=35]-->
+    <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
+    <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
+    <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
@@ -254,6 +260,7 @@
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
@@ -448,6 +455,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="remove">Remove</string>
     <!-- Title of the button to save a custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="save">Save</string>
+    <!-- Title of the button to load a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <string name="load">Load</string>
     <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="subtype_locale">Language</string>
     <!-- Title of the section for choosing a keyboard layout language settings dialog -->
@@ -456,8 +465,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout, interpreted as HTML -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
-    <!-- Button text for loading a custom layout or image file -->
+    <!-- Button text for loading a custom layout, image or theme file -->
     <string name="button_load_custom">Load file</string>
+    <!-- Button text for saving a theme file -->
+    <string name="button_save_file">Save to file</string>
+    <!-- Button text for copying text to clipboard -->
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
     <!-- Button text for copying an existing layout -->
@@ -498,6 +511,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
+    <!-- Title for customizing currencies -->
+    <string name="customize_currencies">Customize currencies</string>
+    <!-- Info for customizing currencies -->
+    <string name="customize_currencies_detail">Set main and up to 6 secondary currency symbols, separated with space</string>
     <!-- Message for selecting day or night background image -->
     <string name="day_or_night_image">Set image for day or night mode?</string>
     <!-- Button for selecting day -->
@@ -714,8 +731,10 @@ New dictionary:
     <string name="more_colors">Show more colors</string>
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
+    <!-- Warning message displayed when loading theme colors -->
+    <string name="load_will_overwrite">Loading will overwrite the current theme</string>
     <!-- Warning message displayed when showing all colors -->
-    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. There is no default color, and the names will not be translated.</string>
+    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
