@@ -44,7 +44,6 @@
         <item name="gestureTrailMaxInterpolationDistanceThreshold">@dimen/config_gesture_trail_max_interpolation_distance_threshold</item>
         <item name="gestureTrailMaxInterpolationSegments">@integer/config_gesture_trail_max_interpolation_segments</item>
         <item name="gestureTrailFadeoutStartDelay">@integer/config_gesture_trail_fadeout_start_delay</item>
-        <item name="gestureTrailFadeoutDuration">@integer/config_gesture_trail_fadeout_duration</item>
         <item name="gestureTrailUpdateInterval">@integer/config_gesture_trail_update_interval</item>
         <item name="gestureTrailStartWidth">@dimen/config_gesture_trail_start_width</item>
         <item name="gestureTrailEndWidth">@dimen/config_gesture_trail_end_width</item>

@@ -117,8 +117,6 @@
         <attr name="gestureTrailMaxInterpolationSegments" format="integer" />
         <!-- Delay after gesture trail starts fading out in millisecond. -->
         <attr name="gestureTrailFadeoutStartDelay" format="integer" />
-        <!-- Duration while gesture trail is fading out in millisecond. -->
-        <attr name="gestureTrailFadeoutDuration" format="integer" />
         <!-- Interval of updating gesture trail in millisecond. -->
         <attr name="gestureTrailUpdateInterval" format="integer" />
         <attr name="gestureTrailStartWidth" format="dimension" />

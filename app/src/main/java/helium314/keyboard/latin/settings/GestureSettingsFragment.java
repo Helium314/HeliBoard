@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.R;
 
 /**
@@ -22,12 +23,24 @@ import helium314.keyboard.latin.R;
  * - Phrase gesture
  */
 public final class GestureSettingsFragment extends SubScreenFragment {
+    private boolean needsReload = false;
+
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_gesture);
+        setupGestureTrailFadeoutPref();
         setupGestureFastTypingCooldownPref();
         refreshSettingsEnablement();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (needsReload) {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+            needsReload = false;
+        }
     }
 
     @Override
@@ -38,9 +51,52 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
+                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
+    }
+
+    private void setupGestureTrailFadeoutPref() {
+        final SeekBarDialogPreference pref = findPreference(
+                Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
+        if (pref == null) return;
+        final SharedPreferences prefs = getSharedPreferences();
+        final Resources res = getResources();
+        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
+            @Override
+            public void writeValue(final int value, final String key) {
+                prefs.edit().putInt(key, value).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public void writeDefaultValue(final String key) {
+                prefs.edit().remove(key).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public int readValue(final String key) {
+                return Settings.readGestureTrailFadeoutDuration(prefs, res);
+            }
+
+            @Override
+            public int readDefaultValue(final String key) {
+                return Settings.readDefaultGestureTrailFadeoutDuration(res);
+            }
+
+            @Override
+            public String getValueText(final int value) {
+                // fade-out has a constant start delay, value text is adjusted accordingly.
+                final int adjustedValue = res.getInteger(R.integer.config_gesture_trail_fadeout_start_delay) + value;
+                return res.getString(R.string.abbreviation_unit_milliseconds, String.valueOf(adjustedValue));
+            }
+
+            @Override
+            public void feedbackValue(final int value) {}
+        });
     }
 
     private void setupGestureFastTypingCooldownPref() {

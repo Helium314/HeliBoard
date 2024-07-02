@@ -115,7 +115,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private PopupKeysPanel mPopupKeysPanel;
 
     // Gesture floating preview text
-    // TODO: Make this parameter customizable by user via settings.
+    // TODO WIP: Make this parameter customizable by user via settings.
     private final int mGestureFloatingPreviewTextLingerTimeout;
 
     private final KeyDetector mKeyDetector;

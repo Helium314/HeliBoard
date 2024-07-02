@@ -114,6 +114,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEY_LONGPRESS_TIMEOUT = "key_longpress_timeout";
     public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "enable_emoji_alt_physical_key";
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
+    public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
@@ -368,6 +369,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
+    }
+
+    public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureTrailFadeoutDuration(res);
+    }
+
+    public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_trail_default_fadeout_duration);
     }
 
     public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
