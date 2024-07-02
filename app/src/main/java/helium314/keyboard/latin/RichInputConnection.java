@@ -363,6 +363,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mExpectedSelStart > 0;
     }
 
+    public boolean canForwardDeleteCharacters() {
+        final CharSequence after = getTextAfterCursor(1, 0);
+        return !TextUtils.isEmpty(after);
+    }
+
     /**
      * Gets the caps modes we should be in after this specific string.
      * <p>

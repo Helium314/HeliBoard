@@ -451,6 +451,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="remove">Remove</string>
     <!-- Title of the button to save a custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="save">Save</string>
+    <!-- Title of the button to load a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <string name="load">Load</string>
     <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="subtype_locale">Language</string>
     <!-- Title of the section for choosing a keyboard layout language settings dialog -->
@@ -459,8 +461,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout, interpreted as HTML -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
-    <!-- Button text for loading a custom layout or image file -->
+    <!-- Button text for loading a custom layout, image or theme file -->
     <string name="button_load_custom">Load file</string>
+    <!-- Button text for saving a theme file -->
+    <string name="button_save_file">Save to file</string>
+    <!-- Button text for copying text to clipboard -->
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
     <!-- Button text for copying an existing layout -->
@@ -721,6 +727,8 @@ New dictionary:
     <string name="more_colors">Show more colors</string>
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
+    <!-- Warning message displayed when loading theme colors -->
+    <string name="load_will_overwrite">Loading will overwrite the current theme</string>
     <!-- Warning message displayed when showing all colors -->
     <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->

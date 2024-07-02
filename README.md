@@ -14,7 +14,7 @@ Does not use internet permission, and thus is 100% offline.
 - [Contributing](#contributing-)
    * [Reporting Issues](#reporting-issues)
    * [Translations](#translations)
-   * [Dictionary Creation](#dictionary-creation)
+   * [To Community Creation](#to-community)
    * [Code Contribution](CONTRIBUTING.md)
 - [To-do](#to-do)
 - [License](#license)
@@ -113,9 +113,17 @@ If you're interested, you can read the following useful text about effective bug
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
-## Dictionary Creation
-There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
-To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme.
+## To Community
+You can share your themes, layouts and dictionaries with other people:
+* Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
+* Custom keyboard layouts are text files whose content you can edit, copy and share
+  * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
+  * see [layouts.md](layouts.md) for details
+* Creating dictionaries is a little more work
+  * first you will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
+  * the you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
+  * the resulting file (and ideally the wordlist too) can be shared with other users
+  * note that there will not be any further dictionaries added to this app, but you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries)
 
 ## Code Contribution
 See [Contribution Guidelines](CONTRIBUTING.md)
@@ -133,8 +141,6 @@ __Planned features and improvements:__
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
-* Customizable currency keys
-* Ability to export/import (share) custom colors
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
 * Internal cleanup (a lot of over-complicated and convoluted code)

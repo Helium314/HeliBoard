@@ -187,7 +187,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
-        add(PREF_SHOW_MORE_COLORS);
         add(PREF_SELECTED_SUBTYPE);
     }};
 
@@ -566,12 +565,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
-        final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
+        else isNight = isNight && readDayNightPref(prefs, context.getResources());
+        final String themeColors = (isNight)
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
 
-        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs);
+        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs, isNight);
     }
 
     public static int readUserColor(final SharedPreferences prefs, final Context context, final String colorName, final boolean isNight) {
