@@ -48,7 +48,6 @@
 
     <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
-    <!-- Start delay for gesture trail fade-out: increases the total fading duration (msec) -->
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
     <integer name="config_gesture_trail_fadeout_duration_default">800</integer>
     <integer name="config_gesture_trail_fadeout_duration_max">1900</integer>
