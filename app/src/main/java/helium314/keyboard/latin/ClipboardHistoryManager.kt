@@ -4,10 +4,12 @@ package helium314.keyboard.latin
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.net.Uri
 import android.text.TextUtils
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
+import helium314.keyboard.keyboard.clipboard.ClipboardImageManager
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlin.collections.ArrayList
@@ -18,6 +20,7 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
+    private val clipboardImageManager = ClipboardImageManager(latinIME)
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -41,33 +44,41 @@ class ClipboardHistoryManager(
 
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
-        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return
+        if (clipData.itemCount == 0) return
         clipData.getItemAt(0)?.let { clipItem ->
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
-            val content = clipItem.coerceToText(latinIME)
-            if (TextUtils.isEmpty(content)) return
-
-            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
-            if (duplicateEntryIndex != -1) {
-                val existingEntry = historyEntries[duplicateEntryIndex]
-                if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
-                // older entry with the same text already exists, update the timestamp and re-sort the list
-                existingEntry.timeStamp = timeStamp
-                historyEntries.removeAt(duplicateEntryIndex)
-                historyEntries.add(0, existingEntry)
-                sortHistoryEntries()
-                val newIndex = historyEntries.indexOf(existingEntry)
-                onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
-                return
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
+                if (historyEntries.any { it.timeStamp == stamp }) return // nothing to change (may occur frequently starting with API 30)
+            } ?: System.currentTimeMillis()
+            val imageUri: Uri?
+            val text: CharSequence
+            if (clipData.description?.hasMimeType("image/*") == true) {
+                imageUri = clipboardImageManager.saveClipboardImage(clipItem.uri, timeStamp) ?: return
+                text = ""
+            } else {
+                imageUri = null
+                text = clipItem.text ?: return
+                if (TextUtils.isEmpty(text)) return
+                if (updateTimestamp(text.toString(), timeStamp)) return // older entry with the same text already exists
             }
-            if (historyEntries.any { it.content.toString() == content.toString() }) return
 
-            val entry = ClipboardHistoryEntry(timeStamp, content)
+            val entry = ClipboardHistoryEntry(timeStamp, text, imageUri)
             historyEntries.add(entry)
             sortHistoryEntries()
             val at = historyEntries.indexOf(entry)
             onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
         }
+    }
+
+    // If an older entry with the specified text already exists, update its timestamp and re-sort the list.
+    // Returns true if the timestamp has been updated, false otherwise.
+    private fun updateTimestamp(text: String, newTimeStamp: Long): Boolean {
+        val oldEntry = historyEntries.firstOrNull { it.text.toString() == text } ?: return false
+        val oldIndex = historyEntries.indexOf(oldEntry)
+        oldEntry.timeStamp = newTimeStamp
+        sortHistoryEntries()
+        val newIndex = historyEntries.indexOf(oldEntry)
+        onHistoryChangeListener?.onClipboardHistoryEntryMoved(oldIndex, newIndex)
+        return true
     }
 
     fun toggleClipPinned(ts: Long) {
@@ -90,13 +101,19 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        clipboardImageManager.removeOrphanedImages(historyEntries)
     }
 
-    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
+    fun canRemove(index: Int) = historyEntries.getOrNull(index)?.let { !it.isPinned } ?: false
 
     fun removeEntry(index: Int) {
-        if (canRemove(index))
+        if (canRemove(index)) {
+            val imageUri = historyEntries[index].imageUri
+            if (imageUri != null) {
+                clipboardImageManager.deleteClipboardImage(imageUri)
+            }
             historyEntries.removeAt(index)
+        }
     }
 
     private fun sortHistoryEntries() {
@@ -109,6 +126,7 @@ class ClipboardHistoryManager(
         val maxClipRetentionTime = mins * 60 * 1000L
         val now = System.currentTimeMillis()
         historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
+        clipboardImageManager.removeOrphanedImages(historyEntries)
     }
 
     // We do not want to update history while user is visualizing it, so we check retention only
@@ -125,10 +143,16 @@ class ClipboardHistoryManager(
         onHistoryChangeListener = l
     }
 
-    fun retrieveClipboardContent(): CharSequence {
+    fun retrieveClipboardText(): CharSequence {
         val clipData = clipboardManager.primaryClip ?: return ""
         if (clipData.itemCount == 0) return ""
-        return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
+        return clipData.getItemAt(0)?.text ?: ""
+    }
+
+    fun retrieveClipboardUri(): Uri? {
+        val clipData = clipboardManager.primaryClip ?: return null
+        if (clipData.itemCount == 0) return null
+        return clipData.getItemAt(0)?.uri ?: return null
     }
 
     // pinned clips are stored in default shared preferences, not in device protected preferences!

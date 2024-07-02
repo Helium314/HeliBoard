@@ -859,4 +859,6 @@ New dictionary:
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Toast message to inform the user that the URI is unsupported -->
+    <string name="toast_msg_unsupported_uri">Unsupported URI</string>
 </resources>
