@@ -875,13 +875,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private boolean keySwipe(final int code, final int x, final int y, final long eventTime) {
+    private void onKeySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
         final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
         // we don't want keyswipes to start immediately if the user is fast-typing,
         // see https://github.com/openboard-team/openboard/issues/411
         if (System.currentTimeMillis() < mStartTime + fastTypingTimeout && sTypingTimeRecorder.isInFastTyping(eventTime))
-            return true;
+            return;
         if (code == Constants.CODE_SPACE) {
             int dX = x - mStartX;
             int dY = y - mStartY;
@@ -897,12 +897,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
-                return true;
+                return;
             }
 
             // Horizontal movement
             int stepsX = dX / sPointerStep;
-            if (stepsX != 0 && !mInVerticalSwipe && sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION) {
+            if (stepsX != 0 && !mInVerticalSwipe
+                    && sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION) {
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInHorizontalSwipe = true;
@@ -911,10 +912,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     mStartX += stepsX * sPointerStep;
                 }
             }
-            return true;
-        }
-
-        if (code == KeyCode.DELETE) {
+        } else if (code == KeyCode.DELETE) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
             if (steps != 0) {
@@ -925,17 +923,17 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
-            return true;
         }
-        return false;
     }
 
     private void onMoveEventInternal(final int x, final int y, final long eventTime) {
         final Key oldKey = mCurrentKey;
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
-        if (mKeySwipeAllowed && keySwipe(oldKey.getCode(), x, y, eventTime))
+        if (mKeySwipeAllowed) {
+            onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
+        }
 
         final Key newKey = onMoveKey(x, y);
         final int lastX = mLastX;
