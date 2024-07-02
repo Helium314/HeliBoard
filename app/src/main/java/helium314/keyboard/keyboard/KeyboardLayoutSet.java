@@ -6,9 +6,7 @@
 
 package helium314.keyboard.keyboard;
 
-import android.app.KeyguardManager;
 import android.content.Context;
-import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
@@ -202,12 +200,7 @@ public final class KeyboardLayoutSet {
 
             // When the device is still locked, features like showing the IME setting app need to
             // be locked down.
-            final KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                params.mDeviceLocked = km.isDeviceLocked();
-            } else {
-                params.mDeviceLocked = km.isKeyguardLocked();
-            }
+            params.mDeviceLocked = KeyboardSwitcher.getInstance().isDeviceLocked();
         }
 
         public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {

@@ -63,6 +63,7 @@ public final class KeyboardState {
 
         void setOneHandedModeEnabled(boolean enabled);
         void switchOneHandedMode();
+        boolean isDeviceLocked();
     }
 
     private final SwitchActions mSwitchActions;
@@ -198,7 +199,7 @@ public final class KeyboardState {
             setEmojiKeyboard();
             return;
         }
-        if (state.mMode == MODE_CLIPBOARD) {
+        if (state.mMode == MODE_CLIPBOARD && !mSwitchActions.isDeviceLocked()) {
             setClipboardKeyboard();
             return;
         }
@@ -368,6 +369,7 @@ public final class KeyboardState {
     }
 
     private void setClipboardKeyboard() {
+        if (mSwitchActions.isDeviceLocked()) return;
         if (DEBUG_INTERNAL_ACTION) {
             Log.d(TAG, "setClipboardKeyboard");
         }
