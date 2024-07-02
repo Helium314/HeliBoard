@@ -139,30 +139,34 @@ object KeyCode {
     const val META =                      -10012
     const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
     const val TAB =                       -10014
-    const val ESCAPE =                    -10017
-    const val INSERT =                    -10018
-    const val SLEEP =                     -10019
-    const val MEDIA_PLAY =                -10020
-    const val MEDIA_PAUSE =               -10021
-    const val MEDIA_PLAY_PAUSE =          -10022
-    const val MEDIA_NEXT =                -10023
-    const val MEDIA_PREVIOUS =            -10024
-    const val VOL_UP =                    -10025
-    const val VOL_DOWN =                  -10026
-    const val MUTE =                      -10027
-    const val F1 =                        -10028
-    const val F2 =                        -10029
-    const val F3 =                        -10030
-    const val F4 =                        -10031
-    const val F5 =                        -10032
-    const val F6 =                        -10033
-    const val F7 =                        -10034
-    const val F8 =                        -10035
-    const val F9 =                        -10036
-    const val F10 =                       -10037
-    const val F11 =                       -10038
-    const val F12 =                       -10039
-    const val BACK =                      -10040
+    const val WORD_LEFT =                 -10015
+    const val WORD_RIGHT =                -10016
+    const val SELECT_LEFT =               -10017
+    const val SELECT_RIGHT =              -10018
+    const val ESCAPE =                    -10019
+    const val INSERT =                    -10020
+    const val SLEEP =                     -10021
+    const val MEDIA_PLAY =                -10022
+    const val MEDIA_PAUSE =               -10023
+    const val MEDIA_PLAY_PAUSE =          -10024
+    const val MEDIA_NEXT =                -10025
+    const val MEDIA_PREVIOUS =            -10026
+    const val VOL_UP =                    -10027
+    const val VOL_DOWN =                  -10028
+    const val MUTE =                      -10029
+    const val F1 =                        -10030
+    const val F2 =                        -10031
+    const val F3 =                        -10032
+    const val F4 =                        -10033
+    const val F5 =                        -10034
+    const val F6 =                        -10035
+    const val F7 =                        -10036
+    const val F8 =                        -10037
+    const val F9 =                        -10038
+    const val F10 =                       -10039
+    const val F11 =                       -10040
+    const val F12 =                       -10041
+    const val BACK =                      -10042
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -171,13 +175,14 @@ object KeyCode {
         VOICE_INPUT, LANGUAGE_SWITCH, SETTINGS, DELETE, ALPHA, SYMBOL, EMOJI, CLIPBOARD, CLIPBOARD_CUT,
         UNDO, REDO, ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, CLIPBOARD_COPY, CLIPBOARD_SELECT_ALL,
         CLIPBOARD_SELECT_WORD, TOGGLE_INCOGNITO_MODE, TOGGLE_AUTOCORRECT, MOVE_START_OF_LINE, MOVE_END_OF_LINE,
-        SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT, FN, CLIPBOARD_CLEAR_HISTORY,
+        MOVE_START_OF_PAGE, MOVE_END_OF_PAGE, SHIFT, CAPS_LOCK, MULTIPLE_CODE_POINTS, UNSPECIFIED, CTRL, ALT,
+        FN, CLIPBOARD_CLEAR_HISTORY,
 
         // heliboard only
         SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
-        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, PAGE_UP, PAGE_DOWN, META, TAB,
-        ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT, MEDIA_PREVIOUS,
-        VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
+        ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
+        PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
+        MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
         -> this
 
         // conversion

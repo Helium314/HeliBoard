@@ -270,8 +270,14 @@
         <attr name="iconArrowRight" format="reference" />
         <attr name="iconArrowUp" format="reference" />
         <attr name="iconArrowDown" format="reference" />
+        <attr name="iconWordLeft" format="reference" />
+        <attr name="iconWordRight" format="reference" />
+        <attr name="iconPageUp" format="reference" />
+        <attr name="iconPageDown" format="reference" />
         <attr name="iconFullLeft" format="reference" />
         <attr name="iconFullRight" format="reference" />
+        <attr name="iconPageStart" format="reference" />
+        <attr name="iconPageEnd" format="reference" />
         <attr name="iconSelectWord" format="reference" />
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />
