@@ -129,12 +129,10 @@ enum class ToolbarKey {
 
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
-val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
-    when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, WORD_LEFT, WORD_RIGHT, PAGE_UP, PAGE_DOWN,
-        FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END, CUT, CLEAR_CLIPBOARD, EMOJI -> "${it.name},false"
-        else -> "${it.name},true"
-    }
+val defaultToolbarPref by lazy {
+    val default = listOf(VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, LEFT, RIGHT)
+    val others = entries.filterNot { it in default || it == CLOSE_HISTORY }
+    default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
 
 val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
