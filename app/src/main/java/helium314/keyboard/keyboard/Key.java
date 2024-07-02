@@ -184,6 +184,7 @@ public class Key implements Comparable<Key> {
     }
 
     private final int mHashCode;
+    public final boolean isDeadKey;
 
     /** The current pressed state of this key */
     private boolean mPressed;
@@ -196,7 +197,7 @@ public class Key implements Comparable<Key> {
     public Key(@Nullable final String label, @Nullable final String iconName, final int code,
             @Nullable final String outputText, @Nullable final String hintLabel,
             final int labelFlags, final int backgroundType, final int x, final int y,
-            final int width, final int height, final int horizontalGap, final int verticalGap) {
+            final int width, final int height, final int horizontalGap, final int verticalGap, final boolean isDeadKey) {
         mWidth = width - horizontalGap;
         mHeight = height - verticalGap;
         mHorizontalGap = horizontalGap;
@@ -219,6 +220,7 @@ public class Key implements Comparable<Key> {
         mY = y;
         mHitBox.set(x, y, x + width + 1, y + height);
         mKeyVisualAttributes = null;
+        this.isDeadKey = isDeadKey;
 
         mHashCode = computeHashCode(this);
     }
@@ -253,6 +255,7 @@ public class Key implements Comparable<Key> {
         mKeyVisualAttributes = key.mKeyVisualAttributes;
         mOptionalAttributes = key.mOptionalAttributes;
         mHashCode = key.mHashCode;
+        isDeadKey = key.isDeadKey;
         // Key state.
         mPressed = key.mPressed;
         mEnabled = key.mEnabled;
@@ -282,6 +285,7 @@ public class Key implements Comparable<Key> {
         mOptionalAttributes = outputText == null ? null
                 : Key.OptionalAttributes.newInstance(outputText, KeyCode.NOT_SPECIFIED, null, 0, 0);
         mHashCode = key.mHashCode;
+        isDeadKey = key.isDeadKey;
         // Key state.
         mPressed = key.mPressed;
         mEnabled = key.mEnabled;
@@ -302,6 +306,7 @@ public class Key implements Comparable<Key> {
         mKeyVisualAttributes = keyParams.mKeyVisualAttributes;
         mOptionalAttributes = keyParams.mOptionalAttributes;
         mEnabled = keyParams.mEnabled;
+        isDeadKey = keyParams.isDeadKey;
 
         // stuff to create
 
@@ -347,6 +352,7 @@ public class Key implements Comparable<Key> {
         mKeyVisualAttributes = key.mKeyVisualAttributes;
         mOptionalAttributes = key.mOptionalAttributes;
         mHashCode = key.mHashCode;
+        isDeadKey = key.isDeadKey;
         // Key state.
         mPressed = key.mPressed;
         mEnabled = key.mEnabled;
@@ -385,6 +391,7 @@ public class Key implements Comparable<Key> {
                 key.getOutputText(),
                 key.mActionFlags,
                 key.mLabelFlags,
+                key.isDeadKey,
                 // Key can be distinguishable without the following members.
                 // key.mOptionalAttributes.mAltCode,
                 // key.mOptionalAttributes.mDisabledIconId,
@@ -964,7 +971,7 @@ public class Key implements Comparable<Key> {
                 final int height) {
             super(null, null, KeyCode.NOT_SPECIFIED, null,
                     null, 0, BACKGROUND_TYPE_EMPTY, x, y, width,
-                    height, params.mHorizontalGap, params.mVerticalGap);
+                    height, params.mHorizontalGap, params.mVerticalGap, false);
         }
     }
 
@@ -995,6 +1002,7 @@ public class Key implements Comparable<Key> {
         @Nullable public final KeyVisualAttributes mKeyVisualAttributes;
         @Nullable public final OptionalAttributes mOptionalAttributes;
         public final boolean mEnabled;
+        public final boolean isDeadKey;
 
         public static KeyParams newSpacer(final KeyboardParams params, final float width) {
             final KeyParams spacer = new KeyParams(params);
@@ -1057,9 +1065,10 @@ public class Key implements Comparable<Key> {
                 final float relativeWidth,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final PopupSet<?> popupSet
+                @Nullable final PopupSet<?> popupSet,
+                final boolean isDeadKey
         ) {
-            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet);
+            this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet, isDeadKey);
         }
 
         /**
@@ -1074,7 +1083,8 @@ public class Key implements Comparable<Key> {
                 final float width,
                 final int labelFlags,
                 final int backgroundType,
-                @Nullable final PopupSet<?> popupSet
+                @Nullable final PopupSet<?> popupSet,
+                final boolean isDeadKey
         ) {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
@@ -1082,6 +1092,7 @@ public class Key implements Comparable<Key> {
             mWidth = width;
             mHeight = params.mDefaultRowHeight;
             mIconName = KeySpecParser.getIconName(keySpec);
+            this.isDeadKey = isDeadKey;
 
             final boolean needsToUpcase = needsToUpcase(mLabelFlags, params.mId.mElementId);
             final Locale localeForUpcasing = params.mId.getLocale();
@@ -1208,6 +1219,7 @@ public class Key implements Comparable<Key> {
             mHintLabel = hintLabel;
             mLabelFlags = labelFlags;
             mBackgroundType = BACKGROUND_TYPE_EMPTY;
+            isDeadKey = false;
 
             if (popupKeySpecs != null) {
                 String[] popupKeys = PopupKeySpec.splitKeySpecs(popupKeySpecs);
@@ -1259,6 +1271,7 @@ public class Key implements Comparable<Key> {
             mPopupKeysColumnAndFlags = 0;
             mLabelFlags = LABEL_FLAGS_FONT_NORMAL;
             mEnabled = true;
+            isDeadKey = false;
         }
 
         public KeyParams(final KeyParams keyParams) {
@@ -1283,6 +1296,7 @@ public class Key implements Comparable<Key> {
             mActionFlags = keyParams.mActionFlags;
             mKeyVisualAttributes = keyParams.mKeyVisualAttributes;
             mOptionalAttributes = keyParams.mOptionalAttributes;
+            isDeadKey = keyParams.isDeadKey;
         }
     }
 }

@@ -1474,10 +1474,14 @@ public class LatinIME extends InputMethodService implements
     // Implementation of {@link SuggestionStripView.Listener}.
     @Override
     public void onCodeInput(final int codePoint, final int x, final int y, final boolean isKeyRepeat) {
-        onCodeInput(codePoint, 0, x, y, isKeyRepeat);
+        onCodeInput(codePoint, 0, x, y, isKeyRepeat, false);
     }
 
     public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat) {
+        onCodeInput(codePoint, metaState, x, y, isKeyRepeat, false);
+    }
+
+    public void onCodeInput(final int codePoint, final int metaState, final int x, final int y, final boolean isKeyRepeat, final boolean isDeadKey) {
         if (codePoint < 0) {
             switch (codePoint) {
                 case KeyCode.TOGGLE_AUTOCORRECT -> {mSettings.toggleAutoCorrect(); return; }
@@ -1493,7 +1497,12 @@ public class LatinIME extends InputMethodService implements
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
+        final Event event;
+        if (isDeadKey) {
+            event = Event.createDeadEvent(codePoint, 0, metaState, null);
+        } else {
+            event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
+        }
         onEvent(event);
     }
 

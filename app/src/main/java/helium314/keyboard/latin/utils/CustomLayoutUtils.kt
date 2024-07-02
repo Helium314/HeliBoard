@@ -101,6 +101,39 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     return null
 }
 
+private fun checkDeadKey(code: Int): Boolean {
+    val allowedDeadKeys = setOf(
+        0x2D, // HYPHEN-MINUS
+        0x2E, // FULL STOP
+        0x5E, // CIRCUMFLEX ACCENT
+        0x60, // GRAVE ACCENT
+        0x7E, // TILDE
+        0xA8, // DIAERESIS
+        0xAF, // MACRON
+        0xB4, // ACUTE ACCENT
+        0xB8, // CEDILLA
+        0x2C6, // MODIFIER LETTER CIRCUMFLEX ACCENT
+        0x2C7, // CARON
+        0x2C8, // MODIFIER LETTER VERTICAL LINE
+        0x2CB, // MODIFIER LETTER GRAVE ACCENT
+        0x2CC, // MODIFIER LETTER LOW VERTICAL LINE
+        0x2CD, // MODIFIER LETTER LOW MACRON
+        0x2D8, // BREVE
+        0x2D9, // DOT ABOVE
+        0x2DA, // RING ABOVE
+        0x2DB, // OGONEK
+        0x2DC, // SMALL TILDE
+        0x2DD, // DOUBLE ACUTE ACCENT
+        0x344, // COMBINING GREEK DIALYTIKA TONOS
+    );
+    return if (allowedDeadKeys.contains(code) ||
+        (code in 0x300..0x332)) { // From U+0300 COMBINING GRAVE ACCENT to U+0332 COMBINING LOW LINE
+        true
+    } else {
+        false
+    }
+}
+
 fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     if (keys.isEmpty() || keys.any { it.isEmpty() }) {
         Log.w(TAG, "empty rows")
@@ -128,6 +161,14 @@ fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
             true
         } else false
     } }) {
+        return false
+    }
+    if (keys.any { row -> row.any {
+            if (it.isDeadKey && !checkDeadKey(it.mCode)) {
+                Log.w(TAG, "Invalid dead key: ${it.mLabel}")
+                true
+            } else false
+        } }) {
         return false
     }
     if (keys.any { row -> row.any { true == it.mPopupKeys?.any { popupKey ->
