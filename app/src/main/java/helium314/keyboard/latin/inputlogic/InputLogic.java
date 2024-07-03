@@ -923,7 +923,7 @@ public final class InputLogic {
             final CharSequence text = mConnection.textBeforeCursorUntilLastWhitespaceOrDoubleSlash();
             final TextRange range = new TextRange(text, 0, text.length(), text.length(), false);
             isComposingWord = true;
-            restartSuggestions(range, mConnection.mExpectedSelStart);
+            restartSuggestions(range);
         }
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
@@ -1670,7 +1670,6 @@ public final class InputLogic {
             mSuggestionStripViewAccessor.setNeutralSuggestionStrip();
             return;
         }
-        final int expectedCursorPosition = mConnection.getExpectedSelectionStart();
         if (!mConnection.isCursorTouchingWord(settingsValues.mSpacingAndPunctuations, true /* checkTextAfter */)) {
             // Show predictions.
             mWordComposer.setCapitalizedModeAtStartComposingTime(WordComposer.CAPS_MODE_OFF);
@@ -1700,11 +1699,12 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        restartSuggestions(range, expectedCursorPosition);
+        restartSuggestions(range);
     }
 
-    private void restartSuggestions(final TextRange range, final int expectedCursorPosition) {
+    private void restartSuggestions(final TextRange range) {
         final int numberOfCharsInWordBeforeCursor = range.getNumberOfCharsInWordBeforeCursor();
+        final int expectedCursorPosition = mConnection.getExpectedSelectionStart();
         if (numberOfCharsInWordBeforeCursor > expectedCursorPosition) return;
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
         final String typedWordString = range.mWord.toString();
