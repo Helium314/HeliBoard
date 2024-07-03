@@ -145,11 +145,11 @@
     <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_preview_trail">Show gesture trail</string>
     <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
-    <string name="gesture_trail_fadeout_duration">Fade-out duration</string>
+    <string name="gesture_trail_fadeout_duration">Trail fade duration</string>
     <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_floating_preview_text">Dynamic floating preview</string>
-    <!-- Title of the setting to adjust the gesture floating preview timeout [CHAR LIMIT=35]-->
-    <string name="gesture_floating_preview_timeout">Dismiss delay</string>
+    <!-- Title of the setting to adjust the gesture floating preview linger timeout [CHAR LIMIT=35]-->
+    <string name="gesture_floating_preview_timeout">Preview dismiss delay</string>
     <!-- The text that represents no delay [CHAR LIMIT=25]-->
     <string name="gesture_floating_preview_timeout_instant">Instant</string>
     <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->

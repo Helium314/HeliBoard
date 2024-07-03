@@ -52,13 +52,13 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, Settings.readGestureInputEnabled(prefs)
-                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
-        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
-                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
+                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, Settings.readGestureInputEnabled(prefs)
+                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
     }
 
     private void setupGesturePreviewTimeoutPref() {
