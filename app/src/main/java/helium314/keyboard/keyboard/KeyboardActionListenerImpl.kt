@@ -184,12 +184,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
-            val newPosition: Int = inputLogic.mConnection.mExpectedSelStart + moveSteps
+            val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
             inputLogic.mConnection.setSelection(newPosition, newPosition)
             return true
         }
         inputLogic.finishInput()
-        val newPosition: Int = inputLogic.mConnection.mExpectedSelStart + moveSteps
+        val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
         inputLogic.mConnection.setSelection(newPosition, newPosition)
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true
