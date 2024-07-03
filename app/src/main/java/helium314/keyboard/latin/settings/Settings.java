@@ -116,6 +116,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
+    public static final String PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT = "gesture_floating_preview_timeout";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
@@ -371,6 +372,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
 
+   public static int readGestureFloatingPreviewTimeout(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFloatingPreviewTimeout(res);
+    }
+
+    public static int readDefaultGestureFloatingPreviewTimeout(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_floating_preview_timeout_default);
+    }
+
     public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
         final int milliseconds = prefs.getInt(
                 PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
@@ -379,7 +391,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_trail_default_fadeout_duration);
+        return res.getInteger(R.integer.config_gesture_trail_fadeout_duration_default);
     }
 
     public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {

@@ -29,6 +29,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_gesture);
+        setupGesturePreviewTimeoutPref();
         setupGestureTrailFadeoutPref();
         setupGestureFastTypingCooldownPref();
         refreshSettingsEnablement();
@@ -51,11 +52,55 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, Settings.readGestureInputEnabled(prefs)
+                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
         setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
                 && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
+    }
+
+    private void setupGesturePreviewTimeoutPref() {
+        final SeekBarDialogPreference pref = findPreference(
+                Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT);
+        if (pref == null) return;
+        final SharedPreferences prefs = getSharedPreferences();
+        final Resources res = getResources();
+        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
+            @Override
+            public void writeValue(final int value, final String key) {
+                prefs.edit().putInt(key, value).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public void writeDefaultValue(final String key) {
+                prefs.edit().remove(key).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public int readValue(final String key) {
+                return Settings.readGestureFloatingPreviewTimeout(prefs, res);
+            }
+
+            @Override
+            public int readDefaultValue(final String key) {
+                return Settings.readDefaultGestureFloatingPreviewTimeout(res);
+            }
+
+            @Override
+            public String getValueText(final int value) {
+                if (value == 0) {
+                    return res.getString(R.string.gesture_floating_preview_timeout_instant);
+                }
+                return res.getString(R.string.abbreviation_unit_milliseconds, String.valueOf(value));
+            }
+
+            @Override
+            public void feedbackValue(final int value) {}
+        });
     }
 
     private void setupGestureTrailFadeoutPref() {

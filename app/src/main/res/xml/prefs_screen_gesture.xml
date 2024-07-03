@@ -21,6 +21,11 @@
         android:summary="@string/gesture_floating_preview_text_summary"
         android:defaultValue="true"
         android:persistent="true" />
+    <helium314.keyboard.latin.settings.SeekBarDialogPreference
+        android:key="gesture_floating_preview_timeout"
+        android:title="@string/gesture_floating_preview_timeout"
+        latin:maxValue="@integer/config_gesture_floating_preview_timeout_max"
+        latin:stepValue="@integer/config_gesture_floating_preview_timeout_step" />
     <SwitchPreference
         android:key="gesture_preview_trail"
         android:title="@string/gesture_preview_trail"
@@ -30,7 +35,7 @@
         android:key="gesture_trail_fadeout_duration"
         android:title="@string/gesture_trail_fadeout_duration"
         latin:minValue="@integer/config_gesture_trail_fadeout_start_delay"
-        latin:maxValue="@integer/config_gesture_trail_max_fadeout_duration"
+        latin:maxValue="@integer/config_gesture_trail_fadeout_duration_max"
         latin:stepValue="@integer/config_gesture_trail_fadeout_step" />
     <SwitchPreference
         android:key="gesture_space_aware"

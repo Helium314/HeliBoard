@@ -148,6 +148,10 @@
     <string name="gesture_trail_fadeout_duration">Fade-out duration</string>
     <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_floating_preview_text">Dynamic floating preview</string>
+    <!-- Title of the setting to adjust the gesture floating preview timeout [CHAR LIMIT=35]-->
+    <string name="gesture_floating_preview_timeout">Dismiss delay</string>
+    <!-- The text that represents no delay [CHAR LIMIT=25]-->
+    <string name="gesture_floating_preview_timeout_instant">Instant</string>
     <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->
     <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
