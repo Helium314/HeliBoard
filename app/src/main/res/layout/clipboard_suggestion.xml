@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@drawable/autofill_inline_suggestion_chip_background"
+    android:background="@drawable/clipboard_suggestion_background"
     android:gravity="center"
     android:paddingRight="12dp"
     android:layout_width="wrap_content"
