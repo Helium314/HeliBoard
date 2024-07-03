@@ -143,6 +143,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private boolean mIsAllowedDraggingFinger;
     // true if a keyswipe gesture is enabled and warranted.
     private boolean mKeySwipeAllowed = false;
+    private static boolean sInKeySwipe = false;
 
     private final BatchInputArbiter mBatchInputArbiter;
     private final GestureStrokeDrawingPoints mGestureStrokeDrawingPoints;
@@ -638,7 +639,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // A gesture should start only from a non-modifier key. Note that the gesture detection is
         // disabled when the key is repeating.
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
-                && key != null && !key.isModifier() && !mKeySwipeAllowed;
+                && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
         if (mIsDetectingGesture) {
             mBatchInputArbiter.addDownEventPoint(x, y, eventTime,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
@@ -931,6 +932,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
         if (mKeySwipeAllowed) {
+            sInKeySwipe = true;
             onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
         }
@@ -1027,9 +1029,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (mInHorizontalSwipe || mInVerticalSwipe) {
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
             mInHorizontalSwipe = false;
             mInVerticalSwipe = false;
+            sInKeySwipe = false;
             return;
         }
 
@@ -1116,7 +1120,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int translatedY = popupKeysPanel.translateY(mLastY);
         popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
         mPopupKeysPanel = popupKeysPanel;
-        mKeySwipeAllowed = false;
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false;
+        }
     }
 
     private void cancelKeyTracking() {
@@ -1242,7 +1249,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         mCurrentRepeatingKeyCode = code;
-        mKeySwipeAllowed = false;
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false;
+        }
         mIsDetectingGesture = false;
         final int nextRepeatCount = repeatCount + 1;
         startKeyRepeatTimer(nextRepeatCount);
