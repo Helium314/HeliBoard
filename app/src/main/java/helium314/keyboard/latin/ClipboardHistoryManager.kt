@@ -176,13 +176,14 @@ class ClipboardHistoryManager(
         fun onClipboardHistoryEntryMoved(from: Int, to: Int)
     }
 
-    fun getClipboardSuggestionView(editorInfo: EditorInfo?, parent: ViewGroup): View? {
+    fun getClipboardSuggestionView(editorInfo: EditorInfo?, parent: ViewGroup?): View? {
         // maybe no need to create a new view
         // but a cache has to consider a few possible changes, so better don't implement without need
         clipboardSuggestionView = null
 
         // get the content, or return null
         if (suggestionPicked) return null
+        if (parent == null) return null
         val clipData = clipboardManager.primaryClip ?: return null
         if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return null
         val clipItem = clipData.getItemAt(0) ?: return null
