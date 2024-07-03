@@ -120,6 +120,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private long mStartTime;
     private boolean mInHorizontalSwipe = false;
     private boolean mInVerticalSwipe = false;
+    private static boolean sInKeySwipe = false;
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -638,7 +639,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // A gesture should start only from a non-modifier key. Note that the gesture detection is
         // disabled when the key is repeating.
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
-                && key != null && !key.isModifier() && !mKeySwipeAllowed;
+                && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
         if (mIsDetectingGesture) {
             mBatchInputArbiter.addDownEventPoint(x, y, eventTime,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
@@ -931,6 +932,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
         if (mKeySwipeAllowed) {
+            sInKeySwipe = true;
             onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
         }
@@ -1030,6 +1032,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (mInHorizontalSwipe || mInVerticalSwipe) {
             mInHorizontalSwipe = false;
             mInVerticalSwipe = false;
+            sInKeySwipe = false;
             return;
         }
 
