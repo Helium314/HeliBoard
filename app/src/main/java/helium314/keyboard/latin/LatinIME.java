@@ -64,7 +64,6 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
-import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
@@ -81,7 +80,6 @@ import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
-import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.Log;
@@ -307,6 +305,13 @@ public class LatinIME extends InputMethodService implements
         }
 
         public void postResumeSuggestions(final boolean shouldDelay) {
+            final LatinIME latinIme = getOwnerInstance();
+            if (latinIme == null) {
+                return;
+            }
+            if (!latinIme.mSettings.getCurrent().isSuggestionsEnabledPerUserSettings()) {
+                return;
+            }
             removeMessages(MSG_RESUME_SUGGESTIONS);
             final int message = MSG_RESUME_SUGGESTIONS;
             if (shouldDelay) {
@@ -1028,8 +1033,7 @@ public class LatinIME extends InputMethodService implements
         if (!mHandler.hasPendingResumeSuggestions()) {
             mHandler.cancelUpdateSuggestionStrip();
             setNeutralSuggestionStrip();
-            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar
-                    && !mSuggestionStripView.isClipboardSuggestionSet()) {
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar && !tryShowClipboardSuggestion()) {
                 mSuggestionStripView.setToolbarVisibility(true);
             }
         }
@@ -1647,49 +1651,28 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 
-    @Override
-    public void onClipboardSuggestionPicked(final String clipContent) {
-        mClipboardHistoryManager.markSuggestionAsPicked();
-        onTextInput(clipContent);
-    }
-
-    // This will set a new clipboard suggestion if the primary clipboard is not empty
-    // and the relevant setting is enabled.
-    // In case of input and content type mismatch, no suggestion will be shown.
-    // It returns true or false depending on whether the suggestion has been set successfully.
-    public boolean setClipboardSuggestion() {
-        if (!hasSuggestionStripView()) return false;
-        final String clipContent = mClipboardHistoryManager.retrieveClipboardSuggestionContent();
-        if (!clipContent.isEmpty()) {
-            final EditorInfo editorInfo = getCurrentInputEditorInfo();
-            final int inputType = (editorInfo != null) ? editorInfo.inputType : InputType.TYPE_NULL;
-            // make sure clipboard content that is not a number is not suggested in a number input type
-            if (!InputTypeUtils.isNumberInputType(inputType) || StringUtilsKt.isValidNumber(clipContent)) {
-                setSuggestedWords(SuggestedWords.getEmptyInstance()); // reset old suggested words
-                // In API 24+, a flag for sensitive clipboard content is available, which should be prioritized
-                // over the input type of the editor to determine if the clipboard content should be redacted.
-                final boolean isSensitive = getClipboardHistoryManager().isClipSensitive(InputTypeUtils.isPasswordInputType(inputType));
-                mSuggestionStripView.setClipboardSuggestion(clipContent, isSensitive);
-                return true;
-            }
+    public boolean tryShowClipboardSuggestion() {
+        final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
+        if (clipboardView != null) {
+            mSuggestionStripView.setInlineSuggestionsView(clipboardView);
+            return true;
         }
         return false;
     }
 
-    // This will set a suggestion of the primary clipboard
-    // (if there is one and the setting is enabled).
-    // On success, the toolbar will be hidden if the "Auto hide toolbar" is enabled.
-    // Otherwise, an empty suggestion strip (if prediction is enabled)
-    // or punctuation suggestions (if it's disabled) will be set.
+    // This will try showing a clipboard suggestion. On success, the toolbar will be hidden if
+    // the "Auto hide toolbar" is enabled. Otherwise, an empty suggestion strip (if prediction
+    // is enabled) or punctuation suggestions (if it's disabled) will be set.
     // Then, the toolbar will be shown automatically if the relevant setting is enabled
     // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        if (currentSettings.mSuggestClipboardContent && setClipboardSuggestion()) {
+        if (currentSettings.mSuggestClipboardContent && tryShowClipboardSuggestion()) {
+            // clipboard suggestion has been set
             if (hasSuggestionStripView() && currentSettings.mAutoHideToolbar)
                 mSuggestionStripView.setToolbarVisibility(false);
-            return; // clipboard suggestion has been set
+            return;
         }
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
                 ? SuggestedWords.getEmptyInstance()
@@ -1706,12 +1689,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     @Override
-    public void removeSuggestion(final String word, final boolean isClipboardSuggestion) {
-        if (isClipboardSuggestion) {
-            mClipboardHistoryManager.markSuggestionAsPicked();
-        } else {
-            mDictionaryFacilitator.removeWord(word);
-        }
+    public void removeSuggestion(final String word) {
+        mDictionaryFacilitator.removeWord(word);
     }
 
     private void loadKeyboard() {

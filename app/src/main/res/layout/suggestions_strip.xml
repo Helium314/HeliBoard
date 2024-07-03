@@ -53,26 +53,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:hapticFeedbackEnabled="false"
-            android:soundEffectsEnabled="false" >
-            <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
-                 We just need to ignore the system's audio and haptic feedback settings. -->
-            <TextView
-                android:id="@+id/clipboard_suggestion"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/autofill_inline_suggestion_chip_background"
-                android:contentDescription="@string/spoken_clipboard_suggestion"
-                android:drawablePadding="@dimen/config_clipboard_suggestion_drawable_padding"
-                android:paddingHorizontal="@dimen/config_clipboard_suggestion_horizontal_padding"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false"
-                android:singleLine="true"
-                android:visibility="gone"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:textStyle="bold"
-                style="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
+            android:soundEffectsEnabled="false" />
         <LinearLayout
             android:id="@+id/pinned_keys"
             android:orientation="horizontal"

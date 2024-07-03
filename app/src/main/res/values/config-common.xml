@@ -98,8 +98,6 @@
 
     <!-- Common clipboard suggestion configuration. -->
     <bool name="config_default_suggest_clipboard_content">true</bool>
-    <dimen name="config_clipboard_suggestion_horizontal_padding">12dp</dimen>
-    <dimen name="config_clipboard_suggestion_drawable_padding">3dp</dimen>
 
     <!-- Common gesture trail parameters -->
     <!-- Minimum distance between gesture trail sampling points. -->

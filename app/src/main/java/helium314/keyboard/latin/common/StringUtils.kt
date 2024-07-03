@@ -103,8 +103,8 @@ fun String.splitOnFirstSpacesOnly(): List<String> {
     return out
 }
 
-fun String.isValidNumber(): Boolean {
-    return this.toDoubleOrNull() != null
+fun CharSequence.isValidNumber(): Boolean {
+    return this.toString().toDoubleOrNull() != null
 }
 
 fun String.decapitalize(locale: Locale): String {
