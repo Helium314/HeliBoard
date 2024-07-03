@@ -1733,11 +1733,11 @@ public class LatinIME extends InputMethodService implements
         if (repeatCount > 0) {
             // No need to feedback when repeat delete/cursor keys will have no effect.
             switch (code) {
-            case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_UP:
+            case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_UP, KeyCode.WORD_LEFT, KeyCode.PAGE_UP:
                 if (!mInputLogic.mConnection.canDeleteCharacters())
                     return;
                 break;
-            case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN:
+            case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN, KeyCode.WORD_RIGHT, KeyCode.PAGE_DOWN:
                 if (!mInputLogic.mConnection.canForwardDeleteCharacters())
                     return;
                 break;

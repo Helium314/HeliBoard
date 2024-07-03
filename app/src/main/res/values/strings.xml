@@ -249,10 +249,16 @@
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
     <string name="full_left" tools:keep="@string/full_left">Full left</string>
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
+    <string name="page_start" tools:keep="@string/page_start">Page start</string>
+    <string name="page_end" tools:keep="@string/page_end">Page end</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>
     <string name="up" tools:keep="@string/up">Up</string>
     <string name="down" tools:keep="@string/down">Down</string>
+    <string name="word_left" tools:keep="@string/word_left">Word left</string>
+    <string name="word_right" tools:keep="@string/word_right">Word right</string>
+    <string name="page_up" tools:keep="@string/page_up">Page up</string>
+    <string name="page_down" tools:keep="@string/page_down">Page down</string>
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
@@ -788,8 +794,10 @@ New dictionary:
     <!-- Hidden features text -->
     <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
 \n\t• clipboard &amp;#65515; paste &lt;br&gt;
-\n\t• move left/right &amp;#65515; move full left/right &lt;br&gt;
+\n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
 \n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
+\n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
+\n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
 \n\t• copy &amp;#65515; copy all &lt;br&gt;
 \n\t• select word &amp;#65515; select all &lt;br&gt;
 \n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
