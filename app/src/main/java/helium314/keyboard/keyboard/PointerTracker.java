@@ -668,7 +668,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mIsAllowedDraggingFinger = sParams.mKeySelectionByDraggingFinger
                 || (key != null && key.isModifier())
                 || mKeyDetector.alwaysAllowsKeySelectionByDraggingFinger();
-        mKeySwipeAllowed = key != null && isSwiper(key.getCode()) && !sInGesture;
+        if (key != null && isSwiper(key.getCode()) && !sInGesture) {
+            mKeySwipeAllowed = true;
+            sInKeySwipe = true;
+        }
         mKeyboardLayoutHasBeenChanged = false;
         mIsTrackingForActionDisabled = false;
         resetKeySelectionByDraggingFinger();
@@ -719,7 +722,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     private void onGestureMoveEvent(final int x, final int y, final long eventTime,
             final boolean isMajorEvent, final Key key) {
-        if (!mIsDetectingGesture) {
+        if (!mIsDetectingGesture || sInKeySwipe) {
             return;
         }
         final boolean onValidArea = mBatchInputArbiter.addMoveEventPoint(
@@ -932,7 +935,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
         if (mKeySwipeAllowed) {
-            sInKeySwipe = true;
             onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
         }
@@ -1031,10 +1033,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         if (mKeySwipeAllowed) {
             mKeySwipeAllowed = false;
-            mInHorizontalSwipe = false;
-            mInVerticalSwipe = false;
             sInKeySwipe = false;
-            return;
+            if (mInHorizontalSwipe || mInVerticalSwipe) {
+                mInHorizontalSwipe = false;
+                mInVerticalSwipe = false;
+                return;
+            }
         }
 
         if (sInGesture) {
