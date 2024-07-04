@@ -1029,6 +1029,10 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
+        // This will remove old "stuck" inline suggestions
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.resetInlineSuggestions();
+        }
         // This will set the punctuation suggestions if next word suggestion is off;
         // otherwise it will clear the suggestion strip.
         if (!mHandler.hasPendingResumeSuggestions()) {
@@ -1320,6 +1324,11 @@ public class LatinIME extends InputMethodService implements
     @RequiresApi(api = Build.VERSION_CODES.R)
     public boolean onInlineSuggestionsResponse(InlineSuggestionsResponse response) {
         Log.d(TAG,"onInlineSuggestionsResponse called");
+        // Ignore spammy requests if inline suggestions are already displayed or dismissed
+        if (!hasSuggestionStripView() || mSuggestionStripView.isInlineAutofillSuggestionsVisible()
+                || mSuggestionStripView.areInlineSuggestionsDismissed()) {
+            return false;
+        }
         final List<InlineSuggestion> inlineSuggestions = response.getInlineSuggestions();
         if (inlineSuggestions.isEmpty()) {
             return false;
@@ -1607,11 +1616,14 @@ public class LatinIME extends InputMethodService implements
                 || currentSettingsValues.isApplicationSpecifiedCompletionsOn()
                 // We should clear the contextual strip if there is no suggestion from dictionaries.
                 || noSuggestionsFromDictionaries) {
-            mSuggestionStripView.setSuggestions(suggestedWords,
-                    mRichImm.getCurrentSubtype().isRtlSubtype());
-            // Auto hide the toolbar if dictionary suggestions are available
-            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
-                mSuggestionStripView.setToolbarVisibility(false);
+            if (mSuggestionStripView.isInlineAutofillSuggestionsVisible()){
+                mSuggestionStripView.updateSuggestedWords(suggestedWords);
+            } else {
+                mSuggestionStripView.setSuggestions(suggestedWords,
+                        mRichImm.getCurrentSubtype().isRtlSubtype());
+                // Auto hide the toolbar if dictionary suggestions are available
+                if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries)
+                    mSuggestionStripView.setToolbarVisibility(false);
             }
         }
     }
