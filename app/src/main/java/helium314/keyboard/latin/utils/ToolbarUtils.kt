@@ -144,7 +144,7 @@ val defaultPinnedToolbarPref by lazy {
 }
 
 val defaultClipboardToolbarPref by lazy {
-    val default = listOf(CLEAR_CLIPBOARD, UP, DOWN, SELECT_WORD, LEFT, RIGHT, UNDO, CUT, COPY, PASTE, CLOSE_HISTORY)
+    val default = listOf(CLEAR_CLIPBOARD, UP, DOWN, LEFT, RIGHT, SELECT_WORD, UNDO, CUT, COPY, PASTE, CLOSE_HISTORY)
     val others = entries.filterNot { it in default }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
