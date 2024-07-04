@@ -133,17 +133,18 @@ enum class ToolbarKey {
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref by lazy {
-    val default = listOf(VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, LEFT, RIGHT)
+    val default = listOf(VOICE, CLIPBOARD, SETTINGS, SELECT_WORD, UNDO, REDO, COPY, LEFT, RIGHT, PASTE)
     val others = entries.filterNot { it in default || it == CLOSE_HISTORY }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
 
-val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
-    "${it.name},false"
+val defaultPinnedToolbarPref by lazy {
+    val others = entries.filterNot { it == PASTE || it == CLOSE_HISTORY }
+    "${PASTE.name},true;" + others.joinToString(";") { "${it.name},false" }
 }
 
 val defaultClipboardToolbarPref by lazy {
-    val default = listOf(ONE_HANDED, UNDO, UP, DOWN, LEFT, RIGHT, CLEAR_CLIPBOARD, COPY, CUT, SELECT_WORD, CLOSE_HISTORY)
+    val default = listOf(CLEAR_CLIPBOARD, UP, DOWN, SELECT_WORD, LEFT, RIGHT, UNDO, CUT, COPY, PASTE, CLOSE_HISTORY)
     val others = entries.filterNot { it in default }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
