@@ -70,7 +70,10 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final SwitchPreference pref = findPreference(
                 Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
         if (pref == null) return;
+        final SharedPreferences prefs = getSharedPreferences();
+        pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs, requireContext()));
         pref.setOnPreferenceChangeListener((preference, newValue) -> {
+            prefs.edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET, true).apply();
             needsReload = true;
             return true;
         });

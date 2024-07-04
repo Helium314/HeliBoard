@@ -144,8 +144,6 @@
     <string name="gesture_input_summary">Input a word by sliding through the letters</string>
     <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_preview_trail">Show gesture trail</string>
-    <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
-    <string name="gesture_trail_fadeout_duration">Trail fade duration</string>
     <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_floating_preview_text">Floating preview</string>
     <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=65]-->
@@ -154,10 +152,6 @@
     <string name="gesture_floating_preview_dynamic">Dynamic floating preview</string>
     <!-- Description for "gesture_floating_preview_dynamic" option. The user can see a suggested word floating above moving finger during a gesture input. [CHAR LIMIT=65]-->
     <string name="gesture_floating_preview_dynamic_summary">Move preview during gesture</string>
-    <!-- Title of the setting to adjust the gesture floating preview linger timeout [CHAR LIMIT=35]-->
-    <string name="gesture_floating_preview_timeout">Preview dismiss delay</string>
-    <!-- The text that represents no delay [CHAR LIMIT=25]-->
-    <string name="gesture_floating_preview_timeout_instant">Instant</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
     <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
@@ -166,6 +160,12 @@
     <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
     <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
+    <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
+    <string name="gesture_trail_fadeout_duration">Trail fading speed</string>
+    <!-- Title of the setting to adjust the gesture floating preview linger timeout [CHAR LIMIT=35]-->
+    <string name="gesture_floating_preview_timeout">Preview lingering time</string>
+    <!-- The text that represents no delay [CHAR LIMIT=25]-->
+    <string name="gesture_floating_preview_timeout_instant">Instant</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->

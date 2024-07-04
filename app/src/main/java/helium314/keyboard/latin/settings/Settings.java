@@ -117,6 +117,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC = "gesture_floating_preview_dynamic";
+    public static final String PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET = "gesture_dynamic_preview_manually_set";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT = "gesture_floating_preview_timeout";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
@@ -314,6 +315,52 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
+    public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs, final Context context) {
+        // if transitions are disabled for the system (reduced motion), moving preview should be disabled
+        final boolean defValue = android.provider.Settings.System.getFloat(
+                context.getContentResolver(),
+                android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
+                1.0f
+        ) != 0.0f;
+        // if user has changed the setting, don't adapt to system
+        final boolean alreadySet = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET, false);
+        return alreadySet ? prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, defValue)
+                : defValue;
+    }
+
+    public static int readGestureFloatingPreviewTimeout(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFloatingPreviewTimeout(res);
+    }
+
+    public static int readDefaultGestureFloatingPreviewTimeout(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_floating_preview_timeout_default);
+    }
+
+    public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureTrailFadeoutDuration(res);
+    }
+
+    public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_trail_fadeout_duration_default);
+    }
+
+    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFastTypingCooldown(res);
+    }
+
+    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
+    }
+
     public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
         final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
         return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
@@ -371,39 +418,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
-    }
-
-   public static int readGestureFloatingPreviewTimeout(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureFloatingPreviewTimeout(res);
-    }
-
-    public static int readDefaultGestureFloatingPreviewTimeout(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_floating_preview_timeout_default);
-    }
-
-    public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureTrailFadeoutDuration(res);
-    }
-
-    public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_trail_fadeout_duration_default);
-    }
-
-    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureFastTypingCooldown(res);
-    }
-
-    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

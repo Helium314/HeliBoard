@@ -206,13 +206,13 @@ public class SettingsValues {
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
-        mGestureTrailFadeoutDuration = Settings.readGestureTrailFadeoutDuration(prefs, res);
-        mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
-        mGestureFloatingPreviewDynamic = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, true);
-        mGestureFloatingPreviewTimeout = Settings.readGestureFloatingPreviewTimeout(prefs, res);
+        mGestureFloatingPreviewDynamic = Settings.readGestureDynamicPreviewEnabled(prefs, context);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
+        mGestureTrailFadeoutDuration = Settings.readGestureTrailFadeoutDuration(prefs, res);
+        mGestureFloatingPreviewTimeout = Settings.readGestureFloatingPreviewTimeout(prefs, res);
+        mAccount = null; // remove? or can it be useful somewhere?
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
                 || mOverrideShowingSuggestions;
