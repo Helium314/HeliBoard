@@ -47,7 +47,7 @@
         android:title="@string/gesture_trail_fadeout_duration"
         latin:minValue="@integer/config_gesture_trail_fadeout_start_delay"
         latin:maxValue="@integer/config_gesture_trail_fadeout_duration_max"
-        latin:stepValue="@integer/config_gesture_trail_fadeout_step" />
+        latin:stepValue="@integer/config_gesture_trail_fadeout_duration_step" />
     <helium314.keyboard.latin.settings.SeekBarDialogPreference
         android:key="gesture_floating_preview_timeout"
         android:title="@string/gesture_floating_preview_timeout"

@@ -55,7 +55,7 @@
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
     <integer name="config_gesture_trail_fadeout_duration_default">800</integer>
     <integer name="config_gesture_trail_fadeout_duration_max">1400</integer>
-    <integer name="config_gesture_trail_fadeout_step">50</integer>
+    <integer name="config_gesture_trail_fadeout_duration_step">50</integer>
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>
