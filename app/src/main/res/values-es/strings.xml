@@ -44,8 +44,8 @@
     <string name="gesture_input">"Habilitar escritura gestual"</string>
     <string name="gesture_input_summary">"Introducir una palabra al deslizar el dedo por las letras"</string>
     <string name="gesture_preview_trail">"Mostrar recorrido del gesto"</string>
-    <string name="gesture_floating_preview_text">"Vista previa dinámica flotante"</string>
     <string name="gesture_floating_preview_text_summary">"Ver palabra sugerida al hacer gestos"</string>
+    <string name="gesture_floating_preview_dynamic">"Vista previa dinámica flotante"</string>
     <string name="gesture_space_aware">"Gestos con tecla Espacio"</string>
     <string name="gesture_space_aware_summary">"Desliza el dedo a Espacio para introducir espacios durante gestos"</string>
     <string name="subtype_en_GB">Inglés (Reino Unido)</string>

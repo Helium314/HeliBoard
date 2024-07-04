@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import androidx.preference.SwitchPreference;
+
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.R;
 
@@ -29,6 +31,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_gesture);
+        setupGestureDynamicPreviewPref();
         setupGesturePreviewTimeoutPref();
         setupGestureTrailFadeoutPref();
         setupGestureFastTypingCooldownPref();
@@ -53,12 +56,24 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final SharedPreferences prefs = getSharedPreferences();
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, Settings.readGestureInputEnabled(prefs)
+                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
                 && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, Settings.readGestureInputEnabled(prefs)
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
+    }
+
+    private void setupGestureDynamicPreviewPref() {
+        final SwitchPreference pref = findPreference(
+                Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
+        if (pref == null) return;
+        pref.setOnPreferenceChangeListener((preference, newValue) -> {
+            needsReload = true;
+            return true;
+        });
     }
 
     private void setupGesturePreviewTimeoutPref() {

@@ -45,8 +45,8 @@
     <string name="gesture_input">"Зангаагаар бичихийг идэвхжүүлэх"</string>
     <string name="gesture_input_summary">"Үсгүүд дээр гулсуулах замаар үг оруулах"</string>
     <string name="gesture_preview_trail">"Зангасан мөрийг харуулах"</string>
-    <string name="gesture_floating_preview_text">"Динамик хөвөгчөөр урьдчилан харах"</string>
     <string name="gesture_floating_preview_text_summary">"Зангах явцад санал болгож буй үгийг харах"</string>
+    <string name="gesture_floating_preview_dynamic">"Динамик хөвөгчөөр урьдчилан харах"</string>
     <string name="gesture_space_aware">"Хэллэгийн зангалт"</string>
     <string name="gesture_space_aware_summary">"Зангалтын явцад зай авах товчин дээр гулсуулах замаар зай оруулах"</string>
     <string name="subtype_en_GB">"Англи (ИБ)"</string>

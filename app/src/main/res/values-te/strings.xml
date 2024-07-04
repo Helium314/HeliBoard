@@ -45,8 +45,8 @@
     <string name="gesture_input">"సంజ్ఞ టైపింగ్‌ను ప్రారంభించండి"</string>
     <string name="gesture_input_summary">"అక్షరాల గుండా స్లైడ్ చేయడం ద్వారా పదాన్ని ఇన్‌పుట్ చేయండి"</string>
     <string name="gesture_preview_trail">"సంజ్ఞ ట్రయిల్‌ను చూపు"</string>
-    <string name="gesture_floating_preview_text">"డైనమిక్ ఫ్లోటింగ్ పరిదృశం"</string>
     <string name="gesture_floating_preview_text_summary">"సంజ్ఞలు చేసేటప్పుడు సూచిత పదాన్ని చూడండి"</string>
+    <string name="gesture_floating_preview_dynamic">"డైనమిక్ ఫ్లోటింగ్ పరిదృశం"</string>
     <string name="gesture_space_aware">"పదబంధం సంజ్ఞ"</string>
     <string name="gesture_space_aware_summary">"స్పేస్ కీకి గ్లైడ్ చేయడం ద్వారా సంజ్ఞల సమయంలో అంతరాలను ఇన్‌పుట్ చేయండి"</string>
     <string name="subtype_en_GB">"ఆంగ్లం (యుకె)"</string>

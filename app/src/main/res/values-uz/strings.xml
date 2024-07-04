@@ -45,8 +45,8 @@
     <string name="gesture_input">"Qo‘l uzmasdan yozish"</string>
     <string name="gesture_input_summary">"So‘zlarni barmog‘ingizni klaviaturadan uzmasdan yozing"</string>
     <string name="gesture_preview_trail">"Barmoq yo‘lini chizish"</string>
-    <string name="gesture_floating_preview_text">"Takliflarni ko‘rsatish"</string>
     <string name="gesture_floating_preview_text_summary">"Matn kiritishda so‘zlar taklif qilinsin"</string>
+    <string name="gesture_floating_preview_dynamic">"Takliflarni ko‘rsatish"</string>
     <string name="gesture_space_aware">"Qo‘l uzmasdan yozish"</string>
     <string name="gesture_space_aware_summary">"Barmoqni har bir so‘zdan so‘ng bo‘sh joy qoldirish tugmasiga olib borish"</string>
     <string name="subtype_en_GB">"Ingliz (Buyuk Britaniya)"</string>

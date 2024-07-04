@@ -45,8 +45,8 @@
     <string name="gesture_input">"ஸ்வைப் உள்ளீட்டை இயக்கு"</string>
     <string name="gesture_input_summary">"எழுத்துகள் வழியாக இழுப்பதன் மூலம் வார்த்தையை உள்ளிடலாம்"</string>
     <string name="gesture_preview_trail">"ஸ்வைப் தடத்தைக் காட்டு"</string>
-    <string name="gesture_floating_preview_text">"நிகழ்நேர மிதக்கும் மாதிரிக்காட்சி"</string>
     <string name="gesture_floating_preview_text_summary">"சைகையிடும் போது பரிந்துரைக்கும் வார்த்தையைப் பார்க்கலாம்"</string>
+    <string name="gesture_floating_preview_dynamic">"நிகழ்நேர மிதக்கும் மாதிரிக்காட்சி"</string>
     <string name="gesture_space_aware">"சொற்றொடர் ஸ்வைப்"</string>
     <string name="gesture_space_aware_summary">"ஸ்பேஸ் விசைக்கு இழுப்பதன் மூலம் சைகைகளுக்கு இடையே இடைவெளிகளை உள்ளிடலாம்"</string>
     <string name="subtype_en_GB">"ஆங்கிலம் (யூகே)"</string>

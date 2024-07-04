@@ -45,8 +45,8 @@
     <string name="gesture_input">"Овозможи пишување со движење"</string>
     <string name="gesture_input_summary">"Внесете збор со лизгање низ буквите"</string>
     <string name="gesture_preview_trail">"Покажи патека на движења"</string>
-    <string name="gesture_floating_preview_text">"Динамичен лебдечки преглед"</string>
     <string name="gesture_floating_preview_text_summary">"Видете го предложениот збор додека гестикулирате"</string>
+    <string name="gesture_floating_preview_dynamic">"Динамичен лебдечки преглед"</string>
     <string name="gesture_space_aware">"Движење за фрази"</string>
     <string name="gesture_space_aware_summary">"Внеси празни места при движења со лизгање до тоа копче"</string>
     <string name="subtype_en_GB">"англиски (ОК)"</string>

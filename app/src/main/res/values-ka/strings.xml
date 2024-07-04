@@ -45,8 +45,8 @@
     <string name="gesture_input">"ჟესტებით წერის ჩართვა"</string>
     <string name="gesture_input_summary">"სიტყვის შეყვანა ასო-ნიშნებზე გასრიალებით"</string>
     <string name="gesture_preview_trail">"ჟესტიკულაციის კუდის ჩვენება"</string>
-    <string name="gesture_floating_preview_text">"დინამიურად მოლივლივე გადახედვა"</string>
     <string name="gesture_floating_preview_text_summary">"ჟესტიკულაციისას შეთავაზებული სიტყვის ნახვა"</string>
+    <string name="gesture_floating_preview_dynamic">"დინამიურად მოლივლივე გადახედვა"</string>
     <string name="gesture_space_aware">"ფრაზის ჟესტი"</string>
     <string name="gesture_space_aware_summary">"შეიყვანეთ შორისები ჟესტიკულაციისას შორისის კლავიშზე გასრიალებით"</string>
     <string name="subtype_en_GB">"ინგლისური (გართ. სამ.)"</string>

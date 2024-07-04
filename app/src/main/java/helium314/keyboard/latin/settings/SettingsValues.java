@@ -96,6 +96,7 @@ public class SettingsValues {
     public final boolean mGestureTrailEnabled;
     public final int mGestureTrailFadeoutDuration;
     public final boolean mGestureFloatingPreviewTextEnabled;
+    public final boolean mGestureFloatingPreviewDynamic;
     public final int mGestureFloatingPreviewTimeout;
     public final int mGestureFastTypingCooldown;
     public final boolean mSlidingKeyInputPreviewEnabled;
@@ -209,6 +210,7 @@ public class SettingsValues {
         mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        mGestureFloatingPreviewDynamic = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, true);
         mGestureFloatingPreviewTimeout = Settings.readGestureFloatingPreviewTimeout(prefs, res);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);

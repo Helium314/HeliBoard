@@ -16,14 +16,20 @@
         android:defaultValue="true"
         android:persistent="true" />
     <SwitchPreference
+        android:key="gesture_preview_trail"
+        android:title="@string/gesture_preview_trail"
+        android:defaultValue="true"
+        android:persistent="true" />
+    <SwitchPreference
         android:key="gesture_floating_preview_text"
         android:title="@string/gesture_floating_preview_text"
         android:summary="@string/gesture_floating_preview_text_summary"
         android:defaultValue="true"
         android:persistent="true" />
     <SwitchPreference
-        android:key="gesture_preview_trail"
-        android:title="@string/gesture_preview_trail"
+        android:key="gesture_floating_preview_dynamic"
+        android:title="@string/gesture_floating_preview_dynamic"
+        android:summary="@string/gesture_floating_preview_dynamic_summary"
         android:defaultValue="true"
         android:persistent="true" />
     <SwitchPreference

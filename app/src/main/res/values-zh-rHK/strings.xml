@@ -45,8 +45,8 @@
     <string name="gesture_input">"啟用手勢輸入功能"</string>
     <string name="gesture_input_summary">"透過在字母上滑動輸入字詞"</string>
     <string name="gesture_preview_trail">"顯示觸控蹤跡"</string>
-    <string name="gesture_floating_preview_text">"動態浮動預覽"</string>
     <string name="gesture_floating_preview_text_summary">"在啟用手勢輸入時顯示建議的字詞"</string>
+    <string name="gesture_floating_preview_dynamic">"動態浮動預覽"</string>
     <string name="gesture_space_aware">"詞組手勢"</string>
     <string name="gesture_space_aware_summary">"在手勢輸入過程中，滑過空白鍵即可輸入空格"</string>
     <string name="subtype_en_GB">"英文 (英國)"</string>

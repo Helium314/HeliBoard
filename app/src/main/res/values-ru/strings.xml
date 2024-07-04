@@ -45,8 +45,8 @@
     <string name="gesture_input">"Включить функцию"</string>
     <string name="gesture_input_summary">"Вводите слова, не отрывая пальца от клавиатуры"</string>
     <string name="gesture_preview_trail">Рисовать линию</string>
-    <string name="gesture_floating_preview_text">Показывать подсказки</string>
     <string name="gesture_floating_preview_text_summary">Показывать подсказки при вводе текста</string>
+    <string name="gesture_floating_preview_dynamic">Показывать подсказки</string>
     <string name="gesture_space_aware">Непрерывный ввод фраз</string>
     <string name="gesture_space_aware_summary">Проводите по клавише пробела после каждого слова</string>
     <string name="subtype_en_GB">Английский (Великобритания)</string>

@@ -45,8 +45,8 @@
     <string name="gesture_input">"Washa kuandika kwa ishara"</string>
     <string name="gesture_input_summary">"Ingiza neno kwa kutelezesha juu ya herufi"</string>
     <string name="gesture_preview_trail">"Onyesha njia ya ishara"</string>
-    <string name="gesture_floating_preview_text">"Kihakiki kinachobadilika cha kuelea"</string>
     <string name="gesture_floating_preview_text_summary">"Onyesha neno lililopendekezwa unapoonyesha ishara"</string>
+    <string name="gesture_floating_preview_dynamic">"Kihakiki kinachobadilika cha kuelea"</string>
     <string name="gesture_space_aware">"Ishara ya fungu la maneno"</string>
     <string name="gesture_space_aware_summary">"Weka nafasi wakati wa ishara kwa kuelea katika kitufe cha nafasi"</string>
     <string name="subtype_en_GB">"Kiingereza cha (Uingereza)"</string>
