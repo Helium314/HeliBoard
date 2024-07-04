@@ -165,7 +165,7 @@
     <!-- Title of the setting to adjust the gesture floating preview linger timeout [CHAR LIMIT=35]-->
     <string name="gesture_floating_preview_timeout">Preview lingering time</string>
     <!-- The text that represents no delay [CHAR LIMIT=25]-->
-    <string name="gesture_floating_preview_timeout_instant">Instant</string>
+    <string name="gesture_floating_preview_timeout_instant">Dismiss instantly</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->

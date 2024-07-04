@@ -94,11 +94,11 @@ public class SettingsValues {
     public final boolean mCenterSuggestionTextToEnter;
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
-    public final int mGestureTrailFadeoutDuration;
     public final boolean mGestureFloatingPreviewTextEnabled;
-    public final boolean mGestureFloatingPreviewDynamic;
-    public final int mGestureFloatingPreviewTimeout;
+    public final boolean mGestureFloatingPreviewDynamicEnabled;
     public final int mGestureFastTypingCooldown;
+    public final int mGestureTrailFadeoutDuration;
+    public final int mGestureFloatingPreviewTimeout;
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
@@ -208,7 +208,7 @@ public class SettingsValues {
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
-        mGestureFloatingPreviewDynamic = Settings.readGestureDynamicPreviewEnabled(prefs, context);
+        mGestureFloatingPreviewDynamicEnabled = Settings.readGestureDynamicPreviewEnabled(prefs, context);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mGestureTrailFadeoutDuration = Settings.readGestureTrailFadeoutDuration(prefs, res);
         mGestureFloatingPreviewTimeout = Settings.readGestureFloatingPreviewTimeout(prefs, res);
