@@ -138,9 +138,8 @@ val defaultToolbarPref by lazy {
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
 
-val defaultPinnedToolbarPref by lazy {
-    val others = entries.filterNot { it == PASTE || it == CLOSE_HISTORY }
-    "${PASTE.name},true;" + others.joinToString(";") { "${it.name},false" }
+val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
+    "${it.name},false"
 }
 
 val defaultClipboardToolbarPref by lazy {
