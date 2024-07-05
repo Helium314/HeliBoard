@@ -96,6 +96,9 @@
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>
     <fraction name="config_more_suggestions_info_ratio">18%</fraction>
 
+    <!-- Common clipboard suggestion configuration. -->
+    <bool name="config_default_suggest_clipboard_content">true</bool>
+
     <!-- Common gesture trail parameters -->
     <!-- Minimum distance between gesture trail sampling points. -->
     <dimen name="config_gesture_trail_min_sampling_distance">9.6dp</dimen>

@@ -1648,7 +1648,11 @@ public final class InputLogic {
         final SuggestedWords suggestedWords = holder.get(null,
                 Constants.GET_SUGGESTED_WORDS_TIMEOUT);
         if (suggestedWords != null) {
-            mSuggestionStripViewAccessor.showSuggestionStrip(suggestedWords);
+            // Prefer clipboard suggestions (if available and setting is enabled) over beginning of sentence predictions.
+            if (!(suggestedWords.mInputStyle == SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
+                    && mLatinIME.tryShowClipboardSuggestion())) {
+                mSuggestionStripViewAccessor.showSuggestionStrip(suggestedWords);
+            }
         }
         if (DebugFlags.DEBUG_ENABLED) {
             long runTimeMillis = System.currentTimeMillis() - startTimeMillis;
