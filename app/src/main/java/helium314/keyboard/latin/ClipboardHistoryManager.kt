@@ -49,7 +49,7 @@ class ClipboardHistoryManager(
         // Make sure we read clipboard content only if history settings is set
         if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true) {
             fetchPrimaryClip()
-            suggestionPicked = false
+            dontShowCurrentSuggestion = false
         }
     }
 
@@ -182,7 +182,8 @@ class ClipboardHistoryManager(
         clipboardSuggestionView = null
 
         // get the content, or return null
-        if (suggestionPicked) return null
+        if (!latinIME.mSettings.current.mSuggestClipboardContent) return null
+        if (dontShowCurrentSuggestion) return null
         if (parent == null) return null
         val clipData = clipboardManager.primaryClip ?: return null
         if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return null
@@ -201,7 +202,7 @@ class ClipboardHistoryManager(
         val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLIPBOARD.name.lowercase())
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(clipIcon, null, null, null)
         textView.setOnClickListener {
-            suggestionPicked = true
+            dontShowCurrentSuggestion = true
             latinIME.onTextInput(content.toString())
             AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it);
             binding.root.isGone = true
@@ -221,7 +222,7 @@ class ClipboardHistoryManager(
     }
 
     private fun removeClipboardSuggestion() {
-        suggestionPicked = true
+        dontShowCurrentSuggestion = true
         val csv = clipboardSuggestionView ?: return
         if (csv.parent != null && !csv.isGone) {
             // clipboard view is shown ->
@@ -234,7 +235,7 @@ class ClipboardHistoryManager(
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
-        private var suggestionPicked: Boolean = false
+        private var dontShowCurrentSuggestion: Boolean = false
         const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }
 }

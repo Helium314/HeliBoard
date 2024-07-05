@@ -1651,24 +1651,28 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 
+    /**
+     *  Checks if a recent clipboard suggestion is available. If available, it is set in suggestion strip.
+     *  returns whether a clipboard suggestion has been set.
+     */
     public boolean tryShowClipboardSuggestion() {
         final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
-        if (clipboardView != null) {
+        if (clipboardView != null && hasSuggestionStripView()) {
             mSuggestionStripView.setExternalSuggestionView(clipboardView);
             return true;
         }
         return false;
     }
 
-    // This will try showing a clipboard suggestion. On success, the toolbar will be hidden if
-    // the "Auto hide toolbar" is enabled. Otherwise, an empty suggestion strip (if prediction
+    // This will first try showing a clipboard suggestion. On success, the toolbar will be hidden
+    // if the "Auto hide toolbar" is enabled. Otherwise, an empty suggestion strip (if prediction
     // is enabled) or punctuation suggestions (if it's disabled) will be set.
     // Then, the toolbar will be shown automatically if the relevant setting is enabled
     // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
-        if (currentSettings.mSuggestClipboardContent && tryShowClipboardSuggestion()) {
+        if (tryShowClipboardSuggestion()) {
             // clipboard suggestion has been set
             if (hasSuggestionStripView() && currentSettings.mAutoHideToolbar)
                 mSuggestionStripView.setToolbarVisibility(false);
