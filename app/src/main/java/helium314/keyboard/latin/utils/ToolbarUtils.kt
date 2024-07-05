@@ -133,7 +133,7 @@ enum class ToolbarKey {
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref by lazy {
-    val default = listOf(VOICE, CLIPBOARD, SETTINGS, SELECT_WORD, UNDO, REDO, COPY, PASTE, LEFT, RIGHT)
+    val default = listOf(VOICE, CLIPBOARD, SETTINGS, UNDO, REDO, SELECT_WORD, COPY, PASTE, LEFT, RIGHT)
     val others = entries.filterNot { it in default || it == CLOSE_HISTORY }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
