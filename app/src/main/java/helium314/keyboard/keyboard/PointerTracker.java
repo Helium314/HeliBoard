@@ -131,7 +131,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // the popup keys panel currently being shown. equals null if no panel is active.
     private PopupKeysPanel mPopupKeysPanel;
 
-    private static final int MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT = 3;
     // true if this pointer is in the dragging finger mode.
     boolean mIsInDraggingFinger;
     // true if this pointer is sliding from a modifier key and in the sliding key input mode,
@@ -142,6 +141,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // true if dragging finger is allowed.
     private boolean mIsAllowedDraggingFinger;
+    // true if a keyswipe gesture is enabled and warranted.
+    private boolean mKeySwipeAllowed = false;
+    private static boolean sInKeySwipe = false;
 
     private final BatchInputArbiter mBatchInputArbiter;
     private final GestureStrokeDrawingPoints mGestureStrokeDrawingPoints;
@@ -637,7 +639,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // A gesture should start only from a non-modifier key. Note that the gesture detection is
         // disabled when the key is repeating.
         mIsDetectingGesture = (mKeyboard != null) && mKeyboard.mId.isAlphabetKeyboard()
-                && key != null && !key.isModifier();
+                && key != null && !key.isModifier() && !mKeySwipeAllowed && !sInKeySwipe;
         if (mIsDetectingGesture) {
             mBatchInputArbiter.addDownEventPoint(x, y, eventTime,
                     sTypingTimeRecorder.getLastLetterTypingTime(), getActivePointerTrackerCount());
@@ -666,6 +668,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         mIsAllowedDraggingFinger = sParams.mKeySelectionByDraggingFinger
                 || (key != null && key.isModifier())
                 || mKeyDetector.alwaysAllowsKeySelectionByDraggingFinger();
+        if (key != null && isSwiper(key.getCode()) && !sInGesture) {
+            mKeySwipeAllowed = true;
+            sInKeySwipe = true;
+        }
         mKeyboardLayoutHasBeenChanged = false;
         mIsTrackingForActionDisabled = false;
         resetKeySelectionByDraggingFinger();
@@ -704,9 +710,19 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         sDrawingProxy.showSlidingKeyInputPreview(null);
     }
 
+    private boolean isSwiper(final int code) {
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        return switch (code) {
+            case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION
+                    || sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION;
+            case KeyCode.DELETE -> sv.mDeleteSwipeEnabled;
+            default -> false;
+        };
+    }
+
     private void onGestureMoveEvent(final int x, final int y, final long eventTime,
             final boolean isMajorEvent, final Key key) {
-        if (!mIsDetectingGesture) {
+        if (!mIsDetectingGesture || sInKeySwipe) {
             return;
         }
         final boolean onValidArea = mBatchInputArbiter.addMoveEventPoint(
@@ -863,23 +879,24 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private void onMoveEventInternal(final int x, final int y, final long eventTime) {
-        final Key oldKey = mCurrentKey;
+    private void onKeySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
-
-        // todo (later): move key swipe stuff to a separate function (and finally extend it)
-        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == Constants.CODE_SPACE) {
-            // reason for timeout: https://github.com/openboard-team/openboard/issues/411
-            final int longpressTimeout = 2 * sv.mKeyLongpressTimeout / MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
-            if (mStartTime + longpressTimeout > System.currentTimeMillis())
-                return;
+        final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
+        // we don't want keyswipes to start immediately if the user is fast-typing,
+        // see https://github.com/openboard-team/openboard/issues/411
+        if (System.currentTimeMillis() < mStartTime + fastTypingTimeout && sTypingTimeRecorder.isInFastTyping(eventTime))
+            return;
+        if (code == Constants.CODE_SPACE) {
             int dX = x - mStartX;
             int dY = y - mStartY;
 
-            // vertical movement
+            // Vertical movement
             int stepsY = dY / sPointerStep;
             if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
-                mInVerticalSwipe = true;
+                if (!mInVerticalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInVerticalSwipe = true;
+                }
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
@@ -889,23 +906,34 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             // Horizontal movement
             int stepsX = dX / sPointerStep;
             if (stepsX != 0 && !mInVerticalSwipe) {
-                mInHorizontalSwipe = true;
+                if (!mInHorizontalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInHorizontalSwipe = true;
+                }
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
                 }
             }
-            return;
-        }
-
-        if (!mIsInSlidingKeyInput && oldKey != null && oldKey.getCode() == KeyCode.DELETE && sv.mDeleteSwipeEnabled) {
+        } else if (code == KeyCode.DELETE) {
             // Delete slider
             int steps = (x - mStartX) / sPointerStep;
-            if (abs(steps) > 2 || (mInHorizontalSwipe && steps != 0)) {
-                sTimerProxy.cancelKeyTimersOf(this);
-                mInHorizontalSwipe = true;
+            if (steps != 0) {
+                if (!mInHorizontalSwipe) {
+                    sTimerProxy.cancelKeyTimersOf(this);
+                    mInHorizontalSwipe = true;
+                }
                 mStartX += steps * sPointerStep;
                 sListener.onMoveDeletePointer(steps);
             }
+        }
+    }
+
+    private void onMoveEventInternal(final int x, final int y, final long eventTime) {
+        final Key oldKey = mCurrentKey;
+
+        // todo (later): move key swipe stuff to KeyboardActionListener (and finally extend it)
+        if (mKeySwipeAllowed) {
+            onKeySwipe(oldKey.getCode(), x, y, eventTime);
             return;
         }
 
@@ -985,7 +1013,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if(mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
+        if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
             sListener.onUpWithDeletePointerActive();
         }
 
@@ -1001,10 +1029,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
 
-        if (mInHorizontalSwipe || mInVerticalSwipe) {
-            mInHorizontalSwipe = false;
-            mInVerticalSwipe = false;
-            return;
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false;
+            if (mInHorizontalSwipe || mInVerticalSwipe) {
+                mInHorizontalSwipe = false;
+                mInVerticalSwipe = false;
+                return;
+            }
         }
 
         if (sInGesture) {
@@ -1049,9 +1081,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (isShowingPopupKeysPanel()) {
             return;
         }
-        if(mInHorizontalSwipe || mInVerticalSwipe) {
-            return;
-        }
         final Key key = getKey();
         if (key == null) {
             return;
@@ -1093,6 +1122,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int translatedY = popupKeysPanel.translateY(mLastY);
         popupKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
         mPopupKeysPanel = popupKeysPanel;
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false;
+        }
     }
 
     private void cancelKeyTracking() {
@@ -1179,7 +1212,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return longpressTimeout * 3 / 2;
         } else if (mIsInSlidingKeyInput) {
             // We use longer timeout for sliding finger input started from a modifier key.
-            return longpressTimeout * MULTIPLIER_FOR_LONG_PRESS_TIMEOUT_IN_SLIDING_INPUT;
+            return longpressTimeout * 3;
         }
         return longpressTimeout;
     }
@@ -1218,6 +1251,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         mCurrentRepeatingKeyCode = code;
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false;
+        }
         mIsDetectingGesture = false;
         final int nextRepeatCount = repeatCount + 1;
         startKeyRepeatTimer(nextRepeatCount);

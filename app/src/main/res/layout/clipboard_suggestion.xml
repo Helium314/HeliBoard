@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:background="@drawable/clipboard_suggestion_background"
+    android:gravity="center"
+    android:paddingRight="12dp"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/clipboard_suggestion_text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/spoken_clipboard_suggestion"
+        android:drawablePadding="3dp"
+        android:paddingHorizontal="12dp"
+        android:hapticFeedbackEnabled="false"
+        android:soundEffectsEnabled="false"
+        android:singleLine="true"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        style="?android:attr/textAppearanceSmall" />
+    <ImageView
+        android:id="@+id/clipboard_suggestion_close"
+        android:src="@drawable/ic_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+</LinearLayout>
