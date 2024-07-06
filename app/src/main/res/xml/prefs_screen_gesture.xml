@@ -38,6 +38,7 @@
         android:defaultValue="false"
         android:persistent="true" />
     <PreferenceCategory
+        android:key="gesture_settings_advanced"
         android:title="@string/settings_screen_advanced">
         <helium314.keyboard.latin.settings.SeekBarDialogPreference
             android:key="gesture_fast_typing_cooldown"
@@ -54,6 +55,6 @@
             android:key="gesture_floating_preview_timeout"
             android:title="@string/gesture_floating_preview_timeout"
             latin:maxValue="@integer/config_gesture_floating_preview_timeout_max"
-            latin:stepValue="@integer/config_gesture_floating_preview_timeout_step" />
+            latin:stepValue="@integer/config_gesture_trail_fadeout_duration_step" />
     </PreferenceCategory>
 </PreferenceScreen>
