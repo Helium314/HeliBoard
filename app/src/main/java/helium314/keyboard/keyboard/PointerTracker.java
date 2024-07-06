@@ -880,7 +880,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private boolean oneShotKeySwipe(final int swipeSetting) {
+    private boolean oneShotSwipe(final int swipeSetting) {
         return switch (swipeSetting) {
             case KeyboardActionListener.SWIPE_NO_ACTION, KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> true;
             default -> false;
@@ -904,7 +904,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 if (!mInVerticalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInVerticalSwipe = true;
-                } else if (oneShotKeySwipe(sv.mSpaceSwipeVertical)) return;
+                } else if (oneShotSwipe(sv.mSpaceSwipeVertical)) return;
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
@@ -917,7 +917,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInHorizontalSwipe = true;
-                } else if (oneShotKeySwipe(sv.mSpaceSwipeHorizontal)) return;
+                } else if (oneShotSwipe(sv.mSpaceSwipeHorizontal)) return;
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
                 }
