@@ -1112,7 +1112,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         }
         if (code == KeyCode.SYMBOL_ALPHA && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
-            sListener.onCodeInput(KeyCode.NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            sListener.toggleNumpad();
             return;
         }
 

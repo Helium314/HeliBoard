@@ -353,11 +353,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     @Override
-    public void toggleNumpad(final int autoCapsFlags, final int recapitalizeMode) {
+    public void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode) {
         if (DEBUG_ACTION) {
             Log.d(TAG, "toggleNumpad");
         }
-        mState.toggleNumpad(autoCapsFlags, recapitalizeMode);
+        mState.toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode);
     }
 
     public enum KeyboardSwitchState {

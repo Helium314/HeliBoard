@@ -97,6 +97,7 @@ public interface KeyboardActionListener {
      */
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
+    boolean toggleNumpad();
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -140,6 +141,10 @@ public interface KeyboardActionListener {
         }
         @Override
         public boolean onVerticalSpaceSwipe(int steps) {
+            return false;
+        }
+        @Override
+        public boolean toggleNumpad() {
             return false;
         }
         @Override
