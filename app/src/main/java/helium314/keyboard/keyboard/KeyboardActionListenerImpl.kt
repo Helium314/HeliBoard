@@ -71,12 +71,14 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeHorizontal) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> onNumpadSlide()
         else -> false
     }
 
     override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeVertical) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> onNumpadSlide()
         else -> false
     }
 
@@ -127,6 +129,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (wantedIndex < 0)
             wantedIndex += subtypes.size
         KeyboardSwitcher.getInstance().switchToSubtype(subtypes[wantedIndex])
+        return true
+    }
+
+    private fun onNumpadSlide(): Boolean {
+        KeyboardSwitcher.getInstance().toggleNumpad(latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
         return true
     }
 
