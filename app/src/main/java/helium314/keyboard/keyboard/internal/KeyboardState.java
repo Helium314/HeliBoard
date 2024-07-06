@@ -47,7 +47,8 @@ public final class KeyboardState {
         void setEmojiKeyboard();
         void setClipboardKeyboard();
         void setNumpadKeyboard();
-        void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode);
+        void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode,
+                final boolean forceReturnToAlpha);
         void setSymbolsKeyboard();
         void setSymbolsShiftedKeyboard();
 
@@ -206,7 +207,7 @@ public final class KeyboardState {
             return;
         }
         if (state.mMode == MODE_NUMPAD) {
-            setNumpadKeyboard(false);
+            setNumpadKeyboard(false, false);
             return;
         }
         // Symbol mode
@@ -382,7 +383,7 @@ public final class KeyboardState {
         mSwitchActions.setClipboardKeyboard();
     }
 
-    private void setNumpadKeyboard(final boolean withSliding) {
+    private void setNumpadKeyboard(final boolean withSliding, final boolean forceReturnToAlpha) {
         if (DEBUG_INTERNAL_ACTION) {
             Log.d(TAG, "setNumpadKeyboard");
         }
@@ -394,18 +395,19 @@ public final class KeyboardState {
             // Remember symbols shifted state
             mPrevSymbolsKeyboardWasShifted = mIsSymbolShifted;
         }
-        mModeBeforeNumpad = mMode;
+        mModeBeforeNumpad = forceReturnToAlpha ? MODE_ALPHABET : mMode;
         mMode = MODE_NUMPAD;
         mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
         mSwitchActions.setNumpadKeyboard();
         mSwitchState = withSliding ? SWITCH_STATE_MOMENTARY_TO_NUMPAD : SWITCH_STATE_NUMPAD;
     }
 
-    public void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode) {
+    public void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode,
+            final boolean forceReturnToAlpha) {
         if (DEBUG_INTERNAL_ACTION) {
             Log.d(TAG, "toggleNumpad");
         }
-        if (mMode != MODE_NUMPAD) setNumpadKeyboard(withSliding);
+        if (mMode != MODE_NUMPAD) setNumpadKeyboard(withSliding, forceReturnToAlpha);
         else {
             if (mModeBeforeNumpad == MODE_ALPHABET) {
                 setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
@@ -501,7 +503,7 @@ public final class KeyboardState {
         case KeyCode.SYMBOL_ALPHA -> onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.SYMBOL -> onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.ALPHA -> onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
-        case KeyCode.NUMPAD -> toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode);
+        case KeyCode.NUMPAD -> toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode, false);
         }
     }
 
@@ -711,13 +713,14 @@ public final class KeyboardState {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onFinishSlidingInput: " + stateToString(autoCapsFlags, recapitalizeMode));
         }
-        // Switch back to the previous keyboard mode if the user cancels sliding input.
-        switch (mSwitchState) {
+        // Switch back to the previous keyboard mode if the user didn't enter the numpad.
+        if (mMode != MODE_NUMPAD) switch (mSwitchState) {
             case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL -> toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
             case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE -> toggleShiftInSymbols();
             case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT -> setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> setNumpadKeyboard(false);
-            case SWITCH_STATE_MOMENTARY_TO_NUMPAD -> toggleNumpad(false, autoCapsFlags, recapitalizeMode);
+            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> setNumpadKeyboard(false, false);
+        } else if (mSwitchState == SWITCH_STATE_MOMENTARY_TO_NUMPAD) {
+            toggleNumpad(false, autoCapsFlags, recapitalizeMode, false);
         }
     }
 

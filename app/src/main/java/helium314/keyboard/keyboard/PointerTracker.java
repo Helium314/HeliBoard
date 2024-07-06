@@ -268,7 +268,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // primaryCode is different from {@link Key#mKeyCode}.
     private void callListenerOnCodeInput(final Key key, final int primaryCode, final int x,
             final int y, final long eventTime, final boolean isKeyRepeat) {
-        final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
+        final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier()
+                && key.getCode() != KeyCode.NUMPAD; // we allow for the numpad to be toggled from sliding input
         final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState() && !isClearlyInsideKey(key, x, y);
         final int code = altersCode ? key.getAltCode() : primaryCode;
         if (DEBUG_LISTENER) {
@@ -1112,7 +1113,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         }
         if (code == KeyCode.SYMBOL_ALPHA && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
-            sListener.toggleNumpad();
+            // toggle numpad with sliding input enabled, forcing return to the alpha layout when done
+            sListener.toggleNumpad(true, true);
             return;
         }
 
