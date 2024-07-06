@@ -84,9 +84,9 @@ def read_diacritics() -> dict[str, list[str]]:
     with open(diacritics_file) as f:
         for line in f:
             if language == "":
-                language = line.strip()
+                language = line.split("#")[0].strip()
             else:
-                d[language] = list(map(str.strip, line.split(",")))
+                d[language] = list(map(str.strip, line.split("#")[0].split(",")))
                 language = ""
     return d
 
