@@ -116,7 +116,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC = "gesture_floating_preview_dynamic";
-    public static final String PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET = "gesture_dynamic_preview_manually_set";
+    public static final String PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = "gesture_dynamic_preview_manually_set";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
     public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
@@ -316,16 +316,19 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs, final Context context) {
+        final boolean followSystem = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, true);
+        final boolean defValue = readGestureDynamicPreviewDefault(context);
+        final boolean curValue = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, defValue);
+        return followSystem ? defValue : curValue;
+    }
+
+    public static boolean readGestureDynamicPreviewDefault(final Context context) {
         // if transitions are disabled for the system (reduced motion), moving preview should be disabled
-        final boolean defValue = android.provider.Settings.System.getFloat(
+        return android.provider.Settings.System.getFloat(
                 context.getContentResolver(),
                 android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
                 1.0f
         ) != 0.0f;
-        // if user has changed the setting, don't adapt to system
-        final boolean alreadySet = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET, false);
-        return alreadySet ? prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, defValue)
-                : defValue;
     }
 
     public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {

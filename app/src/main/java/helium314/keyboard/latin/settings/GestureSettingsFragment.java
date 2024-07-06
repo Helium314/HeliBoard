@@ -72,7 +72,11 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final SharedPreferences prefs = getSharedPreferences();
         pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs, requireContext()));
         pref.setOnPreferenceChangeListener((preference, newValue) -> {
-            prefs.edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_MANUALLY_SET, true).apply();
+            // default value is based on system reduced motion
+            final boolean defValue = Settings.readGestureDynamicPreviewDefault(requireContext());
+            final boolean followingSystem = newValue.equals(defValue);
+            // allow the default to be overridden
+            prefs.edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, followingSystem).apply();
             needsReload = true;
             return true;
         });
