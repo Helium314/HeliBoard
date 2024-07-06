@@ -25,6 +25,7 @@ import helium314.keyboard.latin.R;
  * - Phrase gesture
  */
 public final class GestureSettingsFragment extends SubScreenFragment {
+    private static final String CATEGORY_ADVANCED = "gesture_settings_advanced";
     private boolean needsReload = false;
 
     @Override
@@ -59,11 +60,9 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, Settings.readGestureInputEnabled(prefs)
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Settings.readGestureInputEnabled(prefs)
-                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, Settings.readGestureInputEnabled(prefs)
-                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
+        setPreferenceVisible(CATEGORY_ADVANCED, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
     }
 
     private void setupGestureDynamicPreviewPref() {
