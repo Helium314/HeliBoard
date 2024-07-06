@@ -161,7 +161,7 @@
     <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
     <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
-    <string name="gesture_trail_fadeout_duration">Trail fading speed</string>
+    <string name="gesture_trail_fadeout_duration">Gesture trail lifespan</string>
     <!-- Title of the setting to adjust the gesture floating preview linger timeout [CHAR LIMIT=35]-->
     <string name="gesture_floating_preview_timeout">Preview lingering time</string>
     <!-- The text that represents no delay [CHAR LIMIT=25]-->
