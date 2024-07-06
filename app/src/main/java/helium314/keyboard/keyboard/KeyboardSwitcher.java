@@ -352,6 +352,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         setKeyboard(KeyboardId.ELEMENT_NUMPAD, KeyboardSwitchState.OTHER);
     }
 
+    @Override
+    public void toggleNumpad(final int autoCapsFlags, final int recapitalizeMode) {
+        if (DEBUG_ACTION) {
+            Log.d(TAG, "toggleNumpad");
+        }
+        mState.toggleNumpad(autoCapsFlags, recapitalizeMode);
+    }
+
     public enum KeyboardSwitchState {
         HIDDEN(-1),
         SYMBOLS_SHIFTED(KeyboardId.ELEMENT_SYMBOLS_SHIFTED),

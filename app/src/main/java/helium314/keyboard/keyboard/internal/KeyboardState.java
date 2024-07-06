@@ -47,6 +47,7 @@ public final class KeyboardState {
         void setEmojiKeyboard();
         void setClipboardKeyboard();
         void setNumpadKeyboard();
+        void toggleNumpad(final int autoCapsFlags, final int recapitalizeMode);
         void setSymbolsKeyboard();
         void setSymbolsShiftedKeyboard();
 
@@ -90,6 +91,7 @@ public final class KeyboardState {
     private static final int MODE_CLIPBOARD = 3;
     private static final int MODE_NUMPAD = 4;
     private int mMode = MODE_ALPHABET;
+    private int mModeBeforeNumpad = MODE_ALPHABET;
     private boolean mIsSymbolShifted;
     private boolean mPrevMainKeyboardWasShiftLocked;
     private boolean mPrevSymbolsKeyboardWasShifted;
@@ -383,13 +385,42 @@ public final class KeyboardState {
         if (DEBUG_INTERNAL_ACTION) {
             Log.d(TAG, "setNumpadKeyboard");
         }
+        if (mMode == MODE_ALPHABET) {
+            // Remember caps lock mode and reset alphabet shift state.
+            mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
+            mAlphabetShiftState.setShiftLocked(false);
+        } else if (mMode == MODE_SYMBOLS) {
+            // Remember symbols shifted state
+            mPrevSymbolsKeyboardWasShifted = mIsSymbolShifted;
+        }
+        mModeBeforeNumpad = mMode;
         mMode = MODE_NUMPAD;
         mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
-        // Remember caps lock mode and reset alphabet shift state.
-        mPrevMainKeyboardWasShiftLocked = mAlphabetShiftState.isShiftLocked();
-        mAlphabetShiftState.setShiftLocked(false);
         mSwitchActions.setNumpadKeyboard();
         mSwitchState = SWITCH_STATE_NUMPAD;
+    }
+
+    public void toggleNumpad(final int autoCapsFlags, final int recapitalizeMode) {
+        if (DEBUG_INTERNAL_ACTION) {
+            Log.d(TAG, "toggleNumpad");
+        }
+        if (mMode != MODE_NUMPAD) setNumpadKeyboard();
+        else switch (mModeBeforeNumpad) {
+            case MODE_ALPHABET -> {
+                setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
+                if (mPrevMainKeyboardWasShiftLocked) {
+                    setShiftLocked(true);
+                }
+                mPrevMainKeyboardWasShiftLocked = false;
+            } case MODE_SYMBOLS -> {
+                if (mPrevSymbolsKeyboardWasShifted) {
+                    setSymbolsShiftedKeyboard();
+                } else {
+                    setSymbolsKeyboard();
+                }
+                mPrevSymbolsKeyboardWasShifted = false;
+            }
+        }
     }
 
     private void setOneHandedModeEnabled(boolean enabled) {
@@ -763,7 +794,7 @@ public final class KeyboardState {
                 setClipboardKeyboard();
             }
         } else if (code == KeyCode.NUMPAD) {
-            setNumpadKeyboard();
+            toggleNumpad(autoCapsFlags, recapitalizeMode);
         } else if (code == KeyCode.SYMBOL) {
             setSymbolsKeyboard();
         } else if (code == KeyCode.START_ONE_HANDED_MODE) {
