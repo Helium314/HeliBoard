@@ -20,6 +20,8 @@
 
     <!-- Spoken description of a suggestion when nothing is specified and the field is blank. -->
     <string name="spoken_empty_suggestion">No suggestion</string>
+    <!-- Spoken description of a suggestion when clipboard content appears as a suggestion. -->
+    <string name="spoken_clipboard_suggestion">Clipboard suggestion</string>
 
     <!-- Spoken description for unknown keyboard keys. -->
     <string name="spoken_description_unknown">Unknown character</string>
