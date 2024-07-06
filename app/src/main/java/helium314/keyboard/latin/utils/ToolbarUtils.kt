@@ -36,12 +36,21 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
 
 fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     VOICE -> KeyCode.VOICE_INPUT
-    SETTINGS -> KeyCode.SETTINGS
     CLIPBOARD -> KeyCode.CLIPBOARD
+    UNDO -> KeyCode.UNDO
+    REDO -> KeyCode.REDO
+    SETTINGS -> KeyCode.SETTINGS
     SELECT_ALL -> KeyCode.CLIPBOARD_SELECT_ALL
+    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     COPY -> KeyCode.CLIPBOARD_COPY
     CUT -> KeyCode.CLIPBOARD_CUT
+    PASTE -> KeyCode.CLIPBOARD_PASTE
     ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
+    AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
+    CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
+    CLOSE_HISTORY -> KeyCode.ALPHA
+    EMOJI -> KeyCode.EMOJI
     LEFT -> KeyCode.ARROW_LEFT
     RIGHT -> KeyCode.ARROW_RIGHT
     UP -> KeyCode.ARROW_UP
@@ -50,21 +59,19 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     WORD_RIGHT -> KeyCode.WORD_RIGHT
     PAGE_UP -> KeyCode.PAGE_UP
     PAGE_DOWN -> KeyCode.PAGE_DOWN
-    UNDO -> KeyCode.UNDO
-    REDO -> KeyCode.REDO
-    INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
-    AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     PAGE_START -> KeyCode.MOVE_START_OF_PAGE
     PAGE_END -> KeyCode.MOVE_END_OF_PAGE
-    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
-    CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
-    CLOSE_HISTORY -> KeyCode.ALPHA
-    EMOJI -> KeyCode.EMOJI
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
+    CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
+    UNDO -> KeyCode.REDO
+    REDO -> KeyCode.UNDO
+    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
+    COPY -> KeyCode.CLIPBOARD_COPY_ALL
+    PASTE -> KeyCode.CLIPBOARD
     LEFT -> KeyCode.WORD_LEFT
     RIGHT -> KeyCode.WORD_RIGHT
     UP -> KeyCode.PAGE_UP
@@ -73,22 +80,26 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     WORD_RIGHT -> KeyCode.MOVE_END_OF_LINE
     PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
     PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
-    UNDO -> KeyCode.REDO
-    REDO -> KeyCode.UNDO
-    COPY -> KeyCode.CLIPBOARD_COPY_ALL
-    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
-    CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
     else -> KeyCode.UNSPECIFIED
 }
 
 fun getStyleableIconId(key: ToolbarKey) = when (key) {
     VOICE -> R.styleable.Keyboard_iconShortcutKey
-    SETTINGS -> R.styleable.Keyboard_iconSettingsKey
     CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
+    UNDO -> R.styleable.Keyboard_iconUndo
+    REDO -> R.styleable.Keyboard_iconRedo
+    SETTINGS -> R.styleable.Keyboard_iconSettingsKey
     SELECT_ALL -> R.styleable.Keyboard_iconSelectAll
+    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
     COPY -> R.styleable.Keyboard_iconCopyKey
     CUT -> R.styleable.Keyboard_iconCutKey
+    PASTE -> R.styleable.Keyboard_iconPasteKey
     ONE_HANDED -> R.styleable.Keyboard_iconStartOneHandedMode
+    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
+    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
+    CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
+    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
+    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
     LEFT -> R.styleable.Keyboard_iconArrowLeft
     RIGHT -> R.styleable.Keyboard_iconArrowRight
     UP -> R.styleable.Keyboard_iconArrowUp
@@ -97,18 +108,10 @@ fun getStyleableIconId(key: ToolbarKey) = when (key) {
     WORD_RIGHT -> R.styleable.Keyboard_iconWordRight
     PAGE_UP -> R.styleable.Keyboard_iconPageUp
     PAGE_DOWN -> R.styleable.Keyboard_iconPageDown
-    UNDO -> R.styleable.Keyboard_iconUndo
-    REDO -> R.styleable.Keyboard_iconRedo
-    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
-    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
-    CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
     PAGE_START -> R.styleable.Keyboard_iconPageStart
     PAGE_END -> R.styleable.Keyboard_iconPageEnd
-    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
-    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
-    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
 }
 
 fun getToolbarIconByName(name: String, context: Context): Drawable? {
@@ -122,7 +125,7 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, INCOGNITO,
+    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, INCOGNITO,
     AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END
 }
@@ -130,7 +133,7 @@ enum class ToolbarKey {
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref by lazy {
-    val default = listOf(VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, LEFT, RIGHT)
+    val default = listOf(SETTINGS, VOICE, CLIPBOARD, UNDO, REDO, SELECT_WORD, COPY, PASTE, LEFT, RIGHT)
     val others = entries.filterNot { it in default || it == CLOSE_HISTORY }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
@@ -140,7 +143,7 @@ val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToS
 }
 
 val defaultClipboardToolbarPref by lazy {
-    val default = listOf(ONE_HANDED, UNDO, UP, DOWN, LEFT, RIGHT, CLEAR_CLIPBOARD, COPY, CUT, SELECT_WORD, CLOSE_HISTORY)
+    val default = listOf(CLEAR_CLIPBOARD, UP, DOWN, LEFT, RIGHT, UNDO, CUT, COPY, PASTE, SELECT_WORD, CLOSE_HISTORY)
     val others = entries.filterNot { it in default }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }

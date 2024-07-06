@@ -242,8 +242,9 @@
     <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
+    <string name="paste" tools:keep="@string/paste" translatable="false">@android:string/paste</string>
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
-    <string name="cut" tools:keep="@string/cut">Cut</string>
+    <string name="cut" tools:keep="@string/cut" translatable="false">@android:string/cut</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>

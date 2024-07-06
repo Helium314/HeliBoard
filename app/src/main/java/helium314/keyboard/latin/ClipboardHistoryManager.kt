@@ -199,12 +199,12 @@ class ClipboardHistoryManager(
         val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
         val textView = binding.clipboardSuggestionText
         textView.text = if (isClipSensitive(inputType)) "*".repeat(content.length) else content
-        val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLIPBOARD.name.lowercase())
+        val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.PASTE.name.lowercase())
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(clipIcon, null, null, null)
         textView.setOnClickListener {
             dontShowCurrentSuggestion = true
             latinIME.onTextInput(content.toString())
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it);
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it)
             binding.root.isGone = true
         }
         val closeButton = binding.clipboardSuggestionClose
