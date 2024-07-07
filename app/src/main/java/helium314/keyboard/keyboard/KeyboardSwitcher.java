@@ -36,9 +36,11 @@ import helium314.keyboard.latin.KeyboardWrapperView;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -148,7 +150,23 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
         } catch (KeyboardLayoutSetException e) {
-            Log.w(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
+            Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
+            try {
+                final InputMethodSubtype qwerty = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
+                mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
+                        .setSubtype(new RichInputMethodSubtype(qwerty))
+                        .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
+                        .setNumberRowEnabled(settingsValues.mShowsNumberRow)
+                        .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
+                        .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
+                        .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
+                        .setOneHandedModeEnabled(oneHandedModeEnabled)
+                        .build();
+                mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
+                showToast("error loading the keyboard, falling back to qwerty", false);
+            } catch (KeyboardLayoutSetException e2) {
+                Log.e(TAG, "even fallback to qwerty failed: " + e2.mKeyboardId, e2.getCause());
+            }
         }
     }
 
