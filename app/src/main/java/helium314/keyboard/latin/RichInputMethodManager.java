@@ -360,10 +360,11 @@ public class RichInputMethodManager {
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    public boolean canSwitchLanguage() {
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && hasMultipleEnabledSubtypesInThisIme(false))
+    public static boolean canSwitchLanguage() {
+        if (!isInitialized()) return false;
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
             return true;
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && mImm.getEnabledInputMethodList().size() > 1)
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
             return true;
         return false;
     }
