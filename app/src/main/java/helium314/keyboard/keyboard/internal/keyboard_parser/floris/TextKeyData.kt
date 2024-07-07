@@ -337,7 +337,7 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     override fun compute(params: KeyboardParams): KeyData? {
-        require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
+        require(groupId in 0..GROUP_ENTER) { "only positive groupIds up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)

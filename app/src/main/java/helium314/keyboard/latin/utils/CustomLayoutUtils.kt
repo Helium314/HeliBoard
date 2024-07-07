@@ -20,6 +20,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToP
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
+import kotlinx.serialization.SerializationException
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
@@ -75,6 +76,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .show()
 }
 
+/** @return true if json, false if simple, null if invalid */
 private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     val params = KeyboardParams()
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
@@ -85,18 +87,23 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
         if (!checkKeys(keys))
             return null
         return true
-    } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
+    } catch (e: SerializationException) {
+        Log.w(TAG, "json parsing error", e)
+    } catch (e: Exception) {
+        Log.w(TAG, "json layout parsed, but considered invalid", e)
+        return null
+    }
     try {
         val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
-    if (layoutContent.trimStart().startsWith("[")) {
+    if (layoutContent.trimStart().startsWith("[") && layoutContent.trimEnd().endsWith("]")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
             RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
-        } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
+        } catch (e: Exception) { Log.w(TAG, "json parsing error", e) }
     }
     return null
 }
