@@ -83,7 +83,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _alpha_: switch to alphabet keyboard (or main phone keyboard in case of phone layout)
   * _symbol_: switch to symbol keyboard (or phone symbols keyboard in case of phone layout)
   * _symbol_alpha_: toggle alpha / symbol keyboard
-  * _numpad_: switch to numpad layout
+  * _numpad_: toggle numpad layout
   * _emoji_: switch to emoji view
   * _com_: display common TLDs (.com and similar, currently not localized)
   * _language_switch_: language switch key
