@@ -503,8 +503,10 @@ public final class KeyboardState {
         case KeyCode.SYMBOL_ALPHA -> onReleaseAlphaSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.SYMBOL -> onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.ALPHA -> onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
-        case KeyCode.NUMPAD -> toggleNumpad(withSliding, autoCapsFlags, recapitalizeMode, false);
-        }
+        case KeyCode.NUMPAD -> {
+            // if no sliding, toggling is instead handled by {@link #onEvent} to accomodate toolbar key
+            if (withSliding) toggleNumpad(true, autoCapsFlags, recapitalizeMode, false);
+        }}
     }
 
     private void onPressAlphaSymbol(final int autoCapsFlags, final int recapitalizeMode) {
@@ -799,6 +801,8 @@ public final class KeyboardState {
             if (Settings.getInstance().getCurrent().mClipboardHistoryEnabled) {
                 setClipboardKeyboard();
             }
+        } else if (code == KeyCode.NUMPAD) {
+            toggleNumpad(false, autoCapsFlags, recapitalizeMode, false);
         } else if (code == KeyCode.SYMBOL) {
             setSymbolsKeyboard();
         } else if (code == KeyCode.START_ONE_HANDED_MODE) {

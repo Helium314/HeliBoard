@@ -37,6 +37,7 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
 fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     VOICE -> KeyCode.VOICE_INPUT
     CLIPBOARD -> KeyCode.CLIPBOARD
+    NUMPAD -> KeyCode.NUMPAD
     UNDO -> KeyCode.UNDO
     REDO -> KeyCode.REDO
     SETTINGS -> KeyCode.SETTINGS
@@ -86,6 +87,7 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
 fun getStyleableIconId(key: ToolbarKey) = when (key) {
     VOICE -> R.styleable.Keyboard_iconShortcutKey
     CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
+    NUMPAD -> R.styleable.Keyboard_iconNumpadKey
     UNDO -> R.styleable.Keyboard_iconUndo
     REDO -> R.styleable.Keyboard_iconRedo
     SETTINGS -> R.styleable.Keyboard_iconSettingsKey
@@ -125,8 +127,8 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, INCOGNITO,
-    AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
+    VOICE, CLIPBOARD, NUMPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED,
+    INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END
 }
 

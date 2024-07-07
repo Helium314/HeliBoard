@@ -52,7 +52,6 @@ public final class KeyboardCodesSet {
         "key_emoji",
         "key_unspecified",
         "key_clipboard",
-        "key_numpad",
         "key_start_onehanded",
         "key_stop_onehanded",
         "key_switch_onehanded"
@@ -78,7 +77,6 @@ public final class KeyboardCodesSet {
         KeyCode.EMOJI,
         KeyCode.NOT_SPECIFIED,
         KeyCode.CLIPBOARD,
-        KeyCode.NUMPAD,
         KeyCode.START_ONE_HANDED_MODE,
         KeyCode.STOP_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE
