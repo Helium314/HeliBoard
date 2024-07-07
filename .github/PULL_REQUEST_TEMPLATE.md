@@ -6,7 +6,7 @@ tl;dr (you should still read the full list though):
 * re-use existing mechanisms / code
 * low performance impact
 * make it a draft if you still want to work on it
-* don't do translation PRs
+* no translations or dictionaries
 
 Further
 * When the PR contains "fixes" <issue number>, the related issue will be linked and automatically closed if the PR is merged (also works for other words like "fix", "resolve", "resolves", "closes", ...)
