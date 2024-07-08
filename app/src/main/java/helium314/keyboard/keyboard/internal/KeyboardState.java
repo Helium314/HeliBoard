@@ -207,7 +207,7 @@ public final class KeyboardState {
             return;
         }
         if (state.mMode == MODE_NUMPAD) {
-            // don't overwrite toggle info in this case
+            // don't overwrite toggle state if reloading from orientation change, etc.
             setNumpadKeyboard(false, false, false);
             return;
         }
@@ -515,7 +515,7 @@ public final class KeyboardState {
         case KeyCode.ALPHA -> onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.NUMPAD -> {
             // if no sliding, toggling is instead handled by {@link #onEvent} to accommodate toolbar key.
-            // also prevent sliding into to the clipboard layout, which isn't supported yet.
+            // also prevent sliding to clipboard layout, which isn't supported yet.
             if (withSliding) setNumpadKeyboard(true, mModeBeforeNumpad == MODE_CLIPBOARD, true);
         }}
     }
