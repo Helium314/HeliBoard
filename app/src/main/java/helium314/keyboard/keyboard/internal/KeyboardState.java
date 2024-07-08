@@ -514,9 +514,9 @@ public final class KeyboardState {
         case KeyCode.SYMBOL -> onReleaseSymbol(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.ALPHA -> onReleaseAlpha(withSliding, autoCapsFlags, recapitalizeMode);
         case KeyCode.NUMPAD -> {
-            // if no sliding, toggling is instead handled by {@link #onEvent} to accomodate toolbar key.
+            // if no sliding, toggling is instead handled by {@link #onEvent} to accommodate toolbar key.
             // also prevent sliding into to the clipboard layout, which isn't supported yet.
-            if (withSliding) toggleNumpad(true, autoCapsFlags, recapitalizeMode, mModeBeforeNumpad == MODE_CLIPBOARD, true);
+            if (withSliding) setNumpadKeyboard(true, mModeBeforeNumpad == MODE_CLIPBOARD, true);
         }}
     }
 
