@@ -731,9 +731,9 @@ public final class KeyboardState {
             case SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL -> toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
             case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE -> toggleShiftInSymbols();
             case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT -> setAlphabetKeyboard(autoCapsFlags, recapitalizeMode);
-            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> setNumpadKeyboard(false, false, true);
+            case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> setNumpadKeyboard(false, false, false);
         } else if (mSwitchState == SWITCH_STATE_MOMENTARY_TO_NUMPAD) {
-            toggleNumpad(false, autoCapsFlags, recapitalizeMode, false, true);
+            toggleNumpad(false, autoCapsFlags, recapitalizeMode, false, false);
         }
     }
 
