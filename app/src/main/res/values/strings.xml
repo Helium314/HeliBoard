@@ -248,6 +248,7 @@
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
+    <string name="numpad" tools:keep="@string/numpad" translatable="false">@string/layout_numpad</string>
     <string name="settings" tools:keep="@string/settings">Settings</string>
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
@@ -858,6 +859,8 @@ New dictionary:
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <!-- Option to toggle the numpad when swiping the spacebar -->
+    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->

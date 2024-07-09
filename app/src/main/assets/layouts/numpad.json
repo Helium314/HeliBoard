@@ -41,9 +41,9 @@
   [
     { "label": "alpha" },
     { "label": "comma", "width":  0.1 },
-    { "label": "symbol", "type": "character", "width":  0.12 },
+    { "label": "symbol", "width":  0.12 },
     { "label": "0", "type": "numeric" },
-    { "label": "=", "width":  0.12, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
+    { "label": "=", "type": "function", "width":  0.12, "popup": { "relevant": [ { "label": "≠"}, { "label": "≈"} ] } },
     { "label": "period", "width":  0.1 },
     { "label": "action" }
   ]

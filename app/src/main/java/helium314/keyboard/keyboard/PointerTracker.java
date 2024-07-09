@@ -268,7 +268,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // primaryCode is different from {@link Key#mKeyCode}.
     private void callListenerOnCodeInput(final Key key, final int primaryCode, final int x,
             final int y, final long eventTime, final boolean isKeyRepeat) {
-        final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier();
+        final boolean ignoreModifierKey = mIsInDraggingFinger && key.isModifier()
+                && key.getCode() != KeyCode.NUMPAD; // we allow for the numpad to be toggled from sliding input
         final boolean altersCode = key.altCodeWhileTyping() && sTimerProxy.isTypingState() && !isClearlyInsideKey(key, x, y);
         final int code = altersCode ? key.getAltCode() : primaryCode;
         if (DEBUG_LISTENER) {
@@ -879,6 +880,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
+    private boolean oneShotSwipe(final int swipeSetting) {
+        return switch (swipeSetting) {
+            case KeyboardActionListener.SWIPE_NO_ACTION, KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> true;
+            default -> false;
+        };
+    }
+
     private void onKeySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getInstance().getCurrent();
         final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
@@ -896,7 +904,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 if (!mInVerticalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInVerticalSwipe = true;
-                }
+                } else if (oneShotSwipe(sv.mSpaceSwipeVertical)) return;
                 if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
@@ -909,7 +917,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 if (!mInHorizontalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInHorizontalSwipe = true;
-                }
+                } else if (oneShotSwipe(sv.mSpaceSwipeHorizontal)) return;
                 if (sListener.onHorizontalSpaceSwipe(stepsX)) {
                     mStartX += stepsX * sPointerStep;
                 }
@@ -1105,7 +1113,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             }
         }
         if (code == KeyCode.SYMBOL_ALPHA && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
-            sListener.onCodeInput(KeyCode.NUMPAD, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            // toggle numpad with sliding input enabled, forcing return to the alpha layout when done
+            sListener.toggleNumpad(true, true);
             return;
         }
 

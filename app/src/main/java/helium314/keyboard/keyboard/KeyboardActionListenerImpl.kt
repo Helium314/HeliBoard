@@ -71,13 +71,20 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeHorizontal) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
     }
 
     override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeVertical) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
+    }
+
+    override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
+        KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
+        return true
     }
 
     override fun onMoveDeletePointer(steps: Int) {

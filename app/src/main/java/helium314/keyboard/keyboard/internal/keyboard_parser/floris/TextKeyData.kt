@@ -480,7 +480,6 @@ sealed interface KeyData : AbstractKeyData {
         // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
         KeyLabel.COM -> ".com"
         KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-        KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
         KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
         KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
         KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
