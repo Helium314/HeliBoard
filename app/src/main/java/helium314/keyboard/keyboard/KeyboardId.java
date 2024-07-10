@@ -63,6 +63,7 @@ public final class KeyboardId {
     public static final int ELEMENT_EMOJI_CATEGORY16 = 26;
     public static final int ELEMENT_CLIPBOARD = 27;
     public static final int ELEMENT_NUMPAD = 28;
+    public static final int ELEMENT_CLIP_EMOJI_BOTTOM_ROW = 29; // todo: maybe separate for customization
 
     public final RichInputMethodSubtype mSubtype;
     public final int mWidth;

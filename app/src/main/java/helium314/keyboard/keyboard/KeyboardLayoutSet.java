@@ -70,7 +70,7 @@ public final class KeyboardLayoutSet {
         int mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
-        EditorInfo mEditorInfo;
+        public EditorInfo mEditorInfo;
         boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
         boolean mDeviceLocked;
@@ -78,10 +78,10 @@ public final class KeyboardLayoutSet {
         boolean mLanguageSwitchKeyEnabled;
         boolean mEmojiKeyEnabled;
         boolean mOneHandedModeEnabled;
-        RichInputMethodSubtype mSubtype;
+        public RichInputMethodSubtype mSubtype;
         boolean mIsSpellChecker;
-        int mKeyboardWidth;
-        int mKeyboardHeight;
+        public int mKeyboardWidth;
+        public int mKeyboardHeight;
         String mScript = ScriptUtils.SCRIPT_LATIN;
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
