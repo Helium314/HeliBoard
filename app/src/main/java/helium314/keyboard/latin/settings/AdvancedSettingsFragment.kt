@@ -149,6 +149,11 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             customCurrencyDialog()
             true
         }
+
+        findPreference<Preference>("switch_after")?.setOnPreferenceClickListener {
+            switchToMainDialog()
+            true
+        }
     }
 
     override fun onStart() {
@@ -483,6 +488,31 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             .create()
         et.doAfterTextChanged { d.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = et.text.toString().splitOnWhitespace().none { it.length > 8 } }
         d.show()
+    }
+
+    private fun switchToMainDialog() {
+        val checked = booleanArrayOf(
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true),
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false),
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false),
+        )
+        val titles = arrayOf(
+            requireContext().getString(R.string.after_symbol_and_space),
+            requireContext().getString(R.string.after_emoji),
+            requireContext().getString(R.string.after_clip),
+        )
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.switch_keyboard_after)
+            .setMultiChoiceItems(titles, checked) { _, i, b -> checked[i] = b }
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                sharedPreferences.edit {
+                    putBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, checked[0])
+                    putBoolean(Settings.PREF_ABC_AFTER_EMOJI, checked[1])
+                    putBoolean(Settings.PREF_ABC_AFTER_CLIP, checked[2])
+                }
+            }
+            .show()
     }
 
     private fun setupKeyLongpressTimeoutSettings() {

@@ -782,17 +782,11 @@ public final class KeyboardState {
                     || code == KeyCode.MULTIPLE_CODE_POINTS)) {
                 mSwitchState = SWITCH_STATE_SYMBOL;
             }
-            // Switch back to alpha keyboard mode if user types one or more non-space/enter
-            // characters followed by a space/enter.
-            if (isSpaceOrEnter(code)) {
-                toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
-                mPrevSymbolsKeyboardWasShifted = false;
-            }
             break;
         case SWITCH_STATE_SYMBOL:
             // Switch back to alpha keyboard mode if user types one or more non-space/enter
             // characters followed by a space/enter.
-            if (isSpaceOrEnter(code)) {
+            if (isSpaceOrEnter(code) && Settings.getInstance().getCurrent().mAlphaAfterSymbolAndSpace) {
                 toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
                 mPrevSymbolsKeyboardWasShifted = false;
             }

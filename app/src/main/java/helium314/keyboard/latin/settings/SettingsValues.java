@@ -111,6 +111,9 @@ public class SettingsValues {
     public final float mBottomPaddingScale;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
+    public final boolean mAlphaAfterEmojiInEmojiView;
+    public final boolean mAlphaAfterClipHistoryEntry;
+    public final boolean mAlphaAfterSymbolAndSpace;
 
     // From the input box
     @NonNull
@@ -252,6 +255,9 @@ public class SettingsValues {
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
         mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
+        mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
+        mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
+        mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
