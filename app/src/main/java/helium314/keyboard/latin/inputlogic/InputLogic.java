@@ -511,8 +511,7 @@ public final class InputLogic {
             final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
         mInputLogicHandler.onStartBatchInput();
-        handler.showGesturePreviewAndSuggestionStrip(
-                SuggestedWords.getEmptyInstance(), false /* dismissGestureFloatingPreviewText */);
+        handler.showGesturePreviewAndSuggestionStrip(SuggestedWords.getEmptyBatchInstance(), false);
         handler.cancelUpdateSuggestionStrip();
         ++mAutoCommitSequenceNumber;
         mConnection.beginBatchEdit();

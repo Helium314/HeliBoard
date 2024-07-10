@@ -1630,7 +1630,11 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void showSuggestionStrip(final SuggestedWords suggestedWords) {
         if (suggestedWords.isEmpty()) {
-            setNeutralSuggestionStrip();
+            // avoids showing clipboard suggestion when starting gesture typing
+            // should be fine, as there will be another suggestion in a few ms
+            // (but not a great style to avoid this visual glitch, maybe revert this commit and replace with sth better)
+            if (suggestedWords.mInputStyle != SuggestedWords.INPUT_STYLE_UPDATE_BATCH)
+                setNeutralSuggestionStrip();
         } else {
             setSuggestedWords(suggestedWords);
         }

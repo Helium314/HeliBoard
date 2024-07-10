@@ -39,9 +39,13 @@ public class SuggestedWords {
     private static final ArrayList<SuggestedWordInfo> EMPTY_WORD_INFO_LIST = new ArrayList<>(0);
     @NonNull
     private static final SuggestedWords EMPTY = new SuggestedWords(
-            EMPTY_WORD_INFO_LIST, null /* rawSuggestions */, null /* typedWord */,
-            false /* typedWordValid */, false /* willAutoCorrect */,
-            false /* isObsoleteSuggestions */, INPUT_STYLE_NONE, NOT_A_SEQUENCE_NUMBER);
+            EMPTY_WORD_INFO_LIST, null, null, false,
+            false, false, INPUT_STYLE_NONE, NOT_A_SEQUENCE_NUMBER);
+
+    @NonNull
+    private static final SuggestedWords EMPTY_BATCH = new SuggestedWords(
+            EMPTY_WORD_INFO_LIST, null, null, false,
+            false, false, INPUT_STYLE_UPDATE_BATCH, NOT_A_SEQUENCE_NUMBER);
 
     @Nullable
     public final SuggestedWordInfo mTypedWordInfo;
@@ -193,6 +197,11 @@ public class SuggestedWords {
     @NonNull
     public static SuggestedWords getEmptyInstance() {
         return SuggestedWords.EMPTY;
+    }
+
+    @NonNull
+    public static SuggestedWords getEmptyBatchInstance() {
+        return SuggestedWords.EMPTY_BATCH;
     }
 
     // Should get rid of the first one (what the user typed previously) from suggestions
