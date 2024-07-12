@@ -363,9 +363,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         return mExpectedSelStart > 0;
     }
 
-    public boolean canForwardDeleteCharacters() {
+    public boolean noTextAfterCursor() {
         final CharSequence after = getTextAfterCursor(1, 0);
-        return !TextUtils.isEmpty(after);
+        return TextUtils.isEmpty(after);
     }
 
     /**
@@ -728,12 +728,17 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void selectAll() {
         if (!isConnected()) return;
-        mIC.performContextMenuAction(android.R.id.selectAll);
+        if (mExpectedSelStart != mExpectedSelEnd && mExpectedSelStart == 0 && noTextAfterCursor()) { // all text already selected
+            mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
+        } else mIC.performContextMenuAction(android.R.id.selectAll);
     }
 
     public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
         if (!isConnected()) return;
-        if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
+        if (mExpectedSelStart != mExpectedSelEnd) { // already something selected
+            mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
+            return;
+        }
         final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script);
         if (range == null) return;
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
