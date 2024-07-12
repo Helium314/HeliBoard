@@ -812,8 +812,8 @@ New dictionary:
 \n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
 \n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
 \n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
-\n\t• copy &amp;#65515; copy all &lt;br&gt;
-\n\t• select word &amp;#65515; select all &lt;br&gt;
+\n\t• copy &amp;#65515; cut &lt;br&gt;
+\n\t• select word &amp;#8596; select all &lt;br&gt;
 \n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
 \n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
 \n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
