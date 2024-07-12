@@ -239,9 +239,11 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     if (popupKeysSetting == POPUP_KEYS_MORE)
-        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/all_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"))
     else if (popupKeysSetting == POPUP_KEYS_ALL)
-        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt"))
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_all.txt"))
+    else if (popupKeysSetting == POPUP_KEYS_MAIN)
+        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context))
@@ -339,6 +341,7 @@ private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb
 
 const val POPUP_KEYS_ALL = 2
 const val POPUP_KEYS_MORE = 1
+const val POPUP_KEYS_MAIN = 3
 const val POPUP_KEYS_NORMAL = 0
 
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"

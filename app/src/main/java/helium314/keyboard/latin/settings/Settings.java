@@ -507,10 +507,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
+        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "main")) {
             case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
             case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
-            default -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            case "normal" -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            default -> LocaleKeyboardInfosKt.POPUP_KEYS_MAIN;
         };
     }
 

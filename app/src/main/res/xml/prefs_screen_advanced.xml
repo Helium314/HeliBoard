@@ -91,7 +91,7 @@
         android:title="@string/show_popup_keys_title"
         android:entries="@array/show_popup_keys_entries"
         android:entryValues="@array/show_popup_keys_values"
-        android:defaultValue="normal"
+        android:defaultValue="main"
         android:summary="%s"
         android:persistent="true"
         latin:singleLineTitle="false" />

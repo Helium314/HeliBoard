@@ -200,7 +200,9 @@
     <!-- Preferences item for showing popup keys in long-press popup -->
     <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->
-    <string name="show_popup_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <string name="show_popup_keys_normal">Show variants defined in keyboard languages</string>
+    <!-- Option for showing letters common in foreign word (previous default in many language files) -->
+    <string name="show_popup_keys_main">Add very common variants (default)</string>
     <!-- Option for showing letters defined in at least two locales -->
     <string name="show_popup_keys_more">Add common variants</string>
     <!-- Option for showing letters defined in any locale -->
