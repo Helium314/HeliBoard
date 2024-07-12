@@ -16,8 +16,8 @@ import java.util.Locale
 import kotlin.math.round
 
 class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
-    private val popupKeys = hashMapOf<String, List<String>>()
-    private val priorityPopupKeys = hashMapOf<String, List<String>>()
+    private val popupKeys = hashMapOf<String, MutableCollection<String>>()
+    private val priorityPopupKeys = hashMapOf<String, MutableCollection<String>>()
     private val extraKeys = Array<MutableList<KeyData>?>(5) { null }
     var labelSymbol = "\\?123"
         private set
@@ -57,22 +57,23 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     }
 
     init {
-        readStream(dataStream, false)
+        readStream(dataStream, false, true)
         // set default quote popupKeys if necessary
         // should this also be done with punctuation popupKeys?
+        // todo: those defaults should not be in here
         if ("\'" !in popupKeys)
-            popupKeys["\'"] = listOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
+            popupKeys["\'"] = mutableListOf("!fixedColumnOrder!5", "‚", "‘", "’", "‹", "›")
         if ("\"" !in popupKeys)
-            popupKeys["\""] = listOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
+            popupKeys["\""] = mutableListOf("!fixedColumnOrder!5", "„", "“", "”", "«", "»")
         if ("!" !in popupKeys)
-            popupKeys["!"] = listOf("¡")
+            popupKeys["!"] = mutableListOf("¡")
         if (labelQuestion !in popupKeys)
-            popupKeys[labelQuestion] = if (labelQuestion == "?") listOf("¿") else listOf("?", "¿")
+            popupKeys[labelQuestion] = if (labelQuestion == "?") mutableListOf("¿") else mutableListOf("?", "¿")
         if ("punctuation" !in popupKeys)
-            popupKeys["punctuation"] = listOf("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+            popupKeys["punctuation"] = mutableListOf("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
-    private fun readStream(stream: InputStream?, onlyPopupKeys: Boolean) {
+    private fun readStream(stream: InputStream?, onlyPopupKeys: Boolean, priority: Boolean) {
         if (stream == null) return
         stream.reader().use { reader ->
             var mode = READER_MODE_NONE
@@ -87,7 +88,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
                 }
                 when (mode) {
-                    READER_MODE_POPUP_KEYS -> addPopupKeys(line)
+                    READER_MODE_POPUP_KEYS -> addPopupKeys(line, priority)
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyPopupKeys)
@@ -109,19 +110,19 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
 
     fun getShiftSymbolLabel(isTablet: Boolean) = if (isTablet) labelShiftSymbolTablet else labelShiftSymbol
 
-    fun getPopupKeys(label: String): List<String>? = popupKeys[label]
-    fun getPriorityPopupKeys(label: String): List<String>? = priorityPopupKeys[label]
+    fun getPopupKeys(label: String): Collection<String>? = popupKeys[label]
+    fun getPriorityPopupKeys(label: String): Collection<String>? = priorityPopupKeys[label]
 
     // used by simple parser only, but could be possible for json as well (if necessary)
     fun getExtraKeys(row: Int): List<KeyData>? =
         if (row > extraKeys.size) null
             else extraKeys[row]
 
-    fun addFile(dataStream: InputStream?) {
-        readStream(dataStream, true)
+    fun addFile(dataStream: InputStream?, priority: Boolean) {
+        readStream(dataStream, true, priority)
     }
 
-    private fun addPopupKeys(line: String) {
+    private fun addPopupKeys(line: String, priority: Boolean) {
         val split = if (line.contains("|"))
                 // if a popup key contains label/code separately, there are cases where space can be in there too
                 // normally this should work for all popup keys, but if we split them on whitespace there is less chance for unnecessary issues
@@ -129,26 +130,14 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
             else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
-        val priorityMarkerIndex = split.indexOf("%")
-        if (priorityMarkerIndex > 0) {
-            val existingPriorityPopupKeys = priorityPopupKeys[key]
-            val newPriorityPopupKeys = split.subList(1, priorityMarkerIndex)
-            priorityPopupKeys[key] = if (existingPriorityPopupKeys == null) newPriorityPopupKeys
-                else existingPriorityPopupKeys + newPriorityPopupKeys
-            val existingPopupKeys = popupKeys[key]
-            val newPopupKeys = split.subList(priorityMarkerIndex + 1, split.size)
-            popupKeys[key] = if (existingPopupKeys == null) newPopupKeys
-                else existingPopupKeys + newPopupKeys
-        } else {
-            // a but more special treatment, this should not occur together with priority marker (but technically could)
-            val existingPopupKeys = popupKeys[key]
-            val newPopupKeys = if (existingPopupKeys == null)
-                    split.drop(1)
-                else mergePopupKeys(existingPopupKeys, split.drop(1))
-            popupKeys[key] = when (key) {
-                "'", "\"", "«", "»" -> addFixedColumnOrder(newPopupKeys)
-                else -> newPopupKeys
-            }
+        val popupsMap = if (priority) priorityPopupKeys else popupKeys
+        if (popupsMap[key] is MutableList)
+            popupsMap[key] = popupsMap[key]!!.toMutableSet().also { it.addAll(split.drop(1)) }
+        else if (popupsMap.containsKey(key)) popupsMap[key]!!.addAll(split.drop(1))
+        else popupsMap[key] = split.drop(1).toMutableList() // first use a list because usually it's enough
+        adjustAutoColumnOrder(popupsMap[key]!!)
+        when (key) {
+            "'", "\"", "«", "»" -> addFixedColumnOrder(popupsMap[key]!!)
         }
     }
 
@@ -219,15 +208,31 @@ private fun mergePopupKeys(original: List<String>, added: List<String>): List<St
     return original + added
 }
 
-private fun addFixedColumnOrder(popupKeys: List<String>): List<String> {
-    val newPopupKeys = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
-    return listOf("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${newPopupKeys.size}") + newPopupKeys
+private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {
+    // use intermediate list, because we can't add first in a LinkedHashSet (i.e. MutableSet)
+    popupKeys.removeAll { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
+    val temp = popupKeys.toList()
+    popupKeys.clear()
+    popupKeys.add("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${temp.size}")
+    popupKeys.addAll(temp)
 }
 
+private fun adjustAutoColumnOrder(popupKeys: MutableCollection<String>) {
+    // same style as above
+    // currently, POPUP_KEYS_AUTO_COLUMN_ORDER is only used for 2 lines of punctuation popups, so assume 2 lines
+    if (!popupKeys.removeAll { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) })
+        return
+    val temp = popupKeys.toList()
+    popupKeys.clear()
+    popupKeys.add("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${((temp.size + 1) / 2).coerceAtMost(10)}")
+    popupKeys.addAll(temp)
+}
+
+// no caching because this might get called first, and thus can mess with the cache
+// those 2 ways of creating could be unified, but whatever...
 fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
-    localeKeyboardInfosCache.getOrPut(locale.toString()) {
-        LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
-    }
+    localeKeyboardInfosCache[locale.toString()]
+        ?: LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
 
 fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
     val locales = params.mSecondaryLocales + params.mId.locale
@@ -238,15 +243,14 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
 
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
-    if (popupKeysSetting == POPUP_KEYS_MORE)
-        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"))
-    else if (popupKeysSetting == POPUP_KEYS_ALL)
-        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_all.txt"))
-    else if (popupKeysSetting == POPUP_KEYS_MAIN)
-        lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"))
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
-        lkt.addFile(getStreamForLocale(locale, context))
+        lkt.addFile(getStreamForLocale(locale, context), true)
+    }
+    when (popupKeysSetting) {
+        POPUP_KEYS_MAIN -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"), false)
+        POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
+        POPUP_KEYS_ALL -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_all.txt"), false)
     }
     return lkt
 }
