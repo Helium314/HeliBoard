@@ -44,7 +44,6 @@
     <string name="gesture_input">Gaitu keinu-idazketa</string>
     <string name="gesture_input_summary">"Idatzi hitzak hizki batetik bestera hatza lerratuta"</string>
     <string name="gesture_preview_trail">"Erakutsi keinuaren bidea"</string>
-    <string name="gesture_floating_preview_text_summary">"Ikusi iradokitako hitza keinua egin bitartean"</string>
     <string name="gesture_floating_preview_dynamic">"Flotatze dinamikodun aurrebista"</string>
     <string name="gesture_space_aware">"Esaldi-keinua"</string>
     <string name="gesture_space_aware_summary">"Sartu zuriuneak keinuak egin bitartean zuriune-teklara lerratuta"</string>

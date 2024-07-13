@@ -45,7 +45,6 @@
     <string name="gesture_input">"ເປີດນຳໃຊ້ການພິມແບບ Gesture"</string>
     <string name="gesture_input_summary">"ໃສ່ຄຳສັບລົງໄປໂດຍການສະໄລ້ຜ່ານໂຕອັກສອນ"</string>
     <string name="gesture_preview_trail">"ສະແດງຫາງຂອງ Gesture"</string>
-    <string name="gesture_floating_preview_text_summary">"ເບິ່ງຄຳທີ່ຖືກແນະນຳໃນເວລາທີ່ກຳລັງຊີ້"</string>
     <string name="gesture_floating_preview_dynamic">"ມີຄຳຕົວຢ່າງລອຍຂຶ້ນມາ"</string>
     <string name="gesture_space_aware">"ການສະແດງທ່າທາງດ້ວຍປະໂຫຍກ"</string>
     <string name="gesture_space_aware_summary">"ໃສ່ຍະຫວ່າງເຂົ້າໄປໃນຂະນະທີ່ສະແດງທ່າທາງ ໂດຍການເລື່ອນໄປທີ່ປຸ່ມຍະຫວ່າງ"</string>

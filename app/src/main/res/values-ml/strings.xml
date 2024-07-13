@@ -45,7 +45,6 @@
     <string name="gesture_input">"ജെസ്റ്റർടൈപ്പിംഗ് സജീവമാക്കുക"</string>
     <string name="gesture_input_summary">"അക്ഷരങ്ങളിലൂടെ സ്ലൈഡ് ചെയ്‌തുകൊണ്ട് ഒരു പദം ടൈപ്പുചെയ്യുക"</string>
     <string name="gesture_preview_trail">"വിരൽചലന ട്രെയിൽ കാണിക്കുക"</string>
-    <string name="gesture_floating_preview_text_summary">"വിരൽചലിത ടൈപ്പിംഗ് ചെയ്യുമ്പോൾ നിർദ്ദേശിക്കപ്പെടുന്ന പദം നോക്കുക"</string>
     <string name="gesture_floating_preview_dynamic">"ചലനാത്മക ഫ്ലോട്ടിംഗ് പ്രിവ്യൂ"</string>
     <string name="gesture_space_aware">"ഫ്രെയ്‌സ് വിരൽചലനം"</string>
     <string name="gesture_space_aware_summary">"വിരൽചലിത ടൈപ്പിംഗിൽ, സ്പെയ്‌സ് കീയിലേക്ക് വിരലുകൾ ചലിപ്പിച്ച് സ്‌പെയ്‌സുകൾ നൽകുക"</string>

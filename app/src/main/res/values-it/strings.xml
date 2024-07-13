@@ -44,7 +44,6 @@
     <string name="gesture_input">"Attiva digitazione gestuale"</string>
     <string name="gesture_input_summary">Digita le parole percorrendo con un gesto le lettere che le compongono</string>
     <string name="gesture_preview_trail">Mostra la traccia del gesto</string>
-    <string name="gesture_floating_preview_text_summary">"Visualizza la parola suggerita durante il gesto"</string>
     <string name="gesture_floating_preview_dynamic">"Anteprima mobile dinamica"</string>
     <string name="gesture_space_aware">"Gesto frase"</string>
     <string name="gesture_space_aware_summary">Inserisci spazi durante i gesti facendo scorrere il dito sulla barra spaziatrice</string>

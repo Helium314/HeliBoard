@@ -45,7 +45,6 @@
     <string name="gesture_input">"제스처 타이핑 사용"</string>
     <string name="gesture_input_summary">"문자를 슬라이드하여 단어 입력"</string>
     <string name="gesture_preview_trail">"제스처 흔적 표시"</string>
-    <string name="gesture_floating_preview_text_summary">"제스처에 따라 추천 단어 보기"</string>
     <string name="gesture_floating_preview_dynamic">"동적 플로팅 미리보기"</string>
     <string name="gesture_space_aware">"구문 제스처"</string>
     <string name="gesture_space_aware_summary">"동작 중에 스페이스바 쪽으로 움직여 공백 입력"</string>

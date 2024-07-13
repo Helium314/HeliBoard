@@ -45,7 +45,6 @@
     <string name="gesture_input">"Актив. на въвеждане чрез жест"</string>
     <string name="gesture_input_summary">"Въвеждане на дума чрез плъзгане на пръст през буквите"</string>
     <string name="gesture_preview_trail">"Следа от жестовете"</string>
-    <string name="gesture_floating_preview_text_summary">"Преглед на предложената дума при използване на жестове"</string>
     <string name="gesture_floating_preview_dynamic">"Динам. плаваща визуализ."</string>
     <string name="gesture_space_aware">"Жест за фрази"</string>
     <string name="gesture_space_aware_summary">"При жестове въвеждaйте интервали чрез плъзгане през съотв. клавиш"</string>

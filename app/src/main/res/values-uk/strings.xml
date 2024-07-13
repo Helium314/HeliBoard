@@ -45,7 +45,6 @@
     <string name="gesture_input">"Увімкнути ввід жестами"</string>
     <string name="gesture_input_summary">"Вводьте слова, проводячи пальцем по літерах"</string>
     <string name="gesture_preview_trail">"Показувати слід жестів"</string>
-    <string name="gesture_floating_preview_text_summary">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_floating_preview_dynamic">"Показувати підказки"</string>
     <string name="gesture_space_aware">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>

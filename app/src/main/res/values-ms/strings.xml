@@ -45,7 +45,6 @@
     <string name="gesture_input">"Dayakan taipan gerak isyarat"</string>
     <string name="gesture_input_summary">"Input perkataan dengan meluncur melalui huruf"</string>
     <string name="gesture_preview_trail">"Tunjukkan jejak gerak isyarat"</string>
-    <string name="gesture_floating_preview_text_summary">"Lihat perkataan yang dicadangkan semasa membuat gerak isyarat"</string>
     <string name="gesture_floating_preview_dynamic">"Pratonton terapung dinamik"</string>
     <string name="gesture_space_aware">"Gerak isyarat frasa"</string>
     <string name="gesture_space_aware_summary">"Luncur ke kekunci ruang untuk masukkan ruang semasa gerak isyarat"</string>

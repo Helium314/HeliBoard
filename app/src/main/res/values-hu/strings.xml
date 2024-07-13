@@ -44,7 +44,6 @@
     <string name="gesture_input">"Kézmozdulatokkal gépelés"</string>
     <string name="gesture_input_summary">Szó beírása betűkön való végig csúsztatással</string>
     <string name="gesture_preview_trail">Mozdulat nyomának mutatása</string>
-    <string name="gesture_floating_preview_text_summary">"A javasolt szó megtekintése kézmozdulat közben"</string>
     <string name="gesture_floating_preview_dynamic">"Dinamikus lebegő előnézet"</string>
     <string name="gesture_space_aware">"Kifejezés-kézmozdulat"</string>
     <string name="gesture_space_aware_summary">Szóköz feletti csúsztatás beilleszti azt</string>

@@ -45,7 +45,6 @@
     <string name="gesture_input">"Ota piirtokirjoitus käyttöön"</string>
     <string name="gesture_input_summary">"Syötä sana piirtämällä kirjaimet sormellasi."</string>
     <string name="gesture_preview_trail">"Näytä eleen jälki"</string>
-    <string name="gesture_floating_preview_text_summary">"Näytä ehdotettu sana piirron aikana"</string>
     <string name="gesture_floating_preview_dynamic">"Dynaaminen kelluva esikatselu"</string>
     <string name="gesture_space_aware">"Ilmausele"</string>
     <string name="gesture_space_aware_summary">"Lisää välilyöntejä eleiden aikana liukumalla välilyöntinäppäimelle"</string>

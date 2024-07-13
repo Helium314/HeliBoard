@@ -45,7 +45,6 @@
     <string name="gesture_input">"Жаңсап терүүнү иштетүү"</string>
     <string name="gesture_input_summary">"Сөздү тамгаларды сүрүп киргизесиз"</string>
     <string name="gesture_preview_trail">"Жаңсоо изи көрүнүп турсун"</string>
-    <string name="gesture_floating_preview_text_summary">"Жаңсалганда сунушталган сөздү көрүү"</string>
     <string name="gesture_floating_preview_dynamic">"Динамикалык калкыма алдын-ала көрүү"</string>
     <string name="gesture_space_aware">"Сөз айкашын жаңсоо"</string>
     <string name="gesture_space_aware_summary">"Боштук баскычын сылоо менен боштуктарды жаңсап киргизиңиз"</string>

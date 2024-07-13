@@ -45,7 +45,6 @@
     <string name="gesture_input">"啟用滑行輸入"</string>
     <string name="gesture_input_summary">"以滑動方式寫出字詞中字母來輸入字詞"</string>
     <string name="gesture_preview_trail">"顯示手勢軌跡"</string>
-    <string name="gesture_floating_preview_text_summary">"使用滑行輸入時顯示建議字詞"</string>
     <string name="gesture_floating_preview_dynamic">"動態浮動預覽"</string>
     <string name="gesture_space_aware">"詞組手勢"</string>
     <string name="gesture_space_aware_summary">"手勢輸入時，滑過空格鍵即可輸入空格"</string>

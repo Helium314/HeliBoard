@@ -45,7 +45,6 @@
     <string name="gesture_input">"אפשר הקלדה רציפה"</string>
     <string name="gesture_input_summary">"הזן מילה על ידי החלקת האצבע מאות לאות"</string>
     <string name="gesture_preview_trail">"הצגת שובל תנועות"</string>
-    <string name="gesture_floating_preview_text_summary">"ראה את המילה המוצעת תוך כדי הזזת האצבע"</string>
     <string name="gesture_floating_preview_dynamic">"תצוגה צפה דינמית"</string>
     <string name="gesture_space_aware">"הקלדה רציפה של משפט"</string>
     <string name="gesture_space_aware_summary">"הזן רווחים במהלך התנועה על ידי החלקה אל מקש הרווח"</string>

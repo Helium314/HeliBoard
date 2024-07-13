@@ -45,7 +45,6 @@
     <string name="gesture_input">"ඉංගිතයෙන් ටයිප් කිරීම සබල කරන්න"</string>
     <string name="gesture_input_summary">"අකුරු ඔස්සේ සර්පණය කිරීමෙන් වචනයක් ආදානය කරන්න"</string>
     <string name="gesture_preview_trail">"ඉංගිතයෙන් මඟ පෙන්වන්න"</string>
-    <string name="gesture_floating_preview_text_summary">"ඉංගිතය කරන අතරතුර යෝජිත වචන බලන්න"</string>
     <string name="gesture_floating_preview_dynamic">"ගතිකව ඉපිලෙන පෙරදසුන"</string>
     <string name="gesture_space_aware">"ජේද ඉංගිතය"</string>
     <string name="gesture_space_aware_summary">"ඉංගිතයන් අතරතුර space යතුර වෙත ලිස්සීම මඟින් ඉඩ ඇතුල් කරන්න"</string>

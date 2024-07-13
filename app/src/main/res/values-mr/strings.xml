@@ -45,7 +45,6 @@
     <string name="gesture_input">"जेश्चर टायपिंग सुरू करा"</string>
     <string name="gesture_input_summary">"अक्षरांमधून स्लायडिंग करून एक शब्द इनपुट करा"</string>
     <string name="gesture_preview_trail">"जेश्चर अनुचिन्ह दर्शवा"</string>
-    <string name="gesture_floating_preview_text_summary">"जेश्चरींग करत असताना सुचविलेले शब्द पहा"</string>
     <string name="gesture_floating_preview_dynamic">"डायनॅमिक फ्लोटिंग पूर्वावलोकन"</string>
     <string name="gesture_space_aware">"वाक्यांश जेश्चर"</string>
     <string name="gesture_space_aware_summary">"स्पेस की वर ग्लायडिंग करून जेश्चर दरम्यान स्थाने इनपुट करा"</string>

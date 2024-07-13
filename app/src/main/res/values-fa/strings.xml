@@ -45,7 +45,6 @@
     <string name="gesture_input">"فعال کردن تایپ حرکتی"</string>
     <string name="gesture_input_summary">"با لغزاندن انگشت روی حروف کلمه وارد کنید"</string>
     <string name="gesture_preview_trail">"نمایش نسخه آزمایشی حرکت"</string>
-    <string name="gesture_floating_preview_text_summary">"مشاهده کلمه پیشنهادی در حین انجام حرکات"</string>
     <string name="gesture_floating_preview_dynamic">"پیش‌نمایش متحرک پویا"</string>
     <string name="gesture_space_aware">"‫ورود عبارت با حرکت اشاره‌ای"</string>
     <string name="gesture_space_aware_summary">"با سراندن انگشت روی کلید فاصله در زمان استفاده از حرکات، فاصله وارد کنید"</string>

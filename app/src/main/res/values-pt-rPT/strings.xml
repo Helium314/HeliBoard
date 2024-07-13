@@ -46,7 +46,6 @@
     <string name="gesture_input">"Ativar escrita por toque"</string>
     <string name="gesture_input_summary">"Introduzir uma palavra ao deslizar lentamente pelas letras"</string>
     <string name="gesture_preview_trail">"Mostrar percurso do gesto"</string>
-    <string name="gesture_floating_preview_text_summary">"Ver palavra sugerida enquanto toca"</string>
     <string name="gesture_floating_preview_dynamic">"Pré-visual. flutuante dinâmica"</string>
     <string name="gesture_space_aware">"Toque de expressão"</string>
     <string name="gesture_space_aware_summary">"Deslize p/ a tecla de espaço p/ introduzir espaços durante toques"</string>

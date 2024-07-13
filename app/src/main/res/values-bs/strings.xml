@@ -46,7 +46,6 @@
     <string name="gesture_input">"Omogućite pisanje pokretima"</string>
     <string name="gesture_input_summary">"Unesite riječ klizanjem prstom preko slova"</string>
     <string name="gesture_preview_trail">"Prikaži trag pokreta"</string>
-    <string name="gesture_floating_preview_text_summary">"Pogledajte predloženu riječ prilikom pravljenja pokreta."</string>
     <string name="gesture_floating_preview_dynamic">"Pregled dinamičkim lebdenjem"</string>
     <string name="gesture_space_aware">"Pokret za fraze"</string>
     <string name="gesture_space_aware_summary">"Klizanjem na tipku za razmak umetni razmake tokom pokreta"</string>

@@ -54,7 +54,6 @@
     <string name="gesture_input">"Activer la saisie gestuelle"</string>
     <string name="gesture_input_summary">"Saisit un mot en faisant glisser le doigt sur les lettres"</string>
     <string name="gesture_preview_trail">"Afficher le tracé du geste"</string>
-    <string name="gesture_floating_preview_text_summary">"Affiche le mot suggéré lors des gestes"</string>
     <string name="gesture_floating_preview_dynamic">"Aperçu flottant dynamique"</string>
     <string name="gesture_space_aware">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary">"Saisir des espaces lors des gestes en glissant vers la barre d\'espace"</string>

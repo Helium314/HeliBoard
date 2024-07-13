@@ -44,7 +44,6 @@
     <string name="gesture_input">Gesteneingabe aktivieren</string>
     <string name="gesture_input_summary">"Durch Bewegen der Finger über die Buchstaben ein Wort eingeben"</string>
     <string name="gesture_preview_trail">"Spur der Touch-Geste anzeigen"</string>
-    <string name="gesture_floating_preview_text_summary">"Vorgeschlagenes Wort bei Bewegung anzeigen"</string>
     <string name="gesture_floating_preview_dynamic">Schwebender Echtzeit-Vorschlag</string>
     <string name="gesture_space_aware">"Phrasengeste"</string>
     <string name="gesture_space_aware_summary">"Leerzeichen durch Bewegung über die Leertaste einfügen"</string>

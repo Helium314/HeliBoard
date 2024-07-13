@@ -45,7 +45,6 @@
     <string name="gesture_input">"Povoliť písanie gestami"</string>
     <string name="gesture_input_summary">"Zadávanie slov prejdením prstom po písmenách"</string>
     <string name="gesture_preview_trail">"Zobrazovať stopu gesta"</string>
-    <string name="gesture_floating_preview_text_summary">"Zobrazenie navrhovaného slova pri písaní gestami"</string>
     <string name="gesture_floating_preview_dynamic">"Dynamická plávajúca ukážka"</string>
     <string name="gesture_space_aware">"Frázové gestá"</string>
     <string name="gesture_space_aware_summary">"Zadávanie medzier prechádzaním cez kláves medzerníka"</string>
