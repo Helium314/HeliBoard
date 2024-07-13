@@ -191,8 +191,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mConfigShowPopupKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
 
-        final int gestureTrailLifespan = Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
-        mGestureFloatingPreviewTextLingerTimeout = gestureTrailLifespan / 4;
+        final int gestureTrailFadeoutDuration = Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
+        mGestureFloatingPreviewTextLingerTimeout = gestureTrailFadeoutDuration / 4;
 
         mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
         mGestureFloatingTextDrawingPreview.setDrawingView(drawingPreviewPlacerView);
