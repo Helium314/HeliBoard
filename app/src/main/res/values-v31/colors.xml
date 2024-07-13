@@ -24,7 +24,7 @@
     <color name="setup_text_action">@android:color/system_accent1_700</color>
     <color name="setup_step_action_text_pressed">@android:color/system_accent1_500</color>
     <color name="action_bar_color">@android:color/system_accent1_50</color>
-    <color name="sliding_items_background">@android:color/system_accent1_50</color>
+    <color name="sliding_items_background">@android:color/system_neutral2_50</color>
     <color name="dialog_background">@android:color/system_neutral2_50</color>
     <color name="drop_down_menu_background">@android:color/system_neutral2_50</color>
 </resources>
