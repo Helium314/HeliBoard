@@ -48,8 +48,6 @@
 
     <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
-    <integer name="config_gesture_floating_preview_timeout_default">200</integer>
-    <integer name="config_gesture_floating_preview_timeout_max">1800</integer>
     <!-- Start delay for gesture trail fade-out: increases the total fading duration (msec) -->
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
     <integer name="config_gesture_trail_fadeout_duration_default">800</integer>

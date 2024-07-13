@@ -25,7 +25,6 @@ import helium314.keyboard.latin.R;
  * - Phrase gesture
  */
 public final class GestureSettingsFragment extends SubScreenFragment {
-    private static final String CATEGORY_ADVANCED = "gesture_settings_advanced";
     private boolean needsReload = false;
 
     @Override
@@ -35,7 +34,6 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         setupGestureDynamicPreviewPref();
         setupGestureFastTypingCooldownPref();
         setupGestureTrailFadeoutPref();
-        setupGesturePreviewTimeoutPref();
         refreshSettingsEnablement();
     }
 
@@ -55,14 +53,16 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
-        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, Settings.readGestureInputEnabled(prefs)
-                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
-        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(CATEGORY_ADVANCED, Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true));
-        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT, prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true));
+        final boolean gestureInputEnabled = Settings.readGestureInputEnabled(prefs);
+        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, gestureInputEnabled);
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, gestureInputEnabled);
+        final boolean gesturePreviewEnabled = gestureInputEnabled && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, gesturePreviewEnabled);
+        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, gestureInputEnabled);
+        setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, gestureInputEnabled);
+        final boolean gestureTrailEnabled = gestureInputEnabled && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
+        // This setting also affects the preview linger duration, so it's visible if either setting is enabled.
+        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, gestureTrailEnabled || gesturePreviewEnabled);
     }
 
     private void setupGestureDynamicPreviewPref() {
@@ -156,48 +156,6 @@ public final class GestureSettingsFragment extends SubScreenFragment {
                 // fade-out has a constant start delay, value text is adjusted accordingly.
                 final int adjustedValue = res.getInteger(R.integer.config_gesture_trail_fadeout_start_delay) + value;
                 return res.getString(R.string.abbreviation_unit_milliseconds, String.valueOf(adjustedValue));
-            }
-
-            @Override
-            public void feedbackValue(final int value) {}
-        });
-    }
-
-    private void setupGesturePreviewTimeoutPref() {
-        final SeekBarDialogPreference pref = findPreference(
-                Settings.PREF_GESTURE_FLOATING_PREVIEW_TIMEOUT);
-        if (pref == null) return;
-        final SharedPreferences prefs = getSharedPreferences();
-        final Resources res = getResources();
-        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
-            @Override
-            public void writeValue(final int value, final String key) {
-                prefs.edit().putInt(key, value).apply();
-                needsReload = true;
-            }
-
-            @Override
-            public void writeDefaultValue(final String key) {
-                prefs.edit().remove(key).apply();
-                needsReload = true;
-            }
-
-            @Override
-            public int readValue(final String key) {
-                return Settings.readGestureFloatingPreviewTimeout(prefs, res);
-            }
-
-            @Override
-            public int readDefaultValue(final String key) {
-                return Settings.readDefaultGestureFloatingPreviewTimeout(res);
-            }
-
-            @Override
-            public String getValueText(final int value) {
-                if (value == 0) {
-                    return res.getString(R.string.gesture_floating_preview_timeout_instant);
-                }
-                return res.getString(R.string.abbreviation_unit_milliseconds, String.valueOf(value));
             }
 
             @Override

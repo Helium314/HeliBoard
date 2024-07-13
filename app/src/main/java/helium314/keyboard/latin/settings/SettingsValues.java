@@ -98,7 +98,6 @@ public class SettingsValues {
     public final boolean mGestureFloatingPreviewDynamicEnabled;
     public final int mGestureFastTypingCooldown;
     public final int mGestureTrailFadeoutDuration;
-    public final int mGestureFloatingPreviewTimeout;
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
@@ -211,7 +210,6 @@ public class SettingsValues {
         mGestureFloatingPreviewDynamicEnabled = Settings.readGestureDynamicPreviewEnabled(prefs, context);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mGestureTrailFadeoutDuration = Settings.readGestureTrailFadeoutDuration(prefs, res);
-        mGestureFloatingPreviewTimeout = Settings.readGestureFloatingPreviewTimeout(prefs, res);
         mAccount = null; // remove? or can it be useful somewhere?
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))

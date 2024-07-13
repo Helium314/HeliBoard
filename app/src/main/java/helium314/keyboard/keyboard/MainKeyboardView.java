@@ -191,7 +191,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mConfigShowPopupKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
 
-        mGestureFloatingPreviewTextLingerTimeout = Settings.getInstance().getCurrent().mGestureFloatingPreviewTimeout;
+        final int gestureTrailLifespan = Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
+        mGestureFloatingPreviewTextLingerTimeout = gestureTrailLifespan / 4;
 
         mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
         mGestureFloatingTextDrawingPreview.setDrawingView(drawingPreviewPlacerView);
@@ -216,7 +217,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
-        mLanguageOnSpacebarHorizontalMargin = (int)getResources().getDimension(
+        mLanguageOnSpacebarHorizontalMargin = (int) getResources().getDimension(
                 R.dimen.config_language_on_spacebar_horizontal_margin);
     }
 
