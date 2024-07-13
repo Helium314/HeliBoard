@@ -283,6 +283,10 @@
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
     <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
+    <!-- Option to remove popup keys that already exist on the base keyboard -->
+    <string name="remove_redundant_popups">Remove redundant popups</string>
+    <!-- Description of the remove_redundant_popups setting -->
+    <string name="remove_redundant_popups_summary">Suppress popup keys that are present on the base layout</string>
     <!-- Title of the setting enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->

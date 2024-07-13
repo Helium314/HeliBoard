@@ -1,6 +1,5 @@
 [popup_keys]
 a ä
-e
 o ö
 u ü
 s ß

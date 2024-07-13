@@ -114,6 +114,7 @@ public class SettingsValues {
     public final boolean mAlphaAfterEmojiInEmojiView;
     public final boolean mAlphaAfterClipHistoryEntry;
     public final boolean mAlphaAfterSymbolAndSpace;
+    public final boolean mRemoveRedundantPopups;
 
     // From the input box
     @NonNull
@@ -258,6 +259,7 @@ public class SettingsValues {
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
+        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
