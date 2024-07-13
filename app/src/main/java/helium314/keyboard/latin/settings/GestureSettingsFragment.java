@@ -66,8 +66,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     }
 
     private void setupGestureDynamicPreviewPref() {
-        final SwitchPreference pref = findPreference(
-                Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
+        final SwitchPreference pref = findPreference(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
         if (pref == null) return;
         final SharedPreferences prefs = getSharedPreferences();
         pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs, requireContext()));
@@ -123,8 +122,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
     }
 
     private void setupGestureTrailFadeoutPref() {
-        final SeekBarDialogPreference pref = findPreference(
-                Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
+        final SeekBarDialogPreference pref = findPreference(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
         if (pref == null) return;
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
