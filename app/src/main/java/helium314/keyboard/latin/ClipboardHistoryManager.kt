@@ -15,7 +15,7 @@ import androidx.core.view.isGone
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
-import helium314.keyboard.keyboard.clipboard.ClipboardImageManager
+import helium314.keyboard.keyboard.clipboard.ClipboardImageProvider
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.isValidNumber
@@ -32,7 +32,7 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
-    private val clipboardImageManager = ClipboardImageManager(latinIME)
+    private val clipboardImageProvider = ClipboardImageProvider(latinIME)
     private var clipboardSuggestionView: View? = null
 
     fun onCreate() {
@@ -66,7 +66,7 @@ class ClipboardHistoryManager(
             val imageUri: Uri?
             val text: CharSequence
             if (clipData.description?.hasMimeType("image/*") == true) {
-                imageUri = clipboardImageManager.saveClipboardImage(clipItem.uri, timeStamp) ?: return
+                imageUri = clipboardImageProvider.saveClipboardImage(clipItem.uri, timeStamp.toString()) ?: return
                 text = ""
             } else {
                 imageUri = null
@@ -115,7 +115,7 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
-        clipboardImageManager.removeOrphanedImages(historyEntries)
+        clipboardImageProvider.removeOrphanedImages(historyEntries)
         removeClipboardSuggestion()
     }
 
@@ -125,7 +125,7 @@ class ClipboardHistoryManager(
         if (canRemove(index)) {
             val imageUri = historyEntries[index].imageUri
             if (imageUri != null) {
-                clipboardImageManager.deleteClipboardImage(imageUri)
+                clipboardImageProvider.deleteClipboardImage(imageUri)
             }
             historyEntries.removeAt(index)
         }
@@ -141,7 +141,7 @@ class ClipboardHistoryManager(
         val maxClipRetentionTime = mins * 60 * 1000L
         val now = System.currentTimeMillis()
         historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
-        clipboardImageManager.removeOrphanedImages(historyEntries)
+        clipboardImageProvider.removeOrphanedImages(historyEntries)
     }
 
     // We do not want to update history while user is visualizing it, so we check retention only

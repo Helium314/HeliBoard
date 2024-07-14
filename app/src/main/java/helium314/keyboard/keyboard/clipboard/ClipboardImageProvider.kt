@@ -3,18 +3,14 @@ package helium314.keyboard.keyboard.clipboard
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import helium314.keyboard.latin.ClipboardHistoryEntry
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.utils.Log
 import java.io.File
 
-class ClipboardImageManager(private val context: Context) {
-    fun saveClipboardImage(imageUri: Uri, timeStamp: Long): Uri? {
-        val mimeType = context.contentResolver?.getType(imageUri) ?: return null
-        val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType) ?: return null
-        val fileName = "$timeStamp.$extension"
+class ClipboardImageProvider(private val context: Context) {
+    fun saveClipboardImage(imageUri: Uri, fileName: String): Uri? {
         try {
             val imagesDir = File(context.filesDir, IMAGES_DIR_NAME)
             val imageFile = File(imagesDir, fileName)
@@ -72,7 +68,7 @@ class ClipboardImageManager(private val context: Context) {
     }
 
     companion object {
-        private val TAG = ClipboardImageManager::class.java.simpleName
+        private val TAG = ClipboardImageProvider::class.java.simpleName
         private const val IMAGES_DIR_NAME = "clipboard_images"
     }
 }
