@@ -73,6 +73,7 @@ public class SettingsValues {
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
     public final boolean mShowsEmojiKey;
+    public final boolean mVarToolbarDirection;
     public final boolean mUsePersonalizedDicts;
     public final boolean mUseDoubleSpacePeriod;
     public final boolean mBlockPotentiallyOffensive;
@@ -122,8 +123,6 @@ public class SettingsValues {
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
-    public final boolean mAutoShowToolbar;
-    public final boolean mAutoHideToolbar;
     public final boolean mSuggestionStripHiddenPerUserSettings;
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;

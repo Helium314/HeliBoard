@@ -1033,8 +1033,7 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // Set neutral suggestions and show the toolbar if the "Auto show toolbar" setting is enabled.
-        // Update the toolbar keys
+        // Update toolbar keys
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
             mSuggestionStripView.updateKeys();
