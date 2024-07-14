@@ -328,49 +328,50 @@
     <string name="prefs_always_show_suggestions_summary">تجاهل طلب التطبيقات الأخرى لتعطيل الاقتراحات (قد يسبب مشاكل)</string>
     <string name="show_popup_hints">إظهار التلميحات الوظيفية</string>
     <string name="dictionary_file_wrong_script">خطأ: البرنامج النصي غير متوافق مع لوحة المفاتيح هذه</string>
-    <string name="show_popup_keys_normal">إظهار المتغيرات المحددة بلغات لوحة المفاتيح (افتراضي)</string>
+    <string name="show_popup_keys_normal">إظهار المتغيرات المحددة بلغات لوحة المفاتيح</string>
     <string name="prefs_bottom_padding_scale">مقياس الحشو السفلي</string>
-    <string name="hidden_features_message">► يؤدي الضغط لفترة طويلة على مفاتيح شريط الأدوات المثبتة إلى وظائف إضافية: &lt;br&gt;
-\n\t • الحافظة &amp;#65515; لصق &lt;br&gt;
-\n\t • تحرك لليسار/لليمين &amp;#65515; التحرك بالكامل يسارًا/يمينًا &lt;br&gt;
-\n\t • التحرك لأعلى/لأسفل &amp;#65515; الصفحة لأعلى/لأسفل &lt;br&gt;
-\n\t • نسخة &amp;#65515; نسخ الكل &lt;br&gt;
-\n\t • اختر كلمة &amp;#65515; حدد الكل &lt;br&gt;
-\n\t • التراجع &amp;#دة &lt;br&gt; &lt;br&gt;
+    <string name="hidden_features_message">"► يؤدي الضغط لفترة طويلة على مفاتيح شريط الأدوات المثبتة إلى وظائف إضافية: &lt;br&gt;
+\n • الحافظة &amp;#65515; لصق &lt;br&gt;
+\n • تحرك لليسار/ لليمين &amp;#65515; كلمة يسار/يمين &lt;br&gt;
+\n • التحرك لأعلى/لأسفل &amp;#65515; الصفحة لأعلى/لأسفل &lt;br&gt;
+\n • كلمة يسار/يمين &amp;#65515; بداية/نهاية السطر &lt;br&gt;
+\n  • صفحة لأعلى/لأسفل &amp;#65515; بداية/نهاية الصفحة &lt;br&gt;
+\n  • نسخة &amp;#65515; قطع &lt;br&gt;
+\n  • اختر كلمة &amp;#8596; حدد الكل &lt;br&gt;
+\n  • التراجع &amp;#8596; إعادة &lt;br&gt; &lt;br&gt;
 \n► يؤدي الضغط لفترة طويلة على المفاتيح في شريط أدوات شريط الاقتراحات إلى تثبيتها على شريط الاقتراحات. &lt;br&gt;&lt;br&gt;
 \n► اضغط لفترة طويلة على مفتاح الفاصلة للوصول إلى عرض الحافظة، أو عرض الرموز التعبيرية، أو الوضع بيد واحدة، أو الإعدادات، أو تبديل اللغة: &lt;br&gt;
-\n\t • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّنًا. &lt;ر&gt;
-\n\t • بالنسبة لبعض التخطيطات، فهو ليس مفتاح الفاصلة، ولكنه المفتاح الموجود في نفس الموضع (على سبيل المثال، إنه \\\'q\\\' لتخطيط Dvorak). &lt;br&gt;&lt;br&gt;
+\n  • سيختفي عرض الرموز التعبيرية وتبديل اللغة إذا كان لديك المفتاح المقابل ممكّنًا. &lt;ر&gt;
+\n  • بالنسبة لبعض التخطيطات، فهو ليس مفتاح الفاصلة، ولكنه المفتاح الموجود في نفس الموضع (على سبيل المثال، إنه \\\'q\\\' لتخطيط Dvorak). &lt;br&gt;&lt;br&gt;
 \n► عند تمكين وضع التصفح المتخفي، لن يتم تعلم أي كلمات، ولن تتم إضافة أي رموز تعبيرية إلى الرسائل الأخيرة. &lt;br&gt;&lt;br&gt;
 \n► اضغط على أيقونة التصفح المتخفي للوصول إلى شريط الأدوات. &lt;br&gt;&lt;br&gt;
 \n► إدخال مفتاح منزلق: اسحب من مفتاح Shift إلى مفتاح آخر لكتابة مفتاح واحد كبير: &lt;br&gt;
-\n\t • يعمل هذا أيضًا مع المفتاح \\\'?123\\\' لكتابة رمز واحد من لوحة مفاتيح الرموز، وللمفاتيح ذات الصلة. &lt;br&gt;&lt;br&gt;
+\n  • يعمل هذا أيضًا مع المفتاح \\\'?123\\\' لكتابة رمز واحد من لوحة مفاتيح الرموز، وللمفاتيح ذات الصلة. &lt;br&gt;&lt;br&gt;
 \n► اضغط مع الاستمرار على مفتاح Shift أو مفتاح الرمز، واضغط على مفتاح واحد أو أكثر، ثم حرر مفتاح Shift أو مفتاح الرمز للعودة إلى لوحة المفاتيح السابقة. &lt;br&gt;&lt;br&gt;
 \n► اضغط لفترة طويلة على أحد الاقتراحات في شريط الاقتراحات لإظهار المزيد من الاقتراحات، ثم اضغط على زر الحذف لإزالة هذا الاقتراح. &lt;br&gt;&lt;br&gt;
 \n► اسحب لأعلى من أحد الاقتراحات لفتح المزيد من الاقتراحات، ثم حرر الاقتراح لتحديده. &lt;br&gt;&lt;br&gt;
 \n► اضغط لفترة طويلة على أحد الإدخالات في سجل الحافظة لتثبيته (احتفظ به في الحافظة حتى تقوم بإلغاء تثبيته). &lt;br&gt;&lt;br&gt;
 \n► اسحب لليسار في عرض الحافظة لإزالة إدخال (باستثناء عندما يكون مثبتًا) &lt;br&gt; &lt;br&gt;
-\n► حدد النص واضغط على مفتاح Shift للتبديل بين الأحرف الكبيرة والصغيرة والكلمات الكبيرة. &lt;br&gt;&lt;br&gt;
+\n► حدد النص واضغط على مفتاح Shift للتبديل بين الكلمات الكبيرة والصغيرة والأحرف الكبيرة. &lt;br&gt;&lt;br&gt;
 \n► يمكنك إضافة قواميس عن طريق فتحها في مستكشف الملفات: &lt;br&gt;
-\n\t • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt;، مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt;&lt;br&gt;
+\n  • يعمل هذا فقط مع &lt;i&gt;content-uris&lt;/i&gt; وليس مع &lt;i&gt;file-uris&lt;/i&gt;، مما يعني أنه قد لا يعمل مع بعض مستكشفات الملفات. &lt;br&gt;&lt;br&gt;
 \n► بالنسبة للمستخدمين الذين يقومون بالنسخ الاحتياطي اليدوي مع الوصول إلى الجذر: &lt;br&gt;
-\n\t • بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد؛ &lt;br&gt;
-\n\t • الملف موجود في /data/user_de/0/package_id/shared_prefs/ على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android. &lt;br&gt;&lt;br&gt;
+\n  • بدءًا من Android 7، لا يكون ملف التفضيلات المشتركة في الموقع الافتراضي، لأن التطبيق يستخدم %s. يعد ذلك ضروريًا حتى يمكن قراءة الإعدادات قبل إلغاء قفل الجهاز، على سبيل المثال. في التمهيد؛ &lt;ر&gt;
+\n  • الملف موجود في /data/user_de/0/package_id/shared_prefs/ على الرغم من أن هذا قد يعتمد على الجهاز وإصدار Android. &lt;br&gt;&lt;br&gt;
 \n&lt;i&gt;&lt;b&gt;وضع التصحيح / تصحيح APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
 \n► اضغط لفترة طويلة على اقتراح لإظهار القاموس المصدر. &lt;br&gt;&lt;br&gt;
 \n► عند استخدام debug APK، يمكنك العثور على إعدادات Debug ضمن التفضيلات المتقدمة، على الرغم من أن الفائدة محدودة باستثناء تفريغ القواميس في السجل. &lt;ر&gt;
-\n\t • بالنسبة لإصدار APK، يتعين عليك النقر على الإصدار في &lt;i&gt;حول&lt;/i&gt; عدة مرات، ثم يمكنك العثور على إعدادات تصحيح الأخطاء في &lt;i&gt;التفضيلات المتقدمة&lt;/i&gt;. &lt;ر&gt;
-\n\t • عند تمكين &lt;i&gt;إظهار معلومات الاقتراح&lt;/i&gt;، ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر. &lt;br&gt;&lt;br&gt;
+\n  • بالنسبة لإصدار APK، تحتاج إلى النقر على الإصدار في &lt;i&gt;حول&lt;/i&gt; عدة مرات، ثم يمكنك العثور على إعدادات تصحيح الأخطاء في &lt;i&gt;التفضيلات المتقدمة&lt;/i&gt;. &lt;ر&gt;
+\n  • عند تمكين &lt;i&gt;إظهار معلومات الاقتراح&lt;/i&gt;، ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر. &lt;br&gt;&lt;br&gt;
 \n► في حالة تعطل التطبيق، سيُطلب منك ما إذا كنت تريد سجلات التعطل عند فتح الإعدادات. &lt;br&gt;&lt;br&gt;
 \n► عند استخدام الكتابة متعددة اللغات، سيُظهر شريط المسافة قيمة الثقة المستخدمة لتحديد اللغة المستخدمة حاليًا. &lt;br&gt;&lt;br&gt;
-\n► ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيله).</string>
+\n► ستحتوي الاقتراحات على بعض الأرقام الصغيرة في الأعلى لإظهار بعض النتائج الداخلية وقاموس المصدر (يمكن تعطيله)."</string>
     <string name="gnu_gpl">رخصة جنو العامة v3.0</string>
     <string name="user_dict_word_already_present">هذه الكلمة موجودة بالفعل في قاموس المستخدم %s. الرجاء كتابة واحدة أخرى.</string>
     <string name="localized_number_row_summary">تفضيل المحلية على الأرقام اللاتينية</string>
     <string name="select_user_colors_summary">حدد الألوان للنص والخلفيات</string>
-    <string name="no_dictionary_message">بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;
-\n
-\n . . . . . . . .يمكنك تنزيل القواميس %1$s، أو التحقق من إمكانية تنزيل قاموس \"%2$s\" مباشرة %3$s.</string>
+    <string name="no_dictionary_message">"بدون قاموس، ستحصل فقط على اقتراحات للنص الذي أدخلته من قبل.&lt;br&gt;
+\n        يمكنك تنزيل القواميس %1$s، أو التحقق مما إذا كان يمكن تنزيل قاموس لـ \"%2$s\" مباشرةً %3$s."</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="البنقالية">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="الكورية">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
@@ -386,7 +387,7 @@
     <string name="subtype_mns">مانسي</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">مانسي (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">عرض المزيد من الالوان</string>
-    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. لا يوجد لون افتراضي، ولن تتم ترجمة الأسماء.</string>
+    <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي عشوائي، ولن تتم ترجمة الأسماء.</string>
     <string name="customize_functional_key_layouts">تخصيص تخطيطات المفاتيح الوظيفية</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
@@ -402,4 +403,28 @@
     <string name="auto_hide_toolbar_summary">إخفاء شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
     <string name="settings_screen_toolbar">شريط الأدوات</string>
     <string name="emoji" tools:keep="@string/emoji">رمز تعبيري</string>
+    <string name="gesture_fast_typing_cooldown">التباطؤ السريع في الكتابة</string>
+    <string name="gesture_fast_typing_cooldown_instant">ابدأ دائمًا على الفور</string>
+    <string name="customize_currencies">تخصيص العملات</string>
+    <string name="customize_currencies_detail">عيّن رموز العملة الرئيسية وما يصل إلى 6 رموز عملة ثانوية، مفصولة بمسافة</string>
+    <string name="load">حمّل</string>
+    <string name="button_save_file">احفظ إلى الملف</string>
+    <string name="copy_to_clipboard">انسخ إلى الحافظة</string>
+    <string name="load_will_overwrite">سيؤدي التحميل إلى استبدال السمة الحالية</string>
+    <string name="page_start" tools:keep="@string/page_start">بداية الصفحة</string>
+    <string name="page_end" tools:keep="@string/page_end">نهاية الصفحة</string>
+    <string name="word_left" tools:keep="@string/word_left">كلمة لليسار</string>
+    <string name="word_right" tools:keep="@string/word_right">كلمة لليمين</string>
+    <string name="page_up" tools:keep="@string/page_up">الصفحة للأعلى</string>
+    <string name="page_down" tools:keep="@string/page_down">الصفحة للأسفل</string>
+    <string name="suggest_clipboard_content_summary">عرض محتوى الحافظة الذي تم نسخه مؤخرًا كاقتراح</string>
+    <string name="suggest_clipboard_content">اقتراح محتوى الحافظة</string>
+    <string name="after_emoji">اختيار الرموز التعبيرية في عرض الرموز التعبيرية</string>
+    <string name="after_clip">تحديد إدخال محفوظات الحافظة</string>
+    <string name="space_swipe_toggle_numpad_entry">تبديل لوحة الأرقام</string>
+    <string name="after_symbol_and_space">الضغط على مفتاح الإدخال أو مسافة بعد المفاتيح الأخرى في عرض الرموز</string>
+    <string name="switch_keyboard_after">التبديل إلى لوحة المفاتيح الرئيسية بعد…</string>
+    <string name="show_popup_keys_main">إضافة متغيرات شائعة جدًا (افتراضي)</string>
+    <string name="remove_redundant_popups_summary">منع المفاتيح المنبثقة الموجودة على تخطيط القاعدة</string>
+    <string name="remove_redundant_popups">إزالة النوافذ المنبثقة الزائدة عن الحاجة</string>
 </resources>

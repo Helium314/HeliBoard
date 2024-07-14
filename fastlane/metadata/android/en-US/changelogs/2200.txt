@@ -1,0 +1,11 @@
+* add ability for saving / exporting custom themes
+* make arrow keys on keyboard repeatable
+* more cursor toolbar keys (page up/down(/start/end, word left/right)
+* add paste key
+* improve key swipe behavior
+* add space swipe setting to toggle numpad
+* add clipboard suggestion for recently copied text
+* de-select text on pressing select keys again
+* tune some colors in settings for Android 12+
+* adjust language dependent popup keys
+* minor fixes and improvements

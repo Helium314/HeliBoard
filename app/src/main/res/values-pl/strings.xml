@@ -221,10 +221,12 @@
     <string name="checksum_mismatch_message">Nieznany plik biblioteki. Czy na pewno pochodzi z zaufanego źródła i jest przeznaczony dla \\\'%s\\\'?</string>
     <string name="hidden_features_message">► Długie naciśnięcie przypiętych klawiszy paska narzędzi zapewnia dodatkową funkcję: &lt;br&gt;
 \n\t• schowek &amp;#65515; wklej &lt;br&gt;
-\n\t• w lewo/w prawo &amp;#65515; na początek/na koniec &lt;br&gt;
+\n\t• w lewo/w prawo &amp;#65515; przed słowo/za słowo &lt;br&gt;
 \n\t• w górę/w dół &amp;#65515; strona w górę/w dół &lt;br&gt;
-\n\t• skopiuj &amp;#65515; skopiuj wszystko &lt;br&gt;
-\n\t• wybierz słowo &amp;#65515; zaznacz wszystko &lt;br&gt;
+\n\t• przed słowo/za słowo &amp;#65515; na początek linii/na koniec linii &lt;br&gt;
+\n\t• strona w górę/w dół &amp;#65515; na początek strony/na koniec strony &lt;br&gt;
+\n\t• skopiuj &amp;#65515; wytnij &lt;br&gt;
+\n\t• wybierz słowo &amp;#8596; zaznacz wszystko &lt;br&gt;
 \n\t• cofnij &amp;#8596; ponów &lt;br&gt; &lt;br&gt;
 \n► Długie naciśnięcie przycisków na pasku narzędzi spowoduje przypięcie ich do paska sugestii. &lt;br&gt; &lt;br&gt;
 \n► Przytrzymaj klawisz przecinka, aby uzyskać dostęp do schowka, emotikonów, trybu jednej ręki, ustawień lub zmiany języka: &lt;br&gt;
@@ -243,12 +245,12 @@
 \n► Możesz dodać słowniki otwierając je w eksploratorze plików: &lt;br&gt;
 \n\t• Działa to tylko z &lt;i&gt;content-uris&lt;/i&gt; nie z &lt;i&gt;file-uris&lt;/i&gt;, co oznacza, że może nie działać z niektórymi eksploratorami plików. &lt;br&gt; &lt;br&gt;
 \n► Do użytkowników wykonujących ręczne kopie zapasowe z dostępem do roota: &lt;br&gt;
-\n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania. &lt;br&gt;
+\n\t• Od Androida 7 udostępniony plik ustawień nie znajduje się w domyślnej lokalizacji, ponieważ aplikacja korzysta z %s. Jest to konieczne, aby można było odczytać ustawienia przed odblokowaniem urządzenia, np. podczas uruchamiania; &lt;br&gt;
 \n\t• Plik zwykle znajduje się w /data/user_de/0/package_id/shared_prefs/, ale może to zależeć od urządzenia i wersji Androida. &lt;br&gt; &lt;br&gt;
 \n&lt;i&gt;&lt;b&gt;Tryb debugowania / aplikacja debug&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
 \n► Przytrzymaj sugestię, aby wyświetlić słownik źródłowy. &lt;br&gt; &lt;br&gt;
 \n► Korzystając z aplikacji debug, w ustawieniach zaawansowanych znajdziesz ustawienia debugowania, choć ich użyteczność jest ograniczona, z wyjątkiem dodawania słowników do dziennika zdarzeń. &lt;br&gt;
-\n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania. &lt;br&gt;
+\n\t• W przypadku aplikacji release należy kilkukrotnie dotknąć jej wersję w sekcji &lt;i&gt;O aplikacji&lt;/i&gt;, a następnie w &lt;i&gt;Ustawieniach zaawansowanych&lt;/i&gt; znaleźć ustawienia debugowania.&lt;br&gt;
 \n\t• Po włączeniu opcji &lt;i&gt;Pokaż informacje o sugestii&lt;/i&gt;, sugestie będą miały na górze cyferki pokazujące wewnętrzne numery i słownik źródłowy. &lt;br&gt; &lt;br&gt;
 \n► W przypadku awarii aplikacji, po otwarciu ustawień zostaniesz zapytany, czy chcesz zapisać dzienniki awarii. &lt;br&gt; &lt;br&gt;
 \n► Podczas pisania wielojęzycznego spacja wyświetli wartość służącą do określenia aktualnie używanego języka. &lt;br&gt; &lt;br&gt;
@@ -259,7 +261,7 @@
     <string name="user_dict_add_word_button">Dodaj słowo</string>
     <string name="select_color_suggestion">Tekst paska sugestii</string>
     <string name="hint_show_keyboard">Dotknij, aby wyświetlić podgląd</string>
-    <string name="show_popup_keys_normal">Pokaż warianty zdefiniowane w językach klawiatury (domyślnie)</string>
+    <string name="show_popup_keys_normal">Pokaż warianty zdefiniowane w językach klawiatury</string>
     <string name="show_popup_keys_more">Pokaż popularne warianty</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Własne</string>
     <string name="replace_dictionary">Zastąp słownik</string>
@@ -385,7 +387,7 @@
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">mansyjski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_mns">mansyjski</string>
     <string name="more_colors">Pokaż więcej kolorów</string>
-    <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Nie ma domyślnego koloru, a nazwy nie zostaną przetłumaczone.</string>
+    <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Domyślny kolor jest losowy, a nazwy nie zostaną przetłumaczone.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Klawisze funkcyjne</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Klawisze funkcyjne (dodatkowe symbole)</string>
     <string name="customize_functional_key_layouts">Dostosuj układy klawiszy funkcyjnych</string>
@@ -401,4 +403,28 @@
     <string name="auto_show_toolbar">Automatyczne wyświetlanie paska narzędzi</string>
     <string name="language_switch_key_behavior">Zachowanie klawisza zmiany języka</string>
     <string name="emoji" tools:keep="@string/emoji">Emotikony</string>
+    <string name="customize_currencies_detail">Ustaw główny i do 6 drugorzędnych symboli waluty, oddzielonych spacją</string>
+    <string name="customize_currencies">Dostosuj waluty</string>
+    <string name="load">Załaduj</string>
+    <string name="copy_to_clipboard">Skopiuj do schowka</string>
+    <string name="load_will_overwrite">Ładowanie spowoduje zastąpienie bieżącego motywu</string>
+    <string name="button_save_file">Zapisz do pliku</string>
+    <string name="page_start" tools:keep="@string/page_start">Na początek strony</string>
+    <string name="page_end" tools:keep="@string/page_end">Na koniec strony</string>
+    <string name="word_left" tools:keep="@string/word_left">Przed słowo</string>
+    <string name="word_right" tools:keep="@string/word_right">Za słowo</string>
+    <string name="page_up" tools:keep="@string/page_up">Strona w górę</string>
+    <string name="page_down" tools:keep="@string/page_down">Strona w dół</string>
+    <string name="gesture_fast_typing_cooldown">Czas odnowienia dla szybkiego pisania</string>
+    <string name="suggest_clipboard_content">Sugeruj zawartość schowka</string>
+    <string name="suggest_clipboard_content_summary">Pokaż ostatnio skopiowaną zawartość jako sugestię</string>
+    <string name="gesture_fast_typing_cooldown_instant">Zawsze zaczynaj natychmiast</string>
+    <string name="space_swipe_toggle_numpad_entry">Przełącz klawiaturę numeryczną</string>
+    <string name="switch_keyboard_after">Przełącz na klawiaturę główną po…</string>
+    <string name="after_emoji">Wybraniu emoji z widoku emotikonów</string>
+    <string name="after_clip">Wybraniu wpisu ze schowka</string>
+    <string name="after_symbol_and_space">Naciśnięciu enter lub spacji po wpisaniu symbolu z widoku symboli</string>
+    <string name="show_popup_keys_main">Dodaj bardzo popularne warianty (domyślne)</string>
+    <string name="remove_redundant_popups_summary">Pomiń klawisze, które są już obecne w układzie podstawowym</string>
+    <string name="remove_redundant_popups">Usuń zbędne wyskakujące okienka</string>
 </resources>

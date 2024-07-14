@@ -363,9 +363,25 @@
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mehr Farben anzeigen</string>
-    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Es gibt keine Standardfarbe, und die Namen werden nicht übersetzt.</string>
+    <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Die Standardfarbe ist zufällig und die Namen werden nicht übersetzt.</string>
     <string name="customize_functional_key_layouts">Anpassen von Funktionstasten-Layouts</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstasten</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstasten (Symbole)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstasten (Mehr Symbole)</string>
+    <string name="gesture_fast_typing_cooldown">Schnelles tippen Abkühlzeit</string>
+    <string name="gesture_fast_typing_cooldown_instant">Immer direkt starten</string>
+    <string name="customize_currencies">Währungen anpassen</string>
+    <string name="customize_currencies_detail">Setze ein Standard und bis zu 6 zusätzliche Währungssymbole, separiert mit einem Leerzeichen</string>
+    <string name="load">Laden</string>
+    <string name="button_save_file">In Datei speichern</string>
+    <string name="copy_to_clipboard">Kopieren in die Zwischenablage</string>
+    <string name="load_will_overwrite">Laden wird die aktuelle Darstellung überschreiben</string>
+    <string name="page_end" tools:keep="@string/page_end">Selten Ende</string>
+    <string name="word_left" tools:keep="@string/word_left">Wort links</string>
+    <string name="word_right" tools:keep="@string/word_right">Wort rechts</string>
+    <string name="page_up" tools:keep="@string/page_up">Seite hoch</string>
+    <string name="page_down" tools:keep="@string/page_down">Seite runter</string>
+    <string name="page_start" tools:keep="@string/page_start">Seiten Anfang</string>
+    <string name="suggest_clipboard_content_summary">Zeige kürzlich kopierte Zwischenablagen Inhalte als Vorschlag</string>
+    <string name="suggest_clipboard_content">Schlage Zwischenablagen Inhalt vor</string>
 </resources>

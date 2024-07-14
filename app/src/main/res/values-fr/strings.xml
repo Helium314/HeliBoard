@@ -290,7 +290,7 @@ Nouveau dictionnaire:
     <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
     <string name="show_popup_keys_title">Afficher plus de signes diacritiques dans les popups</string>
-    <string name="show_popup_keys_normal">Afficher les variantes définies dans les langues du clavier (par défaut)</string>
+    <string name="show_popup_keys_normal">Afficher les variantes définies dans les langues du clavier</string>
     <string name="show_popup_keys_more">Ajouter des variantes générales</string>
     <string name="show_popup_keys_all">Ajouter toutes les variantes disponibles</string>
     <string name="url_detection_title">Détection d\'URL</string>
@@ -306,10 +306,12 @@ Nouveau dictionnaire:
     <string name="hidden_features_text">stockage protégé de l\'appareil</string>
     <string name="hidden_features_message">► L\'appui long sur les touches de la barre d\'outils permet d\'obtenir des fonctionnalités supplémentaires : &lt;br&gt;
 \n\t• presse-papier &amp;#65515; coller &lt;br&gt;
-\n\t• déplacer vers la gauche/droite &amp;#65515; début de ligne/fin de ligne &lt;br&gt;
-\n\t• déplacer vers le haut/bas &amp;#65515; début de page/fin de page &lt;br&gt;
-\n\t• copier &amp;#65515; tout copier &lt;br&gt;
-\n\t• sélectionner mot &amp;#65515; tout sélectionner &lt;br&gt;
+\n\t• déplacer vers la gauche/droite &amp;#65515; mot de gauche/droite &lt;br&gt;
+\n\t• déplacer vers le haut/bas &amp;#65515; page précédente/suivante &lt;br&gt;
+\n\t• mot de gauche/droite &amp;#65515; début/fin de ligne &lt;br&gt;
+\n\t• page précédente/suivante &amp;#65515; début/fin de page &lt;br&gt;
+\n\t• copier &amp;#65515; couper &lt;br&gt;
+\n\t• sélectionner mot &amp;#8596; tout sélectionner &lt;br&gt;
 \n\t• annuler &amp;#8596; restaurer &lt;br&gt; &lt;br&gt;
 \n► Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
 \n► Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
@@ -382,7 +384,7 @@ Nouveau dictionnaire:
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Afficher plus de couleurs</string>
-    <string name="all_colors_warning">Ce paramètre expose toutes les couleurs utilisées en interne. La liste des couleurs peut être modifiée à tout moment. Il n\'y a pas de couleur par défaut et les noms ne seront pas traduits.</string>
+    <string name="all_colors_warning">Ce paramètre expose toutes les couleurs utilisées en interne. La liste des couleurs peut être modifiée à tout moment. La couleur par défaut est aléatoire et les noms ne seront pas traduits.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Touches fonctionnelles</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Touches fonctionnelles (Plus de symboles)</string>
     <string name="customize_functional_key_layouts">Personnaliser la disposition des touches fonctionnelles</string>
@@ -398,4 +400,28 @@ Nouveau dictionnaire:
     <string name="auto_show_toolbar">Afficher automatiquement la barre d\'outils</string>
     <string name="language_switch_key_behavior">Comportement de la touche de changement de langue</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown">Temps de réponse de la saisie rapide</string>
+    <string name="gesture_fast_typing_cooldown_instant">Commencer toujours instantanément</string>
+    <string name="customize_currencies">Personnaliser les devises</string>
+    <string name="customize_currencies_detail">Définir le symbole principal et jusqu\'à 6 symboles secondaires, séparés par un espace</string>
+    <string name="load">Charger</string>
+    <string name="button_save_file">Sauvegarder dans un fichier</string>
+    <string name="copy_to_clipboard">Copier dans le presse-papiers</string>
+    <string name="page_start" tools:keep="@string/page_start">Début de page</string>
+    <string name="page_end" tools:keep="@string/page_end">Fin de page</string>
+    <string name="word_left" tools:keep="@string/word_left">Mot de gauche</string>
+    <string name="suggest_clipboard_content">Suggérer le contenu du presse-papiers</string>
+    <string name="suggest_clipboard_content_summary">Affiche le contenu du presse-papiers récemment copié sous forme de suggestion</string>
+    <string name="word_right" tools:keep="@string/word_right">Mot de droite</string>
+    <string name="page_up" tools:keep="@string/page_up">Haut de page</string>
+    <string name="page_down" tools:keep="@string/page_down">Bas de page</string>
+    <string name="load_will_overwrite">Le chargement écrasera le thème actuel</string>
+    <string name="space_swipe_toggle_numpad_entry">Basculer vers le pavé numérique</string>
+    <string name="switch_keyboard_after">Passer au clavier principal après avoir…</string>
+    <string name="after_clip">Sélectionné une entrée dans l\'historique du presse-papiers</string>
+    <string name="after_symbol_and_space">Appuyé sur Entrée ou sur Espace après la sélection d\'un symbole dans la vue des symboles</string>
+    <string name="after_emoji">Sélectionné un emoji dans la vue des emojis</string>
+    <string name="show_popup_keys_main">Ajouter les variantes les plus courantes (par défaut)</string>
+    <string name="remove_redundant_popups_summary">Supprime les touches des popups présentes sur la disposition de base</string>
+    <string name="remove_redundant_popups">Supprimer les popups redondants</string>
 </resources>

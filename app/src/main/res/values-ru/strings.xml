@@ -370,4 +370,23 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функциональные клавиши (Символы)</string>
     <string name="gesture_fast_typing_cooldown_instant">Всегда начинать немедленно</string>
     <string name="gesture_fast_typing_cooldown">Время восстановления быстрой печати</string>
+    <string name="customize_currencies">Кастомизировать валюты</string>
+    <string name="customize_currencies_detail">Установить главные и до 6 дополнительных символа валют, разделённых пробелом</string>
+    <string name="load">Загрузить</string>
+    <string name="button_save_file">Сохранить в файл</string>
+    <string name="copy_to_clipboard">Скопировать в буфер обмена</string>
+    <string name="load_will_overwrite">Загрузка перезапишет текущую тему</string>
+    <string name="page_start" tools:keep="@string/page_start">Начало страницы</string>
+    <string name="page_end" tools:keep="@string/page_end">Конец страницы</string>
+    <string name="word_left" tools:keep="@string/word_left">Слово левее</string>
+    <string name="word_right" tools:keep="@string/word_right">Слово правее</string>
+    <string name="page_up" tools:keep="@string/page_up">Страница вверх</string>
+    <string name="page_down" tools:keep="@string/page_down">Страница вниз</string>
+    <string name="suggest_clipboard_content">Предложить содержимое буфера обмена</string>
+    <string name="suggest_clipboard_content_summary">Показать недавно скопированное содержимое буфера обмена в качестве предложения</string>
+    <string name="space_swipe_toggle_numpad_entry">Переключить цифровую клавиатуру</string>
+    <string name="switch_keyboard_after">Вернуться к основной клавиатуре после…</string>
+    <string name="after_emoji">Выбор эмодзи в режиме просмотра</string>
+    <string name="after_clip">Выбор записи из истории буфера обмена</string>
+    <string name="after_symbol_and_space">Нажатие Enter или пробела после других клавиш в режиме символов</string>
 </resources>
