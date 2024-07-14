@@ -24,13 +24,12 @@ class KeyboardIconsSet {
         }
     }
 
-    fun getIconDrawable(name: String) = iconsByName[name]
+    fun getIconDrawable(name: String?) = iconsByName[name]
 
     companion object {
         private val TAG = KeyboardIconsSet::class.simpleName
         const val PREFIX_ICON = "!icon/"
 
-        const val NAME_UNDEFINED = "undefined"
         const val NAME_SHIFT_KEY = "shift_key"
         const val NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted"
         const val NAME_SHIFT_KEY_LOCKED = "shift_key_locked"
@@ -58,7 +57,6 @@ class KeyboardIconsSet {
         const val NAME_CLIPBOARD_NORMAL_KEY = "clipboard_normal_key"
         const val NAME_CLEAR_CLIPBOARD_KEY = "clear_clipboard_key"
         const val NAME_CUT_KEY = "cut_key"
-        const val NAME_NUMPAD_KEY = "numpad_key"
         const val NAME_START_ONEHANDED_KEY = "start_onehanded_mode_key"
         const val NAME_STOP_ONEHANDED_KEY = "stop_onehanded_mode_key"
         const val NAME_SWITCH_ONEHANDED_KEY = "switch_onehanded_key"
@@ -91,7 +89,6 @@ class KeyboardIconsSet {
             NAME_CLIPBOARD_NORMAL_KEY to        R.styleable.Keyboard_iconClipboardNormalKey,
             NAME_CLEAR_CLIPBOARD_KEY to         R.styleable.Keyboard_iconClearClipboardKey,
             NAME_CUT_KEY to                     R.styleable.Keyboard_iconCutKey,
-            NAME_NUMPAD_KEY to                  R.styleable.Keyboard_iconNumpadKey,
             NAME_START_ONEHANDED_KEY to         R.styleable.Keyboard_iconStartOneHandedMode,
             NAME_STOP_ONEHANDED_KEY to          R.styleable.Keyboard_iconStopOneHandedMode,
             NAME_SWITCH_ONEHANDED_KEY to        R.styleable.Keyboard_iconSwitchOneHandedMode,

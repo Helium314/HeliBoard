@@ -14,7 +14,7 @@ Does not use internet permission, and thus is 100% offline.
 - [Contributing](#contributing-)
    * [Reporting Issues](#reporting-issues)
    * [Translations](#translations)
-   * [Dictionary Creation](#dictionary-creation)
+   * [To Community Creation](#to-community)
    * [Code Contribution](CONTRIBUTING.md)
 - [To-do](#to-do)
 - [License](#license)
@@ -34,6 +34,7 @@ Does not use internet permission, and thus is 100% offline.
     <li>can follow dynamic colors for Android 12+</li>
   </ul>
   <li>Customize keyboard <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> (only available when disabling <i>use system languages</i>)</li>
+  <li>Customize special layouts, like symbols, number,  or functional key layout</li>
   <li>Multilingual typing</li>
   <li>Glide typing (<i>only with closed source library</i> ☹️)</li>
   <ul>
@@ -44,7 +45,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>One-handed mode</li>
   <li>Split keyboard (only available if the screen is large enough)</li>
   <li>Number pad</li>
-  <li>Backup and restore your learned word / history data</li>
+  <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
 ## FAQ / Common Issues
@@ -69,7 +70,7 @@ Does not use internet permission, and thus is 100% offline.
 
 ## Hidden Functionality
 Features that may go unnoticed, and further potentially useful information
-* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> move full left/right, move up/down -> page up/down, copy -> copy all, select word -> select all, undo <-> redo
+* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> word left/right, move up/down -> page up/down, word left/right -> line start/end, page up/down -> page start/end, copy -> cut, select word <-> select all, undo <-> redo
 * Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
   * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
   * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
@@ -83,6 +84,7 @@ Features that may go unnoticed, and further potentially useful information
 * Select text and press shift to switch between uppercase, lowercase and capitalize words
 * You can add dictionaries by opening the file
   * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
+* Not really a feature, but you can restart the keyboard by going to the settings and swiping it away from recents
 * _Debug mode / debug APK_
   * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
   * When using debug APK, you can find _Debug Settings_ within the _Advanced Preferences_, though the usefulness is limited except for dumping dictionaries into the log.
@@ -111,9 +113,17 @@ If you're interested, you can read the following useful text about effective bug
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
-## Dictionary Creation
-There will not be any further dictionaries bundled in this app. However, you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries).
-To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme.
+## To Community
+You can share your themes, layouts and dictionaries with other people:
+* Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
+* Custom keyboard layouts are text files whose content you can edit, copy and share
+  * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
+  * see [layouts.md](layouts.md) for details
+* Creating dictionaries is a little more work
+  * first you will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
+  * the you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
+  * the resulting file (and ideally the wordlist too) can be shared with other users
+  * note that there will not be any further dictionaries added to this app, but you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries)
 
 ## Code Contribution
 See [Contribution Guidelines](CONTRIBUTING.md)
@@ -131,8 +141,6 @@ __Planned features and improvements:__
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
-* Customizable currency keys
-* Ability to export/import (share) custom colors
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
 * Internal cleanup (a lot of over-complicated and convoluted code)

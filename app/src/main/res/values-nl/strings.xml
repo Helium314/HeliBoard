@@ -3,33 +3,32 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Contactnamen opzoeken"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"De spellingcontrole gebruikt items uit je contactenlijst"</string>
     <string name="vibrate_on_keypress">"Trillen bij toetsaanslag"</string>
     <string name="sound_on_keypress">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress">"Pop-up bij toetsaanslag"</string>
     <string name="settings_screen_preferences">"Voorkeuren"</string>
-    <string name="settings_screen_gesture">"Invoer met bewegingen"</string>
+    <string name="settings_screen_gesture">Typen met gebaren</string>
     <string name="settings_screen_correction">"Tekstcorrectie"</string>
     <string name="settings_screen_advanced">"Geavanceerd"</string>
     <string name="settings_screen_theme">"Thema"</string>
-    <string name="enable_split_keyboard">"Gesplitst toetsenbord inschakelen"</string>
-    <string name="language_switch_key_switch_input_method">"Invoermeth. overschakelen"</string>
-    <string name="show_language_switch_key">"Schakelknop voor taal"</string>
+    <string name="enable_split_keyboard">Gesplitst toetsenbord</string>
+    <string name="language_switch_key_switch_input_method">Invoermethode schakelen</string>
+    <string name="show_language_switch_key">Taalkeuze-toets</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Systeemstandaard"</string>
     <string name="use_contacts_dict">"Contactnamen suggereren"</string>
     <string name="use_contacts_dict_summary">"Namen uit Contacten gebruiken voor suggesties en correcties"</string>
     <string name="use_personalized_dicts">"Gepersonaliseerde suggesties"</string>
-    <string name="use_double_space_period">"Dubbeltik is punt, spatie"</string>
-    <string name="use_double_space_period_summary">"Dubbeltik op spatiebalk voor een punt gevolgd door een spatie"</string>
-    <string name="auto_cap">"Auto-hoofdlettergebruik"</string>
-    <string name="auto_cap_summary">"Het eerste woord van elke zin met een hoofdletter schrijven"</string>
+    <string name="use_double_space_period">Dubbel-spatie punt</string>
+    <string name="use_double_space_period_summary">Dubbele tik op spatiebalk voor een punt gevolgd door een spatie</string>
+    <string name="auto_cap">Automatische hoofdletters</string>
+    <string name="auto_cap_summary">Het eerste woord van elke zin met een hoofdletter</string>
     <string name="edit_personal_dictionary">"Persoonlijk woordenboek"</string>
-    <string name="configure_dictionaries_title">"Woordenboeken toevoegen"</string>
-    <string name="main_dictionary">"Algemeen woordenboek"</string>
+    <string name="configure_dictionaries_title">Aanvullende woordenboeken</string>
+    <string name="main_dictionary">Hoofdwoordenboek</string>
     <string name="prefs_show_suggestions">"Correctievoorstellen weergeven"</string>
     <string name="prefs_show_suggestions_summary">"Voorgestelde woorden weergeven tijdens typen"</string>
     <string name="prefs_block_potentially_offensive_title">"Grof taalgebruik blokkeren"</string>
@@ -37,37 +36,37 @@
     <string name="autocorrect">"Autocorrectie"</string>
     <string name="auto_correction_summary">"Met spatiebalk en interpunctie worden verkeerd gespelde woorden automatisch gecorrigeerd"</string>
     <string name="auto_correction_threshold_mode_off">"Uitgeschakeld"</string>
-    <string name="auto_correction_threshold_mode_modest">"Normaal"</string>
+    <string name="auto_correction_threshold_mode_modest">Bescheiden</string>
     <string name="auto_correction_threshold_mode_aggressive">"Agressief"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"Zeer agressief"</string>
     <string name="bigram_prediction">"Suggesties voor volgend woord"</string>
     <string name="bigram_prediction_summary">"Het vorige woord gebruiken bij het doen van suggesties"</string>
-    <string name="gesture_input">"Bewegingsinvoer inschakelen"</string>
-    <string name="gesture_input_summary">"Voer een woord in door van letter naar letter te bewegen"</string>
-    <string name="gesture_preview_trail">"Gebarenspoor weergeven"</string>
+    <string name="gesture_input">Typen met gebaren inschakelen</string>
+    <string name="gesture_input_summary">Voer een woord in door van letter naar letter te vegen</string>
+    <string name="gesture_preview_trail">Veegspoor weergeven</string>
     <string name="gesture_floating_preview_text">"Dynamisch zwevend voorbeeld"</string>
-    <string name="gesture_floating_preview_text_summary">"Het voorgestelde woord weergeven tijdens het tekenen"</string>
-    <string name="gesture_space_aware">"Gebaar voor woordgroep"</string>
-    <string name="gesture_space_aware_summary">"Spaties invoeren door naar de spatietoets te bewegen"</string>
+    <string name="gesture_floating_preview_text_summary">Het voorgestelde woord tonen tijdens het vegen</string>
+    <string name="gesture_space_aware">Woordgroepen gebaren</string>
+    <string name="gesture_space_aware_summary">Spaties invoeren door te vegen over de spatiebalk</string>
     <string name="subtype_en_GB">"Engels (GB)"</string>
     <string name="subtype_en_US">"Engels (VS)"</string>
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hindi-Engels"</string>
     <string name="subtype_sr_Latn">"Servisch (Latijns)"</string>
-    <string name="subtype_with_layout_en_GB">"Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hindi-Engels (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Servisch (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditioneel)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (compact)"</string>
+    <string name="subtype_with_layout_en_GB">Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Hindi-Engels (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_Latn">Servisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language">"Geen taal (alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
     <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
     <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (pc)"</string>
+    <string name="subtype_no_language_pcqwerty">Alfabet (PC)</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Toevoegen"</string>
     <string name="remove">"Verwijderen"</string>
@@ -76,37 +75,37 @@
     <string name="keyboard_layout_set">"Lay-out"</string>
     <string name="prefs_keypress_vibration_duration_settings">"Trilingsduur bij toetsgebruik"</string>
     <string name="prefs_keypress_sound_volume_settings">"Geluidsvolume bij toetsgebruik"</string>
-    <string name="prefs_key_longpress_timeout_settings">"Lengte toetsinvoer"</string>
+    <string name="prefs_key_longpress_timeout_settings">Vertraging bij lang drukken</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji voor fysiek toetsenbord"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Emoji-palet weergeven met fysieke Alt-toets"</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Emoji-palet weergeven bij fysieke Alt-toets</string>
     <string name="button_default">"Standaard"</string>
-    <string name="setup_welcome_title">"Welkom bij <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_welcome_additional_description">"met Invoer met bewegingen"</string>
+    <string name="setup_welcome_title">Welkom bij <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">met Typen met gebaren</string>
     <string name="setup_start_action">"Aan de slag"</string>
     <string name="setup_next_action">"Volgende stap"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> instellen"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> inschakelen"</string>
-    <string name="setup_step1_instruction">"Vink \'<xliff:g id="APPLICATION_NAME">%s</xliff:g>\' aan in de instellingen bij \'Talen en invoer\'. De app kan dan worden uitgevoerd op je apparaat."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen en invoer\', dus deze stap is voltooid. Op naar de volgende!"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
+    <string name="setup_step1_instruction">Vink \'<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\' aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen &amp; invoer\', dus deze stap is voltooid. Op naar de volgende!</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
-    <string name="setup_step2_title">"Overschakelen naar <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Selecteer vervolgens \'<xliff:g id="APPLICATION_NAME">%s</xliff:g>\' als actieve tekstinvoermethode."</string>
+    <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Selecteer vervolgens \'<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\' als actieve tekstinvoermethode.</string>
     <string name="setup_step2_action">"Schakelen tussen invoermethoden"</string>
-    <string name="setup_step3_title">"Gefeliciteerd, je kunt nu aan de slag."</string>
-    <string name="setup_step3_instruction">"Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_title">Gefeliciteerd, je kunt nu aan de slag!</string>
+    <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Voltooid"</string>
     <string name="show_setup_wizard_icon">"App-pictogram weergeven"</string>
     <string name="show_setup_wizard_icon_summary">"App-pictogram weergeven in het opstartprogramma"</string>
-    <string name="dictionary_settings_title">"Woordenboeken toevoegen"</string>
+    <string name="dictionary_settings_title">Aanvullende woordenboeken</string>
     <string name="dictionary_settings_summary">"Instellingen voor woordenboeken"</string>
     <string name="dictionary_available">"Woordenboek beschikbaar"</string>
     <string name="cannot_connect_to_dict_service">"Verbindingsprobleem woordenboekservice"</string>
     <string name="no_dictionaries_available">"Geen woordenboeken"</string>
     <string name="last_update">"Laatst bijgewerkt"</string>
-    <string name="main_dict_description">"Algemeen woordenboek"</string>
+    <string name="main_dict_description">Hoofdwoordenboek</string>
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
-    <string name="version_text">"Versie <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">Versie <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Toevoegen"</string>
     <string name="user_dict_settings_add_dialog_title">"Toevoegen aan woordenboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Sneltoets:"</string>
@@ -118,54 +117,292 @@
     <string name="user_dict_settings_all_languages">"Voor alle talen"</string>
     <string name="user_dict_settings_more_languages">"Meer talen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="autospace_after_punctuation">Automatische spatie na punt</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Gebruik systeemtalen"</string>
+    <string name="autospace_after_punctuation">Automatische spatie na interpunctie</string>
+    <string name="use_system_language_to_select_input_method_subtypes">Systeemtalen gebruiken</string>
     <string name="select_input_method">"Invoermethode selecteren"</string>
     <string name="day_night_mode">Automatische dag/nachtmodus</string>
     <string name="day_night_mode_summary">Het uiterlijk volgt de systeeminstellingen</string>
-    <string name="settings_category_clipboard_history">Klembord geschiedenis</string>
+    <string name="settings_category_clipboard_history">Klembordgeschiedenis</string>
     <string name="settings_category_experimental">Experimenteel</string>
-    <string name="settings_category_miscellaneous">Allerlei</string>
+    <string name="settings_category_miscellaneous">Diversen</string>
     <string name="settings_no_limit">Geen limiet</string>
     <string name="clipboard_history_retention_time">Bewaartijd van de geschiedenis</string>
-    <string name="delete_swipe">Veeg verwijderen</string>
+    <string name="delete_swipe">Verwijderen met veegbeweging</string>
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
     <string name="more_keys_strip_description">Meer toetsen</string>
-    <string name="number_row_summary">Toon altijd nummerrij</string>
-    <string name="delete_swipe_summary">Voer een veegbeweging uit vanaf de delete-toets om grotere delen van tekst tegelijk te selecteren en te verwijderen</string>
+    <string name="number_row_summary">Nummerrij altijd weergeven</string>
+    <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
     <string name="spell_checker_service_name">HeliBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
-    <string name="number_row">Nummer rij</string>
-    <string name="incognito">Incognitomodus forceren</string>
+    <string name="number_row">Nummerrij</string>
+    <string name="incognito">Incognito-modus afdwingen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>
     <string name="settings_category_suggestions">Suggesties</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Als u lang op de spatietoets drukt, wordt het selectiemenu van de invoermethode gevraagd</string>
-    <string name="auto_correction_confidence">Vertrouwen in automatische correctie</string>
-    <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembordtoets de inhoud van het klembord, indien aanwezig</string>
-    <string name="show_hints">Toon belangrijke hints</string>
-    <string name="prefs_force_incognito_mode_summary">Schakel het leren van nieuwe woorden uit</string>
-    <string name="show_hints_summary">Hints voor lang indrukken weergeven</string>
-    <string name="prefs_keyboard_height_scale">Toetsenbord hoogte schaal</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akhor)</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Wijzig de invoermethode met de spatietoets</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Druk lang op de spatietoets voor het selectiemenu van de invoermethode</string>
+    <string name="auto_correction_confidence">Betrouwbaarheid autocorrectie</string>
+    <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembord-toets de inhoud van het klembord</string>
+    <string name="show_hints">Hints bij toetsen weergeven</string>
+    <string name="prefs_force_incognito_mode_summary">Het leren van nieuwe woorden uitschakelen</string>
+    <string name="show_hints_summary">Hints bij lang indrukken weergeven</string>
+    <string name="prefs_keyboard_height_scale">Toetsenbordhoogte schaal</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Invoermethode schakelen met spatietoets</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="key_borders">Toetsen randen</string>
-    <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na punt bij het typen van een nieuw woord</string>
-    <string name="ime_settings">HeliBoard Instellingen</string>
+    <string name="key_borders">Toetsranden</string>
+    <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
+    <string name="ime_settings">HeliBoard instellingen</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Extra toetsen</string>
     <string name="undo">"Ongedaan maken"</string>
     <string name="redo">"Opnieuw"</string>
-    <string name="use_personalized_dicts_summary">"Suggesties verbeteren met je communicatie en getypte gegevens"</string>
-    <string name="label_go_key">"Ga"</string>
-    <string name="label_next_key">"Volg."</string>
-    <string name="label_previous_key">"Vorig"</string>
+    <string name="use_personalized_dicts_summary">Suggesties verbeteren op basis van je communicatie en getypte gegevens</string>
+    <string name="label_go_key">Gaan</string>
+    <string name="label_next_key">Volgende</string>
+    <string name="label_previous_key">Vorige</string>
     <string name="label_done_key">"Gereed"</string>
-    <string name="label_send_key">"Verz."</string>
+    <string name="label_send_key">Verzenden</string>
     <string name="label_search_key">"Zoeken"</string>
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Wacht"</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Bediening met één hand</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roze</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Aangepast (nacht)</string>
+    <string name="select_user_colors">Kleuren aanpassen</string>
+    <string name="prefs_narrow_key_gaps">Smalle toetsruimte</string>
+    <string name="setup_step3_action">Het toetsenbord configureren</string>
+    <string name="split_spacer_scale">Scheidingsruimte</string>
+    <string name="language_switch_key_switch_both">Beide wisselen</string>
+    <string name="add_to_personal_dictionary">Woorden toevoegen aan persoonlijk woordenboek</string>
+    <string name="add_to_personal_dictionary_summary">Gebruik het persoonlijke woordenboek van het apparaat om geleerde woorden op te slaan</string>
+    <string name="disable_personalized_dicts_message">Waarschuwing: met het uitschakelen van deze instelling worden geleerde gegevens gewist</string>
+    <string name="prefs_always_show_suggestions">Altijd suggesties tonen</string>
+    <string name="more_autocorrect_summary">Automatisch corrigeren, zelfs als dit niet expliciet wordt gevraagd door het invoerveld</string>
+    <string name="more_autocorrect">Meer autocorrectie</string>
+    <string name="backup_error">Fout bij back-up: %s</string>
+    <string name="replace_dictionary">Woordenboek vervangen</string>
+    <string name="replace_dictionary_message">Gebruikerswoordenboek \"%1$s\" vervangen\"?
+\n
+\nHuidig woordenboek:
+\n%2$s
+\n
+\nNieuw woordenboek:
+\n%3$s</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="center_suggestion_text_to_enter">Altijd middelste suggestie gebruiken</string>
+    <string name="center_suggestion_text_to_enter_summary">Bij spatie of interpunctie wordt de middelste suggestie ingevoerd</string>
+    <string name="load_gesture_library">Bibliotheek laden voor typen met gebaren</string>
+    <string name="load_gesture_library_summary">Zorg voor een passende bibliotheek om typen met gebaren in te schakelen</string>
+    <string name="button_backup">Back-up</string>
+    <string name="button_restore">Terugzetten</string>
+    <string name="backup_restore_message">Opslaan of laden vanuit bestand. Waarschuwing: terugzetten overschrijft bestaande gegevens</string>
+    <string name="backup_restore_title">Back-up en terugzetten</string>
+    <string name="secondary_locale">Meertalig typen</string>
+    <string name="checksum_mismatch_message">Onbekend bibliotheekbestand. Komt het van een vertrouwde bron en is het geschikt voor \'%s\'?</string>
+    <string name="load_gesture_library_button_load">Bibliotheek laden</string>
+    <string name="load_gesture_library_button_delete">Bibliotheek verwijderen</string>
+    <string name="show_popup_keys_title">Meer letters met diakritische tekens weergeven in pop-up</string>
+    <string name="show_popup_keys_more">Algemene varianten toevoegen</string>
+    <string name="show_popup_keys_all">Alle beschikbare varianten toevoegen</string>
+    <string name="url_detection_title">URL-detectie</string>
+    <string name="url_detection_summary">Probeer URL\'s en dergelijke als één woord te detecteren</string>
+    <string name="language_and_layouts_title">Talen &amp; lay-outs</string>
+    <string name="localized_number_row">Aangepaste nummerrij</string>
+    <string name="localized_number_row_summary">Voorkeur voor regionale cijfers i.p.v. latijns</string>
+    <string name="hint_source">Bron voor hints kiezen</string>
+    <string name="show_popup_hints_summary">Hints tonen als lang drukken op een toets extra functionaliteit activeert</string>
+    <string name="popup_order">Volgorde pop-up toets kiezen</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Nummerrij</string>
+    <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
+    <string name="title_layout_name_select">Naam van lay-out instellen</string>
+    <string name="customize_symbols_number_layouts">Symbolen en nummer-lay-outs aanpassen</string>
+    <string name="delete_layout">Aangepaste lay-out %s verwijderen?</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbolen (Arabisch)</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Aangepast</string>
+    <string name="show_horizontal_space_swipe">Horizontaal veeggebaar over spatiebalk</string>
+    <string name="close_history" tools:keep="@string/close_history">Klembordgeschiedenis sluiten</string>
+    <string name="clipboard_toolbar_keys">Klembord-werkbalktoetsen kiezen</string>
+    <string name="prefs_long_press_symbol_for_numpad">Druk lang op de toets symbolen voor het numpad</string>
+    <string name="button_load_custom">Bestand laden</string>
+    <string name="file_read_error">Kan bestand niet lezen</string>
+    <string name="remove_dictionary_message">Gebruikerswoordenboek \"%s\" verwijderen?</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Zwart</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbolen</string>
+    <string name="available_dictionary_experimental">%s (experimenteel)</string>
+    <string name="dictionary_file_wrong_script">Fout: script niet compatibel met dit toetsenbord</string>
+    <string name="user_dict_settings_add_weight_value">Gewicht:</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Bewolkt</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="button_select_language">Taal kiezen</string>
+    <string name="user_dict_word_already_present">Dit woord is al aanwezig in het gebruikerswoordenboek van %s. Typ er nog een.</string>
+    <string name="user_dict_add_word_button">Woord toevoegen</string>
+    <string name="select_user_colors_summary">Selecteer kleuren voor tekst en achtergronden</string>
+    <string name="switch_language">Taal wisselen</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Taal (prioriteit)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Lay-out</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbolen</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Klembord</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Klembord wissen</string>
+    <string name="select_word" tools:keep="@string/select_word">Woord selecteren</string>
+    <string name="toolbar_keys">Werkbalktoetsen kiezen</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Taal</string>
+    <string name="full_left" tools:keep="@string/full_left">Geheel links</string>
+    <string name="full_right" tools:keep="@string/full_right">Geheel rechts</string>
+    <string name="left" tools:keep="@string/left">Links</string>
+    <string name="right" tools:keep="@string/right">Rechts</string>
+    <string name="up" tools:keep="@string/up">Omhoog</string>
+    <string name="down" tools:keep="@string/down">Omlaag</string>
+    <string name="voice" tools:keep="@string/voice">Spraakinvoer</string>
+    <string name="customize_background_image">Achtergrondafbeelding instellen</string>
+    <string name="day_or_night_image">Afbeelding voor dag/nachtmodus instellen?</string>
+    <string name="day_or_night_day">Dag</string>
+    <string name="day_or_night_night">Nacht</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Cijfers</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (liggend)</string>
+    <string name="cut" tools:keep="@string/Cut">Knippen</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="internal_dictionary_summary">Intern hoofdwoordenboek</string>
+    <string name="settings_screen_about">Over</string>
+    <string name="version">Versie</string>
+    <string name="about_github_link">Bekijk op GitHub</string>
+    <string name="save_log">Logbestand opslaan</string>
+    <string name="license">Open-source licentie</string>
+    <string name="text_tap_languages">Tik op de taal om instellingen te openen</string>
+    <string name="dictionary_file_error">Fout: Geselecteerd bestand is geen geldig woordenboekbestand</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefoonsymbolen</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="button_title_add_custom_layout">Aangepaste lay-out toevoegen</string>
+    <string name="message_add_custom_layout">Selecteer een bestand in een compatibel formaat. Informatie over de formaten is beschikbaar %s.</string>
+    <string name="button_copy_existing_layout">Bestaande lay-out kopiëren</string>
+    <string name="layout_error">Fout bij lay-out: %s</string>
+    <string name="edit_layout">Tik om lay-out te bewerken</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Meer symbolen</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefoon</string>
+    <string name="dictionary_settings_category">Woordenboeken</string>
+    <string name="add_new_dictionary_title">Woordenboek toevoegen vanuit bestand</string>
+    <string name="add_new_dictionary_ask_locale">Aan welke taal moet het woordenboek \"%1$s\" voor %2$s worden toegevoegd?</string>
+    <string name="button_add_to_language">Toevoegen aan %s</string>
+    <string name="no_dictionary_dont_show_again_button">Niet meer laten zien</string>
+    <string name="dictionary_link_text">hier</string>
+    <string name="dictionary_file_wrong_locale_ok">Toch gebruiken</string>
+    <string name="dictionary_load_error">Fout bij laden van woordenboekbestand</string>
+    <string name="theme_style">Stijl</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afgerond</string>
+    <string name="theme_colors">Kleuren</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Licht</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Wit</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Donker</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Donkerder</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynamische kleuren</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blauwgrijs</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Bruin</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolade</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bos</string>
+    <string name="theme_navbar">Navigatiebalk kleuren</string>
+    <string name="select_user_colors_night">Kleuren aanpassen (nacht)</string>
+    <string name="auto_user_color">Kleuren automatisch kiezen</string>
+    <string name="main_colors">Alleen hoofdkleuren weergeven</string>
+    <string name="more_colors">Meer kleuren tonen</string>
+    <string name="all_colors">Alle kleuren tonen</string>
+    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is een willekeurige standaardkleur en de namen worden niet vertaald.</string>
+    <string name="hint_show_keyboard">Klik voor een voorbeeld</string>
+    <string name="select_color_background">Toetsenbord-achtergrond</string>
+    <string name="select_color_key">Toetstekst</string>
+    <string name="select_color_key_background">Toets-achtergrond</string>
+    <string name="select_color_spacebar_background">Spatiebalk-achtergrond</string>
+    <string name="select_color_spacebar_text">Spatiebalk-tekst</string>
+    <string name="select_color_accent">Accent</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="dialog_close">Sluiten</string>
+    <string name="settings_screen_appearance">Uiterlijk</string>
+    <string name="hidden_features_title">Beschrijving van verborgen functies</string>
+    <string name="hidden_features_summary">Toon functies die mogelijk onopgemerkt blijven</string>
+    <string name="hidden_features_text">apparaatbeveiligde opslag</string>
+    <string name="select_color_key_hint">Toetshint-tekst</string>
+    <string name="select_color_suggestion">Suggestieregel-tekst</string>
+    <string name="select_color_functional_key_background">Functietoets achtergrond</string>
+    <string name="select_color_gesture">Gebaren-invoer</string>
+    <string name="action_none">Geen</string>
+    <string name="space_swipe_move_cursor_entry">Cursor verplaatsen</string>
+    <string name="var_toolbar_direction">Variabele werkbalkrichting</string>
+    <string name="var_toolbar_direction_summary">Omgekeerde richting wanneer een rechts-naar-links toetsenbord-subtype is geselecteerd</string>
+    <string name="show_vertical_space_swipe">Verticaal veeggebaar over spatiebalk</string>
+    <string name="load_gesture_library_message">Een bibliotheek is nodig voor \'%s\'. Incompatibele bibliotheken kunnen crashen bij het typen van gebaren.
+\n
+\nWaarschuwing: het laden van externe code kan een veiligheidsrisico vormen. Gebruik alleen een bibliotheek van een vertrouwde bron.</string>
+    <string name="no_dictionary_message">Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
+\nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
+    <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven (standaard)</string>
+    <string name="show_popup_hints">Functionele hints weergeven</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
+    <string name="dictionary_file_wrong_locale">Het geselecteerde bestand is voor %1$s, maar %2$s werd verwacht. Toch gebruiken voor %2$s?</string>
+    <string name="restore_error">Fout bij terugzetten van de back-up: %s</string>
+    <string name="add_dictionary">Selecteer een woordenboek om toe te voegen. Woordenboeken in .dict-indeling kunnen %s worden gedownload.</string>
+    <string name="theme_colors_night">Kleuren (nacht)</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceaan</string>
+    <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt;
+\n\t• klembord &amp;#65515; plakken&lt;br&gt;
+\n\t• links/rechts verplaatsen &amp;#65515; volledig links/rechts verplaatsen &lt;br&gt;
+\n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt;
+\n\t• kopiëren &amp;#65515; alles kopiëren &lt;br&gt;
+\n\t• woord selecteren &amp;#65515; alles selecteren&lt;br&gt;
+\n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
+\n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
+\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
+\n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt;
+\n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt;
+\n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt;
+\n► Druk op het Incognito-pictogram om toegang te krijgen tot de werkbalk. &lt;br&gt; &lt;br&gt;
+\n► Vegende toetsinvoer: Veeg van shift naar een andere toets om een enkele hoofdletter te typen: &lt;br&gt;
+\n\t• Dit werkt ook voor de \\\'?123\\\'-toets om een enkel symbool te typen vanaf het toetsenbord van de symbolen en voor gerelateerde toetsen. &lt;br&gt; &lt;br&gt;
+\n► Houd de shift- of symbolentoets ingedrukt, druk op een of meer toetsen en laat vervolgens de shift- of symbolentoets los om terug te keren naar het vorige toetsenbord. &lt;br&gt; &lt;br&gt;
+\n► Druk lang op een suggestie in de suggestiestrip om meer suggesties te tonen en een verwijderknop om deze suggestie te verwijderen. &lt;br&gt; &lt;br&gt;
+\n► Veeg omhoog van een suggestie om meer suggesties te openen en geef de suggestie om het te selecteren vrij. &lt;br&gt; &lt;br&gt;
+\n► Druk lang op een item in de klembordgeschiedenis om het vast te pinnen (in het klembord bewaren totdat je het losmaakt). &lt;br&gt; &lt;br&gt;
+\n► Veeg links in de klembordweergave om een item te verwijderen (behalve wanneer het vastgemaakt is) &lt;br&gt; &lt;br&gt;
+\n► Selecteer tekst en druk op shift om te schakelen tussen hoofdletters, kleine letters en hoofdletters. &lt;br&gt; &lt;br&gt;
+\n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt;
+\n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt;
+\n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt;
+\n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, b.v. bij het opstarten; &lt;br&gt;
+\n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt;
+\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+\n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt;
+\n► Bij gebruik van een Debug APK, kunt u foutopsporingsinstellingen vinden in de geavanceerde voorkeuren, hoewel het nut beperkt is, behalve voor het dumpen van woordenboeken in het logboek. &lt;br&gt;
+\n\t• Voor een release-APK moet je meermaals op de versie tikken in &lt;i&gt;Over&lt;/i&gt;, dan kunt u debug-instellingen vinden in&lt;i&gt;Geavanceerde voorkeuren&lt;/i&gt;. &lt;br&gt;
+\n\t• Bij het inschakelen van &lt;i&gt;Suggestie-informatie tonen&lt;/i&gt;, zullen suggesties enkele kleine cijfers bevatten met een interne score en een bronwoordenboek. &lt;br&gt; &lt;br&gt;
+\n► In het geval van een applicatiecrash, wordt u gevraagd of u de crashlogboeken wilt wanneer u de instellingen opent. &lt;br&gt; &lt;br&gt;
+\n► Bij het gebruik van meertalig typen zal de spatiebalk een betrouwbaarheidswaarde tonen die wordt gebruikt voor het bepalen van de momenteel gebruikte taal. &lt;br&gt; &lt;br&gt;
+\n► Suggesties hebben een aantal kleine cijfers bovenaan met een interne score en een bronwoordenboek (kan worden uitgeschakeld).</string>
+    <string name="prefs_always_show_suggestions_summary">Verzoeken van andere apps om suggesties uit te schakelen negeren (kan problemen veroorzaken)</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functietoetsen (symbolen)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Functietoetsen (meer symbolen)</string>
+    <string name="customize_functional_key_layouts">Functietoets-layouts aanpassen</string>
+    <string name="pinned_toolbar_keys">Vastgezette werkbalktoetsen selecteren</string>
+    <string name="quick_pin_toolbar_keys">Werkbalktoets vastzetten bij lang indrukken</string>
+    <string name="quick_pin_toolbar_keys_summary">Hiermee worden andere lang indrukkenacties uitgeschakeld voor werkbalktoetsen die niet zijn vastgezet</string>
+    <string name="settings_screen_toolbar">Werkbalk</string>
+    <string name="toast_msg_clipboard_copy">Inhoud gekopieerd</string>
+    <string name="auto_hide_toolbar">Werkbalk automatisch verbergen</string>
+    <string name="auto_show_toolbar">Werkbalk automatisch weergeven</string>
+    <string name="auto_hide_toolbar_summary">Verberg de werkbalk wanneer er suggesties beschikbaar komen</string>
+    <string name="auto_show_toolbar_summary">Toon de werkbalk bij invoer of selectie van tekst</string>
+    <string name="language_switch_key_behavior">Gedrag taalkeuze-toets</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown_instant">Altijd direct starten</string>
+    <string name="gesture_fast_typing_cooldown">Afkoelperiode bij snel typen</string>
+    <string name="customize_currencies_detail">Stel hoofd- en secundaire valutasymbolen in, gescheiden door spatie</string>
+    <string name="customize_currencies">Valuta\'s aanpassen</string>
 </resources>

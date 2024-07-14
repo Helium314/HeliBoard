@@ -101,7 +101,7 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     if (subtype != null) {
         return subtype
     } else {
-        Log.w(TAG, "selected subtype $localeAndLayout not found")
+        Log.w(TAG, "selected subtype $localeAndLayout / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")} not found")
     }
     if (subtypes.isNotEmpty())
         return subtypes.first()

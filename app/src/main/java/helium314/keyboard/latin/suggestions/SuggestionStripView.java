@@ -26,7 +26,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +58,6 @@ import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
-import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
@@ -69,7 +67,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.PopupMenu;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
         OnLongClickListener {
@@ -110,7 +107,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
-    private boolean isInlineAutofillSuggestionsVisible = false; // Required to disable the more suggestions if inline autofill suggestions are visible
+    private boolean isExternalSuggestionVisible = false; // Required to disable the more suggestions if other suggestions are visible
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -257,8 +254,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
         mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
-        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : VISIBLE);
-        isInlineAutofillSuggestionsVisible = false;
+        mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : mSuggestionsStrip.getVisibility());
+        isExternalSuggestionVisible = false;
     }
 
     public void setRtl(final boolean isRtlLanguage) {
@@ -281,10 +278,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
     }
 
-    public void setInlineSuggestionsView(final View view) {
+    public void setExternalSuggestionView(final View view) {
         clear();
-        isInlineAutofillSuggestionsVisible = true;
+        isExternalSuggestionVisible = true;
         mSuggestionsStrip.addView(view);
+        if (Settings.getInstance().getCurrent().mAutoHideToolbar)
+            setToolbarVisibility(false);
     }
 
     @Override
@@ -482,6 +481,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
         mStripVisibilityGroup.showSuggestionsStrip();
+        // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
+        if (mSuggestedWords.isEmpty() && Settings.getInstance().getCurrent().mAutoShowToolbar){
+            setToolbarVisibility(true);
+        }
     }
 
     boolean showMoreSuggestions() {
@@ -542,7 +545,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public boolean onInterceptTouchEvent(final MotionEvent me) {
 
         // Disable More Suggestions if inline autofill suggestions is visible
-        if(isInlineAutofillSuggestionsVisible) {
+        if(isExternalSuggestionVisible) {
             return false;
         }
 
@@ -681,7 +684,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void setToolbarVisibility(final boolean visible) {
-        if (visible) {
+        final KeyguardManager km = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        final boolean locked = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
+                ? km.isDeviceLocked()
+                : km.isKeyguardLocked();
+        if (locked) {
+            mPinnedKeys.setVisibility(GONE);
+            mSuggestionsStrip.setVisibility(VISIBLE);
+            mToolbarContainer.setVisibility(GONE);
+        } else if (visible) {
             mPinnedKeys.setVisibility(GONE);
             mSuggestionsStrip.setVisibility(GONE);
             mToolbarContainer.setVisibility(VISIBLE);
@@ -690,7 +701,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
-        mToolbarExpandKey.setScaleX((visible ? -1f : 1f) * mRtl);
+        mToolbarExpandKey.setScaleX((visible && !locked ? -1f : 1f) * mRtl);
     }
 
     private void addKeyToPinnedKeys(final ToolbarKey pinnedKey) {

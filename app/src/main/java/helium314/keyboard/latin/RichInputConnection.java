@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 
 import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.CompletionInfo;
@@ -103,12 +104,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * It's not really the selection start position: the selection start may not be there yet, and
      * in some cases, it may never arrive there.
      */
-    public int mExpectedSelStart = INVALID_CURSOR_POSITION; // in chars, not code points
+    private int mExpectedSelStart = INVALID_CURSOR_POSITION; // in chars, not code points
     /**
      * The expected selection end.  Only differs from mExpectedSelStart if a non-empty selection is
      * expected.  The same caveats as mExpectedSelStart apply.
      */
-    public int mExpectedSelEnd = INVALID_CURSOR_POSITION; // in chars, not code points
+    private int mExpectedSelEnd = INVALID_CURSOR_POSITION; // in chars, not code points
     /**
      * This contains the committed text immediately preceding the cursor and the composing
      * text, if any. It is refreshed when the cursor moves by calling upon the TextView.
@@ -231,13 +232,20 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     public boolean resetCachesUponCursorMoveAndReturnSuccess(final int newSelStart,
             final int newSelEnd, final boolean shouldFinishComposition) {
-        mExpectedSelStart = newSelStart;
-        mExpectedSelEnd = newSelEnd;
         mComposingText.setLength(0);
         final boolean didReloadTextSuccessfully = reloadTextCache();
         if (!didReloadTextSuccessfully) {
             Log.d(TAG, "Will try to retrieve text later.");
+            // selection is set to INVALID_CURSOR_POSITION if reloadTextCache return false
             return false;
+        }
+        if (mExpectedSelStart != newSelStart || mExpectedSelEnd != newSelEnd) {
+            mExpectedSelStart = newSelStart;
+            mExpectedSelEnd = newSelEnd;
+            reloadTextCache();
+            if (mExpectedSelStart != newSelStart || mExpectedSelEnd != newSelEnd) {
+                Log.i(TAG, "resetCachesUponCursorMove: tried to set "+newSelStart+"/"+newSelEnd+", but input field has "+mExpectedSelStart+"/"+mExpectedSelEnd);
+            }
         }
         if (isConnected() && shouldFinishComposition) {
             mIC.finishComposingText();
@@ -274,6 +282,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
         mCommittedTextBeforeComposingText.append(textBeforeCursor);
         return true;
+    }
+
+    private void reloadCursorPosition() {
+        if (!isConnected()) return;
+        final ExtractedText et = mIC.getExtractedText(new ExtractedTextRequest(), 0);
+        if (et == null) return;
+        mExpectedSelStart = et.selectionStart + et.startOffset;
+        mExpectedSelEnd = et.selectionEnd + et.startOffset;
     }
 
     private void checkBatchEdit() {
@@ -370,6 +386,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public boolean canDeleteCharacters() {
         return mExpectedSelStart > 0;
+    }
+
+    public boolean noTextAfterCursor() {
+        final CharSequence after = getTextAfterCursor(1, 0);
+        return TextUtils.isEmpty(after);
     }
 
     /**
@@ -474,7 +495,55 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final long startTime = SystemClock.uptimeMillis();
         final CharSequence result = mIC.getTextBeforeCursor(n, flags);
         detectLaggyConnection(operation, timeout, startTime);
+        // inconsistent state can occur for (at least) two reasons
+        // 1. the app actively changes text field content, e.g. joplin when deleting "list markers like 2.
+        // 2. the app has outdated contents in the text field, e.g. notepad (com.farmerbb.notepad) returns the
+        //     just deleted char right after deletion, instead of the correct one
+        //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
+        if (result != null) {
+            if (!checkTextBeforeCursorConsistency(result)) {
+                Log.w(TAG, "cached text out of sync, reloading");
+                reloadCursorPosition();
+                if (!DebugLogUtils.getStackTrace(2).contains("reloadTextCache")) // clunky bur effective protection against circular reference
+                    reloadTextCache();
+            }
+        }
         return result;
+    }
+
+    // checks whether the end of cached text before cursor is the same as end of the given CharSequence
+    // this is done to find inconsistencies that arise in some text fields when characters are deleted, but also in some other cases
+    // only checks the end for performance reasons
+    // may need to check more than just the last character, because the text may end in e.g. rrrrr and even there a single car offset should be found
+    private boolean checkTextBeforeCursorConsistency(final CharSequence textField) {
+        final int lastIndex = textField.length() - 1;
+        if (lastIndex == -1) return true;
+        final char lastChar = textField.charAt(lastIndex);
+        final int composingLength = mComposingText.length();
+        for (int i = 0; i <= lastIndex; i++) {
+            // get last minus i character and compare
+            final char currentTextFieldChar = textField.charAt(lastIndex - i);
+            final char currentCachedChar;
+            if (i < composingLength) {
+                // take char from composing text
+                currentCachedChar = mComposingText.charAt(composingLength - 1 - i);
+            } else {
+                // take last char from mCommittedTextBeforeComposingText, consider composing length
+                final int index = mCommittedTextBeforeComposingText.length() - 1 - (i - composingLength);
+                if (index < mCommittedTextBeforeComposingText.length() && index >= 0)
+                    currentCachedChar = mCommittedTextBeforeComposingText.charAt(index);
+                else return lastIndex > 100; // still let it pass if the same character is repeated many times, but cached text too short
+            }
+
+            if (currentTextFieldChar != currentCachedChar)
+                // different character -> inconsistent
+                return false;
+
+            if (lastChar != currentTextFieldChar)
+                // not the same, and no inconsistency found so far -> unlikely there is one that won't be found later -> return early
+                return true;
+        }
+        return true; // no inconsistency found after going through everything
     }
 
     @Nullable public CharSequence getTextAfterCursor(final int n, final int flags) {
@@ -605,6 +674,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     public void setComposingRegion(final int start, final int end) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        final int moveBy = mExpectedSelStart - start; // determine now, as mExpectedSelStart may change in getTextBeforeCursor
         final CharSequence textBeforeCursor =
                 getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE + (end - start), 0);
         mCommittedTextBeforeComposingText.setLength(0);
@@ -613,8 +683,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // position in mExpectedSelStart and mExpectedSelEnd. In this case we want the start
             // of the text, so we should use mExpectedSelStart. In other words, the composing
             // text starts (mExpectedSelStart - start) characters before the end of textBeforeCursor
-            final int indexOfStartOfComposingText =
-                    Math.max(textBeforeCursor.length() - (mExpectedSelStart - start), 0);
+            final int indexOfStartOfComposingText = Math.max(textBeforeCursor.length() - moveBy, 0);
             mComposingText.append(textBeforeCursor.subSequence(indexOfStartOfComposingText,
                     textBeforeCursor.length()));
             mCommittedTextBeforeComposingText.append(
@@ -625,7 +694,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
     }
 
-    public void setComposingText(final CharSequence text, final int newCursorPosition) {
+    // return whether the text was (probably) set correctly
+    // unfortunately this is necessary in some cases
+    public boolean setComposingText(final CharSequence text, final int newCursorPosition) {
         if (DEBUG_BATCH_NESTING) checkBatchEdit();
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
         mExpectedSelStart += text.length() - mComposingText.length();
@@ -636,8 +707,20 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         //  newCursorPosition != 1.
         if (isConnected()) {
             mIC.setComposingText(text, newCursorPosition);
+            if (!Settings.getInstance().getCurrent().mInputAttributes.mShouldShowSuggestions && text.length() > 0) {
+                // We have a field that disables suggestions, but still committed text is set.
+                // This might lead to weird bugs (e.g. https://github.com/Helium314/HeliBoard/issues/225), so better do
+                // a sanity check whether the wanted text has been set.
+                // Note that the check may also fail because the text field is not yet updated, so we don't want to check everything!
+                final CharSequence lastChar = mIC.getTextBeforeCursor(1, 0);
+                if (lastChar == null || lastChar.length() == 0 || text.charAt(text.length() - 1) != lastChar.charAt(0)) {
+                    Log.w(TAG, "did set " + text + ", but got " + mIC.getTextBeforeCursor(text.length(), 0) + " as last character");
+                    return false;
+                }
+            }
         }
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
+        return true;
     }
 
     /**
@@ -670,13 +753,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public void selectAll() {
         if (!isConnected()) return;
-        mIC.performContextMenuAction(android.R.id.selectAll);
+        if (mExpectedSelStart != mExpectedSelEnd && mExpectedSelStart == 0 && noTextAfterCursor()) { // all text already selected
+            mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
+        } else mIC.performContextMenuAction(android.R.id.selectAll);
     }
 
     public void selectWord(final SpacingAndPunctuations spacingAndPunctuations, final String script) {
         if (!isConnected()) return;
-        if (mExpectedSelStart != mExpectedSelEnd) return; // already something selected
-        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script, false);
+        if (mExpectedSelStart != mExpectedSelEnd) { // already something selected
+            mIC.setSelection(mExpectedSelEnd, mExpectedSelEnd);
+            return;
+        }
+        final TextRange range = getWordRangeAtCursor(spacingAndPunctuations, script);
         if (range == null) return;
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
@@ -776,7 +864,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @return a range containing the text surrounding the cursor
      */
     @Nullable public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final String script, final boolean justDeleted) {
+            final String script) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -793,26 +881,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 InputConnection.GET_TEXT_WITH_STYLES);
         if (before == null || after == null) {
             return null;
-        }
-
-        // we need text before, and text after is either empty or a separator or similar
-        if (justDeleted && before.length() > 0 &&
-                (after.length() == 0
-                        || !isPartOfCompositionForScript(Character.codePointAt(after, 0), spacingAndPunctuations, script)
-                )
-        ) {
-            // issue:
-            //  type 2 words and space, press delete twice -> remaining word and space before are selected
-            //   now on next key press, the space before the word is removed
-            //  or complete a word by choosing a suggestion, then press backspace -> same thing
-            // what is sometimes happening (depending on app, or maybe input field attributes):
-            //  we just pressed delete, and getTextBeforeCursor gets the correct text,
-            //  but getTextBeforeCursorAndDetectLaggyConnection returns the old word, before the deletion (not sure why)
-            //  -> we try to detect this difference, and then try to fix it
-            // interestingly, getTextBeforeCursor seems to only get the correct text because it uses
-            //  mCommittedTextBeforeComposingText, where the text is cached
-            // what could be actually going on? we probably need to fetch the text, because we want updated styles (if any)
-            before = fixIncorrectLength(before);
         }
 
         // Going backward, find the first breaking point (separator)
@@ -898,37 +966,6 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
                         startIndexInBefore, before.length() + endIndexInAfter, before.length(),
                         hasUrlSpans);
-    }
-
-    // mostly fixes an issue where the space before the word is selected after deleting a codepoint,
-    // because the text length is not yet updated in the field (i.e. trying to select "word length"
-    // before cursor, but the last letter has just been deleted and thus the space before is also selected)
-    private CharSequence fixIncorrectLength(final CharSequence before) {
-        // don't use codepoints, just do the simple thing...
-        int initialCheckLength = Math.min(3, before.length());
-        // this should have been checked before calling this method, but better be safe
-        if (initialCheckLength == 0) return before;
-        final CharSequence lastCharsInBefore = before.subSequence(before.length() - initialCheckLength, before.length());
-        final CharSequence lastCharsBeforeCursor = getTextBeforeCursor(initialCheckLength, 0);
-        // if the last 3 chars are equal, we can be relatively sure to not have this bug (can still be e.g. rrrr, which is not detected)
-        // (we could also check everything though, it's just a little slower)
-        if (TextUtils.equals(lastCharsInBefore, lastCharsBeforeCursor)) return before;
-
-        // delete will hopefully have deleted a codepoint, not only a char
-        // we want to compare whether the text before the cursor is the same as "before" without
-        // the last codepoint. if yes, return "before" without the last codepoint
-        final int lastBeforeCodePoint = Character.codePointBefore(before, before.length());
-        int lastBeforeLength = Character.charCount(lastBeforeCodePoint);
-        final CharSequence codePointBeforeCursor = getTextBeforeCursor(lastBeforeLength, 0);
-        if (codePointBeforeCursor == null || codePointBeforeCursor.length() == 0) return before;
-
-        // now check whether they are the same if the last codepoint of before is removed
-        final CharSequence beforeWithoutLast = before.subSequence(0, before.length() - lastBeforeLength);
-        final CharSequence beforeCursor = getTextBeforeCursor(beforeWithoutLast.length(), 0);
-        if (beforeCursor == null || beforeCursor.length() != beforeWithoutLast.length()) return before;
-        if (TextUtils.equals(beforeCursor, beforeWithoutLast))
-            return beforeWithoutLast;
-        return before;
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
@@ -1082,10 +1119,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     public int getCharCountToDeleteBeforeCursor() {
         final int lastCodePoint = getCodePointBeforeCursor();
-        if (!Character.isSupplementaryCodePoint(lastCodePoint)) return 1;
-        if (!StringUtils.mightBeEmoji(lastCodePoint)) return 2;
-        final String text = mCommittedTextBeforeComposingText.toString() + mComposingText;
-        return StringUtilsKt.getFullEmojiAtEnd(text).length();
+        if (StringUtils.mightBeEmoji(lastCodePoint)) {
+            final String text = mCommittedTextBeforeComposingText.toString() + mComposingText;
+            final int emojiLength = StringUtilsKt.getFullEmojiAtEnd(text).length();
+            if (emojiLength > 0) return emojiLength;
+        }
+        return Character.isSupplementaryCodePoint(lastCodePoint) ? 2 : 1;
     }
 
     public boolean hasLetterBeforeLastSpaceBeforeCursor() {
@@ -1138,8 +1177,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * means to get the real value, try at least to ask the text view for some characters and
      * detect the most damaging cases: when the cursor position is declared to be much smaller
      * than it really is.
+     * (renamed the method, because we clearly ask the editorInfo to provide initial selection, no reason to complain about it
+     * being initial and thus possibly outdated)
      */
-    public void tryFixLyingCursorPosition() {
+    public void tryFixIncorrectCursorPosition() {
         mIC = mParent.getCurrentInputConnection();
         final CharSequence textBeforeCursor = getTextBeforeCursor(
                 Constants.EDITOR_CONTENTS_CACHE_SIZE, 0);
@@ -1175,6 +1216,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 if (wasEqual || mExpectedSelStart > mExpectedSelEnd) {
                     mExpectedSelEnd = mExpectedSelStart;
                 }
+            } else {
+                // better re-read the correct position instead of guessing from incomplete data
+                reloadCursorPosition();
             }
         }
     }

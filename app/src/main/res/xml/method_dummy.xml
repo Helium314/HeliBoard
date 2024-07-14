@@ -24,6 +24,7 @@ the system picker crashes on some devices for unknown reasons.
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:imeSubtypeExtraValue="dummy"
             android:imeSubtypeMode="keyboard"
+            android:subtypeId="0xf000000f"
             android:isAsciiCapable="true"
     />
 </input-method>

@@ -336,6 +336,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         final HashMap<Locale, ArrayList<String>> existingDictionariesToCleanup = new HashMap<>();
         final HashSet<String> subDictTypesToUse = new HashSet<>();
         subDictTypesToUse.add(Dictionary.TYPE_USER);
+        Log.i(TAG, "resetDictionaries, force reloading main dictionary: " + forceReloadMainDictionary);
         final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
             addAll(Settings.getSecondaryLocales(DeviceProtectedUtils.getSharedPreferences(context), newLocale));

@@ -7,6 +7,9 @@ import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
+import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.loopOverCodePoints
+import helium314.keyboard.latin.common.loopOverCodePointsBackwards
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import kotlin.math.abs
@@ -71,19 +74,42 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeHorizontal) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
     }
 
     override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeVertical) {
         KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
+    }
+
+    override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
+        KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
+        return true
     }
 
     override fun onMoveDeletePointer(steps: Int) {
         inputLogic.finishInput()
         val end = inputLogic.mConnection.expectedSelectionEnd
-        val start = inputLogic.mConnection.expectedSelectionStart + steps
+        var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
+        if (steps > 0) {
+            val text = inputLogic.mConnection.getSelectedText(0)
+            if (text == null) actualSteps = steps
+            else loopOverCodePoints(text) {
+                actualSteps += Character.charCount(it)
+                actualSteps >= steps
+            }
+        } else {
+            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0)
+            if (text == null) actualSteps = steps
+            else loopOverCodePointsBackwards(text) {
+                actualSteps -= Character.charCount(it)
+                actualSteps <= steps
+            }
+        }
+        val start = inputLogic.mConnection.expectedSelectionStart + actualSteps
         if (start > end) return
         inputLogic.mConnection.setSelection(start, end)
     }
@@ -123,29 +149,44 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
-        var steps = rawSteps
         // for RTL languages we want to invert pointer movement
-        if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) steps = -steps
+        val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
         if (steps < 0) {
-            val availableCharacters = inputLogic.mConnection.getTextBeforeCursor(64, 0)?.length ?: return false
-            moveSteps = if (availableCharacters < -steps) -availableCharacters else steps
+            var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
+            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0) ?: return false
+            loopOverCodePointsBackwards(text) {
+                if (StringUtils.mightBeEmoji(it)) {
+                    actualSteps = 0
+                    return@loopOverCodePointsBackwards true
+                }
+                actualSteps -= Character.charCount(it)
+                actualSteps <= steps
+            }
+            moveSteps = -text.length.coerceAtMost(abs(actualSteps))
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
-                while (steps != 0) {
+                repeat(-steps) {
                     onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    ++steps
                 }
                 return true
             }
         } else {
-            val availableCharacters = inputLogic.mConnection.getTextAfterCursor(64, 0)?.length ?: return false
-            moveSteps = availableCharacters.coerceAtMost(steps)
+            var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
+            val text = inputLogic.mConnection.getTextAfterCursor(steps * 4, 0) ?: return false
+            loopOverCodePoints(text) {
+                if (StringUtils.mightBeEmoji(it)) {
+                    actualSteps = 0
+                    return@loopOverCodePoints true
+                }
+                actualSteps += Character.charCount(it)
+                actualSteps >= steps
+            }
+            moveSteps = text.length.coerceAtMost(actualSteps)
             if (moveSteps == 0) {
-                while (steps != 0) {
+                repeat(steps) {
                     onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                    --steps
                 }
                 return true
             }
@@ -153,12 +194,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
-            val newPosition: Int = inputLogic.mConnection.mExpectedSelStart + moveSteps
+            val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
             inputLogic.mConnection.setSelection(newPosition, newPosition)
             return true
         }
         inputLogic.finishInput()
-        val newPosition: Int = inputLogic.mConnection.mExpectedSelStart + moveSteps
+        val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
         inputLogic.mConnection.setSelection(newPosition, newPosition)
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true

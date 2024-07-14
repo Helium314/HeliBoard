@@ -9,3 +9,4 @@ app/build
 app/release
 app/.cxx
 fastlane/Appfile
+tools/*.txt

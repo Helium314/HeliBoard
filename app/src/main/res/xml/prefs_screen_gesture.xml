@@ -6,6 +6,7 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings_screen_gesture"
     android:key="screen_gesture">
     <SwitchPreference
@@ -31,4 +32,9 @@
         android:summary="@string/gesture_space_aware_summary"
         android:defaultValue="false"
         android:persistent="true" />
+    <helium314.keyboard.latin.settings.SeekBarDialogPreference
+        android:key="gesture_fast_typing_cooldown"
+        android:title="@string/gesture_fast_typing_cooldown"
+        latin:maxValue="@integer/config_gesture_static_time_threshold_after_fast_typing"
+        latin:stepValue="@integer/config_gesture_fast_typing_cooldown_step" />
 </PreferenceScreen>

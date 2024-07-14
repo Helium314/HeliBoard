@@ -19,7 +19,6 @@ import helium314.keyboard.latin.common.DynamicColors
 import helium314.keyboard.latin.common.readAllColorsMap
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
-import helium314.keyboard.latin.utils.ResourceUtils
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -101,12 +100,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         }
 
         @JvmStatic
-        fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences): Colors {
+        fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-            val useNightMode = Settings.readDayNightPref(prefs, context.resources) && ResourceUtils.isNight(context.resources)
-            val backgroundImage = Settings.readUserBackgroundImage(context, useNightMode)
+            val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeColors) {
-                THEME_USER -> if (prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0) == 2) AllColors(readAllColorsMap(prefs, false), themeStyle, hasBorders, backgroundImage)
+                THEME_USER -> if (prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
+                    AllColors(readAllColorsMap(prefs, false), themeStyle, hasBorders, backgroundImage)
                 else DefaultColors(
                     themeStyle,
                     hasBorders,
@@ -122,7 +121,8 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                     keyboardBackground = backgroundImage
                 )
-                THEME_USER_NIGHT -> if (prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0) == 2) AllColors(readAllColorsMap(prefs, true), themeStyle, hasBorders, backgroundImage)
+                THEME_USER_NIGHT -> if (prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
+                    AllColors(readAllColorsMap(prefs, true), themeStyle, hasBorders, backgroundImage)
                 else DefaultColors(
                     themeStyle,
                     hasBorders,
@@ -140,7 +140,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 )
                 THEME_DYNAMIC -> {
                     if (Build.VERSION.SDK_INT >= VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
-                    else getThemeColors(THEME_LIGHT, themeStyle, context, prefs)
+                    else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
                 }
                 THEME_DARK -> DefaultColors(
                     themeStyle,

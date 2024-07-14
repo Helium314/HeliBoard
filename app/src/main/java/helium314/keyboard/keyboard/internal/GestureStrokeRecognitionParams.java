@@ -40,7 +40,7 @@ public final class GestureStrokeRecognitionParams {
 
     private GestureStrokeRecognitionParams() {
         // These parameter values are default and intended for testing.
-        mStaticTimeThresholdAfterFastTyping = 350; // msec
+        mStaticTimeThresholdAfterFastTyping = 500; // msec
         mDetectFastMoveSpeedThreshold = 1.5f; // keyWidth/sec
         mDynamicThresholdDecayDuration = 450; // msec
         mDynamicTimeThresholdFrom = 300; // msec

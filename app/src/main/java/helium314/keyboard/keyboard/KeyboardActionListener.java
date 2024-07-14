@@ -106,6 +106,7 @@ public interface KeyboardActionListener {
      */
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
+    boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
 
     void onMoveDeletePointer(int steps);
     void onUpWithDeletePointerActive();
@@ -116,6 +117,7 @@ public interface KeyboardActionListener {
     int SWIPE_NO_ACTION = 0;
     int SWIPE_MOVE_CURSOR = 1;
     int SWIPE_SWITCH_LANGUAGE = 2;
+    int SWIPE_TOGGLE_NUMPAD = 3;
 
     class Adapter implements KeyboardActionListener {
         @Override
@@ -150,6 +152,10 @@ public interface KeyboardActionListener {
         }
         @Override
         public boolean onVerticalSpaceSwipe(int steps) {
+            return false;
+        }
+        @Override
+        public boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha) {
             return false;
         }
         @Override

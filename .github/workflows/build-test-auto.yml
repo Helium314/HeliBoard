@@ -10,7 +10,7 @@ on:
 #      - 'app/**'
   pull_request:
     paths:
-      - 'app/**'
+      - 'app/src/main/java**'
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew -Pandroid.injected.build.abi=arm64-v8a assembleDebug
+        run: ./gradlew testRunTestsUnitTest
 
       - name: Archive reports for failed job
         uses: actions/upload-artifact@v4

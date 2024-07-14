@@ -20,6 +20,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToP
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
+import kotlinx.serialization.SerializationException
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
@@ -75,6 +76,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .show()
 }
 
+/** @return true if json, false if simple, null if invalid */
 private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     val params = KeyboardParams()
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
@@ -85,23 +87,28 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
         if (!checkKeys(keys))
             return null
         return true
-    } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
+    } catch (e: SerializationException) {
+        Log.w(TAG, "json parsing error", e)
+    } catch (e: Exception) {
+        Log.w(TAG, "json layout parsed, but considered invalid", e)
+        return null
+    }
     try {
         val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return false
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
-    if (layoutContent.startsWith("[")) {
+    if (layoutContent.trimStart().startsWith("[") && layoutContent.trimEnd().endsWith("]")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
             RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
-        } catch (e: Exception) { Log.w(TAG, "error parsing custom json layout", e) }
+        } catch (e: Exception) { Log.w(TAG, "json parsing error", e) }
     }
     return null
 }
 
-private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
+fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     if (keys.isEmpty() || keys.any { it.isEmpty() }) {
         Log.w(TAG, "empty rows")
         return false
@@ -114,16 +121,28 @@ private fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many keys in one row")
         return false
     }
-    if (keys.any { row -> row.any { ((it.mLabel?.length ?: 0) > 20) } }) {
-        Log.w(TAG, "too long text on key")
+    if (keys.any { row -> row.any {
+            if ((it.mLabel?.length ?: 0) > 20) {
+                Log.w(TAG, "too long text on key: ${it.mLabel}")
+                true
+            } else false
+    } }) {
         return false
     }
-    if (keys.any { row -> row.any { (it.mPopupKeys?.size ?: 0) > 20 } }) {
-        Log.w(TAG, "too many popup keys on a key")
+    if (keys.any { row -> row.any {
+        if ((it.mPopupKeys?.size ?: 0) > 20) {
+            Log.w(TAG, "too many popup keys on key ${it.mLabel}")
+            true
+        } else false
+    } }) {
         return false
     }
-    if (keys.any { row -> row.any { it.mPopupKeys?.any { popupKey -> (popupKey.mLabel?.length ?: 0) > 10 } == true } }) {
-        Log.w(TAG, "too long text on popup key")
+    if (keys.any { row -> row.any { true == it.mPopupKeys?.any { popupKey ->
+        if ((popupKey.mLabel?.length ?: 0) > 10) {
+            Log.w(TAG, "too long text on popup key: ${popupKey.mLabel}")
+            true
+        } else false
+    } } }) {
         return false
     }
     return true

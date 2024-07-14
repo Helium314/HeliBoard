@@ -1,0 +1,9 @@
+* wijzig pictogrammen voor autocorrectie en selecteer alle werkbalktoetsen door @codokie (#524, #651)
+* Chuvash-indeling toegevoegd door @tenextractor (#677)
+* toets werkbalk knippen toegevoegd door @codokie (#678)
+* update Probhat layout door @fahimscirex (#628)
+* werkbalkpictogrammen weergeven in het dialoogvenster met werkbalktoetsen
+* knop sluiten toegevoegd in de geschiedenis van het klembord door @codokie (#403, #649)
+* Russische (Student) layout toegevoegd door @ Zolax9 (#640)
+* maak numpad op symbolen toets lange druk optioneel (#588)
+* kleine oplossingen en verbeteringen, waaronder #632, #637, #638 door @RHJihan

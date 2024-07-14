@@ -41,7 +41,7 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (!TextUtils.equals(key, Settings.PREF_USE_CONTACTS) || sharedPreferences.getBoolean(key, false)) {
+        if (!TextUtils.equals(key, Settings.PREF_USE_CONTACTS) || !sharedPreferences.getBoolean(key, false)) {
             return;
         }
 

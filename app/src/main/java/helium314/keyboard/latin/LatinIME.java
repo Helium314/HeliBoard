@@ -354,6 +354,10 @@ public class LatinIME extends InputMethodService implements
             return hasMessages(MSG_UPDATE_SUGGESTION_STRIP);
         }
 
+        public boolean hasPendingResumeSuggestions() {
+            return hasMessages(MSG_RESUME_SUGGESTIONS);
+        }
+
         public boolean hasPendingReopenDictionaries() {
             return hasMessages(MSG_REOPEN_DICTIONARIES);
         }
@@ -850,6 +854,11 @@ public class LatinIME extends InputMethodService implements
     public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
         // Note that the calling sequence of onCreate() and onCurrentInputMethodSubtypeChanged()
         // is not guaranteed. It may even be called at the same time on a different thread.
+        if (subtype.hashCode() == 0xf000000f) {
+            // For some reason sometimes the system wants to set the dummy subtype, which messes with the currently enabled subtype.
+            // Now that the dummy subtype has a fixed id, we can easily avoid enabling it.
+            return;
+        }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
         mRichImm.onSubtypeChanged(subtype);
@@ -989,8 +998,10 @@ public class LatinIME extends InputMethodService implements
                 // didn't move (the keyboard having been closed with the back key),
                 // initialSelStart and initialSelEnd sometimes are lying. Make a best effort to
                 // work around this bug.
-                mInputLogic.mConnection.tryFixLyingCursorPosition();
-                mHandler.postResumeSuggestions(true /* shouldDelay */);
+                mInputLogic.mConnection.tryFixIncorrectCursorPosition();
+                if (mInputLogic.mConnection.isCursorTouchingWord(currentSettingsValues.mSpacingAndPunctuations, true)) {
+                    mHandler.postResumeSuggestions(true /* shouldDelay */);
+                }
                 needToCallLoadKeyboardLater = false;
             }
         } else {
@@ -1019,11 +1030,14 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.requestUpdatingShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // This will set the punctuation suggestions if next word suggestion is off;
-        // otherwise it will clear the suggestion strip.
-        setNeutralSuggestionStrip();
-
-        mHandler.cancelUpdateSuggestionStrip();
+        // Set neutral suggestions and show the toolbar if the "Auto show toolbar" setting is enabled.
+        if (!mHandler.hasPendingResumeSuggestions()) {
+            mHandler.cancelUpdateSuggestionStrip();
+            setNeutralSuggestionStrip();
+            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar && !tryShowClipboardSuggestion()) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
         mainKeyboardView.setKeyPreviewPopupEnabled(currentSettingsValues.mKeyPreviewPopupOn);
@@ -1316,7 +1330,7 @@ public class LatinIME extends InputMethodService implements
         // Without this function the inline autofill suggestions will not be visible
         mHandler.cancelResumeSuggestions();
 
-        mSuggestionStripView.setInlineSuggestionsView(inlineSuggestionView);
+        mSuggestionStripView.setExternalSuggestionView(inlineSuggestionView);
 
         return true;
     }
@@ -1398,10 +1412,11 @@ public class LatinIME extends InputMethodService implements
         if (switchIme && !switchSubtype && switchInputMethod())
             return;
         final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(false).size() > 1;
-        // switch subtype if wanted and possible
-        if (switchSubtype && !switchIme && hasMoreThanOneSubtype) {
-            // switch to previous subtype if current one was used, otherwise cycle through list
-            mSubtypeState.switchSubtype(mRichImm);
+        // switch subtype if wanted, do nothing if no other subtype is available
+        if (switchSubtype && !switchIme) {
+            if (hasMoreThanOneSubtype)
+                // switch to previous subtype if current one was used, otherwise cycle through list
+                mSubtypeState.switchSubtype(mRichImm);
             return;
         }
         // language key set to switch both, or language key is not shown on keyboard -> switch both
@@ -1616,6 +1631,10 @@ public class LatinIME extends InputMethodService implements
                 || noSuggestionsFromDictionaries) {
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
+            // Auto hide the toolbar if dictionary suggestions are available
+            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
+                mSuggestionStripView.setToolbarVisibility(false);
+            }
         }
     }
 
@@ -1634,7 +1653,11 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void showSuggestionStrip(final SuggestedWords suggestedWords) {
         if (suggestedWords.isEmpty()) {
-            setNeutralSuggestionStrip();
+            // avoids showing clipboard suggestion when starting gesture typing
+            // should be fine, as there will be another suggestion in a few ms
+            // (but not a great style to avoid this visual glitch, maybe revert this commit and replace with sth better)
+            if (suggestedWords.mInputStyle != SuggestedWords.INPUT_STYLE_UPDATE_BATCH)
+                setNeutralSuggestionStrip();
         } else {
             setSuggestedWords(suggestedWords);
         }
@@ -1655,15 +1678,45 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
     }
 
-    // This will show either an empty suggestion strip (if prediction is enabled) or
-    // punctuation suggestions (if it's disabled).
+    /**
+     *  Checks if a recent clipboard suggestion is available. If available, it is set in suggestion strip.
+     *  returns whether a clipboard suggestion has been set.
+     */
+    public boolean tryShowClipboardSuggestion() {
+        final View clipboardView = mClipboardHistoryManager.getClipboardSuggestionView(getCurrentInputEditorInfo(), mSuggestionStripView);
+        if (clipboardView != null && hasSuggestionStripView()) {
+            mSuggestionStripView.setExternalSuggestionView(clipboardView);
+            return true;
+        }
+        return false;
+    }
+
+    // This will first try showing a clipboard suggestion. On success, the toolbar will be hidden
+    // if the "Auto hide toolbar" is enabled. Otherwise, an empty suggestion strip (if prediction
+    // is enabled) or punctuation suggestions (if it's disabled) will be set.
+    // Then, the toolbar will be shown automatically if the relevant setting is enabled
+    // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
         final SettingsValues currentSettings = mSettings.getCurrent();
+        if (tryShowClipboardSuggestion()) {
+            // clipboard suggestion has been set
+            if (hasSuggestionStripView() && currentSettings.mAutoHideToolbar)
+                mSuggestionStripView.setToolbarVisibility(false);
+            return;
+        }
         final SuggestedWords neutralSuggestions = currentSettings.mBigramPredictionEnabled
                 ? SuggestedWords.getEmptyInstance()
                 : currentSettings.mSpacingAndPunctuations.mSuggestPuncList;
         setSuggestedWords(neutralSuggestions);
+        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
+            final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
+            if (mInputLogic.mConnection.hasSelection()
+                    || codePointBeforeCursor == Constants.NOT_A_CODE
+                    || codePointBeforeCursor == Constants.CODE_ENTER) {
+                mSuggestionStripView.setToolbarVisibility(true);
+            }
+        }
     }
 
     @Override
@@ -1724,9 +1777,16 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         if (repeatCount > 0) {
-            if (code == KeyCode.DELETE && !mInputLogic.mConnection.canDeleteCharacters()) {
-                // No need to feedback when repeat delete key will have no effect.
-                return;
+            // No need to feedback when repeat delete/cursor keys will have no effect.
+            switch (code) {
+            case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_UP, KeyCode.WORD_LEFT, KeyCode.PAGE_UP:
+                if (!mInputLogic.mConnection.canDeleteCharacters())
+                    return;
+                break;
+            case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN, KeyCode.WORD_RIGHT, KeyCode.PAGE_DOWN:
+                if (mInputLogic.mConnection.noTextAfterCursor())
+                    return;
+                break;
             }
             // TODO: Use event time that the last feedback has been generated instead of relying on
             // a repeat count to thin out feedback.
