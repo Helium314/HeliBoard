@@ -340,6 +340,8 @@ public final class EmojiPalettesView extends LinearLayout
             mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
         }
         mKeyboardActionListener.onReleaseKey(code, false);
+        if (Settings.getInstance().getCurrent().mAlphaAfterEmojiInEmojiView)
+            mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
     }
 
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {

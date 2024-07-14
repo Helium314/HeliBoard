@@ -40,7 +40,7 @@ public final class PopupKeySpec {
     public final String mLabel;
     @Nullable
     public final String mOutputText;
-    @NonNull
+    @Nullable
     public final String mIconName;
 
     public PopupKeySpec(@NonNull final String popupKeySpec, boolean needsToUpperCase,
@@ -60,7 +60,7 @@ public final class PopupKeySpec {
             mOutputText = mLabel;
         } else {
             mCode = code;
-            final String outputText = KeySpecParser.getOutputText(popupKeySpec);
+            final String outputText = KeySpecParser.getOutputText(popupKeySpec, code);
             mOutputText = needsToUpperCase
                     ? StringUtils.toTitleCaseOfKeyLabel(outputText, locale) : outputText;
         }
@@ -78,7 +78,8 @@ public final class PopupKeySpec {
     @Override
     public int hashCode() {
         int hashCode = 31 + mCode;
-        hashCode = hashCode * 31 + mIconName.hashCode();
+        final String iconName = mIconName;
+        hashCode = hashCode * 31 + (iconName == null ? 0 : iconName.hashCode());
         final String label = mLabel;
         hashCode = hashCode * 31 + (label == null ? 0 : label.hashCode());
         final String outputText = mOutputText;
@@ -94,7 +95,7 @@ public final class PopupKeySpec {
         if (o instanceof PopupKeySpec) {
             final PopupKeySpec other = (PopupKeySpec)o;
             return mCode == other.mCode
-                    && mIconName.equals(other.mIconName)
+                    && TextUtils.equals(mIconName, other.mIconName)
                     && TextUtils.equals(mLabel, other.mLabel)
                     && TextUtils.equals(mOutputText, other.mOutputText);
         }
@@ -103,7 +104,7 @@ public final class PopupKeySpec {
 
     @Override
     public String toString() {
-        final String label = (mIconName.equals(KeyboardIconsSet.NAME_UNDEFINED) ? mLabel
+        final String label = (mIconName == null ? mLabel
                 : KeyboardIconsSet.PREFIX_ICON + mIconName);
         final String output = (mCode == KeyCode.MULTIPLE_CODE_POINTS ? mOutputText
                 : Constants.printableCode(mCode));

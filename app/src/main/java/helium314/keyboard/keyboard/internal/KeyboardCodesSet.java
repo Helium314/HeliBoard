@@ -22,7 +22,13 @@ public final class KeyboardCodesSet {
 
     public static int getCode(final String name) {
         Integer id = sNameToIdMap.get(name);
-        if (id == null) throw new RuntimeException("Unknown key code: " + name);
+        if (id == null) {
+            try {
+                return KeyCode.INSTANCE.checkAndConvertCode(Integer.parseInt(name));
+            } catch (final Exception e) {
+                throw new RuntimeException("Unknown key code: " + name);
+            }
+        }
         return DEFAULT[id];
     }
 
@@ -46,7 +52,6 @@ public final class KeyboardCodesSet {
         "key_emoji",
         "key_unspecified",
         "key_clipboard",
-        "key_numpad",
         "key_start_onehanded",
         "key_stop_onehanded",
         "key_switch_onehanded"
@@ -72,7 +77,6 @@ public final class KeyboardCodesSet {
         KeyCode.EMOJI,
         KeyCode.NOT_SPECIFIED,
         KeyCode.CLIPBOARD,
-        KeyCode.NUMPAD,
         KeyCode.START_ONE_HANDED_MODE,
         KeyCode.STOP_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE

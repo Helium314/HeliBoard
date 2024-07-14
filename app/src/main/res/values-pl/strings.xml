@@ -117,7 +117,7 @@
     <string name="user_dict_settings_empty_text">"Brak słów w słowniku użytkownika. Aby dodać słowo, kliknij przycisk Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages">"Dla wszystkich języków"</string>
     <string name="user_dict_settings_more_languages">"Więcej języków…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEĘFGHIJKLŁMNOÓPQRSŚTUVWXYZŻ"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_correction">Korekty</string>
     <string name="settings_category_miscellaneous">Różne</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
@@ -357,7 +357,7 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Białe Holo</string>
     <string name="language_switch_key_switch_both">Zmień oba</string>
     <string name="available_dictionary_experimental">%s (eksperymentalny)</string>
-    <string name="customize_symbols_number_layouts">Dostosuj układ symboli i liczb</string>
+    <string name="customize_symbols_number_layouts">Dostosuj układy symboli i liczb</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
@@ -400,4 +400,5 @@
     <string name="auto_hide_toolbar">Automatyczne ukrywanie paska narzędzi</string>
     <string name="auto_show_toolbar">Automatyczne wyświetlanie paska narzędzi</string>
     <string name="language_switch_key_behavior">Zachowanie klawisza zmiany języka</string>
+    <string name="emoji" tools:keep="@string/emoji">Emotikony</string>
 </resources>

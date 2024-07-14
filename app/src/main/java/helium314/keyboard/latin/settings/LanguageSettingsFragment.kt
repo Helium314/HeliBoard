@@ -209,7 +209,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             .addCategory(Intent.CATEGORY_OPENABLE)
             // todo: any working way to allow only json and text files?
-            .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream")) // doesn't allow opening json files with "application/json"
+            .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream", "application/json"))
             .setType("*/*")
         layoutFilePicker.launch(intent)
     }

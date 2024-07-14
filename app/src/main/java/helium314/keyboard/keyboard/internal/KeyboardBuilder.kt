@@ -65,14 +65,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun setupParams() {
-        // previously was false for nordic and serbian_qwertz, true for all others
-        // todo: add setting? maybe users want it in a custom layout
-        mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
-
+        val sv = Settings.getInstance().current
+        mParams.mAllowRedundantPopupKeys = !sv.mRemoveRedundantPopups
         mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
-        val sv = Settings.getInstance().current
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
         // add label source only if popup key type enabled
@@ -117,46 +114,14 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         var currentY = mParams.mTopPadding.toFloat()
         for (row in keysInRows) {
             if (row.isEmpty()) continue
-            fillGapsWithSpacers(row)
             var currentX = mParams.mLeftPadding.toFloat()
             row.forEach {
                 it.setAbsoluteDimensions(currentX, currentY)
                 if (DebugFlags.DEBUG_ENABLED)
-                    Log.d(TAG, "setting size and position for ${it.mLabel}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
+                    Log.d(TAG, "setting size and position for ${it.mLabel ?: it.mIconName}, ${it.mCode}: x ${currentX.toInt()}, w ${it.mAbsoluteWidth.toInt()}")
                 currentX += it.mAbsoluteWidth
             }
             currentY += row.first().mAbsoluteHeight
-        }
-    }
-
-    // necessary for adjusting widths and positions properly
-    // without adding spacers whose width can then be adjusted, we would have to deal with keyXPos,
-    // which is more complicated than expected
-    // todo: remove? maybe was only necessary with old parser
-    private fun fillGapsWithSpacers(row: MutableList<KeyParams>) {
-        if (mParams.mId.mElementId !in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) return
-        if (row.isEmpty()) return
-        if (row.all { it.xPos == 0f }) return // need existing xPos to determine gaps
-        var currentX = 0f + mParams.mLeftPadding
-        var i = 0
-        while (i < row.size) {
-            val currentKeyXPos = row[i].xPos
-            if (currentKeyXPos > currentX) {
-                // insert spacer
-                val spacer = KeyParams.newSpacer(mParams, (currentKeyXPos - currentX) / mParams.mBaseWidth)
-                spacer.yPos = row[i].yPos
-                row.add(i, spacer)
-                i++
-                currentX += currentKeyXPos - currentX
-            }
-            currentX += row[i].mAbsoluteWidth
-            i++
-        }
-        if (currentX < mParams.mOccupiedWidth) {
-            // insert spacer
-            val spacer = KeyParams.newSpacer(mParams, (mParams.mOccupiedWidth - currentX) / mParams.mBaseWidth)
-            spacer.yPos = row.last().yPos
-            row.add(spacer)
         }
     }
 
@@ -168,7 +133,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         var maxWidthBeforeSpacer = 0f
         var maxWidthAfterSpacer = 0f
         for (row in keysInRows) {
-            fillGapsWithSpacers(row)
             val y = row.first().yPos // all have the same y, so this is fine
             val relativeWidthSum = row.sumOf { it.mWidth } // sum up relative widths
             val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)

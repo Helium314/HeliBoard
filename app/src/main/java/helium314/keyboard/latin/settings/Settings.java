@@ -108,6 +108,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
     public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
+    public static final String PREF_SUGGEST_CLIPBOARD_CONTENT = "suggest_clipboard_content";
     public static final String PREF_GESTURE_INPUT = "gesture_input";
     public static final String PREF_VIBRATION_DURATION_SETTINGS = "vibration_duration_settings";
     public static final String PREF_KEYPRESS_SOUND_VOLUME = "keypress_sound_volume";
@@ -116,6 +117,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
+    public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
@@ -127,6 +129,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
+    public static final String PREF_CUSTOM_CURRENCY_KEY = "custom_currency_key";
 
     public static final String PREF_SHOW_HINTS = "show_hints";
     public static final String PREF_POPUP_KEYS_ORDER = "popup_keys_order";
@@ -154,6 +157,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_AUTO_SHOW_TOOLBAR = "auto_show_toolbar";
     public static final String PREF_AUTO_HIDE_TOOLBAR = "auto_hide_toolbar";
     public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
+    public static final String PREF_ABC_AFTER_EMOJI = "abc_after_emoji";
+    public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
+    public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
+    public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
 
     // Emoji
@@ -187,7 +194,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         add(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID);
         add(PREF_EMOJI_RECENT_KEYS);
         add(PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG);
-        add(PREF_SHOW_MORE_COLORS);
         add(PREF_SELECTED_SUBTYPE);
     }};
 
@@ -366,6 +372,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
 
+    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFastTypingCooldown(res);
+    }
+
+    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
+    }
+
     public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
         return switch (prefs.getString(PREF_TOOLBAR_MODE, "toolbar_and_suggestions_mode")) {
             case "hidden_mode" -> ToolbarMode.HIDDEN;
@@ -379,6 +396,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, "none")) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
+            case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
     }
@@ -387,6 +405,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return switch (prefs.getString(PREF_SPACE_VERTICAL_SWIPE, "none")) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
+            case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
     }
@@ -500,10 +519,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
+        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "main")) {
             case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
             case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
-            default -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            case "normal" -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            default -> LocaleKeyboardInfosKt.POPUP_KEYS_MAIN;
         };
     }
 
@@ -564,12 +584,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
-        final String themeColors = (isNight && readDayNightPref(prefs, context.getResources()))
+        else isNight = isNight && readDayNightPref(prefs, context.getResources());
+        final String themeColors = (isNight)
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
                 : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
 
-        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs);
+        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs, isNight);
     }
 
     public static int readUserColor(final SharedPreferences prefs, final Context context, final String colorName, final boolean isNight) {
@@ -659,5 +680,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public String getInLocale(@StringRes final int resId, final Locale locale) {
         return RunInLocaleKt.runInLocale(mContext, locale, (ctx) -> ctx.getString(resId));
+    }
+
+    public String readCustomCurrencyKey() {
+        return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, "");
     }
 }

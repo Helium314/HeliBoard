@@ -4,12 +4,24 @@ package helium314.keyboard.latin
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.text.InputType
 import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.core.view.isGone
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.isValidNumber
+import helium314.keyboard.latin.databinding.ClipboardSuggestionBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.InputTypeUtils
+import helium314.keyboard.latin.utils.ToolbarKey
 import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
@@ -18,6 +30,7 @@ class ClipboardHistoryManager(
 
     private lateinit var clipboardManager: ClipboardManager
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
+    private var clipboardSuggestionView: View? = null
 
     fun onCreate() {
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -36,6 +49,7 @@ class ClipboardHistoryManager(
         // Make sure we read clipboard content only if history settings is set
         if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true) {
             fetchPrimaryClip()
+            dontShowCurrentSuggestion = false
         }
     }
 
@@ -90,6 +104,7 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        removeClipboardSuggestion()
     }
 
     fun canRemove(index: Int) = historyEntries.getOrNull(index)?.isPinned != true
@@ -131,6 +146,11 @@ class ClipboardHistoryManager(
         return clipData.getItemAt(0)?.coerceToText(latinIME) ?: ""
     }
 
+    private fun isClipSensitive(inputType: Int): Boolean {
+        ClipboardManagerCompat.getClipSensitivity(clipboardManager.primaryClip?.description)?.let { return it }
+        return InputTypeUtils.isPasswordInputType(inputType)
+    }
+
     // pinned clips are stored in default shared preferences, not in device protected preferences!
     private fun loadPinnedClips() {
         val pinnedClipString = Settings.readPinnedClipString(latinIME)
@@ -156,8 +176,66 @@ class ClipboardHistoryManager(
         fun onClipboardHistoryEntryMoved(from: Int, to: Int)
     }
 
+    fun getClipboardSuggestionView(editorInfo: EditorInfo?, parent: ViewGroup?): View? {
+        // maybe no need to create a new view
+        // but a cache has to consider a few possible changes, so better don't implement without need
+        clipboardSuggestionView = null
+
+        // get the content, or return null
+        if (!latinIME.mSettings.current.mSuggestClipboardContent) return null
+        if (dontShowCurrentSuggestion) return null
+        if (parent == null) return null
+        val clipData = clipboardManager.primaryClip ?: return null
+        if (clipData.itemCount == 0 || clipData.description?.hasMimeType("text/*") == false) return null
+        val clipItem = clipData.getItemAt(0) ?: return null
+        val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData) ?: System.currentTimeMillis()
+        if (System.currentTimeMillis() - timeStamp > RECENT_TIME_MILLIS) return null
+        val content = clipItem.coerceToText(latinIME)
+        if (TextUtils.isEmpty(content)) return null
+        val inputType = editorInfo?.inputType ?: InputType.TYPE_NULL
+        if (InputTypeUtils.isNumberInputType(inputType) && !content.isValidNumber()) return null
+
+        // create the view
+        val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
+        val textView = binding.clipboardSuggestionText
+        textView.text = if (isClipSensitive(inputType)) "*".repeat(content.length) else content
+        val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.PASTE.name.lowercase())
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(clipIcon, null, null, null)
+        textView.setOnClickListener {
+            dontShowCurrentSuggestion = true
+            latinIME.onTextInput(content.toString())
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, it)
+            binding.root.isGone = true
+        }
+        val closeButton = binding.clipboardSuggestionClose
+        closeButton.setImageDrawable(latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
+        closeButton.setOnClickListener { removeClipboardSuggestion() }
+
+        val colors = latinIME.mSettings.current.mColors
+        textView.setTextColor(colors.get(ColorType.KEY_TEXT))
+        clipIcon?.let { colors.setColor(it, ColorType.KEY_ICON) }
+        colors.setColor(closeButton, ColorType.REMOVE_SUGGESTION_ICON)
+        colors.setBackground(binding.root, ColorType.CLIPBOARD_SUGGESTION_BACKGROUND)
+
+        clipboardSuggestionView = binding.root
+        return clipboardSuggestionView
+    }
+
+    private fun removeClipboardSuggestion() {
+        dontShowCurrentSuggestion = true
+        val csv = clipboardSuggestionView ?: return
+        if (csv.parent != null && !csv.isGone) {
+            // clipboard view is shown ->
+            latinIME.setNeutralSuggestionStrip()
+            latinIME.mHandler.postResumeSuggestions(false)
+        }
+        csv.isGone = true
+    }
+
     companion object {
         // store pinned clips in companion object so they survive a keyboard switch (which destroys the current instance)
         private val historyEntries: MutableList<ClipboardHistoryEntry> = ArrayList()
+        private var dontShowCurrentSuggestion: Boolean = false
+        const val RECENT_TIME_MILLIS = 3 * 60 * 1000L // 3 minutes (for clipboard suggestions)
     }
 }

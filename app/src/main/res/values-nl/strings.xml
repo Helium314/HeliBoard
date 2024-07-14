@@ -131,27 +131,27 @@
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
     <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Nummerrij altijd weergeven</string>
-    <string name="delete_swipe_summary">Voer een veegbeweging uit vanaf de delete-toets om grotere delen van tekst tegelijk te selecteren en te verwijderen</string>
+    <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
     <string name="spell_checker_service_name">HeliBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
     <string name="number_row">Nummerrij</string>
-    <string name="incognito">Incognitomodus forceren</string>
+    <string name="incognito">Incognito-modus afdwingen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>
     <string name="settings_category_suggestions">Suggesties</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Druk lang op de spatietoets voor het selectiemenu van de invoermethode</string>
-    <string name="auto_correction_confidence">Autocorrectie vertrouwen</string>
+    <string name="auto_correction_confidence">Betrouwbaarheid autocorrectie</string>
     <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembord-toets de inhoud van het klembord</string>
     <string name="show_hints">Hints bij toetsen weergeven</string>
     <string name="prefs_force_incognito_mode_summary">Het leren van nieuwe woorden uitschakelen</string>
-    <string name="show_hints_summary">Hints voor lang indrukken weergeven</string>
+    <string name="show_hints_summary">Hints bij lang indrukken weergeven</string>
     <string name="prefs_keyboard_height_scale">Toetsenbordhoogte schaal</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Invoermethode schakelen met spatietoets</string>
     <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabet (Workman)</string>
-    <string name="key_borders">Toetsen met randen</string>
+    <string name="key_borders">Toetsranden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
     <string name="ime_settings">HeliBoard instellingen</string>
     <string name="settings_category_input">Invoer</string>
@@ -167,7 +167,7 @@
     <string name="label_search_key">"Zoeken"</string>
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Wacht"</string>
-    <string name="one_handed" tools:keep="@string/one_handed">Enkele handmodus</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Bediening met één hand</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roze</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
@@ -286,7 +286,6 @@
     <string name="button_copy_existing_layout">Bestaande lay-out kopiëren</string>
     <string name="layout_error">Fout bij lay-out: %s</string>
     <string name="edit_layout">Tik om lay-out te bewerken</string>
-<!--    <string name="customize_symbols_number_layouts_summary">Lay-outs (behalve symbolen) geven interne instellingen weer die mogelijk nog veranderen. Als dat gebeurt, werkt de aangepaste lay-out mogelijk niet meer goed.</string>-->
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Meer symbolen</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefoon</string>
     <string name="dictionary_settings_category">Woordenboeken</string>
@@ -315,7 +314,7 @@
     <string name="main_colors">Alleen hoofdkleuren weergeven</string>
     <string name="more_colors">Meer kleuren tonen</string>
     <string name="all_colors">Alle kleuren tonen</string>
-    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is geen standaardkleur en de namen worden niet vertaald.</string>
+    <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is een willekeurige standaardkleur en de namen worden niet vertaald.</string>
     <string name="hint_show_keyboard">Klik voor een voorbeeld</string>
     <string name="select_color_background">Toetsenbord-achtergrond</string>
     <string name="select_color_key">Toetstekst</string>
@@ -341,8 +340,8 @@
     <string name="load_gesture_library_message">Een bibliotheek is nodig voor \'%s\'. Incompatibele bibliotheken kunnen crashen bij het typen van gebaren.
 \n
 \nWaarschuwing: het laden van externe code kan een veiligheidsrisico vormen. Gebruik alleen een bibliotheek van een vertrouwde bron.</string>
-    <string name="no_dictionary_message">"Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
-\n        Je kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden."</string>
+    <string name="no_dictionary_message">Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
+\nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
     <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven (standaard)</string>
     <string name="show_popup_hints">Functionele hints weergeven</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
@@ -360,7 +359,7 @@
 \n\t• woord selecteren &amp;#65515; alles selecteren&lt;br&gt;
 \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
 \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
-\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Enkele handmodus, Instellingen, of de taal te wisselen: &lt;br&gt;
+\n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
 \n\t• Emoji-weergave en taal-schakelaar verdwijnen wanneer de corresponderende toets is geactiveerd; &lt;br&gt;
 \n\t• Voor sommige lay-outs is het niet de komma-toets, maar de toets op dezelfde positie (bijvoorbeeld \\\'q\\\' bij een Dvorak-lay-out). &lt;br&gt; &lt;br&gt;
 \n► Wanneer incognitomodus is ingeschakeld, worden er geen woorden geleerd en worden er geen emoji\'s aan de lijst recent toegevoegd.&lt;br&gt; &lt;br&gt;
@@ -401,4 +400,9 @@
     <string name="auto_hide_toolbar_summary">Verberg de werkbalk wanneer er suggesties beschikbaar komen</string>
     <string name="auto_show_toolbar_summary">Toon de werkbalk bij invoer of selectie van tekst</string>
     <string name="language_switch_key_behavior">Gedrag taalkeuze-toets</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown_instant">Altijd direct starten</string>
+    <string name="gesture_fast_typing_cooldown">Afkoelperiode bij snel typen</string>
+    <string name="customize_currencies_detail">Stel hoofd- en secundaire valutasymbolen in, gescheiden door spatie</string>
+    <string name="customize_currencies">Valuta\'s aanpassen</string>
 </resources>

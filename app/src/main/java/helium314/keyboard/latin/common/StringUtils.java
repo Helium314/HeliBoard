@@ -625,7 +625,7 @@ public final class StringUtils {
         return false;
     }
 
-    public static boolean mightBeEmoji(final String s) {
+    public static boolean mightBeEmoji(final CharSequence s) {
         int offset = 0;
         final int length = s.length();
         while (offset < length) {

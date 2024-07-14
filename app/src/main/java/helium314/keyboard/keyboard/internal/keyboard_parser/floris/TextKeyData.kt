@@ -12,11 +12,13 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.convertFlorisLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
@@ -113,13 +115,14 @@ sealed interface KeyData : AbstractKeyData {
             else "!icon/space_key_for_number_layout|!code/key_space"
 
         // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
+        //  keys could be replaced with toolbar keys, but parsing needs to be adjusted (should happen anyway...)
         private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
             val keys = mutableListOf<String>()
             if (!params.mId.mDeviceLocked)
                 keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
             if (!params.mId.mEmojiKeyEnabled && !params.mId.isNumberLayout)
                 keys.add("!icon/emoji_normal_key|!code/key_emoji")
-            if (!params.mId.mLanguageSwitchKeyEnabled && !params.mId.isNumberLayout)
+            if (!params.mId.mLanguageSwitchKeyEnabled && !params.mId.isNumberLayout && RichInputMethodManager.canSwitchLanguage())
                 keys.add("!icon/language_switch_key|!code/key_language_switch")
             if (!params.mId.mOneHandedModeEnabled)
                 keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
@@ -289,8 +292,52 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_EYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
+    /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */
+    // this mashes the code into the popup label to make it work
+    // actually that's a bad approach, but at the same time doing things properly and with reasonable performance requires much more work
+    // so better only do it in case the popup stuff needs more improvements
+    // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
+    fun getPopupLabel(params: KeyboardParams): String {
+        val newLabel = processLabel(params)
+        if (code == KeyCode.UNSPECIFIED) {
+            if (newLabel == label) return label
+            val newCode = processCode()
+            if (newLabel.endsWith("|")) return "${newLabel}!code/$newCode" // for toolbar keys
+            return if (newCode == code) newLabel else "${newLabel}|!code/$newCode"
+        }
+        if (code >= 32) {
+            if (newLabel.startsWith(KeyboardIconsSet.PREFIX_ICON)) {
+                // we ignore everything after the first |
+                // todo (later): for now this is fine, but it should rather be done when creating the popup key,
+                //  and it should be consistent with other popups and also with normal keys
+                return "${newLabel.substringBefore("|")}|${StringUtils.newSingleCodePointString(code)}"
+            }
+            return "$newLabel|${StringUtils.newSingleCodePointString(code)}"
+
+        }
+        if (code in KeyCode.Spec.CURRENCY) {
+            return getCurrencyLabel(params)
+        }
+        return if (newLabel.endsWith("|")) "$newLabel!code/${processCode()}" // for toolbar keys
+        else "$newLabel|!code/${processCode()}"
+    }
+
+    fun getCurrencyLabel(params: KeyboardParams): String {
+        val newLabel = processLabel(params)
+        return when (code) {
+            // consider currency codes for label
+            KeyCode.CURRENCY_SLOT_1 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.first}"
+            KeyCode.CURRENCY_SLOT_2 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[0]}"
+            KeyCode.CURRENCY_SLOT_3 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[1]}"
+            KeyCode.CURRENCY_SLOT_4 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[2]}"
+            KeyCode.CURRENCY_SLOT_5 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[3]}"
+            KeyCode.CURRENCY_SLOT_6 -> "$newLabel|${params.mLocaleKeyboardInfos.currencyKey.second[4]}"
+            else -> throw IllegalStateException("code in currency range, but not in currency range?")
+        }
+    }
+
     override fun compute(params: KeyboardParams): KeyData? {
-        require(groupId <= GROUP_ENTER) { "only groups up to GROUP_ENTER are supported" }
+        require(groupId in 0..GROUP_ENTER) { "only positive groupIds up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
@@ -323,26 +370,16 @@ sealed interface KeyData : AbstractKeyData {
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
     fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
-        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, width)
-
         val newWidth = if (width == 0f) getDefaultWidth(params) else width
+        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, newWidth)
+
         val newCode: Int
         val newLabel: String
         if (code in KeyCode.Spec.CURRENCY) {
             // special treatment necessary, because we may need to encode it in the label
-            // (currency is a string, so might have more than 1 codepoint)
+            // (currency is a string, so might have more than 1 codepoint, e.g. for Nepal)
             newCode = 0
-            val l = processLabel(params)
-            newLabel = when (code) {
-                // consider currency codes for label
-                KeyCode.CURRENCY_SLOT_1 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.first}"
-                KeyCode.CURRENCY_SLOT_2 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[0]}"
-                KeyCode.CURRENCY_SLOT_3 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[1]}"
-                KeyCode.CURRENCY_SLOT_4 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[2]}"
-                KeyCode.CURRENCY_SLOT_5 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[3]}"
-                KeyCode.CURRENCY_SLOT_6 -> "$l|${params.mLocaleKeyboardInfos.currencyKey.second[4]}"
-                else -> throw IllegalStateException("code in currency range, but not in currency range?")
-            }
+            newLabel = getCurrencyLabel(params)
         } else {
             newCode = processCode()
             newLabel = processLabel(params)
@@ -401,8 +438,8 @@ sealed interface KeyData : AbstractKeyData {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
-            KeyLabel.EMOJI, KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
+            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return getShiftBackground(params)
@@ -439,11 +476,10 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.ACTION -> "${getActionKeyLabel(params)}|${getActionKeyCode(params)}"
         KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
         KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
-        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
+//        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
         // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
         KeyLabel.COM -> ".com"
         KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
-        KeyLabel.NUMPAD -> "!icon/numpad_key|!code/key_numpad"
         KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
         KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
         KeyLabel.CURRENCY1 -> params.mLocaleKeyboardInfos.currencyKey.second[0]
@@ -451,10 +487,10 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.CURRENCY3 -> params.mLocaleKeyboardInfos.currencyKey.second[2]
         KeyLabel.CURRENCY4 -> params.mLocaleKeyboardInfos.currencyKey.second[3]
         KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
-        KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> label.uppercase(Locale.US)
+        KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
         KeyLabel.TAB -> "!icon/tab_key|"
         else -> {
-            if (label in toolbarKeyStrings) {
+            if (label in toolbarKeyStrings.values) {
                 "!icon/$label|"
             } else label
         }
@@ -472,7 +508,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.META -> KeyCode.META
             KeyLabel.TAB -> KeyCode.TAB
             else -> {
-                if (label in toolbarKeyStrings) {
+                if (label in toolbarKeyStrings.values) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
                 } else code
             }
@@ -493,7 +529,7 @@ sealed interface KeyData : AbstractKeyData {
             }
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
             KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
-            KeyLabel.EMOJI -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+            toolbarKeyStrings[ToolbarKey.EMOJI] -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO

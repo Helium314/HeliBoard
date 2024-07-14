@@ -19,7 +19,7 @@ HeliBoard is a complex application, when contributing, you must take a step back
   If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle HeliBoard follows**.
 
-(and please leave dependency upgrades to the maintainers, unless it's an actual security issue)
+(and leave dependency upgrades to the maintainers, unless it's an actual security issue)
 In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
 
 # Adding Layouts
@@ -33,3 +33,6 @@ See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
 # Translations
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
+
+# Dictionaries
+No new dictionaries will be added to this app. Please submit dictionaries and the wordlist to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries)

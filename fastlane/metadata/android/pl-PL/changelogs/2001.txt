@@ -1,0 +1,11 @@
+* możliwość dostosowywania układów klawiszy funkcyjnych
+* lekkie dostosowanie układów symboli i symboli dodatkowych
+* dodano opcje automatycznego wyświetlania/ukrywania paska narzędzi
+* dodano powiadomienie toast podczas kopiowania tekstu
+* oddzielono opcję "zachowanie klawisza zmiany języka" od jego włączania
+* dodano wyskakujące okienka do klawisza przecinka dla układów numerów i telefonu
+* przypinanie poprzez długie naciśnięcie na pasku narzędzi jest teraz opcjonalne
+* przeniesienie ustawień paska narzędzi do osobnej sekcji
+* dodano klawisz tabulatora
+* możliwość dodania ctrl, przycisków paska narzędzi oraz innych klawiszy do układów
+* drobne poprawki i ulepszenia

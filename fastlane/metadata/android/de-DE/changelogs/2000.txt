@@ -1,0 +1,10 @@
+* Grundlegende Unterstützung für Modifikatortasten hinzugefügt
+* Langdruck-Funktionen zu weiteren Tasten der Symbolleiste hinzugefügt
+* und mehr Tasten in der Symbolleiste für den Verlauf der Zwischenablage
+* Symbolleiste für den Verlauf der Zwischenablage anpassbar machen
+* Erlaubt das Anpassen aller Farben
+* Einstellung hinzugefügt, um das einzugebende Wort immer als mittleren Vorschlag anzuzeigen
+* Anzeige für Feststelltaste hinzugefügt
+* Piedmontese, Eastern Mari, Mansi, erweiterte Layouts für Kannada und Ungarisch hinzugefügt
+* Abgeschnittener Text im Tastenvorschau-Popup auf einigen Geräten behoben
+* weitere Korrekturen und Verbesserungen, siehe Versionshinweise

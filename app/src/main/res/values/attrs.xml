@@ -94,8 +94,6 @@
         <attr name="keyRepeatStartTimeout" format="integer" />
         <!-- Key repeat interval in millisecond. -->
         <attr name="keyRepeatInterval" format="integer" />
-        <!-- Long press timeout of shift key to shift lock in millisecond. -->
-        <attr name="longPressShiftLockTimeout" format="integer" />
         <!-- Ignore special key timeout while typing in millisecond. -->
         <attr name="ignoreAltCodeKeyTimeout" format="integer" />
         <!-- Background resource for key press feedback.-->
@@ -260,6 +258,7 @@
         <attr name="iconClipboardNormalKey" format="reference" />
         <attr name="iconCopyKey" format="reference" />
         <attr name="iconCutKey" format="reference" />
+        <attr name="iconPasteKey" format="reference" />
         <attr name="iconClearClipboardKey" format="reference" />
         <attr name="iconStartOneHandedMode" format="reference" />
         <attr name="iconStopOneHandedMode" format="reference" />
@@ -272,8 +271,14 @@
         <attr name="iconArrowRight" format="reference" />
         <attr name="iconArrowUp" format="reference" />
         <attr name="iconArrowDown" format="reference" />
+        <attr name="iconWordLeft" format="reference" />
+        <attr name="iconWordRight" format="reference" />
+        <attr name="iconPageUp" format="reference" />
+        <attr name="iconPageDown" format="reference" />
         <attr name="iconFullLeft" format="reference" />
         <attr name="iconFullRight" format="reference" />
+        <attr name="iconPageStart" format="reference" />
+        <attr name="iconPageEnd" format="reference" />
         <attr name="iconSelectWord" format="reference" />
         <attr name="iconBin" format="reference" />
         <attr name="iconUndo" format="reference" />

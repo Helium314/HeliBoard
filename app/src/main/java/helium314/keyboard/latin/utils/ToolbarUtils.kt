@@ -14,6 +14,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
+import java.util.EnumMap
 import java.util.Locale
 
 fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey): ImageButton {
@@ -23,11 +24,6 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    if (key == LEFT || key == RIGHT || key == UP || key == DOWN) {
-        // arrows look a little awkward when not scaled
-        button.scaleX = 1.2f
-        button.scaleY = 1.2f
-    }
     button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
@@ -40,61 +36,85 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
 
 fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     VOICE -> KeyCode.VOICE_INPUT
-    SETTINGS -> KeyCode.SETTINGS
     CLIPBOARD -> KeyCode.CLIPBOARD
+    NUMPAD -> KeyCode.NUMPAD
+    UNDO -> KeyCode.UNDO
+    REDO -> KeyCode.REDO
+    SETTINGS -> KeyCode.SETTINGS
     SELECT_ALL -> KeyCode.CLIPBOARD_SELECT_ALL
+    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
     COPY -> KeyCode.CLIPBOARD_COPY
     CUT -> KeyCode.CLIPBOARD_CUT
+    PASTE -> KeyCode.CLIPBOARD_PASTE
     ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
+    AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
+    CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
+    CLOSE_HISTORY -> KeyCode.ALPHA
+    EMOJI -> KeyCode.EMOJI
     LEFT -> KeyCode.ARROW_LEFT
     RIGHT -> KeyCode.ARROW_RIGHT
     UP -> KeyCode.ARROW_UP
     DOWN -> KeyCode.ARROW_DOWN
-    UNDO -> KeyCode.UNDO
-    REDO -> KeyCode.REDO
-    INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
-    AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
+    WORD_LEFT -> KeyCode.WORD_LEFT
+    WORD_RIGHT -> KeyCode.WORD_RIGHT
+    PAGE_UP -> KeyCode.PAGE_UP
+    PAGE_DOWN -> KeyCode.PAGE_DOWN
     FULL_LEFT -> KeyCode.MOVE_START_OF_LINE
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
-    SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_WORD
-    CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
-    CLOSE_HISTORY -> KeyCode.ALPHA
+    PAGE_START -> KeyCode.MOVE_START_OF_PAGE
+    PAGE_END -> KeyCode.MOVE_END_OF_PAGE
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
-    RIGHT -> KeyCode.MOVE_END_OF_LINE
-    LEFT -> KeyCode.MOVE_START_OF_LINE
-    UP -> KeyCode.PAGE_UP
-    DOWN -> KeyCode.PAGE_DOWN
+    CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
     UNDO -> KeyCode.REDO
     REDO -> KeyCode.UNDO
-    COPY -> KeyCode.CLIPBOARD_COPY_ALL
+    SELECT_ALL -> KeyCode.CLIPBOARD_SELECT_WORD
     SELECT_WORD -> KeyCode.CLIPBOARD_SELECT_ALL
-    CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
+    COPY -> KeyCode.CLIPBOARD_CUT
+    PASTE -> KeyCode.CLIPBOARD
+    LEFT -> KeyCode.WORD_LEFT
+    RIGHT -> KeyCode.WORD_RIGHT
+    UP -> KeyCode.PAGE_UP
+    DOWN -> KeyCode.PAGE_DOWN
+    WORD_LEFT -> KeyCode.MOVE_START_OF_LINE
+    WORD_RIGHT -> KeyCode.MOVE_END_OF_LINE
+    PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
+    PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
     else -> KeyCode.UNSPECIFIED
 }
 
 fun getStyleableIconId(key: ToolbarKey) = when (key) {
     VOICE -> R.styleable.Keyboard_iconShortcutKey
-    SETTINGS -> R.styleable.Keyboard_iconSettingsKey
     CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
+    NUMPAD -> R.styleable.Keyboard_iconNumpadKey
+    UNDO -> R.styleable.Keyboard_iconUndo
+    REDO -> R.styleable.Keyboard_iconRedo
+    SETTINGS -> R.styleable.Keyboard_iconSettingsKey
     SELECT_ALL -> R.styleable.Keyboard_iconSelectAll
+    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
     COPY -> R.styleable.Keyboard_iconCopyKey
     CUT -> R.styleable.Keyboard_iconCutKey
+    PASTE -> R.styleable.Keyboard_iconPasteKey
     ONE_HANDED -> R.styleable.Keyboard_iconStartOneHandedMode
+    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
+    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
+    CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
+    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
+    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
     LEFT -> R.styleable.Keyboard_iconArrowLeft
     RIGHT -> R.styleable.Keyboard_iconArrowRight
     UP -> R.styleable.Keyboard_iconArrowUp
     DOWN -> R.styleable.Keyboard_iconArrowDown
-    UNDO -> R.styleable.Keyboard_iconUndo
-    REDO -> R.styleable.Keyboard_iconRedo
-    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
-    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
-    CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
+    WORD_LEFT -> R.styleable.Keyboard_iconWordLeft
+    WORD_RIGHT -> R.styleable.Keyboard_iconWordRight
+    PAGE_UP -> R.styleable.Keyboard_iconPageUp
+    PAGE_DOWN -> R.styleable.Keyboard_iconPageDown
     FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
     FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
-    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
-    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
+    PAGE_START -> R.styleable.Keyboard_iconPageStart
+    PAGE_END -> R.styleable.Keyboard_iconPageEnd
 }
 
 fun getToolbarIconByName(name: String, context: Context): Drawable? {
@@ -108,21 +128,21 @@ fun getToolbarIconByName(name: String, context: Context): Drawable? {
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, ONE_HANDED, LEFT, RIGHT, UP, DOWN,
-    FULL_LEFT, FULL_RIGHT, INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY
+    VOICE, CLIPBOARD, NUMPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED,
+    INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
+    PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END
 }
 
 enum class ToolbarMode {
     HIDDEN, TOOLBAR_KEYS, SUGGESTION_STRIP, EXPANDABLE
 }
 
-val toolbarKeyStrings: Set<String> = entries.mapTo(HashSet()) { it.toString().lowercase(Locale.US) }
+val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
-val defaultToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
-    when (it) {
-        INCOGNITO, AUTOCORRECT, UP, DOWN, ONE_HANDED, FULL_LEFT, FULL_RIGHT, CUT, CLEAR_CLIPBOARD -> "${it.name},false"
-        else -> "${it.name},true"
-    }
+val defaultToolbarPref by lazy {
+    val default = listOf(SETTINGS, VOICE, CLIPBOARD, UNDO, REDO, SELECT_WORD, COPY, PASTE, LEFT, RIGHT)
+    val others = entries.filterNot { it in default || it == CLOSE_HISTORY }
+    default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
 
 val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToString(";") {
@@ -130,7 +150,7 @@ val defaultPinnedToolbarPref = entries.filterNot { it == CLOSE_HISTORY }.joinToS
 }
 
 val defaultClipboardToolbarPref by lazy {
-    val default = listOf(ONE_HANDED, UNDO, UP, DOWN, LEFT, RIGHT, CLEAR_CLIPBOARD, COPY, CUT, SELECT_WORD, CLOSE_HISTORY)
+    val default = listOf(CLEAR_CLIPBOARD, UP, DOWN, LEFT, RIGHT, UNDO, CUT, COPY, PASTE, SELECT_WORD, CLOSE_HISTORY)
     val others = entries.filterNot { it in default }
     default.joinToString(";") { "${it.name},true" } + ";" + others.joinToString(";") { "${it.name},false" }
 }
@@ -146,7 +166,6 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
     if (!prefs.contains(pref)) return
     val list = prefs.getString(pref, default)!!.split(";").toMutableList()
     val splitDefault = defaultToolbarPref.split(";")
-    if (list.size == splitDefault.size) return
     splitDefault.forEach { entry ->
         val keyWithComma = entry.substringBefore(",") + ","
         if (list.none { it.startsWith(keyWithComma) })
@@ -161,7 +180,7 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
             true
         }
     }
-    prefs.edit { putString(Settings.PREF_TOOLBAR_KEYS, list.joinToString(";")) }
+    prefs.edit { putString(pref, list.joinToString(";")) }
 }
 
 fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)

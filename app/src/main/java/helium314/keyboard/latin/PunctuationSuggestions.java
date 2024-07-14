@@ -64,7 +64,7 @@ public final class PunctuationSuggestions extends SuggestedWords {
         final String keySpec = super.getWord(index);
         final int code = KeySpecParser.getCode(keySpec);
         return (code == KeyCode.MULTIPLE_CODE_POINTS)
-                ? KeySpecParser.getOutputText(keySpec)
+                ? KeySpecParser.getOutputText(keySpec, code)
                 : StringUtils.newSingleCodePointString(code);
     }
 

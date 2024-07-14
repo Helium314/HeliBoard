@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
+import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
@@ -52,6 +53,8 @@ public final class CorrectionSettingsFragment extends SubScreenFragment
                     .show();
         } else if (Settings.PREF_SHOW_SUGGESTIONS.equals(key) && !prefs.getBoolean(key, true)) {
             ((TwoStatePreference)findPreference(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS)).setChecked(false);
+        } else if (Settings.PREF_BIGRAM_PREDICTIONS.equals(key)) {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
         }
         refreshEnabledSettings();
     }

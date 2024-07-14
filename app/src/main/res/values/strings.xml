@@ -134,6 +134,10 @@
     <string name="bigram_prediction">Next-word suggestions</string>
     <!-- Description for "next word suggestion" option. This displays suggestions even when there is no input, based on the previous word. -->
     <string name="bigram_prediction_summary">Use the previous word in making suggestions</string>
+    <!-- Option to enable the suggestion of clipboard content. -->
+    <string name="suggest_clipboard_content">Suggest clipboard content</string>
+    <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
+    <string name="suggest_clipboard_content_summary">Show recently copied clipboard content as a suggestion</string>
     <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
     <string name="gesture_input">Enable gesture typing</string>
     <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
@@ -146,8 +150,12 @@
     <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
-    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.[CHAR LIMIT=65]-->
+    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
     <string name="gesture_space_aware_summary">Input spaces during gestures by gliding to the space key</string>
+    <!-- Title of the setting to adjust the fast-typing gesture cooldown [CHAR LIMIT=35]-->
+    <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
+    <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
+    <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
@@ -192,7 +200,9 @@
     <!-- Preferences item for showing popup keys in long-press popup -->
     <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->
-    <string name="show_popup_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <string name="show_popup_keys_normal">Show variants defined in keyboard languages</string>
+    <!-- Option for showing letters common in foreign word (previous default in many language files) -->
+    <string name="show_popup_keys_main">Add very common variants (default)</string>
     <!-- Option for showing letters defined in at least two locales -->
     <string name="show_popup_keys_more">Add common variants</string>
     <!-- Option for showing letters defined in any locale -->
@@ -244,24 +254,33 @@
     <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
+    <string name="paste" tools:keep="@string/paste" translatable="false">@android:string/paste</string>
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
-    <string name="cut" tools:keep="@string/cut">Cut</string>
+    <string name="cut" tools:keep="@string/cut" translatable="false">@android:string/cut</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
+    <string name="numpad" tools:keep="@string/numpad" translatable="false">@string/layout_numpad</string>
     <string name="settings" tools:keep="@string/settings">Settings</string>
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
     <string name="full_left" tools:keep="@string/full_left">Full left</string>
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
+    <string name="page_start" tools:keep="@string/page_start">Page start</string>
+    <string name="page_end" tools:keep="@string/page_end">Page end</string>
     <string name="left" tools:keep="@string/left">Left</string>
     <string name="right" tools:keep="@string/right">Right</string>
     <string name="up" tools:keep="@string/up">Up</string>
     <string name="down" tools:keep="@string/down">Down</string>
+    <string name="word_left" tools:keep="@string/word_left">Word left</string>
+    <string name="word_right" tools:keep="@string/word_right">Word right</string>
+    <string name="page_up" tools:keep="@string/page_up">Page up</string>
+    <string name="page_down" tools:keep="@string/page_down">Page down</string>
     <string name="undo" tools:keep="@string/undo">Undo</string>
     <string name="redo" tools:keep="@string/redo">Redo</string>
     <string name="close_history" tools:keep="@string/close_history">Close clipboard history</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
@@ -274,6 +293,10 @@
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
     <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
+    <!-- Option to remove popup keys that already exist on the base keyboard -->
+    <string name="remove_redundant_popups">Remove redundant popups</string>
+    <!-- Description of the remove_redundant_popups setting -->
+    <string name="remove_redundant_popups_summary">Suppress popup keys that are present on the base layout</string>
     <!-- Title of the setting enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
@@ -456,6 +479,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="remove">Remove</string>
     <!-- Title of the button to save a custom style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="save">Save</string>
+    <!-- Title of the button to load a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <string name="load">Load</string>
     <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
     <string name="subtype_locale">Language</string>
     <!-- Title of the section for choosing a keyboard layout language settings dialog -->
@@ -464,8 +489,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout, interpreted as HTML -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
-    <!-- Button text for loading a custom layout or image file -->
+    <!-- Button text for loading a custom layout, image or theme file -->
     <string name="button_load_custom">Load file</string>
+    <!-- Button text for saving a theme file -->
+    <string name="button_save_file">Save to file</string>
+    <!-- Button text for copying text to clipboard -->
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
     <!-- Button text for copying an existing layout -->
@@ -506,6 +535,18 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
+    <!-- Title for customizing currencies -->
+    <string name="customize_currencies">Customize currencies</string>
+    <!-- Info for customizing currencies -->
+    <string name="customize_currencies_detail">Set main and up to 6 secondary currency symbols, separated with space</string>
+    <!-- Title setting / dialog for selecting when to switch to main keyboard -->
+    <string name="switch_keyboard_after">Switch to main keyboard after…</string>
+    <!-- Switch to main keyboard after selecting emoji from emoji view -->
+    <string name="after_emoji">Selecting emoji in emoji view</string>
+    <!-- Switch to main keyboard after selecting clipboard history entry -->
+    <string name="after_clip">Selecting clipboard history entry</string>
+    <!-- Switch to main keyboard after entering a symbol in symbols layout and then pressing space or enter -->
+    <string name="after_symbol_and_space">Pressing enter or space after other keys in symbols view</string>
     <!-- Message for selecting day or night background image -->
     <string name="day_or_night_image">Set image for day or night mode?</string>
     <!-- Button for selecting day -->
@@ -722,8 +763,10 @@ New dictionary:
     <string name="more_colors">Show more colors</string>
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
+    <!-- Warning message displayed when loading theme colors -->
+    <string name="load_will_overwrite">Loading will overwrite the current theme</string>
     <!-- Warning message displayed when showing all colors -->
-    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. There is no default color, and the names will not be translated.</string>
+    <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
     <string name="hint_show_keyboard">Click for preview</string>
     <!-- Description for selection of user-defined colors. -->
@@ -781,10 +824,12 @@ New dictionary:
     <!-- Hidden features text -->
     <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
 \n\t• clipboard &amp;#65515; paste &lt;br&gt;
-\n\t• move left/right &amp;#65515; move full left/right &lt;br&gt;
+\n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
 \n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
-\n\t• copy &amp;#65515; copy all &lt;br&gt;
-\n\t• select word &amp;#65515; select all &lt;br&gt;
+\n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
+\n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
+\n\t• copy &amp;#65515; cut &lt;br&gt;
+\n\t• select word &amp;#8596; select all &lt;br&gt;
 \n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
 \n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
 \n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
@@ -838,6 +883,8 @@ New dictionary:
     <string name="action_none">None</string>
     <!-- Option to move the cursor when swiping the spacebar -->
     <string name="space_swipe_move_cursor_entry">Move Cursor</string>
+    <!-- Option to toggle the numpad when swiping the spacebar -->
+    <string name="space_swipe_toggle_numpad_entry">Toggle Numpad</string>
     <!-- Title of the setting for variable toolbar direction -->
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->

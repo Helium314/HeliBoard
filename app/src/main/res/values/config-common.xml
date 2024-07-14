@@ -37,9 +37,6 @@
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
     <integer name="config_max_popup_keys_column">5</integer>
 
-    <!-- Long pressing shift will invoke caps-lock if > 0, never invoke caps-lock if == 0 -->
-    <integer name="config_longpress_shift_lock_timeout">1200</integer>
-
     <!-- Sliding key input preview parameters -->
     <dimen name="config_sliding_key_input_preview_width">8.0dp</dimen>
     <!-- Percentages of sliding key input preview body and shadow, in proportion to the width.
@@ -57,6 +54,7 @@
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>
+    <integer name="config_gesture_fast_typing_cooldown_step">10</integer>
     <!-- Static threshold for starting gesture detection (keyWidth%/sec) -->
     <fraction name="config_gesture_detect_fast_move_speed_threshold">150%</fraction>
     <!-- Dynamic threshold for gesture after fast typing (msec) -->
@@ -97,6 +95,9 @@
     <dimen name="config_more_suggestions_bottom_gap">6dp</dimen>
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>
     <fraction name="config_more_suggestions_info_ratio">18%</fraction>
+
+    <!-- Common clipboard suggestion configuration. -->
+    <bool name="config_default_suggest_clipboard_content">true</bool>
 
     <!-- Common gesture trail parameters -->
     <!-- Minimum distance between gesture trail sampling points. -->

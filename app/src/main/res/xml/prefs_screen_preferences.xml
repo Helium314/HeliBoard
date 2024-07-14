@@ -101,6 +101,13 @@
             android:defaultValue="false"
             android:persistent="true" />
 
+        <SwitchPreference
+            android:key="remove_redundant_popups"
+            android:title="@string/remove_redundant_popups"
+            android:summary="@string/remove_redundant_popups_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_clipboard_history">

@@ -1,29 +1,30 @@
 HeliBoard is een privacybewust open-source toetsenbord, gebaseerd op AOSP / OpenBoard.
-Het vraagt geen netwerkrechten en is dus 100% offline.
+Het verlangt geen netwerkrechten en is dus 100% offline.
 
 Kenmerken:
 <ul>
-  <li> Woordenboeken toevoegen voor suggesties en spellingcontrole </li>
+  <li>Woordenboeken toevoegen voor suggesties en spellingcontrole</li>
   <ul>
-    <li> bouw je eigen, of download ze <a href = "https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hier</a>, of vanuit de sectie <a href =" https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimenteel</a> (kwaliteit kan variëren) </li>
-    <li> aanvullende woordenboeken voor emoji's of wetenschappelijke symbolen kunnen worden gebruikt voor het geven van suggesties (vergelijkbaar met "emoji zoeken") </li>
-    <li> merk op dat voor Koreaanse lay-outs suggesties alleen werken met <a href = "https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">dit woordenboek </a>, de hulpmiddelen in de woordenboek-opslagplaats kunnen geen functionele woordenboeken aanmaken</li>
-  </u>
-  <li> Toetsenbordthema's aanpassen (stijl, kleuren en achtergrondafbeelding) </li>
+    <li>bouw je eigen, of download ze <a href = "https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hier</a>, of vanuit de sectie <a href =" https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimenteel</a> (kwaliteit kan variëren)</li>
+    <li>aanvullende woordenboeken voor emoji's of wetenschappelijke symbolen kunnen worden gebruikt voor het geven van suggesties (vergelijkbaar met "emoji zoeken")</li>
+    <li>let op dat voor Koreaanse lay-outs suggesties alleen werken met <a href = "https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">dit woordenboek</a>, de hulpmiddelen in de woordenboek-opslagplaats kunnen geen functionele woordenboeken aanmaken</li>
+  </ul>
+  <li>Toetsenbordthema's aanpassen (stijl, kleuren en achtergrondafbeelding)</li>
   <ul>
-    <li> Dag/nacht-instelling van het systeem volgen op Android 10+ (en op sommige versies van Android 9) </li>
-    <li> Dynamische kleuren volgen voor Android 12+</li>
-  </u>
-  <li> Toetsenbord <a href = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i> gebruik systeemtalen </i>) </li>
-  <li> Meertalige invoer</li>
-  <li> Vegend typen (Glide typing) (<i> alleen m.b.v. gesloten bronbibliotheek </i> ☹️) </li>
+    <li>Dag/nacht-instelling van het systeem volgen op Android 10+ (en sommige versies van Android 9)</li>
+    <li>Dynamische kleuren volgen voor Android 12+</li>
+  </ul>
+  <li>Toetsenbord <a href = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md">layouts</a> aanpassen (alleen beschikbaar bij het uitschakelen van <i> Systeemtalen gebruiken</i>)</li>
+  <li>Aanpassing van speciale lay-outs, zoals symbolen, cijfers of functionele toetslay-outs</li>
+  <li>Meertalige invoer</li>
+  <li>Vegend typen (Glide typing) (<i> alleen m.b.v. gesloten bronbibliotheek </i> ☹️)</li>
   <ul>
-    <li> bibliotheek niet opgenomen in de app, omdat er geen compatibele open source bibliotheek beschikbaar is </li>
-    <li> kan worden ontleend uit GApps-pakketten ("<i> swypelibs </i>"), of <a href = "https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hier</a> gedownload</li>
-  </u>
-  <li> Klembordgeschiedenis </li>
-  <li> Enkele handmodus </li>
-  <li> Gesplitst toetsenbord (alleen beschikbaar als het scherm groot genoeg is) </li>
-  <li> Numpad </li>
-  <li> Back-up en terugzetten van geleerde woorden / geschiedenisgegevens </li>
-</u>
+    <li>bibliotheek niet opgenomen in de app, omdat er geen compatibele open source bibliotheek beschikbaar is </li>
+    <li>kan worden ontleend uit GApps-pakketten ("<i> swypelibs </i>"), of <a href = "https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hier downloaden</a> (klik op het bestand en klik vervolgens op "raw" of de kleine download-knop)</li>
+  </ul>
+  <li>Klembordgeschiedenis</li>
+  <li>Bediening met één hand</li>
+  <li>Gesplitst toetsenbord (alleen beschikbaar als het scherm groot genoeg is)</li>
+  <li>Numpad</li>
+  <li>Back-up en herstel van instellingen en geleerde woorden / geschiedenisgegevens</li>
+</ul>

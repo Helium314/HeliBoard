@@ -45,8 +45,8 @@ public class KeyPreviewView extends AppCompatTextView {
 
     public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams) {
         // What we show as preview should match what we show on a key top in onDraw().
-        if (!key.getIconName().equals(KeyboardIconsSet.NAME_UNDEFINED)) {
-            setCompoundDrawables(null, null, null, key.getPreviewIcon(iconsSet));
+        if (key.getIconName() != null) {
+            setCompoundDrawables(key.getPreviewIcon(iconsSet), null, null, null);
             setText(null);
             return;
         }

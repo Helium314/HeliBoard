@@ -95,11 +95,13 @@ public class SettingsValues {
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
+    public final int mGestureFastTypingCooldown;
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
     public final boolean mIsSplitKeyboardEnabled;
     public final float mSplitKeyboardSpacerRelativeWidth;
+    public final boolean mQuickPinToolbarKeys;
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
@@ -108,14 +110,18 @@ public class SettingsValues {
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
     public final ToolbarMode mToolbarMode;
+    public final boolean mAutoShowToolbar;
+    public final boolean mAutoHideToolbar;
+    public final boolean mAlphaAfterEmojiInEmojiView;
+    public final boolean mAlphaAfterClipHistoryEntry;
+    public final boolean mAlphaAfterSymbolAndSpace;
+    public final boolean mRemoveRedundantPopups;
 
     // From the input box
     @NonNull
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
-    public final boolean mVarToolbarDirection;
-    public final boolean mQuickPinToolbarKeys;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mSuggestionStripHiddenPerUserSettings;
@@ -127,6 +133,7 @@ public class SettingsValues {
     public final int mScoreLimitForAutocorrect;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
+    public final boolean mSuggestClipboardContent;
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
@@ -182,13 +189,14 @@ public class SettingsValues {
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
+        mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
         final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
         mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && displayWidthDp > 600; // require display width of 600 dp for split
         // determine spacerWidth from display width and scale setting
         mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
-                ? Math.min(Math.max((displayWidthDp - 600) / 6000f + 0.15f, 0.15f), 0.25f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
                 : 0f;
         mQuickPinToolbarKeys = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
@@ -203,6 +211,7 @@ public class SettingsValues {
         mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionStripHiddenPerUserSettings = mToolbarMode == ToolbarMode.HIDDEN || mToolbarMode == ToolbarMode.TOOLBAR_KEYS;
         mSuggestionsEnabledPerUserSettings = ((mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
@@ -253,6 +262,10 @@ public class SettingsValues {
         mAutoShowToolbar = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = mSuggestionsEnabledPerUserSettings && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
         mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
+        mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
+        mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
+        mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
+        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, true);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -328,6 +341,12 @@ public class SettingsValues {
                                                        final Resources res) {
         return prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, res.getBoolean(
                 R.bool.config_default_next_word_prediction));
+    }
+
+    private static boolean readSuggestClipboardContent (SharedPreferences prefs,
+                                                        final Resources res) {
+        return prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, res.getBoolean(
+                R.bool.config_default_suggest_clipboard_content));
     }
 
     private static float readAutoCorrectionThreshold(final Resources res,

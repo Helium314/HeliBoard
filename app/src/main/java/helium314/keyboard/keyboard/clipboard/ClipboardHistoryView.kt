@@ -268,6 +268,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
         keyboardActionListener?.onTextInput(clipContent?.content.toString())
         keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
+        if (Settings.getInstance().current.mAlphaAfterClipHistoryEntry)
+            keyboardActionListener?.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {

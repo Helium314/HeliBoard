@@ -357,4 +357,15 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionales (Más símbolos)</string>
     <string name="customize_functional_key_layouts">Personalizar diseño de teclas funcionales</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas funcionales (Símbolos)</string>
+    <string name="pinned_toolbar_keys">Seleccionar teclas ancladas en la barra de herramientas</string>
+    <string name="quick_pin_toolbar_keys">Fijar la tecla en la barra de herramientas con una pulsación larga</string>
+    <string name="quick_pin_toolbar_keys_summary">Esto desactivará otras acciones de pulsación larga para las teclas de la barra de herramientas que no estén ancladas</string>
+    <string name="toast_msg_clipboard_copy">Contenido copiado</string>
+    <string name="auto_hide_toolbar">Ocultar automáticamente la barra de herramientas</string>
+    <string name="auto_show_toolbar">Mostrar automáticamente la barra de herramientas</string>
+    <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se inicia la entrada o se selecciona el texto</string>
+    <string name="language_switch_key_behavior">Comportamiento de la tecla de cambio de idioma</string>
+    <string name="auto_hide_toolbar_summary">Ocultar la barra de herramientas cuando las sugerencias estén disponibles</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="settings_screen_toolbar">Barra de herramientas</string>
 </resources>

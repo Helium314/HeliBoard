@@ -93,6 +93,17 @@ fun checkVersionUpgrade(context: Context) {
         if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
             prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
+    if (oldVersion <= 2100) {
+        if (prefs.contains(Settings.PREF_SHOW_MORE_COLORS)) {
+            val moreColors = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
+            prefs.edit {
+                putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
+                if (prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
+                    putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
+                remove(Settings.PREF_SHOW_MORE_COLORS)
+            }
+        }
+    }
     upgradeToolbarPrefs(prefs)
     onCustomLayoutFileListChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
