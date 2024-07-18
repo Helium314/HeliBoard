@@ -45,7 +45,7 @@
     <string name="gesture_input">"Kveikja á bendingainnslætti"</string>
     <string name="gesture_input_summary">"Slá inn orð með því að renna í gegnum stafina"</string>
     <string name="gesture_preview_trail">"Sýna bendingaslóð"</string>
-    <string name="gesture_floating_preview_dynamic">"Fljótandi rauntímaforskoðun"</string>
+    <string name="gesture_floating_preview_text">"Fljótandi rauntímaforskoðun"</string>
     <string name="gesture_space_aware">"Setningabending"</string>
     <string name="gesture_space_aware_summary">"Setja inn bil í bendingum með því að renna yfir á bilslána"</string>
     <string name="subtype_en_GB">"Enskt (Bretland)"</string>

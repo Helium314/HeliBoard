@@ -45,7 +45,7 @@
     <string name="gesture_input">"Omogući pisanje kretnjama"</string>
     <string name="gesture_input_summary">"Unesite riječ klizanjem preko slova"</string>
     <string name="gesture_preview_trail">"Prikaži trag pokreta"</string>
-    <string name="gesture_floating_preview_dynamic">"Dinamički plutajući pregled"</string>
+    <string name="gesture_floating_preview_text">"Dinamički plutajući pregled"</string>
     <string name="gesture_space_aware">"Unos izraza kretnjom"</string>
     <string name="gesture_space_aware_summary">"Umećite razmake tijekom izvođenja kretnji kliznuvši prema razmaknici"</string>
     <string name="subtype_en_GB">"Engleski (UK)"</string>

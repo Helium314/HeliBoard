@@ -45,7 +45,7 @@
     <string name="gesture_input">"အမူယာစာရိုက်ခြင်း ဖွင့်ရန်"</string>
     <string name="gesture_input_summary">"စာလုံးအား ဆွဲရွှေ့ကာ စာလုံးတစ်လုံး ရိုက်ထည့်ပါ"</string>
     <string name="gesture_preview_trail">"အမူအယာ အမြီးတန်းပြရန်"</string>
-    <string name="gesture_floating_preview_dynamic">"ဝဲပျံနေသည့် အစမ်းကြည့်အကွက်"</string>
+    <string name="gesture_floating_preview_text">"ဝဲပျံနေသည့် အစမ်းကြည့်အကွက်"</string>
     <string name="gesture_space_aware">"စကားစု အမူယာ"</string>
     <string name="gesture_space_aware_summary">"နေရာခြားသည့်ကီးကိုနှိပ်ခြင်းဖြင့် အမူအယာပြုလုပ်စဉ်တွင် နေရာခြား ထည့်သွင်းရန်"</string>
     <string name="subtype_en_GB">"အင်္ဂလိပ်(ယူကေ)"</string>

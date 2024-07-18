@@ -45,7 +45,7 @@
     <string name="gesture_input">"Միացնել ժեստերով մուտքագրումը"</string>
     <string name="gesture_input_summary">"Մուտքագրեք բառ` մատը տառից տառ սահեցնելով"</string>
     <string name="gesture_preview_trail">"Ցույց տալ ժեստի հետագիծը"</string>
-    <string name="gesture_floating_preview_dynamic">"Դինամիկ սահող նախատեսք"</string>
+    <string name="gesture_floating_preview_text">"Դինամիկ սահող նախատեսք"</string>
     <string name="gesture_space_aware">"Բառակապակցային ժեստ"</string>
     <string name="gesture_space_aware_summary">"Ներմուծեք բացատներ ժեստերի ընթացքում՝ սահելով բացատ ստեղնի վրայով"</string>
     <string name="subtype_en_GB">"Անգլերեն (ՄԹ)"</string>

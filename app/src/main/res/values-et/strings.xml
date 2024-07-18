@@ -45,7 +45,7 @@
     <string name="gesture_input">"Luba joonistusega sisestamine"</string>
     <string name="gesture_input_summary">"Sõna sisestamine tähtede lohistamisega"</string>
     <string name="gesture_preview_trail">"Näita liigutuse jälge"</string>
-    <string name="gesture_floating_preview_dynamic">"Dünaamiline ujuv eelvaade"</string>
+    <string name="gesture_floating_preview_text">"Dünaamiline ujuv eelvaade"</string>
     <string name="gesture_space_aware">"Fraasi liigutus"</string>
     <string name="gesture_space_aware_summary">"Sisestage liigutuste kasutamisel tühikuid, libistades tühikuklahvile"</string>
     <string name="subtype_en_GB">"Inglise (UK)"</string>

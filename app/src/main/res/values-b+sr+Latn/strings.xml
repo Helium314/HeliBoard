@@ -45,7 +45,7 @@
     <string name="gesture_input">"Omogući unos pokretom"</string>
     <string name="gesture_input_summary">"Unesite reč prevlačenjem prsta preko od slova do slova na ekranu"</string>
     <string name="gesture_preview_trail">"Prikaži trag pokreta"</string>
-    <string name="gesture_floating_preview_dynamic">"Dinamički plutajući pregled"</string>
+    <string name="gesture_floating_preview_text">"Dinamički plutajući pregled"</string>
     <string name="gesture_space_aware">"Pokret za fraze"</string>
     <string name="gesture_space_aware_summary">"Unosite razmake tokom pokreta prelaskom do tastera za razmak"</string>
     <string name="subtype_en_GB">"engleski (UK)"</string>

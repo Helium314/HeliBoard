@@ -45,7 +45,7 @@
     <string name="gesture_input">"जेश्चर टाइपिंग चालू करें"</string>
     <string name="gesture_input_summary">"अक्षरों से स्लाइड करते हुए शब्द इनपुट करें"</string>
     <string name="gesture_preview_trail">"हाथ के जेस्चर का ट्रेल दिखाएं"</string>
-    <string name="gesture_floating_preview_dynamic">"डायनामिक फ़्लोटिंग की झलक"</string>
+    <string name="gesture_floating_preview_text">"डायनामिक फ़्लोटिंग की झलक"</string>
     <string name="gesture_space_aware">"वाक्यांश जेस्चर"</string>
     <string name="gesture_space_aware_summary">"स्पेस कुंजी तक ग्लाइड करके जेस्चर के दौरान रिक्तियां इनपुट करें"</string>
     <string name="subtype_en_GB">"अंग्रेज़ी (यूके)"</string>

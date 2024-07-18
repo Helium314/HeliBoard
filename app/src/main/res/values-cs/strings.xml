@@ -45,7 +45,7 @@
     <string name="gesture_input">"Aktivovat psaní gesty"</string>
     <string name="gesture_input_summary">"Zadávat slova přejetím po písmenech"</string>
     <string name="gesture_preview_trail">"Zobrazovat stopu gesta"</string>
-    <string name="gesture_floating_preview_dynamic">"Dynamický plovoucí náhled"</string>
+    <string name="gesture_floating_preview_text">"Dynamický plovoucí náhled"</string>
     <string name="gesture_space_aware">"Frázové gesto"</string>
     <string name="gesture_space_aware_summary">Mezery mezi gesty zadáte přejetím po klávese mezerníku</string>
     <string name="subtype_en_GB">"Angličtina (Velká Británie)"</string>

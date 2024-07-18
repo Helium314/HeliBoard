@@ -45,7 +45,7 @@
     <string name="gesture_input">"បើក​ការ​​បញ្ចូល​​កាយវិការ"</string>
     <string name="gesture_input_summary">"បញ្ចូល​ពាក្យ​ដោយ​រំកិល​​​តាម​​អក្សរ"</string>
     <string name="gesture_preview_trail">"បង្ហាញ​ដាន​កាយវិការ"</string>
-    <string name="gesture_floating_preview_dynamic">"មើល​ការ​​អណ្ដែត​ដែល​មាន​ចលនា​ជា​មុន"</string>
+    <string name="gesture_floating_preview_text">"មើល​ការ​​អណ្ដែត​ដែល​មាន​ចលនា​ជា​មុន"</string>
     <string name="gesture_space_aware">"កាយវិការ​​ឃ្លា"</string>
     <string name="gesture_space_aware_summary">"បញ្ចូល​​ដកឃ្លា​​​អំឡុង​​​កាយវិការ​ ដោយ​រំកិល​ទៅ​គ្រាប់​ចុច​ដកឃ្លា"</string>
     <string name="subtype_en_GB">"អង់គ្លេស (​អង់គ្លេស)"</string>

@@ -45,7 +45,7 @@
     <string name="gesture_input">"સાંકેતિક ટાઇપિંગ સક્ષમ કરો"</string>
     <string name="gesture_input_summary">"અક્ષરો મારફતે સ્લાઇડ કરીને એક શબ્દ ઇનપુટ કરો"</string>
     <string name="gesture_preview_trail">"હાવભાવ ટ્રેલ બતાવો"</string>
-    <string name="gesture_floating_preview_dynamic">"ગતિશીલ ફ્લોટિંગ પૂર્વાવલોકન"</string>
+    <string name="gesture_floating_preview_text">"ગતિશીલ ફ્લોટિંગ પૂર્વાવલોકન"</string>
     <string name="gesture_space_aware">"શબ્દસમૂહ હાવભાવ"</string>
     <string name="gesture_space_aware_summary">"સ્પેસ કી પર જઈને હાવભાવ દરમિયાન સ્પેસ ઇનપુટ કરો"</string>
     <string name="subtype_en_GB">"અંગ્રેજી (યુકે)"</string>

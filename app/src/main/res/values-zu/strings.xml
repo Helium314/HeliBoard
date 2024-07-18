@@ -45,7 +45,7 @@
     <string name="gesture_input">"Nika amandla okuthayipha ngokuthinta"</string>
     <string name="gesture_input_summary">"Faka igama ngokushelelisa ezinhlamvini"</string>
     <string name="gesture_preview_trail">"Bonisa i-trail yokuthinta"</string>
-    <string name="gesture_floating_preview_dynamic">"Ukuhlola kuqala okuntantayo okunamandla"</string>
+    <string name="gesture_floating_preview_text">"Ukuhlola kuqala okuntantayo okunamandla"</string>
     <string name="gesture_space_aware">"Igama lokuthinta"</string>
     <string name="gesture_space_aware_summary">"Faka izikhala ngesikhathi sokuthinta ngokushelelela kukhiye wesikhala"</string>
     <string name="subtype_en_GB">"i-English(UK)"</string>

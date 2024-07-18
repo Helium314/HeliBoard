@@ -45,7 +45,7 @@
     <string name="gesture_input">"Қимылмен теруді қосу"</string>
     <string name="gesture_input_summary">"Әріптерді сипап өту арқылы сөз енгізу"</string>
     <string name="gesture_preview_trail">"Қимыл қадамын көрсету"</string>
-    <string name="gesture_floating_preview_dynamic">"Динамикалық қалқымалы қарап шығу"</string>
+    <string name="gesture_floating_preview_text">"Динамикалық қалқымалы қарап шығу"</string>
     <string name="gesture_space_aware">"Фраза қимылы"</string>
     <string name="gesture_space_aware_summary">"Бос орын пернесіне сырғыту арқылы қимылдар барысында бос орындарды енгізу"</string>
     <string name="subtype_en_GB">"ағылшын (ҰБ)"</string>

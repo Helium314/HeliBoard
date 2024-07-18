@@ -45,7 +45,7 @@
     <string name="gesture_input">"ジェスチャー入力を有効にする"</string>
     <string name="gesture_input_summary">"文字間をスライドして単語を入力できます"</string>
     <string name="gesture_preview_trail">"ジェスチャートレイルを表示"</string>
-    <string name="gesture_floating_preview_dynamic">"動的フローティングプレビュー"</string>
+    <string name="gesture_floating_preview_text">"動的フローティングプレビュー"</string>
     <string name="gesture_space_aware">"フレーズジェスチャー"</string>
     <string name="gesture_space_aware_summary">"Spaceキーに指を滑らせると、ジェスチャー中にスペースを入力できます"</string>
     <string name="subtype_en_GB">"英語 (英国)"</string>

@@ -45,7 +45,7 @@
     <string name="gesture_input">"Ativar a escrita com gestos"</string>
     <string name="gesture_input_summary">"Inserir uma palavra deslizando os dedos pelas letras"</string>
     <string name="gesture_preview_trail">"Mostrar percurso do gesto"</string>
-    <string name="gesture_floating_preview_dynamic">"Previsão dinâmica flutuante"</string>
+    <string name="gesture_floating_preview_text">"Previsão dinâmica flutuante"</string>
     <string name="gesture_space_aware">"Gesto de frase"</string>
     <string name="gesture_space_aware_summary">"Inserir espaços durante gestos deslizando até a tecla de espaço"</string>
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>

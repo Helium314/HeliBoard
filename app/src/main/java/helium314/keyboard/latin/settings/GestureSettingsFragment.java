@@ -56,11 +56,13 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final boolean gestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, gestureInputEnabled);
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, gestureInputEnabled);
-        final boolean gesturePreviewEnabled = gestureInputEnabled && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        final boolean gesturePreviewEnabled = gestureInputEnabled
+                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, gesturePreviewEnabled);
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, gestureInputEnabled);
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, gestureInputEnabled);
-        final boolean gestureTrailEnabled = gestureInputEnabled && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
+        final boolean gestureTrailEnabled = gestureInputEnabled
+                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
         // This setting also affects the preview linger duration, so it's visible if either setting is enabled.
         setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, gestureTrailEnabled || gesturePreviewEnabled);
     }

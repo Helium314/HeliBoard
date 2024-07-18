@@ -44,7 +44,7 @@
     <string name="gesture_input">"Aktivera svepskrivning"</string>
     <string name="gesture_input_summary">"Skriv genom att dra från tecken till tecken utan att lyfta handen"</string>
     <string name="gesture_preview_trail">"Visa spår efter rörelse"</string>
-    <string name="gesture_floating_preview_dynamic">Dynamisk flytande förhandsvis.</string>
+    <string name="gesture_floating_preview_text">Dynamisk flytande förhandsvis.</string>
     <string name="gesture_space_aware">"Frasrörelse"</string>
     <string name="gesture_space_aware_summary">"Infoga blanksteg genom att dra fingret över blankstegstangenten"</string>
     <string name="subtype_en_GB">Engelska (UK)</string>

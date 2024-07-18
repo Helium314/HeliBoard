@@ -22,13 +22,13 @@
         android:persistent="true" />
     <SwitchPreference
         android:key="gesture_floating_preview_text"
-        android:title="@string/gesture_floating_preview_text"
-        android:summary="@string/gesture_floating_preview_text_summary"
+        android:title="@string/gesture_floating_preview_static"
+        android:summary="@string/gesture_floating_preview_static_summary"
         android:defaultValue="true"
         android:persistent="true" />
     <SwitchPreference
         android:key="gesture_floating_preview_dynamic"
-        android:title="@string/gesture_floating_preview_dynamic"
+        android:title="@string/gesture_floating_preview_text"
         android:summary="@string/gesture_floating_preview_dynamic_summary"
         android:persistent="true" />
     <SwitchPreference

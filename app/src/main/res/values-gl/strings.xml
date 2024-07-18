@@ -44,7 +44,7 @@
     <string name="gesture_input">"Activar escritura por xestos"</string>
     <string name="gesture_input_summary">"Pasa o dedo entre as letras para introducir unha palabra"</string>
     <string name="gesture_preview_trail">"Mostrar percorrido dos xestos"</string>
-    <string name="gesture_floating_preview_dynamic">"Vista previa flotante dinámica"</string>
+    <string name="gesture_floating_preview_text">"Vista previa flotante dinámica"</string>
     <string name="gesture_space_aware">"Xesto de frase"</string>
     <string name="gesture_space_aware_summary">"Para introducir espazos nos xestos, pasa o dedo cara a tecla de espazo"</string>
     <string name="subtype_en_GB">"Inglés (Reino Unido)"</string>
