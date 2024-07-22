@@ -15,6 +15,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     private View mSetupScreen;
     private View mActionStart;
     private TextView mActionNext;
+    private Button start;
     private TextView mStep1Bullet;
     private TextView mActionFinish;
     private SetupStepGroup mSetupStepGroup;
@@ -174,8 +176,10 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         mSetupStepGroup.addStep(step3);
 
         mActionStart = findViewById(R.id.setup_start_label);
-        mActionStart.setOnClickListener(this);
+//        mActionStart.setOnClickListener(this);
 
+        start = findViewById(R.id.getButton);
+        start.setOnClickListener(this);
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
 
@@ -197,8 +201,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
         final int currentStep = determineSetupStepNumber();
         final int nextStep;
-        if (v == mActionStart) {
-            nextStep = STEP_1;
+        if (v == start) {
+            startActivity(new Intent(this, MainActivity.class));
         } else if (v == mActionNext) {
             nextStep = mStepNumber + 1;
         } else if (v == mStep1Bullet && currentStep == STEP_2) {
@@ -206,10 +210,10 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         } else {
             nextStep = mStepNumber;
         }
-        if (mStepNumber != nextStep) {
-            mStepNumber = nextStep;
-            updateSetupStepView();
-        }
+//        if (mStepNumber != nextStep) {
+//            mStepNumber = nextStep;
+//            updateSetupStepView();
+//        }
     }
 
     void invokeSetupWizardOfThisIme() {

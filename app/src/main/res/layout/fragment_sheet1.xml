@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#85BDB9"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STEP-1"
+        android:textSize="16dp"
+        android:fontFamily="@font/karla_semibold"
+        android:textColor="#4D4D4D"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/text_view_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap the toggle to enable Oscar Keyboard in\n                   your keyboard list"
+        android:textSize="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/edium"
+        android:textColor="#4D4D4D"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        />
+        <Button
+            android:id="@+id/enableId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Oscar"
+            android:paddingBottom="18dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="18dp"
+            android:paddingRight="14dp"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:layout_margin="14dp"
+            android:background="@drawable/background_buttons"
+            android:backgroundTint="#51A09B"/>
+</LinearLayout>
+</FrameLayout>

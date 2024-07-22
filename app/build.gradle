@@ -107,6 +107,8 @@ dependencies {
 
     // color picker for user-defined colors
     implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
+    implementation 'androidx.activity:activity:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // test
     testImplementation 'junit:junit:4.13.2'
@@ -115,4 +117,8 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.12.1'
     testImplementation 'androidx.test:runner:1.5.2'
     testImplementation 'androidx.test:core:1.5.0'
+
+    //multiple bottom sheets
+    implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
+    implementation ("com.google.android.material:material:1.12.0")
 }
