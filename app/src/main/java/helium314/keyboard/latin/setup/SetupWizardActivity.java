@@ -9,14 +9,21 @@ package helium314.keyboard.latin.setup;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.text.SpannableString;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -48,6 +55,13 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     private View mActionStart;
     private TextView mActionNext;
     private Button start;
+    private  String instructionText;
+    private  String  spannableStrin;
+    private  String  startIndex;
+
+    private  String  endIndex;
+    private  TextView text;
+
     private TextView mStep1Bullet;
     private TextView mActionFinish;
     private SetupStepGroup mSetupStepGroup;
@@ -180,6 +194,30 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
 
         start = findViewById(R.id.getButton);
         start.setOnClickListener(this);
+        String instructionText = "    Welcome to \n" + "Oscar Keyboard";
+        SpannableString spannableStrin = new SpannableString(instructionText);
+        int startIndex = instructionText.indexOf("Oscar Keyboard");
+        int endIndex = startIndex + "Oscar Keyboard".length();
+        if (startIndex >= 0) {
+            // Apply ForegroundColorSpan
+            spannableStrin.setSpan(
+                    new ForegroundColorSpan(Color.parseColor("#85BDB9")),
+                    startIndex,
+                    endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+
+            // Apply StyleSpan
+            spannableStrin.setSpan(
+                    new StyleSpan(Typeface.BOLD), // Set style to bold
+                    startIndex,
+                    endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+
+        }
+        text=findViewById(R.id.welcometxt);
+        text.setText(spannableStrin);
         mActionNext = findViewById(R.id.setup_next);
         mActionNext.setOnClickListener(this);
 
