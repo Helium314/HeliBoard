@@ -31,6 +31,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -109,6 +110,7 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
+    public final ToolbarMode mToolbarMode;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -121,6 +123,7 @@ public class SettingsValues {
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
+    public final boolean mSuggestionStripHiddenPerUserSettings;
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
@@ -150,6 +153,7 @@ public class SettingsValues {
         mInputAttributes = inputAttributes;
 
         // Get the settings preferences
+        mToolbarMode = Settings.readToolbarMode(prefs);
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs, res);
         mSoundOn = Settings.readKeypressSoundEnabled(prefs, res);
@@ -167,7 +171,7 @@ public class SettingsValues {
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, false);
-        mVarToolbarDirection = prefs.getBoolean(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, true);
+        mVarToolbarDirection = mToolbarMode != ToolbarMode.HIDDEN && prefs.getBoolean(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, true);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
                 && inputAttributes.mIsGeneralTextInput;
@@ -193,7 +197,7 @@ public class SettingsValues {
         mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
                 ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
                 : 0f;
-        mQuickPinToolbarKeys = prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
+        mQuickPinToolbarKeys = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
 
         // Compute other readable settings
@@ -208,8 +212,9 @@ public class SettingsValues {
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
-        mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
-                || mOverrideShowingSuggestions;
+        mSuggestionStripHiddenPerUserSettings = mToolbarMode == ToolbarMode.HIDDEN || mToolbarMode == ToolbarMode.TOOLBAR_KEYS;
+        mSuggestionsEnabledPerUserSettings = ((mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
+                || mOverrideShowingSuggestions) && !mSuggestionStripHiddenPerUserSettings;
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
@@ -253,8 +258,8 @@ public class SettingsValues {
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
-        mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
-        mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
+        mAutoShowToolbar = mToolbarMode == ToolbarMode.EXPANDABLE && prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
+        mAutoHideToolbar = mSuggestionsEnabledPerUserSettings && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
         mHasCustomFunctionalLayout = CustomLayoutUtilsKt.hasCustomFunctionalLayout(selectedSubtype, context);
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);

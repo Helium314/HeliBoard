@@ -134,4 +134,16 @@
         <item>@string/space_swipe_toggle_numpad_entry</item>
         <item>@string/action_none</item>
     </string-array>
+    <string-array name="toolbar_mode_values">
+        <item>hidden_mode</item>
+        <item>toolbar_keys_mode</item>
+        <item>suggestion_strip_mode</item>
+        <item>expandable_toolbar_mode</item>
+    </string-array>
+    <string-array name="toolbar_mode_entries">
+        <item>@string/hidden_mode</item>
+        <item>@string/toolbar_keys_mode</item>
+        <item>@string/suggestion_strip_mode</item>
+        <item>@string/expandable_toolbar_mode</item>
+    </string-array>
 </resources>

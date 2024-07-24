@@ -44,6 +44,7 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -160,6 +161,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
+    public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -379,6 +381,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultGestureFastTypingCooldown(final Resources res) {
         return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
+    }
+
+    public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
+        return switch (prefs.getString(PREF_TOOLBAR_MODE, "toolbar_and_suggestions_mode")) {
+            case "hidden_mode" -> ToolbarMode.HIDDEN;
+            case "toolbar_keys_mode" -> ToolbarMode.TOOLBAR_KEYS;
+            case "suggestion_strip_mode" -> ToolbarMode.SUGGESTION_STRIP;
+            default -> ToolbarMode.EXPANDABLE;
+        };
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

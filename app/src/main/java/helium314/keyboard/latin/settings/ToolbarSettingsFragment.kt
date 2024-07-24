@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.preference.Preference
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
@@ -42,6 +43,7 @@ class ToolbarSettingsFragment : SubScreenFragment() {
                 ) { getToolbarIconByName(it, requireContext()) }
                 true
             }
+        refreshEnabledSettings()
     }
 
     override fun onPause() {
@@ -55,7 +57,20 @@ class ToolbarSettingsFragment : SubScreenFragment() {
         if (key == null) return
         when (key) {
             Settings.PREF_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, Settings.PREF_PINNED_TOOLBAR_KEYS,
-            Settings.PREF_QUICK_PIN_TOOLBAR_KEYS -> reloadKeyboard = true
+            Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, Settings.PREF_TOOLBAR_MODE -> reloadKeyboard = true
         }
+        refreshEnabledSettings()
+    }
+
+    private fun refreshEnabledSettings() {
+        val toolbarMode = Settings.readToolbarMode(sharedPreferences)
+        setPreferenceVisible(Settings.PREF_TOOLBAR_KEYS,
+            toolbarMode == ToolbarMode.TOOLBAR_KEYS || toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_PINNED_TOOLBAR_KEYS,
+            toolbarMode == ToolbarMode.SUGGESTION_STRIP || toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_AUTO_SHOW_TOOLBAR, toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_AUTO_HIDE_TOOLBAR, toolbarMode == ToolbarMode.EXPANDABLE)
+        setPreferenceVisible(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, toolbarMode != ToolbarMode.HIDDEN)
     }
 }
