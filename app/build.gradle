@@ -34,7 +34,7 @@ android {
             renderscriptDebuggable false
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
             jniDebuggable false
             applicationIdSuffix ".debug"
         }
