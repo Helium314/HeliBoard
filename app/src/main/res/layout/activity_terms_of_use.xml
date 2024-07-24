@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DCECEB"
+    android:orientation="vertical"
+    tools:context=".setup.TermsOfUseActivity">
+
+    <TextView
+        android:id="@+id/terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Terms Of Use"
+        android:fontFamily="@font/spectral_semibold"
+        android:textColor="#4D4D4D"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="42dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableStart="@drawable/baseline_arrow_back_ios_24"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="a. No Warranty: The keyboard app is provided “as is” without any warranties. We do not guarantee its accuracy, reliability, or suitability for any purpose. Use it at your own risk.\n
+
+
+b. Indemnification: You agree to indemnify and hold us harmless from any claims, losses, or damages arising from your use of the app.\n
+
+c. Limitation of Liability: In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages related to the app’s use."
+        android:padding="20dp"
+        android:textSize="16dp"
+        android:fontFamily="@font/karla_light"
+        app:layout_constraintTop_toBottomOf="@+id/terms"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>

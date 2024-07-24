@@ -17,6 +17,7 @@
         android:textSize="16dp"
         android:fontFamily="@font/karla_semibold"
         android:textColor="#4D4D4D"
+        android:textAlignment="center"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"/>
 

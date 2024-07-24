@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DCECEB"
+    tools:context=".setup.KeybaordActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/baseline_menu_24"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"/>
+    <TextView
+        android:id="@+id/textview2_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Welcome to\nOscar Keyboard"
+        android:layout_margin="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#000000"
+        android:fontFamily="@font/spectral_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textbackground"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="Try Oscar by saying or speaking something"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="285dp"
+            android:background="@drawable/whatsapp_image_2024_07_23_at_10_00_17_am"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

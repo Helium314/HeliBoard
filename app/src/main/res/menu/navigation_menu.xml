@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/nav_terms_conditions"
+        android:title="Terms of Use"
+        android:fontFamily="@font/karla_semibold"
+        android:textColor="#4D4D4D"
+        android:icon="@drawable/baseline_assignment_24"
+
+        />
+    <item
+        android:id="@+id/nav_privacy_policy"
+        android:title="Privacy Policy"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_privacy_tip_24"/>
+
+    <item
+        android:id="@+id/nav_email_us"
+        android:title="Email us"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_drafts_24"
+        />
+    <item
+        android:id="@+id/nav_recommended_us"
+        android:title="Recommend Us"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_share_24"
+        />
+
+</menu>

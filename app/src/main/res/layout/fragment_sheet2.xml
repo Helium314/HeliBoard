@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:text="STEP-2"
             android:textSize="16dp"
+            android:textAlignment="center"
             android:textColor="#4D4D4D"
             android:fontFamily="@font/karla_semibold"
             android:layout_gravity="center_horizontal"

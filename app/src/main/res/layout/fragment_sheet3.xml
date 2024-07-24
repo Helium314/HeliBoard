@@ -16,6 +16,7 @@
             android:text="STEP-3"
             android:textSize="16dp"
             android:textColor="#4D4D4D"
+            android:textAlignment="center"
             android:fontFamily="@font/karla_semibold"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"/>
