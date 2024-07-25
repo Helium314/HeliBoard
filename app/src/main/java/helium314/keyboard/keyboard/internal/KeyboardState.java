@@ -9,6 +9,7 @@ package helium314.keyboard.keyboard.internal;
 import android.text.TextUtils;
 
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
+import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,6 @@ import helium314.keyboard.latin.utils.RecapitalizeStatus;
 public final class KeyboardState {
     private static final String TAG = KeyboardState.class.getSimpleName();
     private static final boolean DEBUG_EVENT = false;
-    private static final boolean DEBUG_INTERNAL_ACTION = false;
 
     public interface SwitchActions {
         boolean DEBUG_ACTION = false;
@@ -220,9 +220,6 @@ public final class KeyboardState {
     }
 
     private void setShifted(final int shiftMode) {
-        if (DEBUG_INTERNAL_ACTION) {
-            Log.d(TAG, "setShifted: shiftMode=" + shiftModeToString(shiftMode) + " " + this);
-        }
         if (mMode != MODE_ALPHABET) return;
         final int prevShiftMode;
         if (mAlphabetShiftState.isAutomaticShifted()) {
@@ -231,6 +228,9 @@ public final class KeyboardState {
             prevShiftMode = MANUAL_SHIFT;
         } else {
             prevShiftMode = UNSHIFT;
+        }
+        if (DebugFlags.DEBUG_ENABLED && shiftMode != prevShiftMode) {
+            Log.d(TAG, "setShifted: shiftMode=" + shiftModeToString(shiftMode) + " " + this);
         }
         switch (shiftMode) {
         case AUTOMATIC_SHIFT:
@@ -259,7 +259,7 @@ public final class KeyboardState {
     }
 
     private void setShiftLocked(final boolean shiftLocked) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setShiftLocked: shiftLocked=" + shiftLocked + " " + this);
         }
         if (mMode != MODE_ALPHABET) return;
@@ -274,7 +274,7 @@ public final class KeyboardState {
     }
 
     private void toggleAlphabetAndSymbols(final int autoCapsFlags, final int recapitalizeMode) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "toggleAlphabetAndSymbols: "
                     + stateToString(autoCapsFlags, recapitalizeMode));
         }
@@ -299,7 +299,7 @@ public final class KeyboardState {
     // TODO: Remove this method. Come up with a more comprehensive way to reset the keyboard layout
     // when a keyboard layout set doesn't get reloaded in LatinIME.onStartInputViewInternal().
     private void resetKeyboardStateToAlphabet(final int autoCapsFlags, final int recapitalizeMode) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "resetKeyboardStateToAlphabet: "
                     + stateToString(autoCapsFlags, recapitalizeMode));
         }
@@ -322,7 +322,7 @@ public final class KeyboardState {
     }
 
     private void setAlphabetKeyboard(final int autoCapsFlags, final int recapitalizeMode) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setAlphabetKeyboard: " + stateToString(autoCapsFlags, recapitalizeMode));
         }
 
@@ -335,7 +335,7 @@ public final class KeyboardState {
     }
 
     private void setSymbolsKeyboard() {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setSymbolsKeyboard");
         }
         mSwitchActions.setSymbolsKeyboard();
@@ -348,7 +348,7 @@ public final class KeyboardState {
     }
 
     private void setSymbolsShiftedKeyboard() {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setSymbolsShiftedKeyboard");
         }
         mSwitchActions.setSymbolsShiftedKeyboard();
@@ -361,7 +361,7 @@ public final class KeyboardState {
     }
 
     private void setEmojiKeyboard() {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setEmojiKeyboard");
         }
         mMode = MODE_EMOJI;
@@ -373,7 +373,7 @@ public final class KeyboardState {
     }
 
     private void setClipboardKeyboard() {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setClipboardKeyboard");
         }
         mMode = MODE_CLIPBOARD;
@@ -386,7 +386,7 @@ public final class KeyboardState {
 
     private void setNumpadKeyboard(final boolean withSliding, final boolean forceReturnToAlpha,
             final boolean rememberState) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setNumpadKeyboard");
         }
         if (rememberState) {
@@ -408,7 +408,7 @@ public final class KeyboardState {
 
     public void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode,
             final boolean forceReturnToAlpha, final boolean rememberState) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "toggleNumpad");
         }
         if (mMode != MODE_NUMPAD) setNumpadKeyboard(withSliding, forceReturnToAlpha, rememberState);
@@ -438,14 +438,14 @@ public final class KeyboardState {
     }
 
     private void setOneHandedModeEnabled(boolean enabled) {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "setOneHandedModeEnabled");
         }
         mSwitchActions.setOneHandedModeEnabled(enabled);
     }
 
     private void switchOneHandedMode() {
-        if (DEBUG_INTERNAL_ACTION) {
+        if (DebugFlags.DEBUG_ENABLED) {
             Log.d(TAG, "switchOneHandedMode");
         }
         mSwitchActions.switchOneHandedMode();
