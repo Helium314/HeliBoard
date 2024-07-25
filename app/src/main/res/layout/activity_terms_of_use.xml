@@ -27,15 +27,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
+        android:lineSpacingExtra="10dp"
         android:text="a. No Warranty: The keyboard app is provided “as is” without any warranties. We do not guarantee its accuracy, reliability, or suitability for any purpose. Use it at your own risk.\n
-
-
 b. Indemnification: You agree to indemnify and hold us harmless from any claims, losses, or damages arising from your use of the app.\n
-
 c. Limitation of Liability: In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages related to the app’s use."
         android:padding="20dp"
         android:textSize="16dp"
         android:fontFamily="@font/karla_light"
         app:layout_constraintTop_toBottomOf="@+id/terms"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

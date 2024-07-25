@@ -16,10 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import helium314.keyboard.latin.R
@@ -27,7 +24,11 @@ import helium314.keyboard.latin.R
 class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var owelId: ImageButton
     lateinit var drawerLayout: DrawerLayout
-lateinit var  arrowID:ImageView
+    lateinit var arrowID: ImageView
+    lateinit var owelLogo: ImageView
+    lateinit var owelBackground: ImageView
+    lateinit var txtKey: TextView
+    lateinit var imgKey: ImageView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +47,24 @@ lateinit var  arrowID:ImageView
         val headerView: View = navigationView.getHeaderView(0)
         arrowID = headerView.findViewById(R.id.arrowId)
         owelId = findViewById(R.id.owelId)
+        owelLogo = findViewById(R.id.owelLogo)
+        owelBackground = findViewById(R.id.owelBackground)
+        txtKey = findViewById(R.id.txtKey)
+        imgKey = findViewById(R.id.imgKey)
+
         owelId.setOnClickListener {
-            startActivity(Intent(this, KeybaordActivity::class.java))
+            // Hide the three ImageViews
+            owelLogo.visibility = View.GONE
+            owelBackground.visibility = View.GONE
+            owelId.visibility = View.GONE
+
+            // Show the LinearLayout containing txtKey and imgKey
+            txtKey.visibility = View.VISIBLE
+            imgKey.visibility = View.VISIBLE
         }
 
         arrowID.setOnClickListener {
-            startActivity(Intent(this, KeybaordActivity::class.java))
+            startActivity(Intent(this, KeyboardselectionActivity::class.java))
         }
 
         val instructionText = "    Welcome to \n" + "Oscar Keyboard"

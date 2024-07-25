@@ -18,7 +18,7 @@ class TermsOfUseActivity : AppCompatActivity() {
 
         terms=findViewById(R.id.terms)
         terms.setOnClickListener{
-            startActivity(Intent(this, KeybaordActivity::class.java))
+            startActivity(Intent(this, KeyboardselectionActivity::class.java))
         }
     }
 }

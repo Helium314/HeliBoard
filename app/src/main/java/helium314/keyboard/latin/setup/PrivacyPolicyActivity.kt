@@ -20,7 +20,7 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
         privacyPolicy=findViewById(R.id.policy)
         privacyPolicy.setOnClickListener {
-            startActivity(Intent(this, KeybaordActivity::class.java))
+            startActivity(Intent(this, KeyboardselectionActivity::class.java))
         }
     }
 }

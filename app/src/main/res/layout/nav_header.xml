@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_arrow_back_ios_24"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:contentDescription="Back Arrow" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Oscar Keyboard"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/spectral_semibold"
         android:textColor="#4D4D4D"
         android:textSize="20sp" />
