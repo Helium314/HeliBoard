@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Vnos besede s podrsavanjem od črke do črke"</string>
     <string name="gesture_preview_trail">"Prikaži pot poteze"</string>
     <string name="gesture_floating_preview_text">"Dinamični plavajoči predogled"</string>
-    <string name="gesture_floating_preview_text_summary">"Prikaz predlagane besede med vnosom s prstom"</string>
     <string name="gesture_space_aware">"Vnos besed s potezami"</string>
     <string name="gesture_space_aware_summary">"Vnos presledkov pri vnašanju s potezami z drsenjem po preslednici"</string>
     <string name="subtype_en_GB">"angleščina (Združeno kraljestvo)"</string>

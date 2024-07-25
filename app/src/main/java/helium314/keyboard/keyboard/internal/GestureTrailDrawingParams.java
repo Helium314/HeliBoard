@@ -55,8 +55,7 @@ final class GestureTrailDrawingParams {
                         R.styleable.MainKeyboardView_gestureTrailFadeoutStartDelay, 0);
         mFadeoutDuration = GestureTrailDrawingPoints.DEBUG_SHOW_POINTS
                 ? FADEOUT_DURATION_FOR_DEBUG
-                : mainKeyboardViewAttr.getInt(
-                        R.styleable.MainKeyboardView_gestureTrailFadeoutDuration, 0);
+                : Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
         mTrailLingerDuration = mFadeoutStartDelay + mFadeoutDuration;
         mUpdateInterval = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureTrailUpdateInterval, 0);

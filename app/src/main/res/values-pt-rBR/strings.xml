@@ -37,7 +37,6 @@
     <string name="gesture_input_summary">Inserir uma palavra deslizando pelas letras</string>
     <string name="gesture_preview_trail">Mostrar rastro do gesto</string>
     <string name="gesture_floating_preview_text">Previsão dinâmica flutuante</string>
-    <string name="gesture_floating_preview_text_summary">Ver a palavra sugerida ao usar gestos</string>
     <string name="gesture_space_aware_summary">Inserir espaços durante gestos ao deslizar até a tecla de espaço</string>
     <string name="enable_clipboard_history">Ativar área de transferência</string>
     <string name="delete_swipe_summary">Deslize a tecla delete para selecionar e remover partes maiores de texto de uma só vez</string>

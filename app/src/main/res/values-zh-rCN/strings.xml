@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"以滑行方式写出字词中字母来输入字词"</string>
     <string name="gesture_preview_trail">"显示滑行输入轨迹"</string>
     <string name="gesture_floating_preview_text">"动态漂浮预览"</string>
-    <string name="gesture_floating_preview_text_summary">"在滑行输入过程中显示建议字词"</string>
     <string name="gesture_space_aware">"词组滑行输入"</string>
     <string name="gesture_space_aware_summary">"滑行输入时，滑过空格键即可输入空格"</string>
     <string name="subtype_en_GB">"英语(英国)"</string>

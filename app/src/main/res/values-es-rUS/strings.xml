@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Ingresa una palabra deslizando el dedo sobre las letras."</string>
     <string name="gesture_preview_trail">"Mostrar recorrido de gesto"</string>
     <string name="gesture_floating_preview_text">"Vista previa dinámica flotante"</string>
-    <string name="gesture_floating_preview_text_summary">"Mira la palabra sugerida mientras haces gestos"</string>
     <string name="gesture_space_aware">"Frase gestual"</string>
     <string name="gesture_space_aware_summary">"Desliza el dedo hasta la tecla de espacio para ingresar espacios."</string>
     <string name="subtype_en_GB">"Inglés (Reino Unido)"</string>

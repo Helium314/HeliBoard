@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Voer \'n woord in deur te gly deur die letters"</string>
     <string name="gesture_preview_trail">"Wys gebaarspoor"</string>
     <string name="gesture_floating_preview_text">"Dinamiese sweefvoorskou"</string>
-    <string name="gesture_floating_preview_text_summary">"Sien die voorgestelde woord tydens gebare"</string>
     <string name="gesture_space_aware">"Frasegebaar"</string>
     <string name="gesture_space_aware_summary">"Voer spasies tydens gebare in deur na die spasiesleutel te gly"</string>
     <string name="subtype_en_GB">"Engels (VK)"</string>

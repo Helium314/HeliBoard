@@ -117,16 +117,12 @@
         <attr name="gestureTrailMaxInterpolationSegments" format="integer" />
         <!-- Delay after gesture trail starts fading out in millisecond. -->
         <attr name="gestureTrailFadeoutStartDelay" format="integer" />
-        <!-- Duration while gesture trail is fading out in millisecond. -->
-        <attr name="gestureTrailFadeoutDuration" format="integer" />
         <!-- Interval of updating gesture trail in millisecond. -->
         <attr name="gestureTrailUpdateInterval" format="integer" />
         <attr name="gestureTrailStartWidth" format="dimension" />
         <attr name="gestureTrailEndWidth" format="dimension" />
         <attr name="gestureTrailBodyRatio" format="integer" />
         <attr name="gestureTrailShadowRatio" format="integer" />
-        <!-- Delay after gesture input and gesture floating preview text dismissing in millisecond -->
-        <attr name="gestureFloatingPreviewTextLingerTimeout" format="integer" />
         <!-- Attributes for GestureFloatingPreviewText -->
         <attr name="gestureFloatingPreviewTextSize" format="dimension" />
         <attr name="gestureFloatingPreviewTextOffset" format="dimension" />

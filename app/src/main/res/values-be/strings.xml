@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">Ўвядзіце слова, перасоўваючы палец па літарах</string>
     <string name="gesture_preview_trail">"Паказаць след жэста"</string>
     <string name="gesture_floating_preview_text">"Дынамічны плаваючы прагляд"</string>
-    <string name="gesture_floating_preview_text_summary">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware">"Жэст фразы"</string>
     <string name="gesture_space_aware_summary">Ўвядзіце прабелы паміж жэстамі, праводзячы па клавішы прабелу</string>
     <string name="subtype_en_GB">"Англійская (Вялікабрытанія)"</string>

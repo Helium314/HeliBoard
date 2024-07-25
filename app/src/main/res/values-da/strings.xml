@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Skriv et ord ved at trække fingeren rundt mellem bogstaverne"</string>
     <string name="gesture_preview_trail">"Vis glidende trykspor"</string>
     <string name="gesture_floating_preview_text">"Dynamiske ordeksempler"</string>
-    <string name="gesture_floating_preview_text_summary">"Se ordforslag ved glidende indtastning"</string>
     <string name="gesture_space_aware">"Glidende mellemrum"</string>
     <string name="gesture_space_aware_summary">"Tilføj mellemrum ved at glide til mellemrumstasten"</string>
     <string name="subtype_en_GB">"engelsk (Storbritannien)"</string>

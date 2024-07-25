@@ -63,7 +63,6 @@
     <string name="gesture_input_summary">বর্ণের মাঝে স্লাইড করে শব্দ সন্নিবেশ</string>
     <string name="gesture_preview_trail">অঙ্গুলিহেলনের শেষাংশ প্রদর্শন</string>
     <string name="gesture_floating_preview_text">পরিবর্তনশীল ভাসমান প্রাগ্‌দর্শন</string>
-    <string name="gesture_floating_preview_text_summary">অঙ্গুলিহেলনের সময় প্রস্তাবিত শব্দ দেখুন</string>
     <string name="gesture_space_aware">শব্দগুচ্ছ অঙ্গুলিহেলন</string>
     <string name="gesture_space_aware_summary">অঙ্গুলিহেলনের সময় স্পেস বোতামের মাধ্যমে স্পেস সন্নিবেশ</string>
     <string name="enable_clipboard_history">ক্লিপবোর্ড ইতিহাস সক্রিয়করণ</string>
