@@ -207,7 +207,7 @@
     <string name="load_gesture_library_button_load">Cargar librería</string>
     <string name="load_gesture_library_button_delete">Eliminar librería</string>
     <string name="show_popup_keys_title">Mostrar más letras con diacríticos en la ventana emergente</string>
-    <string name="show_popup_keys_normal">Mostrar las variantes definidas en los idiomas del teclado (por defecto)</string>
+    <string name="show_popup_keys_normal">Mostrar las variantes definidas en los idiomas del teclado</string>
     <string name="show_popup_keys_more">Añadir variantes comunes</string>
     <string name="show_popup_keys_all">Añadir todas las variantes disponibles</string>
     <string name="url_detection_title">Detección de URL</string>
@@ -351,7 +351,7 @@
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Mostrar más colores</string>
-    <string name="all_colors_warning">Esta configuración muestra todos los colores que se utilizan internamente. La lista de colores puede cambiar en cualquier momento. No hay un color predeterminado y los nombres no se traducirán.</string>
+    <string name="all_colors_warning">Esta configuración muestra todos los colores que se utilizan internamente. La lista de colores puede cambiar en cualquier momento. El color predeterminado es aleatorio, y los nombres no se traducirán.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionales</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionales (Más símbolos)</string>
     <string name="customize_functional_key_layouts">Personalizar diseño de teclas funcionales</string>
@@ -367,4 +367,28 @@
     <string name="auto_hide_toolbar_summary">Ocultar la barra de herramientas cuando las sugerencias estén disponibles</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="settings_screen_toolbar">Barra de herramientas</string>
+    <string name="gesture_fast_typing_cooldown">Enfriamiento de escritura rápida</string>
+    <string name="gesture_fast_typing_cooldown_instant">Siempre iniciar instantáneamente</string>
+    <string name="customize_currencies">Personalizar divisas</string>
+    <string name="load_will_overwrite">La carga sobrescribirá el tema actual</string>
+    <string name="page_end" tools:keep="@string/page_end">Final de página</string>
+    <string name="page_start" tools:keep="@string/page_start">Inicio de página</string>
+    <string name="word_left" tools:keep="@string/word_left">Palabra izquierda</string>
+    <string name="word_right" tools:keep="@string/word_right">Palabra derecha</string>
+    <string name="page_up" tools:keep="@string/page_up">Pagina de arriba</string>
+    <string name="page_down" tools:keep="@string/page_down">Página de abajo</string>
+    <string name="load">Cargar</string>
+    <string name="button_save_file">Guardar a archivo</string>
+    <string name="copy_to_clipboard">Copiar al portapapeles</string>
+    <string name="suggest_clipboard_content">Sugerir contenido del portapapeles</string>
+    <string name="suggest_clipboard_content_summary">Mostrar como sugerencia el contenido del portapapeles copiado recientemente</string>
+    <string name="customize_currencies_detail">Establezca el símbolo de divisa principal y hasta 6 secundarios, separados por un espacio</string>
+    <string name="switch_keyboard_after">Cambiar al teclado principal después de…</string>
+    <string name="after_emoji">Seleccionar un emoji en la vista de emojis</string>
+    <string name="after_clip">Seleccionar una entrada en el historial del portapapeles</string>
+    <string name="after_symbol_and_space">Presionar Ingresar o Espacio después de otras teclas en la vista de símbolos</string>
+    <string name="space_swipe_toggle_numpad_entry">Alternar al diseño numérico</string>
+    <string name="remove_redundant_popups">Eliminar emergentes redundantes</string>
+    <string name="remove_redundant_popups_summary">Elimina las teclas emergentes que no están presentes en el diseño base</string>
+    <string name="show_popup_keys_main">Añadir variantes más comunes (Defecto)</string>
 </resources>

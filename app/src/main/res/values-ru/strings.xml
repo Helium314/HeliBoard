@@ -247,7 +247,7 @@
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
     <string name="user_dict_add_word_button">Добавить слово</string>
     <string name="select_color_suggestion">Текст полосы предложений</string>
-    <string name="show_popup_keys_normal">Показать варианты, определённые в языках клавиатуры (по умолчанию)</string>
+    <string name="show_popup_keys_normal">Показать варианты, определённые в языках клавиатуры</string>
     <string name="show_popup_keys_more">Добавить распространённые варианты</string>
     <string name="replace_dictionary">Заменить словарь</string>
     <string name="button_add_to_language">Добавить в %s</string>
@@ -388,4 +388,7 @@
     <string name="after_emoji">Выбор эмодзи в режиме просмотра</string>
     <string name="after_clip">Выбор записи из истории буфера обмена</string>
     <string name="after_symbol_and_space">Нажатие Enter или пробела после других клавиш в режиме символов</string>
+    <string name="show_popup_keys_main">Добавить самые распространённые варианты (по умолчанию)</string>
+    <string name="remove_redundant_popups">Удалить лишние всплывающие окна</string>
+    <string name="remove_redundant_popups_summary">Убрать всплывающие клавиши, присутствующие в базовой раскладке</string>
 </resources>

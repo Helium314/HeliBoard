@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"חיפוש שמות של אנשי קשר"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"בודק האיות משתמש בערכים מרשימת אנשי הקשר שלך"</string>
     <string name="vibrate_on_keypress">"רטט בלחיצה על מקשים"</string>
@@ -12,7 +11,7 @@
     <string name="popup_on_keypress">"חלון קופץ בלחיצה על מקש"</string>
     <string name="settings_screen_preferences">"העדפות"</string>
     <string name="settings_screen_gesture">"הקלדה רציפה"</string>
-    <string name="settings_screen_correction">"תיקון טקסט"</string>
+    <string name="settings_screen_correction">תיקון מלל</string>
     <string name="settings_screen_advanced">"אפשרויות מתקדמות"</string>
     <string name="settings_screen_theme">"עיצוב"</string>
     <string name="enable_split_keyboard">"הפעל מקלדת מפוצלת"</string>
@@ -118,7 +117,7 @@
     <string name="user_dict_settings_more_languages">"עוד שפות…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_no_limit">ללא גבול</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="דקות">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="דקות">%s</xliff:g>min</string>
     <string name="enable_clipboard_history">הפעל את היסטוריית הלוח</string>
     <string name="enable_clipboard_history_summary">אם מושבת, לוח מקשים ידביק את תוכן הלוח אם קיים</string>
     <string name="clipboard_history_retention_time">שמירת זמן היסטוריה</string>
@@ -130,18 +129,18 @@
     <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
-    <string name="android_spell_checker_settings">פתח את הגדרות בודק האיות של לוח</string>
+    <string name="android_spell_checker_settings">פתיחת הגדרות בודק האיות של לוח</string>
     <string name="prefs_long_press_keyboard_to_change_lang">שנה שפת מקלדת על ידי מקש רווח</string>
     <string name="show_emoji_key">מפתח אמוג\'י</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (תווים)</string>
-    <string name="spell_checker_service_name">פתח את בודק האיות של הלוח</string>
+    <string name="spell_checker_service_name">פתיחת בודק האיות של הלוח</string>
     <string name="settings_category_clipboard_history">היסטוריית הלוח</string>
     <string name="autospace_after_punctuation">רווח אוטומטי לאחר סימני פיסוק</string>
     <string name="subtype_no_language_colemak_dh">אלפבית (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">המראה יעקוב אחר הגדרות המערכת</string>
     <string name="autospace_after_punctuation_summary">הוסף רווח אוטומטי לאחר סימני פיסוק בעת הקלדת מילה חדשה</string>
     <string name="subtype_no_language_workman">אלפבית (עובד)</string>
-    <string name="ime_settings">פתח את הגדרות לוח</string>
+    <string name="ime_settings">פתיחת הגדרות לוח</string>
     <string name="settings_category_input">קֶלֶט</string>
     <string name="settings_category_experimental">נסיוני</string>
     <string name="settings_category_miscellaneous">שונות</string>
@@ -168,4 +167,218 @@
     <string name="label_search_key">"חיפוש"</string>
     <string name="label_pause_key">"השהה"</string>
     <string name="label_wait_key">"המתן"</string>
+    <string name="all_colors_warning">הגדרה זו חושפת את כל הצבעים שבשימוש פנימי. רשימת הצבעים עשויה להשתנות בכל עת. צבע ברירת המחדל הוא אקראי, והשמות לא יתורגמו.</string>
+    <string name="quick_pin_toolbar_keys">נעיצת כפתור toolbar בלחיצה ממושכת</string>
+    <string name="quick_pin_toolbar_keys_summary">השבתת פעולות אחרות בלחיצה ממושכת לכפתורי toolbar שאינם נעוצים</string>
+    <string name="pinned_toolbar_keys">בחירת כפתורי toolbar נעוצים</string>
+    <string name="gesture_fast_typing_cooldown">הפוגה להקלדה רצופה</string>
+    <string name="gesture_fast_typing_cooldown_instant">תמיד התחלה מיידית</string>
+    <string name="dictionary_file_wrong_locale">הקובץ שנבחר מיועד ל%1$s, אבל %2$s היתה צפויה. בכל זאת להשתמש בו ל%2$s?</string>
+    <string name="replace_dictionary">החלפת המילון</string>
+    <string name="dictionary_file_error">שגיאה: הקובץ שנבחר אינו קובץ מילון תקף</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">סגול</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">שחור</string>
+    <string name="select_user_colors">התאמת הצבעים</string>
+    <string name="action_none">ללא</string>
+    <string name="var_toolbar_direction">כיוון toolbar משתנה</string>
+    <string name="auto_show_toolbar">הצגה אוטומטית של toolbar</string>
+    <string name="auto_show_toolbar_summary">הצגת toolbar אם מתחיל קלט או נבחר מלל</string>
+    <string name="auto_hide_toolbar">הסתרה אוטומטית של toolbar</string>
+    <string name="customize_currencies_detail">הגדרת סימן מטבע ראשי ועד 6 סימני מטבע משניים, מופרדים ברווח</string>
+    <string name="customize_currencies">התאמת סוגי מטבע</string>
+    <string name="dictionary_file_wrong_locale_ok">שימוש בכל זאת</string>
+    <string name="user_dict_word_already_present">מילה זו כבר קיימת במילון המשתמש %s. אנא הקלידו מילה אחרת.</string>
+    <string name="user_dict_add_word_button">הוספת מילה</string>
+    <string name="theme_colors">צבעים</string>
+    <string name="settings_screen_about">אודות</string>
+    <string name="about_github_link">צפייה ב-GitHub</string>
+    <string name="toast_msg_clipboard_copy">התוכן הועתק ללוח</string>
+    <string name="language_switch_key_behavior">התנהגות כפתור מעבר שפות</string>
+    <string name="disable_personalized_dicts_message">אזהרה: השבתת אפשרות זו תביא למחיקת הנתונים שנלמדו</string>
+    <string name="add_to_personal_dictionary">הוספת מילים למילון האישי</string>
+    <string name="add_to_personal_dictionary_summary">שימוש במילון האישי במכשיר לשמירת מילים שנלמדות</string>
+    <string name="prefs_always_show_suggestions">תמיד יוצגו הצעות</string>
+    <string name="more_autocorrect">תיקון שגיאות אוטומטי מורחב</string>
+    <string name="more_autocorrect_summary">תיקון שגיאות אוטומטי גם כאשר אינו נדרש במפורש ע\"י שדה הקלט</string>
+    <string name="center_suggestion_text_to_enter_summary">כאשר יוקש רווח או סימן פיסוק, תוזן ההצעה האמצעית</string>
+    <string name="backup_restore_title">גיבוי ושחזור</string>
+    <string name="checksum_mismatch_message">קובץ ספריה בלתי ידוע. האם אתם בטוחים שקיבלתם אותו ממקור מהימן ושהוא מיועד ל\'%s\'?</string>
+    <string name="backup_restore_message">שמירה לקובץ או טעינה מקובץ. אזהרה: שחזור נתונים יחליף את הנתונים הקיימים</string>
+    <string name="load_gesture_library_summary">נדרש לבחור ספריה תואמת כדי לאפשר הקלדה במחוות</string>
+    <string name="load_gesture_library_message">נדרשת הספריה המתאימה ל\'%s\'. ספריות שאינן תואמות עלולות לקרוס בשימוש בהקלדה במחוות.
+\n
+\nאזהרה: טעינת קוד חיצוני עלולה להוות סיכון אבטחה. השתמשו רק בספריה ממקור שאתם בוטחים בו.</string>
+    <string name="show_popup_keys_all">הוספת כל הניבים הזמינים</string>
+    <string name="url_detection_summary">נסיון לאיתור כתובות URL ודומות כמילה יחידה</string>
+    <string name="load_gesture_library_button_delete">מחיקת ספריה</string>
+    <string name="language_and_layouts_title">שפות ופריסות</string>
+    <string name="toolbar_keys">בחירת כפתורי toolbar</string>
+    <string name="prefs_narrow_key_gaps">מרווחי קלידים צרים</string>
+    <string name="localized_number_row">תרגום number row</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת המספרים</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">שפה</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">שפה (עדיפות)</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">סימנים</string>
+    <string name="button_copy_existing_layout">שכפול פריסה קיימת</string>
+    <string name="file_read_error">הקובץ אינו ניתן לקריאה</string>
+    <string name="title_layout_name_select">הגדרת שם הפריסה</string>
+    <string name="remove_dictionary_message">באמת להסיר את המילון שנוסף ע\"י המשתמש \"%s\"?</string>
+    <string name="no_dictionary_message">"ללא מילון, תקבלו הצעות למלל שהקלדתם בעבר בלבד.&lt;br&gt;
+\n        באפשרותך להוריד מילונים %1$s, או לבדוק אם מילון עבור \"%2$s\" ניתן להורדה ישירות %3$s."</string>
+    <string name="no_dictionary_dont_show_again_button">לא להציג שוב</string>
+    <string name="add_dictionary">בחירת המילון להוספה. מילונים בפורמט .dict ניתנים להורדה %s.</string>
+    <string name="dictionary_link_text">כאן</string>
+    <string name="available_dictionary_experimental">%s (נסיוני)</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">סימני טלפון</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">מקלדת מספרים (לרוחב)</string>
+    <string name="day_or_night_day">יום</string>
+    <string name="layout_number" tools:keep="@string/layout_number">מספרים</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">מקלדת מספרים</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">לבן שלם Holo</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">כהה</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">כהה יותר</string>
+    <string name="split_spacer_scale">מרחק הפיצול</string>
+    <string name="language_switch_key_switch_both">מעבר שניהם</string>
+    <string name="button_backup">גיבוי</string>
+    <string name="internal_dictionary_summary">מילון ראשי פנימי</string>
+    <string name="add_new_dictionary_title">הוספת מילון מקובץ</string>
+    <string name="hidden_features_title">תיאור של תכונות מוסתרות</string>
+    <string name="center_suggestion_text_to_enter">תמיד תיושם ההצעה האמצעית</string>
+    <string name="backup_error">שגיאת גיבוי: %s</string>
+    <string name="localized_number_row_summary">העדפת התרגום על-פני ספרות לטיניות</string>
+    <string name="clipboard" tools:keep="@string/clipboard">לוח</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">מחיקת הלוח</string>
+    <string name="voice" tools:keep="@string/voice">קלט קולי</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="dictionary_settings_category">מילונים</string>
+    <string name="theme_style">סגנון</string>
+    <string name="close_history" tools:keep="@string/close_history">סגירת היסטוריית הלוח</string>
+    <string name="clipboard_toolbar_keys">בחירת כפתורי toolbar הלוח</string>
+    <string name="edit_layout">לחיצה לעריכת פריסת בסיס</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">שוקולד</string>
+    <string name="customize_symbols_number_layouts">התאמת פריסות סימנים ומספרים</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">סימנים</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">סימנים (ערבית)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">סימנים נוספים</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">טלפון</string>
+    <string name="button_title_add_custom_layout">הוספת פריסה מותאמת</string>
+    <string name="message_add_custom_layout">יש לבחור קובץ בפורמט תואם. מידע אודות הפורמטים זמין ב%s.</string>
+    <string name="user_dict_settings_add_weight_value">משקל:</string>
+    <string name="prefs_always_show_suggestions_summary">התעלמות מבקשות של יישומים אחרים להשבתת הצעות (עלולה לגרום בעיות)</string>
+    <string name="load">טעינה</string>
+    <string name="button_save_file">שמירה לקובץ</string>
+    <string name="copy_to_clipboard">העתקה ללוח</string>
+    <string name="add_new_dictionary_ask_locale">לאיזו שפה להוסיף את המילון \"%1$s\" ל%2$s ?</string>
+    <string name="dictionary_file_wrong_script">שגיאה: הכתב אינו תואם למקלדת זו</string>
+    <string name="dictionary_load_error">שגיאה בטעינת קובץ מילון</string>
+    <string name="select_user_colors_night">התאמת הצבעים (לילה)</string>
+    <string name="auto_user_color">בחירת צבע אוטומטית</string>
+    <string name="main_colors">הצגת צבעים ראשיים בלבד</string>
+    <string name="show_horizontal_space_swipe">מחוות החלקה אופקית על מקש רווח</string>
+    <string name="show_vertical_space_swipe">מחוות החלקה אנכית על מקש הרווח</string>
+    <string name="button_restore">שחזור</string>
+    <string name="secondary_locale">הקלדה מרובת-שפות</string>
+    <string name="load_gesture_library">טעינת ספריית הקלדה במחוות</string>
+    <string name="load_gesture_library_button_load">טעינת ספריה</string>
+    <string name="switch_language">מעבר שפות</string>
+    <string name="restore_error">שגיאה בשחזור מהגיבוי: %s</string>
+    <string name="show_popup_keys_title">הצגת תווים נוספים עם סימני הבחן (דיאקריטיים) בחלונית הקופצת</string>
+    <string name="show_popup_keys_normal">הצגת ניבי השפה המוגדרים בשפות המקלדת</string>
+    <string name="show_popup_keys_more">הוספת ניבים נפוצים</string>
+    <string name="url_detection_title">איתור כתובת URL</string>
+    <string name="up" tools:keep="@string/up">מעלה</string>
+    <string name="emoji" tools:keep="@string/emoji">אימוג\'י</string>
+    <string name="show_popup_hints">הצגת רמזים פונקציונליים</string>
+    <string name="show_popup_hints_summary">הצגת רמזים אם לחיצה ממושכת תגרום להפעלת פונקציונליות נוספת</string>
+    <string name="prefs_long_press_symbol_for_numpad">כפתור סימנים בלחיצה ממושכת עבור numpad</string>
+    <string name="prefs_bottom_padding_scale">סולם המרווח התחתון</string>
+    <string name="replace_dictionary_message">באמת להחליף את המילון שנוסף ע\"י המשתמש \"%1$s\"?
+\n
+\nהמילון הנוכחי:
+\n%2$s
+\n
+\nהמילון החדש:
+\n%3$s</string>
+    <string name="select_color_key">מלל הקליד</string>
+    <string name="version">גירסה</string>
+    <string name="license">רישיון קוד פתוח</string>
+    <string name="dialog_close">סגירה</string>
+    <string name="text_tap_languages">נגיעה בשפה לפתיחת ההגדרות</string>
+    <string name="settings_screen_toolbar">סרגל הכלים</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="page_down" tools:keep="@string/page_down">דף למטה</string>
+    <string name="page_start" tools:keep="@string/page_start">ראש הדף</string>
+    <string name="page_end" tools:keep="@string/page_end">סוף הדף</string>
+    <string name="word_left" tools:keep="@string/word_left">מילה שמאלה</string>
+    <string name="word_right" tools:keep="@string/word_right">מילה ימינה</string>
+    <string name="page_up" tools:keep="@string/page_up">דף למעלה</string>
+    <string name="select_word" tools:keep="@string/select_word">בחירת מילה</string>
+    <string name="suggest_clipboard_content">הצעה מתוכן הלוח</string>
+    <string name="one_handed" tools:keep="@string/one_handed">מצב שימוש ביד אחת</string>
+    <string name="full_left" tools:keep="@string/full_left">שמאל מלא</string>
+    <string name="full_right" tools:keep="@string/full_right">ימין מלא</string>
+    <string name="left" tools:keep="@string/left">שמאל</string>
+    <string name="right" tools:keep="@string/right">ימין</string>
+    <string name="suggest_clipboard_content_summary">הצגת התוכן שהועתק ללוח לאחרונה כהצעה</string>
+    <string name="hint_source">בחירת מקור הרמזים</string>
+    <string name="popup_order">בחירת סדר המקשים בpopup</string>
+    <string name="button_load_custom">טעינת קובץ</string>
+    <string name="customize_background_image">הגדרת תמונת רקע</string>
+    <string name="all_colors">הצגת כל הצבעים</string>
+    <string name="load_will_overwrite">הטעינה תחליף את ערכת הנושא הנוכחית</string>
+    <string name="select_user_colors_summary">בחירת צבעים למלל ולרקעים</string>
+    <string name="select_color_background">רקע המקלדת</string>
+    <string name="hint_show_keyboard">לחיצה לתצוגה מקדימה</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">מעוגל</string>
+    <string name="save_log">שמירת לוג</string>
+    <string name="down" tools:keep="@string/down">מטה</string>
+    <string name="button_select_language">בחירת השפה</string>
+    <string name="button_add_to_language">הוספה ל%s</string>
+    <string name="delete_layout">באמת למחוק את הפריסה המותאמת %s?</string>
+    <string name="day_or_night_image">להגדיר תמונה למצב יום או לילה?</string>
+    <string name="day_or_night_night">לילה</string>
+    <string name="switch_keyboard_after">מעבר למקלדת הראשית כעבור…</string>
+    <string name="after_emoji">בחירת אימוג\'י בתצוגת האימוג\'י</string>
+    <string name="after_clip">בחירת רשומה בהיסטוריית הלוח</string>
+    <string name="after_symbol_and_space">לחיצה על enter או רווח אחרי תווים אחרים בתצוגת הסימנים</string>
+    <string name="setup_step3_action">הגדרות המקלדת</string>
+    <string name="remove_redundant_popups_summary">השבתת תווי popup שנכללים בפריסה הבסיסית</string>
+    <string name="space_swipe_toggle_numpad_entry">מעבר לNumpad</string>
+    <string name="auto_hide_toolbar_summary">הסתרת toolbar כאשר יש הצעות זמינות</string>
+    <string name="layout_error">שגיאת פריסה: %s</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">כחול אפור</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">חום</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">סגרירי</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">אוקיאנוס</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">ורוד</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">חול</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">מוגדר ע\"י המשתמש</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">מוגדר ע\"י המשתמש (לילה)</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">יער</string>
+    <string name="theme_colors_night">צבעים (לילה)</string>
+    <string name="theme_navbar">צבע סרגל הניווט</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">בהיר</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">צבעים חיים</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">אינדיגו</string>
+    <string name="hidden_features_text">אחסון מוגן של המכשיר</string>
+    <string name="hidden_features_summary">הצגת תכונות שעשויות לחמוק מתשומת הלב</string>
+    <string name="more_colors">הצגת יותר צבעים</string>
+    <string name="select_color_key_hint">מלל רמז הקליד</string>
+    <string name="select_color_suggestion">מלל סרגל ההצעות</string>
+    <string name="select_color_key_background">רקע הקלידים</string>
+    <string name="select_color_functional_key_background">רקע הכפתורים הפונקציונליים</string>
+    <string name="select_color_spacebar_background">רקע מקש הרווח</string>
+    <string name="select_color_spacebar_text">מלל מקש הרווח</string>
+    <string name="select_color_accent">סימני הבחן (דיאקריטיים)</string>
+    <string name="select_color_gesture">קלט במחוות</string>
+    <string name="space_swipe_move_cursor_entry">הזזת הסמן</string>
+    <string name="var_toolbar_direction_summary">הפיכת הכיוון כאשר נבחרה מקלדת מסוג מימין-לשמאל</string>
+    <string name="show_popup_keys_main">הוספת ניבים נפוצים מאד (ברירת המחדל)</string>
+    <string name="remove_redundant_popups">הסרת חלוניות קופצות מיותרות</string>
+    <string name="customize_functional_key_layouts">התאמת פריסת כפתורים פונקציונליים</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">כפתורים פונקציונליים</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">כפתורים פונקציונליים (סימנים)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">כפתורים פונקציונליים (סימנים נוספים)</string>
 </resources>

@@ -84,7 +84,7 @@
     <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ unter der Systemeinstellung \"Sprachen und Eingabe\", damit die App auf deinem Gerät verwendet werden darf.</string>
+    <string name="setup_step1_instruction">Bitte aktiviere „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung „Sprachen und Eingabe“ aktiviert. Weiter mit dem nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
@@ -208,7 +208,7 @@
     <string name="theme_navbar">Navigationsleiste einfärben</string>
     <string name="dictionary_file_wrong_locale_ok">Trotzdem benutzen</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Wald</string>
-    <string name="load_gesture_library_message">Du benötigst die Bibliothek für \'%s\'. Inkompatible Bibliotheken können zu Abstürzen bei der Gesteneingabe führen.
+    <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen bei der Gesteneingabe führen.
 \n
 \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können heruntergeladen werden %s.</string>
@@ -217,7 +217,7 @@
     <string name="right" tools:keep="@string/right">Rechts</string>
     <string name="dictionary_load_error">Fehler beim Laden der Wörterbuchdatei</string>
     <string name="localized_number_row_summary">Bevorzuge lokalisierte gegenüber lateinischen Zahlen</string>
-    <string name="checksum_mismatch_message">Unbekannte Bibliotheksdatei. Bist du sicher, dass du sie von einer vertrauenswürdigen Quelle erhalten hast und sie für \'%s\' ist?</string>
+    <string name="checksum_mismatch_message">Unbekannte Bibliotheksdatei. Bist du sicher, dass du sie von einer vertrauenswürdigen Quelle erhalten hast und sie für „%s“ ist?</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau-Grau</string>
     <string name="select_color_spacebar_text">Beschriftung Leertaste</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Hell</string>
@@ -242,7 +242,7 @@
     <string name="hint_source">Hinweis-Quelle wählen</string>
     <string name="load_gesture_library_summary">Native Bibliothek bereitstellen, um Gesteneingabe zu aktivieren</string>
     <string name="layout_symbols_shifted">Mehr Symbole</string>
-    <string name="url_detection_summary">Versuche URLs und ähnliches als einzelnes Wort zu erkennen</string>
+    <string name="url_detection_summary">Versuche URLs und Ähnliches als einzelnes Wort zu erkennen</string>
     <string name="button_select_language">Sprache auswählen</string>
     <string name="select_color_key">Tastenbeschriftung</string>
     <string name="load_gesture_library">Gesteneingabe-Bibliothek laden</string>
@@ -307,7 +307,7 @@
     <string name="prefs_bottom_padding_scale">Randabstand unten</string>
     <string name="button_copy_existing_layout">Vorhandenes Layout kopieren</string>
     <string name="select_color_gesture">Eingabe durch Gesten</string>
-    <string name="text_tap_languages">Sprache antippen um Einstellungen zu öffnen</string>
+    <string name="text_tap_languages">Sprache antippen, um Einstellungen zu öffnen</string>
     <string name="show_popup_keys_title">Mehr Buchstaben mit diakritischen Zeichen im Popup anzeigen</string>
     <string name="one_handed" tools:keep="@string/one_handed">Einhandmodus</string>
     <string name="layout_error">Layoutfehler: %s</string>
@@ -317,7 +317,7 @@
     <string name="save_log">Protokoll speichern</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="more_autocorrect_summary">Autokorrektur, auch wenn dies vom Eingabefeld nicht explizit angefordert wird</string>
-    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo weiß</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo-Weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
     <string name="hidden_features_message">► Durch langes Drücken der Zwischenablagetaste (die optionale Taste in der Vorschlagsleiste) wird der Inhalt der Systemzwischenablage eingefügt. &lt;br&gt; &lt;br&gt; ► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; ► Halte die Komma-Taste gedrückt, um auf die Zwischenablageansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder den Sprachwechsel zuzugreifen: &lt;br&gt; • Die Emoji-Ansicht und der Sprachwechsel verschwinden, wenn du über die entsprechende Taste aktiviert hast; &lt;br&gt; • Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an derselben Position (z. B. ist es „q“ für das Dvorak-Layout). &lt;br&gt; &lt;br&gt; ► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den letzten hinzugefügt. &lt;br&gt; &lt;br&gt; ► Drücke auf das Inkognito-Symbol, um auf die Symbolleiste zuzugreifen. &lt;br&gt; &lt;br&gt; ► Schiebetasteneingabe: Wische von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; • Dies funktioniert auch für die Taste „?123“, um ein einzelnes Symbol über die Symboltastatur einzugeben, und für zugehörige Schlüssel. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und tippe auf die Schaltfläche „Löschen“, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; ► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Eintrag im Verlauf der Zwischenablage, um ihn anzuheften (belässt ihn in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; ► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; • Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;. Das bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug-Modus / Debug-APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen.&lt;br&gt; &lt;br&gt; • Wenn du die Debug-APK verwendest, kannst du Debug-Einstellungen in den erweiterten Einstellungen finden. Der Nutzen ist jedoch begrenzt, mit Ausnahme der Speicherung von Wörterbüchern im Protokoll. &lt;br&gt; &lt;br&gt; • Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle wünschst. &lt;br&gt; &lt;br&gt; • Bei mehrsprachiger Eingabe zeigt die Leertaste einen Konfidenzwert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; • Vorschläge werden oben einige kleine Zahlen haben, die eine interne Bewertung und ein Quellwörterbuch anzeigen (kann deaktiviert werden). &lt;br&gt; &lt;br&gt; ► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: Ab Android 7 befindet sich die gemeinsame Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. &lt;br&gt; Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z.B. beim Booten. &lt;br&gt; Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, dies kann jedoch vom Gerät und der Android-Version abhängen.</string>
     <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;
@@ -327,7 +327,7 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabisch)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
-    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefon Symbole</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymbole</string>
     <string name="layout_number" tools:keep="@string/layout_number">Zahlen</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Ziffernblock</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Ziffernblock (Querformat)</string>
@@ -356,7 +356,7 @@
     <string name="auto_hide_toolbar">Symbolleiste automatisch ausblenden</string>
     <string name="auto_hide_toolbar_summary">Ausblenden der Symbolleiste, wenn Vorschläge verfügbar sind</string>
     <string name="language_switch_key_behavior">Verhalten der Sprachumschalttaste</string>
-    <string name="quick_pin_toolbar_keys">Pin-Symbolleisten-Taste bei langem Drücken</string>
+    <string name="quick_pin_toolbar_keys">Symbolleisten-Taste bei langem Drücken anheften</string>
     <string name="settings_screen_toolbar">Symbolleiste</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
@@ -367,10 +367,10 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktionstasten</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktionstasten (Symbole)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktionstasten (Mehr Symbole)</string>
-    <string name="gesture_fast_typing_cooldown">Schnelles tippen Abkühlzeit</string>
+    <string name="gesture_fast_typing_cooldown">­Abkühlzeit für schnelles Tippen</string>
     <string name="gesture_fast_typing_cooldown_instant">Immer direkt starten</string>
     <string name="customize_currencies">Währungen anpassen</string>
-    <string name="customize_currencies_detail">Setze ein Standard und bis zu 6 zusätzliche Währungssymbole, separiert mit einem Leerzeichen</string>
+    <string name="customize_currencies_detail">Setze ein Standard- und bis zu 6 zusätzliche Währungssymbole, separiert durch ein Leerzeichen</string>
     <string name="load">Laden</string>
     <string name="button_save_file">In Datei speichern</string>
     <string name="copy_to_clipboard">Kopieren in die Zwischenablage</string>
@@ -382,5 +382,13 @@
     <string name="page_down" tools:keep="@string/page_down">Seite runter</string>
     <string name="page_start" tools:keep="@string/page_start">Seiten Anfang</string>
     <string name="suggest_clipboard_content_summary">Zeige kürzlich kopierte Zwischenablagen Inhalte als Vorschlag</string>
-    <string name="suggest_clipboard_content">Schlage Zwischenablagen Inhalt vor</string>
+    <string name="suggest_clipboard_content">Schlage Zwischenablagen-Inhalt vor</string>
+    <string name="after_symbol_and_space">Enter oder Leerzeichen nach anderen Tasten im Symbollayout</string>
+    <string name="after_clip">Auswählen eines Eintrags des Zwischenablagenverlaufs</string>
+    <string name="after_emoji">Auswählen eines Emojis in der Emojiansicht</string>
+    <string name="switch_keyboard_after">Zur Haupttastatur zurückkehren durch …</string>
+    <string name="space_swipe_toggle_numpad_entry">Ziffernblock umschalten</string>
+    <string name="show_popup_keys_main">Sehr häufige Varianten hinzufügen (Standard)</string>
+    <string name="remove_redundant_popups">Redundante Popups entfernen</string>
+    <string name="remove_redundant_popups_summary">Popup-Tasten unterdrücken, die im Basislayout vorhanden sind</string>
 </resources>
