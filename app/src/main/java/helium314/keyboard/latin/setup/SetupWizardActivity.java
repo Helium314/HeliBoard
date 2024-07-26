@@ -340,22 +340,22 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mStepNumber == STEP_LAUNCHING_IME_SETTINGS) {
-            // Prevent white screen flashing while launching settings activity.
-            mSetupWizard.setVisibility(View.INVISIBLE);
-            invokeSettingsOfThisIme();
-            mStepNumber = STEP_BACK_FROM_IME_SETTINGS;
-            return;
-        }
-        if (mStepNumber == STEP_BACK_FROM_IME_SETTINGS) {
-            finish();
-            return;
-        }
-        updateSetupStepView();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (mStepNumber == STEP_LAUNCHING_IME_SETTINGS) {
+//            // Prevent white screen flashing while launching settings activity.
+//            mSetupWizard.setVisibility(View.INVISIBLE);
+//            invokeSettingsOfThisIme();
+//            mStepNumber = STEP_BACK_FROM_IME_SETTINGS;
+//            return;
+//        }
+//        if (mStepNumber == STEP_BACK_FROM_IME_SETTINGS) {
+//            finish();
+//            return;
+//        }
+//        updateSetupStepView();
+//    }
 
     @Override
     public void onBackPressed() {

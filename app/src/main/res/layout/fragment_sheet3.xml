@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CBE3E1"
+    android:id="@+id/fragment_container"
     >
 
     <LinearLayout
+        android:id="@+id/button_sheet_three"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

@@ -1,7 +1,7 @@
 package helium314.keyboard.latin.setup
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -29,12 +30,14 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
     lateinit var owelBackground: ImageView
     lateinit var txtKey: TextView
     lateinit var imgKey: ImageView
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_keyboardselection)
+        sharedPreferences = getSharedPreferences("KeyboardPrefs", MODE_PRIVATE)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
@@ -51,6 +54,8 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
         owelBackground = findViewById(R.id.owelBackground)
         txtKey = findViewById(R.id.txtKey)
         imgKey = findViewById(R.id.imgKey)
+//        val mainActivity = MainActivity() // Or get reference from elsewhere
+//        mainActivity.setKeyboardSetupDone()
 
         owelId.setOnClickListener {
             // Hide the three ImageViews
@@ -63,9 +68,9 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
             imgKey.visibility = View.VISIBLE
         }
 
-        arrowID.setOnClickListener {
-            startActivity(Intent(this, KeyboardselectionActivity::class.java))
-        }
+//        arrowID.setOnClickListener {
+////            startActivity(Intent(this, KeyboardselectionActivity::class.java))
+//        }
 
         val instructionText = "    Welcome to \n" + "Oscar Keyboard"
         val spannableString = SpannableString(instructionText)
@@ -82,7 +87,7 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
             )
 
             spannableString.setSpan(
-                StyleSpan(Typeface.BOLD), // Set style to bold
+                StyleSpan(Typeface.BOLD),
                 startIndex,
                 endIndex,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -91,7 +96,6 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
 
         val textViewInstruction = findViewById<TextView>(R.id.textview_Id)
         textViewInstruction.text = spannableString
-
 
         val instruction = "Tap on Oscar Keyboard to try the keyboard"
         val spannablestr = SpannableString(instruction)
@@ -108,7 +112,7 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
             )
 
             spannablestr.setSpan(
-                StyleSpan(Typeface.BOLD), // Set style to bold
+                StyleSpan(Typeface.BOLD),
                 startIdx,
                 endIdx,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -122,16 +126,36 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_privacy_policy -> {
-                startActivity(Intent(this, PrivacyPolicyActivity::class.java))
+//                val browserIntent = Intent(
+//                    Intent.ACTION_VIEW,
+//                    Uri.parse("https://www.termsfeed.com/sample-privacy-policy/")
+//                )
+//                startActivity(browserIntent)
             }
+
             R.id.nav_recommended_us -> {
-                // Handle recommended us click
             }
+
             R.id.nav_email_us -> {
-                // Handle email us click
+//                val emailIntent = Intent(Intent.ACTION_SEND).apply {
+//                    type = "text/plain"
+//                    putExtra(Intent.EXTRA_EMAIL, arrayOf("kalyani143jk@gmail.com"))
+//                    putExtra(Intent.EXTRA_SUBJECT, "Support Request")
+//                    putExtra(Intent.EXTRA_TEXT, "Hello, I need support regarding...")
+//                }
+//                if (emailIntent.resolveActivity(packageManager) != null) {
+//                    startActivity(Intent.createChooser(emailIntent, "Send Email"))
+//                } else {
+                    Toast.makeText(this, "No email client installed", Toast.LENGTH_SHORT).show()
+//                }
             }
+
             R.id.nav_terms_conditions -> {
-                startActivity(Intent(this, TermsOfUseActivity::class.java))
+//                val browserIntent = Intent(
+//                    Intent.ACTION_VIEW,
+//                    Uri.parse("https://www.termsfeed.com/sample-terms-and-conditions/")
+//                )
+//                startActivity(browserIntent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

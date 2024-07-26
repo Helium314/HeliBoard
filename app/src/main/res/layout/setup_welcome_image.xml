@@ -30,7 +30,7 @@
             android:src="@drawable/img"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="100dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="105dp"
             app:layout_constraintTop_toTopOf="parent"
             />
         <ImageView
