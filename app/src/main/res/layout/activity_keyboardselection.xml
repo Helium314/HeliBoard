@@ -60,7 +60,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="65dp"
-            android:src="@drawable/whatsapp_image_2024_07_22_at_10_43_53_am"
+            android:src="@drawable/whatsapp_image_three"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="285dp"
                 android:visibility="gone"
-                android:background="@drawable/whatsapp_image_2024_07_23_at_10_00_17_am"
+                android:background="@drawable/whatsapp_image_six"
                 />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
