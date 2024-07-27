@@ -506,7 +506,7 @@ public class KeyboardView extends View {
                 iconY = (keyHeight - iconHeight) / 2; // Align vertically center.
             }
             final int iconX = (keyWidth - iconWidth) / 2; // Align horizontally center.
-            setKeyIconColor(key, icon, keyboard);
+            setKeyIconColor(key, icon);
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
 
@@ -603,18 +603,9 @@ public class KeyboardView extends View {
         freeOffscreenBuffer();
     }
 
-    private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
+    private void setKeyIconColor(Key key, Drawable icon) {
         if (key.isAccentColored()) {
             mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
-        } else if (key.isShift() && keyboard != null) {
-            if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            )
-                mColors.setColor(icon, ColorType.SHIFT_KEY_ICON);
-            else
-                mColors.setColor(icon, ColorType.KEY_ICON); // normal key if not shifted
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (this instanceof PopupKeysKeyboardView) {
