@@ -12,6 +12,8 @@ import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
 import helium314.keyboard.latin.common.Constants;
+import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 
@@ -71,22 +73,15 @@ public class SentenceLevelAdapter {
         public int getEndOfWord(final CharSequence sequence, final int fromIndex) {
             final int length = sequence.length();
             int index = fromIndex < 0 ? 0 : Character.offsetByCodePoints(sequence, fromIndex, 1);
+            if (Settings.getInstance().getCurrent().mUrlDetectionEnabled) {
+                final int urlEndIndex = StringUtils.findURLEndIndex(sequence.subSequence(index, length));
+                if (urlEndIndex != - 1)
+                    return urlEndIndex + Character.charCount(Character.codePointAt(sequence, urlEndIndex));
+            }
             while (index < length) {
                 final int codePoint = Character.codePointAt(sequence, index);
-                if (mSpacingAndPunctuations.isWordSeparator(codePoint)) {
-                    // If it's a period, we want to stop here only if it's followed by another
-                    // word separator. In all other cases we stop here.
-                    if (Constants.CODE_PERIOD == codePoint) {
-                        final int indexOfNextCodePoint =
-                                index + Character.charCount(Constants.CODE_PERIOD);
-                        if (indexOfNextCodePoint < length
-                                && mSpacingAndPunctuations.isWordSeparator(
-                                        Character.codePointAt(sequence, indexOfNextCodePoint))) {
-                            return index;
-                        }
-                    } else {
-                        return index;
-                    }
+                if (mSpacingAndPunctuations.isWordSeparator(codePoint) || codePoint == Constants.CODE_DASH) {
+                    return index;
                 }
                 index += Character.charCount(codePoint);
             }
