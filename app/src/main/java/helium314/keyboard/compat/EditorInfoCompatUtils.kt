@@ -6,8 +6,10 @@
 
 package helium314.keyboard.compat
 
+import android.content.ClipDescription
 import android.os.Build
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.inputmethod.EditorInfoCompat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,5 +41,16 @@ object EditorInfoCompatUtils {
             locales.add(localeList.get(i))
         }
         return locales
+    }
+
+    @JvmStatic
+    fun isMimeTypeSupportedByEditor(editorInfo: EditorInfo, mimeType: String): Boolean {
+        val editorMimeTypes = EditorInfoCompat.getContentMimeTypes(editorInfo)
+        for (supportedType in editorMimeTypes) {
+            if (ClipDescription.compareMimeTypes(mimeType, supportedType)) {
+                return true
+            }
+        }
+        return false
     }
 }
