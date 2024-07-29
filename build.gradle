@@ -5,6 +5,7 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.4.1'
@@ -18,6 +19,7 @@ buildscript {
 
 plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.android' version '2.0.0' apply false
 }
 
 allprojects {
@@ -25,6 +27,7 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        jcenter()
     }
 }
 
