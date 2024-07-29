@@ -45,6 +45,7 @@
         <item>colemak_dh</item>
         <item>workman</item>
         <item>bepo</item>
+        <item>ergol</item>
         <item>pcqwerty</item>
     </string-array>
     <!-- Predefined keyboard layout display names -->
@@ -58,6 +59,7 @@
         <item>Colemak Mod-DH</item>
         <item>Workman</item>
         <item>Bépo</item>
+        <item>Ergo-L</item>
         <item>PC</item>
     </string-array>
     <!-- Description for generic subtype that has predefined layout.
@@ -72,6 +74,7 @@
     <string name="subtype_generic_colemak_dh" translatable="false" tools:keep="@string/subtype_generic_colemak_dh">%s (Colemak Mod-DH)</string>
     <string name="subtype_generic_workman" translatable="false" tools:keep="@string/subtype_generic_workman">%s (Workman)</string>
     <string name="subtype_generic_bepo" translatable="false" tools:keep="@string/subtype_generic_bepo">%s (Bépo)</string>
+    <string name="subtype_generic_ergol" translatable="false" tools:keep="@string/subtype_generic_ergol">%s (Ergo-L)</string>
     <string name="subtype_generic_pcqwerty" translatable="false" tools:keep="@string/subtype_generic_pcqwerty">%s (PC)</string>
 
     <!-- Description for Bulgarian (BDS) subtype. -->
