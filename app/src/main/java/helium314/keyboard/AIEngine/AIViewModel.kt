@@ -17,7 +17,7 @@ class AIViewModel(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AIState())
-    val state : StateFlow<AIState> = _state.asStateFlow()
+    val state: StateFlow<AIState> = _state.asStateFlow()
 
     fun onAICorrection(context: Context) {
 
@@ -32,7 +32,8 @@ class AIViewModel(
                 _state.update { it.copy(isAICorrecting = true) }
                 Toast.makeText(context, "Text Corrected With AIEngine", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(context, "Error Correcting Text With AIEngine", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error Correcting Text With AIEngine", Toast.LENGTH_SHORT)
+                    .show()
             } finally {
                 _state.update { it.copy(isAICorrecting = false) }
             }
