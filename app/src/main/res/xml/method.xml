@@ -1053,6 +1053,17 @@
             android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />
+
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_uyghur"
+        android:subtypeId="0x4b13c11"
+        android:imeSubtypeLocale="ug"
+        android:languageTag="ug"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="AsciiCapable,EmojiCapable,KeyboardLayoutSet=uyghur"
+        android:isAsciiCapable="true"
+        />
+
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_no_language_qwerty"
             android:subtypeId="0xa239ebad"
