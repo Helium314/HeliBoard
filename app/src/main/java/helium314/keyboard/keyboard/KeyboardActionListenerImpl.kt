@@ -46,6 +46,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
         latinIME.onCodeInput(primaryCode, metaState, x, y, isKeyRepeat)
 
+    override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean, isDeadKey: Boolean) =
+        latinIME.onCodeInput(primaryCode, metaState, x, y, isKeyRepeat, isDeadKey)
+
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()
