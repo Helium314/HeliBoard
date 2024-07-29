@@ -15,6 +15,7 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.KeyboardParser
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
@@ -22,6 +23,7 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.confirmDialog
 import helium314.keyboard.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 
@@ -49,6 +51,26 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
+        } else if (id.mElementId == KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW) {
+            // try catch, single row check, customizable layout, maybe set up other stuff, ...
+            // possibly some things could be determined automatically and the parser used normally?
+            addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMorePopupKeys)
+            mParams.readAttributes(mContext, null)
+            mParams.mDefaultRowHeight = 1f // override the 0.25
+            // need width for space because it's treated like in number row
+            val baseKeys = RawKeyboardParser.parseJsonString("""
+[
+  [
+    { "label": "symbol_alpha", "width": 0.15 },
+    { "label": "space", "width": -1 },
+    { "label": "delete", "width": 0.15 }
+  ]
+]
+            """.trimIndent())
+            keysInRows = KeyboardParser(mParams, mContext).createRows(baseKeys.map { it.mapNotNull { it.compute(mParams) }.toMutableList() }.toMutableList())
+            determineAbsoluteValues()
+            Log.i("test", "w ${mParams.mBaseWidth}, h ${mParams.mBaseHeight}, oh ${mParams.mOccupiedHeight}")
+            Log.i("test", "relkw ${keysInRows[0].map { it.mWidth }}, relkh ${keysInRows[0].map { it.mHeight }}")
         } else {
             try {
                 setupParams()

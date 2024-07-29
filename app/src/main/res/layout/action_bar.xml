@@ -6,8 +6,7 @@
     android:id="@+id/action_bar"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="0dip"
-    android:layout_weight="1"
+    android:layout_height="wrap_content"
     >
     <!-- TODO: Implement a KeyView and replace this. -->
     <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
@@ -61,4 +60,10 @@
         android:hapticFeedbackEnabled="false"
         android:soundEffectsEnabled="false"
         android:contentDescription="@string/spoken_description_delete" />
+    <helium314.keyboard.keyboard.MainKeyboardView
+        android:id="@+id/bottom_row_keyboard"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
