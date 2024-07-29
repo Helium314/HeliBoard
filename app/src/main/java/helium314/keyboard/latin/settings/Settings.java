@@ -20,6 +20,7 @@ import android.os.Build;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -384,11 +385,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final int milliseconds = prefs.getInt(
                 PREF_KEY_LONGPRESS_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultKeyLongpressTimeout(res);
+                : readDefaultKeyLongpressTimeout();
     }
 
-    public static int readDefaultKeyLongpressTimeout(final Resources res) {
-        return res.getInteger(R.integer.config_default_longpress_key_timeout);
+    public static int readDefaultKeyLongpressTimeout() {
+        final int default_longpress_key_timeout = ViewConfiguration.getLongPressTimeout();
+        return default_longpress_key_timeout;
     }
 
     public static int readKeypressVibrationDuration(final SharedPreferences prefs) {
