@@ -14,7 +14,7 @@
         android:background="#DCECEB">
 
         <ImageView
-            android:id="@+id/menu_icon"
+            android:id="@+id/iv_navDrawer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_menu_24"
@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
-            android:id="@+id/textview_Id"
+            android:id="@+id/tv_welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  Welcome to\nOscar Keyboard"
@@ -34,8 +34,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+
         <TextView
-            android:id="@+id/new_text_view"
+            android:id="@+id/tv_enableKeyboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap on Oscar Keyboard. to try the keyboard"
@@ -45,62 +47,35 @@
             android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/owelId"/>
+            app:layout_constraintBottom_toTopOf="@+id/iv_oscar"/>
+        <ImageView
+            android:id="@+id/iv_summarizeText"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_enableKeyboard"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/baseline_keyboard_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
         <ImageButton
-            android:id="@+id/owelId"
+            android:id="@+id/iv_oscar"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginBottom="40dp"
-            android:background="@drawable/owel_background"
+            android:background="@drawable/ic_oscar"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:focusable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-        <ImageView
-            android:id="@+id/owelBackground"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="65dp"
-            android:src="@drawable/whatsapp_image_three"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-        <ImageView
-            android:id="@+id/owelLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="65dp"
-            android:src="@drawable/baseline_keyboard_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <EditText
+            android:id="@+id/et_openOscar"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            >
-            <TextView
-                android:id="@+id/txtKey"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/textbackground"
-                android:textAlignment="center"
-                android:textSize="17dp"
-                android:visibility="gone"
-                android:paddingTop="14dp"
-                android:paddingBottom="14dp"
-                android:text="Try Oscar by saying or speaking something"/>
-            <ImageView
-                android:id="@+id/imgKey"
-                android:layout_width="wrap_content"
-                android:layout_height="285dp"
-                android:visibility="gone"
-                android:background="@drawable/whatsapp_image_six"
-                />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

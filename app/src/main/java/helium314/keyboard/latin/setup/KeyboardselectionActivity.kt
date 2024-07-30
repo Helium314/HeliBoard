@@ -11,6 +11,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,18 +20,43 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.ai.client.generativeai.GenerativeModel
 import com.google.android.material.navigation.NavigationView
+import helium314.keyboard.AIEngine.SummarizeUiState
+import helium314.keyboard.AIEngine.SummarizeViewModel
+import helium314.keyboard.AIEngine.SummarizeViewModelFactory
+import helium314.keyboard.gemini.GeminiClient
 import helium314.keyboard.latin.R
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    lateinit var owelId: ImageButton
+
+class KeyboardselectionActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener {
+    lateinit var ivOscar: ImageButton
+    lateinit var etopenOscar: EditText
     lateinit var drawerLayout: DrawerLayout
-    lateinit var arrowID: ImageView
-    lateinit var owelLogo: ImageView
+    lateinit var ivBack: ImageView
     lateinit var owelBackground: ImageView
-    lateinit var txtKey: TextView
-    lateinit var imgKey: ImageView
     private lateinit var sharedPreferences: SharedPreferences
+
+    private lateinit var ivSummarizeText: ImageView
+
+     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
+        val generativeModel = geminiClient.geminiFlashModel
+
+// Assuming you have a way to create a GenerativeModel instance
+//    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)
+//    val viewModel = ViewModelProvider(this, viewModelFactory)[SummarizeViewModel::class.java]
+    //private lateinit var viewModel: SummarizeViewModel
+
+    private val mViewModel by lazy {
+        ViewModelProvider(this, SummarizeViewModelFactory(generativeModel))[SummarizeViewModel::class.java]
+    }
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,100 +69,123 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val menuIcon: ImageView = findViewById(R.id.menu_icon)
+        val menuIcon: ImageView = findViewById(R.id.iv_navDrawer)
         menuIcon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
         val headerView: View = navigationView.getHeaderView(0)
-        arrowID = headerView.findViewById(R.id.arrowId)
-        owelId = findViewById(R.id.owelId)
-        owelLogo = findViewById(R.id.owelLogo)
-        owelBackground = findViewById(R.id.owelBackground)
-        txtKey = findViewById(R.id.txtKey)
-        imgKey = findViewById(R.id.imgKey)
-//        val mainActivity = MainActivity() // Or get reference from elsewhere
-//        mainActivity.setKeyboardSetupDone()
+        ivBack = headerView.findViewById(R.id.iv_back)
+        ivOscar = findViewById(R.id.iv_oscar)
+        etopenOscar = findViewById(R.id.et_openOscar)
+        ivSummarizeText = findViewById(R.id.iv_summarizeText)
+        //Initialize my viewModel here
 
-        owelId.setOnClickListener {
-            // Hide the three ImageViews
-            owelLogo.visibility = View.GONE
+
+        //val viewModel: SummarizeViewModel by viewModels()
+
+        etopenOscar.setOnClickListener {
             owelBackground.visibility = View.GONE
-            owelId.visibility = View.GONE
-
-            // Show the LinearLayout containing txtKey and imgKey
-            txtKey.visibility = View.VISIBLE
-            imgKey.visibility = View.VISIBLE
+            ivOscar.visibility = View.GONE
+            ivOscar.visibility = View.GONE
+            owelBackground.visibility = View.GONE
         }
 
-//        arrowID.setOnClickListener {
-////            startActivity(Intent(this, KeyboardselectionActivity::class.java))
-//        }
+        ivSummarizeText.setOnClickListener {
+            if (etopenOscar.text.isNotBlank()) {
+                handleSummarize(mViewModel, etopenOscar.text.toString())
+                lifecycleScope.launch {
+                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
+                    observeSummarizeUiState(mViewModel)
+                summarizeUiStateFlow.collect() { uiState ->
+                    when (uiState) {
+                        SummarizeUiState.Initial, SummarizeUiState.Loading -> {
+                            // Handle loading state
+                        }
 
-        val instructionText = "    Welcome to \n" + "Oscar Keyboard"
-        val spannableString = SpannableString(instructionText)
+                        is SummarizeUiState.Success -> {
+                            // Handle success state
+                            val outputText = buildSummarizeContent(uiState)
+                            etopenOscar.setText(outputText)
 
-        val startIndex = instructionText.indexOf("Oscar Keyboard")
-        val endIndex = startIndex + "Oscar Keyboard".length
+                        }
 
-        if (startIndex >= 0) {
-            spannableString.setSpan(
-                ForegroundColorSpan(Color.parseColor("#85BDB9")),
-                startIndex,
-                endIndex,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            spannableString.setSpan(
-                StyleSpan(Typeface.BOLD),
-                startIndex,
-                endIndex,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                        is SummarizeUiState.Error -> {
+                            // Handle error state
+                            val errorMessage = buildSummarizeContent(uiState)
+                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                mViewModel.summarizeStreaming(etopenOscar.text.toString())
+            }
+            }
         }
 
-        val textViewInstruction = findViewById<TextView>(R.id.textview_Id)
-        textViewInstruction.text = spannableString
+            val instructionText = "    Welcome to \n" + "Oscar Keyboard"
+            val spannableString = SpannableString(instructionText)
 
-        val instruction = "Tap on Oscar Keyboard to try the keyboard"
-        val spannablestr = SpannableString(instruction)
+            val startIndex = instructionText.indexOf("Oscar Keyboard")
+            val endIndex = startIndex + "Oscar Keyboard".length
 
-        val startIdx = instruction.indexOf("Oscar Keyboard")
-        val endIdx = startIdx + "Oscar Keyboard".length
+            if (startIndex >= 0) {
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#85BDB9")),
+                    startIndex,
+                    endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-        if (startIdx >= 0) {
-            spannablestr.setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                startIdx,
-                endIdx,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                spannableString.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    startIndex,
+                    endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
 
-            spannablestr.setSpan(
-                StyleSpan(Typeface.BOLD),
-                startIdx,
-                endIdx,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            val textViewInstruction = findViewById<TextView>(R.id.tv_welcomeText)
+            textViewInstruction.text = spannableString
+
+            val instruction = "Tap on Oscar Keyboard to try the keyboard"
+            val spannablestr = SpannableString(instruction)
+
+            val startIdx = instruction.indexOf("Oscar Keyboard")
+            val endIdx = startIdx + "Oscar Keyboard".length
+
+            if (startIdx >= 0) {
+                spannablestr.setSpan(
+                    ForegroundColorSpan(Color.BLACK),
+                    startIdx,
+                    endIdx,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                spannablestr.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    startIdx,
+                    endIdx,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
+            val textView = findViewById<TextView>(R.id.tv_enableKeyboard)
+            textView.text = spannablestr
         }
 
-        val textView = findViewById<TextView>(R.id.new_text_view)
-        textView.text = spannablestr
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_privacy_policy -> {
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when (item.itemId) {
+                R.id.nav_privacy_policy -> {
 //                val browserIntent = Intent(
 //                    Intent.ACTION_VIEW,
 //                    Uri.parse("https://www.termsfeed.com/sample-privacy-policy/")
 //                )
 //                startActivity(browserIntent)
-            }
+                }
 
-            R.id.nav_recommended_us -> {
-            }
+                R.id.nav_recommended_us -> {
+                }
 
-            R.id.nav_email_us -> {
+                R.id.nav_email_us -> {
 //                val emailIntent = Intent(Intent.ACTION_SEND).apply {
 //                    type = "text/plain"
 //                    putExtra(Intent.EXTRA_EMAIL, arrayOf("kalyani143jk@gmail.com"))
@@ -148,25 +197,47 @@ class KeyboardselectionActivity : AppCompatActivity(), NavigationView.OnNavigati
 //                } else {
                     Toast.makeText(this, "No email client installed", Toast.LENGTH_SHORT).show()
 //                }
-            }
+                }
 
-            R.id.nav_terms_conditions -> {
+                R.id.nav_terms_conditions -> {
 //                val browserIntent = Intent(
 //                    Intent.ACTION_VIEW,
 //                    Uri.parse("https://www.termsfeed.com/sample-terms-and-conditions/")
 //                )
 //                startActivity(browserIntent)
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            return true
+        }
+
+        override fun onBackPressed() {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
             }
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+    fun observeSummarizeUiState(summarizeViewModel: SummarizeViewModel): StateFlow<SummarizeUiState> {
+        return summarizeViewModel.uiState
+    }
+
+    fun handleSummarize(summarizeViewModel: SummarizeViewModel, text: String) {
+        if (text.isNotBlank()) {
+            summarizeViewModel.summarizeStreaming(text)
         }
     }
-}
+
+    fun getSummarizeUiState(summarizeViewModel: SummarizeViewModel): SummarizeUiState {
+        return summarizeViewModel.uiState.value // Assuming uiState is a StateFlow
+    }
+
+    fun buildSummarizeContent(uiState: SummarizeUiState): String {
+        return when (uiState) {
+            SummarizeUiState.Initial, SummarizeUiState.Loading -> ""
+            is SummarizeUiState.Success -> uiState.outputText
+            is SummarizeUiState.Error -> uiState.errorMessage
+        }
+    }

@@ -31,7 +31,7 @@ class CustomMenuAdapter(private val menu: Menu) : RecyclerView.Adapter<CustomMen
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val icon: ImageView = view.findViewById(R.id.menu_icon)
+        val icon: ImageView = view.findViewById(R.id.iv_navDrawer)
         val title: TextView = view.findViewById(R.id.menu_title)
     }
 }

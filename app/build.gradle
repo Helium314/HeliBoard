@@ -91,6 +91,9 @@ android {
     lint {
         abortOnError true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -124,4 +127,7 @@ dependencies {
     //multiple bottom sheets
     implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
     implementation ("com.google.android.material:material:1.12.0")
+    // Rich Editor
+
+    implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-rc05")
 }
