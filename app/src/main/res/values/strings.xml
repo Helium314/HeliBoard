@@ -933,4 +933,9 @@ New dictionary:
     <string name="welcome_oscar">Welcome to \n<font color='#008B8B'>Oscar Keyboard</font>
     </string>
     <string name="oscar_tex_tap">Tap below to try the keyboard</string>
+    <string name="setup_Oscar">Let’s setup <font color="#51A09B">Oscar</font> \n<font color="#51A09B">Keyboard</font></string>
+    <string name="enable_text">In the keyboard list screen, tap the toggle to enable \n<font color="#000000"> Oscar Keyboard</font></string>
+    <string name="set_text">Tap to select <font color="#000000"> Oscar Keyboard</font> from the list as the default input keyboard</string>
+    <string name="open_text"><font color="#000000">Installation Successful!!</font> \n Checkout text typing and voice typing on Oscar Keyboard</string>
+
 </resources>
