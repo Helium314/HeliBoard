@@ -15,8 +15,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 
     <application android:label="@string/english_ime_name"
             android:name="helium314.keyboard.latin.App"
-            android:icon="@mipmap/ic_launcher"
-            android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
@@ -48,7 +46,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <!-- Activities -->
         <activity android:name=".setup.SetupActivity"
                 android:theme="@style/platformActivityTheme"
-                android:icon="@mipmap/ic_launcher"
                 android:launchMode="singleTask"
                 android:noHistory="true"
                 android:exported="true">

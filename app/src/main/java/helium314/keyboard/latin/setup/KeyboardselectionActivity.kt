@@ -22,7 +22,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.ai.client.generativeai.GenerativeModel
 import com.google.android.material.navigation.NavigationView
 import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
@@ -30,7 +29,6 @@ import helium314.keyboard.AIEngine.SummarizeViewModelFactory
 import helium314.keyboard.gemini.GeminiClient
 import helium314.keyboard.latin.R
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -40,10 +38,12 @@ class KeyboardselectionActivity : AppCompatActivity(),
     lateinit var etopenOscar: EditText
     lateinit var drawerLayout: DrawerLayout
     lateinit var ivBack: ImageView
-    lateinit var owelBackground: ImageView
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var ivSummarizeText: ImageView
+
+    private lateinit var tvEnableKeyboard: TextView
+    private lateinit var tvWelcomeText : TextView
 
      val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
         val generativeModel = geminiClient.geminiFlashModel
@@ -78,16 +78,18 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivOscar = findViewById(R.id.iv_oscar)
         etopenOscar = findViewById(R.id.et_openOscar)
         ivSummarizeText = findViewById(R.id.iv_summarizeText)
+        tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
+        tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
 
 
         //val viewModel: SummarizeViewModel by viewModels()
 
-        etopenOscar.setOnClickListener {
-            owelBackground.visibility = View.GONE
+        ivOscar.setOnClickListener {
+            etopenOscar.visibility = View.VISIBLE
+            tvWelcomeText.visibility = View.VISIBLE
             ivOscar.visibility = View.GONE
-            ivOscar.visibility = View.GONE
-            owelBackground.visibility = View.GONE
+            tvEnableKeyboard.visibility = View.GONE
         }
 
         ivSummarizeText.setOnClickListener {
@@ -121,55 +123,55 @@ class KeyboardselectionActivity : AppCompatActivity(),
             }
         }
 
-            val instructionText = "    Welcome to \n" + "Oscar Keyboard"
-            val spannableString = SpannableString(instructionText)
+//            val instructionText = "    Welcome to \n" + "Oscar Keyboard"
+//            val spannableString = SpannableString(instructionText)
+//
+//            val startIndex = instructionText.indexOf("Oscar Keyboard")
+//            val endIndex = startIndex + "Oscar Keyboard".length
+//
+//            if (startIndex >= 0) {
+//                spannableString.setSpan(
+//                    ForegroundColorSpan(Color.parseColor("#85BDB9")),
+//                    startIndex,
+//                    endIndex,
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//                )
+//
+//                spannableString.setSpan(
+//                    StyleSpan(Typeface.BOLD),
+//                    startIndex,
+//                    endIndex,
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//                )
+//            }
 
-            val startIndex = instructionText.indexOf("Oscar Keyboard")
-            val endIndex = startIndex + "Oscar Keyboard".length
+//            val textViewInstruction = findViewById<TextView>(R.id.tv_welcomeText)
+//            textViewInstruction.text = spannableString
+//
+//            val instruction = "Tap on Oscar Keyboard to try the keyboard"
+//            val spannablestr = SpannableString(instruction)
+//
+//            val startIdx = instruction.indexOf("Oscar Keyboard")
+//            val endIdx = startIdx + "Oscar Keyboard".length
 
-            if (startIndex >= 0) {
-                spannableString.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#85BDB9")),
-                    startIndex,
-                    endIndex,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-                spannableString.setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    startIndex,
-                    endIndex,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-
-            val textViewInstruction = findViewById<TextView>(R.id.tv_welcomeText)
-            textViewInstruction.text = spannableString
-
-            val instruction = "Tap on Oscar Keyboard to try the keyboard"
-            val spannablestr = SpannableString(instruction)
-
-            val startIdx = instruction.indexOf("Oscar Keyboard")
-            val endIdx = startIdx + "Oscar Keyboard".length
-
-            if (startIdx >= 0) {
-                spannablestr.setSpan(
-                    ForegroundColorSpan(Color.BLACK),
-                    startIdx,
-                    endIdx,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-                spannablestr.setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    startIdx,
-                    endIdx,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-
-            val textView = findViewById<TextView>(R.id.tv_enableKeyboard)
-            textView.text = spannablestr
+//            if (startIdx >= 0) {
+//                spannablestr.setSpan(
+//                    ForegroundColorSpan(Color.BLACK),
+//                    startIdx,
+//                    endIdx,
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//                )
+//
+//                spannablestr.setSpan(
+//                    StyleSpan(Typeface.BOLD),
+//                    startIdx,
+//                    endIdx,
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//                )
+//            }
+//
+//            val textView = findViewById<TextView>(R.id.tv_enableKeyboard)
+//            textView.text = spannablestr
         }
 
         override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -930,4 +930,7 @@ New dictionary:
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="welcome_oscar">Welcome to \n<font color='#008B8B'>Oscar Keyboard</font>
+    </string>
+    <string name="oscar_tex_tap">Tap below to try the keyboard</string>
 </resources>
