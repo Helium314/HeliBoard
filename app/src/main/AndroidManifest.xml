@@ -19,7 +19,15 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true">
-
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
         <!-- Services -->
         <service android:name="LatinIME"
                 android:label="@string/english_ime_name"
@@ -104,6 +112,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name=".setup.KeyboardselectionActivity"
             android:exported="false"
+            android:windowSoftInputMode="stateVisible"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <activity

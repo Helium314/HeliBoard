@@ -1,9 +1,11 @@
 package helium314.keyboard.latin.setup
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -11,6 +13,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -18,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -27,9 +31,11 @@ import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory
 import helium314.keyboard.gemini.GeminiClient
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 
 
 class KeyboardselectionActivity : AppCompatActivity(),
@@ -77,12 +83,12 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivBack = headerView.findViewById(R.id.iv_back)
         ivOscar = findViewById(R.id.iv_oscar)
         etopenOscar = findViewById(R.id.et_openOscar)
-        ivSummarizeText = findViewById(R.id.iv_summarizeText)
+//        ivSummarizeText = findViewById(R.id.iv_summarizeText)
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
 
-
+etopenOscar= findViewById(R.id.et_openOscar)
         //val viewModel: SummarizeViewModel by viewModels()
 
         ivOscar.setOnClickListener {
@@ -90,123 +96,79 @@ class KeyboardselectionActivity : AppCompatActivity(),
             tvWelcomeText.visibility = View.VISIBLE
             ivOscar.visibility = View.GONE
             tvEnableKeyboard.visibility = View.GONE
+
+
         }
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
-        ivSummarizeText.setOnClickListener {
-            if (etopenOscar.text.isNotBlank()) {
-                handleSummarize(mViewModel, etopenOscar.text.toString())
-                lifecycleScope.launch {
-                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
-                    observeSummarizeUiState(mViewModel)
-                summarizeUiStateFlow.collect() { uiState ->
-                    when (uiState) {
-                        SummarizeUiState.Initial, SummarizeUiState.Loading -> {
-                            // Handle loading state
-                        }
-
-                        is SummarizeUiState.Success -> {
-                            // Handle success state
-                            val outputText = buildSummarizeContent(uiState)
-                            etopenOscar.setText(outputText)
-
-                        }
-
-                        is SummarizeUiState.Error -> {
-                            // Handle error state
-                            val errorMessage = buildSummarizeContent(uiState)
-                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-                mViewModel.summarizeStreaming(etopenOscar.text.toString())
-            }
-            }
-        }
-
-//            val instructionText = "    Welcome to \n" + "Oscar Keyboard"
-//            val spannableString = SpannableString(instructionText)
+//        ivSummarizeText.setOnClickListener {
+//            if (etopenOscar.text.isNotBlank()) {
+//                handleSummarize(mViewModel, etopenOscar.text.toString())
+//                lifecycleScope.launch {
+//                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
+//                    observeSummarizeUiState(mViewModel)
+//                summarizeUiStateFlow.collect() { uiState ->
+//                    when (uiState) {
+//                        SummarizeUiState.Initial, SummarizeUiState.Loading -> {
+//                            // Handle loading state
+//                        }
 //
-//            val startIndex = instructionText.indexOf("Oscar Keyboard")
-//            val endIndex = startIndex + "Oscar Keyboard".length
+//                        is SummarizeUiState.Success -> {
+//                            // Handle success state
+//                            val outputText = buildSummarizeContent(uiState)
+//                            etopenOscar.setText(outputText)
 //
-//            if (startIndex >= 0) {
-//                spannableString.setSpan(
-//                    ForegroundColorSpan(Color.parseColor("#85BDB9")),
-//                    startIndex,
-//                    endIndex,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
+//                        }
 //
-//                spannableString.setSpan(
-//                    StyleSpan(Typeface.BOLD),
-//                    startIndex,
-//                    endIndex,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
+//                        is SummarizeUiState.Error -> {
+//                            // Handle error state
+//                            val errorMessage = buildSummarizeContent(uiState)
+//                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
+//                mViewModel.summarizeStreaming(etopenOscar.text.toString())
 //            }
-
-//            val textViewInstruction = findViewById<TextView>(R.id.tv_welcomeText)
-//            textViewInstruction.text = spannableString
-//
-//            val instruction = "Tap on Oscar Keyboard to try the keyboard"
-//            val spannablestr = SpannableString(instruction)
-//
-//            val startIdx = instruction.indexOf("Oscar Keyboard")
-//            val endIdx = startIdx + "Oscar Keyboard".length
-
-//            if (startIdx >= 0) {
-//                spannablestr.setSpan(
-//                    ForegroundColorSpan(Color.BLACK),
-//                    startIdx,
-//                    endIdx,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//
-//                spannablestr.setSpan(
-//                    StyleSpan(Typeface.BOLD),
-//                    startIdx,
-//                    endIdx,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
 //            }
-//
-//            val textView = findViewById<TextView>(R.id.tv_enableKeyboard)
-//            textView.text = spannablestr
+//        }
+
         }
 
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.nav_privacy_policy -> {
-//                val browserIntent = Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("https://www.termsfeed.com/sample-privacy-policy/")
-//                )
-//                startActivity(browserIntent)
+                    startActivity(Intent(this, PrivacyPolicyActivity::class.java))
+
                 }
 
                 R.id.nav_recommended_us -> {
+                    val apkFile = File(applicationInfo.sourceDir)
+                    val apkUri = FileProvider.getUriForFile(
+                        this,
+                        "${BuildConfig.APPLICATION_ID}.provider",
+                        apkFile
+                    )
+
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "application/vnd.android.package-archive"
+                        putExtra(Intent.EXTRA_STREAM, apkUri)
+                        putExtra(Intent.EXTRA_TEXT, "Check out this awesome app: Oscar Keyboard!")
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "Share App"))
                 }
 
                 R.id.nav_email_us -> {
-//                val emailIntent = Intent(Intent.ACTION_SEND).apply {
-//                    type = "text/plain"
-//                    putExtra(Intent.EXTRA_EMAIL, arrayOf("kalyani143jk@gmail.com"))
-//                    putExtra(Intent.EXTRA_SUBJECT, "Support Request")
-//                    putExtra(Intent.EXTRA_TEXT, "Hello, I need support regarding...")
-//                }
-//                if (emailIntent.resolveActivity(packageManager) != null) {
-//                    startActivity(Intent.createChooser(emailIntent, "Send Email"))
-//                } else {
-                    Toast.makeText(this, "No email client installed", Toast.LENGTH_SHORT).show()
-//                }
+                    val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:kalyani@navgurukul.org") // Replace with your email
+                        putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
+                        putExtra(Intent.EXTRA_TEXT, "Hi team,\n\nI have the following feedback:")
+                    }
+                    startActivity(Intent.createChooser(emailIntent, "Send Email"))
                 }
 
                 R.id.nav_terms_conditions -> {
-//                val browserIntent = Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("https://www.termsfeed.com/sample-terms-and-conditions/")
-//                )
-//                startActivity(browserIntent)
+startActivity(Intent(this, TermsOfUseActivity::class.java))
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)

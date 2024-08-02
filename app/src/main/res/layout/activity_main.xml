@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/newimage_svg"
+    android:background="#EEF6F5"
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/txtIdOne"
@@ -38,21 +38,21 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_instruction"
+        android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:visibility="gone"
         android:text="@string/enable_text"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:fontFamily="@font/edium"
         android:textColor="#4D4D4D"
-        android:textAlignment="center"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/enableId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+         />
 
     <Button
         android:id="@+id/setupID"
@@ -67,7 +67,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/background_buttons"
         android:backgroundTint="#51A09B"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_instruction"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

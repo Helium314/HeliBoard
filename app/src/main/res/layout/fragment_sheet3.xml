@@ -36,7 +36,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="80dp"
             />
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/openKeyboardId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:paddingTop="18dp"
             android:paddingRight="14dp"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:layout_margin="14dp"
             android:background="@drawable/background_buttons"
             android:backgroundTint="#51A09B"/>
