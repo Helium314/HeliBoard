@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        // Set up click listeners
         binding.enableId.setOnClickListener {
             binding.text1.visibility = View.VISIBLE
             binding.setupOscar.visibility = View.GONE
@@ -96,6 +95,7 @@ class MainActivity : AppCompatActivity() {
     private fun changeButtonColor(button: Button) {
         button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E0E0E0"))
         button.setTextColor(Color.GRAY)
-        button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)
+//        button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)
+//        button.compoundDrawablePadding = 50
     }
 }
