@@ -6,7 +6,9 @@
 
 package helium314.keyboard.latin.setup;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -60,6 +62,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     private  String  startIndex;
 
     private  String  endIndex;
+    private SharedPreferences sharedPreferences;
+
     private  TextView text;
 
     private TextView mStep1Bullet;
@@ -167,6 +171,11 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             handler.startPollingImeSettings();
         });
         mSetupStepGroup.addStep(step1);
+        sharedPreferences = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE);
+        if (isSetupComplete()) {
+            navigateToMainActivity();
+            return;
+        }
 
         final SetupStep step2 = new SetupStep(STEP_2, applicationName,
                 findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
@@ -230,7 +239,21 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
         mActionFinish.setOnClickListener(this);
     }
+    private boolean isSetupComplete() {
+        return sharedPreferences.getBoolean("setup_complete", false);
+    }
 
+    private void setSetupCompleteFlag() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("setup_complete", true);
+        editor.apply();
+    }
+
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Close the setup wizard activity
+    }
     @Override
     public void onClick(final View v) {
         if (v == mActionFinish) {
@@ -240,6 +263,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         final int currentStep = determineSetupStepNumber();
         final int nextStep;
         if (v == start) {
+            setSetupCompleteFlag(); // Mark setup as complete
+            navigateToMainActivity();
             startActivity(new Intent(this, MainActivity.class));
         } else if (v == mActionNext) {
             nextStep = mStepNumber + 1;
@@ -340,22 +365,22 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (mStepNumber == STEP_LAUNCHING_IME_SETTINGS) {
-//            // Prevent white screen flashing while launching settings activity.
-//            mSetupWizard.setVisibility(View.INVISIBLE);
-//            invokeSettingsOfThisIme();
-//            mStepNumber = STEP_BACK_FROM_IME_SETTINGS;
-//            return;
-//        }
-//        if (mStepNumber == STEP_BACK_FROM_IME_SETTINGS) {
-//            finish();
-//            return;
-//        }
-//        updateSetupStepView();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mStepNumber == STEP_LAUNCHING_IME_SETTINGS) {
+            // Prevent white screen flashing while launching settings activity.
+            mSetupWizard.setVisibility(View.INVISIBLE);
+            invokeSettingsOfThisIme();
+            mStepNumber = STEP_BACK_FROM_IME_SETTINGS;
+            return;
+        }
+        if (mStepNumber == STEP_BACK_FROM_IME_SETTINGS) {
+            finish();
+            return;
+        }
+        updateSetupStepView();
+    }
 
     @Override
     public void onBackPressed() {
