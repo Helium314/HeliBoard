@@ -2,9 +2,11 @@ package helium314.keyboard.latin.setup
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ActivityMainBinding
@@ -30,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkSettingsAndUpdateButtonColors()
+    }
+
     private fun setupButtons() {
         // Set up click listeners
         binding.enableId.setOnClickListener {
@@ -41,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.setupID.setOnClickListener {
-//            changeButtonColors(binding.setupID, true)
             binding.text1.visibility = View.GONE
             binding.setupOscar.visibility = View.VISIBLE
             binding.tryOscar.visibility = View.GONE
@@ -50,20 +56,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.openKeyboardId.setOnClickListener {
-//            changeButtonColors(binding.openKeyboardId, true)
             binding.text1.visibility = View.GONE
             binding.setupOscar.visibility = View.GONE
             binding.tryOscar.visibility = View.VISIBLE
 
             openSelectionKeyboard()
-        }
-    }
-
-    private fun changeButtonColors(button: View, isCompleted: Boolean) {
-        if (isCompleted) {
-            button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gesture_trail_color_lxx_light))
-        } else {
-            button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.key_shifted_letter_hint_inactivated_color_holo))
         }
     }
 
@@ -85,5 +82,20 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, KeyboardselectionActivity::class.java)
         startActivity(intent)
         finish() // Close the setup activity
+    }
+
+    private fun checkSettingsAndUpdateButtonColors() {
+        if (UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager)) {
+            changeButtonColor(binding.enableId)
+        }
+        if (UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)) {
+            changeButtonColor(binding.setupID)
+        }
+    }
+
+    private fun changeButtonColor(button: Button) {
+        button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E0E0E0"))
+        button.setTextColor(Color.GRAY)
+        button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)
     }
 }

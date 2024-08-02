@@ -112,8 +112,8 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name=".setup.KeyboardselectionActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible"
             android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".setup.PrivacyPolicyActivity"
