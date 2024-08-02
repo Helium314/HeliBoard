@@ -34,11 +34,16 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import helium314.keyboard.AIEngine.SummarizeViewModel;
+import helium314.keyboard.AIEngine.SummarizeViewModelFactory;
 import helium314.keyboard.accessibility.AccessibilityUtils;
+import helium314.keyboard.gemini.GeminiClient;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
@@ -68,6 +73,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.ai.client.generativeai.GenerativeModel;
+
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
         OnLongClickListener {
     public interface Listener {
@@ -91,6 +98,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final GradientDrawable mEnabledToolKeyBackground = new GradientDrawable();
     private final Drawable mDefaultBackground;
     MainKeyboardView mMainKeyboardView;
+
+    private final ImageView mIvOscar;
 
     private final View mMoreSuggestionsContainer;
     private final PopupSuggestionsView mMoreSuggestionsView;
@@ -131,6 +140,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     }
 
+
     /**
      * Construct a {@link SuggestionStripView} for showing suggestions to be picked by the user.
      */
@@ -154,6 +164,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
+        mIvOscar = findViewById(R.id.iv_oscar);
+
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -640,6 +652,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void onClick(final View view) {
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
         final Object tag = view.getTag();
+        final ImageView iv_oscar = findViewById(R.id.iv_oscar);
+
+        if(view == mIvOscar) {
+            Log.d(TAG, "Generating summary...");
+            Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
+            GeminiClient geminiClient = new GeminiClient();
+            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+        }
         if (tag instanceof ToolbarKey) {
             final int code = getCodeForToolbarKey((ToolbarKey) tag);
             if (code != KeyCode.UNSPECIFIED) {
@@ -726,4 +748,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
         colors.setBackground(view, ColorType.STRIP_BACKGROUND);
     }
+
+
 }
