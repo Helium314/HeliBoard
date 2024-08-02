@@ -284,6 +284,7 @@
         <attr name="iconUndo" format="reference" />
         <attr name="iconRedo" format="reference" />
         <attr name="iconClose" format="reference" />
+        <attr name="iconOscarAI" format="reference" />"
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">

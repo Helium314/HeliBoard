@@ -50,7 +50,7 @@
             android:tint="@color/background_amoled_black"
             android:src="@drawable/sym_keyboard_voice_holo" />
         <ImageView
-            android:id="@+id/oscar_iv"
+            android:id="@+id/iv_oscar_keyboard_ai"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
