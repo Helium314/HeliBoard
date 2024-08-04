@@ -63,7 +63,15 @@
                 app:layout_constraintBottom_toTopOf="@+id/iv_oscar"
                 android:focusable="false"
                 android:focusableInTouchMode="false"/>
-
+<ImageView
+    android:id="@+id/iv_summarizeText"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    app:layout_constraintBottom_toTopOf="@id/tv_enableKeyboard"
+    android:layout_marginBottom="50dp"
+    android:src="@drawable/baseline_keyboard_24"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
             <ImageButton
                 android:id="@+id/iv_oscar"
                 android:layout_width="110dp"
