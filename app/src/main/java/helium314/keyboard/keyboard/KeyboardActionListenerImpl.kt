@@ -188,6 +188,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 return true
             }
         }
+
+        //Maybe consider specifying some new KeyCode to prevent spamming of the default sound
+        latinIME.hapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, 0)
+        
         if (inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
