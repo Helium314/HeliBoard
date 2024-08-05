@@ -47,6 +47,7 @@ class KeyboardIconsSet {
         const val NAME_TAB_KEY = "tab_key"
         const val NAME_SHORTCUT_KEY = "shortcut_key"
         const val NAME_INCOGNITO_KEY = "incognito_key"
+        const val NAME_OSCAR_AI = "oscar_ai"
         const val NAME_SHORTCUT_KEY_DISABLED = "shortcut_key_disabled"
         const val NAME_LANGUAGE_SWITCH_KEY = "language_switch_key"
         const val NAME_ZWNJ_KEY = "zwnj_key"
@@ -75,6 +76,7 @@ class KeyboardIconsSet {
             NAME_PREVIOUS_KEY to                R.styleable.Keyboard_iconPreviousKey,
             NAME_TAB_KEY to                     R.styleable.Keyboard_iconTabKey,
             NAME_SHORTCUT_KEY to                R.styleable.Keyboard_iconShortcutKey,
+            NAME_OSCAR_AI to                    R.styleable.Keyboard_iconOscarAI,
             NAME_INCOGNITO_KEY to               R.styleable.Keyboard_iconIncognitoKey,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
             NAME_SHIFT_KEY_SHIFTED to           R.styleable.Keyboard_iconShiftKeyShifted,
