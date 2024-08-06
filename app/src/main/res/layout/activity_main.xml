@@ -58,7 +58,7 @@
         android:id="@+id/setupID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Setup Oscar"
+        android:text="Select Oscar"
         android:padding="18dp"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

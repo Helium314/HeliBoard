@@ -934,8 +934,8 @@ New dictionary:
     </string>
     <string name="oscar_tex_tap">Tap below to try the keyboard</string>
     <string name="setup_Oscar">Let’s setup <font color="#51A09B">Oscar</font> \n<font color="#51A09B">Keyboard</font></string>
-    <string name="enable_text">In the keyboard list screen, tap the toggle to enable \n<font color="#000000"> Oscar Keyboard</font></string>
-    <string name="set_text">Tap to select <font color="#000000"> Oscar Keyboard</font> from the list as the default input keyboard</string>
+    <string name="enable_text">In the keyboard list screen, tap the toggle to \n enable <font color="#000000"> Oscar Keyboard</font></string>
+    <string name="set_text">Tap to select <font color="#000000"> Oscar Keyboard</font> from the list \n as the default input keyboard</string>
     <string name="open_text"><font color="#000000">Installation Successful!!</font> \n Checkout text typing and voice typing on Oscar Keyboard</string>
 <string name="terms_of_use">1.By using the Oscar Keyboard App ("App"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree with these Terms, you should not use the App.\n
     2.The Oscar Keyboard App is a third-party integrable speech-to-text converter keyboard intended for use on Android devices. It allows users to input text via voice.\n
