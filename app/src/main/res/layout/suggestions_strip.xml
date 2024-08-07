@@ -4,7 +4,8 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/suggestions_strip_wrapper"
@@ -24,6 +25,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_weight="0"
+            android:visibility="gone"
             android:contentDescription="@string/more_keys_strip_description" />
 
         <HorizontalScrollView
@@ -42,12 +44,12 @@
         </HorizontalScrollView>
 
         <ImageView
-            android:id="@+id/iv_voiceInput"
+            android:id="@+id/ivOscarVoiceInput"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
-            android:tint="@color/background_amoled_black"
+            android:tint="@color/keyboard_cyne_dark"
             android:src="@drawable/sym_keyboard_voice_holo" />
         <ImageView
             android:id="@+id/iv_oscar_keyboard_ai"
@@ -55,11 +57,33 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
+            android:visibility="gone"
             android:src="@drawable/ic_oscar" />
+
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <!-- todo: sth is fishy with that maxwidth
                check what is going on in the layout helper? -->
+        <TextView
+            android:id="@+id/ai_output"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:textColor="@color/background_amoled_black"
+            android:visibility="gone"
+            android:hint="AI Generated Text Will be here"
+            android:gravity="center"
+            android:layout_height="35dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lvTextProgress"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:visibility="gone"
+            app:lottie_url="https://lottie.host/8e587519-4a2a-4e91-bdff-108db7809099/Fq2lEldg4q.json"
+            app:lottie_autoPlay="true"
+            android:layout_gravity="center"
+            app:lottie_loop="true"/>
+
         <LinearLayout
             android:id="@+id/suggestions_strip"
             android:layout_width="wrap_content"
