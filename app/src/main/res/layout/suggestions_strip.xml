@@ -1,65 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright (C) 2011 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
-        android:animateLayoutChanges="true"
         android:id="@+id/suggestions_strip_wrapper"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:hapticFeedbackEnabled="false"
+        android:orientation="horizontal"
         android:soundEffectsEnabled="false">
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <ImageButton
             android:id="@+id/suggestions_strip_toolbar_key"
+            style="?attr/suggestionWordStyle"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0"
             android:layout_marginStart="4dp"
-            style="?attr/suggestionWordStyle"
+            android:layout_weight="0"
+            android:visibility="gone"
             android:contentDescription="@string/more_keys_strip_description" />
+
         <HorizontalScrollView
             android:id="@+id/toolbar_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbarThumbHorizontal="@color/toolbar_scrollbar"
             android:visibility="gone">
+
             <LinearLayout
                 android:id="@+id/toolbar"
+                style="?attr/suggestionWordStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                style="?attr/suggestionWordStyle">
-            </LinearLayout>
+                android:orientation="horizontal"></LinearLayout>
         </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/ivOscarVoiceInput"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:tint="@color/keyboard_cyne_dark"
+            android:src="@drawable/sym_keyboard_voice_holo" />
+        <ImageView
+            android:id="@+id/iv_oscar_keyboard_ai"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_oscar" />
+
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <!-- todo: sth is fishy with that maxwidth
                check what is going on in the layout helper? -->
+        <TextView
+            android:id="@+id/ai_output"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:textColor="@color/background_amoled_black"
+            android:visibility="gone"
+            android:hint="AI Generated Text Will be here"
+            android:gravity="center"
+            android:layout_height="35dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lvTextProgress"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:visibility="gone"
+            app:lottie_url="https://lottie.host/8e587519-4a2a-4e91-bdff-108db7809099/Fq2lEldg4q.json"
+            app:lottie_autoPlay="true"
+            android:layout_gravity="center"
+            app:lottie_loop="true"/>
+
         <LinearLayout
             android:id="@+id/suggestions_strip"
-            android:orientation="horizontal"
-            android:maxWidth="100dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:hapticFeedbackEnabled="false"
+            android:maxWidth="100dp"
+            android:orientation="horizontal"
             android:soundEffectsEnabled="false" />
+
         <LinearLayout
             android:id="@+id/pinned_keys"
-            android:orientation="horizontal"
+            style="?attr/suggestionWordStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            style="?attr/suggestionWordStyle">
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
 </merge>

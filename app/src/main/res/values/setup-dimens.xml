@@ -29,4 +29,6 @@
     <dimen name="setup_welcome_video_bottom_padding">12dp</dimen>
     <integer name="setup_welcome_video_weight_in_screen">30</integer>
     <integer name="setup_welcome_video_end_padding_weight_in_screen">5</integer>
+    <integer name="setup_welcome_weight">10</integer>
+
 </resources>

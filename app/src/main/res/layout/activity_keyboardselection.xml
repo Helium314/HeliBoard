@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#DCECEB"
+    tools:context=".setup.KeyboardselectionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DCECEB"
+            android:fitsSystemWindows="true">
+
+            <ImageView
+                android:id="@+id/iv_navDrawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_menu_24"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
+            <TextView
+                android:id="@+id/tv_welcomeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_oscar"
+                android:layout_margin="80dp"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:fontFamily="@font/spectral_semibold"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
+            <TextView
+                android:id="@+id/tv_enableKeyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar_tex_tap"
+                android:textSize="16dp"
+                android:fontFamily="@font/edium"
+                android:gravity="center"
+                android:textColor="#4D4D4D"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/iv_oscar"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+<ImageView
+    android:id="@+id/iv_summarizeText"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    app:layout_constraintBottom_toTopOf="@id/tv_enableKeyboard"
+    android:layout_marginBottom="50dp"
+    android:src="@drawable/baseline_keyboard_24"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+            <ImageButton
+                android:id="@+id/iv_oscar"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/ic_oscar"
+                app:layout_constraintBottom_toTopOf="@id/et_openOscar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
+            <EditText
+                android:id="@+id/et_openOscar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type Oscar by saying or speaking something..."
+                android:gravity="center"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:textSize="16dp"
+                android:textColor="#000000"
+                android:visibility="gone"
+                android:background="@drawable/edittext_round_corner"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="true"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="30dp"
+        app:menu="@menu/navigation_menu"
+        android:background="#DCECEB">
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

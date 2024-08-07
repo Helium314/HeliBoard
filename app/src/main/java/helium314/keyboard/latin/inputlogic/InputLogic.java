@@ -6,8 +6,10 @@
 
 package helium314.keyboard.latin.inputlogic;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.speech.RecognizerIntent;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -767,6 +769,8 @@ public final class InputLogic {
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
             case KeyCode.VOICE_INPUT:
+                //speakNow();
+                break;
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
@@ -793,6 +797,21 @@ public final class InputLogic {
                 throw new RuntimeException("Unknown key code : " + event.getMKeyCode());
         }
     }
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
+
+//    private void speakNow() {
+//            Log.d(TAG, "Voice input clicked");
+//
+//            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+//            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi i'm Oscar ai, \\n I'm Listening..\"");
+//
+//            // Use startActivityForResult or startActivity depending on your needs
+//            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT, null); // Replace REQUEST_CODE with your desired code
+//
+//
+//    }
 
     /**
      * Handle an event that is not a functional event.

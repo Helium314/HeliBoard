@@ -9,7 +9,6 @@
         <item name="android:layout_alignParentStart">true</item>
     </style>
     <style name="setupStepActionLabelStyle" parent="setupStepActionLabelStyleCommon">
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">24dp</item>
+        <item name="android:layout_margin">30dp</item>
     </style>
 </resources>
