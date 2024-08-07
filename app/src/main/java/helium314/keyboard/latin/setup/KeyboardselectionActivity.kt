@@ -30,19 +30,23 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import helium314.keyboard.AIEngine.SharedViewModel
 import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory
 import helium314.keyboard.gemini.GeminiClient
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.suggestions.SuggestionStripView
+import helium314.keyboard.latin.suggestions.SummarizeTextProvider
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
 class KeyboardselectionActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
+    NavigationView.OnNavigationItemSelectedListener, SummarizeTextProvider {
     lateinit var ivOscar: ImageButton
+
     lateinit var etopenOscar: EditText
     lateinit var drawerLayout: DrawerLayout
     lateinit var ivBack: ImageView
@@ -51,13 +55,22 @@ class KeyboardselectionActivity : AppCompatActivity(),
     private lateinit var ivSummarizeText: ImageView
 
     private lateinit var tvEnableKeyboard: TextView
-    private lateinit var tvWelcomeText: TextView
+    private lateinit var tvWelcomeText : TextView
 
-    val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
-    val generativeModel = geminiClient.geminiFlashModel
+     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
+        val generativeModel = geminiClient.geminiFlashModel
+    private val suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
+
+// Assuming you have a way to create a GenerativeModel instance
+//    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)
+//    val viewModel = ViewModelProvider(this, viewModelFactory)[SummarizeViewModel::class.java]
+    //private lateinit var viewModel: SummarizeViewModel
 
     private val mViewModel by lazy {
         ViewModelProvider(this, SummarizeViewModelFactory(generativeModel))[SummarizeViewModel::class.java]
+    }
+    private val mSharedViewModel by lazy {
+        ViewModelProvider(this)[SharedViewModel::class.java]
     }
 
     @SuppressLint("MissingInflatedId")
@@ -82,6 +95,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivSummarizeText = findViewById(R.id.iv_summarizeText)
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
+        //Initialize my viewModel here
+
+
+        //val viewModel: SummarizeViewModel by viewModels()
 
         ivOscar.setOnClickListener {
             etopenOscar.visibility = View.VISIBLE
@@ -216,7 +233,16 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 super.onBackPressed()
             }
         }
+
+    override fun getSummarizeText(): String {
+        return etopenOscar.text.toString()
     }
+
+    override fun setSummarizeText(text: String) {
+        this.suggestionStripView?.setSummarizeText(text)
+    }
+
+}
 
     fun observeSummarizeUiState(summarizeViewModel: SummarizeViewModel): StateFlow<SummarizeUiState> {
         return summarizeViewModel.uiState
