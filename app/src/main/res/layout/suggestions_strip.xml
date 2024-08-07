@@ -25,6 +25,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_weight="0"
+            android:visibility="gone"
             android:contentDescription="@string/more_keys_strip_description" />
 
         <HorizontalScrollView
@@ -48,7 +49,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
-            android:tint="@color/background_amoled_black"
+            android:tint="@color/keyboard_cyne_dark"
             android:src="@drawable/sym_keyboard_voice_holo" />
         <ImageView
             android:id="@+id/iv_oscar_keyboard_ai"
@@ -58,6 +59,7 @@
             android:layout_marginStart="5dp"
             android:visibility="gone"
             android:src="@drawable/ic_oscar" />
+
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <!-- todo: sth is fishy with that maxwidth
