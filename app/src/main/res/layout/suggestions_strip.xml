@@ -56,6 +56,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
+            android:visibility="gone"
             android:src="@drawable/ic_oscar" />
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
