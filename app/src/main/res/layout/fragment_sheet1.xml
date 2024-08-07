@@ -26,7 +26,7 @@
         android:id="@+id/text_view_instruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap the toggle to enable Oscar Keyboard in\n                   your keyboard list"
+        android:text="In the keyboard list screen, tap the toggle to enable Oscar Keyboard"
         android:textSize="16dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

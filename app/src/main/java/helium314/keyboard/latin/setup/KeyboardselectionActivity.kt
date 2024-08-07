@@ -1,16 +1,22 @@
 package helium314.keyboard.latin.setup
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -18,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -27,10 +34,11 @@ import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory
 import helium314.keyboard.gemini.GeminiClient
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-
+import java.io.File
 
 class KeyboardselectionActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -43,20 +51,14 @@ class KeyboardselectionActivity : AppCompatActivity(),
     private lateinit var ivSummarizeText: ImageView
 
     private lateinit var tvEnableKeyboard: TextView
-    private lateinit var tvWelcomeText : TextView
+    private lateinit var tvWelcomeText: TextView
 
-     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
-        val generativeModel = geminiClient.geminiFlashModel
-
-// Assuming you have a way to create a GenerativeModel instance
-//    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)
-//    val viewModel = ViewModelProvider(this, viewModelFactory)[SummarizeViewModel::class.java]
-    //private lateinit var viewModel: SummarizeViewModel
+    val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
+    val generativeModel = geminiClient.geminiFlashModel
 
     private val mViewModel by lazy {
         ViewModelProvider(this, SummarizeViewModelFactory(generativeModel))[SummarizeViewModel::class.java]
     }
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,143 +82,137 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivSummarizeText = findViewById(R.id.iv_summarizeText)
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
-        //Initialize my viewModel here
-
-
-        //val viewModel: SummarizeViewModel by viewModels()
 
         ivOscar.setOnClickListener {
             etopenOscar.visibility = View.VISIBLE
             tvWelcomeText.visibility = View.VISIBLE
             ivOscar.visibility = View.GONE
             tvEnableKeyboard.visibility = View.GONE
+            etopenOscar.requestFocus()
+            showKeyboard()
         }
+
+        etopenOscar.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                hideOscarLogo()
+            }
+        }
+
+        etopenOscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    hideOscarLogo()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         ivSummarizeText.setOnClickListener {
             if (etopenOscar.text.isNotBlank()) {
                 handleSummarize(mViewModel, etopenOscar.text.toString())
                 lifecycleScope.launch {
-                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
-                    observeSummarizeUiState(mViewModel)
-                summarizeUiStateFlow.collect() { uiState ->
-                    when (uiState) {
-                        SummarizeUiState.Initial, SummarizeUiState.Loading -> {
-                            // Handle loading state
-                        }
+                    val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
+                        observeSummarizeUiState(mViewModel)
+                    summarizeUiStateFlow.collect { uiState ->
+                        when (uiState) {
+                            SummarizeUiState.Initial, SummarizeUiState.Loading -> {
+                                // Handle loading state
+                            }
 
-                        is SummarizeUiState.Success -> {
-                            // Handle success state
-                            val outputText = buildSummarizeContent(uiState)
-                            etopenOscar.setText(outputText)
+                            is SummarizeUiState.Success -> {
+                                // Handle success state
+                                val outputText = buildSummarizeContent(uiState)
+                                etopenOscar.setText(outputText)
 
-                        }
+                            }
 
-                        is SummarizeUiState.Error -> {
-                            // Handle error state
-                            val errorMessage = buildSummarizeContent(uiState)
-                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                            is SummarizeUiState.Error -> {
+                                // Handle error state
+                                val errorMessage = buildSummarizeContent(uiState)
+                                //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
+                    mViewModel.summarizeStreaming(etopenOscar.text.toString())
                 }
-                mViewModel.summarizeStreaming(etopenOscar.text.toString())
-            }
             }
         }
 
-//            val instructionText = "    Welcome to \n" + "Oscar Keyboard"
-//            val spannableString = SpannableString(instructionText)
-//
-//            val startIndex = instructionText.indexOf("Oscar Keyboard")
-//            val endIndex = startIndex + "Oscar Keyboard".length
-//
-//            if (startIndex >= 0) {
-//                spannableString.setSpan(
-//                    ForegroundColorSpan(Color.parseColor("#85BDB9")),
-//                    startIndex,
-//                    endIndex,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//
-//                spannableString.setSpan(
-//                    StyleSpan(Typeface.BOLD),
-//                    startIndex,
-//                    endIndex,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//            }
-
-//            val textViewInstruction = findViewById<TextView>(R.id.tv_welcomeText)
-//            textViewInstruction.text = spannableString
-//
-//            val instruction = "Tap on Oscar Keyboard to try the keyboard"
-//            val spannablestr = SpannableString(instruction)
-//
-//            val startIdx = instruction.indexOf("Oscar Keyboard")
-//            val endIdx = startIdx + "Oscar Keyboard".length
-
-//            if (startIdx >= 0) {
-//                spannablestr.setSpan(
-//                    ForegroundColorSpan(Color.BLACK),
-//                    startIdx,
-//                    endIdx,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//
-//                spannablestr.setSpan(
-//                    StyleSpan(Typeface.BOLD),
-//                    startIdx,
-//                    endIdx,
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//            }
-//
-//            val textView = findViewById<TextView>(R.id.tv_enableKeyboard)
-//            textView.text = spannablestr
-        }
-
-        override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.nav_privacy_policy -> {
-//                val browserIntent = Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("https://www.termsfeed.com/sample-privacy-policy/")
-//                )
-//                startActivity(browserIntent)
-                }
-
-                R.id.nav_recommended_us -> {
-                }
-
-                R.id.nav_email_us -> {
-//                val emailIntent = Intent(Intent.ACTION_SEND).apply {
-//                    type = "text/plain"
-//                    putExtra(Intent.EXTRA_EMAIL, arrayOf("kalyani143jk@gmail.com"))
-//                    putExtra(Intent.EXTRA_SUBJECT, "Support Request")
-//                    putExtra(Intent.EXTRA_TEXT, "Hello, I need support regarding...")
-//                }
-//                if (emailIntent.resolveActivity(packageManager) != null) {
-//                    startActivity(Intent.createChooser(emailIntent, "Send Email"))
-//                } else {
-                    Toast.makeText(this, "No email client installed", Toast.LENGTH_SHORT).show()
-//                }
-                }
-
-                R.id.nav_terms_conditions -> {
-//                val browserIntent = Intent(
-//                    Intent.ACTION_VIEW,
-//                    Uri.parse("https://www.termsfeed.com/sample-terms-and-conditions/")
-//                )
-//                startActivity(browserIntent)
+        val rootView = findViewById<View>(android.R.id.content)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = android.graphics.Rect()
+            rootView.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+            if (keypadHeight > screenHeight * 0.15) {
+                ivOscar.visibility = View.GONE
+            } else {
+                if (!etopenOscar.hasFocus()) {
+                    hideOscarLogo()
                 }
             }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            return true
         }
+    }
+
+    private fun showKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(etopenOscar, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun hideOscarLogo() {
+        etopenOscar.visibility = View.GONE
+        tvWelcomeText.visibility = View.VISIBLE
+        ivOscar.visibility = View.VISIBLE
+        tvEnableKeyboard.visibility = View.VISIBLE
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_privacy_policy -> {
+                startActivity(Intent(this, PrivacyPolicyActivity::class.java))
+            }
+
+            R.id.nav_recommended_us -> {
+                val apkFile = File(applicationInfo.sourceDir)
+                val apkUri = FileProvider.getUriForFile(
+                    this,
+                    "${BuildConfig.APPLICATION_ID}.provider",
+                    apkFile
+                )
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "application/vnd.android.package-archive"
+                    putExtra(Intent.EXTRA_STREAM, apkUri)
+                    putExtra(Intent.EXTRA_TEXT, "Check out this awesome app: Oscar Keyboard!")
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share App"))
+            }
+
+            R.id.nav_email_us -> {
+                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:kalyani@navgurukul.org") // Replace with your email
+                    putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
+                    putExtra(Intent.EXTRA_TEXT, "Hi team,\n\nI have the following feedback:")
+                }
+                startActivity(Intent.createChooser(emailIntent, "Send Email"))
+            }
+
+            R.id.nav_terms_conditions -> {
+                startActivity(Intent(this, TermsOfUseActivity::class.java))
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
 
         override fun onBackPressed() {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
-            } else {
+            } else if (etopenOscar.visibility == View.VISIBLE) {
+                hideOscarLogo()
+                }else {
                 super.onBackPressed()
             }
         }
