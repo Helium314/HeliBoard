@@ -130,4 +130,8 @@ dependencies {
     // Rich Editor
 
     implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-rc05")
+
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 }
