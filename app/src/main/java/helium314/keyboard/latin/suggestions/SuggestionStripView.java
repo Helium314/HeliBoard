@@ -1,9 +1,3 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
-
 package helium314.keyboard.latin.suggestions;
 
 import static android.app.PendingIntent.getActivity;
@@ -14,6 +8,8 @@ import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -113,6 +110,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private SummarizeViewModel mViewModel;
 
+    //private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener;
+
+    private KeyboardActionListener mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
 
     GeminiClient geminiClient = new GeminiClient(); // Assuming you have a way to create a GeminiClient instance
@@ -205,6 +205,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 //        Log.e("RecognitionListener", "onError" + error);
     }
 
+
     @Override
     public void onResults(Bundle results) {
 
@@ -237,41 +238,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         viewModel.summarizeStreaming(allOutputText);
 
-// Assuming you have a reference to the ViewModel and other necessary components
-
         viewModel.summarizeStreaming(aiOutput.getText().toString());
 
-//        viewModel.getUiState().collect(this, (Observer<SummarizeUiState>) uiState -> {
-////            if (uiState == SummarizeUiState.Initial || uiState == SummarizeUiState.Loading) {
-////                // Handle loading state
-////            }
-//             if (uiState instanceof SummarizeUiState.Success) {
-//                SummarizeUiState.Success successState = (SummarizeUiState.Success) uiState;
-//                String outputText = buildSummarizeContent(successState);
-//                aiOutput.setText(outputText);
-//            } else if (uiState instanceof SummarizeUiState.Error) {
-//                SummarizeUiState.Error errorState = (SummarizeUiState.Error) uiState;
-//                String errorMessage = buildSummarizeContent(errorState);
-//                // Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
-        aiOutput.setOnEditorActionListener((v, actionId, event) -> {
-//            if (actionId == EditorInfo.IME_ACTION_DONE) {
-            // do something
+        //todo: implement the summarization logic here
+        aiOutput.setOnClickListener(v -> {
             // Get the text from aiOutput
+            Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-            String textToPaste = aiOutput.getText().toString();
-            InputConnection inputConnection = mLatinIME.getCurrentInputConnection();
-            if (inputConnection != null) {
-                inputConnection.commitText(textToPaste,
-                        textToPaste.length());
-            }
-            Log.d(TAG, "aiOutput" + textToPaste);
-            return true;
-//            }
-            //return false;
+            // Copy the text to clipboard
+            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+            clipboard.setPrimaryClip(clip);
+            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
         });
 
     }
@@ -938,6 +916,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 manualStopRecord = false;
                 startRecord();
             }
+            return;
+        }
+        if(view ==aiOutput){
+            // On Click sent to Keyboard
+            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            return;
         }
         if (tag instanceof ToolbarKey) {
             final int code = getCodeForToolbarKey((ToolbarKey) tag);
