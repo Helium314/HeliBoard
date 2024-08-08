@@ -4,6 +4,7 @@ import static android.app.PendingIntent.getActivity;
 import static helium314.keyboard.latin.setup.KeyboardselectionActivityKt.buildSummarizeContent;
 import static helium314.keyboard.latin.setup.KeyboardselectionActivityKt.observeSummarizeUiState;
 import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
+import static kotlinx.coroutines.CoroutineScopeKt.CoroutineScope;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -82,6 +83,8 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import kotlin.coroutines.CoroutineContext;
+import kotlinx.coroutines.CoroutineScope;
 import kotlinx.coroutines.flow.StateFlow;
 
 import java.util.ArrayList;
@@ -91,16 +94,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import kotlinx.coroutines.Dispatchers;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener, SummarizeTextProvider, RecognitionListener {
+        OnLongClickListener, SummarizeTextProvider, RecognitionListener  {
 
     LatinIME mLatinIME;
 
@@ -239,6 +244,44 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         viewModel.summarizeStreaming(allOutputText);
 
         viewModel.summarizeStreaming(aiOutput.getText().toString());
+
+        // Get the new text from viewModel and set it to aiOutput
+
+        Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+
+        // Get CoroutineScope and observe changes
+        CoroutineScope coroutineScope = new CoroutineScope() {
+            @NonNull
+            @Override
+            public CoroutineContext getCoroutineContext() {
+
+                // observe
+                return null;
+            }
+        };
+//        CoroutineScope(Dispatchers.Main).launch {
+//            observeSummarizeUiState(viewModel, aiOutput);
+//        };
+
+
+
+
+//        viewModelScope.launch {
+//            viewModel.uiState.collect {
+//                uiState ->
+//                        when(uiState) {
+//                    is SummarizeUiState.Loading -> {
+//                        // Show loading indicator
+//                    }
+//                    is SummarizeUiState.Success -> {
+//                        aiOutput.setText(uiState.outputText)
+//                    }
+//                    is SummarizeUiState.Error -> {
+//                        // Show error message
+//                    }
+//                }
+//            }
+//        }
 
         //todo: implement the summarization logic here
         aiOutput.setOnClickListener(v -> {
@@ -915,6 +958,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             } else {
                 manualStopRecord = false;
                 startRecord();
+                aiOutput.setText("");
             }
             return;
         }
