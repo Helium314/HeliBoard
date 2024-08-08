@@ -1,14 +1,20 @@
 package helium314.keyboard.latin.setup
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ActivityMainBinding
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
@@ -17,6 +23,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var inputMethodManager: InputMethodManager
+
+    private var isEnableComplete = false
+
+    private val inputMethodChangedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_INPUT_METHOD_CHANGED) {
+                checkSettingsAndUpdateButtonColors()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +45,15 @@ class MainActivity : AppCompatActivity() {
             openSelectionKeyboard()
         } else {
             setupButtons()
+            checkSettingsAndUpdateButtonColors()
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        checkSettingsAndUpdateButtonColors()
+        val filter = IntentFilter(Intent.ACTION_INPUT_METHOD_CHANGED)
+        registerReceiver(inputMethodChangedReceiver, filter)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(inputMethodChangedReceiver)
     }
 
     private fun setupButtons() {
@@ -51,25 +70,23 @@ class MainActivity : AppCompatActivity() {
             binding.setupOscar.visibility = View.VISIBLE
             binding.tryOscar.visibility = View.GONE
 
+            if (!isEnableComplete) {
+                showEnableKeyboardFirstToast()
+                return@setOnClickListener
+            }
             invokeInputMethodPicker()
         }
 
         binding.openKeyboardId.setOnClickListener {
             if (!isKeyboardEnabledAndCurrent()) {
-                showToast("Please enable the keyboard before trying it out.")
+                showCompleteSetupToast()
                 return@setOnClickListener
             }
-
+            openSelectionKeyboard()
             binding.text1.visibility = View.GONE
             binding.setupOscar.visibility = View.GONE
             binding.tryOscar.visibility = View.VISIBLE
-
-            openSelectionKeyboard()
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun isKeyboardEnabledAndCurrent(): Boolean {
@@ -78,24 +95,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun invokeLanguageAndInputSettings() {
-        val intent = Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS)
-        startActivity(intent)
+        val intent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
+        startActivityForResult(intent, ENABLE_REQUEST_CODE)
     }
-    private var isSetupComplete = true
 
     private fun invokeInputMethodPicker() {
-        if (!isSetupComplete) {
-            showToast("Please complete the setup settings.")
-            return
-        }
         inputMethodManager.showInputMethodPicker()
     }
-
-    private fun completeSetup() {
-        isSetupComplete = true
-        changeButtonColor(binding.setupID)
-    }
-
 
     private fun openSelectionKeyboard() {
         val intent = Intent(this, KeyboardselectionActivity::class.java)
@@ -105,11 +111,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkSettingsAndUpdateButtonColors() {
         if (UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager)) {
+            isEnableComplete = true
             changeButtonColor(binding.enableId)
         }
         if (UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)) {
             changeButtonColor(binding.setupID)
-            completeSetup()
+            binding.openKeyboardId.isEnabled = true
         }
     }
 
@@ -117,5 +124,29 @@ class MainActivity : AppCompatActivity() {
         button.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E0E0E0"))
         button.setTextColor(Color.GRAY)
         button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check, 0, 0, 0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ENABLE_REQUEST_CODE) {
+            checkSettingsAndUpdateButtonColors()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkSettingsAndUpdateButtonColors()
+    }
+
+    private fun showEnableKeyboardFirstToast() {
+        Toast.makeText(this, R.string.enable_text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showCompleteSetupToast() {
+        Toast.makeText(this, R.string.enable_text, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val ENABLE_REQUEST_CODE = 1
     }
 }
