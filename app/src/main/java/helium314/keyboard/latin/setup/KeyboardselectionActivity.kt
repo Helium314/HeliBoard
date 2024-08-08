@@ -1,8 +1,10 @@
 package helium314.keyboard.latin.setup
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
@@ -24,6 +26,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -56,6 +60,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     private lateinit var tvEnableKeyboard: TextView
     private lateinit var tvWelcomeText : TextView
+    private val REQUEST_CODE_SPEECH_INPUT = 1
 
      val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
         val generativeModel = geminiClient.geminiFlashModel
@@ -97,7 +102,13 @@ class KeyboardselectionActivity : AppCompatActivity(),
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
 
-
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            checkPermission()
+        }
         //val viewModel: SummarizeViewModel by viewModels()
 
         ivOscar.setOnClickListener {
@@ -183,7 +194,13 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivOscar.visibility = View.VISIBLE
         tvEnableKeyboard.visibility = View.VISIBLE
     }
-
+    private fun checkPermission() {
+                ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            REQUEST_CODE_SPEECH_INPUT
+        )
+    }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_privacy_policy -> {
