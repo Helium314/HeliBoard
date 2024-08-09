@@ -8,6 +8,7 @@ package helium314.keyboard.latin;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -103,6 +104,23 @@ public final class AudioAndHapticFeedbackManager {
             viewToPerformHapticFeedbackOn.performHapticFeedback(
                     HapticFeedbackConstants.KEYBOARD_TAP,
                     HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+        }
+    }
+    
+    public void performHapticCursorFeedback(final View viewToPerformHapticFeedbackOn) {
+        if (!mSettingsValues.mVibrateOn) {
+            return;
+        }
+        if (viewToPerformHapticFeedbackOn != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                viewToPerformHapticFeedbackOn.performHapticFeedback(
+                        HapticFeedbackConstants.TEXT_HANDLE_MOVE,
+                        HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+            }else {
+                viewToPerformHapticFeedbackOn.performHapticFeedback(
+                        HapticFeedbackConstants.CLOCK_TICK,
+                        HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
+            }
         }
     }
 
