@@ -69,6 +69,7 @@
     android:layout_height="60dp"
     app:layout_constraintBottom_toTopOf="@id/tv_enableKeyboard"
     android:layout_marginBottom="50dp"
+    android:visibility="gone"
     android:src="@drawable/baseline_keyboard_24"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent" />
