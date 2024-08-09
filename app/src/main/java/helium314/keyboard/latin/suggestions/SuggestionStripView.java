@@ -50,6 +50,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import helium314.keyboard.AIEngine.AIOutputEvent;
+import helium314.keyboard.AIEngine.OutputTextListener;
 import helium314.keyboard.AIEngine.SharedViewModel;
 import helium314.keyboard.AIEngine.SummarizeUiState;
 import helium314.keyboard.AIEngine.SummarizeViewModel;
@@ -104,8 +106,10 @@ import kotlinx.coroutines.Dispatchers;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
 
+import org.greenrobot.eventbus.EventBus;
+
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener, SummarizeTextProvider, RecognitionListener  {
+        OnLongClickListener, SummarizeTextProvider, RecognitionListener, OutputTextListener {
 
     LatinIME mLatinIME;
 
@@ -124,6 +128,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
     SuggestionStripView suggestionStripView = null; // Assuming you have a reference
 
+
+    public static String globalText = "This is a global text";
+
+
+    //private TextView aiOutput;
+
+//    public SuggestionStripViewAIEngine(Context context, AttributeSet attrs, TextView aiOutput) {
+//        super(context, attrs);
+//        aiOutput = findViewById(R.id.ai_output); // Replace with your actual ID
+//        this.aiOutput = aiOutput;
+//    }
+    public void setAiOutputText(String text) {
+        aiOutput.setText(text);
+    }
     @NonNull
     @Override
     public String getSummarizeText() {
@@ -165,6 +183,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         lvTextProgress.setVisibility(View.GONE);
         aiOutput.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     public void onError(int error) {
@@ -241,47 +260,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         aiOutput.setText(allOutputText);
 
+        Log.d(TAG, "allOutputText" + allOutputText);
+
+        String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
         viewModel.summarizeStreaming(allOutputText);
-
-        viewModel.summarizeStreaming(aiOutput.getText().toString());
-
-        // Get the new text from viewModel and set it to aiOutput
-
-        Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-
-        // Get CoroutineScope and observe changes
-        CoroutineScope coroutineScope = new CoroutineScope() {
-            @NonNull
-            @Override
-            public CoroutineContext getCoroutineContext() {
-
-                // observe
-                return null;
-            }
-        };
-//        CoroutineScope(Dispatchers.Main).launch {
-//            observeSummarizeUiState(viewModel, aiOutput);
-//        };
-
-
-
-
-//        viewModelScope.launch {
-//            viewModel.uiState.collect {
-//                uiState ->
-//                        when(uiState) {
-//                    is SummarizeUiState.Loading -> {
-//                        // Show loading indicator
-//                    }
-//                    is SummarizeUiState.Success -> {
-//                        aiOutput.setText(uiState.outputText)
-//                    }
-//                    is SummarizeUiState.Error -> {
-//                        // Show error message
-//                    }
-//                }
-//            }
-//        }
+        Log.d(TAG, "viewModel.summarizeStreaming called with allOutputText: " + allOutputTextValue);
 
         //todo: implement the summarization logic here
         aiOutput.setOnClickListener(v -> {
@@ -295,8 +278,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
         });
 
+        AIOutputEvent event = new AIOutputEvent(allOutputText);
+        EventBus.getDefault().post(event);
+
     }
 
+//    public void setOutputText(String outputText) {
+//        //clear aiOutput text first
+//        aiOutput.setText("");
+//        //set new text
+//        aiOutput.setText(outputText);
+//        Log.d(TAG, "setOutputText" + outputText);
+//    }
     @Override
     public void onPartialResults(Bundle partialResults) {
 
@@ -304,6 +297,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onEvent(int eventType, Bundle params) {
+
+    }
+
+    StringBuilder outputBuilder = new StringBuilder();
+
+
+
+    @Override
+    public void onOutputTextChanged(@NonNull String outputText) {
+        outputBuilder.append(outputText);
+
+        Log.d("AIImproved", "onOutputTextChangedAppend" + outputText);
+        aiOutput.setText(outputBuilder.toString());
+        Log.d("AIImproved", "onOutputTextChanged" + outputText);
 
     }
 
