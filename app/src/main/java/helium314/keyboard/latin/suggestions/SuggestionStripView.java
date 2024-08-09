@@ -353,6 +353,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final ImageView ivOscarVoiceInput;
 
+    private final ImageView ivDelete;
+
+    private final ImageView ivCopy;
+
     private final LottieAnimationView lvTextProgress;
 
     private SpeechRecognizer speechRecognizer;
@@ -429,6 +433,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIvOscar = findViewById(R.id.iv_oscar_keyboard_ai);
         aiOutput = findViewById(R.id.ai_output);
         ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
+        ivDelete = findViewById(R.id.ic_delete);
+        ivCopy = findViewById(R.id.ic_copy);
         lvTextProgress = findViewById(R.id.lvTextProgress);
 
 
@@ -507,6 +513,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIvOscar.setImageDrawable(getResources().getDrawable(R.drawable.ic_oscar));
         mIvOscar.setOnClickListener(this);
         ivOscarVoiceInput.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
+        ivCopy.setOnClickListener(this);
     }
 
     /**
@@ -966,6 +974,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // On Click sent to Keyboard
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
             return;
+        }
+
+        if(view == ivDelete){
+            mListener.onCodeInput(KeyCode.DELETE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            //clear the text in aiOutput
+            aiOutput.setText("");
+            //hide visibility of aiOutput
+            aiOutput.setVisibility(GONE);
+            return;
+        }
+        if(view == ivCopy) {
+            if (aiOutput.getText().toString().isEmpty()) {
+                Toast.makeText(getContext(), "You do not have anything to copy", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Toast.makeText(getContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                mListener.onCodeInput(KeyCode.CLIPBOARD_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                //if clipoard is empty show toast you do not have anything to copy or show clipboard has been copy once there been data
+                aiOutput.setVisibility(VISIBLE);
+            }
         }
         if (tag instanceof ToolbarKey) {
             final int code = getCodeForToolbarKey((ToolbarKey) tag);
