@@ -1747,6 +1747,12 @@ public class LatinIME extends InputMethodService implements
         }
     }
 
+    public void hapticCursorFeedback() {
+        final MainKeyboardView keyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        final AudioAndHapticFeedbackManager feedbackManager = AudioAndHapticFeedbackManager.getInstance();
+        feedbackManager.performHapticCursorFeedback(keyboardView);
+    }
+    
     public void hapticAndAudioFeedback(final int code, final int repeatCount) {
         final MainKeyboardView keyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (keyboardView != null && keyboardView.isInDraggingFinger()) {
