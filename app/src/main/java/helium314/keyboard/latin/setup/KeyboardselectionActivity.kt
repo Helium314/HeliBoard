@@ -2,29 +2,23 @@ package helium314.keyboard.latin.setup
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -34,6 +28,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import helium314.keyboard.AIEngine.AIOutputEvent
+import helium314.keyboard.AIEngine.OutputTextListener
 import helium314.keyboard.AIEngine.SharedViewModel
 import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
@@ -43,12 +39,16 @@ import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.suggestions.SummarizeTextProvider
+import helium314.keyboard.latin.utils.Log
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.io.File
+import java.security.AccessController.getContext
 
 class KeyboardselectionActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener, SummarizeTextProvider {
+    NavigationView.OnNavigationItemSelectedListener, SummarizeTextProvider, OutputTextListener {
     lateinit var ivOscar: ImageButton
 
     lateinit var etopenOscar: EditText
@@ -59,11 +59,11 @@ class KeyboardselectionActivity : AppCompatActivity(),
     private lateinit var ivSummarizeText: ImageView
 
     private lateinit var tvEnableKeyboard: TextView
-    private lateinit var tvWelcomeText : TextView
+    private lateinit var tvWelcomeText: TextView
     private val REQUEST_CODE_SPEECH_INPUT = 1
 
-     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
-        val generativeModel = geminiClient.geminiFlashModel
+    val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
+    val generativeModel = geminiClient.geminiFlashModel
     private val suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
 
 // Assuming you have a way to create a GenerativeModel instance
@@ -72,7 +72,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
     //private lateinit var viewModel: SummarizeViewModel
 
     private val mViewModel by lazy {
-        ViewModelProvider(this, SummarizeViewModelFactory(generativeModel))[SummarizeViewModel::class.java]
+        ViewModelProvider(
+            this,
+            SummarizeViewModelFactory(generativeModel)
+        )[SummarizeViewModel::class.java]
     }
     private val mSharedViewModel by lazy {
         ViewModelProvider(this)[SharedViewModel::class.java]
@@ -101,6 +104,20 @@ class KeyboardselectionActivity : AppCompatActivity(),
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
+
+
+        //  this is for third party
+//        val aiOutput = findViewById<TextView>(R.id.ai_output) // Replace with your actual ID
+//        val suggestionStripView = SuggestionStripViewAIEngine(this, null, aiOutput)
+//
+//
+//
+//        val suggestionStripView = SuggestionStripView(this, null)
+//        suggestionStripView.setAiOutputText(aiOutput.text.toString())
+
+        mViewModel.setOutputTextListener(this)
+
+        EventBus.getDefault().register(this)
 
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -133,6 +150,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
                     hideOscarLogo()
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -141,7 +159,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 handleSummarize(mViewModel, etopenOscar.text.toString())
                 lifecycleScope.launch {
                     val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
-                        observeSummarizeUiState(mViewModel)
+                        observeSummarizeUiState(mViewModel, etopenOscar.toString())
                     summarizeUiStateFlow.collect { uiState ->
                         when (uiState) {
                             SummarizeUiState.Initial, SummarizeUiState.Loading -> {
@@ -181,6 +199,60 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
             }
         }
+
+//        mViewModel.aiOutputLiveData.observe(this) {
+//            // Update UI with aiOutput
+//            aiOutputTextView.text = event.aiOutput
+//            Log.d("AIOutput", it)
+//        }
+
+    }
+
+    @Subscribe
+    fun onAIOutputReceived(event: AIOutputEvent) {
+        // Update UI with aiOutput
+       val aiOutput = event.aiOutput
+        Log.d("AIOutput Subscribe", aiOutput)
+
+        if (aiOutput.isNotBlank()) {
+            handleSummarize(mViewModel, aiOutput)
+            lifecycleScope.launch {
+                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
+                    observeSummarizeUiState(mViewModel, aiOutput) // Pass aiOutput here
+                summarizeUiStateFlow.collect { uiState ->
+                    when (uiState) {
+                        SummarizeUiState.Initial, SummarizeUiState.Loading -> {
+                            // Handle loading state
+                        }
+
+                        is SummarizeUiState.Success -> {
+                            // Handle success state
+                            val outputText = buildSummarizeContent(uiState)
+                            etopenOscar.setText(outputText)
+                            mViewModel.updateOutputText(outputText)
+
+                            mViewModel.updateOutputTextUniversal(outputText)
+
+                            Log.d("KeyboardActivity aiText sentBack", outputText)
+                            // for updating new text
+                            mSharedViewModel.updateOutputText(outputText)
+                        }
+
+                        is SummarizeUiState.Error -> {
+                            // Handle error state
+                            val errorMessage = buildSummarizeContent(uiState)
+                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                mViewModel.summarizeStreaming(aiOutput) // Use aiOutput here
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //EventBus.getDefault().unregister(this)
     }
 
     private fun showKeyboard() {
@@ -194,13 +266,15 @@ class KeyboardselectionActivity : AppCompatActivity(),
         ivOscar.visibility = View.VISIBLE
         tvEnableKeyboard.visibility = View.VISIBLE
     }
+
     private fun checkPermission() {
-                ActivityCompat.requestPermissions(
+        ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.RECORD_AUDIO),
             REQUEST_CODE_SPEECH_INPUT
         )
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_privacy_policy -> {
@@ -241,15 +315,15 @@ class KeyboardselectionActivity : AppCompatActivity(),
         return true
     }
 
-        override fun onBackPressed() {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            } else if (etopenOscar.visibility == View.VISIBLE) {
-                hideOscarLogo()
-                }else {
-                super.onBackPressed()
-            }
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (etopenOscar.visibility == View.VISIBLE) {
+            hideOscarLogo()
+        } else {
+            super.onBackPressed()
         }
+    }
 
     override fun getSummarizeText(): String {
         return etopenOscar.text.toString()
@@ -259,26 +333,34 @@ class KeyboardselectionActivity : AppCompatActivity(),
         this.suggestionStripView?.setSummarizeText(text)
     }
 
+    override fun onOutputTextChanged(outputText: String) {
+        //aiOutput.text = outputText
+    }
+
 }
 
-    fun observeSummarizeUiState(summarizeViewModel: SummarizeViewModel): StateFlow<SummarizeUiState> {
-        return summarizeViewModel.uiState
-    }
+fun observeSummarizeUiState(
+    summarizeViewModel: SummarizeViewModel,
+    aiOutput: String
+): StateFlow<SummarizeUiState> {
+    return summarizeViewModel.uiState
+}
 
-    fun handleSummarize(summarizeViewModel: SummarizeViewModel, text: String) {
-        if (text.isNotBlank()) {
-            summarizeViewModel.summarizeStreaming(text)
-        }
+fun handleSummarize(summarizeViewModel: SummarizeViewModel, text: String) {
+    if (text.isNotBlank()) {
+        summarizeViewModel.summarizeStreaming(text)
     }
+}
 
-    fun getSummarizeUiState(summarizeViewModel: SummarizeViewModel): SummarizeUiState {
-        return summarizeViewModel.uiState.value // Assuming uiState is a StateFlow
-    }
+fun getSummarizeUiState(summarizeViewModel: SummarizeViewModel): SummarizeUiState {
+    return summarizeViewModel.uiState.value // Assuming uiState is a StateFlow
+}
 
-    fun buildSummarizeContent(uiState: SummarizeUiState): String {
-        return when (uiState) {
-            SummarizeUiState.Initial, SummarizeUiState.Loading -> ""
-            is SummarizeUiState.Success -> uiState.outputText
-            is SummarizeUiState.Error -> uiState.errorMessage
-        }
+fun buildSummarizeContent(uiState: SummarizeUiState): String {
+    return when (uiState) {
+        SummarizeUiState.Initial, SummarizeUiState.Loading -> ""
+        is SummarizeUiState.Success -> uiState.outputText
+        is SummarizeUiState.Error -> uiState.errorMessage
     }
+}
+data class AIOutputEvent(val aiOutput: String)
