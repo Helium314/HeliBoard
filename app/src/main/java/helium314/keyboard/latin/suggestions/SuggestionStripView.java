@@ -352,13 +352,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public final TextView aiOutput;
 
-    private final ImageView ivOscarVoiceInput;
+    //private final ImageView ivOscarVoiceInput;
 
     private final ImageView ivDelete;
 
     private final ImageView ivCopy;
 
     private final LottieAnimationView lvTextProgress;
+
+    private final LottieAnimationView tvAudioProgress;
 
     private SpeechRecognizer speechRecognizer;
 
@@ -437,10 +439,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarContainer = findViewById(R.id.toolbar_container);
         mIvOscar = findViewById(R.id.iv_oscar_keyboard_ai);
         aiOutput = findViewById(R.id.ai_output);
-        ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
+        //ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
         ivDelete = findViewById(R.id.ic_delete);
         ivCopy = findViewById(R.id.ic_copy);
         lvTextProgress = findViewById(R.id.lvTextProgress);
+        tvAudioProgress = findViewById(R.id.tvAudioProgress);
 
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
@@ -517,7 +520,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mIvOscar.setImageDrawable(getResources().getDrawable(R.drawable.ic_oscar));
         mIvOscar.setOnClickListener(this);
-        ivOscarVoiceInput.setOnClickListener(this);
+        //ivOscarVoiceInput.setOnClickListener(this);
+        tvAudioProgress.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
         ivCopy.setOnClickListener(this);
     }
@@ -963,7 +967,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
             return;
         }
-        if (view == ivOscarVoiceInput) {
+        if (view == tvAudioProgress) {
 //            permissionCheck();
             if (recordStatus) {
                 manualStopRecord = true;
@@ -1040,15 +1044,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
 
     private void stopRecord() {
+        tvAudioProgress.pauseAnimation();
         Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
-        ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
+        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
         recordStatus = false;
         speechRecognizer.stopListening();
     }
 
 
     private void startRecord() {
-
+        tvAudioProgress.playAnimation();
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
         speechRecognizer.setRecognitionListener(this);
         Log.d(TAG, "Recording started");
@@ -1062,7 +1067,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
         speechRecognizer.startListening(intent);
 
-        ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
+        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
 
         recordStatus = true;
 
