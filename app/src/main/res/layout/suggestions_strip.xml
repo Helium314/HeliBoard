@@ -75,24 +75,35 @@
                check what is going on in the layout helper? -->
 
         <ImageView
-            android:id="@+id/pinned_clipboard_items"
+            android:id="@+id/ic_copy"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="4dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_clipboard_vector"
             android:backgroundTint="#E0FFFF"
             android:tint="@color/background_amoled_black" />
 
+        <ImageView
+            android:id="@+id/ic_delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            android:visibility="visible"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_undo"
+            android:backgroundTint="#E0FFFF"
+            android:tint="@color/background_amoled_black" />
         <TextView
             android:id="@+id/ai_output"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:textColor="@color/background_amoled_black"
             android:background="@drawable/clipboard_background"
-            android:text="AI Generated Text Will be here"
+            android:hint="AI Generated Text Will be here"
             android:gravity="center"
             android:layout_height="35dp"
             android:ellipsize="end"

@@ -4,6 +4,7 @@ import static android.app.PendingIntent.getActivity;
 import static helium314.keyboard.latin.setup.KeyboardselectionActivityKt.buildSummarizeContent;
 import static helium314.keyboard.latin.setup.KeyboardselectionActivityKt.observeSummarizeUiState;
 import static helium314.keyboard.latin.utils.ToolbarUtilsKt.*;
+import static kotlinx.coroutines.CoroutineScopeKt.CoroutineScope;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -49,6 +50,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import helium314.keyboard.AIEngine.AIOutputEvent;
+import helium314.keyboard.AIEngine.OutputTextListener;
 import helium314.keyboard.AIEngine.SharedViewModel;
 import helium314.keyboard.AIEngine.SummarizeUiState;
 import helium314.keyboard.AIEngine.SummarizeViewModel;
@@ -82,6 +85,8 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import kotlin.coroutines.CoroutineContext;
+import kotlinx.coroutines.CoroutineScope;
 import kotlinx.coroutines.flow.StateFlow;
 
 import java.util.ArrayList;
@@ -91,16 +96,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import kotlinx.coroutines.Dispatchers;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
 
+import org.greenrobot.eventbus.EventBus;
+
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener, SummarizeTextProvider, RecognitionListener {
+        OnLongClickListener, SummarizeTextProvider, RecognitionListener, OutputTextListener {
 
     LatinIME mLatinIME;
 
@@ -119,6 +128,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
     SuggestionStripView suggestionStripView = null; // Assuming you have a reference
 
+
+    public static String globalText = "This is a global text";
+
+
+    //private TextView aiOutput;
+
+//    public SuggestionStripViewAIEngine(Context context, AttributeSet attrs, TextView aiOutput) {
+//        super(context, attrs);
+//        aiOutput = findViewById(R.id.ai_output); // Replace with your actual ID
+//        this.aiOutput = aiOutput;
+//    }
+    public void setAiOutputText(String text) {
+        aiOutput.setText(text);
+    }
     @NonNull
     @Override
     public String getSummarizeText() {
@@ -160,6 +183,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         lvTextProgress.setVisibility(View.GONE);
         aiOutput.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     public void onError(int error) {
@@ -236,9 +260,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         aiOutput.setText(allOutputText);
 
-        viewModel.summarizeStreaming(allOutputText);
+        Log.d(TAG, "allOutputText" + allOutputText);
 
-        viewModel.summarizeStreaming(aiOutput.getText().toString());
+        String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
+        viewModel.summarizeStreaming(allOutputText);
+        Log.d(TAG, "viewModel.summarizeStreaming called with allOutputText: " + allOutputTextValue);
 
         //todo: implement the summarization logic here
         aiOutput.setOnClickListener(v -> {
@@ -252,8 +278,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
         });
 
+        AIOutputEvent event = new AIOutputEvent(allOutputText);
+        EventBus.getDefault().post(event);
+
     }
 
+//    public void setOutputText(String outputText) {
+//        //clear aiOutput text first
+//        aiOutput.setText("");
+//        //set new text
+//        aiOutput.setText(outputText);
+//        Log.d(TAG, "setOutputText" + outputText);
+//    }
     @Override
     public void onPartialResults(Bundle partialResults) {
 
@@ -261,6 +297,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onEvent(int eventType, Bundle params) {
+
+    }
+
+    StringBuilder outputBuilder = new StringBuilder();
+
+
+
+    @Override
+    public void onOutputTextChanged(@NonNull String outputText) {
+        outputBuilder.append(outputText);
+
+        Log.d("AIImproved", "onOutputTextChangedAppend" + outputText);
+        aiOutput.setText(outputBuilder.toString());
+        Log.d("AIImproved", "onOutputTextChanged" + outputText);
 
     }
 
@@ -309,6 +359,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final TextView aiOutput;
 
     private final ImageView ivOscarVoiceInput;
+
+    private final ImageView ivDelete;
+
+    private final ImageView ivCopy;
 
     private final LottieAnimationView lvTextProgress;
 
@@ -386,6 +440,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIvOscar = findViewById(R.id.iv_oscar_keyboard_ai);
         aiOutput = findViewById(R.id.ai_output);
         ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
+        ivDelete = findViewById(R.id.ic_delete);
+        ivCopy = findViewById(R.id.ic_copy);
         lvTextProgress = findViewById(R.id.lvTextProgress);
 
 
@@ -464,6 +520,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mIvOscar.setImageDrawable(getResources().getDrawable(R.drawable.ic_oscar));
         mIvOscar.setOnClickListener(this);
         ivOscarVoiceInput.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
+        ivCopy.setOnClickListener(this);
     }
 
     /**
@@ -915,6 +973,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             } else {
                 manualStopRecord = false;
                 startRecord();
+                aiOutput.setText("");
             }
             return;
         }
@@ -922,6 +981,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // On Click sent to Keyboard
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
             return;
+        }
+
+        if(view == ivDelete){
+            mListener.onCodeInput(KeyCode.DELETE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            //clear the text in aiOutput
+            aiOutput.setText("");
+            //hide visibility of aiOutput
+            aiOutput.setVisibility(GONE);
+            return;
+        }
+        if(view == ivCopy) {
+            if (aiOutput.getText().toString().isEmpty()) {
+                Toast.makeText(getContext(), "You do not have anything to copy", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Toast.makeText(getContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                mListener.onCodeInput(KeyCode.CLIPBOARD_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                //if clipoard is empty show toast you do not have anything to copy or show clipboard has been copy once there been data
+                aiOutput.setVisibility(VISIBLE);
+            }
         }
         if (tag instanceof ToolbarKey) {
             final int code = getCodeForToolbarKey((ToolbarKey) tag);

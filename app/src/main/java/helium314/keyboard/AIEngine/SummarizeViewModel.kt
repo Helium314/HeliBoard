@@ -20,6 +20,20 @@ class SummarizeViewModel(
     private val generativeModel: GenerativeModel
 ) : ViewModel() {
 
+
+    private var outputTextListener: OutputTextListener? = null
+
+    fun setOutputTextListener(listener: OutputTextListener) {
+        outputTextListener = listener
+    }
+
+    fun updateOutputTextUniversal(outputText: String) {
+        _outputTextStateFlow.value = outputText
+        outputTextListener?.onOutputTextChanged(outputText)
+        Log
+    }
+
+
     private val _state = MutableStateFlow(AIState())
     val state: StateFlow<AIState> = _state.asStateFlow()
 
@@ -36,6 +50,26 @@ class SummarizeViewModel(
         MutableStateFlow(SummarizeUiState.Initial)
     val uiState: StateFlow<SummarizeUiState> =
         _uiState.asStateFlow()
+
+
+    private val _aiOutputLiveData = MutableLiveData<String>()
+    val aiOutputLiveData: LiveData<String> get() = _aiOutputLiveData
+
+
+    fun setAiOutput(aiOutput: String) {
+        _aiOutputLiveData.value = aiOutput
+    }
+
+    private val _outputTextStateFlow = MutableStateFlow("")
+    val outputTextStateFlow: StateFlow<String> = _outputTextStateFlow
+
+    // ... other ViewModel logic
+
+    fun updateOutputText(outputText: String) {
+        _outputTextStateFlow.value = outputText
+        // Pass the outputText to Java class using an interface or EventBus
+    }
+
 
 //    fun onAICorrection(context: Context) {
 //
