@@ -30,6 +30,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.eventbus.EventBus
 import helium314.keyboard.AIEngine.AIOutputEvent
 import helium314.keyboard.AIEngine.OutputTextListener
 import helium314.keyboard.AIEngine.SharedViewModel
@@ -181,19 +182,32 @@ class KeyboardselectionActivity : AppCompatActivity(),
         }
 
         val rootView = findViewById<View>(android.R.id.content)
+        var isKeyboardVisible = false
         rootView.viewTreeObserver.addOnGlobalLayoutListener {
             val rect = android.graphics.Rect()
             rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            if (keypadHeight > screenHeight * 0.15) {
+            isKeyboardVisible = keypadHeight > screenHeight * 0.15
+            ivOscar.visibility = View.GONE
+            if (isKeyboardVisible) {
                 ivOscar.visibility = View.GONE
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
             } else {
                 if (!etopenOscar.hasFocus()) {
                     hideOscarLogo()
                 }
             }
         }
+        menuIcon.setOnClickListener {
+            if (!isKeyboardVisible) {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+    }
+
 
 //        mViewModel.aiOutputLiveData.observe(this) {
 //            // Update UI with aiOutput
@@ -201,7 +215,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
 //            Log.d("AIOutput", it)
 //        }
 
-    }
+
 
 
 
