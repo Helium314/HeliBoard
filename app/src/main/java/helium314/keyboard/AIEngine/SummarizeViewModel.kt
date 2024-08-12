@@ -9,30 +9,18 @@ import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import helium314.keyboard.gemini.GeminiClient
+import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.utils.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 
 class SummarizeViewModel(
-    private val generativeModel: GenerativeModel
+    private val generativeModel: GenerativeModel,
 ) : ViewModel() {
-
-
-    private var outputTextListener: OutputTextListener? = null
-
-    fun setOutputTextListener(listener: OutputTextListener) {
-        outputTextListener = listener
-    }
-
-    fun updateOutputTextUniversal(outputText: String) {
-        _outputTextStateFlow.value = outputText
-        outputTextListener?.onOutputTextChanged(outputText)
-        Log
-    }
-
 
     private val _state = MutableStateFlow(AIState())
     val state: StateFlow<AIState> = _state.asStateFlow()
@@ -70,6 +58,11 @@ class SummarizeViewModel(
         // Pass the outputText to Java class using an interface or EventBus
     }
 
+    private var onTextUpdatedListener: OnTextUpdatedListener? = null
+
+    fun setOnTextUpdatedListener(listener: OnTextUpdatedListener) {
+        onTextUpdatedListener = listener
+    }
 
 //    fun onAICorrection(context: Context) {
 //
@@ -92,6 +85,11 @@ class SummarizeViewModel(
 //        }
 //    }
 
+    private fun processResponse(text: String?): String {
+        // Implement your text processing logic here
+        // For example, you might remove extra spaces, handle special characters, etc.
+        return text!! // A simple example
+    }
     fun summarizeStreaming(inputText: String) {
         _uiState.value = SummarizeUiState.Loading
 
@@ -104,6 +102,18 @@ class SummarizeViewModel(
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
                         outputContent += response.text
+
+                        // Call the callback with the processed text
+                        onTextUpdatedListener?.onTextUpdated(outputContent)
+
+                        // Post the EventBus event
+                        EventBus.getDefault().post(TextUpdatedEvent(outputContent))
+                        //log sent event
+                        Log.d("SummarizeViewModel", "TextUpdatedEventBus: $outputContent")
+
+                        // log values
+                        Log.d("SummarizeViewModel", "outputContent: $outputContent")
+
                         _uiState.value = SummarizeUiState.Success(outputContent)
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
                     }

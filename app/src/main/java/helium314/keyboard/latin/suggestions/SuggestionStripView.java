@@ -51,11 +51,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import helium314.keyboard.AIEngine.AIOutputEvent;
+import helium314.keyboard.AIEngine.OnTextUpdatedListener;
 import helium314.keyboard.AIEngine.OutputTextListener;
 import helium314.keyboard.AIEngine.SharedViewModel;
 import helium314.keyboard.AIEngine.SummarizeUiState;
 import helium314.keyboard.AIEngine.SummarizeViewModel;
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory;
+import helium314.keyboard.AIEngine.TextUpdatedEvent;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.gemini.GeminiClient;
 import helium314.keyboard.keyboard.Key;
@@ -107,9 +109,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener, SummarizeTextProvider, RecognitionListener, OutputTextListener {
+        OnLongClickListener, SummarizeTextProvider, RecognitionListener, OnTextUpdatedListener {
 
     LatinIME mLatinIME;
 
@@ -126,12 +129,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     GeminiClient geminiClient = new GeminiClient(); // Assuming you have a way to create a GeminiClient instance
     GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-    SuggestionStripView suggestionStripView = null; // Assuming you have a reference
 
 
-    public static String globalText = "This is a global text";
+
+    public TextView getAiOutputTextView() {
+        return aiOutput;
+    }
 
 
+
+    @Subscribe
+    public void onTextUpdated(TextUpdatedEvent event) {
+        aiOutput.setText(event.getText());
+        //log received text
+        Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
+    }
     //private TextView aiOutput;
 
 //    public SuggestionStripViewAIEngine(Context context, AttributeSet attrs, TextView aiOutput) {
@@ -283,13 +295,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     }
 
-//    public void setOutputText(String outputText) {
-//        //clear aiOutput text first
-//        aiOutput.setText("");
-//        //set new text
-//        aiOutput.setText(outputText);
-//        Log.d(TAG, "setOutputText" + outputText);
-//    }
     @Override
     public void onPartialResults(Bundle partialResults) {
 
@@ -302,16 +307,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     StringBuilder outputBuilder = new StringBuilder();
 
-
-
     @Override
-    public void onOutputTextChanged(@NonNull String outputText) {
-        outputBuilder.append(outputText);
-
-        Log.d("AIImproved", "onOutputTextChangedAppend" + outputText);
-        aiOutput.setText(outputBuilder.toString());
-        Log.d("AIImproved", "onOutputTextChanged" + outputText);
-
+    public void onTextUpdated(@NonNull String text) {
+        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        aiOutput.setText(text);
+        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
     }
 
 //    private String summarizedText = "";
@@ -322,18 +322,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 //        this.summarizeTextProvider = summarizeTextProvider;
 //    }
 
-
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
 
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
 
         void removeSuggestion(final String word);
-    }
-
-    public void myMethod() {
-        LatinIME latinIME = new LatinIME(); // Or obtain an instance from elsewhere
-        mLatinIME = latinIME;
     }
 
     public static boolean DEBUG_SUGGESTIONS;
@@ -356,15 +350,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final ImageView mIvOscar;
 
-    private final TextView aiOutput;
+    public final TextView aiOutput;
 
-    private final ImageView ivOscarVoiceInput;
+    //private final ImageView ivOscarVoiceInput;
 
     private final ImageView ivDelete;
 
     private final ImageView ivCopy;
 
     private final LottieAnimationView lvTextProgress;
+
+    private final LottieAnimationView tvAudioProgress;
 
     private SpeechRecognizer speechRecognizer;
 
@@ -424,6 +420,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @SuppressLint("InflateParams") // does not seem suitable here
     public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+
+        EventBus.getDefault().register(this);
+
+
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
@@ -439,10 +439,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarContainer = findViewById(R.id.toolbar_container);
         mIvOscar = findViewById(R.id.iv_oscar_keyboard_ai);
         aiOutput = findViewById(R.id.ai_output);
-        ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
+        //ivOscarVoiceInput = findViewById(R.id.ivOscarVoiceInput);
         ivDelete = findViewById(R.id.ic_delete);
         ivCopy = findViewById(R.id.ic_copy);
         lvTextProgress = findViewById(R.id.lvTextProgress);
+        tvAudioProgress = findViewById(R.id.tvAudioProgress);
 
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
@@ -519,7 +520,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mIvOscar.setImageDrawable(getResources().getDrawable(R.drawable.ic_oscar));
         mIvOscar.setOnClickListener(this);
-        ivOscarVoiceInput.setOnClickListener(this);
+        //ivOscarVoiceInput.setOnClickListener(this);
+        tvAudioProgress.setOnClickListener(this);
         ivDelete.setOnClickListener(this);
         ivCopy.setOnClickListener(this);
     }
@@ -965,7 +967,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
             return;
         }
-        if (view == ivOscarVoiceInput) {
+        if (view == tvAudioProgress) {
 //            permissionCheck();
             if (recordStatus) {
                 manualStopRecord = true;
@@ -1042,15 +1044,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
 
     private void stopRecord() {
+        tvAudioProgress.pauseAnimation();
         Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
-        ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
+        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
         recordStatus = false;
         speechRecognizer.stopListening();
     }
 
 
     private void startRecord() {
-
+        tvAudioProgress.playAnimation();
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
         speechRecognizer.setRecognitionListener(this);
         Log.d(TAG, "Recording started");
@@ -1064,7 +1067,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
         speechRecognizer.startListening(intent);
 
-        ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
+        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
 
         recordStatus = true;
 
