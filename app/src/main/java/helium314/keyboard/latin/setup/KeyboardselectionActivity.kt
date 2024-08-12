@@ -16,7 +16,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -64,7 +66,8 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
     val generativeModel = geminiClient.geminiFlashModel
-    private val suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
+    private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
+
 
 // Assuming you have a way to create a GenerativeModel instance
 //    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)
@@ -106,16 +109,8 @@ class KeyboardselectionActivity : AppCompatActivity(),
         //Initialize my viewModel here
 
 
-        //  this is for third party
-//        val aiOutput = findViewById<TextView>(R.id.ai_output) // Replace with your actual ID
-//        val suggestionStripView = SuggestionStripViewAIEngine(this, null, aiOutput)
-//
-//
-//
-//        val suggestionStripView = SuggestionStripView(this, null)
-//        suggestionStripView.setAiOutputText(aiOutput.text.toString())
-
-        mViewModel.setOutputTextListener(this)
+        //todo not needed now
+        //mViewModel.setOutputTextListener(this)
 
         EventBus.getDefault().register(this)
 
@@ -208,6 +203,8 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     }
 
+
+
     @Subscribe
     fun onAIOutputReceived(event: AIOutputEvent) {
         // Update UI with aiOutput
@@ -231,8 +228,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
                             etopenOscar.setText(outputText)
                             mViewModel.updateOutputText(outputText)
 
-                            mViewModel.updateOutputTextUniversal(outputText)
+                            // tod update universal text
+                            //mViewModel.updateOutputTextUniversal(outputText)
 
+// Now you can update the aiOutputTextView
                             Log.d("KeyboardActivity aiText sentBack", outputText)
                             // for updating new text
                             mSharedViewModel.updateOutputText(outputText)
