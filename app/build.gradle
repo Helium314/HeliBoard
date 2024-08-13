@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
+//apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdk 34
@@ -25,6 +27,7 @@ android {
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
+            signingConfig signingConfigs.debug
         }
         nouserlib { // same as release, but does not allow the user to provide a library
             minifyEnabled true
@@ -134,5 +137,9 @@ dependencies {
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "org.greenrobot:eventbus:3.3.1"
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
 
+    // For Firebase Crashlytics & Analytics
+//    implementation platform("com.google.firebase:firebase-bom:33.1.2")
+//    implementation("com.google.firebase:firebase-analytics")
 }
