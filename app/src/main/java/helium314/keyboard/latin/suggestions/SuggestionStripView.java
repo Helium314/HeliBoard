@@ -56,7 +56,6 @@ import android.widget.Toast;
 import helium314.keyboard.AIEngine.AIOutputEvent;
 import helium314.keyboard.AIEngine.OnTextUpdatedListener;
 import helium314.keyboard.AIEngine.OutputTextListener;
-import helium314.keyboard.AIEngine.SharedViewModel;
 import helium314.keyboard.AIEngine.SummarizeUiState;
 import helium314.keyboard.AIEngine.SummarizeViewModel;
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory;
@@ -119,8 +118,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     LatinIME mLatinIME;
 
-    private SharedViewModel mSharedViewModel;
-
     private Key mCurrenteKey;
 
     private SummarizeViewModel mViewModel;
@@ -146,6 +143,26 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         aiOutput.setText(event.getText());
         //log received text
         Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
+
+        // copy to clipboard and insert into active editor
+        // Get the text from aiOutput
+
+        // Copy the text to clipboard
+//        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//        ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+//        clipboard.setPrimaryClip(clip);
+//        mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+
+
+        // sent that text to ective editor
+//        InputConnection ic = mLatinIME.getCurrentInputConnection();
+//        if(ic != null) {
+//            ic.commitText(event.getText(), 1);
+//        } else  {
+//            Log.d("SuggestionStripView", "onTextUpdated: ic is null");
+//        }
+
+
     }
     //private TextView aiOutput;
 
@@ -280,6 +297,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
         viewModel.summarizeStreaming(allOutputText);
         Log.d(TAG, "viewModel.summarizeStreaming called with allOutputText: " + allOutputTextValue);
+
 
         //todo: implement the summarization logic here
         aiOutput.setOnClickListener(v -> {

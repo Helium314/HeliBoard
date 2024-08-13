@@ -233,10 +233,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
                             // tod update universal text
                             //mViewModel.updateOutputTextUniversal(outputText)
 
-// Now you can update the aiOutputTextView
+                            // Now you can update the aiOutputTextView
                             Log.d("KeyboardActivity aiText sentBack", outputText)
                             // for updating new text
-                            mSharedViewModel.updateOutputText(outputText)
+                            //mSharedViewModel.updateOutputText(outputText)
                         }
 
                         is SummarizeUiState.Error -> {
