@@ -142,7 +142,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             mStepNumber = savedInstanceState.getInt(STATE_STEP);
         }
 
-//        final String applicationName = getResources().getString(getApplicationInfo().labelRes);
+        final String applicationName = getResources().getString(getApplicationInfo().labelRes);
         mWelcomeScreen = findViewById(R.id.setup_welcome_screen);
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
 //        welcomeTitle.setText(getString(R.string.setup_welcome_title));
@@ -153,14 +153,14 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
 
         mSetupScreen = findViewById(R.id.setup_steps_screen);
         final TextView stepsTitle = findViewById(R.id.setup_title);
-        stepsTitle.setText(getString(R.string.setup_steps_title));
+        stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
 
         final SetupStepIndicatorView indicatorView = findViewById(R.id.setup_step_indicator);
         mSetupStepGroup = new SetupStepGroup(indicatorView);
 
         mStep1Bullet = findViewById(R.id.setup_step1_bullet);
         mStep1Bullet.setOnClickListener(this);
-        final SetupStep step1 = new SetupStep(STEP_1,
+        final SetupStep step1 = new SetupStep(STEP_1,applicationName,
                 mStep1Bullet, findViewById(R.id.setup_step1),
                 R.string.setup_step1_title, R.string.setup_step1_instruction,
                 R.string.setup_step1_finished_instruction, R.drawable.ic_setup_key,
@@ -177,7 +177,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             return;
         }
 
-        final SetupStep step2 = new SetupStep(STEP_2,
+        final SetupStep step2 = new SetupStep(STEP_2,applicationName,
                 findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_select,
@@ -185,7 +185,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
 
-        final SetupStep step3 = new SetupStep(STEP_3,
+        final SetupStep step3 = new SetupStep(STEP_3,applicationName,
                 findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
                 0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
@@ -426,7 +426,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         private final TextView mActionLabel;
         private Runnable mAction;
 
-        public SetupStep(final int stepNo, final TextView bulletView,
+        public SetupStep(final int stepNo,final String applicationName, final TextView bulletView,
                 final View stepView, final int title, final int instruction,
                 final int finishedInstruction, final int actionIcon, final int actionLabel) {
             mStepNo = stepNo;
@@ -436,10 +436,10 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             mTextColorStateList = AppCompatResources.getColorStateList(mStepView.getContext(), R.color.setup_step_action_text);
 
             final TextView titleView = mStepView.findViewById(R.id.setup_step_title);
-            titleView.setText(res.getString(title));
+            titleView.setText(res.getString(title, applicationName));
 
-            mInstruction = (instruction == 0) ? null : res.getString(instruction);
-            mFinishedInstruction = (finishedInstruction == 0) ? null : res.getString(finishedInstruction);
+            mInstruction = (instruction == 0) ? null : res.getString(instruction, applicationName);
+            mFinishedInstruction = (finishedInstruction == 0) ? null : res.getString(finishedInstruction, applicationName);
 
             mActionLabel = mStepView.findViewById(R.id.setup_step_action_label);
             mActionLabel.setText(res.getString(actionLabel));

@@ -30,7 +30,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.eventbus.EventBus
 import helium314.keyboard.AIEngine.AIOutputEvent
 import helium314.keyboard.AIEngine.OutputTextListener
 import helium314.keyboard.AIEngine.SharedViewModel
@@ -182,28 +181,17 @@ class KeyboardselectionActivity : AppCompatActivity(),
         }
 
         val rootView = findViewById<View>(android.R.id.content)
-        var isKeyboardVisible = false
         rootView.viewTreeObserver.addOnGlobalLayoutListener {
             val rect = android.graphics.Rect()
             rootView.getWindowVisibleDisplayFrame(rect)
             val screenHeight = rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            isKeyboardVisible = keypadHeight > screenHeight * 0.15
-            ivOscar.visibility = View.GONE
-            if (isKeyboardVisible) {
+            if (keypadHeight > screenHeight * 0.15) {
                 ivOscar.visibility = View.GONE
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                }
             } else {
                 if (!etopenOscar.hasFocus()) {
                     hideOscarLogo()
                 }
-            }
-        }
-        menuIcon.setOnClickListener {
-            if (!isKeyboardVisible) {
-                drawerLayout.openDrawer(GravityCompat.START)
             }
         }
     }
@@ -295,25 +283,20 @@ class KeyboardselectionActivity : AppCompatActivity(),
             }
 
             R.id.nav_recommended_us -> {
-                val apkFile = File(applicationInfo.sourceDir)
-                val apkUri = FileProvider.getUriForFile(
-                    this,
-                    "${BuildConfig.APPLICATION_ID}.provider",
-                    apkFile
-                )
+                val packageName = BuildConfig.APPLICATION_ID
+                val playStoreLink = "https://play.google.com/store/apps/details?id=$packageName"
 
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "application/vnd.android.package-archive"
-                    putExtra(Intent.EXTRA_STREAM, apkUri)
-                    putExtra(Intent.EXTRA_TEXT, "Check out this awesome app: Oscar Keyboard!")
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                // Share the Play Store link
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, playStoreLink)
                 }
-                startActivity(Intent.createChooser(shareIntent, "Share App"))
+                startActivity(Intent.createChooser(intent, "Share via"))
             }
 
             R.id.nav_email_us -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:kalyani@navgurukul.org") // Replace with your email
+                    data = Uri.parse("mailto:support.oscar@samyarth.org")
                     putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
                     putExtra(Intent.EXTRA_TEXT, "Hi team,\n\nI have the following feedback:")
                 }

@@ -29,7 +29,6 @@ import android.speech.RecognitionListener;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import androidx.annotation.RequiresApi;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
@@ -937,7 +936,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsView.onHoverEvent(me);
         return true;
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(final View view) {
         AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
@@ -1139,7 +1137,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
         colors.setBackground(view, ColorType.STRIP_BACKGROUND);
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isInternetAvailable() {
         Context context = getContext();
         if (context == null) {
@@ -1148,7 +1145,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
-            Network network = connectivityManager.getActiveNetwork();
+            Network network = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                network = connectivityManager.getActiveNetwork();
+            }
             NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
             return networkCapabilities != null &&
                     networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
