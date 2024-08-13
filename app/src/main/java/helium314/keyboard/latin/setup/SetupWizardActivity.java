@@ -145,7 +145,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         final String applicationName = getResources().getString(getApplicationInfo().labelRes);
         mWelcomeScreen = findViewById(R.id.setup_welcome_screen);
         final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
-        welcomeTitle.setText(getString(R.string.setup_welcome_title, applicationName));
+//        welcomeTitle.setText(getString(R.string.setup_welcome_title));
 
         // disable the "with gesture typing" when no library is available (at this point, this likely means library is in system and this is a system app)
         if (!JniUtils.sHaveGestureLib)
@@ -160,7 +160,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
 
         mStep1Bullet = findViewById(R.id.setup_step1_bullet);
         mStep1Bullet.setOnClickListener(this);
-        final SetupStep step1 = new SetupStep(STEP_1, applicationName,
+        final SetupStep step1 = new SetupStep(STEP_1,applicationName,
                 mStep1Bullet, findViewById(R.id.setup_step1),
                 R.string.setup_step1_title, R.string.setup_step1_instruction,
                 R.string.setup_step1_finished_instruction, R.drawable.ic_setup_key,
@@ -177,7 +177,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             return;
         }
 
-        final SetupStep step2 = new SetupStep(STEP_2, applicationName,
+        final SetupStep step2 = new SetupStep(STEP_2,applicationName,
                 findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
                 R.string.setup_step2_title, R.string.setup_step2_instruction,
                 0 /* finishedInstruction */, R.drawable.ic_setup_select,
@@ -185,7 +185,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         step2.setAction(this::invokeInputMethodPicker);
         mSetupStepGroup.addStep(step2);
 
-        final SetupStep step3 = new SetupStep(STEP_3, applicationName,
+        final SetupStep step3 = new SetupStep(STEP_3,applicationName,
                 findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
                 R.string.setup_step3_title, R.string.setup_step3_instruction,
                 0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
@@ -426,7 +426,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         private final TextView mActionLabel;
         private Runnable mAction;
 
-        public SetupStep(final int stepNo, final String applicationName, final TextView bulletView,
+        public SetupStep(final int stepNo,final String applicationName, final TextView bulletView,
                 final View stepView, final int title, final int instruction,
                 final int finishedInstruction, final int actionIcon, final int actionLabel) {
             mStepNo = stepNo;
