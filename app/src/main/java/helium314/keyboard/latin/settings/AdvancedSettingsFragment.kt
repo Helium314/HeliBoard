@@ -22,6 +22,8 @@ import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
+import com.oscar.aikeyboard.BuildConfig
+import com.oscar.aikeyboard.R
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
@@ -38,8 +40,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABI
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
 import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
-import helium314.keyboard.latin.BuildConfig
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils

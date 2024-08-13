@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
-import helium314.keyboard.latin.R;
+
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;

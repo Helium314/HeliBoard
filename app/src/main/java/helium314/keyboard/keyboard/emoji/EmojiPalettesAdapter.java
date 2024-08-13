@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardView;
-import helium314.keyboard.latin.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.settings.Settings;
 
 final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapter.ViewHolder>{

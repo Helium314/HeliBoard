@@ -15,7 +15,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 
 public final class SetupStepIndicatorView extends View {
     private final Path mIndicatorPath = new Path();

@@ -16,11 +16,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
 
+import com.oscar.aikeyboard.BuildConfig;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.KeyboardSwitcher;
-import helium314.keyboard.latin.BuildConfig;
 import helium314.keyboard.latin.DictionaryDumpBroadcastReceiver;
 import helium314.keyboard.latin.DictionaryFacilitator;
-import helium314.keyboard.latin.R;
 
 /**
  * "Debug mode" settings sub screen.

@@ -72,7 +72,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
 import helium314.keyboard.latin.LatinIME;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputConnection;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
@@ -109,6 +108,7 @@ import kotlinx.coroutines.Dispatchers;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
+import com.oscar.aikeyboard.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

@@ -102,6 +102,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
+import com.oscar.aikeyboard.BuildConfig;
+import com.oscar.aikeyboard.R;
+
 /**
  * Input method implementation for Qwerty'ish keyboard.
  */

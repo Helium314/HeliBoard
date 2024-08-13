@@ -16,6 +16,8 @@ import android.view.textservice.SuggestionsInfo;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
@@ -23,7 +25,6 @@ import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.DictionaryFacilitatorLruCache;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;

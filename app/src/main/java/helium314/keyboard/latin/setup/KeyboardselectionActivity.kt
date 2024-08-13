@@ -30,6 +30,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import com.oscar.aikeyboard.BuildConfig
+import com.oscar.aikeyboard.R
 import helium314.keyboard.AIEngine.AIOutputEvent
 import helium314.keyboard.AIEngine.OutputTextListener
 import helium314.keyboard.AIEngine.SharedViewModel
@@ -37,8 +39,6 @@ import helium314.keyboard.AIEngine.SummarizeUiState
 import helium314.keyboard.AIEngine.SummarizeViewModel
 import helium314.keyboard.AIEngine.SummarizeViewModelFactory
 import helium314.keyboard.gemini.GeminiClient
-import helium314.keyboard.latin.BuildConfig
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.suggestions.SummarizeTextProvider
 import helium314.keyboard.latin.utils.Log

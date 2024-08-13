@@ -9,7 +9,8 @@ package helium314.keyboard.keyboard.internal;
 import android.content.res.TypedArray;
 import android.view.View;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 
 public final class KeyPreviewDrawParams {
     // XML attributes of {@link MainKeyboardView}.

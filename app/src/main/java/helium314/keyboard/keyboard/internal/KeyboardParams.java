@@ -14,11 +14,12 @@ import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.ResourceUtils;
 

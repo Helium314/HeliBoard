@@ -31,7 +31,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.common.LocaleUtils;
 
 import java.util.Locale;

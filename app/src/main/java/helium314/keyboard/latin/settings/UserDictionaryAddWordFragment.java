@@ -31,7 +31,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableKt;
 import androidx.core.widget.TextViewKt;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
 

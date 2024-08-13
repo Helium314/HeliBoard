@@ -35,7 +35,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.utils.ActivityThemeUtils;
 import helium314.keyboard.latin.utils.JniUtils;

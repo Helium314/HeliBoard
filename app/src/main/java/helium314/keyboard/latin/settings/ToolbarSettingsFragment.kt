@@ -3,8 +3,8 @@ package helium314.keyboard.latin.settings
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref

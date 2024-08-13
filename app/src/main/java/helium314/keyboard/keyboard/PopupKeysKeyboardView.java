@@ -18,12 +18,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate;
 import helium314.keyboard.keyboard.emoji.OnKeyEventListener;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;

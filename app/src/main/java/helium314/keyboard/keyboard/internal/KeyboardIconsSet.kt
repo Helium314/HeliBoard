@@ -3,7 +3,7 @@ package helium314.keyboard.keyboard.internal
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getStyleableIconId

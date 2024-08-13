@@ -22,8 +22,9 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.compat.ConfigurationCompatKt;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.LocaleUtils;
 
 import java.util.ArrayList;

@@ -13,7 +13,8 @@ import android.text.TextUtils;
 
 import androidx.preference.SwitchPreference;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
 import helium314.keyboard.latin.settings.Settings;

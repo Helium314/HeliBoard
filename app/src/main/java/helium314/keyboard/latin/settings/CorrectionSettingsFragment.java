@@ -16,8 +16,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.KeyboardSwitcher;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
 

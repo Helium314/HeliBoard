@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 
@@ -29,9 +29,11 @@ class ClipboardLayoutParams(res: Resources) {
         val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
 
         if (Settings.getInstance().current.mNarrowKeyGaps) {
-            keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
+            keyVerticalGap = res.getFraction(
+                R.fraction.config_key_vertical_gap_holo_narrow,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
-            keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo_narrow,
+            keyHorizontalGap = res.getFraction(
+                R.fraction.config_key_horizontal_gap_holo_narrow,
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         } else {
             keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo,

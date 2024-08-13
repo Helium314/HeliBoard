@@ -12,11 +12,12 @@ import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.PopupKeysKeyboardView;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.suggestions.MoreSuggestions.MoreSuggestionKey;

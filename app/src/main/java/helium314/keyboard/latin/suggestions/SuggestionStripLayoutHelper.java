@@ -36,9 +36,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.latin.PunctuationSuggestions;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ColorType;

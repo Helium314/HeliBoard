@@ -8,9 +8,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.edit
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
 import java.util.EnumMap

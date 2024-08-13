@@ -15,10 +15,11 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.preference.Preference;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;

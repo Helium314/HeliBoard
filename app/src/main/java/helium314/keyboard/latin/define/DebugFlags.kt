@@ -8,7 +8,7 @@ package helium314.keyboard.latin.define
 
 import android.content.Context
 import android.os.Build
-import helium314.keyboard.latin.BuildConfig
+import com.oscar.aikeyboard.BuildConfig
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log

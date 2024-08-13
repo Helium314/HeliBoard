@@ -11,11 +11,11 @@ import android.text.TextUtils
 import helium314.keyboard.latin.utils.Log
 import android.util.SparseIntArray
 import android.view.inputmethod.EditorInfo
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
 

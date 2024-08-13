@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(

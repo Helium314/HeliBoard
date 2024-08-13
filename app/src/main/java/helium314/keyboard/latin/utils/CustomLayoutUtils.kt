@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
@@ -17,7 +18,6 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
 import kotlinx.serialization.SerializationException
@@ -207,7 +207,8 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
     if (displayName != null) {
         if (file.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
-                confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(R.string.delete)) {
+                confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(
+                    R.string.delete)) {
                     file.delete()
                     onCustomLayoutFileListChanged()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)

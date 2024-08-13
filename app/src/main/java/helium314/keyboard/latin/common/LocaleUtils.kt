@@ -7,9 +7,9 @@ package helium314.keyboard.latin.common
 
 import android.content.Context
 import android.content.res.Resources
+import com.oscar.aikeyboard.BuildConfig
+import com.oscar.aikeyboard.R
 import helium314.keyboard.compat.locale
-import helium314.keyboard.latin.BuildConfig
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import java.util.Locale

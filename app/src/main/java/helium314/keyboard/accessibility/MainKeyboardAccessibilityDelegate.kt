@@ -11,9 +11,9 @@ import android.os.SystemClock
 import helium314.keyboard.latin.utils.Log
 import android.util.SparseIntArray
 import android.view.MotionEvent
+import com.oscar.aikeyboard.R
 import helium314.keyboard.accessibility.AccessibilityLongPressTimer.LongPressTimerCallback
 import helium314.keyboard.keyboard.*
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 
 /**

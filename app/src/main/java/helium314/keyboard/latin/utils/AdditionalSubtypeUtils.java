@@ -10,7 +10,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
 
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
 
@@ -24,6 +23,8 @@ import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.IS_AD
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME;
 import static helium314.keyboard.latin.common.Constants.Subtype.KEYBOARD_MODE;
+
+import com.oscar.aikeyboard.R;
 
 public final class AdditionalSubtypeUtils {
     private static final String TAG = AdditionalSubtypeUtils.class.getSimpleName();

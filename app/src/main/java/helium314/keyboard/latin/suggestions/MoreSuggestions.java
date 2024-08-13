@@ -13,13 +13,14 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 

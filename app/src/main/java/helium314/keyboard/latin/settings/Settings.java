@@ -27,12 +27,13 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;

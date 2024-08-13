@@ -13,8 +13,9 @@ import android.graphics.Path;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.PointerTracker;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;

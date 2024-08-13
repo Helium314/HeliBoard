@@ -15,9 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import helium314.keyboard.latin.R
 import android.provider.Settings
 import android.view.inputmethod.InputMethodManager
+import com.oscar.aikeyboard.R
 
 class SheetTwoFragment : Fragment() {
 

@@ -39,10 +39,11 @@ import androidx.autofill.inline.common.ViewStyle;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
 import androidx.autofill.inline.v1.InlineSuggestionUi.Style;
 
+import com.oscar.aikeyboard.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;

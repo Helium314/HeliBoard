@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.settings.Settings;
 

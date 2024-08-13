@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 
 import androidx.core.view.ViewKt;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.latin.common.ColorType;

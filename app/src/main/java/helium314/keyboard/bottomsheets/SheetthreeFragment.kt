@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.setup.KeyboardselectionActivity
 
 class SheetThreeFragment : Fragment() {

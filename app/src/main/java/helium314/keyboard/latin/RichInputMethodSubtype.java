@@ -22,6 +22,8 @@ import static helium314.keyboard.latin.common.Constants.Subtype.KEYBOARD_MODE;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.oscar.aikeyboard.R;
+
 /**
  * Enrichment class for InputMethodSubtype to enable concurrent multi-lingual input.
  * <p>

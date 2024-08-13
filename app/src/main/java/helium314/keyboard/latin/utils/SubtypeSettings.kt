@@ -10,8 +10,8 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils

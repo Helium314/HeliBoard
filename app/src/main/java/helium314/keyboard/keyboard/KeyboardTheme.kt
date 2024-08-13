@@ -11,7 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import androidx.core.content.ContextCompat
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.common.AllColors
 import helium314.keyboard.latin.common.Colors
 import helium314.keyboard.latin.common.DefaultColors

@@ -27,6 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.MainKeyboardAccessibilityDelegate;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -43,7 +45,6 @@ import helium314.keyboard.keyboard.internal.NonDistinctMultitouchHelper;
 import helium314.keyboard.keyboard.internal.SlidingKeyInputDrawingPreview;
 import helium314.keyboard.keyboard.internal.TimerHandler;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ColorType;

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 
 class CustomMenuAdapter(private val menu: Menu) : RecyclerView.Adapter<CustomMenuAdapter.ViewHolder>() {
 

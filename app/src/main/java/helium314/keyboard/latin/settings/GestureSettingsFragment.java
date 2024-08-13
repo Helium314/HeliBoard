@@ -10,7 +10,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 
 /**
  * "Gesture typing preferences" settings sub screen.

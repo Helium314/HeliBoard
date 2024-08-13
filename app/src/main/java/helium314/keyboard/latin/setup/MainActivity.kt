@@ -15,8 +15,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
-import helium314.keyboard.latin.R
-import helium314.keyboard.latin.databinding.ActivityMainBinding
+import com.oscar.aikeyboard.R
+import com.oscar.aikeyboard.databinding.ActivityMainBinding
+
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 
 class MainActivity : AppCompatActivity() {

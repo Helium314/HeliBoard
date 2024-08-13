@@ -26,6 +26,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.accessibility.KeyboardAccessibilityDelegate;
 import helium314.keyboard.keyboard.Key;
@@ -36,7 +38,6 @@ import helium314.keyboard.keyboard.PopupKeysKeyboard;
 import helium314.keyboard.keyboard.PopupKeysKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
 

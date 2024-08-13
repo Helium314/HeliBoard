@@ -8,10 +8,11 @@ package helium314.keyboard.latin.settings;
 
 import android.content.res.Resources;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.PunctuationSuggestions;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 

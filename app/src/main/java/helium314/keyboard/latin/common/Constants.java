@@ -8,8 +8,9 @@ package helium314.keyboard.latin.common;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.BuildConfig;
+
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import helium314.keyboard.latin.BuildConfig;
 
 public final class Constants {
 
@@ -238,7 +239,7 @@ public final class Constants {
 
     /**
      * Screen metrics (a.k.a. Device form factor) constants of
-     * {@link helium314.keyboard.latin.R.integer#config_screen_metrics}.
+     * {@link com.oscar.aikeyboard.R.integer#config_screen_metrics}.
      */
     public static final int SCREEN_METRICS_SMALL_PHONE = 0;
     public static final int SCREEN_METRICS_LARGE_PHONE = 1;

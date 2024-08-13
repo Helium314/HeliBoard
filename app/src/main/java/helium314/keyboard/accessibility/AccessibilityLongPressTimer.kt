@@ -9,8 +9,8 @@ package helium314.keyboard.accessibility
 import android.content.Context
 import android.os.Handler
 import android.os.Message
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.Key
-import helium314.keyboard.latin.R
 
 // Handling long press timer to show a popup keys keyboard.
 internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimerCallback,

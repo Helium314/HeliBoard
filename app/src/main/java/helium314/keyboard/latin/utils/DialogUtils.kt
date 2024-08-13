@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import java.util.Collections
 
 fun getPlatformDialogThemeContext(context: Context): Context {

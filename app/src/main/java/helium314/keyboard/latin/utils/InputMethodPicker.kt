@@ -11,8 +11,8 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
 import androidx.appcompat.app.AlertDialog
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.LatinIME
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java

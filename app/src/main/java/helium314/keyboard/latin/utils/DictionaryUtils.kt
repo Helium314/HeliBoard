@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
+import com.oscar.aikeyboard.R
 import helium314.keyboard.compat.locale
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings

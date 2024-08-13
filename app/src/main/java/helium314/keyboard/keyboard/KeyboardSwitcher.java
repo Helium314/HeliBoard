@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.event.Event;
 import helium314.keyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
 import helium314.keyboard.keyboard.clipboard.ClipboardHistoryView;
@@ -34,7 +36,6 @@ import helium314.keyboard.keyboard.internal.KeyboardState;
 import helium314.keyboard.latin.InputView;
 import helium314.keyboard.latin.KeyboardWrapperView;
 import helium314.keyboard.latin.LatinIME;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.WordComposer;

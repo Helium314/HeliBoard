@@ -41,7 +41,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 android:resource="@xml/provider_paths" />
         </provider>
         <!-- Services -->
-        <service android:name="LatinIME"
+        <service android:name="helium314.keyboard.latin.LatinIME"
                 android:label="@string/english_ime_name"
                 android:permission="android.permission.BIND_INPUT_METHOD"
                 android:directBootAware="true"
@@ -52,7 +52,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <meta-data android:name="android.view.im" android:resource="@xml/method_dummy" />
         </service>
 
-        <service android:name=".spellcheck.AndroidSpellCheckerService"
+        <service android:name="helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService"
                  android:label="@string/spell_checker_service_name"
                  android:permission="android.permission.BIND_TEXT_SERVICE"
                  android:exported="true">
@@ -64,7 +64,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </service>
 
         <!-- Activities -->
-        <activity android:name=".setup.SetupActivity"
+        <activity android:name="helium314.keyboard.latin.setup.SetupActivity"
                 android:theme="@style/platformActivityTheme"
                 android:launchMode="singleTask"
                 android:noHistory="true"
@@ -76,13 +76,13 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </activity>
 
         <activity
-            android:name=".permissions.PermissionsActivity"
+            android:name="helium314.keyboard.latin.permissions.PermissionsActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
             android:taskAffinity="" >
         </activity>
 
-        <activity android:name=".setup.SetupWizardActivity"
+        <activity android:name="helium314.keyboard.latin.setup.SetupWizardActivity"
                 android:theme="@style/platformActivityTheme"
                 android:clearTaskOnLaunch="true"
                 android:exported="true">
@@ -91,7 +91,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name=".settings.SettingsActivity"
+        <activity android:name="helium314.keyboard.latin.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/ime_settings"
                 android:excludeFromRecents="true"
@@ -108,7 +108,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name=".spellcheck.SpellCheckerSettingsActivity"
+        <activity android:name="helium314.keyboard.latin.spellcheck.SpellCheckerSettingsActivity"
                   android:theme="@style/platformActivityTheme"
                   android:label="@string/android_spell_checker_settings"
                 android:exported="true">
@@ -117,28 +117,28 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
         <activity
-            android:name=".setup.MainActivity"
+            android:name="helium314.keyboard.latin.setup.MainActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".setup.KeyboardselectionActivity"
+            android:name="helium314.keyboard.latin.setup.KeyboardselectionActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".setup.PrivacyPolicyActivity"
+            android:name="helium314.keyboard.latin.setup.PrivacyPolicyActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".setup.TermsOfUseActivity"
+            android:name="helium314.keyboard.latin.setup.TermsOfUseActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <!-- Broadcast receivers -->
-        <receiver android:name="SystemBroadcastReceiver"
+        <receiver android:name="helium314.keyboard.latin.SystemBroadcastReceiver"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -148,7 +148,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </receiver>
 
-        <receiver android:name="DictionaryPackInstallBroadcastReceiver" android:exported="false">
+        <receiver android:name="helium314.keyboard.latin.DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>

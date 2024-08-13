@@ -21,8 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import helium314.keyboard.latin.BuildConfig;
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.BuildConfig;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.common.FileUtils;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;

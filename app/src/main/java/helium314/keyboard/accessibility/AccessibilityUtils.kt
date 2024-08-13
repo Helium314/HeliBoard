@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.utils.InputTypeUtils
 
@@ -124,7 +124,8 @@ class AccessibilityUtils private constructor() {
         if (!TextUtils.isEmpty(mAutoCorrectionWord)) {
             if (!TextUtils.equals(mAutoCorrectionWord, mTypedWord)) {
                 return if (shouldObscure) { // This should never happen, but just in case...
-                    mContext.getString(R.string.spoken_auto_correct_obscured,
+                    mContext.getString(
+                        R.string.spoken_auto_correct_obscured,
                             keyCodeDescription)
                 } else mContext.getString(R.string.spoken_auto_correct, keyCodeDescription,
                         mTypedWord, mAutoCorrectionWord)

@@ -14,11 +14,13 @@ import android.graphics.Rect;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
+
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.ResourceUtils;
 

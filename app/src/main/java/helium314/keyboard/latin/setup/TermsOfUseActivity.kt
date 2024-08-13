@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.R
 
 class TermsOfUseActivity : AppCompatActivity() {
     lateinit var terms:TextView

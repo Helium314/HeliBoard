@@ -25,10 +25,10 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import helium314.keyboard.latin.common.ColorType.*
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.adjustLuminosityAndKeepAlpha
 import helium314.keyboard.latin.utils.brighten

@@ -13,8 +13,9 @@ import android.text.TextUtils;
 
 import androidx.preference.PreferenceManager;
 
+import com.oscar.aikeyboard.BuildConfig;
+
 import helium314.keyboard.latin.App;
-import helium314.keyboard.latin.BuildConfig;
 import helium314.keyboard.latin.settings.Settings;
 
 import java.io.File;

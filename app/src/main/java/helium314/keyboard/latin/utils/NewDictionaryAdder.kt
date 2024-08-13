@@ -6,10 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
+import com.oscar.aikeyboard.R
 import helium314.keyboard.compat.locale
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.latin.Dictionary
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils

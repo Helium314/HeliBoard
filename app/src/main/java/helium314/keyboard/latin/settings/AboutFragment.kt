@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
-import helium314.keyboard.latin.BuildConfig
-import helium314.keyboard.latin.R
+import com.oscar.aikeyboard.BuildConfig
+import com.oscar.aikeyboard.R
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils

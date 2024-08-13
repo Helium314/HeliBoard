@@ -8,7 +8,8 @@ package helium314.keyboard.keyboard.internal;
 
 import android.content.res.TypedArray;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 
 /** This class holds parameters to control how a gesture stroke is sampled and drawn on the screen. */
 public final class GestureStrokeDrawingParams {

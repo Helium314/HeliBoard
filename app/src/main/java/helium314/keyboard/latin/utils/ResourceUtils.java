@@ -14,7 +14,8 @@ import android.util.TypedValue;
 
 import androidx.core.util.TypedValueCompat;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.latin.settings.SettingsValues;
 
 public final class ResourceUtils {

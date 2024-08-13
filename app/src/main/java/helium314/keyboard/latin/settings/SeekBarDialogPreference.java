@@ -18,7 +18,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
-import helium314.keyboard.latin.R;
+import com.oscar.aikeyboard.R;
+
 
 public final class SeekBarDialogPreference extends Preference
         implements SeekBar.OnSeekBarChangeListener, DialogInterface.OnClickListener {

@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.view.inputmethod.InputMethodSubtype;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.common.StringUtils;
 
@@ -24,6 +23,8 @@ import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.UNTRA
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.oscar.aikeyboard.R;
 
 /**
  * A helper class to deal with subtype locales.

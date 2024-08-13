@@ -7,7 +7,7 @@ android {
     buildToolsVersion = '34.0.0'
 
     defaultConfig {
-        applicationId "helium314.keyboard"
+        applicationId "com.oscar.aikeyboard"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 2200
@@ -42,7 +42,7 @@ android {
             minifyEnabled true
             jniDebuggable false
         }
-        archivesBaseName = "HeliBoard_" + defaultConfig.versionName
+        archivesBaseName = "OscarAI_" + defaultConfig.versionName
     }
 
     buildFeatures {
@@ -87,7 +87,7 @@ android {
         includeInBundle = false
     }
 
-    namespace "helium314.keyboard.latin"
+    namespace "com.oscar.aikeyboard"
     lint {
         abortOnError true
     }

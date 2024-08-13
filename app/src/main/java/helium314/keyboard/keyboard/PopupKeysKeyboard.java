@@ -11,10 +11,11 @@ import android.graphics.Paint;
 
 import androidx.annotation.NonNull;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 

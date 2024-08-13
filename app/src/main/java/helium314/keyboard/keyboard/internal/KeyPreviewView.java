@@ -17,8 +17,9 @@ import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.oscar.aikeyboard.R;
+
 import helium314.keyboard.keyboard.Key;
-import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtilsKt;
 
 import java.util.HashSet;

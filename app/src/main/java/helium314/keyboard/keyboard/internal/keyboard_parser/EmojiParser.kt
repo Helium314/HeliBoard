@@ -3,12 +3,12 @@ package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.os.Build
+import com.oscar.aikeyboard.R
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils

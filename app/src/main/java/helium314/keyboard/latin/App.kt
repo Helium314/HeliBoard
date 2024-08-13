@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.oscar.aikeyboard.BuildConfig
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
