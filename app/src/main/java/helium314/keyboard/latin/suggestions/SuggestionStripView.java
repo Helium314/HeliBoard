@@ -140,37 +140,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
+
+        // if aiOutput text is not null clear history
         aiOutput.setText(event.getText());
         //log received text
         Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
-
-        // copy to clipboard and insert into active editor
-        // Get the text from aiOutput
-
-        // Copy the text to clipboard
+          // Copy the text to clipboard
 //        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
 //        ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
 //        clipboard.setPrimaryClip(clip);
 //        mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
-
-        // sent that text to ective editor
-//        InputConnection ic = mLatinIME.getCurrentInputConnection();
-//        if(ic != null) {
-//            ic.commitText(event.getText(), 1);
-//        } else  {
-//            Log.d("SuggestionStripView", "onTextUpdated: ic is null");
-//        }
-
-
     }
-    //private TextView aiOutput;
 
-//    public SuggestionStripViewAIEngine(Context context, AttributeSet attrs, TextView aiOutput) {
-//        super(context, attrs);
-//        aiOutput = findViewById(R.id.ai_output); // Replace with your actual ID
-//        this.aiOutput = aiOutput;
-//    }
     public void setAiOutputText(String text) {
         aiOutput.setText(text);
     }
