@@ -1,20 +1,14 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
-
 package com.android.inputmethod.keyboard;
 
 import android.graphics.Rect;
-import helium314.keyboard.latin.utils.Log;
+import com.oscar.aikeyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.keyboard.Key;
-import helium314.keyboard.keyboard.internal.TouchPositionCorrection;
-import helium314.keyboard.latin.common.Constants;
-import helium314.keyboard.latin.utils.JniUtils;
+import com.oscar.aikeyboard.keyboard.Key;
+import com.oscar.aikeyboard.keyboard.internal.TouchPositionCorrection;
+import com.oscar.aikeyboard.latin.common.Constants;
+import com.oscar.aikeyboard.latin.utils.JniUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

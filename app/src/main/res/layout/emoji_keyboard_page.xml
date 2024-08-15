@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<helium314.keyboard.keyboard.emoji.EmojiPageKeyboardView
+<com.oscar.aikeyboard.keyboard.emoji.EmojiPageKeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/emoji_keyboard_page"
     android:layoutDirection="ltr"

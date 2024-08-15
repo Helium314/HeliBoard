@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="#DCECEB"
-    tools:context=".setup.KeyboardselectionActivity">
+    tools:context="com.oscar.aikeyboard.latin.setup.KeyboardselectionActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginBottom="40dp"
-                android:background="@drawable/ic_oscar"
+                android:background="@drawable/ic_oscar_main"
                 app:layout_constraintBottom_toTopOf="@id/et_openOscar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

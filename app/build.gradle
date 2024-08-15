@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
+//apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdk 34
     buildToolsVersion = '34.0.0'
 
     defaultConfig {
-        applicationId "helium314.keyboard"
+        applicationId "com.oscar.aikeyboard"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 2200
@@ -25,6 +27,7 @@ android {
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
+            signingConfig signingConfigs.debug
         }
         nouserlib { // same as release, but does not allow the user to provide a library
             minifyEnabled true
@@ -42,7 +45,7 @@ android {
             minifyEnabled true
             jniDebuggable false
         }
-        archivesBaseName = "HeliBoard_" + defaultConfig.versionName
+        archivesBaseName = "OscarAI_" + defaultConfig.versionName
     }
 
     buildFeatures {
@@ -87,7 +90,7 @@ android {
         includeInBundle = false
     }
 
-    namespace "helium314.keyboard.latin"
+    namespace "com.oscar.aikeyboard"
     lint {
         abortOnError true
     }
@@ -134,5 +137,9 @@ dependencies {
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "org.greenrobot:eventbus:3.3.1"
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
 
+    // For Firebase Crashlytics & Analytics
+//    implementation platform("com.google.firebase:firebase-bom:33.1.2")
+//    implementation("com.google.firebase:firebase-analytics")
 }
