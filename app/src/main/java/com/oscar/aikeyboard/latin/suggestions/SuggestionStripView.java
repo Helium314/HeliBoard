@@ -306,7 +306,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 //    }
 
     public interface Listener {
-        void pickSuggestionManually(SuggestedWords.SuggestedWordInfo word);
+        void pickSuggestionManually(SuggestedWordInfo word);
 
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
 

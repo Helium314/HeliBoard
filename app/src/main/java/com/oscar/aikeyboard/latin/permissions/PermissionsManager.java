@@ -52,7 +52,7 @@ public class PermissionsManager {
     public synchronized void requestPermissions(@NonNull PermissionsResultCallback callback,
                                    @Nullable Activity activity,
                                    String... permissionsToRequest) {
-        List<String> deniedPermissions = com.oscar.aikeyboard.latin.permissions.PermissionsUtil.getDeniedPermissions(
+        List<String> deniedPermissions = PermissionsUtil.getDeniedPermissions(
                 mContext, permissionsToRequest);
         if (deniedPermissions.isEmpty()) {
             return;
@@ -64,9 +64,9 @@ public class PermissionsManager {
 
         mRequestIdToCallback.put(requestId, callback);
         if (activity != null) {
-            com.oscar.aikeyboard.latin.permissions.PermissionsUtil.requestPermissions(activity, requestId, permissionsArray);
+            PermissionsUtil.requestPermissions(activity, requestId, permissionsArray);
         } else {
-            com.oscar.aikeyboard.latin.permissions.PermissionsActivity.run(mContext, requestId, permissionsArray);
+            PermissionsActivity.run(mContext, requestId, permissionsArray);
         }
     }
 

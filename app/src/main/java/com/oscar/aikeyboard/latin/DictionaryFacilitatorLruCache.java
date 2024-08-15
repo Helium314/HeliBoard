@@ -37,7 +37,7 @@ public class DictionaryFacilitatorLruCache {
     }
 
     private static void waitForLoadingMainDictionary(
-            final com.oscar.aikeyboard.latin.DictionaryFacilitator dictionaryFacilitator) {
+            final DictionaryFacilitator dictionaryFacilitator) {
         for (int i = 0; i < MAX_RETRY_COUNT_FOR_WAITING_FOR_LOADING_DICT; i++) {
             try {
                 dictionaryFacilitator.waitForLoadingMainDictionaries(
@@ -78,7 +78,7 @@ public class DictionaryFacilitatorLruCache {
         }
     }
 
-    public com.oscar.aikeyboard.latin.DictionaryFacilitator get(final Locale locale) {
+    public DictionaryFacilitator get(final Locale locale) {
         synchronized (mLock) {
             if (!mDictionaryFacilitator.isForLocale(locale)) {
                 mLocale = locale;

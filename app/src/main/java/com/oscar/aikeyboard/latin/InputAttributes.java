@@ -102,8 +102,8 @@ public final class InputAttributes {
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
                 || hasNoMicrophoneKeyOption()
-                || !com.oscar.aikeyboard.latin.RichInputMethodManager.isInitialized() // avoid crash when only using spell checker
-                || !com.oscar.aikeyboard.latin.RichInputMethodManager.getInstance().hasShortcutIme();
+                || !RichInputMethodManager.isInitialized() // avoid crash when only using spell checker
+                || !RichInputMethodManager.getInstance().hasShortcutIme();
         mShouldShowVoiceInputKey = !noMicrophone;
 
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(

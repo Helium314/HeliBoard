@@ -24,7 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class DictionaryCollection extends Dictionary {
     private final String TAG = DictionaryCollection.class.getSimpleName();
-    protected final CopyOnWriteArrayList<com.oscar.aikeyboard.latin.Dictionary> mDictionaries;
+    protected final CopyOnWriteArrayList<Dictionary> mDictionaries;
 
     public DictionaryCollection(final String dictType, final Locale locale) {
         super(dictType, locale);
@@ -32,7 +32,7 @@ public final class DictionaryCollection extends Dictionary {
     }
 
     public DictionaryCollection(final String dictType, final Locale locale,
-            final com.oscar.aikeyboard.latin.Dictionary... dictionaries) {
+                                final Dictionary... dictionaries) {
         super(dictType, locale);
         if (null == dictionaries) {
             mDictionaries = new CopyOnWriteArrayList<>();
@@ -43,7 +43,7 @@ public final class DictionaryCollection extends Dictionary {
     }
 
     public DictionaryCollection(final String dictType, final Locale locale,
-            final Collection<com.oscar.aikeyboard.latin.Dictionary> dictionaries) {
+                                final Collection<Dictionary> dictionaries) {
         super(dictType, locale);
         mDictionaries = new CopyOnWriteArrayList<>(dictionaries);
         mDictionaries.removeAll(Collections.singleton(null));
@@ -51,11 +51,11 @@ public final class DictionaryCollection extends Dictionary {
 
     @Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final ComposedData composedData,
-                                                                                                 final NgramContext ngramContext, final long proximityInfoHandle,
-                                                                                                 final SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                                                 final int sessionId, final float weightForLocale,
-                                                                                                 final float[] inOutWeightOfLangModelVsSpatialModel) {
-        final CopyOnWriteArrayList<com.oscar.aikeyboard.latin.Dictionary> dictionaries = mDictionaries;
+                                                       final NgramContext ngramContext, final long proximityInfoHandle,
+                                                       final SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                       final int sessionId, final float weightForLocale,
+                                                       final float[] inOutWeightOfLangModelVsSpatialModel) {
+        final CopyOnWriteArrayList<Dictionary> dictionaries = mDictionaries;
         if (dictionaries.isEmpty()) return null;
         // To avoid creating unnecessary objects, we get the list out of the first
         // dictionary and add the rest to it if not null, hence the get(0)
@@ -64,7 +64,7 @@ public final class DictionaryCollection extends Dictionary {
                 weightForLocale, inOutWeightOfLangModelVsSpatialModel);
         if (null == suggestions) suggestions = new ArrayList<>();
         final int length = dictionaries.size();
-        for (int i = 1; i < length; ++ i) {
+        for (int i = 1; i < length; ++i) {
             final ArrayList<SuggestedWordInfo> sugg = dictionaries.get(i).getSuggestions(
                     composedData, ngramContext, proximityInfoHandle, settingsValuesForSuggestion,
                     sessionId, weightForLocale, inOutWeightOfLangModelVsSpatialModel);

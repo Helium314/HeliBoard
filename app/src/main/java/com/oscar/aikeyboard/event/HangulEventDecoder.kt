@@ -5,6 +5,7 @@ package com.oscar.aikeyboard.event
 import android.view.KeyEvent
 import com.oscar.aikeyboard.latin.RichInputMethodSubtype
 
+import com.oscar.aikeyboard.event.HangulCombiner.HangulJamo
 
 object HangulEventDecoder {
 
@@ -19,7 +20,7 @@ object HangulEventDecoder {
     @JvmStatic
     fun decodeSoftwareKeyEvent(event: Event): Event {
         if (event.isCombining) return event
-        return if (HangulCombiner.HangulJamo.of(event.mCodePoint) is HangulCombiner.HangulJamo.NonHangul) event
+        return if (HangulJamo.of(event.mCodePoint) is HangulCombiner.HangulJamo.NonHangul) event
         else Event.createCombiningEvent(event)
     }
 

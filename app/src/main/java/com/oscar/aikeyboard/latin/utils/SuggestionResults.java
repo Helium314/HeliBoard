@@ -6,6 +6,7 @@
 
 package com.oscar.aikeyboard.latin.utils;
 
+import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.define.ProductionFlags;
 
@@ -18,8 +19,8 @@ import java.util.TreeSet;
  * A TreeSet of SuggestedWordInfo that is bounded in size and throws everything that's smaller
  * than its limit
  */
-public final class SuggestionResults extends TreeSet<SuggestedWords.SuggestedWordInfo> {
-    public final ArrayList<SuggestedWords.SuggestedWordInfo> mRawSuggestions;
+public final class SuggestionResults extends TreeSet<SuggestedWordInfo> {
+    public final ArrayList<SuggestedWordInfo> mRawSuggestions;
     // TODO: Instead of a boolean , we may want to include the context of this suggestion results,
     // such as {@link NgramContext}.
     public final boolean mIsBeginningOfSentence;
@@ -27,12 +28,12 @@ public final class SuggestionResults extends TreeSet<SuggestedWords.SuggestedWor
     private final int mCapacity;
 
     public SuggestionResults(final int capacity, final boolean isBeginningOfSentence,
-            final boolean firstSuggestionExceedsConfidenceThreshold) {
+                             final boolean firstSuggestionExceedsConfidenceThreshold) {
         this(sSuggestedWordInfoComparator, capacity, isBeginningOfSentence,
                 firstSuggestionExceedsConfidenceThreshold);
     }
 
-    private SuggestionResults(final Comparator<SuggestedWords.SuggestedWordInfo> comparator, final int capacity,
+    private SuggestionResults(final Comparator<SuggestedWordInfo> comparator, final int capacity,
                               final boolean isBeginningOfSentence,
                               final boolean firstSuggestionExceedsConfidenceThreshold) {
         super(comparator);
@@ -47,7 +48,7 @@ public final class SuggestionResults extends TreeSet<SuggestedWords.SuggestedWor
     }
 
     @Override
-    public boolean add(final SuggestedWords.SuggestedWordInfo e) {
+    public boolean add(final SuggestedWordInfo e) {
         if (size() < mCapacity) return super.add(e);
         if (comparator().compare(e, last()) > 0) return false;
         super.add(e);
@@ -56,7 +57,7 @@ public final class SuggestionResults extends TreeSet<SuggestedWords.SuggestedWor
     }
 
     @Override
-    public boolean addAll(final Collection<? extends SuggestedWords.SuggestedWordInfo> e) {
+    public boolean addAll(final Collection<? extends SuggestedWordInfo> e) {
         if (null == e) return false;
         return super.addAll(e);
     }
@@ -65,7 +66,7 @@ public final class SuggestionResults extends TreeSet<SuggestedWords.SuggestedWor
         // This comparator ranks the word info with the higher frequency first. That's because
         // that's the order we want our elements in.
         @Override
-        public int compare(final SuggestedWords.SuggestedWordInfo o1, final SuggestedWords.SuggestedWordInfo o2) {
+        public int compare(final SuggestedWordInfo o1, final SuggestedWordInfo o2) {
             if (o1.mScore > o2.mScore) return -1;
             if (o1.mScore < o2.mScore) return 1;
             if (o1.mCodePointCount < o2.mCodePointCount) return -1;

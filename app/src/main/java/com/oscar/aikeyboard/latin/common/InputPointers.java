@@ -13,17 +13,17 @@ public final class InputPointers {
     private static final boolean DEBUG_TIME = false;
 
     private final int mDefaultCapacity;
-    private final com.oscar.aikeyboard.latin.common.ResizableIntArray mXCoordinates;
-    private final com.oscar.aikeyboard.latin.common.ResizableIntArray mYCoordinates;
-    private final com.oscar.aikeyboard.latin.common.ResizableIntArray mPointerIds;
-    private final com.oscar.aikeyboard.latin.common.ResizableIntArray mTimes;
+    private final ResizableIntArray mXCoordinates;
+    private final ResizableIntArray mYCoordinates;
+    private final ResizableIntArray mPointerIds;
+    private final ResizableIntArray mTimes;
 
     public InputPointers(final int defaultCapacity) {
         mDefaultCapacity = defaultCapacity;
-        mXCoordinates = new com.oscar.aikeyboard.latin.common.ResizableIntArray(defaultCapacity);
-        mYCoordinates = new com.oscar.aikeyboard.latin.common.ResizableIntArray(defaultCapacity);
-        mPointerIds = new com.oscar.aikeyboard.latin.common.ResizableIntArray(defaultCapacity);
-        mTimes = new com.oscar.aikeyboard.latin.common.ResizableIntArray(defaultCapacity);
+        mXCoordinates = new ResizableIntArray(defaultCapacity);
+        mYCoordinates = new ResizableIntArray(defaultCapacity);
+        mPointerIds = new ResizableIntArray(defaultCapacity);
+        mTimes = new ResizableIntArray(defaultCapacity);
     }
 
     private void fillWithLastTimeUntil(final int index) {
@@ -42,7 +42,7 @@ public final class InputPointers {
     }
 
     public void addPointerAt(final int index, final int x, final int y, final int pointerId,
-            final int time) {
+                             final int time) {
         mXCoordinates.addAt(index, x);
         mYCoordinates.addAt(index, y);
         mPointerIds.addAt(index, pointerId);
@@ -76,16 +76,17 @@ public final class InputPointers {
     /**
      * Append the times, x-coordinates and y-coordinates in the specified {@link com.oscar.aikeyboard.latin.common.ResizableIntArray}
      * to the end of this.
-     * @param pointerId the pointer id of the source.
-     * @param times the source {@link com.oscar.aikeyboard.latin.common.ResizableIntArray} to read the event times from.
+     *
+     * @param pointerId    the pointer id of the source.
+     * @param times        the source {@link com.oscar.aikeyboard.latin.common.ResizableIntArray} to read the event times from.
      * @param xCoordinates the source {@link com.oscar.aikeyboard.latin.common.ResizableIntArray} to read the x-coordinates from.
      * @param yCoordinates the source {@link com.oscar.aikeyboard.latin.common.ResizableIntArray} to read the y-coordinates from.
-     * @param startPos the starting index of the data in {@code times} and etc.
-     * @param length the number of data to be appended.
+     * @param startPos     the starting index of the data in {@code times} and etc.
+     * @param length       the number of data to be appended.
      */
-    public void append(final int pointerId, @NonNull final com.oscar.aikeyboard.latin.common.ResizableIntArray times,
-                       @NonNull final com.oscar.aikeyboard.latin.common.ResizableIntArray xCoordinates,
-                       @NonNull final com.oscar.aikeyboard.latin.common.ResizableIntArray yCoordinates, final int startPos, final int length) {
+    public void append(final int pointerId, @NonNull final ResizableIntArray times,
+                       @NonNull final ResizableIntArray xCoordinates,
+                       @NonNull final ResizableIntArray yCoordinates, final int startPos, final int length) {
         if (length == 0) {
             return;
         }
@@ -97,6 +98,7 @@ public final class InputPointers {
 
     /**
      * Shift to the left by elementCount, discarding elementCount pointers at the start.
+     *
      * @param elementCount how many elements to shift.
      */
     public void shift(final int elementCount) {
@@ -136,6 +138,7 @@ public final class InputPointers {
     /**
      * Gets the time each point was registered, in milliseconds, relative to the first event in the
      * sequence.
+     *
      * @return The time each point was registered, in milliseconds, relative to the first event in
      * the sequence.
      */

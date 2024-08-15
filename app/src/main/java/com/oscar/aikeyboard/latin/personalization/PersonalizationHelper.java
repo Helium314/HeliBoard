@@ -28,11 +28,11 @@ public class PersonalizationHelper {
     private static final String TAG = PersonalizationHelper.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final ConcurrentHashMap<String, SoftReference<com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary>>
+    private static final ConcurrentHashMap<String, SoftReference<UserHistoryDictionary>>
             sLangUserHistoryDictCache = new ConcurrentHashMap<>();
 
     @NonNull
-    public static com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary getUserHistoryDictionary(
+    public static UserHistoryDictionary getUserHistoryDictionary(
             final Context context, final Locale locale, @Nullable final String accountName) {
         String lookupStr = locale.toString();
         if (accountName != null) {
@@ -40,9 +40,9 @@ public class PersonalizationHelper {
         }
         synchronized (sLangUserHistoryDictCache) {
             if (sLangUserHistoryDictCache.containsKey(lookupStr)) {
-                final SoftReference<com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary> ref =
+                final SoftReference<UserHistoryDictionary> ref =
                         sLangUserHistoryDictCache.get(lookupStr);
-                final com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary dict = ref == null ? null : ref.get();
+                final UserHistoryDictionary dict = ref == null ? null : ref.get();
                 if (dict != null) {
                     if (DEBUG) {
                         Log.d(TAG, "Use cached UserHistoryDictionary with lookup: " + lookupStr);
@@ -51,7 +51,7 @@ public class PersonalizationHelper {
                     return dict;
                 }
             }
-            final com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary dict = new com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary(
+            final UserHistoryDictionary dict = new UserHistoryDictionary(
                     context, locale, accountName);
             sLangUserHistoryDictCache.put(lookupStr, new SoftReference<>(dict));
             return dict;
@@ -60,10 +60,10 @@ public class PersonalizationHelper {
 
     public static void removeAllUserHistoryDictionaries(final Context context) {
         synchronized (sLangUserHistoryDictCache) {
-            for (final ConcurrentHashMap.Entry<String, SoftReference<com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary>> entry
+            for (final ConcurrentHashMap.Entry<String, SoftReference<UserHistoryDictionary>> entry
                     : sLangUserHistoryDictCache.entrySet()) {
                 if (entry.getValue() != null) {
-                    final com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary dict = entry.getValue().get();
+                    final UserHistoryDictionary dict = entry.getValue().get();
                     if (dict != null) {
                         dict.clear();
                     }
@@ -76,10 +76,10 @@ public class PersonalizationHelper {
                 return;
             }
             final boolean filesDeleted = FileUtils.deleteFilteredFiles(
-                    filesDir, new DictFilter(com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary.NAME));
+                    filesDir, new DictFilter(UserHistoryDictionary.NAME));
             if (!filesDeleted) {
                 Log.e(TAG, "Cannot remove dictionary files. filesDir: " + filesDir.getAbsolutePath()
-                        + ", dictNamePrefix: " + com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary.NAME);
+                        + ", dictNamePrefix: " + UserHistoryDictionary.NAME);
             }
         }
     }

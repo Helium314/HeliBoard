@@ -23,7 +23,7 @@ public final class GestureStrokeDrawingPoints {
 
     private int mStrokeId;
     private int mLastPreviewSize;
-    private final com.oscar.aikeyboard.keyboard.internal.HermiteInterpolator mInterpolator = new HermiteInterpolator();
+    private final HermiteInterpolator mInterpolator = new HermiteInterpolator();
     private int mLastInterpolatedPreviewIndex;
 
     private int mLastX;
@@ -91,8 +91,8 @@ public final class GestureStrokeDrawingPoints {
         eventTimes.append(mPreviewEventTimes, mLastPreviewSize, length);
         xCoords.append(mPreviewXCoordinates, mLastPreviewSize, length);
         yCoords.append(mPreviewYCoordinates, mLastPreviewSize, length);
-        if (com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
-            types.fill(com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.POINT_TYPE_SAMPLED, types.getLength(), length);
+        if (GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
+            types.fill(GestureTrailDrawingPoints.POINT_TYPE_SAMPLED, types.getLength(), length);
         }
         mLastPreviewSize = mPreviewEventTimes.getLength();
     }
@@ -151,16 +151,16 @@ public final class GestureStrokeDrawingPoints {
                 eventTimes.addAt(d1, (int)(dt * t) + t1);
                 xCoords.addAt(d1, (int)mInterpolator.mInterpolatedX);
                 yCoords.addAt(d1, (int)mInterpolator.mInterpolatedY);
-                if (com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
-                    types.addAt(d1, com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.POINT_TYPE_INTERPOLATED);
+                if (GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
+                    types.addAt(d1, GestureTrailDrawingPoints.POINT_TYPE_INTERPOLATED);
                 }
                 d1++;
             }
             eventTimes.addAt(d1, pt[p2]);
             xCoords.addAt(d1, px[p2]);
             yCoords.addAt(d1, py[p2]);
-            if (com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
-                types.addAt(d1, com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingPoints.POINT_TYPE_SAMPLED);
+            if (GestureTrailDrawingPoints.DEBUG_SHOW_POINTS) {
+                types.addAt(d1, GestureTrailDrawingPoints.POINT_TYPE_SAMPLED);
             }
         }
         return lastInterpolatedDrawIndex;

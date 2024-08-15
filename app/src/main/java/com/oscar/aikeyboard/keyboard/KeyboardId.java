@@ -82,7 +82,7 @@ public final class KeyboardId {
 
     private final int mHashCode;
 
-    public KeyboardId(final int elementId, final com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.Params params) {
+    public KeyboardId(final int elementId, final KeyboardLayoutSet.Params params) {
         mSubtype = params.mSubtype;
         mWidth = params.mKeyboardWidth;
         mHeight = params.mKeyboardHeight;

@@ -52,7 +52,7 @@ public class KeyboardParams {
     public int mRightPadding;
 
     @Nullable
-    public com.oscar.aikeyboard.keyboard.internal.KeyVisualAttributes mKeyVisualAttributes;
+    public KeyVisualAttributes mKeyVisualAttributes;
 
     public float mDefaultRowHeight;
     public float mDefaultKeyWidth;
@@ -87,7 +87,7 @@ public class KeyboardParams {
     public final ArrayList<String> mPopupKeyLabelSources = new ArrayList<>();
 
     @NonNull
-    private final com.oscar.aikeyboard.keyboard.internal.UniqueKeysCache mUniqueKeysCache;
+    private final UniqueKeysCache mUniqueKeysCache;
     public boolean mAllowRedundantPopupKeys;
     @NonNull
     public LocaleKeyboardInfos mLocaleKeyboardInfos;
@@ -99,7 +99,7 @@ public class KeyboardParams {
     public boolean mProximityCharsCorrectionEnabled;
 
     @NonNull
-    public final com.oscar.aikeyboard.keyboard.internal.TouchPositionCorrection mTouchPositionCorrection = new com.oscar.aikeyboard.keyboard.internal.TouchPositionCorrection();
+    public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
 
     // Comparator to sort {@link Key}s from top-left to bottom-right order.
     private static final Comparator<Key> ROW_COLUMN_COMPARATOR = (lhs, rhs) -> {
@@ -111,10 +111,10 @@ public class KeyboardParams {
     };
 
     public KeyboardParams() {
-        this(com.oscar.aikeyboard.keyboard.internal.UniqueKeysCache.NO_CACHE);
+        this(UniqueKeysCache.NO_CACHE);
     }
 
-    public KeyboardParams(@NonNull final com.oscar.aikeyboard.keyboard.internal.UniqueKeysCache keysCache) {
+    public KeyboardParams(@NonNull final UniqueKeysCache keysCache) {
         mUniqueKeysCache = keysCache;
     }
 
@@ -148,8 +148,8 @@ public class KeyboardParams {
         if (mAllowRedundantPopupKeys) {
             return;
         }
-        final com.oscar.aikeyboard.keyboard.internal.PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
-                new com.oscar.aikeyboard.keyboard.internal.PopupKeySpec.LettersOnBaseLayout();
+        final PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
+                new PopupKeySpec.LettersOnBaseLayout();
         for (final Key key : mSortedKeys) {
             lettersOnBaseLayout.addLetter(key);
         }
@@ -261,7 +261,7 @@ public class KeyboardParams {
                 mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight);
             }
 
-            mKeyVisualAttributes = com.oscar.aikeyboard.keyboard.internal.KeyVisualAttributes.newInstance(keyAttr);
+            mKeyVisualAttributes = KeyVisualAttributes.newInstance(keyAttr);
 
             mPopupKeysTemplate = keyboardAttr.getResourceId(R.styleable.Keyboard_popupKeysTemplate, 0);
             mMaxPopupKeysKeyboardColumn = keyAttr.getInt(R.styleable.Keyboard_Key_maxPopupKeysColumn, 5);

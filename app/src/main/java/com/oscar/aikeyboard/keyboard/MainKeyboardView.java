@@ -64,12 +64,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.WeakHashMap;
 
-/** A view that is responsible for detecting key presses and touch movements. */
+/**
+ * A view that is responsible for detecting key presses and touch movements.
+ */
 public final class MainKeyboardView extends KeyboardView implements DrawingProxy,
         PopupKeysPanel.Controller {
     private static final String TAG = MainKeyboardView.class.getSimpleName();
 
-    /** Listener for {@link KeyboardActionListener}. */
+    /**
+     * Listener for {@link KeyboardActionListener}.
+     */
     private KeyboardActionListener mKeyboardActionListener;
 
     /* Space key and its icon and background. */
@@ -113,13 +117,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private final boolean mConfigShowPopupKeysKeyboardAtTouchedPoint;
     // More keys panel (used by both popup keys keyboard and more suggestions view)
     // TODO: Consider extending to support multiple popup keys panels
-    private com.oscar.aikeyboard.keyboard.PopupKeysPanel mPopupKeysPanel;
+    private PopupKeysPanel mPopupKeysPanel;
 
     // Gesture floating preview text
     // TODO: Make this parameter customizable by user via settings.
     private final int mGestureFloatingPreviewTextLingerTimeout;
 
-    private final com.oscar.aikeyboard.keyboard.KeyDetector mKeyDetector;
+    private final KeyDetector mKeyDetector;
     private final NonDistinctMultitouchHelper mNonDistinctMultitouchHelper;
 
     private final TimerHandler mTimerHandler;
@@ -149,9 +153,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 R.styleable.MainKeyboardView_keyHysteresisDistance, 0.0f);
         final float keyHysteresisDistanceForSlidingModifier = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_keyHysteresisDistanceForSlidingModifier, 0.0f);
-        mKeyDetector = new com.oscar.aikeyboard.keyboard.KeyDetector(keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
+        mKeyDetector = new KeyDetector(keyHysteresisDistance, keyHysteresisDistanceForSlidingModifier);
 
-        com.oscar.aikeyboard.keyboard.PointerTracker.init(mainKeyboardViewAttr, mTimerHandler, this /* DrawingProxy */);
+        PointerTracker.init(mainKeyboardViewAttr, mTimerHandler, this /* DrawingProxy */);
 
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
         final boolean forceNonDistinctMultitouch = prefs.getBoolean(
@@ -219,7 +223,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
-        mLanguageOnSpacebarHorizontalMargin = (int)getResources().getDimension(
+        mLanguageOnSpacebarHorizontalMargin = (int) getResources().getDimension(
                 R.dimen.config_language_on_spacebar_horizontal_margin);
     }
 
@@ -234,7 +238,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             // TODO: Stop returning null.
             return null;
         }
-        final ObjectAnimator animator = (ObjectAnimator)AnimatorInflater.loadAnimator(
+        final ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(
                 getContext(), resId);
         if (animator != null) {
             animator.setTarget(target);
@@ -243,7 +247,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     private static void cancelAndStartAnimators(final ObjectAnimator animatorToCancel,
-            final ObjectAnimator animatorToStart) {
+                                                final ObjectAnimator animatorToStart) {
         if (animatorToCancel == null || animatorToStart == null) {
             // TODO: Stop using null as a no-operation animator.
             return;
@@ -253,16 +257,18 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             animatorToCancel.cancel();
             startFraction = 1.0f - animatorToCancel.getAnimatedFraction();
         }
-        final long startTime = (long)(animatorToStart.getDuration() * startFraction);
+        final long startTime = (long) (animatorToStart.getDuration() * startFraction);
         animatorToStart.start();
         animatorToStart.setCurrentPlayTime(startTime);
     }
 
     // Implements {@link DrawingProxy#startWhileTypingAnimation(int)}.
+
     /**
      * Called when a while-typing-animation should be started.
+     *
      * @param fadeInOrOut {@link DrawingProxy#FADE_IN} starts while-typing-fade-in animation.
-     * {@link DrawingProxy#FADE_OUT} starts while-typing-fade-out animation.
+     *                    {@link DrawingProxy#FADE_OUT} starts while-typing-fade-out animation.
      */
     @Override
     public void startWhileTypingAnimation(final int fadeInOrOut) {
@@ -281,7 +287,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
         mKeyboardActionListener = listener;
-        com.oscar.aikeyboard.keyboard.PointerTracker.setKeyboardActionListener(listener);
+        PointerTracker.setKeyboardActionListener(listener);
     }
 
     // TODO: We should reconsider which coordinate system should be used to represent keyboard event.
@@ -297,9 +303,10 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     /**
      * Attaches a keyboard to this view. The keyboard can be switched at any time and the
      * view will re-layout itself to accommodate the keyboard.
+     *
+     * @param keyboard the keyboard to display in this view
      * @see Keyboard
      * @see #getKeyboard()
-     * @param keyboard the keyboard to display in this view
      */
     @Override
     public void setKeyboard(@NonNull final Keyboard keyboard) {
@@ -308,7 +315,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
-        com.oscar.aikeyboard.keyboard.PointerTracker.setKeyDetector(mKeyDetector);
+        PointerTracker.setKeyDetector(mKeyDetector);
         mPopupKeysKeyboardCache.clear();
 
         mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);
@@ -328,6 +335,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     /**
      * Enables or disables the key preview popup. This is a popup that shows a magnified
      * version of the depressed key. By default the preview is enabled.
+     *
      * @param previewEnabled whether or not to enable the key feedback preview
      */
     public void setKeyPreviewPopupEnabled(final boolean previewEnabled) {
@@ -378,7 +386,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         locatePreviewPlacerView();
         getLocationInWindow(mOriginCoords);
         mKeyPreviewChoreographer.placeAndShowKeyPreview(key, keyboard.mIconsSet, getKeyDrawParams(),
-                com.oscar.aikeyboard.keyboard.KeyboardSwitcher.getInstance().getWrapperView().getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
+                KeyboardSwitcher.getInstance().getWrapperView().getWidth(), mOriginCoords, mDrawingPreviewPlacerView);
     }
 
     private void dismissKeyPreviewWithoutDelay(@NonNull final Key key) {
@@ -411,7 +419,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    public void showSlidingKeyInputPreview(@Nullable final com.oscar.aikeyboard.keyboard.PointerTracker tracker) {
+    public void showSlidingKeyInputPreview(@Nullable final PointerTracker tracker) {
         locatePreviewPlacerView();
         if (tracker != null) {
             mSlidingKeyInputDrawingPreview.setPreviewPosition(tracker);
@@ -421,13 +429,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     private void setGesturePreviewMode(final boolean isGestureTrailEnabled,
-            final boolean isGestureFloatingPreviewTextEnabled) {
+                                       final boolean isGestureFloatingPreviewTextEnabled) {
         mGestureFloatingTextDrawingPreview.setPreviewEnabled(isGestureFloatingPreviewTextEnabled);
         mGestureTrailsDrawingPreview.setPreviewEnabled(isGestureTrailEnabled);
     }
 
     public void showGestureFloatingPreviewText(@NonNull final SuggestedWords suggestedWords,
-            final boolean dismissDelayed) {
+                                               final boolean dismissDelayed) {
         locatePreviewPlacerView();
         mGestureFloatingTextDrawingPreview.setSuggestedWords(suggestedWords);
         if (dismissDelayed) {
@@ -443,8 +451,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
-    public void showGestureTrail(@NonNull final com.oscar.aikeyboard.keyboard.PointerTracker tracker,
-            final boolean showsFloatingPreviewText) {
+    public void showGestureTrail(@NonNull final PointerTracker tracker,
+                                 final boolean showsFloatingPreviewText) {
         locatePreviewPlacerView();
         if (showsFloatingPreviewText) {
             mGestureFloatingTextDrawingPreview.setPreviewPosition(tracker);
@@ -455,13 +463,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // Note that this method is called from a non-UI thread.
     @SuppressWarnings("static-method")
     public void setMainDictionaryAvailability(final boolean mainDictionaryAvailable) {
-        com.oscar.aikeyboard.keyboard.PointerTracker.setMainDictionaryAvailability(mainDictionaryAvailable);
+        PointerTracker.setMainDictionaryAvailability(mainDictionaryAvailable);
     }
 
     public void setGestureHandlingEnabledByUser(final boolean isGestureHandlingEnabledByUser,
-            final boolean isGestureTrailEnabled,
-            final boolean isGestureFloatingPreviewTextEnabled) {
-        com.oscar.aikeyboard.keyboard.PointerTracker.setGestureHandlingEnabledByUser(isGestureHandlingEnabledByUser);
+                                                final boolean isGestureTrailEnabled,
+                                                final boolean isGestureFloatingPreviewTextEnabled) {
+        PointerTracker.setGestureHandlingEnabledByUser(isGestureHandlingEnabledByUser);
         setGesturePreviewMode(isGestureHandlingEnabledByUser && isGestureTrailEnabled,
                 isGestureHandlingEnabledByUser && isGestureFloatingPreviewTextEnabled);
     }
@@ -481,8 +489,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     // Implements {@link DrawingProxy@showPopupKeysKeyboard(Key,PointerTracker)}.
     @Override
     @Nullable
-    public com.oscar.aikeyboard.keyboard.PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
-                                                                              @NonNull final com.oscar.aikeyboard.keyboard.PointerTracker tracker) {
+    public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key,
+                                                @NonNull final PointerTracker tracker) {
         final PopupKeySpec[] popupKeys = key.getPopupKeys();
         if (popupKeys == null) {
             return null;
@@ -497,7 +505,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             final boolean isSinglePopupKeyWithPreview = mKeyPreviewDrawParams.isPopupEnabled()
                     && !key.noKeyPreview() && popupKeys.length == 1
                     && mKeyPreviewDrawParams.getVisibleWidth() > 0;
-            final com.oscar.aikeyboard.keyboard.PopupKeysKeyboard.Builder builder = new com.oscar.aikeyboard.keyboard.PopupKeysKeyboard.Builder(
+            final PopupKeysKeyboard.Builder builder = new PopupKeysKeyboard.Builder(
                     getContext(), key, getKeyboard(), isSinglePopupKeyWithPreview,
                     mKeyPreviewDrawParams.getVisibleWidth(),
                     mKeyPreviewDrawParams.getVisibleHeight(), newLabelPaint(key));
@@ -507,7 +515,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         final View container = key.hasActionKeyBackground() ? mPopupKeysKeyboardForActionContainer
                 : mPopupKeysKeyboardContainer;
-        final com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView popupKeysKeyboardView =
+        final PopupKeysKeyboardView popupKeysKeyboardView =
                 container.findViewById(R.id.popup_keys_keyboard_view);
         popupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -536,16 +544,16 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         if (isShowingPopupKeysPanel()) {
             return true;
         }
-        return com.oscar.aikeyboard.keyboard.PointerTracker.isAnyInDraggingFinger();
+        return PointerTracker.isAnyInDraggingFinger();
     }
 
     @Override
-    public void onShowPopupKeysPanel(final com.oscar.aikeyboard.keyboard.PopupKeysPanel panel) {
+    public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
         locatePreviewPlacerView();
         // Dismiss another {@link PopupKeysPanel} that may be being showed.
         onDismissPopupKeysPanel();
         // Dismiss all key previews that may be being showed.
-        com.oscar.aikeyboard.keyboard.PointerTracker.setReleasedKeyGraphicsToAllKeys();
+        PointerTracker.setReleasedKeyGraphicsToAllKeys();
         // Dismiss sliding key input preview that may be being showed.
         mSlidingKeyInputDrawingPreview.dismissSlidingKeyInputPreview();
         panel.showInParent(mDrawingPreviewPlacerView);
@@ -558,7 +566,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     @Override
     public void onCancelPopupKeysPanel() {
-        com.oscar.aikeyboard.keyboard.PointerTracker.dismissAllPopupKeysPanels();
+        PointerTracker.dismissAllPopupKeysPanels();
     }
 
     @Override
@@ -601,11 +609,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public boolean processMotionEvent(final MotionEvent event) {
         final int index = event.getActionIndex();
         final int id = event.getPointerId(index);
-        final com.oscar.aikeyboard.keyboard.PointerTracker tracker = com.oscar.aikeyboard.keyboard.PointerTracker.getPointerTracker(id);
+        final PointerTracker tracker = PointerTracker.getPointerTracker(id);
         // When a popup keys panel is showing, we should ignore other fingers' single touch events
         // other than the finger that is showing the popup keys panel.
         if (isShowingPopupKeysPanel() && !tracker.isShowingPopupKeysPanel()
-                && com.oscar.aikeyboard.keyboard.PointerTracker.getActivePointerTrackerCount() == 1) {
+                && PointerTracker.getActivePointerTrackerCount() == 1) {
             return true;
         }
         tracker.processMotionEvent(event, mKeyDetector);
@@ -614,11 +622,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     public void cancelAllOngoingEvents() {
         mTimerHandler.cancelAllMessages();
-        com.oscar.aikeyboard.keyboard.PointerTracker.setReleasedKeyGraphicsToAllKeys();
+        PointerTracker.setReleasedKeyGraphicsToAllKeys();
         mGestureFloatingTextDrawingPreview.dismissGestureFloatingPreviewText();
         mSlidingKeyInputDrawingPreview.dismissSlidingKeyInputPreview();
-        com.oscar.aikeyboard.keyboard.PointerTracker.dismissAllPopupKeysPanels();
-        com.oscar.aikeyboard.keyboard.PointerTracker.cancelAllPointerTrackers();
+        PointerTracker.dismissAllPopupKeysPanels();
+        PointerTracker.cancelAllPointerTrackers();
     }
 
     public void closing() {
@@ -662,8 +670,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     public void startDisplayLanguageOnSpacebar(final boolean subtypeChanged,
-            final int languageOnSpacebarFormatType,
-            final boolean hasMultipleEnabledIMEsOrSubtypes) {
+                                               final int languageOnSpacebarFormatType,
+                                               final boolean hasMultipleEnabledIMEsOrSubtypes) {
         if (subtypeChanged) {
             KeyPreviewView.clearTextCache();
         }
@@ -691,7 +699,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
     @Override
     protected void onDrawKeyTopVisuals(@NonNull final Key key, @NonNull final Canvas canvas,
-            @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
+                                       @NonNull final Paint paint, @NonNull final KeyDrawParams params) {
         if (key.altCodeWhileTyping() && key.isEnabled()) {
             params.mAnimAlpha = mAltCodeKeyWhileTypingAnimAlpha;
         }
@@ -775,7 +783,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     private List<Locale> withoutDuplicateLanguages(List<Locale> locales, String mainLanguage) {
-        ArrayList<String> languages = new ArrayList<String>() {{ add(mainLanguage); }};
+        ArrayList<String> languages = new ArrayList<String>() {{
+            add(mainLanguage);
+        }};
         ArrayList<Locale> newLocales = new ArrayList<>();
         for (Locale locale : locales) {
             boolean keep = true;
@@ -803,10 +813,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         paint.setTextSize(mLanguageOnSpacebarTextSize);
         final String languageText;
         if (DebugFlags.DEBUG_ENABLED) {
-            final String l = com.oscar.aikeyboard.keyboard.KeyboardSwitcher.getInstance().getLocaleAndConfidenceInfo();
+            final String l = KeyboardSwitcher.getInstance().getLocaleAndConfidenceInfo();
             languageText = l != null ? l : layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
-        }
-        else
+        } else
             languageText = layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
         // Draw language text with shadow
         final float descent = paint.descent();

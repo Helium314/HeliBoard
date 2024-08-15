@@ -14,11 +14,11 @@ import com.oscar.aikeyboard.latin.utils.Log;
 public class DictionaryDumpBroadcastReceiver extends BroadcastReceiver {
   private static final String TAG = DictionaryDumpBroadcastReceiver.class.getSimpleName();
 
-    private static final String DOMAIN = "helium314.keyboard.latin";
+    private static final String DOMAIN = "com.oscar.aikeyboard.latin";
     public static final String DICTIONARY_DUMP_INTENT_ACTION = DOMAIN + ".DICT_DUMP";
     public static final String DICTIONARY_NAME_KEY = "dictName";
 
-    final com.oscar.aikeyboard.latin.LatinIME mLatinIme;
+    final LatinIME mLatinIme;
 
     public DictionaryDumpBroadcastReceiver(final LatinIME latinIme) {
         mLatinIme = latinIme;

@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * For Korean dictionary, there are too many cases of characters to store on dictionary, which makes it slow.
  * To solve that, Unicode normalization is used to decompose Hangul syllables into Hangul jamos.
  */
-public class KoreanDictionary extends com.oscar.aikeyboard.latin.Dictionary {
+public class KoreanDictionary extends Dictionary {
 
     private static final String COMPAT_JAMO = HangulCombiner.HangulJamo.COMPAT_CONSONANTS + HangulCombiner.HangulJamo.COMPAT_VOWELS;
     private static final String STANDARD_JAMO = HangulCombiner.HangulJamo.CONVERT_INITIALS + HangulCombiner.HangulJamo.CONVERT_MEDIALS;
 
-    private final com.oscar.aikeyboard.latin.Dictionary mDictionary;
+    private final Dictionary mDictionary;
 
-    public KoreanDictionary(com.oscar.aikeyboard.latin.Dictionary dictionary) {
+    public KoreanDictionary(Dictionary dictionary) {
         super(dictionary.mDictType, dictionary.mLocale);
         mDictionary = dictionary;
     }
@@ -42,17 +42,17 @@ public class KoreanDictionary extends com.oscar.aikeyboard.latin.Dictionary {
     }
 
     @Override
-    public ArrayList<com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData,
-                                                                                                 NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                                                 int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
+    public ArrayList<SuggestedWords.SuggestedWordInfo> getSuggestions(ComposedData composedData,
+                                                                      NgramContext ngramContext, long proximityInfoHandle, SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                                      int sessionId, float weightForLocale, float[] inOutWeightOfLangModelVsSpatialModel) {
         composedData = new ComposedData(composedData.mInputPointers,
                 composedData.mIsBatchMode, processInput(composedData.mTypedWord));
-        ArrayList<com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData,
+        ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = mDictionary.getSuggestions(composedData,
                 ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId,
                 weightForLocale, inOutWeightOfLangModelVsSpatialModel);
-        ArrayList<com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
-        for (com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo info : suggestions) {
-            result.add(new com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
+        ArrayList<SuggestedWords.SuggestedWordInfo> result = new ArrayList<>();
+        for (SuggestedWords.SuggestedWordInfo info : suggestions) {
+            result.add(new SuggestedWords.SuggestedWordInfo(processOutput(info.mWord), info.mPrevWordsContext,
                     info.mScore, info.mKindAndFlags, info.mSourceDict, info.mIndexOfTouchPointOfSecondWord, info.mAutoCommitFirstWordConfidence));
         }
         return result;

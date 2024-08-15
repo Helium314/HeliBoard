@@ -2,7 +2,6 @@ package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
 
-import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.utils.Log;
 import android.util.SparseArray;
 
@@ -298,7 +297,7 @@ public final class BinaryDictionary extends Dictionary {
                     session.mInputOutputWeightOfLangModelVsSpatialModel[0];
         }
         final int count = session.mOutputSuggestionCount[0];
-        final ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = new ArrayList<>();
+        final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
         for (int j = 0; j < count; ++j) {
             final int start = j * DICTIONARY_MAX_WORD_LENGTH;
             int len = 0;

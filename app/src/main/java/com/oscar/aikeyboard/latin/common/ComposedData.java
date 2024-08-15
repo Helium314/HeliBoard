@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
  */
 public class ComposedData {
     @NonNull
-    public final com.oscar.aikeyboard.latin.common.InputPointers mInputPointers;
+    public final InputPointers mInputPointers;
     public final boolean mIsBatchMode;
     @NonNull
     public final String mTypedWord;
 
-    public ComposedData(@NonNull final com.oscar.aikeyboard.latin.common.InputPointers inputPointers, final boolean isBatchMode,
+    public ComposedData(@NonNull final InputPointers inputPointers, final boolean isBatchMode,
                         @NonNull final String typedWord) {
         mInputPointers = inputPointers;
         mIsBatchMode = isBatchMode;
@@ -38,7 +38,7 @@ public class ComposedData {
             @NonNull final int[] destination) {
         // lastIndex is exclusive
         final int lastIndex = mTypedWord.length()
-                - com.oscar.aikeyboard.latin.common.StringUtils.getTrailingSingleQuotesCount(mTypedWord);
+                - StringUtils.getTrailingSingleQuotesCount(mTypedWord);
         if (lastIndex <= 0) {
             // The string is empty or contains only single quotes.
             return 0;
@@ -50,7 +50,7 @@ public class ComposedData {
         if (codePointSize > destination.length) {
             return -1;
         }
-        return com.oscar.aikeyboard.latin.common.StringUtils.copyCodePointsAndReturnCodePointCount(destination, mTypedWord, 0,
+        return StringUtils.copyCodePointsAndReturnCodePointCount(destination, mTypedWord, 0,
                 lastIndex, true /* downCase */);
     }
 }

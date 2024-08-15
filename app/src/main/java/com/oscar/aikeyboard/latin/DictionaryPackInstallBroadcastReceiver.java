@@ -44,7 +44,7 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
         mService = null;
     }
 
-    public DictionaryPackInstallBroadcastReceiver(final com.oscar.aikeyboard.latin.LatinIME service) {
+    public DictionaryPackInstallBroadcastReceiver(final LatinIME service) {
         mService = service;
     }
 

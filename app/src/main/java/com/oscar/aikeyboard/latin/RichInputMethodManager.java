@@ -54,7 +54,7 @@ public class RichInputMethodManager {
     private Context mContext;
     private InputMethodManager mImm;
     private InputMethodInfoCache mInputMethodInfoCache;
-    private com.oscar.aikeyboard.latin.RichInputMethodSubtype mCurrentRichInputMethodSubtype;
+    private RichInputMethodSubtype mCurrentRichInputMethodSubtype;
     private InputMethodInfo mShortcutInputMethodInfo;
     private InputMethodSubtype mShortcutSubtype;
 
@@ -210,10 +210,10 @@ public class RichInputMethodManager {
         }
     }
 
-    private static com.oscar.aikeyboard.latin.RichInputMethodSubtype sForcedSubtypeForTesting = null;
+    private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
-        sForcedSubtypeForTesting = com.oscar.aikeyboard.latin.RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
     @NonNull
@@ -225,7 +225,7 @@ public class RichInputMethodManager {
     }
 
     @NonNull
-    public com.oscar.aikeyboard.latin.RichInputMethodSubtype getCurrentSubtype() {
+    public RichInputMethodSubtype getCurrentSubtype() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting;
         }
@@ -357,14 +357,14 @@ public class RichInputMethodManager {
 
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
         SubtypeSettingsKt.setSelectedSubtype(DeviceProtectedUtils.getSharedPreferences(mContext), subtype);
-        mCurrentRichInputMethodSubtype = com.oscar.aikeyboard.latin.RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
     public static boolean canSwitchLanguage() {
         if (!isInitialized()) return false;
-        if (com.oscar.aikeyboard.latin.settings.Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
             return true;
-        if (com.oscar.aikeyboard.latin.settings.Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
+        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
             return true;
         return false;
     }
@@ -379,7 +379,7 @@ public class RichInputMethodManager {
                     + (mShortcutSubtype == null ? "<null>" : (
                             mShortcutSubtype.getLocale() + ", " + mShortcutSubtype.getMode())));
         }
-        final com.oscar.aikeyboard.latin.RichInputMethodSubtype richSubtype = mCurrentRichInputMethodSubtype;
+        final RichInputMethodSubtype richSubtype = mCurrentRichInputMethodSubtype;
         final boolean implicitlyEnabledSubtype = checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(
                 richSubtype.getRawSubtype());
         final Locale systemLocale = ConfigurationCompatKt.locale(mContext.getResources().getConfiguration());

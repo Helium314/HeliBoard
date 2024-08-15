@@ -22,7 +22,7 @@ class InputLogicHandler implements Handler.Callback {
     final Handler mNonUIThreadHandler;
     // TODO: remove this reference.
     final LatinIME mLatinIME;
-    final com.oscar.aikeyboard.latin.inputlogic.InputLogic mInputLogic;
+    final InputLogic mInputLogic;
     private final Object mLock = new Object();
     private boolean mInBatchInput; // synchronized using {@link #mLock}.
 
@@ -56,7 +56,7 @@ class InputLogicHandler implements Handler.Callback {
         mInputLogic = null;
     }
 
-    public InputLogicHandler(final LatinIME latinIME, final com.oscar.aikeyboard.latin.inputlogic.InputLogic inputLogic) {
+    public InputLogicHandler(final LatinIME latinIME, final InputLogic inputLogic) {
         final HandlerThread handlerThread = new HandlerThread(
                 InputLogicHandler.class.getSimpleName());
         handlerThread.start();

@@ -15,6 +15,7 @@ import com.oscar.aikeyboard.latin.common.StringUtilsKt;
 import com.oscar.aikeyboard.latin.settings.SettingsValues;
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils;
 import com.oscar.aikeyboard.latin.utils.Log;
+
 import android.util.LruCache;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     // dictionary.
     private static final int CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT = 140;
 
-    private ArrayList<DictionaryGroup> mDictionaryGroups = new ArrayList<>() {{ add(new DictionaryGroup()); }};
+    private ArrayList<DictionaryGroup> mDictionaryGroups = new ArrayList<>() {{
+        add(new DictionaryGroup());
+    }};
     private volatile CountDownLatch mLatchForWaitingLoadingMainDictionaries = new CountDownLatch(0);
     // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
     private final Object mLock = new Object();
@@ -123,14 +126,17 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         /**
          * The locale associated with the dictionary group.
          */
-        @NonNull public final Locale mLocale;
+        @NonNull
+        public final Locale mLocale;
 
         /**
          * The user account associated with the dictionary group.
          */
-        @Nullable public final String mAccount;
+        @Nullable
+        public final String mAccount;
 
-        @Nullable private Dictionary mMainDict;
+        @Nullable
+        private Dictionary mMainDict;
         // Confidence that the most probable language is actually the language the user is
         // typing in. For now, this is simply the number of times a word from this language
         // has been committed in a row, with an exception when typing a single word not contained
@@ -174,7 +180,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
             return 1f;
         }
-        public final ConcurrentHashMap<String, com.oscar.aikeyboard.latin.ExpandableBinaryDictionary> mSubDictMap =
+
+        public final ConcurrentHashMap<String, ExpandableBinaryDictionary> mSubDictMap =
                 new ConcurrentHashMap<>();
 
         public DictionaryGroup() {
@@ -182,19 +189,19 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
 
         public DictionaryGroup(@NonNull final Locale locale,
-                @Nullable final Dictionary mainDict,
-                @Nullable final String account,
-                @NonNull final Map<String, com.oscar.aikeyboard.latin.ExpandableBinaryDictionary> subDicts) {
+                               @Nullable final Dictionary mainDict,
+                               @Nullable final String account,
+                               @NonNull final Map<String, ExpandableBinaryDictionary> subDicts) {
             mLocale = locale;
             mAccount = account;
             // The main dictionary can be asynchronously loaded.
             setMainDict(mainDict);
-            for (final Map.Entry<String, com.oscar.aikeyboard.latin.ExpandableBinaryDictionary> entry : subDicts.entrySet()) {
+            for (final Map.Entry<String, ExpandableBinaryDictionary> entry : subDicts.entrySet()) {
                 setSubDict(entry.getKey(), entry.getValue());
             }
         }
 
-        private void setSubDict(@NonNull final String dictType, @NonNull final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary dict) {
+        private void setSubDict(@NonNull final String dictType, @NonNull final ExpandableBinaryDictionary dict) {
             mSubDictMap.put(dictType, dict);
         }
 
@@ -214,7 +221,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return getSubDict(dictType);
         }
 
-        public @Nullable com.oscar.aikeyboard.latin.ExpandableBinaryDictionary getSubDict(@NonNull final String dictType) {
+        public @Nullable ExpandableBinaryDictionary getSubDict(@NonNull final String dictType) {
             return mSubDictMap.get(dictType);
         }
 
@@ -294,15 +301,18 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Nullable
-    private static com.oscar.aikeyboard.latin.ExpandableBinaryDictionary getSubDict(final String dictType,
-                                                                                    final Context context, final Locale locale, final File dictFile,
-                                                                                    final String dictNamePrefix, @Nullable final String account) {
-        com.oscar.aikeyboard.latin.ExpandableBinaryDictionary dict = null;
+    private static ExpandableBinaryDictionary getSubDict(final String dictType,
+                                                         final Context context, final Locale locale, final File dictFile,
+                                                         final String dictNamePrefix, @Nullable final String account) {
+        ExpandableBinaryDictionary dict = null;
         try {
             dict = switch (dictType) {
-                case Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
-                case Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
-                case Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_USER_HISTORY ->
+                        UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_USER ->
+                        UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_CONTACTS ->
+                        ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
                 default -> null;
             };
         } catch (final SecurityException | IllegalArgumentException e) {
@@ -315,7 +325,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Nullable
     static DictionaryGroup findDictionaryGroupWithLocale(final List<DictionaryGroup> dictionaryGroups,
-            @NonNull final Locale locale) {
+                                                         @NonNull final Locale locale) {
         if (dictionaryGroups == null) return null;
         for (DictionaryGroup dictionaryGroup : dictionaryGroups) {
             if (locale.equals(dictionaryGroup.mLocale))
@@ -386,14 +396,15 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
 
             // create new or re-use already loaded sub-dicts
-            final Map<String, com.oscar.aikeyboard.latin.ExpandableBinaryDictionary> subDicts = new HashMap<>();
+            final Map<String, ExpandableBinaryDictionary> subDicts = new HashMap<>();
             for (final String subDictType : subDictTypesToUse) {
-                final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary subDict;
+                final ExpandableBinaryDictionary subDict;
                 if (noExistingDictsForThisLocale || forceReloadMainDictionary
                         || !oldDictionaryGroupForLocale.hasDict(subDictType, account)) {
                     // Create a new dictionary.
                     subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix, account);
-                    if (subDict == null) continue; // https://github.com/Helium314/HeliBoard/issues/293
+                    if (subDict == null)
+                        continue; // https://github.com/Helium314/HeliBoard/issues/293
                 } else {
                     // Reuse the existing dictionary, and don't close it at the end
                     subDict = oldDictionaryGroupForLocale.getSubDict(subDictType);
@@ -450,7 +461,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void asyncReloadUninitializedMainDictionaries(final Context context,
-            final List<Locale> locales, final DictionaryInitializationListener listener) {
+                                                          final List<Locale> locales, final DictionaryInitializationListener listener) {
         final CountDownLatch latchForWaitingLoadingMainDictionary = new CountDownLatch(1);
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary;
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() ->
@@ -458,8 +469,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     void doReloadUninitializedMainDictionaries(final Context context, final List<Locale> locales,
-            final DictionaryInitializationListener listener,
-            final CountDownLatch latchForWaitingLoadingMainDictionary) {
+                                               final DictionaryInitializationListener listener,
+                                               final CountDownLatch latchForWaitingLoadingMainDictionary) {
         final Dictionary[] mainDicts = new Dictionary[locales.size()];
         final ArrayList<DictionaryGroup> dictionaryGroups = new ArrayList<>();
         for (int i = 0; i < locales.size(); i++) {
@@ -536,8 +547,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     public void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
-            final boolean blockPotentiallyOffensive) {
+                                 @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
+                                 final boolean blockPotentiallyOffensive) {
         // Update the spelling cache before learning. Words that are not yet added to user history
         // and appear in no other language model are not considered valid.
         putWordIntoValidSpellingWordCache("addToUserHistory", suggestion);
@@ -581,7 +592,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
     }
 
-    @Override public void adjustConfidences(final String word, final boolean wasAutoCapitalized) {
+    @Override
+    public void adjustConfidences(final String word, final boolean wasAutoCapitalized) {
         if (mDictionaryGroups.size() > 1 && !word.contains(Constants.WORD_SEPARATOR))
             adjustConfidencesInternal(word, wasAutoCapitalized);
     }
@@ -594,7 +606,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             decapitalizedSuggestion = StringUtilsKt.decapitalize(word, getCurrentLocale());
         else
             decapitalizedSuggestion = word;
-        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+        for (int i = 0; i < mDictionaryGroups.size(); i++) {
             final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
             final boolean isValidWord = isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup);
             if (isValidWord || (wasAutoCapitalized && isValidWord(decapitalizedSuggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)))
@@ -615,7 +627,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         )
             return;
 
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER);
+        final ExpandableBinaryDictionary userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER);
         final Dictionary userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
         // user history always reports words as invalid, so here we need to check isInDictionary instead
         // also maybe a problem: words added to dictionaries (user and history) are apparently found
@@ -625,7 +637,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 return;
             ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() ->
                     UserDictionary.Words.addWord(userDict.mContext, suggestion,
-                    250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
+                            250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
         }
     }
 
@@ -653,9 +665,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void addWordToUserHistory(final DictionaryGroup dictionaryGroup,
-            final NgramContext ngramContext, final String word, final boolean wasAutoCapitalized,
-            final int timeStampInSeconds, final boolean blockPotentiallyOffensive) {
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary userHistoryDictionary =
+                                      final NgramContext ngramContext, final String word, final boolean wasAutoCapitalized,
+                                      final int timeStampInSeconds, final boolean blockPotentiallyOffensive) {
+        final ExpandableBinaryDictionary userHistoryDictionary =
                 dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
         if (userHistoryDictionary == null || !hasLocale(userHistoryDictionary.mLocale)) {
             return;
@@ -707,11 +719,13 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // We demote unrecognized words (frequency < 0, below) by specifying them as "invalid".
         // We don't add words with 0-frequency (assuming they would be profanity etc.).
         final boolean isValid = maxFreq > 0;
-        com.oscar.aikeyboard.latin.personalization.UserHistoryDictionary.addToDictionary(userHistoryDictionary, ngramContext, secondWord,
+        UserHistoryDictionary.addToDictionary(userHistoryDictionary, ngramContext, secondWord,
                 isValid, timeStampInSeconds);
     }
 
-    /** returns the dictionaryGroup with most confidence, first group when tied */
+    /**
+     * returns the dictionaryGroup with most confidence, first group when tied
+     */
     private DictionaryGroup getCurrentlyPreferredDictionaryGroup() {
         DictionaryGroup dictGroup = null;
         int highestConfidence = -1;
@@ -731,7 +745,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         // that preferred group should have at least MAX_CONFIDENCE
         int highestGroup = -1;
         int highestGroupConfidence = DictionaryGroup.MAX_CONFIDENCE - 1;
-        for (int i = 0; i < mDictionaryGroups.size(); i ++) {
+        for (int i = 0; i < mDictionaryGroups.size(); i++) {
             final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
             if (dictionaryGroup.mConfidence > highestGroupConfidence) {
                 highestGroup = i;
@@ -745,7 +759,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void removeWord(final String dictName, final String word) {
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary dictionary = getCurrentlyPreferredDictionaryGroup().getSubDict(dictName);
+        final ExpandableBinaryDictionary dictionary = getCurrentlyPreferredDictionaryGroup().getSubDict(dictName);
         if (dictionary != null) {
             dictionary.removeUnigramEntryDynamically(word);
         }
@@ -753,8 +767,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public void unlearnFromUserHistory(final String word,
-            @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
-            final int eventType) {
+                                       @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
+                                       final int eventType) {
         // TODO: Decide whether or not to remove the word on EVENT_BACKSPACE.
         if (eventType != Constants.EVENT_BACKSPACE) {
             removeWord(Dictionary.TYPE_USER_HISTORY, word);
@@ -768,23 +782,24 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     // TODO: Revise the way to fusion suggestion results.
     @Override
     @SuppressWarnings("unchecked")
-    @NonNull public SuggestionResults getSuggestionResults(ComposedData composedData,
-                                                           NgramContext ngramContext, @NonNull final Keyboard keyboard,
-                                                           SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
-                                                           int inputStyle) {
+    @NonNull
+    public SuggestionResults getSuggestionResults(ComposedData composedData,
+                                                  NgramContext ngramContext, @NonNull final Keyboard keyboard,
+                                                  SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
+                                                  int inputStyle) {
         long proximityInfoHandle = keyboard.getProximityInfo().getNativeProximityInfo();
         final SuggestionResults suggestionResults = new SuggestionResults(
                 SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext(),
                 false /* firstSuggestionExceedsConfidenceThreshold */);
         final float[] weightOfLangModelVsSpatialModel =
-                new float[] { Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL };
+                new float[]{Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL};
 
         // start getting suggestions for non-main locales first, but in background
         final ArrayList<SuggestedWordInfo>[] otherDictionarySuggestions = (ArrayList<SuggestedWordInfo>[]) new ArrayList[mDictionaryGroups.size() - 1];
         final CountDownLatch waitForOtherDictionaries;
         if (mDictionaryGroups.size() > 1) {
             waitForOtherDictionaries = new CountDownLatch(mDictionaryGroups.size() - 1);
-            for (int i = 1; i < mDictionaryGroups.size(); i ++) {
+            for (int i = 1; i < mDictionaryGroups.size(); i++) {
                 final DictionaryGroup dictionaryGroup = mDictionaryGroups.get(i);
                 final int index = i - 1;
                 ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() -> {
@@ -808,11 +823,12 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // wait for other locale suggestions
         if (waitForOtherDictionaries != null) {
-            try { waitForOtherDictionaries.await(); }
-            catch (InterruptedException e) {
+            try {
+                waitForOtherDictionaries.await();
+            } catch (InterruptedException e) {
                 Log.w(TAG, "Interrupted while trying to get secondary locale suggestions", e);
             }
-            for (int i = 1; i < mDictionaryGroups.size(); i ++) {
+            for (int i = 1; i < mDictionaryGroups.size(); i++) {
                 suggestionResults.addAll(otherDictionarySuggestions[i - 1]);
                 if (null != suggestionResults.mRawSuggestions) {
                     suggestionResults.mRawSuggestions.addAll(otherDictionarySuggestions[i - 1]);
@@ -824,9 +840,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private ArrayList<SuggestedWordInfo> getSuggestions(ComposedData composedData,
-                                                                       NgramContext ngramContext, SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                       int sessionId, long proximityInfoHandle, float[] weightOfLangModelVsSpatialModel,
-                                                                       DictionaryGroup dictGroup) {
+                                                        NgramContext ngramContext, SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                        int sessionId, long proximityInfoHandle, float[] weightOfLangModelVsSpatialModel,
+                                                        DictionaryGroup dictGroup) {
         final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
         float weightForLocale = composedData.mIsBatchMode
                 ? dictGroup.getWeightForGesturingInLocale(mDictionaryGroups)
@@ -861,7 +877,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                         continue;
                     suggestions.add(info);
                 }
-             }
+            }
         }
         return suggestions;
     }
@@ -928,17 +944,17 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     private void removeWordFromGroup(String word, DictionaryGroup group) {
         // remove from user history
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary historyDict = group.getSubDict(Dictionary.TYPE_USER_HISTORY);
+        final ExpandableBinaryDictionary historyDict = group.getSubDict(Dictionary.TYPE_USER_HISTORY);
         if (historyDict != null) {
             historyDict.removeUnigramEntryDynamically(word);
         }
         // and from personal dictionary
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary userDict = group.getSubDict(Dictionary.TYPE_USER);
+        final ExpandableBinaryDictionary userDict = group.getSubDict(Dictionary.TYPE_USER);
         if (userDict != null) {
             userDict.removeUnigramEntryDynamically(word);
         }
 
-        final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
+        final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
         if (contactsDict != null) {
             if (contactsDict.isInDictionary(word)) {
                 contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
@@ -1029,7 +1045,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     @Override
     public boolean clearUserHistoryDictionary(final Context context) {
         for (DictionaryGroup dictionaryGroup : mDictionaryGroups) {
-            final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary dictionary = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
+            final ExpandableBinaryDictionary dictionary = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
             if (dictionary == null) {
                 return false; // should only ever happen for primary dictionary, so this is safe
             }
@@ -1063,10 +1079,11 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     // this is unused, so leave it for now
-    @NonNull public List<DictionaryStats> getDictionaryStats(final Context context) {
+    @NonNull
+    public List<DictionaryStats> getDictionaryStats(final Context context) {
         final ArrayList<DictionaryStats> statsOfEnabledSubDicts = new ArrayList<>();
         for (final String dictType : DYNAMIC_DICTIONARY_TYPES) {
-            final com.oscar.aikeyboard.latin.ExpandableBinaryDictionary dictionary = mDictionaryGroups.get(0).getSubDict(dictType);
+            final ExpandableBinaryDictionary dictionary = mDictionaryGroups.get(0).getSubDict(dictType);
             if (dictionary == null) continue;
             statsOfEnabledSubDicts.add(dictionary.getDictionaryStats());
         }

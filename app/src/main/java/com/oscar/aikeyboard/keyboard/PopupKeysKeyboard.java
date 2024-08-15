@@ -18,7 +18,7 @@ import com.oscar.aikeyboard.R;
 import com.oscar.aikeyboard.latin.common.StringUtils;
 import com.oscar.aikeyboard.latin.utils.TypefaceUtils;
 
-public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keyboard {
+public final class PopupKeysKeyboard extends Keyboard {
     private final int mDefaultKeyCoordX;
 
     PopupKeysKeyboard(final PopupKeysKeyboardParams params) {
@@ -230,7 +230,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
             return (mNumRows - 1 - row) * mDefaultAbsoluteRowHeight + mTopPadding;
         }
 
-        public void markAsEdgeKey(final com.oscar.aikeyboard.keyboard.Key key, final int row) {
+        public void markAsEdgeKey(final Key key, final int row) {
             if (row == 0)
                 key.markAsTopEdge(this);
             if (isTopRow(row))
@@ -243,7 +243,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
     }
 
     public static class Builder extends KeyboardBuilder<PopupKeysKeyboardParams> {
-        private final com.oscar.aikeyboard.keyboard.Key mParentKey;
+        private final Key mParentKey;
 
         private static final float LABEL_PADDING_RATIO = 0.2f;
         private static final float DIVIDER_RATIO = 0.2f;
@@ -259,7 +259,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
          * @param keyPreviewVisibleHeight the height of visible part of key popup preview
          * @param paintToMeasure the {@link Paint} object to measure a "popup key" width
          */
-        public Builder(final Context context, final com.oscar.aikeyboard.keyboard.Key key, final Keyboard keyboard,
+        public Builder(final Context context, final Key key, final Keyboard keyboard,
                        final boolean isSinglePopupKeyWithPreview, final int keyPreviewVisibleWidth,
                        final int keyPreviewVisibleHeight, final Paint paintToMeasure) {
             super(context, new PopupKeysKeyboardParams());
@@ -308,7 +308,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
                     key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth);
         }
 
-        private static int getMaxKeyWidth(final com.oscar.aikeyboard.keyboard.Key parentKey, final int minKeyWidth,
+        private static int getMaxKeyWidth(final Key parentKey, final int minKeyWidth,
                                           final float padding, final Paint paint) {
             int maxWidth = minKeyWidth;
             for (final PopupKeySpec spec : parentKey.getPopupKeys()) {
@@ -333,7 +333,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
                 final int row = n / params.mNumColumns;
                 final int x = params.getX(n, row);
                 final int y = params.getY(row);
-                final com.oscar.aikeyboard.keyboard.Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, params);
+                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, params);
                 params.markAsEdgeKey(key, row);
                 params.onAddKey(key);
 
@@ -343,7 +343,7 @@ public final class PopupKeysKeyboard extends com.oscar.aikeyboard.keyboard.Keybo
                 if (params.mDividerWidth > 0 && pos != 0) {
                     final int dividerX = (pos > 0) ? x - params.mDividerWidth
                             : x + params.mAbsolutePopupKeyWidth;
-                    final com.oscar.aikeyboard.keyboard.Key divider = new PopupKeyDivider(
+                    final Key divider = new PopupKeyDivider(
                             params, dividerX, y, params.mDividerWidth, params.mDefaultAbsoluteRowHeight);
                     params.onAddKey(divider);
                 }

@@ -64,14 +64,14 @@ public interface KeyboardActionListener {
      * Sends the ongoing batch input points data.
      * @param batchPointers the batch input points representing the user input
      */
-    void onUpdateBatchInput(com.oscar.aikeyboard.latin.common.InputPointers batchPointers);
+    void onUpdateBatchInput(InputPointers batchPointers);
 
     /**
      * Sends the final batch input points data.
      *
      * @param batchPointers the batch input points representing the user input
      */
-    void onEndBatchInput(com.oscar.aikeyboard.latin.common.InputPointers batchPointers);
+    void onEndBatchInput(InputPointers batchPointers);
 
     void onCancelBatchInput();
 

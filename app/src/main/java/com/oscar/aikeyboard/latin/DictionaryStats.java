@@ -65,7 +65,7 @@ public class DictionaryStats {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder(mDictType);
-        if (mDictType.equals(com.oscar.aikeyboard.latin.Dictionary.TYPE_MAIN)) {
+        if (mDictType.equals(Dictionary.TYPE_MAIN)) {
             builder.append(" (");
             builder.append(mContentVersion);
             builder.append(")");

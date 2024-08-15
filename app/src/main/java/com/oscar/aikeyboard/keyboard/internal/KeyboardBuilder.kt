@@ -34,7 +34,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     private var mLeftEdge = false
     private var mTopEdge = false
     private var mRightEdgeKey: Key? = null
-    private lateinit var keysInRows: ArrayList<ArrayList<Key.KeyParams>>
+    private lateinit var keysInRows: ArrayList<ArrayList<KeyParams>>
 
     init {
         val res = mContext.resources
@@ -135,7 +135,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         for (row in keysInRows) {
             val y = row.first().yPos // all have the same y, so this is fine
             val relativeWidthSum = row.sumOf { it.mWidth } // sum up relative widths
-            val spacer = Key.KeyParams.newSpacer(mParams, spacerRelativeWidth)
+            val spacer = KeyParams.newSpacer(mParams, spacerRelativeWidth)
             // insert spacer before first key that starts right of the center (also consider gap)
             var insertIndex = row.indexOfFirst { it.xPos + it.mAbsoluteWidth / 3 > mParams.mOccupiedWidth / 2 }
                 .takeIf { it > -1 } ?: (row.size / 2) // fallback should never be needed, but better than having an error
@@ -187,7 +187,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
     // todo: this assumes fixed layout for symbols keys, which will change soon!
-    private fun reduceSymbolAndActionKeyWidth(row: ArrayList<Key.KeyParams>) {
+    private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
         val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
         val symbolKey = row.firstOrNull { it.mCode == KeyCode.SYMBOL_ALPHA }
         val symbolKeyWidth = symbolKey?.mWidth ?: 0f

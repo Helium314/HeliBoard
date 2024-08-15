@@ -13,7 +13,6 @@ import android.os.Bundle;
 import com.oscar.aikeyboard.R;
 
 
-
 /**
  * "Gesture typing preferences" settings sub screen.
  * <p>
@@ -39,19 +38,19 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
-        setPreferenceVisible(com.oscar.aikeyboard.latin.settings.Settings.PREF_GESTURE_PREVIEW_TRAIL, com.oscar.aikeyboard.latin.settings.Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(com.oscar.aikeyboard.latin.settings.Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, com.oscar.aikeyboard.latin.settings.Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(com.oscar.aikeyboard.latin.settings.Settings.PREF_GESTURE_SPACE_AWARE, com.oscar.aikeyboard.latin.settings.Settings.readGestureInputEnabled(prefs));
-        setPreferenceVisible(com.oscar.aikeyboard.latin.settings.Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
+        setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
     }
 
     private void setupGestureFastTypingCooldownPref() {
-        final com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference pref = findPreference(
-                com.oscar.aikeyboard.latin.settings.Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN);
+        final SeekBarDialogPreference pref = findPreference(
+                Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN);
         if (pref == null) return;
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
-        pref.setInterface(new com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference.ValueProxy() {
+        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
             @Override
             public void writeValue(final int value, final String key) {
                 prefs.edit().putInt(key, value).apply();
@@ -64,12 +63,12 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return com.oscar.aikeyboard.latin.settings.Settings.readGestureFastTypingCooldown(prefs, res);
+                return Settings.readGestureFastTypingCooldown(prefs, res);
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return com.oscar.aikeyboard.latin.settings.Settings.readDefaultGestureFastTypingCooldown(res);
+                return Settings.readDefaultGestureFastTypingCooldown(res);
             }
 
             @Override
@@ -81,7 +80,8 @@ public final class GestureSettingsFragment extends SubScreenFragment {
             }
 
             @Override
-            public void feedbackValue(final int value) {}
+            public void feedbackValue(final int value) {
+            }
         });
     }
 }

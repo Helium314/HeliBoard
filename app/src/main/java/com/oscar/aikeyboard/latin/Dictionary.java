@@ -73,27 +73,29 @@ public abstract class Dictionary {
 
     /**
      * Searches for suggestions for a given context.
-     * @param composedData the key sequence to match with coordinate info
-     * @param ngramContext the context for n-gram.
-     * @param proximityInfoHandle the handle for key proximity. Is ignored by some implementations.
-     * @param settingsValuesForSuggestion the settings values used for the suggestion.
-     * @param sessionId the session id.
-     * @param weightForLocale the weight given to this locale, to multiply the output scores for
-     * multilingual input.
+     *
+     * @param composedData                         the key sequence to match with coordinate info
+     * @param ngramContext                         the context for n-gram.
+     * @param proximityInfoHandle                  the handle for key proximity. Is ignored by some implementations.
+     * @param settingsValuesForSuggestion          the settings values used for the suggestion.
+     * @param sessionId                            the session id.
+     * @param weightForLocale                      the weight given to this locale, to multiply the output scores for
+     *                                             multilingual input.
      * @param inOutWeightOfLangModelVsSpatialModel the weight of the language model as a ratio of
-     * the spatial model, used for generating suggestions. inOutWeightOfLangModelVsSpatialModel is
-     * a float array that has only one element. This can be updated when a different value is used.
+     *                                             the spatial model, used for generating suggestions. inOutWeightOfLangModelVsSpatialModel is
+     *                                             a float array that has only one element. This can be updated when a different value is used.
      * @return the list of suggestions (possibly null if none)
      */
     abstract public ArrayList<SuggestedWordInfo> getSuggestions(final ComposedData composedData,
-                                                                                                          final com.oscar.aikeyboard.latin.NgramContext ngramContext, final long proximityInfoHandle,
-                                                                                                          final SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                                                          final int sessionId, final float weightForLocale,
-                                                                                                          final float[] inOutWeightOfLangModelVsSpatialModel);
+                                                                final NgramContext ngramContext, final long proximityInfoHandle,
+                                                                final SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                                final int sessionId, final float weightForLocale,
+                                                                final float[] inOutWeightOfLangModelVsSpatialModel);
 
     /**
      * Checks if the given word has to be treated as a valid word. Please note that some
      * dictionaries have entries that should be treated as invalid words.
+     *
      * @param word the word to search for. The search should be case-insensitive.
      * @return true if the word is valid, false otherwise
      */
@@ -108,6 +110,7 @@ public abstract class Dictionary {
 
     /**
      * Get the frequency of the word.
+     *
      * @param word the word to get the frequency of.
      */
     public int getFrequency(final String word) {
@@ -116,6 +119,7 @@ public abstract class Dictionary {
 
     /**
      * Get the maximum frequency of the word.
+     *
      * @param word the word to get the maximum frequency of.
      */
     public int getMaxFrequencyOfExactMatches(final String word) {
@@ -125,8 +129,9 @@ public abstract class Dictionary {
     /**
      * Compares the contents of the character array with the typed word and returns true if they
      * are the same.
-     * @param word the array of characters that make up the word
-     * @param length the number of valid characters in the character array
+     *
+     * @param word      the array of characters that make up the word
+     * @param length    the number of valid characters in the character array
      * @param typedWord the word to compare with
      * @return true if they are the same, false otherwise.
      */
@@ -163,6 +168,7 @@ public abstract class Dictionary {
     /**
      * Whether we think this suggestion should trigger an auto-commit. prevWord is the word
      * before the suggestion, so that we can use n-gram frequencies.
+     *
      * @param candidate The candidate suggestion, in whole (not only the first part).
      * @return whether we should auto-commit or not.
      */
@@ -175,6 +181,7 @@ public abstract class Dictionary {
 
     /**
      * Whether this dictionary is based on data specific to the user, e.g., the user's contacts.
+     *
      * @return Whether this dictionary is specific to the user.
      */
     public boolean isUserSpecific() {
@@ -192,10 +199,10 @@ public abstract class Dictionary {
 
         @Override
         public ArrayList<SuggestedWordInfo> getSuggestions(final ComposedData composedData,
-                                                                                                     final NgramContext ngramContext, final long proximityInfoHandle,
-                                                                                                     final SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                                                     final int sessionId, final float weightForLocale,
-                                                                                                     final float[] inOutWeightOfLangModelVsSpatialModel) {
+                                                           final NgramContext ngramContext, final long proximityInfoHandle,
+                                                           final SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                           final int sessionId, final float weightForLocale,
+                                                           final float[] inOutWeightOfLangModelVsSpatialModel) {
             return null;
         }
 

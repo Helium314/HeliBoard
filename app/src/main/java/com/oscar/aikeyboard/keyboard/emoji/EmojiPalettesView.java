@@ -81,7 +81,7 @@ public final class EmojiPalettesView extends LinearLayout
     private View mSpacebarIcon;
     private LinearLayout mTabStrip;
     private RecyclerView mEmojiRecyclerView;
-    private com.oscar.aikeyboard.keyboard.emoji.EmojiCategoryPageIndicatorView mEmojiCategoryPageIndicatorView;
+    private EmojiCategoryPageIndicatorView mEmojiCategoryPageIndicatorView;
 
     private KeyboardActionListener mKeyboardActionListener = KeyboardActionListener.EMPTY_LISTENER;
 
@@ -106,14 +106,14 @@ public final class EmojiPalettesView extends LinearLayout
         keyboardViewAttr.recycle();
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
-        mEmojiLayoutParams = new com.oscar.aikeyboard.keyboard.emoji.EmojiLayoutParams(res);
+        mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
         builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
                 mEmojiLayoutParams.mEmojiKeyboardHeight);
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
-        mEmojiCategory = new com.oscar.aikeyboard.keyboard.emoji.EmojiCategory(DeviceProtectedUtils.getSharedPreferences(context),
+        mEmojiCategory = new EmojiCategory(DeviceProtectedUtils.getSharedPreferences(context),
                 res, layoutSet, emojiPalettesViewAttr);
         mCategoryIndicatorEnabled = emojiPalettesViewAttr.getBoolean(
                 R.styleable.EmojiPalettesView_categoryIndicatorEnabled, false);
@@ -165,7 +165,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (initialized) return;
         mEmojiCategory.initialize();
         mTabStrip = (LinearLayout) KeyboardSwitcher.getInstance().getEmojiTabStrip();
-        for (final com.oscar.aikeyboard.keyboard.emoji.EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
+        for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
             addTab(mTabStrip, properties.mCategoryId);
         }
 //        mTabStrip.setOnTabChangedListener(this);  // now onClickListener
@@ -398,7 +398,7 @@ public final class EmojiPalettesView extends LinearLayout
         final int oldCategoryId = mEmojiCategory.getCurrentCategoryId();
         final int oldCategoryPageId = mEmojiCategory.getCurrentCategoryPageId();
 
-        if (oldCategoryId == com.oscar.aikeyboard.keyboard.emoji.EmojiCategory.ID_RECENTS && categoryId != com.oscar.aikeyboard.keyboard.emoji.EmojiCategory.ID_RECENTS) {
+        if (oldCategoryId == EmojiCategory.ID_RECENTS && categoryId != EmojiCategory.ID_RECENTS) {
             // Needs to save pending updates for recent keys when we get out of the recents
             // category because we don't want to move the recent emojis around while the user
             // is in the recents category.

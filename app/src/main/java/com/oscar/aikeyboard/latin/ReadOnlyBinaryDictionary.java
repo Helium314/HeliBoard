@@ -32,7 +32,7 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
     private final BinaryDictionary mBinaryDictionary;
 
     public ReadOnlyBinaryDictionary(final String filename, final long offset, final long length,
-            final boolean useFullEditDistance, final Locale locale, final String dictType) {
+                                    final boolean useFullEditDistance, final Locale locale, final String dictType) {
         super(dictType, locale);
         mBinaryDictionary = new BinaryDictionary(filename, offset, length, useFullEditDistance,
                 locale, dictType, false /* isUpdatable */);
@@ -44,10 +44,10 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
 
     @Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final ComposedData composedData,
-                                                                      final NgramContext ngramContext, final long proximityInfoHandle,
-                                                                      final SettingsValuesForSuggestion settingsValuesForSuggestion,
-                                                                      final int sessionId, final float weightForLocale,
-                                                                      final float[] inOutWeightOfLangModelVsSpatialModel) {
+                                                       final NgramContext ngramContext, final long proximityInfoHandle,
+                                                       final SettingsValuesForSuggestion settingsValuesForSuggestion,
+                                                       final int sessionId, final float weightForLocale,
+                                                       final float[] inOutWeightOfLangModelVsSpatialModel) {
         if (mLock.readLock().tryLock()) {
             try {
                 return mBinaryDictionary.getSuggestions(composedData, ngramContext,

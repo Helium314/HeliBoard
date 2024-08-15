@@ -32,7 +32,7 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
 
     // TODO: Make this constructor private
     UserHistoryDictionary(final Context context, final Locale locale,
-            @Nullable final String account) {
+                          @Nullable final String account) {
         super(context, getUserHistoryDictName(NAME, locale, null /* dictFile */, account), locale, Dictionary.TYPE_USER_HISTORY, null);
         if (mLocale != null && mLocale.toString().length() > 1) {
             reloadDictionaryIfRequired();
@@ -43,23 +43,23 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
      * @returns the name of the {@link UserHistoryDictionary}.
      */
     static String getUserHistoryDictName(final String name, final Locale locale,
-            @Nullable final File dictFile, @Nullable final String account) {
+                                         @Nullable final File dictFile, @Nullable final String account) {
         return getDictName(name, locale, dictFile);
     }
 
     public static UserHistoryDictionary getDictionary(final Context context, final Locale locale,
-            final File dictFile, final String dictNamePrefix, @Nullable final String account) {
-        return com.oscar.aikeyboard.latin.personalization.PersonalizationHelper.getUserHistoryDictionary(context, locale, account);
+                                                      final File dictFile, final String dictNamePrefix, @Nullable final String account) {
+        return PersonalizationHelper.getUserHistoryDictionary(context, locale, account);
     }
 
     /**
      * Add a word to the user history dictionary.
      *
      * @param userHistoryDictionary the user history dictionary
-     * @param ngramContext the n-gram context
-     * @param word the word the user inputted
-     * @param isValid whether the word is valid or not
-     * @param timestamp the timestamp when the word has been inputted
+     * @param ngramContext          the n-gram context
+     * @param word                  the word the user inputted
+     * @param isValid               whether the word is valid or not
+     * @param timestamp             the timestamp when the word has been inputted
      */
     public static void addToDictionary(final ExpandableBinaryDictionary userHistoryDictionary,
                                        @NonNull final NgramContext ngramContext, final String word, final boolean isValid,

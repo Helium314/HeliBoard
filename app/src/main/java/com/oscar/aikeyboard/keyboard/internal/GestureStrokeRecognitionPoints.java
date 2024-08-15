@@ -36,7 +36,7 @@ public final class GestureStrokeRecognitionPoints {
     private final ResizableIntArray mYCoordinates = new ResizableIntArray(
             Constants.DEFAULT_GESTURE_POINTS_CAPACITY);
 
-    private final com.oscar.aikeyboard.keyboard.internal.GestureStrokeRecognitionParams mRecognitionParams;
+    private final GestureStrokeRecognitionParams mRecognitionParams;
 
     private int mKeyWidth; // pixel
     private int mMinYCoordinate; // pixel
@@ -64,7 +64,7 @@ public final class GestureStrokeRecognitionPoints {
 
     // TODO: Make this package private
     public GestureStrokeRecognitionPoints(final int pointerId,
-            final com.oscar.aikeyboard.keyboard.internal.GestureStrokeRecognitionParams recognitionParams) {
+            final GestureStrokeRecognitionParams recognitionParams) {
         mPointerId = pointerId;
         mRecognitionParams = recognitionParams;
     }

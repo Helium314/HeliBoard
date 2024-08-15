@@ -10,10 +10,10 @@ package com.oscar.aikeyboard.latin.makedict;
 import com.oscar.aikeyboard.latin.NgramContext;
 
 public class NgramProperty {
-    public final com.oscar.aikeyboard.latin.makedict.WeightedString mTargetWord;
+    public final WeightedString mTargetWord;
     public final NgramContext mNgramContext;
 
-    public NgramProperty(final com.oscar.aikeyboard.latin.makedict.WeightedString targetWord, final NgramContext ngramContext) {
+    public NgramProperty(final WeightedString targetWord, final NgramContext ngramContext) {
         mTargetWord = targetWord;
         mNgramContext = ngramContext;
     }

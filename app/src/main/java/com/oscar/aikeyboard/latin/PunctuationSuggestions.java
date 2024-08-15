@@ -23,7 +23,7 @@ import java.util.Arrays;
  * Each punctuation specification string is the key specification that can be parsed by
  * {@link KeySpecParser}.
  */
-public final class PunctuationSuggestions extends com.oscar.aikeyboard.latin.SuggestedWords {
+public final class PunctuationSuggestions extends SuggestedWords {
     private PunctuationSuggestions(final ArrayList<SuggestedWordInfo> punctuationsList) {
         super(punctuationsList,
                 null /* rawSuggestions */,
@@ -32,7 +32,7 @@ public final class PunctuationSuggestions extends com.oscar.aikeyboard.latin.Sug
                 false /* hasAutoCorrectionCandidate */,
                 false /* isObsoleteSuggestions */,
                 INPUT_STYLE_NONE /* inputStyle */,
-                com.oscar.aikeyboard.latin.SuggestedWords.NOT_A_SEQUENCE_NUMBER);
+                SuggestedWords.NOT_A_SEQUENCE_NUMBER);
     }
 
     /**
@@ -109,7 +109,7 @@ public final class PunctuationSuggestions extends com.oscar.aikeyboard.latin.Sug
         return new SuggestedWordInfo(keySpec, "" /* prevWordsContext */,
                 SuggestedWordInfo.MAX_SCORE,
                 SuggestedWordInfo.KIND_HARDCODED,
-                com.oscar.aikeyboard.latin.Dictionary.DICTIONARY_HARDCODED,
+                Dictionary.DICTIONARY_HARDCODED,
                 SuggestedWordInfo.NOT_AN_INDEX /* indexOfTouchPointOfSecondWord */,
                 SuggestedWordInfo.NOT_A_CONFIDENCE /* autoCommitFirstWordConfidence */);
     }

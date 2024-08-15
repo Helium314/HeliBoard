@@ -15,13 +15,13 @@ import java.util.Arrays;
  */
 public final class WeightedString {
     public final String mWord;
-    public com.oscar.aikeyboard.latin.makedict.ProbabilityInfo mProbabilityInfo;
+    public ProbabilityInfo mProbabilityInfo;
 
     public WeightedString(final String word, final int probability) {
-        this(word, new com.oscar.aikeyboard.latin.makedict.ProbabilityInfo(probability));
+        this(word, new ProbabilityInfo(probability));
     }
 
-    public WeightedString(final String word, final com.oscar.aikeyboard.latin.makedict.ProbabilityInfo probabilityInfo) {
+    public WeightedString(final String word, final ProbabilityInfo probabilityInfo) {
         mWord = word;
         mProbabilityInfo = probabilityInfo;
     }
@@ -31,7 +31,7 @@ public final class WeightedString {
     }
 
     public void setProbability(final int probability) {
-        mProbabilityInfo = new com.oscar.aikeyboard.latin.makedict.ProbabilityInfo(probability);
+        mProbabilityInfo = new ProbabilityInfo(probability);
     }
 
     @Override

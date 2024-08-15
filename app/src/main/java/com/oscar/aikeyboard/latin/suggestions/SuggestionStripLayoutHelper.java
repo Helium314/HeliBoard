@@ -372,7 +372,7 @@ final class SuggestionStripLayoutHelper {
             setLayoutWeight(wordView, getSuggestionWeight(positionInStrip), ViewGroup.LayoutParams.MATCH_PARENT);
             x += wordView.getMeasuredWidth();
 
-            if (com.oscar.aikeyboard.latin.suggestions.SuggestionStripView.DEBUG_SUGGESTIONS) {
+            if (SuggestionStripView.DEBUG_SUGGESTIONS) {
                 layoutDebugInfo(positionInStrip, placerView, x);
             }
         }

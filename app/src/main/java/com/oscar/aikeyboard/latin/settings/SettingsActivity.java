@@ -70,6 +70,6 @@ public final class SettingsActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        com.oscar.aikeyboard.latin.permissions.PermissionsManager.get(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionsManager.get(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

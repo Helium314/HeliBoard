@@ -80,7 +80,7 @@ public class KeyboardView extends View {
     /** True if all keys should be drawn */
     private boolean mInvalidateAllKeys;
     /** The keys that should be drawn */
-    private final HashSet<com.oscar.aikeyboard.keyboard.Key> mInvalidatedKeys = new HashSet<>();
+    private final HashSet<Key> mInvalidatedKeys = new HashSet<>();
     /** The working rectangle for clipping */
     private final Rect mClipRect = new Rect();
     /** The keyboard bitmap buffer for faster updates */
@@ -106,16 +106,16 @@ public class KeyboardView extends View {
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        if (this instanceof com.oscar.aikeyboard.latin.suggestions.PopupSuggestionsView)
+        if (this instanceof PopupSuggestionsView)
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.MORE_SUGGESTIONS_WORD_BACKGROUND);
-        else if (this instanceof com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView)
+        else if (this instanceof PopupKeysKeyboardView)
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.POPUP_KEYS_BACKGROUND);
         else
             mKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.KEY_BACKGROUND);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
         mFunctionalKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mSpacebarBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
-        if (this instanceof com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView)
+        if (this instanceof PopupKeysKeyboardView)
             mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_POPUP_KEYS_BACKGROUND);
         else
             mActionKeyBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.ACTION_KEY_BACKGROUND);
@@ -607,10 +607,10 @@ public class KeyboardView extends View {
         if (key.isAccentColored()) {
             mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
         } else if (key.isShift() && keyboard != null) {
-            if (keyboard.mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
-                    || keyboard.mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
-                    || keyboard.mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
-                    || keyboard.mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED
+                    || keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
             )
                 mColors.setColor(icon, ColorType.SHIFT_KEY_ICON);
             else

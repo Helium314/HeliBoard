@@ -54,12 +54,12 @@ public final class KeyboardLayoutSet {
     // will stay in the cache. So we forcibly keep some references in an array to prevent
     // them from disappearing from sKeyboardCache.
     private static final Keyboard[] sForcibleKeyboardCache = new Keyboard[FORCIBLE_CACHE_SIZE];
-    private static final HashMap<com.oscar.aikeyboard.keyboard.KeyboardId, SoftReference<Keyboard>> sKeyboardCache = new HashMap<>();
+    private static final HashMap<KeyboardId, SoftReference<Keyboard>> sKeyboardCache = new HashMap<>();
     @NonNull
     private static final UniqueKeysCache sUniqueKeysCache = UniqueKeysCache.newInstance();
 
     public static final class KeyboardLayoutSetException extends RuntimeException {
-        public final com.oscar.aikeyboard.keyboard.KeyboardId mKeyboardId;
+        public final KeyboardId mKeyboardId;
 
         public KeyboardLayoutSetException(final Throwable cause, final com.oscar.aikeyboard.keyboard.KeyboardId keyboardId) {
             super(cause);
@@ -114,16 +114,16 @@ public final class KeyboardLayoutSet {
     public Keyboard getKeyboard(final int baseKeyboardLayoutSetElementId) {
         final int keyboardLayoutSetElementId;
         switch (mParams.mMode) {
-            case com.oscar.aikeyboard.keyboard.KeyboardId.MODE_PHONE -> {
-                if (baseKeyboardLayoutSetElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_SYMBOLS) {
-                    keyboardLayoutSetElementId = com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_PHONE_SYMBOLS;
+            case KeyboardId.MODE_PHONE -> {
+                if (baseKeyboardLayoutSetElementId == KeyboardId.ELEMENT_SYMBOLS) {
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE_SYMBOLS;
                 } else {
-                    keyboardLayoutSetElementId = com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_PHONE;
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
                 }
             }
-            case com.oscar.aikeyboard.keyboard.KeyboardId.MODE_NUMPAD -> keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
-            case com.oscar.aikeyboard.keyboard.KeyboardId.MODE_NUMBER, com.oscar.aikeyboard.keyboard.KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME ->
-                    keyboardLayoutSetElementId = com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_NUMBER;
+            case KeyboardId.MODE_NUMPAD -> keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMPAD;
+            case KeyboardId.MODE_NUMBER, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME ->
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMBER;
             default -> keyboardLayoutSetElementId = baseKeyboardLayoutSetElementId;
         }
 
@@ -132,7 +132,7 @@ public final class KeyboardLayoutSet {
         // specified as an elementKeyboard attribute in the file.
         // The KeyboardId is an internal key for a Keyboard object.
 
-        final com.oscar.aikeyboard.keyboard.KeyboardId id = new com.oscar.aikeyboard.keyboard.KeyboardId(keyboardLayoutSetElementId, mParams);
+        final KeyboardId id = new KeyboardId(keyboardLayoutSetElementId, mParams);
         try {
             return getKeyboard(id);
         } catch (final RuntimeException e) {
@@ -142,7 +142,7 @@ public final class KeyboardLayoutSet {
     }
 
     @NonNull
-    private Keyboard getKeyboard(final com.oscar.aikeyboard.keyboard.KeyboardId id) {
+    private Keyboard getKeyboard(final KeyboardId id) {
         final SoftReference<Keyboard> ref = sKeyboardCache.get(id);
         final Keyboard cachedKeyboard = (ref == null) ? null : ref.get();
         if (cachedKeyboard != null) {
@@ -161,8 +161,8 @@ public final class KeyboardLayoutSet {
         }
         final Keyboard keyboard = builder.build();
         sKeyboardCache.put(id, new SoftReference<>(keyboard));
-        if ((id.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET
-                || id.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
+        if ((id.mElementId == KeyboardId.ELEMENT_ALPHABET
+                || id.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
                 && !mParams.mIsSpellChecker) {
             // We only forcibly cache the primary, "ALPHABET", layouts.
             for (int i = sForcibleKeyboardCache.length - 1; i >= 1; --i) {
@@ -279,40 +279,40 @@ public final class KeyboardLayoutSet {
 
             switch (inputType & InputType.TYPE_MASK_CLASS) {
                 case InputType.TYPE_CLASS_NUMBER:
-                    return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_NUMBER;
+                    return KeyboardId.MODE_NUMBER;
                 case InputType.TYPE_CLASS_DATETIME:
                     return switch (variation) {
-                        case InputType.TYPE_DATETIME_VARIATION_DATE -> com.oscar.aikeyboard.keyboard.KeyboardId.MODE_DATE;
-                        case InputType.TYPE_DATETIME_VARIATION_TIME -> com.oscar.aikeyboard.keyboard.KeyboardId.MODE_TIME;
-                        default -> com.oscar.aikeyboard.keyboard.KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
+                        case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardId.MODE_DATE;
+                        case InputType.TYPE_DATETIME_VARIATION_TIME ->  KeyboardId.MODE_TIME;
+                        default ->  KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
                     };
                 case InputType.TYPE_CLASS_PHONE:
-                    return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_PHONE;
+                    return  KeyboardId.MODE_PHONE;
                 case InputType.TYPE_CLASS_TEXT:
                     if (InputTypeUtils.isEmailVariation(variation)) {
-                        return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_EMAIL;
+                        return KeyboardId.MODE_EMAIL;
                     } else if (variation == InputType.TYPE_TEXT_VARIATION_URI) {
-                        return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_URL;
+                        return KeyboardId.MODE_URL;
                     } else if (variation == InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
                         //return KeyboardId.MODE_IM;
-                        return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_TEXT;
+                        return KeyboardId.MODE_TEXT;
                     } else if (variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
-                        return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_TEXT;
+                        return KeyboardId.MODE_TEXT;
                     } else {
-                        return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_TEXT;
+                        return KeyboardId.MODE_TEXT;
                     }
                 default:
-                    return com.oscar.aikeyboard.keyboard.KeyboardId.MODE_TEXT;
+                    return KeyboardId.MODE_TEXT;
             }
         }
     }
 
     // used for testing keyboard layout files without actually creating a keyboard
-    public static com.oscar.aikeyboard.keyboard.KeyboardId getFakeKeyboardId(final int elementId) {
+    public static KeyboardId getFakeKeyboardId(final int elementId) {
         final Params params = new Params();
         params.mEditorInfo = new EditorInfo();
         params.mSubtype = RichInputMethodSubtype.getEmojiSubtype();
         params.mSubtype.getKeyboardLayoutSetName();
-        return new com.oscar.aikeyboard.keyboard.KeyboardId(elementId, params);
+        return new KeyboardId(elementId, params);
     }
 }

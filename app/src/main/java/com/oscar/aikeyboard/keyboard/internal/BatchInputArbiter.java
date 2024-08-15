@@ -34,7 +34,7 @@ public class BatchInputArbiter {
 
     private final GestureStrokeRecognitionPoints mRecognitionPoints;
 
-    public BatchInputArbiter(final int pointerId, final com.oscar.aikeyboard.keyboard.internal.GestureStrokeRecognitionParams params) {
+    public BatchInputArbiter(final int pointerId, final GestureStrokeRecognitionParams params) {
         mRecognitionPoints = new GestureStrokeRecognitionPoints(pointerId, params);
     }
 

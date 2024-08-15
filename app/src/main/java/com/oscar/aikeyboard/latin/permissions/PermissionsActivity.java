@@ -73,7 +73,7 @@ public final class PermissionsActivity
             mPendingRequestCode = extras.getInt(EXTRA_PERMISSION_REQUEST_CODE);
             // Assuming that all supplied permissions are not granted yet, so that we don't need to
             // check them again.
-            com.oscar.aikeyboard.latin.permissions.PermissionsUtil.requestPermissions(this, mPendingRequestCode, permissionsToRequest);
+            PermissionsUtil.requestPermissions(this, mPendingRequestCode, permissionsToRequest);
         }
     }
 

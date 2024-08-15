@@ -32,7 +32,7 @@ public class KeyboardLayout {
     public final int mKeyboardWidth;
     public final int mKeyboardHeight;
 
-    public KeyboardLayout(ArrayList<com.oscar.aikeyboard.keyboard.Key> layoutKeys, int mostCommonKeyWidth,
+    public KeyboardLayout(ArrayList<Key> layoutKeys, int mostCommonKeyWidth,
                           int mostCommonKeyHeight, int keyboardWidth, int keyboardHeight) {
         mMostCommonKeyWidth = mostCommonKeyWidth;
         mMostCommonKeyHeight = mostCommonKeyHeight;
@@ -46,7 +46,7 @@ public class KeyboardLayout {
         mKeyHeights = new int[layoutKeys.size()];
 
         for (int i = 0; i < layoutKeys.size(); i++) {
-            com.oscar.aikeyboard.keyboard.Key key = layoutKeys.get(i);
+            Key key = layoutKeys.get(i);
             mKeyCodes[i] = Character.toLowerCase(key.getCode());
             mKeyXCoordinates[i] = key.getX();
             mKeyYCoordinates[i] = key.getY();
@@ -95,11 +95,11 @@ public class KeyboardLayout {
     /**
      * Factory method to create {@link KeyboardLayout} objects.
      */
-    public static KeyboardLayout newKeyboardLayout(@NonNull final List<com.oscar.aikeyboard.keyboard.Key> sortedKeys,
+    public static KeyboardLayout newKeyboardLayout(@NonNull final List<Key> sortedKeys,
             int mostCommonKeyWidth, int mostCommonKeyHeight,
             int occupiedWidth, int occupiedHeight) {
-        final ArrayList<com.oscar.aikeyboard.keyboard.Key> layoutKeys = new ArrayList<com.oscar.aikeyboard.keyboard.Key>();
-        for (final com.oscar.aikeyboard.keyboard.Key key : sortedKeys) {
+        final ArrayList<Key> layoutKeys = new ArrayList<com.oscar.aikeyboard.keyboard.Key>();
+        for (final Key key : sortedKeys) {
             if (!ProximityInfo.needsProximityInfo(key)) {
                 continue;
             }

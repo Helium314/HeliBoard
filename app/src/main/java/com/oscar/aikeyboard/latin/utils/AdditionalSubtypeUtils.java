@@ -49,7 +49,7 @@ public final class AdditionalSubtypeUtils {
     private static InputMethodSubtype createAdditionalSubtypeInternal(
             final Locale locale, final String keyboardLayoutSetName,
             final boolean isAsciiCapable, final boolean isEmojiCapable) {
-        final int nameId = com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils.getSubtypeNameId(locale, keyboardLayoutSetName);
+        final int nameId = SubtypeLocaleUtils.getSubtypeNameId(locale, keyboardLayoutSetName);
         final String platformVersionDependentExtraValues = getPlatformVersionDependentExtraValue(
                 locale, keyboardLayoutSetName, isAsciiCapable, isEmojiCapable);
         final int platformVersionIndependentSubtypeId =
@@ -177,9 +177,9 @@ public final class AdditionalSubtypeUtils {
         if (isAsciiCapable) {
             extraValueItems.add(ASCII_CAPABLE);
         }
-        if (com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils.isExceptionalLocale(locale)) {
+        if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
             extraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +
-                    com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
+                    SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(keyboardLayoutSetName));
         }
         if (isEmojiCapable) {
             extraValueItems.add(EMOJI_CAPABLE);

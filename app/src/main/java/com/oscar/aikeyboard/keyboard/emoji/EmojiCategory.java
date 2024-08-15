@@ -119,7 +119,7 @@ final class EmojiCategory {
     private final HashMap<String, Integer> mCategoryNameToIdMap = new HashMap<>();
     private final int[] mCategoryTabIconId = new int[sCategoryName.length];
     private final ArrayList<CategoryProperties> mShownCategories = new ArrayList<>();
-    private final ConcurrentHashMap<Long, com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard> mCategoryKeyboardMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, DynamicGridKeyboard> mCategoryKeyboardMap = new ConcurrentHashMap<>();
 
     private int mCurrentCategoryId = EmojiCategory.ID_UNSPECIFIED;
     private int mCurrentCategoryPageId = 0;
@@ -152,7 +152,7 @@ final class EmojiCategory {
         }
         addShownCategoryId(EmojiCategory.ID_EMOTICONS);
 
-        com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard recentsKbd = getKeyboard(EmojiCategory.ID_RECENTS, 0);
+        DynamicGridKeyboard recentsKbd = getKeyboard(EmojiCategory.ID_RECENTS, 0);
         mCurrentCategoryId = Settings.readLastShownEmojiCategoryId(mPrefs, defaultCategoryId);
         mCurrentCategoryPageId = Settings.readLastShownEmojiCategoryPageId(mPrefs, 0);
         if (!isShownCategoryId(mCurrentCategoryId)) {
@@ -278,7 +278,7 @@ final class EmojiCategory {
     }
 
     // Returns a keyboard from the recycler view's adapter position.
-    public com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard getKeyboardFromAdapterPosition(final int position) {
+    public DynamicGridKeyboard getKeyboardFromAdapterPosition(final int position) {
         if (position >= 0 && position < getCurrentCategoryPageCount()) {
             return getKeyboard(mCurrentCategoryId, position);
         }
@@ -290,7 +290,7 @@ final class EmojiCategory {
         return (((long) categoryId) << Integer.SIZE) | id;
     }
 
-    public com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard getKeyboard(final int categoryId, final int id) {
+    public DynamicGridKeyboard getKeyboard(final int categoryId, final int id) {
         synchronized (mCategoryKeyboardMap) {
             final Long categoryKeyboardMapKey = getCategoryKeyboardMapKey(categoryId, id);
             if (mCategoryKeyboardMap.containsKey(categoryKeyboardMapKey)) {
@@ -299,7 +299,7 @@ final class EmojiCategory {
 
             final int currentWidth = ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent());
             if (categoryId == EmojiCategory.ID_RECENTS) {
-                final com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard kbd = new com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard(mPrefs,
+                final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                         mMaxRecentsKeyCount, categoryId, currentWidth);
                 mCategoryKeyboardMap.put(categoryKeyboardMapKey, kbd);
@@ -312,7 +312,7 @@ final class EmojiCategory {
             final Key[][] sortedKeysPages = sortKeysGrouped(
                     keyboard.getSortedKeys(), keyCountPerPage);
             for (int pageId = 0; pageId < sortedKeysPages.length; ++pageId) {
-                final com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard tempKeyboard = new com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard(mPrefs,
+                final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                         keyCountPerPage, categoryId, currentWidth);
                 for (final Key emojiKey : sortedKeysPages[pageId]) {
@@ -328,7 +328,7 @@ final class EmojiCategory {
     }
 
     private int computeMaxKeyCountPerPage() {
-        final com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard tempKeyboard = new com.oscar.aikeyboard.keyboard.emoji.DynamicGridKeyboard(mPrefs,
+        final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                 mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
                 0, 0, ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent()));
         return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getColumnsCount();

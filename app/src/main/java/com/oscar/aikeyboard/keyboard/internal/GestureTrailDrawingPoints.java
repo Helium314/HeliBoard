@@ -28,7 +28,7 @@ final class GestureTrailDrawingPoints {
     public static final int POINT_TYPE_SAMPLED = 1;
     public static final int POINT_TYPE_INTERPOLATED = 2;
 
-    private static final int DEFAULT_CAPACITY = com.oscar.aikeyboard.keyboard.internal.GestureStrokeDrawingPoints.PREVIEW_CAPACITY;
+    private static final int DEFAULT_CAPACITY = GestureStrokeDrawingPoints.PREVIEW_CAPACITY;
 
     // These three {@link ResizableIntArray}s should be synchronized by {@link #mEventTimes}.
     private final ResizableIntArray mXCoordinates = new ResizableIntArray(DEFAULT_CAPACITY);
@@ -58,13 +58,13 @@ final class GestureTrailDrawingPoints {
                 ? DOWN_EVENT_MARKER - xCoordOrMark : xCoordOrMark;
     }
 
-    public void addStroke(final com.oscar.aikeyboard.keyboard.internal.GestureStrokeDrawingPoints stroke, final long downTime) {
+    public void addStroke(final GestureStrokeDrawingPoints stroke, final long downTime) {
         synchronized (mEventTimes) {
             addStrokeLocked(stroke, downTime);
         }
     }
 
-    private void addStrokeLocked(final com.oscar.aikeyboard.keyboard.internal.GestureStrokeDrawingPoints stroke, final long downTime) {
+    private void addStrokeLocked(final GestureStrokeDrawingPoints stroke, final long downTime) {
         final int trailSize = mEventTimes.getLength();
         stroke.appendPreviewStroke(mEventTimes, mXCoordinates, mYCoordinates, mPointTypes);
         if (mEventTimes.getLength() == trailSize) {
@@ -107,7 +107,7 @@ final class GestureTrailDrawingPoints {
      * @param params gesture trail display parameters
      * @return the width of a gesture trail
      */
-    private static int getAlpha(final int elapsedTime, final com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingParams params) {
+    private static int getAlpha(final int elapsedTime, final GestureTrailDrawingParams params) {
         final int fullAlpha = Color.alpha(params.mTrailColor);
         if (elapsedTime < params.mFadeoutStartDelay) {
             return fullAlpha;
@@ -127,12 +127,12 @@ final class GestureTrailDrawingPoints {
      * @param params gesture trail display parameters
      * @return the width of a gesture trail
      */
-    private static float getWidth(final int elapsedTime, final com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingParams params) {
+    private static float getWidth(final int elapsedTime, final GestureTrailDrawingParams params) {
         final float deltaWidth = params.mTrailStartWidth - params.mTrailEndWidth;
         return params.mTrailStartWidth - (deltaWidth * elapsedTime) / params.mTrailLingerDuration;
     }
 
-    private final com.oscar.aikeyboard.keyboard.internal.RoundedLine mRoundedLine = new com.oscar.aikeyboard.keyboard.internal.RoundedLine();
+    private final RoundedLine mRoundedLine = new RoundedLine();
     private final Rect mRoundedLineBounds = new Rect();
 
     /**
@@ -144,14 +144,14 @@ final class GestureTrailDrawingPoints {
      * @return true if some gesture trails remain to be drawn
      */
     public boolean drawGestureTrail(final Canvas canvas, final Paint paint,
-            final Rect outBoundsRect, final com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingParams params) {
+            final Rect outBoundsRect, final GestureTrailDrawingParams params) {
         synchronized (mEventTimes) {
             return drawGestureTrailLocked(canvas, paint, outBoundsRect, params);
         }
     }
 
     private boolean drawGestureTrailLocked(final Canvas canvas, final Paint paint,
-            final Rect outBoundsRect, final com.oscar.aikeyboard.keyboard.internal.GestureTrailDrawingParams params) {
+            final Rect outBoundsRect, final GestureTrailDrawingParams params) {
         // Initialize bounds rectangle.
         outBoundsRect.setEmpty();
         final int trailSize = mEventTimes.getLength();
@@ -177,7 +177,7 @@ final class GestureTrailDrawingPoints {
         if (startIndex < trailSize) {
             paint.setColor(params.mTrailColor);
             paint.setStyle(Paint.Style.FILL);
-            final com.oscar.aikeyboard.keyboard.internal.RoundedLine roundedLine = mRoundedLine;
+            final RoundedLine roundedLine = mRoundedLine;
             int p1x = getXCoordValue(xCoords[startIndex]);
             int p1y = yCoords[startIndex];
             final int lastTime = sinceDown - eventTimes[startIndex];

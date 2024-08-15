@@ -109,7 +109,8 @@ public class DictionaryInfoUtils {
     /**
      * Helper method to the list of cache directories, one for each distinct locale.
      */
-    @Nullable public static File[] getCachedDirectoryList(final Context context) {
+    @Nullable
+    public static File[] getCachedDirectoryList(final Context context) {
         return new File(DictionaryInfoUtils.getWordListCacheDirectory(context)).listFiles();
     }
 
@@ -165,7 +166,8 @@ public class DictionaryInfoUtils {
      * <p>
      * Returns the locale, or null if file name does not match the pattern
      */
-    @Nullable public static String extractLocaleFromAssetsDictionaryFile(final String dictionaryFileName) {
+    @Nullable
+    public static String extractLocaleFromAssetsDictionaryFile(final String dictionaryFileName) {
         if (dictionaryFileName.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX)
                 && dictionaryFileName.endsWith(".dict")) {
             return dictionaryFileName.substring(
@@ -176,7 +178,8 @@ public class DictionaryInfoUtils {
         return null;
     }
 
-    @Nullable public static String[] getAssetsDictionaryList(final Context context) {
+    @Nullable
+    public static String[] getAssetsDictionaryList(final Context context) {
         final String[] dictionaryList;
         try {
             dictionaryList = context.getAssets().list(ASSETS_DICTIONARY_FOLDER);
@@ -187,7 +190,7 @@ public class DictionaryInfoUtils {
     }
 
     public static boolean looksValidForDictionaryInsertion(final CharSequence text,
-            final SpacingAndPunctuations spacingAndPunctuations) {
+                                                           final SpacingAndPunctuations spacingAndPunctuations) {
         if (TextUtils.isEmpty(text)) {
             return false;
         }

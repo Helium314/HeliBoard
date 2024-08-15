@@ -55,7 +55,7 @@ import java.util.List;
  */
 public class Keyboard {
     @NonNull
-    public final com.oscar.aikeyboard.keyboard.KeyboardId mId;
+    public final KeyboardId mId;
     public final int mThemeId;
 
     /** Total height of the keyboard, including the padding and keys */
@@ -87,20 +87,20 @@ public class Keyboard {
 
     /** List of keys in this keyboard */
     @NonNull
-    private final List<com.oscar.aikeyboard.keyboard.Key> mSortedKeys;
+    private final List<Key> mSortedKeys;
     @NonNull
-    public final List<com.oscar.aikeyboard.keyboard.Key> mShiftKeys;
+    public final List<Key> mShiftKeys;
     @NonNull
-    public final List<com.oscar.aikeyboard.keyboard.Key> mAltCodeKeysWhileTyping;
+    public final List<Key> mAltCodeKeysWhileTyping;
     @NonNull
     public final KeyboardIconsSet mIconsSet;
 
-    private final SparseArray<com.oscar.aikeyboard.keyboard.Key> mKeyCache = new SparseArray<>();
+    private final SparseArray<Key> mKeyCache = new SparseArray<>();
 
     @NonNull
     private final ProximityInfo mProximityInfo;
     @NonNull
-    private final com.oscar.aikeyboard.keyboard.KeyboardLayout mKeyboardLayout;
+    private final KeyboardLayout mKeyboardLayout;
 
     private final boolean mProximityCharsCorrectionEnabled;
 
@@ -128,7 +128,7 @@ public class Keyboard {
                 mOccupiedWidth, mOccupiedHeight, mMostCommonKeyWidth, mMostCommonKeyHeight,
                 mSortedKeys, params.mTouchPositionCorrection);
         mProximityCharsCorrectionEnabled = params.mProximityCharsCorrectionEnabled;
-        mKeyboardLayout = com.oscar.aikeyboard.keyboard.KeyboardLayout.newKeyboardLayout(mSortedKeys, mMostCommonKeyWidth,
+        mKeyboardLayout = KeyboardLayout.newKeyboardLayout(mSortedKeys, mMostCommonKeyWidth,
                 mMostCommonKeyHeight, mOccupiedWidth, mOccupiedHeight);
     }
 
@@ -164,8 +164,8 @@ public class Keyboard {
         // Note: The native code has the main keyboard layout only at this moment.
         // TODO: Figure out how to handle proximity characters information of all layouts.
         final boolean canAssumeNativeHasProximityCharsInfoOfAllKeys = (
-                mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET
-                || mId.mElementId == com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED);
+                mId.mElementId == KeyboardId.ELEMENT_ALPHABET
+                || mId.mElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED);
         return canAssumeNativeHasProximityCharsInfoOfAllKeys || Character.isLetter(code);
     }
 
@@ -175,7 +175,7 @@ public class Keyboard {
     }
 
     @NonNull
-    public com.oscar.aikeyboard.keyboard.KeyboardLayout getKeyboardLayout() {
+    public KeyboardLayout getKeyboardLayout() {
         return mKeyboardLayout;
     }
 
@@ -186,12 +186,12 @@ public class Keyboard {
      * @return the sorted unmodifiable list of {@link Key}s of this keyboard.
      */
     @NonNull
-    public List<com.oscar.aikeyboard.keyboard.Key> getSortedKeys() {
+    public List<Key> getSortedKeys() {
         return mSortedKeys;
     }
 
     @Nullable
-    public com.oscar.aikeyboard.keyboard.Key getKey(final int code) {
+    public Key getKey(final int code) {
         if (code == KeyCode.NOT_SPECIFIED) {
             return null;
         }
@@ -201,7 +201,7 @@ public class Keyboard {
                 return mKeyCache.valueAt(index);
             }
 
-            for (final com.oscar.aikeyboard.keyboard.Key key : getSortedKeys()) {
+            for (final Key key : getSortedKeys()) {
                 if (key.getCode() == code) {
                     mKeyCache.put(code, key);
                     return key;
@@ -212,12 +212,12 @@ public class Keyboard {
         }
     }
 
-    public boolean hasKey(@NonNull final com.oscar.aikeyboard.keyboard.Key aKey) {
+    public boolean hasKey(@NonNull final Key aKey) {
         if (mKeyCache.indexOfValue(aKey) >= 0) {
             return true;
         }
 
-        for (final com.oscar.aikeyboard.keyboard.Key key : getSortedKeys()) {
+        for (final Key key : getSortedKeys()) {
             if (key == aKey) {
                 mKeyCache.put(key.getCode(), key);
                 return true;
@@ -239,7 +239,7 @@ public class Keyboard {
      * point is out of range, then an array of size zero is returned.
      */
     @NonNull
-    public List<com.oscar.aikeyboard.keyboard.Key> getNearestKeys(final int x, final int y) {
+    public List<Key> getNearestKeys(final int x, final int y) {
         // Avoid dead pixels at edges of the keyboard
         final int adjustedX = Math.max(0, Math.min(x, mOccupiedWidth - 1));
         final int adjustedY = Math.max(0, Math.min(y, mOccupiedHeight - 1));
@@ -251,7 +251,7 @@ public class Keyboard {
         final int length = codePoints.length;
         final int[] coordinates = CoordinateUtils.newCoordinateArray(length);
         for (int i = 0; i < length; ++i) {
-            final com.oscar.aikeyboard.keyboard.Key key = getKey(codePoints[i]);
+            final Key key = getKey(codePoints[i]);
             if (null != key) {
                 CoordinateUtils.setXYInArray(coordinates, i,
                         key.getX() + key.getWidth() / 2, key.getY() + key.getHeight() / 2);

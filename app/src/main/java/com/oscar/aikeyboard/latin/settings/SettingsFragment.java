@@ -55,7 +55,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(@Nullable Bundle bundle, @Nullable String s) {
         addPreferencesFromResource(R.xml.prefs);
         if (!JniUtils.sHaveGestureLib) {
-            final Preference gesturePreference = findPreference(com.oscar.aikeyboard.latin.settings.Settings.SCREEN_GESTURE);
+            final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
             getPreferenceScreen().removePreference(gesturePreference);
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD)

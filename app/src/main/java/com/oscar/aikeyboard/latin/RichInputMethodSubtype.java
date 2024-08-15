@@ -159,9 +159,9 @@ public class RichInputMethodSubtype {
     private static final int SUBTYPE_ID_OF_DUMMY_NO_LANGUAGE_SUBTYPE = 0xdde0bfd3;
     private static final String EXTRA_VALUE_OF_DUMMY_NO_LANGUAGE_SUBTYPE =
             "KeyboardLayoutSet=" + SubtypeLocaleUtils.QWERTY
-            + "," + com.oscar.aikeyboard.latin.common.Constants.Subtype.ExtraValue.ASCII_CAPABLE
-            + "," + com.oscar.aikeyboard.latin.common.Constants.Subtype.ExtraValue.ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE
-            + "," + com.oscar.aikeyboard.latin.common.Constants.Subtype.ExtraValue.EMOJI_CAPABLE;
+            + "," + Constants.Subtype.ExtraValue.ASCII_CAPABLE
+            + "," + Constants.Subtype.ExtraValue.ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE
+            + "," + Constants.Subtype.ExtraValue.EMOJI_CAPABLE;
     @NonNull
     private static final RichInputMethodSubtype DUMMY_NO_LANGUAGE_SUBTYPE =
             new RichInputMethodSubtype(new InputMethodSubtype.InputMethodSubtypeBuilder()
@@ -200,7 +200,7 @@ public class RichInputMethodSubtype {
     public static RichInputMethodSubtype getNoLanguageSubtype() {
         RichInputMethodSubtype noLanguageSubtype = sNoLanguageSubtype;
         if (noLanguageSubtype == null) {
-            final InputMethodSubtype rawNoLanguageSubtype = com.oscar.aikeyboard.latin.RichInputMethodManager.getInstance()
+            final InputMethodSubtype rawNoLanguageSubtype = RichInputMethodManager.getInstance()
                     .findSubtypeByLocaleAndKeyboardLayoutSet(LocaleUtils.constructLocale(SubtypeLocaleUtils.NO_LANGUAGE), SubtypeLocaleUtils.QWERTY);
             if (rawNoLanguageSubtype != null) {
                 noLanguageSubtype = new RichInputMethodSubtype(rawNoLanguageSubtype);

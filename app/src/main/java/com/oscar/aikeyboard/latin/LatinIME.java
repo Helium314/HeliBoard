@@ -158,7 +158,7 @@ public class LatinIME extends InputMethodService implements
 
     // Object for reacting to adding/removing a dictionary pack.
     private final BroadcastReceiver mDictionaryPackInstallReceiver =
-            new com.oscar.aikeyboard.latin.DictionaryPackInstallBroadcastReceiver(this);
+            new DictionaryPackInstallBroadcastReceiver(this);
 
     private final BroadcastReceiver mDictionaryDumpBroadcastReceiver =
             new DictionaryDumpBroadcastReceiver(this);
@@ -575,7 +575,7 @@ public class LatinIME extends InputMethodService implements
         SubtypeSettingsKt.init(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
-        com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager.init(this);
+        AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);
         mStatsUtilsManager.onCreate(this, mDictionaryFacilitator);
         mDisplayContext = getDisplayContext();
@@ -621,7 +621,7 @@ public class LatinIME extends InputMethodService implements
                 editorInfo, isFullscreenMode(), getPackageName());
         mSettings.loadSettings(this, locale, inputAttributes);
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
-        com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
+       AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
         // This method is called on startup and language switch, before the new layout has
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.
@@ -1195,7 +1195,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
 
-        final ArrayList<SuggestedWordInfo> applicationSuggestedWords =
+        final ArrayList<SuggestedWords.SuggestedWordInfo> applicationSuggestedWords =
                 SuggestedWords.getFromApplicationSpecifiedCompletions(
                         applicationSpecifiedCompletions);
         final SuggestedWords suggestedWords = new SuggestedWords(applicationSuggestedWords,
@@ -1774,8 +1774,8 @@ public class LatinIME extends InputMethodService implements
                 return;
             }
         }
-        final com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager feedbackManager =
-                com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager.getInstance();
+        final AudioAndHapticFeedbackManager feedbackManager =
+                AudioAndHapticFeedbackManager.getInstance();
         if (repeatCount == 0) {
             // TODO: Reconsider how to perform haptic feedback when repeating key.
             feedbackManager.performHapticFeedback(keyboardView);
@@ -1854,7 +1854,7 @@ public class LatinIME extends InputMethodService implements
         public void onReceive(final Context context, final Intent intent) {
             final String action = intent.getAction();
             if (AudioManager.RINGER_MODE_CHANGED_ACTION.equals(action)) {
-                com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager.getInstance().onRingerModeChanged();
+                AudioAndHapticFeedbackManager.getInstance().onRingerModeChanged();
             }
         }
     };

@@ -24,6 +24,7 @@ import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfo
 import com.oscar.aikeyboard.latin.InputAttributes;
 import com.oscar.aikeyboard.latin.RichInputMethodManager;
 import com.oscar.aikeyboard.latin.common.Colors;
+import com.oscar.aikeyboard.latin.permissions.PermissionsUtil;
 import com.oscar.aikeyboard.latin.utils.CustomLayoutUtilsKt;
 import com.oscar.aikeyboard.latin.utils.InputTypeUtils;
 import com.oscar.aikeyboard.latin.utils.Log;
@@ -376,7 +377,7 @@ public class SettingsValues {
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
         return prefs.getBoolean(Settings.PREF_USE_CONTACTS, false)
-                && com.oscar.aikeyboard.latin.permissions.PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS);
+                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS);
     }
 
     public String dump() {

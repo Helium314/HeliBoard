@@ -7,6 +7,7 @@
 package com.oscar.aikeyboard.latin;
 
 import android.content.Context;
+
 import com.oscar.aikeyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
@@ -44,15 +45,19 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * queries in native code. This binary dictionary is written to internal storage.
  * <p>
  * A class that extends this abstract class must have a static factory method named
- *   getDictionary(Context context, Locale locale, File dictFile, String dictNamePrefix)
+ * getDictionary(Context context, Locale locale, File dictFile, String dictNamePrefix)
  */
 abstract public class ExpandableBinaryDictionary extends Dictionary {
     private static final boolean DEBUG = false;
 
-    /** Used for Log actions from this class */
+    /**
+     * Used for Log actions from this class
+     */
     private static final String TAG = ExpandableBinaryDictionary.class.getSimpleName();
 
-    /** Whether to print debug output to log */
+    /**
+     * Whether to print debug output to log
+     */
     private static final boolean DBG_STRESS_TEST = false;
 
     private static final int TIMEOUT_FOR_READ_OPS_IN_MILLISECONDS = 100;
@@ -68,7 +73,9 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     private static final WordProperty[] DEFAULT_WORD_PROPERTIES_FOR_SYNC =
             new WordProperty[0] /* default */;
 
-    /** The application context. */
+    /**
+     * The application context.
+     */
     protected final Context mContext;
 
     /**
@@ -83,13 +90,19 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      */
     private final String mDictName;
 
-    /** Dictionary file */
+    /**
+     * Dictionary file
+     */
     private final File mDictFile;
 
-    /** Indicates whether a task for reloading the dictionary has been scheduled. */
+    /**
+     * Indicates whether a task for reloading the dictionary has been scheduled.
+     */
     private final AtomicBoolean mIsReloading;
 
-    /** Indicates whether the current dictionary needs to be recreated. */
+    /**
+     * Indicates whether the current dictionary needs to be recreated.
+     */
     private boolean mNeedsToRecreate;
 
     private final ReentrantReadWriteLock mLock;
@@ -119,16 +132,16 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     /**
      * Creates a new expandable binary dictionary.
      *
-     * @param context The application context of the parent.
+     * @param context  The application context of the parent.
      * @param dictName The name of the dictionary. Multiple instances with the same
-     *        name is supported.
-     * @param locale the dictionary locale.
+     *                 name is supported.
+     * @param locale   the dictionary locale.
      * @param dictType the dictionary type, as a human-readable string
      * @param dictFile dictionary file path. if null, use default dictionary path based on
-     *        dictionary type.
+     *                 dictionary type.
      */
     public ExpandableBinaryDictionary(final Context context, final String dictName,
-            final Locale locale, final String dictType, final File dictFile) {
+                                      final Locale locale, final String dictType, final File dictFile) {
         super(dictType, locale);
         mDictName = dictName;
         mContext = context;
@@ -140,13 +153,13 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     }
 
     public static File getDictFile(final Context context, final String dictName,
-            final File dictFile) {
+                                   final File dictFile) {
         return (dictFile != null) ? dictFile
                 : new File(context.getFilesDir(), dictName + DICT_FILE_EXTENSION);
     }
 
     public static String getDictName(final String name, final Locale locale,
-            final File dictFile) {
+                                     final File dictFile) {
         return dictFile != null ? dictFile.getName() : name + "." + locale.toLanguageTag();
     }
 
@@ -257,15 +270,15 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      * Adds unigram information of a word to the dictionary. May overwrite an existing entry.
      */
     public void addUnigramEntry(final String word, final int frequency,
-            final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
-            final boolean isPossiblyOffensive, final int timestamp) {
+                                final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
+                                final boolean isPossiblyOffensive, final int timestamp) {
         updateDictionaryWithWriteLock(() -> addUnigramLocked(word, frequency, shortcutTarget,
                 shortcutFreq, isNotAWord, isPossiblyOffensive, timestamp));
     }
 
     protected void addUnigramLocked(final String word, final int frequency,
-            final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
-            final boolean isPossiblyOffensive, final int timestamp) {
+                                    final String shortcutTarget, final int shortcutFreq, final boolean isNotAWord,
+                                    final boolean isPossiblyOffensive, final int timestamp) {
         if (!mBinaryDictionary.addUnigramEntry(word, frequency, shortcutTarget, shortcutFreq,
                 false /* isBeginningOfSentence */, isNotAWord, isPossiblyOffensive, timestamp)) {
             Log.e(TAG, "Cannot add unigram entry. word: " + word);
@@ -295,7 +308,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      * Adds n-gram information of a word to the dictionary. May overwrite an existing entry.
      */
     public void addNgramEntry(@NonNull final NgramContext ngramContext, final String word,
-            final int frequency, final int timestamp) {
+                              final int frequency, final int timestamp) {
         reloadDictionaryIfRequired();
         asyncExecuteTaskWithWriteLock(() -> {
             if (getBinaryDictionary() == null) {
@@ -307,7 +320,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     }
 
     protected void addNgramEntryLocked(@NonNull final NgramContext ngramContext, final String word,
-            final int frequency, final int timestamp) {
+                                       final int frequency, final int timestamp) {
         if (!mBinaryDictionary.addNgramEntry(ngramContext, word, frequency, timestamp)) {
             if (DEBUG) {
                 Log.i(TAG, "Cannot add n-gram entry.");
@@ -320,7 +333,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
      * Update dictionary for the word with the ngramContext.
      */
     public void updateEntriesForWord(@NonNull final NgramContext ngramContext,
-            final String word, final boolean isValidWord, final int count, final int timestamp) {
+                                     final String word, final boolean isValidWord, final int count, final int timestamp) {
         updateDictionaryWithWriteLock(() -> {
             final BinaryDictionary binaryDictionary = getBinaryDictionary();
             if (binaryDictionary == null) {
@@ -338,9 +351,9 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     @Override
     public ArrayList<SuggestedWordInfo> getSuggestions(final ComposedData composedData,
-                                                                      final NgramContext ngramContext, final long proximityInfoHandle,
-                                                                      final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
-                                                                      final float weightForLocale, final float[] inOutWeightOfLangModelVsSpatialModel) {
+                                                       final NgramContext ngramContext, final long proximityInfoHandle,
+                                                       final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
+                                                       final float weightForLocale, final float[] inOutWeightOfLangModelVsSpatialModel) {
         reloadDictionaryIfRequired();
         boolean lockAcquired = false;
         try {
@@ -355,7 +368,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                                 proximityInfoHandle, settingsValuesForSuggestion, sessionId,
                                 weightForLocale, inOutWeightOfLangModelVsSpatialModel);
                 if (mBinaryDictionary.isCorrupted()) {
-                    Log.i(TAG, "Dictionary (" + mDictName +") is corrupted. "
+                    Log.i(TAG, "Dictionary (" + mDictName + ") is corrupted. "
                             + "Remove and regenerate it.");
                     removeBinaryDictionary();
                 }
@@ -466,7 +479,6 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
 
     /**
      * Marks that the dictionary needs to be recreated.
-     *
      */
     protected void setNeedsToRecreate() {
         mNeedsToRecreate = true;
@@ -551,16 +563,16 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         });
     }
 
-    public com.oscar.aikeyboard.latin.DictionaryStats getDictionaryStats() {
+    public DictionaryStats getDictionaryStats() {
         reloadDictionaryIfRequired();
         final String dictName = mDictName;
         final File dictFile = mDictFile;
-        final AsyncResultHolder<com.oscar.aikeyboard.latin.DictionaryStats> result =
+        final AsyncResultHolder<DictionaryStats> result =
                 new AsyncResultHolder<>("DictionaryStats");
         asyncExecuteTaskWithLock(mLock.readLock(), new Runnable() {
             @Override
             public void run() {
-                result.set(new com.oscar.aikeyboard.latin.DictionaryStats(mLocale, dictName, dictName, dictFile, 0));
+                result.set(new DictionaryStats(mLocale, dictName, dictName, dictFile, 0));
             }
         });
         return result.get(null /* defaultValue */, TIMEOUT_FOR_READ_OPS_IN_MILLISECONDS);

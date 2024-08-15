@@ -25,9 +25,9 @@ import java.util.Arrays;
  */
 public final class WordProperty implements Comparable<WordProperty> {
     public final String mWord;
-    public final com.oscar.aikeyboard.latin.makedict.ProbabilityInfo mProbabilityInfo;
-    public final ArrayList<com.oscar.aikeyboard.latin.makedict.WeightedString> mShortcutTargets;
-    public final ArrayList<com.oscar.aikeyboard.latin.makedict.NgramProperty> mNgrams;
+    public final ProbabilityInfo mProbabilityInfo;
+    public final ArrayList<WeightedString> mShortcutTargets;
+    public final ArrayList<NgramProperty> mNgrams;
     // TODO: Support mIsBeginningOfSentence.
     public final boolean mIsBeginningOfSentence;
     public final boolean mIsNotAWord;
@@ -38,10 +38,10 @@ public final class WordProperty implements Comparable<WordProperty> {
     private int mHashCode = 0;
 
     // TODO: Support n-gram.
-    public WordProperty(final String word, final com.oscar.aikeyboard.latin.makedict.ProbabilityInfo probabilityInfo,
-            final ArrayList<com.oscar.aikeyboard.latin.makedict.WeightedString> shortcutTargets,
-            @Nullable final ArrayList<com.oscar.aikeyboard.latin.makedict.WeightedString> bigrams,
-            final boolean isNotAWord, final boolean isPossiblyOffensive) {
+    public WordProperty(final String word, final ProbabilityInfo probabilityInfo,
+                        final ArrayList<WeightedString> shortcutTargets,
+                        @Nullable final ArrayList<WeightedString> bigrams,
+                        final boolean isNotAWord, final boolean isPossiblyOffensive) {
         mWord = word;
         mProbabilityInfo = probabilityInfo;
         mShortcutTargets = shortcutTargets;
@@ -50,8 +50,8 @@ public final class WordProperty implements Comparable<WordProperty> {
         } else {
             mNgrams = new ArrayList<>();
             final NgramContext ngramContext = new NgramContext(new NgramContext.WordInfo(mWord));
-            for (final com.oscar.aikeyboard.latin.makedict.WeightedString bigramTarget : bigrams) {
-                mNgrams.add(new com.oscar.aikeyboard.latin.makedict.NgramProperty(bigramTarget, ngramContext));
+            for (final WeightedString bigramTarget : bigrams) {
+                mNgrams.add(new NgramProperty(bigramTarget, ngramContext));
             }
         }
         mIsBeginningOfSentence = false;
@@ -61,24 +61,24 @@ public final class WordProperty implements Comparable<WordProperty> {
         mHasShortcuts = shortcutTargets != null && !shortcutTargets.isEmpty();
     }
 
-    private static com.oscar.aikeyboard.latin.makedict.ProbabilityInfo createProbabilityInfoFromArray(final int[] probabilityInfo) {
-      return new com.oscar.aikeyboard.latin.makedict.ProbabilityInfo(
-              probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_PROBABILITY_INDEX],
-              probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_TIMESTAMP_INDEX],
-              probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_LEVEL_INDEX],
-              probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_COUNT_INDEX]);
+    private static ProbabilityInfo createProbabilityInfoFromArray(final int[] probabilityInfo) {
+        return new ProbabilityInfo(
+                probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_PROBABILITY_INDEX],
+                probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_TIMESTAMP_INDEX],
+                probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_LEVEL_INDEX],
+                probabilityInfo[BinaryDictionary.FORMAT_WORD_PROPERTY_COUNT_INDEX]);
     }
 
     // Construct word property using information from native code.
     // This represents invalid word when the probability is BinaryDictionary.NOT_A_PROBABILITY.
     public WordProperty(final int[] codePoints, final boolean isNotAWord,
-            final boolean isPossiblyOffensive, final boolean hasBigram, final boolean hasShortcuts,
-            final boolean isBeginningOfSentence, final int[] probabilityInfo,
-            final ArrayList<int[][]> ngramPrevWordsArray,
-            final ArrayList<boolean[]> ngramPrevWordIsBeginningOfSentenceArray,
-            final ArrayList<int[]> ngramTargets, final ArrayList<int[]> ngramProbabilityInfo,
-            final ArrayList<int[]> shortcutTargets,
-            final ArrayList<Integer> shortcutProbabilities) {
+                        final boolean isPossiblyOffensive, final boolean hasBigram, final boolean hasShortcuts,
+                        final boolean isBeginningOfSentence, final int[] probabilityInfo,
+                        final ArrayList<int[][]> ngramPrevWordsArray,
+                        final ArrayList<boolean[]> ngramPrevWordIsBeginningOfSentenceArray,
+                        final ArrayList<int[]> ngramTargets, final ArrayList<int[]> ngramProbabilityInfo,
+                        final ArrayList<int[]> shortcutTargets,
+                        final ArrayList<Integer> shortcutProbabilities) {
         mWord = StringUtils.getStringFromNullTerminatedCodePointArray(codePoints);
         mProbabilityInfo = createProbabilityInfoFromArray(probabilityInfo);
         mShortcutTargets = new ArrayList<>();
@@ -93,7 +93,7 @@ public final class WordProperty implements Comparable<WordProperty> {
         for (int i = 0; i < relatedNgramCount; i++) {
             final String ngramTargetString =
                     StringUtils.getStringFromNullTerminatedCodePointArray(ngramTargets.get(i));
-            final com.oscar.aikeyboard.latin.makedict.WeightedString ngramTarget = new com.oscar.aikeyboard.latin.makedict.WeightedString(ngramTargetString,
+            final WeightedString ngramTarget = new WeightedString(ngramTargetString,
                     createProbabilityInfoFromArray(ngramProbabilityInfo.get(i)));
             final int[][] prevWords = ngramPrevWordsArray.get(i);
             final boolean[] isBeginningOfSentenceArray =
@@ -103,10 +103,10 @@ public final class WordProperty implements Comparable<WordProperty> {
                 wordInfoArray[j] = isBeginningOfSentenceArray[j]
                         ? NgramContext.WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO
                         : new NgramContext.WordInfo(StringUtils.getStringFromNullTerminatedCodePointArray(
-                                prevWords[j]));
+                        prevWords[j]));
             }
             final NgramContext ngramContext = new NgramContext(wordInfoArray);
-            ngrams.add(new com.oscar.aikeyboard.latin.makedict.NgramProperty(ngramTarget, ngramContext));
+            ngrams.add(new NgramProperty(ngramTarget, ngramContext));
         }
         mNgrams = ngrams.isEmpty() ? null : ngrams;
 
@@ -115,17 +115,17 @@ public final class WordProperty implements Comparable<WordProperty> {
             final String shortcutTargetString =
                     StringUtils.getStringFromNullTerminatedCodePointArray(shortcutTargets.get(i));
             mShortcutTargets.add(
-                    new com.oscar.aikeyboard.latin.makedict.WeightedString(shortcutTargetString, shortcutProbabilities.get(i)));
+                    new WeightedString(shortcutTargetString, shortcutProbabilities.get(i)));
         }
     }
 
     // TODO: Remove
-    public ArrayList<com.oscar.aikeyboard.latin.makedict.WeightedString> getBigrams() {
+    public ArrayList<WeightedString> getBigrams() {
         if (null == mNgrams) {
             return null;
         }
-        final ArrayList<com.oscar.aikeyboard.latin.makedict.WeightedString> bigrams = new ArrayList<>();
-        for (final com.oscar.aikeyboard.latin.makedict.NgramProperty ngram : mNgrams) {
+        final ArrayList<WeightedString> bigrams = new ArrayList<>();
+        for (final NgramProperty ngram : mNgrams) {
             if (ngram.mNgramContext.getPrevWordCount() == 1) {
                 bigrams.add(ngram.mTargetWord);
             }
@@ -138,7 +138,7 @@ public final class WordProperty implements Comparable<WordProperty> {
     }
 
     private static int computeHashCode(WordProperty word) {
-        return Arrays.hashCode(new Object[] {
+        return Arrays.hashCode(new Object[]{
                 word.mWord,
                 word.mProbabilityInfo,
                 word.mShortcutTargets,
@@ -198,7 +198,8 @@ public final class WordProperty implements Comparable<WordProperty> {
     }
 
     @Override
-    @NonNull public String toString() {
+    @NonNull
+    public String toString() {
         return CombinedFormatUtils.formatWordProperty(this);
     }
 }

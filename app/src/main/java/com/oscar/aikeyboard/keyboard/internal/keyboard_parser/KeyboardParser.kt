@@ -44,7 +44,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         else -> 0
     }
 
-    fun parseLayout(): ArrayList<ArrayList<Key.KeyParams>> {
+    fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
@@ -58,7 +58,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         return keysInRows
     }
 
-    private fun createRows(baseKeys: MutableList<MutableList<KeyData>>): ArrayList<ArrayList<Key.KeyParams>> {
+    private fun createRows(baseKeys: MutableList<MutableList<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // add padding for number layouts in landscape mode (maybe do it some other way later)
         if (params.mId.isNumberLayout && params.mId.mElementId != KeyboardId.ELEMENT_NUMPAD
                 && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -86,7 +86,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         // offset for bottom, relevant for getting correct functional key rows
         val bottomIndexOffset = baseKeys.size - functionalKeysBottom.size
 
-        val functionalKeys = mutableListOf<Pair<List<Key.KeyParams>, List<Key.KeyParams>>>()
+        val functionalKeys = mutableListOf<Pair<List<KeyParams>, List<KeyParams>>>()
         val baseKeyParams = baseKeys.mapIndexed { i, it ->
             val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && Settings.getInstance().isTablet) {
                 // add bottom row extra keys
@@ -117,13 +117,13 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     /** interprets key width -1, adjusts row size to nicely fit on screen, adds spacers if necessary */
-    private fun setReasonableWidths(bassKeyParams: List<List<Key.KeyParams>>, functionalKeys: List<Pair<List<Key.KeyParams>, List<Key.KeyParams>>>): ArrayList<ArrayList<Key.KeyParams>> {
-        val keysInRows = ArrayList<ArrayList<Key.KeyParams>>()
+    private fun setReasonableWidths(bassKeyParams: List<List<KeyParams>>, functionalKeys: List<Pair<List<KeyParams>, List<KeyParams>>>): ArrayList<ArrayList<KeyParams>> {
+        val keysInRows = ArrayList<ArrayList<KeyParams>>()
         // expand width = -1 keys and make sure rows fit on screen, insert spacers if necessary
         bassKeyParams.forEachIndexed { i, keys ->
             val (functionalKeysLeft, functionalKeysRight) = functionalKeys[i]
             // sum up width, excluding -1 elements (put those in a separate list)
-            val varWidthKeys = mutableListOf<Key.KeyParams>()
+            val varWidthKeys = mutableListOf<KeyParams>()
             var totalWidth = 0f
             val allKeys = (functionalKeysLeft + keys + functionalKeysRight)
             allKeys.forEach {
@@ -145,8 +145,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             // re-scale total width, or add spacers (or do nothing if totalWidth is near 1)
             if (totalWidth < 0.9999f) { // add spacers
                 val spacerWidth = (1f - totalWidth) / 2
-                val paramsRow = ArrayList<Key.KeyParams>(functionalKeysLeft + Key.KeyParams.newSpacer(params, spacerWidth) + keys +
-                        Key.KeyParams.newSpacer(params, spacerWidth) + functionalKeysRight)
+                val paramsRow = ArrayList<KeyParams>(functionalKeysLeft + KeyParams.newSpacer(params, spacerWidth) + keys +
+                        KeyParams.newSpacer(params, spacerWidth) + functionalKeysRight)
                 keysInRows.add(paramsRow)
             } else {
                 if (totalWidth > 1.0001f) { // re-scale total width
@@ -182,8 +182,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         lastNormalRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mWidth = rowAboveLastNormalRowKeyWidth }
         // add spacers
         val lastNormalFullRow = keysInRows[keysInRows.lastIndex - 1]
-        lastNormalFullRow.add(lastNormalFullRow.indexOfFirst { it == lastNormalRow.first() }, Key.KeyParams.newSpacer(params, spacerWidth))
-        lastNormalFullRow.add(lastNormalFullRow.indexOfLast { it == lastNormalRow.last() } + 1, Key.KeyParams.newSpacer(params, spacerWidth))
+        lastNormalFullRow.add(lastNormalFullRow.indexOfFirst { it == lastNormalRow.first() }, KeyParams.newSpacer(params, spacerWidth))
+        lastNormalFullRow.add(lastNormalFullRow.indexOfLast { it == lastNormalRow.last() } + 1, KeyParams.newSpacer(params, spacerWidth))
 
         return keysInRows
     }

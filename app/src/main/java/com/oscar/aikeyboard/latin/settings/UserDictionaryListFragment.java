@@ -109,7 +109,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
         final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        final boolean localeSystemOnly = prefs.getBoolean(com.oscar.aikeyboard.latin.settings.Settings.PREF_USE_SYSTEM_LOCALES, true);
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
         final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
@@ -120,7 +120,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                sortedLocales.addAll(com.oscar.aikeyboard.latin.settings.Settings.getSecondaryLocales(prefs, mainLocale));
+                sortedLocales.addAll(Settings.getSecondaryLocales(prefs, mainLocale));
             }
         }
 

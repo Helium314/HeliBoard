@@ -71,7 +71,7 @@ final class DynamicGridKeyboard extends Keyboard {
         if (spacerWidth > 0)
             setSpacerColumns(spacerWidth);
         mMaxKeyCount = maxKeyCount;
-        mIsRecents = categoryId == com.oscar.aikeyboard.keyboard.emoji.EmojiCategory.ID_RECENTS;
+        mIsRecents = categoryId == EmojiCategory.ID_RECENTS;
         mPrefs = prefs;
     }
 

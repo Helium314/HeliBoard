@@ -27,7 +27,10 @@ import java.math.BigInteger
 
 fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     if (uri == null)
-        return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
+        return infoDialog(
+            context,
+            context.getString(R.string.layout_error, "layout file not found")
+        )
     val layoutContent: String
     try {
         val tmpFile = File(context.filesDir.absolutePath + File.separator + "tmpfile")
@@ -35,7 +38,10 @@ fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: 
         layoutContent = tmpFile.readText()
         tmpFile.delete()
     } catch (e: IOException) {
-        return infoDialog(context, context.getString(R.string.layout_error, "cannot read layout file"))
+        return infoDialog(
+            context,
+            context.getString(R.string.layout_error, "cannot read layout file")
+        )
     }
 
     var name = ""
@@ -49,10 +55,22 @@ fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: 
     loadCustomLayout(layoutContent, name, languageTag, context, onAdded)
 }
 
-fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: String, context: Context, onAdded: (String) -> Unit) {
+fun loadCustomLayout(
+    layoutContent: String,
+    layoutName: String,
+    languageTag: String,
+    context: Context,
+    onAdded: (String) -> Unit
+) {
     var name = layoutName
     val isJson = checkLayout(layoutContent, context)
-        ?: return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"))
+        ?: return infoDialog(
+            context,
+            context.getString(
+                R.string.layout_error,
+                "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"
+            )
+        )
 
     AlertDialog.Builder(context)
         .setTitle(R.string.title_layout_name_select)
@@ -65,7 +83,8 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         })
         .setPositiveButton(android.R.string.ok) { _, _ ->
             // name must be encoded to avoid issues with validity of subtype extra string or file name
-            name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
+            name =
+                "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}.${if (isJson) "json" else "txt"}"
             val file = getCustomLayoutFile(name, context)
             if (file.exists())
                 file.delete()
@@ -83,7 +102,8 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
-        val keys = RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+        val keys = RawKeyboardParser.parseJsonString(layoutContent)
+            .map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return true
@@ -94,16 +114,22 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
         return null
     }
     try {
-        val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
+        val keys = RawKeyboardParser.parseSimpleString(layoutContent)
+            .map { row -> row.map { it.toKeyParams(params) } }
         if (!checkKeys(keys))
             return null
         return false
-    } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
+    } catch (e: Exception) {
+        Log.w(TAG, "error parsing custom simple layout", e)
+    }
     if (layoutContent.trimStart().startsWith("[") && layoutContent.trimEnd().endsWith("]")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
-            RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
-        } catch (e: Exception) { Log.w(TAG, "json parsing error", e) }
+            RawKeyboardParser.parseJsonString(layoutContent)
+                .map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+        } catch (e: Exception) {
+            Log.w(TAG, "json parsing error", e)
+        }
     }
     return null
 }
@@ -121,28 +147,36 @@ fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
         Log.w(TAG, "too many keys in one row")
         return false
     }
-    if (keys.any { row -> row.any {
-            if ((it.mLabel?.length ?: 0) > 20) {
-                Log.w(TAG, "too long text on key: ${it.mLabel}")
-                true
-            } else false
-    } }) {
+    if (keys.any { row ->
+            row.any {
+                if ((it.mLabel?.length ?: 0) > 20) {
+                    Log.w(TAG, "too long text on key: ${it.mLabel}")
+                    true
+                } else false
+            }
+        }) {
         return false
     }
-    if (keys.any { row -> row.any {
-        if ((it.mPopupKeys?.size ?: 0) > 20) {
-            Log.w(TAG, "too many popup keys on key ${it.mLabel}")
-            true
-        } else false
-    } }) {
+    if (keys.any { row ->
+            row.any {
+                if ((it.mPopupKeys?.size ?: 0) > 20) {
+                    Log.w(TAG, "too many popup keys on key ${it.mLabel}")
+                    true
+                } else false
+            }
+        }) {
         return false
     }
-    if (keys.any { row -> row.any { true == it.mPopupKeys?.any { popupKey ->
-        if ((popupKey.mLabel?.length ?: 0) > 10) {
-            Log.w(TAG, "too long text on popup key: ${popupKey.mLabel}")
-            true
-        } else false
-    } } }) {
+    if (keys.any { row ->
+            row.any {
+                true == it.mPopupKeys?.any { popupKey ->
+                    if ((popupKey.mLabel?.length ?: 0) > 10) {
+                        Log.w(TAG, "too long text on popup key: ${popupKey.mLabel}")
+                        true
+                    } else false
+                }
+            }
+        }) {
         return false
     }
     return true
@@ -165,12 +199,16 @@ fun onCustomLayoutFileListChanged() {
     customLayouts = null
 }
 
-private fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
+private fun getCustomLayoutsDir(context: Context) =
+    File(DeviceProtectedUtils.getFilesDir(context), "layouts")
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
     try {
-        decodeBase36(layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).substringAfter(".").substringBeforeLast("."))
+        decodeBase36(
+            layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).substringAfter(".")
+                .substringBeforeLast(".")
+        )
     } catch (_: NumberFormatException) {
         layoutName
     }
@@ -179,7 +217,12 @@ fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getCustomLayoutFile(layoutName, context).delete()
 }
 
-fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
+fun editCustomLayout(
+    layoutName: String,
+    context: Context,
+    startContent: String? = null,
+    displayName: CharSequence? = null
+) {
     val file = getCustomLayoutFile(layoutName, context)
     val editText = EditText(context).apply {
         setText(startContent ?: file.readText())
@@ -192,7 +235,13 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
             val isJson = checkLayout(content, context)
             if (isJson == null) {
                 editCustomLayout(layoutName, context, content)
-                infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
+                infoDialog(
+                    context,
+                    context.getString(
+                        R.string.layout_error,
+                        Log.getLog(10).lastOrNull { it.tag == TAG }?.message
+                    )
+                )
             } else {
                 val wasJson = file.name.substringAfterLast(".") == "json"
                 file.parentFile?.mkdir()
@@ -207,8 +256,13 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
     if (displayName != null) {
         if (file.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
-                confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(
-                    R.string.delete)) {
+                confirmDialog(
+                    context,
+                    context.getString(R.string.delete_layout, displayName),
+                    context.getString(
+                        R.string.delete
+                    )
+                ) {
                     file.delete()
                     onCustomLayoutFileListChanged()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
@@ -221,34 +275,58 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
 }
 
 fun hasCustomFunctionalLayout(subtype: InputMethodSubtype, context: Context): Boolean {
-    val anyCustomFunctionalLayout = getCustomFunctionalLayoutName(KeyboardId.ELEMENT_ALPHABET, subtype, context)
-        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS, subtype, context)
-        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
+    val anyCustomFunctionalLayout =
+        getCustomFunctionalLayoutName(KeyboardId.ELEMENT_ALPHABET, subtype, context)
+            ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS, subtype, context)
+            ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
     return anyCustomFunctionalLayout != null
 }
 
-fun getCustomFunctionalLayoutName(elementId: Int, subtype: InputMethodSubtype, context: Context): String? {
-    val customFunctionalLayoutNames = getCustomLayoutFiles(context).filter { it.name.contains("functional") }.map { it.name.substringBeforeLast(".") + "." }
+fun getCustomFunctionalLayoutName(
+    elementId: Int,
+    subtype: InputMethodSubtype,
+    context: Context
+): String? {
+    val customFunctionalLayoutNames =
+        getCustomLayoutFiles(context).filter { it.name.contains("functional") }
+            .map { it.name.substringBeforeLast(".") + "." }
     if (customFunctionalLayoutNames.isEmpty()) return null
     val languageTag = subtype.locale().toLanguageTag()
-    val mainLayoutName = subtype.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
+    val mainLayoutName =
+        subtype.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
 
     if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED) }, mainLayoutName, languageTag)
+        findMatchingLayout(customFunctionalLayoutNames.filter {
+            it.startsWith(
+                CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
+            )
+        }, mainLayoutName, languageTag)
             ?.let { return it }
     }
     if (elementId == KeyboardId.ELEMENT_SYMBOLS) {
-        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS) }, mainLayoutName, languageTag)
+        findMatchingLayout(customFunctionalLayoutNames.filter {
+            it.startsWith(
+                CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
+            )
+        }, mainLayoutName, languageTag)
             ?.let { return it }
     }
-    return findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL) }, mainLayoutName, languageTag)
+    return findMatchingLayout(customFunctionalLayoutNames.filter {
+        it.startsWith(
+            CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
+        )
+    }, mainLayoutName, languageTag)
 }
 
 // todo (when adding custom layouts per locale or main layout): adjust mainLayoutName for custom layouts?
 //  remove language tag and file ending (currently name is e.g. custom.en-US.abcdfdsg3.json, and we could use abcdfdsg3 only)
 //  this way, custom layouts with same name could use same custom functional layouts
 //  currently there is no way to set the language tag or main layout name, so changes don't break backwards compatibility
-private fun findMatchingLayout(layoutNames: List<String>, mainLayoutName: String, languageTag: String): String? {
+private fun findMatchingLayout(
+    layoutNames: List<String>,
+    mainLayoutName: String,
+    languageTag: String
+): String? {
     // first find layout with matching locale and main layout
     return layoutNames.firstOrNull { it.endsWith(".$languageTag.$mainLayoutName.") }
     // then find matching main layout
@@ -268,6 +346,7 @@ const val CUSTOM_LAYOUT_PREFIX = "custom."
 private const val TAG = "CustomLayoutUtils"
 private var customLayouts: List<File>? = null
 
-const val CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED = "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols_shifted."
+const val CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED =
+    "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols_shifted."
 const val CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS = "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols."
 const val CUSTOM_FUNCTIONAL_LAYOUT_NORMAL = "${CUSTOM_LAYOUT_PREFIX}functional_keys."

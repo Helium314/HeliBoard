@@ -36,6 +36,7 @@ import com.oscar.aikeyboard.latin.common.Constants;
 import com.oscar.aikeyboard.latin.common.StringUtils;
 import com.oscar.aikeyboard.latin.common.StringUtilsKt;
 import com.oscar.aikeyboard.latin.common.UnicodeSurrogate;
+import com.oscar.aikeyboard.latin.inputlogic.PrivateCommandPerformer;
 import com.oscar.aikeyboard.latin.settings.SpacingAndPunctuations;
 import com.oscar.aikeyboard.latin.utils.CapsModeUtils;
 import com.oscar.aikeyboard.latin.utils.DebugLogUtils;
@@ -55,7 +56,7 @@ import java.util.concurrent.TimeUnit;
  * all the time to find out what text is in the buffer, when we need it to determine caps mode
  * for example.
  */
-public final class RichInputConnection implements com.oscar.aikeyboard.latin.inputlogic.PrivateCommandPerformer {
+public final class RichInputConnection implements PrivateCommandPerformer {
     private static final String TAG = "RichInputConnection";
     private static final boolean DBG = false;
     private static final boolean DEBUG_PREVIOUS_TEXT = false;
@@ -178,7 +179,7 @@ public final class RichInputConnection implements com.oscar.aikeyboard.latin.inp
                     + "\nActual selection start = " + et.selectionStart
                     + "\nExpected text = " + internal.length() + " " + internal
                     + "\nActual text = " + reference.length() + " " + reference;
-            ((com.oscar.aikeyboard.latin.LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+            ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
         } else {
             Log.e(TAG, DebugLogUtils.getStackTrace(2));
             Log.e(TAG, "Exp <> Actual : " + mExpectedSelStart + " <> " + et.selectionStart);
@@ -815,7 +816,7 @@ public final class RichInputConnection implements com.oscar.aikeyboard.latin.inp
                 internal.delete(0, internal.length() - checkLength);
                 if (!(reference.equals(internal.toString()))) {
                     final String context = "Expected text = " + internal + "\nActual text = " + reference;
-                    ((com.oscar.aikeyboard.latin.LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+                    ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
                 }
             }
         }

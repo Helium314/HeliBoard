@@ -65,13 +65,13 @@ public class SuggestedWords {
     public final ArrayList<SuggestedWordInfo> mRawSuggestions;
 
     public SuggestedWords(@NonNull final ArrayList<SuggestedWordInfo> suggestedWordInfoList,
-            @Nullable final ArrayList<SuggestedWordInfo> rawSuggestions,
-            @Nullable final SuggestedWordInfo typedWordInfo,
-            final boolean typedWordValid,
-            final boolean willAutoCorrect,
-            final boolean isObsoleteSuggestions,
-            final int inputStyle,
-            final int sequenceNumber) {
+                          @Nullable final ArrayList<SuggestedWordInfo> rawSuggestions,
+                          @Nullable final SuggestedWordInfo typedWordInfo,
+                          final boolean typedWordValid,
+                          final boolean willAutoCorrect,
+                          final boolean isObsoleteSuggestions,
+                          final int inputStyle,
+                          final int sequenceNumber) {
         mSuggestedWordInfoList = suggestedWordInfoList;
         mRawSuggestions = rawSuggestions;
         mTypedWordValid = typedWordValid;
@@ -104,6 +104,7 @@ public class SuggestedWords {
 
     /**
      * Get {@link SuggestedWordInfo} object for the typed word.
+     *
      * @return The {@link SuggestedWordInfo} object for the typed word.
      */
     public SuggestedWordInfo getTypedWordInfo() {
@@ -112,6 +113,7 @@ public class SuggestedWords {
 
     /**
      * Get suggested word at <code>index</code>.
+     *
      * @param index The index of the suggested word.
      * @return The suggested word.
      */
@@ -124,6 +126,7 @@ public class SuggestedWords {
      * In RTL languages, the displayed text on the suggestion strip may be different from the
      * suggested word that is returned from {@link #getWord(int)}. For example the displayed text
      * of punctuation suggestion "(" should be ")".
+     *
      * @param index The index of the text to display.
      * @return The text to be displayed.
      */
@@ -133,6 +136,7 @@ public class SuggestedWords {
 
     /**
      * Get {@link SuggestedWordInfo} object at <code>index</code>.
+     *
      * @param index The index of the {@link SuggestedWordInfo}.
      * @return The {@link SuggestedWordInfo} object.
      */
@@ -142,6 +146,7 @@ public class SuggestedWords {
 
     /**
      * Gets the suggestion index from the suggestions list.
+     *
      * @param suggestedWordInfo The {@link SuggestedWordInfo} to find the index.
      * @return The position of the suggestion in the suggestion list.
      */
@@ -166,6 +171,7 @@ public class SuggestedWords {
 
     /**
      * The predicator to tell whether this object represents punctuation suggestions.
+     *
      * @return false if this object desn't represent punctuation suggestions.
      */
     public boolean isPunctuationSuggestions() {
@@ -266,7 +272,7 @@ public class SuggestedWords {
         public final int mScore;
         public final int mKindAndFlags;
         public final int mCodePointCount;
-        public final com.oscar.aikeyboard.latin.Dictionary mSourceDict;
+        public final Dictionary mSourceDict;
         // For auto-commit. This keeps track of the index inside the touch coordinates array
         // passed to native code to get suggestions for a gesture that corresponds to the first
         // letter of the second word.
@@ -278,12 +284,13 @@ public class SuggestedWords {
 
         /**
          * Create a new suggested word info.
-         * @param word The string to suggest.
-         * @param prevWordsContext previous words context.
-         * @param score A measure of how likely this suggestion is.
-         * @param kindAndFlags The kind of suggestion, as one of the above KIND_* constants with
-         * flags.
-         * @param sourceDict What instance of Dictionary produced this suggestion.
+         *
+         * @param word                          The string to suggest.
+         * @param prevWordsContext              previous words context.
+         * @param score                         A measure of how likely this suggestion is.
+         * @param kindAndFlags                  The kind of suggestion, as one of the above KIND_* constants with
+         *                                      flags.
+         * @param sourceDict                    What instance of Dictionary produced this suggestion.
          * @param indexOfTouchPointOfSecondWord See mIndexOfTouchPointOfSecondWord.
          * @param autoCommitFirstWordConfidence See mAutoCommitFirstWordConfidence.
          */
@@ -305,6 +312,7 @@ public class SuggestedWords {
         /**
          * Create a new suggested word info from an application-specified completion.
          * If the passed argument or its contained text is null, this throws a NPE.
+         *
          * @param applicationSpecifiedCompletion The application-specified completion info.
          */
         public SuggestedWordInfo(final CompletionInfo applicationSpecifiedCompletion) {
@@ -313,7 +321,7 @@ public class SuggestedWords {
             mApplicationSpecifiedCompletionInfo = applicationSpecifiedCompletion;
             mScore = SuggestedWordInfo.MAX_SCORE;
             mKindAndFlags = SuggestedWordInfo.KIND_APP_DEFINED;
-            mSourceDict = com.oscar.aikeyboard.latin.Dictionary.DICTIONARY_APPLICATION_DEFINED;
+            mSourceDict = Dictionary.DICTIONARY_APPLICATION_DEFINED;
             mCodePointCount = StringUtils.codePointCount(mWord);
             mIndexOfTouchPointOfSecondWord = SuggestedWordInfo.NOT_AN_INDEX;
             mAutoCommitFirstWordConfidence = SuggestedWordInfo.NOT_A_CONFIDENCE;
@@ -362,7 +370,7 @@ public class SuggestedWords {
         }
 
         @Deprecated
-        public com.oscar.aikeyboard.latin.Dictionary getSourceDictionary() {
+        public Dictionary getSourceDictionary() {
             return mSourceDict;
         }
 

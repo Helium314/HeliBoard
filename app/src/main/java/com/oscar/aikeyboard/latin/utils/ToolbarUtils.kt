@@ -24,9 +24,9 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
     button.isActivated = !when (key) {
-        ToolbarKey.INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
-        ToolbarKey.ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
-        ToolbarKey.AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
+        ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
+        AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
     button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key))?.mutate())
@@ -34,7 +34,7 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
 }
 
 fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
-    ToolbarKey.VOICE -> KeyCode.VOICE_INPUT
+    VOICE -> KeyCode.VOICE_INPUT
     CLIPBOARD -> KeyCode.CLIPBOARD
     NUMPAD -> KeyCode.NUMPAD
     UNDO -> KeyCode.UNDO

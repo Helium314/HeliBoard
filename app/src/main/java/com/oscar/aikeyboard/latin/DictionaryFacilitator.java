@@ -30,15 +30,15 @@ import java.util.concurrent.TimeUnit;
 public interface DictionaryFacilitator {
 
     String[] ALL_DICTIONARY_TYPES = new String[] {
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_MAIN,
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_CONTACTS,
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_USER_HISTORY,
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_USER};
+            Dictionary.TYPE_MAIN,
+            Dictionary.TYPE_CONTACTS,
+            Dictionary.TYPE_USER_HISTORY,
+            Dictionary.TYPE_USER};
 
     String[] DYNAMIC_DICTIONARY_TYPES = new String[] {
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_CONTACTS,
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_USER_HISTORY,
-            com.oscar.aikeyboard.latin.Dictionary.TYPE_USER};
+            Dictionary.TYPE_CONTACTS,
+            Dictionary.TYPE_USER_HISTORY,
+            Dictionary.TYPE_USER};
 
     /**
      * The facilitator will put words into the cache whenever it decodes them.
@@ -121,19 +121,19 @@ public interface DictionaryFacilitator {
             throws InterruptedException;
 
     void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-                          @NonNull final com.oscar.aikeyboard.latin.NgramContext ngramContext, final long timeStampInSeconds,
+                          @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
                           final boolean blockPotentiallyOffensive);
 
     void adjustConfidences(final String word, final boolean wasAutoCapitalized);
 
     void unlearnFromUserHistory(final String word,
-                                @NonNull final com.oscar.aikeyboard.latin.NgramContext ngramContext, final long timeStampInSeconds,
+                                @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
                                 final int eventType);
 
     // TODO: Revise the way to fusion suggestion results.
     @NonNull
     SuggestionResults getSuggestionResults(final ComposedData composedData,
-                                           final com.oscar.aikeyboard.latin.NgramContext ngramContext, @NonNull final Keyboard keyboard,
+                                           final NgramContext ngramContext, @NonNull final Keyboard keyboard,
                                            final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
                                            final int inputStyle);
 
@@ -149,5 +149,5 @@ public interface DictionaryFacilitator {
 
     void dumpDictionaryForDebug(final String dictName);
 
-    @NonNull List<com.oscar.aikeyboard.latin.DictionaryStats> getDictionaryStats(final Context context);
+    @NonNull List<DictionaryStats> getDictionaryStats(final Context context);
 }

@@ -41,7 +41,7 @@ public final class LastComposedWord {
     public final String mTypedWord;
     public final CharSequence mCommittedWord;
     public final String mSeparatorString;
-    public final com.oscar.aikeyboard.latin.NgramContext mNgramContext;
+    public final NgramContext mNgramContext;
     public final int mCapitalizedMode;
     public final InputPointers mInputPointers =
             new InputPointers(DecoderSpecificConstants.DICTIONARY_MAX_WORD_LENGTH);
@@ -57,7 +57,7 @@ public final class LastComposedWord {
     public LastComposedWord(final ArrayList<Event> events,
                             final InputPointers inputPointers, final String typedWord,
                             final CharSequence committedWord, final String separatorString,
-                            final com.oscar.aikeyboard.latin.NgramContext ngramContext, final int capitalizedMode) {
+                            final NgramContext ngramContext, final int capitalizedMode) {
         if (inputPointers != null) {
             mInputPointers.copy(inputPointers);
         }

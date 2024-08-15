@@ -136,7 +136,7 @@ public class UserDictionaryAddWordContents {
             return;
         final ContentResolver resolver = context.getContentResolver();
         // Remove the old entry.
-        com.oscar.aikeyboard.latin.settings.UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
+        UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
     }
 
     public final int apply(@NonNull final Context context) {
@@ -162,7 +162,7 @@ public class UserDictionaryAddWordContents {
 
         // In edit mode, everything is modified without overwriting other existing words
         if (MODE_EDIT == mMode && hasWord(newWord, mLocale, context) && newWord.equals(mOldWord)) {
-            com.oscar.aikeyboard.latin.settings.UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
+           UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
         } else {
             mMode = MODE_INSERT;
         }
@@ -173,7 +173,7 @@ public class UserDictionaryAddWordContents {
 
         if (mMode == MODE_INSERT) {
             // Delete duplicate when adding or updating new word
-            com.oscar.aikeyboard.latin.settings.UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
+            UserDictionarySettings.deleteWordInEditMode(mOldWord, mOldShortcut, mOldWeight, mLocale, resolver);
             // Update the existing word by adding a new one
             UserDictionary.Words.addWord(context, newWord, Integer.parseInt(mSavedWeight),
                     mSavedShortcut, TextUtils.isEmpty(mLocale.toString()) ? null : mLocale);
@@ -182,12 +182,12 @@ public class UserDictionaryAddWordContents {
         }
 
         // Delete duplicates
-        com.oscar.aikeyboard.latin.settings.UserDictionarySettings.deleteWord(newWord, mLocale, resolver);
+        UserDictionarySettings.deleteWord(newWord, mLocale, resolver);
 
         // In this class we use the empty string to represent 'all locales' and mLocale cannot
         // be null. However the addWord method takes null to mean 'all locales'.
         UserDictionary.Words.addWord(context, newWord, Integer.parseInt(mSavedWeight),
-                mSavedShortcut, mLocale.equals(com.oscar.aikeyboard.latin.settings.UserDictionarySettings.emptyLocale) ? null : mLocale);
+                mSavedShortcut, mLocale.equals(UserDictionarySettings.emptyLocale) ? null : mLocale);
 
         return CODE_WORD_ADDED;
     }
@@ -266,12 +266,12 @@ public class UserDictionaryAddWordContents {
 
     // Helper method to get the list of locales and subtypes to display for this word
     public ArrayList<LocaleRenderer> getLocaleRendererList(final Context context) {
-        final TreeSet<Locale> sortedLocales = com.oscar.aikeyboard.latin.settings.UserDictionaryListFragment.getSortedDictionaryLocales(context);
+        final TreeSet<Locale> sortedLocales = UserDictionaryListFragment.getSortedDictionaryLocales(context);
 
         // mLocale is removed from the language list as it will be added to the top of the list
         sortedLocales.remove(mLocale);
         // "For all languages" is removed from the language list as it will be added at the end of the list
-        sortedLocales.remove(com.oscar.aikeyboard.latin.settings.UserDictionarySettings.emptyLocale);
+        sortedLocales.remove(UserDictionarySettings.emptyLocale);
 
         // final list of locales to show
         final ArrayList<LocaleRenderer> localesList = new ArrayList<>();
@@ -284,8 +284,8 @@ public class UserDictionaryAddWordContents {
         }
 
         // Finally, add "All languages" at the end of the list
-        if (!mLocale.equals(com.oscar.aikeyboard.latin.settings.UserDictionarySettings.emptyLocale)) {
-            addLocaleDisplayNameToList(context, localesList, com.oscar.aikeyboard.latin.settings.UserDictionarySettings.emptyLocale);
+        if (!mLocale.equals(UserDictionarySettings.emptyLocale)) {
+            addLocaleDisplayNameToList(context, localesList, UserDictionarySettings.emptyLocale);
         }
 
         return localesList;

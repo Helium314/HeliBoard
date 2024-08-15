@@ -28,7 +28,9 @@ import androidx.annotation.NonNull;
 
 import com.oscar.aikeyboard.R;
 import com.oscar.aikeyboard.event.Event;
+import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
 import com.oscar.aikeyboard.keyboard.clipboard.ClipboardHistoryView;
+import com.oscar.aikeyboard.keyboard.emoji.EmojiPalettesView;
 import com.oscar.aikeyboard.keyboard.internal.KeyboardState;
 import com.oscar.aikeyboard.latin.InputView;
 import com.oscar.aikeyboard.latin.KeyboardWrapperView;
@@ -52,8 +54,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private InputView mCurrentInputView;
     private KeyboardWrapperView mKeyboardViewWrapper;
     private View mMainKeyboardFrame;
-    private com.oscar.aikeyboard.keyboard.MainKeyboardView mKeyboardView;
-    private com.oscar.aikeyboard.keyboard.emoji.EmojiPalettesView mEmojiPalettesView;
+    private MainKeyboardView mKeyboardView;
+    private EmojiPalettesView mEmojiPalettesView;
     private View mEmojiTabStripView;
     private LinearLayout mClipboardStripView;
     private HorizontalScrollView mClipboardStripScrollView;
@@ -66,7 +68,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private KeyboardState mState;
 
-    private com.oscar.aikeyboard.keyboard.KeyboardLayoutSet mKeyboardLayoutSet;
+    private KeyboardLayoutSet mKeyboardLayoutSet;
 
     private KeyboardTheme mKeyboardTheme;
     private Context mThemeContext;
@@ -122,7 +124,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
             mCurrentUiMode = context.getResources().getConfiguration().uiMode;
             mCurrentOrientation = context.getResources().getConfiguration().orientation;
-            com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.onKeyboardThemeChanged();
+            KeyboardLayoutSet.onKeyboardThemeChanged();
             return true;
         }
         return false;
@@ -147,7 +149,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .build();
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
-        } catch (com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException e) {
+        } catch (KeyboardLayoutSetException e) {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
                 final InputMethodSubtype qwerty = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
@@ -162,7 +164,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                         .build();
                 mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
                 showToast("error loading the keyboard, falling back to qwerty", false);
-            } catch (com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException e2) {
+            } catch (KeyboardLayoutSetException e2) {
                 Log.e(TAG, "even fallback to qwerty failed: " + e2.mKeyboardId, e2.getCause());
             }
         }
@@ -233,7 +235,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardId.ELEMENT_ALPHABET, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -242,7 +244,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetManualShiftedKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -251,7 +253,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetAutomaticShiftedKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -260,7 +262,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setAlphabetShiftLockedKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -278,7 +280,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setSymbolsKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_SYMBOLS, KeyboardSwitchState.OTHER);
+        setKeyboard(KeyboardId.ELEMENT_SYMBOLS, KeyboardSwitchState.OTHER);
     }
 
     // Implements {@link KeyboardState.SwitchActions}.
@@ -287,7 +289,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setSymbolsShiftedKeyboard");
         }
-        setKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED, KeyboardSwitchState.SYMBOLS_SHIFTED);
+        setKeyboard(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, KeyboardSwitchState.SYMBOLS_SHIFTED);
     }
 
     public boolean isImeSuppressedByHardwareKeyboard(
@@ -320,7 +322,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setEmojiKeyboard");
         }
-        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET);
+        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
         mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -342,7 +344,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setClipboardKeyboard");
         }
-        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET);
+        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
         mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -379,9 +381,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public enum KeyboardSwitchState {
         HIDDEN(-1),
-        SYMBOLS_SHIFTED(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED),
-        EMOJI(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_EMOJI_RECENTS),
-        CLIPBOARD(com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_CLIPBOARD),
+        SYMBOLS_SHIFTED(KeyboardId.ELEMENT_SYMBOLS_SHIFTED),
+        EMOJI(KeyboardId.ELEMENT_EMOJI_RECENTS),
+        CLIPBOARD(KeyboardId.ELEMENT_CLIPBOARD),
         OTHER(-1);
 
         final int mKeyboardId;
@@ -548,7 +550,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_TIMER_ACTION) {
             Log.d(TAG, "isInDoubleTapShiftKeyTimeout");
         }
-        final com.oscar.aikeyboard.keyboard.MainKeyboardView keyboardView = getMainKeyboardView();
+        final MainKeyboardView keyboardView = getMainKeyboardView();
         return keyboardView != null && keyboardView.isInDoubleTapShiftKeyTimeout();
     }
 
@@ -609,7 +611,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return mClipboardStripView;
     }
 
-    public com.oscar.aikeyboard.keyboard.MainKeyboardView getMainKeyboardView() {
+    public MainKeyboardView getMainKeyboardView() {
         return mKeyboardView;
     }
 
@@ -662,12 +664,12 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             return WordComposer.CAPS_MODE_OFF;
         }
         switch (keyboard.mId.mElementId) {
-        case com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED:
-        case com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
+        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED:
+        case KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
             return WordComposer.CAPS_MODE_MANUAL_SHIFT_LOCKED;
-        case com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED:
+        case KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED:
             return WordComposer.CAPS_MODE_MANUAL_SHIFTED;
-        case com.oscar.aikeyboard.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
+        case KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
             return WordComposer.CAPS_MODE_AUTO_SHIFTED;
         default:
             return WordComposer.CAPS_MODE_OFF;

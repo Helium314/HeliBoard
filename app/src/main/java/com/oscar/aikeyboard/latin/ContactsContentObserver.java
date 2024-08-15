@@ -29,13 +29,13 @@ public class ContactsContentObserver implements Runnable {
     private static final String TAG = "ContactsContentObserver";
 
     private final Context mContext;
-    private final com.oscar.aikeyboard.latin.ContactsManager mManager;
+    private final ContactsManager mManager;
     private final AtomicBoolean mRunning = new AtomicBoolean(false);
 
     private ContentObserver mContentObserver;
     private ContactsChangedListener mContactsChangedListener;
 
-    public ContactsContentObserver(final com.oscar.aikeyboard.latin.ContactsManager manager, final Context context) {
+    public ContactsContentObserver(final ContactsManager manager, final Context context) {
         mManager = manager;
         mContext = context;
     }

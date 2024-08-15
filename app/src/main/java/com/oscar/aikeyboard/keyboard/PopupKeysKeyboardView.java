@@ -43,7 +43,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected OnKeyEventListener mKeyEventListener;
     private int mOriginX;
     private int mOriginY;
-    private com.oscar.aikeyboard.keyboard.Key mCurrentKey;
+    private Key mCurrentKey;
 
     private int mActivePointerId;
 
@@ -66,7 +66,7 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
 
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-        final com.oscar.aikeyboard.keyboard.Keyboard keyboard = getKeyboard();
+        final Keyboard keyboard = getKeyboard();
         if (keyboard != null) {
             final int width = keyboard.mOccupiedWidth + getPaddingLeft() + getPaddingRight();
             final int height = keyboard.mOccupiedHeight + getPaddingTop() + getPaddingBottom();

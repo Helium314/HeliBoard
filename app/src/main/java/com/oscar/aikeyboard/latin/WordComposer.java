@@ -94,6 +94,7 @@ public final class WordComposer {
 
     /**
      * Restart the combiners, possibly with a new spec.
+     *
      * @param combiningSpec The spec string for combining. This is found in the extra value.
      */
     public void restartCombining(final String combiningSpec) {
@@ -104,8 +105,12 @@ public final class WordComposer {
         }
     }
 
-    /** Forwards the state to CombinerChain, which disables or enables the Hangul combiner */
-    public void setHangul(final boolean enabled) { mCombinerChain.setHangul(enabled); }
+    /**
+     * Forwards the state to CombinerChain, which disables or enables the Hangul combiner
+     */
+    public void setHangul(final boolean enabled) {
+        mCombinerChain.setHangul(enabled);
+    }
 
     /**
      * Clear out the keys registered so far.
@@ -131,6 +136,7 @@ public final class WordComposer {
 
     /**
      * Number of keystrokes in the composing word.
+     *
      * @return the number of keystrokes
      */
     public int size() {
@@ -151,6 +157,7 @@ public final class WordComposer {
 
     /**
      * Process an event and return an event, and return a processed event to apply.
+     *
      * @param event the unprocessed event.
      * @return the processed event. Never null, but may be marked as consumed.
      */
@@ -236,7 +243,7 @@ public final class WordComposer {
      * only update the cursor position.
      *
      * @param expectedMoveAmount How many java chars to move the cursor. Negative values move
-     * the cursor backward, positive values move the cursor forward.
+     *                           the cursor backward, positive values move the cursor forward.
      * @return true if the cursor is still inside the composing word, false otherwise.
      */
     public boolean moveCursorByAndReturnIfInsideComposingWord(final int expectedMoveAmount) {
@@ -291,7 +298,8 @@ public final class WordComposer {
     /**
      * Set the currently composing word to the one passed as an argument.
      * This will register NOT_A_COORDINATE for X and Ys, and use the passed keyboard for proximity.
-     * @param codePoints the code points to set as the composing word.
+     *
+     * @param codePoints  the code points to set as the composing word.
      * @param coordinates the x, y coordinates of the key in the CoordinateUtils format
      */
     public void setComposingWord(final int[] codePoints, final int[] coordinates) {
@@ -300,8 +308,8 @@ public final class WordComposer {
         for (int i = 0; i < length; ++i) {
             final Event processedEvent =
                     processEvent(Event.createEventForCodePointFromAlreadyTypedText(codePoints[i],
-                        CoordinateUtils.xFromArray(coordinates, i),
-                        CoordinateUtils.yFromArray(coordinates, i))
+                            CoordinateUtils.xFromArray(coordinates, i),
+                            CoordinateUtils.yFromArray(coordinates, i))
                     );
             applyProcessedEvent(processedEvent);
         }
@@ -310,6 +318,7 @@ public final class WordComposer {
 
     /**
      * Returns the word as it was typed, without any correction applied.
+     *
      * @return the word that was typed so far. Never returns null.
      */
     public String getTypedWord() {
@@ -333,6 +342,7 @@ public final class WordComposer {
 
     /**
      * Whether or not all of the user typed chars are upper case
+     *
      * @return true if all user typed chars are upper case, false otherwise
      */
     public boolean isAllUpperCase() {
@@ -376,6 +386,7 @@ public final class WordComposer {
      * all-lower case but if it's a manual pressing of shift, then it should be inserted as is.
      * Also, batch input needs to know about the current caps mode to display correctly
      * capitalized suggestions.
+     *
      * @param mode the mode at the time of start
      */
     public void setCapitalizedModeAtStartComposingTime(final int mode) {
@@ -388,6 +399,7 @@ public final class WordComposer {
      * If we don't have a composing word yet, we take a note of this mode so that we can then
      * supply this information to the suggestion process. If we have a composing word, then
      * the previous mode has priority over this.
+     *
      * @param mode the mode just before fetching suggestions
      */
     public void adviseCapitalizedModeBeforeFetchingSuggestions(final int mode) {
@@ -398,6 +410,7 @@ public final class WordComposer {
 
     /**
      * Returns whether the word was automatically capitalized.
+     *
      * @return whether the word was automatically capitalized
      */
     public boolean wasAutoCapitalized() {
@@ -428,17 +441,17 @@ public final class WordComposer {
 
     // `type' should be one of the LastComposedWord.COMMIT_TYPE_* constants above.
     // committedWord should contain suggestion spans if applicable.
-    public com.oscar.aikeyboard.latin.LastComposedWord commitWord(final int type, final CharSequence committedWord,
-                                                                  final String separatorString, final com.oscar.aikeyboard.latin.NgramContext ngramContext) {
+    public LastComposedWord commitWord(final int type, final CharSequence committedWord,
+                                                                  final String separatorString, final NgramContext ngramContext) {
         // Note: currently, we come here whenever we commit a word. If it's a MANUAL_PICK
         // or a DECIDED_WORD we may cancel the commit later; otherwise, we should deactivate
         // the last composed word to ensure this does not happen.
-        final com.oscar.aikeyboard.latin.LastComposedWord lastComposedWord = new com.oscar.aikeyboard.latin.LastComposedWord(mEvents,
+        final LastComposedWord lastComposedWord = new LastComposedWord(mEvents,
                 mInputPointers, mTypedWordCache.toString(), committedWord, separatorString,
                 ngramContext, mCapitalizedMode);
         mInputPointers.reset();
-        if (type != com.oscar.aikeyboard.latin.LastComposedWord.COMMIT_TYPE_DECIDED_WORD
-                && type != com.oscar.aikeyboard.latin.LastComposedWord.COMMIT_TYPE_MANUAL_PICK) {
+        if (type != LastComposedWord.COMMIT_TYPE_DECIDED_WORD
+                && type != LastComposedWord.COMMIT_TYPE_MANUAL_PICK) {
             lastComposedWord.deactivate();
         }
         mCapsCount = 0;
@@ -457,7 +470,7 @@ public final class WordComposer {
         return lastComposedWord;
     }
 
-    public void resumeSuggestionOnLastComposedWord(final com.oscar.aikeyboard.latin.LastComposedWord lastComposedWord) {
+    public void resumeSuggestionOnLastComposedWord(final LastComposedWord lastComposedWord) {
         mEvents.clear();
         Collections.copy(mEvents, lastComposedWord.mEvents);
         mInputPointers.set(lastComposedWord.mInputPointers);

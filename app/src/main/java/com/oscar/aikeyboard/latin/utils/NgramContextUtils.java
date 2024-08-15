@@ -81,13 +81,13 @@ public final class NgramContextUtils {
             // If the word is empty, the context is beginning-of-sentence.
             final int length = focusedWord.length();
             if (length <= 0) {
-                prevWordsInfo[i] = NgramContext.WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO;
+                prevWordsInfo[i] = WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO;
                 break;
             }
             // If the word ends in a sentence terminator, the context is beginning-of-sentence.
             final char lastChar = focusedWord.charAt(length - 1);
             if (spacingAndPunctuations.isSentenceTerminator(lastChar)) {
-                prevWordsInfo[i] = NgramContext.WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO;
+                prevWordsInfo[i] = WordInfo.BEGINNING_OF_SENTENCE_WORD_INFO;
                 break;
             }
             // If ends in a word separator or connector, the context is unclear.
@@ -96,7 +96,7 @@ public final class NgramContextUtils {
                     || spacingAndPunctuations.isWordConnector(lastChar)) {
                 break;
             }
-            prevWordsInfo[i] = new NgramContext.WordInfo(focusedWord);
+            prevWordsInfo[i] = new WordInfo(focusedWord);
         }
         return new NgramContext(prevWordsInfo);
     }

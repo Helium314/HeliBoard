@@ -447,7 +447,7 @@ public final class StringUtils {
         int codePoint = 0;
         while (i > 0) {
             codePoint = Character.codePointBefore(text, i);
-            if (codePoint < com.oscar.aikeyboard.latin.common.Constants.CODE_PERIOD || codePoint > 'z') {
+            if (codePoint < Constants.CODE_PERIOD || codePoint > 'z') {
                 // Handwavy heuristic to see if that's a URL character. Anything between period
                 // and z. This includes all lower- and upper-case ascii letters, period,
                 // underscore, arrobase, question mark, equal sign. It excludes spaces, exclamation
@@ -456,10 +456,10 @@ public final class StringUtils {
                 // evaluate normally.
                 break;
             }
-            if (com.oscar.aikeyboard.latin.common.Constants.CODE_PERIOD == codePoint) {
+            if (Constants.CODE_PERIOD == codePoint) {
                 hasPeriod = true;
             }
-            if (com.oscar.aikeyboard.latin.common.Constants.CODE_SLASH == codePoint) {
+            if (Constants.CODE_SLASH == codePoint) {
                 hasSlash = true;
                 if (2 == ++slashCount) {
                     return true;
@@ -520,19 +520,19 @@ public final class StringUtils {
         int ignoredDoubleQuoteCount = 0;
         while (i > 0) {
             codePoint = Character.codePointBefore(text, i);
-            if (com.oscar.aikeyboard.latin.common.Constants.CODE_DOUBLE_QUOTE == codePoint) {
+            if (Constants.CODE_DOUBLE_QUOTE == codePoint) {
                 // If we see a double quote followed by whitespace, then that
                 // was a closing quote.
                 if (Character.isWhitespace(prevCodePoint)) {
                     return ignoredDoubleQuoteCount % 2 == 1;
                 }
             }
-            if (Character.isWhitespace(codePoint) && com.oscar.aikeyboard.latin.common.Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
+            if (Character.isWhitespace(codePoint) && Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
                 // If we see a double quote preceded by whitespace, then that
                 // was an opening quote. No need to continue seeking.
                 return ignoredDoubleQuoteCount % 2 == 0;
             }
-            if (com.oscar.aikeyboard.latin.common.Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
+            if (Constants.CODE_DOUBLE_QUOTE == prevCodePoint) {
                 ignoredDoubleQuoteCount++;
             }
             i -= Character.charCount(codePoint);
@@ -541,9 +541,9 @@ public final class StringUtils {
         // We reached the start of text. If the first char is a double quote, then we're inside
         // a double quote. Otherwise we're not.
         if (ignoredDoubleQuoteCount % 2 == 0)
-            return com.oscar.aikeyboard.latin.common.Constants.CODE_DOUBLE_QUOTE == codePoint;
+            return Constants.CODE_DOUBLE_QUOTE == codePoint;
         else
-            return com.oscar.aikeyboard.latin.common.Constants.CODE_DOUBLE_QUOTE != codePoint;
+            return Constants.CODE_DOUBLE_QUOTE != codePoint;
     }
 
     public static boolean isEmptyStringOrWhiteSpaces(@NonNull final String s) {
@@ -593,7 +593,7 @@ public final class StringUtils {
     public static int getTrailingSingleQuotesCount(@NonNull final CharSequence charSequence) {
         final int lastIndex = charSequence.length() - 1;
         int i = lastIndex;
-        while (i >= 0 && charSequence.charAt(i) == com.oscar.aikeyboard.latin.common.Constants.CODE_SINGLE_QUOTE) {
+        while (i >= 0 && charSequence.charAt(i) == Constants.CODE_SINGLE_QUOTE) {
             --i;
         }
         return lastIndex - i;

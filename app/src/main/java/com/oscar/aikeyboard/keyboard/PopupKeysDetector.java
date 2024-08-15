@@ -6,7 +6,7 @@
 
 package com.oscar.aikeyboard.keyboard;
 
-public final class PopupKeysDetector extends com.oscar.aikeyboard.keyboard.KeyDetector {
+public final class PopupKeysDetector extends KeyDetector {
     private final int mSlideAllowanceSquare;
     private final int mSlideAllowanceSquareTop;
 
@@ -23,7 +23,7 @@ public final class PopupKeysDetector extends com.oscar.aikeyboard.keyboard.KeyDe
     }
 
     @Override
-    public com.oscar.aikeyboard.keyboard.Key detectHitKey(final int x, final int y) {
+    public Key detectHitKey(final int x, final int y) {
         final Keyboard keyboard = getKeyboard();
         if (keyboard == null) {
             return null;
@@ -31,9 +31,9 @@ public final class PopupKeysDetector extends com.oscar.aikeyboard.keyboard.KeyDe
         final int touchX = getTouchX(x);
         final int touchY = getTouchY(y);
 
-        com.oscar.aikeyboard.keyboard.Key nearestKey = null;
+        Key nearestKey = null;
         int nearestDist = (y < 0) ? mSlideAllowanceSquareTop : mSlideAllowanceSquare;
-        for (final com.oscar.aikeyboard.keyboard.Key key : keyboard.getSortedKeys()) {
+        for (final Key key : keyboard.getSortedKeys()) {
             final int dist = key.squaredDistanceToEdge(touchX, touchY);
             if (dist < nearestDist) {
                 nearestKey = key;

@@ -402,7 +402,7 @@ public final class KeyboardState {
             mModeBeforeNumpad = forceReturnToAlpha ? MODE_ALPHABET : mMode;
         }
         mMode = MODE_NUMPAD;
-        mRecapitalizeMode = com.oscar.aikeyboard.latin.utils.RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
+        mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
         mSwitchActions.setNumpadKeyboard();
         mSwitchState = withSliding ? SWITCH_STATE_MOMENTARY_TO_NUMPAD : SWITCH_STATE_NUMPAD;
     }
@@ -854,7 +854,7 @@ public final class KeyboardState {
     }
 
     private String stateToString(final int autoCapsFlags, final int recapitalizeMode) {
-        return this + " autoCapsFlags=" + com.oscar.aikeyboard.latin.utils.CapsModeUtils.flagsToString(autoCapsFlags)
-                + " recapitalizeMode=" + com.oscar.aikeyboard.latin.utils.RecapitalizeStatus.modeToString(recapitalizeMode);
+        return this + " autoCapsFlags=" + CapsModeUtils.flagsToString(autoCapsFlags)
+                + " recapitalizeMode=" + RecapitalizeStatus.modeToString(recapitalizeMode);
     }
 }
