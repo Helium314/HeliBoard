@@ -116,7 +116,7 @@
      subtype.-->
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:settingsActivity="helium314.keyboard.latin.settings.SettingsActivity"
+        android:settingsActivity="com.oscar.aikeyboard.latin.settings.SettingsActivity"
         android:isDefault="@bool/im_is_default"
         android:supportsSwitchingToNextInputMethod="true"
         android:supportsInlineSuggestions="true"

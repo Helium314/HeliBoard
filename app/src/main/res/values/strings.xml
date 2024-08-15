@@ -8,7 +8,7 @@
     <!-- Name of Android spell checker service. The app name should not be translated. -->
     <string name="spell_checker_service_name">Oscar AI Keyboard Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
-    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="ime_settings">Oscar AI Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
     <string name="android_spell_checker_settings">Oscar AI Keyboard Spell Checker Settings</string>
     <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->

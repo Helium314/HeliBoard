@@ -151,7 +151,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 
         <receiver android:name="com.oscar.aikeyboard.latin.DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="helium314.keyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="com.oscar.aikeyboard.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
 
