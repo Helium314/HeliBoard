@@ -57,6 +57,6 @@
         <item name="iconPageEnd">@drawable/ic_page_end</item>
         <item name="iconSelectWord">@drawable/ic_select</item>
         <item name="iconClose">@drawable/ic_close</item>
-        <item name="iconOscarAI">@drawable/ic_oscar</item>
+        <item name="iconOscarAI">@drawable/ic_oscar_main</item>
     </style>
 </resources>

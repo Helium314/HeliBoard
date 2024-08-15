@@ -10,7 +10,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
 >
-    <helium314.keyboard.keyboard.PopupKeysKeyboardView
+    <com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView
         android:id="@+id/popup_keys_keyboard_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

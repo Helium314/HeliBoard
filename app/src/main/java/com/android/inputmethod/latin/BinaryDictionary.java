@@ -1,32 +1,28 @@
-/*
- * Copyright (C) 2008 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
-
 package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
-import helium314.keyboard.latin.utils.Log;
+
+import com.oscar.aikeyboard.latin.SuggestedWords;
+import com.oscar.aikeyboard.latin.utils.Log;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import helium314.keyboard.latin.Dictionary;
-import helium314.keyboard.latin.NgramContext;
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
-import helium314.keyboard.latin.common.ComposedData;
-import helium314.keyboard.latin.common.Constants;
-import helium314.keyboard.latin.common.FileUtils;
-import helium314.keyboard.latin.common.InputPointers;
-import helium314.keyboard.latin.common.StringUtils;
-import helium314.keyboard.latin.makedict.DictionaryHeader;
-import helium314.keyboard.latin.makedict.FormatSpec.DictionaryOptions;
-import helium314.keyboard.latin.makedict.UnsupportedFormatException;
-import helium314.keyboard.latin.makedict.WordProperty;
-import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
+import com.oscar.aikeyboard.latin.Dictionary;
+import com.oscar.aikeyboard.latin.NgramContext;
+import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
+import com.oscar.aikeyboard.latin.common.ComposedData;
+import com.oscar.aikeyboard.latin.common.Constants;
+import com.oscar.aikeyboard.latin.common.FileUtils;
+import com.oscar.aikeyboard.latin.common.InputPointers;
+import com.oscar.aikeyboard.latin.common.StringUtils;
+import com.oscar.aikeyboard.latin.makedict.DictionaryHeader;
+import com.oscar.aikeyboard.latin.makedict.FormatSpec.DictionaryOptions;
+import com.oscar.aikeyboard.latin.makedict.UnsupportedFormatException;
+import com.oscar.aikeyboard.latin.makedict.WordProperty;
+import com.oscar.aikeyboard.latin.settings.SettingsValuesForSuggestion;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
-import helium314.keyboard.latin.utils.JniUtils;
+import com.oscar.aikeyboard.latin.utils.JniUtils;
 import com.android.inputmethod.latin.utils.WordInputEventForPersonalization;
 
 import java.io.File;
@@ -302,7 +298,7 @@ public final class BinaryDictionary extends Dictionary {
                     session.mInputOutputWeightOfLangModelVsSpatialModel[0];
         }
         final int count = session.mOutputSuggestionCount[0];
-        final ArrayList<SuggestedWordInfo> suggestions = new ArrayList<>();
+        final ArrayList<SuggestedWords.SuggestedWordInfo> suggestions = new ArrayList<>();
         for (int j = 0; j < count; ++j) {
             final int start = j * DICTIONARY_MAX_WORD_LENGTH;
             int len = 0;

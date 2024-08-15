@@ -2,7 +2,7 @@
 <!--
     SPDX-License-Identifier: GPL-3.0-only
 -->
-<helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
+<com.oscar.aikeyboard.keyboard.clipboard.ClipboardHistoryView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:text="¯\\_(ツ)_/¯"
             tools:ignore="HardcodedText" />
 
-        <helium314.keyboard.keyboard.clipboard.ClipboardHistoryRecyclerView
+        <com.oscar.aikeyboard.keyboard.clipboard.ClipboardHistoryRecyclerView
             android:id="@+id/clipboard_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,4 +36,4 @@
 
     <include layout="@layout/action_bar" />
 
-</helium314.keyboard.keyboard.clipboard.ClipboardHistoryView>
+</com.oscar.aikeyboard.keyboard.clipboard.ClipboardHistoryView>
