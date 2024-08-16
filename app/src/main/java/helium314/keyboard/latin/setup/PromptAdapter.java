@@ -9,26 +9,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import helium314.keyboard.latin.R;
+import helium314.keyboard.latin.setup.Prompt;
 
 public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptViewHolder> {
-
     private List<Prompt> prompts = new ArrayList<>();
 
     @NonNull
     @Override
     public PromptViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prompt_history, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_prompt_history, parent, false);
         return new PromptViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
         Prompt prompt = prompts.get(position);
-        holder.promptTextView.setText(prompt.getText());
+        holder.textView.setText(prompt.getText());
+
+        // Convert timestamp to a human-readable date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        String formattedDate = sdf.format(new Date(prompt.getTimestamp()));
+        holder.timestampView.setText(formattedDate);
     }
 
     @Override
@@ -36,18 +45,20 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
         return prompts.size();
     }
 
-    public void setPrompts(List<Prompt> prompts) {
-        this.prompts = prompts;
+    public void submitList(List<Prompt> newPrompts) {
+        prompts.clear();
+        prompts.addAll(newPrompts);
         notifyDataSetChanged();
     }
 
-    class PromptViewHolder extends RecyclerView.ViewHolder {
-        TextView promptTextView;
+    public static class PromptViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+        TextView timestampView;
 
-        PromptViewHolder(View itemView) {
+        public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            promptTextView = itemView.findViewById(R.id.tv_prompt_text);
+            textView = itemView.findViewById(R.id.tv_prompt_text);
+            timestampView = itemView.findViewById(R.id.tv_timestamp);
         }
     }
 }
-

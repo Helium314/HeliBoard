@@ -156,9 +156,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
-        Prompt aiTextEntity = new Prompt("");
-        aiTextEntity.text = aiText;
-//        aiTextEntity.timestamp = System.currentTimeMillis();
+        long timestamp = System.currentTimeMillis();
+
+        Prompt aiTextEntity = new Prompt(aiText,timestamp);
 
         new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
@@ -269,6 +269,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         allOutputText += data != null ? data.get(0) : "";
 
 
+        // Save AI-generated text to the database
+        saveAITextToDatabase(allOutputText);
         lvTextProgress.setVisibility(View.GONE);
 
         aiOutput.setVisibility(View.VISIBLE);
@@ -325,6 +327,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
         aiOutput.setText(text);
         Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        // Save AI-generated text to the database
+        saveAITextToDatabase(text);
     }
 
 //    private String summarizedText = "";
