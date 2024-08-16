@@ -137,6 +137,12 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".setup.PromptHistoryActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"/>
+
         <!-- Broadcast receivers -->
         <receiver android:name="SystemBroadcastReceiver"
                 android:exported="true">

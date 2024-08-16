@@ -83,7 +83,9 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.DebugSettings;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.setup.AppDatabase;
 import helium314.keyboard.latin.setup.KeyboardselectionActivity;
+import helium314.keyboard.latin.setup.Prompt;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
@@ -151,6 +153,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 //        clipboard.setPrimaryClip(clip);
 //        mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
+    }
+    private void saveAITextToDatabase(String aiText) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        Prompt aiTextEntity = new Prompt("");
+        aiTextEntity.text = aiText;
+//        aiTextEntity.timestamp = System.currentTimeMillis();
+
+        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
 
     public void setAiOutputText(String text) {
@@ -962,6 +972,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (text != null) {
                 Log.d(TAG, "Text before cursor: " + text);
                 viewModel.summarizeStreaming(text.toString());
+                // Save the generated AI text to the database
+                saveAITextToDatabase(text.toString());
             } else {
                 Log.d(TAG, "Text before cursor is null");
             }

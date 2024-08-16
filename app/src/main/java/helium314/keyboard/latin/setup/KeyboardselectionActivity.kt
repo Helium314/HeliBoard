@@ -302,6 +302,9 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
                 startActivity(Intent.createChooser(emailIntent, "Send Email"))
             }
+            R.id.prompt_message_id->{
+                startActivity(Intent(this, PromptHistoryActivity::class.java))
+            }
 
             R.id.nav_terms_conditions -> {
                 startActivity(Intent(this, TermsOfUseActivity::class.java))
