@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Escriu una paraula fent lliscar el dit per les lletres"</string>
     <string name="gesture_preview_trail">"Mostra el recorregut del gest"</string>
     <string name="gesture_floating_preview_text">"Previsualització dinàmica flotant"</string>
-    <string name="gesture_floating_preview_text_summary">"Mostra la paraula suggerida en fer els gestos"</string>
     <string name="gesture_space_aware">"Gest de frase"</string>
     <string name="gesture_space_aware_summary">"Per afegir espais als gestos, apropa el dit a la tecla d\'espai"</string>
     <string name="subtype_en_GB">"anglès (Regne Unit)"</string>

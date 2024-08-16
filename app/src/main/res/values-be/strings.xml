@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">Ўвядзіце слова, перасоўваючы палец па літарах</string>
     <string name="gesture_preview_trail">"Паказаць след жэста"</string>
     <string name="gesture_floating_preview_text">"Дынамічны плаваючы прагляд"</string>
-    <string name="gesture_floating_preview_text_summary">"Праглядаць прапанаванае слова падчас жэсту"</string>
     <string name="gesture_space_aware">"Жэст фразы"</string>
     <string name="gesture_space_aware_summary">Ўвядзіце прабелы паміж жэстамі, праводзячы па клавішы прабелу</string>
     <string name="subtype_en_GB">"Англійская (Вялікабрытанія)"</string>
@@ -221,7 +220,7 @@
 \nПапярэджанне: загрузка знешняга кода можа пагражаць бяспецы. Выкарыстоўвайце толькі бібліятэку з крыніцы, якой давяраеце.</string>
     <string name="load_gesture_library_button_delete">Выдаліць бібліятэку</string>
     <string name="checksum_mismatch_message">Невядомы файл бібліятэкі. Вы ўпэўненыя, што атрымалі яго з надзейнай крыніцы, і гэта для «%s»?</string>
-    <string name="show_popup_keys_normal">Паказаць варыянты, вызначаныя ў мовах клавіятуры (па змаўчанні)</string>
+    <string name="show_popup_keys_normal">Паказаць варыянты, вызначаныя ў мовах клавіятуры</string>
     <string name="show_popup_keys_more">Дадаць распаўсюджаныя варыянты</string>
     <string name="show_popup_keys_all">Дадаць ўсе даступныя варыянты</string>
     <string name="more_autocorrect">Больш аўтакарэкцыі</string>
@@ -369,4 +368,26 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функцыянальныя клавішы</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функцыянальныя клавішы (Сімвалы)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функцыянальныя клавішы (Дадатковыя сімвалы)</string>
+    <string name="customize_currencies">Кастамізаваць валюты</string>
+    <string name="customize_currencies_detail">Усталяваць галоўныя і да 6 дадатковых сімвала валют, падзеленых прабелам</string>
+    <string name="button_save_file">Захаваць у файл</string>
+    <string name="copy_to_clipboard">Скапіяваць у буфер абмену</string>
+    <string name="load">Загрузіць</string>
+    <string name="load_will_overwrite">Загрузка перазапіша бягучую тэму</string>
+    <string name="page_up" tools:keep="@string/page_up">Старонка ўверх</string>
+    <string name="page_down" tools:keep="@string/page_down">Старонка ўніз</string>
+    <string name="page_start" tools:keep="@string/page_start">Пачатак старонкі</string>
+    <string name="page_end" tools:keep="@string/page_end">Канец старонкі</string>
+    <string name="word_left" tools:keep="@string/word_left">Слова лявей</string>
+    <string name="word_right" tools:keep="@string/word_right">Слова правей</string>
+    <string name="suggest_clipboard_content">Прапанаваць змесціва буфера абмену</string>
+    <string name="suggest_clipboard_content_summary">Паказаць нядаўна скапіяваны змесціва буфера абмену ў якасці прапановы</string>
+    <string name="switch_keyboard_after">Вярнуцца да асноўнай клавіятуры пасля…</string>
+    <string name="after_emoji">Выбар эмодзі ў рэжыме прагляду</string>
+    <string name="after_clip">Выбар запісы з гісторыі буфера абмену</string>
+    <string name="after_symbol_and_space">Націск Enter або прабелу пасля іншых клавіш у рэжыме сімвалаў</string>
+    <string name="space_swipe_toggle_numpad_entry">Пераключыць лічбавую клавіятуру</string>
+    <string name="show_popup_keys_main">Дадаць самыя распаўсюджаныя варыянты (па змаўчанні)</string>
+    <string name="remove_redundant_popups">Выдаліць лішнія ўсплывальныя вокны</string>
+    <string name="remove_redundant_popups_summary">Прыбраць усплывальныя клавішы, якія прысутнічаюць у базавай раскладцы</string>
 </resources>

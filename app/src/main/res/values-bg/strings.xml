@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Търсене на имена"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"За проверка на правописа се ползват записи от списъка с контакти"</string>
     <string name="vibrate_on_keypress">"Да вибрира при натискане на клавиш"</string>
@@ -46,7 +45,6 @@
     <string name="gesture_input_summary">"Въвеждане на дума чрез плъзгане на пръст през буквите"</string>
     <string name="gesture_preview_trail">"Следа от жестовете"</string>
     <string name="gesture_floating_preview_text">"Динам. плаваща визуализ."</string>
-    <string name="gesture_floating_preview_text_summary">"Преглед на предложената дума при използване на жестове"</string>
     <string name="gesture_space_aware">"Жест за фрази"</string>
     <string name="gesture_space_aware_summary">"При жестове въвеждaйте интервали чрез плъзгане през съотв. клавиш"</string>
     <string name="subtype_en_GB">"английски (Великобритания)"</string>
@@ -132,4 +130,13 @@
     <string name="label_search_key">"Търсене"</string>
     <string name="label_pause_key">"Пауза"</string>
     <string name="label_wait_key">"Изчакв."</string>
+    <string name="settings_category_clipboard_history">История буфера обмена</string>
+    <string name="settings_category_correction">Корекции</string>
+    <string name="settings_category_suggestions">Предложения</string>
+    <string name="settings_category_experimental">Експериментални</string>
+    <string name="settings_category_miscellaneous">Разни</string>
+    <string name="spell_checker_service_name">Проверка на правописа HeliBoard</string>
+    <string name="ime_settings">Настройки HeliBoard</string>
+    <string name="android_spell_checker_settings">Настройки за проверка на правописа</string>
+    <string name="switch_language">Превключване на езика</string>
 </resources>

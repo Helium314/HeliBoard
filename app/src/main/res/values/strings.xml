@@ -143,10 +143,14 @@
     <string name="gesture_input_summary">Input a word by sliding through the letters</string>
     <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_preview_trail">Show gesture trail</string>
-    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=30]-->
+    <string name="gesture_floating_preview_static">Floating preview</string>
+    <!-- Description for "gesture_floating_preview_static" option. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=65]-->
+    <string name="gesture_floating_preview_static_summary">See the suggested word while gesturing</string>
+    <!-- Option to enable gesture dynamic floating preview. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_floating_preview_text">Dynamic floating preview</string>
-    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->
-    <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
+    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=65]-->
+    <string name="gesture_floating_preview_dynamic_summary">Move the preview during a gesture</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
     <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
@@ -155,6 +159,8 @@
     <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
     <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
+    <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
+    <string name="gesture_trail_fadeout_duration">Gesture trail lifespan</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->

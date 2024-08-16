@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"ป้อนคำด้วยการเลื่อนผ่านตัวอักษร"</string>
     <string name="gesture_preview_trail">"แสดงรูปแบบของท่าทางสัมผัส"</string>
     <string name="gesture_floating_preview_text">"ดูตัวอย่างลอยแบบไดนามิก"</string>
-    <string name="gesture_floating_preview_text_summary">"ดูคำแนะนำในขณะที่ใช้ท่าทางสัมผัส"</string>
     <string name="gesture_space_aware">"ท่าทางสัมผัสสำหรับวลี"</string>
     <string name="gesture_space_aware_summary">"ใส่ช่องว่างระหว่างท่าทางสัมผัสโดยเลื่อนไปยังแป้นเคาะวรรค"</string>
     <string name="subtype_en_GB">"อังกฤษ (สหราชอาณาจักร)"</string>

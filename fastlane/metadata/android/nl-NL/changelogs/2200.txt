@@ -1,0 +1,11 @@
+* Extra mogelijkheid voor het opslaan/exporteren van aangepaste thema's
+* De pijltjestoetsen op het toetsenbord zijn herhaalbaar
+* Meer cursorwerkbalktoetsen (pagina omhoog/omlaag (/start/einde, woord links/rechts)
+* Toets Plakken toegevoegd
+* Verbetering van het veeggedrag van toetsen
+* Instelling voor het vegen van de spatiebalk om het numpad in te schakelen
+* Klembordsuggestie voor recent gekopieerde tekst
+* Deselecteer tekst bij het nogmaals indrukken van de selectietoetsen
+* Afstemming van kleuren in instellingen voor Android 12+
+* Taalafhankelijke pop-uptoetsen aangepast
+* Kleine reparaties en verbeteringen

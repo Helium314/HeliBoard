@@ -1,0 +1,11 @@
+* Aggiunta la possibilità di esportare e importare i temi personalizzati
+* Tasti freccia (spostamento cursore) ripetibili con la pressione prolungata
+* Nuovi tasti per la barra degli strumenti: (Inizio/fine documento, Pagina su/giù, Parola a sinistra/destra)
+* Nuovo tasto 'Incolla'
+* Miglioramento delle funzionalità gestuali sui tasti
+* Aggiunta la possibilità di passare al tastierino numerico con un gesto sulla barra spaziatrice
+* Aggiunta la funzionalità di suggerimento del testo copiato (stile Gboard)
+* Deseleziona il testo al secondo tocco su un tasto selezione
+* Miglioramento di alcuni dettagli di colore nelle impostazioni su Android 12+
+* Aggiustamento di alcuni caratteri popup predefiniti specifici per le lingue
+* Bugfix minori e miglioramenti vari

@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Įvesti žodį slenkant raidėmis"</string>
     <string name="gesture_preview_trail">"Rodyti gestų kelią"</string>
     <string name="gesture_floating_preview_text">"Dinaminė slankioji peržiūra"</string>
-    <string name="gesture_floating_preview_text_summary">"Gestikuliuojant peržiūrėti siūlomą žodį"</string>
     <string name="gesture_space_aware">"Frazės gestas"</string>
     <string name="gesture_space_aware_summary">"Atlikdami gestus įveskite tarpus perbraukę tarpo klavišą"</string>
     <string name="subtype_en_GB">"Anglų k. (JK)"</string>

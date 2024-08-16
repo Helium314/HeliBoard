@@ -120,7 +120,6 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private PopupKeysPanel mPopupKeysPanel;
 
     // Gesture floating preview text
-    // TODO: Make this parameter customizable by user via settings.
     private final int mGestureFloatingPreviewTextLingerTimeout;
 
     private final KeyDetector mKeyDetector;
@@ -197,8 +196,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mConfigShowPopupKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
 
-        mGestureFloatingPreviewTextLingerTimeout = mainKeyboardViewAttr.getInt(
-                R.styleable.MainKeyboardView_gestureFloatingPreviewTextLingerTimeout, 0);
+        final int gestureTrailFadeoutDuration = Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
+        mGestureFloatingPreviewTextLingerTimeout = gestureTrailFadeoutDuration / 4;
 
         mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
         mGestureFloatingTextDrawingPreview.setDrawingView(drawingPreviewPlacerView);

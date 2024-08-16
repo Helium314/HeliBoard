@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Fut një fjalë duke rrëshqitur përmes shkronjave"</string>
     <string name="gesture_preview_trail">"Shfaq trajektoren e gjesteve"</string>
     <string name="gesture_floating_preview_text">"Shikim paraprak dinamik"</string>
-    <string name="gesture_floating_preview_text_summary">"Shiko fjalën e sugjeruar kur bën me gjeste"</string>
     <string name="gesture_space_aware">"Gjest fraze"</string>
     <string name="gesture_space_aware_summary">"Hapësirat e hyrjes gjatë gjesteve duke kaluar në tastin e hapësirës"</string>
     <string name="subtype_en_GB">"anglisht (MB)"</string>

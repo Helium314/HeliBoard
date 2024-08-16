@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Вводьте слова, проводячи пальцем по літерах"</string>
     <string name="gesture_preview_trail">"Показувати слід жестів"</string>
     <string name="gesture_floating_preview_text">"Показувати підказки"</string>
-    <string name="gesture_floating_preview_text_summary">"Показувати пропоноване слово під час введення тексту жестами"</string>
     <string name="gesture_space_aware">"Безперервний ввід фраз"</string>
     <string name="gesture_space_aware_summary">"Вставляйте пробіли, проводячи пальцем по клавіші пробілу"</string>
     <string name="subtype_en_GB">"Англійська (Велика Британія)"</string>
@@ -249,7 +248,7 @@
     <string name="load_gesture_library_button_load">Завантажити бібліотеку</string>
     <string name="load_gesture_library_button_delete">Видалити бібліотеку</string>
     <string name="show_popup_keys_title">Показувати більше літер із діакритичними знаками під час утримання</string>
-    <string name="show_popup_keys_normal">Показати варіанти, визначені мовами клавіатури (за умовчанням)</string>
+    <string name="show_popup_keys_normal">Показати варіанти, визначені мовами клавіатури</string>
     <string name="show_popup_keys_all">Додати усі доступні варіанти</string>
     <string name="localized_number_row">Локалізація ряду з цифрами</string>
     <string name="localized_number_row_summary">Віддавати перевагу локалізованим латинським цифрам</string>
@@ -343,4 +342,52 @@
 \n%3$s</string>
     <string name="no_dictionary_message">Без словника ви отримуватимете пропозиції лише для попередньо введеного тексту.&lt;br&gt;
 \nВи можете завантажити словники %1$s або перевірити, чи може словник для «%2$s» завантажити безпосередньо %3$s.</string>
+    <string name="pinned_toolbar_keys">Вибрати закріплені клавіші панелі інструментів</string>
+    <string name="gesture_fast_typing_cooldown">Час відновлення швидкого друку</string>
+    <string name="gesture_fast_typing_cooldown_instant">Завжди починати негайно</string>
+    <string name="auto_show_toolbar">Показувати панель інструментів автоматично</string>
+    <string name="auto_show_toolbar_summary">Показувати панель інструментів під час введення або вибору тексту</string>
+    <string name="auto_hide_toolbar">Приховувати панель інструментів автоматично</string>
+    <string name="auto_hide_toolbar_summary">Приховувати панель інструментів з появою пропозицій</string>
+    <string name="customize_currencies">Кастомізувати валюти</string>
+    <string name="customize_currencies_detail">Встановити головні та до 6 додаткових символів валют, розділених пропуском</string>
+    <string name="toast_msg_clipboard_copy">Вміст скопійовано</string>
+    <string name="language_switch_key_behavior">Поведінка клавіші зміни мови</string>
+    <string name="settings_screen_toolbar">Панель інструментів</string>
+    <string name="center_suggestion_text_to_enter">Завжди використовувати середню пропозицію</string>
+    <string name="center_suggestion_text_to_enter_summary">При натисканні точки або пунктуації буде використано середню пропозицію</string>
+    <string name="close_history" tools:keep="@string/close_history">Закрити буфер обміну</string>
+    <string name="load">Завантажити</string>
+    <string name="load_will_overwrite">Завантаження перезапише поточну тему</string>
+    <string name="emoji" tools:keep="@string/emoji">Емодзі</string>
+    <string name="suggest_clipboard_content">Запропонувати вміст буфера обміну</string>
+    <string name="suggest_clipboard_content_summary">Показати нещодавно скопійований вміст буфера обміну як пропозицію</string>
+    <string name="copy_to_clipboard">Копіювати в буфер обміну</string>
+    <string name="button_save_file">Зберегти у файл</string>
+    <string name="word_left" tools:keep="@string/word_left">Слово лівіше</string>
+    <string name="word_right" tools:keep="@string/word_right">Слово правіше</string>
+    <string name="page_up" tools:keep="@string/page_up">Сторінка вгору</string>
+    <string name="page_down" tools:keep="@string/page_down">Сторінка вниз</string>
+    <string name="clipboard_toolbar_keys">Вибрати клавіші панелі інструментів буфера обміну</string>
+    <string name="quick_pin_toolbar_keys">Закріплювати клавіші панелі інструментів при тривалому натисканні</string>
+    <string name="quick_pin_toolbar_keys_summary">Це вимикає інші функції клавіш панелі інструментів при тривалому натисканні</string>
+    <string name="page_start" tools:keep="@string/page_start">Початок сторінки</string>
+    <string name="page_end" tools:keep="@string/page_end">Кінець сторінки</string>
+    <string name="space_swipe_toggle_numpad_entry">Перемикати цифрову клавіатуру</string>
+    <string name="switch_keyboard_after">Повернутися до основної клавіатури після…</string>
+    <string name="after_emoji">Вибір емодзі в режимі перегляду</string>
+    <string name="after_clip">Вибір запису з історії буфера обміну</string>
+    <string name="after_symbol_and_space">Натискання Enter або пробілу після інших клавіш у режимі символів</string>
+    <string name="show_popup_keys_main">Додати найпоширеніші варіанти (за умовчанням)</string>
+    <string name="remove_redundant_popups_summary">Видалити спливаючі клавіші, які є в базовій розкладці</string>
+    <string name="subtype_mns">Мансійська</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Розширена)</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Мансійська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="all_colors_warning">Ця установка показує всі кольори, які використовуються всередині програми. Список кольорів може змінюватись. Стандартний колір є випадковим, і імена не будуть переведені.</string>
+    <string name="more_colors">Показати більше кольорів</string>
+    <string name="remove_redundant_popups">Видалити зайві спливаючі вікна</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функціональні клавіші</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функціональні клавіші (Символи)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функціональні клавіші (Додаткові символи)</string>
+    <string name="customize_functional_key_layouts">Змінити розкладку функціональних клавіш</string>
 </resources>

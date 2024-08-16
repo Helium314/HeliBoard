@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Wpisuj słowa, przesuwając palcem po literach"</string>
     <string name="gesture_preview_trail">"Pokazuj ślad gestu"</string>
     <string name="gesture_floating_preview_text">"Dynamiczny podgląd słowa"</string>
-    <string name="gesture_floating_preview_text_summary">"Podczas pisania gestami zobaczysz podpowiadane słowo"</string>
     <string name="gesture_space_aware">"Gest wyrażenia"</string>
     <string name="gesture_space_aware_summary">"Wpisuj spacje podczas gestów, przesuwając palec do klawisza spacji"</string>
     <string name="subtype_en_GB">"Angielski (Wielka Brytania)"</string>

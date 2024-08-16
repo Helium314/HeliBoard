@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"በፊደሎች መካከል በማንሸራተት ቃል ያስገቡ"</string>
     <string name="gesture_preview_trail">"ምልክት የሚሄድበት መንገድ አሳይ"</string>
     <string name="gesture_floating_preview_text">"ተለዋዋጭ ተንሳፋፊ ቅድመ-እይታ"</string>
-    <string name="gesture_floating_preview_text_summary">"ምልክት እየሰጡ ሳሉ በአስተያየት የተጠቆመው ቃል ይመልከቱ"</string>
     <string name="gesture_space_aware">"የሐረግ ምልክት"</string>
     <string name="gesture_space_aware_summary">"ምልክት በሚሰጡበት ጊዜ ወደ ክፍተት ቁልፉ በማንሸራተት ክፍተቶችን ያስገቡ"</string>
     <string name="subtype_en_GB">"እንግሊዘኛ (የታላቋ ብሪታንያ)"</string>

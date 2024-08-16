@@ -31,6 +31,7 @@ import com.oscar.aikeyboard.latin.settings.Settings;
  */
 public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
     protected static final class GesturePreviewTextParams {
+        public final boolean mGesturePreviewDynamic;
         public final int mGesturePreviewTextOffset;
         public final int mGesturePreviewTextHeight;
         public final float mGesturePreviewHorizontalPadding;
@@ -47,6 +48,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
 
         public GesturePreviewTextParams(final TypedArray mainKeyboardViewAttr) {
             final Colors colors = Settings.getInstance().getCurrent().mColors;
+            mGesturePreviewDynamic = Settings.getInstance().getCurrent().mGestureFloatingPreviewDynamicEnabled;
             mGesturePreviewTextSize = mainKeyboardViewAttr.getDimensionPixelSize(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewTextSize, 0);
             mGesturePreviewTextColor = colors.get(ColorType.KEY_TEXT);
@@ -152,11 +154,13 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
         final float rectWidth = textWidth + hPad * 2.0f;
         final float rectHeight = textHeight + vPad * 2.0f;
 
-        final float rectX = Math.min(
+        final float rectX = mParams.mGesturePreviewDynamic ? Math.min(
                 Math.max(CoordinateUtils.x(mLastPointerCoords) - rectWidth / 2.0f, 0.0f),
-                mParams.mDisplayWidth - rectWidth);
-        final float rectY = CoordinateUtils.y(mLastPointerCoords)
-                - mParams.mGesturePreviewTextOffset - rectHeight;
+                mParams.mDisplayWidth - rectWidth)
+            : (mParams.mDisplayWidth - rectWidth) / 2.0f;
+        final float rectY = mParams.mGesturePreviewDynamic ? CoordinateUtils.y(mLastPointerCoords)
+                - mParams.mGesturePreviewTextOffset - rectHeight
+            : -mParams.mGesturePreviewTextOffset - rectHeight;
         mGesturePreviewRectangle.set(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
 
         mPreviewTextX = (int)(rectX + hPad + textWidth / 2.0f);

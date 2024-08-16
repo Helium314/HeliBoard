@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">Voer een woord in door van letter naar letter te vegen</string>
     <string name="gesture_preview_trail">Veegspoor weergeven</string>
     <string name="gesture_floating_preview_text">"Dynamisch zwevend voorbeeld"</string>
-    <string name="gesture_floating_preview_text_summary">Het voorgestelde woord tonen tijdens het vegen</string>
     <string name="gesture_space_aware">Woordgroepen gebaren</string>
     <string name="gesture_space_aware_summary">Spaties invoeren door te vegen over de spatiebalk</string>
     <string name="subtype_en_GB">"Engels (GB)"</string>

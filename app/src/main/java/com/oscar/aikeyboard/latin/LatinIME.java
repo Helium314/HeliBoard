@@ -929,7 +929,7 @@ public class LatinIME extends InputMethodService implements
                     + ", word caps = "
                     + ((editorInfo.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0));
         }
-        Log.i(TAG, "Starting input. Cursor position = " + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
+        Log.i(TAG, (restarting ? "Res" : "S") +"tarting input. Cursor position = " + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
 
         // In landscape mode, this method gets called without the input view being created.
         if (mainKeyboardView == null) {

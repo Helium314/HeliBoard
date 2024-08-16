@@ -1,0 +1,4 @@
+* Nuova icona 'Emoji' per la barra degli strumenti (@codokie: #845, #837)
+* Risolto il bug delle lettere duplicate (#225 e altri)
+* Risolto il bug che 'spezzava' le emoji con il cursore di inserimento (#859)
+* Risolti bug minori relativi alle funzionalità più recenti
