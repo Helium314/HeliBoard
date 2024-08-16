@@ -1,16 +1,10 @@
-/*
- * Copyright (C) 2014 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
-
 package com.android.inputmethod.latin.utils;
 
 import com.android.inputmethod.latin.BinaryDictionary;
-import helium314.keyboard.latin.common.StringUtils;
-import helium314.keyboard.latin.makedict.DictionaryHeader;
-import helium314.keyboard.latin.makedict.UnsupportedFormatException;
-import helium314.keyboard.latin.utils.JniUtils;
+import com.oscar.aikeyboard.latin.common.StringUtils;
+import com.oscar.aikeyboard.latin.makedict.DictionaryHeader;
+import com.oscar.aikeyboard.latin.makedict.UnsupportedFormatException;
+import com.oscar.aikeyboard.latin.utils.JniUtils;
 
 import java.io.File;
 import java.io.IOException;

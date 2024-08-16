@@ -9,7 +9,7 @@
     android:key="@string/settings_screen_about">
 
     <Preference
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_oscar"
         android:title="@string/english_ime_name"
         android:summary="@string/app_slogan"/>
 
@@ -24,7 +24,7 @@
         android:summary="@string/gnu_gpl"
         android:icon="@drawable/ic_settings_about_license">
         <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/Helium314/HeliBoard/blob/main/LICENSE-GPL-3" />
+            android:data="https://github.com/navgurukul/oscar-ai-keyboard/blob/main/LICENSE" />
     </Preference>
 
     <Preference
@@ -39,7 +39,7 @@
         android:icon="@drawable/ic_settings_about_github">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://github.com/Helium314/HeliBoard" />
+            android:data="https://github.com/navgurukul/oscar-ai-keyboard" />
     </Preference>
 
     <Preference

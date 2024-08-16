@@ -1,14 +1,8 @@
-/*
- * Copyright (C) 2012 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
- */
-
 package com.android.inputmethod.latin;
 
-import helium314.keyboard.latin.common.NativeSuggestOptions;
-import helium314.keyboard.latin.define.DecoderSpecificConstants;
-import helium314.keyboard.latin.utils.JniUtils;
+import com.oscar.aikeyboard.latin.common.NativeSuggestOptions;
+import com.oscar.aikeyboard.latin.define.DecoderSpecificConstants;
+import com.oscar.aikeyboard.latin.utils.JniUtils;
 
 import java.util.Locale;
 

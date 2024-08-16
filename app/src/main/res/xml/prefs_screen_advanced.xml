@@ -16,7 +16,7 @@
         android:summary="@string/prefs_force_incognito_mode_summary"
         android:defaultValue="false" />
 
-    <helium314.keyboard.latin.settings.SeekBarDialogPreference
+    <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
         android:key="key_longpress_timeout"
         android:title="@string/prefs_key_longpress_timeout_settings"
         latin:minValue="@integer/config_min_longpress_timeout"
@@ -109,7 +109,7 @@
         android:title="@string/backup_restore_title" />
 
     <PreferenceScreen
-            android:fragment="helium314.keyboard.latin.settings.DebugSettingsFragment"
+            android:fragment="com.oscar.aikeyboard.latin.settings.DebugSettingsFragment"
             android:key="screen_debug"
             android:title="@string/debug_settings_title"
             android:defaultValue="false"
