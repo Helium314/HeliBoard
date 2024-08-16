@@ -29,7 +29,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:name="com.oscar.aikeyboard.latin.App"
             android:supportsRtl="true"
             android:allowBackup="true"
-             android:icon="@drawable/ic_oscar"
+             android:icon="@drawable/ic_oscar_logo_new"
             android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true">
         <provider
