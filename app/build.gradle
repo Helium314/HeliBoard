@@ -12,8 +12,8 @@ android {
         applicationId "com.oscar.aikeyboard"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 2201
-        versionName '2.2'
+        versionCode 1
+        versionName '1'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
