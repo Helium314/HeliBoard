@@ -38,7 +38,7 @@ We implement appropriate technical and organizational measures to protect your p
 
 We retain your personal data only for as long as necessary to fulfill the purposes for which it was collected or as required by law.  
 
-**. Your Data Rights**
+**7. Your Data Rights**
 
 Depending on your jurisdiction, you may have the following rights regarding your personal data:
 Access to your data
@@ -47,7 +47,7 @@ Deletion of your data
 Restriction of processing
 Data portability
 
-**. Children's Privacy**
+**8. Children's Privacy**
 
 The App is not intended for use by children under the age of 13. We do not knowingly collect personal data from children under 13. If we learn that we have collected personal data from a child under 13, we will delete that information promptly.  
 
