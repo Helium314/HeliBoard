@@ -140,6 +140,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:33.1.2')
 
     // For Firebase Crashlytics & Analytics
-//    implementation platform("com.google.firebase:firebase-bom:33.1.2")
-//    implementation("com.google.firebase:firebase-analytics")
+    implementation platform("com.google.firebase:firebase-bom:33.1.2")
+    implementation("com.google.firebase:firebase-analytics")
+
+    // For App Integrity todo will be removed
+    //implementation 'com.google.android.play:integrity:1.4.0'
 }
