@@ -261,6 +261,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         stopRecord();
         ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String allOutputText = aiOutput.getText().toString();
+        String userInput = data != null ? data.get(0) : "";
 
         if (allOutputText.equals("AI Generated Text Will be here")) {
             allOutputText = "";
@@ -270,7 +271,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
 
         // Save AI-generated text to the database
-        saveAITextToDatabase(allOutputText);
+//        saveAITextToDatabase(allOutputText);
+        generateAIText(userInput);
+
         lvTextProgress.setVisibility(View.GONE);
 
         aiOutput.setVisibility(View.VISIBLE);
@@ -314,7 +317,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void onPartialResults(Bundle partialResults) {
 
     }
+    private void generateAIText(String inputText) {
+        GeminiClient geminiClient = new GeminiClient();
+        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
 
+        viewModel.summarizeStreaming(inputText);
+        viewModel.setOnTextUpdatedListener(outputText -> {
+            // Save only the AI-generated text to the database
+            saveAITextToDatabase(outputText);
+        });
+    }
     @Override
     public void onEvent(int eventType, Bundle params) {
 
