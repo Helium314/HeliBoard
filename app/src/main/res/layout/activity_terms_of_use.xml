@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DCECEB"
+    android:orientation="vertical"
+    tools:context=".setup.TermsOfUseActivity">
+
+    <TextView
+        android:id="@+id/terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Terms Of Use"
+        android:fontFamily="@font/spectral_semibold"
+        android:textColor="#4D4D4D"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="42dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableStart="@drawable/baseline_arrow_back_ios_24"
+        />
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/terms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    <TextView
+        android:id="@+id/termstext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:lineSpacingExtra="10dp"
+        android:text="@string/terms_of_use"
+        android:padding="20dp"
+        android:textSize="16dp"
+        android:linksClickable="true"
+        android:autoLink="email"
+        android:textColorLink="#F80505"
+        android:fontFamily="@font/karla_light"
+        app:layout_constraintTop_toBottomOf="@+id/terms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

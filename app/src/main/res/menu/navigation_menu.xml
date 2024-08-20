@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group
+        android:id="@+id/group_item_1"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_terms_conditions"
+        android:title="Terms of Use"
+        android:fontFamily="@font/karla_semibold"
+        android:textColor="#4D4D4D"
+        android:icon="@drawable/baseline_assignment_24"
+        />
+    </group>
+    <group
+        android:id="@+id/group_item_2"
+        android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/nav_privacy_policy"
+        android:title="Privacy Policy"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_privacy_tip_24"/>
+    </group>
+    <group
+        android:id="@+id/group_item_3"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_email_us"
+        android:title="Email us"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_drafts_24"
+        />
+    </group>
+    <group
+        android:id="@+id/group_item_4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/prompt_message_id"
+            android:title="Prompt History"
+            android:textColor="#4D4D4D"
+            android:fontFamily="@font/karla_semibold"
+            android:icon="@drawable/baseline_preview_24"
+            />
+    </group>
+    <group
+        android:id="@+id/group_item_5"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_recommended_us"
+        android:title="Recommend Us"
+        android:textColor="#4D4D4D"
+        android:fontFamily="@font/karla_semibold"
+        android:icon="@drawable/baseline_share_24"
+        />
+    </group>
+</menu>
