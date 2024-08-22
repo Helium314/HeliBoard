@@ -955,7 +955,7 @@ New dictionary:
     10.We reserve the right to modify these Terms at any time. Your continued use of the App after any such changes constitutes your acceptance of the new Terms.\n
     11.If you have any questions about these Terms, please contact us at <a href="mailto:support.oscar@samyarth.org"><font color="#000000">support.oscar@samyarth.org</font></a>.
     </string>
-    <string name="privacy_policy">
+    <string name="privacy_policy" translatable="false">
         1.We value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Oscar Keyboard App.\n
 2.We collect personal information such as your email address and user preferences when you create an account or use the App. We also collect information about your usage of the App, such as the features you use, the time and duration of your use, and error reports.\n
 3.We use your information to provide and maintain the App, improve and personalize your experience, monitor and analyze usage and trends, send you updates, security alerts, and support messages, and comply with legal obligations.\n
@@ -968,4 +968,5 @@ New dictionary:
 10.If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support.oscar@samyarth.org"><font color="#000000">support.oscar@samyarth.org</font></a>.
 
     </string>
+    <string name="email_us" translatable="false">Email us</string>
 </resources>

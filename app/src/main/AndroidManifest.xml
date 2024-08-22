@@ -120,23 +120,19 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name="com.oscar.aikeyboard.latin.setup.MainActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.oscar.aikeyboard.latin.setup.KeyboardselectionActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.oscar.aikeyboard.latin.setup.PrivacyPolicyActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="com.oscar.aikeyboard.latin.setup.TermsOfUseActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme"/>
         <!-- Broadcast receivers -->
         <receiver android:name="com.oscar.aikeyboard.latin.SystemBroadcastReceiver"
