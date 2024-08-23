@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
@@ -142,6 +143,7 @@ dependencies {
     // For Firebase Crashlytics & Analytics
     implementation platform("com.google.firebase:firebase-bom:33.1.2")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 
     // For App Integrity todo will be removed
     //implementation 'com.google.android.play:integrity:1.4.0'
