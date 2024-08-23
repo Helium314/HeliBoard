@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.provider.Settings
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 
 class SheetOneFragment : Fragment() {
 

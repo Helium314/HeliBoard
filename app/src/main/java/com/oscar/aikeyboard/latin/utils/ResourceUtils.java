@@ -14,7 +14,7 @@ import android.util.TypedValue;
 
 import androidx.core.util.TypedValueCompat;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.settings.SettingsValues;
 
 

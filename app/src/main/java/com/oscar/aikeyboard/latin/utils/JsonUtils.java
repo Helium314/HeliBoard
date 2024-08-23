@@ -8,7 +8,6 @@ package com.oscar.aikeyboard.latin.utils;
 
 import android.util.JsonReader;
 import android.util.JsonWriter;
-import com.oscar.aikeyboard.latin.utils.Log;
 
 import java.io.Closeable;
 import java.io.IOException;

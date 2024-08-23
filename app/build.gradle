@@ -9,7 +9,7 @@ android {
     buildToolsVersion = '34.0.0'
 
     defaultConfig {
-        applicationId "com.oscar.aikeyboard"
+        applicationId "org.samyarth.oskey"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 3
@@ -90,7 +90,7 @@ android {
         includeInBundle = false
     }
 
-    namespace "com.oscar.aikeyboard"
+    namespace "org.samyarth.oskey"
     lint {
         abortOnError true
     }

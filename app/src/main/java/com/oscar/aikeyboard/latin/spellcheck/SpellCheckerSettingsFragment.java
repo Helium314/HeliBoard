@@ -13,7 +13,7 @@ import android.text.TextUtils;
 
 import androidx.preference.SwitchPreference;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.permissions.PermissionsManager;
 import com.oscar.aikeyboard.latin.permissions.PermissionsUtil;
 import com.oscar.aikeyboard.latin.settings.Settings;

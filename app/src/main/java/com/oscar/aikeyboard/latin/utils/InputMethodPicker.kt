@@ -11,7 +11,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
 import androidx.appcompat.app.AlertDialog
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.LatinIME
 import com.oscar.aikeyboard.latin.RichInputMethodManager
 

@@ -11,7 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import androidx.core.content.ContextCompat
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.AllColors
 import com.oscar.aikeyboard.latin.common.Colors
 import com.oscar.aikeyboard.latin.common.DefaultColors

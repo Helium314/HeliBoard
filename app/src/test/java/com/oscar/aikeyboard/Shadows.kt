@@ -13,6 +13,7 @@ import com.oscar.aikeyboard.latin.common.StringUtils
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowInputMethodManager
+import org.samyarth.oskey.BuildConfig
 import java.util.*
 
 @Implements(LocaleManagerCompat::class)

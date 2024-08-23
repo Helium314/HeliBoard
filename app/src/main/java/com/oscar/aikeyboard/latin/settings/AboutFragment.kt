@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
-import com.oscar.aikeyboard.BuildConfig
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.BuildConfig
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.utils.ExecutorUtils
 import com.oscar.aikeyboard.latin.utils.Log
 import com.oscar.aikeyboard.latin.utils.SpannableStringUtils

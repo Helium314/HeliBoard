@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 
 class CustomDividerItemDecoration(context: Context, resId: Int) : RecyclerView.ItemDecoration() {
     private val divider: Drawable? = ContextCompat.getDrawable(context, resId)

@@ -13,7 +13,7 @@ import android.util.SparseIntArray
 import android.view.MotionEvent
 import com.oscar.aikeyboard.accessibility.AccessibilityLongPressTimer.LongPressTimerCallback
 import com.oscar.aikeyboard.keyboard.*
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils
 
 /**

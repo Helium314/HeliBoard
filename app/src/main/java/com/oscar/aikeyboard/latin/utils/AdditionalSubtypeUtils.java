@@ -10,7 +10,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.LocaleUtils;
 import com.oscar.aikeyboard.latin.common.StringUtils;
 

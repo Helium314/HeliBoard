@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.compat.locale
 import com.oscar.aikeyboard.latin.common.LocaleUtils
 import com.oscar.aikeyboard.latin.common.LocaleUtils.constructLocale

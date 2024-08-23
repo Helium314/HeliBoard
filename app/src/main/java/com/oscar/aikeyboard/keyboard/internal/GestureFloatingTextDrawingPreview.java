@@ -16,7 +16,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import com.oscar.aikeyboard.keyboard.PointerTracker;
 import com.oscar.aikeyboard.latin.SuggestedWords;

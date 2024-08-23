@@ -19,7 +19,7 @@ import com.oscar.aikeyboard.keyboard.internal.KeyboardBuilder;
 import com.oscar.aikeyboard.keyboard.internal.KeyboardIconsSet;
 import com.oscar.aikeyboard.keyboard.internal.KeyboardParams;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.utils.TypefaceUtils;
 

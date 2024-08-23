@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 
 public final class SetupStartIndicatorView extends LinearLayout {

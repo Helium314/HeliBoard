@@ -13,8 +13,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.oscar.aikeyboard.R
-import com.oscar.aikeyboard.databinding.ActivityMainBinding
+import org.samyarth.oskey.R
+import org.samyarth.oskey.databinding.ActivityMainBinding
 
 import com.oscar.aikeyboard.latin.utils.UncachedInputMethodManagerUtils
 

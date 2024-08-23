@@ -27,7 +27,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.KeyboardActionListener;
 import com.oscar.aikeyboard.keyboard.KeyboardTheme;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;

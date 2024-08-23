@@ -28,7 +28,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.oscar.aikeyboard.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import com.oscar.aikeyboard.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import com.oscar.aikeyboard.latin.common.ColorType.*
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.settings.Settings
 import com.oscar.aikeyboard.latin.utils.adjustLuminosityAndKeepAlpha
 import com.oscar.aikeyboard.latin.utils.brighten

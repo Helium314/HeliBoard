@@ -18,7 +18,7 @@ import androidx.preference.Preference;
 import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet;
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher;
 import com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.RichInputMethodManager;
 import com.oscar.aikeyboard.latin.utils.DialogUtilsKt;
 import com.oscar.aikeyboard.latin.utils.PopupKeysUtilsKt;

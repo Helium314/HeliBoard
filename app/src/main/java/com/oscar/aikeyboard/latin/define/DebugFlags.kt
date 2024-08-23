@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.latin.define
 
 import android.content.Context
 import android.os.Build
-import com.oscar.aikeyboard.BuildConfig
+import org.samyarth.oskey.BuildConfig
 import com.oscar.aikeyboard.latin.settings.DebugSettings
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
 import com.oscar.aikeyboard.latin.utils.Log

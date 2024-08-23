@@ -13,7 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import androidx.core.graphics.PaintCompat;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.Key;
 import com.oscar.aikeyboard.keyboard.Keyboard;
 import com.oscar.aikeyboard.keyboard.KeyboardId;

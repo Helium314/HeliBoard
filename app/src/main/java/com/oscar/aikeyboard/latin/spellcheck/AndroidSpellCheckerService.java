@@ -23,7 +23,7 @@ import com.oscar.aikeyboard.latin.DictionaryFacilitator;
 import com.oscar.aikeyboard.latin.DictionaryFacilitatorLruCache;
 import com.oscar.aikeyboard.latin.InputAttributes;
 import com.oscar.aikeyboard.latin.NgramContext;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.RichInputMethodSubtype;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.common.ComposedData;

@@ -14,7 +14,7 @@ import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.Key;
 import com.oscar.aikeyboard.keyboard.KeyboardId;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;

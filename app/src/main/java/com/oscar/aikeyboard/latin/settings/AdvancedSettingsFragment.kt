@@ -22,8 +22,8 @@ import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import com.oscar.aikeyboard.BuildConfig
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.BuildConfig
+import org.samyarth.oskey.R
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import com.oscar.aikeyboard.dictionarypack.DictionaryPackConstants

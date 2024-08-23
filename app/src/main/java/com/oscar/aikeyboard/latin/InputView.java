@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 
 import androidx.core.view.ViewKt;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.accessibility.AccessibilityUtils;
 import com.oscar.aikeyboard.keyboard.MainKeyboardView;
 import com.oscar.aikeyboard.latin.common.ColorType;

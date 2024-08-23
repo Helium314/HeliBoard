@@ -39,7 +39,7 @@ import androidx.autofill.inline.common.ViewStyle;
 import androidx.autofill.inline.v1.InlineSuggestionUi;
 import androidx.autofill.inline.v1.InlineSuggestionUi.Style;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.ColorType;
 import com.oscar.aikeyboard.latin.common.Colors;
 import com.oscar.aikeyboard.latin.settings.Settings;

@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.latin.settings;
 
 import android.content.res.Resources;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.compat.ConfigurationCompatKt;
 import com.oscar.aikeyboard.keyboard.internal.PopupKeySpec;
 import com.oscar.aikeyboard.latin.PunctuationSuggestions;

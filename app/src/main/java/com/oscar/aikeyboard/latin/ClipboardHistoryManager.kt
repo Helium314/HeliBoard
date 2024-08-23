@@ -17,11 +17,11 @@ import com.oscar.aikeyboard.compat.ClipboardManagerCompat
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import com.oscar.aikeyboard.latin.common.ColorType
 import com.oscar.aikeyboard.latin.common.isValidNumber
-import com.oscar.aikeyboard.databinding.ClipboardSuggestionBinding
 import com.oscar.aikeyboard.latin.settings.Settings
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
 import com.oscar.aikeyboard.latin.utils.InputTypeUtils
 import com.oscar.aikeyboard.latin.utils.ToolbarKey
+import org.samyarth.oskey.databinding.ClipboardSuggestionBinding
 import kotlin.collections.ArrayList
 
 

@@ -19,7 +19,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.LocaleUtils
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils

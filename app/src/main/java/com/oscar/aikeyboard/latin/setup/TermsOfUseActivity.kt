@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 
 
 class TermsOfUseActivity : AppCompatActivity() {

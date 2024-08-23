@@ -30,7 +30,7 @@ import androidx.annotation.Nullable;
 import com.oscar.aikeyboard.keyboard.internal.KeyDrawParams;
 import com.oscar.aikeyboard.keyboard.internal.KeyVisualAttributes;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.ColorType;
 import com.oscar.aikeyboard.latin.common.Colors;
 import com.oscar.aikeyboard.latin.common.Constants;

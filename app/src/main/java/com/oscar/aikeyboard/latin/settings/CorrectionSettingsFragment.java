@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher;
 import com.oscar.aikeyboard.latin.permissions.PermissionsManager;

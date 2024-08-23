@@ -53,7 +53,6 @@ import com.oscar.aikeyboard.latin.utils.RecapitalizeStatus;
 import com.oscar.aikeyboard.latin.utils.ScriptUtils;
 import com.oscar.aikeyboard.latin.utils.StatsUtils;
 import com.oscar.aikeyboard.latin.utils.TextRange;
-import com.oscar.aikeyboard.latin.inputlogic.SpaceState;
 
 import java.util.ArrayList;
 import java.util.Locale;

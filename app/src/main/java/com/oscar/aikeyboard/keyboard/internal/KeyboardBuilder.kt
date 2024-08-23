@@ -17,7 +17,7 @@ import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.EmojiParser
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.KeyboardParser
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.Constants
 import com.oscar.aikeyboard.latin.define.DebugFlags
 import com.oscar.aikeyboard.latin.settings.Settings

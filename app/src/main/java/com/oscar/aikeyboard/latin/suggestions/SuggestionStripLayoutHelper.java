@@ -38,7 +38,7 @@ import androidx.annotation.Nullable;
 
 import com.oscar.aikeyboard.accessibility.AccessibilityUtils;
 import com.oscar.aikeyboard.latin.PunctuationSuggestions;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
 import com.oscar.aikeyboard.latin.common.ColorType;

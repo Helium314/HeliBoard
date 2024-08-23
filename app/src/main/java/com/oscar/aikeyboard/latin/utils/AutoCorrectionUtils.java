@@ -9,7 +9,6 @@ package com.oscar.aikeyboard.latin.utils;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
-import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.define.DebugFlags;
 
 public final class AutoCorrectionUtils {

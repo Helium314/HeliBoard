@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.latin.common;
 
 import androidx.annotation.NonNull;
 
-import com.oscar.aikeyboard.BuildConfig;
+import org.samyarth.oskey.BuildConfig;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 
 

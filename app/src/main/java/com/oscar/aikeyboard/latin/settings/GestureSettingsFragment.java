@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 
 /**

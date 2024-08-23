@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.oscar.aikeyboard.keyboard.Key;
 import com.oscar.aikeyboard.keyboard.Keyboard;
 import com.oscar.aikeyboard.keyboard.KeyboardView;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

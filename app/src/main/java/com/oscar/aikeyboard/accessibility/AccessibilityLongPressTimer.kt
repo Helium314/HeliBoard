@@ -9,8 +9,8 @@ package com.oscar.aikeyboard.accessibility
 import android.content.Context
 import android.os.Handler
 import android.os.Message
-import com.oscar.aikeyboard.R
 import com.oscar.aikeyboard.keyboard.Key
+import org.samyarth.oskey.R
 
 // Handling long press timer to show a popup keys keyboard.
 internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimerCallback,

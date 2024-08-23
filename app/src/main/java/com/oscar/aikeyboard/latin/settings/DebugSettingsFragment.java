@@ -16,8 +16,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.TwoStatePreference;
 
-import com.oscar.aikeyboard.BuildConfig;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.BuildConfig;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher;
 import com.oscar.aikeyboard.latin.DictionaryDumpBroadcastReceiver;
 import com.oscar.aikeyboard.latin.DictionaryFacilitator;

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import com.oscar.aikeyboard.compat.locale
 import com.oscar.aikeyboard.dictionarypack.DictionaryPackConstants
 import com.oscar.aikeyboard.latin.Dictionary
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.ReadOnlyBinaryDictionary
 import com.oscar.aikeyboard.latin.common.FileUtils
 import com.oscar.aikeyboard.latin.common.LocaleUtils

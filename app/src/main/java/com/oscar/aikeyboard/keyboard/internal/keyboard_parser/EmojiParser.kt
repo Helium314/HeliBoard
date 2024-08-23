@@ -3,7 +3,7 @@ package com.oscar.aikeyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.os.Build
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.Key
 import com.oscar.aikeyboard.keyboard.Key.KeyParams
 import com.oscar.aikeyboard.keyboard.KeyboardId

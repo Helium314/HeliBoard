@@ -21,8 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.oscar.aikeyboard.BuildConfig;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.BuildConfig;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.FileUtils;
 import com.oscar.aikeyboard.latin.define.DebugFlags;
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils;

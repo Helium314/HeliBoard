@@ -20,9 +20,9 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
-import com.oscar.aikeyboard.R
 import com.oscar.aikeyboard.latin.SuggestedWords
 import com.oscar.aikeyboard.latin.utils.InputTypeUtils
+import org.samyarth.oskey.R
 
 class AccessibilityUtils private constructor() {
     private lateinit var mContext: Context
@@ -127,7 +127,8 @@ class AccessibilityUtils private constructor() {
                     mContext.getString(
                         R.string.spoken_auto_correct_obscured,
                             keyCodeDescription)
-                } else mContext.getString(R.string.spoken_auto_correct, keyCodeDescription,
+                } else mContext.getString(
+                    R.string.spoken_auto_correct, keyCodeDescription,
                         mTypedWord, mAutoCorrectionWord)
             }
         }

@@ -35,7 +35,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.settings.SettingsActivity;
 import com.oscar.aikeyboard.latin.utils.ActivityThemeUtils;
 import com.oscar.aikeyboard.latin.utils.JniUtils;

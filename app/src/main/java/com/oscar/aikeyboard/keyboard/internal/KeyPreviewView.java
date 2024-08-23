@@ -17,7 +17,7 @@ import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import com.oscar.aikeyboard.keyboard.Key;
 import com.oscar.aikeyboard.latin.common.StringUtilsKt;

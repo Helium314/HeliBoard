@@ -19,12 +19,9 @@ import com.oscar.aikeyboard.latin.utils.POPUP_KEYS_LAYOUT
 import com.oscar.aikeyboard.latin.utils.POPUP_KEYS_NUMBER
 import com.oscar.aikeyboard.latin.utils.ScriptUtils
 import com.oscar.aikeyboard.latin.utils.ScriptUtils.script
-import com.oscar.aikeyboard.latin.utils.ToolbarKey
-import com.oscar.aikeyboard.latin.utils.removeFirst
 import com.oscar.aikeyboard.latin.utils.replaceFirst
 import com.oscar.aikeyboard.latin.utils.splitAt
 import com.oscar.aikeyboard.latin.utils.sumOf
-import com.oscar.aikeyboard.latin.utils.toolbarKeyStrings
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,

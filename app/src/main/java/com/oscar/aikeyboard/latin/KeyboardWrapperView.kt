@@ -11,7 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.KeyboardActionListener
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode

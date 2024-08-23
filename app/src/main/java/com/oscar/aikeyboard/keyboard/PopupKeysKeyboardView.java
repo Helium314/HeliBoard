@@ -23,7 +23,7 @@ import com.oscar.aikeyboard.accessibility.PopupKeysKeyboardAccessibilityDelegate
 import com.oscar.aikeyboard.keyboard.emoji.OnKeyEventListener;
 import com.oscar.aikeyboard.keyboard.internal.KeyDrawParams;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.RichInputMethodManager;
 import com.oscar.aikeyboard.latin.common.Constants;
 import com.oscar.aikeyboard.latin.common.CoordinateUtils;

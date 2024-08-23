@@ -8,7 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.edit
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.KeyboardTheme
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import com.oscar.aikeyboard.latin.settings.Settings

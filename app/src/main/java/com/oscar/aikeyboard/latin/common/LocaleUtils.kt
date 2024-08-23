@@ -7,8 +7,8 @@ package com.oscar.aikeyboard.latin.common
 
 import android.content.Context
 import android.content.res.Resources
-import com.oscar.aikeyboard.BuildConfig
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.BuildConfig
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.compat.locale
 import com.oscar.aikeyboard.latin.utils.ScriptUtils.script
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils

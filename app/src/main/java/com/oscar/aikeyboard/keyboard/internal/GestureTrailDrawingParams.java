@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.keyboard.internal;
 
 import android.content.res.TypedArray;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import com.oscar.aikeyboard.latin.common.ColorType;
 import com.oscar.aikeyboard.latin.settings.Settings;

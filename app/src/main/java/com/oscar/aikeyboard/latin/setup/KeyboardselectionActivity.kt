@@ -30,8 +30,7 @@ import com.oscar.aikeyboard.AIEngine.SharedViewModel
 import com.oscar.aikeyboard.AIEngine.SummarizeUiState
 import com.oscar.aikeyboard.AIEngine.SummarizeViewModel
 import com.oscar.aikeyboard.AIEngine.SummarizeViewModelFactory
-import com.oscar.aikeyboard.BuildConfig
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.BuildConfig
 import com.oscar.aikeyboard.gemini.GeminiClient
 import com.oscar.aikeyboard.latin.suggestions.SuggestionStripView
 import com.oscar.aikeyboard.latin.suggestions.SummarizeTextProvider
@@ -40,6 +39,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.samyarth.oskey.R
 
 class KeyboardselectionActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, SummarizeTextProvider, OutputTextListener {

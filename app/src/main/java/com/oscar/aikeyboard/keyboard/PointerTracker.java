@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.TypedValueCompat;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.internal.BatchInputArbiter;
 import com.oscar.aikeyboard.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
 import com.oscar.aikeyboard.keyboard.internal.BogusMoveEventDetector;

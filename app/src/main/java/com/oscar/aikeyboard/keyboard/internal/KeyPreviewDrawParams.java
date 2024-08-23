@@ -9,7 +9,7 @@ package com.oscar.aikeyboard.keyboard.internal;
 import android.content.res.TypedArray;
 import android.view.View;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 
 public final class KeyPreviewDrawParams {

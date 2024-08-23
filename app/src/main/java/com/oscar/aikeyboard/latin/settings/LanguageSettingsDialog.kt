@@ -17,10 +17,10 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.compat.locale
-import com.oscar.aikeyboard.databinding.LanguageListItemBinding
-import com.oscar.aikeyboard.databinding.LocaleSettingsDialogBinding
+import org.samyarth.oskey.databinding.LanguageListItemBinding
+import org.samyarth.oskey.databinding.LocaleSettingsDialogBinding
 import com.oscar.aikeyboard.dictionarypack.DictionaryPackConstants
 import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher

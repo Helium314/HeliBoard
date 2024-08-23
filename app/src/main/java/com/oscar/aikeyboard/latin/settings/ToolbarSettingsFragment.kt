@@ -3,7 +3,7 @@ package com.oscar.aikeyboard.latin.settings
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.Preference
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
 import com.oscar.aikeyboard.latin.utils.defaultClipboardToolbarPref
 import com.oscar.aikeyboard.latin.utils.defaultPinnedToolbarPref

@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.oscar.aikeyboard.BuildConfig
 import com.oscar.aikeyboard.latin.common.LocaleUtils.constructLocale
 import com.oscar.aikeyboard.latin.settings.Settings
 import com.oscar.aikeyboard.latin.settings.USER_DICTIONARY_SUFFIX
@@ -17,6 +16,7 @@ import com.oscar.aikeyboard.latin.utils.defaultPinnedToolbarPref
 import com.oscar.aikeyboard.latin.utils.getCustomLayoutFile
 import com.oscar.aikeyboard.latin.utils.onCustomLayoutFileListChanged
 import com.oscar.aikeyboard.latin.utils.upgradeToolbarPrefs
+import org.samyarth.oskey.BuildConfig
 import java.io.File
 
 class App : Application() {

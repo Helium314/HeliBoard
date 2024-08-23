@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
 import com.oscar.aikeyboard.latin.RichInputMethodManager
 import com.oscar.aikeyboard.latin.common.Constants

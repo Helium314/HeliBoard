@@ -16,7 +16,7 @@ import androidx.core.util.TypedValueCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
 import com.oscar.aikeyboard.keyboard.KeyboardTheme
 import com.oscar.aikeyboard.latin.common.FileUtils

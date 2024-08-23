@@ -18,7 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 
 public final class SeekBarDialogPreference extends Preference

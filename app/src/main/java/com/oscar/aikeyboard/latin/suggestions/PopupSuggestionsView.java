@@ -16,7 +16,7 @@ import com.oscar.aikeyboard.keyboard.Key;
 import com.oscar.aikeyboard.keyboard.Keyboard;
 import com.oscar.aikeyboard.keyboard.KeyboardActionListener;
 import com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
 import com.oscar.aikeyboard.latin.suggestions.MoreSuggestions.MoreSuggestionKey;

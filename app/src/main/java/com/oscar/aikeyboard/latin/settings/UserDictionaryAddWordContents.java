@@ -22,7 +22,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.compat.ConfigurationCompatKt;
 import com.oscar.aikeyboard.latin.common.LocaleUtils;
 

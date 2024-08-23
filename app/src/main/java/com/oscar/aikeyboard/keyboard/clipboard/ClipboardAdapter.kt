@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.oscar.aikeyboard.latin.ClipboardHistoryEntry
 import com.oscar.aikeyboard.latin.ClipboardHistoryManager
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.ColorType
 import com.oscar.aikeyboard.latin.settings.Settings
 

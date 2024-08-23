@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import androidx.preference.PreferenceManager;
 
 import com.oscar.aikeyboard.latin.App;
-import com.oscar.aikeyboard.BuildConfig;
+import org.samyarth.oskey.BuildConfig;
 import com.oscar.aikeyboard.latin.settings.Settings;
 
 import java.io.File;

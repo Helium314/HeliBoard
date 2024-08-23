@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils;
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils;
 import com.oscar.aikeyboard.latin.utils.SubtypeSettingsKt;
@@ -32,9 +32,6 @@ import com.oscar.aikeyboard.latin.utils.SubtypeUtilsKt;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.TreeSet;
-
-import com.oscar.aikeyboard.latin.settings.SubScreenFragment;
-import com.oscar.aikeyboard.latin.settings.UserDictionarySettings;
 
 public class UserDictionaryListFragment extends SubScreenFragment {
 

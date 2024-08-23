@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.keyboard.internal;
 
 import android.content.res.TypedArray;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 
 /** This class holds parameters to control how a gesture stroke is sampled and drawn on the screen. */

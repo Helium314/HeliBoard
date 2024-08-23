@@ -12,7 +12,7 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher;
 import com.oscar.aikeyboard.latin.settings.Settings;
 import com.oscar.aikeyboard.latin.utils.Log;

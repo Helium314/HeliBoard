@@ -9,7 +9,7 @@ import android.text.InputType
 import android.view.KeyEvent
 import android.view.inputmethod.*
 import androidx.core.content.edit
-import com.oscar.aikeyboard.BuildConfig
+import org.samyarth.oskey.BuildConfig
 import com.oscar.aikeyboard.ShadowInputMethodManager2
 import com.oscar.aikeyboard.ShadowLocaleManagerCompat
 import com.oscar.aikeyboard.event.Event
@@ -36,7 +36,6 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
-import java.util.*
 import kotlin.math.min
 
 @RunWith(RobolectricTestRunner::class)

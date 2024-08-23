@@ -31,13 +31,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.ListFragment;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.LocaleUtils;
 
 
 import java.util.Locale;
-
-import com.oscar.aikeyboard.latin.settings.UserDictionaryAddWordContents;
 
 public class UserDictionarySettings extends ListFragment {
     static final Locale emptyLocale = new Locale("");

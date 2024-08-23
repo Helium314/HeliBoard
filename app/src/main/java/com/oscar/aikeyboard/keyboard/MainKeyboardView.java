@@ -43,7 +43,7 @@ import com.oscar.aikeyboard.keyboard.internal.NonDistinctMultitouchHelper;
 import com.oscar.aikeyboard.keyboard.internal.SlidingKeyInputDrawingPreview;
 import com.oscar.aikeyboard.keyboard.internal.TimerHandler;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.RichInputMethodSubtype;
 import com.oscar.aikeyboard.latin.SuggestedWords;
 import com.oscar.aikeyboard.latin.common.ColorType;

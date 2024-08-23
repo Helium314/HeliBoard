@@ -9,7 +9,7 @@ package com.oscar.aikeyboard.keyboard.internal;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 
 import com.oscar.aikeyboard.latin.utils.Log;
 

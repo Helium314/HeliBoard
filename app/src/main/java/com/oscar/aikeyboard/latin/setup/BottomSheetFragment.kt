@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(

@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.keyboard.Key
 import com.oscar.aikeyboard.keyboard.KeyboardId
 import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet

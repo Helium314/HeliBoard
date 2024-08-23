@@ -36,7 +36,7 @@ import com.oscar.aikeyboard.keyboard.PopupKeysKeyboard;
 import com.oscar.aikeyboard.keyboard.PopupKeysKeyboardView;
 import com.oscar.aikeyboard.keyboard.PopupKeysPanel;
 import com.oscar.aikeyboard.keyboard.internal.PopupKeySpec;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.CoordinateUtils;
 import com.oscar.aikeyboard.latin.settings.Settings;
 

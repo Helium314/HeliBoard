@@ -36,7 +36,7 @@ import com.oscar.aikeyboard.keyboard.internal.KeyVisualAttributes;
 import com.oscar.aikeyboard.keyboard.internal.KeyboardIconsSet;
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import com.oscar.aikeyboard.latin.AudioAndHapticFeedbackManager;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.RichInputMethodSubtype;
 import com.oscar.aikeyboard.latin.common.ColorType;
 import com.oscar.aikeyboard.latin.common.Colors;

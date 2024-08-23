@@ -17,7 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.LocaleUtils
 import com.oscar.aikeyboard.latin.common.LocaleUtils.constructLocale
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils

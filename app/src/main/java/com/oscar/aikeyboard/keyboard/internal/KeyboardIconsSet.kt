@@ -3,7 +3,7 @@ package com.oscar.aikeyboard.keyboard.internal
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.utils.Log
 import com.oscar.aikeyboard.latin.utils.ToolbarKey
 import com.oscar.aikeyboard.latin.utils.getStyleableIconId

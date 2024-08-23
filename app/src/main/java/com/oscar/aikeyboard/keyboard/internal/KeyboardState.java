@@ -9,7 +9,6 @@ package com.oscar.aikeyboard.keyboard.internal;
 import android.text.TextUtils;
 
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.latin.define.DebugFlags;
 import com.oscar.aikeyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;

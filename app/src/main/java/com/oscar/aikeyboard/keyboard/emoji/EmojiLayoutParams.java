@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.settings.Settings;
 import com.oscar.aikeyboard.latin.settings.SettingsValues;
 import com.oscar.aikeyboard.latin.utils.ResourceUtils;

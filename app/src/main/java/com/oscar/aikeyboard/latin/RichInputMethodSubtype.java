@@ -8,7 +8,7 @@ package com.oscar.aikeyboard.latin;
 
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.Constants;
 import com.oscar.aikeyboard.latin.common.LocaleUtils;
 import com.oscar.aikeyboard.latin.utils.CustomLayoutUtilsKt;

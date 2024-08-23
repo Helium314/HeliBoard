@@ -15,7 +15,7 @@ import com.oscar.aikeyboard.keyboard.Key
 import com.oscar.aikeyboard.keyboard.Keyboard
 import com.oscar.aikeyboard.keyboard.KeyboardId
 import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import com.oscar.aikeyboard.R
+import org.samyarth.oskey.R
 import com.oscar.aikeyboard.latin.common.Constants
 import com.oscar.aikeyboard.latin.common.StringUtils
 

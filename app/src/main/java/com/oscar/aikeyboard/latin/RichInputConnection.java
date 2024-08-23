@@ -31,7 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.Constants;
 import com.oscar.aikeyboard.latin.common.StringUtils;
 import com.oscar.aikeyboard.latin.common.StringUtilsKt;

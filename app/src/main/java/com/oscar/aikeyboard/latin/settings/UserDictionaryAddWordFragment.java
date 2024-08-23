@@ -31,7 +31,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableKt;
 import androidx.core.widget.TextViewKt;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.latin.common.LocaleUtils;
 
 import java.util.ArrayList;

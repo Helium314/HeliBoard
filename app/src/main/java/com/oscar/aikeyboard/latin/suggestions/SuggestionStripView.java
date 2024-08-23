@@ -49,7 +49,7 @@ import com.oscar.aikeyboard.AIEngine.OnTextUpdatedListener;
 import com.oscar.aikeyboard.AIEngine.SummarizeViewModel;
 import com.oscar.aikeyboard.AIEngine.SummarizeViewModelFactory;
 import com.oscar.aikeyboard.AIEngine.TextUpdatedEvent;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.accessibility.AccessibilityUtils;
 import com.oscar.aikeyboard.gemini.GeminiClient;
 import com.oscar.aikeyboard.keyboard.Key;

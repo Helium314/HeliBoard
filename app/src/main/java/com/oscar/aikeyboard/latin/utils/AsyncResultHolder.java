@@ -6,8 +6,6 @@
 
 package com.oscar.aikeyboard.latin.utils;
 
-import com.oscar.aikeyboard.latin.utils.Log;
-
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.R;
 import com.oscar.aikeyboard.event.Event;
 import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
 import com.oscar.aikeyboard.keyboard.clipboard.ClipboardHistoryView;

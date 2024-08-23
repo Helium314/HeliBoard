@@ -30,14 +30,13 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
-import com.oscar.aikeyboard.R
-import com.oscar.aikeyboard.databinding.ColorSettingsBinding
-import com.oscar.aikeyboard.databinding.ColorSettingBinding
+import org.samyarth.oskey.R
+import org.samyarth.oskey.databinding.ColorSettingsBinding
+import org.samyarth.oskey.databinding.ColorSettingBinding
 import com.oscar.aikeyboard.latin.RichInputMethodManager
 import com.oscar.aikeyboard.latin.common.ColorType
 import com.oscar.aikeyboard.latin.common.default
 import com.oscar.aikeyboard.latin.common.readAllColorsMap
-import com.oscar.aikeyboard.latin.common.splitOnWhitespace
 import com.oscar.aikeyboard.latin.common.writeAllColorsMap
 import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
 import com.oscar.aikeyboard.latin.utils.ExecutorUtils

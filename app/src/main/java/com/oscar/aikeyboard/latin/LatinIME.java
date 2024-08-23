@@ -88,8 +88,8 @@ import com.oscar.aikeyboard.latin.utils.StatsUtilsManager;
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils;
 import com.oscar.aikeyboard.latin.utils.SubtypeSettingsKt;
 import com.oscar.aikeyboard.latin.utils.ViewLayoutUtils;
-import com.oscar.aikeyboard.BuildConfig;
-import com.oscar.aikeyboard.R;
+import org.samyarth.oskey.BuildConfig;
+import org.samyarth.oskey.R;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
