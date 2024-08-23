@@ -25,6 +25,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.oscar.aikeyboard.AIEngine.OutputTextListener
 import com.oscar.aikeyboard.AIEngine.SharedViewModel
 import com.oscar.aikeyboard.AIEngine.SummarizeUiState
@@ -59,6 +61,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
     val generativeModel = geminiClient.geminiFlashModel
     private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
+    private val crashlytics: FirebaseCrashlytics by lazy { FirebaseCrashlytics.getInstance() }
 
 
 // Assuming you have a way to create a GenerativeModel instance
@@ -99,6 +102,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
+        FirebaseApp.initializeApp(this);
 
 
         //todo not needed now
@@ -304,12 +308,16 @@ class KeyboardselectionActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (etopenOscar.visibility == View.VISIBLE) {
-            hideOscarLogo()
-        } else {
-            super.onBackPressed()
+        try {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (etopenOscar.visibility == View.VISIBLE) {
+                hideOscarLogo()
+            } else {
+                super.onBackPressed()
+            }
+        } catch (e: Exception) {
+            crashlytics.recordException(e)
         }
     }
 

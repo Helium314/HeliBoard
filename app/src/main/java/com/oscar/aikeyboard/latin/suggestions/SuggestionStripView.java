@@ -44,6 +44,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.oscar.aikeyboard.AIEngine.AIOutputEvent;
 import com.oscar.aikeyboard.AIEngine.OnTextUpdatedListener;
 import com.oscar.aikeyboard.AIEngine.SummarizeViewModel;
@@ -78,6 +80,7 @@ import com.oscar.aikeyboard.latin.utils.Log;
 import com.oscar.aikeyboard.latin.utils.ToolbarKey;
 import com.oscar.aikeyboard.latin.utils.ToolbarUtilsKt;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -97,6 +100,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         OnLongClickListener, SummarizeTextProvider, RecognitionListener, OnTextUpdatedListener {
 
     LatinIME mLatinIME;
+    private FirebaseCrashlytics crashlytics;
 
     private Key mCurrenteKey;
 
@@ -226,7 +230,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onResults(Bundle results) {
-
+        try {
         Log.e("RecognitionListener", "onResults " + results);
         stopRecord();
         ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -275,7 +279,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         AIOutputEvent event = new AIOutputEvent(allOutputText);
         EventBus.getDefault().post(event);
-
+        } catch (RuntimeException e) {
+            Log.e(TAG, "Runtime Error: " + e.getMessage());
+            FirebaseCrashlytics.getInstance().recordException(e);
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected Error: " + e.getMessage());
+            FirebaseCrashlytics.getInstance().recordException(e);
+        }
     }
 
     @Override
@@ -292,9 +302,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onTextUpdated(@NonNull String text) {
+        try{
         Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
         aiOutput.setText(text);
         Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        }catch (Exception e){
+            Log.d(TAG, "Error in starting record: " + e.getMessage());
+            crashlytics.recordException(e);
+        }
     }
 
 //    private String summarizedText = "";
@@ -427,7 +442,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         ivCopy = findViewById(R.id.ic_copy);
         lvTextProgress = findViewById(R.id.lvTextProgress);
         tvAudioProgress = findViewById(R.id.tvAudioProgress);
-
+        crashlytics = FirebaseCrashlytics.getInstance();
+        FirebaseApp.initializeApp(context);
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -918,36 +934,40 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
     @Override
     public void onClick(final View view) {
-        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
-        final Object tag = view.getTag();
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
+            final Object tag = view.getTag();
+        try {
+            if (view == mIvOscar) {
+                Log.d(TAG, "Generating summary...");
+                Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
+                GeminiClient geminiClient = new GeminiClient();
+                GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+                SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+                SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
 
-        if (view == mIvOscar) {
-            Log.d(TAG, "Generating summary...");
-            Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
-            GeminiClient geminiClient = new GeminiClient();
-            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+                //viewModel.summarizeStreaming("Pass actual text from RichInputConnection");
 
-            //viewModel.summarizeStreaming("Pass actual text from RichInputConnection");
-
-            //CharSequence text = inputConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                //CharSequence text = inputConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0)
 
 
-            mLatinIME = new LatinIME();
+                mLatinIME = new LatinIME();
 
-            RichInputConnection inputConnection = new RichInputConnection(mLatinIME);
-            CharSequence text = inputConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+                RichInputConnection inputConnection = new RichInputConnection(mLatinIME);
+                CharSequence text = inputConnection.getTextBeforeCursor(Integer.MAX_VALUE, 0);
 
-            if (text != null) {
-                Log.d(TAG, "Text before cursor: " + text);
-                viewModel.summarizeStreaming(text.toString());
-            } else {
-                Log.d(TAG, "Text before cursor is null");
+                if (text != null) {
+                    Log.d(TAG, "Text before cursor: " + text);
+                    viewModel.summarizeStreaming(text.toString());
+                } else {
+                    Log.d(TAG, "Text before cursor is null");
+                }
+
+
+                return;
             }
-
-
-            return;
+        }catch (Exception e){
+            Log.d(TAG, "Error in generating summary: " + e.getMessage());
+            crashlytics.recordException(e);
         }
         if (view == tvAudioProgress) {
 //            permissionCheck();
@@ -967,11 +987,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 //                aiOutput.setText("");
 
             return;
-        }
-        if(view ==aiOutput){
-            // On Click sent to Keyboard
-            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-            return;
+        }try {
+            if (view == aiOutput) {
+                // On Click sent to Keyboard
+                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+                return;
+            }
+        }catch (Exception e){
+            Log.d(TAG, "Error in generating summary: " + e.getMessage());
+            crashlytics.recordException(e);
         }
 
         if(view == ivDelete){
@@ -1033,32 +1057,43 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
 
     private void stopRecord() {
-        tvAudioProgress.pauseAnimation();
-        Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
-        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
-        recordStatus = false;
-        speechRecognizer.stopListening();
+        try {
+            tvAudioProgress.pauseAnimation();
+            Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
+            //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
+            recordStatus = false;
+            speechRecognizer.stopListening();
+        } catch (Exception e) {
+            Log.d(TAG, "Error in starting record: " + e.getMessage());
+            crashlytics.recordException(e);
+        }
     }
 
 
+
     private void startRecord() {
-        tvAudioProgress.playAnimation();
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
-        speechRecognizer.setRecognitionListener(this);
-        Log.d(TAG, "Recording started");
+        try {
+            tvAudioProgress.playAnimation();
+            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
+            speechRecognizer.setRecognitionListener(this);
+            Log.d(TAG, "Recording started");
 
-        Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
-        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
-        speechRecognizer.startListening(intent);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
+            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
+            speechRecognizer.startListening(intent);
 
-        //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
+            //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
 
-        recordStatus = true;
+            recordStatus = true;
+        }catch (Exception e){
+            Log.d(TAG, "Error in starting record: " + e.getMessage());
+                crashlytics.recordException(e);
+        }
 
     }
 
