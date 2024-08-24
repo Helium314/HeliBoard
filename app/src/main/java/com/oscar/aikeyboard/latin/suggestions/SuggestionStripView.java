@@ -230,7 +230,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onResults(Bundle results) {
-        try {
+
         Log.e("RecognitionListener", "onResults " + results);
         stopRecord();
         ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -275,17 +275,25 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
             clipboard.setPrimaryClip(clip);
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
+            EventBus.getDefault().post(event);
+
         });
 
-        AIOutputEvent event = new AIOutputEvent(allOutputText);
-        EventBus.getDefault().post(event);
-        } catch (RuntimeException e) {
-            Log.e(TAG, "Runtime Error: " + e.getMessage());
-            FirebaseCrashlytics.getInstance().recordException(e);
-        } catch (Exception e) {
-            Log.e(TAG, "Unexpected Error: " + e.getMessage());
-            FirebaseCrashlytics.getInstance().recordException(e);
-        }
+        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
+            @Override
+            public void onTextUpdated(@NonNull String updatedText) {
+                aiOutput.setText(updatedText);
+
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
+                clipboard.setPrimaryClip(clip);
+                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+
+                AIOutputEvent event = new AIOutputEvent(updatedText);
+                EventBus.getDefault().post(event);
+            }
+        });
     }
 
     @Override

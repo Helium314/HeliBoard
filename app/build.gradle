@@ -129,7 +129,7 @@ dependencies {
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     //multiple bottom sheets
-    implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
+//    implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
     implementation ("com.google.android.material:material:1.12.0")
     // Rich Editor
 
