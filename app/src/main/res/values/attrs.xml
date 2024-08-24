@@ -223,63 +223,6 @@
         <attr name="verticalGapNarrow" format="fraction" />
         <!-- Popup keys keyboard layout template -->
         <attr name="popupKeysTemplate" format="reference" />
-        <!-- Icon set for key top and key preview. These should be aligned with
-             {@link helium314.keyboard.keyboard.internal.KeyboardIconsSet#NAMES_AND_ATTR_IDS} -->
-        <attr name="iconShiftKey" format="reference" />
-        <attr name="iconDeleteKey" format="reference" />
-        <attr name="iconSettingsKey" format="reference" />
-        <attr name="iconSpaceKey" format="reference" />
-        <attr name="iconEnterKey" format="reference" />
-        <attr name="iconGoKey" format="reference" />
-        <attr name="iconSearchKey" format="reference" />
-        <attr name="iconSendKey" format="reference" />
-        <attr name="iconNextKey" format="reference" />
-        <attr name="iconDoneKey" format="reference" />
-        <attr name="iconPreviousKey" format="reference" />
-        <attr name="iconTabKey" format="reference" />
-        <attr name="iconShortcutKey" format="reference" />
-        <attr name="iconIncognitoKey" format="reference" />
-        <attr name="iconSpaceKeyForNumberLayout" format="reference" />
-        <attr name="iconShiftKeyShifted" format="reference" />
-        <attr name="iconShiftKeyLocked" format="reference" />
-        <attr name="iconShortcutKeyDisabled" format="reference" />
-        <attr name="iconLanguageSwitchKey" format="reference" />
-        <attr name="iconAutoCorrect" format="reference" />
-        <attr name="iconZwnjKey" format="reference" />
-        <attr name="iconZwjKey" format="reference" />
-        <attr name="iconImeKey" format="reference" />
-        <attr name="iconEmojiActionKey" format="reference" />
-        <attr name="iconEmojiNormalKey" format="reference" />
-        <attr name="iconClipboardActionKey" format="reference" />
-        <attr name="iconClipboardNormalKey" format="reference" />
-        <attr name="iconCopyKey" format="reference" />
-        <attr name="iconCutKey" format="reference" />
-        <attr name="iconPasteKey" format="reference" />
-        <attr name="iconClearClipboardKey" format="reference" />
-        <attr name="iconStartOneHandedMode" format="reference" />
-        <attr name="iconStopOneHandedMode" format="reference" />
-        <attr name="iconSwitchOneHandedMode" format="reference" />
-        <attr name="iconResizeOneHandedMode" format="reference" />
-        <attr name="iconNumpadKey" format="reference" />
-        <attr name="iconToolbarKey" format="reference" />
-        <attr name="iconSelectAll" format="reference" />
-        <attr name="iconArrowLeft" format="reference" />
-        <attr name="iconArrowRight" format="reference" />
-        <attr name="iconArrowUp" format="reference" />
-        <attr name="iconArrowDown" format="reference" />
-        <attr name="iconWordLeft" format="reference" />
-        <attr name="iconWordRight" format="reference" />
-        <attr name="iconPageUp" format="reference" />
-        <attr name="iconPageDown" format="reference" />
-        <attr name="iconFullLeft" format="reference" />
-        <attr name="iconFullRight" format="reference" />
-        <attr name="iconPageStart" format="reference" />
-        <attr name="iconPageEnd" format="reference" />
-        <attr name="iconSelectWord" format="reference" />
-        <attr name="iconBin" format="reference" />
-        <attr name="iconUndo" format="reference" />
-        <attr name="iconRedo" format="reference" />
-        <attr name="iconClose" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Keyboard_Key">

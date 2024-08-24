@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
@@ -31,9 +32,6 @@ class KeyboardWrapperView @JvmOverloads constructor(
     private lateinit var stopOneHandedModeBtn: ImageButton
     private lateinit var switchOneHandedModeBtn: ImageButton
     private lateinit var resizeOneHandedModeBtn: ImageButton
-    private val iconStopOneHandedModeId: Int
-    private val iconSwitchOneHandedModeId: Int
-    private val iconResizeOneHandedModeId: Int
 
     var oneHandedModeEnabled = false
         set(enabled) {
@@ -53,14 +51,16 @@ class KeyboardWrapperView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onFinishInflate() {
         super.onFinishInflate()
+        val keyboardIconsSet = KeyboardIconsSet.instance
+        keyboardIconsSet.loadIcons(context)
         stopOneHandedModeBtn = findViewById(R.id.btn_stop_one_handed_mode)
-        stopOneHandedModeBtn.setImageResource(iconStopOneHandedModeId)
+        stopOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_STOP_ONEHANDED_KEY, context))
         stopOneHandedModeBtn.visibility = GONE
         switchOneHandedModeBtn = findViewById(R.id.btn_switch_one_handed_mode)
-        switchOneHandedModeBtn.setImageResource(iconSwitchOneHandedModeId)
+        switchOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_SWITCH_ONEHANDED_KEY, context))
         switchOneHandedModeBtn.visibility = GONE
         resizeOneHandedModeBtn = findViewById(R.id.btn_resize_one_handed_mode)
-        resizeOneHandedModeBtn.setImageResource(iconResizeOneHandedModeId)
+        resizeOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_RESIZE_ONEHANDED_KEY, context))
         resizeOneHandedModeBtn.visibility = GONE
 
         stopOneHandedModeBtn.setOnClickListener(this)
@@ -162,14 +162,5 @@ class KeyboardWrapperView @JvmOverloads constructor(
         stopOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.2f).toInt())
         switchOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.5f).toInt())
         resizeOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.8f).toInt())
-    }
-
-    init {
-        @SuppressLint("CustomViewStyleable")
-        val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.Keyboard)
-        iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
-        iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
-        iconResizeOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconResizeOneHandedMode, 0)
-        keyboardAttr.recycle()
     }
 }
