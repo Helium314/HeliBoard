@@ -28,7 +28,7 @@
         android:checkableBehavior="single">
     <item
         android:id="@+id/nav_email_us"
-        android:title="Email us"
+        android:title="@string/email_us"
         android:textColor="#4D4D4D"
         android:fontFamily="@font/karla_semibold"
         android:icon="@drawable/baseline_drafts_24"

@@ -2,6 +2,7 @@ package org.samyarth.oskey.latin.setup
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -16,6 +17,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +27,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.samyarth.oskey.accessibility.OutputTextListener
 import org.samyarth.oskey.accessibility.SharedViewModel
 import org.samyarth.oskey.accessibility.SummarizeUiState
@@ -59,6 +63,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
     val generativeModel = geminiClient.geminiFlashModel
     private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
+    private val crashlytics: FirebaseCrashlytics by lazy { FirebaseCrashlytics.getInstance() }
 
 
 // Assuming you have a way to create a GenerativeModel instance
@@ -99,6 +104,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
         tvEnableKeyboard = findViewById(R.id.tv_enableKeyboard)
         tvWelcomeText = findViewById(R.id.tv_welcomeText)
         //Initialize my viewModel here
+        FirebaseApp.initializeApp(this);
 
 
         //todo not needed now
@@ -124,6 +130,9 @@ class KeyboardselectionActivity : AppCompatActivity(),
             showKeyboard()
         }
 
+        ivBack.setOnClickListener {view ->
+            onBackPressed()
+        }
         etopenOscar.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 hideOscarLogo()
@@ -288,11 +297,17 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
             R.id.nav_email_us -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:support.oscar@samyarth.org")
-                    putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
-                    putExtra(Intent.EXTRA_TEXT, "Hi team,\n\nI have the following feedback:")
+                    data = Uri.parse("mailto:support.oscar@samyarth.org" +
+                            "?subject=" + Uri.encode("Feedback on Oscar Keyboard") +
+                            "&body=" + Uri.encode("Hi team,\n\nI have the following feedback:"))
+//                    putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
+//                    putExtra(Intent.EXTRA_TEXT, "Hi team,\n\nI have the following feedback:")
                 }
-                startActivity(Intent.createChooser(emailIntent, "Send Email"))
+                try {
+                    startActivityForResult(Intent.createChooser(emailIntent, "Send Email"), EMAIL_REQUEST_CODE)
+                } catch (ex: ActivityNotFoundException) {
+                    Toast.makeText(this, "No email client found", Toast.LENGTH_SHORT).show()
+                }
             }
 
             R.id.nav_terms_conditions -> {
@@ -304,17 +319,28 @@ class KeyboardselectionActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (etopenOscar.visibility == View.VISIBLE) {
-            hideOscarLogo()
-        } else {
-            super.onBackPressed()
+        try {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (etopenOscar.visibility == View.VISIBLE) {
+                hideOscarLogo()
+            } else {
+                super.onBackPressed()
+            }
+        } catch (e: Exception) {
+            crashlytics.recordException(e)
         }
     }
 
     override fun getSummarizeText(): String {
         return etopenOscar.text.toString()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EMAIL_REQUEST_CODE) {
+            Toast.makeText(this, "Email send successfully", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun setSummarizeText(text: String) {
@@ -352,3 +378,6 @@ fun buildSummarizeContent(uiState: SummarizeUiState): String {
     }
 }
 data class AIOutputEvent(val aiOutput: String)
+
+
+const val EMAIL_REQUEST_CODE = 1001
