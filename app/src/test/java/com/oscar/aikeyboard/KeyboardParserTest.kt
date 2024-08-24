@@ -3,25 +3,25 @@ package com.oscar.aikeyboard
 
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodSubtype
-import com.android.inputmethod.keyboard.ProximityInfo
-import com.oscar.aikeyboard.keyboard.Key.KeyParams
-import com.oscar.aikeyboard.keyboard.Keyboard
-import com.oscar.aikeyboard.keyboard.KeyboardId
-import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet
-import com.oscar.aikeyboard.keyboard.internal.KeySpecParser
-import com.oscar.aikeyboard.keyboard.internal.KeyboardBuilder
-import com.oscar.aikeyboard.keyboard.internal.KeyboardParams
-import com.oscar.aikeyboard.keyboard.internal.TouchPositionCorrection
-import com.oscar.aikeyboard.keyboard.internal.UniqueKeysCache
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import com.oscar.aikeyboard.latin.LatinIME
-import com.oscar.aikeyboard.latin.RichInputMethodSubtype
-import com.oscar.aikeyboard.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
-import com.oscar.aikeyboard.latin.utils.POPUP_KEYS_LAYOUT
-import com.oscar.aikeyboard.latin.utils.checkKeys
+import org.inputmethod.keyboard.ProximityInfo
+import org.samyarth.oskey.keyboard.Key.KeyParams
+import org.samyarth.oskey.keyboard.Keyboard
+import org.samyarth.oskey.keyboard.KeyboardId
+import org.samyarth.oskey.keyboard.KeyboardLayoutSet
+import org.samyarth.oskey.keyboard.internal.KeySpecParser
+import org.samyarth.oskey.keyboard.internal.KeyboardBuilder
+import org.samyarth.oskey.keyboard.internal.KeyboardParams
+import org.samyarth.oskey.keyboard.internal.TouchPositionCorrection
+import org.samyarth.oskey.keyboard.internal.UniqueKeysCache
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.RawKeyboardParser
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.floris.KeyCode
+import org.samyarth.oskey.latin.LatinIME
+import org.samyarth.oskey.latin.RichInputMethodSubtype
+import org.samyarth.oskey.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
+import org.samyarth.oskey.latin.utils.POPUP_KEYS_LAYOUT
+import org.samyarth.oskey.latin.utils.checkKeys
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
@@ -163,18 +163,21 @@ f""", // no newline at the end
         assertIsExpected("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key", "code": 32 }
       ]
-    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code)))
+    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code))
+        )
     }
 
     @Test fun popupKeyWithIconAndExplicitAndImplicitCode() {
         assertIsExpected("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|", "code": 32 }
       ]
-    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code)))
+    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code))
+        )
         assertIsExpected("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|abc", "code": 32 }
       ]
-    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code)))
+    } }]]""", Expected('a'.code, "a", popups = listOf(null to ' '.code))
+        )
     }
 
     @Test fun labelAndImplicitCodeForPopup() {
@@ -215,14 +218,16 @@ f""", // no newline at the end
         { "code": -805, "label": "currency_slot_5" },
         { "code": -804, "label": "$$$4" }
       ]
-    } }]]""", Expected('$'.code, "$", popups = listOf("£" to '£'.code, "₱" to '₱'.code, "€" to '€'.code, "¢" to '¢'.code, "¥" to '¥'.code, "¥" to '€'.code)))
+    } }]]""", Expected('$'.code, "$", popups = listOf("£" to '£'.code, "₱" to '₱'.code, "€" to '€'.code, "¢" to '¢'.code, "¥" to '¥'.code, "¥" to '€'.code))
+        )
     }
 
     @Test fun caseSelector() {
         assertIsExpected("""[[{ "$": "case_selector",
       "lower": { "code":  105, "label": "i" },
       "upper": { "code":  304, "label": "İ" }
-    }]]""", Expected(105, "i"))
+    }]]""", Expected(105, "i")
+        )
     }
 
     @Test fun caseSelectorWithPopup() {
@@ -237,7 +242,8 @@ f""", // no newline at the end
           { "code":   59, "label": ";" }
         ]
       } }
-    }]]""", Expected(';'.code, ";", popups = listOf(":").map { it to it.first().code }))
+    }]]""", Expected(';'.code, ";", popups = listOf(":").map { it to it.first().code })
+        )
     }
 
     @Test fun shiftSelector() {
@@ -252,7 +258,8 @@ f""", // no newline at the end
           { "code":   62, "label": ">" }
         ]
       } }
-    }]]""", Expected('.'.code, ".", popups = listOf(">").map { it to it.first().code }))
+    }]]""", Expected('.'.code, ".", popups = listOf(">").map { it to it.first().code })
+        )
     }
 
     @Test fun nestedSelectors() {
@@ -273,7 +280,8 @@ f""", // no newline at the end
           ]
         } }
       }
-    }]]""", Expected('\''.code, "'", popups = listOf("!", "\"").map { it to it.first().code }))
+    }]]""", Expected('\''.code, "'", popups = listOf("!", "\"").map { it to it.first().code })
+        )
     }
 
     @Test fun layoutDirectionSelector() {
@@ -292,7 +300,8 @@ f""", // no newline at the end
           { "code":  125, "label": "{" }
         ]
       } }
-    }]]""", Expected('('.code, "(", popups = listOf("<", "[", "{").map { it to it.first().code }))
+    }]]""", Expected('('.code, "(", popups = listOf("<", "[", "{").map { it to it.first().code })
+        )
     }
     
     @Test fun autoMultiTextKey() {

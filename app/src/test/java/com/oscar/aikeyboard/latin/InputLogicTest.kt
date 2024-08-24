@@ -12,19 +12,19 @@ import androidx.core.content.edit
 import org.samyarth.oskey.BuildConfig
 import com.oscar.aikeyboard.ShadowInputMethodManager2
 import com.oscar.aikeyboard.ShadowLocaleManagerCompat
-import com.oscar.aikeyboard.event.Event
-import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
-import com.oscar.aikeyboard.keyboard.MainKeyboardView
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import org.samyarth.oskey.event.Event
+import org.samyarth.oskey.keyboard.KeyboardSwitcher
+import org.samyarth.oskey.keyboard.MainKeyboardView
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.floris.KeyCode
 import com.oscar.aikeyboard.latin.ShadowFacilitator2.Companion.lastAddedWord
-import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo
-import com.oscar.aikeyboard.latin.common.Constants
-import com.oscar.aikeyboard.latin.common.StringUtils
-import com.oscar.aikeyboard.latin.inputlogic.InputLogic
-import com.oscar.aikeyboard.latin.inputlogic.SpaceState
-import com.oscar.aikeyboard.latin.settings.Settings
-import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
-import com.oscar.aikeyboard.latin.utils.ScriptUtils
+import org.samyarth.oskey.latin.SuggestedWords.SuggestedWordInfo
+import org.samyarth.oskey.latin.common.Constants
+import org.samyarth.oskey.latin.common.StringUtils
+import org.samyarth.oskey.latin.inputlogic.InputLogic
+import org.samyarth.oskey.latin.inputlogic.SpaceState
+import org.samyarth.oskey.latin.settings.Settings
+import org.samyarth.oskey.latin.utils.DeviceProtectedUtils
+import org.samyarth.oskey.latin.utils.ScriptUtils
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -36,6 +36,11 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
+import org.samyarth.oskey.latin.DictionaryFacilitatorImpl
+import org.samyarth.oskey.latin.LatinIME
+import org.samyarth.oskey.latin.NgramContext
+import org.samyarth.oskey.latin.RichInputConnection
+import org.samyarth.oskey.latin.WordComposer
 import kotlin.math.min
 
 @RunWith(RobolectricTestRunner::class)
@@ -743,7 +748,8 @@ class InputLogicTest {
         val textBeforeComposingText = if (composingStart == -1) textBeforeCursor else text.substring(0, composingStart)
 
         println("consistency: $selectionStart, ${connection.expectedSelectionStart}, $selectionEnd, ${connection.expectedSelectionEnd}, $textBeforeComposingText, " +
-                "$connectionTextBeforeComposingText, $composingText, $connectionComposingText, $textBeforeCursor, ${connection.getTextBeforeCursor(textBeforeCursor.length, 0)}" +
+                "$connectionTextBeforeComposingText, $composingText, $connectionComposingText, $textBeforeCursor, ${connection.getTextBeforeCursor(
+                    textBeforeCursor.length, 0)}" +
                 ", $textAfterCursor, ${connection.getTextAfterCursor(textAfterCursor.length, 0)}")
         assertEquals(selectionStart, connection.expectedSelectionStart)
         assertEquals(selectionEnd, connection.expectedSelectionEnd)

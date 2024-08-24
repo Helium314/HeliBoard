@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package com.oscar.aikeyboard.latin
 
-import com.oscar.aikeyboard.latin.common.LocaleUtils.constructLocale
+import org.samyarth.oskey.latin.common.LocaleUtils.constructLocale
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -26,7 +26,7 @@
             style="@style/setupStepBulletStyle"
             android:text="@string/setup_step3_bullet" />
     </LinearLayout>
-    <com.oscar.aikeyboard.latin.setup.SetupStepIndicatorView
+    <org.samyarth.oskey.latin.setup.SetupStepIndicatorView
         android:id="@+id/setup_step_indicator"
         style="@style/setupStepIndicatorStyle" />
     <FrameLayout
