@@ -507,6 +507,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.FN -> KeyCode.FN
             KeyLabel.META -> KeyCode.META
             KeyLabel.TAB -> KeyCode.TAB
+            KeyLabel.ESCAPE -> KeyCode.ESCAPE
             else -> {
                 if (label in toolbarKeyStrings.values) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
