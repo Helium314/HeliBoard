@@ -20,6 +20,12 @@
             latin:singleLineTitle="false" />
 
         <ListPreference
+            android:key="icon_style"
+            android:title="@string/icon_style"
+            android:defaultValue="Material"
+            latin:singleLineTitle="false" />
+
+        <ListPreference
             android:key="theme_colors"
             android:title="@string/theme_colors"
             latin:singleLineTitle="false" />
