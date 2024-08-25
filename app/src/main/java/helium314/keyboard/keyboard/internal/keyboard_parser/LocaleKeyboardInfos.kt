@@ -130,7 +130,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
             else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
-        val popupsMap = if (priority) priorityPopupKeys else popupKeys
+        // punctuation keys must always be normal popups (or getPunctuationPopupKeys needs to be adjusted)
+        val popupsMap = if (priority && key != "punctuation") priorityPopupKeys else popupKeys
         if (popupsMap[key] is MutableList)
             popupsMap[key] = popupsMap[key]!!.toMutableSet().also { it.addAll(split.drop(1)) }
         else if (popupsMap.containsKey(key)) popupsMap[key]!!.addAll(split.drop(1))
@@ -189,23 +190,6 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         }
 
     fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
-}
-
-private fun mergePopupKeys(original: List<String>, added: List<String>): List<String> {
-    if (original.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }) {
-        val popupKeys = (original + added).toSet()
-        val originalColumnCount = original.firstOrNull { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
-            ?.substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
-        val l = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
-        if (originalColumnCount != null && popupKeys.size <= 20 // not for too wide layout
-            && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
-            // we had 2 rows, and want it again
-            return (l + "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
-        }
-        // just drop autoColumnOrder otherwise
-        return l
-    }
-    return original + added
 }
 
 private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {
