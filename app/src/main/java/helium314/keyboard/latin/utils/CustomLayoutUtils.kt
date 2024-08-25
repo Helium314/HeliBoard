@@ -20,6 +20,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToP
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.settings.Settings
 import kotlinx.serialization.SerializationException
 import java.io.File
 import java.io.IOException
@@ -197,8 +198,19 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
                 val wasJson = file.name.substringAfterLast(".") == "json"
                 file.parentFile?.mkdir()
                 file.writeText(content)
-                if (isJson != wasJson) // unlikely to be needed, but better be safe
-                    file.renameTo(File(file.absolutePath.substringBeforeLast(".") + "." + if (isJson) "json" else "txt"))
+                if (isJson != wasJson) {
+                    // unlikely to be needed
+                    // actually does not work properly (need to restart the app)
+                    // todo: can we just remove the json and txt endings and determine type using trc/catch?
+                    //  now we cache the layouts, so a bit slower reading should be fine
+                    val newEnding = if (isJson) ".json" else ".txt"
+                    file.renameTo(File(file.absolutePath.substringBeforeLast(".") + newEnding))
+                    val newLayoutName = layoutName.substringBeforeLast(".") + newEnding
+                    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+                    val subtypesString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+                    val newSubtypesString = subtypesString.replace(layoutName, newLayoutName)
+                    Settings.writePrefAdditionalSubtypes(prefs, newSubtypesString)
+                }
                 onCustomLayoutFileListChanged()
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             }
