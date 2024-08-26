@@ -274,8 +274,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
             clipboard.setPrimaryClip(clip);
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-            AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
-            EventBus.getDefault().post(event);
+
 
         });
 
@@ -288,11 +287,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
                 clipboard.setPrimaryClip(clip);
                 mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-
                 AIOutputEvent event = new AIOutputEvent(updatedText);
                 EventBus.getDefault().post(event);
             }
         });
+
+        AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
+        EventBus.getDefault().post(event);
+
     }
 
     @Override
