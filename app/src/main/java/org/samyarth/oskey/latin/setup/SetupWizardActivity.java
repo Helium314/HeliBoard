@@ -149,65 +149,11 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             mStepNumber = savedInstanceState.getInt(STATE_STEP);
         }
 
-        final String applicationName = getResources().getString(getApplicationInfo().labelRes);
-        mWelcomeScreen = findViewById(R.id.setup_welcome_screen);
-        final TextView welcomeTitle = findViewById(R.id.setup_welcome_title);
-//        welcomeTitle.setText(getString(R.string.setup_welcome_title));
-
-        // disable the "with gesture typing" when no library is available (at this point, this likely means library is in system and this is a system app)
-        if (!JniUtils.sHaveGestureLib)
-            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
-
-        mSetupScreen = findViewById(R.id.setup_steps_screen);
-        final TextView stepsTitle = findViewById(R.id.setup_title);
-        stepsTitle.setText(getString(R.string.setup_steps_title, applicationName));
-
-        final SetupStepIndicatorView indicatorView = findViewById(R.id.setup_step_indicator);
-        mSetupStepGroup = new SetupStepGroup(indicatorView);
-
-        mStep1Bullet = findViewById(R.id.setup_step1_bullet);
-        mStep1Bullet.setOnClickListener(this);
-        final SetupStep step1 = new SetupStep(STEP_1,applicationName,
-                mStep1Bullet, findViewById(R.id.setup_step1),
-                R.string.setup_step1_title, R.string.setup_step1_instruction,
-                R.string.setup_step1_finished_instruction, R.drawable.ic_setup_key,
-                R.string.setup_step1_action);
-        final SettingsPoolingHandler handler = mHandler;
-        step1.setAction(() -> {
-            invokeLanguageAndInputSettings();
-            handler.startPollingImeSettings();
-        });
-        mSetupStepGroup.addStep(step1);
         sharedPreferences = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE);
         if (isSetupComplete()) {
             navigateToMainActivity();
             return;
         }
-
-        final SetupStep step2 = new SetupStep(STEP_2,applicationName,
-                findViewById(R.id.setup_step2_bullet), findViewById(R.id.setup_step2),
-                R.string.setup_step2_title, R.string.setup_step2_instruction,
-                0 /* finishedInstruction */, R.drawable.ic_setup_select,
-                R.string.setup_step2_action);
-        step2.setAction(this::invokeInputMethodPicker);
-        mSetupStepGroup.addStep(step2);
-
-        final SetupStep step3 = new SetupStep(STEP_3,applicationName,
-                findViewById(R.id.setup_step3_bullet), findViewById(R.id.setup_step3),
-                R.string.setup_step3_title, R.string.setup_step3_instruction,
-                0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
-                R.string.setup_step3_action);
-        step3.setAction(() -> {
-            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            intent.setAction(Intent.ACTION_VIEW);
-            startActivity(intent);
-            finish();
-        });
-        mSetupStepGroup.addStep(step3);
-
-        mActionStart = findViewById(R.id.setup_start_label);
-//        mActionStart.setOnClickListener(this);
-
         start = findViewById(R.id.getButton);
         start.setOnClickListener(this);
         String instructionText = "    Welcome to \n" + "Oscar Keyboard";
@@ -234,17 +180,6 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
         text=findViewById(R.id.welcometxt);
         text.setText(spannableStrin);
-        mActionNext = findViewById(R.id.setup_next);
-        mActionNext.setOnClickListener(this);
-
-        mActionFinish = findViewById(R.id.setup_finish);
-        final Drawable finishDrawable = ContextCompat.getDrawable(this, R.drawable.ic_setup_check);
-        if (finishDrawable == null) {
-            return;
-        }
-        DrawableCompat.setTintList(finishDrawable, step1.mTextColorStateList);
-        mActionFinish.setCompoundDrawablesRelativeWithIntrinsicBounds(finishDrawable, null, null, null);
-        mActionFinish.setOnClickListener(this);
     }
     private boolean isSetupComplete() {
         return sharedPreferences.getBoolean("setup_complete", false);
@@ -257,9 +192,15 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     }
 
     private void navigateToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Close the setup wizard activity
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Close the setup wizard activity
+        } catch (Exception e) {
+            // Log the exception in Firebase Crashlytics
+            FirebaseCrashlytics.getInstance().recordException(e);
+        }
+
     }
     @Override
     public void onClick(final View v) {
@@ -287,13 +228,19 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     }
 
     void invokeSetupWizardOfThisIme() {
-        final Intent intent = new Intent();
-        intent.setClass(this, SetupWizardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP
-                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        mNeedsToAdjustStepNumberToSystemState = true;
+        try {
+            final Intent intent = new Intent();
+            intent.setClass(this, SetupWizardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            mNeedsToAdjustStepNumberToSystemState = true;
+        } catch (Exception e) {
+            // Log the exception in Firebase Crashlytics
+            FirebaseCrashlytics.getInstance().recordException(e);
+        }
+
     }
 
     private void invokeSettingsOfThisIme() {

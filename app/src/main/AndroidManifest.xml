@@ -30,7 +30,8 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:supportsRtl="true"
             android:allowBackup="true"
             android:icon="@drawable/ic_oscar_logo_new"
-            android:defaultToDeviceProtectedStorage="true"
+        android:requestLegacyExternalStorage="true"
+        android:defaultToDeviceProtectedStorage="true"
             android:directBootAware="true">
         <provider
             android:name="androidx.core.content.FileProvider"
