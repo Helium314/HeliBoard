@@ -17,10 +17,12 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
@@ -269,7 +271,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     private fun getNumberRow(): MutableList<KeyData> {
-        val row = RawKeyboardParser.parseLayout("number_row.txt", params, context).first()
+        val row = RawKeyboardParser.parseLayout(LAYOUT_NUMBER_ROW, params, context).first()
         val localizedNumbers = params.mLocaleKeyboardInfos.localizedNumberKeys
         if (localizedNumbers?.size != 10) return row
         if (Settings.getInstance().current.mLocalizedNumberRow) {
@@ -314,3 +316,4 @@ const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
 const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
+const val LAYOUT_NUMBER_ROW = "number_row"

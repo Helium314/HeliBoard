@@ -37,7 +37,7 @@ object RawKeyboardParser {
     private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
-        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
+        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS, LAYOUT_NUMBER_ROW)
 
     fun clearCache() = rawLayoutCache.clear()
 
@@ -91,7 +91,12 @@ object RawKeyboardParser {
             try {
                 getCustomLayoutFile(layoutFileName, context).readText()
             } catch (e: Exception) { // fall back to defaults if for some reason file is broken
-                val name = if (layoutName.contains("functional")) "functional_keys.json" else "qwerty.txt"
+                val name = when {
+                    layoutName.contains("functional") -> "functional_keys.json"
+                    layoutName.contains("number_row") -> "number_row.txt"
+                    layoutName.contains("symbols") -> "symbols.txt"
+                    else -> "qwerty.txt"
+                }
                 Log.e(TAG, "cannot open layout $layoutName, falling back to $name", e)
                 context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
             }

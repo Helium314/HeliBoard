@@ -529,6 +529,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <!-- Name for numpad layout in landscape mode -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
+    <!-- Name for number row layout -->
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
     <!-- Title for customizing currencies -->
