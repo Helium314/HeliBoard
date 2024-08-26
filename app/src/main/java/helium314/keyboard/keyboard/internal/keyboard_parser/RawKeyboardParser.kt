@@ -96,26 +96,28 @@ object RawKeyboardParser {
                 context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
             }
         } else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
-        if (layoutFileName.endsWith(".json")) {
-            val florisKeyData = parseJsonString(layoutText)
-            return { params ->
-                florisKeyData.mapTo(mutableListOf()) { row ->
-                    row.mapNotNullTo(mutableListOf()) { it.compute(params) }
-                }
-            }
-        } else {
-            val simpleKeyData = parseSimpleString(layoutText)
-            return { params ->
-                simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
-                    val newRow = row.toMutableList()
-                    if (params.mId.isAlphabetKeyboard
-                            && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
-                            && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
-                        ) {
-                        params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
+        if (layoutFileName.endsWith(".json") || layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+            try {
+                val florisKeyData = parseJsonString(layoutText)
+                return { params ->
+                    florisKeyData.mapTo(mutableListOf()) { row ->
+                        row.mapNotNullTo(mutableListOf()) { it.compute(params) }
                     }
-                    newRow
                 }
+            } catch (_: Exception) { }
+        }
+        // not a json, or invalid json
+        val simpleKeyData = parseSimpleString(layoutText)
+        return { params ->
+            simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
+                val newRow = row.toMutableList()
+                if (params.mId.isAlphabetKeyboard
+                        && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
+                        && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
+                    ) {
+                    params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
+                }
+                newRow
             }
         }
     }

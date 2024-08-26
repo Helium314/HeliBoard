@@ -87,7 +87,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
-        "layouts/.*.(txt|json)".toRegex(),
+        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
@@ -190,7 +190,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                     ?.let { requireContext().assets.open("layouts" + File.separator + it).reader().readText() }
             }
         val displayName = layoutName.getStringResourceOrName("layout_", requireContext())
-        editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layoutName.txt", requireContext(), originalLayout, displayName)
+        editCustomLayout(customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layoutName.", requireContext(), originalLayout, displayName)
     }
 
     private fun showCustomizeFunctionalKeyLayoutsDialog() {
@@ -216,7 +216,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 requireContext().assets.open("layouts" + File.separator + defaultLayoutName).reader().readText()
             }
         val displayName = layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext())
-        editCustomLayout(customLayoutName ?: "$layoutName.json", requireContext(), originalLayout, displayName)
+        editCustomLayout(customLayoutName ?: "$layoutName.", requireContext(), originalLayout, displayName)
     }
 
     @SuppressLint("ApplySharedPref")
