@@ -542,13 +542,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
     companion object {
         @Suppress("UNCHECKED_CAST") // it is checked... but whatever (except string set, because can't check for that))
-        private fun settingsToJsonStream(settings: Map<String, Any?>, out: OutputStream) {
-            val booleans = settings.filterValues { it is Boolean } as Map<String, Boolean>
-            val ints = settings.filterValues { it is Int } as Map<String, Int>
-            val longs = settings.filterValues { it is Long } as Map<String, Long>
-            val floats = settings.filterValues { it is Float } as Map<String, Float>
-            val strings = settings.filterValues { it is String } as Map<String, String>
-            val stringSets = settings.filterValues { it is Set<*> } as Map<String, Set<String>>
+        private fun settingsToJsonStream(settings: Map<String?, Any?>, out: OutputStream) {
+            val booleans = settings.filter { it.key is String && it.value is Boolean } as Map<String, Boolean>
+            val ints = settings.filter { it.key is String && it.value is Int } as Map<String, Int>
+            val longs = settings.filter { it.key is String && it.value is Long } as Map<String, Long>
+            val floats = settings.filter { it.key is String && it.value is Float } as Map<String, Float>
+            val strings = settings.filter { it.key is String && it.value is String } as Map<String, String>
+            val stringSets = settings.filter { it.key is String && it.value is Set<*> } as Map<String, Set<String>>
             // now write
             out.write("boolean settings\n".toByteArray())
             out.write(Json.encodeToString(booleans).toByteArray())
