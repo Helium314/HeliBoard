@@ -4,6 +4,7 @@ package helium314.keyboard.latin.utils
 import android.content.SharedPreferences
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
@@ -68,6 +69,8 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
         }
         if (hintLabel != null) break
     }
+    if (hintLabel in toolbarKeyStrings.values)
+        hintLabel = null // better show nothing instead of the toolbar key label
 
     return hintLabel?.let { KeySpecParser.getLabel(transformLabel(it, params)) }
         // avoid e.g. !autoColumnOrder! as label
