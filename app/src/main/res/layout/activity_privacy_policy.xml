@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#DCECEB"
     android:orientation="vertical"
-    tools:context="com.oscar.aikeyboard.latin.setup.PrivacyPolicyActivity">
+    tools:context=".latin.setup.PrivacyPolicyActivity">
 
     <TextView
         android:id="@+id/policy"

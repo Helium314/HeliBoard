@@ -8,11 +8,12 @@ import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.LocaleListCompat
-import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
-import com.oscar.aikeyboard.latin.common.StringUtils
+import org.inputmethod.latin.utils.BinaryDictionaryUtils
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowInputMethodManager
+import org.samyarth.oskey.BuildConfig
+import org.samyarth.oskey.latin.common.StringUtils
 import java.util.*
 
 @Implements(LocaleManagerCompat::class)

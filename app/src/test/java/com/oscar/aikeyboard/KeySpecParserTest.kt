@@ -1,9 +1,10 @@
 package com.oscar.aikeyboard
 
-import com.oscar.aikeyboard.keyboard.internal.KeySpecParser
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.samyarth.oskey.keyboard.internal.KeySpecParser
+import org.samyarth.oskey.keyboard.internal.keyboard_parser.floris.KeyCode
 
 class KeySpecParserTest {
     @Test fun label() {

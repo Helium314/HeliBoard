@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#DCECEB"
     android:orientation="vertical"
-    tools:context="com.oscar.aikeyboard.latin.setup.TermsOfUseActivity">
+    tools:context=".latin.setup.TermsOfUseActivity">
 
     <TextView
         android:id="@+id/terms"

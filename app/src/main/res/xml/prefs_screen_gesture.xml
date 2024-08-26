@@ -37,7 +37,7 @@
         android:summary="@string/gesture_space_aware_summary"
         android:defaultValue="false"
         android:persistent="true" />
-    <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+    <org.samyarth.oskey.latin.settings.SeekBarDialogPreference
         android:key="gesture_fast_typing_cooldown"
         android:title="@string/gesture_fast_typing_cooldown"
         latin:maxValue="@integer/config_gesture_static_time_threshold_after_fast_typing"

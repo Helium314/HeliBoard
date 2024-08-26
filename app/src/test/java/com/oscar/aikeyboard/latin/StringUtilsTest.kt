@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package com.oscar.aikeyboard.latin
 
-import com.oscar.aikeyboard.latin.common.StringUtils
-import com.oscar.aikeyboard.latin.common.getFullEmojiAtEnd
+import org.samyarth.oskey.latin.common.getFullEmojiAtEnd
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.samyarth.oskey.latin.common.StringUtils
 
 // todo: actually this test could/should be significantly expanded...
 class StringUtilsTest {

@@ -5,15 +5,6 @@ import androidx.core.content.edit
 import com.oscar.aikeyboard.ShadowBinaryDictionaryUtils
 import com.oscar.aikeyboard.ShadowInputMethodManager2
 import com.oscar.aikeyboard.ShadowLocaleManagerCompat
-import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo
-import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
-import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
-import com.oscar.aikeyboard.latin.common.ComposedData
-import com.oscar.aikeyboard.latin.common.StringUtils
-import com.oscar.aikeyboard.latin.settings.Settings
-import com.oscar.aikeyboard.latin.settings.SettingsValuesForSuggestion
-import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
-import com.oscar.aikeyboard.latin.utils.SuggestionResults
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +14,21 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
+import org.samyarth.oskey.latin.DictionaryFacilitatorImpl
+import org.samyarth.oskey.latin.LatinIME
+import org.samyarth.oskey.latin.NgramContext
+import org.samyarth.oskey.latin.SuggestedWords
+import org.samyarth.oskey.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
+import org.samyarth.oskey.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
+import org.samyarth.oskey.latin.WordComposer
+import org.samyarth.oskey.latin.common.ComposedData
+import org.samyarth.oskey.latin.common.StringUtils
+import org.samyarth.oskey.latin.settings.Settings
+import org.samyarth.oskey.latin.settings.SettingsValuesForSuggestion
+import org.samyarth.oskey.latin.utils.DeviceProtectedUtils
+import org.samyarth.oskey.latin.utils.SuggestionResults
+import org.samyarth.oskey.latin.inputlogic.InputLogic
+import org.samyarth.oskey.latin.Suggest
 import java.util.*
 
 @Suppress("NonAsciiCharacters")
@@ -234,24 +240,24 @@ class SuggestTest {
     }
 
     private fun shouldBeAutoCorrected(word: String, // typed word
-                              suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
-                              firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
-                              typedWordSuggestionForEmpty: SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
-                              typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
-                              autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
+                                      suggestions: List<SuggestedWords.SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
+                                      firstSuggestionForEmpty: SuggestedWords.SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
+                                      typedWordSuggestionForEmpty: SuggestedWords.SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
+                                      typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
+                                      autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
     ): List<Boolean> {
         setAutCorrectThreshold(autoCorrectThreshold)
         currentTypingLocale = typingLocale
-        val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
+        val suggestionsContainer = ArrayList<SuggestedWords.SuggestedWordInfo>().apply { addAll(suggestions) }
         val suggestionResults = SuggestionResults(suggestions.size, false, false)
         suggestions.forEach { suggestionResults.add(it) }
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-        val typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = suggestionsContainer.firstOrNull { it.mWord == word }
+        val typedWordFirstOccurrenceWordInfo: SuggestedWords.SuggestedWordInfo? = suggestionsContainer.firstOrNull { it.mWord == word }
 
         val firstOccurrenceOfTypedWordInSuggestions =
-            SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
+            SuggestedWords.SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
 
         return suggest.shouldBeAutoCorrected(
             StringUtils.getTrailingSingleQuotesCount(word),
@@ -270,18 +276,24 @@ class SuggestTest {
 private var currentTypingLocale = Locale.ENGLISH
 
 fun suggestion(word: String, score: Int, locale: Locale) =
-    SuggestedWordInfo(
+    SuggestedWords.SuggestedWordInfo(
         /* word */ word,
-        /* prevWordsContext */ "", // irrelevant
+        /* prevWordsContext */
+        "", // irrelevant
 
         // typically 2B for shortcut, 1.5M for exact match, 600k for close match
         // when previous word context is empty, scores are usually 200+ if word is known and somewhat often used, 0 if unknown
-        /* score */ score,
+        /* score */
+        score,
 
-        /* kindAndFlags */ if (score == Int.MAX_VALUE) KIND_WHITELIST else KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION,
-        /* sourceDict */ TestDict(locale),
-        /* indexOfTouchPointOfSecondWord */ 0, // irrelevant
-        /* autoCommitFirstWordConfidence */ 0 // irrelevant?
+        /* kindAndFlags */
+        if (score == Int.MAX_VALUE) KIND_WHITELIST else KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION,
+        /* sourceDict */
+        TestDict(locale),
+        /* indexOfTouchPointOfSecondWord */
+        0, // irrelevant
+        /* autoCommitFirstWordConfidence */
+        0 // irrelevant?
     )
 
 @Implements(DictionaryFacilitatorImpl::class)
@@ -301,7 +313,7 @@ private class TestDict(locale: Locale) : Dictionary("testDict", locale) {
         sessionId: Int,
         weightForLocale: Float,
         inOutWeightOfLangModelVsSpatialModel: FloatArray?
-    ): ArrayList<SuggestedWordInfo> {
+    ): ArrayList<SuggestedWords.SuggestedWordInfo> {
         TODO("Not yet implemented")
     }
 
