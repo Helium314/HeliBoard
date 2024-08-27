@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "455788823625",
-    "project_id": "oscar-ai-keyboard-d7ad2",
-    "storage_bucket": "oscar-ai-keyboard-d7ad2.appspot.com"
+    "project_number": "798806338020",
+    "project_id": "oscar--ai-keyboard",
+    "storage_bucket": "oscar--ai-keyboard.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:455788823625:android:38dee0d331f654eab3eb98",
+        "mobilesdk_app_id": "1:798806338020:android:294a395abc59fed07d3ff1",
         "android_client_info": {
-          "package_name": "org.samyarth.oskey"
+          "package_name": "org.oscar.kb"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDRqjnOMNnXjDOtYA-yazC8rw4dElQYXkI"
+          "current_key": "AIzaSyD8LG_7qflf-0VTKsLdroawTDoY5A7s01k"
         }
       ],
       "services": {
