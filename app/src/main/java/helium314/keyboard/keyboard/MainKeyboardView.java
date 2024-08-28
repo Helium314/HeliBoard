@@ -659,6 +659,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         invalidateKey(shortcutKey);
     }
 
+    // the whole language on spacebar thing could probably be simplified quite a bit
     public void startDisplayLanguageOnSpacebar(final boolean subtypeChanged,
             final int languageOnSpacebarFormatType,
             final boolean hasMultipleEnabledIMEsOrSubtypes) {
@@ -799,13 +800,16 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         paint.setTextAlign(Align.CENTER);
         paint.setTypeface(Typeface.DEFAULT);
         paint.setTextSize(mLanguageOnSpacebarTextSize);
-        final String languageText;
-        if (DebugFlags.DEBUG_ENABLED) {
+        final String customText = Settings.getInstance().getCurrent().mSpaceBarText;
+        final String spaceText;
+        if (!customText.isEmpty()) {
+            spaceText = customText;
+        } else if (DebugFlags.DEBUG_ENABLED) {
             final String l = KeyboardSwitcher.getInstance().getLocaleAndConfidenceInfo();
-            languageText = l != null ? l : layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
+            spaceText = l != null ? l : layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
         }
         else
-            languageText = layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
+            spaceText = layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
         // Draw language text with shadow
         final float descent = paint.descent();
         final float textHeight = -paint.ascent() + descent;
@@ -818,7 +822,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         }
         paint.setColor(mLanguageOnSpacebarTextColor);
         paint.setAlpha(mLanguageOnSpacebarAnimAlpha);
-        canvas.drawText(languageText, width / 2f, baseline - descent, paint);
+        if (!fitsTextIntoWidth(width, spaceText, paint)) {
+            final float textWidth = TypefaceUtils.getStringWidth(spaceText, paint);
+            paint.setTextScaleX((width - mLanguageOnSpacebarHorizontalMargin * 2) / textWidth);
+        }
+        canvas.drawText(spaceText, width / 2f, baseline - descent, paint);
         paint.clearShadowLayer();
         paint.setTextScaleX(1.0f);
     }

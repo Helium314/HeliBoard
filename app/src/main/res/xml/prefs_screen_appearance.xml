@@ -101,6 +101,12 @@
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
 
+        <EditTextPreference
+            android:key="space_bar_text"
+            android:title="@string/prefs_space_bar_text"
+            android:defaultValue=""
+            android:persistent="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
