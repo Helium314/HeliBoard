@@ -251,11 +251,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
                 // remove number from labels, to avoid awkward mix of numbers and others caused by layout popup keys
                 params.mPopupKeyLabelSources.remove(POPUP_KEYS_NUMBER)
             }
-            // add number to the first 10 keys in first row
-            baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberLabel = numberRow.getOrNull(index)?.label }
-            if (baseKeys.first().size < 10) {
-                Log.w(TAG, "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}")
-            }
+            // add number to the first first row
+            baseKeys.first().forEachIndexed { index, keyData -> keyData.popup.numberLabel = numberRow.getOrNull(index)?.label }
         }
     }
 
