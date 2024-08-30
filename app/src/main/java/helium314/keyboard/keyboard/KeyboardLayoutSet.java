@@ -18,9 +18,12 @@ import helium314.keyboard.keyboard.internal.UniqueKeysCache;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.lang.ref.SoftReference;
@@ -70,7 +73,7 @@ public final class KeyboardLayoutSet {
         int mMode;
         boolean mDisableTouchPositionCorrectionDataForTest; // remove
         // TODO: Use {@link InputAttributes} instead of these variables.
-        public EditorInfo mEditorInfo;
+        EditorInfo mEditorInfo;
         boolean mIsPasswordField;
         boolean mVoiceInputKeyEnabled;
         boolean mDeviceLocked;
@@ -78,10 +81,10 @@ public final class KeyboardLayoutSet {
         boolean mLanguageSwitchKeyEnabled;
         boolean mEmojiKeyEnabled;
         boolean mOneHandedModeEnabled;
-        public RichInputMethodSubtype mSubtype;
+        RichInputMethodSubtype mSubtype;
         boolean mIsSpellChecker;
-        public int mKeyboardWidth;
-        public int mKeyboardHeight;
+        int mKeyboardWidth;
+        int mKeyboardHeight;
         String mScript = ScriptUtils.SCRIPT_LATIN;
         // Indicates if the user has enabled the split-layout preference
         // and the required ProductionFlags are enabled.
@@ -208,6 +211,17 @@ public final class KeyboardLayoutSet {
             } else {
                 params.mDeviceLocked = km.isKeyguardLocked();
             }
+        }
+
+        public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
+            final Builder builder = new Builder(context, ei);
+            builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
+            final int fullHeight = ResourceUtils.getDefaultKeyboardHeight(context.getResources(), false);
+            final float rowHeight = fullHeight * Settings.getInstance().getCurrent().mKeyboardHeightScale / 4;
+            builder.setKeyboardGeometry(width, (int) rowHeight);
+            builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
+            return builder.build();
         }
 
         public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {

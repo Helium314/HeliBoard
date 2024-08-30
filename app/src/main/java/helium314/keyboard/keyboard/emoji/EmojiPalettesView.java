@@ -35,13 +35,10 @@ import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
-import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
-import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
@@ -261,37 +258,6 @@ public final class EmojiPalettesView extends LinearLayout
         mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
         mColors.setBackground(mSpacebar, ColorType.SPACE_BAR_BACKGROUND);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
-
-        // create bottom keyboard
-        KeyboardLayoutSet.Params p = new KeyboardLayoutSet.Params();
-        // set height & width in p (need to make public)
-        //  how to get desired height? res.getDimension(R.dimen.config_default_keyboard_height) / 4?
-        p.mKeyboardHeight = (int) (getResources().getDimension(R.dimen.config_default_keyboard_height) / 4);
-        p.mKeyboardWidth = getResources().getDisplayMetrics().widthPixels; // maybe get width from view, not screen
-        // other things are fine (all bools false)
-        // except for subtype, we need one. just use the normal one, or could is cause issues?
-        p.mSubtype = RichInputMethodManager.getInstance().getCurrentSubtype();
-        p.mEditorInfo = new EditorInfo(); // todo: get from latinIme, necessary for action key (also the action key should not have popups once layout is customizable)
-
-        KeyboardId id = new KeyboardId(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW, p);
-        KeyboardBuilder<KeyboardParams> kbb = new KeyboardBuilder<>(getContext(), new KeyboardParams());
-        kbb.load(id);
-        Keyboard kb = kbb.build();
-        mAlphabetKeyLeft.setVisibility(View.GONE);
-        mDeleteKey.setVisibility(View.GONE);
-        mSpacebar.setVisibility(View.GONE);
-        MainKeyboardView kbv = findViewById(R.id.bottom_row_keyboard);
-        kbv.setVisibility(View.VISIBLE);
-        kbv.setKeyboard(kb);
-        // basically works, but
-        //  spacebar is weird (because not symbol or alphabet elementId)
-        //  abc key switches layout immediately, and there immediately switches to symbol
-        //   old behavior is to switch only on key release, not on press (in worst case another code might be needed?)
-        //  crash when longpressing comma
-        //   why? this keyboard(view) isn't even loaded...
-        //   probably some pointertracker messup that happens because of this new mainkeyboardview
-        // todo: move that code outside emojiPalettesView (to re-use it for clipboard)
-
         initialized = true;
     }
 
@@ -396,10 +362,27 @@ public final class EmojiPalettesView extends LinearLayout
         alphabetKey.setTypeface(params.mTypeface);
     }
 
-    public void startEmojiPalettes(final String switchToAlphaLabel,
-                                   final KeyVisualAttributes keyVisualAttr,
-                                   final KeyboardIconsSet iconSet) {
+    public void startEmojiPalettes(final String switchToAlphaLabel, final KeyVisualAttributes keyVisualAttr,
+                   final KeyboardIconsSet iconSet, final EditorInfo editorInfo) {
         initialize();
+
+        // set bottom keyboard on each start to get correct editorInfo
+        mAlphabetKeyLeft.setVisibility(View.GONE);
+        mDeleteKey.setVisibility(View.GONE);
+        mSpacebar.setVisibility(View.GONE);
+        MainKeyboardView kbv = findViewById(R.id.bottom_row_keyboard);
+        kbv.setVisibility(View.VISIBLE);
+        final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
+        final Keyboard kbd = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW);
+        kbv.setKeyboard(kbd);
+        // basically works, but
+        //  spacebar is weird (because not symbol or alphabet elementId)
+        //  abc key switches layout immediately
+        //   old behavior is to switch only on key release, not on press (in worst case another code might be needed? or pointerTracker...)
+        //  crash when longpressing comma
+        //   why? this keyboard(view) isn't even loaded...
+        //   probably some pointertracker messup that happens because of this new mainkeyboardview
+
         mDeleteKey.setImageDrawable(iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY));
         mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.action_bar));
         final KeyDrawParams params = new KeyDrawParams();

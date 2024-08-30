@@ -23,7 +23,6 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.confirmDialog
 import helium314.keyboard.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 
