@@ -377,11 +377,15 @@ public final class EmojiPalettesView extends LinearLayout
         kbv.setKeyboard(kbd);
         // basically works, but
         //  spacebar is weird (because not symbol or alphabet elementId)
-        //  abc key switches layout immediately
-        //   old behavior is to switch only on key release, not on press (in worst case another code might be needed? or pointerTracker...)
         //  crash when longpressing comma
         //   why? this keyboard(view) isn't even loaded...
         //   probably some pointertracker messup that happens because of this new mainkeyboardview
+        // todo
+        //  fix crash when longpressing comma
+        //  space bar
+        //  remove the old keys
+        //  also add to clip
+        //  make sure i can set different layouts for both
 
         mDeleteKey.setImageDrawable(iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY));
         mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.action_bar));

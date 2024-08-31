@@ -55,12 +55,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             // possibly some things could be determined automatically and the parser used normally?
             addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMorePopupKeys)
             mParams.readAttributes(mContext, null)
-            mParams.mDefaultRowHeight = 1f // override the 0.25
             // need width for space because it's treated like in number row
             val baseKeys = RawKeyboardParser.parseJsonString("""
 [
   [
-    { "label": "symbol_alpha", "width": 0.15 },
+    { "label": "alpha", "width": 0.15 },
     { "label": "space", "width": -1 },
     { "label": "delete", "width": 0.15 }
   ]
@@ -68,8 +67,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             """.trimIndent())
             keysInRows = KeyboardParser(mParams, mContext).createRows(baseKeys.map { it.mapNotNull { it.compute(mParams) }.toMutableList() }.toMutableList())
             determineAbsoluteValues()
-            Log.i("test", "w ${mParams.mBaseWidth}, h ${mParams.mBaseHeight}, oh ${mParams.mOccupiedHeight}")
-            Log.i("test", "relkw ${keysInRows[0].map { it.mWidth }}, relkh ${keysInRows[0].map { it.mHeight }}")
         } else {
             try {
                 setupParams()
