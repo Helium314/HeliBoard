@@ -376,13 +376,11 @@ public final class EmojiPalettesView extends LinearLayout
         final Keyboard kbd = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW);
         kbv.setKeyboard(kbd);
         // basically works, but
-        //  spacebar is weird (because not symbol or alphabet elementId)
         //  crash when longpressing comma
         //   why? this keyboard(view) isn't even loaded...
         //   probably some pointertracker messup that happens because of this new mainkeyboardview
         // todo
         //  fix crash when longpressing comma
-        //  space bar
         //  remove the old keys
         //  also add to clip
         //  make sure i can set different layouts for both
