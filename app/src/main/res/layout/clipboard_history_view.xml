@@ -34,6 +34,9 @@
 
     </FrameLayout>
 
-    <include layout="@layout/action_bar" />
+    <helium314.keyboard.keyboard.MainKeyboardView
+        android:id="@+id/bottom_row_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </helium314.keyboard.keyboard.clipboard.ClipboardHistoryView>

@@ -274,9 +274,7 @@ public final class EmojiPalettesView extends LinearLayout
 
         // todo
         //  fix crash when longpressing comma (pointertracker thing?)
-        //  also add to clipboard screen (and remove action_bar.xml)
-        //  make sure i can set different layouts for both, maybe needs new keyboardId
-        //  remove remnants of the keys, and the touch listener interface on this class and clipboard
+        //  make sure i can set different layouts for emoji and clipboard, maybe needs new keyboardId
 
         setupBottomRowKeyboard(editorInfo);
         final KeyDrawParams params = new KeyDrawParams();
@@ -293,7 +291,7 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
         final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW);
         keyboardView.setKeyboard(keyboard);
-        mEmojiLayoutParams.setActionBarProperties(keyboardView); // todo: rename to bottomRowKeyboard?
+        mEmojiLayoutParams.setActionBarProperties(keyboardView); // todo: rename to bottomRowKeyboard
     }
 
     public void stopEmojiPalettes() {

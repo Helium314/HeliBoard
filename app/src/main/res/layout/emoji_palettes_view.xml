@@ -26,10 +26,7 @@
         android:layout_height="2dip" />
     <helium314.keyboard.keyboard.MainKeyboardView
         android:id="@+id/bottom_row_keyboard"
-        android:gravity="center"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-<!--    <include layout="@layout/action_bar" />-->
 
 </helium314.keyboard.keyboard.emoji.EmojiPalettesView>
