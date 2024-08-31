@@ -55,7 +55,8 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             // possibly some things could be determined automatically and the parser used normally?
             addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMorePopupKeys)
             mParams.readAttributes(mContext, null)
-            // need width for space because it's treated like in number row
+            // todo: test what happens if it's more than a single row
+            //  maybe only use first row, like for number row?
             val baseKeys = RawKeyboardParser.parseJsonString("""
 [
   [

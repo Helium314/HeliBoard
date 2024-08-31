@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -74,17 +76,10 @@ final class EmojiLayoutParams {
         return mEmojiActionBarHeight - mBottomPadding;
     }
 
-    public void setActionBarProperties(final LinearLayout ll) {
+    public void setActionBarProperties(final MainKeyboardView ll) {
         final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) ll.getLayoutParams();
         lp.height = getActionBarHeight();
         lp.width = ResourceUtils.getKeyboardWidth(ll.getResources(), Settings.getInstance().getCurrent());
         ll.setLayoutParams(lp);
-    }
-
-    public void setKeyProperties(final View v) {
-        final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-        lp.leftMargin = mKeyHorizontalGap / 2;
-        lp.rightMargin = mKeyHorizontalGap / 2;
-        v.setLayoutParams(lp);
     }
 }
