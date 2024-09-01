@@ -262,10 +262,11 @@ public final class EmojiPalettesView extends LinearLayout
         setLayerType(LAYER_TYPE_HARDWARE, null);
     }
 
-    public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr, final EditorInfo editorInfo) {
+    public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr,
+               final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
         initialize();
 
-        setupBottomRowKeyboard(editorInfo);
+        setupBottomRowKeyboard(editorInfo, keyboardActionListener);
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getBottomRowKeyboardHeight(), keyVisualAttr);
         if (mEmojiRecyclerView.getAdapter() == null) {
@@ -274,8 +275,9 @@ public final class EmojiPalettesView extends LinearLayout
         }
     }
 
-    private void setupBottomRowKeyboard(final EditorInfo editorInfo) {
+    private void setupBottomRowKeyboard(final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
         MainKeyboardView keyboardView = findViewById(R.id.bottom_row_keyboard);
+        keyboardView.setKeyboardActionListener(keyboardActionListener);
         PointerTracker.switchTo(keyboardView);
         final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
         final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW);

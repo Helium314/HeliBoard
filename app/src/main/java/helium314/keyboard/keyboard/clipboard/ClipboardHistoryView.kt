@@ -126,8 +126,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         toolbarKeys.forEach { it.layoutParams = toolbarKeyLayoutParams }
     }
 
-    private fun setupBottomRowKeyboard(editorInfo: EditorInfo) {
+    private fun setupBottomRowKeyboard(editorInfo: EditorInfo, listener: KeyboardActionListener) {
         val keyboardView = findViewById<MainKeyboardView>(R.id.bottom_row_keyboard)
+        keyboardView.setKeyboardActionListener(listener)
         PointerTracker.switchTo(keyboardView)
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
         val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
@@ -143,7 +144,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
     fun startClipboardHistory(
             historyManager: ClipboardHistoryManager,
             keyVisualAttr: KeyVisualAttributes?,
-            editorInfo: EditorInfo
+            editorInfo: EditorInfo,
+            keyboardActionListener: KeyboardActionListener
     ) {
         initialize()
         setupToolbarKeys()
@@ -155,7 +157,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
         setupClipKey(params)
-        setupBottomRowKeyboard(editorInfo)
+        setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
         placeholderView.apply {
             typeface = params.mTypeface
