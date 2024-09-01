@@ -91,7 +91,7 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
         builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
-                mEmojiLayoutParams.getBottomRowKeyboardHeight());
+                mEmojiLayoutParams.getEmojiKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
@@ -202,14 +202,6 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
 
         setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
-
-        // {@link #mAlphabetKeyLeft} and spaceKey depend on
-        // {@link View.OnClickListener} as well as {@link View.OnTouchListener}.
-        // {@link View.OnTouchListener} is used as the trigger of key-press, while
-        // {@link View.OnClickListener} is used as the trigger of key-release which does not occur
-        // if the event is canceled by moving off the finger from the view.
-        // The text on alphabet keys are set at
-        // {@link #startEmojiPalettes(String,int,float,Typeface)}.
 
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
         initialized = true;

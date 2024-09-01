@@ -16,7 +16,7 @@ import helium314.keyboard.latin.utils.ResourceUtils
 
 internal class EmojiLayoutParams(res: Resources) {
     private val emojiListBottomMargin: Int
-    private val emojiKeyboardHeight: Int
+    val emojiKeyboardHeight: Int
     private val emojiCategoryPageIdViewHeight: Int
     val bottomRowKeyboardHeight: Int
 
