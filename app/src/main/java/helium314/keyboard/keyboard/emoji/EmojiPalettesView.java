@@ -91,7 +91,7 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
         builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
-                mEmojiLayoutParams.mEmojiKeyboardHeight);
+                mEmojiLayoutParams.getBottomRowKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);

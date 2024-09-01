@@ -31,7 +31,7 @@ import java.util.TreeSet;
 
 public class KeyboardParams {
     private static final int DEFAULT_KEYBOARD_COLUMNS = 10;
-    private static final int DEFAULT_KEYBOARD_ROWS = 4;
+    public static final int DEFAULT_KEYBOARD_ROWS = 4;
 
     public KeyboardId mId;
     public int mThemeId;
