@@ -81,7 +81,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // called when creating a new InputView
     // not sure why this is necessary... maybe misunderstanding regarding WeakHashMap?
-    public static void clearOldProxies() {
+    public static void clearOldViewData() {
         sProxyMap.clear();
     }
 

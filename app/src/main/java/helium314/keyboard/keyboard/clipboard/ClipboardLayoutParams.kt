@@ -18,7 +18,7 @@ class ClipboardLayoutParams(res: Resources) {
     private val topPadding: Int
     private val bottomPadding: Int
     private val listHeight: Int
-    private val actionBarHeight: Int
+    val bottomRowKeyboardHeight: Int
 
     companion object {
         private const val DEFAULT_KEYBOARD_ROWS = 4
@@ -45,11 +45,11 @@ class ClipboardLayoutParams(res: Resources) {
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
         val rowCount = DEFAULT_KEYBOARD_ROWS + if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
-        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
+        bottomRowKeyboardHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
         // height calculation is not good enough, probably also because keyboard top padding might be off by a pixel
         // and it's even off by a different amount than in EmojiLayoutParams...
         val offset = 1.25f * res.displayMetrics.density * Settings.getInstance().current.mKeyboardHeightScale
-        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding + offset.toInt()
+        listHeight = defaultKeyboardHeight - bottomRowKeyboardHeight - bottomPadding + offset.toInt()
     }
 
     fun setListProperties(recycler: RecyclerView) {
@@ -59,9 +59,9 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setActionBarProperties(layout: View) {
+    fun setBottomRowKeyboardLayoutParams(layout: View) {
         (layout.layoutParams as LinearLayout.LayoutParams).apply {
-            height = actionBarHeight
+            height = bottomRowKeyboardHeight
             width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
             layout.layoutParams = this
         }
@@ -76,7 +76,4 @@ class ClipboardLayoutParams(res: Resources) {
             view.layoutParams = this
         }
     }
-
-    val actionBarContentHeight
-        get() = actionBarHeight
 }

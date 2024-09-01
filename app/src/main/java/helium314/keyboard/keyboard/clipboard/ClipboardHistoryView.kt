@@ -4,10 +4,8 @@ package helium314.keyboard.keyboard.clipboard
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
@@ -86,12 +84,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         setMeasuredDimension(width, height)
     }
 
-    // todo:
-    //  remove keys
-    //  remove touch and click listeners
-    //  setup the keyboard
-    //  test toolbar keys (but i don't think they need an onTouchListener)
-    //  rename action bar (like it should be done in emoji)
     @SuppressLint("ClickableViewAccessibility")
     private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
         if (initialized) return
@@ -142,7 +134,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
         val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
         keyboardView.setKeyboard(keyboard)
-        clipboardLayoutParams.setActionBarProperties(keyboardView) // todo: rename to bottomRowKeyboard
+        clipboardLayoutParams.setBottomRowKeyboardLayoutParams(keyboardView)
     }
 
     fun setHardwareAcceleratedDrawingEnabled(enabled: Boolean) {
@@ -163,11 +155,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardHistoryManager = historyManager
         clipboardAdapter.clipboardHistoryManager = historyManager
         findViewById<View>(R.id.bottom_row_keyboard).apply {
-            clipboardLayoutParams.setActionBarProperties(this)
+            clipboardLayoutParams.setBottomRowKeyboardLayoutParams(this)
         }
 
         val params = KeyDrawParams()
-        params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
+        params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
         setupClipKey(params)
         setupBottomRowKeyboard(editorInfo)
 

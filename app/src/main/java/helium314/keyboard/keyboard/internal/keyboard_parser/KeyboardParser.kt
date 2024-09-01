@@ -52,9 +52,17 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val keysInRows = createRows(baseKeys)
         val heightRescale: Float
         if (params.mId.isEmojiClipBottomRow) {
-            // rescale height if number row is enabled
-            heightRescale = if (Settings.getInstance().current.mShowsNumberRow) 0.8f else 1f
-            params.mTopPadding /= 4 // not perfect, may cause 1 pixel offsets because it's already been converted to int once
+            heightRescale = 4f
+            // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
+            if (Settings.getInstance().current.mShowsNumberRow) {
+                params.mOccupiedHeight /= 5
+                params.mBaseHeight /= 5
+                params.mTopPadding /= 5
+            } else {
+                params.mOccupiedHeight /= 4
+                params.mBaseHeight /= 4
+                params.mTopPadding /= 4
+            }
         } else {
             // rescale height if we have anything but the usual 4 rows
             heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f

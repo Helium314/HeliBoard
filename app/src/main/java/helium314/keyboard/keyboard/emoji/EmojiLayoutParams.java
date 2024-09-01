@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -25,7 +24,7 @@ final class EmojiLayoutParams {
     private final int mEmojiListBottomMargin;
     public final int mEmojiKeyboardHeight;
     private final int mEmojiCategoryPageIdViewHeight;
-    public final int mEmojiActionBarHeight;
+    public final int mBottomRowKeyboardHeight;
     public final int mKeyVerticalGap;
     private final int mKeyHorizontalGap;
     private final int mBottomPadding;
@@ -53,8 +52,8 @@ final class EmojiLayoutParams {
         mEmojiCategoryPageIdViewHeight = (int) (res.getDimension(R.dimen.config_emoji_category_page_id_height));
         final int baseheight = defaultKeyboardHeight - mBottomPadding - mTopPadding + mKeyVerticalGap;
         final int rows = DEFAULT_KEYBOARD_ROWS + (settingsValues.mShowsNumberRow ? 1 : 0); // for proper size considering number row
-        mEmojiActionBarHeight = baseheight / rows - (mKeyVerticalGap - mBottomPadding) / 2 + paddingScaleOffset / 2;
-        mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight - mEmojiCategoryPageIdViewHeight;
+        mBottomRowKeyboardHeight = baseheight / rows - (mKeyVerticalGap - mBottomPadding) / 2 + paddingScaleOffset / 2;
+        mEmojiListHeight = defaultKeyboardHeight - mBottomRowKeyboardHeight - mEmojiCategoryPageIdViewHeight;
         mEmojiListBottomMargin = 0;
         // height calculation is not good enough, probably also because keyboard top padding might be off by a pixel
         final float offset = 3f * res.getDisplayMetrics().density * settingsValues.mKeyboardHeightScale;
@@ -74,14 +73,14 @@ final class EmojiLayoutParams {
         v.setLayoutParams(lp);
     }
 
-    public int getActionBarHeight() {
-        return mEmojiActionBarHeight - mBottomPadding;
+    public int getBottomRowKeyboardHeight() {
+        return mBottomRowKeyboardHeight - mBottomPadding;
     }
 
-    public void setActionBarProperties(final MainKeyboardView ll) {
-        final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) ll.getLayoutParams();
-        lp.height = getActionBarHeight();
-        lp.width = ResourceUtils.getKeyboardWidth(ll.getResources(), Settings.getInstance().getCurrent());
-        ll.setLayoutParams(lp);
+    public void setBottomRowKeyboardLayoutParams(final View v) {
+        final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+        lp.height = getBottomRowKeyboardHeight();
+        lp.width = ResourceUtils.getKeyboardWidth(v.getResources(), Settings.getInstance().getCurrent());
+        v.setLayoutParams(lp);
     }
 }
