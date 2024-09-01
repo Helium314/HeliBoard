@@ -140,7 +140,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         PointerTracker.switchTo(keyboardView)
         keyboardView.visibility = View.VISIBLE
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
-        val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW)
+        val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
         keyboardView.setKeyboard(keyboard)
         clipboardLayoutParams.setActionBarProperties(keyboardView) // todo: rename to bottomRowKeyboard
     }

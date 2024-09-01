@@ -50,26 +50,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
             keysInRows = EmojiParser(mParams, mContext).parse()
-        } else if (id.mElementId == KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW) {
-            // try catch, single row check, customizable layout, maybe set up other stuff, ...
-            // possibly some things could be determined automatically and the parser used normally?
-            addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMorePopupKeys)
-            mParams.readAttributes(mContext, null)
-            mParams.mTopPadding /= 4 // not perfect, may cause 1 pixel offsets because it's already been converted to int once
-            val baseKeys = RawKeyboardParser.parseJsonString("""
-[
-  [
-    { "label": "alpha", "width": 0.15 },
-    { "label": "space", "width": -1 },
-    { "label": "delete", "width": 0.15 }
-  ]
-]
-            """.trimIndent())
-            keysInRows = KeyboardParser(mParams, mContext).createRows(baseKeys.map { it.mapNotNull { it.compute(mParams) }.toMutableList() }
-                .take(1).toMutableList()) // we set the height for a single row only (in emoji and clipboard params), so we only use one!
-            if (Settings.getInstance().current.mShowsNumberRow)
-                keysInRows.first().forEach { it.mHeight *= 0.8f }
-            determineAbsoluteValues()
         } else {
             try {
                 setupParams()

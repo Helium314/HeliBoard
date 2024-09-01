@@ -137,6 +137,8 @@ object RawKeyboardParser {
         KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
         KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
         KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
+        KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LAYOUT_EMOJI_BOTTOM_ROW
+        KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LAYOUT_CLIPBOARD_BOTTOM_ROW
         else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
     }
 

@@ -50,8 +50,15 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
-        // rescale height if we have anything but the usual 4 rows
-        val heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        val heightRescale: Float
+        if (params.mId.isEmojiClipBottomRow) {
+            // rescale height if number row is enabled
+            heightRescale = if (Settings.getInstance().current.mShowsNumberRow) 0.8f else 1f
+            params.mTopPadding /= 4 // not perfect, may cause 1 pixel offsets because it's already been converted to int once
+        } else {
+            // rescale height if we have anything but the usual 4 rows
+            heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        }
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
         }
@@ -314,3 +321,5 @@ const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
 const val LAYOUT_NUMBER_ROW = "number_row"
+const val LAYOUT_EMOJI_BOTTOM_ROW = "emoji_bottom_row"
+const val LAYOUT_CLIPBOARD_BOTTOM_ROW = "clip_bottom_row"

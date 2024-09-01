@@ -63,7 +63,8 @@ public final class KeyboardId {
     public static final int ELEMENT_EMOJI_CATEGORY16 = 26;
     public static final int ELEMENT_CLIPBOARD = 27;
     public static final int ELEMENT_NUMPAD = 28;
-    public static final int ELEMENT_CLIP_EMOJI_BOTTOM_ROW = 29; // todo: maybe separate for customization
+    public static final int ELEMENT_EMOJI_BOTTOM_ROW = 29;
+    public static final int ELEMENT_CLIPBOARD_BOTTOM_ROW = 30;
 
     public final RichInputMethodSubtype mSubtype;
     public final int mWidth;
@@ -190,6 +191,10 @@ public final class KeyboardId {
 
     public boolean isEmojiKeyboard() {
         return mElementId >= ELEMENT_EMOJI_RECENTS && mElementId <= ELEMENT_EMOJI_CATEGORY16;
+    }
+
+    public boolean isEmojiClipBottomRow() {
+        return mElementId == ELEMENT_CLIPBOARD_BOTTOM_ROW || mElementId == ELEMENT_EMOJI_BOTTOM_ROW;
     }
 
     public int imeAction() {
