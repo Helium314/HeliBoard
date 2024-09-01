@@ -28,6 +28,7 @@ import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.keyboard.MainKeyboardView;
+import helium314.keyboard.keyboard.PointerTracker;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -287,6 +288,7 @@ public final class EmojiPalettesView extends LinearLayout
 
     private void setupBottomRowKeyboard(final EditorInfo editorInfo) {
         MainKeyboardView keyboardView = findViewById(R.id.bottom_row_keyboard);
+        PointerTracker.switchTo(keyboardView);
         keyboardView.setVisibility(View.VISIBLE);
         final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
         final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW);

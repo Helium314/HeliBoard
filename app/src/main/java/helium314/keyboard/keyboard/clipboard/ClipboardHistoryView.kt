@@ -19,6 +19,7 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.MainKeyboardView
+import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
@@ -136,6 +137,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     private fun setupBottomRowKeyboard(editorInfo: EditorInfo) {
         val keyboardView = findViewById<MainKeyboardView>(R.id.bottom_row_keyboard)
+        PointerTracker.switchTo(keyboardView)
         keyboardView.visibility = View.VISIBLE
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
         val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW)
