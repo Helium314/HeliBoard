@@ -80,7 +80,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
         val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
-        findViewById<View>(R.id.bottom_row_keyboard)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
 
@@ -130,11 +129,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private fun setupBottomRowKeyboard(editorInfo: EditorInfo) {
         val keyboardView = findViewById<MainKeyboardView>(R.id.bottom_row_keyboard)
         PointerTracker.switchTo(keyboardView)
-        keyboardView.visibility = View.VISIBLE
         val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
         val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
         keyboardView.setKeyboard(keyboard)
-        clipboardLayoutParams.setBottomRowKeyboardLayoutParams(keyboardView)
     }
 
     fun setHardwareAcceleratedDrawingEnabled(enabled: Boolean) {
@@ -154,9 +151,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         historyManager.setHistoryChangeListener(this)
         clipboardHistoryManager = historyManager
         clipboardAdapter.clipboardHistoryManager = historyManager
-        findViewById<View>(R.id.bottom_row_keyboard).apply {
-            clipboardLayoutParams.setBottomRowKeyboardLayoutParams(this)
-        }
 
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)

@@ -59,14 +59,6 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setBottomRowKeyboardLayoutParams(layout: View) {
-        (layout.layoutParams as LinearLayout.LayoutParams).apply {
-            height = bottomRowKeyboardHeight
-            width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
-            layout.layoutParams = this
-        }
-    }
-
     fun setItemProperties(view: View) {
         (view.layoutParams as RecyclerView.LayoutParams).apply {
             topMargin = keyHorizontalGap / 2

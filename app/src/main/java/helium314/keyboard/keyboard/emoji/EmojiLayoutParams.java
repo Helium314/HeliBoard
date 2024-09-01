@@ -76,11 +76,4 @@ final class EmojiLayoutParams {
     public int getBottomRowKeyboardHeight() {
         return mBottomRowKeyboardHeight - mBottomPadding;
     }
-
-    public void setBottomRowKeyboardLayoutParams(final View v) {
-        final LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-        lp.height = getBottomRowKeyboardHeight();
-        lp.width = ResourceUtils.getKeyboardWidth(v.getResources(), Settings.getInstance().getCurrent());
-        v.setLayoutParams(lp);
-    }
 }
