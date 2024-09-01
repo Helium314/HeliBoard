@@ -46,7 +46,10 @@ class ClipboardLayoutParams(res: Resources) {
 
         val rowCount = DEFAULT_KEYBOARD_ROWS + if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
         actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
-        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
+        // height calculation is not good enough, probably also because keyboard top padding might be off by a pixel
+        // and it's even off by a different amount than in EmojiLayoutParams...
+        val offset = 1.25f * res.displayMetrics.density * Settings.getInstance().current.mKeyboardHeightScale
+        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding + offset.toInt()
     }
 
     fun setListProperties(recycler: RecyclerView) {

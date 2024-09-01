@@ -56,7 +56,9 @@ final class EmojiLayoutParams {
         mEmojiActionBarHeight = baseheight / rows - (mKeyVerticalGap - mBottomPadding) / 2 + paddingScaleOffset / 2;
         mEmojiListHeight = defaultKeyboardHeight - mEmojiActionBarHeight - mEmojiCategoryPageIdViewHeight;
         mEmojiListBottomMargin = 0;
-        mEmojiKeyboardHeight = mEmojiListHeight - mEmojiListBottomMargin - 1;
+        // height calculation is not good enough, probably also because keyboard top padding might be off by a pixel
+        final float offset = 3f * res.getDisplayMetrics().density * settingsValues.mKeyboardHeightScale;
+        mEmojiKeyboardHeight = mEmojiListHeight - mEmojiListBottomMargin - ((int) offset);
     }
 
     public void setEmojiListProperties(final RecyclerView vp) {

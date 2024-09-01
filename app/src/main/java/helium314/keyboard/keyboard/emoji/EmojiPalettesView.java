@@ -273,10 +273,6 @@ public final class EmojiPalettesView extends LinearLayout
     public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr, final EditorInfo editorInfo) {
         initialize();
 
-        // todo
-        //  fix crash when longpressing comma (pointertracker thing?)
-        //  make sure i can set different layouts for emoji and clipboard, maybe needs new keyboardId
-
         setupBottomRowKeyboard(editorInfo);
         final KeyDrawParams params = new KeyDrawParams();
         params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);

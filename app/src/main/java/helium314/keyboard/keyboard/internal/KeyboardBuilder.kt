@@ -55,8 +55,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             // possibly some things could be determined automatically and the parser used normally?
             addLocaleKeyTextsToParams(mContext, mParams, Settings.getInstance().current.mShowMorePopupKeys)
             mParams.readAttributes(mContext, null)
-            // todo: test what happens if it's more than a single row
-            //  maybe only use first row, like for number row?
+            mParams.mTopPadding /= 4 // not perfect, may cause 1 pixel offsets because it's already been converted to int once
             val baseKeys = RawKeyboardParser.parseJsonString("""
 [
   [
@@ -66,7 +65,10 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
   ]
 ]
             """.trimIndent())
-            keysInRows = KeyboardParser(mParams, mContext).createRows(baseKeys.map { it.mapNotNull { it.compute(mParams) }.toMutableList() }.toMutableList())
+            keysInRows = KeyboardParser(mParams, mContext).createRows(baseKeys.map { it.mapNotNull { it.compute(mParams) }.toMutableList() }
+                .take(1).toMutableList()) // we set the height for a single row only (in emoji and clipboard params), so we only use one!
+            if (Settings.getInstance().current.mShowsNumberRow)
+                keysInRows.first().forEach { it.mHeight *= 0.8f }
             determineAbsoluteValues()
         } else {
             try {

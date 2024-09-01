@@ -254,10 +254,7 @@ public class KeyboardParams {
             mBaseHeight = mOccupiedHeight - mTopPadding - mBottomPadding + mVerticalGap;
             mDefaultRowHeight = ResourceUtils.getDimensionOrFraction(keyboardAttr,
                     R.styleable.Keyboard_rowHeight, 1, 1f / DEFAULT_KEYBOARD_ROWS);
-            if (mId.mElementId == KeyboardId.ELEMENT_CLIP_EMOJI_BOTTOM_ROW && mDefaultRowHeight < 1) {
-                mDefaultRowHeight = 1f;
-                mDefaultAbsoluteRowHeight = (int) (mDefaultRowHeight * mBaseHeight);
-            } else if (mDefaultRowHeight > 1) { // can be absolute size, in that case will be > 1
+            if (mDefaultRowHeight > 1) { // can be absolute size, in that case will be > 1
                 mDefaultAbsoluteRowHeight = (int) mDefaultRowHeight;
                 mDefaultRowHeight *= -1; // make it negative when it's absolute
             } else {

@@ -216,10 +216,10 @@ public final class KeyboardLayoutSet {
         public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
             final Builder builder = new Builder(context, ei);
             builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            // always full width, but height should consider scale and number row to align nicely
             final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
-            final int fullHeight = ResourceUtils.getDefaultKeyboardHeight(context.getResources(), false);
-            final float rowHeight = fullHeight * Settings.getInstance().getCurrent().mKeyboardHeightScale / 4;
-            builder.setKeyboardGeometry(width, (int) rowHeight);
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            builder.setKeyboardGeometry(width, height);
             builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
             return builder.build();
         }
