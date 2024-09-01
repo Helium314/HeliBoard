@@ -37,7 +37,8 @@ object RawKeyboardParser {
     private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
-        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS, LAYOUT_NUMBER_ROW)
+        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS,
+        LAYOUT_NUMBER_ROW, LAYOUT_EMOJI_BOTTOM_ROW, LAYOUT_CLIPBOARD_BOTTOM_ROW)
 
     fun clearCache() = rawLayoutCache.clear()
 
