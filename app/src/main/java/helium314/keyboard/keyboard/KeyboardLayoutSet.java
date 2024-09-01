@@ -18,9 +18,12 @@ import helium314.keyboard.keyboard.internal.UniqueKeysCache;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
+import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.lang.ref.SoftReference;
@@ -208,6 +211,18 @@ public final class KeyboardLayoutSet {
             } else {
                 params.mDeviceLocked = km.isKeyguardLocked();
             }
+        }
+
+        public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
+            final Builder builder = new Builder(context, ei);
+            builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            // always full width, but height should consider scale and number row to align nicely
+            // actually the keyboard does not have full height, but at this point we use it to get correct key heights
+            final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            builder.setKeyboardGeometry(width, height);
+            builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
+            return builder.build();
         }
 
         public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {

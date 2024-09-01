@@ -5,8 +5,8 @@ package helium314.keyboard.keyboard.clipboard
 import android.content.res.Resources
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
@@ -15,20 +15,15 @@ class ClipboardLayoutParams(res: Resources) {
 
     private val keyVerticalGap: Int
     private val keyHorizontalGap: Int
-    private val topPadding: Int
-    private val bottomPadding: Int
     private val listHeight: Int
-    private val actionBarHeight: Int
-
-    companion object {
-        private const val DEFAULT_KEYBOARD_ROWS = 4
-    }
+    val bottomRowKeyboardHeight: Int
 
     init {
-        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
-        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
+        val sv = Settings.getInstance().current
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
+        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, sv)
 
-        if (Settings.getInstance().current.mNarrowKeyGaps) {
+        if (sv.mNarrowKeyGaps) {
             keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
             keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo_narrow,
@@ -39,28 +34,22 @@ class ClipboardLayoutParams(res: Resources) {
             keyHorizontalGap = res.getFraction(R.fraction.config_key_horizontal_gap_holo,
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         }
-        bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().current.mBottomPaddingScale).toInt()
-        topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
+        val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
+        val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
-        val rowCount = DEFAULT_KEYBOARD_ROWS + if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
-        actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
-        listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
+        val rowCount = KeyboardParams.DEFAULT_KEYBOARD_ROWS + if (sv.mShowsNumberRow) 1 else 0
+        bottomRowKeyboardHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
+        // height calculation is not good enough, probably also because keyboard top padding might be off by a pixel (see KeyboardParser)
+        val offset = 1.25f * res.displayMetrics.density * sv.mKeyboardHeightScale
+        listHeight = defaultKeyboardHeight - bottomRowKeyboardHeight - bottomPadding + offset.toInt()
     }
 
     fun setListProperties(recycler: RecyclerView) {
         (recycler.layoutParams as FrameLayout.LayoutParams).apply {
             height = listHeight
             recycler.layoutParams = this
-        }
-    }
-
-    fun setActionBarProperties(layout: LinearLayout) {
-        (layout.layoutParams as LinearLayout.LayoutParams).apply {
-            height = actionBarHeight
-            width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
-            layout.layoutParams = this
         }
     }
 
@@ -73,7 +62,4 @@ class ClipboardLayoutParams(res: Resources) {
             view.layoutParams = this
         }
     }
-
-    val actionBarContentHeight
-        get() = actionBarHeight
 }

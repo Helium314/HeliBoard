@@ -26,6 +26,7 @@ import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
+import kotlin.math.roundToInt
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -50,8 +51,23 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
-        // rescale height if we have anything but the usual 4 rows
-        val heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        val heightRescale: Float
+        if (params.mId.isEmojiClipBottomRow) {
+            heightRescale = 4f
+            // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
+            if (Settings.getInstance().current.mShowsNumberRow) {
+                params.mOccupiedHeight /= 5
+                params.mBaseHeight /= 5
+                params.mTopPadding = (params.mTopPadding / 5.0).roundToInt()
+            } else {
+                params.mOccupiedHeight /= 4
+                params.mBaseHeight /= 4
+                params.mTopPadding = (params.mTopPadding / 4.0).roundToInt()
+            }
+        } else {
+            // rescale height if we have anything but the usual 4 rows
+            heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        }
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
         }
@@ -314,3 +330,5 @@ const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
 const val LAYOUT_NUMBER_ROW = "number_row"
+const val LAYOUT_EMOJI_BOTTOM_ROW = "emoji_bottom_row"
+const val LAYOUT_CLIPBOARD_BOTTOM_ROW = "clip_bottom_row"
