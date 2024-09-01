@@ -47,7 +47,6 @@
     <string name="gesture_input_summary">"আখৰৰ ওপৰেৰে আঙুলি পিছলাই শব্দ লিখক"</string>
     <string name="gesture_preview_trail">"আঙুলি পিছলাই দিয়া নিৰ্দেশসমূহৰ গতিপথৰ চিহ্ন দেখুৱাওক"</string>
     <string name="gesture_floating_preview_text">"গতিশীল প্ৰবাহিত পূৰ্বদৰ্শন"</string>
-    <string name="gesture_floating_preview_text_summary">"আঙুলিৰে নিৰ্দেশ দিয়াৰ সময়ত পৰামৰ্শ দিয়া শব্দটো চাওক"</string>
     <string name="gesture_space_aware">"আঙুলি পিছলাই দিয়া নিৰ্দেশেৰে বাক্যাংশ লিখক"</string>
     <string name="gesture_space_aware_summary">"আঙুলি পিছলাই দিয়া নিৰ্দেশ দিওঁতে স্পেচ কীটোৰ ওপৰেৰে আঙুলি পিছলাই স্পেচ দিয়ক"</string>
     <string name="add">"যোগ কৰক"</string>

@@ -1,0 +1,4 @@
+* dodano klawisz emotikonów na pasku narzędzi dzięki @codokie (#845, #837)
+* poprawki dotyczące zduplikowanych liter (#225 i może inne)
+* unikaj umieszczania kursora wewnątrz emoji (#859)
+* drobne poprawki dla ostatnio dodanych funkcji

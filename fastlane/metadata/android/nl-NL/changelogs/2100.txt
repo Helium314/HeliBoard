@@ -1,0 +1,8 @@
+* Herstel kapotte functionele toetslay-out voor tablets
+* toon alleen de taalwisseltoets als er iets is om naar over te schakelen
+* Maak de standaardkleuren voor de instelling "Alle kleuren" willekeurig in plaats van grijs
+* Mogelijkheid om de startvertraging aan te passen voor gebaren tijdens het typen, door @devycarol
+* Sta het aanpassen van valutasleutels toe
+* Verkort de lange indruktijd voor shift -> Caps Lock, met @devycarol
+* Breid superscript-pop-ups uit in de lay-out van de getallenrij en symbolen met @b02860de585071a2
+* kleine correcties en verbeteringen

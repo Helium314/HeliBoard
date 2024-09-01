@@ -13,7 +13,6 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -43,6 +42,7 @@ import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.keyboard.MainKeyboardView;
 import helium314.keyboard.keyboard.PopupKeysPanel;
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.Dictionary;
@@ -181,18 +181,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 R.dimen.config_more_suggestions_modal_tolerance);
         mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
-        @SuppressLint("CustomViewStyleable")
-        final TypedArray keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView);
-        mIncognitoIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconIncognitoKey);
-        mToolbarArrowIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconToolbarKey);
-        mBinIcon = keyboardAttr.getDrawable(R.styleable.Keyboard_iconBin);
+        final KeyboardIconsSet iconsSet = KeyboardIconsSet.Companion.getInstance();
+        mIncognitoIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_INCOGNITO_KEY, context);
+        mToolbarArrowIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context);
+        mBinIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_BIN, context);
 
         final LinearLayout.LayoutParams toolbarKeyLayoutParams = new LinearLayout.LayoutParams(
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
         for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(prefs)) {
-            final ImageButton button = createToolbarKey(context, keyboardAttr, key);
+            final ImageButton button = createToolbarKey(context, iconsSet, key);
             button.setLayoutParams(toolbarKeyLayoutParams);
             setupKey(button, colors);
             mToolbar.addView(button);
@@ -216,7 +215,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
         for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
-            final ImageButton button = createToolbarKey(context, keyboardAttr, pinnedKey);
+            final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
             button.setLayoutParams(toolbarKeyLayoutParams);
             setupKey(button, colors);
             mPinnedKeys.addView(button);
@@ -226,7 +225,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         colors.setBackground(this, ColorType.STRIP_BACKGROUND);
-        keyboardAttr.recycle();
     }
 
     /**

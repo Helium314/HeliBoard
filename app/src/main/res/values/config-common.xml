@@ -48,9 +48,10 @@
 
     <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
-    <integer name="config_gesture_floating_preview_text_linger_timeout">200</integer>
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
-    <integer name="config_gesture_trail_fadeout_duration">800</integer>
+    <integer name="config_gesture_trail_fadeout_duration_default">800</integer>
+    <integer name="config_gesture_trail_fadeout_duration_max">1900</integer>
+    <integer name="config_gesture_trail_fadeout_duration_step">50</integer>
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>

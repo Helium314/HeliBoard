@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Εισαγάγετε μια λέξη με ολίσθηση μεταξύ των γραμμάτων"</string>
     <string name="gesture_preview_trail">"Εμφάνιση διαδρομής χειρονομίας"</string>
     <string name="gesture_floating_preview_text">"Προεπισκόπ. δυναμικής κίνησης"</string>
-    <string name="gesture_floating_preview_text_summary">"Εμφάνιση της προτεινόμενης λέξης κατά την κίνηση"</string>
     <string name="gesture_space_aware">"Εισαγωγή φράσεων με κίνηση"</string>
     <string name="gesture_space_aware_summary">"Εισαγάγετε κενά στις κινήσεις με ολίσθηση στο πλήκτρο διαστήματος"</string>
     <string name="subtype_en_GB">"Αγγλικά (ΗΒ)"</string>

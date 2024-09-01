@@ -10,7 +10,7 @@ on:
 #      - 'app/**'
   pull_request:
     paths:
-      - 'app/**'
+      - 'app/src/main/java**'
   workflow_dispatch:
 
 jobs:

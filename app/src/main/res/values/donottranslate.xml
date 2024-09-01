@@ -99,11 +99,13 @@
     </string-array>
     <string-array name="show_popup_keys_values">
         <item>normal</item>
+        <item>main</item>
         <item>more</item>
         <item>all</item>
     </string-array>
     <string-array name="show_popup_keys_entries">
         <item>@string/show_popup_keys_normal</item>
+        <item>@string/show_popup_keys_main</item>
         <item>@string/show_popup_keys_more</item>
         <item>@string/show_popup_keys_all</item>
     </string-array>

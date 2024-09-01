@@ -37,7 +37,6 @@
     <string name="gesture_input_summary">Inserir uma palavra deslizando pelas letras</string>
     <string name="gesture_preview_trail">Mostrar rastro do gesto</string>
     <string name="gesture_floating_preview_text">Previsão dinâmica flutuante</string>
-    <string name="gesture_floating_preview_text_summary">Ver a palavra sugerida ao usar gestos</string>
     <string name="gesture_space_aware_summary">Inserir espaços durante gestos ao deslizar até a tecla de espaço</string>
     <string name="enable_clipboard_history">Ativar área de transferência</string>
     <string name="delete_swipe_summary">Deslize a tecla delete para selecionar e remover partes maiores de texto de uma só vez</string>
@@ -172,7 +171,7 @@
 \nAviso: carregar código externo pode ser um risco à segurança. Use somente uma biblioteca de uma fonte que você confia.</string>
     <string name="checksum_mismatch_message">Arquivo de biblioteca desconhecido. Você tem certeza que você pegou ele de uma fonte confiável, e que é para \'%s\'?</string>
     <string name="load_gesture_library_button_load">Carregar biblioteca</string>
-    <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado (padrão)</string>
+    <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado</string>
     <string name="show_popup_keys_more">Adicionar variantes comuns</string>
     <string name="show_popup_keys_all">Adicionar todas as variantes disponíveis</string>
     <string name="url_detection_title">Detecção de URL</string>
@@ -348,4 +347,47 @@
     <string name="close_history" tools:keep="@string/close_history">Fechar histórico da área de transferência</string>
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
+    <string name="all_colors_warning">Essa configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é aleatória, e os nomes não são traduzidos.</string>
+    <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
+    <string name="gesture_fast_typing_cooldown_instant">Começar instantaneamente sempre</string>
+    <string name="gesture_fast_typing_cooldown">Cooldown de digitação rápida</string>
+    <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas em toque longo</string>
+    <string name="customize_currencies">Customizar moedas</string>
+    <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a digitação começar ou se o texto é selecionado</string>
+    <string name="auto_show_toolbar">Automaticamente mostrar a barra de ferramentas</string>
+    <string name="auto_hide_toolbar">Automaticamente esconder a barra de ferramentas</string>
+    <string name="auto_hide_toolbar_summary">Esconder a barra de ferramentas quando sugestões ficam disponíveis</string>
+    <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
+    <string name="customize_currencies_detail">Defina um símbolo principal e até 6 secundários para moedas, separado com espaço</string>
+    <string name="language_switch_key_behavior">Comportamento da tecla de alteração de idioma</string>
+    <string name="load">Carregar</string>
+    <string name="button_save_file">Salvar para arquivo</string>
+    <string name="copy_to_clipboard">Copiar para a Área de Transferência</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="quick_pin_toolbar_keys_summary">Isto desativará outras ações de toque longo para teclas da barra de ferramentas que não estão fixadas</string>
+    <string name="settings_screen_toolbar">Barra de Ferramentas</string>
+    <string name="page_start" tools:keep="@string/page_start">Começo da página</string>
+    <string name="page_end" tools:keep="@string/page_end">Final da página</string>
+    <string name="word_left" tools:keep="@string/word_left">Palavra para a esquerda</string>
+    <string name="word_right" tools:keep="@string/word_right">Palavra para a direita</string>
+    <string name="page_down" tools:keep="@string/page_down">Página para baixo</string>
+    <string name="suggest_clipboard_content">Sugerir conteúdo da área de transferência</string>
+    <string name="suggest_clipboard_content_summary">Mostrar conteúdo recentemente copiado da área de transferência como uma sugestão</string>
+    <string name="page_up" tools:keep="@string/page_up">Página para cima</string>
+    <string name="load_will_overwrite">Carregar irá sobrescrever o tema atual</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="more_colors">Mostrar mais cores</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionais</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas funcionais (Símbolos)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionais (Mais símbolos)</string>
+    <string name="customize_functional_key_layouts">Customizar layouts de teclas funcionais</string>
+    <string name="switch_keyboard_after">Altere para o teclado principal depois…</string>
+    <string name="after_clip">Selecionando entrada do histórico da área de transferência</string>
+    <string name="after_emoji">Selecionando emoji na tela de emoji</string>
+    <string name="after_symbol_and_space">Pressionando enter ou espaço após outras teclas na tela de símbolos</string>
+    <string name="space_swipe_toggle_numpad_entry">Ativar Numpad</string>
+    <string name="show_popup_keys_main">Adicionar variantes muito comuns (padrão)</string>
+    <string name="remove_redundant_popups">Remover popups redundantes</string>
+    <string name="remove_redundant_popups_summary">Suprimir popups de teclas que estão presentes no layout base</string>
 </resources>

@@ -144,10 +144,14 @@
     <string name="gesture_input_summary">Input a word by sliding through the letters</string>
     <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_preview_trail">Show gesture trail</string>
-    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=30]-->
+    <string name="gesture_floating_preview_static">Floating preview</string>
+    <!-- Description for "gesture_floating_preview_static" option. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=65]-->
+    <string name="gesture_floating_preview_static_summary">See the suggested word while gesturing</string>
+    <!-- Option to enable gesture dynamic floating preview. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_floating_preview_text">Dynamic floating preview</string>
-    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating under the moving finger during a gesture input. [CHAR LIMIT=65]-->
-    <string name="gesture_floating_preview_text_summary">See the suggested word while gesturing</string>
+    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=65]-->
+    <string name="gesture_floating_preview_dynamic_summary">Move the preview during a gesture</string>
     <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
     <string name="gesture_space_aware">Phrase gesture</string>
     <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
@@ -156,6 +160,8 @@
     <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
     <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
+    <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
+    <string name="gesture_trail_fadeout_duration">Gesture trail lifespan</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
     <!-- Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
@@ -200,7 +206,9 @@
     <!-- Preferences item for showing popup keys in long-press popup -->
     <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->
-    <string name="show_popup_keys_normal">Show variants defined in keyboard languages (default)</string>
+    <string name="show_popup_keys_normal">Show variants defined in keyboard languages</string>
+    <!-- Option for showing letters common in foreign word (previous default in many language files) -->
+    <string name="show_popup_keys_main">Add very common variants (default)</string>
     <!-- Option for showing letters defined in at least two locales -->
     <string name="show_popup_keys_more">Add common variants</string>
     <!-- Option for showing letters defined in any locale -->
@@ -281,6 +289,10 @@
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
     <string name="show_popup_hints_summary">Show hints if long-pressing a key triggers additional functionality</string>
+    <!-- Option to remove popup keys that already exist on the base keyboard -->
+    <string name="remove_redundant_popups">Remove redundant popups</string>
+    <!-- Description of the remove_redundant_popups setting -->
+    <string name="remove_redundant_popups_summary">Suppress popup keys that are present on the base layout</string>
     <!-- Title of the setting enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
@@ -293,6 +305,8 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for customizing space bar text -->
+    <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -517,6 +531,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <!-- Name for numpad layout in landscape mode -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
+    <!-- Name for number row layout -->
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
     <!-- Title for customizing currencies -->
@@ -685,6 +701,8 @@ New dictionary:
     <string name="user_dict_add_word_button">Add a word</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
+    <!-- Option for choosing icon style (same options as theme_style) -->
+    <string name="icon_style">Icon style</string>
     <!-- Style name for Rounded style -->
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rounded</string>
     <!-- Option for choosing colors [CHAR LIMIT=33] -->
@@ -812,8 +830,8 @@ New dictionary:
 \n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
 \n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
 \n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
-\n\t• copy &amp;#65515; copy all &lt;br&gt;
-\n\t• select word &amp;#65515; select all &lt;br&gt;
+\n\t• copy &amp;#65515; cut &lt;br&gt;
+\n\t• select word &amp;#8596; select all &lt;br&gt;
 \n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
 \n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
 \n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;

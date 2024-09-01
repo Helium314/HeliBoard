@@ -86,14 +86,11 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun setupParams() {
-        // previously was false for nordic and serbian_qwertz, true for all others
-        // todo: add setting? maybe users want it in a custom layout
-        mParams.mAllowRedundantPopupKeys = mParams.mId.mElementId != KeyboardId.ELEMENT_SYMBOLS
-
+        val sv = Settings.getInstance().current
+        mParams.mAllowRedundantPopupKeys = !sv.mRemoveRedundantPopups
         mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
-        val sv = Settings.getInstance().current
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
         // add label source only if popup key type enabled

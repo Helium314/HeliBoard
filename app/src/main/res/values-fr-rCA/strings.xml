@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Saisir un mot en faisant glisser le doigt sur les lettres"</string>
     <string name="gesture_preview_trail">"Afficher le tracé du geste"</string>
     <string name="gesture_floating_preview_text">"Aperçu flottant dynamique"</string>
-    <string name="gesture_floating_preview_text_summary">"Afficher le mot suggéré lors des gestes"</string>
     <string name="gesture_space_aware">"Geste multiterme"</string>
     <string name="gesture_space_aware_summary">"Insérer une espace avec barre d\'espace lors de l\'entrée gestuelle"</string>
     <string name="subtype_en_GB">"Anglais (britannique)"</string>

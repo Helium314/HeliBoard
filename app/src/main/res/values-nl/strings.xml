@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">Voer een woord in door van letter naar letter te vegen</string>
     <string name="gesture_preview_trail">Veegspoor weergeven</string>
     <string name="gesture_floating_preview_text">"Dynamisch zwevend voorbeeld"</string>
-    <string name="gesture_floating_preview_text_summary">Het voorgestelde woord tonen tijdens het vegen</string>
     <string name="gesture_space_aware">Woordgroepen gebaren</string>
     <string name="gesture_space_aware_summary">Spaties invoeren door te vegen over de spatiebalk</string>
     <string name="subtype_en_GB">"Engels (GB)"</string>
@@ -342,7 +341,7 @@
 \nWaarschuwing: het laden van externe code kan een veiligheidsrisico vormen. Gebruik alleen een bibliotheek van een vertrouwde bron.</string>
     <string name="no_dictionary_message">Zonder woordenboek krijg je alleen suggesties voor tekst die eerder is ingevoerd.&lt;br&gt;
 \nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
-    <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven (standaard)</string>
+    <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven</string>
     <string name="show_popup_hints">Functionele hints weergeven</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="dictionary_file_wrong_locale">Het geselecteerde bestand is voor %1$s, maar %2$s werd verwacht. Toch gebruiken voor %2$s?</string>
@@ -353,10 +352,12 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceaan</string>
     <string name="hidden_features_message">► Lang drukken van vastgezette werkbalktoetsen resulteert in extra functionaliteit: &lt;br&gt;
 \n\t• klembord &amp;#65515; plakken&lt;br&gt;
-\n\t• links/rechts verplaatsen &amp;#65515; volledig links/rechts verplaatsen &lt;br&gt;
+\n\t• links/rechts verplaatsen &amp;#65515; woord links/rechts verplaatsen &lt;br&gt;
 \n\t• omhoog/omlaag verplaatsen &amp;#65515; pagina omhoog/omlaag &lt;br&gt;
-\n\t• kopiëren &amp;#65515; alles kopiëren &lt;br&gt;
-\n\t• woord selecteren &amp;#65515; alles selecteren&lt;br&gt;
+\n\t• woord links/rechts &amp;#65515; regel begin/einde &lt;br&gt;
+\n\t• pagina omhoog/omlaag &amp;#65515; pagina begin/einde &lt;br&gt;
+\n\t• kopiëren &amp;#65515; knippen &lt;br&gt;
+\n\t• woord selecteren &amp;#8596; alles selecteren&lt;br&gt;
 \n\t• ongedaan maken &amp;#8596; opnieuw &lt;br&gt; &lt;br&gt;
 \n► Lang drukken van toetsen in de suggestieregel zet deze daarin vast. &lt;br&gt; &lt;br&gt;
 \n► Lang drukken van de komma-toets om de klembordweergave, Emoji-weergave, Bediening met één hand, Instellingen, of de taal te wisselen: &lt;br&gt;
@@ -375,7 +376,7 @@
 \n► Je kunt woordenboeken toevoegen door ze te openen in een bestandsverkenner: &lt;br&gt;
 \n\t• Dit werkt alleen met &lt;i&gt;inhoud-uris&lt;/i&gt; en niet met &lt;i&gt;bestand-uris&lt;/i&gt;, wat betekent dat het mogelijk niet werkt met sommige bestandsverkenners. &lt;br&gt; &lt;br&gt;
 \n► Voor gebruikers die handmatige back-ups maken met roottoegang: &lt;br&gt;
-\n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, b.v. bij het opstarten; &lt;br&gt;
+\n\t• Vanaf Android 7 bevindt het bestand met gedeelde voorkeuren zich niet op de standaardlocatie, omdat de app %s gebruikt. Dit is nodig zodat de instellingen kunnen worden gelezen voordat het apparaat wordt ontgrendeld, bv. bij het opstarten; &lt;br&gt;
 \n\t• Het bestand bevindt zich in /data/user_de/0/package_id/shared_prefs/ hoewel dit kan afhangen van het apparaat en de Android-versie. &lt;br&gt; &lt;br&gt;
 \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
 \n► Druk lang op een suggestie om het bronwoordenboek te tonen. &lt;br&gt; &lt;br&gt;
@@ -403,6 +404,26 @@
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="gesture_fast_typing_cooldown_instant">Altijd direct starten</string>
     <string name="gesture_fast_typing_cooldown">Afkoelperiode bij snel typen</string>
-    <string name="customize_currencies_detail">Stel hoofd- en secundaire valutasymbolen in, gescheiden door spatie</string>
-    <string name="customize_currencies">Valuta\'s aanpassen</string>
+    <string name="customize_currencies_detail">Stel tot 6 valutasymbolen in, gescheiden door spatie</string>
+    <string name="customize_currencies">Valuta aanpassen</string>
+    <string name="button_save_file">Opslaan naar bestand</string>
+    <string name="copy_to_clipboard">Kopiëren naar klembord</string>
+    <string name="load_will_overwrite">Laden zal het huidige thema overschrijven</string>
+    <string name="load">Laden</string>
+    <string name="page_end" tools:keep="@string/page_end">Pagina-einde</string>
+    <string name="page_start" tools:keep="@string/page_start">Pagina-begin</string>
+    <string name="word_left" tools:keep="@string/word_left">Woord links</string>
+    <string name="word_right" tools:keep="@string/word_right">Woord rechts</string>
+    <string name="page_up" tools:keep="@string/page_up">Pagina omhoog</string>
+    <string name="page_down" tools:keep="@string/page_down">Pagina omlaag</string>
+    <string name="suggest_clipboard_content">Inhoud van het klembord voorstellen</string>
+    <string name="suggest_clipboard_content_summary">Recent gekopieerde inhoud van het klembord tonen als suggestie</string>
+    <string name="space_swipe_toggle_numpad_entry">Numpad wisselen</string>
+    <string name="after_emoji">Emoji selecteren in de emoji-weergave</string>
+    <string name="after_clip">Vermelding in de klembordgeschiedenis selecteren</string>
+    <string name="switch_keyboard_after">Schakel over naar het hoofdtoetsenbord na…</string>
+    <string name="after_symbol_and_space">Drukken op enter of spatie na andere toetsen in de symbolenweergave</string>
+    <string name="show_popup_keys_main">Zeer veelgebruikte varianten toevoegen (standaard)</string>
+    <string name="remove_redundant_popups_summary">Pop-uptoetsen onderdrukken die aanwezig zijn in de basislay-out</string>
+    <string name="remove_redundant_popups">Overbodige pop-ups verwijderen</string>
 </resources>

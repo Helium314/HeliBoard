@@ -355,6 +355,8 @@ public class Key implements Comparable<Key> {
     @NonNull
     public static Key removeRedundantPopupKeys(@NonNull final Key key,
             @NonNull final PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout) {
+        if ((key.mPopupKeysColumnAndFlags & POPUP_KEYS_FLAGS_FIXED_COLUMN) != 0)
+            return key; // don't remove anything for fixed column popup keys
         final PopupKeySpec[] popupKeys = key.getPopupKeys();
         final PopupKeySpec[] filteredPopupKeys = PopupKeySpec.removeRedundantPopupKeys(
                 popupKeys, lettersOnBaseLayout);

@@ -4,6 +4,7 @@ package helium314.keyboard.latin.utils
 import android.content.SharedPreferences
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
@@ -25,7 +26,7 @@ fun createPopupKeysArray(popupSet: PopupSet<*>?, params: KeyboardParams, label: 
     val types = if (params.mId.isAlphabetKeyboard) params.mPopupKeyTypes else allPopupKeyTypes
     types.forEach { type ->
         when (type) {
-            POPUP_KEYS_NUMBER -> params.mLocaleKeyboardInfos.getNumberLabel(popupSet?.numberIndex)?.let { popupKeys.add(it) }
+            POPUP_KEYS_NUMBER -> popupSet?.numberLabel?.let { popupKeys.add(it) }
             POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { popupKeys.addAll(it) }
             POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { popupKeys.add(it) }
             POPUP_KEYS_LANGUAGE -> params.mLocaleKeyboardInfos.getPopupKeys(label)?.let { popupKeys.addAll(it) }
@@ -60,7 +61,7 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
     var hintLabel: String? = null
     for (type in params.mPopupKeyLabelSources) {
         when (type) {
-            POPUP_KEYS_NUMBER -> params.mLocaleKeyboardInfos.getNumberLabel(popupSet?.numberIndex)?.let { hintLabel = it }
+            POPUP_KEYS_NUMBER -> popupSet?.numberLabel?.let { hintLabel = it }
             POPUP_KEYS_LAYOUT -> popupSet?.getPopupKeyLabels(params)?.let { hintLabel = it.firstOrNull() }
             POPUP_KEYS_SYMBOLS -> popupSet?.symbol?.let { hintLabel = it }
             POPUP_KEYS_LANGUAGE -> params.mLocaleKeyboardInfos.getPopupKeys(label)?.let { hintLabel = it.firstOrNull() }
@@ -68,6 +69,8 @@ fun getHintLabel(popupSet: PopupSet<*>?, params: KeyboardParams, label: String):
         }
         if (hintLabel != null) break
     }
+    if (hintLabel in toolbarKeyStrings.values)
+        hintLabel = null // better show nothing instead of the toolbar key label
 
     return hintLabel?.let { KeySpecParser.getLabel(transformLabel(it, params)) }
         // avoid e.g. !autoColumnOrder! as label

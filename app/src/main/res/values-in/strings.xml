@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Masukkan kata dengan menggeser huruf ke kanan/kiri"</string>
     <string name="gesture_preview_trail">"Tampilkan jejak gestur"</string>
     <string name="gesture_floating_preview_text">"Pratinjau mengambang dinamis"</string>
-    <string name="gesture_floating_preview_text_summary">"Lihat kata yang disarankan saat melakukan isyarat"</string>
     <string name="gesture_space_aware">"Gesture frasa"</string>
     <string name="gesture_space_aware_summary">"Masukkan spasi dalam isyarat dengan meluncur ke tombol spasi"</string>
     <string name="subtype_en_GB">"Inggris (Inggris)"</string>

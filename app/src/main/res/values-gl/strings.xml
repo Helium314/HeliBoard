@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Pasa o dedo entre as letras para introducir unha palabra"</string>
     <string name="gesture_preview_trail">"Mostrar percorrido dos xestos"</string>
     <string name="gesture_floating_preview_text">"Vista previa flotante dinámica"</string>
-    <string name="gesture_floating_preview_text_summary">"Mostra a palabra suxerida mentres se fan xestos"</string>
     <string name="gesture_space_aware">"Xesto de frase"</string>
     <string name="gesture_space_aware_summary">"Para introducir espazos nos xestos, pasa o dedo cara a tecla de espazo"</string>
     <string name="subtype_en_GB">"Inglés (Reino Unido)"</string>
@@ -223,7 +222,7 @@
     <string name="autospace_after_punctuation">Espazo após puntuación</string>
     <string name="autospace_after_punctuation_summary">Engadir un espazo automáticamente despois de escribir un signo de puntuación</string>
     <string name="show_popup_keys_title">Mostrar máis letras co signos diacríticos nas emerxentes</string>
-    <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado (por defecto)</string>
+    <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado</string>
     <string name="show_popup_keys_more">Engadir variantes comúns</string>
     <string name="show_popup_keys_all">Engadir todas as variables dispoñibles</string>
     <string name="url_detection_title">Detección de URL</string>
@@ -368,4 +367,28 @@
     <string name="auto_hide_toolbar_summary">Agocha a barra de ferramentas ao estar dispoñibles as suxestións</string>
     <string name="language_switch_key_behavior">Comportamento da tecla de cambio de idioma</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown">Escribir con repouso</string>
+    <string name="gesture_fast_typing_cooldown_instant">Comezar sempre ao momento</string>
+    <string name="customize_currencies">Personalizar divisas</string>
+    <string name="customize_currencies_detail">Escolle o símbolo da divisa principal e 6 máis, separados por espazos</string>
+    <string name="button_save_file">Gardar nun ficheiro</string>
+    <string name="copy_to_clipboard">Copiar ao Portapapeis</string>
+    <string name="load">Cargar</string>
+    <string name="load_will_overwrite">Ao cargar sobreescribe o decorado actual</string>
+    <string name="page_start" tools:keep="@string/page_start">Inicio da páxina</string>
+    <string name="page_end" tools:keep="@string/page_end">Final da páxina</string>
+    <string name="word_left" tools:keep="@string/word_left">Esquerda da palabra</string>
+    <string name="word_right" tools:keep="@string/word_right">Dereita da palabra</string>
+    <string name="page_up" tools:keep="@string/page_up">Páxina superior</string>
+    <string name="page_down" tools:keep="@string/page_down">Páxina inferior</string>
+    <string name="suggest_clipboard_content">Suxerir contido do portapapeis</string>
+    <string name="suggest_clipboard_content_summary">Mostra como suxestión ocontido copiado recentemente ao portapapeis</string>
+    <string name="switch_keyboard_after">Cambiar ao teclado principal após…</string>
+    <string name="space_swipe_toggle_numpad_entry">Ver Teclado Numérico</string>
+    <string name="show_popup_keys_main">Engadir variantes moi comúns (por defecto)</string>
+    <string name="remove_redundant_popups">Retirar emerxentes redundantes</string>
+    <string name="remove_redundant_popups_summary">Retira as letras emerxentes que están presentes na disposición base</string>
+    <string name="after_symbol_and_space">Premer no enter o espazo despois doutras teclas na vista de símbolos</string>
+    <string name="after_emoji">Seleccionar emoji na vista de emojis</string>
+    <string name="after_clip">Seleccionar entrada no historial do portapapeis</string>
 </resources>

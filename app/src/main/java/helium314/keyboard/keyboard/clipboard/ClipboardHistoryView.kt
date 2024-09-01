@@ -72,7 +72,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
         getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
-            .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
+            .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
     }
 

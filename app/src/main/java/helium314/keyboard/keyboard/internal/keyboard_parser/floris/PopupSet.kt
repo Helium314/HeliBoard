@@ -27,7 +27,7 @@ open class PopupSet<T : AbstractKeyData>(
     }
     open fun isEmpty(): Boolean = main == null && relevant.isNullOrEmpty()
 
-    var numberIndex: Int? = null
+    var numberLabel: String? = null
     var symbol: String? = null // maybe list of keys?
 
     fun <U : AbstractKeyData> merge(other: PopupSet<U>?): PopupSet<out AbstractKeyData> {

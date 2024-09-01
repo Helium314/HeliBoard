@@ -95,7 +95,9 @@ public class SettingsValues {
     public final boolean mGestureInputEnabled;
     public final boolean mGestureTrailEnabled;
     public final boolean mGestureFloatingPreviewTextEnabled;
+    public final boolean mGestureFloatingPreviewDynamicEnabled;
     public final int mGestureFastTypingCooldown;
+    public final int mGestureTrailFadeoutDuration;
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
@@ -114,6 +116,8 @@ public class SettingsValues {
     public final boolean mAlphaAfterEmojiInEmojiView;
     public final boolean mAlphaAfterClipHistoryEntry;
     public final boolean mAlphaAfterSymbolAndSpace;
+    public final boolean mRemoveRedundantPopups;
+    public final String mSpaceBarText;
 
     // From the input box
     @NonNull
@@ -202,10 +206,12 @@ public class SettingsValues {
         mEnableEmojiAltPhysicalKey = prefs.getBoolean(Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, true);
         mGestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         mGestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
-        mAccount = null; // remove? or can it be useful somewhere?
         mGestureFloatingPreviewTextEnabled = !mInputAttributes.mDisableGestureFloatingPreviewText
                 && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        mGestureFloatingPreviewDynamicEnabled = Settings.readGestureDynamicPreviewEnabled(prefs, context);
         mGestureFastTypingCooldown = Settings.readGestureFastTypingCooldown(prefs, res);
+        mGestureTrailFadeoutDuration = Settings.readGestureTrailFadeoutDuration(prefs, res);
+        mAccount = null; // remove? or can it be useful somewhere?
         mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && readSuggestionsOverrideEnabled(prefs);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && readSuggestionsEnabled(prefs))
                 || mOverrideShowingSuggestions;
@@ -258,6 +264,8 @@ public class SettingsValues {
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
+        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, true);
+        mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

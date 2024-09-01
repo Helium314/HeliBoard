@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">Digita le parole percorrendo con un gesto le lettere che le compongono</string>
     <string name="gesture_preview_trail">Mostra la traccia del gesto</string>
     <string name="gesture_floating_preview_text">"Anteprima mobile dinamica"</string>
-    <string name="gesture_floating_preview_text_summary">"Visualizza la parola suggerita durante il gesto"</string>
     <string name="gesture_space_aware">"Gesto frase"</string>
     <string name="gesture_space_aware_summary">Inserisci spazi durante i gesti facendo scorrere il dito sulla barra spaziatrice</string>
     <string name="subtype_en_GB">Inglese (Regno Unito)</string>
@@ -188,7 +187,7 @@
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
     <string name="localized_number_row_summary">Mostra i numeri localizzati anziché quelli latini</string>
     <string name="checksum_mismatch_message">File di libreria sconosciuto. Si è sicuri di averlo ottenuto da una fonte affidabile e che sia per \'%s\'?</string>
-    <string name="show_popup_keys_normal">Mostra le varianti definite dalle lingue della tastiera (impostazione predefinita)</string>
+    <string name="show_popup_keys_normal">Mostra le varianti di carattere definite dalla lingua (impostazione predefinita)</string>
     <string name="show_popup_keys_more">Aggiungi varianti comuni</string>
     <string name="clipboard" tools:keep="@string/clipboard">Appunti</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Riga dei numeri</string>
@@ -203,14 +202,14 @@
     <string name="backup_error">Errore backup: %s</string>
     <string name="show_popup_hints_summary">Indica se premendo a lungo un tasto si attivano funzionalità aggiuntive</string>
     <string name="backup_restore_title">Backup e ripristino</string>
-    <string name="full_left" tools:keep="@string/full_left">Cursore tutto a sinistra</string>
+    <string name="full_left" tools:keep="@string/full_left">Inizio riga</string>
     <string name="select_word" tools:keep="@string/select_word">Seleziona parola</string>
     <string name="left" tools:keep="@string/left">Cursore a sinistra</string>
     <string name="delete_layout">Vuoi davvero eliminare il layout personalizzato %s?</string>
     <string name="button_title_add_custom_layout">Aggiungi un layout personalizzato</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
     <string name="url_detection_title">Rilevamento URL</string>
-    <string name="full_right" tools:keep="@string/full_right">Cursore tutto a destra</string>
+    <string name="full_right" tools:keep="@string/full_right">Fine riga</string>
     <string name="localized_number_row">Localizza la riga dei numeri</string>
     <string name="show_popup_keys_all">Aggiungi tutte le varianti disponibili</string>
     <string name="more_autocorrect">Correzione automatica aggiuntiva</string>
@@ -345,9 +344,11 @@
     <string name="select_color_accent">Colore accento</string>
     <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attivano funzionalità aggiuntive:
 \n\t• Appunti &amp;#65515; Incolla&lt;br&gt;
-\n\t• Sposta a sinistra/destra &amp;#65515; Sposta all\'inizio o alla fine della riga&lt;br&gt;
-\n\t• Sposta su/giù &amp;#65515; Pagina su/giù&lt;br&gt;
-\n\t• Copia &amp;#65515; Copia tutto&lt;br&gt;
+\n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt;
+\n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt;
+\n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt;
+\n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt;
+\n\t• Copia &amp;#65515; Taglia&lt;br&gt;
 \n\t• Seleziona parola &amp;#65515; Seleziona tutto&lt;br&gt;
 \n\t• Annulla &amp;#8596; Ripristina&lt;br&gt;&lt;br&gt;
 \n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra.
@@ -395,6 +396,30 @@
     <string name="toast_msg_clipboard_copy">Testo copiato</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mostra altri colori</string>
-    <string name="all_colors_warning">Questa impostazione mostra tutti i colori utilizzati internamente. L\'elenco dei colori può cambiare in qualsiasi momento. Non esiste un colore predefinito e i nomi non sono tradotti.</string>
+    <string name="all_colors_warning">Questa impostazione mostra tutti i colori utilizzati internamente. L\'elenco dei colori potrebbe variare in base agli aggiornamenti dell\'app. I colori predefiniti sono casuali e i nomi degli elementi sono mostrati come stringhe di sistema.</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="gesture_fast_typing_cooldown">Attesa per l\'inserimento gestuale</string>
+    <string name="gesture_fast_typing_cooldown_instant">Nessuna</string>
+    <string name="customize_currencies">Personalizza i tasti valuta</string>
+    <string name="customize_currencies_detail">Scegli fino a 6 tasti valuta secondari, separati da spazio</string>
+    <string name="load">Importa</string>
+    <string name="button_save_file">Esporta (file)</string>
+    <string name="word_left" tools:keep="@string/word_left">Parola a sinistra</string>
+    <string name="word_right" tools:keep="@string/word_right">Parola a destra</string>
+    <string name="page_start" tools:keep="@string/page_start">Inizio documento</string>
+    <string name="page_end" tools:keep="@string/page_end">Fine documento</string>
+    <string name="suggest_clipboard_content">Suggerisci il testo copiato</string>
+    <string name="suggest_clipboard_content_summary">Mostra l\'ultimo testo copiato negli appunti come \'pill\' interattivo nella barra dei suggerimenti</string>
+    <string name="copy_to_clipboard">Copia negli appunti</string>
+    <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
+    <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
+    <string name="after_symbol_and_space">Dopo l\'inserimento di un carattere dalla schermata simboli, seguito da uno spazio o un \'a capo\'</string>
+    <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia appunti</string>
+    <string name="show_popup_keys_main">Aggiungi varianti comuni</string>
+    <string name="page_up" tools:keep="@string/page_up">Pagina su</string>
+    <string name="page_down" tools:keep="@string/page_down">Pagina giù</string>
+    <string name="space_swipe_toggle_numpad_entry">Passa al tastierino numerico</string>
+    <string name="remove_redundant_popups">Rimuovi i caratteri popup ripetuti</string>
+    <string name="remove_redundant_popups_summary">Rimuovi i caratteri popup già presenti nel layout base</string>
+    <string name="load_will_overwrite">Attenzione: l\'importazione sovrascriverà il tema attuale</string>
 </resources>

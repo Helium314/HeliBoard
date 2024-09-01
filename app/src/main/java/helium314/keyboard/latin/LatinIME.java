@@ -45,6 +45,7 @@ import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.compat.EditorInfoCompatUtils;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.dictionarypack.DictionaryPackConstants;
@@ -570,6 +571,7 @@ public class LatinIME extends InputMethodService implements
         Settings.init(this);
         DebugFlags.init(this);
         SubtypeSettingsKt.init(this);
+        KeyboardIconsSet.Companion.getInstance().loadIcons(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
@@ -926,7 +928,7 @@ public class LatinIME extends InputMethodService implements
                     + ", word caps = "
                     + ((editorInfo.inputType & InputType.TYPE_TEXT_FLAG_CAP_WORDS) != 0));
         }
-        Log.i(TAG, "Starting input. Cursor position = " + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
+        Log.i(TAG, (restarting ? "Res" : "S") +"tarting input. Cursor position = " + editorInfo.initialSelStart + "," + editorInfo.initialSelEnd);
 
         // In landscape mode, this method gets called without the input view being created.
         if (mainKeyboardView == null) {
@@ -1761,7 +1763,7 @@ public class LatinIME extends InputMethodService implements
                     return;
                 break;
             case KeyCode.ARROW_RIGHT, KeyCode.ARROW_DOWN, KeyCode.WORD_RIGHT, KeyCode.PAGE_DOWN:
-                if (!mInputLogic.mConnection.canForwardDeleteCharacters())
+                if (mInputLogic.mConnection.noTextAfterCursor())
                     return;
                 break;
             }

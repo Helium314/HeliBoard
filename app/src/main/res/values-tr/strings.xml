@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Kelime girmek için parmağınızı harflerin üzerinde kaydırın"</string>
     <string name="gesture_preview_trail">"Hareket izini göster"</string>
     <string name="gesture_floating_preview_text">"Dinamik kayan önizleme"</string>
-    <string name="gesture_floating_preview_text_summary">"Hareket sırasında önerilen kelimeyi göster"</string>
     <string name="gesture_space_aware">"Kelime öbeği hareketi"</string>
     <string name="gesture_space_aware_summary">"Hareketle girişte boşlukları, boşluk tuşuna kaydırarak girin"</string>
     <string name="subtype_en_GB">"İngilizce (BK)"</string>

@@ -1,10 +1,8 @@
 [popup_keys]
-e è
-i ì
-s š %
-c č ć %
-d đ %
-z ž %
+s š
+z ž
+c č ć
+d đ
 
 [extra_keys]
 1: š

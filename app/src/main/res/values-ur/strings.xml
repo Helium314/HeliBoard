@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"حروف پر سلائیڈ کر کے ایک لفظ درج کریں"</string>
     <string name="gesture_preview_trail">"اشارہ ٹریل دکھائیں"</string>
     <string name="gesture_floating_preview_text">"ڈائنیمک فلوٹنگ پیش منظر"</string>
-    <string name="gesture_floating_preview_text_summary">"اشارہ کرتے ہوئے تجویز کردہ لفظ دیکھیں"</string>
     <string name="gesture_space_aware">"جملہ کا اشارہ"</string>
     <string name="gesture_space_aware_summary">"اسپیس کلید کو گلائیڈ کر کے اشاروں کے درمیان خالی جگہیں درج کریں"</string>
     <string name="subtype_en_GB">"انگریزی (برطانیہ)"</string>

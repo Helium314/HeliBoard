@@ -45,7 +45,6 @@
     <string name="gesture_input_summary">"Skriv inn et ord ved å sveipe langsmed bokstavene"</string>
     <string name="gesture_preview_trail">"Vis bevegelsesspor"</string>
     <string name="gesture_floating_preview_text">"Dynamiske ordforslag"</string>
-    <string name="gesture_floating_preview_text_summary">"Se det foreslåtte ordet mens du utfører bevegelser"</string>
     <string name="gesture_space_aware">"Frasebevegelse"</string>
     <string name="gesture_space_aware_summary">"Sett inn mellomrom ved å dra fingeren til mellomromstasten"</string>
     <string name="subtype_en_GB">"Engelsk (Storbritannia)"</string>

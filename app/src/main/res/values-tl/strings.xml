@@ -46,7 +46,6 @@
     <string name="gesture_input_summary">"Mag-input ng salita sa pamamagitan ng pag-slide sa mga titik"</string>
     <string name="gesture_preview_trail">"Ipakita ang trail ng gesture"</string>
     <string name="gesture_floating_preview_text">"Dynamic na floating preview"</string>
-    <string name="gesture_floating_preview_text_summary">"Tingnan ang iminungkahing salita habang gumagalaw"</string>
     <string name="gesture_space_aware">"Phrase gesture"</string>
     <string name="gesture_space_aware_summary">"Maglagay ng espasyo sa pamamagitan ng pag-glide sa space key"</string>
     <string name="subtype_en_GB">"English (UK)"</string>

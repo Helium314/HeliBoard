@@ -60,6 +60,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";
+    public static final String PREF_ICON_STYLE = "icon_style";
     public static final String PREF_THEME_COLORS = "theme_colors";
     public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
@@ -115,8 +116,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = "enable_emoji_alt_physical_key";
     public static final String PREF_GESTURE_PREVIEW_TRAIL = "gesture_preview_trail";
     public static final String PREF_GESTURE_FLOATING_PREVIEW_TEXT = "gesture_floating_preview_text";
+    public static final String PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC = "gesture_floating_preview_dynamic";
+    public static final String PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM = "gesture_dynamic_preview_follow_system";
     public static final String PREF_GESTURE_SPACE_AWARE = "gesture_space_aware";
     public static final String PREF_GESTURE_FAST_TYPING_COOLDOWN = "gesture_fast_typing_cooldown";
+    public static final String PREF_GESTURE_TRAIL_FADEOUT_DURATION = "gesture_trail_fadeout_duration";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "show_setup_wizard_icon";
     public static final String PREF_USE_CONTACTS = "use_contacts";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
@@ -159,6 +163,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ABC_AFTER_EMOJI = "abc_after_emoji";
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
+    public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
+    public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -310,6 +316,44 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
     }
 
+    public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs, final Context context) {
+        final boolean followSystem = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, true);
+        final boolean defValue = readGestureDynamicPreviewDefault(context);
+        final boolean curValue = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, defValue);
+        return followSystem ? defValue : curValue;
+    }
+
+    public static boolean readGestureDynamicPreviewDefault(final Context context) {
+        // if transitions are disabled for the system (reduced motion), moving preview should be disabled
+        return android.provider.Settings.System.getFloat(
+                context.getContentResolver(),
+                android.provider.Settings.Global.TRANSITION_ANIMATION_SCALE,
+                1.0f
+        ) != 0.0f;
+    }
+
+    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureFastTypingCooldown(res);
+    }
+
+    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
+    }
+
+    public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
+        final int milliseconds = prefs.getInt(
+                PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
+                : readDefaultGestureTrailFadeoutDuration(res);
+    }
+
+    public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
+        return res.getInteger(R.integer.config_gesture_trail_fadeout_duration_default);
+    }
+
     public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
         final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
         return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
@@ -367,17 +411,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
-    }
-
-    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureFastTypingCooldown(res);
-    }
-
-    public static int readDefaultGestureFastTypingCooldown(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
@@ -507,10 +540,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readMorePopupKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "normal")) {
+        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "main")) {
             case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
             case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
-            default -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            case "normal" -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
+            default -> LocaleKeyboardInfosKt.POPUP_KEYS_MAIN;
         };
     }
 
