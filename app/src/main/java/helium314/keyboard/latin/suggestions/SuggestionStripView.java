@@ -408,7 +408,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             wordView.setEllipsize(TextUtils.TruncateAt.END);
             AtomicBoolean downOk = new AtomicBoolean(false);
             wordView.setOnTouchListener((view1, motionEvent) -> {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP && downOk.get()) {
                     final float x = motionEvent.getX();
                     final float y = motionEvent.getY();
                     if (0 < x && x < w && 0 < y && y < h) {
