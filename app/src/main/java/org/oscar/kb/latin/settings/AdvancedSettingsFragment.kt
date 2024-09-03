@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import org.oscar.kb.latin.utils.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -232,10 +233,20 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 .setTitle(R.string.load_gesture_library)
                 .setMessage(requireContext().getString(R.string.load_gesture_library_message, abi))
                 .setPositiveButton(R.string.load_gesture_library_button_load) { _, _ ->
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                        .addCategory(Intent.CATEGORY_OPENABLE)
-                        .setType("application/octet-stream")
-                    libraryFilePicker.launch(intent)
+//                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//                        .addCategory(Intent.CATEGORY_OPENABLE)
+//                        .setType("application/octet-stream")
+//                    libraryFilePicker.launch(intent)
+
+                    try {
+                        // Directly load the library packaged with the app
+                        System.loadLibrary("jni_latinimegoogle")  // Ensure the correct library name
+                        Toast.makeText(requireContext(), "Library loaded successfully", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "Library loaded successfully")
+                    } catch (e: UnsatisfiedLinkError) {
+                        Toast.makeText(requireContext(), "Failed to load the library: ${e.message}", Toast.LENGTH_LONG).show()
+                        Log.d(TAG, "Failed to load the library", e)
+                    }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
         if (libfile.exists()) {
