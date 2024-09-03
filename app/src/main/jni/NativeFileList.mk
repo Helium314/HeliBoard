@@ -13,10 +13,10 @@
 # limitations under the License.
 
 LATIN_IME_JNI_SRC_FILES := \
-    com_android_inputmethod_keyboard_ProximityInfo.cpp \
-    com_android_inputmethod_latin_BinaryDictionary.cpp \
-    com_android_inputmethod_latin_BinaryDictionaryUtils.cpp \
-    com_android_inputmethod_latin_DicTraverseSession.cpp \
+    org_inputmethod_keyboard_ProximityInfo.cpp \
+    org_inputmethod_latin_BinaryDictionary.cpp \
+    org_inputmethod_latin_BinaryDictionaryUtils.cpp \
+    org_inputmethod_latin_DicTraverseSession.cpp \
     jni_common.cpp
 
 LATIN_IME_CORE_SRC_FILES := \

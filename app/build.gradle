@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
@@ -9,11 +10,11 @@ android {
     buildToolsVersion = '34.0.0'
 
     defaultConfig {
-        applicationId "com.oscar.aikeyboard"
+        applicationId "org.oscar.kb"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 3
-        versionName '1.2'
+        versionCode 4
+        versionName '1.4'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
@@ -90,7 +91,7 @@ android {
         includeInBundle = false
     }
 
-    namespace "com.oscar.aikeyboard"
+    namespace "org.oscar.kb"
     lint {
         abortOnError true
     }
@@ -128,7 +129,7 @@ dependencies {
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     //multiple bottom sheets
-    implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
+//    implementation ("com.roshaan.multiplebottomsheets:multiplebottomsheets:1.0.1")
     implementation ("com.google.android.material:material:1.12.0")
     // Rich Editor
 
@@ -142,6 +143,7 @@ dependencies {
     // For Firebase Crashlytics & Analytics
     implementation platform("com.google.firebase:firebase-bom:33.1.2")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 
     // For App Integrity todo will be removed
     //implementation 'com.google.android.play:integrity:1.4.0'

@@ -12,8 +12,8 @@
     <include
         android:id="@+id/setup_welcome_screen"
         layout="@layout/setup_welcome_screen" />
-    <include
-        android:id="@+id/setup_steps_screen"
-        layout="@layout/setup_steps_screen"
-        android:visibility="invisible"/>
+<!--    <include-->
+<!--        android:id="@+id/setup_steps_screen"-->
+<!--        layout="@layout/setup_steps_screen"-->
+<!--        android:visibility="invisible"/>-->
 </FrameLayout>

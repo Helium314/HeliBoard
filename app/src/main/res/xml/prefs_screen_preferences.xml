@@ -38,7 +38,7 @@
             android:defaultValue="@bool/config_default_vibration_enabled"
             android:persistent="true" />
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="vibration_duration_settings"
             android:title="@string/prefs_keypress_vibration_duration_settings"
             latin:maxValue="@integer/config_max_vibration_duration" />
@@ -49,7 +49,7 @@
             android:defaultValue="@bool/config_default_sound_enabled"
             android:persistent="true" />
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="keypress_sound_volume"
             android:title="@string/prefs_keypress_sound_volume_settings"
             latin:maxValue="100" /> <!-- percent -->
@@ -119,7 +119,7 @@
             android:defaultValue="true"
             android:persistent="true" />
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="clipboard_history_retention_time"
             android:title="@string/clipboard_history_retention_time"
             latin:maxValue="120" /> <!-- minutes -->
