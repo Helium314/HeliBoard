@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
 >
-    <com.oscar.aikeyboard.latin.suggestions.PopupSuggestionsView
+    <org.oscar.kb.latin.suggestions.PopupSuggestionsView
         xmlns:latin="http://schemas.android.com/apk/res-auto"
         android:id="@+id/more_suggestions_view"
         android:layout_width="wrap_content"

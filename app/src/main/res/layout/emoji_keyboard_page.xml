@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<com.oscar.aikeyboard.keyboard.emoji.EmojiPageKeyboardView
+<org.oscar.kb.keyboard.emoji.EmojiPageKeyboardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/emoji_keyboard_page"
     android:layoutDirection="ltr"
