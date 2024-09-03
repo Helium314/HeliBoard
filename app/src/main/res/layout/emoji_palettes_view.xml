@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<com.oscar.aikeyboard.keyboard.emoji.EmojiPalettesView
+<org.oscar.kb.keyboard.emoji.EmojiPalettesView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,13 +20,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
-    <com.oscar.aikeyboard.keyboard.emoji.EmojiCategoryPageIndicatorView
+    <org.oscar.kb.keyboard.emoji.EmojiCategoryPageIndicatorView
         android:id="@+id/emoji_category_page_id_view"
         android:layout_width="match_parent"
         android:layout_height="2dip" />
-    <helium314.keyboard.keyboard.MainKeyboardView
+    <org.oscar.kb.keyboard.MainKeyboardView
         android:id="@+id/bottom_row_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</com.oscar.aikeyboard.keyboard.emoji.EmojiPalettesView>
+</org.oscar.kb.keyboard.emoji.EmojiPalettesView>

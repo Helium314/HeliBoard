@@ -1,0 +1,62 @@
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ * modified
+ * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ */
+package org.oscar.kb.keyboard.emoji
+
+import android.content.res.Resources
+import android.view.View
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.RecyclerView
+import org.oscar.kb.R
+import org.oscar.kb.keyboard.internal.KeyboardParams
+import org.oscar.kb.latin.settings.Settings
+import org.oscar.kb.latin.utils.ResourceUtils
+
+internal class EmojiLayoutParams(res: Resources) {
+    private val emojiListBottomMargin: Int
+    val emojiKeyboardHeight: Int
+    private val emojiCategoryPageIdViewHeight: Int
+    val bottomRowKeyboardHeight: Int
+
+    init {
+        val sv = Settings.getInstance().current
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
+
+        val keyVerticalGap = if (sv.mNarrowKeyGaps) {
+            res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,
+                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+        } else {
+            res.getFraction(R.fraction.config_key_vertical_gap_holo,
+                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+        }
+        val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
+            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
+        val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
+            defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+
+        val rowCount = KeyboardParams.DEFAULT_KEYBOARD_ROWS + if (sv.mShowsNumberRow) 1 else 0
+        bottomRowKeyboardHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
+
+        val pageIdHeight = res.getDimension(R.dimen.config_emoji_category_page_id_height)
+        emojiCategoryPageIdViewHeight = pageIdHeight.toInt()
+        val offset = 1.25f * res.displayMetrics.density * sv.mKeyboardHeightScale // like ClipboardLayoutParams
+        val emojiListHeight = defaultKeyboardHeight - bottomRowKeyboardHeight - bottomPadding + (offset.toInt())
+        emojiListBottomMargin = 0
+        emojiKeyboardHeight = emojiListHeight - emojiCategoryPageIdViewHeight - emojiListBottomMargin
+    }
+
+    fun setEmojiListProperties(vp: RecyclerView) {
+        val lp = vp.layoutParams as LinearLayout.LayoutParams
+        lp.height = emojiKeyboardHeight
+        lp.bottomMargin = emojiListBottomMargin
+        vp.layoutParams = lp
+    }
+
+    fun setCategoryPageIdViewProperties(v: View) {
+        val lp = v.layoutParams as LinearLayout.LayoutParams
+        lp.height = emojiCategoryPageIdViewHeight
+        v.layoutParams = lp
+    }
+}

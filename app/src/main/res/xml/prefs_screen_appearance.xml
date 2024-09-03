@@ -31,7 +31,7 @@
             latin:singleLineTitle="false" />
 
         <PreferenceScreen
-            android:fragment="com.oscar.aikeyboard.latin.settings.ColorsSettingsFragment"
+            android:fragment="org.oscar.kb.latin.settings.ColorsSettingsFragment"
             android:key="theme_select_colors"
             android:title="@string/select_user_colors"
             android:summary="@string/select_user_colors_summary"/>
@@ -52,7 +52,7 @@
             latin:singleLineTitle="false" />
 
         <PreferenceScreen
-            android:fragment="com.oscar.aikeyboard.latin.settings.ColorsNightSettingsFragment"
+            android:fragment="org.oscar.kb.latin.settings.ColorsNightSettingsFragment"
             android:key="theme_select_colors_night"
             android:title="@string/select_user_colors_night"
             android:summary="@string/select_user_colors_summary"
@@ -77,7 +77,7 @@
             android:persistent="true"
             android:defaultValue="false" />
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="split_spacer_scale"
             android:title="@string/split_spacer_scale"
             latin:minValue="50"
@@ -89,13 +89,13 @@
             android:defaultValue="true"
             android:persistent="true" />
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="keyboard_height_scale"
             android:title="@string/prefs_keyboard_height_scale"
             latin:minValue="50"
             latin:maxValue="150" /> <!-- percentage -->
 
-        <com.oscar.aikeyboard.latin.settings.SeekBarDialogPreference
+        <org.oscar.kb.latin.settings.SeekBarDialogPreference
             android:key="bottom_padding_scale"
             android:title="@string/prefs_bottom_padding_scale"
             latin:minValue="0"

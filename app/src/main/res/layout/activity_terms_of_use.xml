@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#DCECEB"
     android:orientation="vertical"
-    tools:context="com.oscar.aikeyboard.latin.setup.TermsOfUseActivity">
+    tools:context=".latin.setup.TermsOfUseActivity">
 
     <TextView
         android:id="@+id/terms"
@@ -37,10 +37,11 @@
         android:textColor="#000000"
         android:lineSpacingExtra="10dp"
         android:text="@string/terms_of_use"
-        android:padding="20dp"
+        android:padding="16px"
         android:textSize="16dp"
         android:linksClickable="true"
         android:autoLink="email"
+        android:layout_margin="14dp"
         android:textColorLink="#F80505"
         android:fontFamily="@font/karla_light"
         app:layout_constraintTop_toBottomOf="@+id/terms"
