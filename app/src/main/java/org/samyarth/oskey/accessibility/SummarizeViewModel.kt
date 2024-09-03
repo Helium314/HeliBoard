@@ -88,7 +88,7 @@ class SummarizeViewModel(
         _uiState.value = SummarizeUiState.Loading
 
         val prompt =
-            "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language and the markdown format:\n: $inputText"
+            "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language:\n: $inputText"
 
         viewModelScope.launch {
             try {
