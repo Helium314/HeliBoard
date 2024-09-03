@@ -1,30 +1,32 @@
 // SPDX-License-Identifier: GPL-3.0-only
-package com.oscar.aikeyboard.keyboard.internal.keyboard_parser
+package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
 import android.content.res.Configuration
-import com.oscar.aikeyboard.latin.utils.Log
-import com.oscar.aikeyboard.keyboard.Key
-import com.oscar.aikeyboard.keyboard.Key.KeyParams
-import com.oscar.aikeyboard.keyboard.KeyboardId
-import com.oscar.aikeyboard.keyboard.internal.KeyboardParams
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyData
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyType
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
-import com.oscar.aikeyboard.latin.common.isEmoji
-import com.oscar.aikeyboard.latin.define.DebugFlags
-import com.oscar.aikeyboard.latin.settings.Settings
-import com.oscar.aikeyboard.latin.utils.POPUP_KEYS_LAYOUT
-import com.oscar.aikeyboard.latin.utils.POPUP_KEYS_NUMBER
-import com.oscar.aikeyboard.latin.utils.ScriptUtils
-import com.oscar.aikeyboard.latin.utils.ScriptUtils.script
-import com.oscar.aikeyboard.latin.utils.ToolbarKey
-import com.oscar.aikeyboard.latin.utils.removeFirst
-import com.oscar.aikeyboard.latin.utils.replaceFirst
-import com.oscar.aikeyboard.latin.utils.splitAt
-import com.oscar.aikeyboard.latin.utils.sumOf
-import com.oscar.aikeyboard.latin.utils.toolbarKeyStrings
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.keyboard.Key
+import helium314.keyboard.keyboard.Key.KeyParams
+import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyType
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.SimplePopups
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
+import helium314.keyboard.latin.common.isEmoji
+import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
+import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
+import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
+import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
+import helium314.keyboard.latin.utils.replaceFirst
+import helium314.keyboard.latin.utils.splitAt
+import helium314.keyboard.latin.utils.sumOf
+import kotlin.math.roundToInt
 
 /**
  * Abstract parser class that handles creation of keyboard from [KeyData] arranged in rows,
@@ -49,8 +51,23 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
         val baseKeys = RawKeyboardParser.parseLayout(params, context)
         val keysInRows = createRows(baseKeys)
-        // rescale height if we have anything but the usual 4 rows
-        val heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        val heightRescale: Float
+        if (params.mId.isEmojiClipBottomRow) {
+            heightRescale = 4f
+            // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
+            if (Settings.getInstance().current.mShowsNumberRow) {
+                params.mOccupiedHeight /= 5
+                params.mBaseHeight /= 5
+                params.mTopPadding = (params.mTopPadding / 5.0).roundToInt()
+            } else {
+                params.mOccupiedHeight /= 4
+                params.mBaseHeight /= 4
+                params.mTopPadding = (params.mTopPadding / 4.0).roundToInt()
+            }
+        } else {
+            // rescale height if we have anything but the usual 4 rows
+            heightRescale = if (keysInRows.size != 4) 4f / keysInRows.size else 1f
+        }
         if (heightRescale != 1f) {
             keysInRows.forEach { row -> row.forEach { it.mHeight *= heightRescale } }
         }
@@ -67,11 +84,12 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             params.mBaseWidth = params.mOccupiedWidth - params.mLeftPadding - params.mRightPadding
         }
 
-        addNumberRowOrPopupKeys(baseKeys)
+        val numberRow = getNumberRow()
+        addNumberRowOrPopupKeys(baseKeys, numberRow)
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
-            baseKeys.add(0, params.mLocaleKeyboardInfos.getNumberRow()
+            baseKeys.add(0, numberRow
                 .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
 
         val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
@@ -232,12 +250,12 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         return functionalKeysLeft to functionalKeysRight
     }
 
-    private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
+    private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>, numberRow: MutableList<KeyData>) {
         if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row, but use the labels as popupKeys
-            val numberRow = params.mLocaleKeyboardInfos.getNumberRow()
-            numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
-            baseKeys[0] = numberRow.toMutableList()
+            val numberRowCopy = numberRow.toMutableList()
+            numberRowCopy.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
+            baseKeys[0] = numberRowCopy
         } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && hasNumbersOnTopRow()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
@@ -249,11 +267,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
                 // remove number from labels, to avoid awkward mix of numbers and others caused by layout popup keys
                 params.mPopupKeyLabelSources.remove(POPUP_KEYS_NUMBER)
             }
-            // add number to the first 10 keys in first row
-            baseKeys.first().take(10).forEachIndexed { index, keyData -> keyData.popup.numberIndex = index }
-            if (baseKeys.first().size < 10) {
-                Log.w(TAG, "first row only has ${baseKeys.first().size} keys: ${baseKeys.first().map { it.label }}")
-            }
+            // add number to the first first row
+            baseKeys.first().forEachIndexed { index, keyData -> keyData.popup.numberLabel = numberRow.getOrNull(index)?.label }
         }
     }
 
@@ -266,6 +281,34 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
                 baseRow.getOrNull(j)?.popup?.symbol = key.label
             }
         }
+    }
+
+    private fun getNumberRow(): MutableList<KeyData> {
+        val row = RawKeyboardParser.parseLayout(LAYOUT_NUMBER_ROW, params, context).first()
+        val localizedNumbers = params.mLocaleKeyboardInfos.localizedNumberKeys
+        if (localizedNumbers?.size != 10) return row
+        if (Settings.getInstance().current.mLocalizedNumberRow) {
+            // replace 0-9 with localized numbers, and move latin number into popup
+            for (i in row.indices) {
+                val key = row[i]
+                val number = key.label.toIntOrNull() ?: continue
+                when (number) {
+                    0 -> row[i] = key.copy(newLabel = localizedNumbers[9], newCode = KeyCode.UNSPECIFIED, newPopup = SimplePopups(listOf(key.label)).merge(key.popup))
+                    in 1..9 -> row[i] = key.copy(newLabel = localizedNumbers[number - 1], newCode = KeyCode.UNSPECIFIED, newPopup = SimplePopups(listOf(key.label)).merge(key.popup))
+                }
+            }
+        } else {
+            // add localized numbers to popups on 0-9
+            for (i in row.indices) {
+                val key = row[i]
+                val number = key.label.toIntOrNull() ?: continue
+                when (number) {
+                    0 -> row[i] = key.copy(newPopup = SimplePopups(listOf(localizedNumbers[9])).merge(key.popup))
+                    in 1..9 -> row[i] = key.copy(newPopup = SimplePopups(listOf(localizedNumbers[number - 1])).merge(key.popup))
+                }
+            }
+        }
+        return row
     }
 
     // some layouts have different number layout, and there we don't want the numbers on the top row
@@ -286,3 +329,6 @@ const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
 const val LAYOUT_NUMBER = "number"
 const val LAYOUT_PHONE = "phone"
 const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
+const val LAYOUT_NUMBER_ROW = "number_row"
+const val LAYOUT_EMOJI_BOTTOM_ROW = "emoji_bottom_row"
+const val LAYOUT_CLIPBOARD_BOTTOM_ROW = "clip_bottom_row"

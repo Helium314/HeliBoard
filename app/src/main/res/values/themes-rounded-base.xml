@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="KeyboardTheme.Rounded_Base" parent="KeyboardIcons.Rounded">
+    <style name="KeyboardTheme.Rounded_Base" parent="Keyboard">
         <item name="inputViewStyle">@style/InputView.LXX</item>
         <item name="keyboardStyle">@style/Keyboard.Rounded_Base</item>
         <item name="keyboardViewStyle">@style/KeyboardView.Rounded_Base</item>

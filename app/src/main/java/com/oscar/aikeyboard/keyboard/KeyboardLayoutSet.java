@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.oscar.aikeyboard.keyboard;
+package helium314.keyboard.keyboard;
 
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -12,23 +12,25 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
+import helium314.keyboard.keyboard.internal.KeyboardBuilder;
+import helium314.keyboard.keyboard.internal.KeyboardParams;
+import helium314.keyboard.keyboard.internal.UniqueKeysCache;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
+import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.RichInputMethodSubtype;
+import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.utils.InputTypeUtils;
+import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.ResourceUtils;
+import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.oscar.aikeyboard.keyboard.internal.KeyboardBuilder;
-import com.oscar.aikeyboard.keyboard.internal.KeyboardParams;
-import com.oscar.aikeyboard.keyboard.internal.UniqueKeysCache;
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
-import com.oscar.aikeyboard.latin.RichInputMethodSubtype;
-import com.oscar.aikeyboard.latin.utils.InputTypeUtils;
-import com.oscar.aikeyboard.latin.utils.Log;
-import com.oscar.aikeyboard.latin.utils.ScriptUtils;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -61,7 +63,7 @@ public final class KeyboardLayoutSet {
     public static final class KeyboardLayoutSetException extends RuntimeException {
         public final KeyboardId mKeyboardId;
 
-        public KeyboardLayoutSetException(final Throwable cause, final com.oscar.aikeyboard.keyboard.KeyboardId keyboardId) {
+        public KeyboardLayoutSetException(final Throwable cause, final KeyboardId keyboardId) {
             super(cause);
             mKeyboardId = keyboardId;
         }
@@ -211,6 +213,18 @@ public final class KeyboardLayoutSet {
             }
         }
 
+        public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
+            final Builder builder = new Builder(context, ei);
+            builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            // always full width, but height should consider scale and number row to align nicely
+            // actually the keyboard does not have full height, but at this point we use it to get correct key heights
+            final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            builder.setKeyboardGeometry(width, height);
+            builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
+            return builder.build();
+        }
+
         public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {
             mParams.mKeyboardWidth = keyboardWidth;
             mParams.mKeyboardHeight = keyboardHeight;
@@ -283,11 +297,11 @@ public final class KeyboardLayoutSet {
                 case InputType.TYPE_CLASS_DATETIME:
                     return switch (variation) {
                         case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardId.MODE_DATE;
-                        case InputType.TYPE_DATETIME_VARIATION_TIME ->  KeyboardId.MODE_TIME;
-                        default ->  KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
+                        case InputType.TYPE_DATETIME_VARIATION_TIME -> KeyboardId.MODE_TIME;
+                        default -> KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
                     };
                 case InputType.TYPE_CLASS_PHONE:
-                    return  KeyboardId.MODE_PHONE;
+                    return KeyboardId.MODE_PHONE;
                 case InputType.TYPE_CLASS_TEXT:
                     if (InputTypeUtils.isEmailVariation(variation)) {
                         return KeyboardId.MODE_EMAIL;

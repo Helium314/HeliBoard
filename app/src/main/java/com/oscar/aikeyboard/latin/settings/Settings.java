@@ -61,6 +61,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";
+    public static final String PREF_ICON_STYLE = "icon_style";
     public static final String PREF_THEME_COLORS = "theme_colors";
     public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
@@ -164,6 +165,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
+    public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";

@@ -302,6 +302,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             @NonNull final SettingsValues settingsValues,
             @NonNull final KeyboardSwitchState toggleState) {
         final int visibility = isImeSuppressedByHardwareKeyboard(settingsValues, toggleState) ? View.GONE : View.VISIBLE;
+        PointerTracker.switchTo(mKeyboardView);
         mKeyboardView.setVisibility(visibility);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -332,9 +333,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView.setVisibility(View.GONE);
         mEmojiTabStripView.setVisibility(View.VISIBLE);
         mClipboardHistoryView.setVisibility(View.GONE);
-        mEmojiPalettesView.startEmojiPalettes(
-                mKeyboardLayoutSet.mLocaleKeyboardInfos.getLabelAlphabet(),
-                mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
+        mEmojiPalettesView.startEmojiPalettes(mKeyboardView.getKeyVisualAttribute(),
+                mLatinIME.getCurrentInputEditorInfo(), mLatinIME.mKeyboardActionListener);
         mEmojiPalettesView.setVisibility(View.VISIBLE);
     }
 
@@ -355,10 +355,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView.post(() -> mClipboardStripScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT));
         mClipboardStripScrollView.setVisibility(View.VISIBLE);
         mEmojiPalettesView.setVisibility(View.GONE);
-        mClipboardHistoryView.startClipboardHistory(
-                mLatinIME.getClipboardHistoryManager(),
-                mKeyboardLayoutSet.mLocaleKeyboardInfos.getLabelAlphabet(),
-                mKeyboardView.getKeyVisualAttribute(), keyboard.mIconsSet);
+        mClipboardHistoryView.startClipboardHistory(mLatinIME.getClipboardHistoryManager(), mKeyboardView.getKeyVisualAttribute(),
+                mLatinIME.getCurrentInputEditorInfo(), mLatinIME.mKeyboardActionListener);
         mClipboardHistoryView.setVisibility(View.VISIBLE);
     }
 
@@ -633,6 +631,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardView != null) {
             mKeyboardView.closing();
         }
+        PointerTracker.clearOldViewData();
 
         updateKeyboardThemeAndContextThemeWrapper(displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
         mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(R.layout.input_view, null);
@@ -655,6 +654,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView = mCurrentInputView.findViewById(R.id.clipboard_strip_scroll_view);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
 
+        PointerTracker.switchTo(mKeyboardView);
         return mCurrentInputView;
     }
 

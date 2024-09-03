@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.oscar.aikeyboard.latin;
+package helium314.keyboard.latin;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -40,56 +40,55 @@ import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.oscar.aikeyboard.accessibility.AccessibilityUtils;
-import com.oscar.aikeyboard.compat.ConfigurationCompatKt;
-import com.oscar.aikeyboard.compat.EditorInfoCompatUtils;
-import com.oscar.aikeyboard.keyboard.KeyboardActionListener;
-import com.oscar.aikeyboard.keyboard.KeyboardActionListenerImpl;
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
-import com.oscar.aikeyboard.latin.common.InsetsOutlineProvider;
-import com.oscar.aikeyboard.dictionarypack.DictionaryPackConstants;
-import com.oscar.aikeyboard.event.Event;
-import com.oscar.aikeyboard.event.HangulEventDecoder;
-import com.oscar.aikeyboard.event.HardwareEventDecoder;
-import com.oscar.aikeyboard.event.HardwareKeyboardEventDecoder;
-import com.oscar.aikeyboard.event.InputTransaction;
-import com.oscar.aikeyboard.keyboard.Keyboard;
-import com.oscar.aikeyboard.keyboard.KeyboardId;
-import com.oscar.aikeyboard.keyboard.KeyboardLayoutSet;
-import com.oscar.aikeyboard.keyboard.KeyboardSwitcher;
-import com.oscar.aikeyboard.keyboard.MainKeyboardView;
-import com.oscar.aikeyboard.latin.Suggest.OnGetSuggestedWordsCallback;
-import com.oscar.aikeyboard.latin.SuggestedWords.SuggestedWordInfo;
-import com.oscar.aikeyboard.latin.common.ColorType;
-import com.oscar.aikeyboard.latin.common.Constants;
-import com.oscar.aikeyboard.latin.common.CoordinateUtils;
-import com.oscar.aikeyboard.latin.common.InputPointers;
-import com.oscar.aikeyboard.latin.common.LocaleUtils;
-import com.oscar.aikeyboard.latin.common.ViewOutlineProviderUtilsKt;
-import com.oscar.aikeyboard.latin.define.DebugFlags;
-import com.oscar.aikeyboard.latin.define.ProductionFlags;
-import com.oscar.aikeyboard.latin.inputlogic.InputLogic;
-import com.oscar.aikeyboard.latin.permissions.PermissionsManager;
-import com.oscar.aikeyboard.latin.personalization.PersonalizationHelper;
-import com.oscar.aikeyboard.latin.settings.Settings;
-import com.oscar.aikeyboard.latin.settings.SettingsActivity;
-import com.oscar.aikeyboard.latin.settings.SettingsValues;
-import com.oscar.aikeyboard.latin.suggestions.SuggestionStripView;
-import com.oscar.aikeyboard.latin.suggestions.SuggestionStripViewAccessor;
-import com.oscar.aikeyboard.latin.touchinputconsumer.GestureConsumer;
-import com.oscar.aikeyboard.latin.utils.ColorUtilKt;
-import com.oscar.aikeyboard.latin.utils.InlineAutofillUtils;
-import com.oscar.aikeyboard.latin.utils.InputMethodPickerKt;
-import com.oscar.aikeyboard.latin.utils.JniUtils;
-import com.oscar.aikeyboard.latin.utils.LeakGuardHandlerWrapper;
-import com.oscar.aikeyboard.latin.utils.Log;
-import com.oscar.aikeyboard.latin.utils.StatsUtils;
-import com.oscar.aikeyboard.latin.utils.StatsUtilsManager;
-import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils;
-import com.oscar.aikeyboard.latin.utils.SubtypeSettingsKt;
-import com.oscar.aikeyboard.latin.utils.ViewLayoutUtils;
-import com.oscar.aikeyboard.BuildConfig;
-import com.oscar.aikeyboard.R;
+import helium314.keyboard.accessibility.AccessibilityUtils;
+import helium314.keyboard.compat.ConfigurationCompatKt;
+import helium314.keyboard.compat.EditorInfoCompatUtils;
+import helium314.keyboard.keyboard.KeyboardActionListener;
+import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
+import helium314.keyboard.latin.common.InsetsOutlineProvider;
+import helium314.keyboard.dictionarypack.DictionaryPackConstants;
+import helium314.keyboard.event.Event;
+import helium314.keyboard.event.HangulEventDecoder;
+import helium314.keyboard.event.HardwareEventDecoder;
+import helium314.keyboard.event.HardwareKeyboardEventDecoder;
+import helium314.keyboard.event.InputTransaction;
+import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardId;
+import helium314.keyboard.keyboard.KeyboardLayoutSet;
+import helium314.keyboard.keyboard.KeyboardSwitcher;
+import helium314.keyboard.keyboard.MainKeyboardView;
+import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
+import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
+import helium314.keyboard.latin.common.ColorType;
+import helium314.keyboard.latin.common.Constants;
+import helium314.keyboard.latin.common.CoordinateUtils;
+import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.common.LocaleUtils;
+import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
+import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.define.ProductionFlags;
+import helium314.keyboard.latin.inputlogic.InputLogic;
+import helium314.keyboard.latin.permissions.PermissionsManager;
+import helium314.keyboard.latin.personalization.PersonalizationHelper;
+import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.SettingsActivity;
+import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.suggestions.SuggestionStripView;
+import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
+import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
+import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.InlineAutofillUtils;
+import helium314.keyboard.latin.utils.InputMethodPickerKt;
+import helium314.keyboard.latin.utils.JniUtils;
+import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
+import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.StatsUtils;
+import helium314.keyboard.latin.utils.StatsUtilsManager;
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
+import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ViewLayoutUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -103,7 +102,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -573,6 +571,7 @@ public class LatinIME extends InputMethodService implements
         Settings.init(this);
         DebugFlags.init(this);
         SubtypeSettingsKt.init(this);
+        KeyboardIconsSet.Companion.getInstance().loadIcons(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
@@ -621,7 +620,7 @@ public class LatinIME extends InputMethodService implements
                 editorInfo, isFullscreenMode(), getPackageName());
         mSettings.loadSettings(this, locale, inputAttributes);
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
-       AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
+        AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
         // This method is called on startup and language switch, before the new layout has
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.

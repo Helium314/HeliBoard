@@ -9,7 +9,7 @@ Once everything is up correctly, you're ready to go!
 
 HeliBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
 - **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it, so we can discuss how changes are best implemented.
-  If there is no issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
+  If there is no accepted issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated or semi-related contributions into a single PR is hard to review and can get messy.
 - **Is finished or a draft**. When you keep changing the PR without reviewer's feedback, any attempt to review it is doomed and a waste of time. Better mark it as a draft in this case.
 - **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps _a lot_ for understanding what is going on, and for separating wanted from unintended changes in behavior. Therefore the changes should be as described, not more and not less.
@@ -24,7 +24,9 @@ In addition to previous elements, HeliBoard must stick to [F-Droid inclusion gui
 
 # Adding Layouts
 
-See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app.
+See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app. Please stay in line with other layouts regarding the popup keys.
+
+When editing existing layouts, please consider that people should should still get what they're used to. In case of doubt it might be better to add a new layout instead of overhauling existing layouts.
 
 # Update Emojis
 

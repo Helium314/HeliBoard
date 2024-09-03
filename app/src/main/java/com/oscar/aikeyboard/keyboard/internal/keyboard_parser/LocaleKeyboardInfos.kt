@@ -13,7 +13,6 @@ import com.oscar.aikeyboard.latin.settings.Settings
 import com.oscar.aikeyboard.latin.utils.SubtypeLocaleUtils
 import java.io.InputStream
 import java.util.Locale
-import kotlin.math.round
 
 class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     private val popupKeys = hashMapOf<String, MutableCollection<String>>()
@@ -31,19 +30,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         private set
     private var labelQuestion = "?"
     val currencyKey = getCurrencyKey(locale)
-    private var numberKeys = ((1..9) + 0).map { it.toString() }
-    private val numbersPopupKeys = arrayOf(
-        mutableListOf("¹", "½", "⅓","¼", "⅛"),
-        mutableListOf("²", "⅔"),
-        mutableListOf("³", "¾", "⅜"),
-        mutableListOf("⁴"),
-        mutableListOf("⁵", "⅝"),
-        mutableListOf("⁶"),
-        mutableListOf("⁷", "⅞"),
-        mutableListOf("⁸"),
-        mutableListOf("⁹"),
-        mutableListOf("⁰", "ⁿ", "∅"),
-    )
+    var localizedNumberKeys: List<String>? = null
+        private set
     val hasZwnjKey = when (locale.language) { // todo: move to the info file
         "fa", "ne", "kn", "te" -> true
         else -> false
@@ -91,7 +79,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_POPUP_KEYS -> addPopupKeys(line, priority)
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
-                    READER_MODE_NUMBER_ROW -> setNumberRow(line.splitOnWhitespace(), onlyPopupKeys)
+                    READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
                 }
             }
         }
@@ -130,7 +118,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
             else line.splitOnWhitespace()
         if (split.size == 1) return
         val key = split.first()
-        val popupsMap = if (priority) priorityPopupKeys else popupKeys
+        // punctuation keys must always be normal popups (or getPunctuationPopupKeys needs to be adjusted)
+        val popupsMap = if (priority && key != "punctuation") priorityPopupKeys else popupKeys
         if (popupsMap[key] is MutableList)
             popupsMap[key] = popupsMap[key]!!.toMutableSet().also { it.addAll(split.drop(1)) }
         else if (popupsMap.containsKey(key)) popupsMap[key]!!.addAll(split.drop(1))
@@ -163,49 +152,6 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         }
     }
 
-    // set number row only, does not affect popupKeys
-    // setting more than 10 number keys will cause crashes, but could actually be implemented at some point
-    private fun setNumberRow(split: List<String>, onlyAddToPopupKeys: Boolean) {
-        if (onlyAddToPopupKeys) {
-            // as of now this should never be used, but better have it
-            numberKeys.forEachIndexed { i, n ->
-                if (numberKeys[i] != n && n !in numbersPopupKeys[i])
-                    numbersPopupKeys[i].add(0, n)
-            }
-            return
-        }
-        if (Settings.getInstance().current.mLocalizedNumberRow) {
-            numberKeys.forEachIndexed { i, n -> numbersPopupKeys[i].add(0, n) }
-            numberKeys = split
-        } else {
-            split.forEachIndexed { i, n -> numbersPopupKeys[i].add(0, n) }
-        }
-    }
-
-    // get number row including popupKeys
-    fun getNumberRow(): List<KeyData> =
-        numberKeys.mapIndexed { i, label ->
-            label.toTextKey(numbersPopupKeys[i])
-        }
-
-    fun getNumberLabel(numberIndex: Int?): String? = numberIndex?.let { numberKeys.getOrNull(it) }
-}
-
-private fun mergePopupKeys(original: List<String>, added: List<String>): List<String> {
-    if (original.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }) {
-        val popupKeys = (original + added).toSet()
-        val originalColumnCount = original.firstOrNull { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
-            ?.substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
-        val l = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
-        if (originalColumnCount != null && popupKeys.size <= 20 // not for too wide layout
-            && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
-            // we had 2 rows, and want it again
-            return (l + "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
-        }
-        // just drop autoColumnOrder otherwise
-        return l
-    }
-    return original + added
 }
 
 private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {

@@ -1,22 +1,23 @@
 // SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
-package com.oscar.aikeyboard.latin
+package helium314.keyboard.latin
 
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.oscar.aikeyboard.BuildConfig
-import com.oscar.aikeyboard.latin.common.LocaleUtils.constructLocale
-import com.oscar.aikeyboard.latin.settings.Settings
-import com.oscar.aikeyboard.latin.settings.USER_DICTIONARY_SUFFIX
-import com.oscar.aikeyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
-import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
-import com.oscar.aikeyboard.latin.utils.DictionaryInfoUtils
-import com.oscar.aikeyboard.latin.utils.ToolbarKey
-import com.oscar.aikeyboard.latin.utils.defaultPinnedToolbarPref
-import com.oscar.aikeyboard.latin.utils.getCustomLayoutFile
-import com.oscar.aikeyboard.latin.utils.onCustomLayoutFileListChanged
-import com.oscar.aikeyboard.latin.utils.upgradeToolbarPrefs
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
+import helium314.keyboard.latin.utils.getCustomLayoutFile
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
+import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
+import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
 class App : Application() {
@@ -103,6 +104,45 @@ fun checkVersionUpgrade(context: Context) {
                     putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
                 remove(Settings.PREF_SHOW_MORE_COLORS)
             }
+        }
+    }
+    if (oldVersion <= 2201) {
+        val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+        if (additionalSubtypeString.contains(".")) { // means there are custom layouts
+            val subtypeStrings = additionalSubtypeString.split(";")
+            val newSubtypeStrings = subtypeStrings.mapNotNull {
+                val split = it.split(":").toMutableList()
+                Log.i("test", "0: $it")
+                if (split.size < 2) return@mapNotNull null // should never happen
+                val oldName = split[1]
+                val newName = oldName.substringBeforeLast(".") + "."
+                if (oldName == newName) return@mapNotNull split.joinToString(":") // should never happen
+                val oldFile = getCustomLayoutFile(oldName, context)
+                val newFile = getCustomLayoutFile(newName, context)
+                Log.i("test", "1")
+                if (!oldFile.exists()) return@mapNotNull null // should never happen
+                Log.i("test", "2")
+                if (newFile.exists()) newFile.delete() // should never happen
+                Log.i("test", "3")
+                oldFile.renameTo(newFile)
+                val enabledSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
+                if (enabledSubtypes.contains(oldName))
+                    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, enabledSubtypes.replace(oldName, newName)) }
+                val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")!!
+                if (selectedSubtype.contains(oldName))
+                    prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype.replace(oldName, newName)) }
+                split[1] = newName
+                split.joinToString(":")
+            }
+            Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
+        }
+        // rename other custom layouts
+        onCustomLayoutFileListChanged()
+        getCustomLayoutFiles(context).forEach {
+            val newFile = getCustomLayoutFile(it.name.substringBeforeLast(".") + ".", context)
+            if (newFile.name == it.name) return@forEach
+            if (newFile.exists()) newFile.delete() // should never happen
+            it.renameTo(newFile)
         }
     }
     upgradeToolbarPrefs(prefs)

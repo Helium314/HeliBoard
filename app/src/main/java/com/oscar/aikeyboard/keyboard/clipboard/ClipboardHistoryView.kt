@@ -1,60 +1,57 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.oscar.aikeyboard.keyboard.clipboard
+package helium314.keyboard.keyboard.clipboard
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.oscar.aikeyboard.keyboard.KeyboardActionListener
-import com.oscar.aikeyboard.keyboard.KeyboardSwitcher
-import com.oscar.aikeyboard.keyboard.internal.KeyDrawParams
-import com.oscar.aikeyboard.keyboard.internal.KeyVisualAttributes
-import com.oscar.aikeyboard.keyboard.internal.KeyboardIconsSet
-import com.oscar.aikeyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import com.oscar.aikeyboard.latin.ClipboardHistoryManager
-import com.oscar.aikeyboard.R
-import com.oscar.aikeyboard.latin.common.ColorType
-import com.oscar.aikeyboard.latin.common.Constants
-import com.oscar.aikeyboard.latin.settings.Settings
-import com.oscar.aikeyboard.latin.utils.DeviceProtectedUtils
-import com.oscar.aikeyboard.latin.utils.ResourceUtils
-import com.oscar.aikeyboard.latin.utils.ToolbarKey
-import com.oscar.aikeyboard.latin.utils.createToolbarKey
-import com.oscar.aikeyboard.latin.utils.getCodeForToolbarKey
-import com.oscar.aikeyboard.latin.utils.getCodeForToolbarKeyLongClick
-import com.oscar.aikeyboard.latin.utils.getEnabledClipboardToolbarKeys
-
+import helium314.keyboard.keyboard.KeyboardActionListener
+import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.MainKeyboardView
+import helium314.keyboard.keyboard.PointerTracker
+import helium314.keyboard.keyboard.internal.KeyDrawParams
+import helium314.keyboard.keyboard.internal.KeyVisualAttributes
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.latin.ClipboardHistoryManager
+import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.createToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKey
+import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
+import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 
 @SuppressLint("CustomViewStyleable")
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
-) : LinearLayout(context, attrs, defStyle), View.OnTouchListener, View.OnClickListener,
+) : LinearLayout(context, attrs, defStyle), View.OnClickListener,
         ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context.resources)
     private val pinIconId: Int
-    private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
-    private val spacebarBackground: Drawable
     private var initialized = false
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
     private lateinit var placeholderView: TextView
-    private lateinit var alphabetKey: TextView
     private val toolbarKeys = mutableListOf<ImageButton>()
     private lateinit var clipboardAdapter: ClipboardAdapter
-    private lateinit var spacebar: View
-    private lateinit var deleteKey: ImageButton
 
     var keyboardActionListener: KeyboardActionListener? = null
     var clipboardHistoryManager: ClipboardHistoryManager? = null
@@ -66,8 +63,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardViewAttr.recycle()
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
-        functionalKeyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
-        spacebarBackground = Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
         // todo (maybe): setting the correct color only works because the activated state is inverted
@@ -75,7 +70,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
         getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
-            .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
+            .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
     }
 
@@ -85,7 +80,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
         val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
-        findViewById<LinearLayout>(R.id.action_bar)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
 
@@ -106,49 +100,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
-        alphabetKey = findViewById(R.id.key_alphabet)
-        alphabetKey.setBackgroundResource(functionalKeyBackgroundId)
-        alphabetKey.tag = KeyCode.ALPHA
-        alphabetKey.setOnTouchListener(this)
-        alphabetKey.setOnClickListener(this)
-        deleteKey = findViewById(R.id.key_delete)
-        deleteKey.setBackgroundResource(functionalKeyBackgroundId)
-        deleteKey.tag = KeyCode.DELETE
-        deleteKey.setOnTouchListener(this)
-        deleteKey.setOnClickListener(this)
-        spacebar = findViewById(R.id.key_space)
-        spacebar.background = spacebarBackground
-        spacebar.tag = Constants.CODE_SPACE
-        spacebar.setOnTouchListener(this)
-        spacebar.setOnClickListener(this)
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
         toolbarKeys.forEach {
             clipboardStrip.addView(it)
-            it.setOnTouchListener(this@ClipboardHistoryView)
             it.setOnClickListener(this@ClipboardHistoryView)
             it.setOnLongClickListener(this@ClipboardHistoryView)
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
             colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
         initialized = true
-    }
-
-    private fun setupAlphabetKey(key: TextView, label: String, params: KeyDrawParams) {
-        key.apply {
-            text = label
-            typeface = params.mTypeface
-            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
-            setTextColor(params.mFunctionalTextColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
-        }
-    }
-
-    private fun setupDeleteKey(key: ImageButton, icon: Drawable?) {
-        key.apply {
-            setImageDrawable(icon)
-            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
-            Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
-        }
     }
 
     private fun setupClipKey(params: KeyDrawParams) {
@@ -166,6 +126,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
         toolbarKeys.forEach { it.layoutParams = toolbarKeyLayoutParams }
     }
 
+    private fun setupBottomRowKeyboard(editorInfo: EditorInfo, listener: KeyboardActionListener) {
+        val keyboardView = findViewById<MainKeyboardView>(R.id.bottom_row_keyboard)
+        keyboardView.setKeyboardActionListener(listener)
+        PointerTracker.switchTo(keyboardView)
+        val kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(context, editorInfo)
+        val keyboard = kls.getKeyboard(KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW)
+        keyboardView.setKeyboard(keyboard)
+    }
+
     fun setHardwareAcceleratedDrawingEnabled(enabled: Boolean) {
         if (!enabled) return
         // TODO: Should use LAYER_TYPE_SOFTWARE when hardware acceleration is off?
@@ -173,10 +142,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     fun startClipboardHistory(
-        historyManager: ClipboardHistoryManager,
-        switchToAlphaLabel: String,
-        keyVisualAttr: KeyVisualAttributes?,
-        iconSet: KeyboardIconsSet
+            historyManager: ClipboardHistoryManager,
+            keyVisualAttr: KeyVisualAttributes?,
+            editorInfo: EditorInfo,
+            keyboardActionListener: KeyboardActionListener
     ) {
         initialize()
         setupToolbarKeys()
@@ -184,15 +153,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         historyManager.setHistoryChangeListener(this)
         clipboardHistoryManager = historyManager
         clipboardAdapter.clipboardHistoryManager = historyManager
-        findViewById<LinearLayout>(R.id.action_bar).apply {
-            clipboardLayoutParams.setActionBarProperties(this)
-        }
 
         val params = KeyDrawParams()
-        params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
-        setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
-        setupDeleteKey(deleteKey, iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY))
+        params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
         setupClipKey(params)
+        setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
         placeholderView.apply {
             typeface = params.mTypeface
@@ -213,27 +178,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.clipboardHistoryManager = null
     }
 
-    // the touch & click thing is used to provide haptic and audio feedback if enabled
-    override fun onTouch(view: View, event: MotionEvent): Boolean {
-        if (event.actionMasked != MotionEvent.ACTION_DOWN) {
-            return false
-        }
-        when (view) {
-            alphabetKey, spacebar, deleteKey -> keyboardActionListener?.onPressKey(view.tag as Int, 0, true)
-        }
-        // It's important to return false here. Otherwise, {@link #onClick} and touch-down visual
-        // feedback stop working.
-        return false
-    }
-
     override fun onClick(view: View) {
-        when (view) {
-            alphabetKey, spacebar, deleteKey -> {
-                keyboardActionListener?.onCodeInput(view.tag as Int,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
-                keyboardActionListener?.onReleaseKey(view.tag as Int, false)
-            }
-        }
         val tag = view.tag
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)

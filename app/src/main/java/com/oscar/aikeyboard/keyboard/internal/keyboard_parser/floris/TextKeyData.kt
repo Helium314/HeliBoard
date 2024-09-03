@@ -109,7 +109,7 @@ sealed interface KeyData : AbstractKeyData {
         }
 
         private fun getSpaceLabel(params: KeyboardParams): String =
-            if (params.mId.isAlphaOrSymbolKeyboard)
+            if (params.mId.isAlphaOrSymbolKeyboard || params.mId.isEmojiClipBottomRow)
                 "!icon/space_key|!code/key_space"
             else "!icon/space_key_for_number_layout|!code/key_space"
 
@@ -506,6 +506,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.FN -> KeyCode.FN
             KeyLabel.META -> KeyCode.META
             KeyLabel.TAB -> KeyCode.TAB
+            KeyLabel.ESCAPE -> KeyCode.ESCAPE
             else -> {
                 if (label in toolbarKeyStrings.values) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
