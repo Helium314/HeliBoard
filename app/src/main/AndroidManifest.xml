@@ -26,7 +26,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
     </queries>
 
     <application android:label="@string/english_ime_name"
-            android:name="org.samyarth.oskey.latin.App"
+            android:name=".latin.App"
             android:supportsRtl="true"
             android:allowBackup="true"
             android:icon="@drawable/ic_oscar_logo_new"
@@ -43,7 +43,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 android:resource="@xml/provider_paths" />
         </provider>
         <!-- Services -->
-        <service android:name="org.samyarth.oskey.latin.LatinIME"
+        <service android:name=".latin.LatinIME"
                 android:label="@string/english_ime_name"
                 android:permission="android.permission.BIND_INPUT_METHOD"
                 android:directBootAware="true"
@@ -54,7 +54,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <meta-data android:name="android.view.im" android:resource="@xml/method_dummy" />
         </service>
 
-        <service android:name="org.samyarth.oskey.latin.spellcheck.AndroidSpellCheckerService"
+        <service android:name=".latin.spellcheck.AndroidSpellCheckerService"
                  android:label="@string/spell_checker_service_name"
                  android:permission="android.permission.BIND_TEXT_SERVICE"
                  android:exported="true">
@@ -66,7 +66,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </service>
 
         <!-- Activities -->
-        <activity android:name="org.samyarth.oskey.latin.setup.SetupActivity"
+        <activity android:name=".latin.setup.SetupActivity"
                 android:theme="@style/platformActivityTheme"
                 android:launchMode="singleTask"
                 android:noHistory="true"
@@ -78,13 +78,13 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </activity>
 
         <activity
-            android:name="org.samyarth.oskey.latin.permissions.PermissionsActivity"
+            android:name=".latin.permissions.PermissionsActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
             android:taskAffinity="" >
         </activity>
 
-        <activity android:name="org.samyarth.oskey.latin.setup.SetupWizardActivity"
+        <activity android:name=".latin.setup.SetupWizardActivity"
                 android:theme="@style/platformActivityTheme"
                 android:clearTaskOnLaunch="true"
                 android:exported="true">
@@ -93,7 +93,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name="org.samyarth.oskey.latin.settings.SettingsActivity"
+        <activity android:name=".latin.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/ime_settings"
                 android:excludeFromRecents="true"
@@ -110,7 +110,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name="org.samyarth.oskey.latin.spellcheck.SpellCheckerSettingsActivity"
+        <activity android:name=".latin.spellcheck.SpellCheckerSettingsActivity"
                   android:theme="@style/platformActivityTheme"
                   android:label="@string/android_spell_checker_settings"
                 android:exported="true">
@@ -119,24 +119,24 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
         <activity
-            android:name="org.samyarth.oskey.latin.setup.MainActivity"
+            android:name="org.oscar.kb.latin.setup.MainActivity"
             android:exported="false"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name="org.samyarth.oskey.latin.setup.KeyboardselectionActivity"
+            android:name="org.oscar.kb.latin.setup.KeyboardselectionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name="org.samyarth.oskey.latin.setup.PrivacyPolicyActivity"
+            android:name="org.oscar.kb.latin.setup.PrivacyPolicyActivity"
             android:exported="false"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name="org.samyarth.oskey.latin.setup.TermsOfUseActivity"
+            android:name="org.oscar.kb.latin.setup.TermsOfUseActivity"
             android:exported="false"
             android:theme="@style/AppTheme"/>
         <!-- Broadcast receivers -->
-        <receiver android:name="org.samyarth.oskey.latin.SystemBroadcastReceiver"
+        <receiver android:name=".latin.SystemBroadcastReceiver"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -146,9 +146,9 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </receiver>
 
-        <receiver android:name="org.samyarth.oskey.latin.DictionaryPackInstallBroadcastReceiver" android:exported="false">
+        <receiver android:name=".latin.DictionaryPackInstallBroadcastReceiver" android:exported="false">
             <intent-filter>
-                <action android:name="org.samyarth.oskey.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="org.oscar.kb.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
 

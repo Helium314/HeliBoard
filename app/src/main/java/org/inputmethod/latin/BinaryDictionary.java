@@ -5,24 +5,24 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import org.samyarth.oskey.latin.Dictionary;
-import org.samyarth.oskey.latin.NgramContext;
-import org.samyarth.oskey.latin.SuggestedWords.SuggestedWordInfo;
-import org.samyarth.oskey.latin.common.ComposedData;
-import org.samyarth.oskey.latin.common.Constants;
-import org.samyarth.oskey.latin.common.FileUtils;
-import org.samyarth.oskey.latin.common.InputPointers;
-import org.samyarth.oskey.latin.common.StringUtils;
-import org.samyarth.oskey.latin.makedict.FormatSpec.DictionaryOptions;
-import org.samyarth.oskey.latin.makedict.UnsupportedFormatException;
-import org.samyarth.oskey.latin.makedict.WordProperty;
-import org.samyarth.oskey.latin.settings.SettingsValuesForSuggestion;
-import org.samyarth.oskey.latin.utils.JniUtils;
+import org.oscar.kb.latin.Dictionary;
+import org.oscar.kb.latin.NgramContext;
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo;
+import org.oscar.kb.latin.common.ComposedData;
+import org.oscar.kb.latin.common.Constants;
+import org.oscar.kb.latin.common.FileUtils;
+import org.oscar.kb.latin.common.InputPointers;
+import org.oscar.kb.latin.common.StringUtils;
+import org.oscar.kb.latin.makedict.FormatSpec.DictionaryOptions;
+import org.oscar.kb.latin.makedict.UnsupportedFormatException;
+import org.oscar.kb.latin.makedict.WordProperty;
+import org.oscar.kb.latin.settings.SettingsValuesForSuggestion;
+import org.oscar.kb.latin.utils.JniUtils;
 
 import org.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.inputmethod.latin.utils.WordInputEventForPersonalization;
-import org.samyarth.oskey.latin.makedict.DictionaryHeader;
-import org.samyarth.oskey.latin.utils.Log;
+import org.oscar.kb.latin.makedict.DictionaryHeader;
+import org.oscar.kb.latin.utils.Log;
 
 import java.io.File;
 import java.util.ArrayList;

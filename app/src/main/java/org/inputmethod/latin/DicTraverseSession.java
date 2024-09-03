@@ -1,8 +1,8 @@
 package org.inputmethod.latin;
 
-import org.samyarth.oskey.latin.common.NativeSuggestOptions;
-import org.samyarth.oskey.latin.define.DecoderSpecificConstants;
-import org.samyarth.oskey.latin.utils.JniUtils;
+import org.oscar.kb.latin.common.NativeSuggestOptions;
+import org.oscar.kb.latin.define.DecoderSpecificConstants;
+import org.oscar.kb.latin.utils.JniUtils;
 
 import java.util.Locale;
 
