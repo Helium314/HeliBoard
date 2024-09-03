@@ -11,7 +11,7 @@ import org.oscar.kb.latin.settings.SettingsValues
  * An object encapsulating a single transaction for input.
  */
 class InputTransaction(// Initial conditions
-    val mSettingsValues: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValues, val mEvent: Event,
+    val mSettingsValues: SettingsValues, val mEvent: Event,
     val mTimestamp: Long, val mSpaceState: Int, val mShiftState: Int) {
     /**
      * Gets what type of shift update this transaction requires.

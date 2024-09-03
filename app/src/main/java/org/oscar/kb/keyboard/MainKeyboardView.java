@@ -38,21 +38,12 @@ import org.oscar.kb.keyboard.internal.KeyDrawParams;
 import org.oscar.kb.keyboard.internal.KeyPreviewChoreographer;
 import org.oscar.kb.keyboard.internal.KeyPreviewDrawParams;
 import org.oscar.kb.keyboard.internal.KeyPreviewView;
-import org.oscar.kb.keyboard.internal.DrawingPreviewPlacerView;
-import org.oscar.kb.keyboard.internal.DrawingProxy;
-import org.oscar.kb.keyboard.internal.GestureFloatingTextDrawingPreview;
-import org.oscar.kb.keyboard.internal.GestureTrailsDrawingPreview;
-import org.oscar.kb.keyboard.internal.KeyDrawParams;
-import org.oscar.kb.keyboard.internal.KeyPreviewChoreographer;
-import org.oscar.kb.keyboard.internal.KeyPreviewDrawParams;
-import org.oscar.kb.keyboard.internal.KeyPreviewView;
 import org.oscar.kb.keyboard.internal.PopupKeySpec;
 import org.oscar.kb.keyboard.internal.NonDistinctMultitouchHelper;
 import org.oscar.kb.keyboard.internal.SlidingKeyInputDrawingPreview;
 import org.oscar.kb.keyboard.internal.TimerHandler;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
 import org.oscar.kb.R;
-
 import org.oscar.kb.latin.RichInputMethodSubtype;
 import org.oscar.kb.latin.SuggestedWords;
 import org.oscar.kb.latin.common.ColorType;
@@ -66,7 +57,6 @@ import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.LanguageOnSpacebarUtils;
 import org.oscar.kb.latin.utils.Log;
 import org.oscar.kb.latin.utils.TypefaceUtils;
-
 
 import java.util.ArrayList;
 import java.util.List;

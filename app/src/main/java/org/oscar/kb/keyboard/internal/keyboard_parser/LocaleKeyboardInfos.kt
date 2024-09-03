@@ -49,10 +49,10 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         else -> false
     }
     val labelFlags = when (locale.language) { // todo: move to the info file
-        "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FONT_NORMAL
-        "km", "ml", "si", "ta", "te" -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FONT_NORMAL or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE
-        "kn" -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FONT_NORMAL or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
-        "mns" -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
+        "hy", "ar", "be", "fa", "hi", "lo", "mr", "ne", "th", "ur" -> Key.LABEL_FLAGS_FONT_NORMAL
+        "km", "ml", "si", "ta", "te" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE
+        "kn" -> Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
+        "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
 
@@ -70,7 +70,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         if (labelQuestion !in popupKeys)
             popupKeys[labelQuestion] = if (labelQuestion == "?") mutableListOf("¿") else mutableListOf("?", "¿")
         if ("punctuation" !in popupKeys)
-            popupKeys["punctuation"] = mutableListOf("${_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
+            popupKeys["punctuation"] = mutableListOf("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}8", "\\,", "?", "!", "#", ")", "(", "/", ";", "'", "@", ":", "-", "\"", "+", "\\%", "&")
     }
 
     private fun readStream(stream: InputStream?, onlyPopupKeys: Boolean, priority: Boolean) {
@@ -100,10 +100,10 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     /** Pair(extraKeysLeft, extraKeysRight) */
     // todo: they should be optional, or will unexpectedly appear on custom layouts
     fun getTabletExtraKeys(elementId: Int): Pair<List<KeyData>, List<KeyData>> {
-        val flags = _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FONT_DEFAULT
+        val flags = Key.LABEL_FLAGS_FONT_DEFAULT
         return when (elementId) {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> listOf("\\".toTextKey(labelFlags = flags), "=".toTextKey(labelFlags = flags)) to emptyList()
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> emptyList<KeyData>() to listOf("¡".toTextKey(labelFlags = flags), "¿".toTextKey(labelFlags = flags))
+            KeyboardId.ELEMENT_SYMBOLS -> listOf("\\".toTextKey(labelFlags = flags), "=".toTextKey(labelFlags = flags)) to emptyList()
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> emptyList<KeyData>() to listOf("¡".toTextKey(labelFlags = flags), "¿".toTextKey(labelFlags = flags))
             else -> emptyList<KeyData>() to listOf("!".toTextKey(labelFlags = flags), labelQuestion.toTextKey(labelFlags = flags)) // assume alphabet
         }
     }
@@ -174,7 +174,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
             }
             return
         }
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mLocalizedNumberRow) {
+        if (Settings.getInstance().current.mLocalizedNumberRow) {
             numberKeys.forEachIndexed { i, n -> numbersPopupKeys[i].add(0, n) }
             numberKeys = split
         } else {
@@ -192,16 +192,16 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
 }
 
 private fun mergePopupKeys(original: List<String>, added: List<String>): List<String> {
-    if (original.any { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(
-            _root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }) {
+    if (original.any { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) } || added.any { it.startsWith(
+            Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }) {
         val popupKeys = (original + added).toSet()
-        val originalColumnCount = original.firstOrNull { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
-            ?.substringAfter(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
-        val l = popupKeys.filterNot { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
+        val originalColumnCount = original.firstOrNull { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
+            ?.substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER)?.toIntOrNull()
+        val l = popupKeys.filterNot { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) }
         if (originalColumnCount != null && popupKeys.size <= 20 // not for too wide layout
             && originalColumnCount == round((original.size - 1 + 0.1f) / 2f).toInt()) { // +0.1 f against rounding issues
             // we had 2 rows, and want it again
-            return (l + "${_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
+            return (l + "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${round(l.size / 2f).toInt()}")
         }
         // just drop autoColumnOrder otherwise
         return l
@@ -211,21 +211,21 @@ private fun mergePopupKeys(original: List<String>, added: List<String>): List<St
 
 private fun addFixedColumnOrder(popupKeys: MutableCollection<String>) {
     // use intermediate list, because we can't add first in a LinkedHashSet (i.e. MutableSet)
-    popupKeys.removeAll { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
+    popupKeys.removeAll { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
     val temp = popupKeys.toList()
     popupKeys.clear()
-    popupKeys.add("${_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${temp.size}")
+    popupKeys.add("${Key.POPUP_KEYS_FIXED_COLUMN_ORDER}${temp.size}")
     popupKeys.addAll(temp)
 }
 
 private fun adjustAutoColumnOrder(popupKeys: MutableCollection<String>) {
     // same style as above
     // currently, POPUP_KEYS_AUTO_COLUMN_ORDER is only used for 2 lines of punctuation popups, so assume 2 lines
-    if (!popupKeys.removeAll { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER) })
+    if (!popupKeys.removeAll { it.startsWith(Key.POPUP_KEYS_AUTO_COLUMN_ORDER) })
         return
     val temp = popupKeys.toList()
     popupKeys.clear()
-    popupKeys.add("${_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${((temp.size + 1) / 2).coerceAtMost(10)}")
+    popupKeys.add("${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${((temp.size + 1) / 2).coerceAtMost(10)}")
     popupKeys.addAll(temp)
 }
 
@@ -235,14 +235,14 @@ fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
     localeKeyboardInfosCache[locale.toString()]
         ?: LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
 
-fun addLocaleKeyTextsToParams(context: Context, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, popupKeysSetting: Int) {
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
     val locales = params.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() }) {
         createLocaleKeyTexts(context, params, popupKeysSetting)
     }
 }
 
-private fun createLocaleKeyTexts(context: Context, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
@@ -258,7 +258,7 @@ private fun createLocaleKeyTexts(context: Context, params: _root_ide_package_.or
 
 private fun getStreamForLocale(locale: Locale, context: Context) =
     try {
-        if (locale.toLanguageTag() == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt")
+        if (locale.toLanguageTag() == SubtypeLocaleUtils.NO_LANGUAGE) context.assets.open("$LOCALE_TEXTS_FOLDER/more_popup_keys.txt")
         else context.assets.open("$LOCALE_TEXTS_FOLDER/${locale.toLanguageTag()}.txt")
     } catch (_: Exception) {
         try {
@@ -281,7 +281,7 @@ private const val READER_MODE_NUMBER_ROW = 4
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let {
+    Settings.getInstance().readCustomCurrencyKey().takeIf { it.isNotBlank() }?.let {
         val split = it.trim().splitOnWhitespace()
         if (split.isNotEmpty())
             return split[0] to (split.toSet() + genericCurrencyPopupKeys).filterNot { it == split[0] }.take(6)

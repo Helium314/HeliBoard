@@ -87,7 +87,7 @@ class AccessibilityUtils private constructor() {
         }
         return if (listeningThroughHeadphones) {
             false
-        } else _root_ide_package_.org.oscar.kb.latin.utils.InputTypeUtils.isPasswordInputType(editorInfo.inputType)
+        } else InputTypeUtils.isPasswordInputType(editorInfo.inputType)
         // Don't speak if the IME is connected to a password field.
     }
 
@@ -98,9 +98,9 @@ class AccessibilityUtils private constructor() {
      *
      * @param suggestedWords the list of suggested auto-correction words
      */
-    fun setAutoCorrection(suggestedWords: _root_ide_package_.org.oscar.kb.latin.SuggestedWords) {
+    fun setAutoCorrection(suggestedWords: SuggestedWords) {
         if (suggestedWords.mWillAutoCorrect) {
-            mAutoCorrectionWord = suggestedWords.getWord(_root_ide_package_.org.oscar.kb.latin.SuggestedWords.INDEX_OF_AUTO_CORRECTION)
+            mAutoCorrectionWord = suggestedWords.getWord(SuggestedWords.INDEX_OF_AUTO_CORRECTION)
             val typedWordInfo = suggestedWords.mTypedWordInfo
             mTypedWord = typedWordInfo?.mWord
         } else {

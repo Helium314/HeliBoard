@@ -60,45 +60,45 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     // 2 for all colors
     private var moreColors: Int
         get() = prefs.getInt(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, isNight), 0)
+            Settings.getColorPref(
+                Settings.PREF_SHOW_MORE_COLORS, isNight), 0)
         set(value) { prefs.edit().putInt(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS,
+            Settings.getColorPref(
+                Settings.PREF_SHOW_MORE_COLORS,
                 isNight
             ), value).apply() }
 
-    private val prefs by lazy { _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(requireContext()) }
+    private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
 
     private val colorPrefsAndNames by lazy {
         listOf(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_BACKGROUND_SUFFIX to R.string.select_color_background,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_KEYS_SUFFIX to R.string.select_color_key_background,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX to R.string.select_color_functional_key_background,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_SUFFIX to R.string.select_color_spacebar_background,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_TEXT_SUFFIX to R.string.select_color_key,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_HINT_TEXT_SUFFIX to R.string.select_color_key_hint,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX to R.string.select_color_suggestion,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX to R.string.select_color_spacebar_text,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_ACCENT_SUFFIX to R.string.select_color_accent,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_GESTURE_SUFFIX to R.string.select_color_gesture,
+            Settings.PREF_COLOR_BACKGROUND_SUFFIX to R.string.select_color_background,
+            Settings.PREF_COLOR_KEYS_SUFFIX to R.string.select_color_key_background,
+            Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX to R.string.select_color_functional_key_background,
+            Settings.PREF_COLOR_SPACEBAR_SUFFIX to R.string.select_color_spacebar_background,
+            Settings.PREF_COLOR_TEXT_SUFFIX to R.string.select_color_key,
+            Settings.PREF_COLOR_HINT_TEXT_SUFFIX to R.string.select_color_key_hint,
+            Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX to R.string.select_color_suggestion,
+            Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX to R.string.select_color_spacebar_text,
+            Settings.PREF_COLOR_ACCENT_SUFFIX to R.string.select_color_accent,
+            Settings.PREF_COLOR_GESTURE_SUFFIX to R.string.select_color_gesture,
         ).map { it.first to requireContext().getString(it.second) }
     }
 
     private val colorPrefsToHideInitially by lazy {
         listOf(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_GESTURE_SUFFIX
+            Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX,
+            Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX,
+            Settings.PREF_COLOR_GESTURE_SUFFIX
         ) +
-            if (prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_KEY_BORDERS, false)) listOf(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_SUFFIX)
-            else listOf(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
+            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(
+                Settings.PREF_COLOR_SPACEBAR_SUFFIX)
+            else listOf(Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX)
     }
 
     override fun onResume() {
         super.onResume()
-        if (isNight != _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.isNight(requireContext().resources)) {
+        if (isNight != ResourceUtils.isNight(requireContext().resources)) {
             // reload to get the right configuration
             forceOppositeTheme = true
             reloadKeyboard(false)
@@ -114,9 +114,9 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     override fun onPause() {
         super.onPause()
         forceOppositeTheme = false
-        if (isNight != _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.isNight(requireContext().resources))
+        if (isNight != ResourceUtils.isNight(requireContext().resources))
             // reload again so the correct configuration is applied
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         activity?.removeMenuProvider(this)
     }
 
@@ -134,7 +134,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         if (menuItem.itemId in 0..2) {
             if (moreColors == menuItem.itemId) return true
             if (moreColors == 2 || menuItem.itemId == 2) {
-                _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
                 reloadKeyboard(false)
             }
             moreColors = menuItem.itemId
@@ -178,7 +178,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             csb.colorText.text = type.name
 
             val clickListener = View.OnClickListener {
-                val hidden = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
                 val picker = ColorPickerView(requireContext())
                 picker.showAlpha(type != ColorType.MAIN_BACKGROUND) // background behind background looks broken and sometimes is dark, sometimes light
                 picker.showHex(true)
@@ -215,16 +215,16 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
 
     private fun showMainColors() {
         binding.info.isGone = true
-        val prefPrefix = if (isNight) _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_PREFIX
+        val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_PREFIX
         colorPrefsAndNames.forEachIndexed { index, (colorPref, colorPrefName) ->
-            val autoColor = prefs.getBoolean(prefPrefix + colorPref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
+            val autoColor = prefs.getBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true)
             if (moreColors == 0 && colorPref in colorPrefsToHideInitially && autoColor)
                 return@forEachIndexed
             val csb = ColorSettingBinding.inflate(layoutInflater, binding.colorSettingsContainer, true)
             csb.root.tag = index
             csb.colorSwitch.isChecked = !autoColor
             csb.colorPreview.setColorFilter(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(
+                Settings.readUserColor(
                     prefs,
                     requireContext(),
                     colorPref,
@@ -236,8 +236,8 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 csb.colorSummary.setText(R.string.auto_user_color)
             }
             val switchListener = CompoundButton.OnCheckedChangeListener { _, b ->
-                val hidden = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
-                prefs.edit { putBoolean(prefPrefix + colorPref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX, !b) }
+                val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, !b) }
                 if (b) csb.colorSummary.text = ""
                 else csb.colorSummary.setText(R.string.auto_user_color)
                 reloadKeyboard(hidden)
@@ -246,11 +246,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             csb.colorSwitch.setOnCheckedChangeListener(switchListener)
 
             val clickListener = View.OnClickListener {
-                val hidden = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
+                val hidden = RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
                 val initialColor =
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, requireContext(), colorPref, isNight)
+                    Settings.readUserColor(prefs, requireContext(), colorPref, isNight)
                 val picker = ColorPickerView(requireContext())
-                picker.showAlpha(colorPref != _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_BACKGROUND_SUFFIX) // background behind background looks broken and sometimes is dark, sometimes light
+                picker.showAlpha(colorPref != Settings.PREF_COLOR_BACKGROUND_SUFFIX) // background behind background looks broken and sometimes is dark, sometimes light
                 picker.showHex(true)
                 picker.showPreview(true)
                 picker.color = initialColor
@@ -278,7 +278,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         prefs.edit { putInt(prefPrefix + colorPref, picker.color) }
                         if (!csb.colorSwitch.isChecked) {
-                            prefs.edit { putBoolean(prefPrefix + colorPref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
+                            prefs.edit { putBoolean(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, false) }
                             csb.colorSwitch.setOnCheckedChangeListener(null)
                             csb.colorSwitch.isChecked = true
                             csb.colorSummary.text = ""
@@ -293,7 +293,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
                 if (csb.colorSwitch.isChecked) {
                     // Reset the color and the color picker to their initial state
                     builder.setNeutralButton(R.string.button_default) { _, _ ->
-                        prefs.edit { remove(prefPrefix + colorPref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX) }
+                        prefs.edit { remove(prefPrefix + colorPref + Settings.PREF_AUTO_USER_COLOR_SUFFIX) }
                         csb.colorSwitch.isChecked = false
                     }
                 }
@@ -316,7 +316,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     private fun updateMainColorPreviews() {
         binding.colorSettingsContainer.forEach { view ->
             val index = view.tag as? Int ?: return@forEach
-            val color = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(
+            val color = Settings.readUserColor(
                 prefs,
                 requireContext(),
                 colorPrefsAndNames[index].first,
@@ -336,14 +336,14 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     }
 
     private fun reloadKeyboard(show: Boolean) {
-        _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.getBackgroundExecutor(
-            _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.KEYBOARD).execute {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        ExecutorUtils.getBackgroundExecutor(
+            ExecutorUtils.KEYBOARD).execute {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
             if (!show) return@execute
             // for some reason showing again does not work when running with executor
             // but when running without it's noticeably slow, and sometimes produces glitches
             Thread.sleep(100)
-            _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
+            RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
         }
     }
 
@@ -379,7 +379,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         layout.addView(TextView(requireContext()).apply { setText(R.string.load_will_overwrite) })
         val et = EditText(requireContext())
         layout.addView(et)
-        val padding = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.toPx(8, resources)
+        val padding = ResourceUtils.toPx(8, resources)
         layout.setPadding(3 * padding, padding, padding, padding)
         val d = AlertDialog.Builder(requireContext())
             .setTitle(R.string.load)
@@ -409,11 +409,11 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             val that = Json.decodeFromString<SaveThoseColors>(colorString)
             // save mode to moreColors and PREF_SHOW_MORE_COLORS (with night dependence!)
             that.colors.forEach {
-                val pref = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(it.key, isNight)
+                val pref = Settings.getColorPref(it.key, isNight)
                 if (it.value.first == null)
                     prefs.edit { remove(pref) }
                 else prefs.edit { putInt(pref, it.value.first!!) }
-                prefs.edit { putBoolean(pref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX, it.value.second) }
+                prefs.edit { putBoolean(pref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, it.value.second) }
             }
             moreColors = that.moreColors
         } catch (e: SerializationException) {
@@ -432,7 +432,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             }
         }
         updateColorPrefs()
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     private fun getColorString(): String {
@@ -440,9 +440,9 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             return Json.encodeToString(readAllColorsMap(prefs, isNight).map { it.key.name to it.value }.toMap())
         // read the actual prefs!
         val colors = colorPrefsAndNames.associate {
-            val pref = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(it.first, isNight)
+            val pref = Settings.getColorPref(it.first, isNight)
             val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
-            it.first to (color to prefs.getBoolean(pref + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_USER_COLOR_SUFFIX, true))
+            it.first to (color to prefs.getBoolean(pref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true))
         }
         return Json.encodeToString(SaveThoseColors(moreColors, colors))
     }

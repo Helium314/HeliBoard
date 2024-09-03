@@ -58,7 +58,7 @@ class HardwareKeyboardEventDecoder(val mDeviceId: Int) : HardwareEventDecoder {
                         KeyCode.SHIFT_ENTER, 0, null, isKeyRepeat
                     )
                 } else Event.createHardwareKeypressEvent(
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_ENTER,
+                    Constants.CODE_ENTER,
                     keyCode,
                     metaState,
                     null,

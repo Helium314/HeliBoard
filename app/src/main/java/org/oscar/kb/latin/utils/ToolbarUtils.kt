@@ -25,13 +25,13 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
     button.isActivated = !when (key) {
-        INCOGNITO -> _root_ide_package_.org.oscar.kb.latin.settings.Settings.readAlwaysIncognitoMode(
-            _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(
+            DeviceProtectedUtils.getSharedPreferences(
                 context
             )
         )
-        ONE_HANDED -> _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mOneHandedModeEnabled
-        AUTOCORRECT -> _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
+        ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
+        AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
     button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key))?.mutate())
@@ -50,7 +50,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = when (key) {
     COPY -> KeyCode.CLIPBOARD_COPY
     CUT -> KeyCode.CLIPBOARD_CUT
     PASTE -> KeyCode.CLIPBOARD_PASTE
-    ONE_HANDED -> if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
     INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
     AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
@@ -157,9 +157,9 @@ val defaultClipboardToolbarPref by lazy {
 
 /** add missing keys, typically because a new key has been added */
 fun upgradeToolbarPrefs(prefs: SharedPreferences) {
-    upgradeToolbarPref(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
-    upgradeToolbarPref(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)
-    upgradeToolbarPref(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
+    upgradeToolbarPref(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
+    upgradeToolbarPref(prefs, Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)
+    upgradeToolbarPref(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
 }
 
 private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: String) {
@@ -183,31 +183,31 @@ private fun upgradeToolbarPref(prefs: SharedPreferences, pref: String, default: 
     prefs.edit { putString(pref, list.joinToString(";")) }
 }
 
-fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
+fun getEnabledToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)
 
-fun getPinnedToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)
+fun getPinnedToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)
 
-fun getEnabledClipboardToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
+fun getEnabledClipboardToolbarKeys(prefs: SharedPreferences) = getEnabledToolbarKeys(prefs, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)
 
 fun addPinnedKey(prefs: SharedPreferences, key: ToolbarKey) {
     // remove the existing version of this key and add the enabled one after the last currently enabled key
-    val string = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)!!
+    val string = prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)!!
     val keys = string.split(";").toMutableList()
     keys.removeAll { it.startsWith(key.name + ",") }
     val lastEnabledIndex = keys.indexOfLast { it.endsWith("true") }
     keys.add(lastEnabledIndex + 1, key.name + ",true")
-    prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, keys.joinToString(";")) }
+    prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, keys.joinToString(";")) }
 }
 
 fun removePinnedKey(prefs: SharedPreferences, key: ToolbarKey) {
     // just set it to disabled
-    val string = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)!!
+    val string = prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref)!!
     val result = string.split(";").joinToString(";") {
         if (it.startsWith(key.name + ","))
             key.name + ",false"
         else it
     }
-    prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, result) }
+    prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, result) }
 }
 
 private fun getEnabledToolbarKeys(prefs: SharedPreferences, pref: String, default: String): List<ToolbarKey> {

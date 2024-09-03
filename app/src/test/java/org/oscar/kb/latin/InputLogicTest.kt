@@ -9,25 +9,34 @@ import android.text.InputType
 import android.view.KeyEvent
 import android.view.inputmethod.*
 import androidx.core.content.edit
+import org.oscar.kb.BuildConfig
 import org.oscar.kb.ShadowInputMethodManager2
 import org.oscar.kb.ShadowLocaleManagerCompat
+import org.oscar.kb.event.Event
+import org.oscar.kb.keyboard.KeyboardSwitcher
+import org.oscar.kb.keyboard.MainKeyboardView
+import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
+import org.oscar.kb.latin.ShadowFacilitator2.Companion.lastAddedWord
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo
+import org.oscar.kb.latin.common.Constants
+import org.oscar.kb.latin.common.StringUtils
+import org.oscar.kb.latin.inputlogic.InputLogic
+import org.oscar.kb.latin.inputlogic.SpaceState
+import org.oscar.kb.latin.settings.Settings
+import org.oscar.kb.latin.utils.DeviceProtectedUtils
+import org.oscar.kb.latin.utils.ScriptUtils
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
-import org.oscar.kb.BuildConfig
-import org.oscar.kb.event.Event
-import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
-import org.oscar.kb.latin.ShadowFacilitator2.Companion.lastAddedWord
-import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo
-import org.oscar.kb.latin.utils.ScriptUtils
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
+import java.util.*
 import kotlin.math.min
 
 @RunWith(RobolectricTestRunner::class)
@@ -40,21 +49,21 @@ import kotlin.math.min
     ShadowFacilitator2::class,
 ])
 class InputLogicTest {
-    private lateinit var latinIME: _root_ide_package_.org.oscar.kb.latin.LatinIME
-    private val settingsValues get() = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current
+    private lateinit var latinIME: LatinIME
+    private val settingsValues get() = Settings.getInstance().current
     private val inputLogic get() = latinIME.mInputLogic
-    private val connection: _root_ide_package_.org.oscar.kb.latin.RichInputConnection get() = inputLogic.mConnection
-    private val composerReader = _root_ide_package_.org.oscar.kb.latin.inputlogic.InputLogic::class.java.getDeclaredField("mWordComposer").apply { isAccessible = true }
-    private val composer get() = composerReader.get(inputLogic) as _root_ide_package_.org.oscar.kb.latin.WordComposer
-    private val spaceStateReader = _root_ide_package_.org.oscar.kb.latin.inputlogic.InputLogic::class.java.getDeclaredField("mSpaceState").apply { isAccessible = true }
+    private val connection: RichInputConnection get() = inputLogic.mConnection
+    private val composerReader = InputLogic::class.java.getDeclaredField("mWordComposer").apply { isAccessible = true }
+    private val composer get() = composerReader.get(inputLogic) as WordComposer
+    private val spaceStateReader = InputLogic::class.java.getDeclaredField("mSpaceState").apply { isAccessible = true }
     private val spaceState get() = spaceStateReader.get(inputLogic) as Int
-    private val beforeComposingReader = _root_ide_package_.org.oscar.kb.latin.RichInputConnection::class.java.getDeclaredField("mCommittedTextBeforeComposingText").apply { isAccessible = true }
+    private val beforeComposingReader = RichInputConnection::class.java.getDeclaredField("mCommittedTextBeforeComposingText").apply { isAccessible = true }
     private val connectionTextBeforeComposingText get() = (beforeComposingReader.get(connection) as CharSequence).toString()
-    private val composingReader = _root_ide_package_.org.oscar.kb.latin.RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
+    private val composingReader = RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
     private val connectionComposingText get() = (composingReader.get(connection) as CharSequence).toString()
 
     @Before fun setUp() {
-        latinIME = Robolectric.setupService(_root_ide_package_.org.oscar.kb.latin.LatinIME::class.java)
+        latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
@@ -156,8 +165,8 @@ class InputLogicTest {
         input('.')
         input('a')
         assertEquals("hello.a", textBeforeCursor)
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello")
         input('.')
         input('a')
@@ -172,8 +181,8 @@ class InputLogicTest {
         input('a')
         assertEquals("hello.a", textBeforeCursor)
         assertEquals("hello.a there", text)
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello there")
         setCursorPosition(5) // after hello
         input('.')
@@ -184,8 +193,8 @@ class InputLogicTest {
 
     @Test fun noAutospaceInUrlField() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("example.net")
         assertEquals("example. net", text)
         lastAddedWord = ""
@@ -199,8 +208,8 @@ class InputLogicTest {
 
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("http://example.net")
         assertEquals("http://example.net", text)
         assertEquals("http", lastAddedWord)
@@ -209,16 +218,16 @@ class InputLogicTest {
 
     @Test fun noAutospaceForDetectedEmail() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("mail@example.com")
         assertEquals("mail@example.com", text)
         assertEquals("mail@example", lastAddedWord) // todo: do we want this? not really nice, but don't want to be too aggressive with URL detection disabled
         assertEquals("com", composingText) // todo: maybe this should still see the whole address as a single word? or don't be too aggressive?
         setText("")
         lastAddedWord = ""
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("mail@example.com")
         assertEquals("", lastAddedWord)
         assertEquals("mail@example.com", composingText)
@@ -226,28 +235,28 @@ class InputLogicTest {
 
     @Test fun urlDetectionThings() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("...h")
         assertEquals("...h", text)
         assertEquals("h", composingText)
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("bla..")
         assertEquals("bla..", text)
         assertEquals("", composingText)
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("bla.c")
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         input("bla")
         input('.')
         functionalKeyPress(KeyCode.SHIFT) // should remove the phantom space (in addition to normal effect)
@@ -258,8 +267,8 @@ class InputLogicTest {
 
     @Test fun stripSeparatorsBeforeAddingToHistoryWithURLDetection() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("example.com.")
         assertEquals("example.com.", composingText)
         input(' ')
@@ -268,8 +277,8 @@ class InputLogicTest {
 
     @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("bla..")
         assertEquals("", composingText)
         assertEquals("bla..", text)
@@ -288,8 +297,8 @@ class InputLogicTest {
         input('a')
         input('b')
         assertEquals("", composingText)
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         input('.')
         input('c')
         assertEquals("", composingText)
@@ -304,8 +313,8 @@ class InputLogicTest {
 
     @Test fun `select whole thing except http(s) as composing word if URL detection enabled and selecting`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setText("http://example.com")
         setCursorPosition(13) // between l and e
         assertEquals("example.com", composingText)
@@ -316,16 +325,16 @@ class InputLogicTest {
 
     @Test fun `select whole thing except http(s) as composing word if URL detection enabled and typing`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("http://example.com")
         assertEquals("example.com", composingText)
     }
 
     @Test fun `don't add partial URL to history`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setText("http:/") // just so lastAddedWord isn't set to http
         chainInput("/bla.com")
         assertEquals("", lastAddedWord)
@@ -333,8 +342,8 @@ class InputLogicTest {
 
     @Test fun urlProperlySelected() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
@@ -350,8 +359,8 @@ class InputLogicTest {
 
     @Test fun urlProperlySelectedWhenNotDeletingFullTld() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
         functionalKeyPress(KeyCode.DELETE)
@@ -366,8 +375,8 @@ class InputLogicTest {
 
     @Test fun dontCommitPartialUrlBeforeFirstPeriod() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         // type http://bla. -> bla not selected, but clearly url, also means http://bla is committed which we probably don't want
         chainInput("http://bla.")
         assertEquals("bla.", composingText)
@@ -386,8 +395,8 @@ class InputLogicTest {
 
     @Test fun `intermediate commit in text field without protocol and with URL detection`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("bla.com/img.jpg")
         assertEquals("bla", lastAddedWord)
         assertEquals("bla.com/img.jpg", composingText)
@@ -395,8 +404,8 @@ class InputLogicTest {
 
     @Test fun `only protocol commit in text field with protocol and URL detection`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("http://bla.com/img.jpg")
         assertEquals("http", lastAddedWord)
         assertEquals("bla.com/img.jpg", composingText)
@@ -413,8 +422,8 @@ class InputLogicTest {
 
     @Test fun `no intermediate commit in URL field with protocol and URL detection`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("http://bla.com/img.jpg")
         assertEquals("http", lastAddedWord) // todo: somehow avoid?
@@ -433,8 +442,8 @@ class InputLogicTest {
 
     @Test fun `no intermediate commit in URL field without protocol and with URL detection`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("bla.com/img.jpg")
         assertEquals("", lastAddedWord)
@@ -445,8 +454,8 @@ class InputLogicTest {
     @Test fun `don't accidentally detect some other text fields as URI`() {
         // see comment in InputLogic.textBeforeCursorMayBeUrlOrSimilar
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE)
         chainInput("Hey,why")
         assertEquals("Hey, why", text)
@@ -460,8 +469,8 @@ class InputLogicTest {
         assertEquals("", composingText)
         // then with URL detection
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         chainInput("15:50-17")
         assertEquals("15:50-17", text)
         assertEquals("", composingText)
@@ -477,8 +486,8 @@ class InputLogicTest {
 
     @Test fun `autospace works in URL field when input isn't URL`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         pickSuggestion("this")
         input('b')
@@ -490,8 +499,8 @@ class InputLogicTest {
     // https://github.com/Helium314/HeliBoard/issues/229
     @Test fun `autospace works in URL field when input isn't URL, also for multiple suggestions`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         pickSuggestion("this")
         pickSuggestion("is")
@@ -508,7 +517,7 @@ class InputLogicTest {
         reset()
         chainInput("hello ")
         input(0x1F36D)
-        assertEquals(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
+        assertEquals(StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
         reset()
         chainInput("hello ")
         input("🤗")
@@ -530,8 +539,8 @@ class InputLogicTest {
         reset()
         pickSuggestion("hi")
         input(0x1F36D)
-        assertEquals(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
-        assertEquals("hi ${_root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(0x1F36D)}", text)
+        assertEquals(StringUtils.newSingleCodePointString(0x1F36D), lastAddedWord)
+        assertEquals("hi ${StringUtils.newSingleCodePointString(0x1F36D)}", text)
     }
 
     // https://github.com/Helium314/HeliBoard/issues/230
@@ -548,8 +557,8 @@ class InputLogicTest {
 
     @Test fun `autospace works in URL field when starting with quotes`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_URL_DETECTION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         input("\"")
         pickSuggestion("this")
@@ -573,24 +582,24 @@ class InputLogicTest {
         assertEquals("\"\"\"", text)
 
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"\"\"")
         assertEquals("\"\"\"", text)
     }
 
     @Test fun `autospace still happens after "`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\"you")
         assertEquals("\"hello\" you", text)
     }
 
     @Test fun `autospace still happens after " if next word is in quotes`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\"\"you\"")
         assertEquals("\"hello\" \"you\"", text)
     }
@@ -599,23 +608,23 @@ class InputLogicTest {
         reset()
         input('"')
         pickSuggestion("hello")
-        assertEquals(spaceState, _root_ide_package_.org.oscar.kb.latin.inputlogic.SpaceState.PHANTOM) // picking a suggestion sets phantom space state
+        assertEquals(spaceState, SpaceState.PHANTOM) // picking a suggestion sets phantom space state
         chainInput("\"you")
         assertEquals("\"hello\" you", text)
     }
 
     @Test fun `autospace still happens after " if nex word is in " and after comma`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\",\"you\"")
         assertEquals("\"hello\", \"you\"", text)
     }
 
     @Test fun `autospace in json editor`() {
         reset()
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(
+            Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("{\"label\":\"")
         assertEquals("{\"label\": \"", text)
         input('c')
@@ -634,7 +643,7 @@ class InputLogicTest {
         lastAddedWord = ""
 
         // reset settings
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME).edit { clear() }
+        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { clear() }
 
         setText("") // (re)sets selection and composing word
     }
@@ -647,14 +656,14 @@ class InputLogicTest {
         require(codePoint > 0) { "not a codePoint: $codePoint" }
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
-        val insert = _root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(codePoint)
-        val phantomSpaceToInsert = if (spaceState == _root_ide_package_.org.oscar.kb.latin.inputlogic.SpaceState.PHANTOM) " " else ""
+        val insert = StringUtils.newSingleCodePointString(codePoint)
+        val phantomSpaceToInsert = if (spaceState == SpaceState.PHANTOM) " " else ""
 
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
         if (currentScript != ScriptUtils.SCRIPT_HANGUL // check fails if hangul combiner merges symbols
-            && !(codePoint == _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
+            && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
             ) {
             if (phantomSpaceToInsert.isEmpty())
                 assertEquals(oldBefore + insert, textBeforeCursor)
@@ -677,7 +686,7 @@ class InputLogicTest {
     private fun input(insert: String) {
         val oldBefore = textBeforeCursor
         val oldAfter = textAfterCursor
-        val phantomSpaceToInsert = if (spaceState == _root_ide_package_.org.oscar.kb.latin.inputlogic.SpaceState.PHANTOM) " " else ""
+        val phantomSpaceToInsert = if (spaceState == SpaceState.PHANTOM) " " else ""
 
         latinIME.onTextInput(insert)
         handleMessages()
@@ -960,7 +969,7 @@ private val ic = object : InputConnection {
             KeyEvent.KEYCODE_ENTER -> "\n"
             KeyEvent.KEYCODE_DEL -> null
             KeyEvent.KEYCODE_UNKNOWN -> p0.characters
-            else -> _root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(p0.unicodeChar)
+            else -> StringUtils.newSingleCodePointString(p0.unicodeChar)
         }
         if (textToAdd != null) {
             text = text.substring(0, selectionStart) + textToAdd + text.substring(selectionEnd)
@@ -1026,15 +1035,15 @@ class ShadowHandler {
     }
 }
 
-@Implements(_root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher::class)
+@Implements(KeyboardSwitcher::class)
 class ShadowKeyboardSwitcher {
     @Implementation
     // basically only needed for null check
-    fun getMainKeyboardView(): _root_ide_package_.org.oscar.kb.keyboard.MainKeyboardView = Mockito.mock(
-        _root_ide_package_.org.oscar.kb.keyboard.MainKeyboardView::class.java)
+    fun getMainKeyboardView(): MainKeyboardView = Mockito.mock(
+        MainKeyboardView::class.java)
     @Implementation
     // only affects view
-    fun setKeyboard(keyboardId: Int, toggleState: _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.KeyboardSwitchState) = Unit
+    fun setKeyboard(keyboardId: Int, toggleState: KeyboardSwitcher.KeyboardSwitchState) = Unit
     @Implementation
     // only affects view
     fun setOneHandedModeEnabled(enabled: Boolean) = Unit
@@ -1047,7 +1056,7 @@ class ShadowKeyboardSwitcher {
 class ShadowFacilitator2 {
     @Implementation
     fun addToUserHistory(suggestion: String, wasAutoCapitalized: Boolean,
-                         ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext, timeStampInSeconds: Long,
+                         ngramContext: NgramContext, timeStampInSeconds: Long,
                          blockPotentiallyOffensive: Boolean) {
         lastAddedWord = suggestion
     }

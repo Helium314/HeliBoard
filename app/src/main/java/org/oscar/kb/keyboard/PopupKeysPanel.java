@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.oscar.kb.keyboard.emoji.OnKeyEventListener;
-import org.oscar.kb.keyboard.emoji.OnKeyEventListener;
 
 public interface PopupKeysPanel {
     interface Controller {

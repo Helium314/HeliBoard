@@ -29,8 +29,6 @@ import androidx.annotation.Nullable;
 
 import org.oscar.kb.keyboard.internal.KeyDrawParams;
 import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
-import org.oscar.kb.keyboard.internal.KeyDrawParams;
-import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
 import org.oscar.kb.R;
 import org.oscar.kb.latin.common.ColorType;

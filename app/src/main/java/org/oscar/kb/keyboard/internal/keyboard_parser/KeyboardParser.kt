@@ -32,12 +32,12 @@ import org.oscar.kb.latin.utils.sumOf
  * By default, all normal keys have the same width and flags, which may cause issues with the
  * requirements of certain non-latin languages.
  */
-class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, private val context: Context) {
+class KeyboardParser(private val params: KeyboardParams, private val context: Context) {
     private val defaultLabelFlags = when {
         params.mId.isAlphabetKeyboard -> params.mLocaleKeyboardInfos.labelFlags
         // reproduce the no-hints in symbol layouts
         // todo: add setting? or put it in TextKeyData to happen only if no label flags specified explicitly?
-        params.mId.isAlphaOrSymbolKeyboard -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_DISABLE_HINT_LABEL
+        params.mId.isAlphaOrSymbolKeyboard -> Key.LABEL_FLAGS_DISABLE_HINT_LABEL
         else -> 0
     }
 
@@ -57,7 +57,7 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
 
     private fun createRows(baseKeys: MutableList<MutableList<KeyData>>): ArrayList<ArrayList<KeyParams>> {
         // add padding for number layouts in landscape mode (maybe do it some other way later)
-        if (params.mId.isNumberLayout && params.mId.mElementId != _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_NUMPAD
+        if (params.mId.isNumberLayout && params.mId.mElementId != KeyboardId.ELEMENT_NUMPAD
                 && context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             params.mLeftPadding = (params.mOccupiedWidth * 0.1f).toInt()
             params.mRightPadding = (params.mOccupiedWidth * 0.1f).toInt()
@@ -69,7 +69,7 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
             addSymbolPopupKeys(baseKeys)
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
             baseKeys.add(0, params.mLocaleKeyboardInfos.getNumberRow()
-                .mapTo(mutableListOf()) { it.copy(newLabelFlags = _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+                .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
 
         val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
@@ -85,7 +85,7 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
 
         val functionalKeys = mutableListOf<Pair<List<KeyParams>, List<KeyParams>>>()
         val baseKeyParams = baseKeys.mapIndexed { i, it ->
-            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet) {
+            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && Settings.getInstance().isTablet) {
                 // add bottom row extra keys
                 // todo (later): this can make very customized layouts look awkward
                 //  decide when to (not) add it
@@ -103,7 +103,7 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
 
             row.map { key ->
                 val extraFlags = if (key.label.length > 2 && key.label.codePointCount(0, key.label.length) > 2 && !isEmoji(key.label))
-                        _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE
+                        Key.LABEL_FLAGS_AUTO_X_SCALE
                     else 0
                 if (DebugFlags.DEBUG_ENABLED)
                     Log.d(TAG, "adding key ${key.label}, ${key.code}")
@@ -171,12 +171,12 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
             || lastNormalRow.any { it.isSpacer } || rowAboveLast.any { it.isSpacer } // annoying to deal with, and probably no resize wanted anyway
             || lastNormalRow.any { it.mWidth != lastNormalRowKeyWidth } || rowAboveLast.any { it.mWidth != rowAboveLastNormalRowKeyWidth })
             return keysInRows
-        val numberOfKeysInLast = lastNormalRow.count { it.mBackgroundType == _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_NORMAL }
+        val numberOfKeysInLast = lastNormalRow.count { it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL }
         val widthBefore = numberOfKeysInLast * lastNormalRowKeyWidth
         val widthAfter = numberOfKeysInLast * rowAboveLastNormalRowKeyWidth
         val spacerWidth = (widthBefore - widthAfter) / 2
         // resize keys
-        lastNormalRow.forEach { if (it.mBackgroundType == _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_NORMAL) it.mWidth = rowAboveLastNormalRowKeyWidth }
+        lastNormalRow.forEach { if (it.mBackgroundType == Key.BACKGROUND_TYPE_NORMAL) it.mWidth = rowAboveLastNormalRowKeyWidth }
         // add spacers
         val lastNormalFullRow = keysInRows[keysInRows.lastIndex - 1]
         lastNormalFullRow.add(lastNormalFullRow.indexOfFirst { it == lastNormalRow.first() }, KeyParams.newSpacer(params, spacerWidth))
@@ -230,7 +230,7 @@ class KeyboardParser(private val params: _root_ide_package_.org.oscar.kb.keyboar
     }
 
     private fun addNumberRowOrPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
-        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS) {
+        if (!params.mId.mNumberRowEnabled && params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS) {
             // replace first symbols row with number row, but use the labels as popupKeys
             val numberRow = params.mLocaleKeyboardInfos.getNumberRow()
             numberRow.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }

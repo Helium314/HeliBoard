@@ -1,6 +1,6 @@
 
 
-package org.oscar.kb.accessibility
+package org.oscar.kb.AIEngine
 
 /**
  * A sealed hierarchy describing the state of the text generation.

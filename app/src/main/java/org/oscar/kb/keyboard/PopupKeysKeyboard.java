@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 
 import org.oscar.kb.keyboard.internal.KeyboardBuilder;
 import org.oscar.kb.keyboard.internal.KeyboardParams;
-import org.oscar.kb.keyboard.internal.KeyboardBuilder;
-import org.oscar.kb.keyboard.internal.KeyboardParams;
 import org.oscar.kb.keyboard.internal.PopupKeySpec;
 import org.oscar.kb.R;
 import org.oscar.kb.latin.common.StringUtils;

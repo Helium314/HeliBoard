@@ -28,7 +28,6 @@ import org.oscar.kb.latin.RichInputMethodManager;
 import org.oscar.kb.latin.common.Colors;
 import org.oscar.kb.latin.utils.CustomLayoutUtilsKt;
 
-import org.oscar.kb.latin.permissions.PermissionsUtil;
 import org.oscar.kb.latin.utils.InputTypeUtils;
 import org.oscar.kb.latin.utils.Log;
 import org.oscar.kb.latin.utils.PopupKeysUtilsKt;

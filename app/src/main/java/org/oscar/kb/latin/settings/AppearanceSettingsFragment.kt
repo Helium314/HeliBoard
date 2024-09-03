@@ -33,23 +33,23 @@ import java.util.*
 /**
  * "Appearance" settings sub screen.
  */
-class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFragment() {
+class AppearanceSettingsFragment : SubScreenFragment() {
     private var needsReload = false
 
     private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_STYLE)!! }
+        Settings.PREF_THEME_STYLE)!! }
     private val colorsPref: ListPreference by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS)!! }
+        Settings.PREF_THEME_COLORS)!! }
     private val colorsNightPref: ListPreference? by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS_NIGHT) }
+        Settings.PREF_THEME_COLORS_NIGHT) }
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_DAY_NIGHT) }
+        Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
     private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+        Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
     private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SPLIT_SPACER_SCALE) }
+        Settings.PREF_SPLIT_SPACER_SCALE) }
 
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -69,12 +69,12 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
 
         removeUnsuitablePreferences()
         setupTheme()
-        setColorPrefs(sharedPreferences.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
+        setColorPrefs(sharedPreferences.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)!!)
 
-        setupScalePrefs(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_KEYBOARD_HEIGHT_SCALE, _root_ide_package_.org.oscar.kb.latin.settings.SettingsValues.DEFAULT_SIZE_SCALE)
-        setupScalePrefs(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_BOTTOM_PADDING_SCALE, _root_ide_package_.org.oscar.kb.latin.settings.SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         if (splitScalePref != null) {
-            setupScalePrefs(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SPLIT_SPACER_SCALE, _root_ide_package_.org.oscar.kb.latin.settings.SettingsValues.DEFAULT_SIZE_SCALE)
+            setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
             splitScalePref?.isVisible = splitPref?.isChecked == true
             splitPref?.setOnPreferenceChangeListener { _, value ->
                 splitScalePref?.isVisible = value as Boolean
@@ -87,7 +87,7 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
     override fun onPause() {
         super.onPause()
         if (needsReload)
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         needsReload = false
     }
 
@@ -98,16 +98,16 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
 
     private fun removeUnsuitablePreferences() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_DAY_NIGHT)
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS_NIGHT)
+            removePreference(Settings.PREF_THEME_DAY_NIGHT)
+            removePreference(Settings.PREF_THEME_COLORS_NIGHT)
         } else {
             // on P there is experimental support for night mode, exposed by some roms like LineageOS
             // try to detect this using UI_MODE_NIGHT_UNDEFINED, but actually the system could always report day too?
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
                 && (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_UNDEFINED
             ) {
-                removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_DAY_NIGHT)
-                removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS_NIGHT)
+                removePreference(Settings.PREF_THEME_DAY_NIGHT)
+                removePreference(Settings.PREF_THEME_COLORS_NIGHT)
                 removePreference("theme_select_colors_night")
             }
         }
@@ -115,8 +115,8 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
         val widthDp = TypedValueCompat.pxToDp(metrics.widthPixels.toFloat(), metrics)
         val heightDp = TypedValueCompat.pxToDp(metrics.heightPixels.toFloat(), metrics)
         if ((min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLE_SPLIT_KEYBOARD)
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SPLIT_SPACER_SCALE)
+            removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
+            removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
         }
     }
 
@@ -177,7 +177,7 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
     }
 
     private fun onClickLoadImage(): Boolean {
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.readDayNightPref(sharedPreferences, resources)) {
+        if (Settings.readDayNightPref(sharedPreferences, resources)) {
             AlertDialog.Builder(requireContext())
                 .setMessage(R.string.day_or_night_image)
                 .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
@@ -191,7 +191,7 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
     }
 
     private fun customImageDialog(night: Boolean) {
-        val imageFile = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getCustomBackgroundFile(requireContext(), night)
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
         val builder = AlertDialog.Builder(requireContext())
             .setMessage(R.string.customize_background_image)
             .setPositiveButton(R.string.button_load_custom) { _, _ ->
@@ -205,30 +205,30 @@ class AppearanceSettingsFragment : _root_ide_package_.org.oscar.kb.latin.setting
         if (imageFile.exists()) {
             builder.setNeutralButton(R.string.delete) { _, _ ->
                 imageFile.delete()
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.clearCachedBackgroundImages()
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+                Settings.clearCachedBackgroundImages()
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
             }
         }
         builder.show()
     }
 
     private fun loadImage(uri: Uri, night: Boolean) {
-        val imageFile = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getCustomBackgroundFile(requireContext(), night)
-        _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+        FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
         try {
             BitmapFactory.decodeFile(imageFile.absolutePath)
         } catch (_: Exception) {
             infoDialog(requireContext(), R.string.file_read_error)
             imageFile.delete()
         }
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.clearCachedBackgroundImages()
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        Settings.clearCachedBackgroundImages()
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     private fun setupScalePrefs(prefKey: String, defaultValue: Float) {
         val prefs = sharedPreferences
-        val pref = findPreference(prefKey) as? _root_ide_package_.org.oscar.kb.latin.settings.SeekBarDialogPreference
-        pref?.setInterface(object : _root_ide_package_.org.oscar.kb.latin.settings.SeekBarDialogPreference.ValueProxy {
+        val pref = findPreference(prefKey) as? SeekBarDialogPreference
+        pref?.setInterface(object : SeekBarDialogPreference.ValueProxy {
 
             private fun getValueFromPercentage(percentage: Int) =  percentage / PERCENTAGE_FLOAT
 

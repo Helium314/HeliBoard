@@ -27,25 +27,25 @@ import java.util.Locale
  * @param locale the locale for which to create the dictionary
  * @return an initialized instance of DictionaryCollection
  */
-fun createMainDictionary(context: Context, locale: Locale): _root_ide_package_.org.oscar.kb.latin.DictionaryCollection {
-    val cacheDir = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context)
-    val dictList = LinkedList<_root_ide_package_.org.oscar.kb.latin.Dictionary>()
+fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection {
+    val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context)
+    val dictList = LinkedList<Dictionary>()
     // get cached dict files
-    val (userDicts, extractedDicts) = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCachedDictsForLocale(locale, context)
+    val (userDicts, extractedDicts) = DictionaryInfoUtils.getCachedDictsForLocale(locale, context)
         .partition { it.name.endsWith(USER_DICTIONARY_SUFFIX) }
     // add user dicts to list
     userDicts.forEach { checkAndAddDictionaryToListIfNotExisting(it, dictList, locale) }
     // add extracted dicts to list (after userDicts, to skip extracted dicts of same type)
     extractedDicts.forEach { checkAndAddDictionaryToListIfNotExisting(it, dictList, locale) }
-    if (dictList.any { it.mDictType == _root_ide_package_.org.oscar.kb.latin.Dictionary.TYPE_MAIN })
-        return _root_ide_package_.org.oscar.kb.latin.DictionaryCollection(
+    if (dictList.any { it.mDictType == Dictionary.TYPE_MAIN })
+        return DictionaryCollection(
             Dictionary.TYPE_MAIN,
             locale,
             dictList
         )
 
     // no main dict found -> check assets
-    val assetsDicts = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getAssetsDictionaryList(context)
+    val assetsDicts = DictionaryInfoUtils.getAssetsDictionaryList(context)
     // file name is <type>_<language tag>.dict
     val dictsByType = assetsDicts?.groupBy { it.substringBefore("_") }
     // for each type find the best match
@@ -54,8 +54,8 @@ fun createMainDictionary(context: Context, locale: Locale): _root_ide_package_.o
             .substringBefore(".").constructLocale() } ?: return@forEach
         // extract dict and add extracted file
         val targetFile = File(cacheDir, "$dictType.dict")
-        _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyStreamToNewFile(
-            context.assets.open(_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.ASSETS_DICTIONARY_FOLDER + File.separator + bestMatch),
+        FileUtils.copyStreamToNewFile(
+            context.assets.open(DictionaryInfoUtils.ASSETS_DICTIONARY_FOLDER + File.separator + bestMatch),
             targetFile
         )
         checkAndAddDictionaryToListIfNotExisting(targetFile, dictList, locale)
@@ -63,7 +63,7 @@ fun createMainDictionary(context: Context, locale: Locale): _root_ide_package_.o
     // If the list is empty, that means we should not use any dictionary (for example, the user
     // explicitly disabled the main dictionary), so the following is okay. dictList is never
     // null, but if for some reason it is, DictionaryCollection handles it gracefully.
-    return _root_ide_package_.org.oscar.kb.latin.DictionaryCollection(
+    return DictionaryCollection(
         Dictionary.TYPE_MAIN,
         locale,
         dictList
@@ -75,12 +75,12 @@ fun createMainDictionary(context: Context, locale: Locale): _root_ide_package_.o
  * if [file] cannot be loaded it is deleted
  * if the dictionary type already exists in [dicts], the [file] is skipped
  */
-private fun checkAndAddDictionaryToListIfNotExisting(file: File, dicts: MutableList<_root_ide_package_.org.oscar.kb.latin.Dictionary>, locale: Locale) {
+private fun checkAndAddDictionaryToListIfNotExisting(file: File, dicts: MutableList<Dictionary>, locale: Locale) {
     if (!file.isFile) return
-    val header = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file) ?: return killDictionary(file)
+    val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file) ?: return killDictionary(file)
     val dictType = header.mIdString.split(":").first()
     if (dicts.any { it.mDictType == dictType }) return
-    val readOnlyBinaryDictionary = _root_ide_package_.org.oscar.kb.latin.ReadOnlyBinaryDictionary(
+    val readOnlyBinaryDictionary = ReadOnlyBinaryDictionary(
         file.absolutePath, 0, file.length(), false, locale, dictType
     )
 
@@ -88,7 +88,7 @@ private fun checkAndAddDictionaryToListIfNotExisting(file: File, dicts: MutableL
         if (locale.language == "ko") {
             // Use KoreanDictionary for Korean locale
             dicts.add(
-                _root_ide_package_.org.oscar.kb.latin.KoreanDictionary(
+                KoreanDictionary(
                     readOnlyBinaryDictionary
                 )
             )

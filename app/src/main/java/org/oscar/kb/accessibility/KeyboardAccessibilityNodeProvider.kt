@@ -33,7 +33,7 @@ import org.oscar.kb.latin.settings.Settings
  * virtual views, thus conveying their logical structure.
  *
  */
-class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.keyboard.KeyboardView>(
+class KeyboardAccessibilityNodeProvider<KV : KeyboardView>(
     /** The keyboard view to provide an accessibility node info.  */
     private val mKeyboardView: KV,
     /** The accessibility delegate.  */
@@ -45,24 +45,24 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
     /** Temporary rect used to calculate in-screen bounds.  */
     private val mTempBoundsInScreen = Rect()
     /** The parent view's cached on-screen location.  */
-    private val mParentLocation = _root_ide_package_.org.oscar.kb.latin.common.CoordinateUtils.newInstance()
+    private val mParentLocation = CoordinateUtils.newInstance()
     /** The virtual view identifier for the focused node.  */
     private var mAccessibilityFocusedView = UNDEFINED
     /** The virtual view identifier for the hovering node.  */
     private var mHoveringNodeId = UNDEFINED
     /** The current keyboard.  */
-    private var mKeyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard? = mKeyboardView.keyboard
+    private var mKeyboard: Keyboard? = mKeyboardView.keyboard
 
     /**
      * Sets the keyboard represented by this node provider.
      *
      * @param keyboard The keyboard that is being set to the keyboard view.
      */
-    fun setKeyboard(keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard?) {
+    fun setKeyboard(keyboard: Keyboard?) {
         mKeyboard = keyboard
     }
 
-    private fun getKeyOf(virtualViewId: Int): _root_ide_package_.org.oscar.kb.keyboard.Key? {
+    private fun getKeyOf(virtualViewId: Int): Key? {
         val keyboard = mKeyboard ?: return null
         val sortedKeys = keyboard.sortedKeys
         // Use a virtual view id as an index of the sorted keys list.
@@ -71,7 +71,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
         } else null
     }
 
-    private fun getVirtualViewIdOf(key: _root_ide_package_.org.oscar.kb.keyboard.Key): Int {
+    private fun getVirtualViewIdOf(key: Key): Int {
         val keyboard = mKeyboard ?: return View.NO_ID
         val sortedKeys = keyboard.sortedKeys
         val size = sortedKeys.size
@@ -92,7 +92,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
      * @return A populated [AccessibilityEvent] for the key.
      * @see AccessibilityEvent
      */
-    fun createAccessibilityEvent(key: _root_ide_package_.org.oscar.kb.keyboard.Key, eventType: Int): AccessibilityEvent {
+    fun createAccessibilityEvent(key: Key, eventType: Int): AccessibilityEvent {
         val virtualViewId = getVirtualViewIdOf(key)
         val keyDescription = getKeyDescription(key)
         val event = AccessibilityUtils.obtainEvent(eventType)
@@ -105,7 +105,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
         return event
     }
 
-    fun onHoverEnterTo(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    fun onHoverEnterTo(key: Key) {
         val id = getVirtualViewIdOf(key)
         if (id == View.NO_ID) {
             return
@@ -119,7 +119,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
         sendAccessibilityEventForKey(key, AccessibilityEvent.TYPE_VIEW_HOVER_ENTER)
     }
 
-    fun onHoverExitFrom(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    fun onHoverExitFrom(key: Key) {
         mHoveringNodeId = UNDEFINED
         // Invalidate the node info of the key to be able to revert the change we have done
         // in {@link #onHoverEnterTo(Key)}.
@@ -184,7 +184,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
         val boundsInParent = key.hitBox
         // Calculate the key's in-screen bounds.
         mTempBoundsInScreen.set(boundsInParent)
-        mTempBoundsInScreen.offset(_root_ide_package_.org.oscar.kb.latin.common.CoordinateUtils.x(mParentLocation), _root_ide_package_.org.oscar.kb.latin.common.CoordinateUtils.y(mParentLocation))
+        mTempBoundsInScreen.offset(CoordinateUtils.x(mParentLocation), _root_ide_package_.org.oscar.kb.latin.common.CoordinateUtils.y(mParentLocation))
         val boundsInScreen = mTempBoundsInScreen
         // Obtain and initialize an AccessibilityNodeInfo with information about the virtual view.
         val info = AccessibilityNodeInfoCompat.obtain()
@@ -226,7 +226,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
      * @param action The action to perform.
      * @return The result of performing the action, or false if the action is not supported.
      */
-    fun performActionForKey(key: _root_ide_package_.org.oscar.kb.keyboard.Key, action: Int): Boolean {
+    fun performActionForKey(key: Key, action: Int): Boolean {
         return when (action) {
             AccessibilityNodeInfoCompat.ACTION_ACCESSIBILITY_FOCUS -> {
                 mAccessibilityFocusedView = getVirtualViewIdOf(key)
@@ -258,7 +258,7 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
      * @param key The key that's sending the event.
      * @param eventType The type of event to send.
      */
-    fun sendAccessibilityEventForKey(key: _root_ide_package_.org.oscar.kb.keyboard.Key, eventType: Int) {
+    fun sendAccessibilityEventForKey(key: Key, eventType: Int) {
         val event = createAccessibilityEvent(key, eventType)
         mAccessibilityUtils.requestSendAccessibilityEvent(event)
     }
@@ -269,10 +269,10 @@ class KeyboardAccessibilityNodeProvider<KV : _root_ide_package_.org.oscar.kb.key
      * @param key The key to describe.
      * @return The context-specific description of the key.
      */
-    private fun getKeyDescription(key: _root_ide_package_.org.oscar.kb.keyboard.Key): String? {
+    private fun getKeyDescription(key: Key): String? {
         val editorInfo = mKeyboard?.mId?.mEditorInfo
         val shouldObscure = mAccessibilityUtils.shouldObscureInput(editorInfo)
-        val currentSettings = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current
+        val currentSettings = Settings.getInstance().current
         val keyCodeDescription = mKeyCodeDescriptionMapper.getDescriptionForKey(
                 mKeyboardView.context, mKeyboard, key, shouldObscure)
         return if (currentSettings.isWordSeparator(key.code)) {

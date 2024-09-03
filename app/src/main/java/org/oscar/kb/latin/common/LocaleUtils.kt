@@ -189,7 +189,7 @@ object LocaleUtils {
     @JvmStatic
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
-        if (languageTag == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
+        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
         if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq") {
             val resId = resources.getIdentifier(
                 "subtype_${languageTag.replace("-", "_")}",

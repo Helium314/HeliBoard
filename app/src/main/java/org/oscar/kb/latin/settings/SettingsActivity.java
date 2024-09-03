@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.oscar.kb.latin.permissions.PermissionsManager;
-import org.oscar.kb.latin.permissions.PermissionsManager;
 import org.oscar.kb.latin.utils.ActivityThemeUtils;
 import org.oscar.kb.latin.utils.NewDictionaryAdder;
 

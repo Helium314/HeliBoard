@@ -29,7 +29,7 @@ import java.util.*
  *  subtypes for system locales will be returned, or en-US if none found. */
 fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
     require(initialized)
-    if (prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_USE_SYSTEM_LOCALES, true))
+    if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
         return getDefaultEnabledSubtypes()
     if (fallback && enabledSubtypes.isEmpty())
         return getDefaultEnabledSubtypes()
@@ -44,7 +44,7 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
 fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
     val subtypes = resourceSubtypesByLocale.values.flatten()
     val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.getExtraValueOf(
-        _root_ide_package_.org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET)
+        Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET)
     if (name != null) return name
     return when (locale.script()) {
         ScriptUtils.SCRIPT_LATIN -> "qwerty"
@@ -61,18 +61,18 @@ fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
     val subtypeString = newSubtype.prefString()
-    val oldSubtypeStrings = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, "")!!.split(
+    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!.split(
         SUBTYPE_SEPARATOR
     )
     val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(
         SUBTYPE_SEPARATOR
     )
-    prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, newString) }
+    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
     if (newSubtype !in enabledSubtypes) {
         enabledSubtypes.add(newSubtype)
         enabledSubtypes.sortBy { it.locale().toLanguageTag() } // for consistent order
-        _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().refreshSubtypeCaches()
+        RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 }
 
@@ -81,36 +81,36 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     require(initialized)
     removeEnabledSubtype(prefs, subtype.prefString())
     enabledSubtypes.remove(subtype)
-    _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().refreshSubtypeCaches()
+    RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
 fun addAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(prefs, resources)
-    val additionalSubtypes = _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createAdditionalSubtypesArray(
+    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
+    val additionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(
         oldAdditionalSubtypesString
     ).toMutableSet()
     additionalSubtypes.add(subtype)
     val newAdditionalSubtypesString =
-        _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+        AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
+    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
 }
 
 fun removeAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(prefs, resources)
+    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
     val oldAdditionalSubtypes =
-        _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
+        AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
     val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
     val newAdditionalSubtypesString =
-        _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+        AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
+    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
 }
 
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
-    val localeAndLayout = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE, "")!!.toLocaleAndLayout()
-    val subtypes = if (prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
+    val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.toLocaleAndLayout()
+    val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
         else enabledSubtypes
-    val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+    val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(
         it
     )
     }
@@ -121,7 +121,7 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
             TAG,
             "selected subtype $localeAndLayout / ${
                 prefs.getString(
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE,
+                    Settings.PREF_SELECTED_SUBTYPE,
                     ""
                 )
             } not found"
@@ -130,11 +130,11 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     if (subtypes.isNotEmpty())
         return subtypes.first()
     val defaultSubtypes = getDefaultEnabledSubtypes()
-    return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+    return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(
         it
     )
     }
-        ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+        ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(
             it
         )
         }
@@ -143,9 +143,9 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val subtypeString = subtype.prefString()
-    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE, "") == subtypeString)
+    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "") == subtypeString)
         return
-    prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
+    prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
 }
 
 fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
@@ -155,7 +155,7 @@ fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
 fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
     additionalSubtypes.clear()
     additionalSubtypes.addAll(subtypes)
-    _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().refreshSubtypeCaches()
+    RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
 fun reloadSystemLocales(context: Context) {
@@ -192,7 +192,7 @@ fun reloadEnabledSubtypes(context: Context) {
 
 fun init(context: Context) {
     if (initialized) return
-    _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
+    SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
 
     // necessary to set system locales at start, because for some weird reason (bug?)
     // LocaleManagerCompat.getSystemLocales(context) sometimes doesn't return all system locales
@@ -231,7 +231,7 @@ private fun InputMethodSubtype.prefString(): String {
             "unknown language, should not happen ${locale}, $languageTag, $extraValue, ${hashCode()}, $nameResId"
         ))
     }
-    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(
         this
     )
 }
@@ -280,8 +280,8 @@ private fun loadResourceSubtypes(resources: Resources) {
 
 // remove custom subtypes without a layout file
 private fun removeInvalidCustomSubtypes(context: Context) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-    val additionalSubtypes = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
     val customSubtypeFiles by lazy { getCustomLayoutFiles(context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
@@ -292,20 +292,20 @@ private fun removeInvalidCustomSubtypes(context: Context) {
     }
     if (subtypesToRemove.isEmpty()) return
     Log.w(TAG, "removing custom subtypes without files: $subtypesToRemove")
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
+    Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
 }
 
 private fun loadAdditionalSubtypes(context: Context) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-    val additionalSubtypeString = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(prefs, context.resources)
-    val subtypes = _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+    val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
     additionalSubtypes.addAll(subtypes)
 }
 
 // requires loadResourceSubtypes to be called before
 private fun loadEnabledSubtypes(context: Context) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-    val subtypeStrings = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, "")!!
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
         .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 
     for (localeAndLayout in subtypeStrings) {
@@ -320,8 +320,8 @@ private fun loadEnabledSubtypes(context: Context) {
             continue
         }
 
-        val subtype = subtypesForLocale.firstOrNull { _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.second }
-            ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first && _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+        val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.second }
+            ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first && SubtypeLocaleUtils.getKeyboardLayoutSetName(
                 it
             ) == localeAndLayout.second }
         if (subtype == null) {
@@ -339,21 +339,21 @@ private fun loadEnabledSubtypes(context: Context) {
 }
 
 private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String) {
-    val oldSubtypeString = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, "")!!
+    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
     val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(
         SUBTYPE_SEPARATOR
     )
     if (newString == oldSubtypeString)
         return // already removed
-    prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, newString) }
-    if (subtypeString == prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE, "")) {
+    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
+    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")) {
         // switch subtype if the currently used one has been disabled
         try {
-            val nextSubtype = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
+            val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
             if (subtypeString == nextSubtype?.prefString())
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
+                KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
             else
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
+                KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)
         } catch (_: Exception) { } // do nothing if RichInputMethodManager isn't initialized
     }
 }

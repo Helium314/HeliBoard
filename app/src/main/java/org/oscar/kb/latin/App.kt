@@ -22,28 +22,28 @@ import java.io.File
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        _root_ide_package_.org.oscar.kb.latin.checkVersionUpgrade(this)
-        _root_ide_package_.org.oscar.kb.latin.App.Companion.app = this
+        checkVersionUpgrade(this)
+        app = this
     }
 
     companion object {
         // used so JniUtils can access application once
-        private var app: _root_ide_package_.org.oscar.kb.latin.App? = null
-        fun getApp(): _root_ide_package_.org.oscar.kb.latin.App? {
-            val application = _root_ide_package_.org.oscar.kb.latin.App.Companion.app
-            _root_ide_package_.org.oscar.kb.latin.App.Companion.app = null
+        private var app: App? = null
+        fun getApp(): App? {
+            val application = app
+            app = null
             return application
         }
     }
 }
 
 fun checkVersionUpgrade(context: Context) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-    val oldVersion = prefs.getInt(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_VERSION_CODE, 0)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
     // clear extracted dictionaries, in case updated version contains newer ones
-    _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
+    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
         if (!it.isDirectory) return@forEach
         val files = it.listFiles() ?: return@forEach
         for (file in files) {
@@ -52,7 +52,7 @@ fun checkVersionUpgrade(context: Context) {
         }
     }
     if (oldVersion == 0) // new install or restoring settings from old app name
-        _root_ide_package_.org.oscar.kb.latin.upgradesWhenComingFromOldAppName(context)
+        upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
         val oldShiftSymbolsFile = getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}shift_symbols", context)
         if (oldShiftSymbolsFile.exists()) {
@@ -70,14 +70,14 @@ fun checkVersionUpgrade(context: Context) {
         val selectedSubtype = prefs.getString("selected_input_style", "")
         prefs.edit {
             remove("enabled_input_styles")
-            putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ENABLED_SUBTYPES, subtypesPref)
+            putString(Settings.PREF_ENABLED_SUBTYPES, subtypesPref)
             remove("selected_input_style")
-            putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
+            putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
         }
     }
     if (oldVersion <= 2000) {
         // upgrade pinned toolbar keys pref
-        val oldPinnedKeysPref = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, "")!!
+        val oldPinnedKeysPref = prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, "")!!
         val pinnedKeys = oldPinnedKeysPref.split(";").mapNotNull {
             try {
                 ToolbarKey.valueOf(it)
@@ -88,31 +88,31 @@ fun checkVersionUpgrade(context: Context) {
         val newPinnedKeysPref = (pinnedKeys.map { "${it.name},true" } + defaultPinnedToolbarPref.split(";"))
             .distinctBy { it.split(",").first() }
             .joinToString(";")
-        prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
+        prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
 
         // enable language switch key if it was enabled previously
-        if (prefs.contains(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
-            prefs.edit { putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
+        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(
+                Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
+            prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
     if (oldVersion <= 2100) {
-        if (prefs.contains(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS)) {
-            val moreColors = prefs.getInt(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, 0)
+        if (prefs.contains(Settings.PREF_SHOW_MORE_COLORS)) {
+            val moreColors = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
             prefs.edit {
                 putInt(
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
-                if (prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_DAY_NIGHT, false))
+                    Settings.getColorPref(
+                        Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
+                if (prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
                     putInt(
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
-                remove(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS)
+                        Settings.getColorPref(
+                            Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
+                remove(Settings.PREF_SHOW_MORE_COLORS)
             }
         }
     }
     upgradeToolbarPrefs(prefs)
     onCustomLayoutFileListChanged() // just to be sure
-    prefs.edit { putInt(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
+    prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 
 // todo (later): remove it when most users probably have upgraded
@@ -128,23 +128,23 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     try {
         val bgDay = File(context.filesDir, "custom_background_image")
         if (bgDay.isFile) {
-            bgDay.copyTo(_root_ide_package_.org.oscar.kb.latin.settings.Settings.getCustomBackgroundFile(context, false), true)
+            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false), true)
             bgDay.delete()
         }
         val bgNight = File(context.filesDir, "custom_background_image_night")
         if (bgNight.isFile) {
-            bgNight.copyTo(_root_ide_package_.org.oscar.kb.latin.settings.Settings.getCustomBackgroundFile(context, true), true)
+            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true), true)
             bgNight.delete()
         }
     } catch (_: Exception) {}
     // upgrade prefs
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     if (prefs.all.containsKey("theme_variant")) {
-        prefs.edit().putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS, prefs.getString("theme_variant", "")).apply()
+        prefs.edit().putString(Settings.PREF_THEME_COLORS, prefs.getString("theme_variant", "")).apply()
         prefs.edit().remove("theme_variant").apply()
     }
     if (prefs.all.containsKey("theme_variant_night")) {
-        prefs.edit().putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_COLORS_NIGHT, prefs.getString("theme_variant_night", "")).apply()
+        prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, prefs.getString("theme_variant_night", "")).apply()
         prefs.edit().remove("theme_variant_night").apply()
     }
     prefs.all.toMap().forEach {
@@ -176,36 +176,36 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     }
     // change more_keys to popup_keys
     if (prefs.contains("more_keys_order")) {
-        prefs.edit().putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")?.replace("more_", "popup_")).apply()
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")?.replace("more_", "popup_")).apply()
         prefs.edit().remove("more_keys_order").apply()
     }
     if (prefs.contains("more_keys_labels_order")) {
-        prefs.edit().putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")?.replace("more_", "popup_")).apply()
+        prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")?.replace("more_", "popup_")).apply()
         prefs.edit().remove("more_keys_labels_order").apply()
     }
     if (prefs.contains("more_more_keys")) {
-        prefs.edit().putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_MORE_POPUP_KEYS, prefs.getString("more_more_keys", "")).apply()
+        prefs.edit().putString(Settings.PREF_MORE_POPUP_KEYS, prefs.getString("more_more_keys", "")).apply()
         prefs.edit().remove("more_more_keys").apply()
     }
     if (prefs.contains("spellcheck_use_contacts")) {
-        prefs.edit().putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_USE_CONTACTS, prefs.getBoolean("spellcheck_use_contacts", false)).apply()
+        prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, prefs.getBoolean("spellcheck_use_contacts", false)).apply()
         prefs.edit().remove("spellcheck_use_contacts").apply()
     }
     // upgrade additional subtype locale strings
     val additionalSubtypes = mutableListOf<String>()
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";").forEach {
+    Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";").forEach {
         val localeString = it.substringBefore(":")
         additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
     }
-    _root_ide_package_.org.oscar.kb.latin.settings.Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
+    Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
     // move pinned clips to credential protected storage if device is not locked (should never happen)
-    if (!prefs.contains(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_CLIPS)) return
+    if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
     try {
         val defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         defaultPrefs.edit { putString(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_CLIPS, prefs.getString(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_CLIPS, "")) }
-        prefs.edit { remove(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_PINNED_CLIPS) }
+            Settings.PREF_PINNED_CLIPS, prefs.getString(
+                Settings.PREF_PINNED_CLIPS, "")) }
+        prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
     } catch (_: IllegalStateException) {
         // SharedPreferences in credential encrypted storage are not available until after user is unlocked
     }

@@ -13,12 +13,12 @@ import org.oscar.kb.latin.inputlogic.InputLogic
 import org.oscar.kb.latin.settings.Settings
 import kotlin.math.abs
 
-class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.oscar.kb.latin.LatinIME, private val inputLogic: _root_ide_package_.org.oscar.kb.latin.inputlogic.InputLogic) :
-    _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener {
+class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inputLogic: InputLogic) :
+    KeyboardActionListener {
 
     private val keyboardSwitcher =
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance()
-    private val settings = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance()
+        KeyboardSwitcher.getInstance()
+    private val settings = Settings.getInstance()
     private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
 
     // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
@@ -52,9 +52,9 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
 
     override fun onStartBatchInput() = latinIME.onStartBatchInput()
 
-    override fun onUpdateBatchInput(batchPointers: _root_ide_package_.org.oscar.kb.latin.common.InputPointers?) = latinIME.onUpdateBatchInput(batchPointers)
+    override fun onUpdateBatchInput(batchPointers: InputPointers?) = latinIME.onUpdateBatchInput(batchPointers)
 
-    override fun onEndBatchInput(batchPointers: _root_ide_package_.org.oscar.kb.latin.common.InputPointers?) = latinIME.onEndBatchInput(batchPointers)
+    override fun onEndBatchInput(batchPointers: InputPointers?) = latinIME.onEndBatchInput(batchPointers)
 
     override fun onCancelBatchInput() = latinIME.onCancelBatchInput()
 
@@ -65,27 +65,27 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
         keyboardSwitcher.onFinishSlidingInput(latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
 
     override fun onCustomRequest(requestCode: Int): Boolean {
-        if (requestCode == _root_ide_package_.org.oscar.kb.latin.common.Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)
+        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)
             return latinIME.showInputPickerDialog()
         return false
     }
 
-    override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mSpaceSwipeHorizontal) {
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps)
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
+    override fun onHorizontalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeHorizontal) {
+        KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorHorizontally(steps)
+        KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
     }
 
-    override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mSpaceSwipeVertical) {
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
+    override fun onVerticalSpaceSwipe(steps: Int): Boolean = when (Settings.getInstance().current.mSpaceSwipeVertical) {
+        KeyboardActionListener.SWIPE_MOVE_CURSOR -> onMoveCursorVertically(steps)
+        KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
+        KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
     }
 
     override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
+        KeyboardSwitcher.getInstance().toggleNumpad(withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState, forceReturnToAlpha)
         return true
     }
 
@@ -116,7 +116,7 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
     override fun onUpWithDeletePointerActive() {
         if (!inputLogic.mConnection.hasSelection()) return
         inputLogic.finishInput()
-        onCodeInput(KeyCode.DELETE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+        onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
     override fun resetMetaState() {
@@ -125,37 +125,37 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
 
     private fun onLanguageSlide(steps: Int): Boolean {
         if (abs(steps) < 4) return false
-        val subtypes = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
+        val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
         if (subtypes.size <= 1) { // only allow if we have more than one subtype
             return false
         }
         // decide next or previous dependent on up or down
-        val current = _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().currentSubtype.rawSubtype
+        val current = RichInputMethodManager.getInstance().currentSubtype.rawSubtype
         var wantedIndex = subtypes.indexOf(current) + if (steps > 0) 1 else -1
         wantedIndex %= subtypes.size
         if (wantedIndex < 0)
             wantedIndex += subtypes.size
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().switchToSubtype(subtypes[wantedIndex])
+        KeyboardSwitcher.getInstance().switchToSubtype(subtypes[wantedIndex])
         return true
     }
 
     private fun onMoveCursorVertically(steps: Int): Boolean {
         if (steps == 0) return false
         val code = if (steps < 0) KeyCode.ARROW_UP else KeyCode.ARROW_DOWN
-        onCodeInput(code, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+        onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
         return true
     }
 
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
         // for RTL languages we want to invert pointer movement
-        val steps = if (_root_ide_package_.org.oscar.kb.latin.RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
+        val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
         if (steps < 0) {
             var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
             val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0) ?: return false
             loopOverCodePointsBackwards(text) {
-                if (_root_ide_package_.org.oscar.kb.latin.common.StringUtils.mightBeEmoji(it)) {
+                if (StringUtils.mightBeEmoji(it)) {
                     actualSteps = 0
                     return@loopOverCodePointsBackwards true
                 }
@@ -167,7 +167,7 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
                 repeat(-steps) {
-                    onCodeInput(KeyCode.ARROW_LEFT, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
                 return true
             }
@@ -175,7 +175,7 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
             var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
             val text = inputLogic.mConnection.getTextAfterCursor(steps * 4, 0) ?: return false
             loopOverCodePoints(text) {
-                if (_root_ide_package_.org.oscar.kb.latin.common.StringUtils.mightBeEmoji(it)) {
+                if (StringUtils.mightBeEmoji(it)) {
                     actualSteps = 0
                     return@loopOverCodePoints true
                 }
@@ -185,7 +185,7 @@ class KeyboardActionListenerImpl(private val latinIME: _root_ide_package_.org.os
             moveSteps = text.length.coerceAtMost(actualSteps)
             if (moveSteps == 0) {
                 repeat(steps) {
-                    onCodeInput(KeyCode.ARROW_RIGHT, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+                    onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
                 return true
             }

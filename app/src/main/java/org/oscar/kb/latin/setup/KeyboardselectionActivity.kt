@@ -29,11 +29,11 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import org.oscar.kb.accessibility.OutputTextListener
-import org.oscar.kb.accessibility.SharedViewModel
-import org.oscar.kb.accessibility.SummarizeUiState
-import org.oscar.kb.accessibility.SummarizeViewModel
-import org.oscar.kb.accessibility.SummarizeViewModelFactory
+import org.oscar.kb.AIEngine.OutputTextListener
+import org.oscar.kb.AIEngine.SharedViewModel
+import org.oscar.kb.AIEngine.SummarizeUiState
+import org.oscar.kb.AIEngine.SummarizeViewModel
+import org.oscar.kb.AIEngine.SummarizeViewModelFactory
 import org.oscar.kb.BuildConfig
 import org.oscar.kb.gemini.GeminiClient
 import org.oscar.kb.latin.suggestions.SuggestionStripView
@@ -62,7 +62,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     val geminiClient = GeminiClient() // Assuming you have a way to create a GeminiClient instance
     val generativeModel = geminiClient.geminiFlashModel
-    private var suggestionStripView: _root_ide_package_.org.oscar.kb.latin.suggestions.SuggestionStripView? = null // Assuming you have a reference
+    private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
     private val crashlytics: FirebaseCrashlytics by lazy { FirebaseCrashlytics.getInstance() }
 
 

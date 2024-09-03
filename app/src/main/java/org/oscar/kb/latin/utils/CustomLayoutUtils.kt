@@ -36,7 +36,7 @@ fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: 
     val layoutContent: String
     try {
         val tmpFile = File(context.filesDir.absolutePath + File.separator + "tmpfile")
-        _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyContentUriToNewFile(uri, context, tmpFile)
+        FileUtils.copyContentUriToNewFile(uri, context, tmpFile)
         layoutContent = tmpFile.readText()
         tmpFile.delete()
     } catch (e: IOException) {
@@ -79,7 +79,7 @@ fun loadCustomLayout(
         .setView(EditText(context).apply {
             setText(name)
             doAfterTextChanged { name = it.toString() }
-            val padding = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.toPx(8, context.resources)
+            val padding = ResourceUtils.toPx(8, context.resources)
             setPadding(3 * padding, padding, 3 * padding, padding)
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         })
@@ -99,9 +99,9 @@ fun loadCustomLayout(
 
 /** @return true if json, false if simple, null if invalid */
 private fun checkLayout(layoutContent: String, context: Context): Boolean? {
-    val params = _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams()
-    params.mId = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.getFakeKeyboardId(
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
+    val params = KeyboardParams()
+    params.mId = KeyboardLayoutSet.getFakeKeyboardId(
+        KeyboardId.ELEMENT_ALPHABET)
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
@@ -137,7 +137,7 @@ private fun checkLayout(layoutContent: String, context: Context): Boolean? {
     return null
 }
 
-fun checkKeys(keys: List<List<_root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams>>): Boolean {
+fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
     if (keys.isEmpty() || keys.any { it.isEmpty() }) {
         Log.w(TAG, "empty rows")
         return false
@@ -203,7 +203,7 @@ fun onCustomLayoutFileListChanged() {
 }
 
 private fun getCustomLayoutsDir(context: Context) =
-    File(_root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getFilesDir(context), "layouts")
+    File(DeviceProtectedUtils.getFilesDir(context), "layouts")
 
 // undo the name changes in loadCustomLayout when clicking ok
 fun getLayoutDisplayName(layoutName: String) =
@@ -252,7 +252,7 @@ fun editCustomLayout(
                 if (isJson != wasJson) // unlikely to be needed, but better be safe
                     file.renameTo(File(file.absolutePath.substringBeforeLast(".") + "." + if (isJson) "json" else "txt"))
                 onCustomLayoutFileListChanged()
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             }
         }
         .setNegativeButton(android.R.string.cancel, null)
@@ -268,7 +268,7 @@ fun editCustomLayout(
                 ) {
                     file.delete()
                     onCustomLayoutFileListChanged()
-                    _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+                    KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }
             }
         }
@@ -279,9 +279,9 @@ fun editCustomLayout(
 
 fun hasCustomFunctionalLayout(subtype: InputMethodSubtype, context: Context): Boolean {
     val anyCustomFunctionalLayout =
-        getCustomFunctionalLayoutName(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET, subtype, context)
-            ?: getCustomFunctionalLayoutName(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS, subtype, context)
-            ?: getCustomFunctionalLayoutName(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
+        getCustomFunctionalLayoutName(KeyboardId.ELEMENT_ALPHABET, subtype, context)
+            ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS, subtype, context)
+            ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
     return anyCustomFunctionalLayout != null
 }
 
@@ -296,9 +296,9 @@ fun getCustomFunctionalLayoutName(
     if (customFunctionalLayoutNames.isEmpty()) return null
     val languageTag = subtype.locale().toLanguageTag()
     val mainLayoutName =
-        subtype.getExtraValueOf(_root_ide_package_.org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
+        subtype.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
 
-    if (elementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+    if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
         findMatchingLayout(customFunctionalLayoutNames.filter {
             it.startsWith(
                 CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
@@ -306,7 +306,7 @@ fun getCustomFunctionalLayoutName(
         }, mainLayoutName, languageTag)
             ?.let { return it }
     }
-    if (elementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS) {
+    if (elementId == KeyboardId.ELEMENT_SYMBOLS) {
         findMatchingLayout(customFunctionalLayoutNames.filter {
             it.startsWith(
                 CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS

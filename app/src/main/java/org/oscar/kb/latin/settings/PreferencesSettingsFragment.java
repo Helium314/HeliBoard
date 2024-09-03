@@ -18,7 +18,6 @@ import androidx.preference.Preference;
 import org.oscar.kb.keyboard.KeyboardLayoutSet;
 import org.oscar.kb.keyboard.KeyboardSwitcher;
 import org.oscar.kb.latin.AudioAndHapticFeedbackManager;
-import org.oscar.kb.latin.AudioAndHapticFeedbackManager;
 import org.oscar.kb.R;
 import org.oscar.kb.latin.utils.DialogUtilsKt;
 import org.oscar.kb.latin.utils.PopupKeysUtilsKt;

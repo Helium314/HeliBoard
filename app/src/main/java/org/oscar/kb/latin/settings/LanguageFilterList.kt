@@ -64,7 +64,7 @@ class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false
-    private val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
+    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var fragment: LanguageSettingsFragment? = null
 
     var list: List<MutableList<SubtypeInfo>> = list
@@ -97,7 +97,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         var start = true
                         infos.forEach {
                             val string = SpannableString(
-                                _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                                SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
                                     ?: it.subtype.displayName(context)
                             )
                             if (it.isEnabled)
@@ -115,12 +115,12 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         }
                     }
                     val secondaryLocales =
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
+                        Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
                     if (secondaryLocales.isNotEmpty()) {
                         if (sb.isNotEmpty())
                             sb.append("\n")
                         sb.append(
-                            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(
+                            Settings.getSecondaryLocales(
                                 prefs,
                                 infos.first().subtype.locale()
                             )

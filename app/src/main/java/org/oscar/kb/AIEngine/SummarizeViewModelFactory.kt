@@ -1,4 +1,4 @@
-package org.oscar.kb.accessibility
+package org.oscar.kb.AIEngine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

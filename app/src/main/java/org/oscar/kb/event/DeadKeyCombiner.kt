@@ -28,17 +28,17 @@ class DeadKeyCombiner : Combiner {
         private const val ACCENT_COMMA_ABOVE = '\u1FBD'.code
         private const val ACCENT_COMMA_ABOVE_RIGHT = '\u02BC'.code
         private const val ACCENT_DOT_ABOVE = '\u02D9'.code
-        private const val ACCENT_DOT_BELOW = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_PERIOD // approximate
+        private const val ACCENT_DOT_BELOW = Constants.CODE_PERIOD // approximate
         private const val ACCENT_DOUBLE_ACUTE = '\u02DD'.code
         private const val ACCENT_GRAVE = '\u02CB'.code
         private const val ACCENT_HOOK_ABOVE = '\u02C0'.code
-        private const val ACCENT_HORN = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SINGLE_QUOTE // approximate
+        private const val ACCENT_HORN = Constants.CODE_SINGLE_QUOTE // approximate
         private const val ACCENT_MACRON = '\u00AF'.code
         private const val ACCENT_MACRON_BELOW = '\u02CD'.code
         private const val ACCENT_OGONEK = '\u02DB'.code
         private const val ACCENT_REVERSED_COMMA_ABOVE = '\u02BD'.code
         private const val ACCENT_RING_ABOVE = '\u02DA'.code
-        private const val ACCENT_STROKE = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_DASH // approximate
+        private const val ACCENT_STROKE = Constants.CODE_DASH // approximate
         private const val ACCENT_TILDE = '\u02DC'.code
         private const val ACCENT_TURNED_COMMA_ABOVE = '\u02BB'.code
         private const val ACCENT_UMLAUT = '\u00A8'.code
@@ -46,9 +46,9 @@ class DeadKeyCombiner : Combiner {
         private const val ACCENT_VERTICAL_LINE_BELOW = '\u02CC'.code
         /* Legacy dead key display characters used in previous versions of the API (before L)
          * We still support these characters by mapping them to their non-legacy version. */
-        private const val ACCENT_GRAVE_LEGACY = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_GRAVE_ACCENT
-        private const val ACCENT_CIRCUMFLEX_LEGACY = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_CIRCUMFLEX_ACCENT
-        private const val ACCENT_TILDE_LEGACY = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_TILDE
+        private const val ACCENT_GRAVE_LEGACY = Constants.CODE_GRAVE_ACCENT
+        private const val ACCENT_CIRCUMFLEX_LEGACY = Constants.CODE_CIRCUMFLEX_ACCENT
+        private const val ACCENT_TILDE_LEGACY = Constants.CODE_TILDE
         /**
          * Maps Unicode combining diacritical to display-form dead key.
          */

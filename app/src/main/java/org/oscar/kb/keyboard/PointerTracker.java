@@ -19,15 +19,7 @@ import androidx.core.util.TypedValueCompat;
 
 import org.oscar.kb.keyboard.internal.BatchInputArbiter;
 import org.oscar.kb.keyboard.internal.BogusMoveEventDetector;
-import org.oscar.kb.keyboard.internal.DrawingProxy;
-import org.oscar.kb.keyboard.internal.GestureEnabler;
-import org.oscar.kb.keyboard.internal.GestureStrokeDrawingParams;
-import org.oscar.kb.keyboard.internal.GestureStrokeDrawingPoints;
-import org.oscar.kb.keyboard.internal.GestureStrokeRecognitionParams;
-import org.oscar.kb.R;
-import org.oscar.kb.keyboard.internal.BatchInputArbiter;
 import org.oscar.kb.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
-import org.oscar.kb.keyboard.internal.BogusMoveEventDetector;
 import org.oscar.kb.keyboard.internal.DrawingProxy;
 import org.oscar.kb.keyboard.internal.GestureEnabler;
 import org.oscar.kb.keyboard.internal.GestureStrokeDrawingParams;
@@ -37,6 +29,7 @@ import org.oscar.kb.keyboard.internal.PointerTrackerQueue;
 import org.oscar.kb.keyboard.internal.TimerProxy;
 import org.oscar.kb.keyboard.internal.TypingTimeRecorder;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
+import org.oscar.kb.R;
 import org.oscar.kb.latin.common.Constants;
 import org.oscar.kb.latin.common.CoordinateUtils;
 import org.oscar.kb.latin.common.InputPointers;
@@ -50,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
-        BatchInputArbiter.BatchInputArbiterListener {
+        BatchInputArbiterListener {
     private static final String TAG = PointerTracker.class.getSimpleName();
     private static final boolean DEBUG_EVENT = false;
     private static final boolean DEBUG_MOVE_EVENT = false;

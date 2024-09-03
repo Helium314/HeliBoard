@@ -24,17 +24,17 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val locales = HashSet<Locale>()
 
     // get cached dictionaries: extracted or user-added dictionaries
-    _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach { directory ->
+    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach { directory ->
         if (!directory.isDirectory) return@forEach
         if (!hasAnythingOtherThanExtractedMainDictionary(directory)) return@forEach
-        val locale = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
+        val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
         locales.add(locale)
     }
     // get assets dictionaries
-    val assetsDictionaryList = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getAssetsDictionaryList(context)
+    val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
-            val locale = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)?.constructLocale() ?: continue
+            val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)?.constructLocale() ?: continue
             locales.add(locale)
         }
     }
@@ -42,8 +42,8 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
 }
 
 fun showMissingDictionaryDialog(context: Context, locale: Locale) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-    if (prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, false) || locale.toString() == "zz")
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, false) || locale.toString() == "zz")
         return
     val repositoryLink = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
     val dictionaryLink = "<a href='$DICTIONARY_URL/src/branch/main/dictionaries/main_$locale.dict'>" + context.getString(
@@ -56,13 +56,13 @@ fun showMissingDictionaryDialog(context: Context, locale: Locale) {
     )
     val message = createDictionaryTextHtml(startMessage, locale, context)
 
-    val messageSpannable = _root_ide_package_.org.oscar.kb.latin.utils.SpannableStringUtils.fromHtml(message)
+    val messageSpannable = SpannableStringUtils.fromHtml(message)
     val dialog = AlertDialog.Builder(context)
         .setTitle(R.string.no_dictionaries_available)
         .setMessage(messageSpannable)
         .setNegativeButton(R.string.dialog_close, null)
         .setNeutralButton(R.string.no_dictionary_dont_show_again_button) { _, _ ->
-            prefs.edit { putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, true) }
+            prefs.edit { putBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, true) }
         }
         .create()
     dialog.show()
@@ -100,14 +100,14 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
 }
 
 fun cleanUnusedMainDicts(context: Context) {
-    val dictionaryDir = File(_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getWordListCacheDirectory(context))
+    val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val usedLocaleLanguageTags = hashSetOf<String>()
     getEnabledSubtypes(prefs).forEach { subtype ->
         val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
+        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
     }
     for (dir in dirs) {
         if (!dir.isDirectory) continue
@@ -119,7 +119,7 @@ fun cleanUnusedMainDicts(context: Context) {
 }
 
 private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
-    dir.listFiles()?.any { it.name != _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getExtractedMainDictFilename() } != false
+    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
 
 const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
 const val DICTIONARY_DOWNLOAD_SUFFIX = "/src/branch/main/"

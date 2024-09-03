@@ -696,8 +696,8 @@ class AllColors(
 
 fun readAllColorsMap(prefs: SharedPreferences, isNight: Boolean): EnumMap<ColorType, Int> {
     val prefPrefix =
-        if (isNight) _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_PREFIX
-    val colorsString = prefs.getString(prefPrefix + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ALL_COLORS_SUFFIX, "") ?: ""
+        if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
+    val colorsString = prefs.getString(prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX, "") ?: ""
     val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
     colorsString.split(";").forEach {
         val ct = try {
@@ -717,10 +717,10 @@ fun writeAllColorsMap(
     isNight: Boolean
 ) {
     val prefPrefix =
-        if (isNight) _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_USER_COLOR_PREFIX
+        if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
     prefs.edit {
         putString(
-            prefPrefix + _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ALL_COLORS_SUFFIX,
+            prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX,
             colorMap.map { "${it.key},${it.value}" }.joinToString(";")
         )
     }

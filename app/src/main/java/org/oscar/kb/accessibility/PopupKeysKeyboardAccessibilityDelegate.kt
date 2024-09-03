@@ -18,9 +18,9 @@ import org.oscar.kb.keyboard.PointerTracker
  * enhance accessibility support via composition rather via inheritance.
  */
 class PopupKeysKeyboardAccessibilityDelegate(
-    popupKeysKeyboardView: _root_ide_package_.org.oscar.kb.keyboard.PopupKeysKeyboardView,
-    keyDetector: _root_ide_package_.org.oscar.kb.keyboard.KeyDetector
-) : KeyboardAccessibilityDelegate<_root_ide_package_.org.oscar.kb.keyboard.PopupKeysKeyboardView>(popupKeysKeyboardView, keyDetector) {
+    popupKeysKeyboardView: PopupKeysKeyboardView,
+    keyDetector: KeyDetector
+) : KeyboardAccessibilityDelegate<PopupKeysKeyboardView>(popupKeysKeyboardView, keyDetector) {
     private val mPopupKeysKeyboardValidBounds = Rect()
     private var mOpenAnnounceResId = 0
     private var mCloseAnnounceResId = 0
@@ -87,13 +87,13 @@ class PopupKeysKeyboardAccessibilityDelegate(
             mKeyboardView.onUpEvent(x, y, pointerId, eventTime)
             // TODO: Should fix this reference. This is a hack to clear the state of
             // {@link PointerTracker}.
-            _root_ide_package_.org.oscar.kb.keyboard.PointerTracker.dismissAllPopupKeysPanels()
+            PointerTracker.dismissAllPopupKeysPanels()
             return
         }
         // Close the popup keys keyboard.
         // TODO: Should fix this reference. This is a hack to clear the state of
         // {@link PointerTracker}.
-        _root_ide_package_.org.oscar.kb.keyboard.PointerTracker.dismissAllPopupKeysPanels()
+        PointerTracker.dismissAllPopupKeysPanels()
     }
 
     companion object {

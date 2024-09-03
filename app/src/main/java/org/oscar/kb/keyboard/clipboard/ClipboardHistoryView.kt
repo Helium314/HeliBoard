@@ -56,7 +56,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private lateinit var spacebar: View
     private lateinit var deleteKey: ImageButton
 
-    var keyboardActionListener: _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener? = null
+    var keyboardActionListener: KeyboardActionListener? = null
     var clipboardHistoryManager: ClipboardHistoryManager? = null
 
     init {
@@ -67,14 +67,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         functionalKeyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
-        spacebarBackground = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND)
+        spacebarBackground = Settings.getInstance().current.mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
         // todo (maybe): setting the correct color only works because the activated state is inverted
         //  even when state is activated, the not activated color is set
         //   in suggestionStripView the same thing works correctly, wtf?
         //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
-        getEnabledClipboardToolbarKeys(_root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context))
+        getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
             .forEach { toolbarKeys.add(createToolbarKey(context, keyboardAttr, it)) }
         keyboardAttr.recycle()
     }
@@ -83,8 +83,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardWidth(res, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current) + paddingLeft + paddingRight
-        val height = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardHeight(res, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current) + paddingTop + paddingBottom
+        val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
+        val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
         findViewById<LinearLayout>(R.id.action_bar)?.layoutParams?.width = width
         setMeasuredDimension(width, height)
     }
@@ -92,7 +92,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
         if (initialized) return
-        val colors = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors
+        val colors = Settings.getInstance().current.mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -118,10 +118,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         deleteKey.setOnClickListener(this)
         spacebar = findViewById(R.id.key_space)
         spacebar.background = spacebarBackground
-        spacebar.tag = _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE
+        spacebar.tag = Constants.CODE_SPACE
         spacebar.setOnTouchListener(this)
         spacebar.setOnClickListener(this)
-        val clipboardStrip = _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().clipboardStrip
+        val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
         toolbarKeys.forEach {
             clipboardStrip.addView(it)
             it.setOnTouchListener(this@ClipboardHistoryView)
@@ -133,11 +133,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         initialized = true
     }
 
-    private fun setupAlphabetKey(key: TextView, label: String, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyDrawParams) {
+    private fun setupAlphabetKey(key: TextView, label: String, params: KeyDrawParams) {
         key.apply {
             text = label
             typeface = params.mTypeface
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
+            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
             setTextColor(params.mFunctionalTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
@@ -146,12 +146,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private fun setupDeleteKey(key: ImageButton, icon: Drawable?) {
         key.apply {
             setImageDrawable(icon)
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
+            Settings.getInstance().current.mColors.setBackground(this, ColorType.FUNCTIONAL_KEY_BACKGROUND)
+            Settings.getInstance().current.mColors.setColor(this, ColorType.KEY_ICON)
         }
     }
 
-    private fun setupClipKey(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyDrawParams) {
+    private fun setupClipKey(params: KeyDrawParams) {
         clipboardAdapter.apply {
             itemBackgroundId = keyBackgroundId
             itemTypeFace = params.mTypeface
@@ -175,7 +175,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     fun startClipboardHistory(
         historyManager: ClipboardHistoryManager,
         switchToAlphaLabel: String,
-        keyVisualAttr: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyVisualAttributes?,
+        keyVisualAttr: KeyVisualAttributes?,
         iconSet: KeyboardIconsSet
     ) {
         initialize()
@@ -188,7 +188,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardLayoutParams.setActionBarProperties(this)
         }
 
-        val params = _root_ide_package_.org.oscar.kb.keyboard.internal.KeyDrawParams()
+        val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.actionBarContentHeight, keyVisualAttr)
         setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
         setupDeleteKey(deleteKey, iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY))
@@ -201,7 +201,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
-            layoutParams.width = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardWidth(context.resources, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current)
+            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
         }
     }
 
@@ -230,7 +230,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         when (view) {
             alphabetKey, spacebar, deleteKey -> {
                 keyboardActionListener?.onCodeInput(view.tag as Int,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 keyboardActionListener?.onReleaseKey(view.tag as Int, false)
             }
         }
@@ -238,7 +238,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)
             if (code != KeyCode.UNSPECIFIED) {
-                keyboardActionListener?.onCodeInput(code, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+                keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }
         }
@@ -251,8 +251,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
             if (longClickCode != KeyCode.UNSPECIFIED) {
                 keyboardActionListener?.onCodeInput(
                     longClickCode,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE,
+                    Constants.NOT_A_COORDINATE,
+                    Constants.NOT_A_COORDINATE,
                     false
                 )
             }
@@ -269,8 +269,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
         keyboardActionListener?.onTextInput(clipContent?.content.toString())
         keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mAlphaAfterClipHistoryEntry)
-            keyboardActionListener?.onCodeInput(KeyCode.ALPHA, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+        if (Settings.getInstance().current.mAlphaAfterClipHistoryEntry)
+            keyboardActionListener?.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {

@@ -26,14 +26,14 @@ import org.oscar.kb.latin.utils.sumOf
 import org.xmlpull.v1.XmlPullParser
 
 // TODO: Write unit tests for this class.
-open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams>(protected val mContext: Context, @JvmField val mParams: KP) {
+open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context, @JvmField val mParams: KP) {
     @JvmField
     protected val mResources: Resources
     private var mCurrentY = 0
 
     private var mLeftEdge = false
     private var mTopEdge = false
-    private var mRightEdgeKey: _root_ide_package_.org.oscar.kb.keyboard.Key? = null
+    private var mRightEdgeKey: Key? = null
     private lateinit var keysInRows: ArrayList<ArrayList<KeyParams>>
 
     init {
@@ -43,7 +43,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
         mParams.GRID_HEIGHT = res.getInteger(R.integer.config_keyboard_grid_height)
     }
 
-    fun load(id: _root_ide_package_.org.oscar.kb.keyboard.KeyboardId): KeyboardBuilder<KP> {
+    fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
         if (id.isEmojiKeyboard) {
             mParams.mAllowRedundantPopupKeys = true
@@ -65,11 +65,11 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
     }
 
     private fun setupParams() {
-        val sv = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current
+        val sv = Settings.getInstance().current
         mParams.mAllowRedundantPopupKeys = !sv.mRemoveRedundantPopups
-        mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET
+        mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(
-            _root_ide_package_.org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
+            Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
 
         addLocaleKeyTextsToParams(mContext, mParams, sv.mShowMorePopupKeys)
         mParams.mPopupKeyTypes.addAll(sv.mPopupKeyTypes)
@@ -101,13 +101,13 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
         mParams.mProximityCharsCorrectionEnabled = enabled
     }
 
-    open fun build(): _root_ide_package_.org.oscar.kb.keyboard.Keyboard {
+    open fun build(): Keyboard {
         if (mParams.mId.mIsSplitLayout
-                && mParams.mId.mElementId in _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET.._root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
+                && mParams.mId.mElementId in KeyboardId.ELEMENT_ALPHABET..KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
             addSplit()
         }
         addKeysToParams()
-        return _root_ide_package_.org.oscar.kb.keyboard.Keyboard(mParams)
+        return Keyboard(mParams)
     }
 
     // determine key size and positions using relative width and height
@@ -127,7 +127,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
     }
 
     private fun addSplit() {
-        val spacerRelativeWidth = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mSplitKeyboardSpacerRelativeWidth
+        val spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()
@@ -143,7 +143,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
             val indexOfProperSpace = row.indexOfFirst {
                 // should work reasonably with customizable layouts, where space key might be completely different:
                 // "normal" width space keys are ignored, and the possibility of space being first in row is considered
-                it.mCode == _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE && it.mWidth > row.first { !it.isSpacer && it.mCode != _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE }.mWidth * 1.5f
+                it.mCode == Constants.CODE_SPACE && it.mWidth > row.first { !it.isSpacer && it.mCode != Constants.CODE_SPACE }.mWidth * 1.5f
             }
             if (indexOfProperSpace >= 0) {
                 val spaceLeft = row[indexOfProperSpace]
@@ -156,7 +156,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
                 val spacerWidth = spaceLeft.mWidth + spacerRelativeWidth - spaceLeftWidth - spaceRightWidth
                 if (spacerWidth > 0.05f) {
                     // only insert if the spacer has a reasonable width
-                    val spaceRight = _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams(spaceLeft)
+                    val spaceRight = Key.KeyParams(spaceLeft)
                     spaceLeft.mWidth = spaceLeftWidth
                     spaceRight.mWidth = spaceRightWidth
                     spacer.mWidth = spacerWidth
@@ -189,7 +189,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
     // reduce width of symbol and action key if in the row, and add this width to space to keep other key size constant
     // todo: this assumes fixed layout for symbols keys, which will change soon!
     private fun reduceSymbolAndActionKeyWidth(row: ArrayList<KeyParams>) {
-        val spaceKey = row.first { it.mCode == _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE }
+        val spaceKey = row.first { it.mCode == Constants.CODE_SPACE }
         val symbolKey = row.firstOrNull { it.mCode == KeyCode.SYMBOL_ALPHA }
         val symbolKeyWidth = symbolKey?.mWidth ?: 0f
         if (symbolKeyWidth > mParams.mDefaultKeyWidth) {
@@ -197,7 +197,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
             symbolKey.mWidth -= widthToChange
             spaceKey.mWidth += widthToChange
         }
-        val actionKey = row.firstOrNull { it.mBackgroundType == _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_ACTION }
+        val actionKey = row.firstOrNull { it.mBackgroundType == Key.BACKGROUND_TYPE_ACTION }
         val actionKeyWidth = actionKey?.mWidth ?: 0f
         if (actionKeyWidth > mParams.mDefaultKeyWidth * 1.1f) { // allow it to stay a little wider
             val widthToChange = actionKey!!.mWidth - mParams.mDefaultKeyWidth * 1.1f
@@ -227,7 +227,7 @@ open class KeyboardBuilder<KP : _root_ide_package_.org.oscar.kb.keyboard.interna
         mTopEdge = false
     }
 
-    private fun endKey(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    private fun endKey(key: Key) {
         mParams.onAddKey(key)
         if (mLeftEdge && !key.isSpacer) {
             key.markAsLeftEdge(mParams)

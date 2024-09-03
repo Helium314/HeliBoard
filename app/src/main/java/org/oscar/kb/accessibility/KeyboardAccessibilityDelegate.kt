@@ -31,15 +31,15 @@ import org.oscar.kb.keyboard.KeyboardView
  *
  * @param <KV> The keyboard view class type.
 </KV> */
-open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.keyboard.KeyboardView>(
+open class KeyboardAccessibilityDelegate<KV : KeyboardView>(
     protected val mKeyboardView: KV,
-    protected val mKeyDetector: _root_ide_package_.org.oscar.kb.keyboard.KeyDetector
+    protected val mKeyDetector: KeyDetector
     ) : AccessibilityDelegateCompat() {
-    private var mKeyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard? = null
+    private var mKeyboard: Keyboard? = null
     private var mAccessibilityNodeProvider: KeyboardAccessibilityNodeProvider<KV>? = null
-    private var mLastHoverKey: _root_ide_package_.org.oscar.kb.keyboard.Key? = null
+    private var mLastHoverKey: Key? = null
 
-    protected open var lastHoverKey: _root_ide_package_.org.oscar.kb.keyboard.Key?
+    protected open var lastHoverKey: Key?
         get() = mLastHoverKey
         set(key) {
             mLastHoverKey = key
@@ -51,7 +51,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      * enabled.
      * [keyboard]: The keyboard that is being set to the wrapping view.
      */
-    open var keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard?
+    open var keyboard: Keyboard?
         get() = mKeyboard
         set(keyboard) {
             if (keyboard == null) {
@@ -121,7 +121,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      * @param event The hover event.
      * @return key The key that the `event` is on.
      */
-    protected fun getHoverKeyOf(event: MotionEvent): _root_ide_package_.org.oscar.kb.keyboard.Key? {
+    protected fun getHoverKeyOf(event: MotionEvent): Key? {
         val actionIndex = event.actionIndex
         val x = event.getX(actionIndex).toInt()
         val y = event.getY(actionIndex).toInt()
@@ -198,7 +198,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      *
      * @param key A key to be registered.
      */
-    open fun performClickOn(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    open fun performClickOn(key: Key) {
         if (DEBUG_HOVER) {
             Log.d(TAG, "performClickOn: key=$key")
         }
@@ -212,7 +212,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      * @param touchAction The action of the synthesizing touch event.
      * @param key The key that a synthesized touch event is on.
      */
-    private fun simulateTouchEvent(touchAction: Int, key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    private fun simulateTouchEvent(touchAction: Int, key: Key) {
         val x = key.hitBox.centerX()
         val y = key.hitBox.centerY()
         val eventTime = SystemClock.uptimeMillis()
@@ -227,7 +227,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      *
      * @param key The currently hovered key.
      */
-    protected open fun onHoverEnterTo(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    protected open fun onHoverEnterTo(key: Key) {
         if (DEBUG_HOVER) {
             Log.d(TAG, "onHoverEnterTo: key=$key")
         }
@@ -243,14 +243,14 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      *
      * @param key The currently hovered key.
      */
-    protected fun onHoverMoveWithin(key: _root_ide_package_.org.oscar.kb.keyboard.Key?) {}
+    protected fun onHoverMoveWithin(key: Key?) {}
 
     /**
      * Handles a hover exit event on a key.
      *
      * @param key The currently hovered key.
      */
-    protected open fun onHoverExitFrom(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    protected open fun onHoverExitFrom(key: Key) {
         if (DEBUG_HOVER) {
             Log.d(TAG, "onHoverExitFrom: key=$key")
         }
@@ -265,7 +265,7 @@ open class KeyboardAccessibilityDelegate<KV : _root_ide_package_.org.oscar.kb.ke
      *
      * @param key A key to be long pressed on.
      */
-    open fun performLongClickOn(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    open fun performLongClickOn(key: Key) {
         // A extended class should override this method to implement long press.
     }
 

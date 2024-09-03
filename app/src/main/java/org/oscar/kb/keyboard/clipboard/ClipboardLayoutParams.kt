@@ -25,10 +25,10 @@ class ClipboardLayoutParams(res: Resources) {
     }
 
     init {
-        val defaultKeyboardHeight = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardHeight(res, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current)
-        val defaultKeyboardWidth = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardWidth(res, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current)
+        val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current)
+        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current)
 
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mNarrowKeyGaps) {
+        if (Settings.getInstance().current.mNarrowKeyGaps) {
             keyVerticalGap = res.getFraction(
                 R.fraction.config_key_vertical_gap_holo_narrow,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
@@ -42,11 +42,11 @@ class ClipboardLayoutParams(res: Resources) {
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         }
         bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-                defaultKeyboardHeight, defaultKeyboardHeight) * _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mBottomPaddingScale).toInt()
+                defaultKeyboardHeight, defaultKeyboardHeight) * Settings.getInstance().current.mBottomPaddingScale).toInt()
         topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
-        val rowCount = DEFAULT_KEYBOARD_ROWS + if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mShowsNumberRow) 1 else 0
+        val rowCount = DEFAULT_KEYBOARD_ROWS + if (Settings.getInstance().current.mShowsNumberRow) 1 else 0
         actionBarHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
         listHeight = defaultKeyboardHeight - actionBarHeight - bottomPadding
     }
@@ -61,7 +61,7 @@ class ClipboardLayoutParams(res: Resources) {
     fun setActionBarProperties(layout: LinearLayout) {
         (layout.layoutParams as LinearLayout.LayoutParams).apply {
             height = actionBarHeight
-            width = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.getKeyboardWidth(layout.resources, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current)
+            width = ResourceUtils.getKeyboardWidth(layout.resources, Settings.getInstance().current)
             layout.layoutParams = this
         }
     }

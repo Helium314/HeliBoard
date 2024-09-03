@@ -63,7 +63,7 @@ class LanguageSettingsDialog(
     private val onlySystemLocales: Boolean,
     private val reloadSetting: () -> Unit
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
-    private val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
+    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
     private val mainLocale = infos.first().subtype.locale()
     private var hasInternalDictForLanguage = false
@@ -105,13 +105,13 @@ class LanguageSettingsDialog(
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
                     .filterNot { layoutName ->
                         infos.any {
-                            _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetName(
+                            SubtypeLocaleUtils.getKeyboardLayoutSetName(
                                 it.subtype
                             ) == layoutName
                         }
                     }
                 val displayNames =
-                    layouts.map { _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
+                    layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
                 Builder(context)
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
@@ -133,7 +133,7 @@ class LanguageSettingsDialog(
 
     private fun addSubtype(name: String) {
         onCustomLayoutFileListChanged()
-        val newSubtype = _root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(
+        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(
             mainLocale,
             name,
             infos.first().subtype.isAsciiCapable
@@ -144,14 +144,14 @@ class LanguageSettingsDialog(
             true,
             infos.first().hasDictionary
         ) // enabled by default
-        val displayName = _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
+        val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
         val old = infos.firstOrNull {
-            isAdditionalSubtype(it.subtype) && displayName == _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(
+            isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(
                 it.subtype
             )
         }
         if (old != null) {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
             return
         }
@@ -159,7 +159,7 @@ class LanguageSettingsDialog(
         addAdditionalSubtype(prefs, context.resources, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onKeyboardThemeChanged()
+        KeyboardLayoutSet.onKeyboardThemeChanged()
         infos.add(newSubtypeInfo)
         reloadSetting()
     }
@@ -167,7 +167,7 @@ class LanguageSettingsDialog(
     private fun onClickAddCustomSubtype() {
         val link =
             "<a href='$LAYOUT_FORMAT_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-        val message = _root_ide_package_.org.oscar.kb.latin.utils.SpannableStringUtils.fromHtml(
+        val message = SpannableStringUtils.fromHtml(
             context.getString(
                 R.string.message_add_custom_layout,
                 link
@@ -200,7 +200,7 @@ class LanguageSettingsDialog(
         if (infos.first().subtype.isAsciiCapable) {
             context.resources.getStringArray(R.array.predefined_layouts).forEach {
                 layouts.add(it)
-                displayNames.add(_root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it)
+                displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it)
             }
         }
         Builder(context)
@@ -227,7 +227,7 @@ class LanguageSettingsDialog(
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         val layoutSetName = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "qwerty"
         row.findViewById<TextView>(R.id.language_name).text =
-            _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
+            SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: subtype.subtype.displayName(context)
         if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
@@ -290,7 +290,7 @@ class LanguageSettingsDialog(
             mainLocale,
             infos.first().subtype.isAsciiCapable
         )
-        val selectedSecondaryLocales = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(prefs, mainLocale)
+        val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
         selectedSecondaryLocales.forEach {
             addSecondaryLocaleView(it)
         }
@@ -298,7 +298,7 @@ class LanguageSettingsDialog(
             binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(
+                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(
                         prefs,
                         mainLocale
                     )).sortedBy { it.displayName }
@@ -310,8 +310,8 @@ class LanguageSettingsDialog(
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
                             val currentSecondaryLocales =
-                                _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(prefs, mainLocale)
-                            _root_ide_package_.org.oscar.kb.latin.settings.Settings.setSecondaryLocales(
+                                Settings.getSecondaryLocales(prefs, mainLocale)
+                            Settings.setSecondaryLocales(
                                 prefs,
                                 mainLocale,
                                 currentSecondaryLocales + locale
@@ -320,7 +320,7 @@ class LanguageSettingsDialog(
                             di.dismiss()
                             reloadSetting()
                             reloadDictionaries()
-                            _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onSystemLocaleChanged()
+                            KeyboardLayoutSet.onSystemLocaleChanged()
                         }
                         .setNegativeButton(android.R.string.cancel, null)
                         .show()
@@ -339,12 +339,12 @@ class LanguageSettingsDialog(
         rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
-                val currentSecondaryLocales = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getSecondaryLocales(prefs, mainLocale)
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
+                val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
                 reloadDictionaries()
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onSystemLocaleChanged()
+                KeyboardLayoutSet.onSystemLocaleChanged()
             }
         }
         binding.secondaryLocales.addView(rowBinding.root)
@@ -356,7 +356,7 @@ class LanguageSettingsDialog(
                 "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
             val startMessage = context.getString(R.string.add_dictionary, dictLink)
             val messageRawText = createDictionaryTextHtml(startMessage, mainLocale, context)
-            val message = _root_ide_package_.org.oscar.kb.latin.utils.SpannableStringUtils.fromHtml(messageRawText)
+            val message = SpannableStringUtils.fromHtml(messageRawText)
             val dialog = Builder(context)
                 .setTitle(R.string.add_new_dictionary_title)
                 .setMessage(message)
@@ -385,9 +385,9 @@ class LanguageSettingsDialog(
                     )
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
                     attrs.recycle()
-                    setPadding(_root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.toPx(16, context.resources), 0, 0, 0)
+                    setPadding(ResourceUtils.toPx(16, context.resources), 0, 0, 0)
                     isEnabled =
-                        userDicts.none { it.name == "${_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
+                        userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
                 })
         }
         userDicts.sorted().forEach {
@@ -402,7 +402,7 @@ class LanguageSettingsDialog(
                 userDicts.add(dictFile)
                 if (hasInternalDictForLanguage) {
                     binding.dictionaries[1].isEnabled =
-                        userDicts.none { it.name == "${_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
+                        userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
                 }
             }
         }.addDictionary(uri, mainLocale)
@@ -416,7 +416,7 @@ class LanguageSettingsDialog(
         val rowBinding =
             LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
         val header =
-            _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
+            DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
         rowBinding.languageName.text = dictType
         rowBinding.languageDetails.apply {
             if (header?.description == null) {
@@ -457,7 +457,7 @@ class LanguageSettingsDialog(
                     userDicts.remove(dictFile)
                     if (hasInternalDictForLanguage) {
                         binding.dictionaries[1].isEnabled =
-                            userDicts.none { it.name == "${_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
+                            userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
                     }
                 }
             }
@@ -468,25 +468,25 @@ class LanguageSettingsDialog(
     private fun setupPopupSettings() {
         binding.popupOrder.setOnClickListener {
             val popupKeyTypesDefault =
-                prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
+                prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
             reorderDialog(
                 context,
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(),
+                Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(),
                 popupKeyTypesDefault,
                 R.string.popup_order
             )
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onKeyboardThemeChanged()
+            KeyboardLayoutSet.onKeyboardThemeChanged()
         }
         binding.popupLabelPriority.setOnClickListener {
             val popupKeyTypesDefault =
-                prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
+                prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
             reorderDialog(
                 context,
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(),
+                Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(),
                 popupKeyTypesDefault,
                 R.string.hint_source
             )
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onKeyboardThemeChanged()
+            KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }
 
@@ -501,22 +501,22 @@ class LanguageSettingsDialog(
 fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    val userLocaleDir = File(_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
+    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
                 userDicts.add(it)
-            else if (it.name.startsWith(_root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.MAIN_DICT_PREFIX))
+            else if (it.name.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX))
                 hasInternalDict = true
         }
     }
     if (hasInternalDict)
         return userDicts to true
     val internalDicts =
-        _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
+        DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
     val best = LocaleUtils.getBestMatch(locale, internalDicts.toList()) {
-        _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale()
-            ?: _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale()
+            ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
     }
     return userDicts to (best != null)
 }

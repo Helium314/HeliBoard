@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isKeyboardEnabledAndCurrent(): Boolean {
-        return _root_ide_package_.org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager) &&
-                _root_ide_package_.org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)
+        return UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager) &&
+                UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)
     }
 
     private fun invokeLanguageAndInputSettings() {
@@ -109,11 +109,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkSettingsAndUpdateButtonColors() {
-        if (_root_ide_package_.org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager)) {
+        if (UncachedInputMethodManagerUtils.isThisImeEnabled(this, inputMethodManager)) {
             isEnableComplete = true
             changeButtonColor(binding.enableId)
         }
-        if (_root_ide_package_.org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)) {
+        if (UncachedInputMethodManagerUtils.isThisImeCurrent(this, inputMethodManager)) {
             changeButtonColor(binding.setupID)
             binding.openKeyboardId.isEnabled = true
         }

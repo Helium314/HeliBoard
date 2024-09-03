@@ -87,8 +87,8 @@ import java.util.zip.ZipOutputStream
  * - Debug settings
  */
 @Suppress("KotlinConstantConditions") // build type might be a constant, but depends on... build type!
-class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFragment() {
-    private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + _root_ide_package_.org.oscar.kb.latin.utils.JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
+class AdvancedSettingsFragment : SubScreenFragment() {
+    private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
         "layouts/.*.(txt|json)".toRegex(),
@@ -129,9 +129,9 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
         // When we are called from the Settings application but we are not already running, some
         // singleton and utility classes may not have been initialized.  We have to call
         // initialization method of these classes here. See {@link LatinIME#onCreate()}.
-        _root_ide_package_.org.oscar.kb.latin.AudioAndHapticFeedbackManager.init(context)
+        AudioAndHapticFeedbackManager.init(context)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_SETUP_WIZARD_ICON)
+            removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON)
         }
         if (BuildConfig.BUILD_TYPE == "nouserlib") {
             removePreference("load_gesture_library")
@@ -149,7 +149,7 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             true
         }
 
-        findPreference<Preference>(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CUSTOM_CURRENCY_KEY)?.setOnPreferenceClickListener {
+        findPreference<Preference>(Settings.PREF_CUSTOM_CURRENCY_KEY)?.setOnPreferenceClickListener {
             customCurrencyDialog()
             true
         }
@@ -168,8 +168,8 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
     }
 
     private fun setDebugPrefVisibility() {
-        if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
-            removePreference(_root_ide_package_.org.oscar.kb.latin.settings.Settings.SCREEN_DEBUG)
+        if (!BuildConfig.DEBUG && !sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) {
+            removePreference(Settings.SCREEN_DEBUG)
         }
     }
 
@@ -216,7 +216,7 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             .firstOrNull { it.startsWith("$layoutName.") }
         val originalLayout = if (customLayoutName != null) null
             else {
-                val defaultLayoutName = if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
+                val defaultLayoutName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
                 requireContext().assets.open("layouts" + File.separator + defaultLayoutName).reader().readText()
             }
         val displayName = layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext())
@@ -242,7 +242,7 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             builder.setNeutralButton(R.string.load_gesture_library_button_delete) { _, _ ->
                 libfile.delete()
                 PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().remove(
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_LIBRARY_CHECKSUM
+                    Settings.PREF_LIBRARY_CHECKSUM
                 ).commit()
                 Runtime.getRuntime().exit(0)
             }
@@ -255,17 +255,17 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
         val tmpfile = File(requireContext().filesDir.absolutePath + File.separator + "tmplib")
         try {
             val otherTemporaryFile = File(requireContext().filesDir.absolutePath + File.separator + "tmpfile")
-            _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyContentUriToNewFile(uri, requireContext(), otherTemporaryFile)
+            FileUtils.copyContentUriToNewFile(uri, requireContext(), otherTemporaryFile)
             val inputStream = FileInputStream(otherTemporaryFile)
             val outputStream = FileOutputStream(tmpfile)
             outputStream.use {
                 tmpfile.setReadOnly() // as per recommendations in https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
-                _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyStreamToOtherStream(inputStream, it)
+                FileUtils.copyStreamToOtherStream(inputStream, it)
             }
             otherTemporaryFile.delete()
 
             val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
-            if (checksum == _root_ide_package_.org.oscar.kb.latin.utils.JniUtils.expectedDefaultChecksum()) {
+            if (checksum == JniUtils.expectedDefaultChecksum()) {
                 renameToLibfileAndRestart(tmpfile, checksum)
             } else {
                 val abi = Build.SUPPORTED_ABIS[0]
@@ -286,7 +286,7 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
         libfile.delete()
         // store checksum in default preferences (soo JniUtils)
         PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
+            Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
         file.renameTo(libfile)
         Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
@@ -328,7 +328,7 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             if (backupFilePatterns.any { path.matches(it) })
                 files.add(file)
         }
-        val protectedFilesDir = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getFilesDir(requireContext())
+        val protectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext())
         val protectedFilesPath = protectedFilesDir.path + File.separator
         val protectedFiles = mutableListOf<File>()
         protectedFilesDir.walk().forEach { file ->
@@ -338,8 +338,8 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
         }
         var error: String? = ""
         val wait = CountDownLatch(1)
-        _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.getBackgroundExecutor(
-            _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.KEYBOARD).execute {
+        ExecutorUtils.getBackgroundExecutor(
+            ExecutorUtils.KEYBOARD).execute {
             try {
                 activity?.contentResolver?.openOutputStream(uri)?.use { os ->
                     // write files to zip
@@ -383,27 +383,27 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
     private fun restore(uri: Uri) {
         var error: String? = ""
         val wait = CountDownLatch(1)
-        _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.getBackgroundExecutor(
-            _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.KEYBOARD).execute {
+        ExecutorUtils.getBackgroundExecutor(
+            ExecutorUtils.KEYBOARD).execute {
             try {
                 activity?.contentResolver?.openInputStream(uri)?.use { inputStream ->
                     ZipInputStream(inputStream).use { zip ->
                         var entry: ZipEntry? = zip.nextEntry
                         val filesDir = requireContext().filesDir?.path ?: return@execute
-                        val deviceProtectedFilesDir = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getFilesDir(requireContext()).path
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().stopListener()
+                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(requireContext()).path
+                        Settings.getInstance().stopListener()
                         while (entry != null) {
                             if (entry.name.startsWith("unprotected${File.separator}")) {
                                 val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
                                 if (backupFilePatterns.any { adjustedName.matches(it) }) {
                                     val targetFileName = upgradeFileNames(adjustedName)
                                     val file = File(deviceProtectedFilesDir, targetFileName)
-                                    _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyStreamToNewFile(zip, file)
+                                    FileUtils.copyStreamToNewFile(zip, file)
                                 }
                             } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
                                 val targetFileName = upgradeFileNames(entry.name)
                                 val file = File(filesDir, targetFileName)
-                                _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyStreamToNewFile(zip, file)
+                                FileUtils.copyStreamToNewFile(zip, file)
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
                                 sharedPreferences.edit().clear().apply()
@@ -431,17 +431,17 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             // inform about every error
             infoDialog(requireContext(), requireContext().getString(R.string.restore_error, error))
         }
-        _root_ide_package_.org.oscar.kb.latin.checkVersionUpgrade(requireContext())
-        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().startListener()
-        val additionalSubtypes = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
-        updateAdditionalSubtypes(_root_ide_package_.org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
+        checkVersionUpgrade(requireContext())
+        Settings.getInstance().startListener()
+        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
+        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
         reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)
         // reload current prefs screen
         preferenceScreen.removeAll()
         setupPreferences()
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
     // todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name
@@ -482,20 +482,20 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
         layout.orientation = LinearLayout.VERTICAL
         layout.addView(TextView(requireContext()).apply { setText(R.string.customize_currencies_detail) })
         val et = EditText(requireContext()).apply { setText(sharedPreferences.getString(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CUSTOM_CURRENCY_KEY, "")) }
+            Settings.PREF_CUSTOM_CURRENCY_KEY, "")) }
         layout.addView(et)
-        val padding = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.toPx(8, resources)
+        val padding = ResourceUtils.toPx(8, resources)
         layout.setPadding(3 * padding, padding, padding, padding)
         val d = AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_currencies)
             .setView(layout)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                sharedPreferences.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CUSTOM_CURRENCY_KEY, et.text.toString()) }
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onSystemLocaleChanged()
+                sharedPreferences.edit { putString(Settings.PREF_CUSTOM_CURRENCY_KEY, et.text.toString()) }
+                KeyboardLayoutSet.onSystemLocaleChanged()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .setNeutralButton(R.string.button_default) { _, _ -> sharedPreferences.edit { putString(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_CUSTOM_CURRENCY_KEY, "") } }
+                Settings.PREF_CUSTOM_CURRENCY_KEY, "") } }
             .create()
         et.doAfterTextChanged { d.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = et.text.toString().splitOnWhitespace().none { it.length > 8 } }
         d.show()
@@ -503,9 +503,9 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
 
     private fun switchToMainDialog() {
         val checked = booleanArrayOf(
-            sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true),
-            sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_EMOJI, false),
-            sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_CLIP, false),
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true),
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false),
+            sharedPreferences.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false),
         )
         val titles = arrayOf(
             requireContext().getString(R.string.after_symbol_and_space),
@@ -518,9 +518,9 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 sharedPreferences.edit {
-                    putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_SYMBOL_SPACE, checked[0])
-                    putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_EMOJI, checked[1])
-                    putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_ABC_AFTER_CLIP, checked[2])
+                    putBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, checked[0])
+                    putBoolean(Settings.PREF_ABC_AFTER_EMOJI, checked[1])
+                    putBoolean(Settings.PREF_ABC_AFTER_CLIP, checked[2])
                 }
             }
             .show()
@@ -528,16 +528,16 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
 
     private fun setupKeyLongpressTimeoutSettings() {
         val prefs = sharedPreferences
-        findPreference<_root_ide_package_.org.oscar.kb.latin.settings.SeekBarDialogPreference>(
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_KEY_LONGPRESS_TIMEOUT)?.setInterface(object : ValueProxy {
+        findPreference<SeekBarDialogPreference>(
+            Settings.PREF_KEY_LONGPRESS_TIMEOUT)?.setInterface(object : ValueProxy {
             override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readKeyLongpressTimeout(prefs, resources)
+            override fun readValue(key: String) = Settings.readKeyLongpressTimeout(prefs, resources)
 
             override fun readDefaultValue(key: String) =
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.readDefaultKeyLongpressTimeout(resources)
+                Settings.readDefaultKeyLongpressTimeout(resources)
 
             override fun getValueText(value: Int) =
                 resources.getString(R.string.abbreviation_unit_milliseconds, value.toString())
@@ -548,8 +548,8 @@ class AdvancedSettingsFragment : _root_ide_package_.org.oscar.kb.latin.settings.
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_SETUP_WIZARD_ICON -> _root_ide_package_.org.oscar.kb.latin.SystemBroadcastReceiver.toggleAppIcon(requireContext())
-            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_MORE_POPUP_KEYS -> _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
+            Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
         }
     }
 

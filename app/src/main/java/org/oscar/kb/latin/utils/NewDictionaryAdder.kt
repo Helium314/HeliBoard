@@ -32,12 +32,12 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
         cachedDictionaryFile.delete()
         try {
-            _root_ide_package_.org.oscar.kb.latin.common.FileUtils.copyContentUriToNewFile(uri, context, cachedDictionaryFile)
+            FileUtils.copyContentUriToNewFile(uri, context, cachedDictionaryFile)
         } catch (e: IOException) {
             return onDictionaryLoadingError(R.string.dictionary_load_error)
         }
 
-        val newHeader = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getDictionaryFileHeaderOrNull(
+        val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(
             cachedDictionaryFile,
             0,
             cachedDictionaryFile.length()
@@ -45,7 +45,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
             ?: return onDictionaryLoadingError(R.string.dictionary_file_error)
         val locale = newHeader.mLocaleString.constructLocale()
 
-        val dict = _root_ide_package_.org.oscar.kb.latin.ReadOnlyBinaryDictionary(
+        val dict = ReadOnlyBinaryDictionary(
             cachedDictionaryFile.absolutePath,
             0,
             cachedDictionaryFile.length(),
@@ -120,17 +120,17 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun addDictAndAskToReplace(header: DictionaryHeader, mainLocale: Locale) {
         val dictionaryType = header.mIdString.substringBefore(":")
-        val cacheDir = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context)
+        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context)
         val dictFile = File(cacheDir, dictionaryType + "_" + USER_DICTIONARY_SUFFIX)
 
         fun moveDict(replaced: Boolean) {
             if (!cachedDictionaryFile.renameTo(dictFile)) {
                 return onDictionaryLoadingError(R.string.dictionary_load_error)
             }
-            if (dictionaryType == _root_ide_package_.org.oscar.kb.latin.Dictionary.TYPE_MAIN) {
+            if (dictionaryType == Dictionary.TYPE_MAIN) {
                 // replaced main dict, remove the one created from internal data
                 val internalMainDictFile = File(cacheDir,
-                    _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getExtractedMainDictFilename()
+                    DictionaryInfoUtils.getExtractedMainDictFilename()
                 )
                 internalMainDictFile.delete()
             }
@@ -145,7 +145,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
         val systemLocale = context.resources.configuration.locale()
         val newInfo = header.info(systemLocale)
-        val oldInfo = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getDictionaryFileHeaderOrNull(
+        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(
             dictFile,
             0,
             dictFile.length()

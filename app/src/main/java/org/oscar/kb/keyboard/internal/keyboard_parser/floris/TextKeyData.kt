@@ -89,12 +89,12 @@ sealed interface KeyData : AbstractKeyData {
          */
         const val GROUP_KANA: Int = 97
 
-        private fun getShiftLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams) = when (params.mId.mElementId) {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(
-                _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet)
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
+        private fun getShiftLabel(params: KeyboardParams) = when (params.mId.mElementId) {
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> params.mLocaleKeyboardInfos.labelSymbol
+            KeyboardId.ELEMENT_SYMBOLS -> params.mLocaleKeyboardInfos.getShiftSymbolLabel(
+                Settings.getInstance().isTablet)
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_SHIFTED}"
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY_LOCKED}"
 
             else -> "!icon/${KeyboardIconsSet.NAME_SHIFT_KEY}"
         }
@@ -102,21 +102,21 @@ sealed interface KeyData : AbstractKeyData {
         // todo (later): try avoiding this weirdness
         //  maybe just remove it and if users want it they can use custom functional layouts?
         //  but it has been like this "forever" and actually seems to make sense
-        private fun getPeriodLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+        private fun getPeriodLabel(params: KeyboardParams): String {
             if (params.mId.isNumberLayout) return "."
             if (params.mId.isAlphabetKeyboard || params.mId.locale.language in listOf("ar", "fa"))
                 return params.mLocaleKeyboardInfos.labelPeriod
             return "."
         }
 
-        private fun getSpaceLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String =
+        private fun getSpaceLabel(params: KeyboardParams): String =
             if (params.mId.isAlphaOrSymbolKeyboard)
                 "!icon/space_key|!code/key_space"
             else "!icon/space_key_for_number_layout|!code/key_space"
 
         // todo: emoji and language switch popups should actually disappear depending on current layout (including functional keys)
         //  keys could be replaced with toolbar keys, but parsing needs to be adjusted (should happen anyway...)
-        private fun getCommaPopupKeys(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): List<String> {
+        private fun getCommaPopupKeys(params: KeyboardParams): List<String> {
             val keys = mutableListOf<String>()
             if (!params.mId.mDeviceLocked)
                 keys.add("!icon/clipboard_normal_key|!code/key_clipboard")
@@ -131,8 +131,8 @@ sealed interface KeyData : AbstractKeyData {
             return keys
         }
 
-        private fun getPunctuationPopupKeys(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): List<String> {
-            if (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+        private fun getPunctuationPopupKeys(params: KeyboardParams): List<String> {
+            if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 return listOf("…")
             if (params.mId.isNumberLayout)
                 return listOf(":", "…", ";", "∞", "π", "√", "°", "^")
@@ -141,42 +141,42 @@ sealed interface KeyData : AbstractKeyData {
                 for (i in popupKeys.indices)
                     popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
             }
-            if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet && popupKeys.contains("!") && popupKeys.contains("?")) {
+            if (Settings.getInstance().isTablet && popupKeys.contains("!") && popupKeys.contains("?")) {
                 // remove ! and ? keys and reduce number in autoColumnOrder
                 // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
                 popupKeys[popupKeys.indexOf("!")] = ""
                 popupKeys[popupKeys.indexOf("?")] = ""
-                val columns = popupKeys[0].substringAfter(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
+                val columns = popupKeys[0].substringAfter(Key.POPUP_KEYS_AUTO_COLUMN_ORDER).toIntOrNull()
                 if (columns != null)
-                    popupKeys[0] = "${_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
+                    popupKeys[0] = "${Key.POPUP_KEYS_AUTO_COLUMN_ORDER}${columns - 1}"
             }
             return popupKeys
         }
 
-        private fun String.resolveStringLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+        private fun String.resolveStringLabel(params: KeyboardParams): String {
             if (length < 9 || !startsWith("!string/")) return this
-            val id = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().getStringResIdByName(substringAfter("!string/"))
+            val id = Settings.getInstance().getStringResIdByName(substringAfter("!string/"))
             if (id == 0) return this
             return getStringInLocale(id, params)
         }
 
-        private fun getStringInLocale(id: Int, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+        private fun getStringInLocale(id: Int, params: KeyboardParams): String {
             // todo: hi-Latn strings instead of this workaround?
             val locale = if (params.mId.locale.toLanguageTag() == "hi-Latn") "en_IN".constructLocale()
             else params.mId.locale
-            return _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().getInLocale(id, locale)
+            return Settings.getInstance().getInLocale(id, locale)
         }
 
         // action key stuff below
 
         // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
-        private fun getActionKeyCode(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams) =
-            if (params.mId.isMultiLine && (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+        private fun getActionKeyCode(params: KeyboardParams) =
+            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
                 "!code/key_shift_enter"
             else "!code/key_enter"
 
-        private fun getActionKeyLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
-            if (params.mId.isMultiLine && (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
+        private fun getActionKeyLabel(params: KeyboardParams): String {
+            if (params.mId.isMultiLine && (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED))
                 return "!icon/enter_key"
             val iconName = when (params.mId.imeAction()) {
                 EditorInfo.IME_ACTION_GO -> KeyboardIconsSet.NAME_GO_KEY
@@ -185,7 +185,7 @@ sealed interface KeyData : AbstractKeyData {
                 EditorInfo.IME_ACTION_NEXT -> KeyboardIconsSet.NAME_NEXT_KEY
                 EditorInfo.IME_ACTION_DONE -> KeyboardIconsSet.NAME_DONE_KEY
                 EditorInfo.IME_ACTION_PREVIOUS -> KeyboardIconsSet.NAME_PREVIOUS_KEY
-                _root_ide_package_.org.oscar.kb.latin.utils.InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
+                InputTypeUtils.IME_ACTION_CUSTOM_LABEL -> return params.mId.mCustomActionLabel
                 else -> return "!icon/enter_key"
             }
             val replacement = iconName.replaceIconWithLabelIfNoDrawable(params)
@@ -195,10 +195,10 @@ sealed interface KeyData : AbstractKeyData {
                 replacement
         }
 
-        private fun getActionKeyPopupKeys(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): SimplePopups? =
+        private fun getActionKeyPopupKeys(params: KeyboardParams): SimplePopups? =
             getActionKeyPopupKeyString(params.mId)?.let { createActionPopupKeys(it, params) }
 
-        private fun getActionKeyPopupKeyString(keyboardId: _root_ide_package_.org.oscar.kb.keyboard.KeyboardId): String? {
+        private fun getActionKeyPopupKeyString(keyboardId: KeyboardId): String? {
             val action = keyboardId.imeAction()
             val navigatePrev = keyboardId.navigatePrevious()
             val navigateNext = keyboardId.navigateNext()
@@ -214,7 +214,7 @@ sealed interface KeyData : AbstractKeyData {
                     else -> null
                 }
                 // could change definition of numbers to query a range, or have a pre-defined list, but not that crucial
-                keyboardId.isNumberLayout || keyboardId.mMode in listOf(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_EMAIL, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATE, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_TIME, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATETIME) -> when {
+                keyboardId.isNumberLayout || keyboardId.mMode in listOf(KeyboardId.MODE_EMAIL, KeyboardId.MODE_DATE, KeyboardId.MODE_TIME, KeyboardId.MODE_DATETIME) -> when {
                     action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_EYS_NAVIGATE_PREVIOUS
                     action == EditorInfo.IME_ACTION_NEXT -> null
                     action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_EYS_NAVIGATE_NEXT
@@ -235,7 +235,7 @@ sealed interface KeyData : AbstractKeyData {
             }
         }
 
-        private fun createActionPopupKeys(popupKeysDef: String, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): SimplePopups {
+        private fun createActionPopupKeys(popupKeysDef: String, params: KeyboardParams): SimplePopups {
             val popupKeys = mutableListOf<String>()
             for (popupKey in popupKeysDef.split(",")) {
                 val iconPrefixRemoved = popupKey.substringAfter("!icon/")
@@ -248,16 +248,16 @@ sealed interface KeyData : AbstractKeyData {
                 if (replacementText == iconName) { // i.e. we have the drawable
                     popupKeys.add(popupKey)
                 } else {
-                    popupKeys.add(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_HAS_LABELS)
+                    popupKeys.add(Key.POPUP_KEYS_HAS_LABELS)
                     popupKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
                 }
             }
             // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
             // (probably not necessary, but whatever)
-            if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
-                val i = popupKeys.indexOfFirst { it.startsWith(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
+            if (Settings.getInstance().isTablet && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
+                val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
                 if (i > -1) {
-                    val n = popupKeys[i].substringAfter(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
+                    val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
                     if (n != null)
                         popupKeys[i] = popupKeys[i].replace(n.toString(), (n - 1).toString())
                 }
@@ -265,16 +265,16 @@ sealed interface KeyData : AbstractKeyData {
             return SimplePopups(popupKeys)
         }
 
-        private fun String.replaceIconWithLabelIfNoDrawable(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+        private fun String.replaceIconWithLabelIfNoDrawable(params: KeyboardParams): String {
             if (params.mIconsSet.getIconDrawable(this) != null) return this
-            if (params.mId.mWidth == _root_ide_package_.org.oscar.kb.latin.spellcheck.AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
-                && params.mId.mHeight == _root_ide_package_.org.oscar.kb.latin.spellcheck.AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
-                && !params.mId.mSubtype.hasExtraValue(_root_ide_package_.org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.EMOJI_CAPABLE)
+            if (params.mId.mWidth == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_WIDTH
+                && params.mId.mHeight == AndroidSpellCheckerService.SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT
+                && !params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.EMOJI_CAPABLE)
             )
             // fake keyboard that is used by spell checker (for key coordinates), but not shown to the user
             // often this doesn't have any icons loaded, and there is no need to bother with this
                 return this
-            val id = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().getStringResIdByName("label_$this")
+            val id = Settings.getInstance().getStringResIdByName("label_$this")
             if (id == 0) {
                 Log.w("TextKeyData", "no resource for label $this in ${params.mId}")
                 return this
@@ -297,7 +297,7 @@ sealed interface KeyData : AbstractKeyData {
     // actually that's a bad approach, but at the same time doing things properly and with reasonable performance requires much more work
     // so better only do it in case the popup stuff needs more improvements
     // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
-    fun getPopupLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+    fun getPopupLabel(params: KeyboardParams): String {
         val newLabel = processLabel(params)
         if (code == KeyCode.UNSPECIFIED) {
             if (newLabel == label) return label
@@ -310,9 +310,9 @@ sealed interface KeyData : AbstractKeyData {
                 // we ignore everything after the first |
                 // todo (later): for now this is fine, but it should rather be done when creating the popup key,
                 //  and it should be consistent with other popups and also with normal keys
-                return "${newLabel.substringBefore("|")}|${_root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(code)}"
+                return "${newLabel.substringBefore("|")}|${StringUtils.newSingleCodePointString(code)}"
             }
-            return "$newLabel|${_root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(code)}"
+            return "$newLabel|${StringUtils.newSingleCodePointString(code)}"
 
         }
         if (code in KeyCode.Spec.CURRENCY) {
@@ -322,7 +322,7 @@ sealed interface KeyData : AbstractKeyData {
         else "$newLabel|!code/${processCode()}"
     }
 
-    fun getCurrencyLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String {
+    fun getCurrencyLabel(params: KeyboardParams): String {
         val newLabel = processLabel(params)
         return when (code) {
             // consider currency codes for label
@@ -336,22 +336,22 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         require(groupId in 0..GROUP_ENTER) { "only positive groupIds up to GROUP_ENTER are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
         if (newLabel == KeyLabel.SHIFT && params.mId.isAlphabetKeyboard
-                && params.mId.mSubtype.hasExtraValue(_root_ide_package_.org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
+                && params.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_KEY)) {
             return null
         }
         val newCode = code.checkAndConvertCode()
         val newLabelFlags = if (labelFlags == 0 && params.mId.isNumberLayout) {
             if (type == KeyType.NUMERIC) {
                 when (params.mId.mElementId) {
-                    _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_HINT_LABEL or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
-                    _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE_SYMBOLS -> 0
-                    else -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
+                    KeyboardId.ELEMENT_PHONE -> Key.LABEL_FLAGS_ALIGN_LABEL_OFF_CENTER or Key.LABEL_FLAGS_HAS_HINT_LABEL or Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
+                    KeyboardId.ELEMENT_PHONE_SYMBOLS -> 0
+                    else -> Key.LABEL_FLAGS_FOLLOW_KEY_LARGE_LETTER_RATIO
                 }
             } else 0
         } else labelFlags
@@ -363,15 +363,15 @@ sealed interface KeyData : AbstractKeyData {
 
 
     fun isSpaceKey(): Boolean {
-        return code == _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE || code == KeyCode.CJK_SPACE || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA
+        return code == Constants.CODE_SPACE || code == KeyCode.CJK_SPACE || code == KeyCode.ZWNJ || code == KeyCode.KESHIDA
     }
 
     fun isKeyPlaceholder() = type == KeyType.PLACEHOLDER && code == KeyCode.UNSPECIFIED && width == 0f
 
     /** this expects that codes and labels are already converted from FlorisBoard values, usually through compute */
-    fun toKeyParams(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, additionalLabelFlags: Int = 0): _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams {
+    fun toKeyParams(params: KeyboardParams, additionalLabelFlags: Int = 0): Key.KeyParams {
         val newWidth = if (width == 0f) getDefaultWidth(params) else width
-        if (type == KeyType.PLACEHOLDER) return _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams.newSpacer(params, newWidth)
+        if (type == KeyType.PLACEHOLDER) return Key.KeyParams.newSpacer(params, newWidth)
 
         val newCode: Int
         val newLabel: String
@@ -388,11 +388,11 @@ sealed interface KeyData : AbstractKeyData {
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
 
         val background = when (type) {
-            KeyType.CHARACTER, KeyType.NUMERIC -> _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_NORMAL
-            KeyType.FUNCTION, KeyType.MODIFIER, KeyType.SYSTEM_GUI -> _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_FUNCTIONAL
-            KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_EMPTY
-            KeyType.NAVIGATION -> _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_SPACEBAR
-            KeyType.ENTER_EDITING -> _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_ACTION
+            KeyType.CHARACTER, KeyType.NUMERIC -> Key.BACKGROUND_TYPE_NORMAL
+            KeyType.FUNCTION, KeyType.MODIFIER, KeyType.SYSTEM_GUI -> Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyType.PLACEHOLDER, KeyType.UNSPECIFIED -> Key.BACKGROUND_TYPE_EMPTY
+            KeyType.NAVIGATION -> Key.BACKGROUND_TYPE_SPACEBAR
+            KeyType.ENTER_EDITING -> Key.BACKGROUND_TYPE_ACTION
             KeyType.LOCK -> getShiftBackground(params)
             null -> getDefaultBackground(params)
         }
@@ -402,7 +402,7 @@ sealed interface KeyData : AbstractKeyData {
             // but also longer labels should work without issues, also for MultiTextKeyData
             if (this is MultiTextKeyData) {
                 val outputText = String(codePoints, 0, codePoints.size)
-                _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams(
+                Key.KeyParams(
                     "$newLabel|$outputText",
                     newCode,
                     params,
@@ -412,7 +412,7 @@ sealed interface KeyData : AbstractKeyData {
                     newPopupKeys,
                 )
             } else {
-                _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams(
+                Key.KeyParams(
                     newLabel.rtlLabel(params),
                     params,
                     newWidth,
@@ -422,8 +422,8 @@ sealed interface KeyData : AbstractKeyData {
                 )
             }
         } else {
-            _root_ide_package_.org.oscar.kb.keyboard.Key.KeyParams(
-                newLabel.ifEmpty { _root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(newCode) },
+            Key.KeyParams(
+                newLabel.ifEmpty { StringUtils.newSingleCodePointString(newCode) },
                 newCode,
                 params,
                 newWidth,
@@ -434,39 +434,39 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    private fun getDefaultBackground(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): Int {
+    private fun getDefaultBackground(params: KeyboardParams): Int {
         // functional keys
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_FUNCTIONAL
-            KeyLabel.SPACE, KeyLabel.ZWNJ -> return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_SPACEBAR
-            KeyLabel.ACTION -> return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_ACTION
+            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
+            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
             KeyLabel.SHIFT -> return getShiftBackground(params)
         }
-        if (type == KeyType.PLACEHOLDER) return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_EMPTY
-        if ((params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+        if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
+        if ((params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS || params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
                 && (groupId == GROUP_COMMA || groupId == GROUP_PERIOD))
-            return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_FUNCTIONAL
-        return _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_NORMAL
+            return Key.BACKGROUND_TYPE_FUNCTIONAL
+        return Key.BACKGROUND_TYPE_NORMAL
     }
 
     // todo (later): possibly the whole stickyOn/Off stuff can be removed, currently it should only have a very slight effect in holo
     //  but iirc there is some attempt in reviving the sticky thing, right?
-    private fun getShiftBackground(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): Int {
-        return if (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
-            || params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_STICKY_ON
-        else _root_ide_package_.org.oscar.kb.keyboard.Key.BACKGROUND_TYPE_STICKY_OFF
+    private fun getShiftBackground(params: KeyboardParams): Int {
+        return if (params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED
+            || params.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) Key.BACKGROUND_TYPE_STICKY_ON
+        else Key.BACKGROUND_TYPE_STICKY_OFF
     }
 
-    private fun getDefaultWidth(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): Float {
+    private fun getDefaultWidth(params: KeyboardParams): Float {
         return if (label == KeyLabel.SPACE && params.mId.isAlphaOrSymbolKeyboard) -1f
         else if (type == KeyType.NUMERIC && params.mId.isNumberLayout) -1f
         else params.mDefaultKeyWidth
     }
 
     // todo (later): encoding the code in the label should be avoided, because we know it already
-    private fun processLabel(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): String = when (label) {
+    private fun processLabel(params: KeyboardParams): String = when (label) {
         KeyLabel.SYMBOL_ALPHA -> if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelSymbol else params.mLocaleKeyboardInfos.labelAlphabet
         KeyLabel.SYMBOL -> params.mLocaleKeyboardInfos.labelSymbol
         KeyLabel.ALPHA -> params.mLocaleKeyboardInfos.labelAlphabet
@@ -516,29 +516,29 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     // todo (later): add explanations / reasoning, often this is just taken from conversion from OpenBoard / AOSP layouts
-    private fun getAdditionalLabelFlags(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): Int {
+    private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
-            KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_PRESERVE_CASE or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
-            KeyLabel.COMMA -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_POPUP_HINT
+            KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
+            KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             // essentially this only changes the appearance of the armenian period key in holo theme
-            KeyLabel.PERIOD -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_POPUP_HINT and if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0
+            KeyLabel.PERIOD -> Key.LABEL_FLAGS_HAS_POPUP_HINT and if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0
             KeyLabel.ACTION -> {
-                _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_PRESERVE_CASE or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE or
-                        _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
-                        _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
+                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
+                        Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
+                        Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             }
-            KeyLabel.SPACE -> if (params.mId.isNumberLayout) _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
-            KeyLabel.SHIFT -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
+            KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
+            KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
             toolbarKeyStrings[ToolbarKey.EMOJI] -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
-            KeyLabel.COM -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_AUTO_X_SCALE or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FONT_NORMAL or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_POPUP_HINT or _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_PRESERVE_CASE
-            KeyLabel.ZWNJ -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_HAS_POPUP_HINT
-            KeyLabel.CURRENCY -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
-            KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> _root_ide_package_.org.oscar.kb.keyboard.Key.LABEL_FLAGS_PRESERVE_CASE
+            KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
+            KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
+            KeyLabel.CURRENCY -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
+            KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META -> Key.LABEL_FLAGS_PRESERVE_CASE
             else -> 0
         }
     }
 
-    private fun getAdditionalPopupKeys(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): PopupSet<AbstractKeyData>? {
+    private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
         if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
         if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)
@@ -554,7 +554,7 @@ sealed interface KeyData : AbstractKeyData {
                     )
                 ) else null // why the alphabet popup keys actually?
             }
-            KeyLabel.COM -> SimplePopups(listOf(_root_ide_package_.org.oscar.kb.keyboard.Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+            KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
             // only add currency popups if there are none defined on the key
             KeyLabel.CURRENCY -> if (popup.isEmpty()) SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second) else null
@@ -587,7 +587,7 @@ class TextKeyData(
 ) : KeyData {
     override fun asString(isForDisplay: Boolean): String {
         return buildString {
-            if (isForDisplay || code == KeyCode.URI_COMPONENT_TLD || code < _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE) {
+            if (isForDisplay || code == KeyCode.URI_COMPONENT_TLD || code < Constants.CODE_SPACE) {
                 if (Unicode.isNonSpacingMark(code) && !label.startsWith("◌")) {
                     append("◌")
                 }
@@ -630,7 +630,7 @@ class AutoTextKeyData(
 
     override fun asString(isForDisplay: Boolean): String {
         return buildString {
-            if (isForDisplay || code == KeyCode.URI_COMPONENT_TLD || code < _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE) {
+            if (isForDisplay || code == KeyCode.URI_COMPONENT_TLD || code < Constants.CODE_SPACE) {
                 if (Unicode.isNonSpacingMark(code) && !label.startsWith("◌")) {
                     append("◌")
                 }
@@ -670,7 +670,7 @@ class MultiTextKeyData(
 ) : KeyData {
     @Transient override val code: Int = KeyCode.MULTIPLE_CODE_POINTS
 
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData {
+    override fun compute(params: KeyboardParams): KeyData {
         // todo: does this work? maybe convert label to | style?
         //  but if i allow negative codes, ctrl+z could be on a single key (but floris doesn't support this anyway)
         return this

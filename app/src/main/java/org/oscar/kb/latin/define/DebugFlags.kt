@@ -24,8 +24,8 @@ object DebugFlags {
 
     @JvmStatic
     fun init(context: Context) {
-        val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-        DEBUG_ENABLED = prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.DebugSettings.PREF_DEBUG_MODE, false)
+        val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+        DEBUG_ENABLED = prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false)
         if (DEBUG_ENABLED || BuildConfig.DEBUG)
             CrashReportExceptionHandler(context.applicationContext).install()
     }

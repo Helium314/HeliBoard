@@ -5,11 +5,20 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodSubtype
 import org.inputmethod.keyboard.ProximityInfo
 import org.oscar.kb.keyboard.Key.KeyParams
+import org.oscar.kb.keyboard.Keyboard
+import org.oscar.kb.keyboard.KeyboardId
+import org.oscar.kb.keyboard.KeyboardLayoutSet
+import org.oscar.kb.keyboard.internal.KeySpecParser
 import org.oscar.kb.keyboard.internal.KeyboardBuilder
+import org.oscar.kb.keyboard.internal.KeyboardParams
+import org.oscar.kb.keyboard.internal.TouchPositionCorrection
+import org.oscar.kb.keyboard.internal.UniqueKeysCache
 import org.oscar.kb.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import org.oscar.kb.keyboard.internal.keyboard_parser.RawKeyboardParser
 import org.oscar.kb.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
+import org.oscar.kb.latin.LatinIME
+import org.oscar.kb.latin.RichInputMethodSubtype
 import org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
 import org.oscar.kb.latin.utils.POPUP_KEYS_LAYOUT
 import org.oscar.kb.latin.utils.checkKeys
@@ -33,17 +42,17 @@ import java.util.Locale
     ShadowProximityInfo::class,
 ])
 class ParserTest {
-    private lateinit var latinIME: _root_ide_package_.org.oscar.kb.latin.LatinIME
-    private lateinit var params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams
+    private lateinit var latinIME: LatinIME
+    private lateinit var params: KeyboardParams
 
     @Before
     fun setUp() {
-        latinIME = Robolectric.setupService(_root_ide_package_.org.oscar.kb.latin.LatinIME::class.java)
+        latinIME = Robolectric.setupService(LatinIME::class.java)
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
-        params = _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams()
-        params.mId = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.getFakeKeyboardId(
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
+        params = KeyboardParams()
+        params.mId = KeyboardLayoutSet.getFakeKeyboardId(
+            KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(latinIME, params, POPUP_KEYS_NORMAL)
     }
@@ -321,7 +330,7 @@ f""", // no newline at the end
     }
 
     @Test fun invalidKeys() {
-        assertThrows(_root_ide_package_.org.oscar.kb.keyboard.internal.KeySpecParser.KeySpecParserError::class.java) {
+        assertThrows(KeySpecParser.KeySpecParserError::class.java) {
             RawKeyboardParser.parseJsonString("""[[{ "label": "!icon/clipboard_action_key" }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         }
     }
@@ -403,7 +412,7 @@ f""", // no newline at the end
     }
 
     @Test fun invalidPopupKeys() {
-        assertThrows(_root_ide_package_.org.oscar.kb.keyboard.internal.KeySpecParser.KeySpecParserError::class.java) {
+        assertThrows(KeySpecParser.KeySpecParserError::class.java) {
             RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": {
           "main": { "label": "!icon/clipboard_action_key" }
     } }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
@@ -421,25 +430,25 @@ f""", // no newline at the end
     @Test fun canLoadKeyboard() {
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
-        val (kb, keys) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
+        val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(kb.sortedKeys.size, keys.sumOf { it.size })
     }
 
     @Test fun `dvorak has 4 rows`() {
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "dvorak", true)
-        val (kb, keys) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
+        val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(keys.size, 4)
     }
 
     @Test fun `de_DE has extra keys`() {
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
-        val (kb, keys) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
+        val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(11, keys[0].size)
         assertEquals(11, keys[1].size)
         assertEquals(10, keys[2].size)
-        val (kb2, keys2) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
+        val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
         assertEquals(11, keys2[0].size)
         assertEquals(11, keys2[1].size)
         assertEquals(10, keys2[2].size)
@@ -448,8 +457,8 @@ f""", // no newline at the end
     @Test fun `popup key count does not depend on shift for (for simple layout)`() {
         val editorInfo = EditorInfo()
         val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
-        val (kb, keys) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET)
-        val (kb2, keys2) = buildKeyboard(editorInfo, subtype, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
+        val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
+        val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
         assertEquals(kb.sortedKeys.size, kb2.sortedKeys.size)
         keys.forEachIndexed { i, kpList -> kpList.forEachIndexed { j, kp ->
             assertEquals(kp.mPopupKeys?.size, keys2[i][j].mPopupKeys?.size)
@@ -482,23 +491,23 @@ f""", // no newline at the end
     }
 
     private fun buildKeyboard(editorInfo: EditorInfo, subtype: InputMethodSubtype, elementId: Int): Pair<_root_ide_package_.org.oscar.kb.keyboard.Keyboard, List<List<KeyParams>>> {
-        val layoutParams = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.Params()
-        val editorInfoField = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.Params::class.java.getDeclaredField("mEditorInfo").apply { isAccessible = true }
+        val layoutParams = KeyboardLayoutSet.Params()
+        val editorInfoField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mEditorInfo").apply { isAccessible = true }
         editorInfoField.set(layoutParams, editorInfo)
-        val subtypeField = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.Params::class.java.getDeclaredField("mSubtype").apply { isAccessible = true }
+        val subtypeField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mSubtype").apply { isAccessible = true }
         subtypeField.set(layoutParams,
             _root_ide_package_.org.oscar.kb.latin.RichInputMethodSubtype(subtype)
         )
-        val widthField = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardWidth").apply { isAccessible = true }
+        val widthField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardWidth").apply { isAccessible = true }
         widthField.setInt(layoutParams, 500)
-        val heightField = _root_ide_package_.org.oscar.kb.keyboard.KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardHeight").apply { isAccessible = true }
+        val heightField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardHeight").apply { isAccessible = true }
         heightField.setInt(layoutParams, 300)
 
         val keysInRowsField = KeyboardBuilder::class.java.getDeclaredField("keysInRows").apply { isAccessible = true }
 
-        val id = _root_ide_package_.org.oscar.kb.keyboard.KeyboardId(elementId, layoutParams)
+        val id = KeyboardId(elementId, layoutParams)
         val builder = KeyboardBuilder(latinIME,
-            _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams(_root_ide_package_.org.oscar.kb.keyboard.internal.UniqueKeysCache.NO_CACHE)
+            KeyboardParams(UniqueKeysCache.NO_CACHE)
         )
         builder.load(id)
         return builder.build() to keysInRowsField.get(builder) as ArrayList<ArrayList<KeyParams>>
@@ -508,5 +517,5 @@ f""", // no newline at the end
 @Implements(ProximityInfo::class)
 class ShadowProximityInfo {
     @Implementation
-    fun createNativeProximityInfo(tpc: _root_ide_package_.org.oscar.kb.keyboard.internal.TouchPositionCorrection): Long = 0
+    fun createNativeProximityInfo(tpc: TouchPositionCorrection): Long = 0
 }

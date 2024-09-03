@@ -34,14 +34,14 @@ import java.io.File
 
 object RawKeyboardParser {
     private const val TAG = "RawKeyboardParser"
-    private val rawLayoutCache = hashMapOf<String, (_root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams) -> MutableList<MutableList<KeyData>>>()
+    private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
         LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
 
     fun clearCache() = rawLayoutCache.clear()
 
-    fun parseLayout(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, context: Context, isFunctional: Boolean = false): MutableList<MutableList<KeyData>> {
+    fun parseLayout(params: KeyboardParams, context: Context, isFunctional: Boolean = false): MutableList<MutableList<KeyData>> {
         val layoutName = if (isFunctional) {
             if (!params.mId.isAlphaOrSymbolKeyboard) return mutableListOf(mutableListOf())
             else getFunctionalLayoutName(params, context)
@@ -53,7 +53,7 @@ object RawKeyboardParser {
         }(params)
     }
 
-    fun parseLayout(layoutName: String, params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, context: Context): MutableList<MutableList<KeyData>> {
+    fun parseLayout(layoutName: String, params: KeyboardParams, context: Context): MutableList<MutableList<KeyData>> {
         return rawLayoutCache.getOrPut(layoutName) {
             createCacheLambda(layoutName, context)
         }(params)
@@ -85,7 +85,7 @@ object RawKeyboardParser {
         else split.first().toTextKey(split.drop(1))
     }
 
-    private fun createCacheLambda(layoutName: String, context: Context): (_root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams) -> MutableList<MutableList<KeyData>> {
+    private fun createCacheLambda(layoutName: String, context: Context): (KeyboardParams) -> MutableList<MutableList<KeyData>> {
         val layoutFileName = getLayoutFileName(layoutName, context)
         val layoutText = if (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             try {
@@ -120,25 +120,25 @@ object RawKeyboardParser {
         }
     }
 
-    private fun getLayoutName(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, context: Context) = when (params.mId.mElementId) {
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LAYOUT_SYMBOLS_SHIFTED
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+    private fun getLayoutName(params: KeyboardParams, context: Context) = when (params.mId.mElementId) {
+        KeyboardId.ELEMENT_SYMBOLS -> if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
+        KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LAYOUT_SYMBOLS_SHIFTED
+        KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
             LAYOUT_NUMPAD_LANDSCAPE
         else
             LAYOUT_NUMPAD
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
-        _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
+        KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
+        KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
+        KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
         else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
     }
 
-    private fun getFunctionalLayoutName(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams, context: Context): String {
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mHasCustomFunctionalLayout) {
+    private fun getFunctionalLayoutName(params: KeyboardParams, context: Context): String {
+        if (Settings.getInstance().current.mHasCustomFunctionalLayout) {
             getCustomFunctionalLayoutName(params.mId.mElementId, params.mId.mSubtype.rawSubtype, context)
                 ?.let { return it }
         }
-        return if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().isTablet) "functional_keys_tablet" else "functional_keys"
+        return if (Settings.getInstance().isTablet) "functional_keys_tablet" else "functional_keys"
     }
 
     /** returns the file name matching the layout name, making sure the file exists (falling back to qwerty.txt) */

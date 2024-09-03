@@ -15,7 +15,7 @@ object ProductionFlags {
 
     /**
      * Include all suggestions from all dictionaries in
-     * [helium314.keyboard.latin.SuggestedWords.mRawSuggestions].
+     * [org.oscar.kb.latin.SuggestedWords.mRawSuggestions].
      */
     const val INCLUDE_RAW_SUGGESTIONS = false
 }

@@ -87,7 +87,7 @@ class Event private constructor(
             }
             when (mEventType) {
                 EVENT_TYPE_MODE_KEY, EVENT_TYPE_NOT_HANDLED, EVENT_TYPE_TOGGLE, EVENT_TYPE_CURSOR_MOVE -> return ""
-                EVENT_TYPE_INPUT_KEYPRESS -> return _root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(mCodePoint)
+                EVENT_TYPE_INPUT_KEYPRESS -> return StringUtils.newSingleCodePointString(mCodePoint)
                 EVENT_TYPE_GESTURE, EVENT_TYPE_SOFTWARE_GENERATED_STRING, EVENT_TYPE_SUGGESTION_PICKED -> return mText
             }
             throw RuntimeException("Unknown event type: $mEventType")
@@ -143,7 +143,7 @@ class Event private constructor(
         fun createHardwareKeypressEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?, isKeyRepeat: Boolean): Event {
             return Event(
                 EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.EXTERNAL_KEYBOARD_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                    Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
                     null, if (isKeyRepeat) FLAG_REPEAT else FLAG_NONE, next)
         }
 
@@ -151,7 +151,7 @@ class Event private constructor(
         fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?): Event { // TODO: add an argument or something if we ever create a software layout with dead keys.
             return Event(
                 EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.EXTERNAL_KEYBOARD_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.EXTERNAL_KEYBOARD_COORDINATE,
+                    Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
                     null, FLAG_DEAD, next)
         }
 
@@ -166,7 +166,7 @@ class Event private constructor(
         fun createEventForCodePointFromUnknownSource(codePoint: Int): Event { // TODO: should we have a different type of event for this? After all, it's not a key press.
             return Event(
                 EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, NOT_A_KEY_CODE, 0,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
 
         /**
@@ -194,7 +194,7 @@ class Event private constructor(
             return Event(
                 EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord,
                     NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.SUGGESTION_STRIP_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.SUGGESTION_STRIP_COORDINATE,
+                    Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE,
                     suggestedWordInfo, FLAG_NONE, null)
         }
 
@@ -211,7 +211,7 @@ class Event private constructor(
         fun createSoftwareTextEvent(text: CharSequence?, keyCode: Int, next: Event?): Event {
             return Event(
                 EVENT_TYPE_SOFTWARE_GENERATED_STRING, text, NOT_A_CODE_POINT, keyCode, 0,
-                _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE,null, FLAG_NONE, next)
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,null, FLAG_NONE, next)
         }
 
         @JvmStatic
@@ -227,7 +227,7 @@ class Event private constructor(
             val primaryCode = suggestedWordInfo.mWord[0].code
             return Event(
                 EVENT_TYPE_SUGGESTION_PICKED, suggestedWordInfo.mWord, primaryCode, NOT_A_KEY_CODE, 0,
-                _root_ide_package_.org.oscar.kb.latin.common.Constants.SUGGESTION_STRIP_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.SUGGESTION_STRIP_COORDINATE, suggestedWordInfo, FLAG_NONE,null)
+                Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, suggestedWordInfo, FLAG_NONE,null)
         }
 
         /**
@@ -240,7 +240,7 @@ class Event private constructor(
         fun createCursorMovedEvent(moveAmount: Int): Event {
             return Event(
                 EVENT_TYPE_CURSOR_MOVE, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    moveAmount, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
+                    moveAmount, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
 
         /**
@@ -261,7 +261,7 @@ class Event private constructor(
         fun createNotHandledEvent(): Event {
             return Event(
                 EVENT_TYPE_NOT_HANDLED, null, NOT_A_CODE_POINT, NOT_A_KEY_CODE, 0,
-                    _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
+                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, null, FLAG_NONE, null)
         }
     }
 

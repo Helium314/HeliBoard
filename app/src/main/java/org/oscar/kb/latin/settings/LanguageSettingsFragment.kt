@@ -57,9 +57,9 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(requireContext())
+        sharedPreferences = DeviceProtectedUtils.getSharedPreferences(requireContext())
 
-        _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.init(requireContext())
+        SubtypeLocaleUtils.init(requireContext())
 
         enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
         systemLocales.addAll(getSystemLocales())
@@ -68,9 +68,9 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
         systemOnlySwitch = view.findViewById(R.id.language_switch)
-        systemOnlySwitch.isChecked = sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_USE_SYSTEM_LOCALES, true)
+        systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
         systemOnlySwitch.setOnCheckedChangeListener { _, b ->
-            sharedPreferences.edit { putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_USE_SYSTEM_LOCALES, b) }
+            sharedPreferences.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
             enabledSubtypes.clear()
             enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
             loadSubtypes(b)
@@ -156,7 +156,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         }
 
         // add subtypes that have a dictionary
-        val localesWithDictionary = _root_ide_package_.org.oscar.kb.latin.utils.DictionaryInfoUtils.getCachedDirectoryList(requireContext())?.mapNotNull { dir ->
+        val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(requireContext())?.mapNotNull { dir ->
             if (!dir.isDirectory)
                 return@mapNotNull null
             if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
@@ -170,8 +170,8 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
         // add the remaining ones
         allSubtypes.map { it.toSubtypeInfo(it.locale()) }
-            .sortedBy { if (it.subtype.locale().toLanguageTag().equals(_root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.NO_LANGUAGE, true))
-                    _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.NO_LANGUAGE // "No language (Alphabet)" should be last
+            .sortedBy { if (it.subtype.locale().toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE, true))
+                    SubtypeLocaleUtils.NO_LANGUAGE // "No language (Alphabet)" should be last
                 else it.displayName
             }.addToSortedSubtypes()
 

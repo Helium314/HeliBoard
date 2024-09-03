@@ -32,7 +32,7 @@ public final class Constants {
         /**
          * The private IME option used to suppress the floating gesture preview for a given text
          * field. This overrides the corresponding keyboard settings preference.
-         * {@link helium314.keyboard.latin.settings.SettingsValues#mGestureFloatingPreviewTextEnabled}
+         * {@link org.oscar.kb.latin.settings.SettingsValues#mGestureFloatingPreviewTextEnabled}
          */
         public static final String NO_FLOATING_GESTURE_PREVIEW = "noGestureFloatingPreview";
 
@@ -164,7 +164,7 @@ public final class Constants {
 
     /**
      * Custom request code used in
-     * {@link org.oscar.kb.KeyboardActionListener#onCustomRequest(int)}.
+     * {@link org.oscar.kb.keyboard.KeyboardActionListener#onCustomRequest(int)}.
      */
     // The code to show input method picker.
     public static final int CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER = 1;
@@ -248,7 +248,7 @@ public final class Constants {
 
     /**
      * Default capacity of gesture points container.
-     * This constant is used by {@link helium314.keyboard.keyboard.internal.BatchInputArbiter}
+     * This constant is used by {@link org.oscar.kb.keyboard.internal.BatchInputArbiter}
      * and etc. to preallocate regions that contain gesture event points.
      */
     public static final int DEFAULT_GESTURE_POINTS_CAPACITY = 128;

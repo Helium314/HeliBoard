@@ -29,7 +29,7 @@ fun loopOverCodePointsBackwards(s: CharSequence, run: (Int) -> Boolean) {
     }
 }
 
-fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuations: _root_ide_package_.org.oscar.kb.latin.settings.SpacingAndPunctuations): Boolean {
+fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     var space = false
     var nonWordCodePoint = false
     loopOverCodePointsBackwards(s) {

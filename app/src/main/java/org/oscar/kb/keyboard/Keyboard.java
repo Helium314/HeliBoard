@@ -12,17 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.inputmethod.keyboard.ProximityInfo;
-//import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
-//import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
-//import org.oscar.kb.keyboard.internal.KeyboardParams;
-//import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
-//import org.oscar.kb.latin.common.Constants;
-//import org.oscar.kb.latin.common.CoordinateUtils;
 
-
-import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
-import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
-import org.oscar.kb.keyboard.internal.KeyboardParams;
 import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
 import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
 import org.oscar.kb.keyboard.internal.KeyboardParams;

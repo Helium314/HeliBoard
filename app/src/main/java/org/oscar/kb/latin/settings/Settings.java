@@ -32,7 +32,6 @@ import org.oscar.kb.R;
 import org.oscar.kb.keyboard.KeyboardActionListener;
 import org.oscar.kb.keyboard.KeyboardTheme;
 import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
-import org.oscar.kb.latin.AudioAndHapticFeedbackManager;
 import org.oscar.kb.latin.InputAttributes;
 import org.oscar.kb.latin.common.Colors;
 import org.oscar.kb.latin.common.LocaleUtils;

@@ -64,7 +64,7 @@ fun reorderDialog(
     @StringRes dialogTitleId: Int,
     getIcon: (String) -> Drawable? = { null }
 ) {
-    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     val orderedItems = prefs.getString(key, defaultSetting)!!.split(";").mapTo(ArrayList()) {
         val both = it.split(",")
         both.first() to both.last().toBoolean()
@@ -72,7 +72,7 @@ fun reorderDialog(
     val rv = RecyclerView(context)
     val bgColor = ContextCompat.getColor(context, R.color.sliding_items_background)
     val fgColor = ContextCompat.getColor(context, R.color.foreground)
-    val padding = _root_ide_package_.org.oscar.kb.latin.utils.ResourceUtils.toPx(8, context.resources)
+    val padding = ResourceUtils.toPx(8, context.resources)
     rv.setPadding(3 * padding, padding, padding, padding)
     rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 

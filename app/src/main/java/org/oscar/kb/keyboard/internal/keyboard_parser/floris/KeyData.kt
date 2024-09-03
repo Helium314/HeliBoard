@@ -27,7 +27,7 @@ interface AbstractKeyData {
      *
      * @return A [KeyData] object or null if no computation is possible.
      */
-    fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData?
+    fun compute(params: KeyboardParams): KeyData?
 
     /**
      * Returns the data described by this key as a string.
@@ -63,7 +63,7 @@ class CaseSelector(
     val lower: AbstractKeyData,
     val upper: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         return (if (params.mId.isAlphabetShifted) { upper } else { lower }).compute(params)
     }
 
@@ -109,12 +109,12 @@ class ShiftStateSelector(
     val default: AbstractKeyData? = null,
     val manualOrLocked: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         return when (params.mId.mElementId) {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> unshifted ?: default
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> shiftedAutomatic ?: shifted ?: default
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: manualOrLocked ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_SYMBOLS -> unshifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> shiftedManual ?: manualOrLocked ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED -> shiftedAutomatic ?: shifted ?: default
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> capsLock ?: manualOrLocked ?: shifted ?: default
             else -> default // or rather unshifted?
         }?.compute(params)
     }
@@ -166,14 +166,14 @@ data class VariationSelector(
     val time: AbstractKeyData? = null,
     val datetime: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         return when {
             params.mId.passwordInput() -> password ?: default
-            params.mId.mMode == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_EMAIL -> email ?: default
-            params.mId.mMode == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_URL -> uri ?: default
-            params.mId.mMode == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATE -> date ?: default
-            params.mId.mMode == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_TIME -> time ?: default
-            params.mId.mMode == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATETIME -> datetime ?: default
+            params.mId.mMode == KeyboardId.MODE_EMAIL -> email ?: default
+            params.mId.mMode == KeyboardId.MODE_URL -> uri ?: default
+            params.mId.mMode == KeyboardId.MODE_DATE -> date ?: default
+            params.mId.mMode == KeyboardId.MODE_TIME -> time ?: default
+            params.mId.mMode == KeyboardId.MODE_DATETIME -> datetime ?: default
             else -> normal ?: default
         }?.compute(params)
     }
@@ -206,14 +206,14 @@ class KeyboardStateSelector(
     val alphabet: AbstractKeyData? = null,
     val default: AbstractKeyData? = null,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         if (params.mId.mEmojiKeyEnabled)
             emojiKeyEnabled?.compute(params)?.let { return it }
         if (params.mId.mLanguageSwitchKeyEnabled)
             languageKeyEnabled?.compute(params)?.let { return it }
-        if (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS)
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS)
             symbols?.compute(params)?.let { return it }
-        if (params.mId.mElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
+        if (params.mId.mElementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED)
             moreSymbols?.compute(params)?.let { return it }
         if (params.mId.isAlphabetKeyboard)
             alphabet?.compute(params)?.let { return it }
@@ -249,7 +249,7 @@ class LayoutDirectionSelector(
     val ltr: AbstractKeyData,
     val rtl: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         return (if (params.mId.mSubtype.isRtlSubtype) { rtl } else { ltr }).compute(params)
     }
 
@@ -280,7 +280,7 @@ class CharWidthSelector(
     val full: AbstractKeyData?,
     val half: AbstractKeyData?,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         throw UnsupportedOperationException("char_width_selector not (yet) supported")
 //        val data = if (params.halfWidth) { half } else { full }
 //        return data?.compute(params)
@@ -313,7 +313,7 @@ class KanaSelector(
     val hira: AbstractKeyData,
     val kata: AbstractKeyData,
 ) : AbstractKeyData {
-    override fun compute(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): KeyData? {
+    override fun compute(params: KeyboardParams): KeyData? {
         throw UnsupportedOperationException("kana_selector not (yet) supported")
 //        val data = if (evaluator.state.isKanaKata) { kata } else { hira }
 //        return data.compute(evaluator)

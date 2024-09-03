@@ -16,7 +16,7 @@ import org.oscar.kb.R
 internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimerCallback,
                                            context: Context) : Handler() {
     interface LongPressTimerCallback {
-        fun performLongClickOn(key: _root_ide_package_.org.oscar.kb.keyboard.Key)
+        fun performLongClickOn(key: Key)
     }
 
     private val mConfigAccessibilityLongPressTimeout: Long
@@ -24,7 +24,7 @@ internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimer
         when (msg.what) {
             MSG_LONG_PRESS -> {
                 cancelLongPress()
-                mCallback.performLongClickOn(msg.obj as _root_ide_package_.org.oscar.kb.keyboard.Key)
+                mCallback.performLongClickOn(msg.obj as Key)
                 return
             }
             else -> {
@@ -34,7 +34,7 @@ internal class AccessibilityLongPressTimer(private val mCallback: LongPressTimer
         }
     }
 
-    fun startLongPress(key: _root_ide_package_.org.oscar.kb.keyboard.Key?) {
+    fun startLongPress(key: Key?) {
         cancelLongPress()
         val longPressMessage = obtainMessage(MSG_LONG_PRESS, key)
         sendMessageDelayed(longPressMessage, mConfigAccessibilityLongPressTimeout)

@@ -26,8 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import org.oscar.kb.keyboard.emoji.EmojiPalettesView;
-import org.oscar.kb.keyboard.internal.KeyboardState;
+
 import org.oscar.kb.R;
 import org.oscar.kb.event.Event;
 import org.oscar.kb.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
@@ -151,7 +150,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 .build();
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
-        } catch (KeyboardLayoutSet.KeyboardLayoutSetException e) {
+        } catch (KeyboardLayoutSetException e) {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
                 final InputMethodSubtype qwerty = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
@@ -166,7 +165,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                         .build();
                 mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
                 showToast("error loading the keyboard, falling back to qwerty", false);
-            } catch (KeyboardLayoutSet.KeyboardLayoutSetException e2) {
+            } catch (KeyboardLayoutSetException e2) {
                 Log.e(TAG, "even fallback to qwerty failed: " + e2.mKeyboardId, e2.getCause());
             }
         }

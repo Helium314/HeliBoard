@@ -21,8 +21,6 @@ import androidx.annotation.Nullable;
 
 import org.oscar.kb.keyboard.internal.KeyboardBuilder;
 import org.oscar.kb.keyboard.internal.KeyboardParams;
-import org.oscar.kb.keyboard.internal.KeyboardBuilder;
-import org.oscar.kb.keyboard.internal.KeyboardParams;
 import org.oscar.kb.keyboard.internal.UniqueKeysCache;
 import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;

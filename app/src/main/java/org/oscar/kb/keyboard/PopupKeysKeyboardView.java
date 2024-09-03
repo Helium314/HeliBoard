@@ -22,8 +22,6 @@ import org.oscar.kb.accessibility.AccessibilityUtils;
 import org.oscar.kb.accessibility.PopupKeysKeyboardAccessibilityDelegate;
 import org.oscar.kb.keyboard.emoji.OnKeyEventListener;
 import org.oscar.kb.keyboard.internal.KeyDrawParams;
-import org.oscar.kb.keyboard.emoji.OnKeyEventListener;
-import org.oscar.kb.keyboard.internal.KeyDrawParams;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
 import org.oscar.kb.R;
 import org.oscar.kb.latin.RichInputMethodManager;

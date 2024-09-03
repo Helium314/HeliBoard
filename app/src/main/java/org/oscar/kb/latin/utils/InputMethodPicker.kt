@@ -16,7 +16,7 @@ import org.oscar.kb.latin.LatinIME
 import org.oscar.kb.latin.RichInputMethodManager
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java
-fun createInputMethodPickerDialog(latinIme: _root_ide_package_.org.oscar.kb.latin.LatinIME, richImm: _root_ide_package_.org.oscar.kb.latin.RichInputMethodManager, windowToken: IBinder): AlertDialog {
+fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodManager, windowToken: IBinder): AlertDialog {
     val pm = latinIme.packageManager
     val thisImi = richImm.inputMethodInfoOfThisIme
     val currentSubtype = richImm.currentSubtype.rawSubtype

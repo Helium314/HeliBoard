@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
 
 
 class ClipboardHistoryManager(
-        private val latinIME: _root_ide_package_.org.oscar.kb.latin.LatinIME
+        private val latinIME: LatinIME
 ) : ClipboardManager.OnPrimaryClipChangedListener {
 
     private lateinit var clipboardManager: ClipboardManager
@@ -38,8 +38,8 @@ class ClipboardHistoryManager(
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
-        if (_root_ide_package_.org.oscar.kb.latin.settings.Settings.readClipboardHistoryEnabled(
-                _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME)))
+        if (Settings.readClipboardHistoryEnabled(
+                DeviceProtectedUtils.getSharedPreferences(latinIME)))
             fetchPrimaryClip()
     }
 
@@ -195,7 +195,7 @@ class ClipboardHistoryManager(
         val content = clipItem.coerceToText(latinIME)
         if (TextUtils.isEmpty(content)) return null
         val inputType = editorInfo?.inputType ?: InputType.TYPE_NULL
-        if (_root_ide_package_.org.oscar.kb.latin.utils.InputTypeUtils.isNumberInputType(inputType) && !content.isValidNumber()) return null
+        if (InputTypeUtils.isNumberInputType(inputType) && !content.isValidNumber()) return null
 
         // create the view
         val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)

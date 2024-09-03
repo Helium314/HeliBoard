@@ -85,9 +85,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         @JvmStatic
         fun getKeyboardTheme(context: Context): KeyboardTheme {
-            val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-            val style = prefs.getString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_STYLE, STYLE_MATERIAL)
-            val borders = prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_KEY_BORDERS, false)
+            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+            val style = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL)
+            val borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
             val matchingId = when (style) {
                 STYLE_HOLO -> THEME_ID_HOLO_BASE
                 STYLE_ROUNDED -> if (borders) THEME_ID_ROUNDED_BASE_BORDER else THEME_ID_ROUNDED_BASE
@@ -102,45 +102,45 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         @JvmStatic
         fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
-            val hasBorders = prefs.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_THEME_KEY_BORDERS, false)
-            val backgroundImage = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserBackgroundImage(context, isNight)
+            val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+            val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeColors) {
                 THEME_USER -> if (prefs.getInt(
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
+                        Settings.getColorPref(
+                            Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
                     AllColors(readAllColorsMap(prefs, false), themeStyle, hasBorders, backgroundImage)
                 else DefaultColors(
                     themeStyle,
                     hasBorders,
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_ACCENT_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_KEYS_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_TEXT_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_GESTURE_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
                     keyboardBackground = backgroundImage
                 )
                 THEME_USER_NIGHT -> if (prefs.getInt(
-                        _root_ide_package_.org.oscar.kb.latin.settings.Settings.getColorPref(
-                            _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
+                        Settings.getColorPref(
+                            Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
                     AllColors(readAllColorsMap(prefs, true), themeStyle, hasBorders, backgroundImage)
                 else DefaultColors(
                     themeStyle,
                     hasBorders,
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_ACCENT_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_KEYS_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_TEXT_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true),
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.readUserColor(prefs, context, _root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_COLOR_GESTURE_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true),
+                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, true),
                     keyboardBackground = backgroundImage
                 )
                 THEME_DYNAMIC -> {

@@ -23,14 +23,14 @@ internal class KeyCodeDescriptionMapper private constructor() {
     // Sparse array of spoken description resource IDs indexed by key codes
     private val mKeyCodeMap = SparseIntArray().apply {
         // Special non-character codes defined in Keyboard
-        put(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE, R.string.spoken_description_space)
+        put(Constants.CODE_SPACE, R.string.spoken_description_space)
         put(KeyCode.DELETE, R.string.spoken_description_delete)
-        put(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_ENTER, R.string.spoken_description_return)
+        put(Constants.CODE_ENTER, R.string.spoken_description_return)
         put(KeyCode.SETTINGS, R.string.spoken_description_settings)
         put(KeyCode.SHIFT, R.string.spoken_description_shift)
         put(KeyCode.VOICE_INPUT, R.string.spoken_description_mic)
         put(KeyCode.SYMBOL_ALPHA, R.string.spoken_description_to_symbol)
-        put(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_TAB, R.string.spoken_description_tab)
+        put(Constants.CODE_TAB, R.string.spoken_description_tab)
         put(KeyCode.LANGUAGE_SWITCH, R.string.spoken_description_language_switch)
         put(KeyCode.ACTION_NEXT, R.string.spoken_description_action_next)
         put(KeyCode.ACTION_PREVIOUS, R.string.spoken_description_action_previous)
@@ -67,7 +67,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         if (code == KeyCode.SHIFT) {
             return getDescriptionForShiftKey(context, keyboard)
         }
-        if (code == _root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_ENTER) {
+        if (code == Constants.CODE_ENTER) {
             // The following function returns the correct description in all action and
             // regular enter cases, taking care of all modes.
             return getDescriptionForActionKey(context, keyboard, key)
@@ -109,7 +109,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
             return context.getString(mKeyCodeMap.valueAt(index))
         }
         return if (Character.isDefined(codePoint) && !Character.isISOControl(codePoint)) {
-            _root_ide_package_.org.oscar.kb.latin.common.StringUtils.newSingleCodePointString(codePoint)
+            StringUtils.newSingleCodePointString(codePoint)
         } else null
     }
 
@@ -130,10 +130,10 @@ internal class KeyCodeDescriptionMapper private constructor() {
          */
         private fun getDescriptionForSwitchAlphaSymbol(context: Context, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard?): String? {
             val resId = when (val elementId = keyboard?.mId?.mElementId) {
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_to_symbol
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_to_alpha
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_to_symbol
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_to_numeric
+                KeyboardId.ELEMENT_ALPHABET, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_to_symbol
+                KeyboardId.ELEMENT_SYMBOLS, KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_to_alpha
+                KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_to_symbol
+                KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_to_numeric
                 else -> {
                     Log.e(TAG, "Missing description for keyboard element ID:$elementId")
                     return null
@@ -151,10 +151,10 @@ internal class KeyCodeDescriptionMapper private constructor() {
          */
         private fun getDescriptionForShiftKey(context: Context, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard?): String {
             val resId: Int = when (keyboard?.mId?.mElementId) {
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_caps_lock
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> R.string.spoken_description_shift_shifted
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_symbols_shift
-                _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_symbols_shift_shifted
+                KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED, KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_caps_lock
+                KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> R.string.spoken_description_shift_shifted
+                KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_symbols_shift
+                KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_symbols_shift_shifted
                 else -> R.string.spoken_description_shift
             }
             return context.getString(resId)

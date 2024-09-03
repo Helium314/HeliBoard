@@ -21,9 +21,9 @@ import org.oscar.kb.latin.utils.SubtypeLocaleUtils
  * accessibility support via composition rather via inheritance.
  */
 class MainKeyboardAccessibilityDelegate(
-    mainKeyboardView: _root_ide_package_.org.oscar.kb.keyboard.MainKeyboardView,
-    keyDetector: _root_ide_package_.org.oscar.kb.keyboard.KeyDetector
-) : KeyboardAccessibilityDelegate<_root_ide_package_.org.oscar.kb.keyboard.MainKeyboardView>(mainKeyboardView, keyDetector),
+    mainKeyboardView: MainKeyboardView,
+    keyDetector: KeyDetector
+) : KeyboardAccessibilityDelegate<MainKeyboardView>(mainKeyboardView, keyDetector),
     LongPressTimerCallback {
     /** The most recently set keyboard mode.  */
     private var mLastKeyboardMode = KEYBOARD_IS_HIDDEN
@@ -39,7 +39,7 @@ class MainKeyboardAccessibilityDelegate(
     /**
      * {@inheritDoc}
      */
-    override var keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard?
+    override var keyboard: Keyboard?
         get() = super.keyboard
         set(keyboard) {
             if (keyboard == null) {
@@ -86,8 +86,8 @@ class MainKeyboardAccessibilityDelegate(
      *
      * @param keyboard The new keyboard.
      */
-    private fun announceKeyboardLanguage(keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard) {
-        val languageText = _root_ide_package_.org.oscar.kb.latin.utils.SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(
+    private fun announceKeyboardLanguage(keyboard: Keyboard) {
+        val languageText = SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(
                 keyboard.mId.mSubtype.rawSubtype)
         sendWindowStateChanged(languageText)
     }
@@ -98,7 +98,7 @@ class MainKeyboardAccessibilityDelegate(
      *
      * @param keyboard The new keyboard.
      */
-    private fun announceKeyboardMode(keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard) {
+    private fun announceKeyboardMode(keyboard: Keyboard) {
         val context = mKeyboardView.context
         val modeTextResId = KEYBOARD_MODE_RES_IDS[keyboard.mId.mMode]
         if (modeTextResId == 0) {
@@ -115,39 +115,39 @@ class MainKeyboardAccessibilityDelegate(
      * @param keyboard The new keyboard.
      * @param lastKeyboard The last keyboard.
      */
-    private fun announceKeyboardType(keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard, lastKeyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard) {
+    private fun announceKeyboardType(keyboard: Keyboard, lastKeyboard: Keyboard) {
         val lastElementId = lastKeyboard.mId.mElementId
         val resId = when (keyboard.mId.mElementId) {
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET -> {
-                if (lastElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET
-                        || lastElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
+            KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED, KeyboardId.ELEMENT_ALPHABET -> {
+                if (lastElementId == KeyboardId.ELEMENT_ALPHABET
+                        || lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
                     // Transition between alphabet mode and automatic shifted mode should be silently
                     // ignored because it can be determined by each key's talk back announce.
                     return
                 }
                 R.string.spoken_description_mode_alpha
             }
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> {
-                if (lastElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
+            KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED -> {
+                if (lastElementId == KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED) {
                     // Resetting automatic shifted mode by pressing the shift key causes the transition
                     // from automatic shifted to manual shifted that should be silently ignored.
                     return
                 }
                 R.string.spoken_description_shiftmode_on
             }
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> {
-                if (lastElementId == _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) {
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED -> {
+                if (lastElementId == KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED) {
                     // Resetting caps locked mode by pressing the shift key causes the transition
                     // from shift locked to shift lock shifted that should be silently ignored.
                     return
                 }
                 R.string.spoken_description_shiftmode_locked
             }
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_shiftmode_locked
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_mode_symbol
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_mode_symbol_shift
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_mode_phone
-            _root_ide_package_.org.oscar.kb.keyboard.KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_mode_phone_shift
+            KeyboardId.ELEMENT_ALPHABET_SHIFT_LOCKED -> R.string.spoken_description_shiftmode_locked
+            KeyboardId.ELEMENT_SYMBOLS -> R.string.spoken_description_mode_symbol
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> R.string.spoken_description_mode_symbol_shift
+            KeyboardId.ELEMENT_PHONE -> R.string.spoken_description_mode_phone
+            KeyboardId.ELEMENT_PHONE_SYMBOLS -> R.string.spoken_description_mode_phone_shift
             else -> return
         }
         sendWindowStateChanged(resId)
@@ -160,7 +160,7 @@ class MainKeyboardAccessibilityDelegate(
         sendWindowStateChanged(R.string.announce_keyboard_hidden)
     }
 
-    override fun performClickOn(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    override fun performClickOn(key: Key) {
         val x = key.hitBox.centerX()
         val y = key.hitBox.centerY()
         if (DEBUG_HOVER) {
@@ -177,7 +177,7 @@ class MainKeyboardAccessibilityDelegate(
         super.performClickOn(key)
     }
 
-    override fun onHoverEnterTo(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    override fun onHoverEnterTo(key: Key) {
         val x = key.hitBox.centerX()
         val y = key.hitBox.centerY()
         if (DEBUG_HOVER) {
@@ -198,7 +198,7 @@ class MainKeyboardAccessibilityDelegate(
         }
     }
 
-    override fun onHoverExitFrom(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    override fun onHoverExitFrom(key: Key) {
         val x = key.hitBox.centerX()
         val y = key.hitBox.centerY()
         if (DEBUG_HOVER) {
@@ -210,11 +210,11 @@ class MainKeyboardAccessibilityDelegate(
         super.onHoverExitFrom(key)
     }
 
-    override fun performLongClickOn(key: _root_ide_package_.org.oscar.kb.keyboard.Key) {
+    override fun performLongClickOn(key: Key) {
         if (DEBUG_HOVER) {
             Log.d(TAG, "performLongClickOn: key=$key")
         }
-        val tracker = _root_ide_package_.org.oscar.kb.keyboard.PointerTracker.getPointerTracker(HOVER_EVENT_POINTER_ID)
+        val tracker = PointerTracker.getPointerTracker(HOVER_EVENT_POINTER_ID)
         val eventTime = SystemClock.uptimeMillis()
         val x = key.hitBox.centerX()
         val y = key.hitBox.centerY()
@@ -251,15 +251,15 @@ class MainKeyboardAccessibilityDelegate(
         private val TAG = MainKeyboardAccessibilityDelegate::class.java.simpleName
         /** Map of keyboard modes to resource IDs.  */
         private val KEYBOARD_MODE_RES_IDS = SparseIntArray().apply {
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATE, R.string.keyboard_mode_date)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_DATETIME, R.string.keyboard_mode_date_time)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_EMAIL, R.string.keyboard_mode_email)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_IM, R.string.keyboard_mode_im)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_NUMBER, R.string.keyboard_mode_number)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_PHONE, R.string.keyboard_mode_phone)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_TEXT, R.string.keyboard_mode_text)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_TIME, R.string.keyboard_mode_time)
-            put(_root_ide_package_.org.oscar.kb.keyboard.KeyboardId.MODE_URL, R.string.keyboard_mode_url)
+            put(KeyboardId.MODE_DATE, R.string.keyboard_mode_date)
+            put(KeyboardId.MODE_DATETIME, R.string.keyboard_mode_date_time)
+            put(KeyboardId.MODE_EMAIL, R.string.keyboard_mode_email)
+            put(KeyboardId.MODE_IM, R.string.keyboard_mode_im)
+            put(KeyboardId.MODE_NUMBER, R.string.keyboard_mode_number)
+            put(KeyboardId.MODE_PHONE, R.string.keyboard_mode_phone)
+            put(KeyboardId.MODE_TEXT, R.string.keyboard_mode_text)
+            put(KeyboardId.MODE_TIME, R.string.keyboard_mode_time)
+            put(KeyboardId.MODE_URL, R.string.keyboard_mode_url)
         }
         private const val KEYBOARD_IS_HIDDEN = -1
     }

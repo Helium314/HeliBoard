@@ -9,36 +9,36 @@ import org.oscar.kb.latin.common.StringUtils
 // todo: actually this test could/should be significantly expanded...
 class StringUtilsTest {
     @Test fun `not inside double quotes without quotes`() {
-        assert(!_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello yes"))
+        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello yes"))
     }
 
     @Test fun `inside double quotes after opening a quote`() {
-        assert(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes"))
+        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes"))
     }
 
     @Test fun `inside double quotes with quote at start`() {
-        assert(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("\"hello yes"))
+        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("\"hello yes"))
     }
 
     // maybe this is not that bad, should be correct after entering next text
     @Test fun `not inside double quotes directly after closing quote`() {
-        assert(!_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\""))
+        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\""))
     }
 
     @Test fun `not inside double quotes after closing quote`() {
-        assert(!_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" "))
+        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" "))
     }
 
     @Test fun `not inside double quotes after closing quote followed by comma`() {
-        assert(!_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", "))
+        assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", "))
     }
 
     @Test fun `inside double quotes after opening another quote`() {
-        assert(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" \"h"))
+        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\" \"h"))
     }
 
     @Test fun `inside double quotes after opening another quote with closing quote followed by comma`() {
-        assert(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
+        assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
     }
 
     @Test fun detectEmojisAtEnd() {

@@ -26,7 +26,7 @@ import org.oscar.kb.latin.utils.SpannableStringUtils
 /**
  * "About" sub screen.
  */
-class AboutFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFragment() {
+class AboutFragment : SubScreenFragment() {
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         addPreferencesFromResource(R.xml.prefs_screen_about)
@@ -49,8 +49,8 @@ class AboutFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFr
     private val logFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = result.data?.data ?: return@registerForActivityResult
-        _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.getBackgroundExecutor(
-            _root_ide_package_.org.oscar.kb.latin.utils.ExecutorUtils.KEYBOARD).execute {
+        ExecutorUtils.getBackgroundExecutor(
+            ExecutorUtils.KEYBOARD).execute {
             activity?.contentResolver?.openOutputStream(uri)?.use { os ->
                 os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
             }
@@ -63,7 +63,7 @@ class AboutFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFr
                 val link = ("<a href=\"https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()\">"
                             + getString(R.string.hidden_features_text) + "</a>")
                 val message = requireContext().getString(R.string.hidden_features_message, link)
-                val dialogMessage = _root_ide_package_.org.oscar.kb.latin.utils.SpannableStringUtils.fromHtml(message)
+                val dialogMessage = SpannableStringUtils.fromHtml(message)
                 val builder = AlertDialog.Builder(requireContext())
                         .setIcon(R.drawable.ic_settings_about_hidden_features)
                         .setTitle(R.string.hidden_features_title)
@@ -83,11 +83,11 @@ class AboutFragment : _root_ide_package_.org.oscar.kb.latin.settings.SubScreenFr
         var count = 0
         versionPreference.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
-                if (sharedPreferences.getBoolean(_root_ide_package_.org.oscar.kb.latin.settings.DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false))
+                if (sharedPreferences.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false))
                     return@OnPreferenceClickListener true
                 count++
                 if (count < 5) return@OnPreferenceClickListener true
-                sharedPreferences.edit().putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply()
+                sharedPreferences.edit().putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply()
                 Toast.makeText(requireContext(), R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
                 true
             }

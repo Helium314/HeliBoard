@@ -5,11 +5,18 @@ import androidx.core.content.edit
 import org.oscar.kb.ShadowBinaryDictionaryUtils
 import org.oscar.kb.ShadowInputMethodManager2
 import org.oscar.kb.ShadowLocaleManagerCompat
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
+import org.oscar.kb.latin.common.ComposedData
+import org.oscar.kb.latin.common.StringUtils
+import org.oscar.kb.latin.settings.Settings
+import org.oscar.kb.latin.settings.SettingsValuesForSuggestion
+import org.oscar.kb.latin.utils.DeviceProtectedUtils
+import org.oscar.kb.latin.utils.SuggestionResults
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
-import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -27,7 +34,7 @@ import java.util.*
     ShadowFacilitator::class,
 ])
 class SuggestTest {
-    private lateinit var latinIME: _root_ide_package_.org.oscar.kb.latin.LatinIME
+    private lateinit var latinIME: LatinIME
     private val suggest get() = latinIME.mInputLogic.mSuggest
 
     // values taken from the string array auto_correction_threshold_mode_indexes
@@ -36,12 +43,12 @@ class SuggestTest {
     private val thresholdVeryAggressive = "2"
 
     @Before fun setUp() {
-        latinIME = Robolectric.setupService(_root_ide_package_.org.oscar.kb.latin.LatinIME::class.java)
+        latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
-        _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME)
-            .edit { putBoolean(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_CORRECTION, true) } // need to enable, off by default
+        DeviceProtectedUtils.getSharedPreferences(latinIME)
+            .edit { putBoolean(Settings.PREF_AUTO_CORRECTION, true) } // need to enable, off by default
     }
 
     @Test fun `'on' to 'in' if 'in' was used before in this context`() {
@@ -222,21 +229,21 @@ class SuggestTest {
     }
 
     private fun setAutCorrectThreshold(threshold: String) {
-        val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(latinIME)
-        prefs.edit { putString(_root_ide_package_.org.oscar.kb.latin.settings.Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
+        val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
+        prefs.edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
     }
 
     private fun shouldBeAutoCorrected(word: String, // typed word
-                                      suggestions: List<_root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
-                                      firstSuggestionForEmpty: _root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
-                                      typedWordSuggestionForEmpty: _root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
+                                      suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
+                                      firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
+                                      typedWordSuggestionForEmpty: SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
                                       typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
                                       autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
     ): List<Boolean> {
         setAutCorrectThreshold(autoCorrectThreshold)
         currentTypingLocale = typingLocale
-        val suggestionsContainer = ArrayList<_root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo>().apply { addAll(suggestions) }
-        val suggestionResults = _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults(
+        val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
+        val suggestionResults = SuggestionResults(
             suggestions.size,
             false,
             false
@@ -245,18 +252,18 @@ class SuggestTest {
 
         // store the original SuggestedWordInfo for typed word, as it will be removed
         // we may want to re-add it in case auto-correction happens, so that the original word can at least be selected
-        val typedWordFirstOccurrenceWordInfo: _root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo? = suggestionsContainer.firstOrNull { it.mWord == word }
+        val typedWordFirstOccurrenceWordInfo: SuggestedWordInfo? = suggestionsContainer.firstOrNull { it.mWord == word }
 
         val firstOccurrenceOfTypedWordInSuggestions =
-            _root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
+            SuggestedWordInfo.removeDupsAndTypedWord(word, suggestionsContainer)
 
         return suggest.shouldBeAutoCorrected(
-            _root_ide_package_.org.oscar.kb.latin.common.StringUtils.getTrailingSingleQuotesCount(word),
+            StringUtils.getTrailingSingleQuotesCount(word),
             word,
             suggestionsContainer.firstOrNull(), // todo: get from suggestions? mostly it's just removing the typed word, right?
             { firstSuggestionForEmpty to typedWordSuggestionForEmpty },
             true, // doesn't make sense otherwise
-            _root_ide_package_.org.oscar.kb.latin.WordComposer.getComposerForTest(false),
+            WordComposer.getComposerForTest(false),
             suggestionResults,
             firstOccurrenceOfTypedWordInSuggestions,
             typedWordFirstOccurrenceWordInfo
@@ -267,7 +274,7 @@ class SuggestTest {
 private var currentTypingLocale = Locale.ENGLISH
 
 fun suggestion(word: String, score: Int, locale: Locale) =
-    _root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo(
+    SuggestedWordInfo(
         /* word */ word,
         /* prevWordsContext */
         "", // irrelevant
@@ -297,14 +304,14 @@ class ShadowFacilitator {
 
 private class TestDict(locale: Locale) : Dictionary("testDict", locale) {
     override fun getSuggestions(
-        composedData: _root_ide_package_.org.oscar.kb.latin.common.ComposedData?,
-        ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext?,
+        composedData: ComposedData?,
+        ngramContext: NgramContext?,
         proximityInfoHandle: Long,
-        settingsValuesForSuggestion: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValuesForSuggestion?,
+        settingsValuesForSuggestion: SettingsValuesForSuggestion?,
         sessionId: Int,
         weightForLocale: Float,
         inOutWeightOfLangModelVsSpatialModel: FloatArray?
-    ): ArrayList<_root_ide_package_.org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo> {
+    ): ArrayList<SuggestedWordInfo> {
         TODO("Not yet implemented")
     }
 

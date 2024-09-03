@@ -12,7 +12,7 @@ open class PopupSet<T : AbstractKeyData>(
     open val relevant: Collection<T>? = null
 ) {
     // get labels of all popup keys
-    open fun getPopupKeyLabels(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams): Collection<String>? {
+    open fun getPopupKeyLabels(params: KeyboardParams): Collection<String>? {
         if (main == null && relevant == null) return null
         val popupKeys = mutableListOf<String>()
         main?.compute(params)?.getPopupLabel(params)?.let { popupKeys.add(it) }
@@ -44,6 +44,6 @@ open class PopupSet<T : AbstractKeyData>(
 }
 
 class SimplePopups(val popupKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
-    override fun getPopupKeyLabels(params: _root_ide_package_.org.oscar.kb.keyboard.internal.KeyboardParams) = popupKeys
+    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys
     override fun isEmpty(): Boolean = popupKeys.isNullOrEmpty()
 }

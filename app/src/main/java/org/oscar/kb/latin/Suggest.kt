@@ -7,21 +7,32 @@ package org.oscar.kb.latin
 
 import android.text.TextUtils
 import org.inputmethod.latin.utils.BinaryDictionaryUtils
+import org.oscar.kb.keyboard.Keyboard
 import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo
+import org.oscar.kb.latin.common.ComposedData
+import org.oscar.kb.latin.common.Constants
+import org.oscar.kb.latin.common.InputPointers
+import org.oscar.kb.latin.common.StringUtils
 import org.oscar.kb.latin.define.DebugFlags
 import org.oscar.kb.latin.define.DecoderSpecificConstants.SHOULD_AUTO_CORRECT_USING_NON_WHITE_LISTED_SUGGESTION
 import org.oscar.kb.latin.define.DecoderSpecificConstants.SHOULD_REMOVE_PREVIOUSLY_REJECTED_SUGGESTION
+import org.oscar.kb.latin.settings.Settings
+import org.oscar.kb.latin.settings.SettingsValuesForSuggestion
+import org.oscar.kb.latin.suggestions.SuggestionStripView
+import org.oscar.kb.latin.utils.AutoCorrectionUtils
 import org.oscar.kb.latin.utils.Log
+import org.oscar.kb.latin.utils.SuggestionResults
 import java.util.Locale
+
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of
  * characters. This includes corrections and completions.
  */
-class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.kb.latin.DictionaryFacilitator) {
+class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     private var mAutoCorrectionThreshold = 0f
     private val mPlausibilityThreshold = 0f
-    private val nextWordSuggestionsCache = HashMap<_root_ide_package_.org.oscar.kb.latin.NgramContext, _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults>()
+    private val nextWordSuggestionsCache = HashMap<NgramContext, SuggestionResults>()
 
     // cache cleared whenever LatinIME.loadSettings is called, notably on changing layout and switching input fields
     fun clearNextWordSuggestionsCache() = nextWordSuggestionsCache.clear()
@@ -36,12 +47,12 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
     }
 
     interface OnGetSuggestedWordsCallback {
-        fun onGetSuggestedWords(suggestedWords: _root_ide_package_.org.oscar.kb.latin.SuggestedWords?)
+        fun onGetSuggestedWords(suggestedWords: SuggestedWords?)
     }
 
     fun getSuggestedWords(
-        wordComposer: _root_ide_package_.org.oscar.kb.latin.WordComposer, ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard,
-        settingsValuesForSuggestion: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
+        wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
+        settingsValuesForSuggestion: SettingsValuesForSuggestion, isCorrectionEnabled: Boolean,
         inputStyle: Int, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback
     ) {
         if (wordComposer.isBatchMode) {
@@ -60,8 +71,8 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
     // Retrieves suggestions for non-batch input (typing, recorrection, predictions...)
     // and calls the callback function with the suggestions.
     private fun getSuggestedWordsForNonBatchInput(
-        wordComposer: _root_ide_package_.org.oscar.kb.latin.WordComposer, ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard,
-        settingsValuesForSuggestion: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
+        wordComposer: WordComposer, ngramContext: NgramContext, keyboard: Keyboard,
+        settingsValuesForSuggestion: SettingsValuesForSuggestion, inputStyleIfNotPrediction: Int,
         isCorrectionEnabled: Boolean, sequenceNumber: Int, callback: OnGetSuggestedWordsCallback
     ) {
         val typedWordString = wordComposer.typedWord
@@ -77,7 +88,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
             settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyleIfNotPrediction
         )
-        val trailingSingleQuotesCount = _root_ide_package_.org.oscar.kb.latin.common.StringUtils.getTrailingSingleQuotesCount(typedWordString)
+        val trailingSingleQuotesCount = StringUtils.getTrailingSingleQuotesCount(typedWordString)
         val suggestionsContainer = getTransformedSuggestedWordInfoList(
             wordComposer, suggestionResults,
             trailingSingleQuotesCount, mDictionaryFacilitator.mainLocale
@@ -118,7 +129,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             "",
             SuggestedWordInfo.MAX_SCORE,
             SuggestedWordInfo.KIND_TYPED,
-            typedWordFirstOccurrenceWordInfo?.mSourceDict ?: _root_ide_package_.org.oscar.kb.latin.Dictionary.DICTIONARY_USER_TYPED,
+            typedWordFirstOccurrenceWordInfo?.mSourceDict ?: Dictionary.DICTIONARY_USER_TYPED,
             SuggestedWordInfo.NOT_AN_INDEX,
             SuggestedWordInfo.NOT_A_CONFIDENCE
         )
@@ -126,13 +137,13 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             suggestionsContainer.add(0, typedWordInfo)
         }
         val suggestionsList =
-            if (_root_ide_package_.org.oscar.kb.latin.suggestions.SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty())
+            if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty())
                 getSuggestionsInfoListWithDebugInfo(typedWordString, suggestionsContainer)
             else suggestionsContainer
 
         val inputStyle = if (resultsArePredictions) {
-            if (suggestionResults.mIsBeginningOfSentence) _root_ide_package_.org.oscar.kb.latin.SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
-            else _root_ide_package_.org.oscar.kb.latin.SuggestedWords.INPUT_STYLE_PREDICTION
+            if (suggestionResults.mIsBeginningOfSentence) SuggestedWords.INPUT_STYLE_BEGINNING_OF_SENTENCE_PREDICTION
+            else SuggestedWords.INPUT_STYLE_PREDICTION
         } else {
             inputStyleIfNotPrediction
         }
@@ -140,11 +151,11 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
         // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
         // Otherwise, if the relevant setting is enabled, show the typed word in the middle.
         val indexOfTypedWord = if (hasAutoCorrection) 2 else 1
-        if ((hasAutoCorrection || _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mCenterSuggestionTextToEnter)
+        if ((hasAutoCorrection || Settings.getInstance().current.mCenterSuggestionTextToEnter)
             && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(typedWordString)
         ) {
             if (typedWordFirstOccurrenceWordInfo != null) {
-                if (_root_ide_package_.org.oscar.kb.latin.suggestions.SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(
+                if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(
                     typedWordFirstOccurrenceWordInfo,
                     typedWordString
                 )
@@ -157,7 +168,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
                         "",
                         0,
                         SuggestedWordInfo.KIND_TYPED,
-                        _root_ide_package_.org.oscar.kb.latin.Dictionary.DICTIONARY_USER_TYPED,
+                        Dictionary.DICTIONARY_USER_TYPED,
                         SuggestedWordInfo.NOT_AN_INDEX,
                         SuggestedWordInfo.NOT_A_CONFIDENCE
                     )
@@ -167,7 +178,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
         val isTypedWordValid =
             firstOccurrenceOfTypedWordInSuggestions > -1 || (!resultsArePredictions && !allowsToBeAutoCorrected)
         callback.onGetSuggestedWords(
-            _root_ide_package_.org.oscar.kb.latin.SuggestedWords(
+            SuggestedWords(
                 suggestionsList,
                 suggestionResults.mRawSuggestions,
                 typedWordInfo,
@@ -188,8 +199,8 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
         firstSuggestionInContainer: SuggestedWordInfo?,
         getEmptyWordSuggestions: () -> Pair<SuggestedWordInfo?, SuggestedWordInfo?>,
         isCorrectionEnabled: Boolean,
-        wordComposer: _root_ide_package_.org.oscar.kb.latin.WordComposer,
-        suggestionResults: _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults,
+        wordComposer: WordComposer,
+        suggestionResults: SuggestionResults,
         firstOccurrenceOfTypedWordInSuggestions: Int,
         typedWordInfo: SuggestedWordInfo?
     ): Pair<Boolean, Boolean> {
@@ -198,7 +209,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
         else typedWordString
         val firstAndTypedEmptyInfos by lazy { getEmptyWordSuggestions() }
 
-        val scoreLimit = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mScoreLimitForAutocorrect
+        val scoreLimit = Settings.getInstance().current.mScoreLimitForAutocorrect
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
         val allowsToBeAutoCorrected: Boolean
@@ -251,7 +262,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
                 // mFirstSuggestionExceedsConfidenceThreshold is always set to false, so currently this branch is useless
                 return true to true
             }
-            if (!_root_ide_package_.org.oscar.kb.latin.utils.AutoCorrectionUtils.suggestionExceedsThreshold(
+            if (!AutoCorrectionUtils.suggestionExceedsThreshold(
                     firstSuggestion,
                     consideredWord,
                     mAutoCorrectionThreshold
@@ -300,9 +311,9 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
     // Retrieves suggestions for the batch input
     // and calls the callback function with the suggestions.
     private fun getSuggestedWordsForBatchInput(
-        wordComposer: _root_ide_package_.org.oscar.kb.latin.WordComposer,
-        ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard,
-        settingsValuesForSuggestion: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValuesForSuggestion,
+        wordComposer: WordComposer,
+        ngramContext: NgramContext, keyboard: Keyboard,
+        settingsValuesForSuggestion: SettingsValuesForSuggestion,
         inputStyle: Int, sequenceNumber: Int,
         callback: OnGetSuggestedWordsCallback
     ) {
@@ -361,7 +372,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             rejected
         )
         val suggestionsList =
-            if (_root_ide_package_.org.oscar.kb.latin.suggestions.SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
+            if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
                 getSuggestionsInfoListWithDebugInfo(
                     suggestionResults.first().mWord,
                     suggestionsContainer
@@ -370,7 +381,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
                 suggestionsContainer
             }
         callback.onGetSuggestedWords(
-            _root_ide_package_.org.oscar.kb.latin.SuggestedWords(
+            SuggestedWords(
                 suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
                 false, false, inputStyle, sequenceNumber
             )
@@ -378,7 +389,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
     }
 
     /** reduces score of the first suggestion if next one is close and has more than a single letter  */
-    private fun replaceSingleLetterFirstSuggestion(suggestionResults: _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults) {
+    private fun replaceSingleLetterFirstSuggestion(suggestionResults: SuggestionResults) {
         if (suggestionResults.size < 2 || suggestionResults.first().mWord.length != 1) return
         // suppress single letter suggestions if next suggestion is close and has more than one letter
         val iterator: Iterator<SuggestedWordInfo> = suggestionResults.iterator()
@@ -409,10 +420,10 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
     private fun preferNextWordSuggestion(
         pseudoTypedWordInfo: SuggestedWordInfo?,
         suggestionsContainer: ArrayList<SuggestedWordInfo>,
-        nextWordSuggestions: _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults, rejected: SuggestedWordInfo?
+        nextWordSuggestions: SuggestionResults, rejected: SuggestedWordInfo?
     ): SuggestedWordInfo? {
         if (pseudoTypedWordInfo == null || !_root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mUsePersonalizedDicts
-            || pseudoTypedWordInfo.mSourceDict.mDictType != _root_ide_package_.org.oscar.kb.latin.Dictionary.TYPE_MAIN || suggestionsContainer.size < 2
+            || pseudoTypedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_MAIN || suggestionsContainer.size < 2
         ) return pseudoTypedWordInfo
         nextWordSuggestions.removeAll { info: SuggestedWordInfo -> info.mScore < 170 } // we only want reasonably often typed words, value may require tuning
         if (nextWordSuggestions.isEmpty()) return pseudoTypedWordInfo
@@ -436,14 +447,14 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
 
     /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do)  */
     private fun getNextWordSuggestions(
-        ngramContext: _root_ide_package_.org.oscar.kb.latin.NgramContext, keyboard: _root_ide_package_.org.oscar.kb.keyboard.Keyboard, inputStyle: Int,
-        settingsValuesForSuggestion: _root_ide_package_.org.oscar.kb.latin.settings.SettingsValuesForSuggestion
-    ): _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults {
+        ngramContext: NgramContext, keyboard: Keyboard, inputStyle: Int,
+        settingsValuesForSuggestion: SettingsValuesForSuggestion
+    ): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
         if (cachedResults != null) return cachedResults
         val newResults = mDictionaryFacilitator.getSuggestionResults(
-            _root_ide_package_.org.oscar.kb.latin.common.ComposedData(
-                _root_ide_package_.org.oscar.kb.latin.common.InputPointers(1),
+            ComposedData(
+                InputPointers(1),
                 false, ""
             ), ngramContext, keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyle
         )
@@ -469,7 +480,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             hashMapOf(Locale.GERMAN.language to MAXIMUM_AUTO_CORRECT_LENGTH_FOR_GERMAN)
 
         private fun getTransformedSuggestedWordInfoList(
-            wordComposer: _root_ide_package_.org.oscar.kb.latin.WordComposer, results: _root_ide_package_.org.oscar.kb.latin.utils.SuggestionResults,
+            wordComposer: WordComposer, results: SuggestionResults,
             trailingSingleQuotesCount: Int, defaultLocale: Locale
         ): ArrayList<SuggestedWordInfo> {
             val shouldMakeSuggestionsAllUpperCase =
@@ -546,7 +557,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
                 sLanguageToMaximumAutoCorrectionWithSpaceLength[locale.language]
                     ?: return true // This language does not enforce a maximum length to auto-correction
             return (info.mWord.length <= maximumLengthForThisLanguage
-                    || -1 == info.mWord.indexOf(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SPACE.toChar()))
+                    || -1 == info.mWord.indexOf(Constants.CODE_SPACE.toChar()))
         }
 
         private fun getTransformedSuggestedWordInfo(
@@ -557,7 +568,7 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             if (isAllUpperCase) {
                 sb.append(wordInfo.mWord.uppercase(locale!!))
             } else if (isOnlyFirstCharCapitalized) {
-                sb.append(_root_ide_package_.org.oscar.kb.latin.common.StringUtils.capitalizeFirstCodePoint(wordInfo.mWord, locale!!))
+                sb.append(StringUtils.capitalizeFirstCodePoint(wordInfo.mWord, locale!!))
             } else {
                 sb.append(wordInfo.mWord)
             }
@@ -565,9 +576,9 @@ class Suggest(private val mDictionaryFacilitator: _root_ide_package_.org.oscar.k
             // when they type words with quotes toward the end like "it's" or "didn't", where
             // it's more likely the user missed the last character (or didn't type it yet).
             val quotesToAppend = (trailingSingleQuotesCount
-                    - if (-1 == wordInfo.mWord.indexOf(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
+                    - if (-1 == wordInfo.mWord.indexOf(Constants.CODE_SINGLE_QUOTE.toChar())) 0 else 1)
             for (i in quotesToAppend - 1 downTo 0) {
-                sb.appendCodePoint(_root_ide_package_.org.oscar.kb.latin.common.Constants.CODE_SINGLE_QUOTE)
+                sb.appendCodePoint(Constants.CODE_SINGLE_QUOTE)
             }
             return SuggestedWordInfo(
                 sb.toString(), wordInfo.mPrevWordsContext,
