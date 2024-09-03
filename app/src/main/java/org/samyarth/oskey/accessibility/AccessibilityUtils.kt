@@ -20,9 +20,9 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
+import org.samyarth.oskey.R
 import org.samyarth.oskey.latin.SuggestedWords
 import org.samyarth.oskey.latin.utils.InputTypeUtils
-import org.samyarth.oskey.R
 
 class AccessibilityUtils private constructor() {
     private lateinit var mContext: Context
