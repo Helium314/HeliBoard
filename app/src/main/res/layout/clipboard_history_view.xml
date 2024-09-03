@@ -2,7 +2,7 @@
 <!--
     SPDX-License-Identifier: GPL-3.0-only
 -->
-<org.samyarth.oskey.keyboard.clipboard.ClipboardHistoryView
+<org.oscar.kb.keyboard.clipboard.ClipboardHistoryView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:text="¯\\_(ツ)_/¯"
             tools:ignore="HardcodedText" />
 
-        <org.samyarth.oskey.keyboard.clipboard.ClipboardHistoryRecyclerView
+        <org.oscar.kb.keyboard.clipboard.ClipboardHistoryRecyclerView
             android:id="@+id/clipboard_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,4 +36,4 @@
 
     <include layout="@layout/action_bar" />
 
-</org.samyarth.oskey.keyboard.clipboard.ClipboardHistoryView>
+</org.oscar.kb.keyboard.clipboard.ClipboardHistoryView>

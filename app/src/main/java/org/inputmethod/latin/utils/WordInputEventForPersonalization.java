@@ -1,12 +1,12 @@
 package org.inputmethod.latin.utils;
 
-import org.samyarth.oskey.latin.utils.Log;
+import org.oscar.kb.latin.utils.Log;
 
-import org.samyarth.oskey.latin.NgramContext;
-import org.samyarth.oskey.latin.common.StringUtils;
-import org.samyarth.oskey.latin.define.DecoderSpecificConstants;
-import org.samyarth.oskey.latin.settings.SpacingAndPunctuations;
-import org.samyarth.oskey.latin.utils.DictionaryInfoUtils;
+import org.oscar.kb.latin.NgramContext;
+import org.oscar.kb.latin.common.StringUtils;
+import org.oscar.kb.latin.define.DecoderSpecificConstants;
+import org.oscar.kb.latin.settings.SpacingAndPunctuations;
+import org.oscar.kb.latin.utils.DictionaryInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;

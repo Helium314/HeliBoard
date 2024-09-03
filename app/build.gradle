@@ -91,7 +91,7 @@ android {
         includeInBundle = false
     }
 
-    namespace "org.samyarth.oskey"
+    namespace "org.oscar.kb"
     lint {
         abortOnError true
     }

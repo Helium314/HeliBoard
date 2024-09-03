@@ -1,14 +1,14 @@
 package org.inputmethod.keyboard;
 
 import android.graphics.Rect;
-import org.samyarth.oskey.latin.utils.Log;
+import org.oscar.kb.latin.utils.Log;
 
 import androidx.annotation.NonNull;
 
-import org.samyarth.oskey.keyboard.Key;
-import org.samyarth.oskey.keyboard.internal.TouchPositionCorrection;
-import org.samyarth.oskey.latin.common.Constants;
-import org.samyarth.oskey.latin.utils.JniUtils;
+import org.oscar.kb.keyboard.Key;
+import org.oscar.kb.keyboard.internal.TouchPositionCorrection;
+import org.oscar.kb.latin.common.Constants;
+import org.oscar.kb.latin.utils.JniUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

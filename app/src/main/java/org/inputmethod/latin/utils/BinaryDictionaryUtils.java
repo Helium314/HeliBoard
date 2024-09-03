@@ -1,10 +1,10 @@
 package org.inputmethod.latin.utils;
 
 import org.inputmethod.latin.BinaryDictionary;
-import org.samyarth.oskey.latin.common.StringUtils;
-import org.samyarth.oskey.latin.makedict.DictionaryHeader;
-import org.samyarth.oskey.latin.makedict.UnsupportedFormatException;
-import org.samyarth.oskey.latin.utils.JniUtils;
+import org.oscar.kb.latin.common.StringUtils;
+import org.oscar.kb.latin.makedict.DictionaryHeader;
+import org.oscar.kb.latin.makedict.UnsupportedFormatException;
+import org.oscar.kb.latin.utils.JniUtils;
 
 import java.io.File;
 import java.io.IOException;
