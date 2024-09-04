@@ -34,7 +34,6 @@ import androidx.fragment.app.ListFragment;
 import org.oscar.kb.R;
 import org.oscar.kb.latin.common.LocaleUtils;
 
-
 import java.util.Locale;
 
 public class UserDictionarySettings extends ListFragment {

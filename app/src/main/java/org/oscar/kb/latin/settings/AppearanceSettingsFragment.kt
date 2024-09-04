@@ -20,10 +20,6 @@ import org.oscar.kb.R
 import org.oscar.kb.keyboard.KeyboardSwitcher
 import org.oscar.kb.keyboard.KeyboardTheme
 import org.oscar.kb.latin.common.FileUtils
-import org.oscar.kb.latin.settings.SeekBarDialogPreference
-import org.oscar.kb.latin.settings.Settings
-import org.oscar.kb.latin.settings.SettingsValues
-import org.oscar.kb.latin.settings.SubScreenFragment
 import org.oscar.kb.latin.utils.getStringResourceOrName
 import org.oscar.kb.latin.utils.infoDialog
 import java.lang.Float.max

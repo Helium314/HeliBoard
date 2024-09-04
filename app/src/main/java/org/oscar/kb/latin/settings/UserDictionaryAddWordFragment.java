@@ -33,6 +33,7 @@ import androidx.core.widget.TextViewKt;
 
 import org.oscar.kb.R;
 import org.oscar.kb.latin.common.LocaleUtils;
+import org.oscar.kb.latin.settings.UserDictionaryAddWordContents.LocaleRenderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -155,17 +156,17 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
     }
 
     private void updateSpinner() {
-        final ArrayList<UserDictionaryAddWordContents.LocaleRenderer> localesList = mContents.getLocaleRendererList(requireContext());
+        final ArrayList<LocaleRenderer> localesList = mContents.getLocaleRendererList(requireContext());
 
         final Spinner localeSpinner = mRootView.findViewById(R.id.user_dictionary_add_locale);
-        final ArrayAdapter<UserDictionaryAddWordContents.LocaleRenderer> adapter = new ArrayAdapter<>(
+        final ArrayAdapter<LocaleRenderer> adapter = new ArrayAdapter<>(
                 requireContext(), android.R.layout.simple_spinner_item, localesList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         localeSpinner.setAdapter(adapter);
         localeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                final UserDictionaryAddWordContents.LocaleRenderer localeRenderer = (UserDictionaryAddWordContents.LocaleRenderer)parent.getItemAtPosition(position);
+                final LocaleRenderer localeRenderer = (LocaleRenderer)parent.getItemAtPosition(position);
 
                 mContents.updateLocale(requireContext(), localeRenderer.getLocale());
                 // To have the selected language at the top of the list, this one is removed from the list
@@ -183,7 +184,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
                 if (!localeRenderer.getLocale().equals(UserDictionarySettings.emptyLocale)) {
                     // After alphabetical sorting, "For all languages" is always in 1st position.
                     // (The position is 0 because the spinner menu item count starts at 0)
-                    final UserDictionaryAddWordContents.LocaleRenderer forAllLanguages = adapter.getItem(0);
+                    final LocaleRenderer forAllLanguages = adapter.getItem(0);
                     // So we delete its entry ...
                     localesList.remove(forAllLanguages);
                     // ... and we set it at the end of the list.

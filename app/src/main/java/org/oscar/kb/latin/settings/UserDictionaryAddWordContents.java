@@ -291,5 +291,4 @@ public class UserDictionaryAddWordContents {
 
         return localesList;
     }
-
 }

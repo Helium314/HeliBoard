@@ -17,44 +17,20 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
-import org.oscar.kb.R
 import org.oscar.kb.compat.locale
-import org.oscar.kb.databinding.LanguageListItemBinding
-import org.oscar.kb.databinding.LocaleSettingsDialogBinding
 import org.oscar.kb.dictionarypack.DictionaryPackConstants
 import org.oscar.kb.keyboard.KeyboardLayoutSet
 import org.oscar.kb.keyboard.KeyboardSwitcher
+import org.oscar.kb.R
 import org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
-import org.oscar.kb.latin.settings.Settings
 import org.oscar.kb.latin.common.LocaleUtils
 import org.oscar.kb.latin.common.LocaleUtils.constructLocale
+import org.oscar.kb.databinding.LanguageListItemBinding
+import org.oscar.kb.databinding.LocaleSettingsDialogBinding
 import org.oscar.kb.latin.utils.*
 import org.oscar.kb.latin.utils.ScriptUtils.script
-import org.oscar.kb.latin.utils.CUSTOM_LAYOUT_PREFIX
-import org.oscar.kb.latin.utils.DICTIONARY_URL
-import org.oscar.kb.latin.utils.NewDictionaryAdder
-import org.oscar.kb.latin.utils.POPUP_KEYS_LABEL_DEFAULT
-import org.oscar.kb.latin.utils.POPUP_KEYS_ORDER_DEFAULT
-import org.oscar.kb.latin.utils.ScriptUtils
-import org.oscar.kb.latin.utils.addAdditionalSubtype
-import org.oscar.kb.latin.utils.addEnabledSubtype
-import org.oscar.kb.latin.utils.confirmDialog
-import org.oscar.kb.latin.utils.createDictionaryTextHtml
-import org.oscar.kb.latin.utils.displayName
-import org.oscar.kb.latin.utils.editCustomLayout
-import org.oscar.kb.latin.utils.getDictionaryLocales
-import org.oscar.kb.latin.utils.getLayoutDisplayName
-import org.oscar.kb.latin.utils.isAdditionalSubtype
-import org.oscar.kb.latin.utils.loadCustomLayout
-import org.oscar.kb.latin.utils.locale
-import org.oscar.kb.latin.utils.onCustomLayoutFileListChanged
-import org.oscar.kb.latin.utils.removeAdditionalSubtype
-import org.oscar.kb.latin.utils.removeCustomLayoutFile
-import org.oscar.kb.latin.utils.removeEnabledSubtype
-import org.oscar.kb.latin.utils.reorderDialog
-import org.oscar.kb.latin.utils.showMissingDictionaryDialog
 import java.io.File
-import java.util.Locale
+import java.util.*
 
 class LanguageSettingsDialog(
     context: Context,
@@ -103,15 +79,8 @@ class LanguageSettingsDialog(
         if (infos.first().subtype.isAsciiCapable) {
             binding.addSubtype.setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
-                    .filterNot { layoutName ->
-                        infos.any {
-                            SubtypeLocaleUtils.getKeyboardLayoutSetName(
-                                it.subtype
-                            ) == layoutName
-                        }
-                    }
-                val displayNames =
-                    layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
+                    .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
+                val displayNames = layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
                 Builder(context)
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
@@ -133,23 +102,10 @@ class LanguageSettingsDialog(
 
     private fun addSubtype(name: String) {
         onCustomLayoutFileListChanged()
-        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(
-            mainLocale,
-            name,
-            infos.first().subtype.isAsciiCapable
-        )
-        val newSubtypeInfo = newSubtype.toSubtypeInfo(
-            mainLocale,
-            context,
-            true,
-            infos.first().hasDictionary
-        ) // enabled by default
+        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
+        val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
         val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
-        val old = infos.firstOrNull {
-            isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(
-                it.subtype
-            )
-        }
+        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
         if (old != null) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
@@ -165,14 +121,8 @@ class LanguageSettingsDialog(
     }
 
     private fun onClickAddCustomSubtype() {
-        val link =
-            "<a href='$LAYOUT_FORMAT_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-        val message = SpannableStringUtils.fromHtml(
-            context.getString(
-                R.string.message_add_custom_layout,
-                link
-            )
-        )
+        val link = "<a href='$LAYOUT_FORMAT_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+        val message = SpannableStringUtils.fromHtml(context.getString(R.string.message_add_custom_layout, link))
         val dialog = Builder(context)
             .setTitle(R.string.button_title_add_custom_layout)
             .setMessage(message)
@@ -181,8 +131,7 @@ class LanguageSettingsDialog(
             .setPositiveButton(R.string.button_load_custom) { _, _ -> fragment?.requestLayoutFile() }
             .create()
         dialog.show()
-        (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod =
-            LinkMovementMethod.getInstance()
+        (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun copyLayout() {
@@ -191,8 +140,7 @@ class LanguageSettingsDialog(
         infos.forEach {
             val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
             if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false // don't allow copying custom layout (at least for now)
-                && !layoutSetName.endsWith("+")
-            ) { // don't allow copying layouts only defined via extra keys
+                && !layoutSetName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
                 layouts.add(layoutSetName)
                 displayNames.add(it.subtype.displayName(context).toString())
             }
@@ -207,13 +155,9 @@ class LanguageSettingsDialog(
             .setTitle(R.string.keyboard_layout_set)
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
-                val fileName =
-                    context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) }
-                        ?: return@setItems
-                loadCustomLayout(
-                    context.assets.open("layouts${File.separator}$fileName").reader().readText(),
-                    displayNames[i], mainLocale.toLanguageTag(), context
-                ) { addSubtype(it) }
+                val fileName = context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
+                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
+                    displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -231,8 +175,7 @@ class LanguageSettingsDialog(
                 ?: subtype.subtype.displayName(context)
         if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
-            row.findViewById<View>(R.id.language_text)
-                .setOnClickListener { editCustomLayout(layoutSetName, context) }
+            row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
         } else {
             row.findViewById<View>(R.id.language_details).isGone = true
         }
@@ -244,7 +187,8 @@ class LanguageSettingsDialog(
                     if (!infos.first().hasDictionary)
                         showMissingDictionaryDialog(context, mainLocale)
                     addEnabledSubtype(prefs, subtype.subtype)
-                } else
+                }
+                else
                     removeEnabledSubtype(prefs, subtype.subtype)
                 subtype.isEnabled = b
                 reloadSetting()
@@ -266,14 +210,7 @@ class LanguageSettingsDialog(
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(
-                            context,
-                            context.getString(
-                                R.string.delete_layout,
-                                getLayoutDisplayName(layoutSetName)
-                            ),
-                            context.getString(R.string.delete)
-                        ) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, getLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }
@@ -298,24 +235,14 @@ class LanguageSettingsDialog(
             binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(
-                        prefs,
-                        mainLocale
-                    )).sortedBy { it.displayName }
-                    val localeNames =
-                        locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }
-                            .toTypedArray()
+                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocale)).sortedBy { it.displayName }
+                    val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.button_select_language)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
-                            val currentSecondaryLocales =
-                                Settings.getSecondaryLocales(prefs, mainLocale)
-                            Settings.setSecondaryLocales(
-                                prefs,
-                                mainLocale,
-                                currentSecondaryLocales + locale
-                            )
+                            val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                            Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
                             addSecondaryLocaleView(locale)
                             di.dismiss()
                             reloadSetting()
@@ -331,8 +258,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSecondaryLocaleView(locale: Locale) {
-        val rowBinding =
-            LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
         rowBinding.languageSwitch.isGone = true
         rowBinding.languageDetails.isGone = true
         rowBinding.languageName.text = locale.displayName
@@ -352,8 +278,7 @@ class LanguageSettingsDialog(
 
     private fun fillDictionariesView() {
         binding.addDictionary.setOnClickListener {
-            val dictLink =
-                "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+            val dictLink = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
             val startMessage = context.getString(R.string.add_dictionary, dictLink)
             val messageRawText = createDictionaryTextHtml(startMessage, mainLocale, context)
             val message = SpannableStringUtils.fromHtml(messageRawText)
@@ -364,30 +289,20 @@ class LanguageSettingsDialog(
                 .setNegativeButton(android.R.string.cancel, null)
                 .create()
             dialog.show()
-            (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod =
-                LinkMovementMethod.getInstance()
+            (dialog.findViewById<View>(android.R.id.message) as? TextView)?.movementMethod = LinkMovementMethod.getInstance()
         }
         val userDictsAndHasInternal = getUserAndInternalDictionaries(context, mainLocale)
         hasInternalDictForLanguage = userDictsAndHasInternal.second
         userDicts.addAll(userDictsAndHasInternal.first)
         if (hasInternalDictForLanguage) {
-            binding.dictionaries.addView(
-                TextView(
-                    context,
-                    null,
-                    R.style.PreferenceCategoryTitleText
-                ).apply {
+            binding.dictionaries.addView(TextView(context, null, R.style.PreferenceCategoryTitleText).apply {
                     setText(R.string.internal_dictionary_summary)
                     // just setting a text size can be complicated...
-                    val attrs = context.obtainStyledAttributes(
-                        R.style.PreferenceSubtitleText,
-                        intArrayOf(android.R.attr.textSize)
-                    )
+                    val attrs = context.obtainStyledAttributes(R.style.PreferenceSubtitleText, intArrayOf(android.R.attr.textSize))
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, attrs.getDimension(0, 20f))
                     attrs.recycle()
                     setPadding(ResourceUtils.toPx(16, context.resources), 0, 0, 0)
-                    isEnabled =
-                        userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
+                    isEnabled = userDicts.none { it.name == "${DictionaryInfoUtils.MAIN_DICT_PREFIX}$USER_DICTIONARY_SUFFIX" }
                 })
         }
         userDicts.sorted().forEach {
@@ -413,10 +328,8 @@ class LanguageSettingsDialog(
             infos.forEach { it.hasDictionary = true }
         }
         val dictType = dictFile.name.substringBefore("_$USER_DICTIONARY_SUFFIX")
-        val rowBinding =
-            LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
-        val header =
-            DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
+        val rowBinding = LanguageListItemBinding.inflate(LayoutInflater.from(context), listView, false)
+        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())
         rowBinding.languageName.text = dictType
         rowBinding.languageDetails.apply {
             if (header?.description == null) {
@@ -438,13 +351,7 @@ class LanguageSettingsDialog(
         rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
-                confirmDialog(
-                    context,
-                    context.getString(R.string.remove_dictionary_message, dictType),
-                    context.getString(
-                        R.string.delete
-                    )
-                ) {
+                confirmDialog(context, context.getString(R.string.remove_dictionary_message, dictType), context.getString(R.string.delete)) {
                     val parent = dictFile.parentFile
                     dictFile.delete()
                     if (parent?.list()?.isEmpty() == true)
@@ -467,34 +374,18 @@ class LanguageSettingsDialog(
 
     private fun setupPopupSettings() {
         binding.popupOrder.setOnClickListener {
-            val popupKeyTypesDefault =
-                prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
-            reorderDialog(
-                context,
-                Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(),
-                popupKeyTypesDefault,
-                R.string.popup_order
-            )
+            val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, POPUP_KEYS_ORDER_DEFAULT)!!
+            reorderDialog(context, Settings.PREF_POPUP_KEYS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.popup_order)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
         binding.popupLabelPriority.setOnClickListener {
-            val popupKeyTypesDefault =
-                prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
-            reorderDialog(
-                context,
-                Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(),
-                popupKeyTypesDefault,
-                R.string.hint_source
-            )
+            val popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, POPUP_KEYS_LABEL_DEFAULT)!!
+            reorderDialog(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mainLocale.toLanguageTag(), popupKeyTypesDefault, R.string.hint_source)
             KeyboardLayoutSet.onKeyboardThemeChanged()
         }
     }
 
-    private fun reloadDictionaries() = fragment?.activity?.sendBroadcast(
-        Intent(
-            DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION
-        )
-    )
+    private fun reloadDictionaries() = fragment?.activity?.sendBroadcast(Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION))
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */

@@ -44,13 +44,9 @@ import org.oscar.kb.latin.AudioAndHapticFeedbackManager
 import org.oscar.kb.latin.SystemBroadcastReceiver
 import org.oscar.kb.latin.checkVersionUpgrade
 import org.oscar.kb.latin.common.FileUtils
-import org.oscar.kb.latin.settings.DebugSettings
-import org.oscar.kb.latin.settings.SeekBarDialogPreference
 import org.oscar.kb.latin.common.LocaleUtils.constructLocale
 import org.oscar.kb.latin.common.splitOnWhitespace
 import org.oscar.kb.latin.settings.SeekBarDialogPreference.ValueProxy
-import org.oscar.kb.latin.settings.Settings
-import org.oscar.kb.latin.settings.SubScreenFragment
 import org.oscar.kb.latin.utils.AdditionalSubtypeUtils
 import org.oscar.kb.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
 import org.oscar.kb.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
@@ -237,7 +233,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 //                        .addCategory(Intent.CATEGORY_OPENABLE)
 //                        .setType("application/octet-stream")
 //                    libraryFilePicker.launch(intent)
-
                     try {
                         // Directly load the library packaged with the app
                         System.loadLibrary("jni_latinimegoogle")  // Ensure the correct library name
