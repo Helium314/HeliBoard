@@ -73,7 +73,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -121,20 +120,33 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name="org.oscar.kb.latin.setup.MainActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/platformActivityTheme"
+            />
         <activity
             android:name="org.oscar.kb.latin.setup.KeyboardselectionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/platformActivityTheme"
+            />
         <activity
             android:name="org.oscar.kb.latin.setup.PrivacyPolicyActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/platformActivityTheme"
+            />
         <activity
             android:name="org.oscar.kb.latin.setup.TermsOfUseActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/platformActivityTheme"
+            />
+        <activity android:name=".latin.setup.WelcomeScreen"
+            android:theme="@style/platformActivityTheme"
+            android:label="@string/android_spell_checker_settings"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <!-- Broadcast receivers -->
         <receiver android:name=".latin.SystemBroadcastReceiver"
                 android:exported="true">
