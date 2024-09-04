@@ -17,6 +17,8 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import org.oscar.kb.latin.utils.POPUP_KEYS_LABEL_DEFAULT
+import org.oscar.kb.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import org.oscar.kb.R
 import org.oscar.kb.compat.locale
 import org.oscar.kb.databinding.LanguageListItemBinding
@@ -25,7 +27,6 @@ import org.oscar.kb.dictionarypack.DictionaryPackConstants
 import org.oscar.kb.keyboard.KeyboardLayoutSet
 import org.oscar.kb.keyboard.KeyboardSwitcher
 import org.oscar.kb.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
-import org.oscar.kb.latin.settings.Settings
 import org.oscar.kb.latin.common.LocaleUtils
 import org.oscar.kb.latin.common.LocaleUtils.constructLocale
 import org.oscar.kb.latin.utils.*
@@ -33,8 +34,6 @@ import org.oscar.kb.latin.utils.ScriptUtils.script
 import org.oscar.kb.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.oscar.kb.latin.utils.DICTIONARY_URL
 import org.oscar.kb.latin.utils.NewDictionaryAdder
-import org.oscar.kb.latin.utils.POPUP_KEYS_LABEL_DEFAULT
-import org.oscar.kb.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import org.oscar.kb.latin.utils.ScriptUtils
 import org.oscar.kb.latin.utils.addAdditionalSubtype
 import org.oscar.kb.latin.utils.addEnabledSubtype

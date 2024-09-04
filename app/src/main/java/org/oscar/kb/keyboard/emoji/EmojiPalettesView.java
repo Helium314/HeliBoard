@@ -12,39 +12,34 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.oscar.kb.keyboard.internal.KeyDrawParams;
-import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
-import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
+import org.oscar.kb.R;
 import org.oscar.kb.keyboard.Key;
+import org.oscar.kb.keyboard.Keyboard;
 import org.oscar.kb.keyboard.KeyboardActionListener;
+import org.oscar.kb.keyboard.KeyboardId;
 import org.oscar.kb.keyboard.KeyboardLayoutSet;
 import org.oscar.kb.keyboard.KeyboardSwitcher;
 import org.oscar.kb.keyboard.KeyboardView;
+import org.oscar.kb.keyboard.MainKeyboardView;
+import org.oscar.kb.keyboard.PointerTracker;
 import org.oscar.kb.keyboard.internal.KeyDrawParams;
 import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
-import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
 import org.oscar.kb.latin.AudioAndHapticFeedbackManager;
-import org.oscar.kb.R;
 import org.oscar.kb.latin.RichInputMethodSubtype;
 import org.oscar.kb.latin.common.ColorType;
 import org.oscar.kb.latin.common.Colors;
-import org.oscar.kb.latin.common.Constants;
 import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.ResourceUtils;
@@ -63,10 +58,8 @@ import org.jetbrains.annotations.NotNull;
  * Because of the above reasons, this class doesn't extend {@link KeyboardView}.
  */
 public final class EmojiPalettesView extends LinearLayout
-        implements View.OnClickListener, View.OnTouchListener, OnKeyEventListener {
+        implements View.OnClickListener, OnKeyEventListener {
     private boolean initialized = false;
-    private final int mFunctionalKeyBackgroundId;
-    private final Drawable mSpacebarBackground;
     // keep the indicator in case emoji view is changed to tabs / viewpager
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
@@ -75,14 +68,8 @@ public final class EmojiPalettesView extends LinearLayout
     private final Colors mColors;
     private EmojiPalettesAdapter mEmojiPalettesAdapter;
     private final EmojiLayoutParams mEmojiLayoutParams;
-    private final DeleteKeyOnTouchListener mDeleteKeyOnTouchListener;
     private final LinearLayoutManager mEmojiLayoutManager;
 
-    private ImageButton mDeleteKey;
-    private TextView mAlphabetKeyLeft;
-    private View mSpacebar;
-    // TODO: Remove this workaround.
-    private View mSpacebarIcon;
     private LinearLayout mTabStrip;
     private RecyclerView mEmojiRecyclerView;
     private EmojiCategoryPageIndicatorView mEmojiCategoryPageIndicatorView;
@@ -99,21 +86,13 @@ public final class EmojiPalettesView extends LinearLayout
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
-                R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
-        final int keyBackgroundId = keyboardViewAttr.getResourceId(
-                R.styleable.KeyboardView_keyBackground, 0);
-        mFunctionalKeyBackgroundId = keyboardViewAttr.getResourceId(
-                R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId);
         mColors = Settings.getInstance().getCurrent().mColors;
-        mSpacebarBackground = mColors.selectAndColorDrawable(keyboardViewAttr, ColorType.SPACE_BAR_BACKGROUND);
-        keyboardViewAttr.recycle();
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
         builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
-                mEmojiLayoutParams.mEmojiKeyboardHeight);
+                mEmojiLayoutParams.getEmojiKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
@@ -128,7 +107,6 @@ public final class EmojiPalettesView extends LinearLayout
         mCategoryPageIndicatorColor = emojiPalettesViewAttr.getColor( // todo: remove this and related attr
                 R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
         emojiPalettesViewAttr.recycle();
-        mDeleteKeyOnTouchListener = new DeleteKeyOnTouchListener();
         mEmojiLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
     }
 
@@ -226,71 +204,8 @@ public final class EmojiPalettesView extends LinearLayout
 
         setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
 
-        // deleteKey depends only on OnTouchListener.
-        mDeleteKey = findViewById(R.id.key_delete);
-        mDeleteKey.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mColors.setColor(mDeleteKey, ColorType.KEY_ICON);
-        mDeleteKey.setTag(KeyCode.DELETE);
-        mDeleteKey.setOnTouchListener(mDeleteKeyOnTouchListener);
-
-        // {@link #mAlphabetKeyLeft} and spaceKey depend on
-        // {@link View.OnClickListener} as well as {@link View.OnTouchListener}.
-        // {@link View.OnTouchListener} is used as the trigger of key-press, while
-        // {@link View.OnClickListener} is used as the trigger of key-release which does not occur
-        // if the event is canceled by moving off the finger from the view.
-        // The text on alphabet keys are set at
-        // {@link #startEmojiPalettes(String,int,float,Typeface)}.
-        mAlphabetKeyLeft = findViewById(R.id.key_alphabet);
-        mAlphabetKeyLeft.setBackgroundResource(mFunctionalKeyBackgroundId);
-        mAlphabetKeyLeft.setTag(KeyCode.ALPHA);
-        mAlphabetKeyLeft.setOnTouchListener(this);
-        mAlphabetKeyLeft.setOnClickListener(this);
-        mSpacebar = findViewById(R.id.key_space);
-        mSpacebar.setBackground(mSpacebarBackground);
-        mSpacebar.setTag(Constants.CODE_SPACE);
-        mSpacebar.setOnTouchListener(this);
-        mSpacebar.setOnClickListener(this);
-
-        mEmojiLayoutParams.setKeyProperties(mSpacebar);
-        mSpacebarIcon = findViewById(R.id.key_space_icon);
-
-        mColors.setBackground(mAlphabetKeyLeft, ColorType.FUNCTIONAL_KEY_BACKGROUND);
-        mColors.setBackground(mDeleteKey, ColorType.FUNCTIONAL_KEY_BACKGROUND);
-        mColors.setBackground(mSpacebar, ColorType.SPACE_BAR_BACKGROUND);
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
         initialized = true;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        // Add here to the stack trace to nail down the {@link IllegalArgumentException} exception
-        // in MotionEvent that sporadically happens.
-        // TODO: Remove this override method once the issue has been addressed.
-        return super.dispatchTouchEvent(ev);
-    }
-
-    /**
-     * Called from {@link EmojiPageKeyboardView} through {@link android.view.View.OnTouchListener}
-     * interface to handle touch events from View-based elements such as the space bar.
-     * Note that this method is used only for observing {@link MotionEvent#ACTION_DOWN} to trigger
-     * {@link KeyboardActionListener#onPressKey}. {@link KeyboardActionListener#onReleaseKey} will
-     * be covered by {@link #onClick} as long as the event is not canceled.
-     */
-    @Override
-    public boolean onTouch(final View v, final MotionEvent event) {
-        if (event.getActionMasked() != MotionEvent.ACTION_DOWN) {
-            return false;
-        }
-        final Object tag = v.getTag();
-        if (!(tag instanceof Integer)) {
-            return false;
-        }
-        final int code = (Integer) tag;
-        mKeyboardActionListener.onPressKey(
-                code, 0 /* repeatCount */, true /* isSinglePointer */);
-        // It's important to return false here. Otherwise, {@link #onClick} and touch-down visual
-        // feedback stop working.
-        return false;
     }
 
     /**
@@ -309,12 +224,6 @@ public final class EmojiPalettesView extends LinearLayout
                 updateEmojiCategoryPageIdView();
             }
         }
-        if (!(tag instanceof Integer)) {
-            return;
-        }
-        final int code = (Integer) tag;
-        mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
-        mKeyboardActionListener.onReleaseKey(code, false);
     }
 
     /**
@@ -354,27 +263,26 @@ public final class EmojiPalettesView extends LinearLayout
         setLayerType(LAYER_TYPE_HARDWARE, null);
     }
 
-    private static void setupAlphabetKey(final TextView alphabetKey, final String label,
-                                         final KeyDrawParams params) {
-        alphabetKey.setText(label);
-        alphabetKey.setTextColor(params.mFunctionalTextColor);
-        alphabetKey.setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize);
-        alphabetKey.setTypeface(params.mTypeface);
-    }
-
-    public void startEmojiPalettes(final String switchToAlphaLabel,
-                                   final KeyVisualAttributes keyVisualAttr,
-                                   final KeyboardIconsSet iconSet) {
+    public void startEmojiPalettes(final KeyVisualAttributes keyVisualAttr,
+               final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
         initialize();
-        mDeleteKey.setImageDrawable(iconSet.getIconDrawable(KeyboardIconsSet.NAME_DELETE_KEY));
-        mEmojiLayoutParams.setActionBarProperties(findViewById(R.id.action_bar));
+
+        setupBottomRowKeyboard(editorInfo, keyboardActionListener);
         final KeyDrawParams params = new KeyDrawParams();
-        params.updateParams(mEmojiLayoutParams.getActionBarHeight(), keyVisualAttr);
-        setupAlphabetKey(mAlphabetKeyLeft, switchToAlphaLabel, params);
+        params.updateParams(mEmojiLayoutParams.getBottomRowKeyboardHeight(), keyVisualAttr);
         if (mEmojiRecyclerView.getAdapter() == null) {
             mEmojiRecyclerView.setAdapter(mEmojiPalettesAdapter);
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
         }
+    }
+
+    private void setupBottomRowKeyboard(final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
+        MainKeyboardView keyboardView = findViewById(R.id.bottom_row_keyboard);
+        keyboardView.setKeyboardActionListener(keyboardActionListener);
+        PointerTracker.switchTo(keyboardView);
+        final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
+        final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW);
+        keyboardView.setKeyboard(keyboard);
     }
 
     public void stopEmojiPalettes() {
@@ -386,7 +294,6 @@ public final class EmojiPalettesView extends LinearLayout
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
         mKeyboardActionListener = listener;
-        mDeleteKeyOnTouchListener.setKeyboardActionListener(listener);
     }
 
     private void updateEmojiCategoryPageIdView() {
@@ -423,53 +330,6 @@ public final class EmojiPalettesView extends LinearLayout
             Settings.getInstance().getCurrent().mColors.setColor((ImageView) old, ColorType.EMOJI_CATEGORY);
         if (current instanceof ImageView)
             Settings.getInstance().getCurrent().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
-    }
-
-    private static class DeleteKeyOnTouchListener implements OnTouchListener {
-        private KeyboardActionListener mKeyboardActionListener =
-                KeyboardActionListener.EMPTY_LISTENER;
-
-        public void setKeyboardActionListener(final KeyboardActionListener listener) {
-            mKeyboardActionListener = listener;
-        }
-
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(final View v, final MotionEvent event) {
-            switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN:
-                    onTouchDown(v);
-                    return true;
-                case MotionEvent.ACTION_MOVE:
-                    final float x = event.getX();
-                    final float y = event.getY();
-                    if (x < 0.0f || v.getWidth() < x || y < 0.0f || v.getHeight() < y) {
-                        // Stop generating key events once the finger moves away from the view area.
-                        onTouchCanceled(v);
-                    }
-                    return true;
-                case MotionEvent.ACTION_CANCEL:
-                case MotionEvent.ACTION_UP:
-                    onTouchUp(v);
-                    return true;
-            }
-            return false;
-        }
-
-        private void onTouchDown(final View v) {
-            mKeyboardActionListener.onPressKey(KeyCode.DELETE, 0, true);
-            v.setPressed(true /* pressed */);
-        }
-
-        private void onTouchUp(final View v) {
-            mKeyboardActionListener.onCodeInput(KeyCode.DELETE, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
-            mKeyboardActionListener.onReleaseKey(KeyCode.DELETE, false);
-            v.setPressed(false /* pressed */);
-        }
-
-        private void onTouchCanceled(final View v) {
-            v.setPressed(false);
-        }
     }
 
     public void clearKeyboardCache() {

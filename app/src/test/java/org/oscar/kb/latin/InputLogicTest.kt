@@ -1048,8 +1048,7 @@ class ShadowKeyboardSwitcher {
     // only affects view
     fun setOneHandedModeEnabled(enabled: Boolean) = Unit
     @Implementation
-    // only affects view
-    fun getCurrentKeyboardScriptId() = currentScript
+    fun getCurrentKeyboardScript() = currentScript
 }
 
 @Implements(_root_ide_package_.org.oscar.kb.latin.DictionaryFacilitatorImpl::class)

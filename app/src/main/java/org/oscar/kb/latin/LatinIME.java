@@ -40,18 +40,16 @@ import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-
-
 import org.oscar.kb.BuildConfig;
 import org.oscar.kb.R;
 import org.oscar.kb.accessibility.AccessibilityUtils;
 import org.oscar.kb.compat.ConfigurationCompatKt;
 import org.oscar.kb.compat.EditorInfoCompatUtils;
+import org.oscar.kb.keyboard.KeyboardActionListener;
+import org.oscar.kb.keyboard.KeyboardActionListenerImpl;
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
+import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
+import org.oscar.kb.latin.common.InsetsOutlineProvider;
 import org.oscar.kb.dictionarypack.DictionaryPackConstants;
 import org.oscar.kb.event.Event;
 import org.oscar.kb.event.HangulEventDecoder;
@@ -59,18 +57,16 @@ import org.oscar.kb.event.HardwareEventDecoder;
 import org.oscar.kb.event.HardwareKeyboardEventDecoder;
 import org.oscar.kb.event.InputTransaction;
 import org.oscar.kb.keyboard.Keyboard;
-import org.oscar.kb.keyboard.KeyboardActionListener;
-import org.oscar.kb.keyboard.KeyboardActionListenerImpl;
 import org.oscar.kb.keyboard.KeyboardId;
 import org.oscar.kb.keyboard.KeyboardLayoutSet;
 import org.oscar.kb.keyboard.KeyboardSwitcher;
 import org.oscar.kb.keyboard.MainKeyboardView;
-import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
+import org.oscar.kb.latin.Suggest.OnGetSuggestedWordsCallback;
+import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo;
 import org.oscar.kb.latin.common.ColorType;
 import org.oscar.kb.latin.common.Constants;
 import org.oscar.kb.latin.common.CoordinateUtils;
 import org.oscar.kb.latin.common.InputPointers;
-import org.oscar.kb.latin.common.InsetsOutlineProvider;
 import org.oscar.kb.latin.common.LocaleUtils;
 import org.oscar.kb.latin.common.ViewOutlineProviderUtilsKt;
 import org.oscar.kb.latin.define.DebugFlags;
@@ -103,6 +99,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -572,6 +573,7 @@ public class LatinIME extends InputMethodService implements
         Settings.init(this);
         DebugFlags.init(this);
         SubtypeSettingsKt.init(this);
+        KeyboardIconsSet.Companion.getInstance().loadIcons(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
@@ -620,7 +622,7 @@ public class LatinIME extends InputMethodService implements
                 editorInfo, isFullscreenMode(), getPackageName());
         mSettings.loadSettings(this, locale, inputAttributes);
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
-       AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
+        AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(currentSettingsValues);
         // This method is called on startup and language switch, before the new layout has
         // been displayed. Opening dictionaries never affects responsivity as dictionaries are
         // asynchronously loaded.
@@ -1619,7 +1621,7 @@ public class LatinIME extends InputMethodService implements
 
     // TODO[IL]: Move this out of LatinIME.
     public void getSuggestedWords(final int inputStyle, final int sequenceNumber,
-                                  final Suggest.OnGetSuggestedWordsCallback callback) {
+                                  final OnGetSuggestedWordsCallback callback) {
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
         if (keyboard == null) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
@@ -1648,7 +1650,7 @@ public class LatinIME extends InputMethodService implements
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
     // interface
     @Override
-    public void pickSuggestionManually(final SuggestedWords.SuggestedWordInfo suggestionInfo) {
+    public void pickSuggestionManually(final SuggestedWordInfo suggestionInfo) {
         final InputTransaction completeInputTransaction = mInputLogic.onPickSuggestionManually(
                 mSettings.getCurrent(), suggestionInfo,
                 mKeyboardSwitcher.getKeyboardShiftMode(),

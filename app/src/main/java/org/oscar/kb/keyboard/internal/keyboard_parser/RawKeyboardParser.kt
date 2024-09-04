@@ -37,7 +37,8 @@ object RawKeyboardParser {
     private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
     val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
-        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS)
+        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS,
+        LAYOUT_NUMBER_ROW, LAYOUT_EMOJI_BOTTOM_ROW, LAYOUT_CLIPBOARD_BOTTOM_ROW)
 
     fun clearCache() = rawLayoutCache.clear()
 
@@ -91,31 +92,38 @@ object RawKeyboardParser {
             try {
                 getCustomLayoutFile(layoutFileName, context).readText()
             } catch (e: Exception) { // fall back to defaults if for some reason file is broken
-                val name = if (layoutName.contains("functional")) "functional_keys.json" else "qwerty.txt"
+                val name = when {
+                    layoutName.contains("functional") -> "functional_keys.json"
+                    layoutName.contains("number_row") -> "number_row.txt"
+                    layoutName.contains("symbols") -> "symbols.txt"
+                    else -> "qwerty.txt"
+                }
                 Log.e(TAG, "cannot open layout $layoutName, falling back to $name", e)
                 context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
             }
         } else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
-        if (layoutFileName.endsWith(".json")) {
-            val florisKeyData = parseJsonString(layoutText)
-            return { params ->
-                florisKeyData.mapTo(mutableListOf()) { row ->
-                    row.mapNotNullTo(mutableListOf()) { it.compute(params) }
-                }
-            }
-        } else {
-            val simpleKeyData = parseSimpleString(layoutText)
-            return { params ->
-                simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
-                    val newRow = row.toMutableList()
-                    if (params.mId.isAlphabetKeyboard
-                            && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
-                            && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
-                        ) {
-                        params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
+        if (layoutFileName.endsWith(".json") || layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+            try {
+                val florisKeyData = parseJsonString(layoutText)
+                return { params ->
+                    florisKeyData.mapTo(mutableListOf()) { row ->
+                        row.mapNotNullTo(mutableListOf()) { it.compute(params) }
                     }
-                    newRow
                 }
+            } catch (_: Exception) { }
+        }
+        // not a json, or invalid json
+        val simpleKeyData = parseSimpleString(layoutText)
+        return { params ->
+            simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
+                val newRow = row.toMutableList()
+                if (params.mId.isAlphabetKeyboard
+                        && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
+                        && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
+                    ) {
+                    params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
+                }
+                newRow
             }
         }
     }
@@ -130,6 +138,8 @@ object RawKeyboardParser {
         KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
         KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
         KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
+        KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LAYOUT_EMOJI_BOTTOM_ROW
+        KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LAYOUT_CLIPBOARD_BOTTOM_ROW
         else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
     }
 

@@ -12,23 +12,25 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
-
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import org.oscar.kb.keyboard.internal.KeyboardBuilder;
 import org.oscar.kb.keyboard.internal.KeyboardParams;
 import org.oscar.kb.keyboard.internal.UniqueKeysCache;
 import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import org.oscar.kb.keyboard.internal.keyboard_parser.RawKeyboardParser;
+import org.oscar.kb.latin.RichInputMethodManager;
 import org.oscar.kb.latin.RichInputMethodSubtype;
+import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.utils.InputTypeUtils;
 import org.oscar.kb.latin.utils.Log;
+import org.oscar.kb.latin.utils.ResourceUtils;
 import org.oscar.kb.latin.utils.ScriptUtils;
+
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -211,6 +213,18 @@ public final class KeyboardLayoutSet {
             }
         }
 
+        public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
+            final Builder builder = new Builder(context, ei);
+            builder.mParams.mMode = KeyboardId.MODE_TEXT;
+            // always full width, but height should consider scale and number row to align nicely
+            // actually the keyboard does not have full height, but at this point we use it to get correct key heights
+            final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            builder.setKeyboardGeometry(width, height);
+            builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
+            return builder.build();
+        }
+
         public Builder setKeyboardGeometry(final int keyboardWidth, final int keyboardHeight) {
             mParams.mKeyboardWidth = keyboardWidth;
             mParams.mKeyboardHeight = keyboardHeight;
@@ -283,11 +297,11 @@ public final class KeyboardLayoutSet {
                 case InputType.TYPE_CLASS_DATETIME:
                     return switch (variation) {
                         case InputType.TYPE_DATETIME_VARIATION_DATE -> KeyboardId.MODE_DATE;
-                        case InputType.TYPE_DATETIME_VARIATION_TIME ->  KeyboardId.MODE_TIME;
-                        default ->  KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
+                        case InputType.TYPE_DATETIME_VARIATION_TIME -> KeyboardId.MODE_TIME;
+                        default -> KeyboardId.MODE_DATETIME; // must be InputType.TYPE_DATETIME_VARIATION_NORMAL
                     };
                 case InputType.TYPE_CLASS_PHONE:
-                    return  KeyboardId.MODE_PHONE;
+                    return KeyboardId.MODE_PHONE;
                 case InputType.TYPE_CLASS_TEXT:
                     if (InputTypeUtils.isEmailVariation(variation)) {
                         return KeyboardId.MODE_EMAIL;

@@ -36,20 +36,15 @@ import java.util.*
 class AppearanceSettingsFragment : SubScreenFragment() {
     private var needsReload = false
 
-    private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(
-        Settings.PREF_THEME_STYLE)!! }
-    private val colorsPref: ListPreference by lazy { preferenceScreen.findPreference(
-        Settings.PREF_THEME_COLORS)!! }
-    private val colorsNightPref: ListPreference? by lazy { preferenceScreen.findPreference(
-        Settings.PREF_THEME_COLORS_NIGHT) }
-    private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(
-        Settings.PREF_THEME_DAY_NIGHT) }
+    private val stylePref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_STYLE)!! }
+    private val iconStylePref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_ICON_STYLE)!! }
+    private val colorsPref: ListPreference by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS)!! }
+    private val colorsNightPref: ListPreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_COLORS_NIGHT) }
+    private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
-    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(
-        Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
-    private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(
-        Settings.PREF_SPLIT_SPACER_SCALE) }
+    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+    private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
 
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -161,6 +156,18 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
                 summary = entries[entryValues.indexOfFirst { it == value }]
                 setColorPrefs(value.toString())
+                true
+            }
+            summary = entries[entryValues.indexOfFirst { it == value }]
+        }
+        iconStylePref.apply {
+            entryValues = KeyboardTheme.STYLES
+            entries = entryValues.getNamesFromResourcesIfAvailable("style_name_")
+            if (value !in entryValues)
+                value = entryValues.first().toString()
+
+            onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, value ->
+                summary = entries[entryValues.indexOfFirst { it == value }]
                 true
             }
             summary = entries[entryValues.indexOfFirst { it == value }]

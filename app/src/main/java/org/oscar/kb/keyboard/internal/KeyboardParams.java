@@ -32,7 +32,7 @@ import java.util.TreeSet;
 
 public class KeyboardParams {
     private static final int DEFAULT_KEYBOARD_COLUMNS = 10;
-    private static final int DEFAULT_KEYBOARD_ROWS = 4;
+    public static final int DEFAULT_KEYBOARD_ROWS = 4;
 
     public KeyboardId mId;
     public int mThemeId;
@@ -81,7 +81,7 @@ public class KeyboardParams {
     @NonNull
     public final ArrayList<Key> mAltCodeKeysWhileTyping = new ArrayList<>();
     @NonNull
-    public final KeyboardIconsSet mIconsSet = new KeyboardIconsSet();
+    public final KeyboardIconsSet mIconsSet = KeyboardIconsSet.Companion.getInstance();
     @NonNull // todo: not good, this only works because params are currently always created for the active subtype
     public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
     public final ArrayList<String> mPopupKeyTypes = new ArrayList<>();
@@ -268,7 +268,7 @@ public class KeyboardParams {
             mMaxPopupKeysKeyboardColumn = keyAttr.getInt(R.styleable.Keyboard_Key_maxPopupKeysColumn, 5);
 
             mThemeId = keyboardAttr.getInt(R.styleable.Keyboard_themeId, 0);
-            mIconsSet.loadIcons(keyboardAttr);
+            mIconsSet.loadIcons(context);
 
             // touchPositionResId currently is 0 for popups, and touch_position_correction_data_holo for others
             final int touchPositionResId = keyboardAttr.getResourceId(R.styleable.Keyboard_touchPositionCorrectionData, 0);

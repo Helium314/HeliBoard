@@ -38,9 +38,9 @@ import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.settings.SettingsValues;
 import org.oscar.kb.latin.utils.Log;
 
-
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.WeakHashMap;
 
 public final class PointerTracker implements PointerTrackerQueue.Element,
         BatchInputArbiterListener {
@@ -74,6 +74,28 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
+    // map to store static objects that should be unique for each DrawingProxy (i.e. MainKeyboardView as of now)
+    // this is a workaround, so we can have a MainKeyboardView in emoji and clipboard views too
+    // but it will not allow two simultaneously displayed MainKeyboardViews
+    private static final WeakHashMap<DrawingProxy, Object[]> sProxyMap = new WeakHashMap<>(4);
+
+    // called when creating a new InputView
+    // not sure why this is necessary... maybe misunderstanding regarding WeakHashMap?
+    public static void clearOldViewData() {
+        sProxyMap.clear();
+    }
+
+    public static void switchTo(DrawingProxy drawingProxy) {
+        sDrawingProxy = drawingProxy;
+        Object[] thatArray = sProxyMap.get(drawingProxy); // if it's null, the view we're switching to should not exist
+        sParams = (PointerTrackerParams) thatArray[0];
+        sGestureStrokeRecognitionParams = (GestureStrokeRecognitionParams) thatArray[1];
+        sGestureStrokeDrawingParams = (GestureStrokeDrawingParams) thatArray[2];
+        sTypingTimeRecorder = (TypingTimeRecorder) thatArray[3];
+        sTimerProxy = (TimerProxy) thatArray[4];
+        sTrackers = (ArrayList<PointerTracker>) thatArray[5];
+    }
+
     private static final GestureEnabler sGestureEnabler = new GestureEnabler();
 
     // Parameters for pointer handling.
@@ -82,7 +104,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static GestureStrokeRecognitionParams sGestureStrokeRecognitionParams;
     private static GestureStrokeDrawingParams sGestureStrokeDrawingParams;
 
-    private static final ArrayList<PointerTracker> sTrackers = new ArrayList<>();
+    private static ArrayList<PointerTracker> sTrackers = new ArrayList<>();
     private static final PointerTrackerQueue sPointerTrackerQueue = new PointerTrackerQueue();
 
     public final int mPointerId;
@@ -164,6 +186,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
         sTimerProxy = timerProxy;
         sDrawingProxy = drawingProxy;
+        sTrackers = new ArrayList<>();
+
+        sProxyMap.put(drawingProxy, new Object[] {
+                sParams,
+                sGestureStrokeRecognitionParams,
+                sGestureStrokeDrawingParams,
+                sTypingTimeRecorder,
+                sTimerProxy,
+                sTrackers
+        });
     }
 
     // Note that this method is called from a non-UI thread.

@@ -12,8 +12,14 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.oscar.kb.R
+import org.oscar.kb.keyboard.KeyboardActionListener
+import org.oscar.kb.keyboard.KeyboardSwitcher
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
 import org.oscar.kb.latin.common.ColorType
+import org.oscar.kb.latin.common.Constants
+import org.oscar.kb.latin.settings.Settings
+import org.oscar.kb.latin.utils.DeviceProtectedUtils
 import kotlin.math.abs
 
 class KeyboardWrapperView @JvmOverloads constructor(
@@ -22,14 +28,11 @@ class KeyboardWrapperView @JvmOverloads constructor(
         defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle), View.OnClickListener {
 
-    var keyboardActionListener: _root_ide_package_.org.oscar.kb.keyboard.KeyboardActionListener? = null
+    var keyboardActionListener: KeyboardActionListener? = null
 
     private lateinit var stopOneHandedModeBtn: ImageButton
     private lateinit var switchOneHandedModeBtn: ImageButton
     private lateinit var resizeOneHandedModeBtn: ImageButton
-    private val iconStopOneHandedModeId: Int
-    private val iconSwitchOneHandedModeId: Int
-    private val iconResizeOneHandedModeId: Int
 
     var oneHandedModeEnabled = false
         set(enabled) {
@@ -49,14 +52,16 @@ class KeyboardWrapperView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onFinishInflate() {
         super.onFinishInflate()
+        val keyboardIconsSet = KeyboardIconsSet.instance
+        keyboardIconsSet.loadIcons(context)
         stopOneHandedModeBtn = findViewById(R.id.btn_stop_one_handed_mode)
-        stopOneHandedModeBtn.setImageResource(iconStopOneHandedModeId)
+        stopOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_STOP_ONEHANDED_KEY, context))
         stopOneHandedModeBtn.visibility = GONE
         switchOneHandedModeBtn = findViewById(R.id.btn_switch_one_handed_mode)
-        switchOneHandedModeBtn.setImageResource(iconSwitchOneHandedModeId)
+        switchOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_SWITCH_ONEHANDED_KEY, context))
         switchOneHandedModeBtn.visibility = GONE
         resizeOneHandedModeBtn = findViewById(R.id.btn_resize_one_handed_mode)
-        resizeOneHandedModeBtn.setImageResource(iconResizeOneHandedModeId)
+        resizeOneHandedModeBtn.setImageDrawable(keyboardIconsSet.getNewDrawable(KeyboardIconsSet.NAME_RESIZE_ONEHANDED_KEY, context))
         resizeOneHandedModeBtn.visibility = GONE
 
         stopOneHandedModeBtn.setOnClickListener(this)
@@ -74,22 +79,21 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
                     if (abs(changePercent) < 1) return@setOnTouchListener true
                     x = motionEvent.rawX
-                    val prefs = _root_ide_package_.org.oscar.kb.latin.utils.DeviceProtectedUtils.getSharedPreferences(context)
-                    val oldScale = _root_ide_package_.org.oscar.kb.latin.settings.Settings.readOneHandedModeScale(prefs, _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
+                    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+                    val oldScale = Settings.readOneHandedModeScale(prefs, Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
-                    _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().writeOneHandedModeScale(newScale)
+                    Settings.getInstance().writeOneHandedModeScale(newScale)
                     oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
-                    keyboardActionListener?.onCodeInput(
-                        KeyCode.START_ONE_HANDED_MODE,
-                        _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, false)
+                    keyboardActionListener?.onCodeInput(KeyCode.START_ONE_HANDED_MODE,
+                        Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
                 else -> x = 0f
             }
             true
         }
 
-        val colors = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mColors
+        val colors = Settings.getInstance().current.mColors
         colors.setColor(stopOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
         colors.setColor(switchOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
         colors.setColor(resizeOneHandedModeBtn, ColorType.ONE_HANDED_MODE_BUTTON)
@@ -117,11 +121,11 @@ class KeyboardWrapperView @JvmOverloads constructor(
     override fun onClick(view: View) {
         if (view === stopOneHandedModeBtn) {
             keyboardActionListener?.onCodeInput(KeyCode.STOP_ONE_HANDED_MODE,
-                _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE,
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         } else if (view === switchOneHandedModeBtn) {
             keyboardActionListener?.onCodeInput(KeyCode.SWITCH_ONE_HANDED_MODE,
-                _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE, _root_ide_package_.org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE,
+                Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         }
     }
@@ -135,7 +139,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
         val isLeftGravity = oneHandedGravity == Gravity.LEFT
         val width = right - left
-        val keyboardView = _root_ide_package_.org.oscar.kb.keyboard.KeyboardSwitcher.getInstance().visibleKeyboardView
+        val keyboardView = KeyboardSwitcher.getInstance().visibleKeyboardView
         val spareWidth = width - keyboardView.measuredWidth
 
         val keyboardLeft = if (isLeftGravity) 0 else spareWidth
@@ -146,7 +150,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                 keyboardView.measuredHeight
         )
 
-        val scale = _root_ide_package_.org.oscar.kb.latin.settings.Settings.getInstance().current.mKeyboardHeightScale
+        val scale = Settings.getInstance().current.mKeyboardHeightScale
         // scale one-handed mode button height if keyboard height scale is < 80%
         val heightScale = if (scale < 0.8f) scale + 0.2f else 1f
         val buttonsLeft = if (isLeftGravity) keyboardView.measuredWidth else 0
@@ -159,14 +163,5 @@ class KeyboardWrapperView @JvmOverloads constructor(
         stopOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.2f).toInt())
         switchOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.5f).toInt())
         resizeOneHandedModeBtn.setLayout((keyboardView.measuredHeight * 0.8f).toInt())
-    }
-
-    init {
-        @SuppressLint("CustomViewStyleable")
-        val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.Keyboard)
-        iconStopOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconStopOneHandedMode, 0)
-        iconSwitchOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconSwitchOneHandedMode, 0)
-        iconResizeOneHandedModeId = keyboardAttr.getResourceId(R.styleable.Keyboard_iconResizeOneHandedMode, 0)
-        keyboardAttr.recycle()
     }
 }

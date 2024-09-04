@@ -20,6 +20,12 @@
             latin:singleLineTitle="false" />
 
         <ListPreference
+            android:key="icon_style"
+            android:title="@string/icon_style"
+            android:defaultValue="Material"
+            latin:singleLineTitle="false" />
+
+        <ListPreference
             android:key="theme_colors"
             android:title="@string/theme_colors"
             latin:singleLineTitle="false" />
@@ -94,6 +100,12 @@
             android:title="@string/prefs_bottom_padding_scale"
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
+
+        <EditTextPreference
+            android:key="space_bar_text"
+            android:title="@string/prefs_space_bar_text"
+            android:defaultValue=""
+            android:persistent="true" />
 
     </PreferenceCategory>
 

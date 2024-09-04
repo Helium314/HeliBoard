@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="KeyboardTheme.LXX_Base" parent="KeyboardIcons.LXX_Light">
+    <style name="KeyboardTheme.LXX_Base" parent="Keyboard">
         <item name="inputViewStyle">@style/InputView.LXX</item>
         <item name="keyboardStyle">@style/Keyboard.LXX_Base</item>
         <item name="keyboardViewStyle">@style/KeyboardView.LXX_Base</item>

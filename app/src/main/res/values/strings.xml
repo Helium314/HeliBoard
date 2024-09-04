@@ -304,6 +304,8 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for customizing space bar text -->
+    <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -528,6 +530,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <!-- Name for numpad layout in landscape mode -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
+    <!-- Name for number row layout -->
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
+    <!-- Name for bottom row layout in emoji view -->
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji bottom row</string>
+    <!-- Name for bottom row layout in clipboard view -->
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Clipboard bottom row</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
     <!-- Title for customizing currencies -->
@@ -696,6 +704,8 @@ New dictionary:
     <string name="user_dict_add_word_button">Add a word</string>
     <!-- Option for choosing theme style [CHAR LIMIT=33] -->
     <string name="theme_style">Style</string>
+    <!-- Option for choosing icon style (same options as theme_style) -->
+    <string name="icon_style">Icon style</string>
     <!-- Style name for Rounded style -->
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rounded</string>
     <!-- Option for choosing colors [CHAR LIMIT=33] -->

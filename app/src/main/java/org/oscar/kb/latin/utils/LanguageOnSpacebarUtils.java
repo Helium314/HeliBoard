@@ -35,8 +35,9 @@ public final class LanguageOnSpacebarUtils {
         // This utility class is not publicly instantiable.
     }
 
-    public static int getLanguageOnSpacebarFormatType(
-            @NonNull final RichInputMethodSubtype subtype) {
+    public static int getLanguageOnSpacebarFormatType(@NonNull final RichInputMethodSubtype subtype) {
+        if (!Settings.getInstance().getCurrent().mSpaceBarText.isEmpty())
+            return FORMAT_TYPE_FULL_LOCALE;
         if (subtype.isNoLanguage()) {
             return FORMAT_TYPE_FULL_LOCALE;
         }

@@ -34,6 +34,9 @@
 
     </FrameLayout>
 
-    <include layout="@layout/action_bar" />
+    <org.oscar.kb.keyboard.MainKeyboardView
+        android:id="@+id/bottom_row_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </org.oscar.kb.keyboard.clipboard.ClipboardHistoryView>

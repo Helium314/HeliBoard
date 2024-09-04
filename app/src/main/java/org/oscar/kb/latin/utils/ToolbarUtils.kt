@@ -2,14 +2,12 @@ package org.oscar.kb.latin.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.edit
 import org.oscar.kb.R
 import org.oscar.kb.keyboard.KeyboardTheme
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
 import org.oscar.kb.latin.settings.Settings
 import org.oscar.kb.latin.utils.DeviceProtectedUtils
@@ -17,7 +15,7 @@ import org.oscar.kb.latin.utils.ToolbarKey.*
 import java.util.EnumMap
 import java.util.Locale
 
-fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey): ImageButton {
+fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
     button.scaleType = ImageView.ScaleType.CENTER
     button.tag = key
@@ -25,16 +23,12 @@ fun createToolbarKey(context: Context, keyboardAttr: TypedArray, key: ToolbarKey
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
     button.isActivated = !when (key) {
-        INCOGNITO -> Settings.readAlwaysIncognitoMode(
-            DeviceProtectedUtils.getSharedPreferences(
-                context
-            )
-        )
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
-    button.setImageDrawable(keyboardAttr.getDrawable(getStyleableIconId(key))?.mutate())
+    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
     return button
 }
 
@@ -87,47 +81,6 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
     PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
     else -> KeyCode.UNSPECIFIED
-}
-
-fun getStyleableIconId(key: ToolbarKey) = when (key) {
-    VOICE -> R.styleable.Keyboard_iconShortcutKey
-    CLIPBOARD -> R.styleable.Keyboard_iconClipboardNormalKey
-    NUMPAD -> R.styleable.Keyboard_iconNumpadKey
-    UNDO -> R.styleable.Keyboard_iconUndo
-    REDO -> R.styleable.Keyboard_iconRedo
-    SETTINGS -> R.styleable.Keyboard_iconSettingsKey
-    SELECT_ALL -> R.styleable.Keyboard_iconSelectAll
-    SELECT_WORD -> R.styleable.Keyboard_iconSelectWord
-    COPY -> R.styleable.Keyboard_iconCopyKey
-    CUT -> R.styleable.Keyboard_iconCutKey
-    PASTE -> R.styleable.Keyboard_iconPasteKey
-    ONE_HANDED -> R.styleable.Keyboard_iconStartOneHandedMode
-    INCOGNITO -> R.styleable.Keyboard_iconIncognitoKey
-    AUTOCORRECT -> R.styleable.Keyboard_iconAutoCorrect
-    CLEAR_CLIPBOARD -> R.styleable.Keyboard_iconClearClipboardKey
-    CLOSE_HISTORY -> R.styleable.Keyboard_iconClose
-    EMOJI -> R.styleable.Keyboard_iconEmojiNormalKey
-    LEFT -> R.styleable.Keyboard_iconArrowLeft
-    RIGHT -> R.styleable.Keyboard_iconArrowRight
-    UP -> R.styleable.Keyboard_iconArrowUp
-    DOWN -> R.styleable.Keyboard_iconArrowDown
-    WORD_LEFT -> R.styleable.Keyboard_iconWordLeft
-    WORD_RIGHT -> R.styleable.Keyboard_iconWordRight
-    PAGE_UP -> R.styleable.Keyboard_iconPageUp
-    PAGE_DOWN -> R.styleable.Keyboard_iconPageDown
-    FULL_LEFT -> R.styleable.Keyboard_iconFullLeft
-    FULL_RIGHT -> R.styleable.Keyboard_iconFullRight
-    PAGE_START -> R.styleable.Keyboard_iconPageStart
-    PAGE_END -> R.styleable.Keyboard_iconPageEnd
-}
-
-fun getToolbarIconByName(name: String, context: Context): Drawable? {
-    val key = entries.firstOrNull { it.name == name } ?: return null
-    val themeContext = ContextThemeWrapper(context, KeyboardTheme.getKeyboardTheme(context).mStyleId)
-    val attrs = themeContext.obtainStyledAttributes(null, R.styleable.Keyboard)
-    val icon = attrs.getDrawable(getStyleableIconId(key))?.mutate()
-    attrs.recycle()
-    return icon
 }
 
 // names need to be aligned with resources strings (using lowercase of key.name)

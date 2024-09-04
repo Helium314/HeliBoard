@@ -11,9 +11,11 @@ import org.oscar.kb.latin.settings.USER_DICTIONARY_SUFFIX
 import org.oscar.kb.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.oscar.kb.latin.utils.DeviceProtectedUtils
 import org.oscar.kb.latin.utils.DictionaryInfoUtils
+import org.oscar.kb.latin.utils.Log
 import org.oscar.kb.latin.utils.ToolbarKey
 import org.oscar.kb.latin.utils.defaultPinnedToolbarPref
 import org.oscar.kb.latin.utils.getCustomLayoutFile
+import org.oscar.kb.latin.utils.getCustomLayoutFiles
 import org.oscar.kb.latin.utils.onCustomLayoutFileListChanged
 import org.oscar.kb.latin.utils.upgradeToolbarPrefs
 import org.oscar.kb.BuildConfig
@@ -91,23 +93,57 @@ fun checkVersionUpgrade(context: Context) {
         prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
 
         // enable language switch key if it was enabled previously
-        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(
-                Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
+        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
             prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
     if (oldVersion <= 2100) {
         if (prefs.contains(Settings.PREF_SHOW_MORE_COLORS)) {
             val moreColors = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
             prefs.edit {
-                putInt(
-                    Settings.getColorPref(
-                        Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
+                putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
                 if (prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
-                    putInt(
-                        Settings.getColorPref(
-                            Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
+                    putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
                 remove(Settings.PREF_SHOW_MORE_COLORS)
             }
+        }
+    }
+    if (oldVersion <= 2201) {
+        val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+        if (additionalSubtypeString.contains(".")) { // means there are custom layouts
+            val subtypeStrings = additionalSubtypeString.split(";")
+            val newSubtypeStrings = subtypeStrings.mapNotNull {
+                val split = it.split(":").toMutableList()
+                Log.i("test", "0: $it")
+                if (split.size < 2) return@mapNotNull null // should never happen
+                val oldName = split[1]
+                val newName = oldName.substringBeforeLast(".") + "."
+                if (oldName == newName) return@mapNotNull split.joinToString(":") // should never happen
+                val oldFile = getCustomLayoutFile(oldName, context)
+                val newFile = getCustomLayoutFile(newName, context)
+                Log.i("test", "1")
+                if (!oldFile.exists()) return@mapNotNull null // should never happen
+                Log.i("test", "2")
+                if (newFile.exists()) newFile.delete() // should never happen
+                Log.i("test", "3")
+                oldFile.renameTo(newFile)
+                val enabledSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
+                if (enabledSubtypes.contains(oldName))
+                    prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, enabledSubtypes.replace(oldName, newName)) }
+                val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")!!
+                if (selectedSubtype.contains(oldName))
+                    prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype.replace(oldName, newName)) }
+                split[1] = newName
+                split.joinToString(":")
+            }
+            Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
+        }
+        // rename other custom layouts
+        onCustomLayoutFileListChanged()
+        getCustomLayoutFiles(context).forEach {
+            val newFile = getCustomLayoutFile(it.name.substringBeforeLast(".") + ".", context)
+            if (newFile.name == it.name) return@forEach
+            if (newFile.exists()) newFile.delete() // should never happen
+            it.renameTo(newFile)
         }
     }
     upgradeToolbarPrefs(prefs)
@@ -202,9 +238,7 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
     try {
         val defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-        defaultPrefs.edit { putString(
-            Settings.PREF_PINNED_CLIPS, prefs.getString(
-                Settings.PREF_PINNED_CLIPS, "")) }
+        defaultPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
         prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
     } catch (_: IllegalStateException) {
         // SharedPreferences in credential encrypted storage are not available until after user is unlocked
