@@ -1621,7 +1621,7 @@ public class LatinIME extends InputMethodService implements
 
     // TODO[IL]: Move this out of LatinIME.
     public void getSuggestedWords(final int inputStyle, final int sequenceNumber,
-                                  final OnGetSuggestedWordsCallback callback) {
+                                  final Suggest.OnGetSuggestedWordsCallback callback) {
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
         if (keyboard == null) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());

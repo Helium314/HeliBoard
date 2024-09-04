@@ -36,9 +36,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.oscar.kb.R;
 import org.oscar.kb.accessibility.AccessibilityUtils;
 import org.oscar.kb.latin.PunctuationSuggestions;
-import org.oscar.kb.R;
 import org.oscar.kb.latin.SuggestedWords;
 import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo;
 import org.oscar.kb.latin.common.ColorType;

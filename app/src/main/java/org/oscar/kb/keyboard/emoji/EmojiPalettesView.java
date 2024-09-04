@@ -22,8 +22,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.oscar.kb.R;
 import org.oscar.kb.keyboard.Key;
 import org.oscar.kb.keyboard.Keyboard;
 import org.oscar.kb.keyboard.KeyboardActionListener;
@@ -44,7 +42,31 @@ import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.ResourceUtils;
 
+import org.oscar.kb.keyboard.internal.KeyDrawParams;
+import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
+import org.oscar.kb.keyboard.Key;
+import org.oscar.kb.keyboard.KeyboardActionListener;
+import org.oscar.kb.keyboard.KeyboardLayoutSet;
+import org.oscar.kb.keyboard.KeyboardSwitcher;
+import org.oscar.kb.keyboard.KeyboardView;
+import org.oscar.kb.keyboard.internal.KeyDrawParams;
+import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet;
+import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
+import org.oscar.kb.latin.AudioAndHapticFeedbackManager;
+import org.oscar.kb.R;
+import org.oscar.kb.latin.RichInputMethodSubtype;
+import org.oscar.kb.latin.common.ColorType;
+import org.oscar.kb.latin.common.Colors;
+import org.oscar.kb.latin.common.Constants;
+import org.oscar.kb.latin.settings.Settings;
+import org.oscar.kb.latin.utils.DeviceProtectedUtils;
+import org.oscar.kb.latin.utils.ResourceUtils;
+
 import org.jetbrains.annotations.NotNull;
+
+import static org.oscar.kb.latin.common.Constants.NOT_A_COORDINATE;
 
 /**
  * View class to implement Emoji palettes.
@@ -228,7 +250,7 @@ public final class EmojiPalettesView extends LinearLayout
 
     /**
      * Called from {@link EmojiPageKeyboardView} through
-     * {@link OnKeyEventListener}
+     * {@link org.oscar.kb.keyboard.emoji.OnKeyEventListener}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
      */
     @Override
@@ -239,7 +261,7 @@ public final class EmojiPalettesView extends LinearLayout
 
     /**
      * Called from {@link EmojiPageKeyboardView} through
-     * {@link OnKeyEventListener}
+     * {@link org.oscar.kb.keyboard.emoji.OnKeyEventListener}
      * interface to handle touch events from non-View-based elements such as Emoji buttons.
      * This may be called without any prior call to {@link OnKeyEventListener#onPressKey(Key)}.
      */

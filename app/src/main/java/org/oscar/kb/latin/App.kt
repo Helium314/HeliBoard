@@ -5,20 +5,20 @@ import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import org.oscar.kb.latin.utils.ToolbarKey
+import org.oscar.kb.latin.utils.defaultPinnedToolbarPref
+import org.oscar.kb.latin.utils.upgradeToolbarPrefs
 import org.oscar.kb.latin.common.LocaleUtils.constructLocale
 import org.oscar.kb.latin.settings.Settings
 import org.oscar.kb.latin.settings.USER_DICTIONARY_SUFFIX
 import org.oscar.kb.latin.utils.CUSTOM_LAYOUT_PREFIX
 import org.oscar.kb.latin.utils.DeviceProtectedUtils
 import org.oscar.kb.latin.utils.DictionaryInfoUtils
-import org.oscar.kb.latin.utils.Log
-import org.oscar.kb.latin.utils.ToolbarKey
-import org.oscar.kb.latin.utils.defaultPinnedToolbarPref
 import org.oscar.kb.latin.utils.getCustomLayoutFile
-import org.oscar.kb.latin.utils.getCustomLayoutFiles
 import org.oscar.kb.latin.utils.onCustomLayoutFileListChanged
-import org.oscar.kb.latin.utils.upgradeToolbarPrefs
 import org.oscar.kb.BuildConfig
+import org.oscar.kb.latin.utils.Log
+import org.oscar.kb.latin.utils.getCustomLayoutFiles
 import java.io.File
 
 class App : Application() {
@@ -93,7 +93,8 @@ fun checkVersionUpgrade(context: Context) {
         prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, newPinnedKeysPref) }
 
         // enable language switch key if it was enabled previously
-        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
+        if (prefs.contains(Settings.PREF_LANGUAGE_SWITCH_KEY) && prefs.getString(
+                Settings.PREF_LANGUAGE_SWITCH_KEY, "") != "off")
             prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
     if (oldVersion <= 2100) {

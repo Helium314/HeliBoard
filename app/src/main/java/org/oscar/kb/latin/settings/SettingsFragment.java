@@ -28,7 +28,6 @@ import org.oscar.kb.latin.define.DebugFlags;
 import org.oscar.kb.latin.utils.DictionaryUtilsKt;
 import org.oscar.kb.latin.utils.SubtypeSettingsKt;
 import org.oscar.kb.latin.utils.SubtypeUtilsKt;
-
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.ExecutorUtils;
 import org.oscar.kb.latin.utils.JniUtils;

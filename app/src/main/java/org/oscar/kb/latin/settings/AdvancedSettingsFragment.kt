@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import org.oscar.kb.latin.utils.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -43,13 +44,9 @@ import org.oscar.kb.latin.AudioAndHapticFeedbackManager
 import org.oscar.kb.latin.SystemBroadcastReceiver
 import org.oscar.kb.latin.checkVersionUpgrade
 import org.oscar.kb.latin.common.FileUtils
-import org.oscar.kb.latin.settings.DebugSettings
-import org.oscar.kb.latin.settings.SeekBarDialogPreference
 import org.oscar.kb.latin.common.LocaleUtils.constructLocale
 import org.oscar.kb.latin.common.splitOnWhitespace
 import org.oscar.kb.latin.settings.SeekBarDialogPreference.ValueProxy
-import org.oscar.kb.latin.settings.Settings
-import org.oscar.kb.latin.settings.SubScreenFragment
 import org.oscar.kb.latin.utils.AdditionalSubtypeUtils
 import org.oscar.kb.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
 import org.oscar.kb.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
@@ -236,13 +233,14 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 //                        .addCategory(Intent.CATEGORY_OPENABLE)
 //                        .setType("application/octet-stream")
 //                    libraryFilePicker.launch(intent)
-
                     try {
                         // Directly load the library packaged with the app
                         System.loadLibrary("jni_latinimegoogle")  // Ensure the correct library name
-                        Log.d("AdvanceSettingsFragment", "Library loaded successfully")
+                        Toast.makeText(requireContext(), "Library loaded successfully", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "Library loaded successfully")
                     } catch (e: UnsatisfiedLinkError) {
-                        Log.d("AdvanceSettingsFragment", "Failed to load the library: ${e.message}")
+                        Toast.makeText(requireContext(), "Failed to load the library: ${e.message}", Toast.LENGTH_LONG).show()
+                        Log.d(TAG, "Failed to load the library", e)
                     }
                 }
                 .setNegativeButton(android.R.string.cancel, null)

@@ -18,12 +18,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import org.oscar.kb.R;
 import org.oscar.kb.accessibility.AccessibilityUtils;
 import org.oscar.kb.accessibility.PopupKeysKeyboardAccessibilityDelegate;
 import org.oscar.kb.keyboard.emoji.OnKeyEventListener;
 import org.oscar.kb.keyboard.internal.KeyDrawParams;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
-import org.oscar.kb.R;
 import org.oscar.kb.latin.RichInputMethodManager;
 import org.oscar.kb.latin.common.Constants;
 import org.oscar.kb.latin.common.CoordinateUtils;

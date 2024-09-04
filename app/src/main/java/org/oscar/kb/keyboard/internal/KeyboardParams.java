@@ -14,14 +14,15 @@ import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.oscar.kb.R;
+import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
+
 import org.oscar.kb.keyboard.Key;
 import org.oscar.kb.keyboard.KeyboardId;
-import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode;
 import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.utils.ResourceUtils;
 
-import org.oscar.kb.R;
 
 import java.util.ArrayList;
 import java.util.Comparator;

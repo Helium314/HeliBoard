@@ -35,19 +35,15 @@ import org.oscar.kb.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import org.oscar.kb.latin.InputAttributes;
 import org.oscar.kb.latin.common.Colors;
 import org.oscar.kb.latin.common.LocaleUtils;
-import org.oscar.kb.latin.settings.ColorsSettingsFragment;
 import org.oscar.kb.latin.utils.ColorUtilKt;
-
 import org.oscar.kb.latin.utils.AdditionalSubtypeUtils;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.JniUtils;
 import org.oscar.kb.latin.utils.Log;
 import org.oscar.kb.latin.utils.RunInLocaleKt;
 import org.oscar.kb.latin.utils.SubtypeSettingsKt;
-
 import org.oscar.kb.latin.utils.ResourceUtils;
 import org.oscar.kb.latin.utils.StatsUtils;
-
 
 import java.io.File;
 import java.util.ArrayList;

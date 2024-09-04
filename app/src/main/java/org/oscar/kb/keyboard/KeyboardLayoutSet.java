@@ -12,6 +12,13 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
+
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.oscar.kb.keyboard.internal.KeyboardBuilder;
 import org.oscar.kb.keyboard.internal.KeyboardParams;
 import org.oscar.kb.keyboard.internal.UniqueKeysCache;
@@ -25,12 +32,6 @@ import org.oscar.kb.latin.utils.InputTypeUtils;
 import org.oscar.kb.latin.utils.Log;
 import org.oscar.kb.latin.utils.ResourceUtils;
 import org.oscar.kb.latin.utils.ScriptUtils;
-
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard

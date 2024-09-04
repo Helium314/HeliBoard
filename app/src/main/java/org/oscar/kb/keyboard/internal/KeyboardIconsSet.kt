@@ -97,6 +97,7 @@ class KeyboardIconsSet private constructor() {
             NAME_PREVIOUS_KEY to                R.styleable.Keyboard_iconPreviousKey,
             NAME_TAB_KEY to                     R.styleable.Keyboard_iconTabKey,
             NAME_SHORTCUT_KEY to                R.styleable.Keyboard_iconShortcutKey,
+            NAME_OSCAR_AI to                    R.styleable.Keyboard_iconOscarAI,
             NAME_INCOGNITO_KEY to               R.styleable.Keyboard_iconIncognitoKey,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
             NAME_SHIFT_KEY_SHIFTED to           R.styleable.Keyboard_iconShiftKeyShifted,

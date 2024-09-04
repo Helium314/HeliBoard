@@ -17,8 +17,6 @@ import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
-import org.oscar.kb.latin.utils.POPUP_KEYS_LABEL_DEFAULT
-import org.oscar.kb.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import org.oscar.kb.R
 import org.oscar.kb.compat.locale
 import org.oscar.kb.databinding.LanguageListItemBinding

@@ -19,7 +19,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import org.oscar.kb.latin.settings.Settings
 import org.oscar.kb.R
 import org.oscar.kb.latin.common.LocaleUtils
 import org.oscar.kb.latin.utils.DeviceProtectedUtils
@@ -43,12 +42,7 @@ class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
     init {
         recyclerView.adapter = adapter
         searchField.doAfterTextChanged { text ->
-            adapter.list = sortedSubtypes.filter {
-                it.first().displayName.startsWith(
-                    text.toString(),
-                    ignoreCase = true
-                )
-            }
+            adapter.list = sortedSubtypes.filter { it.first().displayName.startsWith(text.toString(), ignoreCase = true) }
         }
     }
 
@@ -80,8 +74,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
     override fun getItemCount() = list.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.language_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.language_list_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -96,17 +89,10 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     if (infos.size > 1 && !onlySystemLocales) {
                         var start = true
                         infos.forEach {
-                            val string = SpannableString(
-                                SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
-                                    ?: it.subtype.displayName(context)
-                            )
+                            val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                                    ?: it.subtype.displayName(context))
                             if (it.isEnabled)
-                                string.setSpan(
-                                    StyleSpan(Typeface.BOLD),
-                                    0,
-                                    string.length,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                                )
+                                string.setSpan(StyleSpan(Typeface.BOLD), 0, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                             if (!start) {
                                 sb.append(", ")
                             }
@@ -114,16 +100,11 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                             sb.append(string)
                         }
                     }
-                    val secondaryLocales =
-                        Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
+                    val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
                     if (secondaryLocales.isNotEmpty()) {
                         if (sb.isNotEmpty())
                             sb.append("\n")
-                        sb.append(
-                            Settings.getSecondaryLocales(
-                                prefs,
-                                infos.first().subtype.locale()
-                            )
+                        sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
                             .joinToString(", ") {
                                 LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context)
                             })
@@ -159,24 +140,14 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     }
                     isVisible = true
                     setOnClickListener {
-                        LanguageSettingsDialog(
-                            view.context,
-                            infos,
-                            fragment,
-                            onlySystemLocales,
-                            { setupDetailsTextAndSwitch() }).show()
+                        LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
                     }
                 }
             }
 
             view.findViewById<TextView>(R.id.language_name).text = infos.first().displayName
             view.findViewById<LinearLayout>(R.id.language_text).setOnClickListener {
-                LanguageSettingsDialog(
-                    view.context,
-                    infos,
-                    fragment,
-                    onlySystemLocales,
-                    { setupDetailsTextAndSwitch() }).show()
+                LanguageSettingsDialog(view.context, infos, fragment, onlySystemLocales, { setupDetailsTextAndSwitch() }).show()
             }
             setupDetailsTextAndSwitch()
         }

@@ -9,18 +9,19 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
-import org.oscar.kb.R
+import org.oscar.kb.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
+import org.oscar.kb.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.oscar.kb.keyboard.Key
 import org.oscar.kb.keyboard.KeyboardId
 import org.oscar.kb.keyboard.KeyboardLayoutSet
 import org.oscar.kb.keyboard.KeyboardSwitcher
 import org.oscar.kb.keyboard.internal.KeyboardParams
-import org.oscar.kb.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import org.oscar.kb.keyboard.internal.keyboard_parser.RawKeyboardParser
-import org.oscar.kb.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.oscar.kb.latin.common.Constants
 import org.oscar.kb.latin.common.FileUtils
+
 import kotlinx.serialization.SerializationException
+import org.oscar.kb.R
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger

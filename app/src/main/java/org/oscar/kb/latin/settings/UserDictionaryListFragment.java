@@ -24,10 +24,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import org.oscar.kb.R;
+import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.SubtypeSettingsKt;
 import org.oscar.kb.latin.utils.SubtypeUtilsKt;
-
-import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.SubtypeLocaleUtils;
 
 import java.util.Comparator;

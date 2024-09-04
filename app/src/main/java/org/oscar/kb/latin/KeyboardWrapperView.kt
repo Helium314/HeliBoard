@@ -12,8 +12,9 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import org.oscar.kb.R
-import org.oscar.kb.keyboard.KeyboardActionListener
 import org.oscar.kb.keyboard.KeyboardSwitcher
+import org.oscar.kb.keyboard.internal.KeyboardIconsSet
+import org.oscar.kb.keyboard.KeyboardActionListener
 import org.oscar.kb.keyboard.internal.KeyboardIconsSet
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
 import org.oscar.kb.latin.common.ColorType

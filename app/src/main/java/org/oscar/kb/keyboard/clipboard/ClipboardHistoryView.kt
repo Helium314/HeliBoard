@@ -4,6 +4,7 @@ package org.oscar.kb.keyboard.clipboard
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -12,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import org.oscar.kb.R
 import org.oscar.kb.keyboard.KeyboardActionListener
 import org.oscar.kb.keyboard.KeyboardSwitcher
 import org.oscar.kb.keyboard.internal.KeyDrawParams
@@ -19,7 +21,6 @@ import org.oscar.kb.keyboard.internal.KeyVisualAttributes
 import org.oscar.kb.keyboard.internal.KeyboardIconsSet
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
 import org.oscar.kb.latin.ClipboardHistoryManager
-import org.oscar.kb.R
 import org.oscar.kb.keyboard.KeyboardId
 import org.oscar.kb.keyboard.KeyboardLayoutSet
 import org.oscar.kb.keyboard.MainKeyboardView

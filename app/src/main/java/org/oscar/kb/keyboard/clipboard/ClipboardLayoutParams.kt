@@ -5,6 +5,7 @@ package org.oscar.kb.keyboard.clipboard
 import android.content.res.Resources
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.oscar.kb.R
 import org.oscar.kb.keyboard.internal.KeyboardParams

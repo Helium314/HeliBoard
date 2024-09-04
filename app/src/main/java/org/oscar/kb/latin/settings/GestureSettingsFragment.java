@@ -10,8 +10,10 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import org.oscar.kb.R;
+import androidx.preference.SwitchPreference;
 
+import org.oscar.kb.R;
+import org.oscar.kb.keyboard.KeyboardSwitcher;
 
 /**
  * "Gesture typing preferences" settings sub screen.
@@ -23,12 +25,25 @@ import org.oscar.kb.R;
  * - Phrase gesture
  */
 public final class GestureSettingsFragment extends SubScreenFragment {
+    private boolean needsReload = false;
+
     @Override
     public void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs_screen_gesture);
+        setupGestureDynamicPreviewPref();
         setupGestureFastTypingCooldownPref();
+        setupGestureTrailFadeoutPref();
         refreshSettingsEnablement();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (needsReload) {
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext());
+            needsReload = false;
+        }
     }
 
     @Override
@@ -38,10 +53,34 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
+        final boolean gestureInputEnabled = Settings.readGestureInputEnabled(prefs);
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Settings.readGestureInputEnabled(prefs));
+        final boolean gesturePreviewEnabled = gestureInputEnabled
+                && prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true);
+        setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, gesturePreviewEnabled);
         setPreferenceVisible(Settings.PREF_GESTURE_SPACE_AWARE, Settings.readGestureInputEnabled(prefs));
         setPreferenceVisible(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Settings.readGestureInputEnabled(prefs));
+        final boolean gestureTrailEnabled = gestureInputEnabled
+                && prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true);
+        // This setting also affects the preview linger duration, so it's visible if either setting is enabled.
+        setPreferenceVisible(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, gestureTrailEnabled || gesturePreviewEnabled);
+    }
+
+    private void setupGestureDynamicPreviewPref() {
+        final SwitchPreference pref = findPreference(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
+        if (pref == null) return;
+        final SharedPreferences prefs = getSharedPreferences();
+        pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs, requireContext()));
+        pref.setOnPreferenceChangeListener((preference, newValue) -> {
+            // default value is based on system reduced motion
+            final boolean defValue = Settings.readGestureDynamicPreviewDefault(requireContext());
+            final boolean followingSystem = newValue.equals(defValue);
+            // allow the default to be overridden
+            prefs.edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, followingSystem).apply();
+            needsReload = true;
+            return true;
+        });
     }
 
     private void setupGestureFastTypingCooldownPref() {
@@ -82,6 +121,46 @@ public final class GestureSettingsFragment extends SubScreenFragment {
             @Override
             public void feedbackValue(final int value) {
             }
+        });
+    }
+
+    private void setupGestureTrailFadeoutPref() {
+        final SeekBarDialogPreference pref = findPreference(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
+        if (pref == null) return;
+        final SharedPreferences prefs = getSharedPreferences();
+        final Resources res = getResources();
+        pref.setInterface(new SeekBarDialogPreference.ValueProxy() {
+            @Override
+            public void writeValue(final int value, final String key) {
+                prefs.edit().putInt(key, value).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public void writeDefaultValue(final String key) {
+                prefs.edit().remove(key).apply();
+                needsReload = true;
+            }
+
+            @Override
+            public int readValue(final String key) {
+                return Settings.readGestureTrailFadeoutDuration(prefs, res);
+            }
+
+            @Override
+            public int readDefaultValue(final String key) {
+                return Settings.readDefaultGestureTrailFadeoutDuration(res);
+            }
+
+            @Override
+            public String getValueText(final int value) {
+                // fade-out has a constant start delay, value text is adjusted accordingly.
+                final int adjustedValue = res.getInteger(R.integer.config_gesture_trail_fadeout_start_delay) + value;
+                return res.getString(R.string.abbreviation_unit_milliseconds, String.valueOf(adjustedValue));
+            }
+
+            @Override
+            public void feedbackValue(final int value) {}
         });
     }
 }
