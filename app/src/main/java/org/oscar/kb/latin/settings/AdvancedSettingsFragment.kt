@@ -232,10 +232,18 @@ class AdvancedSettingsFragment : SubScreenFragment() {
                 .setTitle(R.string.load_gesture_library)
                 .setMessage(requireContext().getString(R.string.load_gesture_library_message, abi))
                 .setPositiveButton(R.string.load_gesture_library_button_load) { _, _ ->
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                        .addCategory(Intent.CATEGORY_OPENABLE)
-                        .setType("application/octet-stream")
-                    libraryFilePicker.launch(intent)
+//                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//                        .addCategory(Intent.CATEGORY_OPENABLE)
+//                        .setType("application/octet-stream")
+//                    libraryFilePicker.launch(intent)
+
+                    try {
+                        // Directly load the library packaged with the app
+                        System.loadLibrary("jni_latinimegoogle")  // Ensure the correct library name
+                        Log.d("AdvanceSettingsFragment", "Library loaded successfully")
+                    } catch (e: UnsatisfiedLinkError) {
+                        Log.d("AdvanceSettingsFragment", "Failed to load the library: ${e.message}")
+                    }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
         if (libfile.exists()) {
