@@ -169,6 +169,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         Log.d("RecognitionListener", "onRmsChanged" + rmsdB);
         //aiOutput = findViewById(R.id.ai_output);
         aiOutput.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -182,6 +183,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         Log.e("RecognitionListener", "onEndOfSpeech");
         lvTextProgress.setVisibility(View.GONE);
         aiOutput.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -221,12 +223,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Log.e("RecognitionListener", "Didn't understand, please try again.");
                 break;
         }
-//        if (error == 9 || (error == 5 && !manualStopRecord)) {
-//            startRecord();
-//        } else {
-//            Toast.makeText(getContext(), "Error in speech recognition", Toast.LENGTH_SHORT).show();
-//        }
-//        Log.e("RecognitionListener", "onError" + error);
     }
 
 
@@ -235,6 +231,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         Log.e("RecognitionListener", "onResults " + results);
         stopRecord();
+
+
         ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String allOutputText = aiOutput.getText().toString();
 
@@ -302,7 +300,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onPartialResults(Bundle partialResults) {
-
     }
 
     @Override
@@ -523,6 +520,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         colors.setBackground(this, ColorType.STRIP_BACKGROUND);
+
+        mIvOscar.setOnClickListener(this);
+        //ivOscarVoiceInput.setOnClickListener(this);
+        tvAudioProgress.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
+        ivCopy.setOnClickListener(this);
+
     }
 
     /**
@@ -1055,7 +1059,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private boolean recordStatus = false;
     private boolean manualStopRecord = false;
 
-
     private void stopRecord() {
         try {
             tvAudioProgress.pauseAnimation();
@@ -1069,32 +1072,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
-
-
     private void startRecord() {
         try {
             tvAudioProgress.playAnimation();
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
             speechRecognizer.setRecognitionListener(this);
             Log.d(TAG, "Recording started");
-
             Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
             intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
             speechRecognizer.startListening(intent);
-
             //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
-
             recordStatus = true;
         }catch (Exception e){
             Log.d(TAG, "Error in starting record: " + e.getMessage());
                 crashlytics.recordException(e);
         }
-
     }
 
     @Override
