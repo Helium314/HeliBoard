@@ -147,7 +147,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                etopenOscar.visibility =View.VISIBLE
+                tvEnableKeyboard.visibility =View.INVISIBLE
+            }
         })
 
         ivSummarizeText.setOnClickListener {
@@ -210,47 +213,39 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     @Subscribe
     fun onAIOutputReceived(event: AIOutputEvent) {
-        // Update UI with aiOutput
-       val aiOutput = event.aiOutput
+        val aiOutput = event.aiOutput
         Log.d("AIOutput Subscribe", aiOutput)
 
         if (aiOutput.isNotBlank()) {
             handleSummarize(mViewModel, aiOutput)
             lifecycleScope.launch {
-                val summarizeUiStateFlow: StateFlow<SummarizeUiState> =
-                    observeSummarizeUiState(mViewModel, aiOutput) // Pass aiOutput here
+                val summarizeUiStateFlow: StateFlow<SummarizeUiState> = observeSummarizeUiState(mViewModel, aiOutput)
                 summarizeUiStateFlow.collect { uiState ->
                     when (uiState) {
                         SummarizeUiState.Initial, SummarizeUiState.Loading -> {
                             // Handle loading state
                         }
-
                         is SummarizeUiState.Success -> {
-                            // Handle success state
+                            // Clear previous text
+                            etopenOscar.text.clear()
+
+                            // Set the new output text
                             val outputText = buildSummarizeContent(uiState)
                             etopenOscar.setText(outputText)
                             mViewModel.updateOutputText(outputText)
-
-                            // tod update universal text
-                            //mViewModel.updateOutputTextUniversal(outputText)
-
-                            // Now you can update the aiOutputTextView
                             Log.d("KeyboardActivity aiText sentBack", outputText)
-                            // for updating new text
-                            //mSharedViewModel.updateOutputText(outputText)
                         }
-
                         is SummarizeUiState.Error -> {
                             // Handle error state
                             val errorMessage = buildSummarizeContent(uiState)
-                            //Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-                mViewModel.summarizeStreaming(aiOutput) // Use aiOutput here
+                mViewModel.summarizeStreaming(aiOutput)
             }
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
