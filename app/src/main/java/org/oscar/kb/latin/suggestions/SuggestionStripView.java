@@ -23,6 +23,8 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -161,13 +163,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public void onBeginningOfSpeech() {
         Log.e("RecognitionListener", "onBeginningOfSpeech");
-        lvTextProgress.setVisibility(View.VISIBLE);
+//        lvTextProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onRmsChanged(float rmsdB) {
         Log.d("RecognitionListener", "onRmsChanged" + rmsdB);
-        //aiOutput = findViewById(R.id.ai_output);
         aiOutput.setVisibility(View.GONE);
 
     }
@@ -182,10 +183,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void onEndOfSpeech() {
         Log.e("RecognitionListener", "onEndOfSpeech");
         lvTextProgress.setVisibility(View.GONE);
-        aiOutput.setVisibility(View.VISIBLE);
+//        aiOutput.setVisibility(View.VISIBLE);
 
     }
-
 
     @Override
     public void onError(int error) {
@@ -225,7 +225,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
-
     @Override
     public void onResults(Bundle results) {
 
@@ -243,7 +242,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         allOutputText += data != null ? data.get(0) : "";
 
 
-        lvTextProgress.setVisibility(View.GONE);
+//        lvTextProgress.setVisibility(View.GONE);
 
         aiOutput.setVisibility(View.VISIBLE);
 
@@ -261,8 +260,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         Log.d(TAG, "allOutputText" + allOutputText);
 
         String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
+
+        // Debugging ViewModel call
+        Log.d(TAG, "Calling viewModel.summarizeStreaming with text: " + allOutputText);
         viewModel.summarizeStreaming(allOutputText);
-        Log.d(TAG, "viewModel.summarizeStreaming called with allOutputText: " + allOutputTextValue);
+        Log.d(TAG, "viewModel.summarizeStreaming called successfully");
+
 
 
         //todo: implement the summarization logic here
@@ -365,7 +368,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final LottieAnimationView lvTextProgress;
 
-    private final LottieAnimationView tvAudioProgress;
+    //private final LottieAnimationView tvAudioProgress;
+    private final ImageView tvAudioProgress;
 
     private SpeechRecognizer speechRecognizer;
 
@@ -974,7 +978,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             crashlytics.recordException(e);
         }
         if (view == tvAudioProgress) {
-//            permissionCheck();
             if (recordStatus) {
                 manualStopRecord = true;
                 stopRecord();
@@ -1061,7 +1064,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void stopRecord() {
         try {
-            tvAudioProgress.pauseAnimation();
+            vibrate();
+            //tvAudioProgress.pauseAnimation();
+            tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            lvTextProgress.setVisibility(GONE);
             Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
             //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
             recordStatus = false;
@@ -1074,7 +1080,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void startRecord() {
         try {
-            tvAudioProgress.playAnimation();
+            vibrate();
+            //tvAudioProgress.playAnimation();
+            tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+            lvTextProgress.setVisibility(VISIBLE);
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
             speechRecognizer.setRecognitionListener(this);
             Log.d(TAG, "Recording started");
@@ -1082,9 +1091,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
-            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 30000);
+
+//            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
+//            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
+
             speechRecognizer.startListening(intent);
-            //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.sym_keyboard_voice_holo));
             recordStatus = true;
         }catch (Exception e){
             Log.d(TAG, "Error in starting record: " + e.getMessage());
@@ -1092,10 +1103,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
+        }
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         dismissMoreSuggestionsPanel();
+        tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
     }
 
     @Override
