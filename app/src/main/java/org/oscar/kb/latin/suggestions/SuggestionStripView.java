@@ -49,6 +49,7 @@ import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+
 import org.oscar.kb.AIEngine.AIOutputEvent;
 import org.oscar.kb.AIEngine.OnTextUpdatedListener;
 import org.oscar.kb.AIEngine.SummarizeViewModel;
@@ -119,11 +120,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
 
 
-
     public TextView getAiOutputTextView() {
         return aiOutput;
     }
-
 
 
     @Subscribe
@@ -133,7 +132,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         aiOutput.setText(event.getText());
         //log received text
         Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
-          // Copy the text to clipboard
+        // Copy the text to clipboard
 //        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
 //        ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
 //        clipboard.setPrimaryClip(clip);
@@ -144,6 +143,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void setAiOutputText(String text) {
         aiOutput.setText(text);
     }
+
     @NonNull
     @Override
     public String getSummarizeText() {
@@ -158,12 +158,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public void onReadyForSpeech(Bundle params) {
         Log.e("RecognitionListener", "onReadyForSpeech" + params);
+
     }
 
     @Override
     public void onBeginningOfSpeech() {
         Log.e("RecognitionListener", "onBeginningOfSpeech");
-//        lvTextProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -182,9 +182,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     @Override
     public void onEndOfSpeech() {
         Log.e("RecognitionListener", "onEndOfSpeech");
-        lvTextProgress.setVisibility(View.GONE);
-//        aiOutput.setVisibility(View.VISIBLE);
-
+        // Continue listening, do not stop yet
+        if (!manualStopRecord) {
+            startRecord();  // Continue listening if the user hasn’t manually stopped
+        }
     }
 
     @Override
@@ -225,12 +226,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
+    // Handle transcription result
     @Override
     public void onResults(Bundle results) {
 
         Log.e("RecognitionListener", "onResults " + results);
-        stopRecord();
-
+        //stopRecord();
 
         ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String allOutputText = aiOutput.getText().toString();
@@ -242,7 +243,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         allOutputText += data != null ? data.get(0) : "";
 
 
-//        lvTextProgress.setVisibility(View.GONE);
+        lvTextProgress.setVisibility(View.GONE);
 
         aiOutput.setVisibility(View.VISIBLE);
 
@@ -267,7 +268,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         Log.d(TAG, "viewModel.summarizeStreaming called successfully");
 
 
-
         //todo: implement the summarization logic here
         aiOutput.setOnClickListener(v -> {
             // Get the text from aiOutput
@@ -282,19 +282,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         });
 
-        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
-            @Override
-            public void onTextUpdated(@NonNull String updatedText) {
-                aiOutput.setText(updatedText);
-
-                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
-                clipboard.setPrimaryClip(clip);
-                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                AIOutputEvent event = new AIOutputEvent(updatedText);
-                EventBus.getDefault().post(event);
-            }
-        });
+//        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
+//            @Override
+//            public void onTextUpdated(@NonNull String updatedText) {
+//                aiOutput.setText(updatedText);
+//
+//                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
+//                clipboard.setPrimaryClip(clip);
+//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+//                AIOutputEvent event = new AIOutputEvent(updatedText);
+//                EventBus.getDefault().post(event);
+//            }
+//        });
 
         AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
         EventBus.getDefault().post(event);
@@ -314,11 +314,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onTextUpdated(@NonNull String text) {
-        try{
-        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-        aiOutput.setText(text);
-        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-        }catch (Exception e){
+        try {
+            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+            aiOutput.setText(text);
+            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
             crashlytics.recordException(e);
         }
@@ -334,7 +334,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
+
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
+
         void removeSuggestion(final String word);
     }
 
@@ -400,7 +402,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         private final View mSuggestionsStrip;
 
         public StripVisibilityGroup(final View suggestionStripView,
-                final ViewGroup suggestionsStrip) {
+                                    final ViewGroup suggestionsStrip) {
             mSuggestionStripView = suggestionStripView;
             mSuggestionsStrip = suggestionsStrip;
             showSuggestionsStrip();
@@ -501,7 +503,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.getLayoutParams().width = toolbarHeight; // we want it square
         colors.setBackground(mToolbarExpandKey, ColorType.STRIP_BACKGROUND);
         mDefaultBackground = mToolbarExpandKey.getBackground();
-        mEnabledToolKeyBackground.setColors(new int[] {colors.get(ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
+        mEnabledToolKeyBackground.setColors(new int[]{colors.get(ColorType.TOOL_BAR_KEY_ENABLED_BACKGROUND) | 0xFF000000, Color.TRANSPARENT}); // ignore alpha on accent color
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarExpandKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
@@ -566,7 +568,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int layoutDirection;
         if (!Settings.getInstance().getCurrent().mVarToolbarDirection)
             layoutDirection = View.LAYOUT_DIRECTION_LOCALE;
-        else{
+        else {
             layoutDirection = isRtlLanguage ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR;
             mRtl = isRtlLanguage ? -1 : 1;
         }
@@ -620,7 +622,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         for (final View debugInfoView : mDebugInfoViews) {
             final ViewParent parent = debugInfoView.getParent();
             if (parent instanceof ViewGroup) {
-                ((ViewGroup)parent).removeView(debugInfoView);
+                ((ViewGroup) parent).removeView(debugInfoView);
             }
         }
     }
@@ -640,21 +642,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final PopupKeysPanel.Controller mMoreSuggestionsController =
             new PopupKeysPanel.Controller() {
-        @Override
-        public void onDismissPopupKeysPanel() {
-            mMainKeyboardView.onDismissPopupKeysPanel();
-        }
+                @Override
+                public void onDismissPopupKeysPanel() {
+                    mMainKeyboardView.onDismissPopupKeysPanel();
+                }
 
-        @Override
-        public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
-            mMainKeyboardView.onShowPopupKeysPanel(panel);
-        }
+                @Override
+                public void onShowPopupKeysPanel(final PopupKeysPanel panel) {
+                    mMainKeyboardView.onShowPopupKeysPanel(panel);
+                }
 
-        @Override
-        public void onCancelPopupKeysPanel() {
-            dismissMoreSuggestionsPanel();
-        }
-    };
+                @Override
+                public void onCancelPopupKeysPanel() {
+                    dismissMoreSuggestionsPanel();
+                }
+            };
 
     public boolean isShowingMoreSuggestionPanel() {
         return mMoreSuggestionsView.isShowingInParent();
@@ -697,7 +699,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility") // no need for View#performClick, we return false mostly anyway
+    @SuppressLint("ClickableViewAccessibility")
+    // no need for View#performClick, we return false mostly anyway
     private boolean onLongClickSuggestion(final TextView wordView) {
         boolean showIcon = true;
         if (wordView.getTag() instanceof Integer) {
@@ -761,7 +764,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsView.dismissPopupKeysPanel();
         // show suggestions, but without the removed word
         final ArrayList<SuggestedWordInfo> sw = new ArrayList<>();
-        for (int i = 0; i < mSuggestedWords.size(); i ++) {
+        for (int i = 0; i < mSuggestedWords.size(); i++) {
             final SuggestedWordInfo info = mSuggestedWords.getInfo(i);
             if (!info.getWord().equals(word))
                 sw.add(info);
@@ -769,7 +772,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         ArrayList<SuggestedWordInfo> rs = null;
         if (mSuggestedWords.mRawSuggestions != null) {
             rs = mSuggestedWords.mRawSuggestions;
-            for (int i = 0; i < rs.size(); i ++) {
+            for (int i = 0; i < rs.size(); i++) {
                 if (rs.get(i).getWord().equals(word)) {
                     rs.remove(i);
                     break;
@@ -786,7 +789,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
         mStripVisibilityGroup.showSuggestionsStrip();
         // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
-        if (mSuggestedWords.isEmpty() && Settings.getInstance().getCurrent().mAutoShowToolbar){
+        if (mSuggestedWords.isEmpty() && Settings.getInstance().getCurrent().mAutoShowToolbar) {
             setToolbarVisibility(true);
         }
     }
@@ -805,7 +808,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final int maxWidth = stripWidth - container.getPaddingLeft() - container.getPaddingRight();
         final MoreSuggestions.Builder builder = mMoreSuggestionsBuilder;
         builder.layout(mSuggestedWords, mStartIndexOfMoreSuggestions, maxWidth,
-                (int)(maxWidth * layoutHelper.mMinMoreSuggestionsWidth),
+                (int) (maxWidth * layoutHelper.mMinMoreSuggestionsWidth),
                 layoutHelper.getMaxMoreSuggestionsRow(), parentKeyboard);
         mMoreSuggestionsView.setKeyboard(builder.build());
         container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -834,29 +837,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final GestureDetector mMoreSuggestionsSlidingDetector;
     private final GestureDetector.OnGestureListener mMoreSuggestionsSlidingListener =
             new GestureDetector.SimpleOnGestureListener() {
-        @Override
-        public boolean onScroll(@Nullable MotionEvent down, @NonNull MotionEvent me, float deltaX, float deltaY) {
-            if (down == null) return false;
-            final float dy = me.getY() - down.getY();
-            if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
-                return showMoreSuggestions();
-            }
-            return false;
-        }
-    };
+                @Override
+                public boolean onScroll(@Nullable MotionEvent down, @NonNull MotionEvent me, float deltaX, float deltaY) {
+                    if (down == null) return false;
+                    final float dy = me.getY() - down.getY();
+                    if (mToolbarContainer.getVisibility() != VISIBLE && deltaY > 0 && dy < 0) {
+                        return showMoreSuggestions();
+                    }
+                    return false;
+                }
+            };
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent me) {
 
         // Disable More Suggestions if inline autofill suggestions is visible
-        if(isExternalSuggestionVisible) {
+        if (isExternalSuggestionVisible) {
             return false;
         }
 
         // Detecting sliding up finger to show {@link MoreSuggestionsView}.
         if (!mMoreSuggestionsView.isShowingInParent()) {
-            mLastX = (int)me.getX();
-            mLastY = (int)me.getY();
+            mLastX = (int) me.getX();
+            mLastY = (int) me.getY();
             return mMoreSuggestionsSlidingDetector.onTouchEvent(me);
         }
         if (mMoreSuggestionsView.isInModalMode()) {
@@ -865,8 +868,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         final int action = me.getAction();
         final int index = me.getActionIndex();
-        final int x = (int)me.getX(index);
-        final int y = (int)me.getY(index);
+        final int x = (int) me.getX(index);
+        final int y = (int) me.getY(index);
         if (Math.abs(x - mOriginX) >= mMoreSuggestionsModalTolerance
                 || mOriginY - y >= mMoreSuggestionsModalTolerance) {
             // Decided to be in the sliding suggestion mode only when the touch point has been moved
@@ -902,8 +905,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         // In the sliding input mode. {@link MotionEvent} should be forwarded to
         // {@link MoreSuggestionsView}.
         final int index = me.getActionIndex();
-        final int x = mMoreSuggestionsView.translateX((int)me.getX(index));
-        final int y = mMoreSuggestionsView.translateY((int)me.getY(index));
+        final int x = mMoreSuggestionsView.translateX((int) me.getX(index));
+        final int y = mMoreSuggestionsView.translateY((int) me.getY(index));
         me.setLocation(x, y);
         if (!mNeedsToTransformTouchEventToHoverEvent) {
             mMoreSuggestionsView.onTouchEvent(me);
@@ -942,8 +945,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onClick(final View view) {
-            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
-            final Object tag = view.getTag();
+        AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this);
+        final Object tag = view.getTag();
         try {
             if (view == mIvOscar) {
                 Log.d(TAG, "Generating summary...");
@@ -973,39 +976,35 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                 return;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Error in generating summary: " + e.getMessage());
             crashlytics.recordException(e);
         }
         if (view == tvAudioProgress) {
             if (recordStatus) {
                 manualStopRecord = true;
-                stopRecord();
-            }else if (isInternetAvailable()) {
-                    manualStopRecord = false;
-                    startRecord();
-                    aiOutput.setText("");
-                } else {
-                    Toast.makeText(this.getContext(), "Oops! Internet connection lost.", Toast.LENGTH_SHORT).show();
+                stopRecord(); // Stop and process transcription
+            } else if (isInternetAvailable()) {
+                manualStopRecord = false;
+                startRecord(); // Start listening again
+                aiOutput.setText("");
+            } else {
+                Toast.makeText(this.getContext(), "Oops! Internet connection lost.", Toast.LENGTH_SHORT).show();
             }
-//            else {
-//                manualStopRecord = false;
-//                startRecord();
-//                aiOutput.setText("");
-
             return;
-        }try {
+        }
+        try {
             if (view == aiOutput) {
                 // On Click sent to Keyboard
                 mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 return;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Error in generating summary: " + e.getMessage());
             crashlytics.recordException(e);
         }
 
-        if(view == ivDelete){
+        if (view == ivDelete) {
             mListener.onCodeInput(KeyCode.DELETE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
             //clear the text in aiOutput
             aiOutput.setText("");
@@ -1013,7 +1012,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             aiOutput.setVisibility(GONE);
             return;
         }
-        if(view == ivCopy) {
+        if (view == ivCopy) {
             if (aiOutput.getText().toString().isEmpty()) {
                 Toast.makeText(getContext(), "You do not have anything to copy", Toast.LENGTH_SHORT).show();
                 return;
@@ -1030,7 +1029,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (tag instanceof ToolbarKey) {
             final int code = getCodeForToolbarKey((ToolbarKey) tag);
             if (code != KeyCode.UNSPECIFIED) {
-                Log.d(TAG, "click toolbar key "+tag);
+                Log.d(TAG, "click toolbar key " + tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
                     if (tag == ToolbarKey.INCOGNITO)
@@ -1061,20 +1060,43 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private boolean recordStatus = false;
     private boolean manualStopRecord = false;
+    private StringBuilder transcriptionBuffer = new StringBuilder(); // To accumulate text
 
     private void stopRecord() {
         try {
             vibrate();
             //tvAudioProgress.pauseAnimation();
-            tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
             lvTextProgress.setVisibility(GONE);
-            Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
+            aiOutput.setVisibility(View.VISIBLE);
+            //Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
             //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
             recordStatus = false;
-            speechRecognizer.stopListening();
+            speechRecognizer.stopListening(); // Send text to Gemini AI
+            //processFinalTranscription();
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
             crashlytics.recordException(e);
+        }
+    }
+
+    private void processFinalTranscription() {
+        String finalText = transcriptionBuffer.toString();
+        if (!finalText.isEmpty()) {
+            aiOutput.setVisibility(View.VISIBLE);
+            aiOutput.setText(finalText);
+
+            // Call Gemini AI for grammar improvement
+            GeminiClient geminiClient = new GeminiClient();
+            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+
+            Toast.makeText(getContext(), "Processing text...", Toast.LENGTH_SHORT).show();
+            // Log finalText
+            Log.d(TAG, "Final Text: " + finalText);
+            Toast.makeText(getContext(), "Final Text: " + finalText, Toast.LENGTH_SHORT).show();
+            viewModel.summarizeStreaming(finalText);  // Send text to Gemini
         }
     }
 
@@ -1084,22 +1106,27 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             //tvAudioProgress.playAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
             lvTextProgress.setVisibility(VISIBLE);
+            transcriptionBuffer.setLength(0);
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
             speechRecognizer.setRecognitionListener(this);
             Log.d(TAG, "Recording started");
-            Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
+
+            intent.putExtra(android.speech.RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+            intent.putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
 //            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
 //            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
 
             speechRecognizer.startListening(intent);
             recordStatus = true;
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
-                crashlytics.recordException(e);
+            crashlytics.recordException(e);
         }
     }
 
@@ -1116,7 +1143,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         dismissMoreSuggestionsPanel();
-        tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
     }
 
     @Override
@@ -1168,6 +1195,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setColor(view, ColorType.TOOL_BAR_KEY);
         colors.setBackground(view, ColorType.STRIP_BACKGROUND);
     }
+
     private boolean isInternetAvailable() {
         Context context = getContext();
         if (context == null) {
