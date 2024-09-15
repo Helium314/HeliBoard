@@ -3,6 +3,7 @@ package helium314.keyboard.latin.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.widget.EditText
@@ -19,8 +20,10 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.view.forEach
 import androidx.core.view.setPadding
+import androidx.core.widget.doAfterTextChanged
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
@@ -223,11 +226,49 @@ fun toolbarKeysCustomizer(context: Context) {
 @SuppressLint("SetTextI18n")
 private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     val v = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
-    v.findViewById<EditText>(R.id.toolbar_key_code)?.apply { setText(getCodeForToolbarKey(key).toString()) }
-    v.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply { setText(getCodeForToolbarKeyLongClick(key).toString()) }
+    var keyCode: String? = null
+    var longpressCode: String? = null
+    var selectedIcon: String? = null
+    val d = AlertDialog.Builder(context)
+        .setTitle(key.name.lowercase().getStringResourceOrName("", context))
+        .setView(ScrollView(context).apply { addView(v) })
+        .setPositiveButton(android.R.string.ok) { _, _ ->
+            val newKeyCode = runCatching { keyCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull()
+            val newLongpressCode = runCatching { longpressCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull()
+            // todo
+            //  if not null: save
+            toolbarKeysCustomizer(context)
+        }
+        .setNeutralButton(R.string.button_default) { _, _ ->
+            // todo: remove entries from all maps
+            toolbarKeysCustomizer(context)
+        }
+        .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
+        .create()
+
+    fun checkOk() {
+        val keyOk = keyCode == null
+                || runCatching { keyCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
+        val longPressOk = longpressCode == null
+                || runCatching { longpressCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
+        d.getButton(DialogInterface.BUTTON_POSITIVE)?.isEnabled = keyOk && longPressOk
+    }
+    v.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
+        setText(getCodeForToolbarKey(key).toString())
+        doAfterTextChanged {
+            keyCode = it?.toString()
+            checkOk()
+        }
+    }
+    v.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
+        setText(getCodeForToolbarKeyLongClick(key).toString())
+        doAfterTextChanged {
+            longpressCode = it?.toString()
+            checkOk()
+        }
+    }
     val gv = v.findViewById<GridLayout>(R.id.toolbar_icon_grid)
     val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
-    var selectedIcon: String? = null
 
     // todo: avoid the almost-duplicate?
     gv?.apply {
@@ -267,21 +308,7 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
             }
         }
     }
-    AlertDialog.Builder(context)
-        .setView(ScrollView(context).apply { addView(v) })
-        .setPositiveButton(android.R.string.ok) { _, _ ->
-            // todo
-            //  if icon not null: save
-            //  if code not same as when reading: save
-            //  same for long press
-            toolbarKeysCustomizer(context)
-        }
-        .setNeutralButton(R.string.button_default) { _, _ ->
-            // todo: remove entries from all maps
-            toolbarKeysCustomizer(context)
-        }
-        .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
-        .show()
+    d.show()
 }
 
 fun customIconIds(context: Context, prefs: SharedPreferences) = runCatching {

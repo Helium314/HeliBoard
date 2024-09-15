@@ -18,6 +18,7 @@
             android:id="@+id/toolbar_key_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
@@ -34,7 +35,7 @@
             android:id="@+id/toolbar_key_longpress_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/PreferenceTitleText"
+            android:inputType="number"
             android:layout_weight="1" />
     </LinearLayout>
     <GridLayout
