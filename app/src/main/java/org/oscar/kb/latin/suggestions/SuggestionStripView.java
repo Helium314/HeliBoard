@@ -6,10 +6,14 @@ import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKeyLongCl
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -23,6 +27,8 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.RecognitionListener;
@@ -93,16 +99,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.ai.client.generativeai.GenerativeModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.oscar.kb.service.SpeechRecognitionService;
 
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener, SummarizeTextProvider, RecognitionListener, OnTextUpdatedListener {
+        OnLongClickListener, SummarizeTextProvider, OnTextUpdatedListener
+        //,RecognitionListener
+{
 
     LatinIME mLatinIME;
     private FirebaseCrashlytics crashlytics;
@@ -124,20 +135,79 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return aiOutput;
     }
 
+    public void updateText(final String recognizedText) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            // Assuming you have a TextView or similar in this custom view
+            aiOutput.setText(recognizedText); // Update the TextView or UI component
+
+            aiOutput.setOnClickListener(v -> {
+                // Get the text from aiOutput
+                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+                // Copy the text to clipboard
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+
+
+            });
+
+        });
+    }
+
+    private final BroadcastReceiver speechResultReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
+
+//            GeminiClient geminiClient = new GeminiClient();
+//            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+//            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+//            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+//
+//            // Send text to the viewModel
+//            assert recognizedText != null;
+//            viewModel.summarizeStreaming(recognizedText);
+
+//           AIOutputEvent event = new AIOutputEvent(recognizedText.toString());
+//           EventBus.getDefault().post(event);
+
+            Log.d("SuggestionStripView", recognizedText != null ? recognizedText : "No recognized text");
+            if (recognizedText != null) {
+                updateText(recognizedText);
+            }
+        }
+    };
+
 
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
 
-        // if aiOutput text is not null clear history
-        aiOutput.setText(event.getText());
-        //log received text
-        Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
-        // Copy the text to clipboard
-//        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//        ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-//        clipboard.setPrimaryClip(clip);
-//        mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+        lvTextProgress.setVisibility(View.VISIBLE);
 
+        if(event.getText() != null && !event.getText().isEmpty()) {
+            // if aiOutput text is not null clear history
+            aiOutput.setVisibility(View.VISIBLE);
+            aiOutput.setText(event.getText());
+            //log received text
+            Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
+            // Copy the text to clipboard
+
+
+//            aiOutput.setOnClickListener(v -> {
+//                // Get the text from aiOutput
+//                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+//                // Copy the text to clipboard
+//                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+//                clipboard.setPrimaryClip(clip);
+//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+//
+//
+//            });
+        }
     }
 
     public void setAiOutputText(String text) {
@@ -155,160 +225,160 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     }
 
-    @Override
-    public void onReadyForSpeech(Bundle params) {
-        Log.e("RecognitionListener", "onReadyForSpeech" + params);
+//    @Override
+//    public void onReadyForSpeech(Bundle params) {
+//        Log.e("RecognitionListener", "onReadyForSpeech" + params);
+//
+//    }
 
-    }
+//    @Override
+//    public void onBeginningOfSpeech() {
+//        Log.e("RecognitionListener", "onBeginningOfSpeech");
+//    }
 
-    @Override
-    public void onBeginningOfSpeech() {
-        Log.e("RecognitionListener", "onBeginningOfSpeech");
-    }
+//    @Override
+//    public void onRmsChanged(float rmsdB) {
+//        Log.d("RecognitionListener", "onRmsChanged" + rmsdB);
+//        aiOutput.setVisibility(View.GONE);
+//
+//    }
 
-    @Override
-    public void onRmsChanged(float rmsdB) {
-        Log.d("RecognitionListener", "onRmsChanged" + rmsdB);
-        aiOutput.setVisibility(View.GONE);
+//    @Override
+//    public void onBufferReceived(byte[] buffer) {
+//        Log.e("RecognitionListener", "onBufferReceived" + Arrays.toString(buffer));
+//
+//    }
 
-    }
+//    @Override
+//    public void onEndOfSpeech() {
+//        Log.e("RecognitionListener", "onEndOfSpeech");
+//        // Continue listening, do not stop yet
+//        if (!manualStopRecord) {
+//            startRecord();  // Continue listening if the user hasn’t manually stopped
+//        }
+//    }
 
-    @Override
-    public void onBufferReceived(byte[] buffer) {
-        Log.e("RecognitionListener", "onBufferReceived" + Arrays.toString(buffer));
-
-    }
-
-    @Override
-    public void onEndOfSpeech() {
-        Log.e("RecognitionListener", "onEndOfSpeech");
-        // Continue listening, do not stop yet
-        if (!manualStopRecord) {
-            startRecord();  // Continue listening if the user hasn’t manually stopped
-        }
-    }
-
-    @Override
-    public void onError(int error) {
-        speechRecognizer.cancel();
-
-        switch (error) {
-            case SpeechRecognizer.ERROR_AUDIO:
-                Log.e("RecognitionListener", "Audio recording error");
-                break;
-            case SpeechRecognizer.ERROR_CLIENT:
-                Log.e("RecognitionListener", "Client side error");
-                break;
-            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                Log.e("RecognitionListener", "Insufficient permissions");
-                break;
-            case SpeechRecognizer.ERROR_NETWORK:
-                Log.e("RecognitionListener", "Network error");
-                break;
-            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                Log.e("RecognitionListener", "Network timeout");
-                break;
-            case SpeechRecognizer.ERROR_NO_MATCH:
-                Log.e("RecognitionListener", "No match");
-                break;
-            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                Log.e("RecognitionListener", "RecognitionService busy");
-                break;
-            case SpeechRecognizer.ERROR_SERVER:
-                Log.e("RecognitionListener", "Error from server");
-                break;
-            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                Log.e("RecognitionListener", "No speech input");
-                break;
-            default:
-                Log.e("RecognitionListener", "Didn't understand, please try again.");
-                break;
-        }
-    }
+//    @Override
+//    public void onError(int error) {
+//        speechRecognizer.cancel();
+//
+//        switch (error) {
+//            case SpeechRecognizer.ERROR_AUDIO:
+//                Log.e("RecognitionListener", "Audio recording error");
+//                break;
+//            case SpeechRecognizer.ERROR_CLIENT:
+//                Log.e("RecognitionListener", "Client side error");
+//                break;
+//            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+//                Log.e("RecognitionListener", "Insufficient permissions");
+//                break;
+//            case SpeechRecognizer.ERROR_NETWORK:
+//                Log.e("RecognitionListener", "Network error");
+//                break;
+//            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+//                Log.e("RecognitionListener", "Network timeout");
+//                break;
+//            case SpeechRecognizer.ERROR_NO_MATCH:
+//                Log.e("RecognitionListener", "No match");
+//                break;
+//            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
+//                Log.e("RecognitionListener", "RecognitionService busy");
+//                break;
+//            case SpeechRecognizer.ERROR_SERVER:
+//                Log.e("RecognitionListener", "Error from server");
+//                break;
+//            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
+//                Log.e("RecognitionListener", "No speech input");
+//                break;
+//            default:
+//                Log.e("RecognitionListener", "Didn't understand, please try again.");
+//                break;
+//        }
+//    }
 
     // Handle transcription result
-    @Override
-    public void onResults(Bundle results) {
-
-        Log.e("RecognitionListener", "onResults " + results);
-        //stopRecord();
-
-        ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        String allOutputText = aiOutput.getText().toString();
-
-        if (allOutputText.equals("AI Generated Text Will be here")) {
-            allOutputText = "";
-        }
-        allOutputText += " ";
-        allOutputText += data != null ? data.get(0) : "";
-
-
-        lvTextProgress.setVisibility(View.GONE);
-
-        aiOutput.setVisibility(View.VISIBLE);
-
-        Log.d("RecognitionListener", "onResults" + allOutputText);
-
-        Log.d(TAG, "Generating summary...");
-        Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
-        GeminiClient geminiClient = new GeminiClient();
-        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
-
-        aiOutput.setText(allOutputText);
-
-        Log.d(TAG, "allOutputText" + allOutputText);
-
-        String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
-
-        // Debugging ViewModel call
-        Log.d(TAG, "Calling viewModel.summarizeStreaming with text: " + allOutputText);
-        viewModel.summarizeStreaming(allOutputText);
-        Log.d(TAG, "viewModel.summarizeStreaming called successfully");
-
-
-        //todo: implement the summarization logic here
-        aiOutput.setOnClickListener(v -> {
-            // Get the text from aiOutput
-            Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-            // Copy the text to clipboard
-            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-            clipboard.setPrimaryClip(clip);
-            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-
-
-        });
-
-//        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
-//            @Override
-//            public void onTextUpdated(@NonNull String updatedText) {
-//                aiOutput.setText(updatedText);
+//    @Override
+//    public void onResults(Bundle results) {
 //
-//                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
-//                clipboard.setPrimaryClip(clip);
-//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//                AIOutputEvent event = new AIOutputEvent(updatedText);
-//                EventBus.getDefault().post(event);
-//            }
+//        Log.e("RecognitionListener", "onResults " + results);
+//        //stopRecord();
+//
+//        ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+//        String allOutputText = aiOutput.getText().toString();
+//
+//        if (allOutputText.equals("AI Generated Text Will be here")) {
+//            allOutputText = "";
+//        }
+//        allOutputText += " ";
+//        allOutputText += data != null ? data.get(0) : "";
+//
+//
+//        lvTextProgress.setVisibility(View.GONE);
+//
+//        aiOutput.setVisibility(View.VISIBLE);
+//
+//        Log.d("RecognitionListener", "onResults" + allOutputText);
+//
+//        Log.d(TAG, "Generating summary...");
+//        Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
+//        GeminiClient geminiClient = new GeminiClient();
+//        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+//        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+//        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+//
+//        aiOutput.setText(allOutputText);
+//
+//        Log.d(TAG, "allOutputText" + allOutputText);
+//
+//        String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
+//
+//        // Debugging ViewModel call
+//        Log.d(TAG, "Calling viewModel.summarizeStreaming with text: " + allOutputText);
+//        viewModel.summarizeStreaming(allOutputText);
+//        Log.d(TAG, "viewModel.summarizeStreaming called successfully");
+//
+//
+//        //todo: implement the summarization logic here
+//        aiOutput.setOnClickListener(v -> {
+//            // Get the text from aiOutput
+//            Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
+//            Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+//            // Copy the text to clipboard
+//            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//            ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+//            clipboard.setPrimaryClip(clip);
+//            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+//
+//
 //        });
+//
+////        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
+////            @Override
+////            public void onTextUpdated(@NonNull String updatedText) {
+////                aiOutput.setText(updatedText);
+////
+////                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+////                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
+////                clipboard.setPrimaryClip(clip);
+////                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+////                AIOutputEvent event = new AIOutputEvent(updatedText);
+////                EventBus.getDefault().post(event);
+////            }
+////        });
+//
+//        AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
+//        EventBus.getDefault().post(event);
+//
+//    }
 
-        AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
-        EventBus.getDefault().post(event);
+//    @Override
+//    public void onPartialResults(Bundle partialResults) {
+//    }
 
-    }
-
-    @Override
-    public void onPartialResults(Bundle partialResults) {
-    }
-
-    @Override
-    public void onEvent(int eventType, Bundle params) {
-
-    }
+//    @Override
+//    public void onEvent(int eventType, Bundle params) {
+//
+//    }
 
     StringBuilder outputBuilder = new StringBuilder();
 
@@ -1064,69 +1134,59 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void stopRecord() {
         try {
+            lvTextProgress.setVisibility(View.GONE);
+            aiOutput.setVisibility(View.VISIBLE);
             vibrate();
+            stopSpeechRecognitionService();
             //tvAudioProgress.pauseAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
-            lvTextProgress.setVisibility(GONE);
-            aiOutput.setVisibility(View.VISIBLE);
+
             //Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
             //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
             recordStatus = false;
+
             speechRecognizer.stopListening(); // Send text to Gemini AI
             //processFinalTranscription();
+
+
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
             crashlytics.recordException(e);
         }
     }
 
-    private void processFinalTranscription() {
-        String finalText = transcriptionBuffer.toString();
-        if (!finalText.isEmpty()) {
-            aiOutput.setVisibility(View.VISIBLE);
-            aiOutput.setText(finalText);
-
-            // Call Gemini AI for grammar improvement
-            GeminiClient geminiClient = new GeminiClient();
-            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
-
-            Toast.makeText(getContext(), "Processing text...", Toast.LENGTH_SHORT).show();
-            // Log finalText
-            Log.d(TAG, "Final Text: " + finalText);
-            Toast.makeText(getContext(), "Final Text: " + finalText, Toast.LENGTH_SHORT).show();
-            viewModel.summarizeStreaming(finalText);  // Send text to Gemini
-        }
-    }
 
     private void startRecord() {
         try {
+            aiOutput.setVisibility(View.GONE);
+            lvTextProgress.setVisibility(View.VISIBLE);
+
             vibrate();
+            startForegroundService();
             //tvAudioProgress.playAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-            lvTextProgress.setVisibility(VISIBLE);
             transcriptionBuffer.setLength(0);
-            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
-            speechRecognizer.setRecognitionListener(this);
+//            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
+            //speechRecognizer.setRecognitionListener(this);
             Log.d(TAG, "Recording started");
             //Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
-
-            intent.putExtra(android.speech.RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-            intent.putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+//            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
+//
+//            intent.putExtra(android.speech.RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
+//            intent.putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
 //            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
 //            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
 
-            speechRecognizer.startListening(intent);
+//            speechRecognizer.startListening(intent);
             recordStatus = true;
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
             crashlytics.recordException(e);
+            aiOutput.setText("Error in starting record: " + e.getMessage());
         }
     }
 
@@ -1140,10 +1200,20 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        // Register your BroadcastReceiver here
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(
+                speechResultReceiver, new IntentFilter("SpeechRecognitionResults")
+        );
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         dismissMoreSuggestionsPanel();
         tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(speechResultReceiver);
     }
 
     @Override
@@ -1215,4 +1285,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return false;
     }
 
+    private void startForegroundService() {
+        Intent intent = new Intent(getContext(), SpeechRecognitionService.class);
+        ContextCompat.startForegroundService(getContext(), intent);
+    }
+
+    private void stopSpeechRecognitionService() {
+        // Create an intent for the service you want to stop
+        Intent intent = new Intent(getContext(), SpeechRecognitionService.class);
+
+        // Create a ContextWrapper instance and use stopService from it
+        ContextWrapper contextWrapper = new ContextWrapper(getContext());
+        contextWrapper.stopService(intent);
+    }
 }

@@ -102,7 +102,7 @@
             android:layout_height="32dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="4dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_clipboard_vector"
             android:backgroundTint="#E0FFFF"
