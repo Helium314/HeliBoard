@@ -27,6 +27,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.check
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import java.util.Locale
@@ -226,6 +227,7 @@ fun toolbarKeysCustomizer(context: Context) {
 @SuppressLint("SetTextI18n")
 private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     val v = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var keyCode: String? = null
     var longpressCode: String? = null
     var selectedIcon: String? = null
@@ -233,10 +235,18 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
         .setTitle(key.name.lowercase().getStringResourceOrName("", context))
         .setView(ScrollView(context).apply { addView(v) })
         .setPositiveButton(android.R.string.ok) { _, _ ->
-            val newKeyCode = runCatching { keyCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull()
-            val newLongpressCode = runCatching { longpressCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull()
-            // todo
-            //  if not null: save
+            val newKeyCode = runCatching { keyCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
+            val newLongpressCode = runCatching { longpressCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
+            if (newKeyCode != null)
+                writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to newKeyCode))
+            if (newLongpressCode != null)
+                writeCustomLongpressCodes(prefs, readCustomLongPressCodes(prefs) + (key.name to newLongpressCode))
+            if (selectedIcon != null)
+                runCatching {
+                    val icons = Json.decodeFromString<HashMap<String, String>>(prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_ICON_IDS, "")!!)
+                    icons[key.name] = selectedIcon ?: return@runCatching
+                    prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_ICON_IDS, Json.encodeToString(icons)).apply()
+                }
             toolbarKeysCustomizer(context)
         }
         .setNeutralButton(R.string.button_default) { _, _ ->
@@ -316,12 +326,18 @@ fun customIconIds(context: Context, prefs: SharedPreferences) = runCatching {
         .map { it.key to context.resources.getIdentifier(it.value, "drawable", context.packageName) }
 }.getOrElse { emptyList() }
 
-// todo: better not maps, because needs to be in settingsValues and thus very fast to read
-fun customKeyCodes(prefs: SharedPreferences) = runCatching {
-    Json.decodeFromString<Map<String, Int>>(prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!)
-}.getOrElse { emptyMap() }
+fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
+        .split(";").associate { it.substringBefore(",") to it.substringAfter(",").toIntOrNull() }
 
-// todo: better not maps, because needs to be in settingsValues and thus very fast to read
-fun customLongPressCodes(prefs: SharedPreferences) = runCatching {
-    Json.decodeFromString<Map<String, Int>>(prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!)
-}.getOrElse { emptyMap() }
+fun readCustomLongPressCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!
+    .split(";").associate { it.substringBefore(",") to it.substringAfter(",").toIntOrNull() }
+
+private fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
+    val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},it" } }.joinToString(";")
+    prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, string).apply()
+}
+
+private fun writeCustomLongpressCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
+    val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},it" } }.joinToString(";")
+    prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, string).apply()
+}
