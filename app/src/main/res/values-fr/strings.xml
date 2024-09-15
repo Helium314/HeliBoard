@@ -423,4 +423,13 @@ Nouveau dictionnaire:
     <string name="show_popup_keys_main">Ajouter les variantes les plus courantes (par défaut)</string>
     <string name="remove_redundant_popups_summary">Supprime les touches des popups présentes sur la disposition de base</string>
     <string name="remove_redundant_popups">Supprimer les popups redondants</string>
+    <string name="gesture_floating_preview_static_summary">Voir le mot proposé lors d\'un geste</string>
+    <string name="gesture_floating_preview_dynamic_summary">Déplacer l\'aperçu pendant un geste</string>
+    <string name="gesture_floating_preview_static">Aperçu flottant</string>
+    <string name="gesture_trail_fadeout_duration">Durée du tracé du geste</string>
+    <string name="icon_style">Style de l\'icône</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Rangée de chiffres</string>
+    <string name="prefs_space_bar_text">Texte personnalisé sur la barre d\'espace</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rangée inférieure du presse-papier</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rangée inférieure des emojis</string>
 </resources>

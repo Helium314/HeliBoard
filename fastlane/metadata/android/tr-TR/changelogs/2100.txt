@@ -1,0 +1,8 @@
+* Tabletlerde bozuk işlev tuşu düzenini düzelt
+* Dil değiştirme tuşunu yalnızca değiştirecek bir şey olduğunda göster
+* "Tüm renkler" ayarı için varsayılan renkleri gri yerine rastgele yap
+* Yazma sırasında hareketler için başlangıç gecikmesini özelleştirmeye izin ver, @devycarol tarafından
+* Para birimi tuşlarını özelleştirmeye izin ver
+* Shift -> caps lock için uzun basma süresini azalt, @devycarol tarafından
+* Sayı satırı ve semboller düzeninde üstsüz pop-up'ları genişlet, @b02860de585071a2 tarafından
+* Küçük düzeltmeler ve iyileştirmeler

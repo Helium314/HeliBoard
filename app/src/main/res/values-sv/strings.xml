@@ -15,14 +15,14 @@
     <string name="settings_screen_advanced">"Avancerat"</string>
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Aktivera delat tangentbord"</string>
-    <string name="language_switch_key_switch_input_method">Byt till andra inmatningsmet.</string>
+    <string name="language_switch_key_switch_input_method">Byt till andra inmatningssätt</string>
     <string name="show_language_switch_key">Språkbytestangent</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <string name="settings_system_default">"Standardinställning"</string>
     <string name="use_contacts_dict">"Föreslå kontaktnamn"</string>
     <string name="use_contacts_dict_summary">"Använd namn från Kontakter för förslag och korrigeringar"</string>
     <string name="use_personalized_dicts">"Anpassade förslag"</string>
-    <string name="use_double_space_period">"Dubbelt blanksteg = punkt"</string>
+    <string name="use_double_space_period">Dubbelt blanksteg-punkt</string>
     <string name="use_double_space_period_summary">"Dubbelt blanksteg ger en punkt följt av mellanslag"</string>
     <string name="auto_cap">"Automatiska versaler"</string>
     <string name="auto_cap_summary">"Inled varje mening med stor bokstav"</string>
@@ -36,7 +36,7 @@
     <string name="autocorrect">"Autokorrigering"</string>
     <string name="auto_correction_summary">"Blanksteg/skiljetecken rättar felstavning"</string>
     <string name="auto_correction_threshold_mode_off">"Av"</string>
-    <string name="auto_correction_threshold_mode_modest">"Måttlig"</string>
+    <string name="auto_correction_threshold_mode_modest">Måttligt</string>
     <string name="auto_correction_threshold_mode_aggressive">"Aggressivt"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"Mycket aggressivt"</string>
     <string name="bigram_prediction">"Föreslå nästa ord"</string>
@@ -181,7 +181,7 @@
     <string name="button_restore">Återställ</string>
     <string name="load_gesture_library">Ladda svepskrivningsbibliotek</string>
     <string name="load_gesture_library_summary">Tillhandahåll ett ursprungligt bibliotek för att aktivera svepskrivning</string>
-    <string name="show_popup_keys_normal">Visa varianter definierade i tangentbordsspråk (standard)</string>
+    <string name="show_popup_keys_normal">Visa varianter definierade i tangentbordsspråk</string>
     <string name="show_popup_keys_more">Lägg till vanliga varianter</string>
     <string name="show_popup_keys_all">Lägg till alla tillgängliga varianter</string>
     <string name="url_detection_title">URL-detektering</string>
@@ -256,7 +256,7 @@
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Språk</string>
     <string name="toolbar_keys">Välj verktygsfältstangenter</string>
     <string name="close_history" tools:keep="@string/close_history">Stäng urklippshistorik</string>
-    <string name="clipboard_toolbar_keys">Välj urklippsverktygsfältstangenter</string>
+    <string name="clipboard_toolbar_keys">Välj verktygsfältstangenter för urklipp</string>
     <string name="show_popup_hints_summary">Visa tips om långtryck på en tangent aktiverar ytterligare funktionalitet</string>
     <string name="show_popup_hints">Visa funktionalitetstips</string>
     <string name="clipboard" tools:keep="@string/clipboard">Urklipp</string>
@@ -269,4 +269,26 @@
     <string name="down" tools:keep="@string/down">Ner</string>
     <string name="full_left" tools:keep="@string/full_left">Längst åt vänster</string>
     <string name="full_right" tools:keep="@string/full_right">Längst åt höger</string>
+    <string name="show_popup_keys_main">Lägg till mycket vanliga varianter (standard)</string>
+    <string name="auto_show_toolbar">Visa verktygsfält automatiskt</string>
+    <string name="auto_show_toolbar_summary">Visa verktygsfältet om inmatning påbörjas eller text markeras</string>
+    <string name="language_switch_key_behavior">Språkbytestangentens beteende</string>
+    <string name="settings_screen_toolbar">Verktygsfält</string>
+    <string name="var_toolbar_direction">Växlande riktning för verktygsfält</string>
+    <string name="var_toolbar_direction_summary">Vänd på riktningen när en höger-till-vänster-tangentbordsundertyp är vald</string>
+    <string name="page_end" tools:keep="@string/page_end">Sidslut</string>
+    <string name="word_right" tools:keep="@string/word_right">Ord höger</string>
+    <string name="page_up" tools:keep="@string/page_up">Sida upp</string>
+    <string name="page_start" tools:keep="@string/page_start">Sidstart</string>
+    <string name="auto_hide_toolbar_summary">Dölj verktygsfältet när förslag blir tillgängliga</string>
+    <string name="word_left" tools:keep="@string/word_left">Ord vänster</string>
+    <string name="auto_hide_toolbar">Dölj verktygsfält automatiskt</string>
+    <string name="quick_pin_toolbar_keys_summary">Detta kommer att inaktivera andra långtryckningsåtgärder för verktygsfältstangenter som inte är fästa</string>
+    <string name="pinned_toolbar_keys">Välj fästa verktygsfältstangenter</string>
+    <string name="quick_pin_toolbar_keys">Fäst verktygsfältstangent genom långtryckning</string>
+    <string name="setup_step3_action">Konfigurera tangentbordet</string>
+    <string name="page_down" tools:keep="@string/page_down">Sida ner</string>
+    <string name="remove_redundant_popups">Ta bort överflödiga popuper</string>
+    <string name="remove_redundant_popups_summary">Dämpa popup-tangenter som finns i grundlayouten</string>
+    <string name="action_none">Ingen</string>
 </resources>

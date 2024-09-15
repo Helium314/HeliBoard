@@ -139,4 +139,10 @@
     <string name="ime_settings">Настройки HeliBoard</string>
     <string name="android_spell_checker_settings">Настройки за проверка на правописа</string>
     <string name="switch_language">Превключване на езика</string>
+    <string name="settings_category_additional_keys">Допълнителни бутони</string>
+    <string name="show_emoji_key">Бутон за емотикони</string>
+    <string name="settings_no_limit">Без ограничение</string>
+    <string name="add_to_personal_dictionary">Добавяне на думи към личния речник</string>
+    <string name="prefs_always_show_suggestions">Винаги показвайте предложения</string>
+    <string name="add_to_personal_dictionary_summary">Използвайте личния речник на устройството, за да съхранявате научени думи</string>
 </resources>

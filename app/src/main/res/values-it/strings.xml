@@ -16,7 +16,7 @@
     <string name="settings_screen_theme">"Tema"</string>
     <string name="enable_split_keyboard">"Attiva tastiera divisa"</string>
     <string name="language_switch_key_switch_input_method">Altri metodi di immissione</string>
-    <string name="show_language_switch_key">"Tasto cambio lingua"</string>
+    <string name="show_language_switch_key">Tasto di cambio lingua</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predefinito"</string>
     <string name="use_contacts_dict">"Suggerisci nomi di contatti"</string>
@@ -122,10 +122,10 @@
     <string name="more_keys_strip_description">Altri tasti</string>
     <string name="autospace_after_punctuation_summary">Alla digitazione di una nuova parola, inserisce automaticamente lo spazio dopo la punteggiatura</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
-    <string name="settings_category_clipboard_history">Cronologia appunti</string>
+    <string name="settings_category_clipboard_history">Cronologia degli appunti</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Nessun limite</string>
-    <string name="enable_clipboard_history">Attiva la cronologia appunti</string>
+    <string name="enable_clipboard_history">Attiva la cronologia degli appunti</string>
     <string name="enable_clipboard_history_summary">Se disattivata, il tasto \'Appunti\' incolla direttamente l\'ultimo contenuto</string>
     <string name="clipboard_history_retention_time">Durata dei contenuti nella cronologia</string>
     <string name="spell_checker_service_name">HeliBoard - Controllo ortografico</string>
@@ -187,7 +187,7 @@
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
     <string name="localized_number_row_summary">Mostra i numeri localizzati anziché quelli latini</string>
     <string name="checksum_mismatch_message">File di libreria sconosciuto. Si è sicuri di averlo ottenuto da una fonte affidabile e che sia per \'%s\'?</string>
-    <string name="show_popup_keys_normal">Mostra le varianti di carattere definite dalla lingua (impostazione predefinita)</string>
+    <string name="show_popup_keys_normal">Mostra le varianti di carattere definite dalla lingua</string>
     <string name="show_popup_keys_more">Aggiungi varianti comuni</string>
     <string name="clipboard" tools:keep="@string/clipboard">Appunti</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Riga dei numeri</string>
@@ -217,13 +217,13 @@
     <string name="prefs_always_show_suggestions_summary">Ignora la richiesta di altre applicazioni di disabilitare i suggerimenti (potrebbe causare problemi)</string>
     <string name="title_layout_name_select">Nome del layout</string>
     <string name="switch_language">Cambia lingua</string>
-    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Pulisci appunti</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Svuota gli appunti</string>
     <string name="prefs_narrow_key_gaps">Riduci lo spazio tra i tasti</string>
     <string name="disable_personalized_dicts_message">Attenzione: la disattivazione di questa impostazione cancellerà tutti i dati memorizzati</string>
     <string name="load_gesture_library_button_load">Carica libreria</string>
     <string name="button_load_custom">Carica file</string>
     <string name="button_copy_existing_layout">Duplica un layout esistente</string>
-    <string name="show_popup_keys_title">Mostra più lettere accentate</string>
+    <string name="show_popup_keys_title">Mostra più lettere accentate nei tasti a comparsa</string>
     <string name="one_handed" tools:keep="@string/one_handed">Modalità a una mano</string>
     <string name="layout_error">Errore layout: %s</string>
     <string name="secondary_locale">Digitazione multilingue</string>
@@ -388,8 +388,8 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tasti funzione (Altri simboli)</string>
     <string name="settings_screen_toolbar">Barra degli strumenti</string>
     <string name="center_suggestion_text_to_enter">Usa sempre la parola suggerita al centro</string>
-    <string name="close_history" tools:keep="@string/close_history">Chiudi la cronologia appunti</string>
-    <string name="clipboard_toolbar_keys">Seleziona i tasti mostrati insieme alla cronologia appunti</string>
+    <string name="close_history" tools:keep="@string/close_history">Chiudi la cronologia degli appunti</string>
+    <string name="clipboard_toolbar_keys">Seleziona i tasti mostrati insieme alla cronologia degli appunti</string>
     <string name="language_switch_key_behavior">Comportamento del tasto di cambio lingua</string>
     <string name="center_suggestion_text_to_enter_summary">All\'aggiunta di uno spazio o di un segno di punteggiatura, il suggerimento centrale è inserito automaticamente</string>
     <string name="customize_functional_key_layouts">Personalizza i layout dei tasti funzione</string>
@@ -409,17 +409,21 @@
     <string name="page_start" tools:keep="@string/page_start">Inizio documento</string>
     <string name="page_end" tools:keep="@string/page_end">Fine documento</string>
     <string name="suggest_clipboard_content">Suggerisci il testo copiato</string>
-    <string name="suggest_clipboard_content_summary">Mostra l\'ultimo testo copiato negli appunti come \'pill\' interattivo nella barra dei suggerimenti</string>
+    <string name="suggest_clipboard_content_summary">Mostra l\'ultimo testo copiato negli appunti nella barra dei suggerimenti</string>
     <string name="copy_to_clipboard">Copia negli appunti</string>
     <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
     <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
     <string name="after_symbol_and_space">Dopo l\'inserimento di un carattere dalla schermata simboli, seguito da uno spazio o un \'a capo\'</string>
-    <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia appunti</string>
-    <string name="show_popup_keys_main">Aggiungi varianti comuni</string>
+    <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia degli appunti</string>
+    <string name="show_popup_keys_main">Aggiungi varianti molto comuni (impostazione predefinita)</string>
     <string name="page_up" tools:keep="@string/page_up">Pagina su</string>
     <string name="page_down" tools:keep="@string/page_down">Pagina giù</string>
     <string name="space_swipe_toggle_numpad_entry">Passa al tastierino numerico</string>
-    <string name="remove_redundant_popups">Rimuovi i caratteri popup ripetuti</string>
-    <string name="remove_redundant_popups_summary">Rimuovi i caratteri popup già presenti nel layout base</string>
+    <string name="remove_redundant_popups">Rimuovi i tasti a comparsa ripetuti</string>
+    <string name="remove_redundant_popups_summary">Rimuovi i tasti a comparsa già presenti nel layout base</string>
     <string name="load_will_overwrite">Attenzione: l\'importazione sovrascriverà il tema attuale</string>
+    <string name="gesture_floating_preview_static_summary">Mostra dinamicamente le parole suggerite durante l\'inserimento</string>
+    <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
+    <string name="gesture_floating_preview_static">Anteprima mobile dinamica</string>
+    <string name="gesture_floating_preview_dynamic_summary">Sposta l\'anteprima seguendo il gesto</string>
 </resources>

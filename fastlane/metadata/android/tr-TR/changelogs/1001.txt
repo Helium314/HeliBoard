@@ -1,0 +1,20 @@
+* @FabianOvrWrt tarafından yapılan yeni simge, @the-eclectic-dyslexic'in katkılarıyla (#517, #592)
+* @arcarum tarafından daha özelleştirilebilir boşluk tuşu trackpad'i ve dil değiştirme (#486)
+* Shift sembolleri düzenine % işareti ekle (#568, #428)
+* Dil değiştirme tuşu hem dili hem de klavyeyi değiştirecek şekilde ayarlandığında davranışı iyileştir
+* Sözlük eklerken mevcut sözlüklere bağlantıları göster
+* @alkaitagi tarafından Kaitag düzeni ekle (#519)
+* @fahimscirex tarafından Probhat düzeni ekle (#489)
+* @codokie tarafından RTL dilleri için isteğe bağlı olarak araç çubuğu sırasını ters çevirme (#557, #574)
+* Özel düzenleri (numpad, telefon, ...) özelleştirmeye izin ver
+  * Temel düzenler değişebileceği için hala deneysel
+* Sözlüklerin mevcut olduğu, ancak uygulamaya dahil edilmediği yerel ayarları içerecek şekilde spellchecker.xml güncelle
+* Çevirileri güncelle (tüm çevirmenlere teşekkürler!)
+* @Syphyr tarafından ndk'yı yükselt (#560)
+* @arcarum tarafından satır içi otomatik doldurma kodunu yükselt (#595)
+* Araç çubuğu tuşu diyalog sorunu düzeltildi (#505)
+* Türkçe düzenle ilgili sorun düzeltildi (#508)
+* Renkleri özelleştirme ekranında dönerken yanlış anahtar durumları düzeltildi (#563)
+* Son kullanılan emojilerin yüklenmemesi sorunu düzeltildi (#527)
+* Bazı alanlarda sayılar görünmeme sorunu düzeltildi (#585)
+* Bazı küçük düzeltmeler

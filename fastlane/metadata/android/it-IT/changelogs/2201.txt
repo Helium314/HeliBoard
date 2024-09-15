@@ -1,0 +1,2 @@
+* Aggiunte alcune opzioni per la digitazione gestuale (@devycarol, #944)
+* Alcune icone riviste o aggiornate (@BlackyHawky, #977)

@@ -418,7 +418,7 @@
     <string name="suggest_clipboard_content">Sugeruj zawartość schowka</string>
     <string name="suggest_clipboard_content_summary">Pokaż ostatnio skopiowaną zawartość jako sugestię</string>
     <string name="gesture_fast_typing_cooldown_instant">Zawsze zaczynaj natychmiast</string>
-    <string name="space_swipe_toggle_numpad_entry">Przełącz klawiaturę numeryczną</string>
+    <string name="space_swipe_toggle_numpad_entry">Przełącz na klawiaturę numeryczną</string>
     <string name="switch_keyboard_after">Przełącz na klawiaturę główną po…</string>
     <string name="after_emoji">Wybraniu emoji z widoku emotikonów</string>
     <string name="after_clip">Wybraniu wpisu ze schowka</string>
@@ -426,4 +426,13 @@
     <string name="show_popup_keys_main">Dodaj bardzo popularne warianty (domyślne)</string>
     <string name="remove_redundant_popups_summary">Pomiń klawisze, które są już obecne w układzie podstawowym</string>
     <string name="remove_redundant_popups">Usuń zbędne wyskakujące okienka</string>
+    <string name="gesture_floating_preview_static_summary">Zobacz sugerowane słowo podczas pisania gestami</string>
+    <string name="gesture_floating_preview_dynamic_summary">Przesuń podgląd podczas gestu</string>
+    <string name="gesture_trail_fadeout_duration">Czas trwania śladu gestu</string>
+    <string name="gesture_floating_preview_static">Pływający podgląd</string>
+    <string name="icon_style">Styl ikony</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Rząd numeryczny</string>
+    <string name="prefs_space_bar_text">Własny tekst na klawiszu spacji</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Dolny rząd w widoku emotikonów</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Dolny rząd w widoku schowka</string>
 </resources>

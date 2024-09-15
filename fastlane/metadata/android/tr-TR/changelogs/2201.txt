@@ -1,0 +1,2 @@
+* Hareketli yazma için görsel seçenekler ekle, @devycarol tarafından (#944)
+* Bazı simgeleri güncelle, @BlackyHawky tarafından (#977)

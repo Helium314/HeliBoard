@@ -7,13 +7,13 @@
     <string name="ime_settings">Configurações do HeliBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
-    <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa entradas da sua lista de contatos</string>
-    <string name="settings_screen_gesture">Escrita por Gestos</string>
+    <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa itens da sua lista de contatos</string>
+    <string name="settings_screen_gesture">Digitação por Gestos</string>
     <string name="settings_screen_correction">Correção de Texto</string>
     <string name="settings_screen_advanced">Avançado</string>
     <string name="settings_screen_theme">Tema</string>
     <string name="settings_category_input">Entrada</string>
-    <string name="settings_category_additional_keys">Teclas Adicionais</string>
+    <string name="settings_category_additional_keys">Teclas adicionais</string>
     <string name="settings_category_correction">Correções</string>
     <string name="settings_category_miscellaneous">Outros</string>
     <string name="enable_split_keyboard">Ativar teclado dividido</string>
@@ -46,7 +46,7 @@
     <string name="more_keys_strip_description">Mais teclas</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na tecla Espaço abre menu de seleção do método de entrada</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Pressionar longamente a tecla de espaço exibirá o menu de seleção do método de entrada</string>
     <string name="prefs_keyboard_height_scale">Escala de altura do teclado</string>
     <string name="number_row_summary">Sempre mostrar a linha de números</string>
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
@@ -65,13 +65,13 @@
     <string name="save">Salvar</string>
     <string name="subtype_locale">Idioma</string>
     <string name="keyboard_layout_set">Layout</string>
-    <string name="prefs_keypress_sound_volume_settings">Sons ao tocar em teclas</string>
+    <string name="prefs_keypress_sound_volume_settings">Volume do som ao pressionar a tecla</string>
     <string name="prefs_key_longpress_timeout_settings">Atraso ao pressionar e segurar uma tecla</string>
     <string name="prefs_enable_emoji_alt_physical_key">Emojis para teclado físico</string>
-    <string name="prefs_keypress_vibration_duration_settings">Tempo de vibração ao tocar em teclas</string>
+    <string name="prefs_keypress_vibration_duration_settings">Duração da vibração do pressionar a tecla</string>
     <string name="button_default">Padrão</string>
     <string name="setup_welcome_additional_description">com Escrita por Gestos</string>
-    <string name="setup_start_action">Iniciar Configuração</string>
+    <string name="setup_start_action">Começar</string>
     <string name="setup_next_action">Próxima etapa</string>
     <string name="setup_step1_title">Ative <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_action">Ative nas Configurações</string>
@@ -88,19 +88,19 @@
     <string name="user_dict_settings_add_shortcut_option_name">Atalho:</string>
     <string name="user_dict_settings_add_locale_option_name">Idioma:</string>
     <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
-    <string name="user_dict_settings_empty_text">Não existem palavras no dicionário da(o) usuária(o). Para adicionar uma palavra, toque na tecla (+).</string>
+    <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário. Para adicionar uma palavra, toque no botão Adicionar (+).</string>
     <string name="user_dict_settings_all_languages">Para todos os idiomas</string>
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
-    <string name="key_borders">Borda em teclas</string>
+    <string name="key_borders">Bordas das teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do HeliBoard</string>
-    <string name="android_spell_checker_settings">Configurar o corretor ortográfico do HeliBoard</string>
+    <string name="android_spell_checker_settings">Configurações do corretor ortográfico do HeliBoard</string>
     <string name="use_contacts_for_spellchecking_option_title">Procurar nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>
-    <string name="settings_category_clipboard_history">Área de transferência</string>
+    <string name="settings_category_clipboard_history">Histórico da área de transferência</string>
     <string name="settings_category_suggestions">Sugestões</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILISEGUNDOS">%s</xliff:g>ms</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Sem limite</string>
     <string name="settings_system_default">Padrão do Sistema</string>
@@ -145,15 +145,15 @@
     <string name="user_dict_settings_add_shortcut_hint">Atalho opcional</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">A aparência seguirá as configurações de tema do sistema</string>
-    <string name="language_switch_key_switch_input_method">Mudar para outros métodos de entrada</string>
-    <string name="show_language_switch_key">Tecla para mudar de idioma</string>
-    <string name="show_emoji_key">Tecla de Emojis</string>
+    <string name="language_switch_key_switch_input_method">Alterar para outros métodos de entrada</string>
+    <string name="show_language_switch_key">Tecla de alteração de idioma</string>
+    <string name="show_emoji_key">Tecla de emoji</string>
     <string name="subtype_generic_compact">Hindi <xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="enable_clipboard_history_summary">Se desativada, a tecla da área de transferência colará o conteúdo na área de transferência, caso exista</string>
     <string name="autospace_after_punctuation">Espaço automático após pontuação</string>
-    <string name="autospace_after_punctuation_summary">Inserir automaticamente espaço após pontuação ao digitar uma nova palavra</string>
+    <string name="autospace_after_punctuation_summary">Inserir um espaço automaticamente após a pontuação ao digitar uma nova palavra</string>
     <string name="auto_correction_confidence">Confiança de correção automática</string>
-    <string name="use_system_language_to_select_input_method_subtypes">"Usa idiomas do sistema"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">Usar idiomas do sistema</string>
     <string name="select_input_method">"Selecione o método de entrada"</string>
     <string name="undo">"Desfazer"</string>
     <string name="redo">"Refazer"</string>
@@ -164,12 +164,12 @@
     <string name="button_restore">Restaurar</string>
     <string name="prefs_narrow_key_gaps">Teclas com espaços estreitos</string>
     <string name="secondary_locale">Digitação multilinguagem</string>
-    <string name="load_gesture_library">Carregar biblioteca de digitação por gesto</string>
-    <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para ativar a digitação por gesto</string>
-    <string name="load_gesture_library_message">Você precisará da biblioteca para \'%s\'. Bibliotecas incompatíveis podem causar um crash quando a digitação por gesto é usada.
+    <string name="load_gesture_library">Carregar biblioteca de digitação por gestos</string>
+    <string name="load_gesture_library_summary">Fornece uma biblioteca nativa para permitir a digitação por gestos</string>
+    <string name="load_gesture_library_message">Você precisará da biblioteca para \'%s\'. Bibliotecas incompatíveis podem travar ao usar a digitação com gestos.
 \n
-\nAviso: carregar código externo pode ser um risco à segurança. Use somente uma biblioteca de uma fonte que você confia.</string>
-    <string name="checksum_mismatch_message">Arquivo de biblioteca desconhecido. Você tem certeza que você pegou ele de uma fonte confiável, e que é para \'%s\'?</string>
+\nAviso: carregar código externo pode ser um risco à segurança. Use apenas uma biblioteca de uma fonte confiável.</string>
+    <string name="checksum_mismatch_message">Arquivo de biblioteca desconhecido. Tem certeza de que o obteve de uma fonte confiável, e que é para \'%s\'?</string>
     <string name="load_gesture_library_button_load">Carregar biblioteca</string>
     <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado</string>
     <string name="show_popup_keys_more">Adicionar variantes comuns</string>
@@ -195,8 +195,8 @@
     <string name="localized_number_row_summary">Preferir números localizados em vez de latim</string>
     <string name="show_popup_keys_title">Mostrar mais letras com diacríticos no popup</string>
     <string name="var_toolbar_direction">Direção da barra de ferramentas variável</string>
-    <string name="split_spacer_scale">Distância da separação</string>
-    <string name="language_switch_key_switch_both">Mudar ambos</string>
+    <string name="split_spacer_scale">Distância de separação</string>
+    <string name="language_switch_key_switch_both">Alterar ambos</string>
     <string name="add_to_personal_dictionary">Adicionar palavras ao dicionário pessoal</string>
     <string name="more_autocorrect">Mais autocorreção</string>
     <string name="more_autocorrect_summary">Automaticamente corrigir mesmo quando não explicitamente solicitado pelo campo de entrada</string>
@@ -223,8 +223,8 @@
     <string name="select_color_background">Fundo do teclado</string>
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Espera</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <string name="no_dictionary_message">"Sem um dicionário, você só receberá sugestões de texto que você já escreveu. &lt;br&gt;
-\n        Você pode baixar dicionários %1$s, ou verificar se um dicionário para \"%2$s\" pode ser baixado diretamente. %3$s."</string>
+    <string name="no_dictionary_message">"Sem um dicionário, você receberá apenas sugestões para o texto digitado antes.&lt;br&gt;
+\n        Você pode baixar dicionários %1$s, ou verifique se um dicionário para \"%2$s\" pode ser baixado diretamente %3$s."</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabeto (Bépo)</string>
     <string name="add_new_dictionary_ask_locale">Para qual idioma o dicionário \"%1$s\" para %2$s deve ser adicionado?</string>
     <string name="user_dict_word_already_present">Essa palavra já está presente no dicionário do usuário %s. Digite outra.</string>
@@ -232,7 +232,7 @@
     <string name="select_color_key">Texto da tecla</string>
     <string name="select_color_spacebar_background">Fundo da barra de espaço</string>
     <string name="hidden_features_summary">Mostrar funções que podem passar despercebido</string>
-    <string name="switch_language">Mudar Idioma</string>
+    <string name="switch_language">Alterar idioma</string>
     <string name="toolbar_keys">Selecionar teclas da barra de ferramentas</string>
     <string name="full_left" tools:keep="@string/full_left">Inteiramente para a esquerda</string>
     <string name="full_right" tools:keep="@string/full_right">Inteiramente para a direita</string>
@@ -244,7 +244,7 @@
     <string name="prefs_bottom_padding_scale">Escala do preenchimento da parte inferior</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="select_color_accent">Acento</string>
+    <string name="select_color_accent">Destaque</string>
     <string name="show_horizontal_space_swipe">Gesto de deslizar horizontal na barra de espaço</string>
     <string name="space_swipe_move_cursor_entry">Mover cursor</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
@@ -261,7 +261,7 @@
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símbolos de telefone</string>
     <string name="layout_number" tools:keep="@string/layout_number">Números</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Teclado númerico</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (paisagem)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Teclado numérico (paisagem)</string>
     <string name="dictionary_settings_category">Dicionários</string>
     <string name="internal_dictionary_summary">Dicionário interno principal</string>
     <string name="button_add_to_language">Adicionar para %s</string>
@@ -333,29 +333,29 @@
     <string name="label_send_key">Enviar</string>
     <string name="label_search_key">Pesquisar</string>
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pausar</string>
-    <string name="label_previous_key">Prévio</string>
+    <string name="label_previous_key">Anterior</string>
     <string name="label_next_key">Próximo</string>
     <string name="show_vertical_space_swipe">Gesto de deslizar vertical na barra de espaço</string>
     <string name="action_none">Nenhum</string>
     <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
-    <string name="prefs_long_press_symbol_for_numpad">Toque longo na tecla de símbolos para abrir o numpad</string>
+    <string name="prefs_long_press_symbol_for_numpad">Pressione longamente a tecla de símbolos para abrir o teclado numérico</string>
     <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudante)</string>
     <string name="gnu_gpl">Licença Pública Geral GNU v3.0</string>
     <string name="center_suggestion_text_to_enter">Sempre usar a sugestão do meio</string>
-    <string name="center_suggestion_text_to_enter_summary">Quando pressionar espaço ou adicionar pontuação, a sugestão do meio será inserida</string>
+    <string name="center_suggestion_text_to_enter_summary">Ao pressionar espaço ou pontuação, a sugestão do meio será inserida</string>
     <string name="close_history" tools:keep="@string/close_history">Fechar histórico da área de transferência</string>
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
     <string name="all_colors_warning">Essa configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é aleatória, e os nomes não são traduzidos.</string>
     <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
     <string name="gesture_fast_typing_cooldown_instant">Começar instantaneamente sempre</string>
-    <string name="gesture_fast_typing_cooldown">Cooldown de digitação rápida</string>
+    <string name="gesture_fast_typing_cooldown">Tempo de espera para digitação rápida</string>
     <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas em toque longo</string>
     <string name="customize_currencies">Customizar moedas</string>
     <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a digitação começar ou se o texto é selecionado</string>
     <string name="auto_show_toolbar">Automaticamente mostrar a barra de ferramentas</string>
-    <string name="auto_hide_toolbar">Automaticamente esconder a barra de ferramentas</string>
+    <string name="auto_hide_toolbar">Ocultar barra de ferramentas automaticamente</string>
     <string name="auto_hide_toolbar_summary">Esconder a barra de ferramentas quando sugestões ficam disponíveis</string>
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="customize_currencies_detail">Defina um símbolo principal e até 6 secundários para moedas, separado com espaço</string>
@@ -374,7 +374,7 @@
     <string name="suggest_clipboard_content">Sugerir conteúdo da área de transferência</string>
     <string name="suggest_clipboard_content_summary">Mostrar conteúdo recentemente copiado da área de transferência como uma sugestão</string>
     <string name="page_up" tools:keep="@string/page_up">Página para cima</string>
-    <string name="load_will_overwrite">Carregar irá sobrescrever o tema atual</string>
+    <string name="load_will_overwrite">O carregamento substituirá o tema atual</string>
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Mostrar mais cores</string>
@@ -386,8 +386,17 @@
     <string name="after_clip">Selecionando entrada do histórico da área de transferência</string>
     <string name="after_emoji">Selecionando emoji na tela de emoji</string>
     <string name="after_symbol_and_space">Pressionando enter ou espaço após outras teclas na tela de símbolos</string>
-    <string name="space_swipe_toggle_numpad_entry">Ativar Numpad</string>
+    <string name="space_swipe_toggle_numpad_entry">Ativar teclado numérico</string>
     <string name="show_popup_keys_main">Adicionar variantes muito comuns (padrão)</string>
     <string name="remove_redundant_popups">Remover popups redundantes</string>
     <string name="remove_redundant_popups_summary">Suprimir popups de teclas que estão presentes no layout base</string>
+    <string name="gesture_floating_preview_static">Pré-visualização flutuante</string>
+    <string name="gesture_floating_preview_static_summary">Veja a palavra sugerida ao usar os gestos</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mover a pré-visualização durante um gesto</string>
+    <string name="gesture_trail_fadeout_duration">Tempo de vida do percurso do gesto</string>
+    <string name="icon_style">Estilo do ícone</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Linha de números</string>
+    <string name="prefs_space_bar_text">Texto customizado na barra de espaço</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Linha inferior de emojis</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Linha inferior da área de transferência</string>
 </resources>

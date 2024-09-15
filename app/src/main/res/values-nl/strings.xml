@@ -129,11 +129,11 @@
     <string name="delete_swipe">Verwijderen met veegbeweging</string>
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
     <string name="more_keys_strip_description">Meer toetsen</string>
-    <string name="number_row_summary">Nummerrij altijd weergeven</string>
+    <string name="number_row_summary">Cijferregel altijd weergeven</string>
     <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
     <string name="spell_checker_service_name">HeliBoard spellingcontrole</string>
     <string name="android_spell_checker_settings">HeliBoard spellingscontrole instellingen</string>
-    <string name="number_row">Nummerrij</string>
+    <string name="number_row">Cijferregel</string>
     <string name="incognito">Incognito-modus afdwingen</string>
     <string name="show_emoji_key">Emoji-toets</string>
     <string name="settings_category_correction">Correcties</string>
@@ -210,12 +210,12 @@
     <string name="url_detection_title">URL-detectie</string>
     <string name="url_detection_summary">Probeer URL\'s en dergelijke als één woord te detecteren</string>
     <string name="language_and_layouts_title">Talen &amp; lay-outs</string>
-    <string name="localized_number_row">Aangepaste nummerrij</string>
+    <string name="localized_number_row">Aangepaste Cijferregel</string>
     <string name="localized_number_row_summary">Voorkeur voor regionale cijfers i.p.v. latijns</string>
     <string name="hint_source">Bron voor hints kiezen</string>
     <string name="show_popup_hints_summary">Hints tonen als lang drukken op een toets extra functionaliteit activeert</string>
     <string name="popup_order">Volgorde pop-up toets kiezen</string>
-    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Nummerrij</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Cijferregel</string>
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
     <string name="title_layout_name_select">Naam van lay-out instellen</string>
     <string name="customize_symbols_number_layouts">Symbolen en nummer-lay-outs aanpassen</string>
@@ -426,4 +426,13 @@
     <string name="show_popup_keys_main">Zeer veelgebruikte varianten toevoegen (standaard)</string>
     <string name="remove_redundant_popups_summary">Pop-uptoetsen onderdrukken die aanwezig zijn in de basislay-out</string>
     <string name="remove_redundant_popups">Overbodige pop-ups verwijderen</string>
+    <string name="gesture_floating_preview_dynamic_summary">Voorbeeld verplaatsen tijdens het gebaar</string>
+    <string name="gesture_trail_fadeout_duration">Levensduur van het veegspoor</string>
+    <string name="gesture_floating_preview_static">Zwevend voorbeeld</string>
+    <string name="gesture_floating_preview_static_summary">Zie het voorgestelde woord tijdens het gebaar</string>
+    <string name="icon_style">Pictogramstijl</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Cijferregel</string>
+    <string name="prefs_space_bar_text">Aangepaste tekst op spatiebalk</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Klembord onderste regel</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji onderste regel</string>
 </resources>

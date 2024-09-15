@@ -224,7 +224,7 @@
     <string name="user_dict_add_word_button">Wort hinzufügen</string>
     <string name="select_color_suggestion">Textfarbe Wortvorschlag</string>
     <string name="hint_show_keyboard">Für Vorschau klicken</string>
-    <string name="show_popup_keys_normal">In den Tastatursprachen definierte Varianten anzeigen (Standard)</string>
+    <string name="show_popup_keys_normal">In den Tastatursprachen definierte Varianten anzeigen</string>
     <string name="show_popup_keys_more">Gemeinsame Varianten hinzufügen</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Benutzerdefiniert</string>
     <string name="replace_dictionary">Wörterbuch ersetzen</string>
@@ -376,8 +376,8 @@
     <string name="copy_to_clipboard">Kopieren in die Zwischenablage</string>
     <string name="load_will_overwrite">Laden wird die aktuelle Darstellung überschreiben</string>
     <string name="page_end" tools:keep="@string/page_end">Selten Ende</string>
-    <string name="word_left" tools:keep="@string/word_left">Wort links</string>
-    <string name="word_right" tools:keep="@string/word_right">Wort rechts</string>
+    <string name="word_left" tools:keep="@string/word_left">Linkes Wort</string>
+    <string name="word_right" tools:keep="@string/word_right">Rechtes Wort</string>
     <string name="page_up" tools:keep="@string/page_up">Seite hoch</string>
     <string name="page_down" tools:keep="@string/page_down">Seite runter</string>
     <string name="page_start" tools:keep="@string/page_start">Seiten Anfang</string>
@@ -391,4 +391,13 @@
     <string name="show_popup_keys_main">Sehr häufige Varianten hinzufügen (Standard)</string>
     <string name="remove_redundant_popups">Redundante Popups entfernen</string>
     <string name="remove_redundant_popups_summary">Popup-Tasten unterdrücken, die im Basislayout vorhanden sind</string>
+    <string name="gesture_floating_preview_static">Schwebende Vorschau</string>
+    <string name="gesture_floating_preview_static_summary">Das vorgeschlagene Wort während der Geste anzeigen</string>
+    <string name="gesture_floating_preview_dynamic_summary">Die Vorschau während einer Geste mitbewegen</string>
+    <string name="gesture_trail_fadeout_duration">Anzeigedauer der Gestenspur</string>
+    <string name="prefs_space_bar_text">Benutzerdefinierter Text auf der Leertaste</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Zahlenreihe</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji untere Leiste</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Zwischenablage untere Leiste</string>
+    <string name="icon_style">Symbolstil</string>
 </resources>

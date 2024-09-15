@@ -426,4 +426,13 @@
     <string name="show_popup_keys_main">খুব সাধারণ বিকল্প সংযুক্তি (ডিফল্ট)</string>
     <string name="remove_redundant_popups">অপ্রয়োজনীয় পপআপ বিলোপ</string>
     <string name="remove_redundant_popups_summary">ভিত্তি লেআউটে উপস্থিত পপআপ বোতাম অবনমন</string>
+    <string name="gesture_floating_preview_static_summary">অঙ্গুলিহেলনের সময় পরামর্শকৃত শব্দ প্রদর্শন</string>
+    <string name="gesture_trail_fadeout_duration">অঙ্গুলিহেলনের শেষাংশের স্থিতিকাল</string>
+    <string name="gesture_floating_preview_static">ভাসমান প্রাগ্‌দর্শন</string>
+    <string name="gesture_floating_preview_dynamic_summary">অঙ্গুলিহেলনের সময় প্রাগ্‌দর্শন স্থানান্তর</string>
+    <string name="icon_style">আইকনের শৈলী</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">নম্বর সারি</string>
+    <string name="prefs_space_bar_text">স্পেসবারে নিজস্বীকৃত লেখা</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">ইমোজি নিচের সারি</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">ক্লিপবোর্ড নিচের সারি</string>
 </resources>

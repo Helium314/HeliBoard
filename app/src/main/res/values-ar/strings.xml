@@ -426,4 +426,13 @@
     <string name="show_popup_keys_main">إضافة متغيرات شائعة جدًا (افتراضي)</string>
     <string name="remove_redundant_popups_summary">منع المفاتيح المنبثقة الموجودة على تخطيط القاعدة</string>
     <string name="remove_redundant_popups">إزالة النوافذ المنبثقة الزائدة عن الحاجة</string>
+    <string name="gesture_floating_preview_dynamic_summary">نقل المعاينة أثناء الإيماءة</string>
+    <string name="gesture_trail_fadeout_duration">عمر مسار الإيماءة</string>
+    <string name="gesture_floating_preview_static_summary">انظر الكلمة المقترحة اثناء الايماء</string>
+    <string name="gesture_floating_preview_static">معاينة عائمة</string>
+    <string name="icon_style">نمط الأيقونة</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">صف الأرقام</string>
+    <string name="prefs_space_bar_text">نص مخصص على شريط المسافة</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">الصف السفلي للحافظة</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">الصف السفلي من الرموز التعبيرية</string>
 </resources>

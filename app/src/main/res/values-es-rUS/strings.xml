@@ -391,4 +391,8 @@
     <string name="remove_redundant_popups">Eliminar emergentes redundantes</string>
     <string name="remove_redundant_popups_summary">Elimina las teclas emergentes que no están presentes en el diseño base</string>
     <string name="show_popup_keys_main">Añadir variantes más comunes (Defecto)</string>
+    <string name="gesture_floating_preview_static">Vista previa flotante</string>
+    <string name="gesture_floating_preview_static_summary">Ver la palabra sugerida mientras de realizan gestos</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mover la vista previa durante los gestos</string>
+    <string name="gesture_trail_fadeout_duration">Duración del rastro gestual</string>
 </resources>

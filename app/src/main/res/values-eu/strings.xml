@@ -192,7 +192,7 @@
     <string name="load_gesture_library_button_load">Kargatu liburutegia</string>
     <string name="load_gesture_library_button_delete">Ezabatu liburutegia</string>
     <string name="show_popup_keys_title">Erakutsi pop-up leihoan ikur diakritikoak dituzten letra gehiago</string>
-    <string name="show_popup_keys_normal">Erakutsi teklatuko hizkuntzetako aldaerak (lehenetsia)</string>
+    <string name="show_popup_keys_normal">Erakutsi teklatuko hizkuntzetako aldaerak</string>
     <string name="show_popup_keys_more">Gehitu ohiko aldaerak</string>
     <string name="show_popup_keys_all">Gehitu eskuragarri dauden aldaera guztiak</string>
     <string name="url_detection_title">URL hautematea</string>
@@ -200,8 +200,9 @@
     <string name="language_and_layouts_title">Hizkuntzak eta diseinuak</string>
     <string name="localized_number_row">Aurkitu zenbakien errenkada</string>
     <string name="hint_source">Hautatu iradokizunen iturria</string>
-    <string name="no_dictionary_message">"Hiztegirik gabe, aurretik idatzitako testuko iradokizunak soilik jasoko dituzu.&lt;br&gt;
-\n        %1$s hiztegiak deskarga ditzakezu edo egiaztatu \"%2$s\" hiztegi bat zuzenean %3$s deskargatu daitekeen."</string>
+    <string name="no_dictionary_message">Hiztegirik gabe, aurretik idatzitako testuko iradokizunak soilik jasoko dituzu.&lt;br&gt;
+\n
+\n .......... %1$s hiztegiak deskarga ditzakezu edo egiaztatu \"%2$s\" hiztegi bat zuzenean %3$s deskargatu daitekeen.</string>
     <string name="add_dictionary">Hautatu gehitzeko hiztegi bat. .dict formatuan dauden hiztegiak %s deskargatu daitezke.</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Ilunago</string>
     <string name="voice" tools:keep="@string/voice">Ahots sarrera</string>
@@ -348,7 +349,7 @@
     <string name="close_history" tools:keep="@string/close_history">Itxi arbelaren historia</string>
     <string name="clipboard_toolbar_keys">Hautatu arbeleko tresna-barrako teklak</string>
     <string name="more_colors">Erakutsi kolore gehiago</string>
-    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Ez dago kolore lehenetsirik, eta izenak ez dira itzuliko.</string>
+    <string name="all_colors_warning">Ezarpen honek barnean erabiltzen diren kolore guztiak agerian uzten ditu. Koloreen zerrenda edozein unetan alda daiteke. Kolore lehenetsia aleatorioa da, eta izenak ez dira itzuliko.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funtzio-teklak</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
@@ -364,9 +365,40 @@
     <string name="language_switch_key_behavior">Hizkuntza aldatzeko teklaren portaera</string>
     <string name="auto_hide_toolbar_summary">Ezkutatu tresna-barra iradokizunak erabilgarri daudenean</string>
     <string name="gesture_fast_typing_cooldown_instant">Hasi beti berehala</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="gesture_fast_typing_cooldown">Idazketa azkarra berrerabiltzeko denbora</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" adibidez="QWERTY">%s</xliff:g>)</string>
+    <string name="gesture_fast_typing_cooldown">Idazketa azkarraren itxaron denbora</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" adibidez="Kanada">%s</xliff:g> (Extended)</string>
     <string name="emoji" tools:keep="@string/emoji">Emojia</string>
     <string name="subtype_mns">Mansi</string>
+    <string name="gesture_floating_preview_static">Aurrebista flotagarria</string>
+    <string name="gesture_floating_preview_static_summary">Ikusi iradokitako hitza keinuak egitean</string>
+    <string name="gesture_trail_fadeout_duration">Keinuaren iraupena</string>
+    <string name="customize_currencies">Pertsonalizatu monetak</string>
+    <string name="customize_currencies_detail">Ezarri moneta ikur nagusiak eta bigarren mailako 6 gehienez, zuriunez bereizita</string>
+    <string name="button_save_file">Gorde fitxategira</string>
+    <string name="copy_to_clipboard">Kopiatu arbelean</string>
+    <string name="load">Kargatu</string>
+    <string name="page_start" tools:keep="@string/page_start">Orriaren hasiera</string>
+    <string name="page_end" tools:keep="@string/page_end">Orriaren bukaera</string>
+    <string name="word_left" tools:keep="@string/word_left">Hitzaren ezkerrean</string>
+    <string name="word_right" tools:keep="@string/word_right">Hitzaren eskuinean</string>
+    <string name="page_down" tools:keep="@string/page_down">Orria behera</string>
+    <string name="page_up" tools:keep="@string/page_up">Orria gora</string>
+    <string name="load_will_overwrite">Kargatzeak uneko gaia gainidatziko du</string>
+    <string name="suggest_clipboard_content">Iradoki arbeleko edukia</string>
+    <string name="suggest_clipboard_content_summary">Erakutsi duela gutxi kopiatutako arbeleko edukia iradokizun gisa</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mugitu aurrebista keinu egitean</string>
+    <string name="switch_keyboard_after">Aldatu teklatu nagusira…</string>
+    <string name="after_emoji">Emoji hautatzen emoji ikuspegian</string>
+    <string name="after_clip">Arbeleko historiako sarrera hautatzen</string>
+    <string name="after_symbol_and_space">Sartu edo zuriune sakatuta ikurren ikuspegiko beste tekla batzuen ondoren</string>
+    <string name="show_popup_keys_main">Gehitu oso ohikoak diren aldaerak (lehenetsia)</string>
+    <string name="remove_redundant_popups">Kendu popup erredundanteak</string>
+    <string name="remove_redundant_popups_summary">Ezabatu oinarrizko diseinuan dauden popup teklak</string>
+    <string name="space_swipe_toggle_numpad_entry">Aktibatu/desaktibatu zenbaki-teklatua</string>
+    <string name="prefs_space_bar_text">Testu pertsonalizatua zuriune-barran</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Arbelaren beheko errenkada</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojien beheko errenkada</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Zenbakien errenkada</string>
+    <string name="icon_style">Ikonoen estiloa</string>
 </resources>

@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Kontakti nimede kontroll."</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_for_spellchecking_option_title">Otsi nimesid kontaktidest</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Õigekirjakontroll kasutab teie kontaktisikute loendi sissekandeid"</string>
     <string name="vibrate_on_keypress">"Vibreeri klahvivajutusel"</string>
     <string name="sound_on_keypress">"Heli klahvivajutusel"</string>
@@ -13,13 +12,13 @@
     <string name="settings_screen_preferences">"Eelistused"</string>
     <string name="settings_screen_gesture">"Joonistusega sisestamine"</string>
     <string name="settings_screen_correction">"Teksti korrigeerimine"</string>
-    <string name="settings_screen_advanced">"Täpsemad"</string>
+    <string name="settings_screen_advanced">Täiendavad seadistused</string>
     <string name="settings_screen_theme">"Teema"</string>
-    <string name="enable_split_keyboard">"Luba kaheks jaotatud klaviatuur"</string>
+    <string name="enable_split_keyboard">Kasuta kaheks jaotatud klahvistikku</string>
     <string name="language_switch_key_switch_input_method">"Vaheta sisestusmeetodit"</string>
     <string name="show_language_switch_key">"Keelevahetuse nupp"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
-    <string name="settings_system_default">"Süsteemi vaikeväärt."</string>
+    <string name="settings_system_default">Süsteemi väärtus</string>
     <string name="use_contacts_dict">"Soovita kontakti nimesid"</string>
     <string name="use_contacts_dict_summary">"Kasuta soovitusteks ja parandusteks nimesid kontaktiloendist"</string>
     <string name="use_personalized_dicts">"Isikupärast. soovitused"</string>
@@ -35,7 +34,7 @@
     <string name="prefs_block_potentially_offensive_title">"Blokeeri solvavad sõnad"</string>
     <string name="prefs_block_potentially_offensive_summary">"Ära soovita potentsiaalselt solvavaid sõnu"</string>
     <string name="autocorrect">"Automaatne korrigeerimine"</string>
-    <string name="auto_correction_summary">"Tühik ja kirjavahemärgid parand. autom. kirjavigadega sõnad"</string>
+    <string name="auto_correction_summary">Tühik ja kirjavahemärgid parandavad kirjavigadega sõnad</string>
     <string name="auto_correction_threshold_mode_off">"Väljas"</string>
     <string name="auto_correction_threshold_mode_modest">"Mõõdukas"</string>
     <string name="auto_correction_threshold_mode_aggressive">"Agressiivne"</string>
@@ -76,7 +75,7 @@
     <string name="prefs_keypress_vibration_duration_settings">"Klahvivajutuse vibreerimise kestus"</string>
     <string name="prefs_keypress_sound_volume_settings">"Klahvivajutuse helitugevus"</string>
     <string name="prefs_key_longpress_timeout_settings">"Pika klahvivajutuse viide"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Füüsilise klaviatuuri emotikon"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Füüsilise klahvistiku emoji</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Füüsiline klahv Alt kuvab emotikonide paleti"</string>
     <string name="button_default">"Vaikeväärtus"</string>
     <string name="setup_welcome_title">"Tere tulemast rakendusse <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
@@ -84,15 +83,15 @@
     <string name="setup_start_action">"Alustamine"</string>
     <string name="setup_next_action">"Järgmine toiming"</string>
     <string name="setup_steps_title">"Rakenduse <xliff:g id="APPLICATION_NAME">%s</xliff:g> seadistamine"</string>
-    <string name="setup_step1_title">"Lubage <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Märkige oma keele- ja sisendiseadetes rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”. See lubab rakenduse käitamise teie seadmes."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> on teie keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asuge järgmise toimingu juurde."</string>
+    <string name="setup_step1_title">Luba <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Märgi oma keele- ja sisendiseadetes rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”. See lubab rakenduse käitamise sinu seadmes.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME">%s</xliff:g> on sinu keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
     <string name="setup_step1_action">"Luba seadetes"</string>
-    <string name="setup_step2_title">"Minge üle rakendusele <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Järgmisena valige aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”."</string>
+    <string name="setup_step2_title">Võta rakendus <xliff:g id="APPLICATION_NAME">%s</xliff:g> kõikjal kasutusele</string>
+    <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”.</string>
     <string name="setup_step2_action">"Vaheta sisestusmeetodeid"</string>
     <string name="setup_step3_title">"Õnnitleme. Kõik on valmis!"</string>
-    <string name="setup_step3_instruction">"Nüüd saate rakendusega <xliff:g id="APPLICATION_NAME">%s</xliff:g> sisestada kõikides oma lemmikrakendustes."</string>
+    <string name="setup_step3_instruction">Nüüd saad rakendusega <xliff:g id="APPLICATION_NAME">%s</xliff:g> sisestada kõikides oma lemmikrakendustes.</string>
     <string name="setup_finish_action">"Lõpetatud"</string>
     <string name="show_setup_wizard_icon">"Kuva rakenduse ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Rakenduse ikooni kuvamine käivitajas"</string>
@@ -130,4 +129,139 @@
     <string name="label_search_key">"Otsing"</string>
     <string name="label_pause_key">"Peata"</string>
     <string name="label_wait_key">"Oota"</string>
+    <string name="show_popup_keys_normal">Näita vaid antud keelele vajalikke klahve</string>
+    <string name="settings_category_clipboard_history">Lõikelaua ajalugu</string>
+    <string name="settings_category_input">Sisend</string>
+    <string name="settings_category_additional_keys">Lisaklahvid</string>
+    <string name="hint_show_keyboard">Eelvaateks klõpsi</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Vaheta sisestusmeetodit tühikuklahviga</string>
+    <string name="setup_step3_action">Seadista klahvistikku</string>
+    <string name="spell_checker_service_name">HeliBoardi õigekirjakontroll</string>
+    <string name="ime_settings">HeliBoardi seadistused</string>
+    <string name="android_spell_checker_settings">HeliBoardi õigekirjakontrolli seadistused</string>
+    <string name="select_color_background">Klahvistiku taust</string>
+    <string name="var_toolbar_direction_summary">Vastupidine suund, kui klahvistiku paremalt-vasakule alamtüüp on valitud</string>
+    <string name="prefs_keyboard_height_scale">Klahvistiku kõrguse proportsioonid</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Pika vajutusega tühikuklahvile avaneb sisestusmeetodite valiku menüü</string>
+    <string name="dictionary_file_wrong_script">Viga: märgistik ei ühildu selle klahvistikuga</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Serbia (ladina) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="number_row">Numbririda</string>
+    <string name="gesture_floating_preview_static">Ujuv eelvaade</string>
+    <string name="gesture_floating_preview_static_summary">Viipamisel kuvatakse soovitatud sõna klahvistiku kohal</string>
+    <string name="gesture_fast_typing_cooldown">Ooteaeg kiirel kirjutamisel</string>
+    <string name="gesture_trail_fadeout_duration">Viipe kestus</string>
+    <string name="localized_number_row">Lokaliseeri numbririda</string>
+    <string name="show_emoji_key">Emoji klahv</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="language_switch_key_behavior">Keelevahetuse nupu käitumine</string>
+    <string name="add_to_personal_dictionary">Lisa sõnad isiklikku sõnastikku</string>
+    <string name="add_to_personal_dictionary_summary">Kasuta selles seadmes isiklikku sõnastikku meeldejäetud sõnade salvestamiseks</string>
+    <string name="prefs_always_show_suggestions">Alati näita soovitusi</string>
+    <string name="more_autocorrect">Automaatne korrektuur kõikidel väljadel</string>
+    <string name="auto_correction_confidence">Automaatse korrektuuri usaldusmäär</string>
+    <string name="show_popup_keys_more">Kuva levinud variandid</string>
+    <string name="autospace_after_punctuation">Automaatne tühik pärast kirjavahemärke</string>
+    <string name="autospace_after_punctuation_summary">Uue sõnaga alustamisel lisa peale kirjavahemärki tühik automaatselt</string>
+    <string name="show_popup_keys_title">Näita hüpikaknas täiendavaid täpitähti</string>
+    <string name="url_detection_summary">Proovi tuvastada URLe ja muud sarnast ühe sõnana</string>
+    <string name="incognito">Kasuta privaatset töörežiimi</string>
+    <string name="prefs_force_incognito_mode_summary">Keela uute sõnade õppimine</string>
+    <string name="more_keys_strip_description">Rohkem klahve</string>
+    <string name="language_and_layouts_title">Keeled ja paigutused</string>
+    <string name="number_row_summary">Alati näita numbririda</string>
+    <string name="localized_number_row_summary">Eelista lokaliseeritud numbreid araabia numbritele</string>
+    <string name="show_popup_keys_all">Kuva kõik variandid</string>
+    <string name="url_detection_title">URLi tuvastus</string>
+    <string name="settings_category_correction">Parandused</string>
+    <string name="settings_category_suggestions">Soovitused</string>
+    <string name="settings_category_experimental">Katseline</string>
+    <string name="settings_category_miscellaneous">Muud eelistused</string>
+    <string name="split_spacer_scale">Kaheks jaotatud klahvistiku eri poolte vahemaa</string>
+    <string name="language_switch_key_switch_both">Vaheta mõlemad</string>
+    <string name="center_suggestion_text_to_enter">Alati kasuta keskmist soovitust</string>
+    <string name="center_suggestion_text_to_enter_summary">Tühiku- või punktiklahvi vajutusel sisestame keskmise soovituse</string>
+    <string name="enable_clipboard_history_summary">Kui see eelistus pole kasutusel, siis lõikelaua klahv asetab selle, mis lõikelaual parasjagu leidub</string>
+    <string name="clipboard_history_retention_time">Lõikelaua ajaloo salvestamise aeg</string>
+    <string name="enable_clipboard_history">Luba lõikelaua ajaloo salvestamine</string>
+    <string name="load_gesture_library_button_delete">Kustuta viibete teek</string>
+    <string name="backup_restore_title">Varundamine ja taastamine</string>
+    <string name="load_gesture_library_button_load">Laadi viibete teek</string>
+    <string name="backup_error">Varunduse viga: %s</string>
+    <string name="button_backup">Tee varukoopia</string>
+    <string name="secondary_locale">Kirjutamine mitmes keeles</string>
+    <string name="switch_language">Vaheta ainult keelt</string>
+    <string name="backup_restore_message">Salvesta varukoopia faili ja taasta sealt. Hoiatus: taastamisel varasemad andmed kirjutatakse üle</string>
+    <string name="restore_error">Viga varukoopiast taastamisel: %s</string>
+    <string name="button_restore">Taasta</string>
+    <string name="suggest_clipboard_content">Kasuta lõikelaua sisu soovitusena</string>
+    <string name="suggest_clipboard_content_summary">Näita soovitusena viimasena lõikelauale kopeeritud sisu</string>
+    <string name="gesture_fast_typing_cooldown_instant">Puudub - kirjutamine algab kohe</string>
+    <string name="disable_personalized_dicts_message">Hoiatus: selle eelistuse väljalülitamisel meeldejäetud ja õpitud andmed kustutatakse</string>
+    <string name="prefs_always_show_suggestions_summary">Eira teiste rakenduste päringuid soovituste väljalülitamiseks (sellest võib vigu tekkida)</string>
+    <string name="gesture_floating_preview_dynamic_summary">Liiguta eelvaadet sõrme liigutamise ajal</string>
+    <string name="settings_no_limit">Piirangut pole</string>
+    <string name="more_autocorrect_summary">Käivata automaatne korrektuur ka siis, kui sisendväli seda otseselt ei eelda</string>
+    <string name="show_popup_keys_main">Kuva vaid väga levinud variante (vaikimisi väärtus)</string>
+    <string name="hint_source">Vali vihjete allikas</string>
+    <string name="toolbar_keys">Vali tööriistariba klahvid</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Režiim kasutamiseks ühe käega</string>
+    <string name="full_left" tools:keep="@string/full_left">Täis vasak</string>
+    <string name="full_right" tools:keep="@string/full_right">Täis parem</string>
+    <string name="left" tools:keep="@string/left">Vasakule</string>
+    <string name="load_gesture_library_summary">Kasuta oma teeki, mis kirjeldab trükkimisel kasutatavaid viipamisi</string>
+    <string name="delete_swipe_summary">Alustades viipamist kustutamise nupust luba suurema kustutatava teksti valimine</string>
+    <string name="popup_order">Vali hüpikakna klahvide järjekord</string>
+    <string name="show_hints_summary">Näita klahvide pika vajutuse vihjeid</string>
+    <string name="delete_swipe">Kustutamine viipamisega</string>
+    <string name="checksum_mismatch_message">Tundmatu teegifail. Kas sa oled kindel, et said ta usaldusväärsest allikast ja ta on mõeldud „%s“ jaoks?</string>
+    <string name="load_gesture_library_message">Viipamiste teek on sul vajalik „%s“ jaoks.Mitteühilduvad teegid võivad trükkimisel viipamisega kokku joosta.
+\n
+\nHoiatus: välise koodi laadimine võib olla seotud turvariskiga. Kasuta vaid selliseid teek, mille allikat sa usaldad.</string>
+    <string name="close_history" tools:keep="@string/close_history">Sulge lõikelaua ajalugu</string>
+    <string name="load_gesture_library">Laadi trükkimisel kasutatavate viipamiste teek</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="page_start" tools:keep="@string/page_start">Lehe algus</string>
+    <string name="page_end" tools:keep="@string/page_end">Lehe lõpp</string>
+    <string name="word_left" tools:keep="@string/word_left">Sõna vasakule</string>
+    <string name="right" tools:keep="@string/right">Paremale</string>
+    <string name="page_down" tools:keep="@string/page_down">Lehekülg alla</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Keel (prioriteetne)</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Numbrite rida</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Keel</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Paigutus</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Sümbolid</string>
+    <string name="up" tools:keep="@string/up">Üles</string>
+    <string name="down" tools:keep="@string/down">Alla</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Lõikelaud</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Tühjenda lõikelaud</string>
+    <string name="voice" tools:keep="@string/voice">Häälsisend</string>
+    <string name="select_word" tools:keep="@string/select_word">Vali sõna</string>
+    <string name="word_right" tools:keep="@string/word_right">Sõna paremale</string>
+    <string name="page_up" tools:keep="@string/page_up">Lehekülg üles</string>
+    <string name="show_hints">Näita klahvide vihjeid</string>
+    <string name="quick_pin_toolbar_keys">Tõsta tööriistariba nupp esile pika vajutusega</string>
+    <string name="button_load_custom">Laadi fail</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="prefs_space_bar_text">Sinu tekst tühikuklahvil</string>
+    <string name="title_layout_name_select">Anna paigutusele nimi</string>
+    <string name="clipboard_toolbar_keys">Vali lõikelaua nupud tööriistariba jaoks</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (laiendatud)</string>
+    <string name="load">Laadi</string>
+    <string name="button_title_add_custom_layout">Lisa kohandatud paigutus</string>
+    <string name="message_add_custom_layout">Vali õiges vormingus fail. Teavet vormingute kohta leiad: %s.</string>
+    <string name="button_save_file">Salvesta faili</string>
+    <string name="copy_to_clipboard">Kopeeri lõikelauale</string>
+    <string name="file_read_error">Faili lugemine ei õnnestu</string>
+    <string name="button_copy_existing_layout">Kopeeri olemasolev klaviatuuri paigutus</string>
+    <string name="delete_layout">Kas sa kindlasti soovid kustutada sinu tehtud klahvistiku paigutuse „%s“?</string>
+    <string name="layout_error">Klahvistiku paigutuse viga: %s</string>
+    <string name="pinned_toolbar_keys">Vali esiletõstetud tööriistariba nupud</string>
+    <string name="quick_pin_toolbar_keys_summary">Selle valiku kasutamisega blokeerid muud pikast vajutusest avanevad tegevused, välja arvatud need mille oled esile tõstnud</string>
+    <string name="prefs_narrow_key_gaps">Kitsaste klahvide vahed</string>
+    <string name="prefs_bottom_padding_scale">Alumiste veeriste mõõtkava</string>
+    <string name="prefs_long_press_symbol_for_numpad">Sümbolklahvi pika vajutusega avaneb numbriline klahvistik</string>
+    <string name="show_popup_hints">Näita funktsionaalseid vihjeid</string>
+    <string name="show_popup_hints_summary">Näita vihjeid, kui klahvi pika vajutusega on võimalik kasutada täiendavad funktsionaalsust</string>
+    <string name="remove_redundant_popups">Eemalda mittevajalikud hüpikvalikud</string>
+    <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
 </resources>

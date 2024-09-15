@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="subtype_locale">زبان</string>
+    <string name="settings_screen_advanced">پیشرپگیں</string>
+    <string name="settings_screen_preferences">ترجیه</string>
+    <string name="version">ورژن</string>
+    <string name="settings_category_miscellaneous">هوار توار</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">فون</string>
+</resources>
