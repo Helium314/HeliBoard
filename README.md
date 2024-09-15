@@ -46,7 +46,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
+For FAQ and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
 
 # Contributing ❤
 

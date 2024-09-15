@@ -49,4 +49,8 @@
         android:defaultValue="true"
         android:persistent="true" />
 
+    <Preference
+        android:key="customize_keys"
+        android:title="@string/customize_toolbar_keys" />
+
 </PreferenceScreen>

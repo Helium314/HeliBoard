@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/PreferenceTitleText"
+            android:text="@string/key_code" />
+        <EditText
+            android:id="@+id/toolbar_key_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/PreferenceTitleText"
+            android:text="@string/long_press_code" />
+        <EditText
+            android:id="@+id/toolbar_key_longpress_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/PreferenceTitleText"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <GridLayout
+        android:id="@+id/toolbar_icon_grid"
+        android:columnCount="7"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

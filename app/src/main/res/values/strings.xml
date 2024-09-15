@@ -895,6 +895,12 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the setting to customize toolbar keys -->
+    <string name="customize_toolbar_keys">Customize toolbar keys</string>
+    <!-- Text for showing / setting key code -->
+    <string name="key_code">Key code</string>
+    <!-- Text for showing / setting long press code -->
+    <string name="long_press_code">Long press code</string>
     <!-- Title of the setting for showing the toolbar automatically -->
     <string name="auto_show_toolbar">Auto show toolbar</string>
     <!-- Description of the setting for showing the toolbar automatically -->

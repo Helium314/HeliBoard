@@ -10,6 +10,8 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.customIconIds
+import kotlinx.serialization.json.Json
 import java.util.Locale
 
 class KeyboardIconsSet private constructor() {
@@ -19,11 +21,13 @@ class KeyboardIconsSet private constructor() {
     fun loadIcons(context: Context) {
         val prefs = DeviceProtectedUtils.getSharedPreferences(context)
         val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
-        val ids = when (iconStyle) {
+        val defaultIds = when (iconStyle) {
             KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo
             KeyboardTheme.STYLE_ROUNDED -> keyboardIconsRounded
             else -> keyboardIconsMaterial
         }
+        val overrideIds = customIconIds(context, prefs)
+        val ids = if (overrideIds.isEmpty()) defaultIds else defaultIds + overrideIds
         if (ids == iconIds) return
         iconIds = ids
         iconsByName.clear()
@@ -82,40 +86,7 @@ class KeyboardIconsSet private constructor() {
         const val NAME_RESIZE_ONEHANDED_KEY = "resize_onehanded_key"
         const val NAME_TOOLBAR_KEY = "toolbar_key"
         const val NAME_BIN = "bin"
-/*
-        private val styleableIdByName = hashMapOf(
-            NAME_SHIFT_KEY to                   R.styleable.Keyboard_iconShiftKey,
-            NAME_DELETE_KEY to                  R.styleable.Keyboard_iconDeleteKey,
-            NAME_SETTINGS_KEY to                R.styleable.Keyboard_iconSettingsKey,
-            NAME_SPACE_KEY to                   R.styleable.Keyboard_iconSpaceKey,
-            NAME_ENTER_KEY to                   R.styleable.Keyboard_iconEnterKey,
-            NAME_GO_KEY to                      R.styleable.Keyboard_iconGoKey,
-            NAME_SEARCH_KEY to                  R.styleable.Keyboard_iconSearchKey,
-            NAME_SEND_KEY to                    R.styleable.Keyboard_iconSendKey,
-            NAME_NEXT_KEY to                    R.styleable.Keyboard_iconNextKey,
-            NAME_DONE_KEY to                    R.styleable.Keyboard_iconDoneKey,
-            NAME_PREVIOUS_KEY to                R.styleable.Keyboard_iconPreviousKey,
-            NAME_TAB_KEY to                     R.styleable.Keyboard_iconTabKey,
-            NAME_SHORTCUT_KEY to                R.styleable.Keyboard_iconShortcutKey,
-            NAME_INCOGNITO_KEY to               R.styleable.Keyboard_iconIncognitoKey,
-            NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
-            NAME_SHIFT_KEY_SHIFTED to           R.styleable.Keyboard_iconShiftKeyShifted,
-            NAME_SHIFT_KEY_LOCKED to            R.styleable.Keyboard_iconShiftKeyLocked,
-            NAME_SHORTCUT_KEY_DISABLED to       R.styleable.Keyboard_iconShortcutKeyDisabled,
-            NAME_LANGUAGE_SWITCH_KEY to         R.styleable.Keyboard_iconLanguageSwitchKey,
-            NAME_ZWNJ_KEY to                    R.styleable.Keyboard_iconZwnjKey,
-            NAME_ZWJ_KEY to                     R.styleable.Keyboard_iconZwjKey,
-            NAME_EMOJI_ACTION_KEY to            R.styleable.Keyboard_iconEmojiActionKey,
-            NAME_EMOJI_NORMAL_KEY to            R.styleable.Keyboard_iconEmojiNormalKey,
-            NAME_CLIPBOARD_ACTION_KEY to        R.styleable.Keyboard_iconClipboardActionKey,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.styleable.Keyboard_iconClipboardNormalKey,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.styleable.Keyboard_iconClearClipboardKey,
-            NAME_CUT_KEY to                     R.styleable.Keyboard_iconCutKey,
-            NAME_START_ONEHANDED_KEY to         R.styleable.Keyboard_iconStartOneHandedMode,
-            NAME_STOP_ONEHANDED_KEY to          R.styleable.Keyboard_iconStopOneHandedMode,
-            NAME_SWITCH_ONEHANDED_KEY to        R.styleable.Keyboard_iconSwitchOneHandedMode,
-        ).apply { ToolbarKey.entries.forEach { put(it.name.lowercase(Locale.US), getStyleableIconId(it)) } }
-*/
+
         private val keyboardIconsHolo by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_holo,
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_holo,
@@ -326,6 +297,16 @@ class KeyboardIconsSet private constructor() {
             }
         } }
 
+        fun getAllIcons(context: Context): Collection<Int> {
+            // currently active style first
+            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+            val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
+            return when (iconStyle) {
+                KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo.values + keyboardIconsRounded.values + keyboardIconsMaterial.values
+                KeyboardTheme.STYLE_ROUNDED -> keyboardIconsRounded.values + keyboardIconsMaterial.values + keyboardIconsHolo.values
+                else -> keyboardIconsMaterial.values + keyboardIconsRounded.values + keyboardIconsHolo.values
+            }.toSet()
+        }
         val instance = KeyboardIconsSet()
     }
 }
