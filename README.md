@@ -9,8 +9,6 @@ Does not use internet permission, and thus is 100% offline.
 ## Table of Contents
 
 - [Features](#features)
-   * [FAQ / Common Issues](#faq--common-issues)
-   * [Hidden Functionality](#hidden-functionality)
 - [Contributing](#contributing-)
    * [Reporting Issues](#reporting-issues)
    * [Translations](#translations)
@@ -48,51 +46,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-## FAQ / Common Issues
-* __Add a dictionary__: First download the dictionary file, e.g. from [here](https://codeberg.org/Helium314/aosp-dictionaries#dictionaries). Then go to language settings, click on the language, then on `+` next to _dictionary_ the _add_ and select the file. Alternatively you can open a `.dict` file in a file explorer with HeliBoard and then select the language. Note that the latter method does not work with all file explorers.
-* __Emoji search__: You can get addon dictionaries for emoji suggestions in the [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries). An actual search function does not exist yet.
-* __Cannot switch choose layout__: This is only possible when _use system languages_ is disabled. You can select the layout when tapping on the language.
-  * __How to customize layout__: Go to layout selection and use the `+` button, then you can add a custom layout, either from a file or you can copy and edit an existing layout.
-* __No suggestions for some language__: Check [dictionaries repo](https://codeberg.org/Helium314/aosp-dictionaries) whether a dictionary is available. If there is one, download it and add it in the language settings for this language.
-* __No suggestions in some app / text field__: This app respects the [no suggestions flag](https://developer.android.com/reference/android/text/InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS) set by some input fields, i.e. the developer does not want you to see suggestions here. Best do in issue report for that app if you think this behavior is wrong. Alternatively you can enable the _always show suggestions_ setting that overrides the _no suggestions_ flag.
-* __Multilingual typing__ (type in multiple languages without switching manually): Enable in _Languages & Layouts_, select the main language and tap the `+` button next to _multilingual typing_ to add a language. Note that the selection is limited to languages with the same script as the main language, and to languages that have a dictionary (see above for how to add).
-* __How to enable glide typing__: There is no glide typing built into this app, but you can load compatible libraries: Go to advanced settings -> _load gesture typing library_ and point to a file (setting not available in _nouserlib_ version). You can extract the file from GApps packages ("_swypelibs_"), or download one [here](https://github.com/erkserkserks/openboard/tree/master/app/src/main/jniLibs). Make sure to use the correct version (app will tell you in the dialog to load the library).
-  * __Glide typing is not working after loading a library__: Possibly the download was corrupted, or you downloaded the wrong file. If you get a "_unknown file_" confirmation popup, it is likely you are not using the correct file (or you might be using a different version of the library). In rare cases, there might be crashes when the file is not in internal storage, or some [Samsung-specific problems](https://stackoverflow.com/a/75286899). 
-* __German layout with / without umlauts__: _German (Germany)_ layout has umlauts, _German_ layout doesn't
-* __Spell checker is not checking all languages in multilingual typing__: Make sure you actually enabled HeliBoard spell checker. Usually it can be found in System Settings -> System -> Languages -> Advanced -> Spell Checker, but this may depend on Android version.
-* __Words added to Gboard dictionary are not suggested__: Gboard uses its own dictionary instead of the system's personal dictionary. See [here](https://github.com/Helium314/HeliBoard/issues/500#issuecomment-2032292161) for how to export the words.
-* __What is the _nouserlib_ version?__: The normal version (_release_) allows the user to provide a library for glide typing, while the _nouserlib_ version does not. Running code that isn't supplied with the app is _dynamic code loading_, which is a security risk. Android Studio warns about this:
-  > Dynamically loading code from locations other than the application's library directory or the Android platform's built-in library directories is dangerous, as there is an increased risk that the code could have been tampered with. Applications should use loadLibrary when possible, which provides increased assurance that libraries are loaded from one of these safer locations. Application developers should use the features of their development environment to place application native libraries into the lib directory of their compiled APKs.
-
-  The app checks the SHA256 checksum of the library and warns the user if it doesn't match with known library versions. A mismatch indicates the library was modified, but may also occur if the user intentionally provides a different library than expected (e.g. a self-built variant).
-  Note that if the the app is installed as a system app, both versions have access to the system glide typing library (if it is installed).
-* __App crashing when using as system app__: This happens if you do not install the app, but just copy the APK. Then the app's own library is not extracted from the APK, and not accessible to the app. You will need tp either install the app over itself, or provide a library.
-
-## Hidden Functionality
-Features that may go unnoticed, and further potentially useful information
-* Long-pressing toolbar keys results in additional functionality: clipboard -> paste, move left/right -> word left/right, move up/down -> page up/down, word left/right -> line start/end, page up/down -> page start/end, copy -> cut, select word <-> select all, undo <-> redo
-* Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language:
-  * Emoji View and Language Switch will disappear if you have the corresponding key enabled;
-  * For some layouts it\'s not the Comma-key, but the key at the same position (e.g. it\'s `q` for Dvorak layout).
-* When incognito mode is enabled, no words will be learned, and no emojis will be added to recents.
-* Sliding key input: Swipe from shift or symbol key to another key. This will enter a single uppercase key or symbol and return to the previous keyboard.
-* Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard.
-* Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion.
-* Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it.
-* Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin).
-* Swipe left in clipboard view to remove an entry (except when it's pinned)
-* Select text and press shift to switch between uppercase, lowercase and capitalize words
-* You can add dictionaries by opening the file
-  * This only works with _content-uris_ and not with _file-uris_, meaning that it may not work with some file explorers.
-* Not really a feature, but you can restart the keyboard by going to the settings and swiping it away from recents
-* _Debug mode / debug APK_
-  * Long-press a suggestion in the suggestion strip twice to show the source dictionary.
-  * When using debug APK, you can find _Debug Settings_ within the _Advanced Preferences_, though the usefulness is limited except for dumping dictionaries into the log.
-    * For a release APK, you need to tap the version in _About_ several times, then you can find debug settings in _Advanced Preferences_.
-    * When enabling _Show suggestion infos_, suggestions will have some tiny numbers on top showing some internal score and source dictionary.
-  * In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings.
-  * When using multilingual typing, space bar will show an confidence value used for determining the currently used language.
-* For users doing manual backups with root access: Starting at Android 7, some files and the main shared preferences file are not in the default location, because the app is using [device protected storage](https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()). This is necessary so the settings and layout files can be read before the device is unlocked, e.g. at boot. The files are usually located in `/data/user_de/0/<package_id>/`, though the location may depend on the device and Android version.
+For more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
 
 # Contributing ❤
 
