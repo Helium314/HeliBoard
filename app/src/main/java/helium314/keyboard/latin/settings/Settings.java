@@ -44,6 +44,8 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ToolbarKey;
+import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,7 +81,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
     public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
-    public static final String PREF_TOOLBAR_CUSTOM_ICON_IDS = "toolbar_custom_icon_ids";
+    public static final String PREF_TOOLBAR_CUSTOM_ICON_NAMES = "toolbar_custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
     public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
 
@@ -708,5 +710,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public String readCustomCurrencyKey() {
         return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, "");
+    }
+
+    public Integer getCustomToolbarKeyCode(ToolbarKey key) {
+        return ToolbarUtilsKt.readCustomKeyCodes(mPrefs).get(key.name());
+    }
+
+    public Integer getCustomToolbarLongpressCode(ToolbarKey key) {
+        return ToolbarUtilsKt.readCustomLongpressCodes(mPrefs).get(key.name());
     }
 }
