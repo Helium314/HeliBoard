@@ -1,0 +1,18 @@
+body:
+- type: input
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: |
+        "You can add some description and screenshots here if you want."
+    validations:
+      required: false
+  - type: textarea
+    id: layout
+    attributes:
+      label: Layout
+      placeholder: |
+        "Please paste the layout here, and surround it with ``` to make sure it's displayed in a way that can be copied easily."
+    validations:
+      required: true

@@ -67,12 +67,18 @@ If you're interested, you can read the following useful text about effective bug
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
+Some notes on translations
+* when translating metadata, translating the changelogs is rather useless. It's available as it was requested by translators.
+* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/Helium314/HeliBoard/wiki/Hidden-functionality. It's been made available in the app on user request/contribution.
+
 ## To Community
 You can share your themes, layouts and dictionaries with other people:
 * Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
+  * You can share custom colors in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-colors)
 * Custom keyboard layouts are text files whose content you can edit, copy and share
   * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
   * see [layouts.md](layouts.md) for details
+  * You can share custom layouts in a separate [discussion section](https://github.com/Helium314/HeliBoard/discussions/categories/custom-layout)
 * Creating dictionaries is a little more work
   * first you will need a wordlist, as described [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
   * the you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
