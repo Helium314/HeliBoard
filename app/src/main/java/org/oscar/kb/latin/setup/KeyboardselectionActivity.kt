@@ -147,7 +147,10 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                etopenOscar.visibility =View.VISIBLE
+                tvEnableKeyboard.visibility =View.INVISIBLE
+            }
         })
 
         ivSummarizeText.setOnClickListener {

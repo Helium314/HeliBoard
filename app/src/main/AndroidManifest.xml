@@ -78,7 +78,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -140,7 +139,16 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:name="org.oscar.kb.latin.setup.TermsOfUseActivity"
             android:exported="false"
             android:theme="@style/AppTheme"/>
-
+        <activity android:name=".latin.setup.Welcomescreen"
+            android:theme="@style/platformActivityTheme"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!-- Broadcast receivers -->
         <receiver android:name=".latin.SystemBroadcastReceiver"
                 android:exported="true">
