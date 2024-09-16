@@ -126,8 +126,11 @@ class SummarizeViewModel(
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
                     }
             } catch (e: Exception) {
+                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
                 _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
                 Log.d("SummarizeViewModel", "Error: ${e.localizedMessage}")
+                // Post the error event
+                EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
             }
         }
     }

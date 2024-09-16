@@ -197,6 +197,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // if aiOutput text is not null clear history
             aiOutput.setVisibility(View.GONE);
             aiOutput.setText(event.getText());
+            aiOutput.setVisibility(View.GONE);
             //log received text
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             // Copy the text to clipboard
