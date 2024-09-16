@@ -150,21 +150,35 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // Assuming you have a TextView or similar in this custom view
             aiOutput.setText(recognizedText); // Update the TextView or UI component
 
-            aiOutput.setOnClickListener(v -> {
-                // Get the text from aiOutput
-                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-                // Copy the text to clipboard
-                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            // Automatically copy the text to clipboard and paste it to the active editor
+            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("aiOutput", recognizedText);
+            clipboard.setPrimaryClip(clip);
 
+            // Simulate a paste action into the active editor (assuming the mListener is already set up to handle this)
+            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
-            });
+            // Optionally post an event if you're using EventBus or similar
+            AIOutputEvent event = new AIOutputEvent(recognizedText);
+            EventBus.getDefault().post(event);
+
+//            aiOutput.setOnClickListener(v -> {
+//                // Get the text from aiOutput
+//                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+//                // Copy the text to clipboard
+//                ClipboardManager clipboardClick = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//                ClipData clipClick = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+//                clipboardClick.setPrimaryClip(clipClick);
+//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+//
+//
+//            });
 
         });
     }
+
+    private String tempRecognizedText = null; // Store recognized text temporarily
 
     private final BroadcastReceiver speechResultReceiver = new BroadcastReceiver() {
         @Override
@@ -185,7 +199,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
             Log.d("SuggestionStripView", recognizedText != null ? recognizedText : "No recognized text");
             if (recognizedText != null) {
-                updateText(recognizedText);
+                //updateText(recognizedText);
+                tempRecognizedText = recognizedText; // Store the text temporarily
             }
         }
     };
@@ -561,7 +576,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 linearLayout.setVisibility(View.VISIBLE);
                 mic_suggestion_strip.setVisibility(View.GONE);
                 startTimer() ;  // Starts the timer
-//        startRecord();
+                startRecord();
             }
         });
         cancel.setOnClickListener(new OnClickListener() {
@@ -571,6 +586,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.VISIBLE);
+                stopRecord();
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
@@ -578,7 +594,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             public void onClick(View v) {
                 Log.d(TAG, "Done button clicked");
                 stopTimer();
+                linearLayout.setVisibility(View.GONE);
+                mic_suggestion_strip.setVisibility(View.VISIBLE);
 //                startRecord();// Stop the timer
+                stopRecord();
+
+                // Send the stored recognized text when the Done button is pressed
+                if (tempRecognizedText != null) {
+                    updateText(tempRecognizedText); // Now send the text to be updated
+                } else {
+                    Log.d(TAG, "No text to send");
+                }
             }
         });
 
