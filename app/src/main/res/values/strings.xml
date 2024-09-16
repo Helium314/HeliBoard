@@ -980,4 +980,5 @@ New dictionary:
 
     </string>
     <string name="email_us" translatable="false">Email us</string>
+    <string name="key_recognition_language">recognitionLanguage</string>
 </resources>

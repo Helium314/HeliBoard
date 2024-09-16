@@ -54,16 +54,25 @@
             android:src="@drawable/sym_keyboard_voice_holo" />
 
 
-        <com.airbnb.lottie.LottieAnimationView
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/tvAudioProgress"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:visibility="visible"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            app:lottie_rawRes="@raw/audio_animation"-->
+<!--            app:lottie_autoPlay="false"-->
+<!--            android:layout_gravity="center"-->
+<!--            app:lottie_loop="true"/>-->
+        <ImageView
             android:id="@+id/tvAudioProgress"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:visibility="visible"
+            android:src="@drawable/baseline_mic_24"
             android:layout_marginStart="5dp"
-            app:lottie_rawRes="@raw/audio_animation"
-            app:lottie_autoPlay="false"
             android:layout_gravity="center"
-            app:lottie_loop="true"/>
+            android:tint="@color/keyboard_cyne_dark" />
 <!--        <ImageView-->
 <!--            android:id="@+id/ivToolbarClipBoard"-->
 <!--            android:layout_width="35dp"-->
@@ -93,7 +102,7 @@
             android:layout_height="32dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="4dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_clipboard_vector"
             android:backgroundTint="#E0FFFF"
