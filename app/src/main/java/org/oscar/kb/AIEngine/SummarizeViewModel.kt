@@ -88,19 +88,19 @@ class SummarizeViewModel(
     fun summarizeStreaming(inputText: String) {
         _uiState.value = SummarizeUiState.Loading
 
-        if (inputText.isEmpty() || inputText.length < 50) {
-            val errorMessage = if (inputText.isEmpty()) {
-                "Text is empty and cannot be processed."
-            } else {
-                "Text is too short to process."
-            }
-
-            Log.d("SummarizeViewModel", errorMessage)
-            _uiState.value = SummarizeUiState.Error(errorMessage)
-            // Post the error event
-            //EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
-            return
-        }
+//        if (inputText.isEmpty() || inputText.length < 50) {
+//            val errorMessage = if (inputText.isEmpty()) {
+//                "Text is empty and cannot be processed."
+//            } else {
+//                "Text is too short to process."
+//            }
+//
+//            Log.d("SummarizeViewModel", errorMessage)
+//            _uiState.value = SummarizeUiState.Error(errorMessage)
+//            // Post the error event
+//            //EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
+//            return
+//        }
         val prompt =
             "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language:\n: $inputText"
 
