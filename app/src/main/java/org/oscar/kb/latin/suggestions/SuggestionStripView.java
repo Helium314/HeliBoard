@@ -162,18 +162,18 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             AIOutputEvent event = new AIOutputEvent(recognizedText);
             EventBus.getDefault().post(event);
 
-//            aiOutput.setOnClickListener(v -> {
-//                // Get the text from aiOutput
-//                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-//                // Copy the text to clipboard
-//                ClipboardManager clipboardClick = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//                ClipData clipClick = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-//                clipboardClick.setPrimaryClip(clipClick);
-//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//
-//
-//            });
+            aiOutput.setOnClickListener(v -> {
+                // Get the text from aiOutput
+                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
+                // Copy the text to clipboard
+                ClipboardManager clipboardClick = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipClick = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+                clipboardClick.setPrimaryClip(clipClick);
+                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+
+
+            });
 
         });
     }
