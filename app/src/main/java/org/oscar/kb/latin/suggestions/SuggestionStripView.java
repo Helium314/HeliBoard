@@ -60,8 +60,10 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.greenrobot.eventbus.ThreadMode;
 import org.oscar.kb.AIEngine.AIOutputEvent;
 import org.oscar.kb.AIEngine.OnTextUpdatedListener;
+import org.oscar.kb.AIEngine.SummarizeErrorEvent;
 import org.oscar.kb.AIEngine.SummarizeViewModel;
 import org.oscar.kb.AIEngine.SummarizeViewModelFactory;
 import org.oscar.kb.AIEngine.TextUpdatedEvent;
@@ -166,7 +168,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
             viewModel.summarizeStreaming(recognizedText);
 
-            aiOutput.setVisibility(View.GONE);
+            //aiOutput.setVisibility(View.GONE);
 
         });
     }
@@ -187,7 +189,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     };
 
-
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
 
@@ -206,6 +207,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
         }
+    }
+    @Subscribe
+    public void onSummarizeError(SummarizeErrorEvent event) {
+        // Update the UI to show the error message
+        aiOutput.setText(event.getErrorMessage());
+        aiOutput.setVisibility(View.VISIBLE);
+        Log.d("UI", "Error message received: " + event.getErrorMessage());
     }
 
     public void setAiOutputText(String text) {
@@ -546,8 +554,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "mic_suggestion_strip clicked");
-                linearLayout.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.GONE);
+                ivDelete.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.GONE);
+                aiOutput.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
                 startTimer();  // Starts the timer
                 startRecord();
                 vibrate();
@@ -559,7 +570,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Log.d(TAG, "mic_suggestion_strip clicked");
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
+                aiOutput.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = true;
                 tempRecognizedText = null; // Optionally clear the temporary text
@@ -573,6 +587,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.VISIBLE);
+                aiOutput.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
                 // Send the stored recognized text when the Done button is pressed
@@ -581,7 +598,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 } else {
                     Log.d(TAG, "No text to send");
                 }
-                aiOutput.setVisibility(View.GONE);
             }
         });
 
