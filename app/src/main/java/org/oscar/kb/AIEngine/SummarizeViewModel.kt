@@ -95,7 +95,7 @@ class SummarizeViewModel(
                 var outputContent = ""
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
-                        outputContent += response.text
+                        outputContent = response.text.toString()
 
                         // Call the callback with the processed text
                         onTextUpdatedListener?.onTextUpdated(outputContent)

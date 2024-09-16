@@ -109,17 +109,6 @@
             android:tint="@color/keyboard_cyne_dark"
             android:src="@drawable/sym_keyboard_voice_holo" />
 
-
-        <!--        <com.airbnb.lottie.LottieAnimationView-->
-        <!--            android:id="@+id/tvAudioProgress"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:visibility="visible"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            app:lottie_rawRes="@raw/audio_animation"-->
-        <!--            app:lottie_autoPlay="false"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            app:lottie_loop="true"/>-->
         <ImageView
             android:id="@+id/tvAudioProgress"
             android:layout_width="30dp"
