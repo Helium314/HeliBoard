@@ -3,6 +3,9 @@ package org.oscar.kb.latin.suggestions;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.createToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKeyLongClick;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Button;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
@@ -119,7 +122,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private FirebaseCrashlytics crashlytics;
 
     private Key mCurrenteKey;
-
+    private LinearLayout linearLayout;
+    private  ImageView mic_suggestion_strip;
+    private TextView timerTextView;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private int seconds = 0;
+    private boolean isRecording = false;
+    private Button cancel;
+    private Button done;
     private SummarizeViewModel mViewModel;
 
     //private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener;
@@ -525,7 +535,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         tvAudioProgress = findViewById(R.id.tvAudioProgress);
         crashlytics = FirebaseCrashlytics.getInstance();
         FirebaseApp.initializeApp(context);
-
+        mic_suggestion_strip= findViewById(R.id.mic_suggest_strip);
+        linearLayout= findViewById(R.id.linear_layouted);
+        timerTextView= findViewById(R.id.timerTextView);
+        cancel= findViewById(R.id.et_cancel);
+        done= findViewById(R.id.et_done);
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
@@ -540,6 +554,33 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             info.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEBUG_INFO_TEXT_SIZE_IN_DIP);
             mDebugInfoViews.add(info);
         }
+        mic_suggestion_strip.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "mic_suggestion_strip clicked");
+                linearLayout.setVisibility(View.VISIBLE);
+                mic_suggestion_strip.setVisibility(View.GONE);
+                startTimer() ;  // Starts the timer
+//        startRecord();
+            }
+        });
+        cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "mic_suggestion_strip clicked");
+                stopTimer();
+                linearLayout.setVisibility(View.GONE);
+                mic_suggestion_strip.setVisibility(View.VISIBLE);
+            }
+        });
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Done button clicked");
+                stopTimer();
+//                startRecord();// Stop the timer
+            }
+        });
 
         mLayoutHelper = new SuggestionStripLayoutHelper(context, attrs, defStyle, mWordViews, mDividerViews, mDebugInfoViews);
 
@@ -611,6 +652,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public void setListener(final Listener listener, final View inputView) {
         mListener = listener;
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
+    }
+    private void startTimer() {
+        isRecording = true;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isRecording) {
+                    int minutes = seconds / 60;
+                    int secs = seconds % 60;
+                    String time = String.format("%02d:%02d", minutes, secs);
+                    timerTextView.setText(time);
+                    seconds++;
+                    handler.postDelayed(this, 1000);  // Update every second
+                }
+            }
+        });
+    }
+
+    private void stopTimer() {
+        isRecording = false;
+        handler.removeCallbacksAndMessages(null);
+        seconds = 0;
+        timerTextView.setText("00:00");
     }
 
     private void updateKeys() {
