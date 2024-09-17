@@ -95,6 +95,7 @@
                 android:paddingBottom="18dp"
                 android:textSize="16dp"
                 android:textColor="#000000"
+                android:paddingHorizontal="8dp"
                 android:visibility="gone"
                 android:background="@drawable/edittext_round_corner"
                 app:layout_constraintBottom_toBottomOf="parent"
