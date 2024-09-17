@@ -209,13 +209,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         }
     }
-//    @Subscribe
-//    public void onSummarizeError(SummarizeErrorEvent event) {
-//        // Update the UI to show the error message
-//        aiOutput.setText(event.getErrorMessage());
-//        aiOutput.setVisibility(View.VISIBLE);
-//        Log.d("UI", "Error message received: " + event.getErrorMessage());
-//    }
+    @Subscribe
+    public void onSummarizeError(SummarizeErrorEvent event) {
+        // Update the UI to show the error message
+        aiOutput.setText(event.getErrorMessage());
+        aiOutput.setVisibility(View.VISIBLE);
+        Log.d("UI", "Error message received: " + event.getErrorMessage());
+    }
 
     public void setAiOutputText(String text) {
         aiOutput.setText(text);
