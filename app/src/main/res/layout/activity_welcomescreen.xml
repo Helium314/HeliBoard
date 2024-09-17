@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".latin.setup.Welcomescreen">
+
+    <TextView
+        android:id="@+id/welcometxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   Welcome to \nOscar Keyboard"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/spectral_semibold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="350dp"
+        android:src="@drawable/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="105dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/owel_backgrounds"
+        android:layout_marginTop="220dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/owel_backgroundss"
+        android:layout_marginTop="230dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/owel_backgroundsss"
+        android:layout_marginTop="240dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/baseline_mic_24"
+        android:layout_marginTop="245dp"
+        android:layout_marginStart="26dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ImageView
+        android:id="@+id/setup_welcome_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/whatsapp_image_one" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Keyboard with enhanced voice to text AI \n                   generated feature "
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/getButton"
+        android:fontFamily="@font/edium"
+        android:layout_marginBottom="40dp"
+        android:textColor="#4D4D4D"
+        />
+    <Button
+        android:id="@+id/getButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get started"
+        android:paddingBottom="18dp"
+        android:paddingLeft="14dp"
+        android:paddingTop="18dp"
+        android:paddingRight="14dp"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_margin="14dp"
+        android:background="@drawable/background_buttons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#51A09B"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
