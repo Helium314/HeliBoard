@@ -50,26 +50,26 @@
             android:backgroundTint="#FFFFFFFF"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/et_cancel"
+                android:id="@+id/et_done"
                 android:layout_width="68dp"
                 android:layout_height="29dp"
-                android:gravity="center"
                 android:textSize="15dp"
-                android:textColor="#ED0909"
-                android:text="Cancel"
-                android:textAllCaps="false"
-                android:layout_gravity="top|center"
-                android:layout_marginStart="60dp"
+                android:textColor="#4CAF50"
                 android:layout_marginTop="5.5dp"
-                android:background="@drawable/background_cancel"
-                />
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="top|center"
+                android:paddingStart="5dp"
+                android:layout_marginStart="60dp"
+                android:drawableStart="@drawable/baseline_check_24"
+                android:background="@drawable/background_done"
+                android:textAllCaps="false"
+                android:text="Done"/>
+
             <View
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="19.5dp"
                 android:layout_marginEnd="2dp"
-                android:layout_gravity="top|center"
                 android:background="@drawable/dot_tim"/>
             <TextView
                 android:id="@+id/timerTextView"
@@ -80,22 +80,19 @@
                 android:textColor="#000000"
                 android:layout_marginTop="8dp"
                 android:gravity="center"/>
-
             <Button
-                android:id="@+id/et_done"
+                android:id="@+id/et_cancel"
                 android:layout_width="68dp"
                 android:layout_height="29dp"
+                android:gravity="center"
                 android:textSize="15dp"
-                android:textColor="#4CAF50"
-                android:layout_marginTop="5.5dp"
-                android:layout_marginEnd="50dp"
-                android:layout_gravity="top|center"
-                android:paddingStart="5dp"
+                android:textColor="#ED0909"
+                android:text="Cancel"
                 android:layout_marginStart="40dp"
-                android:drawableStart="@drawable/baseline_check_24"
-                android:background="@drawable/background_done"
                 android:textAllCaps="false"
-                android:text="Done"
+                android:layout_gravity="top|center"
+                android:layout_marginTop="5.5dp"
+                android:background="@drawable/background_cancel"
                 />
         </LinearLayout>
 
@@ -109,17 +106,6 @@
             android:tint="@color/keyboard_cyne_dark"
             android:src="@drawable/sym_keyboard_voice_holo" />
 
-
-        <!--        <com.airbnb.lottie.LottieAnimationView-->
-        <!--            android:id="@+id/tvAudioProgress"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:visibility="visible"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            app:lottie_rawRes="@raw/audio_animation"-->
-        <!--            app:lottie_autoPlay="false"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            app:lottie_loop="true"/>-->
         <ImageView
             android:id="@+id/tvAudioProgress"
             android:layout_width="30dp"
@@ -129,15 +115,6 @@
             android:layout_marginStart="5dp"
             android:layout_gravity="center"
             android:tint="@color/keyboard_cyne_dark" />
-        <!--        <ImageView-->
-        <!--            android:id="@+id/ivToolbarClipBoard"-->
-        <!--            android:layout_width="35dp"-->
-        <!--            android:layout_height="35dp"-->
-        <!--            android:layout_gravity="center_vertical"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            android:tint="@color/background_amoled_black"-->
-        <!--            android:foregroundGravity="right"-->
-        <!--            android:src="@drawable/sym_keyboard_clipboard_holo" />-->
         <ImageView
             android:id="@+id/iv_oscar_keyboard_ai"
             android:layout_width="35dp"
@@ -153,16 +130,26 @@
                check what is going on in the layout helper? -->
 
         <ImageView
+            android:id="@+id/mic_suggest_strip"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="visible"
+            android:src="@drawable/mic_sample_newui"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="#E0FFFF"
+            android:tint="@color/background_amoled_black" />
+
+        <ImageView
             android:id="@+id/ic_copy"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:padding="4dp"
             android:visibility="visible"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_clipboard_vector"
             android:backgroundTint="#E0FFFF"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:tint="@color/background_amoled_black" />
 
         <ImageView
@@ -190,25 +177,23 @@
             android:lines="1"
             android:visibility="gone"
             android:autoLink="none"
-            android:paddingStart="16dp"
+            android:paddingHorizontal="8dp"
             android:paddingTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
             android:paddingBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
             android:textSize="16sp"/>
 
-        <ImageView
-            android:id="@+id/mic_suggest_strip"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:padding="4dp"
-            android:visibility="visible"
-            android:src="@drawable/mic_sample_newui"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginStart="266dp"
-            android:backgroundTint="#E0FFFF"
-            android:tint="@color/background_amoled_black" />
+<!--        <ImageView-->
+<!--            android:id="@+id/mic_suggest_strip"-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:background="?android:attr/selectableItemBackgroundBorderless"-->
+<!--            android:visibility="visible"-->
+<!--            android:src="@drawable/mic_sample_newui"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:backgroundTint="#E0FFFF"-->
+<!--            android:tint="@color/background_amoled_black" />-->
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lvTextProgress"

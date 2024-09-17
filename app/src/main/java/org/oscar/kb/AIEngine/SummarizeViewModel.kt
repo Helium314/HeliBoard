@@ -1,5 +1,6 @@
 package org.oscar.kb.AIEngine
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -87,6 +88,19 @@ class SummarizeViewModel(
     fun summarizeStreaming(inputText: String) {
         _uiState.value = SummarizeUiState.Loading
 
+//        if (inputText.isEmpty() || inputText.length < 50) {
+//            val errorMessage = if (inputText.isEmpty()) {
+//                "Text is empty and cannot be processed."
+//            } else {
+//                "Text is too short to process."
+//            }
+//
+//            Log.d("SummarizeViewModel", errorMessage)
+//            _uiState.value = SummarizeUiState.Error(errorMessage)
+//            // Post the error event
+//            //EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
+//            return
+//        }
         val prompt =
             "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language:\n: $inputText"
 
@@ -95,7 +109,7 @@ class SummarizeViewModel(
                 var outputContent = ""
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
-                        outputContent += response.text
+                        outputContent = response.text.toString()
 
                         // Call the callback with the processed text
                         onTextUpdatedListener?.onTextUpdated(outputContent)
@@ -112,35 +126,13 @@ class SummarizeViewModel(
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
                     }
             } catch (e: Exception) {
+                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
                 _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
                 Log.d("SummarizeViewModel", "Error: ${e.localizedMessage}")
+                // Post the error event
+                //EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
             }
         }
     }
-
-//    fun summarizeStreamingLiveData(inputText: String) {
-//        //_uiState.value = SummarizeUiState.Loading
-//
-//        val prompt =
-//            "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language and the markdown format:\n: $inputText"
-//
-//        viewModelScope.launch {
-//            try {
-//                var outputContent = ""
-//                val response = generativeModel.generateContentStream(prompt)
-//                val response = AIState(prompt)
-//                _aiState.postValue(response)
-//
-//                //_aiState.value = generativeModel.generateContentStream(prompt)
-//
-////                    .collect { response ->
-////                        outputContent += response.text
-////                        _uiState.value = SummarizeUiState.Success(outputContent)
-////                    }
-//            } catch (e: Exception) {
-//                _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
-//            }
-//        }
-//    }
 
 }

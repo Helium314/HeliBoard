@@ -3,6 +3,7 @@ package org.oscar.kb.latin.suggestions;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.createToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKeyLongClick;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Button;
@@ -59,8 +60,10 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.greenrobot.eventbus.ThreadMode;
 import org.oscar.kb.AIEngine.AIOutputEvent;
 import org.oscar.kb.AIEngine.OnTextUpdatedListener;
+import org.oscar.kb.AIEngine.SummarizeErrorEvent;
 import org.oscar.kb.AIEngine.SummarizeViewModel;
 import org.oscar.kb.AIEngine.SummarizeViewModelFactory;
 import org.oscar.kb.AIEngine.TextUpdatedEvent;
@@ -123,7 +126,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private Key mCurrenteKey;
     private LinearLayout linearLayout;
-    private  ImageView mic_suggestion_strip;
+    private ImageView mic_suggestion_strip;
     private TextView timerTextView;
     private Handler handler = new Handler(Looper.getMainLooper());
     private int seconds = 0;
@@ -144,36 +147,28 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public TextView getAiOutputTextView() {
         return aiOutput;
     }
+    private boolean isCancelled = false;
 
     public void updateText(final String recognizedText) {
+        if(isCancelled) {
+            return; // Ignore updates if cancelled
+        }
         new Handler(Looper.getMainLooper()).post(() -> {
             // Assuming you have a TextView or similar in this custom view
             aiOutput.setText(recognizedText); // Update the TextView or UI component
 
-            // Automatically copy the text to clipboard and paste it to the active editor
-            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("aiOutput", recognizedText);
-            clipboard.setPrimaryClip(clip);
-
-            // Simulate a paste action into the active editor (assuming the mListener is already set up to handle this)
-            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
+            GeminiClient geminiClient = new GeminiClient();
+            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
 
             // Optionally post an event if you're using EventBus or similar
             AIOutputEvent event = new AIOutputEvent(recognizedText);
             EventBus.getDefault().post(event);
 
-//            aiOutput.setOnClickListener(v -> {
-//                // Get the text from aiOutput
-//                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-//                // Copy the text to clipboard
-//                ClipboardManager clipboardClick = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//                ClipData clipClick = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-//                clipboardClick.setPrimaryClip(clipClick);
-//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//
-//
-//            });
+            viewModel.summarizeStreaming(recognizedText);
+
+            //aiOutput.setVisibility(View.GONE);
 
         });
     }
@@ -185,55 +180,42 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         public void onReceive(Context context, Intent intent) {
             String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
 
-//            GeminiClient geminiClient = new GeminiClient();
-//            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-//            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-//            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
-//
-//            // Send text to the viewModel
-//            assert recognizedText != null;
-//            viewModel.summarizeStreaming(recognizedText);
-
-//           AIOutputEvent event = new AIOutputEvent(recognizedText.toString());
-//           EventBus.getDefault().post(event);
-
+            //aiOutput.setText(recognizedText); // Update the TextView or UI component
             Log.d("SuggestionStripView", recognizedText != null ? recognizedText : "No recognized text");
             if (recognizedText != null) {
-                //updateText(recognizedText);
-                tempRecognizedText = recognizedText; // Store the text temporarily
+                updateText(recognizedText);
+                //tempRecognizedText = recognizedText; // Store the text temporarily
             }
         }
     };
 
-
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
 
-        lvTextProgress.setVisibility(View.VISIBLE);
-
-        if(event.getText() != null && !event.getText().isEmpty()) {
+        //lvTextProgress.setVisibility(View.VISIBLE);
+        if (event.getText() != null && !event.getText().isEmpty()) {
             // if aiOutput text is not null clear history
-            aiOutput.setVisibility(View.VISIBLE);
+            aiOutput.setVisibility(View.GONE);
             aiOutput.setText(event.getText());
+            aiOutput.setVisibility(View.GONE);
             //log received text
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             // Copy the text to clipboard
 
+            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
+            clipboard.setPrimaryClip(clip);
+            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
-//            aiOutput.setOnClickListener(v -> {
-//                // Get the text from aiOutput
-//                Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-//                // Copy the text to clipboard
-//                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//                ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-//                clipboard.setPrimaryClip(clip);
-//                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//
-//
-//            });
         }
     }
+//    @Subscribe
+//    public void onSummarizeError(SummarizeErrorEvent event) {
+//        // Update the UI to show the error message
+//        aiOutput.setText(event.getErrorMessage());
+//        aiOutput.setVisibility(View.VISIBLE);
+//        Log.d("UI", "Error message received: " + event.getErrorMessage());
+//    }
 
     public void setAiOutputText(String text) {
         aiOutput.setText(text);
@@ -550,11 +532,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         tvAudioProgress = findViewById(R.id.tvAudioProgress);
         crashlytics = FirebaseCrashlytics.getInstance();
         FirebaseApp.initializeApp(context);
-        mic_suggestion_strip= findViewById(R.id.mic_suggest_strip);
-        linearLayout= findViewById(R.id.linear_layouted);
-        timerTextView= findViewById(R.id.timerTextView);
-        cancel= findViewById(R.id.et_cancel);
-        done= findViewById(R.id.et_done);
+        mic_suggestion_strip = findViewById(R.id.mic_suggest_strip);
+        linearLayout = findViewById(R.id.linear_layouted);
+        timerTextView = findViewById(R.id.timerTextView);
+        cancel = findViewById(R.id.et_cancel);
+        done = findViewById(R.id.et_done);
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
@@ -573,10 +555,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "mic_suggestion_strip clicked");
-                linearLayout.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.GONE);
+                ivDelete.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.GONE);
-                startTimer() ;  // Starts the timer
+                aiOutput.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
+                startTimer();  // Starts the timer
                 startRecord();
+                vibrate();
             }
         });
         cancel.setOnClickListener(new OnClickListener() {
@@ -585,8 +571,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 Log.d(TAG, "mic_suggestion_strip clicked");
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
+                aiOutput.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
+                isCancelled = true;
+                tempRecognizedText = null; // Optionally clear the temporary text
+                aiOutput.setText(""); // Optionally clear the TextView
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
@@ -596,9 +588,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.VISIBLE);
-//                startRecord();// Stop the timer
+                aiOutput.setVisibility(View.VISIBLE);
+                ivCopy.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
-
+                isCancelled = false;
                 // Send the stored recognized text when the Done button is pressed
                 if (tempRecognizedText != null) {
                     updateText(tempRecognizedText); // Now send the text to be updated
@@ -679,6 +673,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mListener = listener;
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
     }
+
     private void startTimer() {
         isRecording = true;
         handler.post(new Runnable() {
@@ -1170,6 +1165,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             aiOutput.setText("");
             //hide visibility of aiOutput
             aiOutput.setVisibility(GONE);
+            //show auto suggestion text
             return;
         }
         if (view == ivCopy) {
@@ -1183,7 +1179,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 clipboard.setPrimaryClip(clip);
                 mListener.onCodeInput(KeyCode.CLIPBOARD_COPY, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
                 //if clipoard is empty show toast you do not have anything to copy or show clipboard has been copy once there been data
-                aiOutput.setVisibility(VISIBLE);
+                //aiOutput.setVisibility(VISIBLE);
             }
         }
         if (tag instanceof ToolbarKey) {
@@ -1224,20 +1220,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void stopRecord() {
         try {
-            lvTextProgress.setVisibility(View.GONE);
-            aiOutput.setVisibility(View.VISIBLE);
-            vibrate();
-            stopSpeechRecognitionService();
-            //tvAudioProgress.pauseAnimation();
-            tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
+            //lvTextProgress.setVisibility(View.GONE);
+            //aiOutput.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Set aiOutputText to "Processing..."
+                    //aiOutput.setText("Processing...");
+                    stopSpeechRecognitionService();
 
-            //Toast.makeText(getContext(), "Recording stopped", Toast.LENGTH_SHORT).show();
-            //ivOscarVoiceInput.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_off_24));
-            recordStatus = false;
-
-            speechRecognizer.stopListening(); // Send text to Gemini AI
-            //processFinalTranscription();
-
+                    tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
+                    recordStatus = false;
+                }
+            }, 5000);
 
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
@@ -1249,29 +1244,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void startRecord() {
         try {
             aiOutput.setVisibility(View.GONE);
-            lvTextProgress.setVisibility(View.VISIBLE);
+            //lvTextProgress.setVisibility(View.VISIBLE);
 
-            vibrate();
             startForegroundService();
             //tvAudioProgress.playAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
             transcriptionBuffer.setLength(0);
-//            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
-            //speechRecognizer.setRecognitionListener(this);
             Log.d(TAG, "Recording started");
-            //Toast.makeText(getContext(), "Recording started", Toast.LENGTH_SHORT).show();
-
-//            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
-//
-//            intent.putExtra(android.speech.RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-//            intent.putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-
-//            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
-//            intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
-
-//            speechRecognizer.startListening(intent);
             recordStatus = true;
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
