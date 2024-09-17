@@ -140,7 +140,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:exported="false"
             android:theme="@style/AppTheme"/>
         <activity android:name=".latin.setup.Welcomescreen"
-            android:theme="@style/platformActivityTheme"
+            android:theme="@style/AppTheme"
             android:launchMode="singleTask"
             android:noHistory="true"
             android:exported="true">
