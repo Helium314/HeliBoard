@@ -63,6 +63,12 @@
     <dimen name="config_suggestion_text_size">18dp</dimen>
     <dimen name="config_more_suggestions_hint_text_size">27dp</dimen>
 
+    <!-- Clipboard history entry parameters -->
+    <dimen name="config_clipboard_history_entry_top_margin">4dp</dimen>
+    <dimen name="config_clipboard_history_entry_bottom_margin">6dp</dimen>
+    <dimen name="config_clipboard_history_entry_horizontal_margin">8dp</dimen>
+    <dimen name="config_clipboard_history_entry_image_max_height">180dp</dimen>
+
     <!-- Gesture floating preview text parameters -->
     <dimen name="config_gesture_floating_preview_text_size">24dp</dimen>
     <dimen name="config_gesture_floating_preview_text_offset">73dp</dimen>

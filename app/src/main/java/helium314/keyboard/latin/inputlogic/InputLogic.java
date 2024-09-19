@@ -7,6 +7,7 @@
 package helium314.keyboard.latin.inputlogic;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -647,9 +648,14 @@ public final class InputLogic {
      *
      */
     private void handleClipboardPaste() {
-        final String clipboardContent = mLatinIME.getClipboardHistoryManager().retrieveClipboardContent().toString();
-        if (!clipboardContent.isEmpty()) {
-            mLatinIME.onTextInput(clipboardContent);
+        final Uri clipboardURI = mLatinIME.getClipboardHistoryManager().retrieveClipboardUri();
+        if (clipboardURI != null) {
+            mLatinIME.onUriInput(clipboardURI);
+        } else {
+            final CharSequence clipboardText = mLatinIME.getClipboardHistoryManager().retrieveClipboardText();
+            if (!TextUtils.isEmpty(clipboardText)) {
+                mLatinIME.onTextInput(clipboardText.toString());
+            }
         }
     }
 

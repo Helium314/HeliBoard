@@ -16,6 +16,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -1539,6 +1540,28 @@ public class LatinIME extends InputMethodService implements
         updateStateAfterInputTransaction(completeInputTransaction);
         mInputLogic.restartSuggestionsOnWordTouchedByCursor(mSettings.getCurrent(), mKeyboardSwitcher.getCurrentKeyboardScript());
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    // Handles the input of a URI into the editor, granting necessary permissions and committing the content.
+    public void onUriInput(@NonNull final Uri uri) {
+        final String uriType = getContentResolver().getType(uri);
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        if (editorInfo == null || uriType == null) return;
+        if (!EditorInfoCompatUtils.isMimeTypeSupportedByEditor(editorInfo, uriType)) {
+            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
+            return;
+        }
+        final boolean permissionGranted;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            grantUriPermission(editorInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            permissionGranted = true;
+        } else {
+            permissionGranted = false;
+        }
+        // Commit the URI and show a toast if it is rejected by the application.
+        if (!mInputLogic.mConnection.commitUri(uri, uriType, editorInfo, permissionGranted)) {
+            mKeyboardSwitcher.showToast(getString(R.string.toast_msg_unsupported_uri), true);
+        }
     }
 
     public void onStartBatchInput() {
