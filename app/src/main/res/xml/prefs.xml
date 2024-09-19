@@ -8,49 +8,49 @@
     xmlns:latin="http://schemas.android.com/apk/res-auto"
     android:title="@string/ime_settings">
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.LanguageSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.LanguageSettingsFragment"
         android:title="@string/language_and_layouts_title"
         android:key="screen_languages"
         android:icon="@drawable/ic_settings_languages"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.PreferencesSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.PreferencesSettingsFragment"
         android:title="@string/settings_screen_preferences"
         android:key="screen_preferences"
         android:icon="@drawable/ic_settings_preferences"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.AppearanceSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.AppearanceSettingsFragment"
         android:title="@string/settings_screen_appearance"
         android:key="screen_appearance"
         android:icon="@drawable/ic_settings_appearance"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.ToolbarSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.ToolbarSettingsFragment"
         android:title="@string/settings_screen_toolbar"
         android:key="screen_toolbar"
         android:icon="@drawable/ic_settings_toolbar"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.GestureSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.GestureSettingsFragment"
         android:title="@string/settings_screen_gesture"
         android:key="screen_gesture"
         android:icon="@drawable/ic_settings_gesture"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.CorrectionSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.CorrectionSettingsFragment"
         android:title="@string/settings_screen_correction"
         android:key="screen_correction"
         android:icon="@drawable/ic_settings_correction"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.AdvancedSettingsFragment"
+        android:fragment="org.oscar.kb.latin.settings.AdvancedSettingsFragment"
         android:title="@string/settings_screen_advanced"
         android:key="screen_advanced"
         android:icon="@drawable/ic_settings_advanced"
         latin:singleLineTitle="false" />
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.AboutFragment"
+        android:fragment="org.oscar.kb.latin.settings.AboutFragment"
         android:title="@string/settings_screen_about"
         android:key="screen_about"
         android:icon="@drawable/ic_settings_about"

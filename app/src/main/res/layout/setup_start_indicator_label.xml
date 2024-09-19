@@ -5,14 +5,14 @@
 -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <view class="helium314.keyboard.latin.setup.SetupStartIndicatorView$LabelView"
+    <view class="org.oscar.kb.latin.setup.SetupStartIndicatorView$LabelView"
         android:id="@+id/setup_start_label"
         android:text="@string/setup_start_action"
         android:gravity="end|center_vertical"
         android:layout_width="0dp"
         android:layout_weight="1.0"
         style="@style/setupStepActionLabelStyleCommon" />
-    <view class="helium314.keyboard.latin.setup.SetupStartIndicatorView$IndicatorView"
+    <view class="org.oscar.kb.latin.setup.SetupStartIndicatorView$IndicatorView"
         android:id="@+id/setup_start_indicator"
         style="@style/setupStepStartIndicatorStyle" />
 </merge>

@@ -10,7 +10,7 @@
 
 <spell-checker xmlns:android="http://schemas.android.com/apk/res/android"
         android:label="@string/spell_checker_service_name"
-        android:settingsActivity="helium314.keyboard.latin.spellcheck.SpellCheckerSettingsActivity">
+        android:settingsActivity="org.oscar.kb.latin.spellcheck.SpellCheckerSettingsActivity">
     <subtype
         android:label="@string/subtype_generic"
         android:subtypeLocale="ar" />

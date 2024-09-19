@@ -113,4 +113,13 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">none</item>
     </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/action_bar_color</item>
+        <item name="colorPrimaryDark">@color/background_amoled_black</item>
+        <item name="colorAccent">@color/highlight_color_holo_white</item>
+    </style>
+
 </resources>

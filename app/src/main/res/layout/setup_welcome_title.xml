@@ -5,15 +5,19 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/setup_welcome_title"
-        android:gravity="center"
-        style="@style/setupTitleStyle" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
     <TextView
         android:id="@+id/setup_welcome_description"
-        android:text="@string/setup_welcome_additional_description"
-        android:layout_marginTop="@dimen/setup_welcome_description_top_margin"
-        android:gravity="center"
-        style="@style/setupWelcomeDescriptionStyle" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 </merge>

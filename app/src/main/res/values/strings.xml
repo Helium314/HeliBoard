@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">HeliBoard</string>
+    <string name="english_ime_name" translatable="false">Oscar AI Keyboard</string>
     <!-- Name of Android spell checker service. The app name should not be translated. -->
-    <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
+    <string name="spell_checker_service_name">Oscar AI Keyboard Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
-    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="ime_settings">Oscar AI Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
+    <string name="android_spell_checker_settings">Oscar AI Keyboard Spell Checker Settings</string>
     <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
     <string name="use_contacts_for_spellchecking_option_title">Look up contact names</string>
     <!-- Description for the spell checker option to turn on/off contact names lookup. [CHAR LIMIT=65] -->
@@ -250,15 +249,15 @@
     <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
-    <string name="paste" tools:keep="@string/paste" translatable="false">@android:string/paste</string>
-    <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
-    <string name="cut" tools:keep="@string/cut" translatable="false">@android:string/cut</string>
+    <string name="paste" translatable="false" tools:keep="@string/paste">@android:string/paste</string>
+    <string name="copy" translatable="false" tools:keep="@string/copy">@android:string/copy</string>
+    <string name="cut" translatable="false" tools:keep="@string/cut">@android:string/cut</string>
     <string name="clipboard" tools:keep="@string/clipboard">Clipboard</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Clear clipboard</string>
     <string name="voice" tools:keep="@string/voice">Voice input</string>
-    <string name="numpad" tools:keep="@string/numpad" translatable="false">@string/layout_numpad</string>
+    <string name="numpad" translatable="false" tools:keep="@string/numpad">@string/layout_numpad</string>
     <string name="settings" tools:keep="@string/settings">Settings</string>
-    <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
+    <string name="select_all" translatable="false" tools:keep="@string/select_all">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
     <string name="full_left" tools:keep="@string/full_left">Full left</string>
@@ -328,47 +327,47 @@
     <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
          This should be identical to subtype_en_GB aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
          This should be identical to subtype_en_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
          This should be identical to subtype_es_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype [CHAR LIMIT=25]
          (Extended) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="subtype_generic_extended"><xliff:g example="Kannada" id="LANGUAGE_NAME">%s</xliff:g> (Extended)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
-         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->      
-    <string name="subtype_with_layout_sr_Latn" tools:keep="@string/subtype_with_layout_sr_Latn">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
+    <string name="subtype_with_layout_sr_Latn" tools:keep="@string/subtype_with_layout_sr_Latn">Serbian (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
          (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
+    <string name="subtype_generic_traditional"><xliff:g example="Nepali" id="LANGUAGE_NAME">%s</xliff:g> (Traditional)</string>
     <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g example="Bengali" id="LANGUAGE_NAME">%s</xliff:g> (Akkhor)</string>
     <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g example="Bengali" id="LANGUAGE_NAME">%s</xliff:g> (Probhat)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
+    <string name="subtype_generic_compact"><xliff:g example="Hindi" id="LANGUAGE_NAME">%s</xliff:g> (Compact)</string>
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype [CHAR LIMIT=25]
          (Sebeolsik 390) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g example="Korean" id="LANGUAGE_NAME">%s</xliff:g> (Sebeolsik 390)</string>
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype [CHAR LIMIT=25]
          (Sebeolsik Final) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g example="Korean" id="LANGUAGE_NAME">%s</xliff:g> (Sebeolsik Final)</string>
     <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype [CHAR LIMIT=25]
          (Student) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_student"><xliff:g example="Russian" id="LANGUAGE_NAME">%s</xliff:g> (Student)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
 language, hence "No language".
@@ -570,7 +569,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title of the button to revert to the default value of the device in the settings dialog [CHAR LIMIT=15] -->
     <string name="button_default">Default</string>
     <!-- Title of the setup wizard welcome screen. [CHAR LIMT=40] -->
-    <string name="setup_welcome_title">"Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Welcome to <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. [CHAR_LIMIT=64] -->
     <string name="setup_welcome_additional_description">with Gesture Typing</string>
     <!-- The label of the button that starts the setup wizard. [CHAR_LIMIT=64] -->
@@ -578,23 +577,23 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- The label of the button that navigates the user to the next step of the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_next_action">Next step</string>
     <!-- Title of the setup wizard. [CHAR LIMT=40] -->
-    <string name="setup_steps_title">"Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_steps_title">"Setting up <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Ordinal number of the 1st step in the setup wizard. [CHAR LIMIT=5] -->
     <string name="setup_step1_bullet" translatable="false">1</string>
     <!-- Title of the 1st step in the setup wizard. [CHAR LIMIT=64] -->
-    <string name="setup_step1_title">"Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_step1_title">"Enable <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Detailed instruction of the 1st step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step1_instruction">"Please check \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
+    <string name="setup_step1_instruction">"Please check \"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
     <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>
+    <string name="setup_step1_finished_instruction">"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>
     <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step1_action">Enable in Settings</string>
     <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
     <string name="setup_step2_bullet" translatable="false">2</string>
     <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
-    <string name="setup_step2_title">"Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_step2_title">"Switch to <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Detailed instruction of the 2nd step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step2_instruction">"Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method."</string>
+    <string name="setup_step2_instruction">"Next, select \"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>\" as your active text-input method."</string>
     <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step2_action">Switch input methods</string>
     <!-- Ordinal number of the 3rd step in the setup wizard. [CHAR LIMIT=5] -->
@@ -602,7 +601,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title of the 3rd step in the setup wizard. [CHAR LIMIT=64] -->
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
     <!-- Detailed instruction of the 3rd step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>.</string>
     <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step3_action">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
@@ -673,7 +672,7 @@ New dictionary:
     <!-- Action to delete (a file) [CHAR_LIMIT=15] -->
     <string name="delete">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
-    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Version <xliff:g example="1.0.1864.643521" id="VERSION_NUMBER">%1$s</xliff:g></string>
     <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_menu_title">Add</string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. [CHAR LIMIT=25] -->
@@ -905,4 +904,80 @@ New dictionary:
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="welcome_oscar">Welcome to \n<font color='#008B8B'>Oscar Keyboard</font>
+    </string>
+    <string name="oscar_tex_tap">Tap below to try the keyboard</string>
+    <string name="setup_Oscar">Let’s setup <font color="#51A09B">Oscar</font> \n<font color="#51A09B">Keyboard</font></string>
+    <string name="enable_text">In the keyboard list screen, tap the toggle to \n enable <font color="#000000"> Oscar Keyboard</font></string>
+    <string name="set_text">Tap to select <font color="#000000"> Oscar Keyboard</font> from the list \n as the default input keyboard</string>
+    <string name="open_text"><font color="#000000">Installation Successful!!</font> \n Checkout text typing and voice typing on Oscar Keyboard</string>
+<string name="terms_of_use">
+    1. By using the Oscar Keyboard App ("App"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree with these Terms, you should not use the App.\n
+    2. The Oscar Keyboard App is a third-party integrable speech-to-text converter keyboard intended for use on Android devices. It allows users to input text via voice.\n
+    3. You are responsible for maintaining the confidentiality of your account and password and for using the App in compliance with all applicable laws and regulations. You agree not to misuse the App or attempt to interfere with its operation.\n
+    4. The App is licensed, not sold, to you. Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to use the App.\n
+    5. You agree not to decompile, reverse engineer, or disassemble the App, use the App for any illegal or unauthorized purpose, or modify or create derivative works based on the App.\n
+    6. We reserve the right to terminate or suspend your access to the App at our sole discretion, without notice, for conduct that we believe violates these Terms or is harmful to other users.\n
+    7. The App is provided "as is" and "as available," without warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, or non-infringement.\n
+    8. In no event shall Samyarth, its affiliates, or its licensors be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from your use or inability to use the App, any unauthorized access to or use of our servers and/or any personal information stored therein, any interruption or cessation of transmission to or from the App, any bugs, viruses, trojan horses, or the like that may be transmitted to or through the App by any third party, or any errors or omissions in any content or for any loss or damage incurred as a result of the use of any content posted, emailed, transmitted, or otherwise made available through the App, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.\n
+    9. These Terms shall be governed and construed in accordance with the laws of Uttar Pradesh(India), without regard to its conflict of law provisions.\n
+    10. We reserve the right to modify these Terms at any time. Your continued use of the App after any such changes constitutes your acceptance of the new Terms.\n
+    11. If you have any questions about these Terms, please contact us at <a href="mailto:support.oscar@samyarth.org"><font color="#000000">support.oscar@samyarth.org</font></a>.\n
+    </string>
+    <string name="privacy_policy" translatable="false">
+        1. We value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Oscar Keyboard App.\n
+        2. We collect personal information such as your email address and user preferences when you create an account or use the App. We also collect information about your usage of the App, such as the features you use, the time and duration of your use, and error reports.\n
+3. We use your information to provide and maintain the App, improve and personalize your experience, monitor and analyze usage and trends, send you updates, security alerts, and support messages, and comply with legal obligations.\n
+4. We do not share your personal information with third parties except with your consent, to comply with legal requirements, or to protect and defend our rights and property.\n
+5. We implement appropriate technical and organizational measures to protect your personal data from unauthorized access, use, or disclosure.\n
+6. We retain your personal data only for as long as necessary to fulfill the purposes for which it was collected or as required by law.\n
+7. Depending on your jurisdiction, you may have the following rights regarding your personal data: access to your data, correction of inaccurate data, deletion of your data, restriction of processing, and data portability.\n
+8. The App is not intended for use by children under the age of 13. We do not knowingly collect personal data from children under 13. If we learn that we have collected personal data from a child under 13, we will delete that information promptly.\n
+9. We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy within the App. Your continued use of the App after any such changes constitutes your acceptance of the new Privacy Policy.\n
+10. If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support.oscar@samyarth.org"><font color="#000000">support.oscar@samyarth.org</font></a>.\n
+
+    </string>
+    <string name="email_us" translatable="false">Email us</string>
 </resources>

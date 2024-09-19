@@ -10,7 +10,7 @@
     android:key="screen_correction">
 
     <PreferenceScreen
-        android:fragment="helium314.keyboard.latin.settings.UserDictionaryListFragment"
+        android:fragment="org.oscar.kb.latin.settings.UserDictionaryListFragment"
         android:key="edit_personal_dictionary"
         android:title="@string/edit_personal_dictionary"
         latin:singleLineTitle="false" />

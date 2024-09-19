@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#EEF6F5"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/txtIdOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setup_Oscar"
+        android:fontFamily="@font/spectral_semibold"
+        android:textSize="33dp"
+        android:textAlignment="center"
+        android:textColor="#4D4D4D"
+        android:layout_marginTop="70dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/enableId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Oscar"
+        android:padding="18dp"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/background_buttons"
+        android:backgroundTint="#51A09B"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdOne"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:visibility="gone"
+        android:text="@string/enable_text"
+        android:fontFamily="@font/edium"
+        android:textColor="#4D4D4D"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/enableId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+         />
+
+    <Button
+        android:id="@+id/setupID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Oscar"
+        android:padding="18dp"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_buttons"
+        android:backgroundTint="#51A09B"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/setup_oscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="@string/set_text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/edium"
+        android:textColor="#4D4D4D"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/setupID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/openKeyboardId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Try your Keyboard"
+        android:padding="18dp"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_buttons"
+        android:backgroundTint="#51A09B"
+        app:layout_constraintTop_toBottomOf="@+id/setup_oscar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/try_oscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="@string/open_text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/edium"
+        android:textColor="#4D4D4D"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@+id/openKeyboardId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
