@@ -225,6 +225,7 @@
     <string name="user_dict_add_word_button">Añadir una palabra</string>
     <string name="theme_style">Estilo</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Redondeado</string>
+    <string name="icon_style">Estilo de icono</string>
     <string name="theme_colors">Colores</string>
     <string name="theme_colors_night">Colores (modo oscuro)</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Modo claro</string>
