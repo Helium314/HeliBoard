@@ -287,6 +287,7 @@
     <string name="theme_style">Estilo</string>
     <string name="user_dict_word_already_present">Esta palabra ya está presente en el diccionario del usuario %s. Por favor, escriba otra.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Redondeado</string>
+    <string name="icon_style">Estilo de icono</string>
     <string name="theme_colors">Colores</string>
     <string name="theme_colors_night">Colores (noche)</string>
     <string name="theme_navbar">Seguir color en la barra de navegación</string>
