@@ -227,7 +227,7 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var keyCode: String? = null
     var longpressCode: String? = null
-    val d = AlertDialog.Builder(context)
+    val b = AlertDialog.Builder(context)
         .setTitle(key.name.lowercase().getStringResourceOrName("", context))
         .setView(ScrollView(context).apply { addView(v) })
         .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -239,7 +239,9 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
                 writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to newLongpressCode))
             toolbarKeysCustomizer(context)
         }
-        .setNeutralButton(R.string.button_default) { _, _ ->
+        .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
+    if (readCustomKeyCodes(prefs).containsKey(key.name) || readCustomLongpressCodes(prefs).containsKey(key.name))
+        b.setNeutralButton(R.string.button_default) { _, _ ->
             val keys = readCustomKeyCodes(prefs).toMutableMap()
             keys.remove(key.name)
             prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
@@ -248,8 +250,7 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
             prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
             toolbarKeysCustomizer(context)
         }
-        .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
-        .create()
+    val d = b.create()
 
     fun checkOk() {
         val keyOk = keyCode == null
@@ -277,10 +278,16 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
 }
 
 fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
-        .split(";").associate { it.substringBefore(",") to it.substringAfter(",").toIntOrNull() }
+        .split(";").associate {
+            val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
+            it.substringBefore(",") to code
+        }
 
 fun readCustomLongpressCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!
-    .split(";").associate { it.substringBefore(",") to it.substringAfter(",").toIntOrNull() }
+    .split(";").associate {
+        val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
+        it.substringBefore(",") to code
+    }
 
 private fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
     val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")

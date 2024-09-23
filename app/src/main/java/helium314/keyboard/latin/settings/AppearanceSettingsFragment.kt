@@ -277,7 +277,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         rv.adapter = adapter
         val title = iconName.getStringResourceOrName("", ctx).takeUnless { it == iconName }
             ?: iconName.getStringResourceOrName("label_", ctx)
-        AlertDialog.Builder(ctx)
+        val b = AlertDialog.Builder(ctx)
             .setTitle(title)
             .setView(rv)
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -289,7 +289,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 }
                 onClickCustomizeIcons()
             }
-            .setNeutralButton(R.string.button_default) { _, _ ->
+            .setNegativeButton(android.R.string.cancel) { _, _ -> onClickCustomizeIcons() }
+        if (customIconNames(sharedPreferences).contains(iconName))
+            b.setNeutralButton(R.string.button_default) { _, _ ->
                 runCatching {
                     val icons2 = customIconNames(sharedPreferences).toMutableMap()
                     icons2.remove(iconName)
@@ -298,8 +300,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 }
                 onClickCustomizeIcons()
             }
-            .setNegativeButton(android.R.string.cancel) { _, _ -> onClickCustomizeIcons() }
-            .show()
+
+        b.show()
     }
 
     private fun onClickLoadImage(): Boolean {
