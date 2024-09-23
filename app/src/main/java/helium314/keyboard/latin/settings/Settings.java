@@ -44,12 +44,15 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.ToolbarKey;
+import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -79,6 +82,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
     public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
+    public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
+    public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
+    public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -187,6 +193,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // static cache for background images to avoid potentially slow reload on every settings reload
     private static Drawable sCachedBackgroundDay;
     private static Drawable sCachedBackgroundNight;
+    private Map<String, Integer> mCustomToolbarKeyCodes = null;
+    private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
     private static final Settings sInstance = new Settings();
 
@@ -234,6 +242,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 Log.w(TAG, "onSharedPreferenceChanged called before loadSettings.");
                 return;
             }
+            mCustomToolbarLongpressCodes = null;
+            mCustomToolbarKeyCodes = null;
             loadSettings(mContext, mSettingsValues.mLocale, mSettingsValues.mInputAttributes);
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
@@ -705,5 +715,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public String readCustomCurrencyKey() {
         return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, "");
+    }
+
+    public Integer getCustomToolbarKeyCode(ToolbarKey key) {
+        if (mCustomToolbarKeyCodes == null)
+            mCustomToolbarKeyCodes = ToolbarUtilsKt.readCustomKeyCodes(mPrefs);
+        return mCustomToolbarKeyCodes.get(key.name());
+    }
+
+    public Integer getCustomToolbarLongpressCode(ToolbarKey key) {
+        if (mCustomToolbarLongpressCodes == null)
+            mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
+        return mCustomToolbarLongpressCodes.get(key.name());
     }
 }

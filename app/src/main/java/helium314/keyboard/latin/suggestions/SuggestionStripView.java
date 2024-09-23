@@ -182,7 +182,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMoreSuggestionsSlidingDetector = new GestureDetector(context, mMoreSuggestionsSlidingListener);
 
         final KeyboardIconsSet iconsSet = KeyboardIconsSet.Companion.getInstance();
-        mIncognitoIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_INCOGNITO_KEY, context);
+        mIncognitoIcon = iconsSet.getNewDrawable(ToolbarKey.INCOGNITO.name(), context);
         mToolbarArrowIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context);
         mBinIcon = iconsSet.getNewDrawable(KeyboardIconsSet.NAME_BIN, context);
 

@@ -25,6 +25,10 @@
             android:defaultValue="Material"
             latin:singleLineTitle="false" />
 
+        <Preference
+            android:key="custom_icon_names"
+            android:title="@string/customize_icons" />
+
         <ListPreference
             android:key="theme_colors"
             android:title="@string/theme_colors"

@@ -881,6 +881,36 @@ New dictionary:
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
     <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
+    <!-- Label for enter key, currently used only for showing the icon name -->
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <!-- Label for tabulator key, currently used only for showing the icon name -->
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <!-- Label for delete key, currently used only for showing the icon name -->
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <!-- Label for shift key, currently used only for showing the icon name -->
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <!-- Label for shift key when active, currently used only for showing the icon name -->
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (shifted)</string>
+    <!-- Label for shift key when locked (caps lock mode), currently used only for showing the icon name -->
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <!-- Label for the short space key (in number layouts), currently used only for showing the icon name -->
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (number layout)</string>
+    <!-- Label for key to stop onehanded mode, currently used only for showing the icon name -->
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">End one-handed mode</string>
+    <!-- Label for key to resize onehanded mode, currently used only for showing the icon name -->
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Resize one-handed mode</string>
+    <!-- Label for key to switch side of onehanded mode, currently used only for showing the icon name -->
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Switch one-handed mode side</string>
+    <!-- Label for voice key when disabled, currently used only for showing the icon name -->
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Voice input disabled</string>
+    <!-- Label for toolbar key, currently used only for showing the icon name -->
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Show / hide toolbar</string>
+    <!-- Label for language switch key, currently used only for showing the icon name -->
+    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">@string/show_language_switch_key</string>
+    <!-- Label for zero-width joiner key, currently used only for showing the icon name -->
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
+    <!-- Label for zero-width non-joiner key, currently used only for showing the icon name -->
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
     <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
     <!-- Title of the setting for vertical spacebar swipe gesture -->
@@ -895,6 +925,12 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the setting to customize toolbar key codes -->
+    <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
+    <!-- Text for showing / setting key code -->
+    <string name="key_code">Key code</string>
+    <!-- Text for showing / setting long press code -->
+    <string name="long_press_code">Long press code</string>
     <!-- Title of the setting for showing the toolbar automatically -->
     <string name="auto_show_toolbar">Auto show toolbar</string>
     <!-- Description of the setting for showing the toolbar automatically -->
@@ -905,4 +941,6 @@ New dictionary:
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
+    <string name="customize_icons">Customize icons</string>
 </resources>

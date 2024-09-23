@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.customIconIds
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
@@ -13,17 +14,20 @@ import helium314.keyboard.latin.utils.ToolbarKey
 import java.util.Locale
 
 class KeyboardIconsSet private constructor() {
-    private var iconIds = emptyMap<String, Int>()
+    var iconIds = emptyMap<String, Int>()
+        private set
     private val iconsByName = HashMap<String, Drawable>(80)
 
     fun loadIcons(context: Context) {
         val prefs = DeviceProtectedUtils.getSharedPreferences(context)
         val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
-        val ids = when (iconStyle) {
+        val defaultIds = when (iconStyle) {
             KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo
             KeyboardTheme.STYLE_ROUNDED -> keyboardIconsRounded
             else -> keyboardIconsMaterial
         }
+        val overrideIds = customIconIds(context, prefs)
+        val ids = if (overrideIds.isEmpty()) defaultIds else defaultIds + overrideIds
         if (ids == iconIds) return
         iconIds = ids
         iconsByName.clear()
@@ -38,13 +42,15 @@ class KeyboardIconsSet private constructor() {
         }
     }
 
-    fun getIconDrawable(name: String?): Drawable? = iconsByName[name?.lowercase(Locale.US)]
-    /** gets drawable from resources, with mutate (might be necessary to avoid coloring issues...) */
-    fun getNewDrawable(name: String?, context: Context): Drawable? =
-        iconIds[name?.lowercase(Locale.US)]?.let { ContextCompat.getDrawable(context, it)?.mutate() }
+    fun getIconDrawable(name: String?): Drawable? = name?.lowercase(Locale.US)?.let {
+        iconsByName[it] ?: iconsByName[alternativeNames[it]]
+    }
 
-    // sometimes there are 2 names for the same icon for historic reasons,
-    // and removing needs to be handled with care to not break custom themes
+    /** gets drawable from resources, with mutate (might be necessary to avoid coloring issues...) */
+    fun getNewDrawable(name: String?, context: Context): Drawable? = name?.lowercase(Locale.US)?.let { name ->
+        (iconIds[name] ?: iconIds[alternativeNames[name]])?.let { ContextCompat.getDrawable(context, it)?.mutate() }
+    }
+
     companion object {
         private val TAG = KeyboardIconsSet::class.simpleName
         const val PREFIX_ICON = "!icon/"
@@ -53,7 +59,6 @@ class KeyboardIconsSet private constructor() {
         const val NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted"
         const val NAME_SHIFT_KEY_LOCKED = "shift_key_locked"
         const val NAME_DELETE_KEY = "delete_key"
-        const val NAME_SETTINGS_KEY = "settings_key"
         const val NAME_SPACE_KEY = "space_key"
         const val NAME_SPACE_KEY_FOR_NUMBER_LAYOUT = "space_key_for_number_layout"
         const val NAME_ENTER_KEY = "enter_key"
@@ -64,64 +69,37 @@ class KeyboardIconsSet private constructor() {
         const val NAME_DONE_KEY = "done_key"
         const val NAME_PREVIOUS_KEY = "previous_key"
         const val NAME_TAB_KEY = "tab_key"
-        const val NAME_SHORTCUT_KEY = "shortcut_key"
-        const val NAME_INCOGNITO_KEY = "incognito_key"
         const val NAME_SHORTCUT_KEY_DISABLED = "shortcut_key_disabled"
         const val NAME_LANGUAGE_SWITCH_KEY = "language_switch_key"
         const val NAME_ZWNJ_KEY = "zwnj_key"
         const val NAME_ZWJ_KEY = "zwj_key"
-        const val NAME_EMOJI_ACTION_KEY = "emoji_action_key"
-        const val NAME_EMOJI_NORMAL_KEY = "emoji_normal_key"
-        const val NAME_CLIPBOARD_ACTION_KEY = "clipboard_action_key"
-        const val NAME_CLIPBOARD_NORMAL_KEY = "clipboard_normal_key"
-        const val NAME_CLEAR_CLIPBOARD_KEY = "clear_clipboard_key"
-        const val NAME_CUT_KEY = "cut_key"
-        const val NAME_START_ONEHANDED_KEY = "start_onehanded_mode_key"
         const val NAME_STOP_ONEHANDED_KEY = "stop_onehanded_mode_key"
         const val NAME_SWITCH_ONEHANDED_KEY = "switch_onehanded_key"
         const val NAME_RESIZE_ONEHANDED_KEY = "resize_onehanded_key"
         const val NAME_TOOLBAR_KEY = "toolbar_key"
         const val NAME_BIN = "bin"
-/*
-        private val styleableIdByName = hashMapOf(
-            NAME_SHIFT_KEY to                   R.styleable.Keyboard_iconShiftKey,
-            NAME_DELETE_KEY to                  R.styleable.Keyboard_iconDeleteKey,
-            NAME_SETTINGS_KEY to                R.styleable.Keyboard_iconSettingsKey,
-            NAME_SPACE_KEY to                   R.styleable.Keyboard_iconSpaceKey,
-            NAME_ENTER_KEY to                   R.styleable.Keyboard_iconEnterKey,
-            NAME_GO_KEY to                      R.styleable.Keyboard_iconGoKey,
-            NAME_SEARCH_KEY to                  R.styleable.Keyboard_iconSearchKey,
-            NAME_SEND_KEY to                    R.styleable.Keyboard_iconSendKey,
-            NAME_NEXT_KEY to                    R.styleable.Keyboard_iconNextKey,
-            NAME_DONE_KEY to                    R.styleable.Keyboard_iconDoneKey,
-            NAME_PREVIOUS_KEY to                R.styleable.Keyboard_iconPreviousKey,
-            NAME_TAB_KEY to                     R.styleable.Keyboard_iconTabKey,
-            NAME_SHORTCUT_KEY to                R.styleable.Keyboard_iconShortcutKey,
-            NAME_INCOGNITO_KEY to               R.styleable.Keyboard_iconIncognitoKey,
-            NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.styleable.Keyboard_iconSpaceKeyForNumberLayout,
-            NAME_SHIFT_KEY_SHIFTED to           R.styleable.Keyboard_iconShiftKeyShifted,
-            NAME_SHIFT_KEY_LOCKED to            R.styleable.Keyboard_iconShiftKeyLocked,
-            NAME_SHORTCUT_KEY_DISABLED to       R.styleable.Keyboard_iconShortcutKeyDisabled,
-            NAME_LANGUAGE_SWITCH_KEY to         R.styleable.Keyboard_iconLanguageSwitchKey,
-            NAME_ZWNJ_KEY to                    R.styleable.Keyboard_iconZwnjKey,
-            NAME_ZWJ_KEY to                     R.styleable.Keyboard_iconZwjKey,
-            NAME_EMOJI_ACTION_KEY to            R.styleable.Keyboard_iconEmojiActionKey,
-            NAME_EMOJI_NORMAL_KEY to            R.styleable.Keyboard_iconEmojiNormalKey,
-            NAME_CLIPBOARD_ACTION_KEY to        R.styleable.Keyboard_iconClipboardActionKey,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.styleable.Keyboard_iconClipboardNormalKey,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.styleable.Keyboard_iconClearClipboardKey,
-            NAME_CUT_KEY to                     R.styleable.Keyboard_iconCutKey,
-            NAME_START_ONEHANDED_KEY to         R.styleable.Keyboard_iconStartOneHandedMode,
-            NAME_STOP_ONEHANDED_KEY to          R.styleable.Keyboard_iconStopOneHandedMode,
-            NAME_SWITCH_ONEHANDED_KEY to        R.styleable.Keyboard_iconSwitchOneHandedMode,
-        ).apply { ToolbarKey.entries.forEach { put(it.name.lowercase(Locale.US), getStyleableIconId(it)) } }
-*/
+
+        // names used in the past, and we can't just delete them because they might still be in use in some layouts
+        // (also some of them are in use for internal layouts, but there we could just remove them...)
+        private val alternativeNames = hashMapOf(
+            "clear_clipboard_key" to ToolbarKey.CLEAR_CLIPBOARD.name.lowercase(Locale.US),
+            "shortcut_key" to ToolbarKey.VOICE.name.lowercase(Locale.US),
+            "emoji_action_key" to ToolbarKey.EMOJI.name.lowercase(Locale.US),
+            "emoji_normal_key" to ToolbarKey.EMOJI.name.lowercase(Locale.US),
+            "clipboard_action_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
+            "clipboard_normal_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
+            "cut_key" to ToolbarKey.CUT.name.lowercase(Locale.US),
+            "incognito_key" to ToolbarKey.INCOGNITO.name.lowercase(Locale.US),
+            "settings_key" to ToolbarKey.SETTINGS.name.lowercase(Locale.US),
+            "start_onehanded_mode_key" to ToolbarKey.ONE_HANDED.name.lowercase(Locale.US),
+        )
+
+        // todo: incognito and force incognito should not be the same? or not the same as toolbar key?
         private val keyboardIconsHolo by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_holo,
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_holo,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_holo,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_holo,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_holo,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_holo,
 //            NAME_GO_KEY to                      null,
@@ -131,20 +109,11 @@ class KeyboardIconsSet private constructor() {
 //            NAME_NEXT_KEY to                    null,
 //            NAME_PREVIOUS_KEY to                null,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_holo,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_holo,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_holo,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_holo,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_holo,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_holo,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_holo,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_holo,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_holo,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_holo,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_holo,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_holo,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut,
-            NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_holo,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_holo,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
@@ -191,7 +160,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_lxx,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_lxx,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_lxx,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_lxx,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_lxx,
             NAME_GO_KEY to                      R.drawable.sym_keyboard_go_lxx,
@@ -201,20 +169,11 @@ class KeyboardIconsSet private constructor() {
             NAME_NEXT_KEY to                    R.drawable.ic_arrow_right,
             NAME_PREVIOUS_KEY to                R.drawable.ic_arrow_left,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_lxx,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_lxx,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_lxx,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_lxx,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_lxx,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_lxx,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_lxx,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_lxx,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_lxx,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_lxx,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_lxx,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut,
-            NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_lxx,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_lxx,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
@@ -261,7 +220,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_rounded,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_rounded,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_rounded,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_rounded,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_rounded,
             NAME_GO_KEY to                      R.drawable.sym_keyboard_go_rounded,
@@ -271,20 +229,11 @@ class KeyboardIconsSet private constructor() {
             NAME_NEXT_KEY to                    R.drawable.ic_arrow_right_rounded,
             NAME_PREVIOUS_KEY to                R.drawable.ic_arrow_left_rounded,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_rounded,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_rounded,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_rounded,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_rounded,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_lxx,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_lxx,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_rounded,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_rounded,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_rounded,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_rounded,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_rounded,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut_rounded,
-            NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_rounded,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_rounded,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left_rounded,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal_rounded,
@@ -325,6 +274,19 @@ class KeyboardIconsSet private constructor() {
                 })
             }
         } }
+
+        fun getAllIcons(context: Context): Map<String, List<Int>> {
+            // currently active style first
+            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+            val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
+            return keyboardIconsMaterial.entries.associate { (name, id) ->
+                name to when (iconStyle) {
+                    KeyboardTheme.STYLE_HOLO -> listOfNotNull(keyboardIconsHolo[name], keyboardIconsRounded[name], id)
+                    KeyboardTheme.STYLE_ROUNDED -> listOfNotNull(keyboardIconsRounded[name], id, keyboardIconsHolo[name])
+                    else -> listOfNotNull(id, keyboardIconsRounded[name], keyboardIconsHolo[name])
+                }
+            }
+        }
 
         val instance = KeyboardIconsSet()
     }
