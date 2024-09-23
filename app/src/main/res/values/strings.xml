@@ -894,9 +894,17 @@ New dictionary:
     <!-- Label for shift key when locked (caps lock mode), currently used only for showing the icon name -->
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
     <!-- Label for the short space key (in number layouts), currently used only for showing the icon name -->
-    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (short)</string>
-    <!-- Label for stop onehanded mode, currently used only for showing the icon name -->
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (number layout)</string>
+    <!-- Label for key to stop onehanded mode, currently used only for showing the icon name -->
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">End one-handed mode</string>
+    <!-- Label for key to resize onehanded mode, currently used only for showing the icon name -->
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Resize one-handed mode</string>
+    <!-- Label for key to switch side of onehanded mode, currently used only for showing the icon name -->
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Switch one-handed mode side</string>
+    <!-- Label for voice key when disabled, currently used only for showing the icon name -->
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Voice input disabled</string>
+    <!-- Label for toolbar key, currently used only for showing the icon name -->
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Show / hide toolbar</string>
     <!-- Label for language switch key, currently used only for showing the icon name -->
     <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">@string/show_language_switch_key</string>
     <!-- Label for zero-width joiner key, currently used only for showing the icon name -->
