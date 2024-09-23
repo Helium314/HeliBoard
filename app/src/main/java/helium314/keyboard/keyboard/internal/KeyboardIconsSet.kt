@@ -42,10 +42,14 @@ class KeyboardIconsSet private constructor() {
         }
     }
 
-    fun getIconDrawable(name: String?): Drawable? = iconsByName[name?.lowercase(Locale.US)]
+    fun getIconDrawable(name: String?): Drawable? = name?.lowercase(Locale.US)?.let {
+        iconsByName[it] ?: iconsByName[alternativeNames[it]]
+    }
+
     /** gets drawable from resources, with mutate (might be necessary to avoid coloring issues...) */
-    fun getNewDrawable(name: String?, context: Context): Drawable? =
-        iconIds[name?.lowercase(Locale.US)]?.let { ContextCompat.getDrawable(context, it)?.mutate() }
+    fun getNewDrawable(name: String?, context: Context): Drawable? = name?.lowercase(Locale.US)?.let { name ->
+        (iconIds[name] ?: iconIds[alternativeNames[name]])?.let { ContextCompat.getDrawable(context, it)?.mutate() }
+    }
 
     // sometimes there are 2 names for the same icon for historic reasons,
     // and removing needs to be handled with care to not break custom themes
@@ -68,24 +72,28 @@ class KeyboardIconsSet private constructor() {
         const val NAME_DONE_KEY = "done_key"
         const val NAME_PREVIOUS_KEY = "previous_key"
         const val NAME_TAB_KEY = "tab_key"
-        const val NAME_SHORTCUT_KEY = "shortcut_key"
         const val NAME_INCOGNITO_KEY = "incognito_key"
         const val NAME_SHORTCUT_KEY_DISABLED = "shortcut_key_disabled"
         const val NAME_LANGUAGE_SWITCH_KEY = "language_switch_key"
         const val NAME_ZWNJ_KEY = "zwnj_key"
         const val NAME_ZWJ_KEY = "zwj_key"
-        const val NAME_EMOJI_ACTION_KEY = "emoji_action_key"
-        const val NAME_EMOJI_NORMAL_KEY = "emoji_normal_key"
-        const val NAME_CLIPBOARD_ACTION_KEY = "clipboard_action_key"
-        const val NAME_CLIPBOARD_NORMAL_KEY = "clipboard_normal_key"
-        const val NAME_CLEAR_CLIPBOARD_KEY = "clear_clipboard_key"
-        const val NAME_CUT_KEY = "cut_key"
         const val NAME_START_ONEHANDED_KEY = "start_onehanded_mode_key"
         const val NAME_STOP_ONEHANDED_KEY = "stop_onehanded_mode_key"
         const val NAME_SWITCH_ONEHANDED_KEY = "switch_onehanded_key"
         const val NAME_RESIZE_ONEHANDED_KEY = "resize_onehanded_key"
         const val NAME_TOOLBAR_KEY = "toolbar_key"
         const val NAME_BIN = "bin"
+
+        // is use for historic reasons, and we can't just delete them because they might still be in use in user's layouts
+        private val alternativeNames = hashMapOf(
+            "clear_clipboard_key" to ToolbarKey.CLEAR_CLIPBOARD.name.lowercase(Locale.US),
+            "shortcut_key" to ToolbarKey.VOICE.name.lowercase(Locale.US),
+            "emoji_action_key" to ToolbarKey.EMOJI.name.lowercase(Locale.US),
+            "emoji_normal_key" to ToolbarKey.EMOJI.name.lowercase(Locale.US),
+            "clipboard_action_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
+            "clipboard_normal_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
+            "cut_key" to ToolbarKey.CUT.name.lowercase(Locale.US),
+        )
 
         private val keyboardIconsHolo by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_holo,
@@ -104,17 +112,10 @@ class KeyboardIconsSet private constructor() {
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_holo,
             NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_holo,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_holo,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_holo,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_holo,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_holo,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_holo,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_holo,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_holo,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_holo,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_holo,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_holo,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut,
             NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_holo,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_holo,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
@@ -174,17 +175,10 @@ class KeyboardIconsSet private constructor() {
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_lxx,
             NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_lxx,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_lxx,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_lxx,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_lxx,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_lxx,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_lxx,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_lxx,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_lxx,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_lxx,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_lxx,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut,
             NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_lxx,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_lxx,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
@@ -244,17 +238,10 @@ class KeyboardIconsSet private constructor() {
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_rounded,
             NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_rounded,
-            NAME_SHORTCUT_KEY to                R.drawable.sym_keyboard_voice_rounded,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_rounded,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
             NAME_ZWNJ_KEY to                    R.drawable.sym_keyboard_zwnj_lxx,
             NAME_ZWJ_KEY to                     R.drawable.sym_keyboard_zwj_lxx,
-            NAME_EMOJI_ACTION_KEY to            R.drawable.sym_keyboard_smiley_rounded,
-            NAME_EMOJI_NORMAL_KEY to            R.drawable.sym_keyboard_smiley_rounded,
-            NAME_CLIPBOARD_ACTION_KEY to        R.drawable.sym_keyboard_clipboard_rounded,
-            NAME_CLIPBOARD_NORMAL_KEY to        R.drawable.sym_keyboard_clipboard_rounded,
-            NAME_CLEAR_CLIPBOARD_KEY to         R.drawable.sym_keyboard_clear_clipboard_rounded,
-            NAME_CUT_KEY to                     R.drawable.sym_keyboard_cut_rounded,
             NAME_START_ONEHANDED_KEY to         R.drawable.sym_keyboard_start_onehanded_rounded,
             NAME_STOP_ONEHANDED_KEY to          R.drawable.sym_keyboard_stop_onehanded_rounded,
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left_rounded,
