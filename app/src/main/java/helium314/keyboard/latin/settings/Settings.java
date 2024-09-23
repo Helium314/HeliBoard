@@ -81,7 +81,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
     public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
     public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
-    public static final String PREF_TOOLBAR_CUSTOM_ICON_NAMES = "toolbar_custom_icon_names";
+    public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
     public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
 

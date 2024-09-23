@@ -6,16 +6,16 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.customIconIds
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.customIconIds
-import kotlinx.serialization.json.Json
 import java.util.Locale
 
 class KeyboardIconsSet private constructor() {
-    private var iconIds = emptyMap<String, Int>()
+    var iconIds = emptyMap<String, Int>()
+        private set
     private val iconsByName = HashMap<String, Drawable>(80)
 
     fun loadIcons(context: Context) {
@@ -51,8 +51,6 @@ class KeyboardIconsSet private constructor() {
         (iconIds[name] ?: iconIds[alternativeNames[name]])?.let { ContextCompat.getDrawable(context, it)?.mutate() }
     }
 
-    // sometimes there are 2 names for the same icon for historic reasons,
-    // and removing needs to be handled with care to not break custom themes
     companion object {
         private val TAG = KeyboardIconsSet::class.simpleName
         const val PREFIX_ICON = "!icon/"
@@ -84,7 +82,8 @@ class KeyboardIconsSet private constructor() {
         const val NAME_TOOLBAR_KEY = "toolbar_key"
         const val NAME_BIN = "bin"
 
-        // is use for historic reasons, and we can't just delete them because they might still be in use in user's layouts
+        // names used in the past, and we can't just delete them because they might still be in use in some layouts
+        // (also some of them are in use for internal layouts, but there we could just remove them...)
         private val alternativeNames = hashMapOf(
             "clear_clipboard_key" to ToolbarKey.CLEAR_CLIPBOARD.name.lowercase(Locale.US),
             "shortcut_key" to ToolbarKey.VOICE.name.lowercase(Locale.US),
@@ -95,6 +94,7 @@ class KeyboardIconsSet private constructor() {
             "cut_key" to ToolbarKey.CUT.name.lowercase(Locale.US),
         )
 
+        // todo: incognito and force incognito should not be the same? or not the same as toolbar key?
         private val keyboardIconsHolo by lazy { hashMapOf(
             NAME_SHIFT_KEY to                   R.drawable.sym_keyboard_shift_holo,
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_holo,
@@ -284,16 +284,19 @@ class KeyboardIconsSet private constructor() {
             }
         } }
 
-        fun getAllIcons(context: Context): Collection<Int> {
+        fun getAllIcons(context: Context): Map<String, List<Int>> {
             // currently active style first
             val prefs = DeviceProtectedUtils.getSharedPreferences(context)
             val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
-            return when (iconStyle) {
-                KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo.values + keyboardIconsRounded.values + keyboardIconsMaterial.values
-                KeyboardTheme.STYLE_ROUNDED -> keyboardIconsRounded.values + keyboardIconsMaterial.values + keyboardIconsHolo.values
-                else -> keyboardIconsMaterial.values + keyboardIconsRounded.values + keyboardIconsHolo.values
-            }.toSet()
+            return keyboardIconsMaterial.entries.associate { (name, id) ->
+                name to when (iconStyle) {
+                    KeyboardTheme.STYLE_HOLO -> listOfNotNull(keyboardIconsHolo[name], keyboardIconsRounded[name], id)
+                    KeyboardTheme.STYLE_ROUNDED -> listOfNotNull(keyboardIconsRounded[name], id, keyboardIconsHolo[name])
+                    else -> listOfNotNull(id, keyboardIconsRounded[name], keyboardIconsHolo[name])
+                }
+            }
         }
+
         val instance = KeyboardIconsSet()
     }
 }

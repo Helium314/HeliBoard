@@ -38,11 +38,5 @@
             android:inputType="number"
             android:layout_weight="1" />
     </LinearLayout>
-    <GridLayout
-        android:id="@+id/toolbar_icon_grid"
-        android:columnCount="7"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

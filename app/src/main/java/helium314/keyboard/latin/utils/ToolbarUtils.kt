@@ -7,24 +7,23 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
-import androidx.core.view.forEach
-import androidx.core.view.setPadding
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
 import kotlinx.serialization.encodeToString
@@ -211,17 +210,18 @@ fun toolbarKeysCustomizer(context: Context) {
         .create()
     val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
     ToolbarKey.entries.forEach { key ->
-        val v = TextView(context, null, R.style.PreferenceTitleText)
-        v.text = key.name.lowercase().getStringResourceOrName("", context)
-        v.setPadding(padding)
-        val icon = KeyboardIconsSet.instance.getNewDrawable(key.name, context)
-        icon?.colorFilter = cf
-        v.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-        v.setOnClickListener {
+        val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
+        b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
+        b.reorderItemIcon.colorFilter = cf
+        b.reorderItemIcon.isVisible = true
+        b.reorderItemName.text = key.name.lowercase().getStringResourceOrName("", context)
+        b.root.setOnClickListener {
             toolbarKeyCustomizer(context, key)
             d.dismiss()
         }
-        ll.addView(v)
+        b.reorderItemSwitch.isGone = true
+        b.reorderItemDragIndicator.isGone = true
+
     }
     d.show()
 }
@@ -232,7 +232,6 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var keyCode: String? = null
     var longpressCode: String? = null
-    var selectedIcon: String? = null
     val d = AlertDialog.Builder(context)
         .setTitle(key.name.lowercase().getStringResourceOrName("", context))
         .setView(ScrollView(context).apply { addView(v) })
@@ -243,17 +242,15 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
                 writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to newKeyCode))
             if (newLongpressCode != null)
                 writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to newLongpressCode))
-            if (selectedIcon != null)
-                runCatching {
-                    val icons = customIconNames(prefs).toMutableMap()
-                    icons[key.name.lowercase(Locale.US)] = selectedIcon ?: return@runCatching
-                    prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_ICON_NAMES, Json.encodeToString(icons)).apply()
-                    KeyboardIconsSet.instance.loadIcons(context)
-                }
             toolbarKeysCustomizer(context)
         }
         .setNeutralButton(R.string.button_default) { _, _ ->
-            // todo: remove entries from all maps
+            val keys = readCustomKeyCodes(prefs).toMutableMap()
+            keys.remove(key.name)
+            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
+            val longpressKeys = readCustomLongpressCodes(prefs).toMutableMap()
+            longpressKeys.remove(key.name)
+            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
             toolbarKeysCustomizer(context)
         }
         .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
@@ -280,60 +277,9 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
             checkOk()
         }
     }
-    val gv = v.findViewById<GridLayout>(R.id.toolbar_icon_grid)
-    val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
 
-    // todo: avoid the almost-duplicate?
-    gv?.apply {
-        val padding = ResourceUtils.toPx(6, context.resources)
-        key.also {
-            val lp = GridLayout.LayoutParams()
-            lp.width = context.resources.displayMetrics.widthPixels / 10
-            lp.height = lp.width
-            val iv = ImageView(context)
-            iv.scaleType = ImageView.ScaleType.FIT_XY
-            iv.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(it.name, context))
-            iv.setPadding(padding)
-            iv.layoutParams = lp
-            addView(iv)
-            iv.setColorFilter(R.color.accent)
-            iv.setOnClickListener {
-                gv.forEach { (it as? ImageView)?.colorFilter = cf }
-                iv.setColorFilter(R.color.accent)
-                selectedIcon = null
-            }
-        }
-        KeyboardIconsSet.getAllIcons(context).forEach { iconResId ->
-            val lp = GridLayout.LayoutParams()
-            lp.width = context.resources.displayMetrics.widthPixels / 10
-            lp.height = lp.width
-            val iv = ImageView(context)
-            iv.scaleType = ImageView.ScaleType.FIT_XY
-            iv.setImageDrawable(ContextCompat.getDrawable(context, iconResId)?.mutate())
-            iv.setPadding(padding)
-            iv.layoutParams = lp
-            addView(iv)
-            iv.colorFilter = cf
-            iv.setOnClickListener {
-                gv.forEach { (it as? ImageView)?.colorFilter = cf }
-                iv.setColorFilter(R.color.accent)
-                selectedIcon = resources.getResourceEntryName(iconResId)
-            }
-        }
-    }
     d.show()
 }
-
-fun customIconIds(context: Context, prefs: SharedPreferences) = customIconNames(prefs)
-    .mapNotNull { entry ->
-        Log.i("test", "get for $entry")
-        val id = runCatching { context.resources.getIdentifier(entry.value, "drawable", context.packageName) }.getOrNull()
-        id?.let { entry.key to it }
-    }
-
-private fun customIconNames(prefs: SharedPreferences) = runCatching {
-    Json.decodeFromString<Map<String, String>>(prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_ICON_NAMES, "")!!)
-}.getOrElse { emptyMap() }
 
 fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
         .split(";").associate { it.substringBefore(",") to it.substringAfter(",").toIntOrNull() }

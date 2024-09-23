@@ -21,6 +21,10 @@
         android:key="clipboard_toolbar_keys"
         android:title="@string/clipboard_toolbar_keys" />
 
+    <Preference
+        android:key="customize_keys"
+        android:title="@string/customize_toolbar_keys" />
+
     <SwitchPreference
         android:key="quick_pin_toolbar_keys"
         android:title="@string/quick_pin_toolbar_keys"
@@ -48,9 +52,5 @@
         android:summary="@string/var_toolbar_direction_summary"
         android:defaultValue="true"
         android:persistent="true" />
-
-    <Preference
-        android:key="customize_keys"
-        android:title="@string/customize_toolbar_keys" />
 
 </PreferenceScreen>

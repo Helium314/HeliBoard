@@ -940,9 +940,11 @@ public class Key implements Comparable<Key> {
         // todo: other way of identifying the color?
         //  if yes, NAME_CLIPBOARD_ACTION_KEY and NAME_CLIPBOARD_NORMAL_KEY could be merged
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
+                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY);
+        // todo: maybe need to undo the removal of those names
+        //  but actually this should be done differently, as users can set any icon now -> try make it work
+//                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
+//                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
     }
 
     public boolean hasFunctionalBackground() {

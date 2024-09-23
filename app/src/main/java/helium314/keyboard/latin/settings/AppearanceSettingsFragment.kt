@@ -10,18 +10,37 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
 import androidx.core.util.TypedValueCompat
+import androidx.core.view.forEach
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.customIconNames
+import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -73,6 +92,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
+        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener { onClickCustomizeIcons() }
     }
 
     override fun onPause() {
@@ -177,6 +197,106 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         colorsNightPref?.isVisible = dayNightPref?.isChecked == true
         userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
         userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+    }
+
+    // performance is not good, but not bad enough to justify work
+    private fun onClickCustomizeIcons(): Boolean {
+        val ctx = requireContext()
+        val padding = ResourceUtils.toPx(8, ctx.resources)
+        val ll = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(padding, 3 * padding, padding, padding)
+        }
+        val d = AlertDialog.Builder(ctx)
+            .setView(ScrollView(context).apply { addView(ll) })
+            .setPositiveButton(R.string.dialog_close, null)
+            .create()
+        val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(ctx, R.color.foreground), BlendModeCompat.SRC_IN)
+        val icons = KeyboardIconsSet.getAllIcons(ctx)
+        icons.keys.forEach { iconName ->
+            val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(ctx), ll, true)
+            b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(iconName, ctx))
+            b.reorderItemIcon.colorFilter = cf
+            b.reorderItemIcon.isVisible = true
+            b.reorderItemName.text = iconName.getStringResourceOrName("", ctx)
+            if (b.reorderItemName.text == iconName)
+                b.reorderItemName.text = iconName.getStringResourceOrName("label_", ctx)
+            b.root.setOnClickListener {
+                customizeIcon(iconName)
+                d.dismiss()
+            }
+            b.reorderItemSwitch.isGone = true
+            b.reorderItemDragIndicator.isGone = true
+        }
+        d.show()
+        return true
+    }
+
+    // todo: icon size is an important difference between holo and others, but really awful to work with
+    //  scaling the intrinsic icon width may look awful depending on display density
+    private fun customizeIcon(iconName: String) {
+        val ctx = requireContext()
+        val rv = RecyclerView(ctx)
+        rv.layoutManager = GridLayoutManager(ctx, 6)
+        val padding = ResourceUtils.toPx(6, resources)
+        rv.setPadding(padding, 3 * padding, padding, padding)
+        val icons = KeyboardIconsSet.getAllIcons(ctx)
+        val iconsList = icons[iconName].orEmpty().toSet().toMutableList()
+        val iconsSet = icons.values.flatten().toMutableSet()
+        iconsSet.removeAll(iconsList)
+        iconsList.addAll(iconsSet)
+        val foregroundColor = ContextCompat.getColor(ctx, R.color.foreground)
+        val iconColorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(foregroundColor, BlendModeCompat.SRC_IN)
+
+        var currentIconId = KeyboardIconsSet.instance.iconIds[iconName]
+
+        val adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+                val v = ImageView(ctx)
+                v.colorFilter = iconColorFilter
+                v.setPadding(padding, padding, padding, padding)
+                return object : RecyclerView.ViewHolder(v) { }
+            }
+
+            override fun getItemCount(): Int = iconsList.size
+
+            override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                val icon = ContextCompat.getDrawable(ctx, iconsList[position])?.mutate()
+                val iv = viewHolder.itemView as? ImageView
+                iv?.setImageDrawable(icon)
+                if (iconsList[position] == currentIconId) iv?.setColorFilter(R.color.accent)
+                else iv?.colorFilter = iconColorFilter
+                viewHolder.itemView.setOnClickListener { v ->
+                    rv.forEach { (it as? ImageView)?.colorFilter = iconColorFilter }
+                    (v as? ImageView)?.setColorFilter(R.color.accent)
+                    currentIconId = iconsList[position]
+                }
+            }
+        }
+        rv.adapter = adapter
+        AlertDialog.Builder(ctx)
+            .setTitle("customize icon")
+            .setView(rv)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                runCatching {
+                    val icons2 = customIconNames(sharedPreferences).toMutableMap()
+                    icons2[iconName] = currentIconId?.let { resources.getResourceEntryName(it) } ?: return@runCatching
+                    sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
+                    KeyboardIconsSet.instance.loadIcons(ctx)
+                }
+                onClickCustomizeIcons()
+            }
+            .setNeutralButton(R.string.button_default) { _, _ ->
+                runCatching {
+                    val icons2 = customIconNames(sharedPreferences).toMutableMap()
+                    icons2.remove(iconName)
+                    sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
+                    KeyboardIconsSet.instance.loadIcons(ctx)
+                }
+                onClickCustomizeIcons()
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ -> onClickCustomizeIcons() }
+            .show()
     }
 
     private fun onClickLoadImage(): Boolean {
