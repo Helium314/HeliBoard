@@ -59,7 +59,6 @@ class KeyboardIconsSet private constructor() {
         const val NAME_SHIFT_KEY_SHIFTED = "shift_key_shifted"
         const val NAME_SHIFT_KEY_LOCKED = "shift_key_locked"
         const val NAME_DELETE_KEY = "delete_key"
-        const val NAME_SETTINGS_KEY = "settings_key"
         const val NAME_SPACE_KEY = "space_key"
         const val NAME_SPACE_KEY_FOR_NUMBER_LAYOUT = "space_key_for_number_layout"
         const val NAME_ENTER_KEY = "enter_key"
@@ -70,7 +69,6 @@ class KeyboardIconsSet private constructor() {
         const val NAME_DONE_KEY = "done_key"
         const val NAME_PREVIOUS_KEY = "previous_key"
         const val NAME_TAB_KEY = "tab_key"
-        const val NAME_INCOGNITO_KEY = "incognito_key"
         const val NAME_SHORTCUT_KEY_DISABLED = "shortcut_key_disabled"
         const val NAME_LANGUAGE_SWITCH_KEY = "language_switch_key"
         const val NAME_ZWNJ_KEY = "zwnj_key"
@@ -92,6 +90,8 @@ class KeyboardIconsSet private constructor() {
             "clipboard_action_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
             "clipboard_normal_key" to ToolbarKey.CLIPBOARD.name.lowercase(Locale.US),
             "cut_key" to ToolbarKey.CUT.name.lowercase(Locale.US),
+            "incognito_key" to ToolbarKey.INCOGNITO.name.lowercase(Locale.US),
+            "settings_key" to ToolbarKey.SETTINGS.name.lowercase(Locale.US),
         )
 
         // todo: incognito and force incognito should not be the same? or not the same as toolbar key?
@@ -100,7 +100,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shifted_holo,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_holo,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_holo,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_holo,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_holo,
 //            NAME_GO_KEY to                      null,
@@ -110,7 +109,6 @@ class KeyboardIconsSet private constructor() {
 //            NAME_NEXT_KEY to                    null,
 //            NAME_PREVIOUS_KEY to                null,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_holo,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_holo,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_holo,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_holo,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch,
@@ -163,7 +161,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_lxx,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_lxx,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_lxx,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_lxx,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_lxx,
             NAME_GO_KEY to                      R.drawable.sym_keyboard_go_lxx,
@@ -173,7 +170,6 @@ class KeyboardIconsSet private constructor() {
             NAME_NEXT_KEY to                    R.drawable.ic_arrow_right,
             NAME_PREVIOUS_KEY to                R.drawable.ic_arrow_left,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_lxx,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_lxx,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_lxx,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
@@ -226,7 +222,6 @@ class KeyboardIconsSet private constructor() {
             NAME_SHIFT_KEY_SHIFTED to           R.drawable.sym_keyboard_shift_rounded,
             NAME_SHIFT_KEY_LOCKED to            R.drawable.sym_keyboard_shift_lock_rounded,
             NAME_DELETE_KEY to                  R.drawable.sym_keyboard_delete_rounded,
-            NAME_SETTINGS_KEY to                R.drawable.sym_keyboard_settings_rounded,
 //            NAME_SPACE_KEY to                   null,
             NAME_ENTER_KEY to                   R.drawable.sym_keyboard_return_rounded,
             NAME_GO_KEY to                      R.drawable.sym_keyboard_go_rounded,
@@ -236,7 +231,6 @@ class KeyboardIconsSet private constructor() {
             NAME_NEXT_KEY to                    R.drawable.ic_arrow_right_rounded,
             NAME_PREVIOUS_KEY to                R.drawable.ic_arrow_left_rounded,
             NAME_TAB_KEY to                     R.drawable.sym_keyboard_tab_rounded,
-            NAME_INCOGNITO_KEY to               R.drawable.sym_keyboard_incognito_lxx,
             NAME_SPACE_KEY_FOR_NUMBER_LAYOUT to R.drawable.sym_keyboard_space_rounded,
             NAME_SHORTCUT_KEY_DISABLED to       R.drawable.sym_keyboard_voice_off_rounded,
             NAME_LANGUAGE_SWITCH_KEY to         R.drawable.sym_keyboard_language_switch_lxx,
