@@ -881,6 +881,12 @@ New dictionary:
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
     <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
+    <!-- Label for enter key, currently used only for showing the icon name -->
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <!-- Label for tabulator key, currently used only for showing the icon name -->
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <!-- Label for delete key, currently used only for showing the icon name -->
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
     <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
     <!-- Title of the setting for vertical spacebar swipe gesture -->
