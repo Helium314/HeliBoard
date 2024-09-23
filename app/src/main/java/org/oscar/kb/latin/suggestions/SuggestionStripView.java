@@ -91,6 +91,8 @@ import org.oscar.kb.latin.define.DebugFlags;
 import org.oscar.kb.latin.settings.DebugSettings;
 import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.settings.SettingsValues;
+import org.oscar.kb.latin.setup.AppDatabase;
+import org.oscar.kb.latin.setup.Prompt;
 import org.oscar.kb.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.Log;
@@ -148,15 +150,33 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return aiOutput;
     }
     private boolean isCancelled = false;
+    private void saveAITextToDatabase(String aiText) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        long timestamp = System.currentTimeMillis();
+        Prompt aiTextEntity = new Prompt(aiText, timestamp, "ai");
+        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
+    }
+
+    private void saveUserInputToDatabase(String userInput) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        long timestamp = System.currentTimeMillis();
+        Prompt userInputEntity = new Prompt(userInput, timestamp, "user");
+        new Thread(() -> db.promptDao().insert(userInputEntity)).start();
+    }
+
 
     public void updateText(final String recognizedText) {
-        if(isCancelled) {
+        if (isCancelled) {
             return; // Ignore updates if cancelled
         }
         new Handler(Looper.getMainLooper()).post(() -> {
-            // Assuming you have a TextView or similar in this custom view
-            aiOutput.setText(recognizedText); // Update the TextView or UI component
+            // Update the TextView or UI component
+            aiOutput.setText(recognizedText);
 
+            // Save AI output to the database
+            saveAITextToDatabase(recognizedText);
+
+            // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
             GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
             SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
@@ -167,11 +187,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             EventBus.getDefault().post(event);
 
             viewModel.summarizeStreaming(recognizedText);
-
-            //aiOutput.setVisibility(View.GONE);
-
         });
     }
+
 
     private String tempRecognizedText = null; // Store recognized text temporarily
 
@@ -593,8 +611,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
-                // Send the stored recognized text when the Done button is pressed
+
+                // Save user input
                 if (tempRecognizedText != null) {
+                    saveUserInputToDatabase(tempRecognizedText); // Save user input to the database
                     updateText(tempRecognizedText); // Now send the text to be updated
                 } else {
                     Log.d(TAG, "No text to send");

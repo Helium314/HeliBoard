@@ -297,7 +297,9 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
                 startActivity(Intent.createChooser(intent, "Share via"))
             }
-
+            R.id.prompt_message_id->{
+                startActivity(Intent(this, PromptHistoryActivity::class.java))
+            }
             R.id.nav_email_us -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:support.oscar@samyarth.org" +

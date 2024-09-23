@@ -37,6 +37,17 @@
     <group
         android:id="@+id/group_item_4"
         android:checkableBehavior="single">
+        <item
+            android:id="@+id/prompt_message_id"
+            android:title="Prompt History"
+            android:textColor="#4D4D4D"
+            android:fontFamily="@font/karla_semibold"
+            android:icon="@drawable/baseline_preview_24"
+            />
+    </group>
+    <group
+        android:id="@+id/group_item_5"
+        android:checkableBehavior="single">
     <item
         android:id="@+id/nav_recommended_us"
         android:title="Recommend Us"

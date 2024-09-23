@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 34
@@ -147,4 +147,10 @@ dependencies {
 
     // For App Integrity todo will be removed
     //implementation 'com.google.android.play:integrity:1.4.0'
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-android:2.8.4'
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.google.android.material:material:1.12.0")
+    kapt("androidx.room:room-compiler:2.6.1")
 }
