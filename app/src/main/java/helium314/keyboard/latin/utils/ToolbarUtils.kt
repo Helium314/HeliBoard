@@ -199,37 +199,37 @@ fun toolbarKeysCustomizer(context: Context) {
         orientation = LinearLayout.VERTICAL
         setPadding(3 * padding, padding, padding, padding)
     }
-    val d = AlertDialog.Builder(context)
+    val dialog = AlertDialog.Builder(context)
         .setTitle(R.string.customize_toolbar_key_codes)
         .setView(ScrollView(context).apply { addView(ll) })
         .setPositiveButton(R.string.dialog_close, null)
         .create()
     val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
     ToolbarKey.entries.forEach { key ->
-        val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
-        b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
-        b.reorderItemIcon.colorFilter = cf
-        b.reorderItemIcon.isVisible = true
-        b.reorderItemName.text = key.name.lowercase().getStringResourceOrName("", context)
-        b.root.setOnClickListener {
+        val binding = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
+        binding.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
+        binding.reorderItemIcon.colorFilter = cf
+        binding.reorderItemIcon.isVisible = true
+        binding.reorderItemName.text = key.name.lowercase().getStringResourceOrName("", context)
+        binding.root.setOnClickListener {
             toolbarKeyCustomizer(context, key)
-            d.dismiss()
+            dialog.dismiss()
         }
-        b.reorderItemSwitch.isGone = true
-        b.reorderItemDragIndicator.isGone = true
+        binding.reorderItemSwitch.isGone = true
+        binding.reorderItemDragIndicator.isGone = true
     }
-    d.show()
+    dialog.show()
 }
 
 @SuppressLint("SetTextI18n")
 private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
-    val v = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
+    val layout = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
     val prefs = DeviceProtectedUtils.getSharedPreferences(context)
     var keyCode: String? = null
     var longpressCode: String? = null
-    val b = AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(key.name.lowercase().getStringResourceOrName("", context))
-        .setView(ScrollView(context).apply { addView(v) })
+        .setView(ScrollView(context).apply { addView(layout) })
         .setPositiveButton(android.R.string.ok) { _, _ ->
             val newKeyCode = runCatching { keyCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
             val newLongpressCode = runCatching { longpressCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
@@ -241,7 +241,7 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
         }
         .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
     if (readCustomKeyCodes(prefs).containsKey(key.name) || readCustomLongpressCodes(prefs).containsKey(key.name))
-        b.setNeutralButton(R.string.button_default) { _, _ ->
+        builder.setNeutralButton(R.string.button_default) { _, _ ->
             val keys = readCustomKeyCodes(prefs).toMutableMap()
             keys.remove(key.name)
             prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
@@ -250,23 +250,23 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
             prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
             toolbarKeysCustomizer(context)
         }
-    val d = b.create()
+    val dialog = builder.create()
 
     fun checkOk() {
         val keyOk = keyCode == null
                 || runCatching { keyCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
         val longPressOk = longpressCode == null
                 || runCatching { longpressCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
-        d.getButton(DialogInterface.BUTTON_POSITIVE)?.isEnabled = keyOk && longPressOk
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.isEnabled = keyOk && longPressOk
     }
-    v.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
+    layout.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
         setText(getCodeForToolbarKey(key).toString())
         doAfterTextChanged {
             keyCode = it?.toString()
             checkOk()
         }
     }
-    v.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
+    layout.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
         setText(getCodeForToolbarKeyLongClick(key).toString())
         doAfterTextChanged {
             longpressCode = it?.toString()
@@ -274,7 +274,7 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
         }
     }
 
-    d.show()
+    dialog.show()
 }
 
 fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!

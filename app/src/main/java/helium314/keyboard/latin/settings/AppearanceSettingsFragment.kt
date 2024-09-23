@@ -263,10 +263,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
             override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 val icon = ContextCompat.getDrawable(ctx, iconsList[position])?.mutate()
-                val iv = viewHolder.itemView as? ImageView
-                iv?.setImageDrawable(icon)
-                if (iconsList[position] == currentIconId) iv?.setColorFilter(R.color.accent)
-                else iv?.colorFilter = iconColorFilter
+                val imageView = viewHolder.itemView as? ImageView
+                imageView?.setImageDrawable(icon)
+                if (iconsList[position] == currentIconId) imageView?.setColorFilter(R.color.accent)
+                else imageView?.colorFilter = iconColorFilter
                 viewHolder.itemView.setOnClickListener { v ->
                     rv.forEach { (it as? ImageView)?.colorFilter = iconColorFilter }
                     (v as? ImageView)?.setColorFilter(R.color.accent)
@@ -277,7 +277,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         rv.adapter = adapter
         val title = iconName.getStringResourceOrName("", ctx).takeUnless { it == iconName }
             ?: iconName.getStringResourceOrName("label_", ctx)
-        val b = AlertDialog.Builder(ctx)
+        val builder = AlertDialog.Builder(ctx)
             .setTitle(title)
             .setView(rv)
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -291,7 +291,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
             .setNegativeButton(android.R.string.cancel) { _, _ -> onClickCustomizeIcons() }
         if (customIconNames(sharedPreferences).contains(iconName))
-            b.setNeutralButton(R.string.button_default) { _, _ ->
+            builder.setNeutralButton(R.string.button_default) { _, _ ->
                 runCatching {
                     val icons2 = customIconNames(sharedPreferences).toMutableMap()
                     icons2.remove(iconName)
@@ -301,7 +301,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 onClickCustomizeIcons()
             }
 
-        b.show()
+        builder.show()
     }
 
     private fun onClickLoadImage(): Boolean {
