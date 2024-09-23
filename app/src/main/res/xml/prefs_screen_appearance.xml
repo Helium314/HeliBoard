@@ -27,7 +27,7 @@
 
         <Preference
             android:key="custom_icon_names"
-            android:title="customize icons" />
+            android:title="@string/customize_icons" />
 
         <ListPreference
             android:key="theme_colors"

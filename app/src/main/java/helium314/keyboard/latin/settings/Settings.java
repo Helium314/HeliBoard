@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -192,6 +193,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // static cache for background images to avoid potentially slow reload on every settings reload
     private static Drawable sCachedBackgroundDay;
     private static Drawable sCachedBackgroundNight;
+    private Map<String, Integer> mCustomToolbarKeyCodes = null;
+    private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
     private static final Settings sInstance = new Settings();
 
@@ -239,6 +242,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 Log.w(TAG, "onSharedPreferenceChanged called before loadSettings.");
                 return;
             }
+            mCustomToolbarLongpressCodes = null;
+            mCustomToolbarKeyCodes = null;
             loadSettings(mContext, mSettingsValues.mLocale, mSettingsValues.mInputAttributes);
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
@@ -713,10 +718,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public Integer getCustomToolbarKeyCode(ToolbarKey key) {
-        return ToolbarUtilsKt.readCustomKeyCodes(mPrefs).get(key.name());
+        if (mCustomToolbarKeyCodes == null)
+            mCustomToolbarKeyCodes = ToolbarUtilsKt.readCustomKeyCodes(mPrefs);
+        return mCustomToolbarKeyCodes.get(key.name());
     }
 
     public Integer getCustomToolbarLongpressCode(ToolbarKey key) {
-        return ToolbarUtilsKt.readCustomLongpressCodes(mPrefs).get(key.name());
+        if (mCustomToolbarLongpressCodes == null)
+            mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
+        return mCustomToolbarLongpressCodes.get(key.name());
     }
 }

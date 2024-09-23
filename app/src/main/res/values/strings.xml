@@ -895,8 +895,8 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
-    <!-- Title of the setting to customize toolbar keys -->
-    <string name="customize_toolbar_keys">Customize toolbar keys</string>
+    <!-- Title of the setting to customize toolbar key codes -->
+    <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
     <!-- Text for showing / setting key code -->
     <string name="key_code">Key code</string>
     <!-- Text for showing / setting long press code -->
@@ -911,4 +911,6 @@ New dictionary:
     <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
+    <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
+    <string name="customize_icons">Customize icons</string>
 </resources>

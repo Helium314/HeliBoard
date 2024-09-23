@@ -48,8 +48,6 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     return button
 }
 
-// todo: performance ok, or cache in settings?
-//  better don't create a map when reading from settings on every press
 fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomToolbarKeyCode(key) ?: when (key) {
     VOICE -> KeyCode.VOICE_INPUT
     CLIPBOARD -> KeyCode.CLIPBOARD
@@ -82,8 +80,6 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     PAGE_END -> KeyCode.MOVE_END_OF_PAGE
 }
 
-// todo: performance ok, or cache in settings?
-//  better don't create a map when reading from settings on every press
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: when (key) {
     CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
     UNDO -> KeyCode.REDO
@@ -197,7 +193,6 @@ private fun getEnabledToolbarKeys(prefs: SharedPreferences, pref: String, defaul
     }
 }
 
-// todo: add ~5 "custom toolbar key" 1-5
 fun toolbarKeysCustomizer(context: Context) {
     val padding = ResourceUtils.toPx(8, context.resources)
     val ll = LinearLayout(context).apply {
@@ -205,6 +200,7 @@ fun toolbarKeysCustomizer(context: Context) {
         setPadding(3 * padding, padding, padding, padding)
     }
     val d = AlertDialog.Builder(context)
+        .setTitle(R.string.customize_toolbar_key_codes)
         .setView(ScrollView(context).apply { addView(ll) })
         .setPositiveButton(R.string.dialog_close, null)
         .create()
@@ -221,7 +217,6 @@ fun toolbarKeysCustomizer(context: Context) {
         }
         b.reorderItemSwitch.isGone = true
         b.reorderItemDragIndicator.isGone = true
-
     }
     d.show()
 }

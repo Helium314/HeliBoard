@@ -45,7 +45,7 @@ class ToolbarSettingsFragment : SubScreenFragment() {
                 ) { iconsSet.getNewDrawable(it, requireContext()) }
                 true
             }
-        findPreference<Preference>("customize_keys")?.onPreferenceClickListener =
+        findPreference<Preference>("customize_key_codes")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
                 toolbarKeysCustomizer(requireContext())
                 true

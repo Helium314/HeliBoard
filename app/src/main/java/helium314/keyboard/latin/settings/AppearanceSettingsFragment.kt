@@ -208,6 +208,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             setPadding(padding, 3 * padding, padding, padding)
         }
         val d = AlertDialog.Builder(ctx)
+            .setTitle(R.string.customize_icons)
             .setView(ScrollView(context).apply { addView(ll) })
             .setPositiveButton(R.string.dialog_close, null)
             .create()
@@ -274,8 +275,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         rv.adapter = adapter
+        val title = iconName.getStringResourceOrName("", ctx).takeUnless { it == iconName }
+            ?: iconName.getStringResourceOrName("label_", ctx)
         AlertDialog.Builder(ctx)
-            .setTitle("customize icon")
+            .setTitle(title)
             .setView(rv)
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 runCatching {
