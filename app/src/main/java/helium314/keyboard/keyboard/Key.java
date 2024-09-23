@@ -938,13 +938,12 @@ public class Key implements Comparable<Key> {
         final String iconName = getIconName();
         if (iconName == null) return false;
         // todo: other way of identifying the color?
-        //  if yes, NAME_CLIPBOARD_ACTION_KEY and NAME_CLIPBOARD_NORMAL_KEY could be merged
+        //  this should be done differently, as users can set any icon now
+        //  how is the background drawable selected? can we use the same way?
         return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY);
-        // todo: maybe need to undo the removal of those names
-        //  but actually this should be done differently, as users can set any icon now -> try make it work
-//                || iconName.equals(KeyboardIconsSet.NAME_CLIPBOARD_ACTION_KEY)
-//                || iconName.equals(KeyboardIconsSet.NAME_EMOJI_ACTION_KEY);
+                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
+                || iconName.equals("clipboard_action_key")
+                || iconName.equals("emoji_action_key");
     }
 
     public boolean hasFunctionalBackground() {
