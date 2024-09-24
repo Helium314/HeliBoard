@@ -164,20 +164,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void saveUserInputToDatabase(String userInput) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
         long timestamp = System.currentTimeMillis();
-        Prompt userInputEntity = new Prompt(userInput,"User Input");
+        Prompt userInputEntity = new Prompt(userInput, "User Input");
         new Thread(() -> db.promptDao().insert(userInputEntity)).start();
     }
 
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
         long timestamp = System.currentTimeMillis();
-
-        Prompt aiTextEntity = new Prompt(aiText,"AI Generated Text");
-
-        new Thread(() -> {
-            db.promptDao().insert(aiTextEntity);
-            Log.d("DB_INSERT", "AI Text stored in DB: " + aiText);
-        }).start();
+        Prompt aiTextEntity = new Prompt(aiText, "AI Output");
+        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
 
     public void updateText(final String recognizedText) {

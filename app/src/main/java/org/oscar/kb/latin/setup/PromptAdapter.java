@@ -27,9 +27,14 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
     @Override
     public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
         Prompt currentPrompt = prompts.get(position);
-        holder.userInputTextView.setText("User Input: " + currentPrompt.getUserInput());
-        holder.aiOutputTextView.setText("AI Output: " + currentPrompt.getAiOutput());
+
+        if (currentPrompt.getType().equals("User Input")) {
+            holder.userInputTextView.setText("User Input: " + currentPrompt.getText());
+        } else if (currentPrompt.getType().equals("AI Output")) {
+            holder.aiOutputTextView.setText("AI Output: " + currentPrompt.getText());
+        }
     }
+
 
     @Override
     public int getItemCount() {

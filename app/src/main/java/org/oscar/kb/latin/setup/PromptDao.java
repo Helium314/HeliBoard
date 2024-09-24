@@ -6,12 +6,15 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import java.util.List;
+
+
 @Dao
 public interface PromptDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+
+    @Insert
     void insert(Prompt prompt);
 
-    @Query("SELECT * FROM prompts ORDER BY id DESC")
+    @Query("SELECT * FROM prompts ORDER BY timestamp ASC")
     LiveData<List<Prompt>> getAllPrompts();
-
 }
+
