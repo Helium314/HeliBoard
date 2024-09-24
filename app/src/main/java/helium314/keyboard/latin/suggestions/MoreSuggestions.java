@@ -234,7 +234,7 @@ public final class MoreSuggestions extends Keyboard {
             super(word, null, KeyCode.MULTIPLE_CODE_POINTS,
                     word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
                     params.getX(index), params.getY(index), params.getWidth(index),
-                    params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
+                    params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap, false);
             mSuggestedWordIndex = index;
         }
     }
