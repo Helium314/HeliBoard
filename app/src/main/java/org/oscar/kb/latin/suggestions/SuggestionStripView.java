@@ -93,6 +93,8 @@ import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.settings.SettingsValues;
 import org.oscar.kb.latin.setup.AppDatabase;
 import org.oscar.kb.latin.setup.Prompt;
+import org.oscar.kb.latin.setup.PromptDao;
+import org.oscar.kb.latin.setup.PromptHistoryViewModel;
 import org.oscar.kb.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.Log;
@@ -108,6 +110,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -125,6 +130,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     LatinIME mLatinIME;
     private FirebaseCrashlytics crashlytics;
+    private PromptHistoryViewModel promptViewModel; // Declare the ViewModel
 
     private Key mCurrenteKey;
     private LinearLayout linearLayout;
@@ -150,20 +156,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return aiOutput;
     }
     private boolean isCancelled = false;
-    private void saveAITextToDatabase(String aiText) {
-        AppDatabase db = AppDatabase.getDatabase(getContext());
-        long timestamp = System.currentTimeMillis();
-        Prompt aiTextEntity = new Prompt(aiText, timestamp, "ai");
-        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
+    private void init(Context context) {
+        // Initialize your ViewModel
+        promptViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(PromptHistoryViewModel.class);
+        // Other initialization code...
     }
-
     private void saveUserInputToDatabase(String userInput) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
         long timestamp = System.currentTimeMillis();
-        Prompt userInputEntity = new Prompt(userInput, timestamp, "user");
+        Prompt userInputEntity = new Prompt(userInput,"User Input");
         new Thread(() -> db.promptDao().insert(userInputEntity)).start();
     }
 
+    private void saveAITextToDatabase(String aiText) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        long timestamp = System.currentTimeMillis();
+
+        Prompt aiTextEntity = new Prompt(aiText,"AI Generated Text");
+
+        new Thread(() -> {
+            db.promptDao().insert(aiTextEntity);
+            Log.d("DB_INSERT", "AI Text stored in DB: " + aiText);
+        }).start();
+    }
 
     public void updateText(final String recognizedText) {
         if (isCancelled) {
@@ -174,8 +189,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             aiOutput.setText(recognizedText);
 
             // Save AI output to the database
-            saveAITextToDatabase(recognizedText);
-
+            saveAITextToDatabase(recognizedText); // Save the AI-generated text directly
+            generateAIText(recognizedText); // Generate AI output and save to DB
             // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
             GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
@@ -186,10 +201,29 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             AIOutputEvent event = new AIOutputEvent(recognizedText);
             EventBus.getDefault().post(event);
 
-            viewModel.summarizeStreaming(recognizedText);
+//            viewModel.summarizeStreaming(recognizedText);
+            viewModel.getAiOutputLiveData().observeForever(new Observer<String>() {
+                @Override
+                public void onChanged(String aiGeneratedText) {
+                    // Save AI-generated text to Room database
+                    saveAITextToDatabase(aiGeneratedText);
+                }
+            });
         });
     }
 
+    public void generateAIText(String inputText) {
+        GeminiClient geminiClient = new GeminiClient();
+        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+
+        viewModel.summarizeStreaming(inputText);
+        viewModel.setOnTextUpdatedListener(outputText -> {
+            // Save the AI-generated text to the database
+            saveAITextToDatabase(outputText);
+        });
+    }
 
     private String tempRecognizedText = null; // Store recognized text temporarily
 
@@ -197,15 +231,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         @Override
         public void onReceive(Context context, Intent intent) {
             String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
-
-            //aiOutput.setText(recognizedText); // Update the TextView or UI component
-            Log.d("SuggestionStripView", recognizedText != null ? recognizedText : "No recognized text");
             if (recognizedText != null) {
+                Log.d("SuggestionStripView", recognizedText);
+                // Save user input to the database
+                saveUserInputToDatabase(recognizedText);
+                // Process AI text
                 updateText(recognizedText);
-                //tempRecognizedText = recognizedText; // Store the text temporarily
             }
         }
     };
+
 
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
@@ -409,15 +444,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onTextUpdated(@NonNull String text) {
-        try {
-            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-            aiOutput.setText(text);
-            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-        } catch (Exception e) {
-            Log.d(TAG, "Error in starting record: " + e.getMessage());
-            crashlytics.recordException(e);
+        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        aiOutput.setText(text);
+
+        // Assuming you have access to the recognized text variable
+        String recognizedText = tempRecognizedText; // Store the recognized text temporarily
+
+        if (recognizedText != null) {
+            promptViewModel.insert(new Prompt(recognizedText, text)); // Save both inputs
         }
     }
+
 
 //    private String summarizedText = "";
     //private final SummarizeTextProvider summarizeTextProvider;
