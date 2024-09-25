@@ -906,7 +906,7 @@ New dictionary:
     <!-- Label for toolbar key, currently used only for showing the icon name -->
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Show / hide toolbar</string>
     <!-- Label for language switch key, currently used only for showing the icon name -->
-    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">@string/show_language_switch_key</string>
+    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key" translatable="false">@string/show_language_switch_key</string>
     <!-- Label for zero-width joiner key, currently used only for showing the icon name -->
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
     <!-- Label for zero-width non-joiner key, currently used only for showing the icon name -->
