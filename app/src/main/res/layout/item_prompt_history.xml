@@ -1,22 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="8dp">
 
+    <!-- AI-corrected Output -->
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tvAIOutput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        />
-
-    <TextView
-        android:id="@+id/ai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-         />
-
+        android:textColor="#757575"
+        android:textSize="14sp" />
 </LinearLayout>

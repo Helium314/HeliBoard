@@ -13,8 +13,9 @@ public interface PromptDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Prompt prompt);
 
-    @Query("SELECT * FROM prompts ORDER BY id DESC")
+    @Query("SELECT * FROM prompts ORDER BY id ASC")  // or DESC based on your needs
     LiveData<List<Prompt>> getAllPrompts();
+
 }
 
 

@@ -156,17 +156,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         return aiOutput;
     }
     private boolean isCancelled = false;
-    private void init(Context context) {
-        // Initialize your ViewModel
-        promptViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(PromptHistoryViewModel.class);
-        // Other initialization code...
-    }
-    private void saveUserInputToDatabase(String userInput) {
-        AppDatabase db = AppDatabase.getDatabase(getContext());
-        long timestamp = System.currentTimeMillis();
-        Prompt userInputEntity = new Prompt(userInput, "User Input");
-        new Thread(() -> db.promptDao().insert(userInputEntity)).start();
-    }
 
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
@@ -180,11 +169,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return; // Ignore updates if cancelled
         }
         new Handler(Looper.getMainLooper()).post(() -> {
-            // Update the TextView or UI component
-            aiOutput.setText(recognizedText);
-
-            // Save AI output to the database
-            saveAITextToDatabase(recognizedText); // Save the AI-generated text directly
+            aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
+            saveAITextToDatabase(recognizedText);
             generateAIText(recognizedText); // Generate AI output and save to DB
             // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
@@ -197,13 +183,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             EventBus.getDefault().post(event);
 
 //            viewModel.summarizeStreaming(recognizedText);
-            viewModel.getAiOutputLiveData().observeForever(new Observer<String>() {
-                @Override
-                public void onChanged(String aiGeneratedText) {
-                    // Save AI-generated text to Room database
-                    saveAITextToDatabase(aiGeneratedText);
-                }
-            });
         });
     }
 
@@ -229,7 +208,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (recognizedText != null) {
                 Log.d("SuggestionStripView", recognizedText);
                 // Save user input to the database
-                saveUserInputToDatabase(recognizedText);
+//                saveUserInputToDatabase(recognizedText);
                 // Process AI text
                 updateText(recognizedText);
             }
@@ -646,7 +625,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                 // Save user input
                 if (tempRecognizedText != null) {
-                    saveUserInputToDatabase(tempRecognizedText); // Save user input to the database
+//                    saveUserInputToDatabase(tempRecognizedText); // Save user input to the database
                     updateText(tempRecognizedText); // Now send the text to be updated
                 } else {
                     Log.d(TAG, "No text to send");

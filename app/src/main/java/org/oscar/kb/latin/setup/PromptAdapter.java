@@ -1,6 +1,7 @@
 package org.oscar.kb.latin.setup;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,15 +31,17 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
         return new PromptViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
-        Prompt currentPrompt = promptList.get(position);
-        holder.bind(currentPrompt);
-    }
+
 
     @Override
     public int getItemCount() {
         return promptList.size();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
+        Prompt currentPrompt = promptList.get(position);
+        holder.bind(currentPrompt);
     }
 
     public static class PromptViewHolder extends RecyclerView.ViewHolder {
@@ -46,17 +49,14 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            promptText = itemView.findViewById(R.id.tv);
+            promptText = itemView.findViewById(R.id.tvAIOutput);
         }
 
         public void bind(Prompt prompt) {
-            promptText.setText(prompt.getText());
-
-            // Highlight based on type
-            if (prompt.getType().equals("User Input")) {
-                promptText.setTextColor(Color.BLACK);  // Highlight user input
-            } else if (prompt.getType().equals("AI Output")) {
-                promptText.setTextColor(Color.GRAY);   // Gray out AI output
+            if (prompt.getText() != null && !prompt.getText().trim().isEmpty()) {
+                promptText.setText(prompt.getText());
+            } else {
+                promptText.setText(""); // Avoid displaying empty text
             }
         }
     }

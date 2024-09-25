@@ -106,23 +106,26 @@ class SummarizeViewModel(
 
         viewModelScope.launch {
             try {
-                var outputContent = ""
+//                var outputContent = ""
+                var outputContent = StringBuilder() // use a StringBuilder for better performance
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
-                        outputContent = response.text.toString()
+                        outputContent.append(response.text.toString()) // Accumulate text here
+
+//                        outputContent = response.text.toString()
 
                         // Call the callback with the processed text
-                        onTextUpdatedListener?.onTextUpdated(outputContent)
+                        onTextUpdatedListener?.onTextUpdated(outputContent.toString())
 
                         // Post the EventBus event
-                        EventBus.getDefault().post(TextUpdatedEvent(outputContent))
+                        EventBus.getDefault().post(TextUpdatedEvent(outputContent.toString()))
                         //log sent event
                         Log.d("SummarizeViewModel", "TextUpdatedEventBus: $outputContent")
 
                         // log values
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
 
-                        _uiState.value = SummarizeUiState.Success(outputContent)
+                        _uiState.value = SummarizeUiState.Success(outputContent.toString())
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
                     }
             } catch (e: Exception) {
