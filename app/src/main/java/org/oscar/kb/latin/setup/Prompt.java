@@ -10,14 +10,11 @@ public class Prompt {
     private int id;
     private String text;
     private String type; // "User Input" or "AI Output"
-    private long timestamp;
 
     public Prompt(String text, String type) {
         this.text = text;
         this.type = type;
-        this.timestamp = System.currentTimeMillis(); // Automatically set the current timestamp
     }
-
     // Getters and Setters
     public int getId() {
         return id;
@@ -43,11 +40,4 @@ public class Prompt {
         this.type = type;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
 }

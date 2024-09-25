@@ -29,9 +29,10 @@ public class PromptHistoryActivity extends AppCompatActivity {
         promptViewModel = new ViewModelProvider(this).get(PromptHistoryViewModel.class);
         promptViewModel.getAllPrompts().observe(this, new Observer<List<Prompt>>() {
             @Override
-            public void onChanged(List<Prompt> prompts) {
-                adapter.setPrompts(prompts);
+            public void onChanged(List<Prompt> updatedPrompts) {
+                adapter.submitList(updatedPrompts);
             }
+
         });
     }
 }

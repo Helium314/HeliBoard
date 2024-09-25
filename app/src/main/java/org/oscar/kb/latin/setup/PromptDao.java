@@ -10,11 +10,11 @@ import java.util.List;
 
 @Dao
 public interface PromptDao {
-
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Prompt prompt);
 
-    @Query("SELECT * FROM prompts ORDER BY timestamp ASC")
+    @Query("SELECT * FROM prompts ORDER BY id DESC")
     LiveData<List<Prompt>> getAllPrompts();
 }
+
 

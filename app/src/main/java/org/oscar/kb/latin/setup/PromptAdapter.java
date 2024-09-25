@@ -15,47 +15,52 @@ import java.util.List;
 import java.util.Locale;
 
 public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptViewHolder> {
-    private List<Prompt> prompts = new ArrayList<>();
+    private List<Prompt> promptList = new ArrayList<>();
+
+    public void submitList(List<Prompt> prompts) {
+        this.promptList.clear(); // Clear the old list
+        this.promptList.addAll(prompts); // Add the new list of prompts
+        notifyDataSetChanged(); // Notify the adapter
+    }
 
     @NonNull
     @Override
     public PromptViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prompt_history, parent, false);
-        return new PromptViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prompt_history, parent, false);
+        return new PromptViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
-        Prompt currentPrompt = prompts.get(position);
-
-        if (currentPrompt.getType().equals("User Input")) {
-            holder.userInputTextView.setText("User Input: " + currentPrompt.getText());
-        } else if (currentPrompt.getType().equals("AI Output")) {
-            holder.aiOutputTextView.setText("AI Output: " + currentPrompt.getText());
-        }
+        Prompt currentPrompt = promptList.get(position);
+        holder.bind(currentPrompt);
     }
-
 
     @Override
     public int getItemCount() {
-        return prompts.size();
+        return promptList.size();
     }
 
-    public void setPrompts(List<Prompt> prompts) {
-        this.prompts = prompts;
-        notifyDataSetChanged();
-    }
-
-    class PromptViewHolder extends RecyclerView.ViewHolder {
-        private TextView userInputTextView;
-        private TextView aiOutputTextView;
+    public static class PromptViewHolder extends RecyclerView.ViewHolder {
+        private final TextView promptText;
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            userInputTextView = itemView.findViewById(R.id.tv);
-            aiOutputTextView = itemView.findViewById(R.id.ai);
+            promptText = itemView.findViewById(R.id.tv);
+        }
+
+        public void bind(Prompt prompt) {
+            promptText.setText(prompt.getText());
+
+            // Highlight based on type
+            if (prompt.getType().equals("User Input")) {
+                promptText.setTextColor(Color.BLACK);  // Highlight user input
+            } else if (prompt.getType().equals("AI Output")) {
+                promptText.setTextColor(Color.GRAY);   // Gray out AI output
+            }
         }
     }
 }
+
 
 
