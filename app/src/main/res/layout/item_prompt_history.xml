@@ -1,15 +1,29 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- AI-corrected Output -->
-    <TextView
-        android:id="@+id/tvAIOutput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#757575"
-        android:textSize="14sp" />
+        <!-- CardView to wrap the TextView -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:backgroundTint="#DCECEB"
+            app:cardCornerRadius="15dp"
+            android:background="@drawable/cardview">
+
+            <TextView
+                android:id="@+id/tvAIOutput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:padding="10dp"
+                android:gravity="center" />
+
+        </androidx.cardview.widget.CardView>
+
 </LinearLayout>

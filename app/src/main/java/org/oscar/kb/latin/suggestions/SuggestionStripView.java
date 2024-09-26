@@ -159,7 +159,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
-        long timestamp = System.currentTimeMillis();
+//        long timestamp = System.currentTimeMillis();
         Prompt aiTextEntity = new Prompt(aiText, "AI Output");
         new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
