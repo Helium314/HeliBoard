@@ -8,7 +8,7 @@
         <!-- CardView to wrap the TextView -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
             android:backgroundTint="#DCECEB"
@@ -24,6 +24,30 @@
                 android:padding="10dp"
                 android:gravity="center" />
 
+
         </androidx.cardview.widget.CardView>
+
+    <!-- CardView to wrap the TextView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:layout_marginHorizontal="40dp"
+        android:backgroundTint="@color/highlight_color_holo_white"
+        >
+
+        <TextView
+            android:id="@+id/tvaITransciption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:hint="Original transcription"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:gravity="center" />
+
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
