@@ -1,7 +1,5 @@
 package org.oscar.kb.latin.setup;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.oscar.kb.R;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptViewHolder> {
     private List<Prompt> promptList = new ArrayList<>();
@@ -50,8 +46,8 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            promptText = itemView.findViewById(R.id.tvAIOutput);
-            AIpromptText = itemView.findViewById(R.id.tvaITransciption);
+            promptText = itemView.findViewById(R.id.tvUserInput);
+            AIpromptText = itemView.findViewById(R.id.tvAIOutput);
         }
 
         public void bind(Prompt prompt) {
