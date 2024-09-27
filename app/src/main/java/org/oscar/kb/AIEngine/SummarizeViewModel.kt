@@ -125,7 +125,7 @@ class SummarizeViewModel(
                         // log values
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
 
-                        _uiState.value = SummarizeUiState.Success(outputContent.toString())
+                        _uiState.value = SummarizeUiState.Success(outputContent)
                         Log.d("SummarizeViewModel", "outputContent: $outputContent")
                     }
             } catch (e: Exception) {
