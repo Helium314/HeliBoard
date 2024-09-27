@@ -102,7 +102,7 @@ class SummarizeViewModel(
             return
         }
         val prompt =
-            "Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language:\n: $inputText"
+            "Please correct the following text for any spelling and grammatical errors in English. Do not change the structure, paraphrase, or alter the original meaning of the text. Keep the text strictly in English and avoid any markdown:\n: $inputText"
 
         viewModelScope.launch {
             try {
