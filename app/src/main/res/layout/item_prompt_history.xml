@@ -8,7 +8,7 @@
         <!-- CardView to wrap the TextView -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
             android:backgroundTint="#DCECEB"

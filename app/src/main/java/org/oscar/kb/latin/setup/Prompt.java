@@ -9,9 +9,14 @@ public class Prompt {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String text;
-    private String type; // "User Input" or "AI Output"
+    private PromptType type; // "User Input" or "AI Output"
 
-    public Prompt(String text, String type) {
+    public enum PromptType {
+        USER_INPUT,
+        AI_OUTPUT
+    }
+
+    public Prompt(String text, PromptType type) {
         this.text = text;
         this.type = type;
     }
@@ -32,11 +37,11 @@ public class Prompt {
         this.text = text;
     }
 
-    public String getType() {
+    public PromptType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PromptType type) {
         this.type = type;
     }
 

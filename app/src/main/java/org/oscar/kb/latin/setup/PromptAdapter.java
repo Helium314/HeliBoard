@@ -46,17 +46,26 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
 
     public static class PromptViewHolder extends RecyclerView.ViewHolder {
         private final TextView promptText;
+        private final TextView AIpromptText;
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
             promptText = itemView.findViewById(R.id.tvAIOutput);
+            AIpromptText = itemView.findViewById(R.id.tvaITransciption);
         }
 
         public void bind(Prompt prompt) {
-            if (prompt.getText() != null && !prompt.getText().trim().isEmpty()) {
-                promptText.setText(prompt.getText());
-            } else {
-                promptText.setText(""); // Avoid displaying empty text
+            if (prompt.getType() == Prompt.PromptType.USER_INPUT ) {
+                promptText.setText(prompt.getText()); // Set USER_INPUT text
+
+                //AIpromptText.setText(prompt.getText());
+            } else if(prompt.getType() == Prompt.PromptType.AI_OUTPUT) {
+                //promptText.setText(""); // Avoid displaying empty text
+
+                AIpromptText.setText(prompt.getText());
+            } else  {
+                promptText.setText("");
+                AIpromptText.setText("");
             }
         }
     }

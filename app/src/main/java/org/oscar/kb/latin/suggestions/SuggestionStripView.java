@@ -160,7 +160,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
 //        long timestamp = System.currentTimeMillis();
-        Prompt aiTextEntity = new Prompt(aiText, "AI Output");
+        Prompt aiTextEntity = new Prompt(aiText, Prompt.PromptType.USER_INPUT);
         new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
 
@@ -171,7 +171,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         new Handler(Looper.getMainLooper()).post(() -> {
             aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
             saveAITextToDatabase(recognizedText);
-            generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
+            //generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
             // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
             GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
@@ -229,6 +229,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             // Copy the text to clipboard
 
+            // Save the AI-generated text to the database
+            saveAIResponseToDatabase(event.getText());
+
             ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
             clipboard.setPrimaryClip(clip);
@@ -236,6 +239,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         }
     }
+
+    private void saveAIResponseToDatabase(String aiText) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        Prompt aiTextEntity = new Prompt(aiText, Prompt.PromptType.AI_OUTPUT); // Set the type to AI_OUTPUT
+        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
+    }
+
     @Subscribe
     public void onSummarizeError(SummarizeErrorEvent event) {
         // Update the UI to show the error message
@@ -425,7 +435,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         String recognizedText = tempRecognizedText; // Store the recognized text temporarily
 
         if (recognizedText != null) {
-            promptViewModel.insert(new Prompt(recognizedText, text)); // Save both inputs
+            promptViewModel.insert(new Prompt(recognizedText, Prompt.PromptType.USER_INPUT)); // Save both inputs
         }
     }
 
