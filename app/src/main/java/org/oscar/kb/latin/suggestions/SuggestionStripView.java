@@ -171,7 +171,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         new Handler(Looper.getMainLooper()).post(() -> {
             aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
             saveAITextToDatabase(recognizedText);
-            //generateAIText(recognizedText); // Generate AI output and save to DB todo: check the use of this function before uncommenting
+            generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
             // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
             GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
