@@ -9,7 +9,9 @@ public class Prompt {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String userInput;
-    private String aiOutput;
+    private long timestamp; // Add a timestamp field
+
+    //private String aiOutput;
     //private PromptType type; // "User Input" or "AI Output"
 
 //    public enum PromptType {
@@ -17,9 +19,10 @@ public class Prompt {
 //        AI_OUTPUT
 //    }
 
-    public Prompt(String userInput, String aiOutput) {
+    public Prompt(String userInput,long timestamp) {
         this.userInput = userInput;
-        this.aiOutput = aiOutput;
+        this.timestamp = timestamp;
+        //this.aiOutput = aiOutput;
     }
     // Getters and Setters
     public int getId() {
@@ -34,16 +37,24 @@ public class Prompt {
         return userInput;
     }
 
-    public void setUserInput(String text) {
-        this.userInput = userInput;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public String getAiOutput() {
-        return aiOutput;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
-    public void setAiOutput(String aiOutput) {
-        this.aiOutput = aiOutput;
+
+    public void setUserInput(String text) {
+        this.userInput = text;
     }
+
+//    public String getAiOutput() {
+//        return aiOutput;
+//    }
+//    public void setAiOutput(String aiOutput) {
+//        this.aiOutput = aiOutput;
+//    }
 //    public PromptType getType() {
 //        return type;
 //    }

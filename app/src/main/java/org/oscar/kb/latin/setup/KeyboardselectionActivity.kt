@@ -65,6 +65,8 @@ class KeyboardselectionActivity : AppCompatActivity(),
     private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
     private val crashlytics: FirebaseCrashlytics by lazy { FirebaseCrashlytics.getInstance() }
 
+    var clickCount = 0
+    val requiredClicks = 7
 
 // Assuming you have a way to create a GenerativeModel instance
 //    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)

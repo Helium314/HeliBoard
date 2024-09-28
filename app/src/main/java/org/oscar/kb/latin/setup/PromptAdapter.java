@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.oscar.kb.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptViewHolder> {
     private List<Prompt> promptList = new ArrayList<>();
@@ -37,17 +40,28 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
     @Override
     public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
         Prompt currentPrompt = promptList.get(position);
+
+        holder.originalTranscription.setText(currentPrompt.getUserInput());
+
+        // Format timestamp to readable date
+        String date = new SimpleDateFormat("MMM dd, yy hh:mm a", Locale.US)
+                .format(new Date(currentPrompt.getTimestamp()));
+        String formattedDateWithColon = date + " :";
+
+        holder.timestampTextView.setText(formattedDateWithColon);
         holder.bind(currentPrompt);
     }
 
     public static class PromptViewHolder extends RecyclerView.ViewHolder {
         private final TextView originalTranscription;
-        private final TextView AITranscription;
+        private final TextView timestampTextView;
+        //private final TextView AITranscription;
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            originalTranscription = itemView.findViewById(R.id.tvUserInput);
-            AITranscription = itemView.findViewById(R.id.tvAIOutput);
+            originalTranscription = itemView.findViewById(R.id.tvAIOutput);
+            timestampTextView = itemView.findViewById(R.id.timestampTextView);
+            //AITranscription = itemView.findViewById(R.id.tvAIOutput);
         }
 
         public void bind(Prompt prompt) {
@@ -63,7 +77,7 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
 //                AIpromptText.setText(prompt.getText());
 //            }
                 originalTranscription.setText(prompt.getUserInput());
-                AITranscription.setText(prompt.getAiOutput());
+                //AITranscription.setText(prompt.getAiOutput());
 
         }
     }
