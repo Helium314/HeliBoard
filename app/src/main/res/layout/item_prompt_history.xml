@@ -29,32 +29,4 @@
             android:textSize="15sp" />
 </LinearLayout>
 
-
-
-    <!-- CardView to wrap the TextView -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="-3dp"
-        android:visibility="gone"
-        android:backgroundTint="#FFA500"
-        android:paddingHorizontal="20dp"
-        app:cardCornerRadius="15dp">
-
-        <TextView
-            android:id="@+id/tvUserInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:hint="original transcipt"
-            android:padding="10dp"
-            android:textColor="#FFFFFFFF"
-            android:textColorHint="#FFFFFFFF"
-            android:textSize="15sp" />
-
-
-    </androidx.cardview.widget.CardView>
-
 </FrameLayout>

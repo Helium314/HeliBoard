@@ -39,22 +39,28 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
 
     @Override
     public int getItemCount() {
-        return promptList.size();
+        return promptList.isEmpty() ? 1 : promptList.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull PromptViewHolder holder, int position) {
-        Prompt currentPrompt = promptList.get(position);
 
-        holder.originalTranscription.setText(currentPrompt.getUserInput());
+        if(promptList.isEmpty()) {
+            holder.originalTranscription.setText("No log history");
+            holder.timestampTextView.setText("");
+        } else {
+            Prompt currentPrompt = promptList.get(position);
 
-        // Format timestamp to readable date
-        String date = new SimpleDateFormat("MMM dd, yy hh:mm a", Locale.US)
-                .format(new Date(currentPrompt.getTimestamp()));
-        String formattedDateWithColon = date + " : Original transcription";
+            holder.originalTranscription.setText(currentPrompt.getUserInput());
 
-        holder.timestampTextView.setText(formattedDateWithColon);
-        holder.bind(currentPrompt);
+            // Format timestamp to readable date
+            String date = new SimpleDateFormat("MMM dd, yy hh:mm a", Locale.US)
+                    .format(new Date(currentPrompt.getTimestamp()));
+            String formattedDateWithColon = date + " : Original transcription";
+
+            holder.timestampTextView.setText(formattedDateWithColon);
+            holder.bind(currentPrompt);
+        }
     }
 
     public static class PromptViewHolder extends RecyclerView.ViewHolder {
