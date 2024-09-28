@@ -196,7 +196,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
             if (recognizedText != null) {
                 Log.d("SuggestionStripView", recognizedText);
-                // Save user input to the database
+                // Save the recognized text (user input) to the Room database
+                saveUserTextToDatabase(recognizedText);  // Call the function to save original user input
+
                 // Process AI text
                 updateText(recognizedText);
             }
@@ -218,7 +220,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // Copy the text to clipboard
 
             // Save the AI-generated text to the database
-            saveBothResponseToDatabase(aiOutput.getText().toString());
+            //saveUserTextToDatabase(aiOutput.getText().toString());
             Log.d("SuggestionStripViewDB", "AI Output: " + aiOutput.getText().toString());
 
             ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -236,11 +238,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
     }
 
-    private void saveBothResponseToDatabase(String aiText) {
+    private void saveUserTextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
         long timestamp = System.currentTimeMillis(); // Get current timestamp
-        Prompt aiTextEntity = new Prompt(aiText,  timestamp); // Set the type to AI_OUTPUT
-        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
+        Prompt userTextEntity = new Prompt(aiText,  timestamp); // Set the type to AI_OUTPUT
+        new Thread(() -> db.promptDao().insert(userTextEntity)).start();
     }
 
     @Subscribe
