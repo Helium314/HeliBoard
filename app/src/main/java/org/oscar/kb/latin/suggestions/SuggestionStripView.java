@@ -632,7 +632,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                 // Save user input
                 if (tempRecognizedText != null) {
-                    //saveAITextToDatabase(tempRecognizedText); // save user input to database
+
+                    Log.d("SuggestionStripViewFullText", "Recognized text: " + tempRecognizedText);
                     updateText(tempRecognizedText); // Now send the text to be updated
                 } else {
                     Log.d(TAG, "No text to send");

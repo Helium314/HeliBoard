@@ -8,22 +8,24 @@
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
         <TextView
             android:id="@+id/timestampTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:letterSpacing="0.02"
+            android:textStyle="italic"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvAIOutput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
             android:textColor="#000000"
+            android:padding="10dp"
             android:textSize="15sp" />
 </LinearLayout>
 

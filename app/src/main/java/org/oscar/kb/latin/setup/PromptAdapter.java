@@ -46,7 +46,7 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
         // Format timestamp to readable date
         String date = new SimpleDateFormat("MMM dd, yy hh:mm a", Locale.US)
                 .format(new Date(currentPrompt.getTimestamp()));
-        String formattedDateWithColon = date + " :";
+        String formattedDateWithColon = date + " : Original transcription";
 
         holder.timestampTextView.setText(formattedDateWithColon);
         holder.bind(currentPrompt);
