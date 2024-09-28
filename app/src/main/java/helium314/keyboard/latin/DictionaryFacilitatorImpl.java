@@ -666,7 +666,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (mTryChangingWords)
             mTryChangingWords = ngramContext.changeWordIfAfterBeginningOfSentence(mChangeFrom, mChangeTo);
         final String secondWord;
-        if (wasAutoCapitalized) {
+        // check for isBeginningOfSentenceContext too, because not all text fields auto-capitalize in this case
+        // and even if the user capitalizes manually, they most likely don't want the capitalized form suggested
+        if (wasAutoCapitalized || ngramContext.isBeginningOfSentenceContext()) {
             // used word with lower-case first letter instead of all lower-case, as auto-capitalize
             // does not affect the other letters
             final String decapitalizedWord = StringUtilsKt.decapitalize(word, dictionaryGroup.mLocale);
