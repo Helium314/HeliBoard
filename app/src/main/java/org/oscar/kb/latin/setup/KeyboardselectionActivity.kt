@@ -302,7 +302,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
             }
             R.id.nav_email_us -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:support.oscar@samyarth.org" +
+                    data = Uri.parse("mailto:platforms@samyarth.org" +
                             "?subject=" + Uri.encode("Feedback on Oscar Keyboard") +
                             "&body=" + Uri.encode("Hi team,\n\nI have the following feedback:"))
 //                    putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")

@@ -8,17 +8,18 @@ import androidx.room.PrimaryKey;
 public class Prompt {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String text;
-    private PromptType type; // "User Input" or "AI Output"
+    private String userInput;
+    private String aiOutput;
+    //private PromptType type; // "User Input" or "AI Output"
 
-    public enum PromptType {
-        USER_INPUT,
-        AI_OUTPUT
-    }
+//    public enum PromptType {
+//        USER_INPUT,
+//        AI_OUTPUT
+//    }
 
-    public Prompt(String text, PromptType type) {
-        this.text = text;
-        this.type = type;
+    public Prompt(String userInput, String aiOutput) {
+        this.userInput = userInput;
+        this.aiOutput = aiOutput;
     }
     // Getters and Setters
     public int getId() {
@@ -29,20 +30,26 @@ public class Prompt {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getUserInput() {
+        return userInput;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setUserInput(String text) {
+        this.userInput = userInput;
     }
 
-    public PromptType getType() {
-        return type;
+    public String getAiOutput() {
+        return aiOutput;
     }
-
-    public void setType(PromptType type) {
-        this.type = type;
+    public void setAiOutput(String aiOutput) {
+        this.aiOutput = aiOutput;
     }
+//    public PromptType getType() {
+//        return type;
+//    }
+//
+//    public void setType(PromptType type) {
+//        this.type = type;
+//    }
 
 }

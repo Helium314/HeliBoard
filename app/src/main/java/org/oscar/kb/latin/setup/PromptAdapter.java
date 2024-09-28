@@ -41,28 +41,30 @@ public class PromptAdapter extends RecyclerView.Adapter<PromptAdapter.PromptView
     }
 
     public static class PromptViewHolder extends RecyclerView.ViewHolder {
-        private final TextView promptText;
-        private final TextView AIpromptText;
+        private final TextView originalTranscription;
+        private final TextView AITranscription;
 
         public PromptViewHolder(@NonNull View itemView) {
             super(itemView);
-            promptText = itemView.findViewById(R.id.tvUserInput);
-            AIpromptText = itemView.findViewById(R.id.tvAIOutput);
+            originalTranscription = itemView.findViewById(R.id.tvUserInput);
+            AITranscription = itemView.findViewById(R.id.tvAIOutput);
         }
 
         public void bind(Prompt prompt) {
-            if (prompt.getType() == Prompt.PromptType.USER_INPUT ) {
-                promptText.setText(prompt.getText()); // Set USER_INPUT text
+//            if (prompt.getType() == Prompt.PromptType.USER_INPUT ) {
+//                promptText.setText(prompt.getText()); // Set USER_INPUT text
+//
+//                //AIpromptText.setText(prompt.getText());
+//            }
+//
+//            if(prompt.getType() == Prompt.PromptType.AI_OUTPUT) {
+//                //promptText.setText(""); // Avoid displaying empty text
+//
+//                AIpromptText.setText(prompt.getText());
+//            }
+                originalTranscription.setText(prompt.getUserInput());
+                AITranscription.setText(prompt.getAiOutput());
 
-                //AIpromptText.setText(prompt.getText());
-            } else if(prompt.getType() == Prompt.PromptType.AI_OUTPUT) {
-                //promptText.setText(""); // Avoid displaying empty text
-
-                AIpromptText.setText(prompt.getText());
-            } else  {
-                promptText.setText("");
-                AIpromptText.setText("");
-            }
         }
     }
 }

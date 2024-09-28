@@ -160,7 +160,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private void saveAITextToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
 //        long timestamp = System.currentTimeMillis();
-        Prompt aiTextEntity = new Prompt(aiText, Prompt.PromptType.USER_INPUT);
+        Prompt aiTextEntity = new Prompt(null, aiText);
         new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
 
@@ -170,6 +170,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
         new Handler(Looper.getMainLooper()).post(() -> {
             aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
+
+            // Toast aiOutput text
             saveAITextToDatabase(recognizedText);
             //generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
             // Your existing code for AI processing
@@ -230,19 +232,27 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             // Copy the text to clipboard
 
             // Save the AI-generated text to the database
-            saveAIResponseToDatabase(event.getText());
+            saveAIResponseToDatabase(aiOutput.getText().toString());
+            Log.d("SuggestionStripViewDB", "AI Output: " + aiOutput.getText().toString());
 
             ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
             clipboard.setPrimaryClip(clip);
+
+            // log the clipboard text
+            Log.d("SuggestionStripViewClip", "Clipboard text: " + aiOutput.getText().toString());
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
+            // log listener
+            Log.d("SuggestionStripViewListener", "onCodeInput: " + KeyCode.CLIPBOARD_PASTE + " " + Constants.SUGGESTION_STRIP_COORDINATE + " " + Constants.SUGGESTION_STRIP_COORDINATE + " " + false);
+            // log clipboard paste text
+            Log.d("SuggestionStripViewClipPaste", "Clipboard paste text: " + aiOutput.getText().toString());
         }
     }
 
     private void saveAIResponseToDatabase(String aiText) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
-        Prompt aiTextEntity = new Prompt(aiText, Prompt.PromptType.AI_OUTPUT); // Set the type to AI_OUTPUT
+        Prompt aiTextEntity = new Prompt(null, aiText); // Set the type to AI_OUTPUT
         new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
     }
 
@@ -435,7 +445,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         String recognizedText = tempRecognizedText; // Store the recognized text temporarily
 
         if (recognizedText != null) {
-            promptViewModel.insert(new Prompt(recognizedText, Prompt.PromptType.USER_INPUT)); // Save both inputs
+            //promptViewModel.insert(new Prompt(recognizedText, Prompt.PromptType.USER_INPUT)); // Save both inputs
         }
     }
 

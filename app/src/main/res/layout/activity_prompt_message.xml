@@ -12,7 +12,7 @@
         android:id="@+id/tv_welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prompt History"
+        android:text="Developer Logs"
         android:layout_margin="40dp"
         android:textColor="#000000"
         android:gravity="center"
@@ -33,4 +33,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_prompt_history"
         android:background="#FFFFFF"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
