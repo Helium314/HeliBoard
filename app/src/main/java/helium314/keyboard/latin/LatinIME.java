@@ -1853,7 +1853,13 @@ public class LatinIME extends InputMethodService implements
         public void onReceive(final Context context, final Intent intent) {
             final String action = intent.getAction();
             if (AudioManager.RINGER_MODE_CHANGED_ACTION.equals(action)) {
-                AudioAndHapticFeedbackManager.getInstance().onRingerModeChanged();
+                boolean dnd;
+                try {
+                    dnd = android.provider.Settings.Global.getInt(context.getContentResolver(), "zen_mode") != 0;
+                } catch (android.provider.Settings.SettingNotFoundException e) {
+                    dnd = false;
+                }
+                AudioAndHapticFeedbackManager.getInstance().onRingerModeChanged(dnd);
             }
         }
     };
