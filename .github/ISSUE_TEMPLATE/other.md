@@ -7,6 +7,6 @@ Please see the appropriate readme section for issue reporting guidelines: https:
 tl;dr:
 * search for duplicates, also in closed issues
 * a single issue per topic
-* reduce screenshot size
+* ONLY add screenshots when necessary, and reduce their size
 
 <!-- please remove above text before submitting, and choose a meaningful title for your issue -->
