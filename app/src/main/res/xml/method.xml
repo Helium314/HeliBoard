@@ -25,6 +25,7 @@
     cs: Czech/qwertz
     cv: Chuvash/chuvash
     da: Danish/qwerty+
+    dru: Dargwa (Urakhi)/dargwa_urakhi
     de: German/qwertz
     de_DE: German (Germany)/qwertz+
     de_CH: German (Switzerland)/qwertz+
@@ -656,6 +657,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,EmojiCapable"
             android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_dru"
+        android:subtypeId="0x0e7f02d3"
+        android:imeSubtypeLocale="dru"
+        android:languageTag="dru"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=dargwa_urakhi,EmojiCapable"
+        android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_xdq"
