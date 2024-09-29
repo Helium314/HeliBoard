@@ -14,12 +14,7 @@ import android.text.TextUtils;
 import androidx.preference.PreferenceManager;
 
 import org.oscar.kb.latin.App;
-import org.oscar.kb.latin.settings.Settings;
-import org.oscar.kb.latin.App;
 import org.oscar.kb.BuildConfig;
-import org.oscar.kb.latin.utils.ChecksumCalculator;
-import org.oscar.kb.latin.utils.Log;
-
 import org.oscar.kb.latin.settings.Settings;
 
 import java.io.File;
