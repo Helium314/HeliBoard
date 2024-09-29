@@ -169,6 +169,18 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         return mBinaryDictionary;
     }
 
+    @Override
+    public int getFrequency(final String word) {
+        if (mLock.readLock().tryLock()) {
+            try {
+                return mBinaryDictionary.getFrequency(word);
+            } finally {
+                mLock.readLock().unlock();
+            }
+        }
+        return NOT_A_PROBABILITY;
+    }
+
     void closeBinaryDictionary() {
         if (mBinaryDictionary != null) {
             mBinaryDictionary.close();

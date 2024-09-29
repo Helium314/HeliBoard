@@ -605,25 +605,30 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     // main and secondary isValid provided to avoid duplicate lookups
-    private void addToPersonalDictionaryIfInvalidButInHistory(String suggestion, boolean[] validWordForDictionary) {
+    private void addToPersonalDictionaryIfInvalidButInHistory(String word, boolean[] validWordForDictionary) {
         final DictionaryGroup dictionaryGroup = getClearlyPreferredDictionaryGroupOrNull();
         if (dictionaryGroup == null) return;
         if (validWordForDictionary == null
-                ? isValidWord(suggestion, ALL_DICTIONARY_TYPES, dictionaryGroup)
+                ? isValidWord(word, ALL_DICTIONARY_TYPES, dictionaryGroup)
                 : validWordForDictionary[mDictionaryGroups.indexOf(dictionaryGroup)]
         )
             return;
 
         final ExpandableBinaryDictionary userDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER);
         final Dictionary userHistoryDict = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY);
+        if (userDict == null || userHistoryDict == null) return;
+
         // user history always reports words as invalid, so here we need to check isInDictionary instead
+        //  update: now getFrequency returns the correct value instead of -1, so better use that
+        //  a little testing shows that after 2 times adding, the frequency is 111, and then rises slowly with usage
+        //  120 is after 3 uses of the word, so we simply require more than that.
         // also maybe a problem: words added to dictionaries (user and history) are apparently found
         //  only after some delay. but this is not too bad, it just delays adding
-        if (userDict != null && userHistoryDict.isInDictionary(suggestion)) {
-            if (userDict.isInDictionary(suggestion)) // is this check necessary?
+        if (userHistoryDict.getFrequency(word) > 120) {
+            if (userDict.isInDictionary(word)) // is this check necessary?
                 return;
             ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute(() ->
-                    UserDictionary.Words.addWord(userDict.mContext, suggestion,
+                    UserDictionary.Words.addWord(userDict.mContext, word,
                     250 /*FREQUENCY_FOR_USER_DICTIONARY_ADDS*/, null, dictionaryGroup.mLocale));
         }
     }
@@ -659,8 +664,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (userHistoryDictionary == null || !hasLocale(userHistoryDictionary.mLocale)) {
             return;
         }
-        final int maxFreq = getFrequency(word, dictionaryGroup);
-        if (maxFreq == 0 && blockPotentiallyOffensive) {
+        final int mainFreq = dictionaryGroup.hasDict(Dictionary.TYPE_MAIN, null)
+                ? dictionaryGroup.getDict(Dictionary.TYPE_MAIN).getFrequency(word)
+                : Dictionary.NOT_A_PROBABILITY;
+        if (mainFreq == 0 && blockPotentiallyOffensive) {
             return;
         }
         if (mTryChangingWords)
@@ -693,11 +700,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             // consolidation is done.
             // TODO: Remove this hack when ready.
             final String lowerCasedWord = word.toLowerCase(dictionaryGroup.mLocale);
-            final int lowerCaseFreqInMainDict = dictionaryGroup.hasDict(Dictionary.TYPE_MAIN,
-                    null /* account */) ?
-                    dictionaryGroup.getDict(Dictionary.TYPE_MAIN).getFrequency(lowerCasedWord) :
-                    Dictionary.NOT_A_PROBABILITY;
-            if (maxFreq < lowerCaseFreqInMainDict
+            final int lowerCaseFreqInMainDict = dictionaryGroup.hasDict(Dictionary.TYPE_MAIN, null)
+                    ? dictionaryGroup.getDict(Dictionary.TYPE_MAIN).getFrequency(lowerCasedWord)
+                    : Dictionary.NOT_A_PROBABILITY;
+            if (mainFreq < lowerCaseFreqInMainDict
                     && lowerCaseFreqInMainDict >= CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT) {
                 // Use lower cased word as the word can be a distracter of the popular word.
                 secondWord = lowerCasedWord;
@@ -707,7 +713,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
         // We demote unrecognized words (frequency < 0, below) by specifying them as "invalid".
         // We don't add words with 0-frequency (assuming they would be profanity etc.).
-        final boolean isValid = maxFreq > 0;
+        // comment: so this means words not in main dict are always invalid... weird (but still works)
+        final boolean isValid = mainFreq > 0;
         UserHistoryDictionary.addToDictionary(userHistoryDictionary, ngramContext, secondWord,
                 isValid, timeStampInSeconds);
     }
@@ -1005,27 +1012,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             }
         });
 
-    }
-
-    // called from addWordToUserHistory with a specified dictionary, so provide this dictionary
-    private int getFrequency(final String word, DictionaryGroup dictGroup) {
-        if (TextUtils.isEmpty(word)) {
-            return Dictionary.NOT_A_PROBABILITY;
-        }
-        int maxFreq = Dictionary.NOT_A_PROBABILITY;
-        // ExpandableBinaryDictionary (means: all except main) always return NOT_A_PROBABILITY
-        //  because it doesn't override getFrequency()
-        // So why is it checked anyway?
-        // Is this a bug, or intended by AOSP devs?
-        for (final String dictType : ALL_DICTIONARY_TYPES) {
-            final Dictionary dictionary = dictGroup.getDict(dictType);
-            if (dictionary == null) continue;
-            final int tempFreq = dictionary.getFrequency(word);
-            if (tempFreq >= maxFreq) {
-                maxFreq = tempFreq;
-            }
-        }
-        return maxFreq;
     }
 
     @Override
