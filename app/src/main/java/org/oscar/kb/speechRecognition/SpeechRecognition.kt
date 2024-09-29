@@ -9,9 +9,9 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import org.greenrobot.eventbus.EventBus
-import org.oscar.kb.AIEngine.AIOutputEvent
 import org.oscar.kb.audioService.FlashlightControlBasedOnPreference
+import org.oscar.kb.latin.setup.AppDatabase
+import org.oscar.kb.latin.setup.Prompt
 
 //import org.oscar.kb.audioService.FlashlightControlBasedOnPreference
 //import org.oscar.kb.speechRecognition.SpeechRecognitionSettings
@@ -92,4 +92,5 @@ class SpeechRecognition(context: Context) : SpeechRecognitionSettings(context) {
     companion object {
         private const val INDEX_OF_MOST_LIKELY_PHRASE = 0
     }
+
 }

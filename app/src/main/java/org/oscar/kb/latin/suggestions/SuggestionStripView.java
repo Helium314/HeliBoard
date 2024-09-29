@@ -13,7 +13,6 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -30,13 +29,8 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -60,7 +54,6 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
-import org.greenrobot.eventbus.ThreadMode;
 import org.oscar.kb.AIEngine.AIOutputEvent;
 import org.oscar.kb.AIEngine.OnTextUpdatedListener;
 import org.oscar.kb.AIEngine.SummarizeErrorEvent;
@@ -91,6 +84,9 @@ import org.oscar.kb.latin.define.DebugFlags;
 import org.oscar.kb.latin.settings.DebugSettings;
 import org.oscar.kb.latin.settings.Settings;
 import org.oscar.kb.latin.settings.SettingsValues;
+import org.oscar.kb.latin.setup.AppDatabase;
+import org.oscar.kb.latin.setup.Prompt;
+import org.oscar.kb.latin.setup.PromptHistoryViewModel;
 import org.oscar.kb.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.Log;
@@ -99,8 +95,6 @@ import org.oscar.kb.latin.utils.ToolbarUtilsKt;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
@@ -123,6 +117,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     LatinIME mLatinIME;
     private FirebaseCrashlytics crashlytics;
+    private PromptHistoryViewModel promptViewModel; // Declare the ViewModel
 
     private Key mCurrenteKey;
     private LinearLayout linearLayout;
@@ -149,14 +144,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
     private boolean isCancelled = false;
 
+//    private void saveAITextToDatabase(String aiText) {
+//        AppDatabase db = AppDatabase.getDatabase(getContext());
+////        long timestamp = System.currentTimeMillis();
+//        Prompt aiTextEntity = new Prompt(aiText);
+//        new Thread(() -> db.promptDao().insert(aiTextEntity)).start();
+//    }
+
     public void updateText(final String recognizedText) {
-        if(isCancelled) {
+        if (isCancelled) {
             return; // Ignore updates if cancelled
         }
         new Handler(Looper.getMainLooper()).post(() -> {
-            // Assuming you have a TextView or similar in this custom view
-            aiOutput.setText(recognizedText); // Update the TextView or UI component
+            aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
 
+            // Toast aiOutput text
+            //saveAITextToDatabase(recognizedText);
+            //generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
+            // Your existing code for AI processing
             GeminiClient geminiClient = new GeminiClient();
             GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
             SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
@@ -167,11 +172,21 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             EventBus.getDefault().post(event);
 
             viewModel.summarizeStreaming(recognizedText);
-
-            //aiOutput.setVisibility(View.GONE);
-
         });
     }
+
+//    public void generateAIText(String inputText) {
+//        GeminiClient geminiClient = new GeminiClient();
+//        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+//        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+//        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+//
+//        viewModel.summarizeStreaming(inputText);
+//        viewModel.setOnTextUpdatedListener(outputText -> {
+//            // Save the AI-generated text to the database
+//            saveAITextToDatabase(outputText);
+//        });
+//    }
 
     private String tempRecognizedText = null; // Store recognized text temporarily
 
@@ -179,15 +194,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         @Override
         public void onReceive(Context context, Intent intent) {
             String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
-
-            //aiOutput.setText(recognizedText); // Update the TextView or UI component
-            Log.d("SuggestionStripView", recognizedText != null ? recognizedText : "No recognized text");
             if (recognizedText != null) {
+                Log.d("SuggestionStripView", recognizedText);
+                // Save the recognized text (user input) to the Room database
+                saveUserTextToDatabase(recognizedText);  // Call the function to save original user input
+
+                // Process AI text
                 updateText(recognizedText);
-                //tempRecognizedText = recognizedText; // Store the text temporarily
             }
         }
     };
+
 
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
@@ -202,13 +219,32 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             // Copy the text to clipboard
 
+            // Save the AI-generated text to the database
+            //saveUserTextToDatabase(aiOutput.getText().toString());
+            Log.d("SuggestionStripViewDB", "AI Output: " + aiOutput.getText().toString());
+
             ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
             clipboard.setPrimaryClip(clip);
+
+            // log the clipboard text
+            Log.d("SuggestionStripViewClip", "Clipboard text: " + aiOutput.getText().toString());
             mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
 
+            // log listener
+            Log.d("SuggestionStripViewListener", "onCodeInput: " + KeyCode.CLIPBOARD_PASTE + " " + Constants.SUGGESTION_STRIP_COORDINATE + " " + Constants.SUGGESTION_STRIP_COORDINATE + " " + false);
+            // log clipboard paste text
+            Log.d("SuggestionStripViewClipPaste", "Clipboard paste text: " + aiOutput.getText().toString());
         }
     }
+
+    private void saveUserTextToDatabase(String aiText) {
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        long timestamp = System.currentTimeMillis(); // Get current timestamp
+        Prompt userTextEntity = new Prompt(aiText,  timestamp); // Set the type to AI_OUTPUT
+        new Thread(() -> db.promptDao().insert(userTextEntity)).start();
+    }
+
     @Subscribe
     public void onSummarizeError(SummarizeErrorEvent event) {
         // Update the UI to show the error message
@@ -391,15 +427,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     public void onTextUpdated(@NonNull String text) {
-        try {
-            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-            aiOutput.setText(text);
-            Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
-        } catch (Exception e) {
-            Log.d(TAG, "Error in starting record: " + e.getMessage());
-            crashlytics.recordException(e);
+        Log.d("SuggestionStripViewOnTextUpdated", "onTextUpdated: " + text);
+        aiOutput.setText(text);
+
+        // Assuming you have access to the recognized text variable
+        String recognizedText = tempRecognizedText; // Store the recognized text temporarily
+
+        if (recognizedText != null) {
+            //promptViewModel.insert(new Prompt(recognizedText, Prompt.PromptType.USER_INPUT)); // Save both inputs
         }
     }
+
 
 //    private String summarizedText = "";
     //private final SummarizeTextProvider summarizeTextProvider;
@@ -593,8 +631,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
-                // Send the stored recognized text when the Done button is pressed
+
+                // Save user input
                 if (tempRecognizedText != null) {
+
+                    Log.d("SuggestionStripViewFullText", "Recognized text: " + tempRecognizedText);
                     updateText(tempRecognizedText); // Now send the text to be updated
                 } else {
                     Log.d(TAG, "No text to send");

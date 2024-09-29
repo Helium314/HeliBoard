@@ -34,25 +34,18 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
-import org.oscar.kb.latin.settings.SettingsActivity;
-import org.oscar.kb.latin.utils.ActivityThemeUtils;
-import org.oscar.kb.latin.utils.LeakGuardHandlerWrapper;
-import org.oscar.kb.latin.utils.ResourceUtils;
-import org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils;
-import org.oscar.kb.R;
-import org.oscar.kb.latin.setup.MainActivity;
-
 import org.oscar.kb.latin.settings.SettingsActivity;
 import org.oscar.kb.latin.utils.ActivityThemeUtils;
 import org.oscar.kb.latin.utils.JniUtils;
 import org.oscar.kb.latin.utils.LeakGuardHandlerWrapper;
 import org.oscar.kb.latin.utils.ResourceUtils;
 import org.oscar.kb.latin.utils.UncachedInputMethodManagerUtils;
+import org.oscar.kb.R;
 
 import java.util.ArrayList;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 public final class SetupWizardActivity extends AppCompatActivity implements View.OnClickListener {
     // For debugging purpose.
@@ -152,6 +145,10 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         } else {
             mStepNumber = savedInstanceState.getInt(STATE_STEP);
         }
+
+        if (!JniUtils.sHaveGestureLib)
+            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
+
 
         sharedPreferences = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE);
         if (isSetupComplete()) {

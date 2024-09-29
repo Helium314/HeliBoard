@@ -65,6 +65,8 @@ class KeyboardselectionActivity : AppCompatActivity(),
     private var suggestionStripView: SuggestionStripView? = null // Assuming you have a reference
     private val crashlytics: FirebaseCrashlytics by lazy { FirebaseCrashlytics.getInstance() }
 
+    var clickCount = 0
+    val requiredClicks = 7
 
 // Assuming you have a way to create a GenerativeModel instance
 //    val viewModelFactory = SummarizeViewModelFactory(geminiClient, generativeModel)
@@ -297,10 +299,12 @@ class KeyboardselectionActivity : AppCompatActivity(),
                 }
                 startActivity(Intent.createChooser(intent, "Share via"))
             }
-
+            R.id.prompt_message_id->{
+                startActivity(Intent(this, PromptHistoryActivity::class.java))
+            }
             R.id.nav_email_us -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:support.oscar@samyarth.org" +
+                    data = Uri.parse("mailto:platforms@samyarth.org" +
                             "?subject=" + Uri.encode("Feedback on Oscar Keyboard") +
                             "&body=" + Uri.encode("Hi team,\n\nI have the following feedback:"))
 //                    putExtra(Intent.EXTRA_SUBJECT, "Feedback on Oscar Keyboard")
