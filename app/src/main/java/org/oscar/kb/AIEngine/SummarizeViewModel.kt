@@ -106,7 +106,11 @@ class SummarizeViewModel(
             //return
         //}
         val prompt =
-            "Please correct the following text for any spelling and grammatical errors only in English. Do not change the structure, paraphrase, translate, or alter the original meaning of the text. Keep the text strictly in English. If the text is too short, just fix grammar or spelling without making any other changes:\n: $inputText"
+                    "Please correct the following text for any spelling and grammatical errors only in English. \n" +
+                    "Do not change the structure, paraphrase, translate, or alter the original meaning of the text. \n" +
+                    "Keep the text strictly in English. \n" +
+                    "For longer texts, make sure to carefully correct all grammatical errors and spelling mistakes without modifying the original structure or meaning. \n" +
+                    "If the text is too short, just fix grammar or spelling without making any other changes:\n: $inputText"
 
         viewModelScope.launch {
             try {
