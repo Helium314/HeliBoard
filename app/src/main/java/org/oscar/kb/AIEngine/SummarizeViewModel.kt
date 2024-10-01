@@ -110,6 +110,7 @@ class SummarizeViewModel(
                     "Do not change the structure, paraphrase, translate, or alter the original meaning of the text. \n" +
                     "Keep the text strictly in English. \n" +
                     "For longer texts, make sure to carefully correct all grammatical errors and spelling mistakes without modifying the original structure or meaning. \n" +
+                    "For longer texts, organize the content into clear, well-structured paragraphs while keeping the meaning intact. \n" +
                     "If the text is too short, just fix grammar or spelling without making any other changes:\n: $inputText"
 
         viewModelScope.launch {
