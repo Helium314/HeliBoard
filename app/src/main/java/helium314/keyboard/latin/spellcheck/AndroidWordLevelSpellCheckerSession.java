@@ -13,6 +13,7 @@ import android.os.Binder;
 import android.provider.UserDictionary.Words;
 import android.service.textservice.SpellCheckerService.Session;
 import android.text.TextUtils;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
 import android.view.inputmethod.InputMethodManager;
@@ -47,6 +48,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
 
     public final static String[] EMPTY_STRING_ARRAY = new String[0];
 
+    public final static int FLAG_UNCHECKABLE = 0;
+
     // Immutable, but not available in the constructor.
     private Locale mLocale;
     // Cache this for performance
@@ -59,6 +62,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             "(\\u0022|\\u0027|\\u0060|\\u00B4|\\u2018|\\u2018|\\u201C|\\u201D)";
 
     private static final Map<String, String> scriptToPunctuationRegexMap = new TreeMap<>();
+    private List <Locale> localesToCheck;
 
     static {
         // TODO: add other non-English language specific punctuation later.
@@ -71,9 +75,11 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private static final class SuggestionsParams {
         public final String[] mSuggestions;
         public final int mFlags;
-        public SuggestionsParams(String[] suggestions, int flags) {
+        public final Locale mLocale;
+        public SuggestionsParams(String[] suggestions, int flags, Locale locale) {
             mSuggestions = suggestions;
             mFlags = flags;
+            mLocale = locale;
         }
     }
 
@@ -91,13 +97,13 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         }
 
         public void putSuggestionsToCache(
-                final String query, final String[] suggestions, final int flags) {
+                final String query, final String[] suggestions, final int flags, final Locale locale) {
             if (suggestions == null || TextUtils.isEmpty(query)) {
                 return;
             }
             mUnigramSuggestionsInfoCache.put(
                     generateKey(query),
-                    new SuggestionsParams(suggestions, flags));
+                    new SuggestionsParams(suggestions, flags, locale));
         }
 
         public void clearCache() {
@@ -126,12 +132,40 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             mLocale = (null == localeString) ? null
                     : LocaleUtils.constructLocale(localeString);
             if (mLocale == null) mScript = ScriptUtils.SCRIPT_UNKNOWN;
-                else mScript = ScriptUtils.script(mLocale);
+            else mScript = ScriptUtils.script(mLocale);
         }
+        if (!localesToCheck.contains(mLocale)) {
+            final List<Locale> updatedLocalesToCheck = new ArrayList<>();
+            updatedLocalesToCheck.add(mLocale);
+            // Make sure no other locales with mScript are added
+            for (int i = 0; i < localesToCheck.size(); i++) {
+                final Locale locale = localesToCheck.get(i);
+                if (!ScriptUtils.script(locale).equals(mScript)) {
+                    updatedLocalesToCheck.add(localesToCheck.get(i));
+                }
+            }
+            localesToCheck = updatedLocalesToCheck;
+        }
+    }
+
+    // Finds the enabled locale with a script matching one of the letters in the given text.
+    public Locale findLikelyLocaleOfText(final String text) {
+        for (int i = 0, length = text.length(); i < length; i++) {
+            final int codePoint = text.codePointAt(i);
+            for (Locale locale : localesToCheck) {
+                final String localeScript = ScriptUtils.script(locale);
+                if (ScriptUtils.isLetterPartOfScript(codePoint, localeScript)) {
+                    return locale;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public void onCreate() {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mService);
+        localesToCheck = SubtypeSettingsKt.getUniqueScriptLocalesFromEnabledSubtypes(prefs);
         updateLocale();
     }
 
@@ -171,58 +205,31 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     }
 
     private static final int CHECKABILITY_CHECKABLE = 0;
-    private static final int CHECKABILITY_TOO_MANY_NON_LETTERS = 1;
-    private static final int CHECKABILITY_CONTAINS_PERIOD = 2;
-    private static final int CHECKABILITY_EMAIL_OR_URL = 3;
-    private static final int CHECKABILITY_FIRST_LETTER_UNCHECKABLE = 4;
-    private static final int CHECKABILITY_TOO_SHORT = 5;
+    private static final int CHECKABILITY_EMAIL_OR_URL = 1;
+    private static final int CHECKABILITY_FIRST_LETTER_UNCHECKABLE = 2;
+    private static final int CHECKABILITY_TOO_SHORT = 3;
     /**
      * Finds out whether a particular string should be filtered out of spell checking.
      * <p>
-     * This will loosely match URLs, numbers, symbols. To avoid always underlining words that
-     * we know we will never recognize, this accepts a script identifier that should be one
-     * of the SCRIPT_* constants defined above, to rule out quickly characters from very
-     * different languages.
-     *
+     * This will match URLs if URL detection is enabled,
+     * as well as text that is too short or starts with a special symbol.
      * @param text the string to evaluate.
-     * @param script the identifier for the script this spell checker recognizes
      * @return one of the FILTER_OUT_* constants above.
      */
-    private static int getCheckabilityInScript(final String text, final String script) {
+    private static int getCheckability(final String text) {
         if (TextUtils.isEmpty(text) || text.length() <= 1) return CHECKABILITY_TOO_SHORT;
-
-        // TODO: check if an equivalent processing can't be done more quickly with a
-        // compiled regexp.
         // Filter by first letter
         final int firstCodePoint = text.codePointAt(0);
-        // Filter out words that don't start with a letter or an apostrophe
-        if (!ScriptUtils.isLetterPartOfScript(firstCodePoint, script)
-                && '\'' != firstCodePoint) return CHECKABILITY_FIRST_LETTER_UNCHECKABLE;
-
-        // Filter contents
-        final int length = text.length();
-        int letterCount = 0;
-        for (int i = 0; i < length; i = text.offsetByCodePoints(i, 1)) {
-            final int codePoint = text.codePointAt(i);
-            // Any word containing a COMMERCIAL_AT is probably an e-mail address
-            // Any word containing a SLASH is probably either an ad-hoc combination of two
-            // words or a URI - in either case we don't want to spell check that
-            if (Constants.CODE_COMMERCIAL_AT == codePoint || Constants.CODE_SLASH == codePoint) {
-                return CHECKABILITY_EMAIL_OR_URL;
-            }
-            // If the string contains a period, native returns strange suggestions (it seems
-            // to return suggestions for everything up to the period only and to ignore the
-            // rest), so we suppress lookup if there is a period.
-            // TODO: investigate why native returns these suggestions and remove this code.
-            if (Constants.CODE_PERIOD == codePoint) {
-                return CHECKABILITY_CONTAINS_PERIOD;
-            }
-            if (ScriptUtils.isLetterPartOfScript(codePoint, script)) ++letterCount;
+        // Filter out words that start with '@' (at sign),
+        // which usually indicates the word is a username.
+        if (firstCodePoint == Constants.CODE_COMMERCIAL_AT) {
+            return CHECKABILITY_FIRST_LETTER_UNCHECKABLE;
         }
-        // Guestimate heuristic: perform spell checking if at least 3/4 of the characters
-        // in this word are letters
-        return (letterCount * 4 < length * 3)
-                ? CHECKABILITY_TOO_MANY_NON_LETTERS : CHECKABILITY_CHECKABLE;
+        // Filter out e-mail address and URL
+        if (Settings.getInstance().getCurrent().mUrlDetectionEnabled && StringUtils.findURLEndIndex(text) != -1) {
+            return CHECKABILITY_EMAIL_OR_URL;
+        }
+        return CHECKABILITY_CHECKABLE;
     }
 
     /**
@@ -267,49 +274,58 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     protected SuggestionsInfo onGetSuggestionsInternal(
             final TextInfo textInfo, final NgramContext ngramContext, final int suggestionsLimit) {
         try {
-            updateLocale();
             // It's good to keep this not local specific since the standard
             // ones may show up in other languages also.
-            String text = textInfo.getText()
+            final String textWithLocalePunctuations = textInfo.getText()
                     .replaceAll(AndroidSpellCheckerService.APOSTROPHE, AndroidSpellCheckerService.SINGLE_QUOTE)
                     .replaceAll("^" + quotesRegexp, "")
                     .replaceAll(quotesRegexp + "$", "");
 
-            final String localeRegex = scriptToPunctuationRegexMap.get(ScriptUtils.script(mLocale));
-
-            if (localeRegex != null) {
-                text = text.replaceAll(localeRegex, "");
-            }
-
-            if (!mService.hasMainDictionaryForLocale(mLocale)) {
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false /* reportAsTypo */);
-            }
-
-            // Handle special patterns like email, URI, telephone number.
-            final int checkability = getCheckabilityInScript(text, mScript);
-            if (CHECKABILITY_CHECKABLE != checkability) {
-                // CHECKABILITY_CONTAINS_PERIOD Typo should not be reported when text is a valid word followed by a single period (end of sentence).
-                boolean periodOnlyAtLastIndex = text.indexOf(Constants.CODE_PERIOD) == (text.length() - 1);
-                if (CHECKABILITY_CONTAINS_PERIOD == checkability) {
-                    final String[] splitText = text.split(Constants.REGEXP_PERIOD);
-                    boolean allWordsAreValid = true;
-                    // Validate all words on both sides of periods, skip empty tokens due to periods at first/last index
-                    for (final String word : splitText) {
-                        if (!word.isEmpty() && !mService.isValidWord(mLocale, word) && !mService.isValidWord(mLocale, word.toLowerCase(mLocale))) {
-                            allWordsAreValid = false;
-                            break;
-                        }
-                    }
-                    if (allWordsAreValid && !periodOnlyAtLastIndex) {
-                        return new SuggestionsInfo(SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO
-                                | SuggestionsInfo.RESULT_ATTR_HAS_RECOMMENDED_SUGGESTIONS,
-                                new String[] {
-                                        TextUtils.join(Constants.STRING_SPACE, splitText) });
-                    }
+            final SuggestionsParams cachedSuggestions = mSuggestionsCache.getSuggestionsFromCache(textWithLocalePunctuations);
+            // Return quickly when the text is cached as uncheckable or as a word in dictionary
+            if (cachedSuggestions != null) {
+                final int flag = cachedSuggestions.mFlags;
+                if (flag == FLAG_UNCHECKABLE) {
+                    return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
+                } else if (flag == SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY) {
+                    return AndroidSpellCheckerService.getInDictEmptySuggestions();
                 }
-                return mService.isValidWord(mLocale, text) ?
-                        AndroidSpellCheckerService.getInDictEmptySuggestions() :
-                        AndroidSpellCheckerService.getNotInDictEmptySuggestions(!periodOnlyAtLastIndex);
+            }
+
+            // Find out which locale should be used
+            updateLocale();
+            final Locale likelyLocale = findLikelyLocaleOfText(textWithLocalePunctuations);
+
+            // If no locale was found, then the text probably contains numbers
+            // or special characters only, so it should not be spell checked.
+            if (likelyLocale == null || !mService.hasMainDictionaryForLocale(mLocale)) {
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
+            } else if (!likelyLocale.equals(mLocale)) {
+                Log.d(TAG, "Updating locale from " + mLocale + " to " + likelyLocale);
+                mLocale = likelyLocale;
+                mScript = ScriptUtils.script(likelyLocale);
+            }
+
+            // Return cached suggestions for a word not in dictionary
+            // only if the current locale matches the cached locale.
+            if (cachedSuggestions != null && cachedSuggestions.mLocale.equals(mLocale)) {
+                return new SuggestionsInfo(cachedSuggestions.mFlags, cachedSuggestions.mSuggestions);
+            }
+
+            final String localeRegex = scriptToPunctuationRegexMap.get(ScriptUtils.script(mLocale));
+            final String text;
+            if (localeRegex != null) {
+                text = textWithLocalePunctuations.replaceAll(localeRegex, "");
+            } else {
+                text = textWithLocalePunctuations;
+            }
+
+            // Check if the text is too short and handle special patterns like email, URI.
+            final int checkability = getCheckability(text);
+            if (CHECKABILITY_CHECKABLE != checkability) {
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY, FLAG_UNCHECKABLE, mLocale);
+                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false); // Typo should not be reported when text is uncheckable
             }
 
             // Handle normal words.
@@ -319,6 +335,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                 if (DebugFlags.DEBUG_ENABLED) {
                     Log.i(TAG, "onGetSuggestionsInternal() : [" + text + "] is a valid word");
                 }
+                mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, EMPTY_STRING_ARRAY,
+                        SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY, mLocale);
                 return AndroidSpellCheckerService.getInDictEmptySuggestions();
             }
             if (DebugFlags.DEBUG_ENABLED) {
@@ -326,12 +344,6 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             final Keyboard keyboard = mService.getKeyboardForLocale(mLocale);
-            if (null == keyboard) {
-                Log.w(TAG, "onGetSuggestionsInternal() : No keyboard for locale: " + mLocale);
-                // If there is no keyboard for this locale, don't do any spell-checking.
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(false);
-            }
-
             final WordComposer composer = new WordComposer();
             final int[] codePoints = StringUtils.toCodePointArray(text);
             final int[] coordinates;
@@ -367,7 +379,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                             ? SuggestionsInfo.RESULT_ATTR_HAS_RECOMMENDED_SUGGESTIONS
                             : 0);
             final SuggestionsInfo retval = new SuggestionsInfo(flags, result.mSuggestions);
-            mSuggestionsCache.putSuggestionsToCache(text, result.mSuggestions, flags);
+            mSuggestionsCache.putSuggestionsToCache(textWithLocalePunctuations, result.mSuggestions, flags, mLocale);
             return retval;
         } catch (RuntimeException e) {
             // Don't kill the keyboard if there is a bug in the spell checker

@@ -15,6 +15,7 @@ import helium314.keyboard.latin.utils.ScriptUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
 public final class StringUtils {
 
@@ -416,6 +417,15 @@ public final class StringUtils {
             needsCapsNext = (Arrays.binarySearch(sortedSeparators, nextChar.codePointAt(0)) >= 0);
         }
         return builder.toString();
+    }
+
+    // Use regex pattern matching to test if a CharSequence contains a URL.
+    // Returns the last index of the URL, or -1 if not found.
+    public static int findURLEndIndex(@NonNull final CharSequence sequence) {
+        Matcher matcher = android.util.Patterns.WEB_URL.matcher(sequence);
+        if (matcher.find())
+            return matcher.end();
+        return -1;
     }
 
     /**
