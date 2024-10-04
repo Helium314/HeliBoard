@@ -1,8 +1,8 @@
-**Oscar Keyboard App Privacy Policy**
+**Oscar AI Keyboard App Privacy Policy**
 
 **1. Introduction**
 
-We value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Oscar Keyboard App.  
+We value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Oscar AI Keyboard App.  
 
 **2. Information We Collect**
 
@@ -38,4 +38,4 @@ We may update this Privacy Policy from time to time. We will notify you of any c
 
 **10. Contact Us**
 
-If you have any questions about this Privacy Policy, please contact us at support.oscar@samyarth.org.
+If you have any questions about this Privacy Policy, please contact us at platforms@samyarth.org.
