@@ -1,9 +1,14 @@
 package org.oscar.kb.latin.suggestions;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.createToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKeyLongClick;
 
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Button;
@@ -489,6 +494,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ImageView tvAudioProgress;
 
     private SpeechRecognizer speechRecognizer;
+    private AudioManager audioManager;
+    private int previousVolume;
 
 
     private final View mMoreSuggestionsContainer;
@@ -575,6 +582,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         timerTextView = findViewById(R.id.timerTextView);
         cancel = findViewById(R.id.et_cancel);
         done = findViewById(R.id.et_done);
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
@@ -589,6 +598,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             info.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEBUG_INFO_TEXT_SIZE_IN_DIP);
             mDebugInfoViews.add(info);
         }
+
         mic_suggestion_strip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -601,6 +611,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 startTimer();  // Starts the timer
                 startRecord();
                 vibrate();
+                previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC); // Save current volume
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0); // Mute the soun
             }
         });
         cancel.setOnClickListener(new OnClickListener() {
@@ -617,6 +629,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 isCancelled = true;
                 tempRecognizedText = null; // Optionally clear the temporary text
                 aiOutput.setText(""); // Optionally clear the TextView
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, previousVolume, 0); // Restore previous volume
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
@@ -631,6 +644,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, previousVolume, 0); // Restore previous volume
 
                 // Save user input
                 if (tempRecognizedText != null) {
@@ -1269,6 +1283,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     // Set aiOutputText to "Processing..."
                     //aiOutput.setText("Processing...");
                     stopSpeechRecognitionService();
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, previousVolume, 0); // Restore previous volume
 
                     tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
                     recordStatus = false;
@@ -1286,7 +1301,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         try {
             aiOutput.setVisibility(View.GONE);
             //lvTextProgress.setVisibility(View.VISIBLE);
-
+            previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC); // Save current volume
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0); // Mute the sound
             startForegroundService();
             //tvAudioProgress.playAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));

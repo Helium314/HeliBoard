@@ -39,7 +39,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/prompt_message_id"
-            android:title="Develper logs"
+            android:title="Developer logs"
             android:textColor="#4D4D4D"
             android:fontFamily="@font/karla_semibold"
             android:icon="@drawable/baseline_preview_24"
