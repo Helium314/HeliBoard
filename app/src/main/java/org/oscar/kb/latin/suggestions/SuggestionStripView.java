@@ -163,21 +163,33 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         new Handler(Looper.getMainLooper()).post(() -> {
             aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
 
+            // Removing any calls to the Gemini API here
+
             // Toast aiOutput text
             //saveAITextToDatabase(recognizedText);
             //generateAIText("input"); // Generate AI output and save to DB todo: check the use of this function before uncommenting
             // Your existing code for AI processing
-            GeminiClient geminiClient = new GeminiClient();
-            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
 
-            // Optionally post an event if you're using EventBus or similar
-            AIOutputEvent event = new AIOutputEvent(recognizedText);
-            EventBus.getDefault().post(event);
-
-            viewModel.summarizeStreaming(recognizedText);
+//            GeminiClient geminiClient = new GeminiClient();
+//            GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+//            SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+//            SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+//
+//            // Optionally post an event if you're using EventBus or similar
+//            AIOutputEvent event = new AIOutputEvent(recognizedText);
+//            EventBus.getDefault().post(event);
+//
+//            viewModel.summarizeStreaming(recognizedText);
         });
+    }
+    private void sendToGeminiAPI(String text) {
+        // Your logic to send the recognized text to the Gemini API
+        GeminiClient geminiClient = new GeminiClient();
+        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
+        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
+        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
+
+        viewModel.summarizeStreaming(text);
     }
 
 //    public void generateAIText(String inputText) {
@@ -202,10 +214,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (recognizedText != null) {
                 Log.d("SuggestionStripView", recognizedText);
                 // Save the recognized text (user input) to the Room database
-                saveUserTextToDatabase(recognizedText);  // Call the function to save original user input
+                //saveUserTextToDatabase(recognizedText);  // Call the function to save original user input
 
                 // Process AI text
-                updateText(recognizedText);
+                //updateText(recognizedText);
+                tempRecognizedText = recognizedText;
+
+                // Optionally update the UI (if needed)
+                aiOutput.setText(recognizedText);
             }
         }
     };
@@ -273,161 +289,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     }
 
-//    @Override
-//    public void onReadyForSpeech(Bundle params) {
-//        Log.e("RecognitionListener", "onReadyForSpeech" + params);
-//
-//    }
-
-//    @Override
-//    public void onBeginningOfSpeech() {
-//        Log.e("RecognitionListener", "onBeginningOfSpeech");
-//    }
-
-//    @Override
-//    public void onRmsChanged(float rmsdB) {
-//        Log.d("RecognitionListener", "onRmsChanged" + rmsdB);
-//        aiOutput.setVisibility(View.GONE);
-//
-//    }
-
-//    @Override
-//    public void onBufferReceived(byte[] buffer) {
-//        Log.e("RecognitionListener", "onBufferReceived" + Arrays.toString(buffer));
-//
-//    }
-
-//    @Override
-//    public void onEndOfSpeech() {
-//        Log.e("RecognitionListener", "onEndOfSpeech");
-//        // Continue listening, do not stop yet
-//        if (!manualStopRecord) {
-//            startRecord();  // Continue listening if the user hasn’t manually stopped
-//        }
-//    }
-
-//    @Override
-//    public void onError(int error) {
-//        speechRecognizer.cancel();
-//
-//        switch (error) {
-//            case SpeechRecognizer.ERROR_AUDIO:
-//                Log.e("RecognitionListener", "Audio recording error");
-//                break;
-//            case SpeechRecognizer.ERROR_CLIENT:
-//                Log.e("RecognitionListener", "Client side error");
-//                break;
-//            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-//                Log.e("RecognitionListener", "Insufficient permissions");
-//                break;
-//            case SpeechRecognizer.ERROR_NETWORK:
-//                Log.e("RecognitionListener", "Network error");
-//                break;
-//            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-//                Log.e("RecognitionListener", "Network timeout");
-//                break;
-//            case SpeechRecognizer.ERROR_NO_MATCH:
-//                Log.e("RecognitionListener", "No match");
-//                break;
-//            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-//                Log.e("RecognitionListener", "RecognitionService busy");
-//                break;
-//            case SpeechRecognizer.ERROR_SERVER:
-//                Log.e("RecognitionListener", "Error from server");
-//                break;
-//            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-//                Log.e("RecognitionListener", "No speech input");
-//                break;
-//            default:
-//                Log.e("RecognitionListener", "Didn't understand, please try again.");
-//                break;
-//        }
-//    }
-
-    // Handle transcription result
-//    @Override
-//    public void onResults(Bundle results) {
-//
-//        Log.e("RecognitionListener", "onResults " + results);
-//        //stopRecord();
-//
-//        ArrayList<String> data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-//        String allOutputText = aiOutput.getText().toString();
-//
-//        if (allOutputText.equals("AI Generated Text Will be here")) {
-//            allOutputText = "";
-//        }
-//        allOutputText += " ";
-//        allOutputText += data != null ? data.get(0) : "";
-//
-//
-//        lvTextProgress.setVisibility(View.GONE);
-//
-//        aiOutput.setVisibility(View.VISIBLE);
-//
-//        Log.d("RecognitionListener", "onResults" + allOutputText);
-//
-//        Log.d(TAG, "Generating summary...");
-//        Toast.makeText(getContext(), "Generating summary...", Toast.LENGTH_SHORT).show();
-//        GeminiClient geminiClient = new GeminiClient();
-//        GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
-//        SummarizeViewModelFactory factory = new SummarizeViewModelFactory(generativeModel);
-//        SummarizeViewModel viewModel = factory.create(SummarizeViewModel.class);
-//
-//        aiOutput.setText(allOutputText);
-//
-//        Log.d(TAG, "allOutputText" + allOutputText);
-//
-//        String allOutputTextValue = allOutputText; // Assuming allOutputText is a String
-//
-//        // Debugging ViewModel call
-//        Log.d(TAG, "Calling viewModel.summarizeStreaming with text: " + allOutputText);
-//        viewModel.summarizeStreaming(allOutputText);
-//        Log.d(TAG, "viewModel.summarizeStreaming called successfully");
-//
-//
-//        //todo: implement the summarization logic here
-//        aiOutput.setOnClickListener(v -> {
-//            // Get the text from aiOutput
-//            Toast.makeText(getContext(), "aiOutput" + aiOutput.getText().toString(), Toast.LENGTH_SHORT).show();
-//            Log.d(TAG, "aiOutput" + aiOutput.getText().toString());
-//            // Copy the text to clipboard
-//            ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-//            ClipData clip = ClipData.newPlainText("aiOutput", aiOutput.getText().toString());
-//            clipboard.setPrimaryClip(clip);
-//            mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-//
-//
-//        });
-//
-////        viewModel.setOnTextUpdatedListener(new OnTextUpdatedListener() {
-////            @Override
-////            public void onTextUpdated(@NonNull String updatedText) {
-////                aiOutput.setText(updatedText);
-////
-////                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-////                ClipData clip = ClipData.newPlainText("aiOutput", updatedText);
-////                clipboard.setPrimaryClip(clip);
-////                mListener.onCodeInput(KeyCode.CLIPBOARD_PASTE, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-////                AIOutputEvent event = new AIOutputEvent(updatedText);
-////                EventBus.getDefault().post(event);
-////            }
-////        });
-//
-//        AIOutputEvent event = new AIOutputEvent(aiOutput.getText().toString());
-//        EventBus.getDefault().post(event);
-//
-//    }
-
-//    @Override
-//    public void onPartialResults(Bundle partialResults) {
-//    }
-
-//    @Override
-//    public void onEvent(int eventType, Bundle params) {
-//
-//    }
-
     StringBuilder outputBuilder = new StringBuilder();
 
     @Override
@@ -442,15 +303,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             //promptViewModel.insert(new Prompt(recognizedText, Prompt.PromptType.USER_INPUT)); // Save both inputs
         }
     }
-
-
-//    private String summarizedText = "";
-    //private final SummarizeTextProvider summarizeTextProvider;
-
-//    public SuggestionStripView(Context context, SummarizeTextProvider summarizeTextProvider) {
-//        super(context);
-//        this.summarizeTextProvider = summarizeTextProvider;
-//    }
 
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
@@ -648,9 +500,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                 // Save user input
                 if (tempRecognizedText != null) {
-
+                    Log.d("SuggestionStripViewFullText", "Saving recognized text to database: " + tempRecognizedText);
+                    saveUserTextToDatabase(tempRecognizedText);  // Call the function to save original user input
                     Log.d("SuggestionStripViewFullText", "Recognized text: " + tempRecognizedText);
-                    updateText(tempRecognizedText); // Now send the text to be updated
+                    //updateText(tempRecognizedText); // Now send the text to be updated
+                    sendToGeminiAPI(tempRecognizedText); // Send the recognized text to the Gemini API
                 } else {
                     Log.d(TAG, "No text to send");
                 }

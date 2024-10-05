@@ -11,7 +11,7 @@
         android:id="@+id/welcometxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="   Welcome to \nOscar Keyboard"
+        android:text="   Welcome to \nOscar AI Keyboard"
         android:textSize="30dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"

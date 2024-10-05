@@ -17,18 +17,23 @@ import org.oscar.kb.latin.setup.Prompt
 //import org.oscar.kb.speechRecognition.SpeechRecognitionSettings
 
 class SpeechRecognition(context: Context) : SpeechRecognitionSettings(context) {
-    private val speechRecognizer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        // Recognition will occur offline (including Android 12 and above)
-        SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
-    } else {
-        // Recognition will occur via the Internet :(
-        SpeechRecognizer.createSpeechRecognizer(context)
-    }
+//    private val speechRecognizer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//        // Recognition will occur offline (including Android 12 and above)
+//        SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
+//    } else {
+//        // Recognition will occur via the Internet :(
+//        SpeechRecognizer.createSpeechRecognizer(context)
+//    }
+// Always use internet-based recognition (no offline support)
+    private val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
+
     private val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
         putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
+        // Force internet-based recognition
+        putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, false)
     }
 
     private val flashlightController = FlashlightControlBasedOnPreference(context)
