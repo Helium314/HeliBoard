@@ -164,7 +164,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             return; // Ignore updates if cancelled
         }
         new Handler(Looper.getMainLooper()).post(() -> {
+            // Clear old output
+            aiOutput.setText("");
             aiOutput.setText(recognizedText);  // Update UI with AI-corrected text
+            Log.d("SuggestionStripView", "AI Output: " + recognizedText);
 
             // Removing any calls to the Gemini API here
 
@@ -215,6 +218,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         public void onReceive(Context context, Intent intent) {
             String recognizedText = intent != null ? intent.getStringExtra("recognizedText") : null;
             if (recognizedText != null) {
+                // Clear previous output before updating
                 Log.d("SuggestionStripView", recognizedText);
                 // Save the recognized text (user input) to the Room database
                 //saveUserTextToDatabase(recognizedText);  // Call the function to save original user input
@@ -222,9 +226,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 // Process AI text
                 //updateText(recognizedText);
                 tempRecognizedText = recognizedText;
+                aiOutput.setText(recognizedText); // Immediate UI update
 
-                // Optionally update the UI (if needed)
-                aiOutput.setText(recognizedText);
+                Log.d("SuggestionStripView", "Recognized text: " + recognizedText);
+
+                // Send to AI processing
+                sendToGeminiAPI(tempRecognizedText);
             }
         }
     };
@@ -1160,11 +1167,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                     tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.baseline_mic_24));
                     recordStatus = false;
+                    // Clear previous recognized text
+                    tempRecognizedText = null;
                 }
             }, 5000);
 
         } catch (Exception e) {
-            Log.d(TAG, "Error in starting record: " + e.getMessage());
+            Log.d(TAG, "Error in stopping record: " + e.getMessage());
             crashlytics.recordException(e);
         }
     }
@@ -1174,12 +1183,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         try {
             aiOutput.setVisibility(View.GONE);
             //lvTextProgress.setVisibility(View.VISIBLE);
+            // Clear text accumulators before new recording
+            tempRecognizedText = null;
+            transcriptionBuffer.setLength(0); // Clear the buffer
+            Log.d(TAG, "Recording started");
 
             startForegroundService();
             //tvAudioProgress.playAnimation();
             tvAudioProgress.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-            transcriptionBuffer.setLength(0);
-            Log.d(TAG, "Recording started");
             recordStatus = true;
         } catch (Exception e) {
             Log.d(TAG, "Error in starting record: " + e.getMessage());
