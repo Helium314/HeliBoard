@@ -11,7 +11,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:gravity="center">
-    <include layout="@layout/setup_welcome_title"
-        android:visibility="visible"/>
+<!--    <include layout="@layout/setup_welcome_title"-->
+<!--        android:visibility="visible"/>-->
     <include layout="@layout/setup_welcome_image" />
 </LinearLayout>
