@@ -948,6 +948,7 @@ New dictionary:
     </string>
     <string name="welcome_oscar">Welcome to \n<font color='#008B8B'>Oscar AI Keyboard</font>
     </string>
+    <string name="oscar"><font color='#51A09B'>Oscar AI Keyboard</font></string>
     <string name="oscar_tex_tap">Tap below to try the keyboard</string>
     <string name="setup_Oscar">Let’s setup <font color="#51A09B">Oscar AI</font> \n<font color="#51A09B">Keyboard</font></string>
     <string name="enable_text">In the keyboard list screen, tap the toggle to \n enable <font color="#000000"> Oscar AI Keyboard</font></string>
