@@ -86,6 +86,7 @@
     pt_PT: Portuguese (Portugal)/qwerty
     ro: Romanian/qwerty
     ru: Russian/russian
+    ru: Russian (Extended)/russian_extended
     ru: Russian (Student)/russian_student
     si_LK: Sinhala (Sri Lanka)/sinhala # This is a preliminary keyboard layout.
     sk: Slovak/qwerty
@@ -103,6 +104,7 @@
     tr: Turkish/turkish
     ur_PK: Urdu Pakistan
     uk: Ukrainian/ukrainian
+    uk: Ukrainian (Extended)/ukrainian_extended
     uz_UZ: Uzbek (Uzbekistan)/uzbek # This is a preliminary keyboard layout.
     vi: Vietnamese/qwerty
     zu: Zulu/qwerty
@@ -864,6 +866,16 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic_extended"
+            android:subtypeId="0x91f35a0b"
+            android:imeSubtypeLocale="ru"
+            android:languageTag="ru"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian_extended,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+            
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic_student"
             android:subtypeId="0x1bc335d0"
             android:imeSubtypeLocale="ru"
@@ -1013,6 +1025,15 @@
             android:languageTag="uk"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=ukrainian,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic_extended"
+            android:subtypeId="0x49dc95e4"
+            android:imeSubtypeLocale="uk"
+            android:languageTag="uk"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=ukrainian_extended,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
