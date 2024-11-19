@@ -74,12 +74,14 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 
         <!-- Activities -->
         <activity android:name=".latin.setup.SetupActivity"
-                android:theme="@style/platformActivityTheme"
+                android:theme="@style/AppTheme"
                 android:launchMode="singleTask"
                 android:noHistory="true"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -91,7 +93,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </activity>
 
         <activity android:name=".latin.setup.SetupWizardActivity"
-                android:theme="@style/platformActivityTheme"
+                android:theme="@style/AppTheme"
                 android:clearTaskOnLaunch="true"
                 android:exported="true">
             <intent-filter>
@@ -153,7 +155,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <!-- Broadcast receivers -->

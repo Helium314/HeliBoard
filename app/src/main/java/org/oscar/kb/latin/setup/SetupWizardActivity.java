@@ -125,15 +125,15 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            return;
-        }
+//        final ActionBar actionBar = getSupportActionBar();
+//        if (actionBar == null) {
+//            return;
+//        }
         FirebaseApp.initializeApp(this);
-
-        actionBar.hide();
-        getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
-        ActivityThemeUtils.setActivityTheme(this);
+//
+//        actionBar.hide();
+//        getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
+//        ActivityThemeUtils.setActivityTheme(this);
 
         mImm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mHandler = new SettingsPoolingHandler(this, mImm);
@@ -146,9 +146,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             mStepNumber = savedInstanceState.getInt(STATE_STEP);
         }
 
-        if (!JniUtils.sHaveGestureLib)
-            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
-
+        if (!JniUtils.sHaveGestureLib);
+//            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
 
         sharedPreferences = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE);
         if (isSetupComplete()) {
@@ -157,30 +156,6 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         }
         start = findViewById(R.id.getButton);
         start.setOnClickListener(this);
-        String instructionText = "    Welcome to \n" + "Oscar Keyboard";
-        SpannableString spannableStrin = new SpannableString(instructionText);
-        int startIndex = instructionText.indexOf("Oscar Keyboard");
-        int endIndex = startIndex + "Oscar Keyboard".length();
-        if (startIndex >= 0) {
-            // Apply ForegroundColorSpan
-            spannableStrin.setSpan(
-                    new ForegroundColorSpan(Color.parseColor("#85BDB9")),
-                    startIndex,
-                    endIndex,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
-
-            // Apply StyleSpan
-            spannableStrin.setSpan(
-                    new StyleSpan(Typeface.BOLD), // Set style to bold
-                    startIndex,
-                    endIndex,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
-
-        }
-        text=findViewById(R.id.welcometxt);
-        text.setText(spannableStrin);
     }
     private boolean isSetupComplete() {
         return sharedPreferences.getBoolean("setup_complete", false);
