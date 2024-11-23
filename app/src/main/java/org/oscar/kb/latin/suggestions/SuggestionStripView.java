@@ -230,6 +230,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         if (event.getText() != null && !event.getText().isEmpty()) {
             // if aiOutput text is not null clear history
             //aiOutput.setVisibility(View.GONE);
+
             aiOutput.setText(event.getText());
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             //aiOutput.setVisibility(View.GONE);
@@ -488,6 +489,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 stopRecord();
                 isCancelled = false;
 
+                aiOutput.setText("");
                 // Save user input
                 if (tempRecognizedText != null) {
                     Log.d("SuggestionStripViewFullText", "Saving recognized text to database: " + tempRecognizedText);
@@ -495,6 +497,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                     Log.d("SuggestionStripViewFullText", "Recognized text: " + tempRecognizedText);
                     //updateText(tempRecognizedText); // Now send the text to be updated
                     sendToGeminiAPI(tempRecognizedText); // Send the recognized text to the Gemini API
+                    // Clear the temporary recognized text after sending
+                    tempRecognizedText = null;
                 } else {
                     Log.d(TAG, "No text to send");
                 }
