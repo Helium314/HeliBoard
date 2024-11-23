@@ -178,6 +178,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         });
     }
     private void sendToGeminiAPI(String text) {
+        // Set the aiOutput text to "Processing..."
+        aiOutput.setText("Processing...");
         // Your logic to send the recognized text to the Gemini API
         GeminiClient geminiClient = new GeminiClient();
         GenerativeModel generativeModel = geminiClient.getGeminiFlashModel();
@@ -216,7 +218,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 tempRecognizedText = recognizedText;
 
                 // Optionally update the UI (if needed)
-                aiOutput.setText(recognizedText);
+                //aiOutput.setText(recognizedText);
             }
         }
     };
@@ -224,13 +226,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Subscribe
     public void onTextUpdated(TextUpdatedEvent event) {
-
         //lvTextProgress.setVisibility(View.VISIBLE);
         if (event.getText() != null && !event.getText().isEmpty()) {
             // if aiOutput text is not null clear history
-            aiOutput.setVisibility(View.GONE);
+            //aiOutput.setVisibility(View.GONE);
             aiOutput.setText(event.getText());
-            aiOutput.setVisibility(View.GONE);
+            Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
+            //aiOutput.setVisibility(View.GONE);
             //log received text
             Log.d("SuggestionStripView", "onTextUpdated: " + event.getText());
             // Copy the text to clipboard
