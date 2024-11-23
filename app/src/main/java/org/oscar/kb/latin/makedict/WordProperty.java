@@ -9,7 +9,8 @@ package org.oscar.kb.latin.makedict;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.Dictionary;
 import org.oscar.kb.latin.NgramContext;
 import org.oscar.kb.latin.common.StringUtils;

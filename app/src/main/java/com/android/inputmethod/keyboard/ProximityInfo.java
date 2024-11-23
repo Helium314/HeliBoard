@@ -1,4 +1,4 @@
-package org.inputmethod.keyboard;
+package com.android.inputmethod.keyboard;
 
 import android.graphics.Rect;
 import org.oscar.kb.latin.utils.Log;

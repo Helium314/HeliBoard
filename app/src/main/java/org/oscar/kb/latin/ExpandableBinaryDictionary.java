@@ -11,7 +11,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.common.ComposedData;
 import org.oscar.kb.latin.common.FileUtils;
 import org.oscar.kb.latin.define.DecoderSpecificConstants;

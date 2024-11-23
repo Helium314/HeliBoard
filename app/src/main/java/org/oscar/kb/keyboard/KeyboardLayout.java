@@ -8,7 +8,8 @@ package org.oscar.kb.keyboard;
 
 import androidx.annotation.NonNull;
 
-import org.inputmethod.keyboard.ProximityInfo;
+
+import com.android.inputmethod.keyboard.ProximityInfo;
 
 import java.util.ArrayList;
 import java.util.List;

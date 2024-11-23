@@ -6,7 +6,7 @@
 package org.oscar.kb.latin
 
 import android.text.TextUtils
-import org.inputmethod.latin.utils.BinaryDictionaryUtils
+import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
 import org.oscar.kb.keyboard.Keyboard
 import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo
 import org.oscar.kb.latin.common.ComposedData

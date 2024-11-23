@@ -20,6 +20,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
+import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+
 import org.oscar.kb.keyboard.Keyboard;
 import org.oscar.kb.latin.NgramContext;
 import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo;
@@ -28,7 +30,6 @@ import org.oscar.kb.latin.common.Constants;
 import org.oscar.kb.latin.common.LocaleUtils;
 import org.oscar.kb.latin.common.StringUtils;
 import org.oscar.kb.latin.define.DebugFlags;
-import org.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import org.oscar.kb.latin.utils.DeviceProtectedUtils;
 import org.oscar.kb.latin.utils.ScriptUtils;

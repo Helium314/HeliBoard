@@ -1,6 +1,7 @@
-package org.inputmethod.latin.utils;
+package com.android.inputmethod.latin.utils;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.common.StringUtils;
 import org.oscar.kb.latin.makedict.DictionaryHeader;
 import org.oscar.kb.latin.makedict.UnsupportedFormatException;
