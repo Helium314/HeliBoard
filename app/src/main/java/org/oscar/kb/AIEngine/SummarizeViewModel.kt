@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.oscar.kb.latin.utils.Log
+import java.net.SocketTimeoutException
 
 class SummarizeViewModel(
     private val generativeModel: GenerativeModel,
@@ -88,16 +89,20 @@ class SummarizeViewModel(
                 // Call the callback with the processed text
                 onTextUpdatedListener?.onTextUpdated(outputContent)
                 EventBus.getDefault().post(TextUpdatedEvent(outputContent))
+                Log.d("SummarizeViewModel", "Output: $outputContent")
 
             } catch (e: Exception) {
 //                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
 //                _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
-
-                val errorMessage = extractErrorMessage(e.message ?: "")
+                val errorMessage = when (e) {
+                    is SocketTimeoutException -> "The request time out. Please try again."
+                    else -> extractErrorMessage(e.message ?: "")
+                }
+                //val errorMessage = extractErrorMessage(e.message ?: "")
                 _uiState.value = SummarizeUiState.Error(errorMessage)
                 // Post the error event
                 EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
-                Log.d("SummarizeViewModel", "Error: ${e.localizedMessage}")
+                Log.d("SummarizeViewModel", "Error: ${errorMessage}", e)
             }
         }
     }

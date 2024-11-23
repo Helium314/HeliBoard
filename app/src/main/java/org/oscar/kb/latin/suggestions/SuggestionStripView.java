@@ -268,6 +268,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         // Update the UI to show the error message
         aiOutput.setText(event.getErrorMessage());
         aiOutput.setVisibility(View.VISIBLE);
+        aiOutput.setBackgroundResource(R.drawable.error_background);
         Log.d("UI", "Error message received: " + event.getErrorMessage());
     }
 
@@ -476,6 +477,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aiOutput.setBackgroundResource(R.drawable.clipboard_background);
                 Log.d(TAG, "Done button clicked");
                 stopTimer();
                 linearLayout.setVisibility(View.GONE);
