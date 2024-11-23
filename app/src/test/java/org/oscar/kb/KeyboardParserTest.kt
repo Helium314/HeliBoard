@@ -5,7 +5,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodSubtype
 import org.inputmethod.keyboard.ProximityInfo
 import org.oscar.kb.keyboard.Key.KeyParams
-import org.oscar.kb.keyboard.Keyboard
 import org.oscar.kb.keyboard.KeyboardId
 import org.oscar.kb.keyboard.KeyboardLayoutSet
 import org.oscar.kb.keyboard.internal.KeySpecParser
@@ -18,7 +17,6 @@ import org.oscar.kb.keyboard.internal.keyboard_parser.RawKeyboardParser
 import org.oscar.kb.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import org.oscar.kb.keyboard.internal.keyboard_parser.floris.KeyCode
 import org.oscar.kb.latin.LatinIME
-import org.oscar.kb.latin.RichInputMethodSubtype
 import org.oscar.kb.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
 import org.oscar.kb.latin.utils.POPUP_KEYS_LAYOUT
 import org.oscar.kb.latin.utils.checkKeys

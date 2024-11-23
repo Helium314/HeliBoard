@@ -1,4 +1,4 @@
-package org.inputmethod.latin;
+package com.android.inputmethod.latin;
 
 import org.oscar.kb.latin.common.NativeSuggestOptions;
 import org.oscar.kb.latin.define.DecoderSpecificConstants;

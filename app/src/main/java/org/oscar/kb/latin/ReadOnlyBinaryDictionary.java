@@ -6,7 +6,8 @@
 
 package org.oscar.kb.latin;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.common.ComposedData;
 import org.oscar.kb.latin.settings.SettingsValuesForSuggestion;
 

@@ -1,9 +1,12 @@
-package org.inputmethod.latin;
+package com.android.inputmethod.latin;
 
 import android.text.TextUtils;
 import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
+
+import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
+import com.android.inputmethod.latin.utils.WordInputEventForPersonalization;
 
 import org.oscar.kb.latin.Dictionary;
 import org.oscar.kb.latin.NgramContext;
@@ -19,8 +22,6 @@ import org.oscar.kb.latin.makedict.WordProperty;
 import org.oscar.kb.latin.settings.SettingsValuesForSuggestion;
 import org.oscar.kb.latin.utils.JniUtils;
 
-import org.inputmethod.latin.utils.BinaryDictionaryUtils;
-import org.inputmethod.latin.utils.WordInputEventForPersonalization;
 import org.oscar.kb.latin.makedict.DictionaryHeader;
 import org.oscar.kb.latin.utils.Log;
 

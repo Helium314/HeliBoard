@@ -12,16 +12,11 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.utils.BinaryDictionaryUtils;
+
+import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import org.oscar.kb.latin.define.DecoderSpecificConstants;
 import org.oscar.kb.latin.makedict.DictionaryHeader;
-import org.oscar.kb.latin.makedict.UnsupportedFormatException;
-import org.oscar.kb.latin.settings.SpacingAndPunctuations;
-import org.oscar.kb.latin.define.DecoderSpecificConstants;
-import org.oscar.kb.latin.makedict.DictionaryHeader;
-import org.oscar.kb.latin.utils.Log;
-
 import org.oscar.kb.latin.makedict.UnsupportedFormatException;
 import org.oscar.kb.latin.settings.SpacingAndPunctuations;
 

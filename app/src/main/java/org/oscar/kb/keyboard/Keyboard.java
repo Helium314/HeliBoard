@@ -11,7 +11,8 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.inputmethod.keyboard.ProximityInfo;
+
+import com.android.inputmethod.keyboard.ProximityInfo;
 
 import org.oscar.kb.keyboard.internal.KeyVisualAttributes;
 import org.oscar.kb.keyboard.internal.KeyboardIconsSet;

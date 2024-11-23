@@ -1,4 +1,4 @@
-package org.inputmethod.latin.utils;
+package com.android.inputmethod.latin.utils;
 
 import org.oscar.kb.latin.utils.Log;
 

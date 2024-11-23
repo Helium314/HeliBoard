@@ -11,7 +11,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.Dictionary;
 import org.oscar.kb.latin.ExpandableBinaryDictionary;
 import org.oscar.kb.latin.NgramContext;
