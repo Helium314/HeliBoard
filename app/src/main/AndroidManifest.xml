@@ -74,6 +74,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity android:name=".latin.setup.SetupActivity"
                 android:theme="@style/AppTheme"
                 android:launchMode="singleTask"
+            android:screenOrientation="portrait"
                 android:noHistory="true"
                 android:exported="true">
             <intent-filter>
@@ -86,6 +87,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name=".latin.permissions.PermissionsActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:taskAffinity="" >
         </activity>
@@ -93,6 +95,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity android:name=".latin.setup.SetupWizardActivity"
                 android:theme="@style/AppTheme"
                 android:clearTaskOnLaunch="true"
+            android:screenOrientation="portrait"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -102,6 +105,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity android:name=".latin.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/ime_settings"
+            android:screenOrientation="portrait"
                 android:excludeFromRecents="true"
                 android:exported="true">
             <intent-filter>
@@ -119,6 +123,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity android:name=".latin.spellcheck.SpellCheckerSettingsActivity"
                   android:theme="@style/platformActivityTheme"
                   android:label="@string/android_spell_checker_settings"
+            android:screenOrientation="portrait"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -127,28 +132,33 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <activity
             android:name="org.oscar.kb.latin.setup.MainActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="org.oscar.kb.latin.setup.KeyboardselectionActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="org.oscar.kb.latin.setup.PrivacyPolicyActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
         <activity
             android:name="org.oscar.kb.latin.setup.TermsOfUseActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".latin.setup.PromptHistoryActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
         <activity android:name=".latin.setup.Welcomescreen"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:noHistory="true"
             android:exported="true">
             <intent-filter>
