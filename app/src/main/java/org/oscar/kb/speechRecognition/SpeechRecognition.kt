@@ -17,6 +17,10 @@ import org.oscar.kb.latin.setup.Prompt
 //import org.oscar.kb.speechRecognition.SpeechRecognitionSettings
 
 class SpeechRecognition(context: Context) : SpeechRecognitionSettings(context) {
+
+    private val TAG_SPEECH_RECOGNITION = "SpeechRecognition"
+    private val TAG_SPEECH_RECOGNITION_FINAL = "SpeechRecognitionFinal"
+
 //    private val speechRecognizer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 //        // Recognition will occur offline (including Android 12 and above)
 //        SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
@@ -62,8 +66,8 @@ class SpeechRecognition(context: Context) : SpeechRecognitionSettings(context) {
                     flashlightController.controlFlashlight(matches[INDEX_OF_MOST_LIKELY_PHRASE])
                     // matches[INDEX_OF_MOST_LIKELY_PHRASE] -
                     // The most likely phrase spoken by the user, according to the recognition system
-                    Log.d("SpeechRecognition", matches[INDEX_OF_MOST_LIKELY_PHRASE])
-                    Log.d("SpeechRecognitionFinal", accumulatedText)
+                    Log.d(TAG_SPEECH_RECOGNITION, matches[INDEX_OF_MOST_LIKELY_PHRASE])
+                    Log.d(TAG_SPEECH_RECOGNITION_FINAL, accumulatedText)
 
                     // Send a broadcast with the recognized text
                     val intent = Intent("SpeechRecognitionResults")

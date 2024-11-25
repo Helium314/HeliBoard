@@ -15,11 +15,12 @@ class GeminiClient() {
         GenerativeModel(
             modelName = "gemini-1.5-flash",
             apiKey = key,
-            safetySettings = listOf(SafetySetting(HarmCategory.HARASSMENT, BlockThreshold.NONE),
-                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.NONE),
-                SafetySetting(HarmCategory.HATE_SPEECH, BlockThreshold.NONE),
-                SafetySetting(HarmCategory.DANGEROUS_CONTENT, BlockThreshold.NONE),
-                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.NONE),
-        ),)
+//            safetySettings = listOf(SafetySetting(HarmCategory.HARASSMENT, BlockThreshold.NONE),
+//                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.NONE),
+//                SafetySetting(HarmCategory.HATE_SPEECH, BlockThreshold.NONE),
+//                SafetySetting(HarmCategory.DANGEROUS_CONTENT, BlockThreshold.NONE),
+//                SafetySetting(HarmCategory.SEXUALLY_EXPLICIT, BlockThreshold.NONE),
+//        ),
+            )
     }
 }

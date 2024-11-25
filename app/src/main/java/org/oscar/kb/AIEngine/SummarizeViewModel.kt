@@ -13,6 +13,12 @@ import org.greenrobot.eventbus.EventBus
 import org.oscar.kb.latin.utils.Log
 import java.net.SocketTimeoutException
 
+// Improved tags for different categories
+private const val TAG_SummarizeViewModel = "SummarizeViewModel"
+private const val TAG_SummarizeViewModel_UI = "SummarizeViewModel_UI"
+private const val TAG_SummarizeViewModel_API = "SummarizeViewModel_API"
+
+
 class SummarizeViewModel(
     private val generativeModel: GenerativeModel,
 ) : ViewModel() {
@@ -66,6 +72,7 @@ class SummarizeViewModel(
     fun summarizeStreaming(inputText: String) {
         _uiState.value = SummarizeUiState.Loading
 
+
         val prompt =
             "Please correct the following text for any spelling and grammatical errors only in English. \n" +
                     "Do not change the meaning, translate, or paraphrase the text. \n" +
@@ -80,16 +87,18 @@ class SummarizeViewModel(
 
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
-                        outputContent = response.text.toString()  // Update with complete text
+                        outputContent += response.text.toString()  // Update with complete text
+                        Log.d(TAG_SummarizeViewModel_API, "API response: $outputContent")  // Tag for API responses
                     }
 
                 // Update UI with complete output
                 _uiState.value = SummarizeUiState.Success(outputContent)
-
+                Log.d(TAG_SummarizeViewModel_UI, "Updating UI state to Success: $outputContent")
                 // Call the callback with the processed text
                 onTextUpdatedListener?.onTextUpdated(outputContent)
+                Log.d(TAG_SummarizeViewModel, "Text updated from onTextUpdated: $outputContent")  // Tag for general events
                 EventBus.getDefault().post(TextUpdatedEvent(outputContent))
-                Log.d("SummarizeViewModel", "Output: $outputContent")
+                Log.d(TAG_SummarizeViewModel, "API Success output: $outputContent")  // Tag for general events
 
             } catch (e: Exception) {
 //                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
@@ -102,7 +111,7 @@ class SummarizeViewModel(
                 _uiState.value = SummarizeUiState.Error(errorMessage)
                 // Post the error event
                 EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
-                Log.d("SummarizeViewModel", "Error: ${errorMessage}", e)
+                Log.e(TAG_SummarizeViewModel_API, "API error: $errorMessage", e)  // Tag for API errors
             }
         }
     }
