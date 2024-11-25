@@ -6,7 +6,8 @@
 
 package org.oscar.kb.latin.makedict;
 
-import org.inputmethod.latin.BinaryDictionary;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.utils.CombinedFormatUtils;
 
 import java.util.Arrays;

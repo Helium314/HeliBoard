@@ -16,10 +16,9 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.BinaryDictionary;
 
-import org.oscar.kb.latin.utils.Log;
-import org.oscar.kb.latin.utils.SubtypeLocaleUtils;
+import com.android.inputmethod.latin.BinaryDictionary;
+
 import org.oscar.kb.latin.utils.Log;
 import org.oscar.kb.latin.utils.SubtypeLocaleUtils;
 

@@ -15,7 +15,8 @@ import org.oscar.kb.latin.utils.Log;
 
 import androidx.annotation.Nullable;
 
-import org.inputmethod.latin.BinaryDictionary;
+
+import com.android.inputmethod.latin.BinaryDictionary;
 
 import org.oscar.kb.latin.ContactsManager.ContactsChangedListener;
 import org.oscar.kb.latin.common.StringUtils;

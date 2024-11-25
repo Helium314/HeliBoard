@@ -146,8 +146,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
             mStepNumber = savedInstanceState.getInt(STATE_STEP);
         }
 
-        if (!JniUtils.sHaveGestureLib);
-//            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
+        if (!JniUtils.sHaveGestureLib)
+            ((TextView) findViewById(R.id.setup_welcome_description)).setText("");
 
         sharedPreferences = getSharedPreferences("keyboard_prefs", Context.MODE_PRIVATE);
         if (isSetupComplete()) {

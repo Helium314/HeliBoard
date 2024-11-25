@@ -259,7 +259,7 @@ class KeyboardselectionActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        //EventBus.getDefault().unregister(this)
+        EventBus.getDefault().unregister(this)
     }
 
     private fun showKeyboard() {

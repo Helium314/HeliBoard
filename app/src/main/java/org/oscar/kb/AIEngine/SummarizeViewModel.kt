@@ -1,21 +1,23 @@
 package org.oscar.kb.AIEngine
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.GenerativeModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import org.oscar.kb.latin.setup.AppDatabase
-import org.oscar.kb.latin.setup.Prompt
 import org.oscar.kb.latin.utils.Log
+import java.net.SocketTimeoutException
+
+// Improved tags for different categories
+private const val TAG_SummarizeViewModel = "SummarizeViewModel"
+private const val TAG_SummarizeViewModel_UI = "SummarizeViewModel_UI"
+private const val TAG_SummarizeViewModel_API = "SummarizeViewModel_API"
+
 
 class SummarizeViewModel(
     private val generativeModel: GenerativeModel,
@@ -50,8 +52,6 @@ class SummarizeViewModel(
     private val _outputTextStateFlow = MutableStateFlow("")
     val outputTextStateFlow: StateFlow<String> = _outputTextStateFlow
 
-    // ... other ViewModel logic
-
     fun updateOutputText(outputText: String) {
         _outputTextStateFlow.value = outputText
         // Pass the outputText to Java class using an interface or EventBus
@@ -63,55 +63,15 @@ class SummarizeViewModel(
         onTextUpdatedListener = listener
     }
 
-//    fun onAICorrection(context: Context) {
-//
-//        val generativeModel = geminiClient.geminiFlashModel
-//
-//        val inputContent = content {
-//            text("Please correct the following text for any spelling and grammatical errors, and slightly paraphrase it while keeping the original language and the markdown format:\n")
-//        }
-//        viewModelScope.launch {
-//            try {
-//                val response = generativeModel.generateContent(inputContent)
-//                _state.update { it.copy(isAICorrecting = true) }
-//                Toast.makeText(context, "Text Corrected With AIEngine", Toast.LENGTH_SHORT).show()
-//            } catch (e: Exception) {
-//                Toast.makeText(context, "Error Correcting Text With AIEngine", Toast.LENGTH_SHORT)
-//                    .show()
-//            } finally {
-//                _state.update { it.copy(isAICorrecting = false) }
-//            }
-//        }
-//    }
-
     private fun processResponse(text: String?): String {
         // Implement your text processing logic here
         // For example, you might remove extra spaces, handle special characters, etc.
         return text!! // A simple example
     }
+
     fun summarizeStreaming(inputText: String) {
         _uiState.value = SummarizeUiState.Loading
 
-        //if (inputText.isEmpty() || inputText.length < 50) {
-//            val errorMessage = if (inputText.isEmpty()) {
-//                "Text is empty and cannot be processed."
-//            } else {
-//                "Text is too short to process."
-//            }
-
-//            Log.d("SummarizeViewModel", errorMessage)
-//            _uiState.value = SummarizeUiState.Error(errorMessage)
-//            // Post the error event
-//            EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
-            //return
-        //}
-//        val prompt =
-//                    "Please correct the following text for any spelling and grammatical errors only in English. \n" +
-//                    "Do not change the structure, paraphrase, translate, or alter the original meaning of the text. \n" +
-//                    "Keep the text strictly in English. \n" +
-//                    "For longer texts, make sure to carefully correct all grammatical errors and spelling mistakes without modifying the original structure or meaning. \n" +
-//                    "For longer texts, organize the content into clear, well-structured paragraphs while keeping the meaning intact. \n" +
-//                    "If the text is too short, just fix grammar or spelling without making any other changes:\n: $inputText"
 
         val prompt =
             "Please correct the following text for any spelling and grammatical errors only in English. \n" +
@@ -123,59 +83,43 @@ class SummarizeViewModel(
 
         viewModelScope.launch {
             try {
-                var outputContent = ""
-//                var outputContent = StringBuilder() // use a StringBuilder for better performance
+                var outputContent = "" // Accumulate response here
+
                 generativeModel.generateContentStream(prompt)
                     .collect { response ->
-//                        outputContent.append(response.text.toString()) // Accumulate text here
-
-                        outputContent = response.text.toString()
-
-                        // Call the callback with the processed text
-                        onTextUpdatedListener?.onTextUpdated(outputContent)
-
-                        // Post the EventBus event
-                        EventBus.getDefault().post(TextUpdatedEvent(outputContent))
-                        //log sent event
-                        Log.d("SummarizeViewModel", "TextUpdatedEventBus: $outputContent")
-
-                        // Save to database (insert your DB logic here)
-                        // Save to database (insert your DB logic here)
-                        // log values
-                        Log.d("SummarizeViewModel", "outputContent: $outputContent")
-
-                        _uiState.value = SummarizeUiState.Success(outputContent)
-                        Log.d("SummarizeViewModel", "outputContent: $outputContent")
+                        outputContent += response.text.toString()  // Update with complete text
+                        Log.d(TAG_SummarizeViewModel_API, "API response: $outputContent")  // Tag for API responses
                     }
+
+                // Update UI with complete output
+                _uiState.value = SummarizeUiState.Success(outputContent)
+                Log.d(TAG_SummarizeViewModel_UI, "Updating UI state to Success: $outputContent")
+                // Call the callback with the processed text
+                onTextUpdatedListener?.onTextUpdated(outputContent)
+                Log.d(TAG_SummarizeViewModel, "Text updated from onTextUpdated: $outputContent")  // Tag for general events
+                EventBus.getDefault().post(TextUpdatedEvent(outputContent))
+                Log.d(TAG_SummarizeViewModel, "API Success output: $outputContent")  // Tag for general events
+
             } catch (e: Exception) {
-                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
-                _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
-                Log.d("SummarizeViewModel", "Error: ${e.localizedMessage}")
+//                val errorMessage = e.localizedMessage ?: "An unknown error occurred"
+//                _uiState.value = SummarizeUiState.Error(e.localizedMessage ?: "")
+                val errorMessage = when (e) {
+                    is SocketTimeoutException -> "The request time out. Please try again."
+                    else -> extractErrorMessage(e.message ?: "")
+                }
+                //val errorMessage = extractErrorMessage(e.message ?: "")
+                _uiState.value = SummarizeUiState.Error(errorMessage)
                 // Post the error event
                 EventBus.getDefault().post(SummarizeErrorEvent(errorMessage))
+                Log.e(TAG_SummarizeViewModel_API, "API error: $errorMessage", e)  // Tag for API errors
             }
         }
     }
 
-    // Database saving function
-//    private suspend fun saveToDatabase(content: String) {
-//        try {
-//            // Insert content into the database
-//            yourDatabase.yourDao().insert(ContentEntity(content = content))
-//            Log.d("SummarizeViewModel", "Saved content to database: $content")
-//        } catch (e: Exception) {
-//            Log.d("SummarizeViewModel", "Error saving to database: ${e.localizedMessage}")
-//        }
-//    }
-
-//    private fun saveAIResponseToDatabase(aiText: String) {
-//        val db = AppDatabase.getDatabase(getApplication<Application>().applicationContext)
-//        val aiTextEntity = Prompt(aiText, Prompt.PromptType.AI_OUTPUT) // Set the type to AI_OUTPUT
-//
-//        viewModelScope.launch(Dispatchers.IO) {
-//            db.promptDao().insert(aiTextEntity)
-//        }
-//    }
-
+    private fun extractErrorMessage(errorMessage: String): String {
+        val regex = """\"message\": \"(.*?)\"""".toRegex()
+        val matchResult = regex.find(errorMessage)
+        return matchResult?.groupValues?.get(1) ?: "An unexpected error occurred"
+    }
 
 }

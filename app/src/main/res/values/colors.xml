@@ -79,4 +79,5 @@
 
     <!-- Scrollbar color -->
     <color name="toolbar_scrollbar">#66808080</color>
+    <color name="error_red">#ffcccb</color>
 </resources>

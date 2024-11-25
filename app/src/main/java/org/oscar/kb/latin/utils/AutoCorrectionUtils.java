@@ -6,12 +6,11 @@
 
 package org.oscar.kb.latin.utils;
 
-import org.inputmethod.latin.utils.BinaryDictionaryUtils;
+
+import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
 import org.oscar.kb.latin.define.DebugFlags;
 import org.oscar.kb.latin.SuggestedWords.SuggestedWordInfo;
-import org.oscar.kb.latin.define.DebugFlags;
-import org.oscar.kb.latin.utils.Log;
 
 public final class AutoCorrectionUtils {
     private static final String TAG = AutoCorrectionUtils.class.getSimpleName();
