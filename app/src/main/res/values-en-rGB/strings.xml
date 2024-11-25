@@ -132,7 +132,7 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_input">Input</string>
     <string name="settings_category_miscellaneous">Miscellaneous</string>
-    <string name="ime_settings">HeliBoard Settings</string>
+    <string name="ime_settings">Oscar AI Keyboard Settings</string>
     <string name="settings_category_suggestions">Suggestions</string>
     <string name="number_row">Number row</string>
     <string name="show_hints">Show key hints</string>
