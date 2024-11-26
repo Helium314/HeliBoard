@@ -1,18 +1,12 @@
 package org.oscar.kb.latin.suggestions;
 
-import static android.app.ProgressDialog.show;
-import static androidx.core.content.ContextCompat.getSystemService;
-import static androidx.core.content.ContextCompat.startActivity;
+
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.createToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKey;
 import static org.oscar.kb.latin.utils.ToolbarUtilsKt.getCodeForToolbarKeyLongClick;
 
-import android.content.res.Configuration;
 import android.app.NotificationManager;
 import android.media.AudioManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Button;
@@ -63,7 +57,6 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
-import org.oscar.kb.AIEngine.AIOutputEvent;
 import org.oscar.kb.AIEngine.OnTextUpdatedListener;
 import org.oscar.kb.AIEngine.SummarizeErrorEvent;
 import org.oscar.kb.AIEngine.SummarizeViewModel;
@@ -428,8 +421,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         timerTextView = findViewById(R.id.timerTextView);
         cancel = findViewById(R.id.et_cancel);
         done = findViewById(R.id.et_done);
-        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
-        currentmode = audioManager.getRingerMode();
+
+//        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+//        currentmode = audioManager.getRingerMode();
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -479,7 +473,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
                 startTimer();  // Starts the timer
                 startRecord(); // Starts recording
-                vibrate();     // Vibrate for feedback
+                vibrate();     // Vibrate for feedback                  
+
             }
         });
         cancel.setOnClickListener(new OnClickListener() {
@@ -496,7 +491,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 isCancelled = true;
                 tempRecognizedText = null; // Optionally clear the temporary text
                 aiOutput.setText(""); // Optionally clear the TextView
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
 //                Toast.makeText(getContext(), "Ringtone Mode Activated..", Toast.LENGTH_SHORT).show();
             }
         });
@@ -513,7 +508,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+
 //                Toast.makeText(getContext(), "Ringtone Mode Activated..", Toast.LENGTH_SHORT).show();
 
                 aiOutput.setText("");
