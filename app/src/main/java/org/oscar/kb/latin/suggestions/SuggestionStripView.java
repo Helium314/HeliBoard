@@ -421,9 +421,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         timerTextView = findViewById(R.id.timerTextView);
         cancel = findViewById(R.id.et_cancel);
         done = findViewById(R.id.et_done);
-
-//        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
-//        currentmode = audioManager.getRingerMode();
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        currentmode = audioManager.getRingerMode();
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -444,31 +443,36 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "mic_suggestion_strip clicked");
+
+                NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // Check if permission is not granted
+                    if (!notificationManager.isNotificationPolicyAccessGranted()) {
+                        // Redirect to settings only if permission is not granted
+                        Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getContext().startActivity(intent);
+                        return; // Exit early to avoid executing the rest of the code
+                    }
+                }
+
+                // Permission granted, proceed with the actions
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+//                Toast.makeText(getContext(), "Silent Mode Activated..", Toast.LENGTH_SHORT).show();
+
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+//                Toast.makeText(getContext(), "Vibrate Mode Activated..", Toast.LENGTH_SHORT).show();
+
                 ivCopy.setVisibility(View.GONE);
                 ivDelete.setVisibility(View.GONE);
                 mic_suggestion_strip.setVisibility(View.GONE);
                 aiOutput.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
+
                 startTimer();  // Starts the timer
-                startRecord();
-                vibrate();
-
-//                NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !notificationManager.isNotificationPolicyAccessGranted()) {
-//                    // Ask for permission to modify Do Not Disturb settings
-//                    Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  // Add this line
-//                    getContext().startActivity(intent);
-//
-//                } else {
-//                    // Permission granted, modify ringer mode
-//                    audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-//                    Toast.makeText(getContext(), "Silent Mode Activated..", Toast.LENGTH_SHORT).show();
-//
-//                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-//                    Toast.makeText(getContext(), "Vibrate Mode Activated..", Toast.LENGTH_SHORT).show();
-//                }
-
+                startRecord(); // Starts recording
+                vibrate();     // Vibrate for feedback
             }
         });
         cancel.setOnClickListener(new OnClickListener() {
@@ -485,8 +489,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 isCancelled = true;
                 tempRecognizedText = null; // Optionally clear the temporary text
                 aiOutput.setText(""); // Optionally clear the TextView
-
-//                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 //                Toast.makeText(getContext(), "Ringtone Mode Activated..", Toast.LENGTH_SHORT).show();
             }
         });
@@ -503,8 +506,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 ivDelete.setVisibility(View.VISIBLE);
                 stopRecord();
                 isCancelled = false;
-
-//                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 //                Toast.makeText(getContext(), "Ringtone Mode Activated..", Toast.LENGTH_SHORT).show();
 
                 aiOutput.setText("");
