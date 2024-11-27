@@ -13,7 +13,7 @@
         android:id="@+id/policy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="13dp"
         android:text="Privacy Policy"
         android:fontFamily="@font/spectral_semibold"
         android:textColor="#4D4D4D"
