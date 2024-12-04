@@ -23,7 +23,11 @@
     { "label": "η" },
     { "label": "ξ" },
     { "label": "κ" },
-    { "label": "λ" }
+    { "label": "λ" },
+    { "$": "shift_state_selector",
+      "shiftedManual": { "code": 776, "label": "¨", "isDeadKey": true },
+      "default": { "code": 769, "label": "´", "isDeadKey": true }
+    }
   ],
   [
     { "label": "ζ" },
