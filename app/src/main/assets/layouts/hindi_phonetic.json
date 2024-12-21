@@ -90,7 +90,11 @@
     {
       "$": "shift_state_selector",
       "manualOrLocked": { "label": "ख" },
-      "default": { "label": "क" }
+      "default": { "label": "क" },
+      "popup": {
+        "main": { "$": "auto_text_key", "code": 2392, "label": "क़" },
+        "relevant": [{ "$": "auto_text_key", "code": 2393, "label": "ख़" }]
+      }
     },
     {
       "$": "shift_state_selector",

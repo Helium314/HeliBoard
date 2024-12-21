@@ -48,7 +48,7 @@
     gu: Gujarati/gujarati
     hi: Hindi/hindi
     hi: Hindi/hindi_compact
-    hi_IN:Hindi/hindi_phonetic
+    hi:Hindi/hindi_phonetic
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
     hr: Croatian/qwertz
     hu: Hungarian/qwertz
@@ -476,8 +476,8 @@
      <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xf7c96864"
-            android:imeSubtypeLocale="hi_IN"
-            android:languageTag="hi-IN"
+            android:imeSubtypeLocale="hi"
+            android:languageTag="hi"
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_phonetic,EmojiCapable"
             android:isAsciiCapable="false"
