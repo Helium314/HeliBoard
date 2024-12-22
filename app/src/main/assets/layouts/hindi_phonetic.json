@@ -2,52 +2,99 @@
   [
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ठ" },
-      "default": { "label": "ट" }
-    },
-    {
-      "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ढ" },
+      "manualOrLocked": {
+        "label": "ठ"
+      },
       "default": {
-        "label": "ड",
-        "popup": {
-          "main": { "label": "ड़" },
-          "relevant": [{ "label": "ढ़" }]
-        }
+        "label": "ट"
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ै" },
+      "manualOrLocked": {
+        "label": "ढ"
+      },
       "default": {
-        "label": "े",
+        "label": "ड",
         "popup": {
-          "main": { "label": "ए" },
+          "main": {
+            "label": "ड़"
+          },
           "relevant": [
-            { "label": "ऍ" },
-            { "label": "ऐ" },
-            { "label": " ॆ" },
-            { "label": " ॕ" },
-            { "label": " ॎ" },
-            { "label": "ऎ" }
+            {
+              "label": "ढ़"
+            }
           ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ृ" },
+      "manualOrLocked": {
+        "label": "ै"
+      },
       "default": {
-        "label": "र",
+        "label": "े",
         "popup": {
-          "main": { "label": "ऋ" },
-          "relevant": [{ "label": "ॠ" }, { "label": "ॄ" }, { "label": "ऱ" }]
+          "main": {
+            "label": "ए"
+          },
+          "relevant": [
+            {
+              "label": "ऍ"
+            },
+            {
+              "label": "ऐ"
+            },
+            {
+              "code": 2374,
+              "label": " ॆ"
+            },
+            {
+              "code": 2389,
+              "label": " ॕ"
+            },
+            {
+              "code": 2382,
+              "label": " ॎ"
+            },
+            {
+              "label": "ऎ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "थ" },
+      "manualOrLocked": {
+        "label": "ृ"
+      },
+      "default": {
+        "label": "र",
+        "popup": {
+          "main": {
+            "label": "ऋ"
+          },
+          "relevant": [
+            {
+              "label": "ॠ"
+            },
+            {
+              "label": "ॄ"
+            },
+            {
+              "label": "ऱ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$": "shift_state_selector",
+      "manualOrLocked": {
+        "label": "थ"
+      },
       "default": {
         "label": "त",
         "popup": {
@@ -59,168 +106,314 @@
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "य़" },
+      "manualOrLocked": {
+        "label": "य़"
+      },
       "default": {
         "label": "य",
         "popup": {
-          "main": { "label": "ॺ" }
+          "main": {
+            "label": "ॺ"
+          }
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ू" },
+      "manualOrLocked": {
+        "label": "ू"
+      },
       "default": {
         "label": "ु",
         "popup": {
-          "main": { "label": "उ" },
+          "main": {
+            "label": "उ"
+          },
           "relevant": [
-            { "label": "ऊ" },
-            { "label": "ॷ" },
-            { "label": " ॖ" },
-            { "label": "ॶ" },
-            { "label": " ॗ" }
+            {
+              "label": "ऊ"
+            },
+            {
+              "label": "ॷ"
+            },
+            {
+              "code": 2390,
+              "label": " ॖ"
+            },
+            {
+              "label": "ॶ"
+            },
+            {
+              "code": 2391,
+              "label": " ॗ"
+            }
           ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ी" },
+      "manualOrLocked": {
+        "label": "ी"
+      },
       "default": {
         "label": "ि",
         "popup": {
-          "main": { "label": "इ" },
-          "relevant": [{ "label": "ई" }]
-        }
-      }
-    },
-    {
-      "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ौ" },
-      "default": {
-        "label": "ो",
-        "popup": {
-          "main": { "label": "ओ" },
+          "main": {
+            "label": "इ"
+          },
           "relevant": [
-            { "label": "औ" },
-            { "label": "ऑ" },
-            { "label": " ॏ" },
-            { "label": "ॵ" },
-            { "label": "ॐ" },
-            { "label": "ॉ" },
-            { "label": "ॳ" },
-            { "label": "ॴ" },
-            { "label": " ऺ" },
-            { "label": " ऻ" },
-            { "label": "ऒ" },
-            { "label": " ॊ" }
+            {
+              "label": "ई"
+            }
           ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "फ़" },
-      "default": { "label": "प" }
+      "manualOrLocked": {
+        "label": "ौ"
+      },
+      "default": {
+        "label": "ो",
+        "popup": {
+          "main": {
+            "label": "ओ"
+          },
+          "relevant": [
+            {
+              "label": "औ"
+            },
+            {
+              "label": "ऑ"
+            },
+            {
+              "code": 2383,
+              "label": " ॏ"
+            },
+            {
+              "label": "ॵ"
+            },
+            {
+              "label": "ॐ"
+            },
+            {
+              "label": "ॉ"
+            },
+            {
+              "label": "ॳ"
+            },
+            {
+              "label": "ॴ"
+            },
+            {
+              "code": 2362,
+              "label": " ऺ"
+            },
+            {
+              "code": 2363,
+              "label": " ऻ"
+            },
+            {
+              "label": "ऒ"
+            },
+            {
+              "code": 2378,
+              "label": " ॊ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$": "shift_state_selector",
+      "manualOrLocked": {
+        "label": "फ़"
+      },
+      "default": {
+        "label": "प"
+      }
     }
   ],
   [
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "अ" },
+      "manualOrLocked": {
+        "label": "अ"
+      },
       "default": {
         "label": "ा",
         "popup": {
-          "main": { "label": "आ" },
-          "relevant": [{ "label": "ॅ" }, { "label": "ॲ" }, { "label": "ऄ" }]
+          "main": {
+            "label": "आ"
+          },
+          "relevant": [
+            {
+              "label": "ॅ"
+            },
+            {
+              "label": "ॲ"
+            },
+            {
+              "label": "ऄ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "श" },
+      "manualOrLocked": {
+        "label": "श"
+      },
       "default": {
         "label": "स",
         "popup": {
           "main": {
             "label": "श्र"
           },
-          "relevant": [{ "label": "ष" }]
+          "relevant": [
+            {
+              "label": "ष"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ध" },
+      "manualOrLocked": {
+        "label": "ध"
+      },
       "default": {
         "label": "द",
         "popup": {
-          "main": { "label": "ड़" },
-          "relevant": [{ "label": "ॾ" }, { "label": "ढ़" }, { "label": "ॸ" }]
+          "main": {
+            "label": "ड़"
+          },
+          "relevant": [
+            {
+              "label": "ॾ"
+            },
+            {
+              "label": "ढ़"
+            },
+            {
+              "label": "ॸ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "code": 2364, "label": " ़" },
+      "manualOrLocked": {
+        "code": 2364,
+        "label": " ़"
+      },
       "default": {
         "label": "फ",
         "popup": {
-          "main": { "label": "फ़" }
+          "main": {
+            "label": "फ़"
+          }
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "घ" },
+      "manualOrLocked": {
+        "label": "घ"
+      },
       "default": {
         "label": "ग",
         "popup": {
-          "main": { "label": "ग़" },
-          "relevant": [{ "label": "ॻ" }]
+          "main": {
+            "label": "ग़"
+          },
+          "relevant": [
+            {
+              "label": "ॻ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ः" },
-      "default": { "label": "ह" }
+      "manualOrLocked": {
+        "label": "ः"
+      },
+      "default": {
+        "label": "ह"
+      }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "झ" },
+      "manualOrLocked": {
+        "label": "झ"
+      },
       "default": {
         "label": "ज",
         "popup": {
-          "main": { "label": "ज़" },
-          "relevant": [{ "label": "ॼ" }, { "label": "ॹ" }]
+          "main": {
+            "label": "ज़"
+          },
+          "relevant": [
+            {
+              "label": "ॼ"
+            },
+            {
+              "label": "ॹ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ख" },
+      "manualOrLocked": {
+        "label": "ख"
+      },
       "default": {
         "label": "क",
         "popup": {
-          "main": { "label": "क़" },
-          "relevant": [{ "label": "ख़" }]
+          "main": {
+            "label": "क़"
+          },
+          "relevant": [
+            {
+              "label": "ख़"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ळ" },
+      "manualOrLocked": {
+        "label": "ळ"
+      },
       "default": {
         "label": "ल",
         "popup": {
           "relevant": [
-            { "label": "ऴ" },
-            { "label": "ॣ" },
-            { "label": "ऌ" },
-            { "label": "ॡ" },
-            { "label": "ॢ" }
+            {
+              "label": "ऴ"
+            },
+            {
+              "label": "ॣ"
+            },
+            {
+              "label": "ऌ"
+            },
+            {
+              "label": "ॡ"
+            },
+            {
+              "label": "ॢ"
+            }
           ]
         }
       }
@@ -229,69 +422,131 @@
   [
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ज़", "labelFlags": 128 },
-      "default": { "label": "ज्ञ", "labelFlags": 128 }
+      "manualOrLocked": {
+        "label": "ज़",
+        "labelFlags": 128
+      },
+      "default": {
+        "label": "ज्ञ",
+        "labelFlags": 128
+      }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ष" },
-      "default": { "label": "क्ष", "labelFlags": 128 }
+      "manualOrLocked": {
+        "label": "ष"
+      },
+      "default": {
+        "label": "क्ष",
+        "labelFlags": 128
+      }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "छ" },
+      "manualOrLocked": {
+        "label": "छ"
+      },
       "default": {
         "label": "च",
         "popup": {
           "relevant": [
-            { "$": "auto_text_key", "code": 2385, "label": " ॑" },
-            { "$": "auto_text_key", "code": 2386, "label": " ॒" }
+            {
+              "$": "auto_text_key",
+              "code": 2385,
+              "label": " ॑"
+            },
+            {
+              "$": "auto_text_key",
+              "code": 2386,
+              "label": " ॒"
+            }
           ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "्" },
+      "manualOrLocked": {
+        "label": "्"
+      },
       "default": {
         "label": "व",
         "popup": {
           "relevant": [
-            { "$": "auto_text_key", "code": 2387, "label": " ॓" },
-            { "$": "auto_text_key", "code": 2388, "label": " ॔" }
+            {
+              "$": "auto_text_key",
+              "code": 2387,
+              "label": " ॓"
+            },
+            {
+              "$": "auto_text_key",
+              "code": 2388,
+              "label": " ॔"
+            }
           ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "भ" },
+      "manualOrLocked": {
+        "label": "भ"
+      },
       "default": {
         "label": "ब",
         "popup": {
-          "relevant": [{ "label": "ॿ" }, { "label": "ऽ" }, { "label": "॰" }]
+          "relevant": [
+            {
+              "label": "ॿ"
+            },
+            {
+              "label": "ऽ"
+            },
+            {
+              "label": "॰"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ण" },
+      "manualOrLocked": {
+        "label": "ण"
+      },
       "default": {
         "label": "न",
         "popup": {
-          "main": { "label": "ङ" },
-          "relevant": [{ "label": "ऩ" }, { "label": "ञ" }]
+          "main": {
+            "label": "ङ"
+          },
+          "relevant": [
+            {
+              "label": "ऩ"
+            },
+            {
+              "label": "ञ"
+            }
+          ]
         }
       }
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ं" },
+      "manualOrLocked": {
+        "label": "ं"
+      },
       "default": {
         "label": "म",
         "popup": {
-          "main": { "label": "ँ" },
-          "relevant": [{ "label": "ऀ" }]
+          "main": {
+            "label": "ँ"
+          },
+          "relevant": [
+            {
+              "label": "ऀ"
+            }
+          ]
         }
       }
     }
