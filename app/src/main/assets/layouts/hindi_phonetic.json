@@ -25,11 +25,11 @@
           "main": { "label": "ए" },
           "relevant": [
             { "label": "ऍ" },
-            { "label": "ऎ" },
-            { "label": " ॆ" },
             { "label": "ऐ" },
+            { "label": " ॆ" },
+            { "label": " ॕ" },
             { "label": " ॎ" },
-            { "label": " ॕ" }
+            { "label": "ऎ" }
           ]
         }
       }
@@ -75,10 +75,10 @@
         "popup": {
           "main": { "label": "उ" },
           "relevant": [
-            { "label": "ॶ" },
+            { "label": "ऊ" },
             { "label": "ॷ" },
             { "label": " ॖ" },
-            { "label": "ऊ" },
+            { "label": "ॶ" },
             { "label": " ॗ" }
           ]
         }
@@ -103,8 +103,8 @@
         "popup": {
           "main": { "label": "ओ" },
           "relevant": [
-            { "label": "ऒ" },
-            { "label": " ॊ" },
+            { "label": "औ" },
+            { "label": "ऑ" },
             { "label": " ॏ" },
             { "label": "ॵ" },
             { "label": "ॐ" },
@@ -113,8 +113,8 @@
             { "label": "ॴ" },
             { "label": " ऺ" },
             { "label": " ऻ" },
-            { "label": "औ" },
-            { "label": "ऑ" }
+            { "label": "ऒ" },
+            { "label": " ॊ" }
           ]
         }
       }
@@ -163,7 +163,7 @@
     },
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": " ़" },
+      "manualOrLocked": { "code": 2364, "label": " ़" },
       "default": {
         "label": "फ",
         "popup": {
@@ -216,11 +216,11 @@
         "label": "ल",
         "popup": {
           "relevant": [
-            { "label": "ॢ" },
+            { "label": "ऴ" },
             { "label": "ॣ" },
             { "label": "ऌ" },
             { "label": "ॡ" },
-            { "label": "ऴ" }
+            { "label": "ॢ" }
           ]
         }
       }
@@ -229,13 +229,13 @@
   [
     {
       "$": "shift_state_selector",
-      "manualOrLocked": { "label": "ज़" },
-      "default": { "label": "ज्ञ" }
+      "manualOrLocked": { "label": "ज़", "labelFlags": 128 },
+      "default": { "label": "ज्ञ", "labelFlags": 128 }
     },
     {
       "$": "shift_state_selector",
       "manualOrLocked": { "label": "ष" },
-      "default": { "label": "क्ष" }
+      "default": { "label": "क्ष", "labelFlags": 128 }
     },
     {
       "$": "shift_state_selector",
@@ -243,7 +243,10 @@
       "default": {
         "label": "च",
         "popup": {
-          "relevant": [{ "label": " ॑" }, { "label": " ॒" }]
+          "relevant": [
+            { "$": "auto_text_key", "code": 2385, "label": " ॑" },
+            { "$": "auto_text_key", "code": 2386, "label": " ॒" }
+          ]
         }
       }
     },
@@ -253,7 +256,10 @@
       "default": {
         "label": "व",
         "popup": {
-          "relevant": [{ "label": " ॓" }, { "label": " ॔" }]
+          "relevant": [
+            { "$": "auto_text_key", "code": 2387, "label": " ॓" },
+            { "$": "auto_text_key", "code": 2388, "label": " ॔" }
+          ]
         }
       }
     },
