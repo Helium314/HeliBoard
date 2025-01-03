@@ -100,7 +100,7 @@ public interface KeyboardActionListener {
     boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
 
     void onMoveDeletePointer(int steps);
-    void onUpWithDeletePointerActive();
+    void onEndSwipe(int code, boolean vertical);
     void resetMetaState();
 
     KeyboardActionListener EMPTY_LISTENER = new Adapter();
@@ -150,7 +150,7 @@ public interface KeyboardActionListener {
         @Override
         public void onMoveDeletePointer(int steps) {}
         @Override
-        public void onUpWithDeletePointerActive() {}
+        public void onEndSwipe(int code, boolean vertical) {}
         @Override
         public void resetMetaState() {}
     }
