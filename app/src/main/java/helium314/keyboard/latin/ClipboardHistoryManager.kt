@@ -198,7 +198,8 @@ class ClipboardHistoryManager(
         // create the view
         val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
         val textView = binding.clipboardSuggestionText
-        textView.text = if (isClipSensitive(inputType)) "*".repeat(content.length) else content
+        textView.text = (if (isClipSensitive(inputType)) "*".repeat(content.length) else content)
+            .take(200) // truncate displayed text for performance reasons
         val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.PASTE.name.lowercase())
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(clipIcon, null, null, null)
         textView.setOnClickListener {
