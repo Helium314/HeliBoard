@@ -434,4 +434,23 @@
     <string name="prefs_space_bar_text">空格键上的自定义文本</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">表情符号底行</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">剪贴板底行</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift（已按下）</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">关闭单手模式</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">调整单手模式</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">切换单手模式</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">语音输入已禁用</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">显示/隐藏工具栏</string>
+    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">语言切换</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">零宽连字</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">零宽不连字</string>
+    <string name="customize_toolbar_key_codes">自定义工具栏按键代码</string>
+    <string name="key_code">按键代码</string>
+    <string name="long_press_code">长按代码</string>
+    <string name="customize_icons">自定义图标</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space（数字布局）</string>
 </resources>

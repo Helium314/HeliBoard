@@ -400,4 +400,21 @@
     <string name="prefs_space_bar_text">Texto persoal na barra de espazo</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Liña inferior de emoji</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Liña inferior de portapapeis</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiús</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maisculas (activado)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Bloqueo de maiús</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espazo (disposición de núm)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Saír do modo unha-man</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Axustar tamaño modo unha-man</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambiar de lado o modo unha-man</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Desactivada a entrada por voz</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / Ocultar barra ferramentas</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Unión ancho cero</string>
+    <string name="customize_toolbar_key_codes">Personalizar códigos de tecla da barra de ferramentas</string>
+    <string name="key_code">Código da tecla</string>
+    <string name="long_press_code">Código pulsación longa</string>
+    <string name="customize_icons">Personalizar iconas</string>
 </resources>

@@ -400,4 +400,21 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji untere Leiste</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Zwischenablage untere Leiste</string>
     <string name="icon_style">Symbolstil</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Eingabe</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulator</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Umschalttaste</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Umschalttaste (umgeschalten)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Feststell</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Leertaste (Nummern Layout)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Einhand Modus beenden</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tausche Einhand Modus seite</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Spracheingabe deaktiviert</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Zeigen/verstecken Symbolleiste</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Einhand Modus Größe anpassen</string>
+    <string name="customize_toolbar_key_codes">Anpassen der Symbolleiste Keycodes</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Beeitenloser Verbinder</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Bindehemmer</string>
+    <string name="key_code">Keycode</string>
+    <string name="long_press_code">Langes drücken Code</string>
+    <string name="customize_icons">Symbole Anpassen</string>
 </resources>

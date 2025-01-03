@@ -49,7 +49,7 @@
     <string name="gesture_space_aware_summary">"Sisestage liigutuste kasutamisel tühikuid, libistades tühikuklahvile"</string>
     <string name="subtype_en_GB">"Inglise (UK)"</string>
     <string name="subtype_en_US">"Inglise (USA)"</string>
-    <string name="subtype_es_US">"hispaania (USA)"</string>
+    <string name="subtype_es_US">Hispaania (USA)</string>
     <string name="subtype_hi_Latn">"Hindi-inglise"</string>
     <string name="subtype_sr_Latn">"Serbia (ladina)"</string>
     <string name="subtype_with_layout_en_GB">"Inglise (Ühendk.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
@@ -120,7 +120,7 @@
     <string name="select_input_method">"Valige sisestusmeetod"</string>
     <string name="undo">"Võta tagasi"</string>
     <string name="redo">"Tee uuesti"</string>
-    <string name="use_personalized_dicts_summary">"Kommunikats. ja sisestatud andmetest õppimine soovit. täiustamiseks"</string>
+    <string name="use_personalized_dicts_summary">Täienduste parandamiseks õpi suhtluse ja sisestatud andmete alusel</string>
     <string name="label_go_key">"Mine"</string>
     <string name="label_next_key">"Edasi"</string>
     <string name="label_previous_key">"Eelm."</string>
@@ -264,4 +264,192 @@
     <string name="show_popup_hints_summary">Näita vihjeid, kui klahvi pika vajutusega on võimalik kasutada täiendavad funktsionaalsust</string>
     <string name="remove_redundant_popups">Eemalda mittevajalikud hüpikvalikud</string>
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
+    <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
+    <string name="add_new_dictionary_title">Lisa sõnastik failist</string>
+    <string name="add_new_dictionary_ask_locale">Mis keelele lisame „%1$s“/„%2$s“ sõnastiku?</string>
+    <string name="user_dict_settings_add_weight_value">Kaal:</string>
+    <string name="customize_currencies">Kohanda valuutasid</string>
+    <string name="dictionary_settings_category">Sõnastikud</string>
+    <string name="button_select_language">Vali keel</string>
+    <string name="user_dict_word_already_present">See sõna juba leidub kasutaja loodud sõnastikus „%s“. Palun sisesta uus.</string>
+    <string name="theme_style">Stiil</string>
+    <string name="user_dict_add_word_button">Lisa sõna</string>
+    <string name="customize_currencies_detail">Lisa põhivaluuta ja kuni kuue lisavaluuta sümbolid, eraldades need tühikuga</string>
+    <string name="customize_background_image">Säti taustapilti</string>
+    <string name="day_or_night_image">Säti pilt päeva või öörežiimi jaoks?</string>
+    <string name="day_or_night_day">Päeval</string>
+    <string name="day_or_night_night">Öösel</string>
+    <string name="theme_colors_night">Värvid (öösel)</string>
+    <string name="key_borders">Klahvide äärejooned</string>
+    <string name="theme_colors">Värvid</string>
+    <string name="day_night_mode">Automaatne päeva- ja öörežiim</string>
+    <string name="dictionary_file_wrong_locale_ok">Kasuta ikkagi</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Ümardatud</string>
+    <string name="add_dictionary">Vali lisatav sõnastik. Sõnastikke .dict vormingust saad alla laadida %s.</string>
+    <string name="dictionary_link_text">siit</string>
+    <string name="dictionary_load_error">Viga sõnastikufaili laadimisel</string>
+    <string name="no_dictionary_dont_show_again_button">Ära näita enam uuesti</string>
+    <string name="button_add_to_language">Lisa lokaati: %s</string>
+    <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „%1$s“?
+\n
+\nPraegune sõnastik:
+\n„%2$s“
+\n
+\nUus sõnastik:
+\n„%3$s“</string>
+    <string name="dictionary_file_error">Viga: valitud fail pole korrektne sõnastikufail</string>
+    <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
+    <string name="replace_dictionary">Asenda sõnastik</string>
+    <string name="remove_dictionary_message">Kas kindlasti tahad eemaldada enda lisatud sõnastiku „%s“?</string>
+    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;
+\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
+    <string name="available_dictionary_experimental">%s (katseline)</string>
+    <string name="icon_style">Ikooni stiil</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Numbririda</string>
+    <string name="toast_msg_clipboard_copy">Sisu on kopeeritud</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Vene">%s</xliff:g> (Õpilaste)</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsiku lõppvariant)</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitagi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="hidden_features_title">Peidetud funktsionaalsuse kirjeldus</string>
+    <string name="hidden_features_text">seadme turvatud andmekogu</string>
+    <string name="customize_functional_key_layouts">Kohanda funktsiooniklahvide paigutust</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktsiooniklahvid (sümbolid)</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="auto_show_toolbar">Näita tööriistariba automaatselt</string>
+    <string name="select_color_gesture">Viipežest</string>
+    <string name="settings_screen_about">Rakenduse teave</string>
+    <string name="version">Versioon</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numbriklahvistik (rõhtne)</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Sümbolid (araabia keele jaoks)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Sümbolid</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Hologrammi valge</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Numbriklahvistik</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Numbrid</string>
+    <string name="select_color_suggestion">Soovituste riba tekst</string>
+    <string name="select_color_key_background">Klahvi taust</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pilvine</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigosinine</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojide alumine rida</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Lõikelaua alumine rida</string>
+    <string name="day_night_mode_summary">Välimus järgib süsteemi seadistusi</string>
+    <string name="theme_navbar">Navigatsiooniriba värv</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ookeanisinine</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roosa</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Liivakarva</string>
+    <string name="about_github_link">Vaata GitHubis</string>
+    <string name="text_tap_languages">Seadistuste avamiseks klõpsi keelel</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefoni sümbolid</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tume</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Must</string>
+    <string name="edit_layout">Kalvistiku paigutuse muutmiseks klõpsi</string>
+    <string name="customize_symbols_number_layouts">Kohanda sümbolite ja numbrite paigutust</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Täiendavad sümbolid</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Sinu määratud (öövaade)</string>
+    <string name="all_colors">Näita kõiki värve</string>
+    <string name="load_will_overwrite">Uue välimuse laadimine asendab praeguse</string>
+    <string name="select_user_colors">Kohanda värve</string>
+    <string name="select_user_colors_night">Kohanda värve (öövaade)</string>
+    <string name="auto_user_color">Vali värv automaatselt</string>
+    <string name="main_colors">Näita vaid põhivärve</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolaadipruun</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Punakassinine</string>
+    <string name="select_color_spacebar_text">Tühikuklahvi tekst</string>
+    <string name="action_none">Määramata</string>
+    <string name="show_vertical_space_swipe">Püstise tühikuklahvi viipežest</string>
+    <string name="show_horizontal_space_swipe">Rõhtse tühikuklahvi viipežest</string>
+    <string name="space_swipe_move_cursor_entry">Liiguta kursorit</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="auto_show_toolbar_summary">Näita tööriistariba niipea, kui hakkad andmeid sisestama või valid teksti</string>
+    <string name="auto_hide_toolbar">Peida tööriistariba automaatselt</string>
+    <string name="auto_hide_toolbar_summary">Peida tööriistariba niipea, kui soovitused on olemas</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Hele</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tumedam</string>
+    <string name="select_color_functional_key_background">Funktsiooniklahvi taust</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Sinakashall</string>
+    <string name="select_color_accent">Aktsentvärv</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Pruun</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Mets</string>
+    <string name="hidden_features_summary">Näita funktsionaalsusi, mida niisama ei märka</string>
+    <string name="space_swipe_toggle_numpad_entry">Lülita numbriklahvistik sisse/välja</string>
+    <string name="switch_keyboard_after">Vaheta põhiklahvistikule peale…</string>
+    <string name="after_clip">Valides kirje lõikelaua ajaloost</string>
+    <string name="after_emoji">Valides emojide vaatest emoji</string>
+    <string name="after_symbol_and_space">Vajutades sümbolites vaates sisestusklahvi või tühikuklahvi peale muid klahve</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dünaamilised värvid</string>
+    <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
+\n\t• clipboard &amp;#65515; paste &lt;br&gt;
+\n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
+\n\t• move up/down &amp;#65515; page up/down &lt;br&gt;
+\n\t• word left/right &amp;#65515; line start/end &lt;br&gt;
+\n\t• page up/down &amp;#65515; page start/end &lt;br&gt;
+\n\t• copy &amp;#65515; cut &lt;br&gt;
+\n\t• select word &amp;#8596; select all &lt;br&gt;
+\n\t• undo &amp;#8596; redo &lt;br&gt; &lt;br&gt;
+\n► Long-pressing keys in the suggestion strip toolbar pins them to the suggestion strip. &lt;br&gt; &lt;br&gt;
+\n► Long-press the Comma-key to access Clipboard View, Emoji View, One-handed Mode, Settings, or Switch Language: &lt;br&gt;
+\n\t• Emoji View and Language Switch will disappear if you have the corresponding key enabled; &lt;br&gt;
+\n\t• For some layouts it\\\'s not the Comma-key, but the key at the same position (e.g. it\\\'s \\\'q\\\' for Dvorak layout). &lt;br&gt; &lt;br&gt;
+\n► When incognito mode is enabled, no words will be learned, and no emojis will be added to recents. &lt;br&gt; &lt;br&gt;
+\n► Press the Incognito icon to access the toolbar. &lt;br&gt; &lt;br&gt;
+\n► Sliding key input: Swipe from shift to another key to type a single uppercase key: &lt;br&gt;
+\n\t• This also works for the \\\'?123\\\' key to type a single symbol from the symbols keyboard, and for related keys. &lt;br&gt; &lt;br&gt;
+\n► Hold shift or symbol key, press one or more keys, and then release shift or symbol key to return to the previous keyboard. &lt;br&gt; &lt;br&gt;
+\n► Long-press a suggestion in the suggestion strip to show more suggestions, and a delete button to remove this suggestion. &lt;br&gt; &lt;br&gt;
+\n► Swipe up from a suggestion to open more suggestions, and release on the suggestion to select it. &lt;br&gt; &lt;br&gt;
+\n► Long-press an entry in the clipboard history to pin it (keep it in clipboard until you unpin). &lt;br&gt; &lt;br&gt;
+\n► Swipe left in clipboard view to remove an entry (except when it\\\'s pinned) &lt;br&gt; &lt;br&gt;
+\n► Select text and press shift to switch between uppercase, lowercase and capitalize words. &lt;br&gt; &lt;br&gt;
+\n► You can add dictionaries by opening them in a file explorer: &lt;br&gt;
+\n\t• This only works with &lt;i&gt;content-uris&lt;/i&gt; and not with &lt;i&gt;file-uris&lt;/i&gt;, meaning that it may not work with some file explorers. &lt;br&gt; &lt;br&gt;
+\n► For users doing manual backups with root access: &lt;br&gt;
+\n\t• Starting at Android 7, the shared preferences file is not in the default location, because the app is using %s. This is necessary so the settings can be read before the device is unlocked, e.g. at boot; &lt;br&gt;
+\n\t• The file is located in /data/user_de/0/package_id/shared_prefs/ though this may depend on the device and Android version. &lt;br&gt; &lt;br&gt;
+\n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+\n► Long-press a suggestion to show the source dictionary. &lt;br&gt; &lt;br&gt;
+\n► When using debug APK, you can find Debug Settings within the Advanced Preferences,though the usefulness is limited except for dumping dictionaries into the log. &lt;br&gt;
+\n\t• For a release APK, you need to tap the version in &lt;i&gt;About&lt;/i&gt; several times, then you can find debug settings in &lt;i&gt;Advanced Preferences&lt;/i&gt;. &lt;br&gt;
+\n\t• When enabling &lt;i&gt;Show suggestion infos&lt;/i&gt;, suggestions will have some tiny numbers on top showing some internal score and source dictionary. &lt;br&gt; &lt;br&gt;
+\n► In the event of an application crash, you will be prompted whether you want the crash logs when you open the Settings. &lt;br&gt; &lt;br&gt;
+\n► When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
+\n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
+    <string name="subtype_xdq">Kaitagi</string>
+    <string name="dialog_close">Sulge</string>
+    <string name="all_colors_warning">See seadistus näitab kõiki rakenduse sisemises töövoos kasutatavaid värve. Värvide loend võib suvalisel ajal muutuda. Vaikimisi värv valitakse juhuslikult ja värvide nimed ei ole tõlgitud.</string>
+    <string name="more_colors">Näita lisavärve</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Sisestusklahv</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulaator</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Kustuta</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Tõstuklahv</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Tõstuklahv (allavajutatuna)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Suurtähelukk</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Tühikuklahv (numbriklahvistikul)</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Muuda ühekäevaate suurust</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Lõpeta ühekäevaade</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Vaheta ühekäevaate poolt</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Häälsisestus on väljalülitatud</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Näita/peida tööriistariba</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Laiuseta ühendusklahv</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Laiuseta mitteühendav tühik</string>
+    <string name="var_toolbar_direction">Tööriistariba muutuv suund</string>
+    <string name="customize_toolbar_key_codes">Kohanda tööriistariba klahvide koode</string>
+    <string name="key_code">Klahvi kood</string>
+    <string name="long_press_code">Pika vajutuse kood</string>
+    <string name="customize_icons">Kohanada ikoone</string>
+    <string name="select_user_colors_summary">Vali tekstide ja taustade värvid</string>
+    <string name="select_color_key">Klahvi tekst</string>
+    <string name="select_color_key_hint">Klahvi vihje tekst</string>
+    <string name="select_color_spacebar_background">Tühikuklahvi taust</string>
+    <string name="save_log">Salvesta logi</string>
+    <string name="license">Avatud lähtekoodi litsents</string>
+    <string name="gnu_gpl">GNU Üldine Avalik Litsents - versioon 3.0</string>
+    <string name="settings_screen_appearance">Välimus</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktsiooniklahvid (täiendavad sümbolid)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Tähestik (Workman)</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Tähestik (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Tähestik (Bépo)</string>
+    <string name="settings_screen_toolbar">Tööriistariba</string>
 </resources>

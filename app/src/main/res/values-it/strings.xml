@@ -69,7 +69,7 @@
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Aggiungi"</string>
     <string name="remove">"Rimuovi"</string>
-    <string name="save">"Salva"</string>
+    <string name="save">Esporta</string>
     <string name="subtype_locale">"Lingua"</string>
     <string name="keyboard_layout_set">"Layout"</string>
     <string name="prefs_keypress_vibration_duration_settings">Durata vibrazione tasti</string>
@@ -254,7 +254,7 @@
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrotondato</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Nero</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cioccolato</string>
-    <string name="remove_dictionary_message">Rimuovere davvero il dizionario \"%s\" aggiunto dall\'utente?</string>
+    <string name="remove_dictionary_message">Vuoi davvero rimuovere il dizionario \"%s\"?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Grigio nuvola</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dictionary_file_wrong_script">Errore: script non compatibile con questa tastiera</string>
@@ -311,7 +311,7 @@
     <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti per il testo immesso in precedenza.&lt;br&gt;
 \n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">Non mostrare più</string>
-    <string name="dictionary_file_wrong_locale">Il file selezionato è per %1$s, ma %2$s era previsto. Lo si usa ancora per %2$s?</string>
+    <string name="dictionary_file_wrong_locale">Il dizionario è stato creato per la lingua %1$s, ma lo stai aggiungendo a %2$s. Confermi?</string>
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
     <string name="text_tap_languages">Tocca la lingua per aprire le impostazioni</string>
@@ -426,4 +426,27 @@
     <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
     <string name="gesture_floating_preview_static">Anteprima mobile dinamica</string>
     <string name="gesture_floating_preview_dynamic_summary">Sposta l\'anteprima seguendo il gesto</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Riga numerica</string>
+    <string name="prefs_space_bar_text">Testo personalizzato sulla barra spaziatrice</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji riga inferiore</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Riga inferiore degli appunti</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Termina la modalità con una mano</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Invio</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Blocco maiuscole</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Elimina</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spazio (disposizione numerica)</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ridimensiona la modalità con una mano</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambia lato modalità con una mano</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Inserimento vocale disabilitato</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostra/nascondi barra degli strumenti</string>
+    <string name="customize_toolbar_key_codes">Personalizza i codici dei tasti della barra degli strumenti</string>
+    <string name="key_code">Codice tasto</string>
+    <string name="long_press_code">Codice pressione prolungata</string>
+    <string name="customize_icons">Personalizza icone</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiusc</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiusc (maiuscolo)</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Scheda</string>
+    <string name="icon_style">Stile Icona</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
 </resources>

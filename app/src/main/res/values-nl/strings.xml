@@ -435,4 +435,23 @@
     <string name="prefs_space_bar_text">Aangepaste tekst op spatiebalk</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Klembord onderste regel</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji onderste regel</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Del</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (nummer-lay-out)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Bediening met één hand stoppen</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Bediening met één hand schalen</string>
+    <string name="key_code">Toetscode</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Spraakinvoer uitgeschakeld</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Werkbalk weergeven/verbergen</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Verbindingsstuk met breedte nul</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Niet-verbindingsstuk met breedte nul</string>
+    <string name="customize_toolbar_key_codes">Werkbalktoetscodes aanpassen</string>
+    <string name="long_press_code">Code voor lang drukken</string>
+    <string name="customize_icons">Pictogrammen aanpassen</string>
+    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">\@string/show_language_switch_key</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (ingedrukt)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Bediening met één hand wisselen</string>
 </resources>

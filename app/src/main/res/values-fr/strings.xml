@@ -14,7 +14,7 @@
     <string name="settings_screen_correction">"Correction du texte"</string>
     <string name="settings_screen_advanced">"Paramètres avancés"</string>
     <string name="settings_screen_theme">"Thème"</string>
-    <string name="enable_split_keyboard">"Activer le clavier en deux parties"</string>
+    <string name="enable_split_keyboard">Activer le clavier en deux parties</string>
     <string name="split_spacer_scale">Distance de la séparation du clavier</string>
     <string name="language_switch_key_switch_input_method">"Autres modes de saisie"</string>
     <string name="switch_language">Changer de langue</string>
@@ -432,4 +432,22 @@ Nouveau dictionnaire:
     <string name="prefs_space_bar_text">Texte personnalisé sur la barre d\'espace</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rangée inférieure du presse-papier</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rangée inférieure des emojis</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulation</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Supprimer</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Majuscule</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Majuscule (activée)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Majuscule (verrouillée)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Fin du mode à une main</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Redimensionner le mode à une main</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Changement du côté du mode à une main</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrée vocale désactivée</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Afficher / masquer la barre d\'outils</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
+    <string name="customize_toolbar_key_codes">Personnaliser les codes des touches de la barre d\'outils</string>
+    <string name="key_code">Code de la touche</string>
+    <string name="long_press_code">Code de l\'appui-long</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Entrée</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espace (disposition des chiffres)</string>
+    <string name="customize_icons">Personnaliser les icônes</string>
 </resources>
