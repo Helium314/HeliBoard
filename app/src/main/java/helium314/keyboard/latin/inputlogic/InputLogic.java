@@ -674,6 +674,8 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.SHIFT:
+                if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard())
+                    break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
                 performRecapitalization(inputTransaction.getMSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 if (mSuggestedWords.isPrediction()) {
