@@ -770,11 +770,9 @@ public final class InputLogic {
                 break;
             case KeyCode.SPLIT_LAYOUT:
                 KeyboardSwitcher.getInstance().setSplitKeyboardMode(true);
-                Log.d(TAG, "InputLogic.java: handleFunctionalEvent KeyCode.SPLIT_LAYOUT");
                 break;
             case KeyCode.MERGE_LAYOUT:
                 KeyboardSwitcher.getInstance().setSplitKeyboardMode(false);
-                Log.d(TAG, "InputLogic.java: handleFunctionalEvent KeyCode.MERGE_LAYOUT");
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
