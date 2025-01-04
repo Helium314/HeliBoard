@@ -81,7 +81,7 @@ public final class KeyboardCodesSet {
         KeyCode.STOP_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE,
         KeyCode.SPLIT_LAYOUT,
-        KeyCode.MERGE_LAYOUT,
+        KeyCode.MERGE_LAYOUT
     };
 
     static {
