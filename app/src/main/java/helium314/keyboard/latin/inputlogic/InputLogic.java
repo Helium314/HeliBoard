@@ -44,7 +44,6 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
-import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -668,8 +667,6 @@ public final class InputLogic {
      */
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
-        Log.d(TAG, "mKeyCode:" + event.getMKeyCode());
-
         switch (event.getMKeyCode()) {
             case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
