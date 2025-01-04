@@ -151,6 +151,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.SPLIT -> R.drawable.ic_word_left_rounded
+                    ToolbarKey.MERGE -> R.drawable.ic_word_right_rounded
                 })
             }
         } }
@@ -211,6 +213,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.SPLIT -> R.drawable.ic_word_left_rounded
+                    ToolbarKey.MERGE -> R.drawable.ic_word_right_rounded
                 })
             }
         } }
@@ -271,6 +275,8 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end_rounded
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start_rounded
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end_rounded
+                    ToolbarKey.SPLIT -> R.drawable.ic_word_left_rounded
+                    ToolbarKey.MERGE -> R.drawable.ic_word_right_rounded
                 })
             }
         } }

@@ -44,6 +44,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.common.SuggestionSpanUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SpacingAndPunctuations;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -768,6 +769,12 @@ public final class InputLogic {
             case KeyCode.REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
+            case KeyCode.SPLIT_LAYOUT:
+                KeyboardSwitcher.getInstance().setSplitKeyboardMode(true);
+                Log.d(TAG, "JF: InputLogic.java: handleFunctionalEvent KeyCode.SPLIT_LAYOUT");
+            case KeyCode.MERGE_LAYOUT:
+                KeyboardSwitcher.getInstance().setSplitKeyboardMode(false);
+                Log.d(TAG, "JF: InputLogic.java: handleFunctionalEvent KeyCode.MERGE_LAYOUT");
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.

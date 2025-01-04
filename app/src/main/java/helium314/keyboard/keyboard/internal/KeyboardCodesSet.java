@@ -79,7 +79,9 @@ public final class KeyboardCodesSet {
         KeyCode.CLIPBOARD,
         KeyCode.START_ONE_HANDED_MODE,
         KeyCode.STOP_ONE_HANDED_MODE,
-        KeyCode.SWITCH_ONE_HANDED_MODE
+        KeyCode.SWITCH_ONE_HANDED_MODE,
+        KeyCode.SPLIT_LAYOUT,
+        KeyCode.MERGE_LAYOUT,
     };
 
     static {
