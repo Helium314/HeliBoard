@@ -668,6 +668,8 @@ public final class InputLogic {
      */
     private void handleFunctionalEvent(final Event event, final InputTransaction inputTransaction,
             final String currentKeyboardScript, final LatinIME.UIHandler handler) {
+        Log.d(TAG, "mKeyCode:" + event.getMKeyCode());
+
         switch (event.getMKeyCode()) {
             case KeyCode.DELETE:
                 handleBackspaceEvent(event, inputTransaction, currentKeyboardScript);
@@ -771,10 +773,12 @@ public final class InputLogic {
                 break;
             case KeyCode.SPLIT_LAYOUT:
                 KeyboardSwitcher.getInstance().setSplitKeyboardMode(true);
-                Log.d(TAG, "JF: InputLogic.java: handleFunctionalEvent KeyCode.SPLIT_LAYOUT");
+                Log.d(TAG, "InputLogic.java: handleFunctionalEvent KeyCode.SPLIT_LAYOUT");
+                break;
             case KeyCode.MERGE_LAYOUT:
                 KeyboardSwitcher.getInstance().setSplitKeyboardMode(false);
-                Log.d(TAG, "JF: InputLogic.java: handleFunctionalEvent KeyCode.MERGE_LAYOUT");
+                Log.d(TAG, "InputLogic.java: handleFunctionalEvent KeyCode.MERGE_LAYOUT");
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.

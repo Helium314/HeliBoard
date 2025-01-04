@@ -495,6 +495,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeSplitKeyboardMode(final boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ENABLE_SPLIT_KEYBOARD, enabled).apply();
+        Log.d(TAG, "writeSplitKeyboardMode: " + enabled);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
