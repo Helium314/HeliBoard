@@ -524,7 +524,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
             override fun readValue(key: String) = Settings.readKeyLongpressTimeout(prefs, resources)
 
-            override fun readDefaultValue(key: String) = Settings.readDefaultKeyLongpressTimeout(resources)
+            override fun readDefaultValue(key: String) = Settings.readDefaultKeyLongpressTimeout()
 
             override fun getValueText(value: Int) =
                 resources.getString(R.string.abbreviation_unit_milliseconds, value.toString())
