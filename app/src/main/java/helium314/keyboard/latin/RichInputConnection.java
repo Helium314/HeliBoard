@@ -17,6 +17,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 
+import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.utils.Log;
@@ -744,7 +745,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mIC.setSelection(mExpectedSelStart - range.getNumberOfCharsInWordBeforeCursor(), mExpectedSelStart + range.getNumberOfCharsInWordAfterCursor());
     }
 
-    public void copyText(final boolean getSelection) {
+    public void copyText(final ClipboardHistoryManager clipboardHistoryManager,
+                         final SettingsValues settingsValues, final boolean getSelection) {
+        // If history is enabled and the sync to the primary clipboard is disabled,
+        // copy the text to the internal clipboard only.
+        final boolean internalOnly = settingsValues.mClipboardHistoryEnabled
+                && !settingsValues.mSyncToPrimaryClipboard;
+        if (internalOnly && clipboardHistoryManager == null)
+            return;
         CharSequence text = null;
         if (getSelection) {
             // copy selected text, and if nothing is selected copy the whole text
@@ -760,8 +768,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             text = et.text;
         }
         if (text == null || text.length() == 0) return;
-        final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
-        cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
+        if (internalOnly) {
+            clipboardHistoryManager.copyTextToInternalClipboard(text, System.currentTimeMillis());
+        } else {
+            final ClipboardManager cm = (ClipboardManager) mParent.getSystemService(Context.CLIPBOARD_SERVICE);
+            cm.setPrimaryClip(ClipData.newPlainText("copied text", text));
+        }
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
             KeyboardSwitcher.getInstance().showToast(mParent.getString(R.string.toast_msg_clipboard_copy), true);
         }
