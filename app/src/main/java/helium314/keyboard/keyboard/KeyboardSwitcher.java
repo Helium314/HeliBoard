@@ -503,7 +503,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void setSplitKeyboardMode(boolean enabled) {
-        Log.d(TAG, "setSplitKeyboardMode: " + enabled);
         final Settings settings = Settings.getInstance();
         settings.writeSplitKeyboardMode(enabled);
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
