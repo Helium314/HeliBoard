@@ -493,6 +493,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
+    public void writeSplitKeyboardMode(final boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_ENABLE_SPLIT_KEYBOARD, enabled).apply();
+    }
+
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
         // The standard way of finding out whether we have a hardware keyboard. This code is taken
         // from InputMethodService#onEvaluateInputShown, which canonically determines this.

@@ -768,6 +768,12 @@ public final class InputLogic {
             case KeyCode.REDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
                 break;
+            case KeyCode.SPLIT_LAYOUT:
+                KeyboardSwitcher.getInstance().setSplitKeyboardMode(true);
+                break;
+            case KeyCode.MERGE_LAYOUT:
+                KeyboardSwitcher.getInstance().setSplitKeyboardMode(false);
+                break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
                 // {@link KeyboardSwitcher#onEvent(Event)}, or {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
