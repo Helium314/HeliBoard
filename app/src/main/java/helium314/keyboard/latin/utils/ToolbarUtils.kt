@@ -97,7 +97,6 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getC
     WORD_RIGHT -> KeyCode.MOVE_END_OF_LINE
     PAGE_UP -> KeyCode.MOVE_START_OF_PAGE
     PAGE_DOWN -> KeyCode.MOVE_END_OF_PAGE
-    SPLIT -> KeyCode.SPLIT_LAYOUT
     else -> KeyCode.UNSPECIFIED
 }
 
