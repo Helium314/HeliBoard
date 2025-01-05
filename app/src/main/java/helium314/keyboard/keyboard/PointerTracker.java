@@ -1047,7 +1047,16 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final boolean isInSlidingKeyInput = mIsInSlidingKeyInput;
         resetKeySelectionByDraggingFinger();
         mIsDetectingGesture = false;
-        final Key currentKey = mCurrentKey;
+        final Key currentKey;
+        if (mKeyboardLayoutHasBeenChanged) {
+            // this is called when keyboard was changed shortly before releasing the key
+            // e.g. when the input field is cleared and shift is set to auto right before pressing the key,
+            // then we want to get the current key, and not the key from the old keyboard (bug report in #994)
+            currentKey = mKeyDetector.detectHitKey(x, y);
+            setReleasedKeyGraphics(mCurrentKey, true); // need to call this, otherwise preview popup will stay open
+        } else {
+            currentKey = mCurrentKey;
+        }
         mCurrentKey = null;
         final int currentRepeatingKeyCode = mCurrentRepeatingKeyCode;
         mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
