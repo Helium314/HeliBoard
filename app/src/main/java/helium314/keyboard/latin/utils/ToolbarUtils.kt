@@ -262,14 +262,14 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     layout.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
         setText(getCodeForToolbarKey(key).toString())
         doAfterTextChanged {
-            keyCode = it?.toString()
+            keyCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
     layout.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
         setText(getCodeForToolbarKeyLongClick(key).toString())
         doAfterTextChanged {
-            longpressCode = it?.toString()
+            longpressCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
