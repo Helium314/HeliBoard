@@ -105,7 +105,7 @@
             android:key="remove_redundant_popups"
             android:title="@string/remove_redundant_popups"
             android:summary="@string/remove_redundant_popups_summary"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:persistent="true" />
 
     </PreferenceCategory>
