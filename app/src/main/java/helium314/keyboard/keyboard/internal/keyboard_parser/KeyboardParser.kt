@@ -108,11 +108,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
         val functionalKeys = mutableListOf<Pair<List<KeyParams>, List<KeyParams>>>()
         val baseKeyParams = baseKeys.mapIndexed { i, it ->
-            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && Settings.getInstance().isTablet) {
+            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && params.setTabletExtraKeys) {
                 // add bottom row extra keys
-                // todo (later): this can make very customized layouts look awkward
-                //  decide when to (not) add it
-                //  when not adding, consider that punctuation popup keys should not remove those keys!
                 val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.mElementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
             } else {
