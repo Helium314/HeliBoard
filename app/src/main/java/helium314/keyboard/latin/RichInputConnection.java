@@ -470,18 +470,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final long startTime = SystemClock.uptimeMillis();
         final CharSequence result = mIC.getTextBeforeCursor(n, flags);
         detectLaggyConnection(operation, timeout, startTime);
-        // inconsistent state can occur for (at least) two reasons
-        // 1. the app actively changes text field content, e.g. joplin when deleting "list markers like 2.
-        // 2. the app has outdated contents in the text field, e.g. notepad (com.farmerbb.notepad) returns the
-        //     just deleted char right after deletion, instead of the correct one
-        //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
-        if (result != null) {
-            if (!checkTextBeforeCursorConsistency(result)) {
-                Log.w(TAG, "cached text out of sync, reloading");
-                reloadCursorPosition();
-                if (!DebugLogUtils.getStackTrace(2).contains("reloadTextCache")) // clunky bur effective protection against circular reference
-                    reloadTextCache();
-            }
+
+        // only do the consistency check if we actually have text (i.e. we're not coming from some reload / reset)
+        if ((mCommittedTextBeforeComposingText.length() > 0 || mComposingText.length() > 0)
+                && result != null && !checkTextBeforeCursorConsistency(result)) {
+            // inconsistent state can occur for (at least) two reasons
+            // 1. the app actively changes text field content, e.g. joplin when deleting list markers like "2."
+            // 2. the app has outdated contents in the text field, e.g. com.farmerbb.notepad returns the
+            //     just deleted char right after deletion, instead of the correct one
+            //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
+            Log.w(TAG, "cached text out of sync, reloading");
+            reloadCursorPosition();
+            reloadTextCache();
         }
         return result;
     }
