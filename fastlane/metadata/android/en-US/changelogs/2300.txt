@@ -1,5 +1,6 @@
 * Allow customizing number row, toolbar codes, icons, spacebar text, bottom row for emoji and clipboard views
 * Decouple icon style from keyboard style
+* Disable remove redundant popups by default (and add a small fix)
 * Less aggressive addition of words to personal dictionary
 * No vibration in do not disturb mode
 * Improve performance when copying large texta
