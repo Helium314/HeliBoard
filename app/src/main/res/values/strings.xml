@@ -945,4 +945,6 @@ New dictionary:
     <string name="toast_msg_clipboard_copy">Content copied</string>
     <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
     <string name="customize_icons">Customize icons</string>
+    <!-- Confirmation message when resetting all custom icons -->
+    <string name="customize_icons_reset_message">Really reset all customized icons?</string>
 </resources>
