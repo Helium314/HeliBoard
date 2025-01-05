@@ -217,15 +217,17 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             .setPositiveButton(R.string.dialog_close, null)
             .create()
         val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(ctx, R.color.foreground), BlendModeCompat.SRC_IN)
-        val icons = KeyboardIconsSet.getAllIcons(ctx)
-        icons.keys.forEach { iconName ->
+        val iconsAndNames = KeyboardIconsSet.getAllIcons(ctx).keys.map { iconName ->
+            val name = iconName.getStringResourceOrName("", ctx)
+            if (name == iconName) iconName to iconName.getStringResourceOrName("label_", ctx).toString()
+            else iconName to name.toString()
+        }
+        iconsAndNames.sortedBy { it.second }.forEach { (iconName, name) ->
             val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(ctx), ll, true)
             b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(iconName, ctx))
             b.reorderItemIcon.colorFilter = cf
             b.reorderItemIcon.isVisible = true
-            b.reorderItemName.text = iconName.getStringResourceOrName("", ctx)
-            if (b.reorderItemName.text == iconName)
-                b.reorderItemName.text = iconName.getStringResourceOrName("label_", ctx)
+            b.reorderItemName.text = name
             b.root.setOnClickListener {
                 customizeIcon(iconName)
                 d.dismiss()
