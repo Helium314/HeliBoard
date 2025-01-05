@@ -92,7 +92,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
-        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener { onClickCustomizeIcons() }
+        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener {
+            if (needsReload)
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            onClickCustomizeIcons()
+        }
     }
 
     override fun onPause() {
