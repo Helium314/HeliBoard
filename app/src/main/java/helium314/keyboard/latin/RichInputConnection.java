@@ -1061,10 +1061,17 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @return whether this is a belated expected update or not.
      */
     public boolean isBelatedExpectedUpdate(final int oldSelStart, final int newSelStart,
-            final int oldSelEnd, final int newSelEnd) {
+            final int oldSelEnd, final int newSelEnd, final int composingSpanStart, final int composingSpanEnd) {
         // This update is "belated" if we are expecting it. That is, mExpectedSelStart and
         // mExpectedSelEnd match the new values that the TextView is updating TO.
-        if (mExpectedSelStart == newSelStart && mExpectedSelEnd == newSelEnd) return true;
+        if (mExpectedSelStart == newSelStart && mExpectedSelEnd == newSelEnd) {
+            if (composingSpanEnd - composingSpanStart < mComposingText.length()) {
+                // composing span is smaller than expected, maybe changed by the app (see #1141)
+                // larger composing span is ok, because mComposingText only contains the word up to the cursor
+                return false;
+            }
+            return true;
+        }
         // This update is not belated if mExpectedSelStart and mExpectedSelEnd match the old
         // values, and one of newSelStart or newSelEnd is updated to a different value. In this
         // case, it is likely that something other than the IME has moved the selection endpoint
