@@ -653,6 +653,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final CharSequence textBeforeCursor =
                 getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE + (end - start), 0);
         mCommittedTextBeforeComposingText.setLength(0);
+        // also clear composing text, otherwise we may append existing text
+        // this can happen when we're a little out of sync with the editor
+        mComposingText.setLength(0);
         if (!TextUtils.isEmpty(textBeforeCursor)) {
             // The cursor is not necessarily at the end of the composing text, but we have its
             // position in mExpectedSelStart and mExpectedSelEnd. In this case we want the start
@@ -947,6 +950,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             boolean checkTextAfter) {
         if (checkTextAfter && isCursorFollowedByWordCharacter(spacingAndPunctuations)) {
             // If what's after the cursor is a word character, then we're touching a word.
+            return true;
+        }
+        if (mComposingText.length() > 0) {
+            // a composing region should always count as a word
             return true;
         }
         final String textBeforeCursor = mCommittedTextBeforeComposingText.toString();
