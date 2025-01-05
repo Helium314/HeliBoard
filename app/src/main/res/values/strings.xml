@@ -911,6 +911,8 @@ New dictionary:
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
     <!-- Label for zero-width non-joiner key, currently used only for showing the icon name -->
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
+    <!-- Label for bin (delete) key, currently used only for showing the icon name -->
+    <string name="label_bin" tools:keep="@string/label_bin">Bin</string>
     <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
     <!-- Title of the setting for vertical spacebar swipe gesture -->
