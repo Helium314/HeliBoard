@@ -98,6 +98,9 @@ public class KeyboardParams {
     // should be enabled for all alphabet layouts, except for specific layouts when shifted
     public boolean mProximityCharsCorrectionEnabled;
 
+    // only for removing redundant popup keys
+    public List<Key.KeyParams> baseKeys;
+
     @NonNull
     public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
 
@@ -145,12 +148,12 @@ public class KeyboardParams {
     }
 
     public void removeRedundantPopupKeys() {
-        if (mAllowRedundantPopupKeys) {
+        if (mAllowRedundantPopupKeys || baseKeys == null) {
             return;
         }
         final PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
                 new PopupKeySpec.LettersOnBaseLayout();
-        for (final Key key : mSortedKeys) {
+        for (final Key.KeyParams key : baseKeys) {
             lettersOnBaseLayout.addLetter(key);
         }
         final ArrayList<Key> allKeys = new ArrayList<>(mSortedKeys);
@@ -159,6 +162,7 @@ public class KeyboardParams {
             final Key filteredKey = Key.removeRedundantPopupKeys(key, lettersOnBaseLayout);
             mSortedKeys.add(mUniqueKeysCache.getUniqueKey(filteredKey));
         }
+        baseKeys = null;
     }
 
     private int mMaxHeightCount = 0;

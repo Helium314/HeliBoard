@@ -1052,7 +1052,6 @@ public class Key implements Comparable<Key> {
             return popupKeysColumnAndFlags;
         }
 
-        // only for testing
         public String getOutputText() {
             return mOptionalAttributes == null ? null : mOptionalAttributes.mOutputText;
         }

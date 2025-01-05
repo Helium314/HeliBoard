@@ -91,6 +91,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
             baseKeys.add(0, numberRow
                 .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+        if (!params.mAllowRedundantPopupKeys)
+            params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
 
         val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
