@@ -74,6 +74,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private Context mThemeContext;
     private int mCurrentUiMode;
     private int mCurrentOrientation;
+    private int mCurrentDpi;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -112,18 +113,20 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
     }
 
-    private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context,
-            final KeyboardTheme keyboardTheme) {
+    private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context, final KeyboardTheme keyboardTheme) {
+        final Resources res = context.getResources();
         if (mThemeContext == null
                 || !keyboardTheme.equals(mKeyboardTheme)
-                || mCurrentOrientation != context.getResources().getConfiguration().orientation
-                || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                || !mThemeContext.getResources().equals(context.getResources())
+                || mCurrentDpi != res.getDisplayMetrics().densityDpi
+                || mCurrentOrientation != res.getConfiguration().orientation
+                || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                || !mThemeContext.getResources().equals(res)
                 || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
-            mCurrentUiMode = context.getResources().getConfiguration().uiMode;
-            mCurrentOrientation = context.getResources().getConfiguration().orientation;
+            mCurrentUiMode = res.getConfiguration().uiMode;
+            mCurrentOrientation = res.getConfiguration().orientation;
+            mCurrentDpi = res.getDisplayMetrics().densityDpi;
             KeyboardLayoutSet.onKeyboardThemeChanged();
             return true;
         }

@@ -28,7 +28,7 @@ class KeyboardIconsSet private constructor() {
         }
         val overrideIds = customIconIds(context, prefs)
         val ids = if (overrideIds.isEmpty()) defaultIds else defaultIds + overrideIds
-        if (ids == iconIds) return
+        if (!needsReload && ids == iconIds) return
         iconIds = ids
         iconsByName.clear()
         ids.forEach { (name, id) ->
@@ -40,6 +40,7 @@ class KeyboardIconsSet private constructor() {
                 Log.w(TAG, "Drawable resource for icon $name not found")
             }
         }
+        needsReload = false
     }
 
     fun getIconDrawable(name: String?): Drawable? = name?.lowercase(Locale.US)?.let {
@@ -289,5 +290,6 @@ class KeyboardIconsSet private constructor() {
         }
 
         val instance = KeyboardIconsSet()
+        var needsReload = false
     }
 }
