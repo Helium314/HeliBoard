@@ -228,7 +228,6 @@ public final class Constants {
         case KeyCode.STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
         case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
         case KeyCode.SPLIT_LAYOUT: return "splitLayout";
-        case KeyCode.MERGE_LAYOUT: return "mergeLayout";
         case KeyCode.NUMPAD: return "numpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);

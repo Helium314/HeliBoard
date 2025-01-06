@@ -78,7 +78,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     PAGE_START -> KeyCode.MOVE_START_OF_PAGE
     PAGE_END -> KeyCode.MOVE_END_OF_PAGE
-    SPLIT -> if (Settings.getInstance().current.mIsSplitKeyboardEnabled) KeyCode.MERGE_LAYOUT else KeyCode.SPLIT_LAYOUT
+    SPLIT -> KeyCode.SPLIT_LAYOUT
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: when (key) {
