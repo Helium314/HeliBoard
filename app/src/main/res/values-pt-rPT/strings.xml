@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Procurar nomes de contac."</string>
     <string name="use_contacts_for_spellchecking_option_summary">"O corretor ortográfico utiliza entradas da sua lista de contactos"</string>
     <string name="vibrate_on_keypress">"Vibrar ao primir as teclas"</string>
@@ -80,17 +79,17 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
     <string name="button_default">"Predefinido"</string>
-    <string name="setup_welcome_title">Bem-vindo ao <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bem-vindo ao<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"com a Escrita com Gestos"</string>
     <string name="setup_start_action">"Começar"</string>
     <string name="setup_next_action">"Passo seguinte"</string>
-    <string name="setup_steps_title">A configurar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Ative o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">A configurar<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Ative o<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Assinale <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> na área \"Idioma e introdução\" das definições. Assim, já poderá executar a aplicação no dispositivo.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas nas definições de idioma e introdução. Esta etapa está concluída. Vamos avançar para a próxima!</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado em Idiomas e definições de entrada, pelo que este passo está concluído. Vamos avançar para a próxima!\"</string>
     <string name="setup_step1_action">Ativar nas definições</string>
-    <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">De seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de introdução.</string>
+    <string name="setup_step2_title">Alternar para<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">De seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\\ como método de introdução.</string>
     <string name="setup_step2_action">Alternar métodos de introdução</string>
     <string name="setup_step3_title">Parabéns, configuração terminada!</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para escrever nas suas aplicações.</string>
@@ -168,4 +167,40 @@
     <string name="label_search_key">"Pesquisar"</string>
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Esp."</string>
+    <string name="gesture_floating_preview_dynamic_summary">Deslocar a pré-visualização durante um gesto</string>
+    <string name="secondary_locale">Escrita em vários idiomas</string>
+    <string name="load_gesture_library">Carregar biblioteca de escrita por gestos</string>
+    <string name="load_gesture_library_summary">Fornecer uma biblioteca nativa para permitir a escrita por gestos</string>
+    <string name="load_gesture_library_button_load">Carregar biblioteca</string>
+    <string name="gesture_fast_typing_cooldown">Tempo de espera da escrita rápida</string>
+    <string name="language_switch_key_behavior">Comportamento da tecla de mudança de idioma</string>
+    <string name="add_to_personal_dictionary">Adicionar palavras ao dicionário pessoal</string>
+    <string name="add_to_personal_dictionary_summary">Utilizar o dicionário pessoal do dispositivo para guardar as palavras aprendidas</string>
+    <string name="more_autocorrect">Mais correção automática</string>
+    <string name="split_spacer_scale">Distância de separação</string>
+    <string name="language_switch_key_switch_both">Mudar ambos</string>
+    <string name="disable_personalized_dicts_message">Aviso: Se esta definição for desativada, os dados aprendidos serão apagados</string>
+    <string name="center_suggestion_text_to_enter">Utilizar sempre a sugestão do meio</string>
+    <string name="center_suggestion_text_to_enter_summary">Ao pressionar espaço ou pontuação, a sugestão do meio será introduzida</string>
+    <string name="backup_error">Erro na cópia de segurança: %s</string>
+    <string name="show_popup_keys_normal">Mostrar variantes definidas nos idiomas do teclado</string>
+    <string name="show_popup_keys_title">Mostrar mais letras com diacríticos na janela instantânea</string>
+    <string name="prefs_always_show_suggestions_summary">Ignorar o pedido de outras aplicações para desativar as sugestões (pode causar problemas)</string>
+    <string name="switch_language">Mudar de idioma</string>
+    <string name="backup_restore_title">Cópia de segurança e restauro</string>
+    <string name="backup_restore_message">Guardar ou carregar a partir de um ficheiro. Atenção: o restauro substitui os dados existentes</string>
+    <string name="button_restore">Restaurar</string>
+    <string name="button_backup">Fazer cópia de segurança</string>
+    <string name="suggest_clipboard_content">Sugerir conteúdo da área de transferência</string>
+    <string name="suggest_clipboard_content_summary">Mostrar o conteúdo da área de transferência recentemente copiado como uma sugestão</string>
+    <string name="gesture_fast_typing_cooldown_instant">Iniciar sempre instantaneamente</string>
+    <string name="load_gesture_library_message">Necessita da biblioteca para \'%s\'. As bibliotecas incompatíveis podem falhar ao utilizar a escrita por gestos. \n\nAviso: carregar código externo pode ser um risco de segurança. Utilize apenas uma biblioteca de uma fonte em que confie.</string>
+    <string name="gesture_floating_preview_static">Pré-visualização flutuante</string>
+    <string name="gesture_floating_preview_static_summary">Ver a palavra sugerida ao usar gestos</string>
+    <string name="prefs_always_show_suggestions">Mostrar sempre sugestões</string>
+    <string name="restore_error">Erro ao restaurar a cópia de segurança: %s</string>
+    <string name="load_gesture_library_button_delete">Eliminar biblioteca</string>
+    <string name="more_autocorrect_summary">Correção automática mesmo quando não é explicitamente solicitada pelo campo de entrada</string>
+    <string name="gesture_trail_fadeout_duration">Tempo de vida do rasto do gesto</string>
+    <string name="checksum_mismatch_message">Ficheiro de biblioteca desconhecido. Tem a certeza de que o obteve de uma fonte fiável e que é para \'%s\'?</string>
 </resources>

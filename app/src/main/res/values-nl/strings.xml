@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Volgende stap"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
-    <string name="setup_step1_instruction">Vink \'<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\' aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
+    <string name="setup_step1_instruction">Vink \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen &amp; invoer\', dus deze stap is voltooid. Op naar de volgende!</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
     <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Selecteer vervolgens \'<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\' als actieve tekstinvoermethode.</string>
+    <string name="setup_step2_instruction">Selecteer vervolgens \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve tekstinvoermethode.</string>
     <string name="setup_step2_action">"Schakelen tussen invoermethoden"</string>
     <string name="setup_step3_title">Gefeliciteerd, je kunt nu aan de slag!</string>
     <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -424,7 +424,7 @@
     <string name="switch_keyboard_after">Schakel over naar het hoofdtoetsenbord na…</string>
     <string name="after_symbol_and_space">Drukken op enter of spatie na andere toetsen in de symbolenweergave</string>
     <string name="show_popup_keys_main">Zeer veelgebruikte varianten toevoegen (standaard)</string>
-    <string name="remove_redundant_popups_summary">Pop-uptoetsen onderdrukken die aanwezig zijn in de basislay-out</string>
+    <string name="remove_redundant_popups_summary">Pop-uptoetsen onderdrukken die al aanwezig zijn in de basislay-out</string>
     <string name="remove_redundant_popups">Overbodige pop-ups verwijderen</string>
     <string name="gesture_floating_preview_dynamic_summary">Voorbeeld verplaatsen tijdens het gebaar</string>
     <string name="gesture_trail_fadeout_duration">Levensduur van het veegspoor</string>
@@ -454,4 +454,6 @@
     <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">\@string/show_language_switch_key</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (ingedrukt)</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Bediening met één hand wisselen</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Vuilnisbak</string>
+    <string name="customize_icons_reset_message">Alle aangepaste pictogrammen herstellen?</string>
 </resources>
