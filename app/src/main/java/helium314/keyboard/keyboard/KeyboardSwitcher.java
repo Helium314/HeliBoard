@@ -509,6 +509,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
+
     /**
      * Displays a toast message.
      *
