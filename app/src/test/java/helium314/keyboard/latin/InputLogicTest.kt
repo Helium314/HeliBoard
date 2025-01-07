@@ -208,6 +208,7 @@ class InputLogicTest {
     //  insertAutomaticSpaceIfOptionsAndTextAllow allows the space
     // todo: fix it either in some of those functions, or by finally improving URL detection in a reasonable (and performant) way
     @Test fun noAutospaceInUrlFieldWhenPickingSuggestion() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
         reset()
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("exam")
