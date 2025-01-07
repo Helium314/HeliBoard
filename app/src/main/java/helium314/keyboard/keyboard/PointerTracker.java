@@ -1048,10 +1048,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         resetKeySelectionByDraggingFinger();
         mIsDetectingGesture = false;
         final Key currentKey;
-        if (mKeyboardLayoutHasBeenChanged) {
+        if (mKeyboardLayoutHasBeenChanged && mKeyboard.mId.isAlphabetKeyboard()) {
             // this is called when keyboard was changed shortly before releasing the key
             // e.g. when the input field is cleared and shift is set to auto right before pressing the key,
             // then we want to get the current key, and not the key from the old keyboard (bug report in #994)
+            // the check for alphabet keyboard is to prevent this workaround from breaking LongPressSymbolsForNumpad (#1268)
             currentKey = mKeyDetector.detectHitKey(x, y);
             setReleasedKeyGraphics(mCurrentKey, true); // need to call this, otherwise preview popup will stay open
         } else {
