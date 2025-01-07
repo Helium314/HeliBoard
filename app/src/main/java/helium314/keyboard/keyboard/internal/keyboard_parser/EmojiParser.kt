@@ -43,7 +43,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
 
         // determine key width for default settings (no number row, no one-handed mode, 100% height and bottom padding scale)
         // this is a bit long, but ensures that emoji size stays the same, independent of these settings
-        val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context.resources) - params.mLeftPadding - params.mRightPadding) * params.mDefaultKeyWidth
+        val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context) - params.mLeftPadding - params.mRightPadding) * params.mDefaultKeyWidth
         val keyWidth = defaultKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)
         val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
         val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)

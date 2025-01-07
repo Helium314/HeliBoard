@@ -137,9 +137,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             final int currentAutoCapsState, final int currentRecapitalizeState) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
-        final Resources res = mThemeContext.getResources();
-        final int keyboardWidth = ResourceUtils.getKeyboardWidth(res, settingsValues);
-        final int keyboardHeight = ResourceUtils.getKeyboardHeight(res, settingsValues);
+        final int keyboardWidth = ResourceUtils.getKeyboardWidth(mThemeContext, settingsValues);
+        final int keyboardHeight = ResourceUtils.getKeyboardHeight(mThemeContext.getResources(), settingsValues);
         final boolean oneHandedModeEnabled = settingsValues.mOneHandedModeEnabled;
         mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                 .setSubtype(mRichImm.getCurrentSubtype())

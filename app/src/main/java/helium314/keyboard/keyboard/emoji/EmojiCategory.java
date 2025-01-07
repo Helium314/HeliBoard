@@ -6,11 +6,14 @@
 
 package helium314.keyboard.keyboard.emoji;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
+
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
@@ -114,6 +117,7 @@ final class EmojiCategory {
 
     private final SharedPreferences mPrefs;
     private final Resources mRes;
+    private final Context mContext;
     private final int mMaxRecentsKeyCount;
     private final KeyboardLayoutSet mLayoutSet;
     private final HashMap<String, Integer> mCategoryNameToIdMap = new HashMap<>();
@@ -124,11 +128,11 @@ final class EmojiCategory {
     private int mCurrentCategoryId = EmojiCategory.ID_UNSPECIFIED;
     private int mCurrentCategoryPageId = 0;
 
-    public EmojiCategory(final SharedPreferences prefs, final Resources res,
-            final KeyboardLayoutSet layoutSet, final TypedArray emojiPaletteViewAttr) {
-        mPrefs = prefs;
-        mRes = res;
-        mMaxRecentsKeyCount = res.getInteger(R.integer.config_emoji_keyboard_max_recents_key_count);
+    public EmojiCategory(final Context ctx, final KeyboardLayoutSet layoutSet, final TypedArray emojiPaletteViewAttr) {
+        mPrefs = DeviceProtectedUtils.getSharedPreferences(ctx);
+        mRes = ctx.getResources();
+        mContext = ctx;
+        mMaxRecentsKeyCount = mRes.getInteger(R.integer.config_emoji_keyboard_max_recents_key_count);
         mLayoutSet = layoutSet;
         for (int i = 0; i < sCategoryName.length; ++i) {
             mCategoryNameToIdMap.put(sCategoryName[i], i);
@@ -297,7 +301,7 @@ final class EmojiCategory {
                 return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
             }
 
-            final int currentWidth = ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent());
+            final int currentWidth = ResourceUtils.getKeyboardWidth(mContext, Settings.getInstance().getCurrent());
             if (categoryId == EmojiCategory.ID_RECENTS) {
                 final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
@@ -330,7 +334,7 @@ final class EmojiCategory {
     private int computeMaxKeyCountPerPage() {
         final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                 mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                0, 0, ResourceUtils.getKeyboardWidth(mRes, Settings.getInstance().getCurrent()));
+                0, 0, ResourceUtils.getKeyboardWidth(mContext, Settings.getInstance().getCurrent()));
         return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getColumnsCount();
     }
 

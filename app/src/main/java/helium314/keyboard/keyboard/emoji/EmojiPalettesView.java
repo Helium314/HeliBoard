@@ -90,13 +90,12 @@ public final class EmojiPalettesView extends LinearLayout
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
-        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent()),
+        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(context, Settings.getInstance().getCurrent()),
                 mEmojiLayoutParams.getEmojiKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
-        mEmojiCategory = new EmojiCategory(DeviceProtectedUtils.getSharedPreferences(context),
-                res, layoutSet, emojiPalettesViewAttr);
+        mEmojiCategory = new EmojiCategory(context, layoutSet, emojiPalettesViewAttr);
         mCategoryIndicatorEnabled = emojiPalettesViewAttr.getBoolean(
                 R.styleable.EmojiPalettesView_categoryIndicatorEnabled, false);
         mCategoryIndicatorDrawableResId = emojiPalettesViewAttr.getResourceId(
@@ -114,7 +113,7 @@ public final class EmojiPalettesView extends LinearLayout
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        final int width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().getCurrent())
+        final int width = ResourceUtils.getKeyboardWidth(getContext(), Settings.getInstance().getCurrent())
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
                 + getPaddingTop() + getPaddingBottom();
