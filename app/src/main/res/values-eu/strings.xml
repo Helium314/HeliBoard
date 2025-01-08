@@ -401,4 +401,20 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojien beheko errenkada</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Zenbakien errenkada</string>
     <string name="icon_style">Ikonoen estiloa</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Block Maius</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Sartu</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Ezabatu</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maius</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Ahotsaren sarrera desgaituta</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Erakutsi / Ezkutatu tresna-barra</string>
+    <string name="customize_icons">Pertsonalizatu ikonoak</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Zuriunea (zenbakien diseinuan)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Amaitu esku bakarreko modua</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Aldatu esku bakarreko modua</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiuskula (aktibatuta)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Aldatu esku bakarreko modura</string>
+    <string name="customize_toolbar_key_codes">Pertsonalizatu tresna-barrako tekla-kodeak</string>
+    <string name="key_code">Tekla-kodea</string>
+    <string name="long_press_code">Sakatze luzeko kodea</string>
 </resources>

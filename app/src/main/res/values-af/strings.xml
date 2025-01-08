@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Soek kontakname op"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Speltoetser gebruik inskrywings uit jou kontaklys"</string>
     <string name="vibrate_on_keypress">"Vibreer met sleuteldruk"</string>

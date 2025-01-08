@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Търсене на имена"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"За проверка на правописа се ползват записи от списъка с контакти"</string>
     <string name="vibrate_on_keypress">"Да вибрира при натискане на клавиш"</string>
@@ -44,7 +44,7 @@
     <string name="gesture_input">"Актив. на въвеждане чрез жест"</string>
     <string name="gesture_input_summary">"Въвеждане на дума чрез плъзгане на пръст през буквите"</string>
     <string name="gesture_preview_trail">"Следа от жестовете"</string>
-    <string name="gesture_floating_preview_text">"Динам. плаваща визуализ."</string>
+    <string name="gesture_floating_preview_text">Динамична плаваща визуализация</string>
     <string name="gesture_space_aware">"Жест за фрази"</string>
     <string name="gesture_space_aware_summary">"При жестове въвеждaйте интервали чрез плъзгане през съотв. клавиш"</string>
     <string name="subtype_en_GB">"английски (Великобритания)"</string>
@@ -84,23 +84,23 @@
     <string name="setup_next_action">"Следваща стъпка"</string>
     <string name="setup_steps_title">"Настройване на <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Активирайте <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Моля, поставете отметка за <xliff:g id="APPLICATION_NAME">%s</xliff:g> от „Език и въвеждане“. Така ще упълномощите приложението да се изпълнява на устройството."</string>
+    <string name="setup_step1_instruction">Моля, проверете \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> на вашите езици &amp; входни настройки. Това ще го разреши да работи на вашето устройство.</string>
     <string name="setup_step1_finished_instruction">"Приложението <xliff:g id="APPLICATION_NAME">%s</xliff:g> вече е активирано от „Език и въвеждане“, така че тази стъпка е изпълнена. Преминете към следващата!"</string>
     <string name="setup_step1_action">"Активиране в настройките"</string>
     <string name="setup_step2_title">"Превключете към <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"След това изберете <xliff:g id="APPLICATION_NAME">%s</xliff:g> като активен метод на въвеждане на текст."</string>
+    <string name="setup_step2_instruction">След това изберете \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> като ваш активен метод за въвеждане на текст.</string>
     <string name="setup_step2_action">"Превключване на методите на въвеждане"</string>
     <string name="setup_step3_title">"Поздравления! Вече сте готови!"</string>
-    <string name="setup_step3_instruction">"Вече можете да пишете във всичките си любими приложения посредством <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">Вече можете да пишете във всичките си любими приложения с <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Край"</string>
-    <string name="show_setup_wizard_icon">"Показв. на иконата на прилож."</string>
+    <string name="show_setup_wizard_icon">Показване на иконата на приложението</string>
     <string name="show_setup_wizard_icon_summary">"Показване на иконата на приложението в стартовия панел"</string>
     <string name="dictionary_settings_title">"Добавени речници"</string>
     <string name="dictionary_settings_summary">"Настройки за речници"</string>
     <string name="dictionary_available">"Речникът е налице"</string>
     <string name="cannot_connect_to_dict_service">"Няма връзка с речниците"</string>
     <string name="no_dictionaries_available">"Няма налични речници"</string>
-    <string name="last_update">"Последна актуализация:"</string>
+    <string name="last_update">Последна актуализация</string>
     <string name="main_dict_description">"Основен речник"</string>
     <string name="settings">"Настройки"</string>
     <string name="delete">"Изтриване"</string>
@@ -120,8 +120,8 @@
     <string name="settings_category_input">въвеждане</string>
     <string name="select_input_method">"Избор на метод на въвеждане"</string>
     <string name="undo">"Отмяна"</string>
-    <string name="redo">"Възстановяване"</string>
-    <string name="use_personalized_dicts_summary">"Ползване на съобщ. ви и въведени от вас данни за подобр. на предлож."</string>
+    <string name="redo">Повтори</string>
+    <string name="use_personalized_dicts_summary">Ползване на съобщенията ви и въведени от вас данни за подобряване на предложенията</string>
     <string name="label_go_key">"Старт"</string>
     <string name="label_next_key">"Напред"</string>
     <string name="label_previous_key">"Назад"</string>
@@ -130,13 +130,13 @@
     <string name="label_search_key">"Търсене"</string>
     <string name="label_pause_key">"Пауза"</string>
     <string name="label_wait_key">"Изчакв."</string>
-    <string name="settings_category_clipboard_history">История буфера обмена</string>
+    <string name="settings_category_clipboard_history">История на клипборда</string>
     <string name="settings_category_correction">Корекции</string>
     <string name="settings_category_suggestions">Предложения</string>
     <string name="settings_category_experimental">Експериментални</string>
     <string name="settings_category_miscellaneous">Разни</string>
-    <string name="spell_checker_service_name">Проверка на правописа HeliBoard</string>
-    <string name="ime_settings">Настройки HeliBoard</string>
+    <string name="spell_checker_service_name">Проверка на правописа</string>
+    <string name="ime_settings">Настройки</string>
     <string name="android_spell_checker_settings">Настройки за проверка на правописа</string>
     <string name="switch_language">Превключване на езика</string>
     <string name="settings_category_additional_keys">Допълнителни бутони</string>
@@ -145,4 +145,304 @@
     <string name="add_to_personal_dictionary">Добавяне на думи към личния речник</string>
     <string name="prefs_always_show_suggestions">Винаги показвайте предложения</string>
     <string name="add_to_personal_dictionary_summary">Използвайте личния речник на устройството, за да съхранявате научени думи</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Реда с числа</string>
+    <string name="gesture_floating_preview_static">Плаващ преглед</string>
+    <string name="gesture_floating_preview_static_summary">Вижте предложената дума, докато жестикулирате</string>
+    <string name="gesture_floating_preview_dynamic_summary">Преместете визуализацията по време на жест</string>
+    <string name="gesture_trail_fadeout_duration">Продължителност на живота на следата на жеста</string>
+    <string name="delete_swipe">Изтриване с плъзгане</string>
+    <string name="backup_restore_title">Архивиране и възстановяване</string>
+    <string name="load_gesture_library_summary">Осигурете собствена библиотека, за да активирате писането с жестове</string>
+    <string name="split_spacer_scale">Разделено разстояние</string>
+    <string name="language_switch_key_switch_both">Превключете и двете</string>
+    <string name="disable_personalized_dicts_message">Предупреждение: Деактивирането на тази настройка ще изчисти научените данни</string>
+    <string name="prefs_always_show_suggestions_summary">Игнорирайте искането на други приложения за деактивиране на предложенията (може да причини проблеми)</string>
+    <string name="more_autocorrect">Повече автоматична корекция</string>
+    <string name="load_gesture_library_button_delete">Изтриване на библиотека</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Език</string>
+    <string name="language_switch_key_behavior">Поведение на клавиша за превключване на език</string>
+    <string name="more_autocorrect_summary">Автоматично коригиране, дори когато не е изрично поискано от полето за въвеждане</string>
+    <string name="auto_correction_confidence">Доверие за автоматично коригиране</string>
+    <string name="backup_error">Грешка при архивиране: %s</string>
+    <string name="center_suggestion_text_to_enter_summary">При натискане на интервал или пунктуация ще бъде въведено средното предложение</string>
+    <string name="center_suggestion_text_to_enter">Винаги използвайте средно предложение</string>
+    <string name="button_backup">Архивиране</string>
+    <string name="restore_error">Грешка при възстановяване на архива: %s</string>
+    <string name="button_restore">Възстановяване</string>
+    <string name="secondary_locale">Многоезично въвеждане</string>
+    <string name="show_popup_keys_all">Добавете всички налични варианти</string>
+    <string name="url_detection_title">URL откриване</string>
+    <string name="url_detection_summary">Опитайте се да откриете URL адреси и подобни като една дума</string>
+    <string name="more_keys_strip_description">Повече клавиши</string>
+    <string name="prefs_force_incognito_mode_summary">Деактивирайте изучаването на нови думи</string>
+    <string name="incognito">Принудителен режим инкогнито</string>
+    <string name="enable_clipboard_history">Активиране историята на клипборда</string>
+    <string name="enable_clipboard_history_summary">Ако е деактивиран, клавишът за клипборда ще постави съдържанието на клипборда, ако има такова</string>
+    <string name="clipboard_history_retention_time">Време за запазване на историята</string>
+    <string name="suggest_clipboard_content">Предложете съдържание на клипборда</string>
+    <string name="suggest_clipboard_content_summary">Показване на наскоро копирано съдържание на клипборда като предложение</string>
+    <string name="gesture_fast_typing_cooldown_instant">Винаги започвайте веднага</string>
+    <string name="autospace_after_punctuation_summary">Автоматично вмъкване на интервал след препинателни знаци, когато пишете нова дума</string>
+    <string name="checksum_mismatch_message">Неизвестен библиотечен файл. Сигурни ли сте, че сте го получили от доверен източник и е за \'%s\'?</string>
+    <string name="show_popup_keys_title">Покажи повече букви с диакритични знаци в изскачащ прозорец</string>
+    <string name="show_popup_keys_normal">Показване на варианти, дефинирани в езиците на клавиатурата</string>
+    <string name="show_popup_keys_more">Добавяне на общи варианти</string>
+    <string name="language_and_layouts_title">Езици и оформления</string>
+    <string name="number_row">Реда с числа</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Език (приоритет)</string>
+    <string name="load_gesture_library_button_load">Заредете библиотеката</string>
+    <string name="autospace_after_punctuation">Автоматичен интервал след препинателни знаци</string>
+    <string name="show_popup_keys_main">Добавете много често срещани варианти (по подразбиране)</string>
+    <string name="localized_number_row_summary">Предпочитайте локализирани пред латински цифри</string>
+    <string name="show_hints">Показване на ключови съвети</string>
+    <string name="show_hints_summary">Показване на съвети при продължително натискане</string>
+    <string name="localized_number_row">Локализиране на реда с числа</string>
+    <string name="number_row_summary">Винаги показвайте реда с числа</string>
+    <string name="hint_source">Изберете източник на подсказка</string>
+    <string name="popup_order">Изберете ред на изскачащи клавиши</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Оформление</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символи</string>
+    <string name="delete_swipe_summary">Извършете плъзгане от клавиша за изтриване, за да изберете и премахнете по-големи части от текст наведнъж</string>
+    <string name="backup_restore_message">Запазете или заредете от файл. Предупреждение: възстановяването ще презапише съществуващите данни</string>
+    <string name="gesture_fast_typing_cooldown">Бързо изчакване при писане</string>
+    <string name="load_gesture_library">Заредете библиотеката за писане с жестове</string>
+    <string name="load_gesture_library_message">Ще ви трябва библиотеката за „%s“. Несъвместимите библиотеки може да се сринат при използване на писане с жестове.
+\n
+\nПредупреждение: зареждането на външен код може да представлява риск за сигурността. Използвайте само библиотека от източник, на който имате доверие.</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Ред с цифри</string>
+    <string name="full_left" tools:keep="@string/full_left">Напълно вляво</string>
+    <string name="full_right" tools:keep="@string/full_right">Напълно вдясно</string>
+    <string name="close_history" tools:keep="@string/close_history">Затваряне на хронологията на клипборда</string>
+    <string name="clipboard_toolbar_keys">Изберете клавиши от лентата с инструменти за клипборд</string>
+    <string name="quick_pin_toolbar_keys">Закачи клавиш от лентата с инструменти при дълго натискане</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Цифрова клавиатура</string>
+    <string name="prefs_space_bar_text">Персонализиран текст в лентата за интервал</string>
+    <string name="customize_currencies">Персонализиране на валути</string>
+    <string name="day_or_night_day">Ден</string>
+    <string name="layout_error">Грешка в оформлението: %s</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Символи</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
+    <string name="day_or_night_night">Нощ</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Променете метода на въвеждане с клавиш за интервал</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Цифрова клавиатура (пейзаж)</string>
+    <string name="voice" tools:keep="@string/voice">Гласово въвеждане</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Изчистване на клипборда</string>
+    <string name="prefs_long_press_symbol_for_numpad">Продължителното натискане на клавиш със символи за цифровата клавиатура</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Клипборда долен ред</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Емотикони долен ред</string>
+    <string name="customize_background_image">Задайте фоново изображение</string>
+    <string name="button_select_language">Изберете език</string>
+    <string name="file_read_error">Файлът не може да се прочете</string>
+    <string name="no_dictionary_dont_show_again_button">Не показвай отново</string>
+    <string name="load">Заредете</string>
+    <string name="button_save_file">Запазване във файл</string>
+    <string name="copy_to_clipboard">Копиране в клипборда</string>
+    <string name="customize_symbols_number_layouts">Персонализиране на символите и оформлението на числата</string>
+    <string name="button_load_custom">Заредете файл</string>
+    <string name="emoji" tools:keep="@string/emoji">Емотикони</string>
+    <string name="setup_step3_action">Конфигуриране на клавиатурата</string>
+    <string name="button_copy_existing_layout">Копирайте съществуващото оформление</string>
+    <string name="edit_layout">Докоснете, за да редактирате необработено оформление</string>
+    <string name="day_or_night_image">Задаване на изображение за дневен или нощен режим?</string>
+    <string name="left" tools:keep="@string/left">Вляво</string>
+    <string name="right" tools:keep="@string/right">Вдясно</string>
+    <string name="up" tools:keep="@string/up">Нагоре</string>
+    <string name="down" tools:keep="@string/down">Надолу</string>
+    <string name="word_left" tools:keep="@string/word_left">Дума вляво</string>
+    <string name="word_right" tools:keep="@string/word_right">Дума вдясно</string>
+    <string name="page_up" tools:keep="@string/page_up">Страница нагоре</string>
+    <string name="page_down" tools:keep="@string/page_down">Страница надолу</string>
+    <string name="page_start" tools:keep="@string/page_start">Начало на страницата</string>
+    <string name="page_end" tools:keep="@string/page_end">Край на страницата</string>
+    <string name="prefs_narrow_key_gaps">Намаляване на ключовите пропуски</string>
+    <string name="prefs_keyboard_height_scale">Скала за височина на клавиатурата</string>
+    <string name="prefs_bottom_padding_scale">Скала за долна подложка</string>
+    <string name="show_popup_hints_summary">Показване на съвети, ако продължително натискане на клавиш задейства допълнителна функционалност</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Продължителното натискане на клавиша за интервал ще изведе менюто за избор на метод на въвеждане</string>
+    <string name="add_new_dictionary_ask_locale">На какъв език трябва да бъде речникът 1$s за %2$s да бъде добавен?</string>
+    <string name="dictionary_settings_category">Речници</string>
+    <string name="add_new_dictionary_title">Добавяне на речник от файл</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Режим с една ръка</string>
+    <string name="select_word" tools:keep="@string/select_word">Изберете дума</string>
+    <string name="button_add_to_language">Добавяне към %s</string>
+    <string name="show_popup_hints">Показване на функционални съвети</string>
+    <string name="replace_dictionary_message">Наистина ли да замените добавения от потребителя речник 1$s?\n\nТекущ речник:\n%2$s\n\nНов речник:\n%3$s</string>
+    <string name="replace_dictionary">Замяна на речника</string>
+    <string name="after_symbol_and_space">Натискане на еnter или сpace след други клавиши в изглед на символи</string>
+    <string name="after_emoji">Избиране на емотикони в изглед на емотикони</string>
+    <string name="after_clip">Избиране на запис в историята на клипборда</string>
+    <string name="switch_keyboard_after">Превключете към основната клавиатура след…</string>
+    <string name="toolbar_keys">Избор на клавиши от лентата с инструменти</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Клипборд</string>
+    <string name="remove_redundant_popups">Премахнете излишните изскачащи прозорци</string>
+    <string name="remove_dictionary_message">Наистина ли премахвате добавения от потребителя речник?</string>
+    <string name="customize_currencies_detail">Задаване на основен и до 6 допълнителни символа на валута, разделени с интервал</string>
+    <string name="add_dictionary">Изберете речник за добавяне. Речниците във формат .dict могат да бъдат изтеглени %s.</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Числа</string>
+    <string name="title_layout_name_select">Задайте име на оформлението</string>
+    <string name="delete_layout">Наистина ли изтривате персонализирано оформление %s?</string>
+    <string name="button_title_add_custom_layout">Добавете персонализирано оформление</string>
+    <string name="message_add_custom_layout">Изберете файл в съвместим формат. Информация за форматите е налична %s.</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Телефонни символи</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символи (Arabic)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Още символи</string>
+    <string name="customize_functional_key_layouts">Персонализирайте функционалните оформления на клавишите</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функционални клавиши</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функционални клавиши (Символи)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функционални клавиши (Още символи)</string>
+    <string name="remove_redundant_popups_summary">Потискане на изскачащите клавиши, които присъстват в основното оформление</string>
+    <string name="no_dictionary_message">"Без речник ще получавате само предложения за текст, който сте въвели преди.&lt;br&gt;\n        Можете да изтеглите речници %1$s или да проверите дали речник за 2$s може да бъде изтеглен директно %3$s."</string>
+    <string name="pinned_toolbar_keys">Избиране на прикрепени клавиши от лентата с инструменти</string>
+    <string name="quick_pin_toolbar_keys_summary">Това ще деактивира други действия с дълго натискане за клавишите от лентата с инструменти, които не са закачени</string>
+    <string name="internal_dictionary_summary">Вътрешен основен речник</string>
+    <string name="space_swipe_toggle_numpad_entry">Превключване на цифровата клавиатура</string>
+    <string name="select_color_gesture">Въвеждане с жестове</string>
+    <string name="text_tap_languages">Докоснете езика, за да отворите настройките</string>
+    <string name="select_color_spacebar_text">Текст с интервал</string>
+    <string name="dictionary_file_error">Грешка: Избраният файл не е валиден речников файл</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Дефиниран от потребителя</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Тъмна</string>
+    <string name="show_horizontal_space_swipe">Хоризонтален жест за плъзгане с интервал</string>
+    <string name="dictionary_file_wrong_script">Грешка: скриптът не е съвместим с тази клавиатура</string>
+    <string name="dictionary_file_wrong_locale_ok">Все още се използва</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Гора</string>
+    <string name="settings_screen_toolbar">Лента с инструменти</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачно</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетово</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Дефиниран от потребителя (нощ)</string>
+    <string name="dialog_close">Затвори</string>
+    <string name="theme_navbar">Цветна лента за навигация</string>
+    <string name="select_user_colors">Регулиране на цветовете</string>
+    <string name="select_user_colors_night">Регулиране на цветовете (нощ)</string>
+    <string name="auto_user_color">Изберете цвят автоматично</string>
+    <string name="main_colors">Показване само на основните цветове</string>
+    <string name="all_colors">Покажи всички цветове</string>
+    <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Цветът по подразбиране е произволен и имената няма да бъдат преведени.</string>
+    <string name="action_none">Няма</string>
+    <string name="space_swipe_move_cursor_entry">Преместване на курсора</string>
+    <string name="var_toolbar_direction">Променлива посока на лентата с инструменти</string>
+    <string name="auto_show_toolbar_summary">Показване на лентата с инструменти, ако започне въвеждане или е избран текст</string>
+    <string name="var_toolbar_direction_summary">Обратна посока, когато е избран подтип клавиатура отдясно наляво</string>
+    <string name="auto_show_toolbar">Автоматично показване на лентата с инструменти</string>
+    <string name="dictionary_load_error">Грешка при зареждането на речниковия файл</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Синьо сиво</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Кафяво</string>
+    <string name="hint_show_keyboard">Кликнете за преглед</string>
+    <string name="save_log">Запазване на дневника</string>
+    <string name="select_color_suggestion">Текст на лентата с предложения</string>
+    <string name="select_color_key_background">Клавиши фон</string>
+    <string name="settings_screen_about">За</string>
+    <string name="select_color_accent">Акцент</string>
+    <string name="version">Версия</string>
+    <string name="about_github_link">Вижте в GitHub</string>
+    <string name="gnu_gpl">Общ публичен лиценз на GNU v3.0</string>
+    <string name="auto_hide_toolbar">Автоматично скриване на лентата с инструменти</string>
+    <string name="dictionary_link_text">тук</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Черена</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамични цветове</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
+    <string name="dictionary_file_wrong_locale">Избраният файл е за %1$s, но %2$s се очакваше. Все още ли го използвате за %2$s?</string>
+    <string name="theme_colors">Цветове</string>
+    <string name="theme_colors_night">Цветове (нощ)</string>
+    <string name="user_dict_add_word_button">Добавете дума</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Светла</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Холо бяло</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">По-тъмна</string>
+    <string name="theme_style">Стил</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Закръглена</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколадово</string>
+    <string name="load_will_overwrite">Зареждането ще презапише текущата тема</string>
+    <string name="select_color_background">Фон на клавиатурата</string>
+    <string name="select_color_functional_key_background">Функционален клавишен фон</string>
+    <string name="select_color_spacebar_background">Фон на интервала</string>
+    <string name="select_color_key">Клавиши текст</string>
+    <string name="select_color_key_hint">Клавиши текст за подсказване</string>
+    <string name="license">Лиценз с отворен код</string>
+    <string name="key_borders">Ключови граници</string>
+    <string name="day_night_mode">Автоматичен дневен/нощен режим</string>
+    <string name="settings_screen_appearance">Външен вид</string>
+    <string name="hidden_features_text">защитено устройство за съхранение</string>
+    <string name="show_vertical_space_swipe">Жест за плъзгане с вертикален интервал</string>
+    <string name="hidden_features_title">Описание на скритите функции</string>
+    <string name="hidden_features_summary">Покажете функции, които може да останат незабелязани</string>
+    <string name="available_dictionary_experimental">%s (експериментално)</string>
+    <string name="day_night_mode_summary">Външният вид ще следва системните настройки</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Розово</string>
+    <string name="more_colors">Покажи още цветове</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Раздел</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Въвеждане</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Промяна</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Промяна(изместен)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Заключване на Caps</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Край на режима с една ръка</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Преоразмеряване на режим с една ръка</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Превключете на режима с една ръка</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Показване / скриване на лентата с инструменти</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Съединител с нулева ширина</string>
+    <string name="customize_toolbar_key_codes">Персонализирайте кодовете на клавишите на лентата с инструменти</string>
+    <string name="key_code">Кодовете на клавишите</string>
+    <string name="long_press_code">Продължително натискане на код</string>
+    <string name="toast_msg_clipboard_copy">Съдържанието е копирано</string>
+    <string name="customize_icons">Персонализирайте иконите</string>
+    <string name="icon_style">Стил на иконата</string>
+    <string name="select_user_colors_summary">Изберете цветове за текст и фон</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Гласовото въвеждане е деактивирано</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Несъединител с нулева ширина</string>
+    <string name="user_dict_settings_add_weight_value">Тегло:</string>
+    <string name="user_dict_word_already_present">Тази дума вече присъства в %s потребителския речник на. Моля, въведете друга.</string>
+    <string name="auto_hide_toolbar_summary">Скрийте лентата с инструменти, когато предложенията станат налични</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Пространство (оформление с числа)</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пясък</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Изтриване</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Мансийски (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгалски">%s</xliff:g> (Пробхат)</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> мин</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Корейски">%s</xliff:g> (Себолсик 390)</string>
+    <string name="subtype_xdq">Кайтагски</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Разширено)</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Кайтагски (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Руски">%s</xliff:g> (Студент)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Корейски">%s</xliff:g> (Себолсик Финална)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгалски">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Латиница (Бепо)</string>
+    <string name="hidden_features_message">► Продължителното натискане на фиксирани клавиши на лентата с инструменти води до допълнителна функционалност: &lt;br&gt;
+\n\t• клипборд &amp;#65515; паста &lt;br&gt;
+\n\t• движение наляво/надясно &amp;#65515; дума ляво/дясно &lt;br&gt;
+\n\t• движение нагоре/надолу &amp;#65515; страница нагоре/надолу &lt;br&gt;
+\n\t• дума ляво/дясно &amp;#65515; начало/край на ред &lt;br&gt;
+\n\t• страница нагоре/надолу &amp;#65515; начало/край на страница &lt;br&gt;
+\n\t• копие &amp;#65515; изрежете &lt;br&gt;
+\n\t• изберете дума &amp;#8596; изберете всички &lt;br&gt;
+\n\t• отмяна &amp;#8596; повтори &lt;br&gt; &lt;br&gt;
+\n► Продължителното натискане на клавишите в лентата с инструменти на лентата с предложения ги закрепва към лентата с предложения. &lt;br&gt; &lt;br&gt;
+\n► Натиснете продължително клавиша със запетая за достъп до изглед на клипборда, изглед на емотикони, режим с една ръка, настройки или превключване на език: &lt;br&gt;
+\n\t• Emoji View и Language Switch ще изчезнат, ако имате активиран съответния клавиш; &lt;br&gt;
+\n\t• За някои оформления това не е клавишът Comma, а клавишът на същата позиция (напр. това е \\\'q\\\' за оформлението на Dvorak). &lt;br&gt; &lt;br&gt;
+\n► Когато режимът инкогнито е активиран, няма да се научават думи и няма да се добавят емотикони към последните. &lt;br&gt; &lt;br&gt;
+\n► Натиснете иконата Инкогнито за достъп до лентата с инструменти. &lt;br&gt; &lt;br&gt;
+\n► Въвеждане с плъзгащ се клавиш: Плъзнете от shift към друг клавиш, за да въведете единичен клавиш с главни букви: &lt;br&gt;
+\n\t• Това също работи за клавиша \\\'?123\\\' за въвеждане на единичен символ от клавиатурата със символи и за свързани клавиши. &lt;br&gt; &lt;br&gt;
+\n► Задръжте клавиша shift или символ, натиснете един или повече клавиши и след това отпуснете клавиша shift или символ, за да се върнете към предишната клавиатура. &lt;br&gt; &lt;br&gt;
+\n► Натиснете продължително предложение в лентата с предложения, за да покажете още предложения, и бутон за изтриване, за да премахнете това предложение. &lt;br&gt; &lt;br&gt;
+\n► Плъзнете нагоре от предложение, за да отворите още предложения, и отпуснете върху предложението, за да го изберете. &lt;br&gt; &lt;br&gt;
+\n► Натиснете продължително запис в хронологията на клипборда, за да го закачите (запазете го в клипборда, докато не го откачите). &lt;br&gt; &lt;br&gt;
+\n► Плъзнете наляво в изгледа на клипборда, за да премахнете запис (освен когато е фиксиран) &lt;br&gt; &lt;br&gt;
+\n► Изберете текст и натиснете shift, за да превключвате между главни, малки и главни букви. &lt;br&gt; &lt;br&gt;
+\n► Можете да добавите речници, като ги отворите във файловия мениджър: &lt;br&gt;
+\n\t• Това работи само с &lt;i&gt;content-uris&lt;/i&gt;, а не с &lt;i&gt;file-uris&lt;/i&gt;, което означава, че може да не работи с някои файлови изследователи. &lt;br&gt; &lt;br&gt;
+\n► За потребители, които правят ръчно архивиране с root достъп: &lt;br&gt;
+\n\t• Започвайки от Android 7, споделеният файл с предпочитания не е в местоположението по подразбиране, защото приложението използва %s. Това е необходимо, за да могат настройките да бъдат прочетени преди устройството да бъде отключено, например при зареждане; &lt;br&gt;
+\n\t• Файлът се намира в /data/user_de/0/package_id/shared_prefs/, въпреки че това може да зависи от устройството и версията на Android. &lt;br&gt; &lt;br&gt;
+\n&lt;i&gt;&lt;b&gt;Режим за отстраняване на грешки / APK за отстраняване на грешки&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+\n► Натиснете продължително предложение, за да се покаже изходният речник. &lt;br&gt; &lt;br&gt;
+\n► Когато използвате APK за отстраняване на грешки, можете да намерите Настройки за отстраняване на грешки в Разширени предпочитания, въпреки че полезността е ограничена, освен за изхвърляне на речници в дневника. &lt;br&gt;
+\n\t• За издание на APK трябва да докоснете версията в &lt;i&gt;Информация&lt;/i&gt; няколко пъти, след което можете да намерите настройките за отстраняване на грешки в &lt;i&gt;Разширени предпочитания&lt;/i&gt;. &lt;br&gt;
+\n\t• Когато активирате &lt;i&gt;Показване на информация за предложенията&lt;/i&gt;, предложенията ще имат някои малки числа отгоре, показващи някакъв вътрешен резултат и речник на източника. &lt;br&gt; &lt;br&gt;
+\n► В случай на срив на приложение, ще бъдете подканени дали искате регистрационните файлове за срив, когато отворите Настройки. &lt;br&gt; &lt;br&gt;
+\n► Когато използвате многоезично въвеждане, интервалът ще покаже стойност на достоверност, използвана за определяне на използвания в момента език. &lt;br&gt; &lt;br&gt;
+\n► Предложенията ще имат малки числа отгоре, показващи някакъв вътрешен резултат и изходен речник (може да бъде деактивиран).</string>
+    <string name="subtype_mns">Мансийски</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Латиница (Workman)</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Латиница (Colemak Mod-DH)</string>
 </resources>

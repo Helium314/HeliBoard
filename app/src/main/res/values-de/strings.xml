@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.</string>
+    <string name="setup_step1_instruction">Bitte aktiviere \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung „Sprachen und Eingabe“ aktiviert. Weiter mit dem nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
-    <string name="setup_step2_instruction">Wähle als nächstes „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ als deine aktive Bildschirmtastatur.</string>
+    <string name="setup_step2_instruction">Wähle als nächstes \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als deine aktive Bildschirmtastatur.</string>
     <string name="setup_step2_action">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction">Jetzt kannst du in all deinen Lieblingsapps mit <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> schreiben.</string>
@@ -189,7 +189,7 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Schwarz</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Schokolade</string>
-    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%s“ wirklich entfernt werden?</string>
+    <string name="remove_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch s wirklich entfernt werden?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Wolkig</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="day_or_night_day">Tag</string>
@@ -290,7 +290,7 @@
     <string name="show_popup_keys_all">Alle verfügbaren Varianten hinzufügen</string>
     <string name="more_autocorrect">Mehr Autokorrektur</string>
     <string name="split_spacer_scale">Teilungsabstand</string>
-    <string name="add_new_dictionary_ask_locale">Zu welcher Sprache soll das Wörterbuch „%1$s“ für %2$s hinzugefügt werden?</string>
+    <string name="add_new_dictionary_ask_locale">Zu welcher Sprache soll das Wörterbuch 1$s für %2$s hinzugefügt werden?</string>
     <string name="user_dict_settings_add_weight_value">Gewichtung:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoriere Anfragen anderer Apps, Vorschläge zu deaktivieren (kann Probleme verursachen)</string>
     <string name="title_layout_name_select">Layout-Name festlegen</string>
@@ -320,8 +320,7 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo-Weiß</string>
     <string name="language_switch_key_switch_both">Beides wechseln</string>
     <string name="hidden_features_message">► Durch langes Drücken der Zwischenablagetaste (die optionale Taste in der Vorschlagsleiste) wird der Inhalt der Systemzwischenablage eingefügt. &lt;br&gt; &lt;br&gt; ► Durch langes Drücken von Tasten in der Symbolleiste der Vorschlagsleiste werden diese an die Vorschlagsleiste angeheftet. &lt;br&gt; &lt;br&gt; ► Halte die Komma-Taste gedrückt, um auf die Zwischenablageansicht, die Emoji-Ansicht, den Einhandmodus, die Einstellungen oder den Sprachwechsel zuzugreifen: &lt;br&gt; • Die Emoji-Ansicht und der Sprachwechsel verschwinden, wenn du über die entsprechende Taste aktiviert hast; &lt;br&gt; • Bei einigen Layouts ist es nicht die Komma-Taste, sondern die Taste an derselben Position (z. B. ist es „q“ für das Dvorak-Layout). &lt;br&gt; &lt;br&gt; ► Wenn der Inkognito-Modus aktiviert ist, werden keine Wörter gelernt und keine Emojis zu den letzten hinzugefügt. &lt;br&gt; &lt;br&gt; ► Drücke auf das Inkognito-Symbol, um auf die Symbolleiste zuzugreifen. &lt;br&gt; &lt;br&gt; ► Schiebetasteneingabe: Wische von der Umschalttaste zu einer anderen Taste, um einen einzelnen Großbuchstaben einzugeben: &lt;br&gt; • Dies funktioniert auch für die Taste „?123“, um ein einzelnes Symbol über die Symboltastatur einzugeben, und für zugehörige Schlüssel. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Vorschlag in der Vorschlagsleiste, um weitere Vorschläge anzuzeigen, und tippe auf die Schaltfläche „Löschen“, um diesen Vorschlag zu entfernen. &lt;br&gt; &lt;br&gt; ► Wische von einem Vorschlag nach oben, um weitere Vorschläge zu öffnen, und lasse den Vorschlag los, um ihn auszuwählen. &lt;br&gt; &lt;br&gt; ► Drücke lange auf einen Eintrag im Verlauf der Zwischenablage, um ihn anzuheften (belässt ihn in der Zwischenablage, bis du die Anheftung aufhebst). &lt;br&gt; &lt;br&gt; ► Du kannst Wörterbücher hinzufügen, indem du sie in einem Datei-Explorer öffnest: &lt;br&gt; • Dies funktioniert nur mit &lt;i&gt;content-uris&lt;/i&gt; und nicht mit &lt;i&gt;file-uris&lt;/i&gt;. Das bedeutet, dass es mit einigen Datei-Explorern möglicherweise nicht funktioniert. &lt;br&gt; &lt;br&gt; &lt;i&gt;Debug-Modus / Debug-APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Drücke lange auf einen Vorschlag, um das Quellwörterbuch anzuzeigen.&lt;br&gt; &lt;br&gt; • Wenn du die Debug-APK verwendest, kannst du Debug-Einstellungen in den erweiterten Einstellungen finden. Der Nutzen ist jedoch begrenzt, mit Ausnahme der Speicherung von Wörterbüchern im Protokoll. &lt;br&gt; &lt;br&gt; • Im Falle eines Anwendungsabsturzes wirst du beim Öffnen der Einstellungen gefragt, ob du die Absturzprotokolle wünschst. &lt;br&gt; &lt;br&gt; • Bei mehrsprachiger Eingabe zeigt die Leertaste einen Konfidenzwert an, der zur Bestimmung der aktuell verwendeten Sprache verwendet wird. &lt;br&gt; &lt;br&gt; • Vorschläge werden oben einige kleine Zahlen haben, die eine interne Bewertung und ein Quellwörterbuch anzeigen (kann deaktiviert werden). &lt;br&gt; &lt;br&gt; ► Für Benutzer, die manuelle Backups mit Root-Zugriff durchführen: Ab Android 7 befindet sich die gemeinsame Einstellungsdatei nicht am Standardspeicherort, da die App %s verwendet. &lt;br&gt; Dies ist notwendig, damit die Einstellungen gelesen werden können, bevor das Gerät entsperrt wird, z.B. beim Booten. &lt;br&gt; Die Datei befindet sich in /data/user_de/0/package_id/shared_prefs/, dies kann jedoch vom Gerät und der Android-Version abhängen.</string>
-    <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;
-\n        Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für „%2$s“ direkt heruntergeladen werden kann."</string>
+    <string name="no_dictionary_message">"Ohne Wörterbuch erhältst du nur Vorschläge für Text, den du zuvor eingegeben hast.&lt;br&gt;\n                  Du kannst Wörterbücher %1$s herunterladen oder %3$s überprüfen, ob ein Wörterbuch für 2$s direkt heruntergeladen werden kann."</string>
     <string name="available_dictionary_experimental">%s (experimentell)</string>
     <string name="customize_symbols_number_layouts">Symbole und Zahlenlayouts anpassen</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
@@ -400,4 +399,24 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji untere Leiste</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Zwischenablage untere Leiste</string>
     <string name="icon_style">Symbolstil</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Eingabe</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulator</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Umschalttaste</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Umschalttaste (umgeschalten)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Feststell</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Leertaste (Nummern Layout)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Einhand Modus beenden</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Tausche Einhand Modus seite</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Spracheingabe deaktiviert</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Zeigen/verstecken Symbolleiste</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Einhand Modus Größe anpassen</string>
+    <string name="customize_toolbar_key_codes">Anpassen der Symbolleiste Keycodes</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Beeitenloser Verbinder</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Bindehemmer</string>
+    <string name="key_code">Keycode</string>
+    <string name="long_press_code">Langes drücken Code</string>
+    <string name="customize_icons">Symbole Anpassen</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Entfernen</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papierkorb</string>
+    <string name="customize_icons_reset_message">Wirklich alle benutzerdefinierten Symbole zurücksetzen?</string>
 </resources>

@@ -59,6 +59,7 @@ import helium314.keyboard.latin.utils.editCustomLayout
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
+import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
@@ -432,6 +433,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         // reload current prefs screen
         preferenceScreen.removeAll()
         setupPreferences()
+        onCustomLayoutFileListChanged()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 

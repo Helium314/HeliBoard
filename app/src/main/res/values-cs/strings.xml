@@ -254,8 +254,7 @@
     <string name="show_vertical_space_swipe">Svislé gesto přejetí mezerníku</string>
     <string name="prefs_always_show_suggestions_summary">Ignorovat požadavek jiných aplikací na zakázání návrhů (může způsobit problémy)</string>
     <string name="customize_symbols_number_layouts">Přizpůsobit symboly a rozvržení čísel</string>
-    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;
-\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
+    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
     <string name="dictionary_link_text">zde</string>
     <string name="add_dictionary">Vybrat slovník, který chcete přidat. Slovníky ve formátu .dict lze stáhnout %s.</string>
     <string name="available_dictionary_experimental">%s (experimentální)</string>

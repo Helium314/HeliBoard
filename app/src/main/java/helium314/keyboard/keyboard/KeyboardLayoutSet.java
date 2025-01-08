@@ -13,6 +13,7 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
 import helium314.keyboard.keyboard.internal.KeyboardBuilder;
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
@@ -104,6 +105,7 @@ public final class KeyboardLayoutSet {
         sKeyboardCache.clear();
         sUniqueKeysCache.clear();
         RawKeyboardParser.INSTANCE.clearCache();
+        KeyboardIconsSet.Companion.setNeedsReload(true);
     }
 
     KeyboardLayoutSet(final Context context, @NonNull final Params params) {
@@ -218,7 +220,7 @@ public final class KeyboardLayoutSet {
             builder.mParams.mMode = KeyboardId.MODE_TEXT;
             // always full width, but height should consider scale and number row to align nicely
             // actually the keyboard does not have full height, but at this point we use it to get correct key heights
-            final int width = ResourceUtils.getDefaultKeyboardWidth(context.getResources());
+            final int width = ResourceUtils.getDefaultKeyboardWidth(context);
             final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
             builder.setKeyboardGeometry(width, height);
             builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());

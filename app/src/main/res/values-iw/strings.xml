@@ -434,4 +434,21 @@
     <string name="prefs_space_bar_text">מלל מותאם על מקש הרווח</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">שורת הלוח התחתונה</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">שורת האמוג\'ים התחתונה</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">קלט קולי מושבת</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">הצגה / הסתרה של סרגל הכלים</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (לחוץ)</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">רווח (פריסת מספרים)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">סיום מצב הקלדה ביד אחת</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">שינוי גודל מצב הקלדה ביד אחת</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">מעבר צד הקלדה ביד אחת</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="customize_icons">התאמת סמלים</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">מחבר אורך-אפס</string>
+    <string name="customize_toolbar_key_codes">התאמת קודי המקשים בסרגל הכלים</string>
+    <string name="key_code">קוד מקש</string>
+    <string name="long_press_code">קוד לחיצה ממושכת</string>
 </resources>

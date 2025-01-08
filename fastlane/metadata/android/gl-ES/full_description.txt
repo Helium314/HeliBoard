@@ -15,15 +15,16 @@ Características:
     <li>pode seguir as cores dinámicas de Android 12+</li>
   </ul>
   <li>Personaliza a <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">disposición</a> teclado (só dispoñible ao desactivar <i>Usar Idiomas do Sistema</i>)</li>
+  <li>Personaliza disposicións especiais, como símbolos, números ou teclas de función</li>
   <li>Escritura con varios idiomas</li>
   <li>Escribe desprazándote (<i>só cunha biblioteca de código privativo</i> ☹️)</li>
   <ul>
     <li>a biblioteca non está incluída na app ao non haber unha biblioteca de código aberto compatible</li>
-    <li>pode extraerse dos paquetes GApps ("<i>swypelibs</i>"), ou descargala <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">aquí</a></li>
+    <li>pode extraerse dos paquetes GApps ("<i>swypelibs</i>"), ou descargala <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">aquí</a> (preme no ficheiro e despois "cru" ou o pequeno botón de descargar)</li>
   </ul>
   <li>Historial do portapapeis</li>
   <li>Modo Unha sóa man</li>
   <li>Teclado separado (só se a pantalla é grande abondo)</li>
   <li>Teclado numérico</li>
-  <li>Copia e restablecemento das palabras aprendidas e historial</li>
+  <li>Copia e restablecemento dos axustes e das palabras aprendidas e historial</li>
 </ul>

@@ -470,18 +470,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final long startTime = SystemClock.uptimeMillis();
         final CharSequence result = mIC.getTextBeforeCursor(n, flags);
         detectLaggyConnection(operation, timeout, startTime);
-        // inconsistent state can occur for (at least) two reasons
-        // 1. the app actively changes text field content, e.g. joplin when deleting "list markers like 2.
-        // 2. the app has outdated contents in the text field, e.g. notepad (com.farmerbb.notepad) returns the
-        //     just deleted char right after deletion, instead of the correct one
-        //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
-        if (result != null) {
-            if (!checkTextBeforeCursorConsistency(result)) {
-                Log.w(TAG, "cached text out of sync, reloading");
-                reloadCursorPosition();
-                if (!DebugLogUtils.getStackTrace(2).contains("reloadTextCache")) // clunky bur effective protection against circular reference
-                    reloadTextCache();
-            }
+
+        // only do the consistency check if we actually have text (i.e. we're not coming from some reload / reset)
+        if ((mCommittedTextBeforeComposingText.length() > 0 || mComposingText.length() > 0)
+                && result != null && !checkTextBeforeCursorConsistency(result)) {
+            // inconsistent state can occur for (at least) two reasons
+            // 1. the app actively changes text field content, e.g. joplin when deleting list markers like "2."
+            // 2. the app has outdated contents in the text field, e.g. com.farmerbb.notepad returns the
+            //     just deleted char right after deletion, instead of the correct one
+            //     todo: understand where this inconsistent state comes from, is it really the other app's fault, or is it HeliBoard?
+            Log.w(TAG, "cached text out of sync, reloading");
+            reloadCursorPosition();
+            reloadTextCache();
         }
         return result;
     }
@@ -653,6 +653,9 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final CharSequence textBeforeCursor =
                 getTextBeforeCursor(Constants.EDITOR_CONTENTS_CACHE_SIZE + (end - start), 0);
         mCommittedTextBeforeComposingText.setLength(0);
+        // also clear composing text, otherwise we may append existing text
+        // this can happen when we're a little out of sync with the editor
+        mComposingText.setLength(0);
         if (!TextUtils.isEmpty(textBeforeCursor)) {
             // The cursor is not necessarily at the end of the composing text, but we have its
             // position in mExpectedSelStart and mExpectedSelEnd. In this case we want the start
@@ -949,6 +952,10 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // If what's after the cursor is a word character, then we're touching a word.
             return true;
         }
+        if (mComposingText.length() > 0) {
+            // a composing region should always count as a word
+            return true;
+        }
         final String textBeforeCursor = mCommittedTextBeforeComposingText.toString();
         int indexOfCodePointInJavaChars = textBeforeCursor.length();
         int consideredCodePoint = 0 == indexOfCodePointInJavaChars ? Constants.NOT_A_CODE
@@ -1054,10 +1061,17 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * @return whether this is a belated expected update or not.
      */
     public boolean isBelatedExpectedUpdate(final int oldSelStart, final int newSelStart,
-            final int oldSelEnd, final int newSelEnd) {
+            final int oldSelEnd, final int newSelEnd, final int composingSpanStart, final int composingSpanEnd) {
         // This update is "belated" if we are expecting it. That is, mExpectedSelStart and
         // mExpectedSelEnd match the new values that the TextView is updating TO.
-        if (mExpectedSelStart == newSelStart && mExpectedSelEnd == newSelEnd) return true;
+        if (mExpectedSelStart == newSelStart && mExpectedSelEnd == newSelEnd) {
+            if (composingSpanEnd - composingSpanStart < mComposingText.length()) {
+                // composing span is smaller than expected, maybe changed by the app (see #1141)
+                // larger composing span is ok, because mComposingText only contains the word up to the cursor
+                return false;
+            }
+            return true;
+        }
         // This update is not belated if mExpectedSelStart and mExpectedSelEnd match the old
         // values, and one of newSelStart or newSelEnd is updated to a different value. In this
         // case, it is likely that something other than the IME has moved the selection endpoint

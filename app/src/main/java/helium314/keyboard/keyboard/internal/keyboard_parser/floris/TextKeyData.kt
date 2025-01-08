@@ -141,7 +141,7 @@ sealed interface KeyData : AbstractKeyData {
                 for (i in popupKeys.indices)
                     popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
             }
-            if (Settings.getInstance().isTablet && popupKeys.contains("!") && popupKeys.contains("?")) {
+            if (params.setTabletExtraKeys && popupKeys.contains("!") && popupKeys.contains("?")) {
                 // remove ! and ? keys and reduce number in autoColumnOrder
                 // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
                 popupKeys[popupKeys.indexOf("!")] = ""

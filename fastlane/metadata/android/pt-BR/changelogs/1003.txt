@@ -1,0 +1,9 @@
+* altera ícones para botões de autocorreção e selecionar tudo na barra de ferramentas por @codokie (#524, #651)
+* adiciona layout Chuvash por @tenextractor (#677)
+* adiciona botão de cortar à barra de ferramentas por @codokie (#678)
+* atualiza layout Probhat por @fahimscirex (#628)
+* exibe ícones da barra de ferramentas no diálogo de botões dela
+* adiciona botão de fechar no histórico da área de transferência por @codokie (#403, #649)
+* adiciona layout Russo (Student) por @Zolax9 (#640)
+* torna opcional a alteração para teclado numérico no toque longo na tecla de símbolos (#588)
+* correções e melhorias menores, incluindo #632, #637, #638 por @RHJihan

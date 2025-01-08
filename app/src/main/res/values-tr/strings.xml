@@ -434,4 +434,7 @@
     <string name="prefs_space_bar_text">Boşluk çubuğu özel metni</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji alt satırı</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Pano alt satırı</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Giriș</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Sil</string>
 </resources>

@@ -118,8 +118,8 @@ public final class PopupKeySpec {
         private final SparseIntArray mCodes = new SparseIntArray();
         private final HashSet<String> mTexts = new HashSet<>();
 
-        public void addLetter(@NonNull final Key key) {
-            final int code = key.getCode();
+        public void addLetter(@NonNull final Key.KeyParams key) {
+            final int code = key.mCode;
             if (code > 32) {
                 mCodes.put(code, 0);
             } else if (code == KeyCode.MULTIPLE_CODE_POINTS) {

@@ -85,11 +85,11 @@
     <string name="setup_next_action">"Następny krok"</string>
     <string name="setup_steps_title">Konfigurowanie aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Włącz aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Zaznacz aplikację „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” w ustawieniach Język i wprowadzanie tekstu. Umożliwi to jej uruchamianie na urządzeniu.</string>
+    <string name="setup_step1_instruction">Zaznacz aplikację \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> w ustawieniach Język i wprowadzanie tekstu. Umożliwi to jej uruchamianie na urządzeniu.</string>
     <string name="setup_step1_finished_instruction">Aplikacja <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jest już włączona w ustawieniach Język i wprowadzanie tekstu. Przejdź do następnego kroku!</string>
     <string name="setup_step1_action">"Włącz w Ustawieniach"</string>
     <string name="setup_step2_title">Przełącz się na aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Następnie wybierz „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” jako aktywną metodę wprowadzania tekstu.</string>
+    <string name="setup_step2_instruction">Następnie wybierz \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jako aktywną metodę wprowadzania tekstu.</string>
     <string name="setup_step2_action">"Przełącz metody wprowadzania"</string>
     <string name="setup_step3_title">Gratulacje, wszystko gotowe!</string>
     <string name="setup_step3_instruction">Teraz możesz pisać we wszystkich swoich ulubionych aplikacjach, używając aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -435,4 +435,23 @@
     <string name="prefs_space_bar_text">Własny tekst na klawiszu spacji</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Dolny rząd w widoku emotikonów</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Dolny rząd w widoku schowka</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulator</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (aktywowany)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spacja (układ liczb)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Wyłącz tryb jednej ręki</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Zmiana rozmiaru trybu jednej ręki</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Usuwanie</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Wprowadzanie głosowe wyłączone</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Pokaż/ukryj pasek narzędzi</string>
+    <string name="label_language_switch_key" tools:keep="@string/label_language_switch_key">\@string/show_language_switch_key</string>
+    <string name="customize_toolbar_key_codes">Dostosuj kody klawiszy paska narzędzi</string>
+    <string name="key_code">Kod klawisza</string>
+    <string name="long_press_code">Kod długiego naciśnięcia</string>
+    <string name="customize_icons">Dostosuj ikony</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Zmień stronę trybu jednej ręki</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Łącznik o zerowej szerokości</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Niełącznik o zerowej szerokości</string>
 </resources>

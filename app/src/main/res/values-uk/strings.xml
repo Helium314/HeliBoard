@@ -6,8 +6,8 @@
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Шукати імена контактів"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Для перевірки правопису використовувати список контактів"</string>
-    <string name="vibrate_on_keypress">"Вібр. при натисканні клавіш"</string>
-    <string name="sound_on_keypress">"Звук при натиску клав."</string>
+    <string name="vibrate_on_keypress">Вібрація при натисканні клавіш</string>
+    <string name="sound_on_keypress">Звук при натиску клавіш</string>
     <string name="popup_on_keypress">"Збільшення натиснутих"</string>
     <string name="settings_screen_preferences">"Параметри"</string>
     <string name="settings_screen_appearance">"Зовнішній вигляд"</string>
@@ -19,13 +19,13 @@
     <string name="language_switch_key_switch_input_method">Зміна методів введення</string>
     <string name="show_language_switch_key">"Клавіша зміни мови"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
-    <string name="settings_system_default">"За умовчанням"</string>
-    <string name="use_contacts_dict">"Пропон. імена контактів"</string>
+    <string name="settings_system_default">Типово</string>
+    <string name="use_contacts_dict">Пропонувати імена контактів</string>
     <string name="use_contacts_dict_summary">"Показувати виправлення на основі імен зі списку контактів"</string>
     <string name="use_personalized_dicts">"Персональні пропозиції"</string>
     <string name="use_double_space_period">"Крапка подвійним пробілом"</string>
     <string name="use_double_space_period_summary">"Подвійне натискання пробілу вставляє крапку з пробілом після неї"</string>
-    <string name="auto_cap">"Вел. літери автоматично"</string>
+    <string name="auto_cap">Починати речення з великої</string>
     <string name="auto_cap_summary">"Писати перше слово в кожному реченні з великої літери"</string>
     <string name="edit_personal_dictionary">"Особистий словник"</string>
     <string name="configure_dictionaries_title">"Додані словники"</string>
@@ -51,23 +51,23 @@
     <string name="subtype_en_GB">"Англійська (Велика Британія)"</string>
     <string name="subtype_en_US">"Англійська (США)"</string>
     <string name="subtype_es_US">"Іспанська (США)"</string>
-    <string name="subtype_hi_Latn">гінґліш</string>
-    <string name="subtype_sr_Latn">сербська (латиниця)</string>
+    <string name="subtype_hi_Latn">Гінґліш</string>
+    <string name="subtype_sr_Latn">Сербська (латиниця)</string>
     <string name="subtype_with_layout_en_GB">Англійська (Велика Британія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_en_US">Англійська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Іспанська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">Сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальська">%s</xliff:g> (Традиційна)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хінді">%s</xliff:g> (Компактна)</string>
-    <string name="subtype_no_language">стандартна (латиниця)</string>
+    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Гінді">%s</xliff:g> (Компактна)</string>
+    <string name="subtype_no_language">Стандартна (латиниця)</string>
     <string name="subtype_no_language_qwerty">"Латиниця (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Латиниця (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Латиниця (AZERTY)"</string>
     <string name="subtype_no_language_dvorak">"Латиниця (Dvorak)"</string>
     <string name="subtype_no_language_colemak">"Латиниця (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty">"Латиниця (ПК)"</string>
-    <string name="subtype_emoji">Cмайли Emoji</string>
+    <string name="subtype_emoji">Емоджі</string>
     <string name="add">Додати</string>
     <string name="remove">Видалити</string>
     <string name="save">Зберегти</string>
@@ -77,10 +77,10 @@
     <string name="prefs_keypress_sound_volume_settings">Гучність натискання клавіш</string>
     <string name="prefs_key_longpress_timeout_settings">Затримка довгого натискання</string>
     <string name="prefs_enable_emoji_alt_physical_key">Смайли для фізичної клавіатури</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">Фізична клавіша Alt показує усі доступні емодзі</string>
-    <string name="button_default">За умовчанням</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Фізична клавіша Alt показує усі доступні емоджі</string>
+    <string name="button_default">Типово</string>
     <string name="setup_welcome_title">Вітаємо в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">з функцією Ввід жестами</string>
+    <string name="setup_welcome_additional_description">з функцією «Ввід жестами»</string>
     <string name="setup_start_action">Розпочати</string>
     <string name="setup_next_action">Наступний крок</string>
     <string name="setup_steps_title">Налаштування <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
@@ -95,7 +95,7 @@
     <string name="setup_step3_instruction">Тепер ви можете писати в усіх улюблених застосунках за допомогою <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">Завершено</string>
     <string name="show_setup_wizard_icon">Показувати піктограму програми</string>
-    <string name="show_setup_wizard_icon_summary">Відображати піктограму програми на панелі запуску</string>
+    <string name="show_setup_wizard_icon_summary">Відображати піктограму програми нв лаунчері</string>
     <string name="dictionary_settings_title">Додаткові словники</string>
     <string name="dictionary_settings_summary">Налаштування для словників</string>
     <string name="dictionary_available">Словник доступний</string>
@@ -127,14 +127,14 @@
     <string name="day_night_mode">Використати тему системи</string>
     <string name="settings_category_input">Введення</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальська">%s</xliff:g> (Аккгор)</string>
-    <string name="autospace_after_punctuation">Авто-пробіл після знаків пунктуації</string>
+    <string name="autospace_after_punctuation">Автопробіл після знаків пунктуації</string>
     <string name="android_spell_checker_settings">Налаштування перевірки правопису HeliBoard</string>
     <string name="settings_category_correction">Виправлення</string>
     <string name="settings_category_suggestions">Пропозиції</string>
     <string name="settings_category_experimental">Експериментальне</string>
     <string name="settings_category_clipboard_history">Історія буфера обміну</string>
     <string name="settings_category_miscellaneous">Різне</string>
-    <string name="show_emoji_key">Клавіша Emoji</string>
+    <string name="show_emoji_key">Клавіша емоджі</string>
     <string name="settings_no_limit">Без обмежень</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> хв.</string>
     <string name="enable_clipboard_history">Увімкнути історію буфера обміну</string>
@@ -145,8 +145,8 @@
     <string name="theme_name_dark">Темна</string>
     <string name="theme_name_darker">Сіра</string>
     <string name="theme_name_black">Чорна</string>
-    <string name="theme_name_user">Користувальницька</string>
-    <string name="theme_name_user_night">Користувальницька (темна тема)</string>
+    <string name="theme_name_user">Користувацька</string>
+    <string name="theme_name_user_night">Користувацька (темна)</string>
     <string name="select_user_colors">Налаштування кольорів теми</string>
     <string name="select_user_colors_night">Налаштування кольорів теми (темна тема)</string>
     <string name="auto_user_color">Автоматичний вибір кольору</string>
@@ -201,7 +201,7 @@
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
     <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
-    <string name="undo">"Відмінити"</string>
+    <string name="undo">Скасовувати</string>
     <string name="redo">"Повторити"</string>
     <string name="use_personalized_dicts_summary">"Пристрій буде запам’ятовувати, що ви пишете, надсилаєте й отримуєте"</string>
     <string name="label_go_key">"Іти"</string>
@@ -211,7 +211,7 @@
     <string name="label_send_key">"Слати"</string>
     <string name="label_search_key">"Пошук"</string>
     <string name="label_pause_key">"Пауза"</string>
-    <string name="label_wait_key">"Ждати"</string>
+    <string name="label_wait_key">Чекати</string>
     <string name="language_and_layouts_title">Мови та розкладки</string>
     <string name="add_to_personal_dictionary">Додати слова до особистого словника</string>
     <string name="split_spacer_scale">Відстань розділення</string>
@@ -244,7 +244,7 @@
     <string name="load_gesture_library_message">Вам знадобиться бібліотека для «%s». Несумісні бібліотеки можуть призвести до несправності при використанні набору тексту за допомогою жестів.
 \n
 \nУвага: завантаження зовнішнього коду може становити загрозу безпеці. Використовуйте бібліотеку лише з джерела, якому ви довіряєте.</string>
-    <string name="checksum_mismatch_message">Невідомий файл бібліотеки Ви впевнені, що отримали його з надійного джерела і призначене для «%s»?</string>
+    <string name="checksum_mismatch_message">Невідомий файл бібліотеки. Ви впевнені, що отримали його з надійного джерела і призначене для «%s»?</string>
     <string name="load_gesture_library_button_load">Завантажити бібліотеку</string>
     <string name="load_gesture_library_button_delete">Видалити бібліотеку</string>
     <string name="show_popup_keys_title">Показувати більше літер із діакритичними знаками під час утримання</string>
@@ -253,7 +253,7 @@
     <string name="localized_number_row">Локалізація ряду з цифрами</string>
     <string name="localized_number_row_summary">Віддавати перевагу локалізованим латинським цифрам</string>
     <string name="hint_source">Виберіть джерело підказки</string>
-    <string name="popup_order">Виберіть порядок спливаючих клавіш</string>
+    <string name="popup_order">Виберіть порядок спливних клавіш</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Розкладка</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Символи</string>
     <string name="clipboard" tools:keep="@string/clipboard">Буфер обміну</string>
@@ -270,10 +270,10 @@
     <string name="up" tools:keep="@string/up">Вгору</string>
     <string name="show_popup_hints">Показати функціональні підказки</string>
     <string name="show_popup_hints_summary">Показувати підказки, якщо тривале натискання клавіші запускає додаткові функції</string>
-    <string name="subtype_xdq">кайтазька</string>
+    <string name="subtype_xdq">Кайтазька</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Кайтазька (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="add_to_personal_dictionary_summary">Використовувати особистий словник для зберігання вивчених слів</string>
-    <string name="prefs_always_show_suggestions_summary">Ігнорувати запити інших програм про відключення пропозицій (може викликати проблеми)</string>
+    <string name="prefs_always_show_suggestions_summary">Ігнорувати запити інших застосунків про вимкнення пропозицій (може викликати проблеми)</string>
     <string name="more_autocorrect">Більше автокорекції</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Алфавіт (Бепо)</string>
     <string name="edit_layout">Натисніть, щоб відредагувати базову розкладку</string>
@@ -327,7 +327,7 @@
     <string name="user_dict_word_already_present">Це слово вже є у словнику користувача %s. Будь ласка, введіть інше.</string>
     <string name="user_dict_add_word_button">Додати слово</string>
     <string name="select_color_gesture">Введення жестами</string>
-    <string name="save_log">Зберегти лог</string>
+    <string name="save_log">Зберегти журнал</string>
     <string name="show_horizontal_space_swipe">Горизонтальний свайп по пробілу</string>
     <string name="show_vertical_space_swipe">Вертикальний свайп по пробілу</string>
     <string name="action_none">Бездіяльність</string>
@@ -349,7 +349,7 @@
     <string name="auto_show_toolbar_summary">Показувати панель інструментів під час введення або вибору тексту</string>
     <string name="auto_hide_toolbar">Приховувати панель інструментів автоматично</string>
     <string name="auto_hide_toolbar_summary">Приховувати панель інструментів з появою пропозицій</string>
-    <string name="customize_currencies">Кастомізувати валюти</string>
+    <string name="customize_currencies">Персоналізувати валюти</string>
     <string name="customize_currencies_detail">Встановити головні та до 6 додаткових символів валют, розділених пропуском</string>
     <string name="toast_msg_clipboard_copy">Вміст скопійовано</string>
     <string name="language_switch_key_behavior">Поведінка клавіші зміни мови</string>
@@ -359,7 +359,7 @@
     <string name="close_history" tools:keep="@string/close_history">Закрити буфер обміну</string>
     <string name="load">Завантажити</string>
     <string name="load_will_overwrite">Завантаження перезапише поточну тему</string>
-    <string name="emoji" tools:keep="@string/emoji">Емодзі</string>
+    <string name="emoji" tools:keep="@string/emoji">Емоджі</string>
     <string name="suggest_clipboard_content">Запропонувати вміст буфера обміну</string>
     <string name="suggest_clipboard_content_summary">Показати нещодавно скопійований вміст буфера обміну як пропозицію</string>
     <string name="copy_to_clipboard">Копіювати в буфер обміну</string>
@@ -375,19 +375,47 @@
     <string name="page_end" tools:keep="@string/page_end">Кінець сторінки</string>
     <string name="space_swipe_toggle_numpad_entry">Перемикати цифрову клавіатуру</string>
     <string name="switch_keyboard_after">Повернутися до основної клавіатури після…</string>
-    <string name="after_emoji">Вибір емодзі в режимі перегляду</string>
+    <string name="after_emoji">Вибір емоджі в режимі перегляду</string>
     <string name="after_clip">Вибір запису з історії буфера обміну</string>
     <string name="after_symbol_and_space">Натискання Enter або пробілу після інших клавіш у режимі символів</string>
-    <string name="show_popup_keys_main">Додати найпоширеніші варіанти (за умовчанням)</string>
-    <string name="remove_redundant_popups_summary">Видалити спливаючі клавіші, які є в базовій розкладці</string>
+    <string name="show_popup_keys_main">Додати найпоширеніші варіанти (типово)</string>
+    <string name="remove_redundant_popups_summary">Видалити спливні клавіші, які є в базовій розкладці</string>
     <string name="subtype_mns">Мансійська</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Розширена)</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Мансійська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="all_colors_warning">Ця установка показує всі кольори, які використовуються всередині програми. Список кольорів може змінюватись. Стандартний колір є випадковим, і імена не будуть переведені.</string>
     <string name="more_colors">Показати більше кольорів</string>
-    <string name="remove_redundant_popups">Видалити зайві спливаючі вікна</string>
+    <string name="remove_redundant_popups">Видалити зайві спливні вікна</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функціональні клавіші</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функціональні клавіші (Символи)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функціональні клавіші (Додаткові символи)</string>
     <string name="customize_functional_key_layouts">Змінити розкладку функціональних клавіш</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Ряд з цифрами</string>
+    <string name="gesture_floating_preview_static">Плавучий передперегляд</string>
+    <string name="gesture_floating_preview_static_summary">Показувати пропозицію під час вводу жестами</string>
+    <string name="gesture_floating_preview_dynamic_summary">Переміщувати передперегляд під час вводу жестами</string>
+    <string name="gesture_trail_fadeout_duration">Тривалість сліду жесту</string>
+    <string name="prefs_space_bar_text">Свій текст на клавіші пробілу</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Ряд емоджі знизу</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Ряд буфера обміну внизу</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Видалити</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (цифрова розкладка)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Вийти з режиму однієї руки</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Змінити розмір режиму однією рукою</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Голосовий ввід вимкнено</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Показати / приховати панель інструментів</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">З\'єднувач нульової ширини</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Роз\'єднувач нульової ширини</string>
+    <string name="customize_toolbar_key_codes">Налаштувати коди клавіш панелі інструментів</string>
+    <string name="key_code">Код клавіші</string>
+    <string name="long_press_code">Код довгого натискання</string>
+    <string name="customize_icons">Персоналізувати значки</string>
+    <string name="hidden_features_message">► Тривале натискання закріплених клавіш панелі інструментів призводить до додаткової функціональності: &lt;br&gt;\n\t• буфер обміну &amp;#65515; вставити&lt;br&gt;\n\t• рух вліво / вправо &amp;#65515; слово вліво / вправо &lt;br&gt;\n\t• рух вгору / вниз &amp;#65515; сторінка вгору / вниз &lt;br&gt;\n\t• слово вліво / вправо &amp;#65515; на початок / кінець рядка &lt;br&gt;\n\t• сторінка вгору / вниз &amp;#65515; на початок / кінець сторінки &lt;br&gt;\n\t• копіювати &amp;#65515; вирізати &lt;br&gt;\n\t• вибрати слово &amp;#8596; вибрати все &lt;br&gt;\n\t• скасувати &amp;#8596; повторити &lt;br&gt; &lt;br&gt;\n► Тривале натискання клавіш на панелі інструментів стрічки пропозицій закріплює їх на ній. &lt;br&gt; &lt;br&gt;\n► Тривале натискання клавіші коми відкриває доступ до перегляду буфера обміну, перегляду емоджі, режиму однією руки, налаштувань або перемикання мови: &lt;br&gt;\n\t• Перегляд емоджі та перемикач мови зникнуть, якщо у вас увімкнена відповідна клавіша; &lt;br&gt;\n\t• Для деяких розкладок це не клавіша кома, а клавіша на тій самій позиції (наприклад, це \\\'q\\\' для розкладки Dvorak). &lt;br&gt; &lt;br&gt;\n► Якщо режим інкогніто увімкнено, слова не запам\'ятовуватимуться, а смайлики не додаватимуться до нещодавніх. &lt;br&gt; &lt;br&gt;\n► Натисніть на значок інкогніто, щоб отримати доступ до панелі інструментів. &lt;br&gt; &lt;br&gt;\n► Введення клавіш ковзанням: проведіть пальцем від клавіші Shift до іншої клавіші, щоб ввести одну велику літеру: &lt;br&gt;\n\t• Це також працює для клавіш \\\'?123\\\' для введення одного символу з клавіатури символів, а також для пов\'язаних клавіш. &lt;br&gt; &lt;br&gt;\n► Утримуючи Shift або символьну клавішу, натисніть одну або кілька клавіш, а потім відпустіть Shift або символьну клавішу, щоб повернутися до попередньої клавіатури. &lt;br&gt; &lt;br&gt;\n► Тривале натискання на пропозицію в стрічці пропозицій покаже більше пропозицій, а кнопка видалення — видалить цю пропозицію. &lt;br&gt; &lt;br&gt;\n► Проведіть вгору від пропозиції, щоб відкрити більше пропозицій, і відпустіть її, щоб вибрати. &lt;br&gt; &lt;br&gt;\n► Тривале натискання на запис в історії буфера обміну, щоб закріпити його (запис зберігатиметься в буфері, доки ви не відкріпите його). &lt;br&gt; &lt;br&gt;\n► Проведіть вліво у вікні буфера обміну, щоби видалити запис (крім випадків, коли він закріплений) &lt;br&gt; &lt;br&gt;\n► Виділіть текст і натисніть Shift, щоб перемикатися між прописними, малими та великими літерами. &lt;br&gt; &lt;br&gt;\n► Ви можете додавати словники, відкривши їх у провіднику: &lt;br&gt;\n\t• Це працює тільки з &lt;i&gt;content-uris&lt;/i&gt; та не працює з &lt;i&gt;file-uris&lt;/i&gt;, а це означає, що він може не працювати з деякими файловими провідниками. &lt;br&gt; &lt;br&gt;\n► Для користувачів, які створюють резервні копії вручну з root-доступом: &lt;br&gt;\n\t• Починаючи з Android 7, файл спільних налаштувань знаходиться не в типовому розташуванні, оскільки застосунок використовує %s. Це необхідно для того, щоб налаштування можна було прочитати до того, як пристрій буде розблоковано, наприклад, під час завантаження; &lt;br&gt;\n\t• Файл розташовано у /data/user_de/0/package_id/shared_prefs/, хоча це може залежати від пристрою та версії Android. &lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;Режим налагодження / налагодження APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► Тривале натискання на пропозицію показує джерело словника. &lt;br&gt; &lt;br&gt;\n► Якщо ви використовуєте налагодження APK, ви можете знайти налаштування налагодження у розширених налаштуваннях, хоча корисність цих налаштувань обмежена, за винятком вивантаження словників до журналу. &lt;br&gt;\n\t• Щоб отримати релізну версію APK, вам потрібно натиснути версію в розділі &lt;i&gt;Про програму&lt;/i&gt; кілька разів, після чого ви можете знайти налаштування налагодження в &lt;i&gt;Розширені параметри&lt;/i&gt;. &lt;br&gt;\n\t•Після ввімкнення &lt;i&gt;Показати інформацію про пропозицію&lt;/i&gt;, пропозиції матимуть крихітні цифри зверху, що вказують на внутрішню оцінку та джерело словника. &lt;br&gt; &lt;br&gt;\n► У разі збою застосунку, коли ви відкриєте «Налаштування», вам буде запропоновано зберегти журнал збоїв. &lt;br&gt; &lt;br&gt;\n► При багатомовному введенні тексту пробіл показуватиме довірче значення, яке використовується для визначення мови, що наразі використовується. &lt;br&gt; &lt;br&gt;\n► Пропозиції матимуть крихітні цифри зверху, що показують внутрішню оцінку та джерело словника (можна вимкнути).</string>
+    <string name="icon_style">Стиль значка</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Перемкнути сторону режиму однієї руки</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (натиснутий)</string>
 </resources>

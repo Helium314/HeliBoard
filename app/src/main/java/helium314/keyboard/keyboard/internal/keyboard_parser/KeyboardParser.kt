@@ -91,6 +91,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
             baseKeys.add(0, numberRow
                 .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+        if (!params.mAllowRedundantPopupKeys)
+            params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
 
         val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
@@ -106,11 +108,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
 
         val functionalKeys = mutableListOf<Pair<List<KeyParams>, List<KeyParams>>>()
         val baseKeyParams = baseKeys.mapIndexed { i, it ->
-            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && Settings.getInstance().isTablet) {
+            val row: List<KeyData> = if (params.mId.isAlphaOrSymbolKeyboard && i == baseKeys.lastIndex - 1 && params.setTabletExtraKeys) {
                 // add bottom row extra keys
-                // todo (later): this can make very customized layouts look awkward
-                //  decide when to (not) add it
-                //  when not adding, consider that punctuation popup keys should not remove those keys!
                 val tabletExtraKeys = params.mLocaleKeyboardInfos.getTabletExtraKeys(params.mId.mElementId)
                 tabletExtraKeys.first + it + tabletExtraKeys.second
             } else {

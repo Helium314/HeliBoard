@@ -37,6 +37,7 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.customIconNames
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.confirmDialog
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import kotlinx.serialization.encodeToString
@@ -92,7 +93,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             }
         }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
-        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener { onClickCustomizeIcons() }
+        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener {
+            if (needsReload)
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            onClickCustomizeIcons()
+        }
     }
 
     override fun onPause() {
@@ -207,29 +212,41 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             orientation = LinearLayout.VERTICAL
             setPadding(padding, 3 * padding, padding, padding)
         }
-        val d = AlertDialog.Builder(ctx)
+        val builder = AlertDialog.Builder(ctx)
             .setTitle(R.string.customize_icons)
             .setView(ScrollView(context).apply { addView(ll) })
             .setPositiveButton(R.string.dialog_close, null)
-            .create()
+        if (sharedPreferences.contains(Settings.PREF_CUSTOM_ICON_NAMES))
+            builder.setNeutralButton(R.string.button_default) { _, _ ->
+                confirmDialog(
+                    ctx,
+                    ctx.getString(R.string.customize_icons_reset_message),
+                    ctx.getString(android.R.string.ok),
+                    { sharedPreferences.edit().remove(Settings.PREF_CUSTOM_ICON_NAMES).apply() }
+                )
+            }
+        val dialog = builder.create()
+
         val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(ctx, R.color.foreground), BlendModeCompat.SRC_IN)
-        val icons = KeyboardIconsSet.getAllIcons(ctx)
-        icons.keys.forEach { iconName ->
+        val iconsAndNames = KeyboardIconsSet.getAllIcons(ctx).keys.map { iconName ->
+            val name = iconName.getStringResourceOrName("", ctx)
+            if (name == iconName) iconName to iconName.getStringResourceOrName("label_", ctx).toString()
+            else iconName to name.toString()
+        }
+        iconsAndNames.sortedBy { it.second }.forEach { (iconName, name) ->
             val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(ctx), ll, true)
             b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(iconName, ctx))
             b.reorderItemIcon.colorFilter = cf
             b.reorderItemIcon.isVisible = true
-            b.reorderItemName.text = iconName.getStringResourceOrName("", ctx)
-            if (b.reorderItemName.text == iconName)
-                b.reorderItemName.text = iconName.getStringResourceOrName("label_", ctx)
+            b.reorderItemName.text = name
             b.root.setOnClickListener {
                 customizeIcon(iconName)
-                d.dismiss()
+                dialog.dismiss()
             }
             b.reorderItemSwitch.isGone = true
             b.reorderItemDragIndicator.isGone = true
         }
-        d.show()
+        dialog.show()
         return true
     }
 
@@ -295,7 +312,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 runCatching {
                     val icons2 = customIconNames(sharedPreferences).toMutableMap()
                     icons2.remove(iconName)
-                    sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
+                    if (icons2.isEmpty()) sharedPreferences.edit().remove(Settings.PREF_CUSTOM_ICON_NAMES).apply()
+                    else sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
                     KeyboardIconsSet.instance.loadIcons(ctx)
                 }
                 onClickCustomizeIcons()

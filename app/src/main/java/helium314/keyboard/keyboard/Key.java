@@ -327,7 +327,7 @@ public class Key implements Comparable<Key> {
         // Final attributes.
         mCode = key.mCode;
         mLabel = key.mLabel;
-        mHintLabel = key.mHintLabel;
+        mHintLabel = PopopUtilKt.findPopupHintLabel(popupKeys, key.mHintLabel);
         mLabelFlags = key.mLabelFlags;
         mIconName = key.mIconName;
         mWidth = key.mWidth;
@@ -1052,7 +1052,6 @@ public class Key implements Comparable<Key> {
             return popupKeysColumnAndFlags;
         }
 
-        // only for testing
         public String getOutputText() {
             return mOptionalAttributes == null ? null : mOptionalAttributes.mOutputText;
         }

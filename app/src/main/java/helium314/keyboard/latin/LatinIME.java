@@ -89,6 +89,7 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
+import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -884,8 +885,9 @@ public class LatinIME extends InputMethodService implements
         }
         // Try switching to a subtype matching the hint language.
         for (final Locale hintLocale : hintLocales) {
-            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3)
-                return; // current locale is already a good match, and we want to avoid unnecessary layout switches
+            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3
+                    || CollectionsKt.any(mSettings.getCurrent().mSecondaryLocales, (secLocale) -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= 3))
+                return; // current locales are already a good match, and we want to avoid unnecessary layout switches
             final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
@@ -1118,7 +1120,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (isInputViewShown()
                 && mInputLogic.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-                settingsValues)) {
+                composingSpanStart, composingSpanEnd, settingsValues)) {
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
         }

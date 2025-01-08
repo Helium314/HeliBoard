@@ -395,4 +395,25 @@
     <string name="gesture_floating_preview_static_summary">Ver la palabra sugerida mientras de realizan gestos</string>
     <string name="gesture_floating_preview_dynamic_summary">Mover la vista previa durante los gestos</string>
     <string name="gesture_trail_fadeout_duration">Duración del rastro gestual</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Fila numérica</string>
+    <string name="prefs_space_bar_text">Texto personalizado en la barra espaciadora</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del portapapeles</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (mantenido)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Bloqueo de caps</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Terminar modo de una mano</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">De dimensionar modo de una sola mano</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambiar lado del modo de una mano</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrada de voz desactivada</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / ocultar barra de herramientas</string>
+    <string name="customize_toolbar_key_codes">Personalizar los códigos de la barra de herramientas</string>
+    <string name="key_code">Código de la tecla</string>
+    <string name="long_press_code">Código de pulsación prolongada</string>
+    <string name="customize_icons">Personalizar iconos</string>
+    <string name="icon_style">Estilo del icono</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Intro</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espacio (diseño numérico)</string>
 </resources>
