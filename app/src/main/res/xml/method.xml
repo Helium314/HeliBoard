@@ -474,7 +474,7 @@
             android:isAsciiCapable="false"
     />
      <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_hindi_phonetic"
+            android:label="@string/subtype_generic_phonetic"
             android:subtypeId="0xe49c89a2"
             android:imeSubtypeLocale="hi"
             android:languageTag="hi"

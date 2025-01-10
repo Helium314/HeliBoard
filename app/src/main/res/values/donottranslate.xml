@@ -80,9 +80,6 @@
     <!-- Description for Bulgarian (BEKL) subtype. -->
     <string name="subtype_bulgarian_bekl" translatable="false">%s (BEKL)</string>
 
-    <!-- Description for Hindi (Phonetic) subtype. -->
-    <string name="subtype_hindi_phonetic" translatable="false">%s (Phonetic)</string>
-
     <!-- Description for Arabic (PC) subtype. -->
     <string name="subtype_arabic_pc" translatable="false">%s (PC)</string>
 
