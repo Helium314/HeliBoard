@@ -16,9 +16,8 @@ jar {
 
 }
 
-tasks.register('makeEmoji', JavaExec) {
-    dependsOn['jar']
-    mainClass = '-jar'
+task makeEmoji(type: JavaExec, dependsOn: ['jar']) {
+    main = '-jar'
     args jar.archiveFile.get()
     args '-res'
     args project.rootProject.project('app').projectDir.path + File.separator + 'src' +
@@ -32,6 +31,6 @@ dependencies {
 
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
