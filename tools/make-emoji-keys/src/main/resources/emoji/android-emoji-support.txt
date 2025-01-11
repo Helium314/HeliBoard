@@ -260,6 +260,7 @@ U+1FAC5 U+1F3FE # person with crown: medium-dark skin tone
 U+1FAC5 U+1F3FF # person with crown: dark skin tone
 U+1FAC3 # pregnant man
 U+1FAC3 U+1F3FB # pregnant man: light skin tone
+U+1FAC3 U+1F3FC # pregnant man: medium-light skin tone
 U+1FAC3 U+1F3FD # pregnant man: medium skin tone
 U+1FAC3 U+1F3FE # pregnant man: medium-dark skin tone
 U+1FAC3 U+1F3FF # pregnant man: dark skin tone
@@ -280,12 +281,12 @@ U+1FAD9 # jar
 U+1F6DD # playground slide
 U+1F6DE # wheel
 U+1F6DF # ring buoy
-U+1FAAC # hamsa
 U+1FAA9 # mirror ball
 U+1FAAB # low battery
 U+1FA7C # crutch
 U+1FA7B # x-ray
 U+1FAE7 # bubbles
+U+1FAAC # hamsa
 U+1FAAA # identification card
 U+1F7F0 # heavy equals sign
 # Above emojis are supported from Android 12l (API level 32)
@@ -796,6 +797,18 @@ U+1FAA6 # headstone
 U+1FAA7 # placard
 U+26A7 U+FE0F # transgender symbol
 U+1F3F3 U+FE0F U+200D U+26A7 U+FE0F # transgender flag
+U+1F1FE U+1F1F9 # flag: mayotte
+U+1F1FC U+1F1EB # flag: wallis & futuna
+U+1F1F5 U+1F1F2 # flag: st. pierre & miquelon
+U+1F1F3 U+1F1E8 # flag: new caledonia
+U+1F1F2 U+1F1EB # flag: st. martin
+U+1F1EC U+1F1F8 # flag: south georgia & south sandwich islands
+U+1F1EC U+1F1F5 # flag: guadeloupe
+U+1F1EC U+1F1EB # flag: french guiana
+U+1F1EB U+1F1F0 # flag: falkland islands
+U+1F1EA U+1F1ED # flag: western sahara
+U+1F1EA U+1F1E6 # flag: ceuta & melilla
+U+1F1E9 U+1F1EC # flag: diego garcia
 # Above emojis are supported from Android 11.0 (API level 30)
 
 @29 # Below emojis are supported from Android 10.0 (API level 29)
