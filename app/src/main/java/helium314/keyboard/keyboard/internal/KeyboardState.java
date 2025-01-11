@@ -428,8 +428,6 @@ public final class KeyboardState {
                     }
                     mPrevSymbolsKeyboardWasShifted = false;
                 }
-                // toggling numpad and emoji layout isn't actually possible yet due to lack of toolbar
-                // keys or key-swipes in that layout, but included for safety.
                 case MODE_EMOJI -> setEmojiKeyboard();
                 case MODE_CLIPBOARD -> setClipboardKeyboard();
             }
