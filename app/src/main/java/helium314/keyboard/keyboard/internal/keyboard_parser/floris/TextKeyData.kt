@@ -12,7 +12,6 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
-import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
@@ -31,10 +30,7 @@ import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.toolbarKeyStrings
 import java.util.Locale
 
-// taken from FlorisBoard, small modifications (see also KeyData)
-//  internal keys removed (currently no plan to support them)
-//  added String.toTextKey
-//  currency key handling (see todo below...)
+// taken from FlorisBoard, modified (see also KeyData)
 
 /**
  * Interface describing a basic key which can carry a character, an emoji, a special function etc. while being as
@@ -45,6 +41,8 @@ import java.util.Locale
  * @property label The label of the key. This should always be a representative string for [code].
  * @property groupId The group which this key belongs to (currently only allows [GROUP_DEFAULT]).
  * @property popup The popups for ths key. Can also dynamically be provided via popup extensions.
+ * @property width The width of the key, as fraction of the keyboard width. Keys will resize if they don't fit.
+ * @property labelFlags Additional flags from old AOSP keyboard, see attrs.xml.
  */
 sealed interface KeyData : AbstractKeyData {
     val type: KeyType?
