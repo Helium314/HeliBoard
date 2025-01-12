@@ -58,7 +58,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
-    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+    private val splitLandscapePref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE) }
+    private val splitPortraitPref:  TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT) }
     private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
 
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -85,8 +86,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         if (splitScalePref != null) {
             setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
-            splitScalePref?.isVisible = splitPref?.isChecked == true
-            splitPref?.setOnPreferenceChangeListener { _, value ->
+            splitScalePref?.isVisible = splitPortraitPref?.isChecked == true
+            splitPortraitPref?.setOnPreferenceChangeListener { _, value ->
                 splitScalePref?.isVisible = value as Boolean
                 true
             }
@@ -121,13 +122,6 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 removePreference(Settings.PREF_THEME_COLORS_NIGHT)
                 removePreference("theme_select_colors_night")
             }
-        }
-        val metrics = requireContext().resources.displayMetrics
-        val widthDp = TypedValueCompat.pxToDp(metrics.widthPixels.toFloat(), metrics)
-        val heightDp = TypedValueCompat.pxToDp(metrics.heightPixels.toFloat(), metrics)
-        if ((min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
-            removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
-            removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
         }
     }
 

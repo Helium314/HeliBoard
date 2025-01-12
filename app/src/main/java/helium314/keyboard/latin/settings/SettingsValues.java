@@ -101,8 +101,10 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mIsSplitKeyboardEnabled;
-    public final float mSplitKeyboardSpacerRelativeWidth;
+    public final boolean mIsSplitKeyboardPortraitEnabled;
+    public final boolean mIsSplitKeyboardLandscapeEnabled;
+    public final float mSplitKeyboardLandscapeSpacerRelativeWidth;
+    public final float mSplitKeyboardPortraitSpacerRelativeWidth;
     public final boolean mQuickPinToolbarKeys;
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
@@ -191,10 +193,14 @@ public class SettingsValues {
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
         final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
-        mIsSplitKeyboardEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false) && displayWidthDp > 600; // require display width of 600 dp for split
+        mIsSplitKeyboardPortraitEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT, false) && displayWidthDp > 0;
+        mIsSplitKeyboardLandscapeEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, false) && displayWidthDp > 0;
         // determine spacerWidth from display width and scale setting
-        mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
-                ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+        mSplitKeyboardPortraitSpacerRelativeWidth = mIsSplitKeyboardPortraitEnabled
+                ? Math.min(Math.max((displayWidthDp) / 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+                : 0f;
+        mSplitKeyboardLandscapeSpacerRelativeWidth = mIsSplitKeyboardLandscapeEnabled
+                ? Math.min(Math.max((displayWidthDp) / 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
                 : 0f;
         mQuickPinToolbarKeys = prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
         mScreenMetrics = Settings.readScreenMetrics(res);

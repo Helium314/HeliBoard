@@ -76,8 +76,14 @@
         android:title="@string/settings_category_miscellaneous">
 
         <SwitchPreference
-            android:key="split_keyboard"
-            android:title="@string/enable_split_keyboard"
+            android:key="split_keyboard_landscape"
+            android:title="@string/enable_split_keyboard_landscape"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="split_keyboard_portrait"
+            android:title="@string/enable_split_keyboard_portrait"
             android:persistent="true"
             android:defaultValue="false" />
 

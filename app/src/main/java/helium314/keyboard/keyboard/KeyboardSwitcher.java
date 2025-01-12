@@ -138,13 +138,20 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         final int keyboardWidth = ResourceUtils.getKeyboardWidth(res, settingsValues);
         final int keyboardHeight = ResourceUtils.getKeyboardHeight(res, settingsValues);
         final boolean oneHandedModeEnabled = settingsValues.mOneHandedModeEnabled;
+        final int orientation = mThemeContext.getResources().getConfiguration().orientation;
+        boolean splitLayoutEnabled;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            splitLayoutEnabled = settingsValues.mIsSplitKeyboardLandscapeEnabled;
+        } else {
+            splitLayoutEnabled = settingsValues.mIsSplitKeyboardPortraitEnabled;
+        }
         mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                 .setSubtype(mRichImm.getCurrentSubtype())
                 .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                 .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                 .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                 .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
+                .setSplitLayoutEnabled(splitLayoutEnabled)
                 .setOneHandedModeEnabled(oneHandedModeEnabled)
                 .build();
         try {
@@ -159,7 +166,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                         .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                         .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
                         .setEmojiKeyEnabled(settingsValues.mShowsEmojiKey)
-                        .setSplitLayoutEnabled(settingsValues.mIsSplitKeyboardEnabled)
+                        .setSplitLayoutEnabled(splitLayoutEnabled)
                         .setOneHandedModeEnabled(oneHandedModeEnabled)
                         .build();
                 mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
@@ -505,7 +512,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     public void toggleSplitKeyboardMode() {
         final Settings settings = Settings.getInstance();
         // Toggle the SplitKeyboardEnabled Setting and reload the Keyboard
-        settings.writeSplitKeyboardMode(!settings.getCurrent().mIsSplitKeyboardEnabled);
+        switch (mCurrentOrientation) {
+            case Configuration.ORIENTATION_LANDSCAPE:
+                settings.writeSplitKeyboardLandscapeMode(!settings.getCurrent().mIsSplitKeyboardLandscapeEnabled);
+                break;
+            case Configuration.ORIENTATION_PORTRAIT:
+                settings.writeSplitKeyboardPortraitMode(!settings.getCurrent().mIsSplitKeyboardPortraitEnabled);
+                break;
+            default:
+                break;
+        }
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
                 mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }

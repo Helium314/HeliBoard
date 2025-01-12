@@ -104,7 +104,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_EMOJI_KEY = "show_emoji_key";
     public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
-    public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
+    public static final String PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT = "split_keyboard_portrait";
+    public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
@@ -493,8 +494,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
-    public void writeSplitKeyboardMode(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ENABLE_SPLIT_KEYBOARD, enabled).apply();
+    public void writeSplitKeyboardPortraitMode(final boolean enabled) {
+
+        mPrefs.edit().putBoolean(PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT, enabled).apply();
+    }
+
+    public void writeSplitKeyboardLandscapeMode(final boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, enabled).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageButton
@@ -41,6 +42,11 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
+        SPLIT -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                     Settings.getInstance().current.mIsSplitKeyboardLandscapeEnabled
+                 } else {
+                     Settings.getInstance().current.mIsSplitKeyboardPortraitEnabled
+                 }
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
