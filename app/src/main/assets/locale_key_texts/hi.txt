@@ -37,7 +37,7 @@
 ल ऌ ॡ
 य य़
 ़ ॽ ॰ ऽ
-punctuation !autoColumnOrder!9 \, . ? ! # ) ( / ; ' @ : - " + \% &
+punctuation !autoColumnOrder!9 \, . ॥ ? ! !icon/zwnj_key|‌ !icon/zwj_key|‍ # @ ( ) / ; : - + \%
 औ ौ
 ऐ ै
 आ ा
