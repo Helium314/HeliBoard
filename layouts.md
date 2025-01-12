@@ -58,7 +58,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, determined from code if empty
   * There are some special values, see the [label section](#labels)
-* `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, `2` adds the period popup keys, `3` adds the action key popup keys (looks awkward though)
+* `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, `2` adds the period popup keys, `3` adds the action key popup keys (looks awkward though), `-1` suppresses additional popups based on the label
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
   * When specifying a _selector_ key class in a popup key, it will be evaluated correctly (e.g. for changing popups dependent on shift state)

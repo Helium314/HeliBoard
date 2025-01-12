@@ -56,11 +56,10 @@ sealed interface KeyData : AbstractKeyData {
     fun copy(newType: KeyType? = type, newCode: Int = code, newLabel: String = label, newGroupId: Int = groupId,
              newPopup: PopupSet<out AbstractKeyData> = popup, newWidth: Float = width, newLabelFlags: Int = labelFlags): KeyData
 
-    // groups (currently) not supported
     companion object {
         /**
          * Constant for the default group. If not otherwise specified, any key is automatically
-         * assigned to this group.
+         * assigned to this group. Additional popup keys will be added for specific labels.
          */
         const val GROUP_DEFAULT: Int = 0
 
@@ -81,6 +80,11 @@ sealed interface KeyData : AbstractKeyData {
          * popups specified for "~enter" in the popup mapping.
          */
         const val GROUP_ENTER: Int = 3
+
+        /**
+         * Constant for the default key, but without assigning popups for special labels.
+         */
+        const val GROUP_NO_DEFAULT_POPUP: Int = -1
 
         /**
          * Constant for the enter modifier key group. Any key belonging to this group will get the
@@ -335,7 +339,7 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     override fun compute(params: KeyboardParams): KeyData? {
-        require(groupId in 0..GROUP_ENTER) { "only positive groupIds up to GROUP_ENTER are supported" }
+        require(groupId in GROUP_NO_DEFAULT_POPUP..GROUP_ENTER) { "only groupIds from -1 to 3 are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
@@ -541,6 +545,7 @@ sealed interface KeyData : AbstractKeyData {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
         if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
         if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)
+        if (groupId == GROUP_NO_DEFAULT_POPUP) return null
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
             KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))
