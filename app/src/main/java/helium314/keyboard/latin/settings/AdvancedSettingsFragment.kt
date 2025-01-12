@@ -134,6 +134,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             removePreference("load_gesture_library")
         }
         setupKeyLongpressTimeoutSettings()
+        setupEmojiSdkSetting()
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
@@ -535,10 +536,45 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    private fun setupEmojiSdkSetting() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_EMOJI_MAX_SDK)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT)
+
+            override fun readDefaultValue(key: String) = Build.VERSION.SDK_INT
+
+            override fun getValueText(value: Int) = "Android " + when(value) {
+                21 -> "5.0"
+                22 -> "5.1"
+                23 -> "6"
+                24 -> "7.0"
+                25 -> "7.1"
+                26 -> "8.0"
+                27 -> "8.1"
+                28 -> "9"
+                29 -> "10"
+                30 -> "11"
+                31 -> "12"
+                32 -> "12L"
+                33 -> "13"
+                34 -> "14"
+                35 -> "15"
+                else -> "version unknown"
+            }
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_EMOJI_MAX_SDK -> KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         }
     }
 

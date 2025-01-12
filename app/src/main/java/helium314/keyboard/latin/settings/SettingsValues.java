@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -138,6 +139,7 @@ public class SettingsValues {
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
     public final boolean mHasCustomFunctionalLayout;
+    public final int mEmojiMaxSdk;
 
     // User-defined colors
     public final Colors mColors;
@@ -268,6 +270,7 @@ public class SettingsValues {
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, false);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
+        mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

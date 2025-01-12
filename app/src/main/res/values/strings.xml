@@ -568,6 +568,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
     <!-- Title of the setting for key long press delay [CHAR LIMIT=35] -->
     <string name="prefs_key_longpress_timeout_settings">Key long press delay</string>
+    <!-- Title of the setting for overriding Android SDK level for showing emojis [CHAR LIMIT=35] -->
+    <string name="prefs_key_emoji_max_sdk">Override Emoji version</string>
     <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
