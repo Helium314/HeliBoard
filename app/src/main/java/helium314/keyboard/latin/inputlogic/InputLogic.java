@@ -535,6 +535,11 @@ public final class InputLogic {
             } else {
                 commitTyped(settingsValues, LastComposedWord.NOT_A_SEPARATOR);
             }
+        } else if (mConnection.hasSelection()) {
+            final CharSequence selectedText = mConnection.getSelectedText(0);
+            if (selectedText != null)
+                // set selected text as rejected to avoid glide typing resulting in exactly the selected word again
+                mWordComposer.setRejectedBatchModeSuggestion(selectedText.toString());
         }
         final int codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         if (Character.isLetterOrDigit(codePointBeforeCursor)
