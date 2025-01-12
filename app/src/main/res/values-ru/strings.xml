@@ -83,17 +83,17 @@
     <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
     <string name="button_default">По умолчанию</string>
-    <string name="setup_welcome_title">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Добро пожаловать в<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
     <string name="setup_next_action">Далее</string>
-    <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Проверьте приложение «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» в настройках «Язык и ввод». Это позволит ему работать на вашем устройстве.</string>
-    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках «Язык и ввод». Перейдите к следующему шагу!</string>
+    <string name="setup_steps_title">Настроить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Включить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
+    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!\"</string>
     <string name="setup_step1_action">Включить в настройках</string>
-    <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Выберите «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» текущем методом ввода.</string>
+    <string name="setup_step2_title">Переключитесь на<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> в качестве активного метода ввода текста.</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
     <string name="setup_step3_instruction">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
@@ -117,7 +117,7 @@
     <string name="user_dict_settings_add_word_hint">Введите слово</string>
     <string name="user_dict_settings_add_shortcut_hint">Ярлык для фразы (необязательно)</string>
     <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
-    <string name="user_dict_settings_empty_text">В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки «Добавить» (+).</string>
+    <string name="user_dict_settings_empty_text">В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки Добавить (+).</string>
     <string name="user_dict_settings_all_languages">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другие языки…</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
@@ -237,13 +237,11 @@
     <string name="language_and_layouts_title">Языки и раскладки</string>
     <string name="hidden_features_text">хранилище, защищённое устройством</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
-    <string name="load_gesture_library_message">Вам понадобится библиотека для «%s». Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов.
-\n
-\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
+    <string name="load_gesture_library_message">Вам понадобится библиотека для \'%s\'. Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов. \n\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
     <string name="load_gesture_library_button_delete">Удалить библиотеку</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Язык</string>
     <string name="localized_number_row_summary">Предпочитать локализованные латинские цифры</string>
-    <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для «%s»?</string>
+    <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для \'%s\'?</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Серо-голубой</string>
     <string name="user_dict_add_word_button">Добавить слово</string>
     <string name="select_color_suggestion">Текст полосы предложений</string>
@@ -277,7 +275,7 @@
     <string name="show_popup_keys_all">Добавить все доступные варианты</string>
     <string name="more_autocorrect">Больше автокоррекции</string>
     <string name="split_spacer_scale">Расстояние разделения</string>
-    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь «%1$s» для %2$s?</string>
+    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь 1$s для %2$s?</string>
     <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений (может вызвать проблемы)</string>
     <string name="switch_language">Смена языка</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
@@ -289,13 +287,13 @@
     <string name="select_color_gesture">Ввод жестами</string>
     <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками при удержании</string>
     <string name="one_handed" tools:keep="@string/one_handed">Режим одной руки</string>
-    <string name="save_log">Сохранить лог</string>
+    <string name="save_log">Сохранить журнал</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
     <string name="more_autocorrect_summary">Автокоррекция, даже если это явно не запрошено в поле ввода</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
-    <string name="remove_dictionary_message">Удалить пользовательский словарь «%s»?</string>
+    <string name="remove_dictionary_message">Удалить пользовательский словарь s?</string>
     <string name="file_read_error">Не получается прочитать файл</string>
     <string name="dictionary_link_text">здесь</string>
     <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
@@ -305,13 +303,7 @@
     <string name="down" tools:keep="@string/down">Вниз</string>
     <string name="full_left" tools:keep="@string/full_left">В левый конец</string>
     <string name="left" tools:keep="@string/left">Влево</string>
-    <string name="replace_dictionary_message">Заменить пользовательский словарь «%1$s»?
-\n
-\nТекущий словарь:
-\n%2$s
-\n
-\nНовый словарь:
-\n%3$s</string>
+    <string name="replace_dictionary_message">Заменить пользовательский словарь 1$s?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
     <string name="full_right" tools:keep="@string/full_right">В правый конец</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
     <string name="title_layout_name_select">Задать имя раскладки</string>
@@ -323,8 +315,7 @@
     <string name="dictionary_file_wrong_locale_ok">Всё ещё используется</string>
     <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё ещё используете его для %2$s?</string>
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
-    <string name="no_dictionary_message">Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;
-\nВы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для «%2$s» напрямую %3$s.</string>
+    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для 2$s напрямую %3$s."</string>
     <string name="customize_symbols_number_layouts">Настройка расположения символов и чисел</string>
     <string name="available_dictionary_experimental">%s (экспериментальный)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
@@ -453,4 +444,6 @@
     <string name="customize_icons">Настроить иконки</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Разъединитель нулевой ширины</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
+    <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Bin</string>
 </resources>

@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Iskanje imen stikov"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Črkovalnik uporablja vnose s seznama stikov"</string>
     <string name="vibrate_on_keypress">"Vibriranje ob pritisku tipke"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Naslednji korak"</string>
     <string name="setup_steps_title">"Nastavitev aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Omogočanje aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"V nastavitvah »Jeziki in vnos« izberite aplikacijo »<xliff:g id="APPLICATION_NAME">%s</xliff:g>«. S tem ji omogočite izvajanje v napravi."</string>
+    <string name="setup_step1_instruction">V nastavitvah »Jeziki in vnos« izberite aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>«. S tem ji omogočite izvajanje v napravi.\"</string>
     <string name="setup_step1_finished_instruction">"Aplikacija <xliff:g id="APPLICATION_NAME">%s</xliff:g> je že omogočena v nastavitvah »Jeziki in vnos«, zato je to že opravljeno. Nadaljujte."</string>
     <string name="setup_step1_action">"Omogoči v nastavitvah"</string>
     <string name="setup_step2_title">"Preklop na aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Nato izberite aplikacijo »<xliff:g id="APPLICATION_NAME">%s</xliff:g>« kot aktivni način vnosa besedila."</string>
+    <string name="setup_step2_instruction">Nato izberite aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>« kot aktivni način vnosa besedila.\"</string>
     <string name="setup_step2_action">"Preklopi način vnosa"</string>
     <string name="setup_step3_title">"Čestitamo, pripravljeni ste."</string>
     <string name="setup_step3_instruction">"Zdaj lahko z aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g> tipkate v vseh svojih priljubljenih aplikacijah."</string>

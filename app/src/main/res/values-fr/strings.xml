@@ -107,11 +107,11 @@
     <string name="setup_next_action">"Étape suivante"</string>
     <string name="setup_steps_title">Configurer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Activer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Sous « Langues et saisie », veuillez cocher \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> pour autoriser son exécution sur votre appareil.</string>
+    <string name="setup_step1_instruction">Sous « Langues et saisie », veuillez cocher <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> pour autoriser son exécution sur votre appareil.</string>
     <string name="setup_step1_finished_instruction">L’application <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est déjà activée dans vos paramètres « Langues et saisie ». Passez à l’étape suivante !</string>
     <string name="setup_step1_action">"Activer le clavier dans les paramètres"</string>
     <string name="setup_step2_title">Basculer vers <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Sélectionnez ensuite « \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> » comme méthode de saisie active.</string>
+    <string name="setup_step2_instruction">Sélectionnez ensuite « <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> » comme méthode de saisie active.</string>
     <string name="setup_step2_action">"Changer de mode de saisie"</string>
     <string name="setup_step3_title">Félicitations, l\'opération est terminée !</string>
     <string name="setup_step3_instruction">Avec <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>, vous pouvez saisir du texte dans toutes vos applications préférées.</string>

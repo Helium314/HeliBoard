@@ -89,7 +89,7 @@
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado em Idiomas e definições de entrada, pelo que este passo está concluído. Vamos avançar para a próxima!\"</string>
     <string name="setup_step1_action">Ativar nas definições</string>
     <string name="setup_step2_title">Alternar para<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">De seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\\ como método de introdução.</string>
+    <string name="setup_step2_instruction">De seguida, selecione <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> como método de introdução.</string>
     <string name="setup_step2_action">Alternar métodos de introdução</string>
     <string name="setup_step3_title">Parabéns, configuração terminada!</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para escrever nas suas aplicações.</string>

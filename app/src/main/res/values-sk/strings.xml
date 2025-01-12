@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Hľadať mená kontaktov"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Kontrola pravopisu používa záznamy z vášho zoznamu kontaktov"</string>
     <string name="vibrate_on_keypress">"Pri stlačení klávesu vibrovať"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Ďalší krok"</string>
     <string name="setup_steps_title">"Nastavenie aplikácie <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Povoľte aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"V nastaveniach Jazyky a vstup začiarknite políčko <xliff:g id="APPLICATION_NAME">%s</xliff:g>. Týmto aplikácii povolíte spustenie v zariadení."</string>
+    <string name="setup_step1_instruction">V nastaveniach Jazyky a vstup začiarknite políčko<xliff:g id="APPLICATION_NAME">%s</xliff:g>. Týmto aplikácii povolíte spustenie v zariadení.\"</string>
     <string name="setup_step1_finished_instruction">"Aplikácia <xliff:g id="APPLICATION_NAME">%s</xliff:g> je už v nastaveniach Jazyky a vstup povolená. Prejdite na ďalší krok."</string>
     <string name="setup_step1_action">"Povoliť v Nastaveniach"</string>
     <string name="setup_step2_title">"Prepnite na aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step2_instruction">"Potom vyberte aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g> ako aktívnu metódu textového vstupu."</string>
+    <string name="setup_step2_instruction">Potom vyberte aplikáciu<xliff:g id="APPLICATION_NAME">%s</xliff:g> ako aktívnu metódu textového vstupu.\"</string>
     <string name="setup_step2_action">"Prepnúť metódu vstupu"</string>
     <string name="setup_step3_title">"Blahoželáme, všetko je nastavené!"</string>
     <string name="setup_step3_instruction">"Pomocou aplikácie <xliff:g id="APPLICATION_NAME">%s</xliff:g> teraz môžete zadávať text vo všetkých obľúbených aplikáciách."</string>

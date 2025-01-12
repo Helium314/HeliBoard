@@ -287,13 +287,7 @@
     <string name="select_color_suggestion">Text bandă de sugestii</string>
     <string name="hidden_features_text">stocarea protejată a dispozitivului</string>
     <string name="button_add_to_language">Adaugă la %s</string>
-    <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”?
-\n
-\nDicționarul curent:
-\n%2$s
-\n
-\nDicționarul nou:
-\n%3$s</string>
+    <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”? \n \nDicționarul curent: \n%2$s \n \nDicționarul nou: \n%3$s</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mai întunecată</string>
     <string name="main_colors">Afișează numai culorile principale</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rotunjit</string>

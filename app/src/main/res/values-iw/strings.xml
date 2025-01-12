@@ -88,7 +88,7 @@
     <string name="setup_step1_finished_instruction">"האפליקציה <xliff:g id="APPLICATION_NAME">%s</xliff:g> כבר פועלת בהגדרות השפה והקלט שלך, אז השלב הזה הסתיים. ממשיכים הלאה לשלב הבא!"</string>
     <string name="setup_step1_action">"הפעל בהגדרות"</string>
     <string name="setup_step2_title">"עבור אל <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"בשלב הבא, בחר ב-\'<xliff:g id="APPLICATION_NAME">%s</xliff:g>\' כאמצעי הקלט הפעיל להזנת טקסט."</string>
+    <string name="setup_step2_instruction">בשלב הבא, בחר ב-\\<xliff:g id="APPLICATION_NAME">%s</xliff:g>\' כאמצעי הקלט הפעיל להזנת טקסט.\"</string>
     <string name="setup_step2_action">"החלף שיטות קלט"</string>
     <string name="setup_step3_title">"ברכותינו, הכל מוכן!"</string>
     <string name="setup_step3_instruction">"כעת תוכל להקליד בכל האפליקציות המועדפות עליך באמצעות <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
@@ -123,14 +123,14 @@
     <string name="clipboard_history_retention_time">שמירת זמן היסטוריה</string>
     <string name="number_row">שורת מספרים</string>
     <string name="number_row_summary">הצג תמיד שורת מספרים</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">לחיצה ארוכה על מקש הרווח תציג תפריט בחירת שיטת קלט</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">לחיצה ארוכה על מקש הרווח תציג תפריט בחירת שיטת הזנה</string>
     <string name="show_hints">הצג רמזים עיקריים</string>
     <string name="show_hints_summary">הצג רמזים בלחיצה ארוכה</string>
     <string name="prefs_keyboard_height_scale">סולם גובה מקלדת</string>
     <string name="key_borders">גבולות מקלדת</string>
     <string name="day_night_mode">מצב יום/לילה אוטומטי</string>
     <string name="android_spell_checker_settings">פתיחת הגדרות בודק האיות של לוח</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">שנה שפת מקלדת על ידי מקש רווח</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">שינוי שיטת ההזנה על-ידי מקש רווח</string>
     <string name="show_emoji_key">מפתח אמוג\'י</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (תווים)</string>
     <string name="spell_checker_service_name">פתיחת בודק האיות של הלוח</string>
@@ -166,7 +166,7 @@
     <string name="label_send_key">"שלח"</string>
     <string name="label_search_key">"חיפוש"</string>
     <string name="label_pause_key">"השהה"</string>
-    <string name="label_wait_key">"המתן"</string>
+    <string name="label_wait_key">המתנה</string>
     <string name="all_colors_warning">הגדרה זו חושפת את כל הצבעים שבשימוש פנימי. רשימת הצבעים עשויה להשתנות בכל עת. צבע ברירת המחדל הוא אקראי, והשמות לא יתורגמו.</string>
     <string name="quick_pin_toolbar_keys">נעיצת כפתור toolbar בלחיצה ממושכת</string>
     <string name="quick_pin_toolbar_keys_summary">השבתת פעולות אחרות בלחיצה ממושכת לכפתורי toolbar שאינם נעוצים</string>
@@ -343,7 +343,7 @@
     <string name="after_clip">בחירת רשומה בהיסטוריית הלוח</string>
     <string name="after_symbol_and_space">לחיצה על enter או רווח אחרי תווים אחרים בתצוגת הסימנים</string>
     <string name="setup_step3_action">הגדרות המקלדת</string>
-    <string name="remove_redundant_popups_summary">השבתת תווי popup שנכללים בפריסה הבסיסית</string>
+    <string name="remove_redundant_popups_summary">השבתת תווי popup שכבר נכללים בפריסה הבסיסית</string>
     <string name="space_swipe_toggle_numpad_entry">מעבר לNumpad</string>
     <string name="auto_hide_toolbar_summary">הסתרת toolbar כאשר יש הצעות זמינות</string>
     <string name="layout_error">שגיאת פריסה: %s</string>
@@ -436,19 +436,22 @@
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">שורת האמוג\'ים התחתונה</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">קלט קולי מושבת</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">הצגה / הסתרה של סרגל הכלים</string>
-    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (לחוץ)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">שיפט (לחוץ)</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">רווח (פריסת מספרים)</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">סיום מצב הקלדה ביד אחת</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">שינוי גודל מצב הקלדה ביד אחת</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">מעבר צד הקלדה ביד אחת</string>
-    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
-    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
-    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
-    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">הזנה</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">טאב</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">מחיקה</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">שיפט</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
     <string name="customize_icons">התאמת סמלים</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">מחבר אורך-אפס</string>
     <string name="customize_toolbar_key_codes">התאמת קודי המקשים בסרגל הכלים</string>
     <string name="key_code">קוד מקש</string>
     <string name="long_press_code">קוד לחיצה ממושכת</string>
+    <string name="label_bin" tools:keep="@string/label_bin">פח אשפה</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">תו בלתי-מחבר ברוחב אפס</string>
+    <string name="customize_icons_reset_message">האם באמת ברצונך למחוק את כל הסמלים המותאמים?</string>
 </resources>

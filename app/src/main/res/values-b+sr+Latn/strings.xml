@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Potraži imena kontakata"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Kontrolor pravopisa koristi unose sa liste kontakata"</string>
     <string name="vibrate_on_keypress">"Vibriraj na pritisak tastera"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Sledeći korak"</string>
     <string name="setup_steps_title">"Podešavanje aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Omogućite aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Potvrdite aplikaciju „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ u Podešavanjima jezika i unosa. Tako joj odobravate pokretanje na uređaju."</string>
+    <string name="setup_step1_instruction">Potvrdite aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ u Podešavanjima jezika i unosa. Tako joj odobravate pokretanje na uređaju.\"</string>
     <string name="setup_step1_finished_instruction">"Aplikacija <xliff:g id="APPLICATION_NAME">%s</xliff:g> je već omogućena u Podešavanjima jezika i unosa, pa je ovaj korak gotov. Pređimo na sledeći!"</string>
     <string name="setup_step1_action">"Omogući u Podešavanjima"</string>
     <string name="setup_step2_title">"Prebacite na <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Zatim izaberite „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ kao aktivni metod unosa teksta."</string>
+    <string name="setup_step2_instruction">Zatim izaberite <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ kao aktivni metod unosa teksta.\"</string>
     <string name="setup_step2_action">"Prebaci metode unosa"</string>
     <string name="setup_step3_title">"Čestitamo, sve je spremno!"</string>
     <string name="setup_step3_instruction">"Sada možete da kucate u svim omiljenim aplikacijama pomoću <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>

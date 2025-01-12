@@ -295,8 +295,7 @@
     <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
     <string name="replace_dictionary">Asenda sõnastik</string>
     <string name="remove_dictionary_message">Kas kindlasti tahad eemaldada enda lisatud sõnastiku „%s“?</string>
-    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;
-\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
+    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;\n\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
     <string name="available_dictionary_experimental">%s (katseline)</string>
     <string name="icon_style">Ikooni stiil</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Numbririda</string>

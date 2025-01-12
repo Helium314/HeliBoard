@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Meklēt kontaktp. vārdus"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Pareizrakst. pārbaudītājs lieto ierakstus no kontaktp. saraksta."</string>
     <string name="vibrate_on_keypress">"Vibrēt, nospiežot taustiņu"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Nākamā darbība"</string>
     <string name="setup_steps_title">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iestatīšana"</string>
     <string name="setup_step1_title">"Lietojumprogrammas <xliff:g id="APPLICATION_NAME">%s</xliff:g> iespējošana"</string>
-    <string name="setup_step1_instruction">"Valodu un ievades iestatījumos atzīmējiet lietotni “<xliff:g id="APPLICATION_NAME">%s</xliff:g>”, autorizējot tās palaišanu savā ierīcē."</string>
+    <string name="setup_step1_instruction">Valodu un ievades iestatījumos atzīmējiet lietotni <xliff:g id="APPLICATION_NAME">%s</xliff:g>”, autorizējot tās palaišanu savā ierīcē.\"</string>
     <string name="setup_step1_finished_instruction">"Tā kā lietotne <xliff:g id="APPLICATION_NAME">%s</xliff:g> jau ir iespējota valodu un ievades iestatījumos, šī darbība ir pabeigta. Veiciet nākamo darbību!"</string>
     <string name="setup_step1_action">"Iespējot iestatījumos"</string>
     <string name="setup_step2_title">"Pārslēgšanās uz lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Pēc tam atlasiet “<xliff:g id="APPLICATION_NAME">%s</xliff:g>” kā aktīvo ievades metodi."</string>
+    <string name="setup_step2_instruction">Pēc tam atlasiet <xliff:g id="APPLICATION_NAME">%s</xliff:g>” kā aktīvo ievades metodi.\"</string>
     <string name="setup_step2_action">"Pārslēgt ievades metodes"</string>
     <string name="setup_step3_title">"Gatavs!"</string>
     <string name="setup_step3_instruction">"Izmantojot lietojumprogrammu <xliff:g id="APPLICATION_NAME">%s</xliff:g>, varat rakstīt visās iecienītākajās lietotnēs."</string>

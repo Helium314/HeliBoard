@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Volgende stap"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
-    <string name="setup_step1_instruction">Vink \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
+    <string name="setup_step1_instruction">Vink <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen &amp; invoer\', dus deze stap is voltooid. Op naar de volgende!</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
     <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Selecteer vervolgens \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve tekstinvoermethode.</string>
+    <string name="setup_step2_instruction">Selecteer vervolgens <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve tekstinvoermethode.</string>
     <string name="setup_step2_action">"Schakelen tussen invoermethoden"</string>
     <string name="setup_step3_title">Gefeliciteerd, je kunt nu aan de slag!</string>
     <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>

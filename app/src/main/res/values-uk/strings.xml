@@ -79,17 +79,17 @@
     <string name="prefs_enable_emoji_alt_physical_key">Смайли для фізичної клавіатури</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Фізична клавіша Alt показує усі доступні емоджі</string>
     <string name="button_default">Типово</string>
-    <string name="setup_welcome_title">Вітаємо в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Вітаємо в<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">з функцією «Ввід жестами»</string>
     <string name="setup_start_action">Розпочати</string>
     <string name="setup_next_action">Наступний крок</string>
-    <string name="setup_steps_title">Налаштування <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Увімкнути <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Перевірте застосунок \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" у налаштуваннях «Мова та введення». Це дозволить йому працювати на вашому пристрої.</string>
+    <string name="setup_steps_title">Налаштування<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Увімкнути<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Перевірте застосунок \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> у налаштуваннях «Мова та введення». Це дозволить йому працювати на вашому пристрої.</string>
     <string name="setup_step1_finished_instruction">Застосунок <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже увімкнено в налаштуваннях «Мова та введення». Переходьте до наступного кроку!</string>
     <string name="setup_step1_action">Увімкнути в налаштуваннях</string>
-    <string name="setup_step2_title">Перемкнути на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Виберіть «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» поточним методом введення.</string>
+    <string name="setup_step2_title">Перемкнути на<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Виберіть \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> поточним методом введення.</string>
     <string name="setup_step2_action">Змінити метод введення</string>
     <string name="setup_step3_title">Вітаємо, налаштування завершено!</string>
     <string name="setup_step3_instruction">Тепер ви можете писати в усіх улюблених застосунках за допомогою <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -308,11 +308,11 @@
     <string name="select_color_suggestion">Текст смуги пропозицій</string>
     <string name="hidden_features_text">сховище, захищене пристроєм</string>
     <string name="dictionary_settings_category">Словники</string>
-    <string name="add_new_dictionary_ask_locale">До якої мови слід додати словник «%1$s» для %2$s?</string>
+    <string name="add_new_dictionary_ask_locale">До якої мови слід додати словник 1$s для: %2$s?</string>
     <string name="day_or_night_day">День</string>
     <string name="day_or_night_night">Ніч</string>
     <string name="setup_step3_action">Налаштування клавіатури</string>
-    <string name="remove_dictionary_message">Видалити словник користувача «%s»?</string>
+    <string name="remove_dictionary_message">Видалити словник користувача s?</string>
     <string name="internal_dictionary_summary">Внутрішній основний словник</string>
     <string name="add_new_dictionary_title">Додати словник із файлу</string>
     <string name="button_select_language">Виберіть мову</string>
@@ -333,15 +333,8 @@
     <string name="action_none">Бездіяльність</string>
     <string name="space_swipe_move_cursor_entry">Переміщення курсору</string>
     <string name="main_colors">Показувати лише основні кольори</string>
-    <string name="replace_dictionary_message">Замінити словник користувача «%1$s»?
-\n
-\nПоточний словник:
-\n%2$s
-\n
-\nНовий словник:
-\n%3$s</string>
-    <string name="no_dictionary_message">Без словника ви отримуватимете пропозиції лише для попередньо введеного тексту.&lt;br&gt;
-\nВи можете завантажити словники %1$s або перевірити, чи може словник для «%2$s» завантажити безпосередньо %3$s.</string>
+    <string name="replace_dictionary_message">Замінити словник користувача 1$s?\n\nПоточний словник:\n%2$s\n\nНовий словник:\n%3$s</string>
+    <string name="no_dictionary_message">"Без словника ви отримуватимете пропозиції лише для попередньо введеного тексту.&lt;br&gt;\n        Ви можете завантажити словники %1$s або перевірити, чи може словник для 2$s завантажити безпосередньо %3$s."</string>
     <string name="pinned_toolbar_keys">Вибрати закріплені клавіші панелі інструментів</string>
     <string name="gesture_fast_typing_cooldown">Час відновлення швидкого друку</string>
     <string name="gesture_fast_typing_cooldown_instant">Завжди починати негайно</string>
@@ -418,4 +411,6 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Перемкнути сторону режиму однієї руки</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (натиснутий)</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Смітник</string>
+    <string name="customize_icons_reset_message">Дійсно скинути всі персоналізовані значки?</string>
 </resources>

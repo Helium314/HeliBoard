@@ -85,11 +85,11 @@
     <string name="setup_next_action">"Další krok"</string>
     <string name="setup_steps_title">"Nastavení aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Zapnutí aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Zaškrtněte aplikaci <xliff:g id="APPLICATION_NAME">%s</xliff:g> v nastavení Jazyky a zadávání, povolíte tak její spuštění."</string>
+    <string name="setup_step1_instruction">Zaškrtněte aplikaci<xliff:g id="APPLICATION_NAME">%s</xliff:g> v nastavení Jazyky a zadávání, povolíte tak její spuštění.\"</string>
     <string name="setup_step1_finished_instruction">Aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g> je již v nastavení Jazyky a zadávání zapnuta, tento krok je tedy již proveden. Pokračujte dalším!</string>
     <string name="setup_step1_action">"Aktivovat v nastavení"</string>
     <string name="setup_step2_title">"Přepnutí na aplikaci <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Poté vyberte jako aktivní metodu zadávání textu možnost <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step2_instruction">Poté vyberte jako aktivní metodu zadávání textu možnost<xliff:g id="APPLICATION_NAME">%s</xliff:g>.\"</string>
     <string name="setup_step2_action">"Přepnout metody zadávání"</string>
     <string name="setup_step3_title">Gratulujeme, vše je připraveno!</string>
     <string name="setup_step3_instruction">"Nyní můžete ve všech svých oblíbených aplikacích psát pomocí aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
@@ -322,13 +322,7 @@
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Další symboly</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonní symboly</string>
-    <string name="replace_dictionary_message">Opravdu nahradit uživatelem přidaný slovník „%1$s“?
-\n
-\nAktuální slovník:
-\n%2$s
-\n
-\nNový slovník:
-\n%3$s</string>
+    <string name="replace_dictionary_message">Opravdu nahradit uživatelem přidaný slovník „%1$s“? \n \nAktuální slovník: \n%2$s \n \nNový slovník: \n%3$s</string>
     <string name="replace_dictionary">Nahradit slovník</string>
     <string name="remove_dictionary_message">Opravdu odstranit slovník „%s“ přidaný uživatelem?</string>
     <string name="license">Open-source licence</string>

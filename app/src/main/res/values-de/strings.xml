@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.</string>
+    <string name="setup_step1_instruction">Bitte aktiviere <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung „Sprachen und Eingabe“ aktiviert. Weiter mit dem nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
-    <string name="setup_step2_instruction">Wähle als nächstes \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als deine aktive Bildschirmtastatur.</string>
+    <string name="setup_step2_instruction">Wähle als nächstes <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als deine aktive Bildschirmtastatur.</string>
     <string name="setup_step2_action">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction">Jetzt kannst du in all deinen Lieblingsapps mit <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> schreiben.</string>
@@ -276,13 +276,7 @@
     <string name="add_new_dictionary_title">Wörterbuch aus Datei hinzufügen</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Benutzerdefiniert (Nacht)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Braun</string>
-    <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden?
-\n
-\nAktuelles Wörterbuch:
-\n%2$s
-\n
-\nNeues Wörterbuch:
-\n%3$s</string>
+    <string name="replace_dictionary_message">Soll das vom Benutzer hinzugefügte Wörterbuch „%1$s“ wirklich ersetzt werden? \n \nAktuelles Wörterbuch: \n%2$s \n \nNeues Wörterbuch: \n%3$s</string>
     <string name="url_detection_title">URL-Erkennung</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violett</string>
     <string name="full_right" tools:keep="@string/full_right">Ganz rechts</string>

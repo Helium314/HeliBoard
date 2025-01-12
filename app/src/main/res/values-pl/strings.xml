@@ -85,11 +85,11 @@
     <string name="setup_next_action">"Następny krok"</string>
     <string name="setup_steps_title">Konfigurowanie aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Włącz aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Zaznacz aplikację \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> w ustawieniach Język i wprowadzanie tekstu. Umożliwi to jej uruchamianie na urządzeniu.</string>
+    <string name="setup_step1_instruction">Zaznacz aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> w ustawieniach Język i wprowadzanie tekstu. Umożliwi to jej uruchamianie na urządzeniu.</string>
     <string name="setup_step1_finished_instruction">Aplikacja <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jest już włączona w ustawieniach Język i wprowadzanie tekstu. Przejdź do następnego kroku!</string>
     <string name="setup_step1_action">"Włącz w Ustawieniach"</string>
     <string name="setup_step2_title">Przełącz się na aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Następnie wybierz \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jako aktywną metodę wprowadzania tekstu.</string>
+    <string name="setup_step2_instruction">Następnie wybierz <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jako aktywną metodę wprowadzania tekstu.</string>
     <string name="setup_step2_action">"Przełącz metody wprowadzania"</string>
     <string name="setup_step3_title">Gratulacje, wszystko gotowe!</string>
     <string name="setup_step3_instruction">Teraz możesz pisać we wszystkich swoich ulubionych aplikacjach, używając aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -454,4 +454,6 @@
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Zmień stronę trybu jednej ręki</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Łącznik o zerowej szerokości</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Niełącznik o zerowej szerokości</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Usuń</string>
+    <string name="customize_icons_reset_message">Na pewno zresetować wszystkie dostosowane ikony?</string>
 </resources>

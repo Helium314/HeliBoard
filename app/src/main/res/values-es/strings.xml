@@ -78,12 +78,12 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La tecla Alt física muestra la lista de emojis"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Bienvenido a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bienvenido a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Empezar"</string>
     <string name="setup_next_action">"Siguiente paso"</string>
-    <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Activar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Configurando<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Activar<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Por favor, compruebe \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ya está habilitado en sus idiomas &amp; configuración de entrada, por lo que este paso está hecho. ¡En el siguiente!</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
@@ -417,4 +417,6 @@
     <string name="customize_icons">Personalizar iconos</string>
     <string name="show_popup_keys_main">Añadir variantes muy comunes (defecto)</string>
     <string name="load_will_overwrite">Cargar sobreescribirá el tema actual</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papelera</string>
+    <string name="customize_icons_reset_message">¿Realmente restablecer todos los íconos personalizados?</string>
 </resources>

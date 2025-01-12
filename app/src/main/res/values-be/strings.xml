@@ -327,15 +327,8 @@
     <string name="select_color_gesture">Ўвод жэстамі</string>
     <string name="save_log">Захаваць лог</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Алфавіт (Бепо)</string>
-    <string name="replace_dictionary_message">Замяніць карыстацкі слоўнік «%1$s»?
-\n
-\nБягучы слоўнік:
-\n%2$s
-\n
-\nНовы слоўнік:
-\n%3$s</string>
-    <string name="no_dictionary_message">Без слоўніка вы будзеце атрымліваць прапановы толькі для ўведзенага раней тэксту.&lt;br&gt;
-\nВы можаце загрузіць слоўнікі %1$s або праверыць, ці можна загрузіць слоўнік для «%2$s» напрамую %3$s.</string>
+    <string name="replace_dictionary_message">Замяніць карыстацкі слоўнік «%1$s»? \n \nБягучы слоўнік: \n%2$s \n \nНовы слоўнік: \n%3$s</string>
+    <string name="no_dictionary_message">Без слоўніка вы будзеце атрымліваць прапановы толькі для ўведзенага раней тэксту.&lt;br&gt; \nВы можаце загрузіць слоўнікі %1$s або праверыць, ці можна загрузіць слоўнік для «%2$s» напрамую %3$s.</string>
     <string name="hidden_features_text">сховішча, абароненае прыладай</string>
     <string name="var_toolbar_direction_summary">Зваротны напрамак, калі выбраны падтып клавіятуры з пісьмом справа налева</string>
     <string name="add_new_dictionary_title">Дадаць слоўнік з файла</string>

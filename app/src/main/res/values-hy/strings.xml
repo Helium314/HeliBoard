@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Փնտրել կոնտակտային անուններ"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Ուղղագրիչն օգտագործում է ձեր կոնտակտների անունները"</string>
     <string name="vibrate_on_keypress">"Թրթռալ սեղմման ժամանակ"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Հաջորդ քայլը"</string>
     <string name="setup_steps_title">"Տեղադրվում է <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ը"</string>
     <string name="setup_step1_title">"Միացնել <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ը"</string>
-    <string name="setup_step1_instruction">"Նշեք «<xliff:g id="APPLICATION_NAME">%s</xliff:g>» հավելվածը Լեզուների և մուտքագրման կարգավորումներում՝ ձեր սարքում դրա աշխատանքը թույլ տալու համար:"</string>
+    <string name="setup_step1_instruction">Նշեք <xliff:g id="APPLICATION_NAME">%s</xliff:g>» հավելվածը Լեզուների և մուտքագրման կարգավորումներում՝ ձեր սարքում դրա աշխատանքը թույլ տալու համար:\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-ն արդեն միացված է ձեր Լեզուների և մուտքագրման կարգավորումներում, այնպես որ այս քայլն արդեն կատարված է:Անցեք հաջորդին:"</string>
     <string name="setup_step1_action">"Միացնել կարգավորումներից"</string>
     <string name="setup_step2_title">"Փոխարկել <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ին"</string>
-    <string name="setup_step2_instruction">"Հաջորդիվ, ընտրեք «<xliff:g id="APPLICATION_NAME">%s</xliff:g>»-ը որպես ձեր ակտիվ տեքստային մուտքագրման եղանակ:"</string>
+    <string name="setup_step2_instruction">Հաջորդիվ, ընտրեք <xliff:g id="APPLICATION_NAME">%s</xliff:g>»-ը որպես ձեր ակտիվ տեքստային մուտքագրման եղանակ:\"</string>
     <string name="setup_step2_action">"Փոխարկել մուտքագրման եղանակները"</string>
     <string name="setup_step3_title">"Շնորհավորում ենք, դուք տեղադրեցիք բոլորը:"</string>
     <string name="setup_step3_instruction">"Այժմ դուք կարող եք մուտքագրել ձեր բոլոր սիրելի հավելվածներում <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ով:"</string>
