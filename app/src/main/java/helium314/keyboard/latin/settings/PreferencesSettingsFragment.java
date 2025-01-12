@@ -45,6 +45,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON);
+            removePreference(Settings.PREF_VIBRATE_IN_DND_MODE);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS);
         }
 
@@ -111,6 +112,8 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
         setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
+                Settings.readVibrationEnabled(prefs, res));
+        setPreferenceVisible(Settings.PREF_VIBRATE_IN_DND_MODE,
                 Settings.readVibrationEnabled(prefs, res));
         setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
                 Settings.readKeypressSoundEnabled(prefs, res));

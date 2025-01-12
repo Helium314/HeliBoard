@@ -60,6 +60,7 @@ public class SettingsValues {
     // From preferences
     public final boolean mAutoCap;
     public final boolean mVibrateOn;
+    public final boolean mVibrateInDndMode;
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
@@ -155,6 +156,7 @@ public class SettingsValues {
         // Get the settings preferences
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs, res);
+        mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, false);
         mSoundOn = Settings.readKeypressSoundEnabled(prefs, res);
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(

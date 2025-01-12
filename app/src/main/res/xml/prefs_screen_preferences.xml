@@ -44,6 +44,12 @@
             latin:maxValue="@integer/config_max_vibration_duration" />
 
         <SwitchPreference
+            android:key="vibrate_in_dnd_mode"
+            android:title="@string/vibrate_in_dnd_mode"
+            android:defaultValue="@bool/config_default_vibration_enabled"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="sound_on"
             android:title="@string/sound_on_keypress"
             android:defaultValue="@bool/config_default_sound_enabled"
