@@ -22,6 +22,8 @@ HeliBoard is a complex application, when contributing, you must take a step back
 (and leave dependency upgrades to the maintainers, unless it's an actual security issue)
 In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
 
+If you have difficulties implementing some functionality, you're welcome to ask for help. No one will write the code for you, but often other contributors can give you very useful hints.
+
 # Adding Layouts
 
 See [layouts.md](layouts.md#adding-new-layouts--languages) for how to add new layouts to the app. Please stay in line with other layouts regarding the popup keys.
