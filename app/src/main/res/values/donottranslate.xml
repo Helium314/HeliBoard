@@ -30,8 +30,8 @@
     </string-array>
     <string name="subtype_in_root_locale_hi_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_Latn">Hinglish</string>
     <string name="subtype_in_root_locale_mns" translatable="false" tools:keep="@string/subtype_in_root_locale_mns">Ма̄ньси</string>
-     <string name="subtype_in_root_locale_dru" translatable="false" tools:keep="@string/subtype_in_root_locale_dru">ХӀурухъла лугъат</string>
-     <string name="subtype_in_root_locale_xdq" translatable="false" tools:keep="@string/subtype_in_root_locale_xdq">Хайдаҡьан</string>
+    <string name="subtype_in_root_locale_dru" translatable="false" tools:keep="@string/subtype_in_root_locale_dru">ХӀурухъла лугъат</string>
+    <string name="subtype_in_root_locale_xdq" translatable="false" tools:keep="@string/subtype_in_root_locale_xdq">Хайдаҡьан</string>
     <string name="subtype_in_root_locale_sr_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_Latn">Srpski</string>
 
     <!-- Generic subtype label -->
