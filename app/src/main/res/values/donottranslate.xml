@@ -86,6 +86,9 @@
     <!-- Description for Arabic (PC) subtype. -->
     <string name="subtype_arabic_pc" translatable="false">%s (PC)</string>
 
+    <!-- Description for Hebrew 2 subtype. -->
+    <string name="subtype_hebrew_1452_2" translatable="false">%s (1452-2)</string>
+
     <!-- App slogan-->
     <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
     <!-- default value for auto-day/night setting -->

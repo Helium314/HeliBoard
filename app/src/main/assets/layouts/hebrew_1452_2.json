@@ -1,0 +1,85 @@
+[
+  [
+    { "label": "ץ", "popup": {
+      "relevant": [
+        { "label": "ש\u05c2" }
+      ]
+    } },
+    { "label": "ן", "popup": {
+      "relevant": [
+        { "label": "ש\u05c1" }
+      ]
+    } },
+    { "label": "ק", "popup": {
+      "relevant": [
+        { "label": "\u05b8" },
+        { "label": "\u05bb" }
+      ]
+    } },
+    { "label": "ר", "popup": {
+      "relevant": [
+        { "label": "\u05b3" }
+      ]
+    } },
+    { "label": "א" },
+    { "label": "ט" },
+    { "label": "ו", "popup": {
+      "relevant": [
+        { "label": "\u05b9" }
+      ]
+    } },
+    { "label": "ת" },
+    { "label": "ם" },
+    { "label": "פ", "popup": {
+      "relevant": [
+        { "label": "\u05b2" },
+        { "label": "\u05b7" }
+      ]
+    } }
+  ],
+  [
+    { "label": "ש", "popup": {
+      "relevant": [
+        { "label": "\u05b0" }
+      ]
+    } },
+    { "label": "ד", "popup": {
+      "relevant": [
+        { "label": "\u05bc" }
+      ]
+    } },
+    { "label": "ג" },
+    { "label": "כ" },
+    { "label": "ע" },
+    { "label": "י" },
+    { "label": "ח", "popup": {
+      "relevant": [
+        { "label": "\u05b4" }
+      ]
+    } },
+    { "label": "ל" },
+    { "label": "ך" },
+    { "label": "ף" }
+  ],
+  [
+    { "label": "ז" },
+    { "label": "ס", "popup": {
+      "relevant": [
+        { "label": "\u05b6" }
+      ]
+    } },
+    { "label": "ב", "popup": {
+      "relevant": [
+        { "label": "\u05b1" }
+      ]
+    } },
+    { "label": "ה" },
+    { "label": "נ" },
+    { "label": "מ" },
+    { "label": "צ", "popup": {
+      "relevant": [
+        { "label": "\u05b5" }
+      ]
+    } }
+  ]
+]
