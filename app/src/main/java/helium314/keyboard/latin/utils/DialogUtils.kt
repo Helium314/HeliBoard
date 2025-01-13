@@ -119,16 +119,18 @@ fun reorderDialog(
 
     adapter.submitList(orderedItems)
 
-    AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(dialogTitleId)
         .setPositiveButton(android.R.string.ok) { _, _ ->
             val value = orderedItems.joinToString(";") { it.first + "," + it.second }
             prefs.edit().putString(key, value).apply()
         }
         .setNegativeButton(android.R.string.cancel, null)
-        .setNeutralButton(R.string.button_default) { _, _ ->
+        .setView(rv)
+    if (prefs.contains(key))
+        builder.setNeutralButton(R.string.button_default) { _, _ ->
             prefs.edit().remove(key).apply()
         }
-        .setView(rv)
-        .show()
+
+    builder.show()
 }
