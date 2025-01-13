@@ -1498,7 +1498,7 @@ public class LatinIME extends InputMethodService implements
 
         // checking if the character is a combining accent
         if (0x300 <= codePoint && codePoint <= 0x35b) {
-            event = Event.createDeadEvent(codePoint, 0, metaState, null);
+            event = Event.createSoftwareDeadEvent(codePoint, 0, metaState, x, y, null);
         } else {
             event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
         }
