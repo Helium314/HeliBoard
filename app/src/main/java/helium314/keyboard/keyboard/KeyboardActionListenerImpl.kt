@@ -43,8 +43,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
-    override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
-        latinIME.onCodeInput(primaryCode, metaState, x, y, isKeyRepeat)
+    override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
+        val mkv = keyboardSwitcher.mainKeyboardView
+        latinIME.onCodeInput(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+    }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
