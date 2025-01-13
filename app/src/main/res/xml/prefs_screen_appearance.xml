@@ -64,7 +64,8 @@
 
         <SwitchPreference
             android:key="navbar_color"
-            android:title="@string/theme_navbar"/>
+            android:title="@string/theme_navbar"
+            android:defaultValue="@bool/day_night_default" />
 
         <Preference
             android:key="custom_background_image"
