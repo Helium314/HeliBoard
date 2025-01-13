@@ -1496,7 +1496,15 @@ public class LatinIME extends InputMethodService implements
         // this transformation, it should be done already before calling onEvent.
         final int keyX = mainKeyboardView.getKeyX(x);
         final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
+        final Event event;
+
+        // checking if the character is a combining accent
+        if (0x300 <= codePoint && codePoint <= 0x35b) {
+            event = Event.createSoftwareDeadEvent(codePoint, 0, metaState, x, y, null);
+        } else {
+            event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
+        }
+
         onEvent(event);
     }
 
