@@ -132,6 +132,7 @@ public class SettingsValues {
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
+    public final boolean mAutoCorrectShortcuts;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
     public final boolean mSuggestClipboardContent;
@@ -190,6 +191,7 @@ public class SettingsValues {
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
+        mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, true);
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);

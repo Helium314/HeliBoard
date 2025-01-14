@@ -39,6 +39,13 @@
             android:defaultValue="true"
             android:persistent="true" />
 
+        <SwitchPreference
+            android:key="autocorrect_shortcuts"
+            android:title="@string/auto_correct_shortcuts"
+            android:summary="@string/auto_correct_shortcuts_summary"
+            android:defaultValue="true"
+            android:persistent="true" />
+
         <ListPreference
             android:key="auto_correction_confidence"
             android:title="@string/auto_correction_confidence"

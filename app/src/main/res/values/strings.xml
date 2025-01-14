@@ -120,6 +120,10 @@
     <string name="more_autocorrect_summary">Auto-correct even when not explicitly requested by the input field</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
     <string name="auto_correction_confidence">Auto-correction confidence</string>
+    <!-- Option to enable auto correction for shortcuts (will correct shortcut to the actual word) -->
+    <string name="auto_correct_shortcuts">Auto-correct shortcuts</string>
+    <!-- Description for auto_correct_shortcuts -->
+    <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_off">Off</string>
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
