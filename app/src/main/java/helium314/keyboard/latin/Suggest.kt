@@ -201,7 +201,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         ) {
             hasAutoCorrection = false
         } else {
-            val firstSuggestion = suggestionResults.first()
+            val firstSuggestion = firstSuggestionInContainer ?: suggestionResults.first()
             if (suggestionResults.mFirstSuggestionExceedsConfidenceThreshold && firstOccurrenceOfTypedWordInSuggestions != 0) {
                 // mFirstSuggestionExceedsConfidenceThreshold is always set to false, so currently this branch is useless
                 return true to true
@@ -218,21 +218,20 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             if (allowed && typedWordInfo != null && typedWordInfo.mScore > scoreLimit) {
                 // typed word is valid and has good score
                 // do not auto-correct if typed word is better match than first suggestion
-                val first = firstSuggestionInContainer ?: firstSuggestion
                 val dictLocale = mDictionaryFacilitator.currentLocale
-                if (first.mScore < scoreLimit) {
+                if (firstSuggestion.mScore < scoreLimit) {
                     // don't allow if suggestion has too low score
                     return true to false
                 }
-                if (first.mSourceDict.mLocale !== typedWordInfo.mSourceDict.mLocale) {
+                if (firstSuggestion.mSourceDict.mLocale !== typedWordInfo.mSourceDict.mLocale) {
                     // dict locale different -> return the better match
-                    return true to (dictLocale == first.mSourceDict.mLocale)
+                    return true to (dictLocale == firstSuggestion.mSourceDict.mLocale)
                 }
                 // the score difference may need tuning, but so far it seems alright
                 val firstWordBonusScore =
-                    ((if (first.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) 20 else 0) // large bonus because it's wanted by dictionary
+                    ((if (firstSuggestion.isKindOf(SuggestedWordInfo.KIND_WHITELIST)) 20 else 0) // large bonus because it's wanted by dictionary
                             + (if (StringUtils.isLowerCaseAscii(typedWordString)) 5 else 0) // small bonus because typically only lower case ascii is typed (applies to latin keyboards only)
-                            + if (first.mScore > typedWordInfo.mScore) 5 else 0) // small bonus if score is higher
+                            + if (firstSuggestion.mScore > typedWordInfo.mScore) 5 else 0) // small bonus if score is higher
                 val firstScoreForEmpty = firstAndTypedEmptyInfos.first?.mScore ?: 0
                 val typedScoreForEmpty = firstAndTypedEmptyInfos.second?.mScore ?: 0
                 if (firstScoreForEmpty + firstWordBonusScore >= typedScoreForEmpty + 20) {
