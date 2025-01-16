@@ -89,8 +89,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
-            baseKeys.add(0, numberRow
-                .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+            baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = defaultLabelFlags) })
         if (!params.mAllowRedundantPopupKeys)
             params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
 
