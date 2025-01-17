@@ -117,6 +117,12 @@
             android:defaultValue=""
             android:persistent="true" />
 
+        <Preference
+            android:key="custom_font"
+            android:title="@string/custom_font"
+            android:defaultValue=""
+            android:persistent="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

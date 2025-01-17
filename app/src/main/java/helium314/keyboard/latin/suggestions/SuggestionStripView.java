@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -155,11 +156,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
 
+        final Typeface customTypeface = Settings.getInstance().readCustomTypeface();
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));
             word.setOnClickListener(this);
             word.setOnLongClickListener(this);
+            if (customTypeface != null)
+                word.setTypeface(customTypeface);
             colors.setBackground(word, ColorType.STRIP_BACKGROUND);
             mWordViews.add(word);
             final View divider = inflater.inflate(R.layout.suggestion_divider, null);

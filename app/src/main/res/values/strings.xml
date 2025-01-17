@@ -313,6 +313,8 @@
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
+    <!-- Title of the setting for adding / removing custom font file -->
+    <string name="custom_font">Set custom font from file</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>

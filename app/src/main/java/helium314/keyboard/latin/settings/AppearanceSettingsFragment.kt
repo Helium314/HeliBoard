@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -36,12 +37,14 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.customIconNames
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.confirmDialog
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.io.File
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -86,6 +89,12 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         loadImage(uri, true, true)
     }
 
+    private val fontFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        saveCustomTypeface(uri)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.prefs_screen_appearance)
@@ -106,6 +115,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage(false) }
         findPreference<Preference>("custom_background_image_landscape")?.setOnPreferenceClickListener { onClickLoadImage(true) }
+        findPreference<Preference>("custom_font")?.setOnPreferenceClickListener { onClickCustomFont() }
         findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener {
             if (needsReload)
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
@@ -387,6 +397,44 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         Settings.clearCachedBackgroundImages()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+    }
+
+    private fun onClickCustomFont(): Boolean {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("*/*")
+        val fontFile = Settings.getCustomFontFile(requireContext())
+        if (fontFile.exists()) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.custom_font)
+                .setPositiveButton(R.string.load) { _, _ -> fontFilePicker.launch(intent) }
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.delete) { _, _ ->
+                    fontFile.delete()
+                    Settings.clearCachedTypeface()
+                    KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+                }
+                .show()
+        } else {
+            fontFilePicker.launch(intent)
+        }
+        return true
+    }
+
+    private fun saveCustomTypeface(uri: Uri) {
+        val fontFile = Settings.getCustomFontFile(requireContext())
+        val tempFile = File(DeviceProtectedUtils.getFilesDir(context), "temp_file")
+        FileUtils.copyContentUriToNewFile(uri, requireContext(), tempFile)
+        try {
+            val typeface = Typeface.createFromFile(tempFile)
+            fontFile.delete()
+            tempFile.renameTo(fontFile)
+            Settings.clearCachedTypeface()
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        } catch (_: Exception) {
+            infoDialog(requireContext(), R.string.file_read_error)
+            tempFile.delete()
+        }
     }
 
     private fun setupScalePrefs(prefKey: String, defaultValue: Float) {

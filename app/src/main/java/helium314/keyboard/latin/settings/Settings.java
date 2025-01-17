@@ -14,6 +14,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -196,6 +197,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // static cache for background images to avoid potentially slow reload on every settings reload
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
+    private static Typeface sCachedTypeface;
     private Map<String, Integer> mCustomToolbarKeyCodes = null;
     private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
@@ -728,5 +730,26 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         if (mCustomToolbarLongpressCodes == null)
             mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
         return mCustomToolbarLongpressCodes.get(key.name());
+    }
+
+    public static File getCustomFontFile(final Context context) {
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
+    }
+
+    @Nullable
+    public Typeface readCustomTypeface() {
+        // dammit, dann würde wenns keins gibt bei jedem zugriff gesucht -> 2 variablen nehmen? custom und hasCustom?
+        // ein clear brauchen wir sowieso on theme changed (und auch triggern wenn man ne font setzt/löscht)
+        // try/catch!
+        if (sCachedTypeface == null) {
+            try {
+                sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
+            } catch (Exception e) { }
+        }
+        return sCachedTypeface;
+    }
+
+    public static void clearCachedTypeface() {
+        sCachedTypeface = null;
     }
 }
