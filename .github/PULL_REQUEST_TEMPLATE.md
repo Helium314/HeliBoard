@@ -8,9 +8,11 @@ tl;dr (you should still read the full list though):
 * make it a draft if you still want to work on it
 * no translations or dictionaries
 
+A good description and small scope ("single thing") massively help with reviewing. Don't be surprised when your PR gets closes if you clearly / repeatedly violate these parts of the guidelines.
+
 Further
 * When the PR contains "fixes" <issue number>, the related issue will be linked and automatically closed if the PR is merged (also works for other words like "fix", "resolve", "resolves", "closes", ...)
 * If you add a keyboard layout, make sure you also read https://github.com/Helium314/HeliBoard/blob/main/layouts.md#adding-new-layouts--languages
-* Please avoid force-pushing when doing changes. This way it's not possible to see which parts have changed since the previous state.
+* Please avoid force-pushing when doing changes unless you have a good reason. This way it's not possible to see which parts have changed since the previous state.
 
 <!-- (please remove the text above before submitting the PR) -->

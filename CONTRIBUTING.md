@@ -2,14 +2,15 @@
 
 HeliBoard project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/Helium314/HeliBoard) (or git SSH [URL](git@github.com:Helium314/heliboard.git)).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
-
 Once everything is up correctly, you're ready to go!
+
+If you have difficulties implementing some functionality, you're welcome to ask for help. No one will write the code for you, but often other contributors can give you very useful hints.
 
 # Guidelines
 
 HeliBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
 - **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it, so we can discuss how changes are best implemented.
-  If there is no accepted issue related to your intended contribution, it's a good idea to open a new one to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
+  If there is no accepted issue related to your intended contribution, it's a good idea to open a new one (and of course getting one of "PR" or "contributor needed" labels) to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated or semi-related contributions into a single PR is hard to review and can get messy.
 - **Is finished or a draft**. When you keep changing the PR without reviewer's feedback, any attempt to review it is doomed and a waste of time. Better mark it as a draft in this case.
 - **Has a proper description**. What your contribution does is usually less obvious to reviewers than for yourself. A good description helps _a lot_ for understanding what is going on, and for separating wanted from unintended changes in behavior. Therefore the changes should be as described, not more and not less.
@@ -19,10 +20,10 @@ HeliBoard is a complex application, when contributing, you must take a step back
   If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle HeliBoard follows**.
 
-(and leave dependency upgrades to the maintainers, unless it's an actual security issue)
-In addition to previous elements, HeliBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
+A good description and small scope ("single thing") massively help with reviewing. Don't be surprised when your PR gets closes if you clearly / repeatedly violate these parts of the guidelines.
+If possible try to keep your changes contained, i.e. in few places as opposed to sprinkling them over many parts of the code. This helps with both review and maintainability of the app.
 
-If you have difficulties implementing some functionality, you're welcome to ask for help. No one will write the code for you, but often other contributors can give you very useful hints.
+Please leave dependency upgrades to the maintainers, unless it's an actual security issue.
 
 # Adding Layouts
 

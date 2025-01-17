@@ -46,7 +46,7 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For FAQ and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
+For [FAQ](https://github.com/Helium314/HeliBoard/wiki/FAQ) and more information about the app and features, please visit the [wiki](https://github.com/Helium314/HeliBoard/wiki)
 
 # Contributing ❤
 
@@ -97,19 +97,17 @@ __Planned features and improvements:__
 * Less complicated addition of new keyboard languages (e.g. #519)
 * Additional and customizable key swipe functionality
   * Some functionality will not be possible when using glide typing
-* Ability to enter all emojis independent of Android version (optional, #297)
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
 * Make use of the `.com` key in URL fields (currently only available for tablets)
   * With language-dependent TLDs
-* Internal cleanup (a lot of over-complicated and convoluted code)
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__
 * Material 3 (not worth adding 1.5 MB to app size)
 * Dictionaries for more languages (you can still download them)
-* Anything that requires additional permissions, unless there is a very good reason
+* Anything that requires additional permissions, unless there is a _very_ good reason
 
 # License
 
@@ -120,7 +118,6 @@ HeliBoard (as a fork of OpenBoard) is licensed under GNU General Public License 
 See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
-
 The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). A [license file](LICENSE-CC-BY-SA-4.0) is also included.
 
 # Credits
