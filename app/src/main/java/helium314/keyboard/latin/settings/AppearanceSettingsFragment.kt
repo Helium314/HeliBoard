@@ -65,13 +65,25 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, false)
+        loadImage(uri, false, false)
     }
 
     private val nightImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, true)
+        loadImage(uri, true, false)
+    }
+
+    private val dayImageFilePickerLandscape = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, false, true)
+    }
+
+    private val nightImageFilePickerLandscape = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, true, true)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +104,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 true
             }
         }
-        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
+        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage(false) }
+        findPreference<Preference>("custom_background_image_landscape")?.setOnPreferenceClickListener { onClickLoadImage(true) }
         findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener {
             if (needsReload)
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
@@ -322,30 +335,35 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         builder.show()
     }
 
-    private fun onClickLoadImage(): Boolean {
+    private fun onClickLoadImage(landscape: Boolean): Boolean {
         if (Settings.readDayNightPref(sharedPreferences, resources)) {
             AlertDialog.Builder(requireContext())
-                .setMessage(R.string.day_or_night_image)
-                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
-                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true) }
+                .setTitle(R.string.day_or_night_image)
+                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false, landscape) }
+                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true, landscape) }
                 .setNeutralButton(android.R.string.cancel, null)
                 .show()
         } else {
-            customImageDialog(false)
+            customImageDialog(false, landscape)
         }
         return true
     }
 
-    private fun customImageDialog(night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+    private fun customImageDialog(night: Boolean, landscape: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night, landscape)
         val builder = AlertDialog.Builder(requireContext())
-            .setMessage(R.string.customize_background_image)
+            .setMessage(if (landscape) R.string.customize_background_image_landscape else R.string.customize_background_image)
             .setPositiveButton(R.string.button_load_custom) { _, _ ->
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .setType("image/*")
-                if (night) nightImageFilePicker.launch(intent)
-                else dayImageFilePicker.launch(intent)
+                if (landscape) {
+                    if (night) nightImageFilePickerLandscape.launch(intent)
+                    else dayImageFilePickerLandscape.launch(intent)
+                } else {
+                    if (night) nightImageFilePicker.launch(intent)
+                    else dayImageFilePicker.launch(intent)
+                }
             }
             .setNegativeButton(android.R.string.cancel, null)
         if (imageFile.exists()) {
@@ -358,8 +376,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         builder.show()
     }
 
-    private fun loadImage(uri: Uri, night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+    private fun loadImage(uri: Uri, night: Boolean, landscape: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night, landscape)
         FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
         try {
             BitmapFactory.decodeFile(imageFile.absolutePath)

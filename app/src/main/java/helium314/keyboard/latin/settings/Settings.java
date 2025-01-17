@@ -49,6 +49,7 @@ import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -194,8 +195,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
 
     // static cache for background images to avoid potentially slow reload on every settings reload
-    private static Drawable sCachedBackgroundDay;
-    private static Drawable sCachedBackgroundNight;
+    private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
     private Map<String, Integer> mCustomToolbarKeyCodes = null;
     private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
@@ -562,25 +562,24 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
-        if (night && sCachedBackgroundNight != null) return sCachedBackgroundNight;
-        if (!night && sCachedBackgroundDay != null) return sCachedBackgroundDay;
-        final File image = getCustomBackgroundFile(context, night);
+        final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = (night ? 1 : 0) + (landscape ? 2 : 0);
+        if (sCachedBackgroundImages[index] != null) return sCachedBackgroundImages[index];
+
+        File image = getCustomBackgroundFile(context, night, landscape);
+        if (!image.isFile() && landscape)
+            image = getCustomBackgroundFile(context, night, false); // fall back to portrait image for historic reasons
         if (!image.isFile()) return null;
         try {
-            if (night) {
-                sCachedBackgroundNight = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
-                return sCachedBackgroundNight;
-            } else {
-                sCachedBackgroundDay = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
-                return sCachedBackgroundDay;
-            }
+            sCachedBackgroundImages[index] = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+            return sCachedBackgroundImages[index];
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static File getCustomBackgroundFile(final Context context, final boolean night) {
-        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (night ? "_night" : ""));
+    public static File getCustomBackgroundFile(final Context context, final boolean night, final boolean landscape) {
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (landscape ? "_landscape" : "") + (night ? "_night" : ""));
     }
 
     public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {
@@ -588,8 +587,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static void clearCachedBackgroundImages() {
-        sCachedBackgroundDay = null;
-        sCachedBackgroundNight = null;
+        Arrays.fill(sCachedBackgroundImages, null);
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {

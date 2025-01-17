@@ -550,6 +550,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Clipboard bottom row</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
+    <!-- Title for customizing background image in landscape mode -->
+    <string name="customize_background_image_landscape">Set background image (landscape)</string>
+    <!-- Description for customize_background_image_landscape -->
+    <string name="summary_customize_background_image_landscape">If not set, portrait image will be used</string>
     <!-- Title for customizing currencies -->
     <string name="customize_currencies">Customize currencies</string>
     <!-- Info for customizing currencies -->

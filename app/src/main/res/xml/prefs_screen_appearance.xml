@@ -71,6 +71,11 @@
             android:key="custom_background_image"
             android:title="@string/customize_background_image" />
 
+        <Preference
+            android:key="custom_background_image_landscape"
+            android:title="@string/customize_background_image_landscape"
+            android:summary="@string/summary_customize_background_image_landscape"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
