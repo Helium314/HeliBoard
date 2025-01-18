@@ -111,6 +111,12 @@
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
 
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="side_padding_scale"
+            android:title="@string/prefs_side_padding_scale"
+            latin:minValue="0"
+            latin:maxValue="300" /> <!-- percentage -->
+
         <EditTextPreference
             android:key="space_bar_text"
             android:title="@string/prefs_space_bar_text"
