@@ -198,6 +198,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // static cache for background images to avoid potentially slow reload on every settings reload
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
     private static Typeface sCachedTypeface;
+    private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
     private Map<String, Integer> mCustomToolbarKeyCodes = null;
     private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
@@ -738,15 +739,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     @Nullable
     public Typeface getCustomTypeface() {
-        if (sCachedTypeface == null) {
+        if (!sCustomTypefaceLoaded) {
             try {
                 sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
             } catch (Exception e) { }
         }
+        sCustomTypefaceLoaded = true;
         return sCachedTypeface;
     }
 
     public static void clearCachedTypeface() {
         sCachedTypeface = null;
+        sCustomTypefaceLoaded = false;
     }
 }
