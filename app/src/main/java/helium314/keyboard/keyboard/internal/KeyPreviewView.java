@@ -44,7 +44,7 @@ public class KeyPreviewView extends AppCompatTextView {
     public KeyPreviewView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setGravity(Gravity.CENTER);
-        mTypeface = Settings.getInstance().readCustomTypeface();
+        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams) {

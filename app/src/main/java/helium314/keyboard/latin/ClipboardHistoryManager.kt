@@ -198,6 +198,7 @@ class ClipboardHistoryManager(
         // create the view
         val binding = ClipboardSuggestionBinding.inflate(LayoutInflater.from(latinIME), parent, false)
         val textView = binding.clipboardSuggestionText
+        latinIME.mSettings.getCustomTypeface()?.let { textView.typeface = it }
         textView.text = (if (isClipSensitive(inputType)) "*".repeat(content.length) else content)
             .take(200) // truncate displayed text for performance reasons
         val clipIcon = latinIME.mKeyboardSwitcher.keyboard.mIconsSet.getIconDrawable(ToolbarKey.PASTE.name.lowercase())

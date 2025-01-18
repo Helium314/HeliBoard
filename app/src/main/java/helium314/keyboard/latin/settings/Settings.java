@@ -737,10 +737,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     @Nullable
-    public Typeface readCustomTypeface() {
-        // dammit, dann würde wenns keins gibt bei jedem zugriff gesucht -> 2 variablen nehmen? custom und hasCustom?
-        // ein clear brauchen wir sowieso on theme changed (und auch triggern wenn man ne font setzt/löscht)
-        // try/catch!
+    public Typeface getCustomTypeface() {
         if (sCachedTypeface == null) {
             try {
                 sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));

@@ -156,7 +156,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
 
-        final Typeface customTypeface = Settings.getInstance().readCustomTypeface();
+        final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
             word.setContentDescription(getResources().getString(R.string.spoken_empty_suggestion));

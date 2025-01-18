@@ -145,7 +145,7 @@ public class KeyboardView extends View {
         keyAttr.recycle();
 
         mPaint.setAntiAlias(true);
-        mTypeface = Settings.getInstance().readCustomTypeface();
+        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     @Nullable
