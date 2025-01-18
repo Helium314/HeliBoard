@@ -72,17 +72,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
-/**
- * "Advanced" settings sub screen.
- *
- * This settings sub screen handles the following advanced preferences.
- * - Key popup dismiss delay
- * - Keypress vibration duration
- * - Keypress sound volume
- * - Show app icon
- * - Improve keyboard
- * - Debug settings
- */
 @Suppress("KotlinConstantConditions") // build type might be a constant, but depends on... build type!
 class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
@@ -92,6 +81,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
+        "custom_font".toRegex(),
     ) }
 
     // is there any way to get additional information into the ActivityResult? would remove the need for 5 times the (almost) same code
