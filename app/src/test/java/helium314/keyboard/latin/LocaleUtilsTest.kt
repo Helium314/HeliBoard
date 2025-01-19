@@ -2,8 +2,8 @@
 package helium314.keyboard.latin
 
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LocaleUtilsTest {
     @Test fun createLocales() {

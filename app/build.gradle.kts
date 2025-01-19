@@ -109,6 +109,7 @@ dependencies {
     implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")
 
     // test
+    testImplementation(kotlin("test"))
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.15.2")
     testImplementation("org.robolectric:robolectric:4.12.1")

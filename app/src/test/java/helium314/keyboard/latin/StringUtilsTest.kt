@@ -3,8 +3,8 @@ package helium314.keyboard.latin
 
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.getFullEmojiAtEnd
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 // todo: actually this test could/should be significantly expanded...
 class StringUtilsTest {
