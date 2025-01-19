@@ -58,7 +58,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
 * `codePoints`: when multiple code points should be entered, only available for `multi_text_key`
 * `label`: text to display on the key, determined from code if empty
   * There are some special values, see the [label section](#labels)
-* `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, `2` adds the period popup keys, `3` adds the action key popup keys (looks awkward though)
+* `groupId`: which additional popup keys to show, `0` is default and does not add anything, `1` adds the comma popup keys, `2` adds the period popup keys, `3` adds the action key popup keys (looks awkward though), `-1` suppresses additional popups based on the label
 * `popup`: list of keys to add in the popup, e.g. `"label": ")", "popup": {"relevant": [{  "label": "." }]}` is a `)` key with a `.` popup
   * Note that in popup keys, properties are ignored with the exception of `$`, `code`, `codePoints`, and `label`
   * When specifying a _selector_ key class in a popup key, it will be evaluated correctly (e.g. for changing popups dependent on shift state)
@@ -71,7 +71,9 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `0.1` for phones
     * `0.09` for tablets
   * If the sum of widths in a row is greater than 1, keys are rescaled to fit on the screen
-* `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml) in the section _keyLabelFlags_ for names and numeric values
+* `labelFlags`: allows specific effects, see [here](app/src/main/res/values/attrs.xml#L251-L287) in the section _keyLabelFlags_ for names and numeric values
+  * Since json does not support hexadecimal-values, you have to use the decimal values in the comments in the same line.
+  * In case you want to apply multiple flags, you will need to combine them using [bitwise OR](https://en.wikipedia.org/wiki/Bitwise_operation#OR). In most cases this means you can just add the individual values, only exceptions are `fontDefault`, `followKeyLabelRatio`, `followKeyHintLabelRatio`, and `autoScale`.
 
 ## Labels
 In the simple format you only specify labels, in json layouts you do it explicitly via the `label` property.

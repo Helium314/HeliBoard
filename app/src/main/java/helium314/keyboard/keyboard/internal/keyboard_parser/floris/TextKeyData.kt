@@ -12,7 +12,6 @@ import kotlinx.serialization.Transient
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardTheme
-import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
@@ -31,10 +30,7 @@ import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.toolbarKeyStrings
 import java.util.Locale
 
-// taken from FlorisBoard, small modifications (see also KeyData)
-//  internal keys removed (currently no plan to support them)
-//  added String.toTextKey
-//  currency key handling (see todo below...)
+// taken from FlorisBoard, modified (see also KeyData)
 
 /**
  * Interface describing a basic key which can carry a character, an emoji, a special function etc. while being as
@@ -45,6 +41,8 @@ import java.util.Locale
  * @property label The label of the key. This should always be a representative string for [code].
  * @property groupId The group which this key belongs to (currently only allows [GROUP_DEFAULT]).
  * @property popup The popups for ths key. Can also dynamically be provided via popup extensions.
+ * @property width The width of the key, as fraction of the keyboard width. Keys will resize if they don't fit.
+ * @property labelFlags Additional flags from old AOSP keyboard, see attrs.xml.
  */
 sealed interface KeyData : AbstractKeyData {
     val type: KeyType?
@@ -58,11 +56,10 @@ sealed interface KeyData : AbstractKeyData {
     fun copy(newType: KeyType? = type, newCode: Int = code, newLabel: String = label, newGroupId: Int = groupId,
              newPopup: PopupSet<out AbstractKeyData> = popup, newWidth: Float = width, newLabelFlags: Int = labelFlags): KeyData
 
-    // groups (currently) not supported
     companion object {
         /**
          * Constant for the default group. If not otherwise specified, any key is automatically
-         * assigned to this group.
+         * assigned to this group. Additional popup keys will be added for specific labels.
          */
         const val GROUP_DEFAULT: Int = 0
 
@@ -83,6 +80,11 @@ sealed interface KeyData : AbstractKeyData {
          * popups specified for "~enter" in the popup mapping.
          */
         const val GROUP_ENTER: Int = 3
+
+        /**
+         * Constant for the default key, but without assigning popups for special labels.
+         */
+        const val GROUP_NO_DEFAULT_POPUP: Int = -1
 
         /**
          * Constant for the enter modifier key group. Any key belonging to this group will get the
@@ -141,7 +143,7 @@ sealed interface KeyData : AbstractKeyData {
                 for (i in popupKeys.indices)
                     popupKeys[i] = popupKeys[i].rtlLabel(params) // for parentheses
             }
-            if (Settings.getInstance().isTablet && popupKeys.contains("!") && popupKeys.contains("?")) {
+            if (params.setTabletExtraKeys && popupKeys.contains("!") && popupKeys.contains("?")) {
                 // remove ! and ? keys and reduce number in autoColumnOrder
                 // this makes use of removal of empty popupKeys in PopupKeySpec.insertAdditionalPopupKeys
                 popupKeys[popupKeys.indexOf("!")] = ""
@@ -337,7 +339,7 @@ sealed interface KeyData : AbstractKeyData {
     }
 
     override fun compute(params: KeyboardParams): KeyData? {
-        require(groupId in 0..GROUP_ENTER) { "only positive groupIds up to GROUP_ENTER are supported" }
+        require(groupId in GROUP_NO_DEFAULT_POPUP..GROUP_ENTER) { "only groupIds from -1 to 3 are supported" }
         require(label.isNotEmpty() || type == KeyType.PLACEHOLDER || code != KeyCode.UNSPECIFIED) { "non-placeholder key has no code and no label" }
         require(width >= 0f || width == -1f) { "illegal width $width" }
         val newLabel = label.convertFlorisLabel().resolveStringLabel(params)
@@ -543,6 +545,7 @@ sealed interface KeyData : AbstractKeyData {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
         if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
         if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)
+        if (groupId == GROUP_NO_DEFAULT_POPUP) return null
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
             KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))

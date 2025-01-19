@@ -202,6 +202,22 @@ class InputLogicTest {
         assertEquals("example.net", composingText)
     }
 
+    // fails because
+    //  period is not handled with handleSeparatorEvent in this case
+    //  pickSuggestion sets phantom space state
+    //  insertAutomaticSpaceIfOptionsAndTextAllow allows the space
+    // todo: fix it either in some of those functions, or by finally improving URL detection in a reasonable (and performant) way
+    @Test fun noAutospaceInUrlFieldWhenPickingSuggestion() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("exam")
+        pickSuggestion("example")
+        assertEquals("example", text)
+        input('.')
+        assertEquals("example.", text)
+    }
+
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
         reset()
         DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }

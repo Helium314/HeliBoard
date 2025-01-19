@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Fletta upp tengiliðum"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Ritvilluleit notar færslur úr tengiliðalistanum þínum"</string>
     <string name="vibrate_on_keypress">"Titringur þegar ýtt er á lykla"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Næsta skref"</string>
     <string name="setup_steps_title">"Uppsetning <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Virkjaðu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Hakaðu við „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ í stillingum tungumáls og innsláttar. Þetta veitir því heimild til að keyra í tækinu."</string>
+    <string name="setup_step1_instruction">Hakaðu við <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ í stillingum tungumáls og innsláttar. Þetta veitir því heimild til að keyra í tækinu.\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> er þegar virkt í stillingum tungumáls og innsláttar og lokið hefur verið við þetta skref. Vindum okkur í næsta!"</string>
     <string name="setup_step1_action">"Virkja í stillingum"</string>
     <string name="setup_step2_title">"Skiptu yfir í <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Næst skaltu velja „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ sem virka innsláttaraðferð fyrir texta."</string>
+    <string name="setup_step2_instruction">Næst skaltu velja <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ sem virka innsláttaraðferð fyrir texta.\"</string>
     <string name="setup_step2_action">"Skipta um innsláttaraðferð"</string>
     <string name="setup_step3_title">"Til hamingju, allt er klárt!"</string>
     <string name="setup_step3_instruction">"Nú geturðu notað <xliff:g id="APPLICATION_NAME">%s</xliff:g> til að skrifa í öllum uppáhaldsforritunum þínum."</string>

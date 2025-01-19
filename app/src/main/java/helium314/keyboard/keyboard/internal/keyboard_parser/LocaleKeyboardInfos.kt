@@ -86,7 +86,6 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
-    // todo: they should be optional, or will unexpectedly appear on custom layouts
     fun getTabletExtraKeys(elementId: Int): Pair<List<KeyData>, List<KeyData>> {
         val flags = Key.LABEL_FLAGS_FONT_DEFAULT
         return when (elementId) {

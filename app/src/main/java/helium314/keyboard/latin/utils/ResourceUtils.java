@@ -6,11 +6,20 @@
 
 package helium314.keyboard.latin.utils;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Insets;
+import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.DisplayCutout;
+import android.view.WindowInsets;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 import androidx.core.util.TypedValueCompat;
 
@@ -26,17 +35,28 @@ public final class ResourceUtils {
         // This utility class is not publicly instantiable.
     }
 
-    public static int getKeyboardWidth(final Resources res, final SettingsValues settingsValues) {
-        final int defaultKeyboardWidth = getDefaultKeyboardWidth(res);
+    public static int getKeyboardWidth(final Context ctx, final SettingsValues settingsValues) {
+        final int defaultKeyboardWidth = getDefaultKeyboardWidth(ctx);
         if (settingsValues.mOneHandedModeEnabled) {
             return (int) (settingsValues.mOneHandedModeScale * defaultKeyboardWidth);
         }
         return defaultKeyboardWidth;
     }
 
-    public static int getDefaultKeyboardWidth(final Resources res) {
-        final DisplayMetrics dm = res.getDisplayMetrics();
-        return dm.widthPixels;
+    public static int getDefaultKeyboardWidth(final Context ctx) {
+        if (Build.VERSION.SDK_INT < 35) {
+            final DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
+            return dm.widthPixels;
+        }
+        // Since Android 15, insets aren't subtracted from DisplayMetrics.widthPixels, despite
+        // targetSdk remaining set to 30.
+        WindowManager wm = ctx.getSystemService(WindowManager.class);
+        WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
+        Rect windowBounds = windowMetrics.getBounds();
+        WindowInsets windowInsets = windowMetrics.getWindowInsets();
+        int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
+        Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
+        return windowBounds.width() - insets.left - insets.right;
     }
 
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {

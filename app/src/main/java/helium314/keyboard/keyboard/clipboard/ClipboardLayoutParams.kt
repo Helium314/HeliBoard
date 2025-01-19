@@ -2,6 +2,7 @@
 
 package helium314.keyboard.keyboard.clipboard
 
+import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import android.widget.FrameLayout
@@ -11,7 +12,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 
-class ClipboardLayoutParams(res: Resources) {
+class ClipboardLayoutParams(ctx: Context) {
 
     private val keyVerticalGap: Int
     private val keyHorizontalGap: Int
@@ -19,9 +20,10 @@ class ClipboardLayoutParams(res: Resources) {
     val bottomRowKeyboardHeight: Int
 
     init {
+        val res = ctx.resources
         val sv = Settings.getInstance().current
         val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
-        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(res, sv)
+        val defaultKeyboardWidth = ResourceUtils.getKeyboardWidth(ctx, sv)
 
         if (sv.mNarrowKeyGaps) {
             keyVerticalGap = res.getFraction(R.fraction.config_key_vertical_gap_holo_narrow,

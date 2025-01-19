@@ -43,7 +43,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyle), View.OnClickListener,
         ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
 
-    private val clipboardLayoutParams = ClipboardLayoutParams(context.resources)
+    private val clipboardLayoutParams = ClipboardLayoutParams(context)
     private val pinIconId: Int
     private val keyBackgroundId: Int
     private var initialized = false
@@ -78,7 +78,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = ResourceUtils.getKeyboardWidth(res, Settings.getInstance().current) + paddingLeft + paddingRight
+        val width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current) + paddingLeft + paddingRight
         val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
         setMeasuredDimension(width, height)
     }
@@ -156,6 +156,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
+        Settings.getInstance().getCustomTypeface()?.let { params.mTypeface = it }
         setupClipKey(params)
         setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
@@ -166,7 +167,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
-            layoutParams.width = ResourceUtils.getKeyboardWidth(context.resources, Settings.getInstance().current)
+            layoutParams.width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current)
         }
     }
 

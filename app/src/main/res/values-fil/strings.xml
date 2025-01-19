@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="ime_settings">Mga Setting ng HeliBoard</string>
     <string name="use_contacts_for_spellchecking_option_summary">Gagamitin ng spell checker ang mga entry mula sa iyong listahan ng contact</string>
     <string name="vibrate_on_keypress">Mag-vibrate sa keypress</string>
@@ -59,4 +59,38 @@
     <string name="use_double_space_period_summary">Naglalagay ng tuldok na may puwang ang pag-double tap sa spacebar</string>
     <string name="prefs_block_potentially_offensive_summary">Huwag magmungkahi ng mga maaring nakakapanakit na salita</string>
     <string name="auto_correction_threshold_mode_very_aggressive">Napaka-agresibo</string>
+    <string name="action_none">Bat ere ez</string>
+    <string name="var_toolbar_direction_summary">Alderantzikatu norabidea eskuinetik ezkerrera teklatuaren azpimota hautatzen denean</string>
+    <string name="space_swipe_move_cursor_entry">Mugitu kurtsorea</string>
+    <string name="var_toolbar_direction">Tresna-barraren norabide aldakorra</string>
+    <string name="space_swipe_toggle_numpad_entry">Aldatu zenbaki-teklatura</string>
+    <string name="show_vertical_space_swipe">Zuriune-barrako bertikalki mugitzeko keinua</string>
+    <string name="show_horizontal_space_swipe">Zuriune-barrako horizontalki mugitzeko keinua</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Aldatu esku bakarreko modura</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Ahotsaren sarrera desgaituta dago</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Erakutsi / ezkutatu tresna-barra</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero zabalerako juntagailua</string>
+    <string name="customize_toolbar_key_codes">Pertsonalizatu tresna-barrako tekla-kodeak</string>
+    <string name="gesture_space_aware_summary">Maglagay ng mga space sa pag-gesture sa pamamagitan ng pag-glide sa space key</string>
+    <string name="gesture_fast_typing_cooldown">Cooldown ng mabilis na pag-type</string>
+    <string name="delete_swipe">Delete na pag-swipe</string>
+    <string name="gesture_floating_preview_dynamic_summary">Ilipat ang preview habang may gesture</string>
+    <string name="gesture_fast_typing_cooldown_instant">Palaging simulan agad</string>
+    <string name="gesture_trail_fadeout_duration">Tagal ng gesture trail</string>
+    <string name="enable_clipboard_history_summary">Kapag naka-disable, magpa-paste lamang ang clipboard key ng nilalaman ng clipboard kung mayroon man</string>
+    <string name="clipboard_history_retention_time">Oras ng pagpapanatili ng history</string>
+    <string name="gesture_floating_preview_text">Dinamika na floating preview</string>
+    <string name="gesture_input">I-enable ang gesture typing</string>
+    <string name="center_suggestion_text_to_enter_summary">Sa pag-pindot ng space o punctuation, ilalagay ang mungkahi sa gitna</string>
+    <string name="gesture_input_summary">Maglagay ng salita sa pamamagitan ng pag-slide sa mga letra</string>
+    <string name="center_suggestion_text_to_enter">Palaging gamitin ang mungkahi sa gitna</string>
+    <string name="gesture_preview_trail">Ipakita ang trail ng gesture</string>
+    <string name="enable_clipboard_history">I-enable ang clipboard history</string>
+    <string name="suggest_clipboard_content">Imungkahi ang nilalaman ng clipboard</string>
+    <string name="suggest_clipboard_content_summary">Pinapakita ang kamakailang kinopya na nilalaman ng clipboard bilang mungkahi</string>
+    <string name="gesture_space_aware">Phrase na gesture</string>
+    <string name="bigram_prediction">Mga mungkahi sa susunod na salita</string>
+    <string name="bigram_prediction_summary">Gamitin ang nakaraang salita sa paggagawa ng mga mungkahi</string>
+    <string name="gesture_floating_preview_static">Floating na preview</string>
+    <string name="gesture_floating_preview_static_summary">Ipakita ang inimumungkahing salita habang nag-ge-gesture</string>
 </resources>

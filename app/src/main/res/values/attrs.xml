@@ -251,39 +251,39 @@
         <attr name="keyLabelFlags" format="integer">
             <!-- This should be aligned with
                  {@link helium314.keyboard.keyboard.Key#LABEL_FLAGS_FONT_NORMAL} etc. -->
-            <flag name="alignHintLabelToBottom" value="0x02" />
-            <flag name="alignIconToBottom" value="0x04" />
-            <flag name="alignLabelOffCenter" value="0x08" />
-            <flag name="fontNormal" value="0x10" />
-            <flag name="fontMonoSpace" value="0x20" />
-            <flag name="fontDefault" value="0x30" />
-            <flag name="followKeyLargeLetterRatio" value="0x40" />
-            <flag name="followKeyLetterRatio" value="0x80" />
-            <flag name="followKeyLabelRatio" value="0xC0" />
-            <flag name="followKeyHintLabelRatio" value="0x140" />
-            <flag name="hasPopupHint" value="0x200" />
-            <flag name="hasShiftedLetterHint" value="0x400" />
-            <flag name="hasHintLabel" value="0x800" />
-            <flag name="autoXScale" value="0x4000" />
+            <flag name="alignHintLabelToBottom" value="0x02" /><!-- 2 -->
+            <flag name="alignIconToBottom" value="0x04" /><!-- 4 -->
+            <flag name="alignLabelOffCenter" value="0x08" /><!-- 8 -->
+            <flag name="fontNormal" value="0x10" /><!-- 16 -->
+            <flag name="fontMonoSpace" value="0x20" /><!-- 32 -->
+            <flag name="fontDefault" value="0x30" /><!-- 48 -->
+            <flag name="followKeyLargeLetterRatio" value="0x40" /><!-- 64 -->
+            <flag name="followKeyLetterRatio" value="0x80" /><!-- 128 -->
+            <flag name="followKeyLabelRatio" value="0xC0" /><!-- 192 -->
+            <flag name="followKeyHintLabelRatio" value="0x140" /><!-- 320 -->
+            <flag name="hasPopupHint" value="0x200" /><!-- 512 -->
+            <flag name="hasShiftedLetterHint" value="0x400" /><!-- 1024 -->
+            <flag name="hasHintLabel" value="0x800" /><!-- 2048 -->
+            <flag name="autoXScale" value="0x4000" /><!-- 16384 -->
             <!-- The autoScale value implies autoXScale bit on to optimize scaling code path. -->
-            <flag name="autoScale" value="0xc000" />
+            <flag name="autoScale" value="0xc000" /><!-- 49152 -->
             <!-- If true, character case of code, altCode, popupKeys, keyOutputText, keyLabel,
                  or keyHintLabel will never be subject to change. -->
-            <flag name="preserveCase" value="0x10000" />
+            <flag name="preserveCase" value="0x10000" /><!-- 65536 -->
             <!-- If true, use keyShiftedLetterHintActivatedColor for the shifted letter hint and
                  keyTextInactivatedColor for the primary key top label. -->
-            <flag name="shiftedLetterActivated" value="0x20000" />
+            <flag name="shiftedLetterActivated" value="0x20000" /><!-- 131072 -->
             <!-- If true, use EditorInfo.actionLabel for the key label. -->
-            <flag name="fromCustomActionLabel" value="0x40000" />
+            <flag name="fromCustomActionLabel" value="0x40000" /><!-- 262144 -->
             <!-- If true, use functionalTextColor instead of ketTextColor to drawing the label on
                  the key -->
-            <flag name="followFunctionalTextColor" value="0x80000" />
+            <flag name="followFunctionalTextColor" value="0x80000" /><!-- 524288 -->
             <!-- Keep aspect ratio of key background. -->
-            <flag name="keepBackgroundAspectRatio" value="0x100000" />
+            <flag name="keepBackgroundAspectRatio" value="0x100000" /><!-- 1048576 -->
             <!-- If true, disable keyHintLabel. -->
-            <flag name="disableKeyHintLabel" value="0x40000000" />
+            <flag name="disableKeyHintLabel" value="0x40000000" /><!-- 1073741824 -->
             <!-- If true, disable additionalPopupKeys. todo: is this still working? -->
-            <flag name="disableAdditionalPopupKeys" value="0x80000000" />
+            <flag name="disableAdditionalPopupKeys" value="0x80000000" /><!-- 2147483648 -->
         </attr>
         <!-- The icon for disabled key -->
         <attr name="keyIconDisabled" format="string" />

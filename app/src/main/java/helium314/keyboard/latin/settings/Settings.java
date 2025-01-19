@@ -14,6 +14,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -49,6 +50,7 @@ import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -88,11 +90,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
+    public static final String PREF_VIBRATE_IN_DND_MODE = "vibrate_in_dnd_mode";
     public static final String PREF_SOUND_ON = "sound_on";
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
     public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
+    public static final String PREF_AUTOCORRECT_SHORTCUTS = "autocorrect_shortcuts";
     public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";
@@ -173,6 +177,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
 
     // Emoji
+    public static final String PREF_EMOJI_MAX_SDK = "emoji_max_sdk";
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_ID = "last_shown_emoji_category_id";
     public static final String PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = "last_shown_emoji_category_page_id";
@@ -191,8 +196,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final ReentrantLock mSettingsValuesLock = new ReentrantLock();
 
     // static cache for background images to avoid potentially slow reload on every settings reload
-    private static Drawable sCachedBackgroundDay;
-    private static Drawable sCachedBackgroundNight;
+    private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
+    private static Typeface sCachedTypeface;
+    private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
     private Map<String, Integer> mCustomToolbarKeyCodes = null;
     private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
@@ -559,25 +565,24 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
-        if (night && sCachedBackgroundNight != null) return sCachedBackgroundNight;
-        if (!night && sCachedBackgroundDay != null) return sCachedBackgroundDay;
-        final File image = getCustomBackgroundFile(context, night);
+        final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = (night ? 1 : 0) + (landscape ? 2 : 0);
+        if (sCachedBackgroundImages[index] != null) return sCachedBackgroundImages[index];
+
+        File image = getCustomBackgroundFile(context, night, landscape);
+        if (!image.isFile() && landscape)
+            image = getCustomBackgroundFile(context, night, false); // fall back to portrait image for historic reasons
         if (!image.isFile()) return null;
         try {
-            if (night) {
-                sCachedBackgroundNight = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
-                return sCachedBackgroundNight;
-            } else {
-                sCachedBackgroundDay = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
-                return sCachedBackgroundDay;
-            }
+            sCachedBackgroundImages[index] = new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(image.getAbsolutePath()));
+            return sCachedBackgroundImages[index];
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static File getCustomBackgroundFile(final Context context, final boolean night) {
-        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (night ? "_night" : ""));
+    public static File getCustomBackgroundFile(final Context context, final boolean night, final boolean landscape) {
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (landscape ? "_landscape" : "") + (night ? "_night" : ""));
     }
 
     public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {
@@ -585,8 +590,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static void clearCachedBackgroundImages() {
-        sCachedBackgroundDay = null;
-        sCachedBackgroundNight = null;
+        Arrays.fill(sCachedBackgroundImages, null);
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
@@ -727,5 +731,25 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         if (mCustomToolbarLongpressCodes == null)
             mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
         return mCustomToolbarLongpressCodes.get(key.name());
+    }
+
+    public static File getCustomFontFile(final Context context) {
+        return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
+    }
+
+    @Nullable
+    public Typeface getCustomTypeface() {
+        if (!sCustomTypefaceLoaded) {
+            try {
+                sCachedTypeface = Typeface.createFromFile(getCustomFontFile(mContext));
+            } catch (Exception e) { }
+        }
+        sCustomTypefaceLoaded = true;
+        return sCachedTypeface;
+    }
+
+    public static void clearCachedTypeface() {
+        sCachedTypeface = null;
+        sCustomTypefaceLoaded = false;
     }
 }

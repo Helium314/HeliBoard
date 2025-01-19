@@ -78,14 +78,14 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para o teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Benvinda a <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
+    <string name="setup_welcome_title">Ben vida a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura por xestos"</string>
     <string name="setup_start_action">"Comezar"</string>
     <string name="setup_next_action">"Seguinte paso"</string>
     <string name="setup_steps_title">"Configurando <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Activar <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Comproba a aplicación <xliff:g id="APPLICATION_NAME">%s</xliff:g> na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo."</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> xa está activada en Idiomas e Axustes de escritura, así que isto xa está. Imos ao seguinte paso!</string>
+    <string name="setup_step1_instruction">Comproba a aplicación<xliff:g id="APPLICATION_NAME">%s</xliff:g> na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo.\"</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> xa está activada en Idiomas e Axustes de escritura, así que isto xa está. Imos ao seguinte paso!\"</string>
     <string name="setup_step1_action">"Activar en Configuración"</string>
     <string name="setup_step2_title">"Cambiar a <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"A continuación, selecciona \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" como o método de introdución de texto activo."</string>
@@ -387,7 +387,7 @@
     <string name="space_swipe_toggle_numpad_entry">Ver Teclado Numérico</string>
     <string name="show_popup_keys_main">Engadir variantes moi comúns (por defecto)</string>
     <string name="remove_redundant_popups">Retirar emerxentes redundantes</string>
-    <string name="remove_redundant_popups_summary">Retira as letras emerxentes que están presentes na disposición base</string>
+    <string name="remove_redundant_popups_summary">Retira as letras emerxentes que xa están presentes na disposición base</string>
     <string name="after_symbol_and_space">Premer no enter o espazo despois doutras teclas na vista de símbolos</string>
     <string name="after_emoji">Seleccionar emoji na vista de emojis</string>
     <string name="after_clip">Seleccionar entrada no historial do portapapeis</string>
@@ -400,4 +400,23 @@
     <string name="prefs_space_bar_text">Texto persoal na barra de espazo</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Liña inferior de emoji</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Liña inferior de portapapeis</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiús</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maisculas (activado)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Bloqueo de maiús</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espazo (disposición de núm)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Saír do modo unha-man</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Axustar tamaño modo unha-man</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambiar de lado o modo unha-man</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Desactivada a entrada por voz</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / Ocultar barra ferramentas</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Unión ancho cero</string>
+    <string name="customize_toolbar_key_codes">Personalizar códigos de tecla da barra de ferramentas</string>
+    <string name="key_code">Código da tecla</string>
+    <string name="long_press_code">Código pulsación longa</string>
+    <string name="customize_icons">Personalizar iconas</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papeleira</string>
+    <string name="customize_icons_reset_message">Restablecer todas as iconas personalizadas?</string>
 </resources>

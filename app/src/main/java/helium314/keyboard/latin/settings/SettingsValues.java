@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -60,6 +61,7 @@ public class SettingsValues {
     // From preferences
     public final boolean mAutoCap;
     public final boolean mVibrateOn;
+    public final boolean mVibrateInDndMode;
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
@@ -130,6 +132,7 @@ public class SettingsValues {
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
+    public final boolean mAutoCorrectShortcuts;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
     public final boolean mSuggestClipboardContent;
@@ -137,6 +140,7 @@ public class SettingsValues {
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
     public final boolean mHasCustomFunctionalLayout;
+    public final int mEmojiMaxSdk;
 
     // User-defined colors
     public final Colors mColors;
@@ -155,6 +159,7 @@ public class SettingsValues {
         // Get the settings preferences
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs, res);
+        mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, false);
         mSoundOn = Settings.readKeypressSoundEnabled(prefs, res);
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
@@ -186,6 +191,7 @@ public class SettingsValues {
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
+        mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, true);
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
@@ -249,7 +255,7 @@ public class SettingsValues {
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
-        mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
+        mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, true);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
                 mBlockPotentiallyOffensive,
@@ -264,8 +270,9 @@ public class SettingsValues {
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
-        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, true);
+        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, false);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
+        mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

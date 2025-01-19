@@ -72,6 +72,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
             mPaint.setAntiAlias(true);
             mPaint.setTextAlign(Align.CENTER);
             mPaint.setTextSize(mGesturePreviewTextSize);
+            mPaint.setTypeface(Settings.getInstance().getCustomTypeface());
             mPaint.setColor(mGesturePreviewTextColor);
             return mPaint;
         }

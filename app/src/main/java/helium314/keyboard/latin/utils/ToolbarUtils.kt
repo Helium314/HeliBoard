@@ -199,11 +199,21 @@ fun toolbarKeysCustomizer(context: Context) {
         orientation = LinearLayout.VERTICAL
         setPadding(3 * padding, padding, padding, padding)
     }
-    val dialog = AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(R.string.customize_toolbar_key_codes)
         .setView(ScrollView(context).apply { addView(ll) })
         .setPositiveButton(R.string.dialog_close, null)
-        .create()
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
+        builder.setNeutralButton(R.string.button_default) { _, _ ->
+            confirmDialog(context, context.getString(R.string.customize_toolbar_key_code_reset_message), context.getString(android.R.string.ok)) {
+                prefs.edit {
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES)
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)
+                }
+            }
+        }
+    val dialog = builder.create()
     val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
     ToolbarKey.entries.forEach { key ->
         val binding = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
@@ -262,14 +272,14 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     layout.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
         setText(getCodeForToolbarKey(key).toString())
         doAfterTextChanged {
-            keyCode = it?.toString()
+            keyCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
     layout.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
         setText(getCodeForToolbarKeyLongClick(key).toString())
         doAfterTextChanged {
-            longpressCode = it?.toString()
+            longpressCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
@@ -278,13 +288,13 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
 }
 
 fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
-        .split(";").associate {
+        .split(";").filter { it.isNotEmpty()}.associate {
             val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
             it.substringBefore(",") to code
         }
 
 fun readCustomLongpressCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!
-    .split(";").associate {
+    .split(";").filter { it.isNotEmpty()}.associate {
         val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
         it.substringBefore(",") to code
     }

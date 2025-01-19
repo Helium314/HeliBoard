@@ -196,11 +196,13 @@
     <string name="add_new_dictionary_ask_locale">%2$s এর \"%1$s\" অভিধান কোন ভাষার জন্য সংযুক্ত হবে?</string>
     <string name="button_select_language">ভাষা নির্বাচন</string>
     <string name="button_add_to_language">%s এ সংযুক্তি</string>
-    <string name="replace_dictionary_message">ব্যবহারকারী-যোগকৃত অভিধান \"%1$s\" প্রতিস্থাপন করতে নিশ্চিত?\n
-বর্তমান অভিধান:
-%2$s\n
-নতুন অভিধান:
-%3$s"</string>
+    <string name="replace_dictionary_message">ব্যবহারকারী-যোগকৃত অভিধান \"%1$s\" প্রতিস্থাপন করতে নিশ্চিত?
+\n
+\nবর্তমান অভিধান:
+\n%2$s
+\n
+\nনতুন অভিধান:
+\n%3$s</string>
     <string name="replace_dictionary">"অভিধান প্রতিস্থাপন"</string>
     <string name="remove_dictionary_message">ব্যবহারকারী-সংযুক্ত অভিধান \"%s\" অপসারণ করতে নিশ্চিত?</string>
     <string name="no_dictionary_message">"অভিধান ব্যতীত কেবল পূর্বে সন্নিবেশিত শব্দের জন্য পরামর্শ পাওয়া যাবে।&lt;br&gt;
@@ -423,7 +425,7 @@
     <string name="switch_keyboard_after">মূল কিবোর্ডে পরিবর্তনের পূর্বক্রিয়া…</string>
     <string name="show_popup_keys_main">খুব সাধারণ বিকল্প সংযুক্তি (ডিফল্ট)</string>
     <string name="remove_redundant_popups">অপ্রয়োজনীয় পপআপ বিলোপ</string>
-    <string name="remove_redundant_popups_summary">ভিত্তি লেআউটে উপস্থিত পপআপ বোতাম অবনমন</string>
+    <string name="remove_redundant_popups_summary">ভিত্তি লেআউটে ইতোমধ্যে উপস্থিত পপআপ বোতাম অবনমন</string>
     <string name="gesture_floating_preview_static_summary">অঙ্গুলিহেলনের সময় পরামর্শকৃত শব্দ প্রদর্শন</string>
     <string name="gesture_trail_fadeout_duration">অঙ্গুলিহেলনের শেষাংশের স্থিতিকাল</string>
     <string name="gesture_floating_preview_static">ভাসমান প্রাগ্‌দর্শন</string>
@@ -433,4 +435,24 @@
     <string name="prefs_space_bar_text">স্পেসবারে নিজস্বীকৃত লেখা</string>
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">ইমোজি নিচের সারি</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">ক্লিপবোর্ড নিচের সারি</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">ট্যাব</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">শিফট</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">শিফট (শিফটেড)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">ক্যাপস্‌ লক</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">এক-হস্ত মোড সমাপ্ত</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">এক-হস্ত মোডের আকার পরিবর্তন</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">এক-হস্ত মোডে পরিবর্তন</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">ভয়েস ইনপুট নিষ্ক্রিয়</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">শূন্য-প্রস্থের সংযুক্তকারী</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">শূন্য-প্রস্থের অ-সংযুক্তকারী</string>
+    <string name="key_code">বোতামের কোড</string>
+    <string name="long_press_code">দীর্ঘ চাপের কোড</string>
+    <string name="customize_icons">আইকন নিজস্বীকরণ</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">এন্টার</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">বিলোপ</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">টুলবার প্রদর্শন/আড়াল</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">স্পেস (নম্বর লেআউট)</string>
+    <string name="customize_toolbar_key_codes">টুলবার বোতামের কোড নিজস্বীকরণ</string>
+    <string name="label_bin" tools:keep="@string/label_bin">বিলোপাধার</string>
+    <string name="customize_icons_reset_message">নিজস্বীকৃত আইকন পুনঃসংস্থাপন করতে নিশ্চিত?</string>
 </resources>

@@ -78,12 +78,12 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La tecla Alt física muestra la lista de emojis"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Bienvenido a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bienvenido a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Empezar"</string>
     <string name="setup_next_action">"Siguiente paso"</string>
-    <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Activar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Configurando<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Activar<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Por favor, compruebe \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ya está habilitado en sus idiomas &amp; configuración de entrada, por lo que este paso está hecho. ¡En el siguiente!</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
@@ -288,7 +288,7 @@
     <string name="toast_msg_clipboard_copy">Contenido copiado</string>
     <string name="auto_show_toolbar">Mostrar barra de herramientas automaticamente</string>
     <string name="language_switch_key_behavior">Comportamiento de la tecla para cambiar idioma</string>
-    <string name="show_popup_keys_normal">Mostrar variantes definidas en los idiomas de entrada (default)</string>
+    <string name="show_popup_keys_normal">Mostrar variantes definidas en los idiomas de entrada</string>
     <string name="toolbar_keys">Seleccionar teclas de la barra de herramientas</string>
     <string name="split_spacer_scale">Distancia de la división</string>
     <string name="language_switch_key_switch_both">Cambiar ambos</string>
@@ -356,7 +356,7 @@
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido por el usuario (noche)</string>
-    <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. No hay color por defecto y los nombres no serán traducidos.</string>
+    <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. El color por defecto es aleatorio y los nombres no serán traducidos.</string>
     <string name="hint_show_keyboard">Toca para previsualizar</string>
     <string name="select_user_colors_summary">Seleccionar colores para el texto y fondos</string>
     <string name="select_color_key_hint">Texto del indicio de tecla</string>
@@ -366,4 +366,57 @@
     <string name="more_colors">Mostrar más colores</string>
     <string name="no_dictionary_message">"Sin un diccionario, solo obtendrás sugerencias para texto que hayas ingresado anteriormente.&lt;br&gt;
 \n        Puedes descargar diccionarios %1$s, o comprobar si un diccionario para \"%2$s\" puede descargarse directamente %3$s."</string>
+    <string name="gesture_floating_preview_static">Vista previa flotante</string>
+    <string name="gesture_floating_preview_static_summary">Sugerencia de palabra al gesticular</string>
+    <string name="gesture_trail_fadeout_duration">Duración del trazo de gesto</string>
+    <string name="suggest_clipboard_content">Sugerir contenido del portapapeles</string>
+    <string name="suggest_clipboard_content_summary">Sugerir contenido más reciente del portapapeles</string>
+    <string name="icon_style">Estilo de iconos</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mover vista previa flotante durante gesto</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Fila numérica</string>
+    <string name="gesture_fast_typing_cooldown">Tiempo de espera de la escritura rápida</string>
+    <string name="gesture_fast_typing_cooldown_instant">Siempre iniciar instantáneamente</string>
+    <string name="prefs_space_bar_text">Texto personalizado en la barra de espacio</string>
+    <string name="customize_currencies">Personalizar divisas</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de Emoji</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del portapapeles</string>
+    <string name="button_save_file">Guardar en un archivo</string>
+    <string name="copy_to_clipboard">Copiar al portapapeles</string>
+    <string name="load">Cargar</string>
+    <string name="page_start" tools:keep="@string/page_start">Inicio de página</string>
+    <string name="page_end" tools:keep="@string/page_end">Final de página</string>
+    <string name="word_left" tools:keep="@string/word_left">Palabra izquierda</string>
+    <string name="word_right" tools:keep="@string/word_right">Palabra derecha</string>
+    <string name="page_down" tools:keep="@string/page_down">Página abajo</string>
+    <string name="page_up" tools:keep="@string/page_up">Página arriba</string>
+    <string name="customize_currencies_detail">Establecer símbolos de moneda principales y hasta 6 secundarios, separados con espacio</string>
+    <string name="switch_keyboard_after">Cambiar al teclado principal después de…</string>
+    <string name="after_emoji">Seleccionar emoji en las vista de emojis</string>
+    <string name="after_clip">Seleccionar entrada del historial del portapapeles</string>
+    <string name="after_symbol_and_space">Al presionar Intro o espacio después de otras teclas en la vista de símbolos</string>
+    <string name="space_swipe_toggle_numpad_entry">Alternar teclado numérico</string>
+    <string name="remove_redundant_popups_summary">Eliminar las teclas emergentes que están presentes en el diseño base</string>
+    <string name="remove_redundant_popups">Remover emergentes redundantes</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (mantenido)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espacio (diseño numérico)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Salir del modo de una mano</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Redimensionar modo de una mano</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Alternar la dirección del modo de una mano</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrada de voz desactivada</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / ocultar la barra de herramientas</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Unión con cero-ancho</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Sin unión de ancho cero</string>
+    <string name="customize_toolbar_key_codes">Personalizar las teclas de códigos de la barra de herramientas</string>
+    <string name="key_code">Código clave</string>
+    <string name="long_press_code">Código de presión prolongada</string>
+    <string name="customize_icons">Personalizar iconos</string>
+    <string name="show_popup_keys_main">Añadir variantes muy comunes (defecto)</string>
+    <string name="load_will_overwrite">Cargar sobreescribirá el tema actual</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papelera</string>
+    <string name="customize_icons_reset_message">¿Realmente restablecer todos los íconos personalizados?</string>
 </resources>

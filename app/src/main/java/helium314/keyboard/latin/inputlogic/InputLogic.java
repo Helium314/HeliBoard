@@ -346,9 +346,9 @@ public final class InputLogic {
      * @param settingsValues the current values of the settings.
      * @return whether the cursor has moved as a result of user interaction.
      */
-    public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd,
-            final int newSelStart, final int newSelEnd, final SettingsValues settingsValues) {
-        if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd)) {
+    public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd, final int newSelStart,
+             final int newSelEnd, final int composingSpanStart, final int composingSpanEnd, final SettingsValues settingsValues) {
+        if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
             return false;
         }
         // TODO: the following is probably better done in resetEntireInputState().
@@ -535,6 +535,11 @@ public final class InputLogic {
             } else {
                 commitTyped(settingsValues, LastComposedWord.NOT_A_SEPARATOR);
             }
+        } else if (mConnection.hasSelection()) {
+            final CharSequence selectedText = mConnection.getSelectedText(0);
+            if (selectedText != null)
+                // set selected text as rejected to avoid glide typing resulting in exactly the selected word again
+                mWordComposer.setRejectedBatchModeSuggestion(selectedText.toString());
         }
         final int codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         if (Character.isLetterOrDigit(codePointBeforeCursor)
@@ -674,6 +679,8 @@ public final class InputLogic {
                 inputTransaction.setDidAffectContents();
                 break;
             case KeyCode.SHIFT:
+                if (KeyboardSwitcher.getInstance().getKeyboard() != null && !KeyboardSwitcher.getInstance().getKeyboard().mId.isAlphabetKeyboard())
+                    break; // recapitalization and follow-up code should only trigger for alphabet shift, see #1256
                 performRecapitalization(inputTransaction.getMSettingsValues());
                 inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
                 if (mSuggestedWords.isPrediction()) {

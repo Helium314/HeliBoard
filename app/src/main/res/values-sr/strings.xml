@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Следећи корак"</string>
     <string name="setup_steps_title">Подешавање апликације <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Омогућите апликацију <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">"Потврдите апликацију „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ у Подешавањима језика и уноса. Тако јој одобравате покретање на уређају."</string>
+    <string name="setup_step1_instruction">Потврдите апликацију <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ у Подешавањима језика и уноса. Тако јој одобравате покретање на уређају.\"</string>
     <string name="setup_step1_finished_instruction">"Апликација <xliff:g id="APPLICATION_NAME">%s</xliff:g> је већ омогућена у Подешавањима језика и уноса, па је овај корак готов. Пређимо на следећи!"</string>
     <string name="setup_step1_action">"Омогући у Подешавањима"</string>
     <string name="setup_step2_title">"Пребаците на <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Затим изаберите „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ као активни метод уноса текста."</string>
+    <string name="setup_step2_instruction">Затим изаберите <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ као активни метод уноса текста.\"</string>
     <string name="setup_step2_action">"Пребаци методе уноса"</string>
     <string name="setup_step3_title">"Честитамо, све је спремно!"</string>
     <string name="setup_step3_instruction">"Сада можете да куцате у свим омиљеним апликацијама помоћу <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>

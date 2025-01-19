@@ -1,0 +1,2 @@
+* lisasime visuaalsed valikud žestidega sisestuseks; @devycarol (#944)
+* uuendasime mõned ikoonid; @BlackyHawky (#977)

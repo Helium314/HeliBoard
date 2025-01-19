@@ -798,7 +798,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int width = key.getWidth();
         final int height = key.getHeight();
         paint.setTextAlign(Align.CENTER);
-        paint.setTypeface(Typeface.DEFAULT);
+        paint.setTypeface(mTypeface == null ? Typeface.DEFAULT : mTypeface);
         paint.setTextSize(mLanguageOnSpacebarTextSize);
         final String customText = Settings.getInstance().getCurrent().mSpaceBarText;
         final String spaceText;

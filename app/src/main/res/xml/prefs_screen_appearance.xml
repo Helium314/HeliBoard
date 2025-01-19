@@ -64,11 +64,17 @@
 
         <SwitchPreference
             android:key="navbar_color"
-            android:title="@string/theme_navbar"/>
+            android:title="@string/theme_navbar"
+            android:defaultValue="@bool/day_night_default" />
 
         <Preference
             android:key="custom_background_image"
             android:title="@string/customize_background_image" />
+
+        <Preference
+            android:key="custom_background_image_landscape"
+            android:title="@string/customize_background_image_landscape"
+            android:summary="@string/summary_customize_background_image_landscape"/>
 
     </PreferenceCategory>
 
@@ -108,6 +114,12 @@
         <EditTextPreference
             android:key="space_bar_text"
             android:title="@string/prefs_space_bar_text"
+            android:defaultValue=""
+            android:persistent="true" />
+
+        <Preference
+            android:key="custom_font"
+            android:title="@string/custom_font"
             android:defaultValue=""
             android:persistent="true" />
 

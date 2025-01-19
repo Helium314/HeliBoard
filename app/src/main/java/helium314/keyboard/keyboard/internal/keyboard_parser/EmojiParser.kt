@@ -2,7 +2,6 @@
 package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import android.os.Build
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
@@ -14,7 +13,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import kotlin.math.sqrt
 
-class EmojiParser(private val params: KeyboardParams, private val context: Context) {
+class EmojiParser(private val params: KeyboardParams, private val context: Context, private val maxSdk: Int) {
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
         val emojiArrayId = when (params.mId.mElementId) {
@@ -43,7 +42,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
 
         // determine key width for default settings (no number row, no one-handed mode, 100% height and bottom padding scale)
         // this is a bit long, but ensures that emoji size stays the same, independent of these settings
-        val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context.resources) - params.mLeftPadding - params.mRightPadding) * params.mDefaultKeyWidth
+        val defaultKeyWidth = (ResourceUtils.getDefaultKeyboardWidth(context) - params.mLeftPadding - params.mRightPadding) * params.mDefaultKeyWidth
         val keyWidth = defaultKeyWidth * sqrt(Settings.getInstance().current.mKeyboardHeightScale)
         val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
         val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
@@ -64,7 +63,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
 
     private fun getLabelAndCode(spec: String): Pair<String, Int>? {
         val specAndSdk = spec.split("||")
-        if (specAndSdk.getOrNull(1)?.toIntOrNull()?.let { it > Build.VERSION.SDK_INT } == true) return null
+        if (specAndSdk.getOrNull(1)?.toIntOrNull()?.let { it > maxSdk } == true) return null
         if ("," !in specAndSdk.first()) {
             val code = specAndSdk.first().toIntOrNull(16) ?: return specAndSdk.first() to KeyCode.MULTIPLE_CODE_POINTS // text emojis
             val label = StringUtils.newSingleCodePointString(code)

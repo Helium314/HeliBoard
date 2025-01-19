@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -36,11 +37,14 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.customIconNames
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.confirmDialog
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.io.File
 import java.lang.Float.max
 import java.lang.Float.min
 import java.util.*
@@ -64,13 +68,31 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, false)
+        loadImage(uri, false, false)
     }
 
     private val nightImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val uri = it.data?.data ?: return@registerForActivityResult
-        loadImage(uri, true)
+        loadImage(uri, true, false)
+    }
+
+    private val dayImageFilePickerLandscape = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, false, true)
+    }
+
+    private val nightImageFilePickerLandscape = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        loadImage(uri, true, true)
+    }
+
+    private val fontFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        val uri = it.data?.data ?: return@registerForActivityResult
+        saveCustomTypeface(uri)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,8 +113,14 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 true
             }
         }
-        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage() }
-        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener { onClickCustomizeIcons() }
+        findPreference<Preference>("custom_background_image")?.setOnPreferenceClickListener { onClickLoadImage(false) }
+        findPreference<Preference>("custom_background_image_landscape")?.setOnPreferenceClickListener { onClickLoadImage(true) }
+        findPreference<Preference>("custom_font")?.setOnPreferenceClickListener { onClickCustomFont() }
+        findPreference<Preference>(Settings.PREF_CUSTOM_ICON_NAMES)?.setOnPreferenceClickListener {
+            if (needsReload)
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+            onClickCustomizeIcons()
+        }
     }
 
     override fun onPause() {
@@ -207,29 +235,41 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             orientation = LinearLayout.VERTICAL
             setPadding(padding, 3 * padding, padding, padding)
         }
-        val d = AlertDialog.Builder(ctx)
+        val builder = AlertDialog.Builder(ctx)
             .setTitle(R.string.customize_icons)
             .setView(ScrollView(context).apply { addView(ll) })
             .setPositiveButton(R.string.dialog_close, null)
-            .create()
+        if (sharedPreferences.contains(Settings.PREF_CUSTOM_ICON_NAMES))
+            builder.setNeutralButton(R.string.button_default) { _, _ ->
+                confirmDialog(
+                    ctx,
+                    ctx.getString(R.string.customize_icons_reset_message),
+                    ctx.getString(android.R.string.ok),
+                    { sharedPreferences.edit().remove(Settings.PREF_CUSTOM_ICON_NAMES).apply() }
+                )
+            }
+        val dialog = builder.create()
+
         val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(ctx, R.color.foreground), BlendModeCompat.SRC_IN)
-        val icons = KeyboardIconsSet.getAllIcons(ctx)
-        icons.keys.forEach { iconName ->
+        val iconsAndNames = KeyboardIconsSet.getAllIcons(ctx).keys.map { iconName ->
+            val name = iconName.getStringResourceOrName("", ctx)
+            if (name == iconName) iconName to iconName.getStringResourceOrName("label_", ctx).toString()
+            else iconName to name.toString()
+        }
+        iconsAndNames.sortedBy { it.second }.forEach { (iconName, name) ->
             val b = ReorderDialogItemBinding.inflate(LayoutInflater.from(ctx), ll, true)
             b.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(iconName, ctx))
             b.reorderItemIcon.colorFilter = cf
             b.reorderItemIcon.isVisible = true
-            b.reorderItemName.text = iconName.getStringResourceOrName("", ctx)
-            if (b.reorderItemName.text == iconName)
-                b.reorderItemName.text = iconName.getStringResourceOrName("label_", ctx)
+            b.reorderItemName.text = name
             b.root.setOnClickListener {
                 customizeIcon(iconName)
-                d.dismiss()
+                dialog.dismiss()
             }
             b.reorderItemSwitch.isGone = true
             b.reorderItemDragIndicator.isGone = true
         }
-        d.show()
+        dialog.show()
         return true
     }
 
@@ -295,7 +335,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 runCatching {
                     val icons2 = customIconNames(sharedPreferences).toMutableMap()
                     icons2.remove(iconName)
-                    sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
+                    if (icons2.isEmpty()) sharedPreferences.edit().remove(Settings.PREF_CUSTOM_ICON_NAMES).apply()
+                    else sharedPreferences.edit().putString(Settings.PREF_CUSTOM_ICON_NAMES, Json.encodeToString(icons2)).apply()
                     KeyboardIconsSet.instance.loadIcons(ctx)
                 }
                 onClickCustomizeIcons()
@@ -304,30 +345,35 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         builder.show()
     }
 
-    private fun onClickLoadImage(): Boolean {
+    private fun onClickLoadImage(landscape: Boolean): Boolean {
         if (Settings.readDayNightPref(sharedPreferences, resources)) {
             AlertDialog.Builder(requireContext())
-                .setMessage(R.string.day_or_night_image)
-                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false) }
-                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true) }
+                .setTitle(R.string.day_or_night_image)
+                .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false, landscape) }
+                .setNegativeButton(R.string.day_or_night_night) { _, _ -> customImageDialog(true, landscape) }
                 .setNeutralButton(android.R.string.cancel, null)
                 .show()
         } else {
-            customImageDialog(false)
+            customImageDialog(false, landscape)
         }
         return true
     }
 
-    private fun customImageDialog(night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+    private fun customImageDialog(night: Boolean, landscape: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night, landscape)
         val builder = AlertDialog.Builder(requireContext())
-            .setMessage(R.string.customize_background_image)
+            .setMessage(if (landscape) R.string.customize_background_image_landscape else R.string.customize_background_image)
             .setPositiveButton(R.string.button_load_custom) { _, _ ->
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .setType("image/*")
-                if (night) nightImageFilePicker.launch(intent)
-                else dayImageFilePicker.launch(intent)
+                if (landscape) {
+                    if (night) nightImageFilePickerLandscape.launch(intent)
+                    else dayImageFilePickerLandscape.launch(intent)
+                } else {
+                    if (night) nightImageFilePicker.launch(intent)
+                    else dayImageFilePicker.launch(intent)
+                }
             }
             .setNegativeButton(android.R.string.cancel, null)
         if (imageFile.exists()) {
@@ -340,8 +386,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         builder.show()
     }
 
-    private fun loadImage(uri: Uri, night: Boolean) {
-        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night)
+    private fun loadImage(uri: Uri, night: Boolean, landscape: Boolean) {
+        val imageFile = Settings.getCustomBackgroundFile(requireContext(), night, landscape)
         FileUtils.copyContentUriToNewFile(uri, requireContext(), imageFile)
         try {
             BitmapFactory.decodeFile(imageFile.absolutePath)
@@ -351,6 +397,44 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         Settings.clearCachedBackgroundImages()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+    }
+
+    private fun onClickCustomFont(): Boolean {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("*/*")
+        val fontFile = Settings.getCustomFontFile(requireContext())
+        if (fontFile.exists()) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.custom_font)
+                .setPositiveButton(R.string.load) { _, _ -> fontFilePicker.launch(intent) }
+                .setNegativeButton(android.R.string.cancel, null)
+                .setNeutralButton(R.string.delete) { _, _ ->
+                    fontFile.delete()
+                    Settings.clearCachedTypeface()
+                    KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+                }
+                .show()
+        } else {
+            fontFilePicker.launch(intent)
+        }
+        return true
+    }
+
+    private fun saveCustomTypeface(uri: Uri) {
+        val fontFile = Settings.getCustomFontFile(requireContext())
+        val tempFile = File(DeviceProtectedUtils.getFilesDir(context), "temp_file")
+        FileUtils.copyContentUriToNewFile(uri, requireContext(), tempFile)
+        try {
+            val typeface = Typeface.createFromFile(tempFile)
+            fontFile.delete()
+            tempFile.renameTo(fontFile)
+            Settings.clearCachedTypeface()
+            KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
+        } catch (_: Exception) {
+            infoDialog(requireContext(), R.string.file_read_error)
+            tempFile.delete()
+        }
     }
 
     private fun setupScalePrefs(prefKey: String, defaultValue: Float) {

@@ -163,12 +163,12 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     try {
         val bgDay = File(context.filesDir, "custom_background_image")
         if (bgDay.isFile) {
-            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false), true)
+            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false, false), true)
             bgDay.delete()
         }
         val bgNight = File(context.filesDir, "custom_background_image_night")
         if (bgNight.isFile) {
-            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true), true)
+            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true, false), true)
             bgNight.delete()
         }
     } catch (_: Exception) {}

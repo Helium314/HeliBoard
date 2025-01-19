@@ -25,6 +25,7 @@
     cs: Czech/qwertz
     cv: Chuvash/chuvash
     da: Danish/qwerty+
+    dru: Dargwa (Urakhi)/dargwa_urakhi
     de: German/qwertz
     de_DE: German (Germany)/qwertz+
     de_CH: German (Switzerland)/qwertz+
@@ -48,6 +49,7 @@
     gu: Gujarati/gujarati
     hi: Hindi/hindi
     hi: Hindi/hindi_compact
+    hi: Hindi/hindi_phonetic
     hi_ZZ: Hinglish/qwerty  # This is a preliminary keyboard layout.
     hr: Croatian/qwertz
     hu: Hungarian/qwertz
@@ -59,6 +61,7 @@
     it: Italian/qwerty
     it_CH: Italian (Switzerland)/qwertz+
     iw: Hebrew/hebrew        # "he" is the official language code of Hebrew.
+    iw: Hebrew/hebrew_1452_2 # "he" is the official language code of Hebrew.
     ka_GE: Georgian (Georgia)/georgian
     kab: Kabyle (Algeria)/azerty # This is a preliminary keyboard layout.
     kk: Kazakh/russian
@@ -474,6 +477,15 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_compact,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
+     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic_phonetic"
+            android:subtypeId="0xe49c89a2"
+            android:imeSubtypeLocale="hi"
+            android:languageTag="hi"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hindi_phonetic,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
     <!-- This Hinglish keyboard is a preliminary layout.
                This isn't based on the final specification.
                Was disabled because there is no LM yet, and this layout does not offer anything different. -->
@@ -570,6 +582,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_hebrew_1452_2"
+            android:subtypeId="0x66fb18be"
+            android:imeSubtypeLocale="iw"
+            android:languageTag="he"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=hebrew_1452_2,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x2d5e7a1f"
             android:imeSubtypeLocale="kab"
@@ -658,6 +679,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=russian,EmojiCapable"
             android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_dru"
+        android:subtypeId="0x0e7f02d3"
+        android:imeSubtypeLocale="dru"
+        android:languageTag="dru"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=dargwa_urakhi,EmojiCapable"
+        android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_xdq"

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Побарај имиња на контакти"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Проверувачот на правопис користи записи од листата со контакти"</string>
     <string name="vibrate_on_keypress">"Вибрирање при притисок на копче"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Следен чекор"</string>
     <string name="setup_steps_title">"Се поставува <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Овозможи <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Означете ја апликацијата „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ во поставките за Јазици и внесување. Со тоа ќе авторизирате да се активира на уредот."</string>
+    <string name="setup_step1_instruction">Означете ја апликацијата <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ во поставките за Јазици и внесување. Со тоа ќе авторизирате да се активира на уредот.\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> веќе е овозможена во поставките за Jазици и внесување, така што завршивте со овој чекор. Одете на следниот."</string>
     <string name="setup_step1_action">"Овозможи во Поставки"</string>
     <string name="setup_step2_title">"Префрлете се на <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Следно, изберете „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ како активен метод за внесување текст."</string>
+    <string name="setup_step2_instruction">Следно, изберете <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ како активен метод за внесување текст.\"</string>
     <string name="setup_step2_action">"Префрли се помеѓу методи на влез"</string>
     <string name="setup_step3_title">"Честитки, завршивте!"</string>
     <string name="setup_step3_instruction">"Сега може да ги впишете сите омилени апликации со <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
