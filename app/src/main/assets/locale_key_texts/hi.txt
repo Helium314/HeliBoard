@@ -73,3 +73,6 @@ period: ।
 
 [number_row]
 १ २ ३ ४ ५ ६ ७ ८ ९ ०
+
+[tlds]
+in

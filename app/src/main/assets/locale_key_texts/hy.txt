@@ -6,3 +6,6 @@ punctuation !autoColumnOrder!8 \, ՞ ՜ ․ … ' = / ՝ ՛ ֊ » « ― ) (
 [labels]
 alphabet: ԱԲԳ
 period: ։
+
+[tlds]
+am

@@ -7,3 +7,6 @@ u ü û
 s ş
 g ğ
 c ç
+
+[tlds]
+tr gov.tr edu.tr com.tr

@@ -17,3 +17,6 @@ question: ؟
 
 [number_row]
 ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۰
+
+[tlds]
+ir

@@ -43,6 +43,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
+    val tlds = getLocaleTlds(locale) // todo: USE IT
 
     init {
         readStream(dataStream, false, true)
@@ -74,15 +75,23 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                     "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
+                    "[tlds]" -> { mode = READER_MODE_TLD; return@forEachLine }
                 }
                 when (mode) {
                     READER_MODE_POPUP_KEYS -> addPopupKeys(line, priority)
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
+                    READER_MODE_TLD -> line.splitOnWhitespace().forEach { tlds.add(".$it") }
                 }
             }
         }
+    }
+
+    fun addDefaultTlds(locale: Locale) {
+        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+            tlds.add(".eu")
+        tlds.addAll(defaultTlds.splitOnWhitespace())
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
@@ -192,6 +201,7 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context), true)
     }
+    lkt.addDefaultTlds(params.mId.locale)
     when (popupKeysSetting) {
         POPUP_KEYS_MAIN -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"), false)
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
@@ -212,6 +222,20 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
+private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
+    val ccLower = locale.country.lowercase()
+    val tlds = LinkedHashSet<String>()
+    if (ccLower.isEmpty() || ccLower == "zz")
+        return tlds
+    specialCountryTlds.forEach {
+        if (ccLower != it.first) return@forEach
+        tlds.addAll(it.second.splitOnWhitespace())
+        return tlds
+    }
+    tlds.add(".$ccLower")
+    return tlds
+}
+
 fun clearCache() = localeKeyboardInfosCache.clear()
 
 // cache the texts, so they don't need to be read over and over
@@ -222,6 +246,7 @@ private const val READER_MODE_POPUP_KEYS = 1
 private const val READER_MODE_EXTRA_KEYS = 2
 private const val READER_MODE_LABELS = 3
 private const val READER_MODE_NUMBER_ROW = 4
+private const val READER_MODE_TLD = 5
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
@@ -294,3 +319,16 @@ const val POPUP_KEYS_MAIN = 3
 const val POPUP_KEYS_NORMAL = 0
 
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
+
+// either tld is not lowecase ISO 3166-1 code, or there are multiple according to some list
+private val specialCountryTlds = listOf(
+    "bd" to ".bd .com.bd",
+    "bq" to ".bq .an .nl",
+    "bl" to ".bl .gp .fr",
+    "sx" to ".sx .an",
+    "gb" to ".uk .co.uk",
+    "eh" to ".eh .ma",
+    "mf" to ".mf .gp .fr",
+    "tl" to ".tl .tp",
+)
+private const val defaultTlds = ".com .gov .edu .org .net"

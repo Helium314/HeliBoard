@@ -9,7 +9,7 @@ If you have difficulties implementing some functionality, you're welcome to ask 
 # Guidelines
 
 HeliBoard is a complex application, when contributing, you must take a step back and make sure your contribution:
-- **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with "PR" and "contributor needed" labels are accepted, but still it would be good if you announced that you are working on it, so we can discuss how changes are best implemented.
+- **Is actually wanted**. Best check related open issues before you start working on a PR. Issues with [_PR_](https://github.com/Helium314/HeliBoard/labels/PR) and [_contributor needed_](https://github.com/Helium314/HeliBoard/issues?q=label%3A%22contributor%20needed%22) [labels](https://github.com/Helium314/HeliBoard/labels) are accepted, but still it would be good if you announced that you are working on it, so we can discuss how changes are best implemented.
   If there is no accepted issue related to your intended contribution, it's a good idea to open a new one (and of course getting one of "PR" or "contributor needed" labels) to avoid disappointment of the contribution not being accepted. For small changes or fixing obvious bugs this step is not necessary.
 - **Is only about a single thing**. Mixing unrelated or semi-related contributions into a single PR is hard to review and can get messy.
 - **Is finished or a draft**. When you keep changing the PR without reviewer's feedback, any attempt to review it is doomed and a waste of time. Better mark it as a draft in this case.
