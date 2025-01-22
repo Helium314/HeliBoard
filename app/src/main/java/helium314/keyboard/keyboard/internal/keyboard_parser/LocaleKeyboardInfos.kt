@@ -320,7 +320,7 @@ const val POPUP_KEYS_NORMAL = 0
 
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
 
-// either tld is not lowecase ISO 3166-1 code, or there are multiple according to some list
+// either tld is not simply lowercase ISO 3166-1 code, or there are multiple according to some list
 private val specialCountryTlds = listOf(
     "bd" to ".bd .com.bd",
     "bq" to ".bq .an .nl",
