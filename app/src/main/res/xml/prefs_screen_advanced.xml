@@ -43,6 +43,13 @@
         android:title="@string/show_vertical_space_swipe"
         latin:singleLineTitle="false" />
 
+    <helium314.keyboard.latin.settings.SeekBarDialogPreference
+        android:key="language_swipe_distance"
+        android:title="@string/prefs_language_swipe_distance"
+        latin:minValue="@integer/config_min_language_swipe_distance"
+        latin:maxValue="@integer/config_max_language_swipe_distance"
+        latin:stepValue="@integer/config_language_swipe_distance_step" />
+
     <SwitchPreference
         android:key="delete_swipe"
         android:title="@string/delete_swipe"
