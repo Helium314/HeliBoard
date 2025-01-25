@@ -1,0 +1,125 @@
+// SPDX-License-Identifier: GPL-3.0-only
+package helium314.keyboard.settings
+
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.Surface
+import androidx.compose.ui.platform.ComposeView
+import androidx.core.view.isGone
+import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import kotlinx.coroutines.flow.MutableStateFlow
+
+// todo
+//  more pref screens, seekBarPref, reorderDialog, and other super-custom things
+//  consider IME insets when searching
+//  improve performance when loading screens with many settings (lazyColumn?)
+//  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
+
+// later
+//  one single place for default values (in composables and settings)
+//  nice arrows (in top bar, and as next-screen indicator)
+//  animations when stuff (dis)appears
+//   LaunchedEffect, AnimatedVisibility
+//  remove PrefScreen if not used
+//  rename some classes
+//  split the preferences in allPrefs.createDefs into multiple files, this will get horribly long
+//   maybe have sub-lists in the pref screens using the settings?
+//  spdx headers everywhere
+//  changes to anything but the compose settings package should not be in the initial PR
+//   commit them separately if possible
+//   though some might be necessary
+//  toolbar key enabled state can be wrong
+//   go to correction settings, open search, toggle autocorrect toolbar key, and then toggle setting
+//   -> now toolbar key always has the wrong state
+//  color settings needs a color search
+//  more convenient access to prefs
+//  consider disabled settings & search
+//   don't show -> users confused
+//   show as disabled -> users confused
+//   show (but change will not do anything because another setting needs to be enabled first)
+//    -> users confused, but probably better than the 2 above
+
+// maybe later
+//  bottom text field (though we have the search now anyway)
+//  remove navHost? but probably too useful to have...
+//  lazyColumn for prefs (or just in category?)
+//   should improve loading time for screens with many settings
+//   but needs a bit of work for probably not so much benefit
+//  adjust the debug settings thing, so that users can always find them in search but nowhere else? unless debug mode
+//  search only in current pref screen, except when in main?
+//  try getting rid of appcompat stuff (activity, dialogs, ...)
+
+// preliminary results:
+// looks ok (ugly M3 switches)
+// performance
+//  time until app and screens are shown is clearly worse than previously (2-4x)
+//  gets much better when opening same screen again
+//  material3 is ~25% faster than material2
+//  debug is MUCH slower than release
+//  -> should be fine on reasonably recent phones (imo even still acceptable on S4 mini)
+// apk size increase
+//  ca 900 kb with base + material2
+//  another 300 kb with navHost (and activity-compose, but not needed)
+//  another 300 kb when switching material2 to material3
+//  ca 150 kb reduction when removing androidx.preference
+//  -> too much, but still ok if we can get nicer preference stuff
+
+class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+    private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(this) }
+    val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (Settings.getInstance().current == null)
+            Settings.init(this)
+
+//        val cv = ComposeView(context = this)
+        allPrefs = AllPrefs(this)
+//        setContentView(cv) // todo: later, but for showing both old and new style settings, the layout is better
+        setContentView(R.layout.settings_activity)
+        supportFragmentManager.addOnBackStackChangedListener {
+            updateContainerVisibility()
+        }
+//        cv.setContent { // also later...
+        findViewById<ComposeView>(R.id.navHost).setContent {
+            Theme {
+                Surface {
+                    SettingsNavHost(
+                        onClickBack = {
+                            if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null) // todo: remove after migration is complete
+                                this.finish()
+                            else supportFragmentManager.popBackStack() // todo: remove after migration is complete
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    private fun updateContainerVisibility() { // todo: remove after migration is complete
+        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).isGone = supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        prefs.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onStop() {
+        prefs.unregisterOnSharedPreferenceChangeListener(this)
+        super.onStop()
+    }
+
+    companion object {
+        // public write so compose previews can show the pref screens
+        lateinit var allPrefs: AllPrefs
+    }
+
+    override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {
+        prefChanged.value++
+    }
+}

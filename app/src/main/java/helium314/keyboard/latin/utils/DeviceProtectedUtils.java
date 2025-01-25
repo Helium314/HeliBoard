@@ -27,6 +27,10 @@ public final class DeviceProtectedUtils {
             return prefs;
         }
         Context deviceProtectedContext = getDeviceProtectedContext(context);
+        if (deviceProtectedContext == null) { // not relevant in practice, but happens when compose previews access shared preferences
+            prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            return prefs;
+        }
         prefs = PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
         if (prefs.getAll().isEmpty()) {
             Log.i(TAG, "Device encrypted storage is empty, copying values from credential encrypted storage");

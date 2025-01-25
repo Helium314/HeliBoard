@@ -32,6 +32,7 @@ import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
+import helium314.keyboard.settings.SettingsActivity2;
 
 import java.util.ArrayList;
 
@@ -104,10 +105,9 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            return;
+        if (actionBar != null) {
+            actionBar.hide();
         }
-        actionBar.hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
         ActivityThemeUtils.setActivityTheme(this);
 
@@ -166,7 +166,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
                 0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
                 R.string.setup_step3_action);
         step3.setAction(() -> {
-            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            final Intent intent = new Intent(getApplicationContext(), SettingsActivity2.class);
             intent.setAction(Intent.ACTION_VIEW);
             startActivity(intent);
             finish();
@@ -224,7 +224,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
 
     private void invokeSettingsOfThisIme() {
         final Intent intent = new Intent();
-        intent.setClass(this, SettingsActivity.class);
+        intent.setClass(this, SettingsActivity2.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(SettingsActivity.EXTRA_ENTRY_KEY,

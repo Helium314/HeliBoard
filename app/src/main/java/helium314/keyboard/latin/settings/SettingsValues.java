@@ -389,8 +389,13 @@ public class SettingsValues {
     }
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
-        return prefs.getBoolean(Settings.PREF_USE_CONTACTS, false)
-                && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS);
+        final boolean setting = prefs.getBoolean(Settings.PREF_USE_CONTACTS, false);
+        if (!setting) return false;
+        if (PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS))
+            return true;
+        // disable if permission not granted
+        prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, false).apply();
+        return false;
     }
 
     public String dump() {

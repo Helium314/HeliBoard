@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.serialization") version "2.0.21"
+    kotlin("plugin.compose") version "2.0.0"
 }
 
 android {
@@ -49,6 +50,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 
     externalNativeBuild {
@@ -104,6 +106,14 @@ dependencies {
 
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
+    // compose
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation(platform("androidx.compose:compose-bom:2024.10.01"))
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.navigation:navigation-compose:2.8.5")
 
     // color picker for user-defined colors
     implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")
