@@ -117,6 +117,7 @@ public final class EmojiPalettesView extends LinearLayout
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
                 + getPaddingTop() + getPaddingBottom();
+        mEmojiCategoryPageIndicatorView.mWidth = width;
         setMeasuredDimension(width, height);
     }
 

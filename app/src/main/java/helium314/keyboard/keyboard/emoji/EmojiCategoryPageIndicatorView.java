@@ -18,6 +18,7 @@ public final class EmojiCategoryPageIndicatorView extends View {
     private int mCategoryPageSize = 0;
     private int mCurrentCategoryPageId = 0;
     private float mOffset = 0.0f;
+    int mWidth = 0;
 
     public EmojiCategoryPageIndicatorView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
@@ -50,7 +51,7 @@ public final class EmojiCategoryPageIndicatorView extends View {
         }
         final float height = getHeight();
         final float leftPadding = getPaddingLeft();
-        final float width = getWidth() - leftPadding - getPaddingRight();
+        final float width = mWidth - leftPadding - getPaddingRight();
         final float unitWidth = width / mCategoryPageSize;
         final float left = Math.min(unitWidth * mCurrentCategoryPageId + mOffset * unitWidth, width - unitWidth);
         final float top = 0.0f;
