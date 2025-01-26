@@ -26,7 +26,6 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import java.util.Locale
@@ -38,7 +37,7 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    button.isActivated = !when (key) {
+    button.isActivated = when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings

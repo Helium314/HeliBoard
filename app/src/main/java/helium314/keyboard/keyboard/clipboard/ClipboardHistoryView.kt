@@ -65,10 +65,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        // todo (maybe): setting the correct color only works because the activated state is inverted
-        //  even when state is activated, the not activated color is set
-        //   in suggestionStripView the same thing works correctly, wtf?
-        //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
         getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
             .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
@@ -169,6 +165,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
             adapter = clipboardAdapter
             layoutParams.width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current)
         }
+
+        // absurd workaround so Android sets the correct color from stateList (depending on "activated")
+        toolbarKeys.forEach { it.isEnabled = false; it.isEnabled = true }
     }
 
     fun stopClipboardHistory() {

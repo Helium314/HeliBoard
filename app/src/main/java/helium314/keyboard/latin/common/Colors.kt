@@ -626,9 +626,9 @@ private fun stateList(pressed: Int, normal: Int): ColorStateList {
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
 
-private fun activatedStateList(normal: Int, activated: Int): ColorStateList {
-    val states = arrayOf(intArrayOf(-android.R.attr.state_activated), intArrayOf(android.R.attr.state_activated))
-    return ColorStateList(states, intArrayOf(normal, activated))
+private fun activatedStateList(activated: Int, normal: Int): ColorStateList {
+    val states = arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf(-android.R.attr.state_activated))
+    return ColorStateList(states, intArrayOf(activated, normal))
 }
 
 enum class ColorType {
