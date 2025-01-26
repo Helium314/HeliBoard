@@ -4,6 +4,7 @@ package helium314.keyboard.keyboard.clipboard
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -34,6 +35,7 @@ import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
+import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
 @SuppressLint("CustomViewStyleable")
 class ClipboardHistoryView @JvmOverloads constructor(
@@ -41,7 +43,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
 ) : LinearLayout(context, attrs, defStyle), View.OnClickListener,
-        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
+    ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener,
+    View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context)
     private val pinIconId: Int
@@ -231,5 +234,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.notifyItemMoved(from, to)
         clipboardAdapter.notifyItemChanged(to)
         if (to < from) clipboardRecyclerView.smoothScrollToPosition(to)
+    }
+
+    override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
+        setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip, key)
     }
 }
