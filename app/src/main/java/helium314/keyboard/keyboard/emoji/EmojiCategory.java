@@ -173,6 +173,8 @@ final class EmojiCategory {
 
     public void clearKeyboardCache() {
         mCategoryKeyboardMap.clear();
+        for (CategoryProperties props: mShownCategories)
+            props.mPageCount = -1; // reset page count in case size (number of keys per row) changed
     }
 
     private void addShownCategoryId(final int categoryId) {

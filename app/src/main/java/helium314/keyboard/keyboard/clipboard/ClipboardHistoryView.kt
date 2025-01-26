@@ -155,7 +155,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
-        Settings.getInstance().getCustomTypeface()?.let { params.mTypeface = it }
+        val settings = Settings.getInstance()
+        settings.getCustomTypeface()?.let { params.mTypeface = it }
         setupClipKey(params)
         setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
@@ -166,7 +167,20 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
-            layoutParams.width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current)
+            val keyboardWidth = ResourceUtils.getKeyboardWidth(context, settings.current)
+            layoutParams.width = keyboardWidth
+
+            // set side padding
+            val keyboardAttr = context.obtainStyledAttributes(
+                null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
+            val leftPadding = (keyboardAttr.getFraction(R.styleable.Keyboard_keyboardLeftPadding,
+                keyboardWidth, keyboardWidth, 0f)
+                    * settings.current.mSidePaddingScale).toInt()
+            val rightPadding =  (keyboardAttr.getFraction(R.styleable.Keyboard_keyboardRightPadding,
+                keyboardWidth, keyboardWidth, 0f)
+                    * settings.current.mSidePaddingScale).toInt()
+            keyboardAttr.recycle()
+            setPadding(leftPadding, paddingTop, rightPadding, paddingBottom)
         }
 
         // absurd workaround so Android sets the correct color from stateList (depending on "activated")

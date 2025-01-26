@@ -113,6 +113,7 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
+    public final float mSidePaddingScale;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -265,6 +266,7 @@ public class SettingsValues {
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);

@@ -108,6 +108,8 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, 0f)
         setupScalePrefs(Settings.PREF_FONT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         setupScalePrefs(Settings.PREF_EMOJI_FONT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_SIDE_PADDING_SCALE, 0f)
+        setupScalePrefs(Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE, 0f)
         if (splitScalePref != null) {
             setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
             splitScalePref?.isVisible = splitPref?.isChecked == true

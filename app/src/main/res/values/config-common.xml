@@ -79,8 +79,8 @@
     <integer name="config_touch_noise_threshold_time">40</integer>
 
     <!-- Common keyboard configuration. -->
-    <fraction name="config_keyboard_left_padding">0%p</fraction>
-    <fraction name="config_keyboard_right_padding">0%p</fraction>
+    <fraction name="config_keyboard_left_padding">8%p</fraction>
+    <fraction name="config_keyboard_right_padding">8%p</fraction>
     <dimen name="config_keyboard_vertical_correction">0.0dp</dimen>
 
     <!-- Common key top visual configuration. -->
