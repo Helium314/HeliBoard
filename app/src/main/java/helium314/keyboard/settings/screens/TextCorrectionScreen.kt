@@ -26,8 +26,6 @@ import helium314.keyboard.latin.settings.UserDictionaryListFragment
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.AllPrefs
-import helium314.keyboard.settings.ConfirmationDialog
-import helium314.keyboard.settings.ListPickerDialog
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
@@ -36,6 +34,8 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.getActivity
 import helium314.keyboard.settings.themeChanged
 

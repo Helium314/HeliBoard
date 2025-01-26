@@ -1,4 +1,4 @@
-package helium314.keyboard.settings
+package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,38 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 
 // taken from StreetComplete
-/** Slight specialization of an alert dialog: AlertDialog with OK and Cancel button. Both buttons
- *  call [onDismissRequest] and the OK button additionally calls [onConfirmed]. */
-@Composable
-fun ConfirmationDialog(
-    onDismissRequest: () -> Unit,
-    onConfirmed: () -> Unit,
-    modifier: Modifier = Modifier,
-    title: @Composable (() -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
-    confirmButtonText: String = stringResource(android.R.string.ok),
-    cancelButtonText: String = stringResource(android.R.string.cancel),
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    properties: DialogProperties = DialogProperties(),
-) {
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(onClick = { onConfirmed(); onDismissRequest() }) { Text(confirmButtonText) }
-        },
-        modifier = modifier,
-        dismissButton = { TextButton(onClick = onDismissRequest) { Text(cancelButtonText) } },
-        title = title,
-        text = text,
-        shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
-        properties = properties,
-    )
-}
-
 @Composable
 fun <T> ListPickerDialog(
     onDismissRequest: () -> Unit,
