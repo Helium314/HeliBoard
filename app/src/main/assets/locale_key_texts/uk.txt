@@ -7,3 +7,6 @@
 
 [labels]
 alphabet: АБВ
+
+[tlds]
+ua

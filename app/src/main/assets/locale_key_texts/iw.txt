@@ -10,3 +10,6 @@
 
 [labels]
 alphabet: אבג
+
+[tlds]
+il co.il gov.il

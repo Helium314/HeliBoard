@@ -112,6 +112,13 @@
             latin:maxValue="500" /> <!-- percentage -->
 
         <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="bottom_padding_scale_landscape"
+            android:title="@string/prefs_bottom_padding_scale_landscape"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="500" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
             android:key="side_padding_scale"
             android:title="@string/prefs_side_padding_scale"
             latin:defaultValue="0"
@@ -136,6 +143,18 @@
             android:title="@string/custom_font"
             android:defaultValue=""
             android:persistent="true" />
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="font_scale"
+            android:title="@string/prefs_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="emoji_font_scale"
+            android:title="@string/prefs_emoji_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
 
     </PreferenceCategory>
 

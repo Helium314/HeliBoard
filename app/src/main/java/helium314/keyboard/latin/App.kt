@@ -111,19 +111,17 @@ fun checkVersionUpgrade(context: Context) {
         if (additionalSubtypeString.contains(".")) { // means there are custom layouts
             val subtypeStrings = additionalSubtypeString.split(";")
             val newSubtypeStrings = subtypeStrings.mapNotNull {
+                if ("." !in it) // not a custom subtype, nothing to do
+                    return@mapNotNull it
                 val split = it.split(":").toMutableList()
-                Log.i("test", "0: $it")
                 if (split.size < 2) return@mapNotNull null // should never happen
                 val oldName = split[1]
                 val newName = oldName.substringBeforeLast(".") + "."
                 if (oldName == newName) return@mapNotNull split.joinToString(":") // should never happen
                 val oldFile = getCustomLayoutFile(oldName, context)
                 val newFile = getCustomLayoutFile(newName, context)
-                Log.i("test", "1")
                 if (!oldFile.exists()) return@mapNotNull null // should never happen
-                Log.i("test", "2")
                 if (newFile.exists()) newFile.delete() // should never happen
-                Log.i("test", "3")
                 oldFile.renameTo(newFile)
                 val enabledSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
                 if (enabledSubtypes.contains(oldName))

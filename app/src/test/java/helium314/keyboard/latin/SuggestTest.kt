@@ -15,8 +15,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SuggestionResults
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
@@ -25,6 +23,8 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
@@ -43,7 +43,7 @@ class SuggestTest {
     private val thresholdAggressive = "1"
     private val thresholdVeryAggressive = "2"
 
-    @Before fun setUp() {
+    @BeforeTest fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()

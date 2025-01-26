@@ -37,7 +37,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
     * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
     * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `alphabet`, `default` (all optional)
-      * the `keyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
+      * the `<emoji/language>KeyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:

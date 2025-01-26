@@ -70,7 +70,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener {
+        OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
@@ -229,6 +229,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         colors.setBackground(this, ColorType.STRIP_BACKGROUND);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences prefs, @Nullable String key) {
+        ToolbarUtilsKt.setToolbarButtonsActivatedStateOnPrefChange(mPinnedKeys, key);
+        ToolbarUtilsKt.setToolbarButtonsActivatedStateOnPrefChange(mToolbar, key);
     }
 
     /**
@@ -647,11 +653,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (code != KeyCode.UNSPECIFIED) {
                 Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
-                    if (tag == ToolbarKey.INCOGNITO)
-                        updateKeys(); // update icon
-                    view.setActivated(!view.isActivated());
-                }
+                if (tag == ToolbarKey.INCOGNITO)
+                    updateKeys(); // update expand key icon
                 return;
             }
         }

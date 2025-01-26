@@ -24,9 +24,6 @@ import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ScriptUtils
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.Robolectric
@@ -37,6 +34,9 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.math.min
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
@@ -61,7 +61,8 @@ class InputLogicTest {
     private val composingReader = RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
     private val connectionComposingText get() = (composingReader.get(connection) as CharSequence).toString()
 
-    @Before fun setUp() {
+    @BeforeTest
+    fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()

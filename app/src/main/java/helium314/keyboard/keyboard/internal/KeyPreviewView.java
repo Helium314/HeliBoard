@@ -57,8 +57,8 @@ public class KeyPreviewView extends AppCompatTextView {
 
         setCompoundDrawables(null, null, null, null);
         setTextColor(drawParams.mPreviewTextColor);
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectPreviewTextSize(drawParams));
-        // wie hier machen?
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectPreviewTextSize(drawParams)
+                * Settings.getInstance().getCurrent().mFontSizeMultiplier);
         setTypeface(mTypeface == null ? key.selectPreviewTypeface(drawParams) : mTypeface);
         // TODO Should take care of temporaryShiftLabel here.
         setTextAndScaleX(key.getPreviewLabel());

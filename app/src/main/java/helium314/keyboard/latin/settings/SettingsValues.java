@@ -121,6 +121,8 @@ public class SettingsValues {
     public final boolean mAlphaAfterSymbolAndSpace;
     public final boolean mRemoveRedundantPopups;
     public final String mSpaceBarText;
+    public final float mFontSizeMultiplier;
+    public final float mFontSizeMultiplierEmoji;
 
     // From the input box
     @NonNull
@@ -263,7 +265,7 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
-        mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
@@ -275,6 +277,8 @@ public class SettingsValues {
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, false);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
         mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT);
+        mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, DEFAULT_SIZE_SCALE);
+        mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, DEFAULT_SIZE_SCALE);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

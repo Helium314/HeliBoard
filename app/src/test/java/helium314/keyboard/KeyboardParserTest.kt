@@ -9,6 +9,7 @@ import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.KeySpecParser
+import helium314.keyboard.keyboard.internal.KeySpecParser.KeySpecParserError
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
@@ -22,11 +23,6 @@ import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.checkKeys
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
@@ -35,6 +31,11 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.Locale
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
@@ -45,8 +46,7 @@ class ParserTest {
     private lateinit var latinIME: LatinIME
     private lateinit var params: KeyboardParams
 
-    @Before
-    fun setUp() {
+    @BeforeTest fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
@@ -320,7 +320,7 @@ f""", // no newline at the end
     }
 
     @Test fun invalidKeys() {
-        assertThrows(KeySpecParser.KeySpecParserError::class.java) {
+        assertFailsWith<KeySpecParserError> {
             RawKeyboardParser.parseJsonString("""[[{ "label": "!icon/clipboard_action_key" }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         }
     }
@@ -402,7 +402,7 @@ f""", // no newline at the end
     }
 
     @Test fun invalidPopupKeys() {
-        assertThrows(KeySpecParser.KeySpecParserError::class.java) {
+        assertFailsWith<KeySpecParserError> {
             RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": {
           "main": { "label": "!icon/clipboard_action_key" }
     } }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }

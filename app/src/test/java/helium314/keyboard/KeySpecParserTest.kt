@@ -2,8 +2,8 @@ package helium314.keyboard
 
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class KeySpecParserTest {
     @Test fun label() {
