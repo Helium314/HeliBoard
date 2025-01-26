@@ -4,16 +4,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ং",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "১"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ঙ",
@@ -33,16 +24,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "য়",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "২"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "য",
@@ -62,16 +44,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঢ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৩"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ড",
@@ -91,16 +64,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ফ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৪"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "প",
@@ -120,16 +84,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঠ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৫"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ট",
@@ -149,16 +104,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ছ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৬"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "চ",
@@ -178,16 +124,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঝ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৭"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "জ",
@@ -207,16 +144,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঞ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৮"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "হ",
@@ -236,16 +164,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঘ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "৯"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "গ",
@@ -265,16 +184,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঢ়",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            },
-            {
-              "label": "০"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ড়",
@@ -296,13 +206,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঃ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ৃ",
@@ -365,13 +269,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "অ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "া",
@@ -391,13 +289,50 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ঁ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824,
+          "popup": {
+            "relevant": [
+              {
+                "label": "!autoColumnOrder!6"
+              },
+              {
+                "label": "়"
+              },
+              {
+                "label": "ৄ"
+              },
+              {
+                "label": "ৱ"
+              },
+              {
+                "label": "ৢ"
+              },
+              {
+                "label": "ঽ"
+              },
+              {
+                "label": "ৣ"
+              },
+              {
+                "label": "ৗ"
+              },
+              {
+                "label": "ৠ"
+              },
+              {
+                "label": "ৰ"
+              },
+              {
+                "label": "ঌ"
+              },
+              {
+                "label": "৺"
+              },
+              {
+                "label": "ৡ"
+              }
+            ]
+          }
       },
       "default": {
         "label": "্",
@@ -414,13 +349,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ভ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ব",
@@ -437,13 +366,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "খ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ক",
@@ -460,13 +383,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "থ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ত",
@@ -486,13 +403,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ধ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "দ",
@@ -511,13 +422,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "্য",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "্র",
@@ -580,13 +485,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ল",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "র",
@@ -606,13 +505,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ণ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ন",
@@ -629,13 +522,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "ষ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "স",
@@ -652,13 +539,7 @@
       "$": "shift_state_selector",
       "manualOrLocked": {
         "label": "শ",
-        "popup": {
-          "relevant": [
-            {
-              "type": "placeholder"
-            }
-          ]
-        }
+        "labelFlags": 1073741824
       },
       "default": {
         "label": "ম",
