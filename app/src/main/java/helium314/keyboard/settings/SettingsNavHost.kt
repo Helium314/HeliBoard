@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
+import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +47,7 @@ fun SettingsNavHost(
             MainSettingsScreen(
                 onClickAbout = { navController.navigate(SettingsDestination.About) },
                 onClickTextCorrection = { navController.navigate(SettingsDestination.TextCorrection) },
+                onClickPreferences = { navController.navigate(SettingsDestination.Preferences) },
                 onClickBack = ::goBack,
             )
         }
@@ -59,6 +61,11 @@ fun SettingsNavHost(
                 onClickBack = ::goBack
             )
         }
+        composable(SettingsDestination.Preferences) {
+            PreferencesScreen (
+                onClickBack = ::goBack
+            )
+        }
     }
 }
 
@@ -66,6 +73,7 @@ object SettingsDestination {
     const val Settings = "settings"
     const val About = "about"
     const val TextCorrection = "text_correction"
+    const val Preferences = "preferences"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

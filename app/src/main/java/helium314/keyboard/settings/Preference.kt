@@ -22,6 +22,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.settings.dialogs.SliderDialog
 
 // taken from StreetComplete (and a bit SCEE)
 
@@ -183,6 +188,51 @@ fun SwitchPreference(
     )
 }
 
+@Composable
+/** Slider preference for Int or Float (weird casting stuff, but should be fine) */
+fun <T: Number> SliderPreference(
+    name: String,
+    modifier: Modifier = Modifier,
+    pref: String,
+    description: @Composable (T) -> String,
+    default: T,
+    range: ClosedFloatingPointRange<Float>,
+    onValueChanged: (Float) -> Unit = { },
+) {
+    val ctx = LocalContext.current
+    val prefs = DeviceProtectedUtils.getSharedPreferences(ctx)
+    val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    if (b?.value ?: 0 < 0)
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+    val initialValue = if (default is Int) prefs.getInt(pref, default)
+        else if (default is Float) prefs.getFloat(pref, default)
+        else throw IllegalArgumentException("only float and int are supported")
+
+    var showDialog by remember { mutableStateOf(false) }
+    Preference(
+        name = name,
+        onClick = { showDialog = true },
+        modifier = modifier,
+        description = description(initialValue as T)
+    )
+    if (showDialog)
+        SliderDialog(
+            onDismissRequest = { showDialog = false },
+            onDone = {
+                if (default is Int) prefs.edit().putInt(pref, it.toInt()).apply()
+                else prefs.edit().putFloat(pref, it).apply()
+            },
+            initialValue = initialValue.toFloat(),
+            range = range,
+            positionString = {
+                description((if (default is Int) it.toInt() else it) as T)
+            },
+            onValueChanged = onValueChanged,
+            showDefault = true,
+            onDefault = { prefs.edit().remove(pref).apply() }
+        )
+}
+
 @Preview
 @Composable
 private fun PreferencePreview() {
@@ -195,6 +245,13 @@ private fun PreferencePreview() {
             name = "Preference with icon",
             onClick = {},
             icon = R.drawable.ic_settings_about_foreground
+        )
+        SliderPreference(
+            name = "SliderPreference",
+            pref = "",
+            default = 1,
+            description = { it.toString() },
+            range = -5f..5f
         )
         Preference(
             name = "Preference with icon and description",

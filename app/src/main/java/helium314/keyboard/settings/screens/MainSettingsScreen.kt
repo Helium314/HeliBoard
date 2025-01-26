@@ -35,6 +35,7 @@ import helium314.keyboard.settings.getActivity
 fun MainSettingsScreen(
     onClickAbout: () -> Unit,
     onClickTextCorrection: () -> Unit,
+    onClickPreferences: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -42,6 +43,17 @@ fun MainSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.ime_settings),
     ) {
+        Preference(
+            name = stringResource(R.string.settings_screen_preferences),
+            onClick = onClickPreferences,
+            icon = R.drawable.ic_settings_preferences_foreground
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_left),
+                modifier = Modifier.scale(-1f, 1f),
+                contentDescription = null
+            )
+        }
         Preference(
             name = stringResource(R.string.settings_screen_correction),
             onClick = onClickTextCorrection,
@@ -117,7 +129,7 @@ fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {})
+            MainSettingsScreen({}, {}, {}, {})
         }
     }
 }

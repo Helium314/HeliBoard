@@ -14,7 +14,8 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  more pref screens, seekBarPref, reorderDialog, and other super-custom things
+//  add reorder / enable dialog (maybe not as dialog?)
+//  more pref screens, and other super-custom things
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
 //  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
@@ -44,6 +45,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    -> users confused, but probably better than the 2 above
 
 // maybe later
+//  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)
 //  bottom text field (though we have the search now anyway)
 //  remove navHost? but probably too useful to have...
 //  lazyColumn for prefs (or just in category?)
