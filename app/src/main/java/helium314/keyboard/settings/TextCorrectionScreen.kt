@@ -31,9 +31,8 @@ fun TextCorrectionScreen(
     onClickBack: () -> Unit,
 ) {
     val prefs = DeviceProtectedUtils.getSharedPreferences(LocalContext.current)
-    val act = LocalContext.current.getActivity() as? SettingsActivity2
-    val b = act?.prefChanged!!.collectAsState()
-    if (b.value < 0)
+    val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, true)
     val personalizedSuggestionsEnabled = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true)

@@ -136,10 +136,10 @@ fun SwitchPreference(
 ) {
     val ctx = LocalContext.current
     val prefs = DeviceProtectedUtils.getSharedPreferences(ctx)
-    val b = (ctx.getActivity() as SettingsActivity2).prefChanged.collectAsState()
-    var value = prefs.getBoolean(pref, default)
-    if (b.value < 0)
+    val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+    var value = prefs.getBoolean(pref, default)
     fun switched(newValue: Boolean) {
         if (!allowCheckedChange(newValue)) {
             value = !newValue
