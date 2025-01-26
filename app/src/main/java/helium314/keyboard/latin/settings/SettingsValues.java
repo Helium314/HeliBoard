@@ -264,7 +264,7 @@ public class SettingsValues {
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
         mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
-        mSidePaddingScale = prefs.getFloat(Settings.PREF_SIDE_PADDING_SCALE, 0f);
+        mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);

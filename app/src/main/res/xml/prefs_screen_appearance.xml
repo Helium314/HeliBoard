@@ -114,6 +114,14 @@
         <helium314.keyboard.latin.settings.SeekBarDialogPreference
             android:key="side_padding_scale"
             android:title="@string/prefs_side_padding_scale"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="300" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="side_padding_scale_landscape"
+            android:title="@string/prefs_side_padding_scale_landscape"
+            latin:defaultValue="0"
             latin:minValue="0"
             latin:maxValue="300" /> <!-- percentage -->
 
