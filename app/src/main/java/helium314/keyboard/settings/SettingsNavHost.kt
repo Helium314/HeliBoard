@@ -4,6 +4,7 @@ package helium314.keyboard.settings
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,11 @@ import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsNavHost(
@@ -20,10 +26,13 @@ fun SettingsNavHost(
 ) {
     val navController = rememberNavController()
     val dir = if (LocalLayoutDirection.current == LayoutDirection.Ltr) 1 else -1
+    val target = SettingsDestination.navTarget.collectAsState()
 
     fun goBack() {
         if (!navController.popBackStack()) onClickBack()
     }
+    if (target.value != SettingsDestination.Settings)
+        navController.navigate(route = target.value)
 
     NavHost(
         navController = navController,
@@ -57,4 +66,15 @@ object SettingsDestination {
     const val Settings = "settings"
     const val About = "about"
     const val TextCorrection = "text_correction"
+    val navTarget = MutableStateFlow(Settings)
+
+    private val navScope = CoroutineScope(Dispatchers.Default)
+    fun navigateTo(target: String) {
+        if (navTarget.value == target) {
+            // triggers recompose twice, but that's ok as it's a rare event
+            navTarget.value = Settings
+            navScope.launch { delay(10); navTarget.value = target }
+        } else
+            navTarget.value = About
+    }
 }
