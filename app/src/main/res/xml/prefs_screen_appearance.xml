@@ -111,6 +111,13 @@
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
 
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="bottom_padding_scale_landscape"
+            android:title="@string/prefs_bottom_padding_scale_landscape"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="500" /> <!-- percentage -->
+
         <EditTextPreference
             android:key="space_bar_text"
             android:title="@string/prefs_space_bar_text"

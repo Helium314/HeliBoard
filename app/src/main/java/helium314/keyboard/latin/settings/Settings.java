@@ -112,6 +112,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
@@ -497,6 +498,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+    }
+
+    public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
+        if (landscape)
+            return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, 0f);
+        return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
