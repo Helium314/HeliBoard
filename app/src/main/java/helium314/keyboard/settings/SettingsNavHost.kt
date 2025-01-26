@@ -9,6 +9,9 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import helium314.keyboard.settings.screens.AboutScreen
+import helium314.keyboard.settings.screens.MainSettingsScreen
+import helium314.keyboard.settings.screens.TextCorrectionScreen
 
 @Composable
 fun SettingsNavHost(

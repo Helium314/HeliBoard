@@ -6,6 +6,8 @@ import android.content.ContextWrapper
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import helium314.keyboard.settings.screens.createAboutPrefs
+import helium314.keyboard.settings.screens.createCorrectionPrefs
 
 class AllPrefs(context: Context) {
     private val list = createPrefDefs(context)

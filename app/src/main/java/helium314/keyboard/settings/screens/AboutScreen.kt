@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-package helium314.keyboard.settings
+package helium314.keyboard.settings.screens
 
 import android.app.Activity
 import android.content.Context
@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +28,14 @@ import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
+import helium314.keyboard.settings.AllPrefs
+import helium314.keyboard.settings.NonSettingsPrefs
+import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Preference
+import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.getActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -100,7 +109,7 @@ fun createAboutPrefs(context: Context) = listOf(
                         + ctx.getString(R.string.hidden_features_text) + "</a>")
                 val message = ctx.getString(R.string.hidden_features_message, link)
                 val dialogMessage = SpannableStringUtils.fromHtml(message)
-                val builder = androidx.appcompat.app.AlertDialog.Builder(ctx)
+                val builder = AlertDialog.Builder(ctx)
                     .setIcon(R.drawable.ic_settings_about_hidden_features)
                     .setTitle(R.string.hidden_features_title)
                     .setMessage(dialogMessage)
