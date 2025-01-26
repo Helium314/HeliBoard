@@ -113,6 +113,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
+    public static final String PREF_FONT_SCALE = "font_scale";
+    public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";

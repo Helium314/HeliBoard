@@ -130,6 +130,18 @@
             android:defaultValue=""
             android:persistent="true" />
 
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="font_scale"
+            android:title="@string/prefs_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="emoji_font_scale"
+            android:title="@string/prefs_emoji_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
+
     </PreferenceCategory>
 
 </PreferenceScreen>
