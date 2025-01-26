@@ -49,12 +49,13 @@ public final class EmojiCategoryPageIndicatorView extends View {
             return;
         }
         final float height = getHeight();
-        final float width = getWidth();
+        final float leftPadding = getPaddingLeft();
+        final float width = getWidth() - leftPadding - getPaddingRight();
         final float unitWidth = width / mCategoryPageSize;
         final float left = Math.min(unitWidth * mCurrentCategoryPageId + mOffset * unitWidth, width - unitWidth);
         final float top = 0.0f;
         final float right = Math.min(left + unitWidth, width);
         final float bottom = height * BOTTOM_MARGIN_RATIO;
-        canvas.drawRect(left, top, right, bottom, mPaint);
+        canvas.drawRect(left + leftPadding, top, right + leftPadding, bottom, mPaint);
     }
 }
