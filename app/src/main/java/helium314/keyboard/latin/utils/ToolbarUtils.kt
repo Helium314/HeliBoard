@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageButton
@@ -41,6 +42,11 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     button.isActivated = !when (key) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
+        SPLIT -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                     Settings.getInstance().current.mIsSplitKeyboardLandscapeEnabled
+                 } else {
+                     Settings.getInstance().current.mIsSplitKeyboardPortraitEnabled
+                 }
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
@@ -78,6 +84,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     FULL_RIGHT -> KeyCode.MOVE_END_OF_LINE
     PAGE_START -> KeyCode.MOVE_START_OF_PAGE
     PAGE_END -> KeyCode.MOVE_END_OF_PAGE
+    SPLIT -> KeyCode.SPLIT_LAYOUT
 }
 
 fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: when (key) {
@@ -101,7 +108,7 @@ fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getC
 
 // names need to be aligned with resources strings (using lowercase of key.name)
 enum class ToolbarKey {
-    VOICE, CLIPBOARD, NUMPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED,
+    VOICE, CLIPBOARD, NUMPAD, UNDO, REDO, SETTINGS, SELECT_ALL, SELECT_WORD, COPY, CUT, PASTE, ONE_HANDED, SPLIT,
     INCOGNITO, AUTOCORRECT, CLEAR_CLIPBOARD, CLOSE_HISTORY, EMOJI, LEFT, RIGHT, UP, DOWN, WORD_LEFT, WORD_RIGHT,
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END
 }
