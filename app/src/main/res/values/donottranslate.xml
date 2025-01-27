@@ -87,7 +87,7 @@
     <string name="subtype_arabic_pc" translatable="false">%s (PC)</string>
 
     <!-- Description for Arabic (Hija'i) subtype. -->
-    <string name="subtype_arabic_hijai" translatable="false">%s (Hija'i order)</string>
+    <string name="subtype_arabic_hijai" translatable="false">%s (Hija'i)</string>
 
     <!-- Description for Hebrew 2 subtype. -->
     <string name="subtype_hebrew_1452_2" translatable="false">%s (1452-2)</string>
