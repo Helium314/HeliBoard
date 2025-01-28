@@ -3,9 +3,11 @@ package helium314.keyboard.settings
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.SharedPreferences
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.screens.createAboutPrefs
 import helium314.keyboard.settings.screens.createCorrectionPrefs
 import helium314.keyboard.settings.screens.createPreferencesPrefs
@@ -63,6 +65,8 @@ fun Context.getActivity(): ComponentActivity? {
     }
     return componentActivity
 }
+
+fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)
 
 object NonSettingsPrefs {
     const val EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary"

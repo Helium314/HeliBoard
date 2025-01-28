@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
 //  add reorder / enable dialog
-//   reorder part is already done
+//   maybe a more generic / reusable wrapper dialog
+//   need to adjust icons, because compose refuses to work with rotated drawables (arrows)
+//   drag handle should have "dimmed" color, iirc there are some theme defaults with the localCompositionProvider?
 //  more pref screens, and other super-custom things
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
@@ -46,7 +48,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   show as disabled -> users confused
 //   show (but change will not do anything because another setting needs to be enabled first)
 //    -> users confused, but probably better than the 2 above
-//  adjust layout a little, there is too much empty space
+//  adjust layout a little, there is too much empty space and titles are too large (dialogs!)
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)

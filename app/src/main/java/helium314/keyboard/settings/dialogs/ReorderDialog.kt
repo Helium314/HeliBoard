@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -19,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -76,8 +78,8 @@ fun <T: Any> ReorderDialog(
                     ) { dragging ->
                         val elevation by animateDpAsState(if (dragging) 4.dp else 0.dp)
                         Surface(shadowElevation = elevation) {
-                            Row(modifier = Modifier.longPressDraggableHandle()) {
-                                Icon(painterResource(R.drawable.ic_drag_indicator), "Reorder")
+                            Row(modifier = Modifier.longPressDraggableHandle(), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(painterResource(R.drawable.ic_drag_indicator), "Reorder", Modifier.padding(end = 8.dp))
                                 displayItem(item)
                             }
                         }
