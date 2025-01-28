@@ -235,6 +235,8 @@
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
+    <!-- Title of the setting to enable number row hints -->
+    <string name="number_row_hints">Show hints on number row</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->

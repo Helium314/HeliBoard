@@ -54,6 +54,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         setLocalizedNumberRowVisibility();
+        setNumberRowHintsVisibility();
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
         findPreference(Settings.PREF_POPUP_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
             DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER,
@@ -77,12 +78,18 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (key == null) return;
         switch (key) {
-            case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
+            case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW_HINTS,
                     Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_LANGUAGE_SWITCH_KEY,
-                    Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY , Settings.PREF_REMOVE_REDUNDANT_POPUPS-> mReloadKeyboard = true;
+                    Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, Settings.PREF_REMOVE_REDUNDANT_POPUPS -> mReloadKeyboard = true;
+            case Settings.PREF_SHOW_NUMBER_ROW -> {
+                setNumberRowHintsVisibility();
+                mReloadKeyboard = true;
+            }
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
-            case Settings.PREF_SHOW_HINTS
-                    -> findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+            case Settings.PREF_SHOW_HINTS -> {
+                findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+                setNumberRowHintsVisibility();
+            }
         }
     }
 
@@ -106,6 +113,12 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
             }
         }
         pref.setVisible(false);
+    }
+
+    private void setNumberRowHintsVisibility() {
+        var prefs = getSharedPreferences();
+        setPreferenceVisible(Settings.PREF_SHOW_NUMBER_ROW_HINTS, prefs.getBoolean(Settings.PREF_SHOW_HINTS, false)
+                        && prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false));
     }
 
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
