@@ -114,6 +114,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("sh.calvin.reorderable:reorderable:2.4.2")
 
     // color picker for user-defined colors
     implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")

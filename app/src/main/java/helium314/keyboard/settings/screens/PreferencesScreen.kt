@@ -4,25 +4,18 @@ import android.content.Context
 import android.media.AudioManager
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.Preference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.SliderDialog
 
 @Composable
 fun PreferencesScreen(

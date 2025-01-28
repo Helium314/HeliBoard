@@ -14,10 +14,13 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  add reorder / enable dialog (maybe not as dialog?)
+//  add reorder / enable dialog
+//   reorder part is already done
 //  more pref screens, and other super-custom things
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
+//   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
+//   lazyColumn also has the key, this should be used! and must be unique
 //  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
 
 // later
@@ -29,7 +32,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  rename some classes
 //  split the preferences in allPrefs.createDefs into multiple files, this will get horribly long
 //   maybe have sub-lists in the pref screens using the settings?
-//  spdx headers everywhere
+//  spdx headers everywhere (except DragDropColumn, which is from stackoverflow without explicit license)
 //  changes to anything but the compose settings package should not be in the initial PR
 //   commit them separately if possible
 //   though some might be necessary
@@ -43,6 +46,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   show as disabled -> users confused
 //   show (but change will not do anything because another setting needs to be enabled first)
 //    -> users confused, but probably better than the 2 above
+//  adjust layout a little, there is too much empty space
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)
@@ -69,6 +73,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  another 300 kb when switching material2 to material3
 //  ca 150 kb reduction when removing androidx.preference
 //  -> too much, but still ok if we can get nicer preference stuff
+//  meh, and using a TextField adds another 300 kb... huge chunks for sth that seems so small
 
 class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(this) }

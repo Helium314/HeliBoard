@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import helium314.keyboard.settings.screens.createAboutPrefs
 import helium314.keyboard.settings.screens.createCorrectionPrefs
 import helium314.keyboard.settings.screens.createPreferencesPrefs
+import helium314.keyboard.settings.screens.createToolbarPrefs
 
 class AllPrefs(context: Context) {
     private val list = createPrefDefs(context)
@@ -51,7 +52,7 @@ class PrefDef(
 }
 
 private fun createPrefDefs(context: Context) = createAboutPrefs(context) +
-            createCorrectionPrefs(context) + createPreferencesPrefs(context)
+            createCorrectionPrefs(context) + createPreferencesPrefs(context) + createToolbarPrefs(context)
 
 // todo: move somewhere else
 fun Context.getActivity(): ComponentActivity? {
