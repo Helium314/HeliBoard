@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
 //   lazyColumn also has the key, this should be used! and must be unique
 //  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
+//  dialogs should be rememberSaveable to survive display orientation change and stuff?
+//  default buttons for toolbar key(s) customizer and toolbar reorder dialog
 
 // later
 //  one single place for default values (in composables and settings)
@@ -41,12 +43,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   -> now toolbar key always has the wrong state
 //  color settings needs a color search
 //  more convenient access to prefs
+//  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES
+//   should be single pref containing both
+//   needs settings upgrade of course...
 //  consider disabled settings & search
 //   don't show -> users confused
 //   show as disabled -> users confused
 //   show (but change will not do anything because another setting needs to be enabled first)
 //    -> users confused, but probably better than the 2 above
 //  adjust layout a little, there is too much empty space and titles are too large (dialogs!)
+//  check dialogs have the same colors
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)

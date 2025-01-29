@@ -41,6 +41,7 @@ import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ReorderDialog
+import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.prefs
 import helium314.keyboard.settings.themeChanged
 
@@ -112,8 +113,11 @@ fun createToolbarPrefs(context: Context) = listOf(
             name = def.title,
             onClick = { showDialog = true },
         )
-        // todo: needs the dialog!
-        //  which actually changes a different pref key... see if we can avoid it without too much work
+        if (showDialog)
+            // todo: CUSTOM_KEY_CODES vs the 2 actual prefs that are changed...
+            ToolbarKeysCustomizer(
+                onDismissRequest = { showDialog = false }
+            )
     },
     PrefDef(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary) { def ->
         SwitchPreference(
@@ -168,7 +172,7 @@ fun ToolbarKeyReorderDialog(
         displayItem = { item ->
             var checked by remember { mutableStateOf(item.state) }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                KeyboardIconsSet.instance.GetIcon(item.name.lowercase())
+                KeyboardIconsSet.instance.GetIcon(item.name)
                 val text = item.name.lowercase().getStringResourceOrName("", ctx).toString()
                 Text(text, Modifier.weight(1f))
                 Switch(
@@ -199,7 +203,7 @@ fun KeyboardIconsSet.GetIcon(name: String?) {
     val drawable = getNewDrawable(name, ctx)
     Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
         if (drawable is VectorDrawable)
-            Icon(painterResource(iconIds[name]!!), null, Modifier.fillMaxSize(0.8f))
+            Icon(painterResource(iconIds[name?.lowercase()]!!), null, Modifier.fillMaxSize(0.8f))
         else if (drawable != null) {
             val px = TypedValueCompat.dpToPx(40f, ctx.resources.displayMetrics).toInt()
             Icon(drawable.toBitmap(px, px).asImageBitmap(), null, Modifier.fillMaxSize(0.8f))
