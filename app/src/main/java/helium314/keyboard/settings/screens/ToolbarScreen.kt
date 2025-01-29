@@ -23,14 +23,17 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
+import helium314.keyboard.latin.utils.defaultToolbarPref
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.settings.AllPrefs
+import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.prefs
@@ -44,11 +47,32 @@ fun ToolbarScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_toolbar),
     ) {
+        SettingsActivity2.allPrefs.map[Settings.PREF_TOOLBAR_KEYS]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_PINNED_TOOLBAR_KEYS]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_CLIPBOARD_TOOLBAR_KEYS]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_QUICK_PIN_TOOLBAR_KEYS]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_SHOW_TOOLBAR]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_HIDE_TOOLBAR]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_VARIABLE_TOOLBAR_DIRECTION]!!.Preference()
     }
 }
 
 fun createToolbarPrefs(context: Context) = listOf(
+    PrefDef(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) { def ->
+        var showDialog by remember { mutableStateOf(false) }
+        Preference(
+            name = def.title,
+            onClick = { showDialog = true },
+        )
+        if (showDialog) {
+            ToolbarKeyReorderDialog(
+                def.key,
+                defaultToolbarPref,
+                def.title,
+            ) { showDialog = false }
+        }
+    },
     PrefDef(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) { def ->
         var showDialog by remember { mutableStateOf(false) }
         Preference(
@@ -56,44 +80,107 @@ fun createToolbarPrefs(context: Context) = listOf(
             onClick = { showDialog = true },
         )
         if (showDialog) {
-            val ctx = LocalContext.current
-            val prefs = ctx.prefs()
-            val items = prefs.getString(def.key, defaultPinnedToolbarPref)!!.split(";").mapTo(ArrayList()) {
-                val both = it.split(",")
-                KeyAndState(both.first(), both.last().toBoolean())
-            }
-            ReorderDialog(
-                onConfirmed = { reorderedItems ->
-                    val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
-                    prefs.edit().putString(def.key, value).apply()
-                    themeChanged = true
-                },
-                onDismissRequest = { showDialog = false },
-                items = items,
-                title = { Text(def.title)},
-                displayItem = { item ->
-                    var checked by remember { mutableStateOf(item.state) }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = Modifier.width(40.dp)) {
-                            val iconId = KeyboardIconsSet.instance.iconIds[item.name.lowercase()]
-                            if (iconId != null) // using ids makes having user-provided icons more difficult...
-                                Icon(painterResource(iconId), null)
-                        }
-                        val text = item.name.lowercase().getStringResourceOrName("", context).toString()
-                        Text(text, Modifier.weight(1f))
-                        Switch(
-                            checked = checked,
-                            onCheckedChange = { item.state = it; checked = it }
-                        )
-                    }
-                },
-                getKey = { it.hashCode() }
-            )
+            ToolbarKeyReorderDialog(
+                def.key,
+                defaultPinnedToolbarPref,
+                def.title,
+            ) { showDialog = false }
         }
     },
+    PrefDef(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) { def ->
+        var showDialog by remember { mutableStateOf(false) }
+        Preference(
+            name = def.title,
+            onClick = { showDialog = true },
+        )
+        if (showDialog) {
+            ToolbarKeyReorderDialog(
+                def.key,
+                defaultClipboardToolbarPref,
+                def.title,
+            ) { showDialog = false }
+        }
+    },
+    PrefDef(context, NonSettingsPrefs.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) { def ->
+        var showDialog by remember { mutableStateOf(false) }
+        Preference(
+            name = def.title,
+            onClick = { showDialog = true },
+        )
+        // todo: needs the dialog!
+        //  which actually changes a different pref key... see if we can avoid it without too much work
+    },
+    PrefDef(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary) { def ->
+        SwitchPreference(
+            def,
+            false,
+        ) { themeChanged = true }
+    },
+    PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary) { def ->
+        SwitchPreference(
+            def,
+            false,
+        )
+    },
+    PrefDef(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary) { def ->
+        SwitchPreference(
+            def,
+            false,
+        )
+    },
+    PrefDef(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary) { def ->
+        SwitchPreference(
+            def,
+            true,
+        )
+    }
 )
 
 private class KeyAndState(var name: String, var state: Boolean)
+
+@Composable
+fun ToolbarKeyReorderDialog(
+    prefKey: String,
+    default: String,
+    title: String,
+    onDismiss: () -> Unit
+) {
+    val ctx = LocalContext.current
+    val prefs = ctx.prefs()
+    val items = prefs.getString(prefKey, default)!!.split(";").mapTo(ArrayList()) {
+        val both = it.split(",")
+        KeyAndState(both.first(), both.last().toBoolean())
+    }
+    ReorderDialog(
+        onConfirmed = { reorderedItems ->
+            val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
+            prefs.edit().putString(prefKey, value).apply()
+            themeChanged = true
+        },
+        onDismissRequest = { onDismiss },
+        items = items,
+        title = { Text(title)},
+        displayItem = { item ->
+            var checked by remember { mutableStateOf(item.state) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.width(40.dp)) {
+                    val iconId = KeyboardIconsSet.instance.iconIds[item.name.lowercase()]
+                    if (iconId != null)
+                        // using ids makes having user-provided icons more difficult
+                        // probably best would be some KeyboardIconsSet.getComposable that does "the right thing"
+                        Icon(painterResource(iconId), null)
+                }
+                val text = item.name.lowercase().getStringResourceOrName("", ctx).toString()
+                Text(text, Modifier.weight(1f))
+                Switch(
+                    checked = checked,
+                    onCheckedChange = { item.state = it; checked = it }
+                )
+            }
+        },
+        getKey = { it.name }
+    )
+}
 
 @Preview
 @Composable

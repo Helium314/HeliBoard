@@ -79,8 +79,13 @@ fun <T: Any> ReorderDialog(
                         val elevation by animateDpAsState(if (dragging) 4.dp else 0.dp)
                         Surface(shadowElevation = elevation) {
                             Row(modifier = Modifier.longPressDraggableHandle(), verticalAlignment = Alignment.CenterVertically) {
-                                Icon(painterResource(R.drawable.ic_drag_indicator), "Reorder", Modifier.padding(end = 8.dp))
-                                displayItem(item)
+                                Icon(
+                                    painterResource(R.drawable.ic_drag_indicator),
+                                    "Reorder",
+                                    Modifier.padding(end = 8.dp),
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                               displayItem(item)
                             }
                         }
                     }

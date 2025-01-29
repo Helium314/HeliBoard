@@ -76,6 +76,7 @@ object NonSettingsPrefs {
     const val HIDDEN_FEATURES = "hidden_features"
     const val GITHUB = "github"
     const val SAVE_LOG = "save_log"
+    const val CUSTOM_KEY_CODES = "customize_key_codes"
 }
 
 @JvmField

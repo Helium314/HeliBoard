@@ -173,7 +173,6 @@ fun SwitchPreference(
 fun SwitchPreference(
     def: PrefDef,
     default: Boolean,
-    modifier: Modifier = Modifier,
     allowCheckedChange: (Boolean) -> Boolean = { true },
     onCheckedChange: (Boolean) -> Unit = { }
 ) {
@@ -182,7 +181,6 @@ fun SwitchPreference(
         description = def.description,
         pref = def.key,
         default = default,
-        modifier = modifier,
         allowCheckedChange = allowCheckedChange,
         onCheckedChange = onCheckedChange
     )

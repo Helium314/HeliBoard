@@ -14,11 +14,11 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  add reorder / enable dialog
-//   maybe a more generic / reusable wrapper dialog
-//   need to adjust icons, because compose refuses to work with rotated drawables (arrows)
-//   drag handle should have "dimmed" color, iirc there are some theme defaults with the localCompositionProvider?
-//  more pref screens, and other super-custom things
+//  need to adjust icons, because compose refuses to work with rotated drawables (arrows on toolbar keys)
+//  more pref screens
+//  other super-custom things
+//   toolbar key customizer (missing from toolbar screen)
+//   icon selector
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
 //   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
