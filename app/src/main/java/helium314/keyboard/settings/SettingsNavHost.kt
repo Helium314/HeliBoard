@@ -54,6 +54,7 @@ fun SettingsNavHost(
                 onClickToolbar = { navController.navigate(SettingsDestination.Toolbar) },
                 onClickGestureTyping = { navController.navigate(SettingsDestination.GestureTyping) },
                 onClickAdvanced = { navController.navigate(SettingsDestination.Advanced) },
+                onClickAppearance = { navController.navigate(SettingsDestination.Appearance) },
                 onClickBack = ::goBack,
             )
         }
@@ -88,7 +89,22 @@ fun SettingsNavHost(
             )
         }
         composable(SettingsDestination.Debug) {
-//            DebugSettingsScreen(
+            DebugSettingsScreen(
+                onClickBack = ::goBack
+            )
+        }
+        composable(SettingsDestination.Appearance) {
+//            AppearanceSettingsScreen(
+//                onClickBack = ::goBack
+//            )
+        }
+        composable(SettingsDestination.PersonalDictionary) {
+//            PersonalDictionarySettingsScreen(
+//                onClickBack = ::goBack
+//            )
+        }
+        composable(SettingsDestination.Languages) {
+//            LanguagesSettingsScreen(
 //                onClickBack = ::goBack
 //            )
         }
@@ -104,6 +120,10 @@ object SettingsDestination {
     const val GestureTyping = "gesture_typing"
     const val Advanced = "advanced"
     const val Debug = "debug"
+    const val Appearance = "appearance"
+//    const val Colors = "colors" todo: can't simply do this with the day/night approach (maybe colors and colorsNight?)
+    const val PersonalDictionary = "personal_dictionary"
+    const val Languages = "languages"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

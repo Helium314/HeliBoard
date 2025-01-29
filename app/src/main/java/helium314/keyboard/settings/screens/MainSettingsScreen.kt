@@ -39,6 +39,7 @@ fun MainSettingsScreen(
     onClickToolbar: () -> Unit,
     onClickGestureTyping: () -> Unit,
     onClickAdvanced: () -> Unit,
+    onClickAppearance: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current

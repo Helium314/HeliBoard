@@ -69,6 +69,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  try getting rid of appcompat stuff (activity, dialogs, ...)
 //  re-organize screens, no need to keep exactly the same arrangement
 //  use simple list picker
+//  exclude all debug settings from search results if they are not enabled
 
 // preliminary results:
 // looks ok (ugly M3 switches)

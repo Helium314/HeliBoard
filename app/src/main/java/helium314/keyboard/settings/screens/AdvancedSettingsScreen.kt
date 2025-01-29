@@ -60,7 +60,7 @@ fun AdvancedSettingsScreen(
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS]!!.Preference()
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.BACKUP_RESTORE]!!.Preference()
         if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false))
-            SettingsActivity2.allPrefs.map[NonSettingsPrefs.DEBUG_SETTINGS]!!.Preference()
+            SettingsActivity2.allPrefs.map[NonSettingsPrefs.DEBUG_SETTINGS]!!.Preference() // todo: maybe move to main screen?
         PreferenceCategory(
             stringResource(R.string.settings_category_experimental)
         ) {
