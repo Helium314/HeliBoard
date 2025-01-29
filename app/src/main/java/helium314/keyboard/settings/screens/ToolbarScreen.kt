@@ -162,9 +162,9 @@ fun ToolbarKeyReorderDialog(
             prefs.edit().putString(prefKey, value).apply()
             themeChanged = true
         },
-        onDismissRequest = { onDismiss },
+        onDismissRequest = onDismiss,
         items = items,
-        title = { Text(title)},
+        title = { Text(title) },
         displayItem = { item ->
             var checked by remember { mutableStateOf(item.state) }
             Row(verticalAlignment = Alignment.CenterVertically) {
