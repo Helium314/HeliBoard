@@ -152,6 +152,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
+    public static final int DEFAULT_LANGUAGE_SWIPE_DISTANCE = 10;
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -457,7 +458,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readDefaultLanguageSwipeDistance(final Resources res) {
-        return res.getInteger(R.integer.config_default_language_swipe_distance);
+        return DEFAULT_LANGUAGE_SWIPE_DISTANCE;
     }
 
     public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {

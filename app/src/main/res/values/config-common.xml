@@ -30,11 +30,6 @@
     <bool name="config_default_vibration_enabled">false</bool>
     <integer name="config_max_vibration_duration">100</integer>
 
-    <integer name="config_default_language_swipe_distance">10</integer>
-    <integer name="config_min_language_swipe_distance">2</integer>
-    <integer name="config_max_language_swipe_distance">18</integer>
-    <integer name="config_language_swipe_distance_step">1</integer>
-
     <integer name="config_default_longpress_key_timeout">300</integer>
     <integer name="config_max_longpress_timeout">700</integer>
     <integer name="config_min_longpress_timeout">100</integer>
