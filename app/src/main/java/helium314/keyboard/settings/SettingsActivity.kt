@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isGone
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
@@ -78,7 +77,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  meh, and using a TextField adds another 300 kb... huge chunks for sth that seems so small
 
 class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
-    private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(this) }
+    private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
 
     override fun onCreate(savedInstanceState: Bundle?) {

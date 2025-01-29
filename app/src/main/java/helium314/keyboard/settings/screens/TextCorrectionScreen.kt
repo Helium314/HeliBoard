@@ -23,7 +23,6 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.UserDictionaryListFragment
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.NonSettingsPrefs
@@ -37,13 +36,14 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.getActivity
+import helium314.keyboard.settings.prefs
 import helium314.keyboard.settings.themeChanged
 
 @Composable
 fun TextCorrectionScreen(
     onClickBack: () -> Unit,
 ) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(LocalContext.current)
+    val prefs = LocalContext.current.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
@@ -137,7 +137,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
             stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
             stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to "2",
         )
-        val prefs = DeviceProtectedUtils.getSharedPreferences(LocalContext.current)
+        val prefs = LocalContext.current.prefs()
         val selected = items.firstOrNull { it.second == prefs.getString(def.key, "0") }
         Preference(
             name = def.title,
@@ -208,7 +208,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
             }
         )
         if (showConfirmDialog) {
-            val prefs = DeviceProtectedUtils.getSharedPreferences(LocalContext.current)
+            val prefs = LocalContext.current.prefs()
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
                 onConfirmed = {

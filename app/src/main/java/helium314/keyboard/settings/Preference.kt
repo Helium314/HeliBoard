@@ -35,7 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.dialogs.SliderDialog
 
@@ -140,7 +139,7 @@ fun SwitchPreference(
     onCheckedChange: (Boolean) -> Unit = { },
 ) {
     val ctx = LocalContext.current
-    val prefs = DeviceProtectedUtils.getSharedPreferences(ctx)
+    val prefs = ctx.prefs()
     val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
@@ -198,7 +197,7 @@ fun <T: Number> SliderPreference(
     onValueChanged: (Float) -> Unit = { },
 ) {
     val ctx = LocalContext.current
-    val prefs = DeviceProtectedUtils.getSharedPreferences(ctx)
+    val prefs = ctx.prefs()
     val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")

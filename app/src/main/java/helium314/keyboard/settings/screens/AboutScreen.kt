@@ -25,7 +25,6 @@ import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.settings.AllPrefs
@@ -36,6 +35,7 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.getActivity
+import helium314.keyboard.settings.prefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -68,7 +68,7 @@ fun createAboutPrefs(context: Context) = listOf(
     PrefDef(context, NonSettingsPrefs.VERSION, R.string.version) {
         var count by rememberSaveable { mutableIntStateOf(0) }
         val ctx = LocalContext.current
-        val prefs = DeviceProtectedUtils.getSharedPreferences(ctx)
+        val prefs = ctx.prefs()
         Preference(
             name = it.title,
             description = stringResource(R.string.version_text, BuildConfig.VERSION_NAME),
