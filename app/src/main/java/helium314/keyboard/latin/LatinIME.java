@@ -90,6 +90,7 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.AllPrefsKt;
+import helium314.keyboard.settings.SettingsActivity2;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -1879,7 +1880,7 @@ public class LatinIME extends InputMethodService implements
             mainKeyboardView.closing();
         }
         final Intent intent = new Intent();
-        intent.setClass(LatinIME.this, SettingsActivity.class);
+        intent.setClass(LatinIME.this, SettingsActivity2.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
