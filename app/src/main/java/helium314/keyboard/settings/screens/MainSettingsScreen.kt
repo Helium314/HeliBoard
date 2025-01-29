@@ -38,6 +38,7 @@ fun MainSettingsScreen(
     onClickPreferences: () -> Unit,
     onClickToolbar: () -> Unit,
     onClickGestureTyping: () -> Unit,
+    onClickAdvanced: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -80,7 +81,18 @@ fun MainSettingsScreen(
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f), // no rotate drawable allowed in compose
+                modifier = Modifier.scale(-1f, 1f),
+                contentDescription = null
+            )
+        }
+        Preference(
+            name = stringResource(R.string.settings_screen_advanced),
+            onClick = onClickAdvanced,
+            icon = R.drawable.ic_settings_advanced_foreground
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_left),
+                modifier = Modifier.scale(-1f, 1f),
                 contentDescription = null
             )
         }
@@ -148,7 +160,7 @@ fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {})
         }
     }
 }

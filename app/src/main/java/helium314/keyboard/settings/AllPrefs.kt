@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.screens.createAboutPrefs
+import helium314.keyboard.settings.screens.createAdvancedPrefs
 import helium314.keyboard.settings.screens.createCorrectionPrefs
 import helium314.keyboard.settings.screens.createGestureTypingPrefs
 import helium314.keyboard.settings.screens.createPreferencesPrefs
@@ -56,7 +57,7 @@ class PrefDef(
 
 private fun createPrefDefs(context: Context) = createAboutPrefs(context) +
             createCorrectionPrefs(context) + createPreferencesPrefs(context) + createToolbarPrefs(context) +
-            createGestureTypingPrefs(context)
+            createGestureTypingPrefs(context) + createAdvancedPrefs(context)
 
 // todo: move somewhere else
 fun Context.getActivity(): ComponentActivity? {
@@ -79,7 +80,13 @@ object NonSettingsPrefs {
     const val GITHUB = "github"
     const val SAVE_LOG = "save_log"
     const val CUSTOM_KEY_CODES = "customize_key_codes"
+    const val CUSTOM_SYMBOLS_NUMBER_LAYOUTS = "custom_symbols_number_layouts"
+    const val CUSTOM_FUNCTIONAL_LAYOUTS = "custom_functional_key_layouts"
+    const val BACKUP_RESTORE = "backup_restore"
+    const val DEBUG_SETTINGS = "screen_debug"
+    const val LOAD_GESTURE_LIB = "load_gesture_library"
 }
 
 @JvmField
+// todo: maybe better name it "reloadKeyboard"?
 var themeChanged = false

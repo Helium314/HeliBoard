@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
+import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
@@ -52,6 +53,7 @@ fun SettingsNavHost(
                 onClickPreferences = { navController.navigate(SettingsDestination.Preferences) },
                 onClickToolbar = { navController.navigate(SettingsDestination.Toolbar) },
                 onClickGestureTyping = { navController.navigate(SettingsDestination.GestureTyping) },
+                onClickAdvanced = { navController.navigate(SettingsDestination.Advanced) },
                 onClickBack = ::goBack,
             )
         }
@@ -61,24 +63,34 @@ fun SettingsNavHost(
             )
         }
         composable(SettingsDestination.TextCorrection) {
-            TextCorrectionScreen (
+            TextCorrectionScreen(
                 onClickBack = ::goBack
             )
         }
         composable(SettingsDestination.Preferences) {
-            PreferencesScreen (
+            PreferencesScreen(
                 onClickBack = ::goBack
             )
         }
         composable(SettingsDestination.Toolbar) {
-            ToolbarScreen (
+            ToolbarScreen(
                 onClickBack = ::goBack
             )
         }
         composable(SettingsDestination.GestureTyping) {
-            GestureTypingScreen (
+            GestureTypingScreen(
                 onClickBack = ::goBack
             )
+        }
+        composable(SettingsDestination.Advanced) {
+            AdvancedSettingsScreen(
+                onClickBack = ::goBack
+            )
+        }
+        composable(SettingsDestination.Debug) {
+//            DebugSettingsScreen(
+//                onClickBack = ::goBack
+//            )
         }
     }
 }
@@ -90,6 +102,8 @@ object SettingsDestination {
     const val Preferences = "preferences"
     const val Toolbar = "toolbar"
     const val GestureTyping = "gesture_typing"
+    const val Advanced = "advanced"
+    const val Debug = "debug"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

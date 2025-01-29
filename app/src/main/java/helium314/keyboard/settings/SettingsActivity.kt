@@ -14,9 +14,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
 //  more pref screens
-//  other super-custom things
-//   toolbar key customizer (missing from toolbar screen)
-//   icon selector
+//   debug
+//   appearance
+//   colors
+//   personal dictionary
+//   languages (maybe separately)
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
 //   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
@@ -53,6 +55,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    -> users confused, but probably better than the 2 above
 //  adjust layout a little, there is too much empty space and titles are too large (dialogs!)
 //  check dialogs have the same colors
+//  list preference -> we can make auto_correct_threshold a float directly
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)
@@ -64,6 +67,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  adjust the debug settings thing, so that users can always find them in search but nowhere else? unless debug mode
 //  search only in current pref screen, except when in main?
 //  try getting rid of appcompat stuff (activity, dialogs, ...)
+//  re-organize screens, no need to keep exactly the same arrangement
+//  use simple list picker
 
 // preliminary results:
 // looks ok (ugly M3 switches)

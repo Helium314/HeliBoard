@@ -116,7 +116,7 @@ private fun Preview() {
     SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
     Theme(true) {
         Surface {
-            GestureTypingScreen {  }
+            GestureTypingScreen { }
         }
     }
 }

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.content.SharedPreferences
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,12 +31,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 
 // taken from StreetComplete (and a bit SCEE)
@@ -201,8 +205,8 @@ fun <T: Number> SliderPreference(
     val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val initialValue = if (default is Int) prefs.getInt(pref, default)
-        else if (default is Float) prefs.getFloat(pref, default)
+    val initialValue = if (default is Int || default is Float)
+        getPrefOfType(prefs, pref, default)
         else throw IllegalArgumentException("only float and int are supported")
 
     var showDialog by remember { mutableStateOf(false) }
@@ -229,6 +233,58 @@ fun <T: Number> SliderPreference(
             onDefault = { prefs.edit().remove(pref).apply() }
         )
 }
+
+@Composable
+fun <T: Any> ListPreference(
+    def: PrefDef,
+    items: List<Pair<String, T>>,
+    default: T,
+) {
+    var showDialog by remember { mutableStateOf(false) }
+    // todo: get rid of the arrays from old settings
+    val prefs = LocalContext.current.prefs()
+    val selected = items.firstOrNull { it.second == getPrefOfType(prefs, def.key, default) }
+    Preference(
+        name = def.title,
+        description = selected?.first,
+        onClick = { showDialog = true }
+    )
+    if (showDialog) {
+        ListPickerDialog(
+            onDismissRequest = { showDialog = false },
+            items = items,
+            onItemSelected = {
+                if (it != selected)
+                    putPrefOfType(prefs, def.key, it.second)
+            },
+            selectedItem = selected,
+            title = { Text(def.title) },
+            getItemName = { it.first }
+        )
+    }
+}
+
+private fun <T: Any> getPrefOfType(prefs: SharedPreferences, key: String, default: T): T =
+    when (default) {
+        is String -> prefs.getString(key, default)
+        is Int -> prefs.getInt(key, default)
+        is Long -> prefs.getLong(key, default)
+        is Float -> prefs.getFloat(key, default)
+        is Boolean -> prefs.getBoolean(key, default)
+        else -> throw IllegalArgumentException("unknown type ${default.javaClass}")
+    } as T
+
+private fun <T: Any> putPrefOfType(prefs: SharedPreferences, key: String, value: T) =
+    prefs.edit {
+        when (value) {
+            is String -> putString(key, value)
+            is Int -> putInt(key, value)
+            is Long -> putLong(key, value)
+            is Float -> putFloat(key, value)
+            is Boolean -> putBoolean(key, value)
+            else -> throw IllegalArgumentException("unknown type ${value.javaClass}")
+        }
+    }
 
 @Preview
 @Composable

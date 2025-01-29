@@ -25,6 +25,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.UserDictionaryListFragment
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.AllPrefs
+import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
@@ -130,33 +131,13 @@ fun createCorrectionPrefs(context: Context) = listOf(
         Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
         R.string.auto_correction_confidence,
     ) { def ->
-        var showDialog by remember { mutableStateOf(false) }
         // todo: arrays are arranged in a rather absurd way... this should be improved
         val items = listOf(
             stringResource(R.string.auto_correction_threshold_mode_modest) to "0",
             stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
             stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to "2",
         )
-        val prefs = LocalContext.current.prefs()
-        val selected = items.firstOrNull { it.second == prefs.getString(def.key, "0") }
-        Preference(
-            name = def.title,
-            description = selected?.first,
-            onClick = { showDialog = true }
-        )
-        if (showDialog) {
-            ListPickerDialog(
-                onDismissRequest = {showDialog = false },
-                items = items,
-                onItemSelected = {
-                    if (it != selected)
-                        prefs.edit().putString(def.key, it.second).apply()
-                },
-                selectedItem = selected,
-                title = { Text(def.title) },
-                getItemName = { it.first }
-            )
-        }
+        ListPreference(def, items, "0")
     },
     PrefDef(context,
         Settings.PREF_AUTO_CAP,
