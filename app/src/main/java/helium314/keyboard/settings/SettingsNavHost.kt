@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
+import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
@@ -50,6 +51,7 @@ fun SettingsNavHost(
                 onClickTextCorrection = { navController.navigate(SettingsDestination.TextCorrection) },
                 onClickPreferences = { navController.navigate(SettingsDestination.Preferences) },
                 onClickToolbar = { navController.navigate(SettingsDestination.Toolbar) },
+                onClickGestureTyping = { navController.navigate(SettingsDestination.GestureTyping) },
                 onClickBack = ::goBack,
             )
         }
@@ -73,6 +75,11 @@ fun SettingsNavHost(
                 onClickBack = ::goBack
             )
         }
+        composable(SettingsDestination.GestureTyping) {
+            GestureTypingScreen (
+                onClickBack = ::goBack
+            )
+        }
     }
 }
 
@@ -82,6 +89,7 @@ object SettingsDestination {
     const val TextCorrection = "text_correction"
     const val Preferences = "preferences"
     const val Toolbar = "toolbar"
+    const val GestureTyping = "gesture_typing"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

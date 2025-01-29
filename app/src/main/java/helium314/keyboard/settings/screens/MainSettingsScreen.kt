@@ -37,6 +37,7 @@ fun MainSettingsScreen(
     onClickTextCorrection: () -> Unit,
     onClickPreferences: () -> Unit,
     onClickToolbar: () -> Unit,
+    onClickGestureTyping: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -66,6 +67,12 @@ fun MainSettingsScreen(
                 contentDescription = null
             )
         }
+        if (JniUtils.sHaveGestureLib)
+            Preference(
+                name = stringResource(R.string.settings_screen_gesture),
+                onClick = onClickGestureTyping,
+                icon = R.drawable.ic_settings_gesture_foreground
+            )
         Preference(
             name = stringResource(R.string.settings_screen_correction),
             onClick = onClickTextCorrection,
@@ -141,7 +148,7 @@ fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {})
         }
     }
 }
