@@ -82,7 +82,7 @@ fun <T: Any> ReorderDialog(
                                 Icon(
                                     painterResource(R.drawable.ic_drag_indicator),
                                     "Reorder",
-                                    Modifier.padding(end = 8.dp),
+                                    Modifier.padding(end = 6.dp),
                                     MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                displayItem(item)

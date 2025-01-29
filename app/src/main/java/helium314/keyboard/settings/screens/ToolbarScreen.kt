@@ -1,9 +1,11 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
+import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -15,11 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.util.TypedValueCompat
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
@@ -50,7 +55,7 @@ fun ToolbarScreen(
         SettingsActivity2.allPrefs.map[Settings.PREF_TOOLBAR_KEYS]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_PINNED_TOOLBAR_KEYS]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_CLIPBOARD_TOOLBAR_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES]!!.Preference()
+        SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_KEY_CODES]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_QUICK_PIN_TOOLBAR_KEYS]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_SHOW_TOOLBAR]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_HIDE_TOOLBAR]!!.Preference()
@@ -163,13 +168,7 @@ fun ToolbarKeyReorderDialog(
         displayItem = { item ->
             var checked by remember { mutableStateOf(item.state) }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.width(40.dp)) {
-                    val iconId = KeyboardIconsSet.instance.iconIds[item.name.lowercase()]
-                    if (iconId != null)
-                        // using ids makes having user-provided icons more difficult
-                        // probably best would be some KeyboardIconsSet.getComposable that does "the right thing"
-                        Icon(painterResource(iconId), null)
-                }
+                KeyboardIconsSet.instance.GetIcon(item.name.lowercase())
                 val text = item.name.lowercase().getStringResourceOrName("", ctx).toString()
                 Text(text, Modifier.weight(1f))
                 Switch(
@@ -190,6 +189,20 @@ private fun Preview() {
     Theme(true) {
         Surface {
             ToolbarScreen { }
+        }
+    }
+}
+
+@Composable
+fun KeyboardIconsSet.GetIcon(name: String?) {
+    val ctx = LocalContext.current
+    val drawable = getNewDrawable(name, ctx)
+    Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
+        if (drawable is VectorDrawable)
+            Icon(painterResource(iconIds[name]!!), null, Modifier.fillMaxSize(0.8f))
+        else if (drawable != null) {
+            val px = TypedValueCompat.dpToPx(40f, ctx.resources.displayMetrics).toInt()
+            Icon(drawable.toBitmap(px, px).asImageBitmap(), null, Modifier.fillMaxSize(0.8f))
         }
     }
 }

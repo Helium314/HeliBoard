@@ -13,7 +13,6 @@ import helium314.keyboard.latin.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  need to adjust icons, because compose refuses to work with rotated drawables (arrows on toolbar keys)
 //  more pref screens
 //  other super-custom things
 //   toolbar key customizer (missing from toolbar screen)
