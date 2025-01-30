@@ -13,8 +13,11 @@ import helium314.keyboard.latin.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
+//  test release vs old release for settings start speed
+//   also when coming from keyboard
+//    good way to measure startup time? e.g. sth in activity, or in composable, compared to settings button
+//   check if there are simple ways to improve it (try kicking out "everything" at start)
 //  more pref screens
-//   debug
 //   appearance
 //   colors
 //   personal dictionary
@@ -55,7 +58,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    -> users confused, but probably better than the 2 above
 //  adjust layout a little, there is too much empty space and titles are too large (dialogs!)
 //  check dialogs have the same colors
-//  list preference -> we can make auto_correct_threshold a float directly
+//  list preference -> we can make auto_correct_threshold a float directly (needs pref upgrade
+//  actually test all the settings
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)
