@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.screens.createAboutPrefs
 import helium314.keyboard.settings.screens.createAdvancedPrefs
+import helium314.keyboard.settings.screens.createAppearancePrefs
 import helium314.keyboard.settings.screens.createCorrectionPrefs
 import helium314.keyboard.settings.screens.createDebugPrefs
 import helium314.keyboard.settings.screens.createGestureTypingPrefs
@@ -58,7 +59,8 @@ class PrefDef(
 
 private fun createPrefDefs(context: Context) = createAboutPrefs(context) +
             createCorrectionPrefs(context) + createPreferencesPrefs(context) + createToolbarPrefs(context) +
-            createGestureTypingPrefs(context) + createAdvancedPrefs(context) + createDebugPrefs(context)
+            createGestureTypingPrefs(context) + createAdvancedPrefs(context) + createDebugPrefs(context) +
+            createAppearancePrefs(context)
 
 // todo: move somewhere else
 fun Context.getActivity(): ComponentActivity? {

@@ -12,6 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
+import helium314.keyboard.settings.screens.AppearanceScreen
+import helium314.keyboard.settings.screens.DebugScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
@@ -89,14 +91,14 @@ fun SettingsNavHost(
             )
         }
         composable(SettingsDestination.Debug) {
-            DebugSettingsScreen(
+            DebugScreen(
                 onClickBack = ::goBack
             )
         }
         composable(SettingsDestination.Appearance) {
-//            AppearanceSettingsScreen(
-//                onClickBack = ::goBack
-//            )
+            AppearanceScreen(
+                onClickBack = ::goBack
+            )
         }
         composable(SettingsDestination.PersonalDictionary) {
 //            PersonalDictionarySettingsScreen(
@@ -105,6 +107,18 @@ fun SettingsNavHost(
         }
         composable(SettingsDestination.Languages) {
 //            LanguagesSettingsScreen(
+//                onClickBack = ::goBack
+//            )
+        }
+        composable(SettingsDestination.Colors) {
+//            ColorsScreen(
+//                night = false,
+//                onClickBack = ::goBack
+//            )
+        }
+        composable(SettingsDestination.ColorsNight) {
+//            ColorsScreen(
+//                night = true,
 //                onClickBack = ::goBack
 //            )
         }
@@ -121,7 +135,8 @@ object SettingsDestination {
     const val Advanced = "advanced"
     const val Debug = "debug"
     const val Appearance = "appearance"
-//    const val Colors = "colors" todo: can't simply do this with the day/night approach (maybe colors and colorsNight?)
+    const val Colors = "colors"
+    const val ColorsNight = "colors_night"
     const val PersonalDictionary = "personal_dictionary"
     const val Languages = "languages"
     val navTarget = MutableStateFlow(Settings)

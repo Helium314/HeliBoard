@@ -59,6 +59,17 @@ fun MainSettingsScreen(
             )
         }
         Preference(
+            name = stringResource(R.string.settings_screen_appearance),
+            onClick = onClickAppearance,
+            icon = R.drawable.ic_settings_appearance_foreground
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_left),
+                modifier = Modifier.scale(-1f, 1f),
+                contentDescription = null
+            )
+        }
+        Preference(
             name = stringResource(R.string.settings_screen_toolbar),
             onClick = onClickToolbar,
             icon = R.drawable.ic_settings_toolbar_foreground
@@ -161,7 +172,7 @@ fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

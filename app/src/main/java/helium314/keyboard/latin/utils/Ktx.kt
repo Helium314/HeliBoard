@@ -13,6 +13,7 @@ inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
     return sum
 }
 
+// todo: string instead of CharSequence for compose? because resource STRINGs should be strings anyway...
 fun CharSequence.getStringResourceOrName(prefix: String, context: Context): CharSequence {
     val resId = context.resources.getIdentifier(prefix + this, "string", context.packageName)
     return if (resId == 0) this else context.getString(resId)

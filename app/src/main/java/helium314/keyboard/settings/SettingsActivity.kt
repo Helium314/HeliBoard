@@ -18,9 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    good way to measure startup time? e.g. sth in activity, or in composable, compared to settings button
 //   check if there are simple ways to improve it (try kicking out "everything" at start)
 //  more pref screens
-//   appearance
 //   colors
-//   personal dictionary
+//   personal dictionary (maybe separately)
 //   languages (maybe separately)
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
