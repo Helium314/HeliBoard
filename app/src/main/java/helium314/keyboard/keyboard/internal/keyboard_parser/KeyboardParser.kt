@@ -17,12 +17,10 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
@@ -88,9 +86,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         addNumberRowOrPopupKeys(baseKeys, numberRow)
         if (params.mId.isAlphabetKeyboard)
             addSymbolPopupKeys(baseKeys)
-        if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled)
-            baseKeys.add(0, numberRow
-                .mapTo(mutableListOf()) { it.copy(newLabelFlags = Key.LABEL_FLAGS_DISABLE_HINT_LABEL or defaultLabelFlags) })
+        if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled) {
+            val newLabelFlags = defaultLabelFlags or
+                    if (Settings.getInstance().current.mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
+            baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
+        }
         if (!params.mAllowRedundantPopupKeys)
             params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
 

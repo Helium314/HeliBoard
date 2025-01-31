@@ -147,6 +147,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
+    public static final String PREF_SHOW_NUMBER_ROW_HINTS = "show_number_row_hints";
     public static final String PREF_CUSTOM_CURRENCY_KEY = "custom_currency_key";
 
     public static final String PREF_SHOW_HINTS = "show_hints";

@@ -70,6 +70,7 @@ public class SettingsValues {
     private final boolean mShowsLanguageSwitchKey;
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
+    public final boolean mShowNumberRowHints;
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
@@ -174,6 +175,7 @@ public class SettingsValues {
         mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false); // only relevant for default functional key layout
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
+        mShowNumberRowHints = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW_HINTS, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
