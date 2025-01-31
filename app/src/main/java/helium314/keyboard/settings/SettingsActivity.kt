@@ -13,14 +13,7 @@ import helium314.keyboard.latin.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  test release vs old release for settings start speed
-//   also when coming from keyboard
-//    good way to measure startup time? e.g. sth in activity, or in composable, compared to settings button
-//   check if there are simple ways to improve it (try kicking out "everything" at start)
-//  more pref screens
-//   colors
-//   personal dictionary (maybe separately)
-//   languages (maybe separately)
+//  make all prefs actually work
 //  consider IME insets when searching
 //  improve performance when loading screens with many settings (lazyColumn?)
 //   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
@@ -28,6 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  default buttons for toolbar key(s) customizer and toolbar reorder dialog
+//  merge main to implement all the new settings
 
 // later
 //  one single place for default values (in composables and settings)
@@ -59,9 +53,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  check dialogs have the same colors
 //  list preference -> we can make auto_correct_threshold a float directly (needs pref upgrade
 //  actually test all the settings
+//  when starting keyboard from settings, initially there is the "old" background color before compose stuff starts
+//  language settings (separate commit / PR, should change more than just move to compose)
+//  user dictionary settings (separate commit / PR, or maybe leave old state for a while?)
+//  color settings (separate commit / PR, should at least change how colors are stored)
 
 // maybe later
-//  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed)
+//  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed before next release)
 //  bottom text field (though we have the search now anyway)
 //  remove navHost? but probably too useful to have...
 //  lazyColumn for prefs (or just in category?)
@@ -73,6 +71,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  re-organize screens, no need to keep exactly the same arrangement
 //  use simple list picker
 //  exclude all debug settings from search results if they are not enabled
+//  rearrange settings screens? now it should be very simple to do (definitely separate PR)
 
 // preliminary results:
 // looks ok (ugly M3 switches)
@@ -81,6 +80,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  gets much better when opening same screen again
 //  material3 is ~25% faster than material2
 //  debug is MUCH slower than release
+//   much of this is before the app actually starts (before App.onCreate), maybe loading the many compose classes slows down startup
 //  -> should be fine on reasonably recent phones (imo even still acceptable on S4 mini)
 // apk size increase
 //  ca 900 kb with base + material2
