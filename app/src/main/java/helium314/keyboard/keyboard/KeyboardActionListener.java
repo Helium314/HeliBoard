@@ -97,7 +97,7 @@ public interface KeyboardActionListener {
      */
     boolean onHorizontalSpaceSwipe(int steps);
     boolean onVerticalSpaceSwipe(int steps);
-    void resetSubtypeSwitchCount();
+    void onEndSpaceSwipe();
     boolean toggleNumpad(boolean withSliding, boolean forceReturnToAlpha);
 
     void onMoveDeletePointer(int steps);
@@ -149,7 +149,7 @@ public interface KeyboardActionListener {
             return false;
         }
         @Override
-        public void resetSubtypeSwitchCount() {}
+        public void onEndSpaceSwipe() {}
         @Override
         public void onMoveDeletePointer(int steps) {}
         @Override

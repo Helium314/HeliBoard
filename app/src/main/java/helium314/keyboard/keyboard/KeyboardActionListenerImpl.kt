@@ -85,7 +85,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         else -> false
     }
 
-    override fun resetSubtypeSwitchCount(){
+    override fun onEndSpaceSwipe(){
         mSubtypeSwitchCount = 0
     }
 
