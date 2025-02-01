@@ -26,6 +26,7 @@ import helium314.keyboard.latin.settings.UserDictionaryListFragment
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs

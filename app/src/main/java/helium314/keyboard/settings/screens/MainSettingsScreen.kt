@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
-import android.app.Activity
-import android.view.View
-import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -14,7 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.fragment.app.commit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.AboutFragment
 import helium314.keyboard.latin.settings.AdvancedSettingsFragment
@@ -26,6 +21,7 @@ import helium314.keyboard.latin.settings.PreferencesSettingsFragment
 import helium314.keyboard.latin.settings.ToolbarSettingsFragment
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.Preference
 import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
@@ -156,14 +152,6 @@ fun MainSettingsScreen(
                 onClick = { ctx.getActivity()?.switchTo(AboutFragment()) }
             )
         }
-    }
-}
-
-fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
-    (this as AppCompatActivity).supportFragmentManager.commit {
-        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).visibility = View.VISIBLE
-        replace(R.id.settingsFragmentContainer, fragment)
-        addToBackStack(null)
     }
 }
 

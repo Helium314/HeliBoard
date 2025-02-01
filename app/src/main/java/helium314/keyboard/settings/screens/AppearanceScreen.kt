@@ -15,12 +15,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.ColorsNightSettingsFragment
+import helium314.keyboard.latin.settings.ColorsSettingsFragment
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
@@ -29,10 +32,10 @@ import helium314.keyboard.settings.Preference
 import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
-import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 
 @Composable
 fun AppearanceScreen(
@@ -43,7 +46,7 @@ fun AppearanceScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if (b?.value ?: 0 < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val dayNightMode = Settings.readDayNightPref(prefs, ctx.resources)
+    val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && Settings.readDayNightPref(prefs, ctx.resources)
     val lightTheme = prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT)
     val darkTheme = prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
     SearchPrefScreen(
@@ -58,7 +61,8 @@ fun AppearanceScreen(
             if (lightTheme == KeyboardTheme.THEME_USER)
                 SettingsActivity2.allPrefs.map[NonSettingsPrefs.ADJUST_COLORS]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_THEME_KEY_BORDERS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_THEME_DAY_NIGHT]!!.Preference()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+                SettingsActivity2.allPrefs.map[Settings.PREF_THEME_DAY_NIGHT]!!.Preference()
             if (dayNightMode)
                 SettingsActivity2.allPrefs.map[Settings.PREF_THEME_COLORS_NIGHT]!!.Preference()
             if (dayNightMode && darkTheme == KeyboardTheme.THEME_USER_NIGHT)
@@ -108,7 +112,10 @@ fun createAppearancePrefs(context: Context) = listOf(
         Preference(
             name = def.title,
             onClick = { showDialog = true }
-        ) // todo: create and show the dialog
+        )
+        if (showDialog) {
+            CustomizeIconsDialog(def.key) { showDialog = false }
+        }
     },
     PrefDef(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { def ->
         val ctx = LocalContext.current
@@ -139,17 +146,25 @@ fun createAppearancePrefs(context: Context) = listOf(
         )
     },
     PrefDef(context, NonSettingsPrefs.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) { def ->
+        val ctx = LocalContext.current
         Preference(
             name = def.title,
             description = def.description,
-            onClick = { SettingsDestination.navigateTo(SettingsDestination.Colors) }
+            onClick = {
+                ctx.getActivity()?.switchTo(ColorsSettingsFragment())
+                //SettingsDestination.navigateTo(SettingsDestination.Colors) todo: later
+            }
         )
     },
     PrefDef(context, NonSettingsPrefs.ADJUST_COLORS_NIGHT, R.string.select_user_colors_night, R.string.select_user_colors_summary) { def ->
+        val ctx = LocalContext.current
         Preference(
             name = def.title,
             description = def.description,
-            onClick = { SettingsDestination.navigateTo(SettingsDestination.ColorsNight) }
+            onClick = {
+                ctx.getActivity()?.switchTo(ColorsNightSettingsFragment())
+                //SettingsDestination.navigateTo(SettingsDestination.ColorsNight) todo: later
+            }
         )
     },
     PrefDef(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) { def ->

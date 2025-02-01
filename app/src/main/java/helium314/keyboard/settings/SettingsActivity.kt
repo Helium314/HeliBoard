@@ -15,14 +15,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
+//  default buttons for toolbar key(s) customizer, icon customizer, and toolbar reorder dialog
+//   make a dialog wrapper that has a default button?
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)
 //  check whether dialogs have the same colors, i think currently it's a bit inconsistent
+//  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities
 //  work on todos in other files
 //  use better / more structured and clear names and arrangement of files
 //   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
+//   there is a lot more ambiguous naming...
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
 //  performance
@@ -40,7 +44,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  merge main to implement all the new settings
 //  consider IME insets when searching
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
-//  default buttons for toolbar key(s) customizer and toolbar reorder dialog
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
 //  consider using simple list picker dialog (but the "full" one is probably better for language settings stuff)

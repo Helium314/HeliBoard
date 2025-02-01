@@ -1,9 +1,15 @@
 package helium314.keyboard.latin.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
+import android.view.View
+import android.widget.RelativeLayout
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import helium314.keyboard.latin.R
 
 // generic extension functions
 
@@ -65,6 +71,15 @@ fun Context.getActivity(): ComponentActivity? {
         else -> null
     }
     return componentActivity
+}
+
+// todo: should not be necessary after full pref switch to compose
+fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
+    (this as AppCompatActivity).supportFragmentManager.commit {
+        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).visibility = View.VISIBLE
+        replace(R.id.settingsFragmentContainer, fragment)
+        addToBackStack(null)
+    }
 }
 
 fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)
