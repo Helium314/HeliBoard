@@ -32,6 +32,7 @@ import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
@@ -42,8 +43,7 @@ import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.needsKeyboardReload
+import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
 fun ToolbarScreen(
@@ -123,7 +123,7 @@ fun createToolbarPrefs(context: Context) = listOf(
         SwitchPreference(
             def,
             false,
-        ) { needsKeyboardReload = true }
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary) { def ->
         SwitchPreference(
@@ -145,8 +145,6 @@ fun createToolbarPrefs(context: Context) = listOf(
     }
 )
 
-private class KeyAndState(var name: String, var state: Boolean)
-
 @Composable
 fun ToolbarKeyReorderDialog(
     prefKey: String,
@@ -164,7 +162,7 @@ fun ToolbarKeyReorderDialog(
         onConfirmed = { reorderedItems ->
             val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
             prefs.edit().putString(prefKey, value).apply()
-            needsKeyboardReload = true
+            keyboardNeedsReload = true
         },
         onDismissRequest = onDismiss,
         items = items,
@@ -184,6 +182,8 @@ fun ToolbarKeyReorderDialog(
         getKey = { it.name }
     )
 }
+
+private class KeyAndState(var name: String, var state: Boolean)
 
 @Preview
 @Composable

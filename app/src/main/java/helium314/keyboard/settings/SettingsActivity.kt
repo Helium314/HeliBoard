@@ -146,4 +146,4 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
 }
 
 @JvmField
-var needsKeyboardReload = false
+var keyboardNeedsReload = false

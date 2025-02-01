@@ -37,7 +37,7 @@ import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
-import helium314.keyboard.settings.needsKeyboardReload
+import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
 fun TextCorrectionScreen(
@@ -204,7 +204,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
         R.string.bigram_prediction,
         R.string.bigram_prediction_summary
     ) {
-        SwitchPreference(it, true) { needsKeyboardReload = true }
+        SwitchPreference(it, true) { keyboardNeedsReload = true }
     },
     PrefDef(context,
         Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,

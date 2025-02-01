@@ -22,7 +22,7 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.needsKeyboardReload
+import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
 fun DebugScreen(
@@ -63,7 +63,7 @@ fun createDebugPrefs(context: Context) = listOf(
         }
     },
     PrefDef(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) { def ->
-        SwitchPreference(def, false) { needsKeyboardReload = true }
+        SwitchPreference(def, false) { keyboardNeedsReload = true }
     },
     PrefDef(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) { def ->
         SwitchPreference(def, false) { needsRestart = true }

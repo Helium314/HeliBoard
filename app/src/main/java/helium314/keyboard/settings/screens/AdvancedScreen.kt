@@ -29,7 +29,7 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.needsKeyboardReload
+import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -229,7 +229,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onValueChanged =  { needsKeyboardReload = true }
+            onValueChanged =  { keyboardNeedsReload = true }
         )
     },
     PrefDef(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {

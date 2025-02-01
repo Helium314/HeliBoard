@@ -73,7 +73,6 @@ import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -89,8 +88,8 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
-import helium314.keyboard.settings.AllPrefsKt;
 import helium314.keyboard.settings.SettingsActivity2;
+import helium314.keyboard.settings.SettingsActivityKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -1983,9 +1982,9 @@ public class LatinIME extends InputMethodService implements
 
     private void reloadIfNecessary() {
         // better do the reload when showing the keyboard next time, and not on settings change
-        if (AllPrefsKt.themeChanged) {
+        if (SettingsActivityKt.keyboardNeedsReload) {
             mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
-            AllPrefsKt.themeChanged = false;
+            SettingsActivityKt.keyboardNeedsReload = false;
         }
     }
 }
