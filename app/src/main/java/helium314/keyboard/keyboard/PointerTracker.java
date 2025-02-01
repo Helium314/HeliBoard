@@ -1054,8 +1054,15 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Release the last pressed key.
         setReleasedKeyGraphics(currentKey, true);
 
-        if (mInHorizontalSwipe && currentKey.getCode() == KeyCode.DELETE) {
-            sListener.onUpWithDeletePointerActive();
+        if (mKeySwipeAllowed) {
+            mKeySwipeAllowed = false;
+            sInKeySwipe = false; // todo: only make false when no other pointers are in swipes
+            if (mInHorizontalSwipe || mInVerticalSwipe) {
+                sListener.onEndSwipe(currentKey.getCode(), mInVerticalSwipe);
+                mInHorizontalSwipe = false;
+                mInVerticalSwipe = false;
+                return;
+            }
         }
 
         if (isShowingPopupKeysPanel()) {
@@ -1068,16 +1075,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             if (isInSlidingKeyInput)
                 callListenerOnFinishSlidingInput();
             return;
-        }
-
-        if (mKeySwipeAllowed) {
-            mKeySwipeAllowed = false;
-            sInKeySwipe = false;
-            if (mInHorizontalSwipe || mInVerticalSwipe) {
-                mInHorizontalSwipe = false;
-                mInVerticalSwipe = false;
-                return;
-            }
         }
 
         if (sInGesture) {

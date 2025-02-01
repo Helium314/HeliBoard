@@ -14,7 +14,6 @@ import helium314.keyboard.latin.settings.Settings
 import kotlin.math.abs
 
 class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inputLogic: InputLogic) : KeyboardActionListener {
-
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
     private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
@@ -91,32 +90,39 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onMoveDeletePointer(steps: Int) {
         inputLogic.finishInput()
-        val end = inputLogic.mConnection.expectedSelectionEnd
+        val inputConnection = inputLogic.mConnection
+        val end = inputConnection.expectedSelectionEnd
         var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
         if (steps > 0) {
-            val text = inputLogic.mConnection.getSelectedText(0)
+            val text = inputConnection.getSelectedText(0)
             if (text == null) actualSteps = steps
             else loopOverCodePoints(text) {
                 actualSteps += Character.charCount(it)
                 actualSteps >= steps
             }
         } else {
-            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0)
+            val text = inputConnection.getTextBeforeCursor(-steps * 4, 0)
             if (text == null) actualSteps = steps
             else loopOverCodePointsBackwards(text) {
                 actualSteps -= Character.charCount(it)
                 actualSteps <= steps
             }
         }
-        val start = inputLogic.mConnection.expectedSelectionStart + actualSteps
+        val start = inputConnection.expectedSelectionStart + actualSteps
         if (start > end) return
-        inputLogic.mConnection.setSelection(start, end)
+        inputConnection.setSelection(start, end)
     }
 
-    override fun onUpWithDeletePointerActive() {
-        if (!inputLogic.mConnection.hasSelection()) return
-        inputLogic.finishInput()
-        onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+    override fun onEndSwipe(code: Int, vertical: Boolean) {
+        when (code) {
+            // todo: for space, toggle layouts here and not at the beginning of the swipe
+            // should prevent layout changes when doing android's "swipe down for notifications"
+            KeyCode.DELETE -> {
+                if (!inputLogic.mConnection.hasSelection()) return
+                inputLogic.finishInput()
+                onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+            }
+        }
     }
 
     override fun resetMetaState() {
@@ -150,10 +156,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (rawSteps == 0) return false
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
+        val inputConnection = inputLogic.mConnection
         val moveSteps: Int
         if (steps < 0) {
             var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
-            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0) ?: return false
+            val text = inputConnection.getTextBeforeCursor(-steps * 4, 0) ?: return false
             loopOverCodePointsBackwards(text) {
                 if (StringUtils.mightBeEmoji(it)) {
                     actualSteps = 0
@@ -173,7 +180,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             }
         } else {
             var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
-            val text = inputLogic.mConnection.getTextAfterCursor(steps * 4, 0) ?: return false
+            val text = inputConnection.getTextAfterCursor(steps * 4, 0) ?: return false
             loopOverCodePoints(text) {
                 if (StringUtils.mightBeEmoji(it)) {
                     actualSteps = 0
@@ -193,13 +200,13 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement
-            val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-            inputLogic.mConnection.setSelection(newPosition, newPosition)
+            val newPosition = inputConnection.expectedSelectionStart + moveSteps
+            inputConnection.setSelection(newPosition, newPosition)
             return true
         }
         inputLogic.finishInput()
-        val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-        inputLogic.mConnection.setSelection(newPosition, newPosition)
+        val newPosition = inputConnection.expectedSelectionStart + moveSteps
+        inputConnection.setSelection(newPosition, newPosition)
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true
     }
