@@ -457,7 +457,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readDefaultLanguageSwipeDistance(final Resources res) {
-        return 10;
+        return 5;
     }
 
     public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {
