@@ -15,17 +15,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
+//  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)
 //  check whether dialogs have the same colors, i think currently it's a bit inconsistent
 //  rename both settingsActivities
 //  work on todos in other files
 //  use better / more structured and clear names and arrangement of files
+//   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
-//   consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow
+//   consider that stuff in composables can get called quite often on any changes
+//    -> use remember for things that are slow, but be careful about things that can change (e.g. values derived from prefs)
 //   improve performance when loading screens with many settings (lazyColumn?)
 //    first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
 //    screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
@@ -49,6 +52,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  language settings (should change more than just move to compose)
 //  user dictionary settings (or maybe leave old state for a while?)
 //  color settings (should at least change how colors are stored, and have a color search/filter)
+//  allow users to add custom themes instead of only having a single one (maybe also switchable in colors settings)
 //  one single place for default values (to be used in composables and settings)
 //  make auto_correct_threshold a float directly with the list pref (needs pref upgrade)
 //  using context.prefs() outside settings
