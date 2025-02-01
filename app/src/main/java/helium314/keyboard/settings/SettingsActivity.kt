@@ -14,17 +14,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
 //  make all prefs actually work
+//  PRs adding prefs -> need to do before continuing
+//   1319 (soon)
+//   1263 (no response for 3 weeks)
+//  merge main to implement all the new settings
 //  consider IME insets when searching
-//  improve performance when loading screens with many settings (lazyColumn?)
-//   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
-//   lazyColumn also has the key, this should be used! and must be unique
 //  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  default buttons for toolbar key(s) customizer and toolbar reorder dialog
-//  merge main to implement all the new settings
 
 // later
-//  one single place for default values (in composables and settings)
+//  improve performance when loading screens with many settings (lazyColumn?)
+//   first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
+//   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
+//   lazyColumn also has the key, this should be used! and must be unique
 //  nice arrows (in top bar, and as next-screen indicator)
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
@@ -57,6 +60,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  language settings (separate commit / PR, should change more than just move to compose)
 //  user dictionary settings (separate commit / PR, or maybe leave old state for a while?)
 //  color settings (separate commit / PR, should at least change how colors are stored)
+//  one single place for default values (to be used in composables and settings)
+//   better a separate commit
 
 // maybe later
 //  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed before next release)
