@@ -16,6 +16,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
@@ -28,8 +29,7 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
+import helium314.keyboard.settings.needsKeyboardReload
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -89,7 +89,6 @@ fun createAdvancedPrefs(context: Context) = listOf(
         )
     },
     PrefDef(context, Settings.PREF_SPACE_HORIZONTAL_SWIPE, R.string.show_horizontal_space_swipe) { def ->
-        // todo: get rid of the arrays from old settings
         val items = listOf(
             stringResource(R.string.space_swipe_move_cursor_entry) to "move_cursor",
             stringResource(R.string.switch_language) to "switch_language",
@@ -99,7 +98,6 @@ fun createAdvancedPrefs(context: Context) = listOf(
         ListPreference(def, items, "move_cursor")
     },
     PrefDef(context, Settings.PREF_SPACE_VERTICAL_SWIPE, R.string.show_vertical_space_swipe) { def ->
-        // todo: get rid of the arrays from old settings
         val items = listOf(
             stringResource(R.string.space_swipe_move_cursor_entry) to "move_cursor",
             stringResource(R.string.switch_language) to "switch_language",
@@ -166,7 +164,6 @@ fun createAdvancedPrefs(context: Context) = listOf(
 //        if (showDialog) todo: show the currency customizer
     },
     PrefDef(context, Settings.PREF_MORE_POPUP_KEYS, R.string.show_popup_keys_title) { def ->
-        // todo: get rid of the arrays from old settings
         val items = listOf(
             stringResource(R.string.show_popup_keys_normal) to "normal",
             stringResource(R.string.show_popup_keys_main) to "main",
@@ -232,7 +229,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onValueChanged =  { themeChanged = true }
+            onValueChanged =  { needsKeyboardReload = true }
         )
     },
     PrefDef(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {

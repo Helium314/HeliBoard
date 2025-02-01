@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 

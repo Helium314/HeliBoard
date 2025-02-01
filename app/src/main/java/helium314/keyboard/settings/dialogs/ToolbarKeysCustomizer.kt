@@ -33,11 +33,11 @@ import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.readCustomKeyCodes
 import helium314.keyboard.latin.utils.readCustomLongpressCodes
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
 import helium314.keyboard.latin.utils.writeCustomLongpressCodes
-import helium314.keyboard.settings.prefs
 import helium314.keyboard.settings.screens.GetIcon
 
 // todo:
@@ -63,7 +63,7 @@ fun ToolbarKeysCustomizer(
                         modifier = Modifier.clickable { showKeyCustomizer = it }.fillParentMaxWidth()
                     ) {
                         KeyboardIconsSet.instance.GetIcon(it.name)
-                        Text(it.name.lowercase().getStringResourceOrName("", ctx).toString())
+                        Text(it.name.lowercase().getStringResourceOrName("", ctx))
                     }
                 }
             }
@@ -102,7 +102,7 @@ private fun ToolbarKeyCustomizer(
             ) { Text(stringResource(android.R.string.ok)) }
         },
         dismissButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) } },
-        title = { Text(key.name.lowercase().getStringResourceOrName("", ctx).toString()) },
+        title = { Text(key.name.lowercase().getStringResourceOrName("", ctx)) },
         text = {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically) {

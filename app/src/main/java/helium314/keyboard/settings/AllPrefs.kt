@@ -2,12 +2,8 @@
 package helium314.keyboard.settings
 
 import android.content.Context
-import android.content.ContextWrapper
-import android.content.SharedPreferences
-import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.settings.screens.createAboutPrefs
 import helium314.keyboard.settings.screens.createAdvancedPrefs
 import helium314.keyboard.settings.screens.createAppearancePrefs
@@ -62,18 +58,6 @@ private fun createPrefDefs(context: Context) = createAboutPrefs(context) +
             createGestureTypingPrefs(context) + createAdvancedPrefs(context) + createDebugPrefs(context) +
             createAppearancePrefs(context)
 
-// todo: move somewhere else
-fun Context.getActivity(): ComponentActivity? {
-    val componentActivity = when (this) {
-        is ComponentActivity -> this
-        is ContextWrapper -> baseContext.getActivity()
-        else -> null
-    }
-    return componentActivity
-}
-
-fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)
-
 object NonSettingsPrefs {
     const val EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary"
     const val APP = "app"
@@ -89,7 +73,3 @@ object NonSettingsPrefs {
     const val DEBUG_SETTINGS = "screen_debug"
     const val LOAD_GESTURE_LIB = "load_gesture_library"
 }
-
-@JvmField
-// todo: maybe better name it "reloadKeyboard"?
-var themeChanged = false

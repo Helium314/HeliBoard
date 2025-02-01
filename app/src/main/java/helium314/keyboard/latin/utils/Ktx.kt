@@ -1,6 +1,9 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.SharedPreferences
+import androidx.activity.ComponentActivity
 
 // generic extension functions
 
@@ -13,10 +16,9 @@ inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
     return sum
 }
 
-// todo: string instead of CharSequence for compose? because resource STRINGs should be strings anyway...
-fun CharSequence.getStringResourceOrName(prefix: String, context: Context): CharSequence {
+fun CharSequence.getStringResourceOrName(prefix: String, context: Context): String {
     val resId = context.resources.getIdentifier(prefix + this, "string", context.packageName)
-    return if (resId == 0) this else context.getString(resId)
+    return if (resId == 0) this.toString() else context.getString(resId)
 }
 
 /**
@@ -55,3 +57,14 @@ fun <T> MutableList<T>.replaceFirst(predicate: (T) -> Boolean, with: (T) -> T) {
     val i = indexOfFirst(predicate)
     if (i >= 0) this[i] = with(this[i])
 }
+
+fun Context.getActivity(): ComponentActivity? {
+    val componentActivity = when (this) {
+        is ComponentActivity -> this
+        is ContextWrapper -> baseContext.getActivity()
+        else -> null
+    }
+    return componentActivity
+}
+
+fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)

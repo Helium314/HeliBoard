@@ -10,72 +10,63 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isGone
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
-// todo
+// todo (roughly in order)
 //  make all prefs actually work
+//  make the pref lists more compact (compare with old settings)
+//  try making text size similar to old state (also in dialogs)
+//  check whether dialogs have the same colors, i think currently it's a bit inconsistent
+//  rename both settingsActivities
+//  work on todos in other files
+//  use better / more structured and clear names and arrangement of files
+//  animations when stuff (dis)appears
+//   LaunchedEffect, AnimatedVisibility
+//  performance
+//   find a nice way of testing (probably add logs for measuring time and recompositions)
+//   consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow
+//   improve performance when loading screens with many settings (lazyColumn?)
+//    first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
+//    screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
+//    lazyColumn also has a "key", this should be used and be the pref name (or maybe title because that's also for category separators)
+//  nice arrows (in top bar, and as next-screen indicator)
 //  PRs adding prefs -> need to do before continuing
 //   1319 (soon)
 //   1263 (no response for 3 weeks)
 //  merge main to implement all the new settings
 //  consider IME insets when searching
-//  consider that stuff in composables can get called quite often on any changes -> use remember for things that are slow (maybe add test logging)
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  default buttons for toolbar key(s) customizer and toolbar reorder dialog
+//  try making old fragment back stuff work better, and try the different themes (with and without top bar)
+//  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
+//  consider using simple list picker dialog (but the "full" one is probably better for language settings stuff)
+//  spdx headers everywhere
 
-// later
-//  improve performance when loading screens with many settings (lazyColumn?)
-//   first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
-//   screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
-//   lazyColumn also has the key, this should be used! and must be unique
-//  nice arrows (in top bar, and as next-screen indicator)
-//  animations when stuff (dis)appears
-//   LaunchedEffect, AnimatedVisibility
-//  remove PrefScreen if not used
-//  rename some classes
-//  split the preferences in allPrefs.createDefs into multiple files, this will get horribly long
-//   maybe have sub-lists in the pref screens using the settings?
-//  spdx headers everywhere (except DragDropColumn, which is from stackoverflow without explicit license)
-//  changes to anything but the compose settings package should not be in the initial PR
-//   commit them separately if possible
-//   though some might be necessary
-//  toolbar key enabled state can be wrong
-//   go to correction settings, open search, toggle autocorrect toolbar key, and then toggle setting
-//   -> now toolbar key always has the wrong state
-//  color settings needs a color search
-//  more convenient access to prefs
-//  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES
-//   should be single pref containing both
-//   needs settings upgrade of course...
+// what should be done, but not in this PR
+//  in general: changes to anything outside the new settings (unless necessary), and changes to how screens / fragments work
+//  re-organize screens, no need to keep exactly the same arrangement
+//  language settings (should change more than just move to compose)
+//  user dictionary settings (or maybe leave old state for a while?)
+//  color settings (should at least change how colors are stored, and have a color search/filter)
+//  one single place for default values (to be used in composables and settings)
+//  make auto_correct_threshold a float directly with the list pref (needs pref upgrade)
+//  using context.prefs() outside settings
+//  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES into one pref (don't forget settings upgrade)
+//  adjust debug settings
+//   have them in main screen?
+//   allow users to find the individual settings in search even if debug settings are not enabled?
+
 //  consider disabled settings & search
 //   don't show -> users confused
 //   show as disabled -> users confused
 //   show (but change will not do anything because another setting needs to be enabled first)
-//    -> users confused, but probably better than the 2 above
-//  adjust layout a little, there is too much empty space and titles are too large (dialogs!)
-//  check dialogs have the same colors
-//  list preference -> we can make auto_correct_threshold a float directly (needs pref upgrade
-//  actually test all the settings
-//  when starting keyboard from settings, initially there is the "old" background color before compose stuff starts
-//  language settings (separate commit / PR, should change more than just move to compose)
-//  user dictionary settings (separate commit / PR, or maybe leave old state for a while?)
-//  color settings (separate commit / PR, should at least change how colors are stored)
-//  one single place for default values (to be used in composables and settings)
-//   better a separate commit
+//   -> last is probably best, but people will probably open issues no matter what
 
-// maybe later
-//  weird problem with app sometimes closing on back, but that's related to "old" settings (don't care if all are removed before next release)
-//  bottom text field (though we have the search now anyway)
-//  remove navHost? but probably too useful to have...
-//  lazyColumn for prefs (or just in category?)
-//   should improve loading time for screens with many settings
-//   but needs a bit of work for probably not so much benefit
-//  adjust the debug settings thing, so that users can always find them in search but nowhere else? unless debug mode
+// maybe do after the PR
+//  bottom dummy text field (though we have the search now anyway, and thus maybe don't need it)
 //  search only in current pref screen, except when in main?
 //  try getting rid of appcompat stuff (activity, dialogs, ...)
-//  re-organize screens, no need to keep exactly the same arrangement
-//  use simple list picker
-//  exclude all debug settings from search results if they are not enabled
 //  rearrange settings screens? now it should be very simple to do (definitely separate PR)
 
 // preliminary results:
@@ -104,22 +95,25 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         if (Settings.getInstance().current == null)
             Settings.init(this)
 
-//        val cv = ComposeView(context = this)
         allPrefs = AllPrefs(this)
-//        setContentView(cv) // todo: later, but for showing both old and new style settings, the layout is better
+
+        // todo: when removing old settings completely, remove settings_activity.xml and supportFragmentManager stuff
+//        val cv = ComposeView(context = this)
+//        setContentView(cv)
         setContentView(R.layout.settings_activity)
         supportFragmentManager.addOnBackStackChangedListener {
             updateContainerVisibility()
         }
-//        cv.setContent { // also later...
+//        cv.setContent { // todo: when removing old settings
         findViewById<ComposeView>(R.id.navHost).setContent {
             Theme {
                 Surface {
                     SettingsNavHost(
                         onClickBack = {
-                            if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null) // todo: remove after migration is complete
+//                            this.finish() // todo: when removing old settings
+                            if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null)
                                 this.finish()
-                            else supportFragmentManager.popBackStack() // todo: remove after migration is complete
+                            else supportFragmentManager.popBackStack()
                         }
                     )
                 }
@@ -127,7 +121,7 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         }
     }
 
-    private fun updateContainerVisibility() { // todo: remove after migration is complete
+    private fun updateContainerVisibility() { // todo: remove when removing old settings
         findViewById<RelativeLayout>(R.id.settingsFragmentContainer).isGone = supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null
     }
 
@@ -150,3 +144,6 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         prefChanged.value++
     }
 }
+
+@JvmField
+var needsKeyboardReload = false

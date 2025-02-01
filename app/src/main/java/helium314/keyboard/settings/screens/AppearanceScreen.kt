@@ -17,7 +17,9 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.PrefDef
@@ -26,12 +28,8 @@ import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.getActivity
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
 
 @Composable
 fun AppearanceScreen(
@@ -60,7 +58,7 @@ fun createAppearancePrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_THEME_STYLE, R.string.theme_style) { def ->
         val ctx = LocalContext.current
         val items = KeyboardTheme.STYLES.map {
-            it.getStringResourceOrName("style_name_", ctx).toString() to it
+            it.getStringResourceOrName("style_name_", ctx) to it
         }
         ListPreference(
             def,
@@ -71,7 +69,7 @@ fun createAppearancePrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { def ->
         val ctx = LocalContext.current
         val items = KeyboardTheme.STYLES.map {
-            it.getStringResourceOrName("style_name_", ctx).toString() to it
+            it.getStringResourceOrName("style_name_", ctx) to it
         }
         ListPreference(
             def,
@@ -92,7 +90,7 @@ fun createAppearancePrefs(context: Context) = listOf(
         val items = KeyboardTheme.COLORS.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
-            it.getStringResourceOrName("theme_name_", ctx).toString() to it
+            it.getStringResourceOrName("theme_name_", ctx) to it
         }
         ListPreference(
             def,
@@ -106,7 +104,7 @@ fun createAppearancePrefs(context: Context) = listOf(
         val items = KeyboardTheme.COLORS.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
-            it.getStringResourceOrName("theme_name_", ctx).toString() to it
+            it.getStringResourceOrName("theme_name_", ctx) to it
         }
         ListPreference(
             def,

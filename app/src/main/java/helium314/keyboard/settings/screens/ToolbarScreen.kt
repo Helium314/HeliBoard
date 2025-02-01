@@ -43,7 +43,7 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
+import helium314.keyboard.settings.needsKeyboardReload
 
 @Composable
 fun ToolbarScreen(
@@ -123,7 +123,7 @@ fun createToolbarPrefs(context: Context) = listOf(
         SwitchPreference(
             def,
             false,
-        ) { themeChanged = true }
+        ) { needsKeyboardReload = true }
     },
     PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary) { def ->
         SwitchPreference(
@@ -164,7 +164,7 @@ fun ToolbarKeyReorderDialog(
         onConfirmed = { reorderedItems ->
             val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
             prefs.edit().putString(prefKey, value).apply()
-            themeChanged = true
+            needsKeyboardReload = true
         },
         onDismissRequest = onDismiss,
         items = items,
@@ -173,7 +173,7 @@ fun ToolbarKeyReorderDialog(
             var checked by remember { mutableStateOf(item.state) }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 KeyboardIconsSet.instance.GetIcon(item.name)
-                val text = item.name.lowercase().getStringResourceOrName("", ctx).toString()
+                val text = item.name.lowercase().getStringResourceOrName("", ctx)
                 Text(text, Modifier.weight(1f))
                 Switch(
                     checked = checked,

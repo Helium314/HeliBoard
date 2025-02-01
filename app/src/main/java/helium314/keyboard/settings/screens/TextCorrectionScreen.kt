@@ -24,6 +24,8 @@ import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.UserDictionaryListFragment
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
@@ -35,10 +37,7 @@ import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
-import helium314.keyboard.settings.dialogs.ListPickerDialog
-import helium314.keyboard.settings.getActivity
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
+import helium314.keyboard.settings.needsKeyboardReload
 
 @Composable
 fun TextCorrectionScreen(
@@ -205,7 +204,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
         R.string.bigram_prediction,
         R.string.bigram_prediction_summary
     ) {
-        SwitchPreference(it, true) { themeChanged = true }
+        SwitchPreference(it, true) { needsKeyboardReload = true }
     },
     PrefDef(context,
         Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,

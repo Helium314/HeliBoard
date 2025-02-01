@@ -13,6 +13,7 @@ import helium314.keyboard.latin.DictionaryFacilitator
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.DebugSettingsFragment
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
@@ -21,8 +22,7 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
+import helium314.keyboard.settings.needsKeyboardReload
 
 @Composable
 fun DebugScreen(
@@ -63,7 +63,7 @@ fun createDebugPrefs(context: Context) = listOf(
         }
     },
     PrefDef(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) { def ->
-        SwitchPreference(def, false) { themeChanged = true }
+        SwitchPreference(def, false) { needsKeyboardReload = true }
     },
     PrefDef(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) { def ->
         SwitchPreference(def, false) { needsRestart = true }

@@ -11,6 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.SearchPrefScreen
@@ -18,9 +20,7 @@ import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.getActivity
-import helium314.keyboard.settings.prefs
-import helium314.keyboard.settings.themeChanged
+import helium314.keyboard.settings.needsKeyboardReload
 
 @Composable
 fun GestureTypingScreen(
@@ -74,7 +74,7 @@ fun createGestureTypingPrefs(context: Context) = listOf(
         SwitchPreference(
             def = it,
             default = true
-        ) { themeChanged = true }
+        ) { needsKeyboardReload = true }
     },
     PrefDef(context, Settings.PREF_GESTURE_SPACE_AWARE, R.string.gesture_space_aware, R.string.gesture_space_aware_summary) {
         SwitchPreference(
@@ -106,7 +106,7 @@ fun createGestureTypingPrefs(context: Context) = listOf(
             range = 100f..1900f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, (it + 100).toString()) },
             // todo: 50 ms steps?
-        ) { themeChanged = true }
+        ) { needsKeyboardReload = true }
     },
 )
 
