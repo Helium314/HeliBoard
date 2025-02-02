@@ -49,6 +49,7 @@ import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
+import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -305,7 +306,15 @@ fun createAppearancePrefs(context: Context) = listOf(
             name = def.title,
             onClick = { showDialog = true },
             description = prefs.getString(def.key, "")
-        ) // todo: create and show the dialog
+        )
+        if (showDialog) {
+            TextInputDialog(
+                onDismissRequest = { showDialog = false },
+                onConfirmed = { prefs.edit().putString(def.key, it).apply() },
+                initialText = prefs.getString(def.key, "") ?: "",
+                title = { Text(def.title) }
+            )
+        }
     },
     PrefDef(context, NonSettingsPrefs.CUSTOM_FONT, R.string.custom_font) { def ->
         var showDialog by remember { mutableStateOf(false) }
