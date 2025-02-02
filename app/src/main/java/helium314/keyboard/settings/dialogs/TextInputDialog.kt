@@ -40,6 +40,7 @@ fun TextInputDialog(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     properties: DialogProperties = DialogProperties(),
+    singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
@@ -73,7 +74,7 @@ fun TextInputDialog(
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                 label = textInputLabel,
                 keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-                singleLine = true
+                singleLine = singleLine
             )
         },
         shape = shape,
@@ -90,7 +91,8 @@ private fun Preview() {
         onDismissRequest = {},
         onConfirmed = {},
         title = { Text("Title") },
-        initialText = "some text",
+        initialText = "some text\nand another line",
+        singleLine = false,
         textInputLabel = { Text("fill it") }
     )
 }

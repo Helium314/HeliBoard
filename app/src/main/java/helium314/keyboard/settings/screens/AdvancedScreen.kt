@@ -29,6 +29,7 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
@@ -50,12 +51,11 @@ fun AdvancedSettingsScreen(
         SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY]!!.Preference()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
             SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_SETUP_WIZARD_ICON]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_SYMBOL_SPACE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_CLIP]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_SYMBOL_SPACE]!!.Preference() // todo: this is ugly
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference() // todo: this is ugly
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_CLIP]!!.Preference() // todo: this is ugly
         SettingsActivity2.allPrefs.map[Settings.PREF_CUSTOM_CURRENCY_KEY]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_MORE_POPUP_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference()
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS]!!.Preference()
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS]!!.Preference()
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.BACKUP_RESTORE]!!.Preference()
@@ -179,7 +179,12 @@ fun createAdvancedPrefs(context: Context) = listOf(
             name = it.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the currency customizer
+        if (showDialog) // todo: first the selection dialog, then the edit dialog
+            TextInputDialog(
+                onDismissRequest = { showDialog = false },
+                onConfirmed = { }, // todo
+                initialText = LocalContext.current.assets.open("layouts/dvorak.json").bufferedReader().readText()
+            )
     },
     PrefDef(context, NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS, R.string.customize_functional_key_layouts) {
         var showDialog by remember { mutableStateOf(false) }
@@ -187,7 +192,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
             name = it.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the currency customizer
+//        if (showDialog) todo: show the customizer
     },
     PrefDef(context, NonSettingsPrefs.BACKUP_RESTORE, R.string.backup_restore_title) {
         var showDialog by remember { mutableStateOf(false) }
@@ -195,7 +200,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
             name = it.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the currency customizer
+//        if (showDialog) todo: show the dialog
     },
     PrefDef(context, NonSettingsPrefs.DEBUG_SETTINGS, R.string.debug_settings_title) {
         Preference(

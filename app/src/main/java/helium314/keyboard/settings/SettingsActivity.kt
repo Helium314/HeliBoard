@@ -14,9 +14,10 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  make all prefs actually work
 //  default buttons for toolbar key(s) customizer, icon customizer, and toolbar reorder dialog
 //   make a dialog wrapper that has a default button?
+//   yes, definitely need a 3 button dialog...
+//  make all prefs actually work
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)
