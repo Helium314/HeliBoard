@@ -179,6 +179,15 @@
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_arabic_hijai"
+            android:subtypeId="0x590dde42"
+            android:imeSubtypeLocale="ar"
+            android:languageTag="ar"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=arabic_hijai,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x70b0f974"
             android:imeSubtypeLocale="az_AZ"
