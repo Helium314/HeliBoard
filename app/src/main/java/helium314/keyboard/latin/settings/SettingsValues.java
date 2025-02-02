@@ -81,6 +81,7 @@ public class SettingsValues {
     public final boolean mBlockPotentiallyOffensive;
     public final int mSpaceSwipeHorizontal;
     public final int mSpaceSwipeVertical;
+    public final int mLanguageSwipeDistance;
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
@@ -232,6 +233,7 @@ public class SettingsValues {
         mDisplayOrientation = res.getConfiguration().orientation;
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
+        mLanguageSwipeDistance = Settings.readLanguageSwipeDistance(prefs, res);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);

@@ -157,6 +157,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
+    public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -451,6 +452,18 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
+    }
+
+    public static int readLanguageSwipeDistance(final SharedPreferences prefs,
+                                                final Resources res) {
+        final int sensitivity = prefs.getInt(
+                PREF_LANGUAGE_SWIPE_DISTANCE, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (sensitivity != UNDEFINED_PREFERENCE_VALUE_INT) ? sensitivity
+                : readDefaultLanguageSwipeDistance(res);
+    }
+
+    public static int readDefaultLanguageSwipeDistance(final Resources res) {
+        return 5;
     }
 
     public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {

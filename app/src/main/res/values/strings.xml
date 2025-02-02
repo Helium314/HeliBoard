@@ -958,6 +958,8 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the settings for adjusting the language swipe gesture distance -->
+    <string name="prefs_language_swipe_distance">Switch language swipe distance</string>
     <!-- Title of the setting to customize toolbar key codes -->
     <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
     <!-- Confirmation message when resetting all custom toolbar key codes -->
