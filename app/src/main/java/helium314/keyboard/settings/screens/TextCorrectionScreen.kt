@@ -131,7 +131,6 @@ fun createCorrectionPrefs(context: Context) = listOf(
         Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
         R.string.auto_correction_confidence,
     ) { def ->
-        // todo: arrays are arranged in a rather absurd way... this should be improved
         val items = listOf(
             stringResource(R.string.auto_correction_threshold_mode_modest) to "0",
             stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
@@ -225,14 +224,16 @@ fun createCorrectionPrefs(context: Context) = listOf(
         Settings.PREF_USE_CONTACTS,
         R.string.use_contacts_dict,
         R.string.use_contacts_dict_summary
-    ) {
+    ) { def ->
         val activity = LocalContext.current.getActivity() ?: return@PrefDef
         var granted by remember { mutableStateOf(PermissionsUtil.checkAllPermissionsGranted(activity, Manifest.permission.READ_CONTACTS)) }
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
             granted = it
+            if (granted)
+                activity.prefs().edit().putBoolean(def.key, true).apply()
         }
         SwitchPreference(
-            it,
+            def,
             false,
             allowCheckedChange = {
                 if (it && !granted) {

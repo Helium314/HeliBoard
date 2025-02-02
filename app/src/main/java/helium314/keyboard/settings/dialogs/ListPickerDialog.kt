@@ -33,7 +33,7 @@ import androidx.compose.ui.window.DialogProperties
 
 // taken from StreetComplete
 @Composable
-fun <T> ListPickerDialog(
+fun <T: Any> ListPickerDialog(
     onDismissRequest: () -> Unit,
     items: List<T>,
     onItemSelected: (T) -> Unit,

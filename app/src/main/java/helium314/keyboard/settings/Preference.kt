@@ -40,7 +40,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.dialogs.ListPickerDialog
+import helium314.keyboard.settings.dialogs.SimpleListPickerDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 
 // taken from StreetComplete (and a bit SCEE)
@@ -82,14 +82,14 @@ fun Preference(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .heightIn(min = 40.dp)
+            .heightIn(min = 44.dp)
             .padding(12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null)
             Icon(painterResource(icon), name, modifier = Modifier.size(36.dp))
-        Column(modifier = Modifier.weight(2 / 3f)) {
+        Column(modifier = Modifier.weight(1f)) {
             Text(text = name)
             if (description != null) {
                 CompositionLocalProvider(
@@ -117,7 +117,6 @@ fun Preference(
                         alignment = Alignment.End
                     ),
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1 / 3f)
                 ) { value() }
             }
         }
@@ -233,7 +232,6 @@ fun <T: Any> ListPreference(
     default: T,
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    // todo: get rid of the arrays from old settings
     val prefs = LocalContext.current.prefs()
     val selected = items.firstOrNull { it.second == getPrefOfType(prefs, def.key, default) }
     Preference(
@@ -242,7 +240,7 @@ fun <T: Any> ListPreference(
         onClick = { showDialog = true }
     )
     if (showDialog) {
-        ListPickerDialog(
+        SimpleListPickerDialog(
             onDismissRequest = { showDialog = false },
             items = items,
             onItemSelected = {
