@@ -613,6 +613,35 @@ class InputLogicTest {
         assertEquals("{\"label\": \"c", text)
     }
 
+    @Test fun `text input and delete`() {
+        reset()
+        input("hello")
+        assertEquals("hello", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hell", text)
+
+        reset()
+        input("hello ")
+        assertEquals("hello ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello", text)
+    }
+
+    @Test fun `emoji text input and delete`() {
+        reset()
+        input("🕵🏼")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("", text)
+
+        reset()
+        input("\uD83D\uDD75\uD83C\uDFFC")
+        input(' ')
+        assertEquals("🕵🏼 ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("", text)
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed

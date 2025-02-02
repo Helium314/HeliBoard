@@ -1212,7 +1212,12 @@ public final class InputLogic {
                 }
                 return;
             }
-            if (mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
+            // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
+            //  is part of a word (where we start composing) or not (where we end in code below)
+            //  see https://github.com/Helium314/HeliBoard/issues/1019
+            //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
+            //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
+            if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,
                 // like the smiley key or the .com key.
