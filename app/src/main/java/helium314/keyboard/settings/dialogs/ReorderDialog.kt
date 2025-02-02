@@ -68,7 +68,7 @@ fun <T: Any> ReorderDialog(
         text = {
             LazyColumn(
                 state = listState,
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 items(reorderableItems, key = getKey) { item ->
                     ReorderableItem(

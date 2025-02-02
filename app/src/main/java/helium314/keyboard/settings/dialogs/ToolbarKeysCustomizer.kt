@@ -1,6 +1,7 @@
 package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
@@ -64,7 +66,9 @@ fun ToolbarKeysCustomizer(
         },
         title = { Text(stringResource(R.string.customize_toolbar_key_codes)) },
         text = {
-            LazyColumn {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 items(ToolbarKey.entries) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,

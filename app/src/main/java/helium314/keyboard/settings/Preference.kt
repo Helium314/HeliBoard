@@ -78,56 +78,47 @@ fun Preference(
     @DrawableRes icon: Int? = null,
     value: @Composable (RowScope.() -> Unit)? = null,
 ) {
-    Column(
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .heightIn(min = 48.dp)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(
-            space = 0.dp,
-            alignment = Alignment.CenterVertically
-        )
+            .heightIn(min = 40.dp)
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (icon != null)
-                Icon(painterResource(icon), name, modifier = Modifier.size(48.dp).padding(end = 8.dp))
-            Column(modifier = Modifier.weight(2 / 3f)) {
-                Text(text = name,)
-                if (description != null) {
-                    CompositionLocalProvider(
-                        LocalTextStyle provides MaterialTheme.typography.bodyMedium,
-                        LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
-                    ) {
-                        Text(
-                            text = description,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
-                }
-
-            }
-            if (value != null) {
+        if (icon != null)
+            Icon(painterResource(icon), name, modifier = Modifier.size(36.dp))
+        Column(modifier = Modifier.weight(2 / 3f)) {
+            Text(text = name)
+            if (description != null) {
                 CompositionLocalProvider(
-                    LocalTextStyle provides LocalTextStyle.current.copy(
-                        textAlign = TextAlign.End,
-                        hyphens = Hyphens.Auto
-                    ),
+                    LocalTextStyle provides MaterialTheme.typography.bodyMedium,
                     LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(
-                            space = 8.dp,
-                            alignment = Alignment.End
-                        ),
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.weight(1 / 3f)
-                    ) { value() }
+                    Text(
+                        text = description,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
                 }
+            }
+        }
+        if (value != null) {
+            CompositionLocalProvider(
+                LocalTextStyle provides LocalTextStyle.current.copy(
+                    textAlign = TextAlign.End,
+                    hyphens = Hyphens.Auto
+                ),
+                LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(
+                        space = 8.dp,
+                        alignment = Alignment.End
+                    ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1 / 3f)
+                ) { value() }
             }
         }
     }

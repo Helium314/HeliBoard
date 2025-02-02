@@ -62,7 +62,7 @@ fun createAboutPrefs(context: Context) = listOf(
             name = it.title,
             description = it.description,
             onClick = { },
-            icon = R.drawable.ic_launcher_foreground
+            icon = R.drawable.ic_launcher_foreground // todo: maybe use the bitmap trick here?
         )
     },
     PrefDef(context, NonSettingsPrefs.VERSION, R.string.version) {
