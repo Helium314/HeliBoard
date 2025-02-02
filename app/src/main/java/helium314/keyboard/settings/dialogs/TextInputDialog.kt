@@ -2,11 +2,9 @@ package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,7 +24,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 
-// taken from StreetComplete / SCEE
+// mostly taken from StreetComplete / SCEE
 /** Dialog with which to input text. OK button is only clickable if [checkTextValid] returns true. */
 @Composable
 fun TextInputDialog(
@@ -34,6 +32,9 @@ fun TextInputDialog(
     onConfirmed: (text: String) -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
+    onNeutral: () -> Unit = { },
+    neutralButtonText: String? = null,
+    confirmButtonText: String = stringResource(android.R.string.ok),
     initialText: String = "",
     textInputLabel: @Composable (() -> Unit)? = null,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -52,34 +53,30 @@ fun TextInputDialog(
 
     LaunchedEffect(initialText) { focusRequester.requestFocus() }
 
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(
-                enabled = value.text.isNotBlank() && checkTextValid(value.text),
-                onClick = { onDismissRequest(); onConfirmed(value.text) }
-            ) {
-                Text(stringResource(android.R.string.ok))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) }
-        },
+        onConfirmed = { onConfirmed(value.text) },
+        confirmButtonText = confirmButtonText,
+        checkOk = { checkTextValid(value.text) },
+        neutralButtonText = neutralButtonText,
+        onNeutral = onNeutral,
         modifier = modifier,
         title = title,
         text = {
             OutlinedTextField(
                 value = value,
                 onValueChange = { value = it },
-                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
                 label = textInputLabel,
                 keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
                 singleLine = singleLine
             )
         },
         shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         properties = properties,
     )
 }

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.edit
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
@@ -39,21 +40,28 @@ import helium314.keyboard.latin.utils.readCustomLongpressCodes
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
 import helium314.keyboard.latin.utils.writeCustomLongpressCodes
 import helium314.keyboard.settings.screens.GetIcon
+import kotlinx.serialization.json.Json
 
-// todo:
-//  reading and writing prefs should be done in the preference, or at least with the provided (single!) key
+// todo (later): reading and writing prefs should be done in the preference, or at least with the provided (single!) pref key
 @Composable
 fun ToolbarKeysCustomizer(
     onDismissRequest: () -> Unit
 ) {
     val ctx = LocalContext.current
+    val prefs = ctx.prefs()
     var showKeyCustomizer: ToolbarKey? by remember { mutableStateOf(null) }
+    var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
             TextButton(onClick = onDismissRequest) { Text(stringResource(R.string.dialog_close)) }
         },
-        dismissButton = { },
+        dismissButton = {
+            if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
+                TextButton(
+                    onClick = { showDeletePrefConfirmDialog = true }
+                ) { Text(stringResource(R.string.button_default)) }
+        },
         title = { Text(stringResource(R.string.customize_toolbar_key_codes)) },
         text = {
             LazyColumn {
@@ -78,8 +86,22 @@ fun ToolbarKeysCustomizer(
         if (shownKey != null)
             ToolbarKeyCustomizer(shownKey) { showKeyCustomizer = null }
     }
+    if (showDeletePrefConfirmDialog)
+        ConfirmationDialog(
+            onDismissRequest = { showDeletePrefConfirmDialog = false },
+            onConfirmed = {
+                showDeletePrefConfirmDialog = false
+                onDismissRequest()
+                prefs.edit {
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES)
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)
+                }
+            },
+            text = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
+        )
 }
 
+// todo: show updated ToolbarKeysCustomizer after ok / default? because default button
 @Composable
 private fun ToolbarKeyCustomizer(
     key: ToolbarKey,
@@ -89,19 +111,24 @@ private fun ToolbarKeyCustomizer(
     val prefs = ctx.prefs()
     var code by remember { mutableStateOf(TextFieldValue(getCodeForToolbarKey(key).toString())) }
     var longPressCode by remember { mutableStateOf(TextFieldValue(getCodeForToolbarKeyLongClick(key).toString())) }
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to checkCode(code)))
-                    writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to checkCode(longPressCode)))
-                    onDismissRequest()
-                },
-                enabled = checkCode(code) != null && checkCode(longPressCode) != null
-            ) { Text(stringResource(android.R.string.ok)) }
+        onConfirmed = {
+            writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to checkCode(code)))
+            writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to checkCode(longPressCode)))
         },
-        dismissButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) } },
+        checkOk = { checkCode(code) != null && checkCode(longPressCode) != null },
+        neutralButtonText = if (readCustomKeyCodes(prefs).containsKey(key.name) || readCustomLongpressCodes(prefs).containsKey(key.name))
+                stringResource(R.string.button_default)
+            else null,
+        onNeutral = {
+            val keys = readCustomKeyCodes(prefs).toMutableMap()
+            keys.remove(key.name)
+            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
+            val longpressKeys = readCustomLongpressCodes(prefs).toMutableMap()
+            longpressKeys.remove(key.name)
+            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
+        },
         title = { Text(key.name.lowercase().getStringResourceOrName("", ctx)) },
         text = {
             Column {
@@ -126,8 +153,8 @@ private fun ToolbarKeyCustomizer(
             }
         },
         shape = MaterialTheme.shapes.medium,
-        containerColor = MaterialTheme.colorScheme.surface,
-        textContentColor = contentColorFor(MaterialTheme.colorScheme.surface),
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        contentColor = contentColorFor(MaterialTheme.colorScheme.surface),
         properties = DialogProperties(),
     )
 }

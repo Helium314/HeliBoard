@@ -165,6 +165,8 @@ fun ToolbarKeyReorderDialog(
             keyboardNeedsReload = true
         },
         onDismissRequest = onDismiss,
+        onNeutral = { prefs.edit().remove(prefKey).apply() },
+        neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
         items = items,
         title = { Text(title) },
         displayItem = { item ->

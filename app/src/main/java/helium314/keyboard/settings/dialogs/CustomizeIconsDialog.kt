@@ -56,11 +56,16 @@ fun CustomizeIconsDialog(
         else iconName to name
     }.sortedBy { it.second }
     var showIconDialog: Pair<String, String>? by remember { mutableStateOf(null) }
+    var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
     val prefs = ctx.prefs()
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = { }, // no confirm button
-        dismissButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(R.string.dialog_close)) } },
+        confirmButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(R.string.dialog_close)) } },
+        dismissButton = {
+            if (prefs.contains(prefKey))
+                TextButton(onClick = { showDeletePrefConfirmDialog = true })
+                { Text(stringResource(R.string.button_default)) }
+        },
         title = { Text(stringResource(R.string.customize_icons)) },
         text = {
             LazyColumn(state = state) {
@@ -82,24 +87,31 @@ fun CustomizeIconsDialog(
         val iconsForName = allIcons[iconName].orEmpty()
         val iconsSet = mutableSetOf<Int>()
         iconsSet.addAll(iconsForName)
-        KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) } // is this called again on UI interaction?
+        KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) } // todo: is this called again on UI interaction?
         val icons = iconsSet.toList()
         var selectedIcon by remember { mutableStateOf(KeyboardIconsSet.instance.iconIds[iconName]) }
-        AlertDialog(
+        ThreeButtonAlertDialog(
             onDismissRequest = onDismissRequest,
-            confirmButton = { TextButton(
-                onClick = {
-                    onDismissRequest()
-                    runCatching {
-                        val newIcons = customIconNames(prefs).toMutableMap()
-                        newIcons[iconName] = selectedIcon?.let { ctx.resources.getResourceEntryName(it) } ?: return@runCatching
-                        prefs.edit().putString(prefKey, Json.encodeToString(newIcons)).apply()
-                        KeyboardIconsSet.instance.loadIcons(ctx)
-                    }
-                    // todo: show outer dialog again and reload icons?
+            onConfirmed = {
+                runCatching {
+                    val newIcons = customIconNames(prefs).toMutableMap()
+                    newIcons[iconName] = selectedIcon?.let { ctx.resources.getResourceEntryName(it) } ?: return@runCatching
+                    prefs.edit().putString(prefKey, Json.encodeToString(newIcons)).apply()
+                    KeyboardIconsSet.instance.loadIcons(ctx)
                 }
-            ) { Text(stringResource(android.R.string.ok)) } },
-            dismissButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) } },
+                // todo: show outer dialog again and reload icons?
+            },
+            neutralButtonText = if (customIconNames(prefs).contains(iconName)) stringResource(R.string.button_default) else null,
+            onNeutral = {
+                runCatching {
+                    val icons2 = customIconNames(prefs).toMutableMap()
+                    icons2.remove(iconName)
+                    if (icons2.isEmpty()) prefs.edit().remove(prefKey).apply()
+                    else prefs.edit().putString(prefKey, Json.encodeToString(icons2)).apply()
+                    KeyboardIconsSet.instance.loadIcons(ctx)
+                }
+                // todo: show outer dialog again and reload icons?
+            },
             title = { Text(showIconDialog!!.second) },
             text = {
                 LazyVerticalGrid(
@@ -129,6 +141,16 @@ fun CustomizeIconsDialog(
             },
         )
     }
+    if (showDeletePrefConfirmDialog)
+        ConfirmationDialog(
+            onDismissRequest = { showDeletePrefConfirmDialog = false },
+            onConfirmed = {
+                showDeletePrefConfirmDialog = false
+                onDismissRequest()
+                prefs.edit().remove(prefKey).apply()
+            },
+            text = { Text(stringResource(R.string.customize_icons_reset_message)) }
+        )
 }
 
 @Preview

@@ -131,6 +131,10 @@ fun createAppearancePrefs(context: Context) = listOf(
             onClick = { showDialog = true }
         )
         if (showDialog) {
+            if (keyboardNeedsReload) {
+                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(LocalContext.current)
+                keyboardNeedsReload = false
+            }
             CustomizeIconsDialog(def.key) { showDialog = false }
         }
     },

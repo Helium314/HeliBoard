@@ -28,13 +28,19 @@ fun LayoutEditDialog(
     val initialText = startContent ?: file.readText()
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     // todo: try make it really full width, at least if we have a json file
-    // todo: ok button should be "save"
-    // todo: if displayName not null, there is an existing file
     TextInputDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = {
             file.parentFile?.mkdir()
             file.writeText(it)
+            onCustomLayoutFileListChanged()
+            keyboardNeedsReload = true
+        },
+        confirmButtonText = stringResource(R.string.save),
+        neutralButtonText = if (displayName != null && file.exists()) stringResource(R.string.delete) else null,
+        onNeutral = {
+            if (!file.exists()) return@TextInputDialog
+            file.delete()
             onCustomLayoutFileListChanged()
             keyboardNeedsReload = true
         },
@@ -44,7 +50,6 @@ fun LayoutEditDialog(
         checkTextValid = {
             checkLayout(it, ctx) // todo: toast with reason why it doesn't work -> should re-do getting the reason
         },
-        // todo: delete button if displayName not null and file exists
     )
     if (showDeleteConfirmation)
         ConfirmationDialog(

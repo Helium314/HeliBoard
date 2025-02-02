@@ -43,8 +43,8 @@ fun <T: Any> ReorderDialog(
     displayItem: @Composable (T) -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    confirmButtonText: String = stringResource(android.R.string.ok),
-    cancelButtonText: String = stringResource(android.R.string.cancel),
+    onNeutral: () -> Unit = { },
+    neutralButtonText: String? = null,
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = contentColorFor(backgroundColor),
@@ -58,13 +58,12 @@ fun <T: Any> ReorderDialog(
             add(to.index, removeAt(from.index))
         }
     }
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(onClick = { onConfirmed(reorderableItems); onDismissRequest() }) { Text(confirmButtonText) }
-        },
+        onConfirmed = { onConfirmed(reorderableItems) },
+        onNeutral = onNeutral,
+        neutralButtonText = neutralButtonText,
         modifier = modifier,
-        dismissButton = { TextButton(onClick = onDismissRequest) { Text(cancelButtonText) } },
         title = title,
         text = {
             LazyColumn(
@@ -93,8 +92,8 @@ fun <T: Any> ReorderDialog(
             }
         },
         shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         properties = properties,
     )
 }

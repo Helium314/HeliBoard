@@ -32,7 +32,7 @@ fun SliderDialog(
     range: ClosedFloatingPointRange<Float>,
     modifier: Modifier = Modifier,
     showDefault: Boolean = false,
-    onDefault: () -> Unit? = { },
+    onDefault: () -> Unit = { },
     onValueChanged: (Float) -> Unit = { },
     title: (@Composable () -> Unit)? = null,
     intermediateSteps: Int? = null,
@@ -44,21 +44,11 @@ fun SliderDialog(
 ) {
     var sliderPosition by remember { mutableFloatStateOf(initialValue) }
 
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = { // mis-use the confirm button and put everything in there
-            Row {
-                if (showDefault)
-                    TextButton(
-                        onClick = { onDismissRequest(); onDefault() }
-                    ) { Text(stringResource(R.string.button_default)) }
-                Spacer(modifier.weight(1f))
-                TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) }
-                TextButton(
-                    onClick = { onDismissRequest(); onDone(sliderPosition) },
-                ) { Text(stringResource(android.R.string.ok)) }
-            }
-        },
+        neutralButtonText = if (showDefault) stringResource(R.string.button_default) else null,
+        onNeutral = onDefault,
+        onConfirmed = { onDone(sliderPosition) },
         modifier = modifier,
         title = title,
         text = {
@@ -86,8 +76,8 @@ fun SliderDialog(
             }
         },
         shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         properties = properties,
     )
 }
