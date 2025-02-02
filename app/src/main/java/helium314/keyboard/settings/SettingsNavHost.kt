@@ -148,6 +148,6 @@ object SettingsDestination {
             navTarget.value = Settings
             navScope.launch { delay(10); navTarget.value = target }
         } else
-            navTarget.value = About
+            navTarget.value = target
     }
 }

@@ -81,7 +81,13 @@ fun MainSettingsScreen(
                 name = stringResource(R.string.settings_screen_gesture),
                 onClick = onClickGestureTyping,
                 icon = R.drawable.ic_settings_gesture_foreground
-            )
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
         Preference(
             name = stringResource(R.string.settings_screen_correction),
             onClick = onClickTextCorrection,

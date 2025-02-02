@@ -71,10 +71,19 @@ fun createGestureTypingPrefs(context: Context) = listOf(
         )
     },
     PrefDef(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, R.string.gesture_floating_preview_text, R.string.gesture_floating_preview_dynamic_summary) {
+        val ctx = LocalContext.current
         SwitchPreference(
             def = it,
             default = true
-        ) { keyboardNeedsReload = true }
+        ) {
+            // is this complexity and 2 pref keys for one setting really needed?
+            // default value is based on system reduced motion
+            val default = Settings.readGestureDynamicPreviewDefault(ctx)
+            val followingSystem = it == default
+            // allow the default to be overridden
+            ctx.prefs().edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, followingSystem).apply()
+            keyboardNeedsReload = true
+        }
     },
     PrefDef(context, Settings.PREF_GESTURE_SPACE_AWARE, R.string.gesture_space_aware, R.string.gesture_space_aware_summary) {
         SwitchPreference(

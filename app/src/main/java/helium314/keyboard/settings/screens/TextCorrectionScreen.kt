@@ -7,6 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
@@ -97,7 +100,13 @@ fun createCorrectionPrefs(context: Context) = listOf(
         Preference(
             name = stringResource(R.string.edit_personal_dictionary),
             onClick = { ctx.getActivity()?.switchTo(UserDictionaryListFragment()) },
-        )
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_arrow_left),
+                modifier = Modifier.scale(-1f, 1f),
+                contentDescription = null
+            )
+        }
     },
     PrefDef(context,
         Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,

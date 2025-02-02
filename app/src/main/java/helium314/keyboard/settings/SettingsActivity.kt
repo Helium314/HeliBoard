@@ -15,6 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
+//   appearance
+//   advanced
+//   preferences
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)

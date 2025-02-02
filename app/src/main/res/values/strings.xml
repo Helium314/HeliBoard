@@ -968,4 +968,6 @@ New dictionary:
     <string name="customize_icons">Customize icons</string>
     <!-- Confirmation message when resetting all custom icons -->
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
+    <!-- Dialog message when restart of the app is required (sometimes actually does start again) -->
+    <string name="message_restart_required">A restart is required to apply the changes. Quit now?</string>
 </resources>
