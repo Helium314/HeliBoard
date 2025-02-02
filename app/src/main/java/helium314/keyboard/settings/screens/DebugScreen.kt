@@ -73,7 +73,7 @@ fun createDebugPrefs(context: Context) = listOf(
             if (!it) prefs.edit().putBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false).apply()
             showConfirmDialog = true
         }
-        if (showConfirmDialog) {
+        if (showConfirmDialog) { // todo: maybe do it differently?
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
                 onConfirmed = { Runtime.getRuntime().exit(0) },
@@ -87,7 +87,7 @@ fun createDebugPrefs(context: Context) = listOf(
     PrefDef(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) { def ->
         var showConfirmDialog by remember { mutableStateOf(false) }
         SwitchPreference(def, false) { showConfirmDialog = true }
-        if (showConfirmDialog) {
+        if (showConfirmDialog) { // todo: maybe do it differently?
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
                 onConfirmed = { Runtime.getRuntime().exit(0) },

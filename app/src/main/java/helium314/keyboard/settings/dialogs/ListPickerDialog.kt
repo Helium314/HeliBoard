@@ -41,6 +41,7 @@ fun <T: Any> ListPickerDialog(
     title: (@Composable () -> Unit)? = null,
     selectedItem: T? = null,
     getItemName: (@Composable (T) -> String) = { it.toString() },
+    confirmImmediately: Boolean = true,
     width: Dp? = null,
     height: Dp? = null,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -58,10 +59,11 @@ fun <T: Any> ListPickerDialog(
     AlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
-            TextButton(
-                onClick = { onDismissRequest(); selected?.let { onItemSelected(it) } },
-                enabled = selected != null,
-            ) { Text(stringResource(android.R.string.ok)) }
+            if (!confirmImmediately)
+                TextButton(
+                    onClick = { onDismissRequest(); selected?.let { onItemSelected(it) } },
+                    enabled = selected != null,
+                ) { Text(stringResource(android.R.string.ok)) }
         },
         modifier = modifier,
         dismissButton = { TextButton(onClick = onDismissRequest) { Text(stringResource(android.R.string.cancel)) } },
@@ -76,7 +78,13 @@ fun <T: Any> ListPickerDialog(
                             horizontalArrangement = Arrangement.spacedBy(16.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .clickable { selected = item }
+                                .clickable {
+                                    if (confirmImmediately) {
+                                        onDismissRequest()
+                                        onItemSelected(item)
+                                    }
+                                    selected = item
+                                }
                                 .padding(horizontal = 24.dp)
                         ) {
                             Text(
@@ -86,7 +94,13 @@ fun <T: Any> ListPickerDialog(
                             )
                             RadioButton(
                                 selected = selected == item,
-                                onClick = { selected = item }
+                                onClick = {
+                                    if (confirmImmediately) {
+                                        onDismissRequest()
+                                        onItemSelected(item)
+                                    }
+                                    selected = item
+                                }
                             )
                         }
                     }

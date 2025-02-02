@@ -34,7 +34,6 @@ import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.AllPrefs
@@ -92,7 +91,6 @@ fun AppearanceScreen(
             SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_SPLIT_KEYBOARD]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_SPLIT_SPACER_SCALE]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_NARROW_KEY_GAPS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_NARROW_KEY_GAPS]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_KEYBOARD_HEIGHT_SCALE]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_BOTTOM_PADDING_SCALE]!!.Preference()
             SettingsActivity2.allPrefs.map[Settings.PREF_SPACE_BAR_TEXT]!!.Preference()
@@ -122,7 +120,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             def,
             items,
             KeyboardTheme.STYLE_MATERIAL
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { def ->
         var showDialog by remember { mutableStateOf(false) }
@@ -142,7 +140,7 @@ fun createAppearancePrefs(context: Context) = listOf(
         val ctx = LocalContext.current
         val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)
         val items = KeyboardTheme.COLORS.mapNotNull {
-            if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
+            if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle != KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
             it.getStringResourceOrName("theme_name_", ctx) to it
         }
@@ -150,7 +148,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             def,
             items,
             KeyboardTheme.THEME_LIGHT
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_THEME_COLORS_NIGHT, R.string.theme_colors_night) { def ->
         val ctx = LocalContext.current
@@ -164,7 +162,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             def,
             items,
             KeyboardTheme.THEME_DARK
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, NonSettingsPrefs.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) { def ->
         val ctx = LocalContext.current
@@ -192,7 +190,7 @@ fun createAppearancePrefs(context: Context) = listOf(
         SwitchPreference(def, false)
     },
     PrefDef(context, Settings.PREF_THEME_DAY_NIGHT, R.string.day_night_mode, R.string.day_night_mode_summary) { def ->
-        SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_NAVBAR_COLOR, R.string.theme_navbar, R.string.day_night_mode_summary) { def ->
         SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -280,10 +278,10 @@ fun createAppearancePrefs(context: Context) = listOf(
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE, R.string.prefs_keyboard_height_scale) {
         SliderPreference(
@@ -292,7 +290,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_BOTTOM_PADDING_SCALE, R.string.prefs_bottom_padding_scale) {
         SliderPreference(
@@ -301,7 +299,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
-        )
+        ) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { def ->
         var showDialog by remember { mutableStateOf(false) }
@@ -314,9 +312,13 @@ fun createAppearancePrefs(context: Context) = listOf(
         if (showDialog) {
             TextInputDialog(
                 onDismissRequest = { showDialog = false },
-                onConfirmed = { prefs.edit().putString(def.key, it).apply() },
+                onConfirmed = {
+                    prefs.edit().putString(def.key, it).apply()
+                    keyboardNeedsReload = true
+                },
                 initialText = prefs.getString(def.key, "") ?: "",
-                title = { Text(def.title) }
+                title = { Text(def.title) },
+                checkTextValid = { true }
             )
         }
     },

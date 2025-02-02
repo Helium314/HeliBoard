@@ -40,7 +40,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.dialogs.SimpleListPickerDialog
+import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 
 // taken from StreetComplete (and a bit SCEE)
@@ -230,6 +230,7 @@ fun <T: Any> ListPreference(
     def: PrefDef,
     items: List<Pair<String, T>>,
     default: T,
+    onChanged: (T) -> Unit = { }
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
@@ -240,12 +241,13 @@ fun <T: Any> ListPreference(
         onClick = { showDialog = true }
     )
     if (showDialog) {
-        SimpleListPickerDialog(
+        ListPickerDialog(
             onDismissRequest = { showDialog = false },
             items = items,
             onItemSelected = {
-                if (it != selected)
-                    putPrefOfType(prefs, def.key, it.second)
+                if (it == selected) return@ListPickerDialog
+                putPrefOfType(prefs, def.key, it.second)
+                onChanged(it.second)
             },
             selectedItem = selected,
             title = { Text(def.title) },
