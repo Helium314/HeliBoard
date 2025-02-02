@@ -73,7 +73,6 @@ import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -89,6 +88,8 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
+import helium314.keyboard.settings.SettingsActivity2;
+import helium314.keyboard.settings.SettingsActivityKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -878,6 +879,8 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
+
+        reloadIfNecessary();
 
         final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
         if (hintLocales == null) {
@@ -1876,7 +1879,7 @@ public class LatinIME extends InputMethodService implements
             mainKeyboardView.closing();
         }
         final Intent intent = new Intent();
-        intent.setClass(LatinIME.this, SettingsActivity.class);
+        intent.setClass(LatinIME.this, SettingsActivity2.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1974,6 +1977,14 @@ public class LatinIME extends InputMethodService implements
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
                     KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
             // deallocateMemory always called on hiding, and should not be called when showing
+        }
+    }
+
+    private void reloadIfNecessary() {
+        // better do the reload when showing the keyboard next time, and not on settings change
+        if (SettingsActivityKt.keyboardNeedsReload) {
+            mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
+            SettingsActivityKt.keyboardNeedsReload = false;
         }
     }
 }

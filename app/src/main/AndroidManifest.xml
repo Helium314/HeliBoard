@@ -74,10 +74,9 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name=".settings.SettingsActivity"
+        <activity android:name="helium314.keyboard.settings.SettingsActivity2"
                 android:theme="@style/platformActivityTheme"
                 android:label="@string/ime_settings"
-                android:excludeFromRecents="true"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

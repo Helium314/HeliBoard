@@ -79,7 +79,7 @@ fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: Str
         .show()
 }
 
-private fun checkLayout(layoutContent: String, context: Context): Boolean {
+fun checkLayout(layoutContent: String, context: Context): Boolean {
     val params = KeyboardParams()
     params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
