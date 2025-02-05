@@ -880,8 +880,6 @@ public class LatinIME extends InputMethodService implements
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
-        reloadIfNecessary();
-
         final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
         if (hintLocales == null) {
             return;
@@ -902,6 +900,8 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        reloadIfNecessary();
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we

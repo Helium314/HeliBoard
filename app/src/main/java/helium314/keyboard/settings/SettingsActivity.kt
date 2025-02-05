@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  make all prefs actually work
 //   appearance
 //    click on bg image does nothing when already set (but works after reload)
-//    narrow key gaps setting is not changing properly?
 //    custom font loading not implemented
 //    have large bg image, and first-time load the keyboard on new search field -> bg image expands full size
 //   advanced
@@ -32,6 +31,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities
 //  work on todos in other files
+//  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //  use better / more structured and clear names and arrangement of files
 //   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
 //   there is a lot more ambiguous naming...
