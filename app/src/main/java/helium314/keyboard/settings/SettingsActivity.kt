@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  make all prefs actually work
 //   appearance
 //    click on bg image does nothing when already set (but works after reload)
-//    split spacer scale setting does not reload?
 //    narrow key gaps setting is not changing properly?
 //    custom font loading not implemented
 //    have large bg image, and first-time load the keyboard on new search field -> bg image expands full size

@@ -1983,6 +1983,7 @@ public class LatinIME extends InputMethodService implements
     private void reloadIfNecessary() {
         // better do the reload when showing the keyboard next time, and not on settings change
         if (SettingsActivityKt.keyboardNeedsReload) {
+            KeyboardLayoutSet.onKeyboardThemeChanged();
             mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
             SettingsActivityKt.keyboardNeedsReload = false;
         }
