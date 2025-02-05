@@ -60,7 +60,7 @@ fun AppearanceScreen(
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
-    if (b?.value ?: 0 < 0)
+    if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && Settings.readDayNightPref(prefs, ctx.resources)
     val lightTheme = prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT)
@@ -102,6 +102,7 @@ fun AppearanceScreen(
 fun createAppearancePrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_THEME_STYLE, R.string.theme_style) { def ->
         val ctx = LocalContext.current
+        val prefs = ctx.prefs()
         val items = KeyboardTheme.STYLES.map {
             it.getStringResourceOrName("style_name_", ctx) to it
         }
@@ -109,7 +110,15 @@ fun createAppearancePrefs(context: Context) = listOf(
             def,
             items,
             KeyboardTheme.STYLE_MATERIAL
-        )
+        ) {
+            if (it != KeyboardTheme.STYLE_HOLO) {
+                // todo: use defaults once they exist
+                if (prefs.getString(Settings.PREF_THEME_COLORS, "") == KeyboardTheme.THEME_HOLO_WHITE)
+                    prefs.edit().putString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT).apply()
+                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, "") == KeyboardTheme.THEME_HOLO_WHITE)
+                    prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK).apply()
+            }
+        }
     },
     PrefDef(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { def ->
         val ctx = LocalContext.current
@@ -138,6 +147,9 @@ fun createAppearancePrefs(context: Context) = listOf(
     },
     PrefDef(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { def ->
         val ctx = LocalContext.current
+        val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+        if ((b?.value ?: 0) < 0)
+            Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
         val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)
         val items = KeyboardTheme.COLORS.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle != KeyboardTheme.STYLE_HOLO)
@@ -152,8 +164,11 @@ fun createAppearancePrefs(context: Context) = listOf(
     },
     PrefDef(context, Settings.PREF_THEME_COLORS_NIGHT, R.string.theme_colors_night) { def ->
         val ctx = LocalContext.current
+        val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+        if ((b?.value ?: 0) < 0)
+            Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
         val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)
-        val items = KeyboardTheme.COLORS.mapNotNull {
+        val items = KeyboardTheme.COLORS_DARK.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
             it.getStringResourceOrName("theme_name_", ctx) to it

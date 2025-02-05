@@ -28,7 +28,7 @@ fun GestureTypingScreen(
 ) {
     val prefs = LocalContext.current.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
-    if (b?.value ?: 0 < 0)
+    if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true)
     val gestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true)

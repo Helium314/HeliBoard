@@ -136,7 +136,7 @@ fun SwitchPreference(
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
-    if (b?.value ?: 0 < 0)
+    if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     var value = prefs.getBoolean(pref, default)
     fun switched(newValue: Boolean) {
@@ -194,7 +194,7 @@ fun <T: Number> SliderPreference(
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
-    if (b?.value ?: 0 < 0)
+    if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val initialValue = if (default is Int || default is Float)
         getPrefOfType(prefs, pref, default)

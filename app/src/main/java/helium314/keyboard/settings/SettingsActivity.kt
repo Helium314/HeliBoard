@@ -16,9 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 // todo (roughly in order)
 //  make all prefs actually work
 //   appearance
-//    holo white selectable for non-holo style if we had selected holo theme before
-//     the list just stays the old one after changing the setting
-//     also, even if selected it should not be used...
 //    click on bg image does nothing when already set (but works after reload)
 //    split spacer scale setting does not reload?
 //    narrow key gaps setting is not changing properly?
@@ -29,6 +26,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)
+//  more similar dialog style args (for all dialogs, or for none)
 //  check whether dialogs have the same colors, i think currently it's a bit inconsistent
 //   see all the properties for each alertDialog -> any way to set it in a single place?
 //  title too huge for bg image and text on spacebar dialogs, also maybe somewhere else -> where to set in one place?
