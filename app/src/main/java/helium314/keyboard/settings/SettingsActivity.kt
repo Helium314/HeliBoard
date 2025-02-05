@@ -15,9 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
-//   appearance
-//    click on bg image does nothing when already set (but works after reload)
-//    have large bg image, and first-time load the keyboard on new search field -> bg image expands full size
 //   advanced
 //   preferences
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
@@ -37,6 +34,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   there is a lot more ambiguous naming...
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
+//  bg image inconsistent about being on toolbar or not
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes

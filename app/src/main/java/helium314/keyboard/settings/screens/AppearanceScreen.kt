@@ -10,10 +10,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -217,77 +215,10 @@ fun createAppearancePrefs(context: Context) = listOf(
         SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
     },
     PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE, R.string.customize_background_image) { def ->
-        var showDayNightDialog by remember { mutableStateOf(false) }
-        var showSelectionDialog by remember { mutableStateOf(false) }
-        var showErrorDialog by remember { mutableStateOf(false) }
-        var isNight by remember { mutableStateOf(false) }
-        val ctx = LocalContext.current
-        val dayNightPref = Settings.readDayNightPref(ctx.prefs(), ctx.resources)
-        val scope = rememberCoroutineScope()
-        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-            val uri = result.data?.data ?: return@rememberLauncherForActivityResult
-            showSelectionDialog = false
-            showDayNightDialog = false
-            scope.launch(Dispatchers.IO) {
-                if (!setBackgroundImage(ctx, uri, isNight, false))
-                    showErrorDialog = true
-            }
-        }
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            .addCategory(Intent.CATEGORY_OPENABLE)
-            .setType("image/*")
-        Preference(
-            name = def.title,
-            onClick = {
-                if (dayNightPref) {
-                    showDayNightDialog = true
-                } else if (!Settings.getCustomBackgroundFile(ctx, false, false).exists()) {
-                    launcher.launch(intent)
-                } else {
-                    showSelectionDialog = true
-                }
-            }
-        )
-        if (showDayNightDialog) {
-            // dialog to set isNight and then show other dialog if image exists
-            AlertDialog(
-                onDismissRequest = { showDayNightDialog = false },
-                confirmButton = {
-                    TextButton(onClick = {
-                        showDayNightDialog = false
-                        isNight = false
-                        if (Settings.getCustomBackgroundFile(ctx, isNight, false).exists())
-                            showSelectionDialog = true
-                        else launcher.launch(intent)
-                    }) { Text(stringResource(R.string.day_or_night_day)) }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
-                        showDayNightDialog = false
-                        isNight = true
-                        if (Settings.getCustomBackgroundFile(ctx, isNight, false).exists())
-                            showSelectionDialog = true
-                        else launcher.launch(intent)
-                    }) { Text(stringResource(R.string.day_or_night_night)) }
-                },
-                title = { Text(stringResource(R.string.day_or_night_image)) },
-            )
-        }
-        if (showSelectionDialog) {
-            // todo: delete file or start launcher
-        }
-        if (showErrorDialog) {
-            // todo: infoDialog(requireContext(), R.string.file_read_error)
-        }
+        BackgroundImagePref(def, false)
     },
     PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE_LANDSCAPE, R.string.customize_background_image_landscape, R.string.summary_customize_background_image_landscape) { def ->
-        var showDialog by remember { mutableStateOf(false) }
-        Preference(
-            name = def.title,
-            description = def.description,
-            onClick = { showDialog = true }
-        ) // todo: create and show the dialog
+        BackgroundImagePref(def, true)
     },
     PrefDef(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD, R.string.enable_split_keyboard) {
         SwitchPreference(it, false)
@@ -393,8 +324,88 @@ fun createAppearancePrefs(context: Context) = listOf(
     },
 )
 
+@Composable
+private fun BackgroundImagePref(def: PrefDef, isLandscape: Boolean) {
+    var showDayNightDialog by remember { mutableStateOf(false) }
+    var showSelectionDialog by remember { mutableStateOf(false) }
+    var showErrorDialog by remember { mutableStateOf(false) }
+    var isNight by remember { mutableStateOf(false) }
+    val ctx = LocalContext.current
+    fun getFile() = Settings.getCustomBackgroundFile(ctx, isNight, isLandscape)
+    val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    if ((b?.value ?: 0) < 0) // necessary to reload dayNightPref
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+    val dayNightPref = Settings.readDayNightPref(ctx.prefs(), ctx.resources)
+    if (!dayNightPref)
+        isNight = false
+    val scope = rememberCoroutineScope()
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+        showSelectionDialog = false
+        showDayNightDialog = false
+        scope.launch(Dispatchers.IO) {
+            if (!setBackgroundImage(ctx, uri, isNight, isLandscape))
+                showErrorDialog = true
+        }
+    }
+    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        .addCategory(Intent.CATEGORY_OPENABLE)
+        .setType("image/*")
+    Preference(
+        name = def.title,
+        onClick = {
+            if (dayNightPref) {
+                showDayNightDialog = true
+            } else if (!getFile().exists()) {
+                launcher.launch(intent)
+            } else {
+                showSelectionDialog = true
+            }
+        }
+    )
+    if (showDayNightDialog) {
+        ConfirmationDialog(
+            onDismissRequest = { showDayNightDialog = false },
+            onConfirmed = {
+                isNight = false
+                if (getFile().exists())
+                    showSelectionDialog = true
+                else launcher.launch(intent)
+            },
+            confirmButtonText = stringResource(R.string.day_or_night_day),
+            cancelButtonText = "",
+            onNeutral = {
+                isNight = true
+                if (getFile().exists())
+                    showSelectionDialog = true
+                else launcher.launch(intent)
+            },
+            neutralButtonText = stringResource(R.string.day_or_night_night),
+            title = { Text(stringResource(R.string.day_or_night_image)) },
+        )
+    }
+    if (showSelectionDialog) {
+        ConfirmationDialog(
+            onDismissRequest = { showSelectionDialog = false },
+            title = { Text(stringResource(R.string.customize_background_image)) },
+            confirmButtonText = stringResource(R.string.button_load_custom),
+            onConfirmed = { launcher.launch(intent) },
+            neutralButtonText = stringResource(R.string.delete),
+            onNeutral = {
+                getFile().delete()
+                Settings.clearCachedBackgroundImages()
+                keyboardNeedsReload = true
+            }
+        )
+    }
+    if (showErrorDialog) {
+        InfoDialog(stringResource(R.string.file_read_error)) { showErrorDialog = false }
+    }
+}
+
 private fun setBackgroundImage(ctx: Context, uri: Uri, isNight: Boolean, isLandscape: Boolean): Boolean {
-    val imageFile = Settings.getCustomBackgroundFile(ctx, isNight, false)
+    val imageFile = Settings.getCustomBackgroundFile(ctx, isNight, isLandscape)
     FileUtils.copyContentUriToNewFile(uri, ctx, imageFile)
     keyboardNeedsReload = true
     try {
