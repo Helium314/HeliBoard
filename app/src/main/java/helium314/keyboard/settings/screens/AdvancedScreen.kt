@@ -1,8 +1,13 @@
 package helium314.keyboard.settings.screens
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Build
-import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -10,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -23,6 +27,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
+import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Settings
@@ -30,11 +35,9 @@ import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
 import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
 import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
-import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.checkLayout
-import helium314.keyboard.latin.utils.getCustomLayoutFile
+import helium314.keyboard.latin.utils.ChecksumCalculator
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.latin.utils.getLayoutDisplayName
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
@@ -49,14 +52,15 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.CustomizeLayoutDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -98,6 +102,7 @@ fun AdvancedSettingsScreen(
     }
 }
 
+@SuppressLint("ApplySharedPref")
 fun createAdvancedPrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_ALWAYS_INCOGNITO_MODE, R.string.incognito, R.string.prefs_force_incognito_mode_summary) {
         SwitchPreference(
@@ -337,11 +342,84 @@ fun createAdvancedPrefs(context: Context) = listOf(
     },
     PrefDef(context, NonSettingsPrefs.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) {
         var showDialog by remember { mutableStateOf(false) }
+        val ctx = LocalContext.current
+        val prefs = ctx.prefs()
+        val abi = Build.SUPPORTED_ABIS[0]
+        val libFile = File(ctx.filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
+        fun renameToLibfileAndRestart(file: File, checksum: String) {
+            libFile.delete()
+            // store checksum in default preferences (soo JniUtils)
+            prefs.edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
+            file.renameTo(libFile)
+            Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
+        }
+        var tempFilePath: String? by remember { mutableStateOf(null) }
+        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+            val tmpfile = File(ctx.filesDir.absolutePath + File.separator + "tmplib")
+            try {
+                val otherTemporaryFile = File(ctx.filesDir.absolutePath + File.separator + "tmpfile")
+                FileUtils.copyContentUriToNewFile(uri, ctx, otherTemporaryFile)
+                val inputStream = FileInputStream(otherTemporaryFile)
+                val outputStream = FileOutputStream(tmpfile)
+                outputStream.use {
+                    tmpfile.setReadOnly() // as per recommendations in https://developer.android.com/about/versions/14/behavior-changes-14#safer-dynamic-code-loading
+                    FileUtils.copyStreamToOtherStream(inputStream, it)
+                }
+                otherTemporaryFile.delete()
+
+                val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
+                if (checksum == JniUtils.expectedDefaultChecksum()) {
+                    renameToLibfileAndRestart(tmpfile, checksum)
+                } else {
+                    tempFilePath = tmpfile.absolutePath
+                    AlertDialog.Builder(ctx)
+                        .setMessage(ctx.getString(R.string.checksum_mismatch_message, abi))
+                        .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibfileAndRestart(tmpfile, checksum) }
+                        .setNegativeButton(android.R.string.cancel) { _, _ -> tmpfile.delete() }
+                        .show()
+                }
+            } catch (e: IOException) {
+                tmpfile.delete()
+                // should inform user, but probably the issues will only come when reading the library
+            }
+        }
         Preference(
             name = it.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the dialog, or launch that thing
+        if (showDialog) {
+            ConfirmationDialog(
+                onDismissRequest = { showDialog = false },
+                onConfirmed = {
+                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                        .addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType("application/octet-stream")
+                    launcher.launch(intent)
+                },
+                title = { Text(stringResource(R.string.load_gesture_library)) },
+                text = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
+                neutralButtonText = if (libFile.exists()) stringResource(R.string.load_gesture_library_button_delete) else null,
+                onNeutral = {
+                    libFile.delete()
+                    prefs.edit().remove(Settings.PREF_LIBRARY_CHECKSUM).commit()
+                    Runtime.getRuntime().exit(0)
+                }
+            )
+        }
+        if (tempFilePath != null)
+            ConfirmationDialog(
+                onDismissRequest = {
+                    File(tempFilePath).delete()
+                    tempFilePath = null
+                },
+                text = { Text(stringResource(R.string.checksum_mismatch_message, abi))},
+                onConfirmed = {
+                    val tempFile = File(tempFilePath)
+                    renameToLibfileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")
+                }
+            )
     },
 )
 
