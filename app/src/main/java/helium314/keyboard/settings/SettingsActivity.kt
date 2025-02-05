@@ -81,6 +81,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  search only in current pref screen, except when in main?
 //  try getting rid of appcompat stuff (activity, dialogs, ...)
 //  rearrange settings screens? now it should be very simple to do (definitely separate PR)
+//  actually lenient json parsing is not good in a certain way: we should show an error if a json property is unknown
+//  syntax highlighting for json? should show basic json errors
 
 // preliminary results:
 // looks ok (ugly M3 switches)

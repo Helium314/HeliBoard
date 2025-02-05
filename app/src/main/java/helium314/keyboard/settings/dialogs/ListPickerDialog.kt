@@ -3,6 +3,7 @@ package helium314.keyboard.settings.dialogs
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,6 +36,7 @@ fun <T: Any> ListPickerDialog(
     selectedItem: T? = null,
     getItemName: (@Composable (T) -> String) = { it.toString() },
     confirmImmediately: Boolean = true,
+    showRadioButtons: Boolean = true,
 ) {
     var selected by remember { mutableStateOf(selectedItem) }
     val state = rememberLazyListState()
@@ -68,22 +70,24 @@ fun <T: Any> ListPickerDialog(
                                     selected = item
                                 }
                                 .padding(horizontal = 24.dp)
+                                .heightIn(min = 40.dp)
                         ) {
                             Text(
                                 text = getItemName(item),
                                 style = MaterialTheme.typography.bodyLarge,
                                 modifier = Modifier.weight(1f),
                             )
-                            RadioButton(
-                                selected = selected == item,
-                                onClick = {
-                                    if (confirmImmediately) {
-                                        onDismissRequest()
-                                        onItemSelected(item)
+                            if (showRadioButtons)
+                                RadioButton(
+                                    selected = selected == item,
+                                    onClick = {
+                                        if (confirmImmediately) {
+                                            onDismissRequest()
+                                            onItemSelected(item)
+                                        }
+                                        selected = item
                                     }
-                                    selected = item
-                                }
-                            )
+                                )
                         }
                     }
                 }

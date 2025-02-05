@@ -39,10 +39,9 @@ fun TextInputDialog(
     val focusRequester = remember { FocusRequester() }
 
     var value by remember {
-        mutableStateOf(TextFieldValue(initialText, selection = TextRange(initialText.length)))
+        mutableStateOf(TextFieldValue(initialText, selection = TextRange(if (singleLine) initialText.length else 0)))
     }
 
-    // todo: this is not working any more?
     LaunchedEffect(initialText) { focusRequester.requestFocus() }
 
     ThreeButtonAlertDialog(

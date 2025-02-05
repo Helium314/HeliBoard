@@ -2,12 +2,15 @@ package helium314.keyboard.settings.screens
 
 import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -15,11 +18,24 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
+import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
+import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
+import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.checkLayout
+import helium314.keyboard.latin.utils.getCustomLayoutFile
+import helium314.keyboard.latin.utils.getCustomLayoutFiles
+import helium314.keyboard.latin.utils.getLayoutDisplayName
+import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
@@ -33,8 +49,14 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.CustomizeLayoutDialog
+import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -159,13 +181,25 @@ fun createAdvancedPrefs(context: Context) = listOf(
             default = false
         )
     },
-    PrefDef(context, Settings.PREF_CUSTOM_CURRENCY_KEY, R.string.customize_currencies) {
+    PrefDef(context, Settings.PREF_CUSTOM_CURRENCY_KEY, R.string.customize_currencies) { def ->
         var showDialog by remember { mutableStateOf(false) }
         Preference(
-            name = it.title,
+            name = def.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the currency customizer
+        if (showDialog) {
+            val prefs = LocalContext.current.prefs()
+            TextInputDialog(
+                onDismissRequest = { showDialog = false },
+                textInputLabel = { Text(stringResource(R.string.customize_currencies_detail)) },
+                initialText = prefs.getString(def.key, "")!!,
+                onConfirmed = { prefs.edit().putString(def.key, it).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
+                title = { Text(stringResource(R.string.customize_currencies)) },
+                neutralButtonText = if (prefs.contains(def.key)) stringResource(R.string.button_default) else null,
+                onNeutral = { prefs.edit().remove(def.key).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
+                checkTextValid = { it.splitOnWhitespace().none { it.length > 8 } }
+            )
+        }
     },
     PrefDef(context, Settings.PREF_MORE_POPUP_KEYS, R.string.show_popup_keys_title) { def ->
         val items = listOf(
@@ -174,29 +208,77 @@ fun createAdvancedPrefs(context: Context) = listOf(
             stringResource(R.string.show_popup_keys_more) to "more",
             stringResource(R.string.show_popup_keys_all) to "all",
         )
-        ListPreference(def, items, "main")
-        // todo: on value changed -> KeyboardLayoutSet.onSystemLocaleChanged()
+        ListPreference(def, items, "main") { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
-    PrefDef(context, NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) {
+    PrefDef(context, NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) { def ->
         var showDialog by remember { mutableStateOf(false) }
+        val ctx = LocalContext.current
+        var layout: String? by remember { mutableStateOf(null) }
         Preference(
-            name = it.title,
+            name = def.title,
             onClick = { showDialog = true }
         )
-        if (showDialog) // todo: first the selection dialog, then the edit dialog
-            TextInputDialog(
+        if (showDialog) {
+            ListPickerDialog(
                 onDismissRequest = { showDialog = false },
-                onConfirmed = { }, // todo
-                initialText = LocalContext.current.assets.open("layouts/dvorak.json").bufferedReader().readText()
+                showRadioButtons = false,
+                confirmImmediately = true,
+                items = RawKeyboardParser.symbolAndNumberLayouts,
+                getItemName = { it.getStringResourceOrName("layout_", ctx) },
+                onItemSelected = { layout = it },
+                title = { Text(def.title) }
             )
+        }
+        if (layout != null) {
+            val customLayoutName = getCustomLayoutFiles(ctx).firstOrNull { it.name.startsWith("$CUSTOM_LAYOUT_PREFIX$layout.")}?.name
+            val originalLayout = if (customLayoutName != null) null
+            else {
+                ctx.assets.list("layouts")?.firstOrNull { it.startsWith("$layout.") }
+                    ?.let { ctx.assets.open("layouts" + File.separator + it).reader().readText() }
+            }
+            CustomizeLayoutDialog(
+                layoutName = customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.",
+                startContent = originalLayout,
+                displayName = layout?.getStringResourceOrName("layout_", ctx),
+                onDismissRequest = { layout = null}
+            )
+        }
     },
-    PrefDef(context, NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS, R.string.customize_functional_key_layouts) {
+    PrefDef(context, NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS, R.string.customize_functional_key_layouts) { def ->
         var showDialog by remember { mutableStateOf(false) }
+        val ctx = LocalContext.current
+        var layout: String? by remember { mutableStateOf(null) }
         Preference(
-            name = it.title,
+            name = def.title,
             onClick = { showDialog = true }
         )
-//        if (showDialog) todo: show the customizer
+        if (showDialog) {
+            ListPickerDialog(
+                onDismissRequest = { showDialog = false },
+                showRadioButtons = false,
+                confirmImmediately = true,
+                items = listOf(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED)
+                    .map { it.substringBeforeLast(".") },
+                getItemName = { it.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", ctx) },
+                onItemSelected = { layout = it },
+                title = { Text(def.title) }
+            )
+        }
+        if (layout != null) {
+            val customLayoutName = getCustomLayoutFiles(ctx).map { it.name }
+                .firstOrNull { it.startsWith("$layout.") }
+            val originalLayout = if (customLayoutName != null) null
+            else {
+                val defaultLayoutName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
+                ctx.assets.open("layouts" + File.separator + defaultLayoutName).reader().readText()
+            }
+            CustomizeLayoutDialog(
+                layoutName = customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.",
+                startContent = originalLayout,
+                displayName = layout?.substringAfter(CUSTOM_LAYOUT_PREFIX)?.getStringResourceOrName("layout_", ctx),
+                onDismissRequest = { layout = null}
+            )
+        }
     },
     PrefDef(context, NonSettingsPrefs.BACKUP_RESTORE, R.string.backup_restore_title) {
         var showDialog by remember { mutableStateOf(false) }

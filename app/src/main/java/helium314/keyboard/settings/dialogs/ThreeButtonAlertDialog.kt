@@ -3,14 +3,14 @@ package helium314.keyboard.settings.dialogs
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 
@@ -45,7 +45,12 @@ fun ThreeButtonAlertDialog(
             }
         },
         modifier = modifier,
-        title = title,
+        title = {
+            // avoid way too large title (headlineSmall)
+            CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleLarge) {
+                title?.invoke()
+            }
+        },
         text = text,
         shape = MaterialTheme.shapes.medium,
         containerColor = MaterialTheme.colorScheme.surface,
