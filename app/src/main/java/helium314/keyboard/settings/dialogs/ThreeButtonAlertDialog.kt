@@ -23,7 +23,7 @@ fun ThreeButtonAlertDialog(
     text: @Composable (() -> Unit)? = null,
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
-    confirmButtonText: String = stringResource(android.R.string.ok),
+    confirmButtonText: String? = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -41,10 +41,11 @@ fun ThreeButtonAlertDialog(
                     ) { Text(neutralButtonText) }
                 Spacer(modifier.weight(1f))
                 TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }
-                TextButton(
-                    enabled = checkOk(),
-                    onClick = { onDismissRequest(); onConfirmed() },
-                ) { Text(confirmButtonText) }
+                if (confirmButtonText != null)
+                    TextButton(
+                        enabled = checkOk(),
+                        onClick = { onDismissRequest(); onConfirmed() },
+                    ) { Text(confirmButtonText) }
             }
         },
         modifier = modifier,

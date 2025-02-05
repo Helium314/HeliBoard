@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  make all prefs actually work
 //   appearance
 //    click on bg image does nothing when already set (but works after reload)
-//    custom font loading not implemented
 //    have large bg image, and first-time load the keyboard on new search field -> bg image expands full size
 //   advanced
 //   preferences
@@ -27,6 +26,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  more similar dialog style args (for all dialogs, or for none)
 //  check whether dialogs have the same colors, i think currently it's a bit inconsistent
 //   see all the properties for each alertDialog -> any way to set it in a single place?
+//  yes/no/default can now be confirmDialog
 //  title too huge for bg image and text on spacebar dialogs, also maybe somewhere else -> where to set in one place?
 //  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities

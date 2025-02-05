@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -31,9 +32,11 @@ import helium314.keyboard.latin.settings.ColorsNightSettingsFragment
 import helium314.keyboard.latin.settings.ColorsSettingsFragment
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValues
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.AllPrefs
@@ -47,11 +50,14 @@ import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
+import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun AppearanceScreen(
@@ -338,11 +344,52 @@ fun createAppearancePrefs(context: Context) = listOf(
         }
     },
     PrefDef(context, NonSettingsPrefs.CUSTOM_FONT, R.string.custom_font) { def ->
+        val ctx = LocalContext.current
         var showDialog by remember { mutableStateOf(false) }
+        var showErrorDialog by remember { mutableStateOf(false) }
+        val fontFile = Settings.getCustomFontFile(ctx)
+        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+            val tempFile = File(DeviceProtectedUtils.getFilesDir(context), "temp_file")
+            FileUtils.copyContentUriToNewFile(uri, ctx, tempFile)
+            try {
+                val typeface = Typeface.createFromFile(tempFile)
+                fontFile.delete()
+                tempFile.renameTo(fontFile)
+                Settings.clearCachedTypeface()
+                keyboardNeedsReload = true
+            } catch (_: Exception) {
+                showErrorDialog = true
+                tempFile.delete()
+            }
+        }
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+            .setType("*/*")
         Preference(
             name = def.title,
-            onClick = { showDialog = true },
-        ) // todo: create and show the dialog
+            onClick = {
+                if (fontFile.exists())
+                    showDialog = true
+                else launcher.launch(intent)
+            },
+        )
+        if (showDialog)
+            ConfirmationDialog(
+                onDismissRequest = { showDialog = false },
+                onConfirmed = { launcher.launch(intent) },
+                onNeutral = {
+                    fontFile.delete()
+                    Settings.clearCachedTypeface()
+                    keyboardNeedsReload = true
+                },
+                neutralButtonText = stringResource(R.string.delete),
+                confirmButtonText = stringResource(R.string.load),
+                title = { Text(stringResource(R.string.custom_font)) }
+            )
+        if (showErrorDialog)
+            InfoDialog(stringResource(R.string.file_read_error)) { showErrorDialog = false }
     },
 )
 

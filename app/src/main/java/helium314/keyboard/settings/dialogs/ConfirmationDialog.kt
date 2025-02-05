@@ -26,23 +26,26 @@ fun ConfirmationDialog(
     text: @Composable (() -> Unit)? = null,
     confirmButtonText: String = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
+    neutralButtonText: String? = null,
+    onNeutral: () -> Unit = { },
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     properties: DialogProperties = DialogProperties(),
 ) {
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(onClick = { onConfirmed(); onDismissRequest() }) { Text(confirmButtonText) }
-        },
+        onConfirmed = onConfirmed,
+        confirmButtonText = confirmButtonText,
+        cancelButtonText = cancelButtonText,
+        neutralButtonText = neutralButtonText,
+        onNeutral = onNeutral,
         modifier = modifier,
-        dismissButton = { TextButton(onClick = onDismissRequest) { Text(cancelButtonText) } },
         title = title,
         text = text,
         shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
         properties = properties,
     )
 }
@@ -53,6 +56,7 @@ private fun PreviewConfirmDialog() {
     ConfirmationDialog(
         onDismissRequest = {  },
         onConfirmed = {},
+        neutralButtonText = "hi",
         confirmButtonText = "I don't care",
         text = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
     )
