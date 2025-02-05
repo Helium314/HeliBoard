@@ -1,17 +1,10 @@
 package helium314.keyboard.settings.dialogs
 
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
 
 // taken from StreetComplete
@@ -28,10 +21,6 @@ fun ConfirmationDialog(
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
     onNeutral: () -> Unit = { },
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    properties: DialogProperties = DialogProperties(),
 ) {
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -43,10 +32,6 @@ fun ConfirmationDialog(
         modifier = modifier,
         title = title,
         text = text,
-        shape = shape,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        properties = properties,
     )
 }
 

@@ -4,7 +4,6 @@ import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,13 +12,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -34,7 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.TypedValueCompat
@@ -71,18 +66,13 @@ fun CustomizeIconsDialog(
     var showIconDialog: Pair<String, String>? by remember { mutableStateOf(null) }
     var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
     val prefs = ctx.prefs()
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = { },
-        dismissButton = {
-            Row {
-                if (prefs.contains(prefKey))
-                    TextButton(onClick = { showDeletePrefConfirmDialog = true })
-                    { Text(stringResource(R.string.button_default)) }
-                Spacer(Modifier.weight(1f))
-                TextButton(onClick = onDismissRequest) { Text(stringResource(R.string.dialog_close)) }
-            }
-        },
+        onConfirmed = { },
+        confirmButtonText = null,
+        cancelButtonText = stringResource(R.string.dialog_close),
+        neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
+        onNeutral = { showDeletePrefConfirmDialog = true },
         title = { Text(stringResource(R.string.customize_icons)) },
         text = {
             LazyColumn(state = state) {
@@ -97,11 +87,6 @@ fun CustomizeIconsDialog(
                 }
             }
         },
-        shape = MaterialTheme.shapes.medium,
-        containerColor = MaterialTheme.colorScheme.surface,
-        textContentColor = contentColorFor(MaterialTheme.colorScheme.surface),
-        properties = DialogProperties(),
-
     )
     if (showIconDialog != null) {
         val iconName = showIconDialog!!.first
@@ -164,7 +149,6 @@ fun CustomizeIconsDialog(
         )
     }
     if (showDeletePrefConfirmDialog) {
-        val ctx = LocalContext.current
         ConfirmationDialog(
             onDismissRequest = { showDeletePrefConfirmDialog = false },
             onConfirmed = {

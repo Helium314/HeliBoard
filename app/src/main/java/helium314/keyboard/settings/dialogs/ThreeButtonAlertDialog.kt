@@ -26,10 +26,6 @@ fun ThreeButtonAlertDialog(
     confirmButtonText: String? = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    properties: DialogProperties = DialogProperties(),
 ) {
     AlertDialog(
         onDismissRequest = onDismissRequest,
@@ -51,9 +47,9 @@ fun ThreeButtonAlertDialog(
         modifier = modifier,
         title = title,
         text = text,
-        shape = shape,
-        containerColor = backgroundColor,
-        textContentColor = contentColor,
-        properties = properties,
+        shape = MaterialTheme.shapes.medium,
+        containerColor = MaterialTheme.colorScheme.surface,
+        textContentColor = contentColorFor( MaterialTheme.colorScheme.surface),
+        properties = DialogProperties(),
     )
 }

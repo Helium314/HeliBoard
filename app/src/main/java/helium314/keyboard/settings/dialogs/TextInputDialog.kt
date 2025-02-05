@@ -2,10 +2,8 @@ package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -15,14 +13,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.window.DialogProperties
 
 // mostly taken from StreetComplete / SCEE
 /** Dialog with which to input text. OK button is only clickable if [checkTextValid] returns true. */
@@ -37,10 +32,6 @@ fun TextInputDialog(
     confirmButtonText: String = stringResource(android.R.string.ok),
     initialText: String = "",
     textInputLabel: @Composable (() -> Unit)? = null,
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    properties: DialogProperties = DialogProperties(),
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
@@ -48,9 +39,10 @@ fun TextInputDialog(
     val focusRequester = remember { FocusRequester() }
 
     var value by remember {
-        mutableStateOf(TextFieldValue(initialText, selection = TextRange(0, initialText.length)))
+        mutableStateOf(TextFieldValue(initialText, selection = TextRange(initialText.length)))
     }
 
+    // todo: this is not working any more?
     LaunchedEffect(initialText) { focusRequester.requestFocus() }
 
     ThreeButtonAlertDialog(
@@ -74,10 +66,6 @@ fun TextInputDialog(
                 singleLine = singleLine
             )
         },
-        shape = shape,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        properties = properties,
     )
 }
 

@@ -7,12 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +22,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
@@ -53,17 +48,13 @@ fun ToolbarKeysCustomizer(
     val prefs = ctx.prefs()
     var showKeyCustomizer: ToolbarKey? by remember { mutableStateOf(null) }
     var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
-    AlertDialog(
+    ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(onClick = onDismissRequest) { Text(stringResource(R.string.dialog_close)) }
-        },
-        dismissButton = {
-            if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
-                TextButton(
-                    onClick = { showDeletePrefConfirmDialog = true }
-                ) { Text(stringResource(R.string.button_default)) }
-        },
+        cancelButtonText = stringResource(R.string.dialog_close),
+        confirmButtonText = null,
+        onConfirmed = { },
+        neutralButtonText = if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty()) stringResource(R.string.button_default) else null,
+        onNeutral = { showDeletePrefConfirmDialog = true },
         title = { Text(stringResource(R.string.customize_toolbar_key_codes)) },
         text = {
             LazyColumn(
@@ -80,10 +71,6 @@ fun ToolbarKeysCustomizer(
                 }
             }
         },
-        shape = MaterialTheme.shapes.medium,
-        containerColor = MaterialTheme.colorScheme.surface,
-        textContentColor = contentColorFor(MaterialTheme.colorScheme.surface),
-        properties = DialogProperties(),
     )
     if (showKeyCustomizer != null) {
         val shownKey = showKeyCustomizer
@@ -156,10 +143,6 @@ private fun ToolbarKeyCustomizer(
                 }
             }
         },
-        shape = MaterialTheme.shapes.medium,
-        backgroundColor = MaterialTheme.colorScheme.surface,
-        contentColor = contentColorFor(MaterialTheme.colorScheme.surface),
-        properties = DialogProperties(),
     )
 }
 
