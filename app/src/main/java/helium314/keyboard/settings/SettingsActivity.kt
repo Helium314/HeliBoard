@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
-//   advanced
 //   preferences
+//   advanced (not much)
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
 //  try making text size similar to old state (also in dialogs)
@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
 //  bg image inconsistent about being on toolbar or not
+//  maybe move some large prefs out of their screens into separate files (backup/restore!)
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
@@ -83,6 +84,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  rearrange settings screens? now it should be very simple to do (definitely separate PR)
 //  actually lenient json parsing is not good in a certain way: we should show an error if a json property is unknown
 //  syntax highlighting for json? should show basic json errors
+//  does restore prefs not delete dictionaries?
 
 // preliminary results:
 // looks ok (ugly M3 switches)
