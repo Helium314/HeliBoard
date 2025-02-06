@@ -86,6 +86,12 @@
             android:persistent="true" />
 
         <SwitchPreference
+            android:key="show_number_row_hints"
+            android:title="@string/number_row_hints"
+            android:defaultValue="false"
+            android:persistent="true" />
+
+        <SwitchPreference
             android:key="show_language_switch_key"
             android:title="@string/show_language_switch_key"
             android:defaultValue="false"

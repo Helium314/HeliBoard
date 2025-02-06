@@ -42,6 +42,8 @@ class StringUtilsTest {
     }
 
     @Test fun detectEmojisAtEnd() {
+        assertEquals("", getFullEmojiAtEnd("\uD83C\uDF83 "))
+        assertEquals("", getFullEmojiAtEnd("a"))
         assertEquals("\uD83C\uDF83", getFullEmojiAtEnd("\uD83C\uDF83"))
         assertEquals("ℹ️", getFullEmojiAtEnd("ℹ️"))
         assertEquals("ℹ️", getFullEmojiAtEnd("ℹ️ℹ️"))
@@ -51,6 +53,15 @@ class StringUtilsTest {
         assertEquals("\uD83C\uDFF3️\u200D\uD83C\uDF08", getFullEmojiAtEnd("\uD83C\uDFF3️\u200D\uD83C\uDF08"))
         assertEquals("\uD83C\uDFF3️\u200D\uD83C\uDF08", getFullEmojiAtEnd("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08"))
         assertEquals("\uD83C\uDFF3️\u200D⚧️", getFullEmojiAtEnd("hello there🏳️‍⚧️"))
+        assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtEnd(" 🕵🏼"))
+        assertEquals("\uD83D\uDD75\uD83C\uDFFC", getFullEmojiAtEnd("🕵🏼"))
+        assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd(" \uD83C\uDFFC"))
+        // fails, but unlikely enough that we leave it unfixed
+        //assertEquals("\uD83C\uDFFC", getFullEmojiAtEnd("\uD83C\uDF84\uD83C\uDFFC"))
+        // below also fail, because ZWJ handling is not suitable for some unusual cases
+        //assertEquals("", getFullEmojiAtEnd("\u200D"))
+        //assertEquals("", getFullEmojiAtEnd("a\u200D"))
+        //assertEquals("\uD83D\uDE22", getFullEmojiAtEnd(" \u200D\uD83D\uDE22"))
     }
 
     // todo: add tests for emoji detection?

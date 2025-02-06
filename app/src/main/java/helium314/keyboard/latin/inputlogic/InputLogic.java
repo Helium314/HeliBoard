@@ -779,7 +779,7 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
-                    KeyCode.START_ONE_HANDED_MODE, KeyCode.STOP_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
+                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
                     KeyCode.CTRL, KeyCode.ALT, KeyCode.FN, KeyCode.META:
                 break;
             default:
@@ -1212,7 +1212,12 @@ public final class InputLogic {
                 }
                 return;
             }
-            if (mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
+            // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
+            //  is part of a word (where we start composing) or not (where we end in code below)
+            //  see https://github.com/Helium314/HeliBoard/issues/1019
+            //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
+            //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
+            if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,
                 // like the smiley key or the .com key.

@@ -127,7 +127,7 @@ sealed interface KeyData : AbstractKeyData {
             if (!params.mId.mLanguageSwitchKeyEnabled && !params.mId.isNumberLayout && RichInputMethodManager.canSwitchLanguage())
                 keys.add("!icon/language_switch_key|!code/key_language_switch")
             if (!params.mId.mOneHandedModeEnabled)
-                keys.add("!icon/start_onehanded_mode_key|!code/key_start_onehanded")
+                keys.add("!icon/start_onehanded_mode_key|!code/key_toggle_onehanded")
             if (!params.mId.mDeviceLocked)
                 keys.add("!icon/settings_key|!code/key_settings")
             return keys

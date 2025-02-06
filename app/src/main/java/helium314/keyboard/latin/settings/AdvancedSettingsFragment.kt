@@ -25,6 +25,7 @@ import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -125,6 +126,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         setupKeyLongpressTimeoutSettings()
         setupEmojiSdkSetting()
+        setupLanguageSwipeDistanceSettings()
+        updateLangSwipeDistanceVisibility(sharedPreferences)
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
@@ -560,10 +563,37 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    private fun setupLanguageSwipeDistanceSettings() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_LANGUAGE_SWIPE_DISTANCE)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = Settings.readLanguageSwipeDistance(prefs, resources)
+
+            override fun readDefaultValue(key: String) = Settings.readDefaultLanguageSwipeDistance(resources)
+
+            override fun getValueText(value: Int) = value.toString()
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
+    private fun updateLangSwipeDistanceVisibility(prefs: SharedPreferences) {
+        val horizontalSpaceSwipe = Settings.readHorizontalSpaceSwipe(prefs)
+        val verticalSpaceSwipe = Settings.readVerticalSpaceSwipe(prefs)
+        val visibility = horizontalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+                || verticalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, visibility)
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
+            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
             Settings.PREF_EMOJI_MAX_SDK -> KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         }
     }

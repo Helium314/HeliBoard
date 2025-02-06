@@ -377,6 +377,7 @@
     <string name="prefs_long_press_symbol_for_numpad">নম্বর প্যাডের জন্য প্রতীক বোতামে দীর্ঘ চাপ</string>
     <string name="var_toolbar_direction">টুলবারের পরিবর্তনশীল দিক</string>
     <string name="var_toolbar_direction_summary">ডান থেকে বাম কিবোর্ড নির্বাচন করলে দিক বিপরীত হবে</string>
+    <string name="prefs_language_swipe_distance">ভাষা পরিবর্তন অভিস্পর্শের দূরত্ব</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (শিক্ষার্থী)</string>
     <string name="language_switch_key_behavior">ভাষা পরিবর্তন বোতামের আচরণ</string>
     <string name="pinned_toolbar_keys">পিন করে রাখা টুলবার বোতাম নির্বাচন</string>

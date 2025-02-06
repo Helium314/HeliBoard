@@ -808,10 +808,8 @@ public final class KeyboardState {
             toggleNumpad(false, autoCapsFlags, recapitalizeMode, false, true);
         } else if (code == KeyCode.SYMBOL) {
             setSymbolsKeyboard();
-        } else if (code == KeyCode.START_ONE_HANDED_MODE) {
-            setOneHandedModeEnabled(true);
-        } else if (code == KeyCode.STOP_ONE_HANDED_MODE) {
-            setOneHandedModeEnabled(false);
+        } else if (code == KeyCode.TOGGLE_ONE_HANDED_MODE) {
+            setOneHandedModeEnabled(!Settings.getInstance().getCurrent().mOneHandedModeEnabled);
         } else if (code == KeyCode.SWITCH_ONE_HANDED_MODE) {
             switchOneHandedMode();
         }

@@ -4,6 +4,7 @@ package helium314.keyboard.keyboard.clipboard
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -34,6 +35,7 @@ import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
+import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
 @SuppressLint("CustomViewStyleable")
 class ClipboardHistoryView @JvmOverloads constructor(
@@ -41,7 +43,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
         attrs: AttributeSet?,
         defStyle: Int = R.attr.clipboardHistoryViewStyle
 ) : LinearLayout(context, attrs, defStyle), View.OnClickListener,
-        ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener, View.OnLongClickListener {
+    ClipboardHistoryManager.OnHistoryChangeListener, OnKeyEventListener,
+    View.OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val clipboardLayoutParams = ClipboardLayoutParams(context)
     private val pinIconId: Int
@@ -65,10 +68,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        // todo (maybe): setting the correct color only works because the activated state is inverted
-        //  even when state is activated, the not activated color is set
-        //   in suggestionStripView the same thing works correctly, wtf?
-        //  need to properly fix it (and maybe undo the inverted isActivated) when adding a toggle key
         getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
             .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
@@ -156,7 +155,8 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
         val params = KeyDrawParams()
         params.updateParams(clipboardLayoutParams.bottomRowKeyboardHeight, keyVisualAttr)
-        Settings.getInstance().getCustomTypeface()?.let { params.mTypeface = it }
+        val settings = Settings.getInstance()
+        settings.getCustomTypeface()?.let { params.mTypeface = it }
         setupClipKey(params)
         setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
@@ -167,8 +167,24 @@ class ClipboardHistoryView @JvmOverloads constructor(
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter
-            layoutParams.width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current)
+            val keyboardWidth = ResourceUtils.getKeyboardWidth(context, settings.current)
+            layoutParams.width = keyboardWidth
+
+            // set side padding
+            val keyboardAttr = context.obtainStyledAttributes(
+                null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
+            val leftPadding = (keyboardAttr.getFraction(R.styleable.Keyboard_keyboardLeftPadding,
+                keyboardWidth, keyboardWidth, 0f)
+                    * settings.current.mSidePaddingScale).toInt()
+            val rightPadding =  (keyboardAttr.getFraction(R.styleable.Keyboard_keyboardRightPadding,
+                keyboardWidth, keyboardWidth, 0f)
+                    * settings.current.mSidePaddingScale).toInt()
+            keyboardAttr.recycle()
+            setPadding(leftPadding, paddingTop, rightPadding, paddingBottom)
         }
+
+        // absurd workaround so Android sets the correct color from stateList (depending on "activated")
+        toolbarKeys.forEach { it.isEnabled = false; it.isEnabled = true }
     }
 
     fun stopClipboardHistory() {
@@ -232,5 +248,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
         clipboardAdapter.notifyItemMoved(from, to)
         clipboardAdapter.notifyItemChanged(to)
         if (to < from) clipboardRecyclerView.smoothScrollToPosition(to)
+    }
+
+    override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
+        setToolbarButtonsActivatedStateOnPrefChange(KeyboardSwitcher.getInstance().clipboardStrip, key)
     }
 }

@@ -84,8 +84,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
                     oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
-                    keyboardActionListener?.onCodeInput(KeyCode.START_ONE_HANDED_MODE,
-                        Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyboardSwitcher.getInstance().setOneHandedModeEnabled(true)
                 }
                 else -> x = 0f
             }
@@ -119,7 +118,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
     override fun onClick(view: View) {
         if (view === stopOneHandedModeBtn) {
-            keyboardActionListener?.onCodeInput(KeyCode.STOP_ONE_HANDED_MODE,
+            keyboardActionListener?.onCodeInput(KeyCode.TOGGLE_ONE_HANDED_MODE,
                 Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         } else if (view === switchOneHandedModeBtn) {

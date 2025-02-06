@@ -239,6 +239,8 @@
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
+    <!-- Title of the setting to enable number row hints -->
+    <string name="number_row_hints">Show hints on number row</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -311,6 +313,16 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
+    <!-- Title of the setting for adjusting font size on the keyboard -->
+    <!-- Title of the setting for setting side padding -->
+    <string name="prefs_side_padding_scale">Side padding scale</string>
+    <!-- Title of the setting for setting side padding in landscape mode -->
+    <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
+    <string name="prefs_font_scale">Keyboard font scale</string>
+    <!-- Title of the setting for adjusting font size in emoji view -->
+    <string name="prefs_emoji_font_scale">Emoji view font scale</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Title of the setting for adding / removing custom font file -->
@@ -946,6 +958,8 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the settings for adjusting the language swipe gesture distance -->
+    <string name="prefs_language_swipe_distance">Switch language swipe distance</string>
     <!-- Title of the setting to customize toolbar key codes -->
     <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
     <!-- Confirmation message when resetting all custom toolbar key codes -->

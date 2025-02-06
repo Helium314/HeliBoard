@@ -164,7 +164,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mBackgroundDimAlphaPaint.setColor(Color.BLACK);
         mBackgroundDimAlphaPaint.setAlpha(backgroundDimAlpha);
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
-                R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
+                R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f)
+                * Settings.getInstance().getCurrent().mFontSizeMultiplier;
         final Colors colors = Settings.getInstance().getCurrent().mColors;
         mLanguageOnSpacebarTextColor = colors.get(ColorType.SPACE_BAR_TEXT);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(

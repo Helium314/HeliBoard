@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.core.view.forEach
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -26,7 +28,9 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
-import kotlinx.serialization.encodeToString
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import java.util.Locale
@@ -38,14 +42,31 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    button.isActivated = !when (key) {
-        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
+    setToolbarButtonActivatedState(button)
+    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
+    return button
+}
+
+fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: String?) {
+    // settings need to be updated when buttons change
+    if (key != Settings.PREF_AUTO_CORRECTION
+        && key != Settings.PREF_ALWAYS_INCOGNITO_MODE
+        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false)
+        return
+
+    GlobalScope.launch {
+        delay(10) // need to wait until SettingsValues are reloaded
+        buttonsGroup.forEach { if (it is ImageButton) setToolbarButtonActivatedState(it) }
+    }
+}
+
+private fun setToolbarButtonActivatedState(button: ImageButton) {
+    button.isActivated = when (button.tag) {
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(button.context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
-    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
-    return button
 }
 
 fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomToolbarKeyCode(key) ?: when (key) {
@@ -60,7 +81,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     COPY -> KeyCode.CLIPBOARD_COPY
     CUT -> KeyCode.CLIPBOARD_CUT
     PASTE -> KeyCode.CLIPBOARD_PASTE
-    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    ONE_HANDED -> KeyCode.TOGGLE_ONE_HANDED_MODE
     INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
     AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY

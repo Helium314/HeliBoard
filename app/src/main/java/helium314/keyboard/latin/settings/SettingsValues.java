@@ -70,6 +70,7 @@ public class SettingsValues {
     private final boolean mShowsLanguageSwitchKey;
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
+    public final boolean mShowNumberRowHints;
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
@@ -80,6 +81,7 @@ public class SettingsValues {
     public final boolean mBlockPotentiallyOffensive;
     public final int mSpaceSwipeHorizontal;
     public final int mSpaceSwipeVertical;
+    public final int mLanguageSwipeDistance;
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
@@ -113,6 +115,7 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
+    public final float mSidePaddingScale;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -120,6 +123,8 @@ public class SettingsValues {
     public final boolean mAlphaAfterSymbolAndSpace;
     public final boolean mRemoveRedundantPopups;
     public final String mSpaceBarText;
+    public final float mFontSizeMultiplier;
+    public final float mFontSizeMultiplierEmoji;
 
     // From the input box
     @NonNull
@@ -171,6 +176,7 @@ public class SettingsValues {
         mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false); // only relevant for default functional key layout
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
+        mShowNumberRowHints = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW_HINTS, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
@@ -227,6 +233,7 @@ public class SettingsValues {
         mDisplayOrientation = res.getConfiguration().orientation;
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
+        mLanguageSwipeDistance = Settings.readLanguageSwipeDistance(prefs, res);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
@@ -262,7 +269,8 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
-        mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
@@ -273,6 +281,8 @@ public class SettingsValues {
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, false);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
         mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT);
+        mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, DEFAULT_SIZE_SCALE);
+        mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, DEFAULT_SIZE_SCALE);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
