@@ -53,29 +53,21 @@ fun GestureTypingScreen(
 
 fun createGestureTypingPrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_GESTURE_INPUT, R.string.gesture_input, R.string.gesture_input_summary) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+        SwitchPreference(it, true)
     },
     PrefDef(context, Settings.PREF_GESTURE_PREVIEW_TRAIL, R.string.gesture_preview_trail) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+        SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, R.string.gesture_floating_preview_static, R.string.gesture_floating_preview_static_summary) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+    PrefDef(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
+        R.string.gesture_floating_preview_static, R.string.gesture_floating_preview_static_summary)
+    {
+        SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, R.string.gesture_floating_preview_text, R.string.gesture_floating_preview_dynamic_summary) {
+    PrefDef(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC,
+        R.string.gesture_floating_preview_text, R.string.gesture_floating_preview_dynamic_summary)
+    { def ->
         val ctx = LocalContext.current
-        SwitchPreference(
-            def = it,
-            default = true
-        ) {
+        SwitchPreference(def, true) {
             // is this complexity and 2 pref keys for one setting really needed?
             // default value is based on system reduced motion
             val default = Settings.readGestureDynamicPreviewDefault(ctx)
@@ -86,15 +78,12 @@ fun createGestureTypingPrefs(context: Context) = listOf(
         }
     },
     PrefDef(context, Settings.PREF_GESTURE_SPACE_AWARE, R.string.gesture_space_aware, R.string.gesture_space_aware_summary) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+        SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, R.string.gesture_fast_typing_cooldown) {
+    PrefDef(context, Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, R.string.gesture_fast_typing_cooldown) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = 500,
             range = 0f..500f,
             description = {
@@ -103,18 +92,14 @@ fun createGestureTypingPrefs(context: Context) = listOf(
             }
         )
     },
-    PrefDef(context, Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, R.string.gesture_trail_fadeout_duration) {
-        // todo: there is some weird stuff going on
-        //  for some uses there is an additional 100 ms delay
-        //  see config_gesture_trail_fadeout_start_delay
-        //  -> check whether this should be changes, or at least made less complicated
+    PrefDef(context, Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, R.string.gesture_trail_fadeout_duration) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = 800,
             range = 100f..1900f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, (it + 100).toString()) },
-            // todo: 50 ms steps?
+            stepSize = 10,
         ) { keyboardNeedsReload = true }
     },
 )

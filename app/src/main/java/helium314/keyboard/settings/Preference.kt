@@ -6,7 +6,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,6 +47,7 @@ import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 import helium314.keyboard.settings.screens.GetIcon
+import kotlin.math.roundToInt
 
 // partially taken from StreetComplete / SCEE
 
@@ -187,6 +187,7 @@ fun <T: Number> SliderPreference(
     description: @Composable (T) -> String,
     default: T,
     range: ClosedFloatingPointRange<Float>,
+    stepSize: Int? = null,
     onValueChanged: (Float) -> Unit = { },
 ) {
     val ctx = LocalContext.current
@@ -203,7 +204,7 @@ fun <T: Number> SliderPreference(
         name = name,
         onClick = { showDialog = true },
         modifier = modifier,
-        description = description(initialValue as T)
+        description = description(initialValue)
     )
     if (showDialog)
         SliderDialog(
@@ -215,11 +216,16 @@ fun <T: Number> SliderPreference(
             initialValue = initialValue.toFloat(),
             range = range,
             positionString = {
-                description((if (default is Int) it.toInt() else it) as T)
+                @Suppress("UNCHECKED_CAST")
+                description((if (default is Int) it.roundToInt() else it) as T)
             },
             onValueChanged = onValueChanged,
             showDefault = true,
-            onDefault = { prefs.edit().remove(pref).apply() }
+            onDefault = { prefs.edit().remove(pref).apply() },
+            intermediateSteps = stepSize?.let {
+                // this is not nice, but slider wants it like this...
+                ((range.endInclusive - range.start) / it - 1).toInt()
+            }
         )
 }
 
@@ -299,6 +305,7 @@ fun ReorderSwitchPreference(def: PrefDef, default: String) {
 
 private class KeyAndState(var name: String, var state: Boolean)
 
+@Suppress("UNCHECKED_CAST")
 private fun <T: Any> getPrefOfType(prefs: SharedPreferences, key: String, default: T): T =
     when (default) {
         is String -> prefs.getString(key, default)

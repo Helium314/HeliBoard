@@ -1,22 +1,30 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
+import android.widget.Toast
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.checkLayout
 import helium314.keyboard.latin.utils.getCustomLayoutFile
 import helium314.keyboard.latin.utils.getLayoutDisplayName
 import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.settings.keyboardNeedsReload
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-// todo: height MUST respect keyboard, or it's impossible to fill the bottom part
 @Composable
 fun LayoutEditDialog(
     onDismissRequest: () -> Unit,
@@ -26,9 +34,9 @@ fun LayoutEditDialog(
 ) {
     val ctx = LocalContext.current
     val file = getCustomLayoutFile(layoutName, ctx)
-    val initialText = startContent ?: file.readText()
+    val scope = rememberCoroutineScope()
+    var job: Job? = null
     var showDeleteConfirmation by remember { mutableStateOf(false) }
-    // todo: try make it really full width, at least if we have a json file
     TextInputDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = {
@@ -45,12 +53,27 @@ fun LayoutEditDialog(
             onCustomLayoutFileListChanged()
             keyboardNeedsReload = true
         },
-        initialText = initialText,
+        initialText = startContent ?: file.readText(),
         singleLine = false,
         title = { Text(displayName ?: getLayoutDisplayName(layoutName)) },
         checkTextValid = {
-            checkLayout(it, ctx) // todo: toast with reason why it doesn't work -> should re-do getting the reason
+            val valid = checkLayout(it, ctx)
+            job?.cancel()
+            if (!valid) {
+                job = scope.launch {
+                    delay(3000)
+                    val message = Log.getLog(10)
+                        .lastOrNull { it.tag == "CustomLayoutUtils" }?.message
+                        ?.split("\n")?.take(2)?.joinToString("\n")
+                    Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
+                }
+            }
+            valid
         },
+        modifier = Modifier.imePadding(),
+        // decorFitsSystemWindows = false is necessary so the dialog is not covered by keyboard
+        // but this also stops the background from being darkened... great idea to combine both
+        properties = DialogProperties(decorFitsSystemWindows = false)
     )
     if (showDeleteConfirmation)
         ConfirmationDialog(

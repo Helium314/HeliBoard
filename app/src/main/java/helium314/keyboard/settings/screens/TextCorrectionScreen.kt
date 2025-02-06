@@ -93,84 +93,61 @@ fun createCorrectionPrefs(context: Context) = listOf(
             )
         }
     },
-    PrefDef(context,
-        Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
-        R.string.prefs_block_potentially_offensive_title,
-        R.string.prefs_block_potentially_offensive_summary
+    PrefDef(context, Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
+        R.string.prefs_block_potentially_offensive_title, R.string.prefs_block_potentially_offensive_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_AUTO_CORRECTION,
-        R.string.autocorrect,
-        R.string.auto_correction_summary
+    PrefDef(context, Settings.PREF_AUTO_CORRECTION,
+        R.string.autocorrect, R.string.auto_correction_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_MORE_AUTO_CORRECTION,
-        R.string.more_autocorrect,
-        R.string.more_autocorrect_summary
+    PrefDef(context, Settings.PREF_MORE_AUTO_CORRECTION,
+        R.string.more_autocorrect, R.string.more_autocorrect_summary
     ) {
-        SwitchPreference(it, true) // todo: shouldn't it better be false?
+        SwitchPreference(it, true) // todo (later): shouldn't it better be false?
     },
-    PrefDef(context,
-        Settings.PREF_AUTOCORRECT_SHORTCUTS,
-        R.string.auto_correct_shortcuts,
-        R.string.auto_correct_shortcuts_summary
+    PrefDef(context, Settings.PREF_AUTOCORRECT_SHORTCUTS,
+        R.string.auto_correct_shortcuts, R.string.auto_correct_shortcuts_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_AUTO_CORRECTION_CONFIDENCE,
-        R.string.auto_correction_confidence,
-    ) { def ->
+    PrefDef(context, Settings.PREF_AUTO_CORRECTION_CONFIDENCE, R.string.auto_correction_confidence) {
         val items = listOf(
             stringResource(R.string.auto_correction_threshold_mode_modest) to "0",
             stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
             stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to "2",
         )
-        ListPreference(def, items, "0")
+        ListPreference(it, items, "0")
     },
-    PrefDef(context,
-        Settings.PREF_AUTO_CAP,
-        R.string.auto_cap,
-        R.string.auto_cap_summary
+    PrefDef(context, Settings.PREF_AUTO_CAP,
+        R.string.auto_cap, R.string.auto_cap_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
-        R.string.use_double_space_period,
-        R.string.use_double_space_period_summary
+    PrefDef(context, Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
+        R.string.use_double_space_period, R.string.use_double_space_period_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
-        R.string.autospace_after_punctuation,
-        R.string.autospace_after_punctuation_summary
+    PrefDef(context, Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
+        R.string.autospace_after_punctuation, R.string.autospace_after_punctuation_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context,
-        Settings.PREF_SHOW_SUGGESTIONS,
-        R.string.prefs_show_suggestions,
-        R.string.prefs_show_suggestions_summary
+    PrefDef(context, Settings.PREF_SHOW_SUGGESTIONS,
+        R.string.prefs_show_suggestions, R.string.prefs_show_suggestions_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_ALWAYS_SHOW_SUGGESTIONS,
-        R.string.prefs_always_show_suggestions,
-        R.string.prefs_always_show_suggestions_summary
+    PrefDef(context, Settings.PREF_ALWAYS_SHOW_SUGGESTIONS,
+        R.string.prefs_always_show_suggestions, R.string.prefs_always_show_suggestions_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context,
-        Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
-        R.string.use_personalized_dicts,
-        R.string.use_personalized_dicts_summary
+    PrefDef(context, Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
+        R.string.use_personalized_dicts, R.string.use_personalized_dicts_summary
     ) { prefDef ->
         var showConfirmDialog by remember { mutableStateOf(false) }
         SwitchPreference(
@@ -193,31 +170,23 @@ fun createCorrectionPrefs(context: Context) = listOf(
         }
 
     },
-    PrefDef(context,
-        Settings.PREF_BIGRAM_PREDICTIONS,
-        R.string.bigram_prediction,
-        R.string.bigram_prediction_summary
+    PrefDef(context, Settings.PREF_BIGRAM_PREDICTIONS,
+        R.string.bigram_prediction, R.string.bigram_prediction_summary
     ) {
         SwitchPreference(it, true) { keyboardNeedsReload = true }
     },
-    PrefDef(context,
-        Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
-        R.string.center_suggestion_text_to_enter,
-        R.string.center_suggestion_text_to_enter_summary
+    PrefDef(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
+        R.string.center_suggestion_text_to_enter, R.string.center_suggestion_text_to_enter_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context,
-        Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
-        R.string.suggest_clipboard_content,
-        R.string.suggest_clipboard_content_summary
+    PrefDef(context, Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
+        R.string.suggest_clipboard_content, R.string.suggest_clipboard_content_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context,
-        Settings.PREF_USE_CONTACTS,
-        R.string.use_contacts_dict,
-        R.string.use_contacts_dict_summary
+    PrefDef(context, Settings.PREF_USE_CONTACTS,
+        R.string.use_contacts_dict, R.string.use_contacts_dict_summary
     ) { def ->
         val activity = LocalContext.current.getActivity() ?: return@PrefDef
         var granted by remember { mutableStateOf(PermissionsUtil.checkAllPermissionsGranted(activity, Manifest.permission.READ_CONTACTS)) }
@@ -237,10 +206,8 @@ fun createCorrectionPrefs(context: Context) = listOf(
             }
         )
     },
-    PrefDef(context,
-        Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
-        R.string.add_to_personal_dictionary,
-        R.string.add_to_personal_dictionary_summary
+    PrefDef(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
+        R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
     ) {
         SwitchPreference(it, false)
     },

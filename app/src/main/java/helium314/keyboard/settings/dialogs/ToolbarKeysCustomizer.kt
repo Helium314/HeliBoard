@@ -93,7 +93,6 @@ fun ToolbarKeysCustomizer(
         )
 }
 
-// todo: show updated ToolbarKeysCustomizer after ok / default? because default button
 @Composable
 private fun ToolbarKeyCustomizer(
     key: ToolbarKey,

@@ -63,19 +63,19 @@ fun ToolbarScreen(
 }
 
 fun createToolbarPrefs(context: Context) = listOf(
-    PrefDef(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) { def ->
-        ReorderSwitchPreference(def, defaultToolbarPref)
+    PrefDef(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
+        ReorderSwitchPreference(it, defaultToolbarPref)
     },
-    PrefDef(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) { def ->
-        ReorderSwitchPreference(def, defaultPinnedToolbarPref)
+    PrefDef(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) {
+        ReorderSwitchPreference(it, defaultPinnedToolbarPref)
     },
-    PrefDef(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) { def ->
-        ReorderSwitchPreference(def, defaultClipboardToolbarPref)
+    PrefDef(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) {
+        ReorderSwitchPreference(it, defaultClipboardToolbarPref)
     },
-    PrefDef(context, NonSettingsPrefs.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) { def ->
+    PrefDef(context, NonSettingsPrefs.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
         var showDialog by remember { mutableStateOf(false) }
         Preference(
-            name = def.title,
+            name = it.title,
             onClick = { showDialog = true },
         )
         if (showDialog)
@@ -84,29 +84,23 @@ fun createToolbarPrefs(context: Context) = listOf(
                 onDismissRequest = { showDialog = false }
             )
     },
-    PrefDef(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary) { def ->
-        SwitchPreference(
-            def,
-            false,
-        ) { keyboardNeedsReload = true }
+    PrefDef(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
+        R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary)
+    {
+        SwitchPreference(it, false,) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary) { def ->
-        SwitchPreference(
-            def,
-            false,
-        )
+    PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary)
+    {
+        SwitchPreference(it, false,)
     },
-    PrefDef(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary) { def ->
-        SwitchPreference(
-            def,
-            false,
-        )
+    PrefDef(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary)
+    {
+        SwitchPreference(it, false,)
     },
-    PrefDef(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary) { def ->
-        SwitchPreference(
-            def,
-            true,
-        )
+    PrefDef(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION,
+        R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary)
+    {
+        SwitchPreference(it, true,)
     }
 )
 

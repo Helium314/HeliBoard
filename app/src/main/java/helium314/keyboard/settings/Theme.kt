@@ -25,7 +25,7 @@ fun Theme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
         if (dark) dynamicDarkColorScheme(LocalContext.current)
         else dynamicLightColorScheme(LocalContext.current)
     } else {
-        // todo: more colors
+        // todo (later): more colors
         if (dark) darkColorScheme(
             primary = colorResource(R.color.accent),
         )

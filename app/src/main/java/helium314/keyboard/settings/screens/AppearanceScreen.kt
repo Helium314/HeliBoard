@@ -111,7 +111,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             KeyboardTheme.STYLE_MATERIAL
         ) {
             if (it != KeyboardTheme.STYLE_HOLO) {
-                // todo: use defaults once they exist
+                // todo (later): use defaults once they exist
                 if (prefs.getString(Settings.PREF_THEME_COLORS, "") == KeyboardTheme.THEME_HOLO_WHITE)
                     prefs.edit().putString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT).apply()
                 if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, "") == KeyboardTheme.THEME_HOLO_WHITE)
@@ -121,9 +121,7 @@ fun createAppearancePrefs(context: Context) = listOf(
     },
     PrefDef(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { def ->
         val ctx = LocalContext.current
-        val items = KeyboardTheme.STYLES.map {
-            it.getStringResourceOrName("style_name_", ctx) to it
-        }
+        val items = KeyboardTheme.STYLES.map { it.getStringResourceOrName("style_name_", ctx) to it }
         ListPreference(
             def,
             items,
@@ -200,28 +198,30 @@ fun createAppearancePrefs(context: Context) = listOf(
             }
         )
     },
-    PrefDef(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) { def ->
-        SwitchPreference(def, false)
+    PrefDef(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {
+        SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_THEME_DAY_NIGHT, R.string.day_night_mode, R.string.day_night_mode_summary) { def ->
-        SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { keyboardNeedsReload = true }
+    PrefDef(context, Settings.PREF_THEME_DAY_NIGHT, R.string.day_night_mode, R.string.day_night_mode_summary) {
+        SwitchPreference(it, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_NAVBAR_COLOR, R.string.theme_navbar, R.string.day_night_mode_summary) { def ->
-        SwitchPreference(def, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+    PrefDef(context, Settings.PREF_NAVBAR_COLOR, R.string.theme_navbar, R.string.day_night_mode_summary) {
+        SwitchPreference(it, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
     },
-    PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE, R.string.customize_background_image) { def ->
-        BackgroundImagePref(def, false)
+    PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE, R.string.customize_background_image) {
+        BackgroundImagePref(it, false)
     },
-    PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE_LANDSCAPE, R.string.customize_background_image_landscape, R.string.summary_customize_background_image_landscape) { def ->
-        BackgroundImagePref(def, true)
+    PrefDef(context, NonSettingsPrefs.BACKGROUND_IMAGE_LANDSCAPE,
+        R.string.customize_background_image_landscape, R.string.summary_customize_background_image_landscape)
+    {
+        BackgroundImagePref(it, true)
     },
     PrefDef(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD, R.string.enable_split_keyboard) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_SPLIT_SPACER_SCALE, R.string.split_spacer_scale) {
+    PrefDef(context, Settings.PREF_SPLIT_SPACER_SCALE, R.string.split_spacer_scale) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
@@ -230,19 +230,19 @@ fun createAppearancePrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE, R.string.prefs_keyboard_height_scale) {
+    PrefDef(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE, R.string.prefs_keyboard_height_scale) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_BOTTOM_PADDING_SCALE, R.string.prefs_bottom_padding_scale) {
+    PrefDef(context, Settings.PREF_BOTTOM_PADDING_SCALE, R.string.prefs_bottom_padding_scale) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = SettingsValues.DEFAULT_SIZE_SCALE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
@@ -280,7 +280,7 @@ fun createAppearancePrefs(context: Context) = listOf(
             val tempFile = File(DeviceProtectedUtils.getFilesDir(context), "temp_file")
             FileUtils.copyContentUriToNewFile(uri, ctx, tempFile)
             try {
-                val typeface = Typeface.createFromFile(tempFile)
+                Typeface.createFromFile(tempFile)
                 fontFile.delete()
                 tempFile.renameTo(fontFile)
                 Settings.clearCachedTypeface()

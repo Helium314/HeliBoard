@@ -16,8 +16,8 @@ fun ColorsScreen(
     onClickBack: () -> Unit
 ) {
 
-    var availableColors by remember { mutableStateOf(emptyList<ColorSetting>()) } // todo: type?
-    // todo: save / load / type selection here? or in ... menu as previously?
+    var availableColors by remember { mutableStateOf(emptyList<ColorSetting>()) } // todo (later): type?
+    // todo (later): save / load / type selection here? or in ... menu as previously?
     SearchScreen(
         title = stringResource(if (night) R.string.select_user_colors_night else R.string.select_user_colors),
         onClickBack = onClickBack,

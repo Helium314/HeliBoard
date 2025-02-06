@@ -27,11 +27,11 @@ class AllPrefs(context: Context) {
     fun filter(searchTerm: String): List<PrefDef> {
         val term = searchTerm.lowercase()
         val results = mutableSetOf<PrefDef>()
-        list.forEach { if (it.title.lowercase().startsWith(term)) results.add(it) }
-        list.forEach { if (it.title.lowercase().split(' ').any { it.startsWith(term) }) results.add(it) }
-        list.forEach {
-            if (it.description?.lowercase()?.split(' ')?.any { it.startsWith(term) } == true)
-                results.add(it)
+        list.forEach { def -> if (def.title.lowercase().startsWith(term)) results.add(def) }
+        list.forEach { def -> if (def.title.lowercase().split(' ').any { it.startsWith(term) }) results.add(def) }
+        list.forEach { def ->
+            if (def.description?.lowercase()?.split(' ')?.any { it.startsWith(term) } == true)
+                results.add(def)
         }
         return results.toList()
     }

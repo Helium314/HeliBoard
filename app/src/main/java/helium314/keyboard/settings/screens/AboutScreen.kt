@@ -64,7 +64,7 @@ fun createAboutPrefs(context: Context) = listOf(
             name = it.title,
             description = it.description,
             onClick = { },
-            icon = R.drawable.ic_launcher_foreground // todo: maybe use the bitmap trick here?
+            icon = R.drawable.ic_launcher_foreground // use the bitmap trick here if we really want the colored icon
         )
     },
     PrefDef(context, NonSettingsPrefs.VERSION, R.string.version) {
@@ -137,7 +137,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_github_foreground
         )
     },
-    PrefDef(context, NonSettingsPrefs.SAVE_LOG, R.string.save_log) {
+    PrefDef(context, NonSettingsPrefs.SAVE_LOG, R.string.save_log) { def ->
         val ctx = LocalContext.current
         val scope = rememberCoroutineScope()
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -150,8 +150,8 @@ fun createAboutPrefs(context: Context) = listOf(
             }
         }
         Preference(
-            name = it.title,
-            description = it.description,
+            name = def.title,
+            description = def.description,
             onClick = {
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)

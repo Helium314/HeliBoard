@@ -104,7 +104,9 @@ fun createPreferencesPrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY, R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary) {
+    PrefDef(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
+        R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
+    {
         SwitchPreference(it, true)
     },
     PrefDef(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
@@ -130,7 +132,9 @@ fun createPreferencesPrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS, R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary) {
+    PrefDef(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
+        R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)
+    {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { def ->
@@ -174,7 +178,7 @@ fun createPreferencesPrefs(context: Context) = listOf(
     },
 )
 
-// todo: not good to have it hardcoded, but reading a bunch of files may be noticeably slow
+// todo (later): not good to have it hardcoded, but reading a bunch of files may be noticeably slow
 private val localesWithLocalizedNumberRow = listOf("ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur")
 
 @Preview

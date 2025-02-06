@@ -14,28 +14,27 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  work on todos in other files
+//  maybe move some large prefs out of their screens into separate files (backup/restore!)
+//  use better / more structured and clear names and arrangement of files
+//   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
+//   there is a lot more ambiguous naming...
+//  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
 //  rename both settingsActivities
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
-//  use better / more structured and clear names and arrangement of files
-//   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
-//   there is a lot more ambiguous naming...
-//  animations when stuff (dis)appears
-//   LaunchedEffect, AnimatedVisibility
 //  bg image inconsistent about being on toolbar or not (is this new?)
-//  maybe move some large prefs out of their screens into separate files (backup/restore!)
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
 //    -> use remember for things that are slow, but be careful they don't change from outside the composable
-//  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
 //  PRs adding prefs -> need to do before continuing
 //   1263 (no response for several weeks now...)
 //  merge main to implement all the new settings
+//  really use the restart dialog for debug settings stuff?
+//   could do it the old way, and hide debug settings from search
 
 // what should be done, but not in this PR
 //  in general: changes to anything outside the new settings (unless necessary), and changes to how screens / fragments work

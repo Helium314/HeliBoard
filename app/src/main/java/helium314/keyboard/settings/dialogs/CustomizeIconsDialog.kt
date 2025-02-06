@@ -95,7 +95,7 @@ fun CustomizeIconsDialog(
         val iconsForName = allIcons[iconName].orEmpty()
         val iconsSet = mutableSetOf<Int>()
         iconsSet.addAll(iconsForName)
-        KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) } // todo: is this called again on UI interaction?
+        KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) }
         val icons = iconsSet.toList()
         var selectedIcon by remember { mutableStateOf(KeyboardIconsSet.instance.iconIds[iconName]) }
         ThreeButtonAlertDialog(

@@ -68,7 +68,6 @@ import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
-import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SettingsDestination
@@ -76,8 +75,8 @@ import helium314.keyboard.settings.SliderPreference
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
-import helium314.keyboard.settings.dialogs.CustomizeLayoutDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
+import helium314.keyboard.settings.dialogs.LayoutEditDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -130,16 +129,15 @@ fun AdvancedSettingsScreen(
 
 @SuppressLint("ApplySharedPref")
 fun createAdvancedPrefs(context: Context) = listOf(
-    PrefDef(context, Settings.PREF_ALWAYS_INCOGNITO_MODE, R.string.incognito, R.string.prefs_force_incognito_mode_summary) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+    PrefDef(context, Settings.PREF_ALWAYS_INCOGNITO_MODE,
+        R.string.incognito, R.string.prefs_force_incognito_mode_summary)
+    {
+        SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_KEY_LONGPRESS_TIMEOUT, R.string.prefs_key_longpress_timeout_settings) {
+    PrefDef(context, Settings.PREF_KEY_LONGPRESS_TIMEOUT, R.string.prefs_key_longpress_timeout_settings) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = 300,
             range = 100f..700f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, it.toString()) }
@@ -164,53 +162,36 @@ fun createAdvancedPrefs(context: Context) = listOf(
         ListPreference(def, items, "none")
     },
     PrefDef(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+        SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_SPACE_TO_CHANGE_LANG, R.string.prefs_long_press_keyboard_to_change_lang, R.string.prefs_long_press_keyboard_to_change_lang_summary) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+    PrefDef(context, Settings.PREF_SPACE_TO_CHANGE_LANG,
+        R.string.prefs_long_press_keyboard_to_change_lang,
+        R.string.prefs_long_press_keyboard_to_change_lang_summary)
+    {
+        SwitchPreference(it, true)
     },
     PrefDef(context, Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, R.string.prefs_long_press_symbol_for_numpad) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+        SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, R.string.prefs_enable_emoji_alt_physical_key, R.string.prefs_enable_emoji_alt_physical_key_summary) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+    PrefDef(context, Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, R.string.prefs_enable_emoji_alt_physical_key,
+        R.string.prefs_enable_emoji_alt_physical_key_summary)
+    {
+        SwitchPreference(it, true)
     },
     PrefDef(context, Settings.PREF_SHOW_SETUP_WIZARD_ICON, R.string.prefs_enable_emoji_alt_physical_key_summary) {
         val ctx = LocalContext.current
-        SwitchPreference(
-            def = it,
-            default = true
-        ) { SystemBroadcastReceiver.toggleAppIcon(ctx) }
+        SwitchPreference(it, true) { SystemBroadcastReceiver.toggleAppIcon(ctx) }
     },
-    PrefDef(context, Settings.PREF_ABC_AFTER_SYMBOL_SPACE, R.string.switch_keyboard_after, R.string.after_symbol_and_space) {
-        SwitchPreference(
-            def = it,
-            default = true
-        )
+    PrefDef(context, Settings.PREF_ABC_AFTER_SYMBOL_SPACE,
+        R.string.switch_keyboard_after, R.string.after_symbol_and_space)
+    {
+        SwitchPreference(it, true)
     },
     PrefDef(context, Settings.PREF_ABC_AFTER_EMOJI, R.string.switch_keyboard_after, R.string.after_emoji) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+        SwitchPreference(it, false)
     },
     PrefDef(context, Settings.PREF_ABC_AFTER_CLIP, R.string.switch_keyboard_after, R.string.after_clip) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+        SwitchPreference(it, false)
     },
     PrefDef(context, Settings.PREF_CUSTOM_CURRENCY_KEY, R.string.customize_currencies) { def ->
         var showDialog by remember { mutableStateOf(false) }
@@ -228,7 +209,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
                 title = { Text(stringResource(R.string.customize_currencies)) },
                 neutralButtonText = if (prefs.contains(def.key)) stringResource(R.string.button_default) else null,
                 onNeutral = { prefs.edit().remove(def.key).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
-                checkTextValid = { it.splitOnWhitespace().none { it.length > 8 } }
+                checkTextValid = { text -> text.splitOnWhitespace().none { it.length > 8 } }
             )
         }
     },
@@ -267,7 +248,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
                 ctx.assets.list("layouts")?.firstOrNull { it.startsWith("$layout.") }
                     ?.let { ctx.assets.open("layouts" + File.separator + it).reader().readText() }
             }
-            CustomizeLayoutDialog(
+            LayoutEditDialog(
                 layoutName = customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.",
                 startContent = originalLayout,
                 displayName = layout?.getStringResourceOrName("layout_", ctx),
@@ -303,7 +284,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
                 val defaultLayoutName = if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json"
                 ctx.assets.open("layouts" + File.separator + defaultLayoutName).reader().readText()
             }
-            CustomizeLayoutDialog(
+            LayoutEditDialog(
                 layoutName = customLayoutName ?: "$CUSTOM_LAYOUT_PREFIX$layout.",
                 startContent = originalLayout,
                 displayName = layout?.substringAfter(CUSTOM_LAYOUT_PREFIX)?.getStringResourceOrName("layout_", ctx),
@@ -324,9 +305,9 @@ fun createAdvancedPrefs(context: Context) = listOf(
             "custom_background_image.*".toRegex(),
             "custom_font".toRegex(),
         ) }
-        val backupLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+        val backupLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             // zip all files matching the backup patterns
             // essentially this is the typed words information, and user-added dictionaries
             val filesDir = ctx.filesDir ?: return@rememberLauncherForActivityResult
@@ -382,9 +363,9 @@ fun createAdvancedPrefs(context: Context) = listOf(
             }
             wait.await()
         }
-        val restoreLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+        val restoreLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             val wait = CountDownLatch(1)
             ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
                 try {
@@ -490,10 +471,10 @@ fun createAdvancedPrefs(context: Context) = listOf(
             )
         }
     },
-    PrefDef(context, Settings.PREF_EMOJI_MAX_SDK, R.string.prefs_key_emoji_max_sdk) {
+    PrefDef(context, Settings.PREF_EMOJI_MAX_SDK, R.string.prefs_key_emoji_max_sdk) { def ->
         SliderPreference(
-            name = it.title,
-            pref = it.key,
+            name = def.title,
+            pref = def.key,
             default = Build.VERSION.SDK_INT,
             range = 21f..35f,
             description = {
@@ -520,18 +501,15 @@ fun createAdvancedPrefs(context: Context) = listOf(
         )
     },
     PrefDef(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {
-        SwitchPreference(
-            def = it,
-            default = false
-        )
+        SwitchPreference(it, false)
     },
-    PrefDef(context, NonSettingsPrefs.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) {
+    PrefDef(context, NonSettingsPrefs.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) { def ->
         var showDialog by remember { mutableStateOf(false) }
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
         val abi = Build.SUPPORTED_ABIS[0]
         val libFile = File(ctx.filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
-        fun renameToLibfileAndRestart(file: File, checksum: String) {
+        fun renameToLibFileAndRestart(file: File, checksum: String) {
             libFile.delete()
             // store checksum in default preferences (soo JniUtils)
             prefs.edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
@@ -539,9 +517,9 @@ fun createAdvancedPrefs(context: Context) = listOf(
             Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
         }
         var tempFilePath: String? by remember { mutableStateOf(null) }
-        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             val tmpfile = File(ctx.filesDir.absolutePath + File.separator + "tmplib")
             try {
                 val otherTemporaryFile = File(ctx.filesDir.absolutePath + File.separator + "tmpfile")
@@ -556,12 +534,12 @@ fun createAdvancedPrefs(context: Context) = listOf(
 
                 val checksum = ChecksumCalculator.checksum(tmpfile.inputStream()) ?: ""
                 if (checksum == JniUtils.expectedDefaultChecksum()) {
-                    renameToLibfileAndRestart(tmpfile, checksum)
+                    renameToLibFileAndRestart(tmpfile, checksum)
                 } else {
                     tempFilePath = tmpfile.absolutePath
                     AlertDialog.Builder(ctx)
                         .setMessage(ctx.getString(R.string.checksum_mismatch_message, abi))
-                        .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibfileAndRestart(tmpfile, checksum) }
+                        .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibFileAndRestart(tmpfile, checksum) }
                         .setNegativeButton(android.R.string.cancel) { _, _ -> tmpfile.delete() }
                         .show()
                 }
@@ -571,7 +549,7 @@ fun createAdvancedPrefs(context: Context) = listOf(
             }
         }
         Preference(
-            name = it.title,
+            name = def.title,
             onClick = { showDialog = true }
         )
         if (showDialog) {
@@ -596,13 +574,13 @@ fun createAdvancedPrefs(context: Context) = listOf(
         if (tempFilePath != null)
             ConfirmationDialog(
                 onDismissRequest = {
-                    File(tempFilePath).delete()
+                    File(tempFilePath!!).delete()
                     tempFilePath = null
                 },
                 text = { Text(stringResource(R.string.checksum_mismatch_message, abi))},
                 onConfirmed = {
-                    val tempFile = File(tempFilePath)
-                    renameToLibfileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")
+                    val tempFile = File(tempFilePath!!)
+                    renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")
                 }
             )
     },
