@@ -3,6 +3,7 @@ package helium314.keyboard.settings
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.WindowInsets
@@ -15,8 +16,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,12 +48,26 @@ import helium314.keyboard.latin.R
 fun SearchPrefScreen(
     onClickBack: () -> Unit,
     title: String,
-    content: @Composable ColumnScope.() -> Unit
+    prefs: List<Any>,
+    content: @Composable (ColumnScope.() -> Unit)? = null // overrides prefs if not null
 ) {
     SearchScreen(
         onClickBack = onClickBack,
         title = title,
-        content = content,
+        content = {
+            if (content != null) content()
+            else LazyColumn {
+                    items(prefs, key = { it }) {
+                        Box(Modifier.animateItem()) {
+                            if (it is Int)
+                                PreferenceCategory(stringResource(it))
+                            else
+                                SettingsActivity2.allPrefs.map[it]!!.Preference()
+
+                        }
+                    }
+                }
+        },
         filteredItems = { SettingsActivity2.allPrefs.filter(it) },
         itemContent = { it.Preference() }
     )
@@ -125,7 +138,6 @@ fun <T: Any> SearchScreen(
             if (searchText.text.isBlank() && content != null) {
                 Column(
                     Modifier
-                        .verticalScroll(rememberScrollState())
                         .windowInsetsPadding(
                             WindowInsets.safeDrawing.only(
                                 WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom

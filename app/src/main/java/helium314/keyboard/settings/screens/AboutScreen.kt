@@ -43,17 +43,19 @@ import kotlinx.coroutines.launch
 fun AboutScreen(
     onClickBack: () -> Unit,
 ) {
+    val items = listOf(
+        NonSettingsPrefs.APP,
+        NonSettingsPrefs.VERSION,
+        NonSettingsPrefs.LICENSE,
+        NonSettingsPrefs.HIDDEN_FEATURES,
+        NonSettingsPrefs.GITHUB,
+        NonSettingsPrefs.SAVE_LOG
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_about),
-    ) {
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.APP]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.VERSION]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.LICENSE]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.HIDDEN_FEATURES]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.GITHUB]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.SAVE_LOG]!!.Preference()
-    }
+        prefs = items
+    )
 }
 
 fun createAboutPrefs(context: Context) = listOf(

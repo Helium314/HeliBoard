@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,29 +49,21 @@ import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 import helium314.keyboard.settings.screens.GetIcon
 
-// taken from StreetComplete (and a bit SCEE)
+// partially taken from StreetComplete / SCEE
 
 @Composable
 fun PreferenceCategory(
-    title: String?,
+    title: String,
     modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
 ) {
     Column {
         HorizontalDivider()
-        if (title != null) {
-            Text(
-                text = title,
-                modifier = modifier.padding(top = 12.dp, start = 16.dp, end = 8.dp, bottom = 8.dp),
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-        CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
-            Column {
-                content()
-            }
-        }
+        Text(
+            text = title,
+            modifier = modifier.padding(top = 12.dp, start = 16.dp, end = 8.dp, bottom = 8.dp),
+            color = MaterialTheme.colorScheme.secondary,
+            style = MaterialTheme.typography.titleSmall
+        )
     }
 }
 
@@ -95,7 +88,7 @@ fun Preference(
         if (icon != null)
             Icon(painterResource(icon), name, modifier = Modifier.size(36.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = name)
+            Text(text = name, style = MaterialTheme.typography.bodyLarge)
             if (description != null) {
                 CompositionLocalProvider(
                     LocalTextStyle provides MaterialTheme.typography.bodyMedium,
@@ -304,46 +297,6 @@ fun ReorderSwitchPreference(def: PrefDef, default: String) {
     }
 }
 
-@Composable
-fun ToolbarKeyReorderDialog(
-    prefKey: String,
-    default: String,
-    title: String,
-    onDismiss: () -> Unit
-) {
-    val ctx = LocalContext.current
-    val prefs = ctx.prefs()
-    val items = prefs.getString(prefKey, default)!!.split(";").mapTo(ArrayList()) {
-        val both = it.split(",")
-        KeyAndState(both.first(), both.last().toBoolean())
-    }
-    ReorderDialog(
-        onConfirmed = { reorderedItems ->
-            val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
-            prefs.edit().putString(prefKey, value).apply()
-            keyboardNeedsReload = true
-        },
-        onDismissRequest = onDismiss,
-        onNeutral = { prefs.edit().remove(prefKey).apply() },
-        neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
-        items = items,
-        title = { Text(title) },
-        displayItem = { item ->
-            var checked by remember { mutableStateOf(item.state) }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                KeyboardIconsSet.instance.GetIcon(item.name)
-                val text = item.name.lowercase().getStringResourceOrName("", ctx)
-                Text(text, Modifier.weight(1f))
-                Switch(
-                    checked = checked,
-                    onCheckedChange = { item.state = it; checked = it }
-                )
-            }
-        },
-        getKey = { it.name }
-    )
-}
-
 private class KeyAndState(var name: String, var state: Boolean)
 
 private fun <T: Any> getPrefOfType(prefs: SharedPreferences, key: String, default: T): T =
@@ -371,59 +324,62 @@ private fun <T: Any> putPrefOfType(prefs: SharedPreferences, key: String, value:
 @Preview
 @Composable
 private fun PreferencePreview() {
-    PreferenceCategory("Preference Category") {
-        Preference(
-            name = "Preference",
-            onClick = {},
-        )
-        Preference(
-            name = "Preference with icon",
-            onClick = {},
-            icon = R.drawable.ic_settings_about_foreground
-        )
-        SliderPreference(
-            name = "SliderPreference",
-            pref = "",
-            default = 1,
-            description = { it.toString() },
-            range = -5f..5f
-        )
-        Preference(
-            name = "Preference with icon and description",
-            description = "some text",
-            onClick = {},
-            icon = R.drawable.ic_settings_about_foreground
-        )
-        Preference(
-            name = "Preference with switch",
-            onClick = {}
-        ) {
-            Switch(checked = true, onCheckedChange = {})
-        }
-        SwitchPreference(
-            name = "SwitchPreference",
-            pref = "none",
-            default = true
-        )
-        Preference(
-            name = "Preference",
-            onClick = {},
-            description = "A long description which may actually be several lines long, so it should wrap."
-        ) {
-            Icon(painterResource(R.drawable.ic_arrow_left), null)
-        }
-        Preference(
-            name = "Long preference name that wraps",
-            onClick = {},
-        ) {
-            Text("Long preference value")
-        }
-        Preference(
-            name = "Long preference name 2",
-            onClick = {},
-            description = "hello I am description"
-        ) {
-            Text("Long preference value")
+    Surface {
+        Column {
+            PreferenceCategory("Preference Category")
+            Preference(
+                name = "Preference",
+                onClick = {},
+            )
+            Preference(
+                name = "Preference with icon",
+                onClick = {},
+                icon = R.drawable.ic_settings_about_foreground
+            )
+            SliderPreference(
+                name = "SliderPreference",
+                pref = "",
+                default = 1,
+                description = { it.toString() },
+                range = -5f..5f
+            )
+            Preference(
+                name = "Preference with icon and description",
+                description = "some text",
+                onClick = {},
+                icon = R.drawable.ic_settings_about_foreground
+            )
+            Preference(
+                name = "Preference with switch",
+                onClick = {}
+            ) {
+                Switch(checked = true, onCheckedChange = {})
+            }
+            SwitchPreference(
+                name = "SwitchPreference",
+                pref = "none",
+                default = true
+            )
+            Preference(
+                name = "Preference",
+                onClick = {},
+                description = "A long description which may actually be several lines long, so it should wrap."
+            ) {
+                Icon(painterResource(R.drawable.ic_arrow_left), null)
+            }
+            Preference(
+                name = "Long preference name that wraps",
+                onClick = {},
+            ) {
+                Text("Long preference value")
+            }
+            Preference(
+                name = "Long preference name 2",
+                onClick = {},
+                description = "hello I am description"
+            ) {
+                Text("Long preference value")
+            }
         }
     }
 }

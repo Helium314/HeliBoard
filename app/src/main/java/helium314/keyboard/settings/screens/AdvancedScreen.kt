@@ -97,39 +97,35 @@ fun AdvancedSettingsScreen(
     onClickBack: () -> Unit,
 ) {
     val prefs = LocalContext.current.prefs()
+    val items = listOfNotNull(
+        Settings.PREF_ALWAYS_INCOGNITO_MODE,
+        Settings.PREF_KEY_LONGPRESS_TIMEOUT,
+        Settings.PREF_SPACE_HORIZONTAL_SWIPE,
+        Settings.PREF_SPACE_VERTICAL_SWIPE,
+        Settings.PREF_DELETE_SWIPE,
+        Settings.PREF_SPACE_TO_CHANGE_LANG,
+        Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD,
+        Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY,
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Settings.PREF_SHOW_SETUP_WIZARD_ICON else null,
+        Settings.PREF_ABC_AFTER_SYMBOL_SPACE,
+        Settings.PREF_ABC_AFTER_EMOJI,
+        Settings.PREF_ABC_AFTER_CLIP,
+        Settings.PREF_CUSTOM_CURRENCY_KEY,
+        Settings.PREF_MORE_POPUP_KEYS,
+        NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS,
+        NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS,
+        NonSettingsPrefs.BACKUP_RESTORE,
+        if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) NonSettingsPrefs.DEBUG_SETTINGS else null,
+        R.string.settings_category_experimental,
+        Settings.PREF_EMOJI_MAX_SDK,
+        Settings.PREF_URL_DETECTION,
+        if (BuildConfig.BUILD_TYPE != "nouserlib") NonSettingsPrefs.LOAD_GESTURE_LIB else null
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_advanced),
-    ) {
-        SettingsActivity2.allPrefs.map[Settings.PREF_ALWAYS_INCOGNITO_MODE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_KEY_LONGPRESS_TIMEOUT]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_SPACE_HORIZONTAL_SWIPE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_SPACE_VERTICAL_SWIPE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_DELETE_SWIPE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_SPACE_TO_CHANGE_LANG]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY]!!.Preference()
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_SETUP_WIZARD_ICON]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_SYMBOL_SPACE]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_CLIP]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_CUSTOM_CURRENCY_KEY]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_MORE_POPUP_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_FUNCTIONAL_LAYOUTS]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.BACKUP_RESTORE]!!.Preference()
-        if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false))
-            SettingsActivity2.allPrefs.map[NonSettingsPrefs.DEBUG_SETTINGS]!!.Preference() // todo: maybe move to main screen?
-        PreferenceCategory(
-            stringResource(R.string.settings_category_experimental)
-        ) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_EMOJI_MAX_SDK]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_URL_DETECTION]!!.Preference()
-            if (BuildConfig.BUILD_TYPE != "nouserlib")
-                SettingsActivity2.allPrefs.map[NonSettingsPrefs.LOAD_GESTURE_LIB]!!.Preference()
-        }
-    }
+        prefs = items
+    )
 }
 
 @SuppressLint("ApplySharedPref")

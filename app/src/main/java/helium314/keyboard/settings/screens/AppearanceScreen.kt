@@ -41,7 +41,6 @@ import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
-import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SliderPreference
@@ -66,40 +65,37 @@ fun AppearanceScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && Settings.readDayNightPref(prefs, ctx.resources)
-    val lightTheme = prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT)
-    val darkTheme = prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
+    val items = listOfNotNull(
+        R.string.settings_screen_theme,
+        Settings.PREF_THEME_STYLE,
+        Settings.PREF_ICON_STYLE,
+        Settings.PREF_CUSTOM_ICON_NAMES,
+        Settings.PREF_THEME_COLORS,
+        if (prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER)
+            NonSettingsPrefs.ADJUST_COLORS else null,
+        Settings.PREF_THEME_KEY_BORDERS,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            Settings.PREF_THEME_DAY_NIGHT else null,
+        if (dayNightMode) Settings.PREF_THEME_COLORS_NIGHT else null,
+        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK) == KeyboardTheme.THEME_USER_NIGHT)
+            NonSettingsPrefs.ADJUST_COLORS_NIGHT else null,
+        Settings.PREF_NAVBAR_COLOR,
+        NonSettingsPrefs.BACKGROUND_IMAGE,
+        NonSettingsPrefs.BACKGROUND_IMAGE_LANDSCAPE,
+        R.string.settings_category_miscellaneous,
+        Settings.PREF_ENABLE_SPLIT_KEYBOARD,
+        Settings.PREF_SPLIT_SPACER_SCALE,
+        Settings.PREF_NARROW_KEY_GAPS,
+        Settings.PREF_KEYBOARD_HEIGHT_SCALE,
+        Settings.PREF_BOTTOM_PADDING_SCALE,
+        Settings.PREF_SPACE_BAR_TEXT,
+        NonSettingsPrefs.CUSTOM_FONT
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_appearance),
-    ) {
-        PreferenceCategory(stringResource(R.string.settings_screen_theme)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_THEME_STYLE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_ICON_STYLE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_CUSTOM_ICON_NAMES]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_THEME_COLORS]!!.Preference()
-            if (lightTheme == KeyboardTheme.THEME_USER)
-                SettingsActivity2.allPrefs.map[NonSettingsPrefs.ADJUST_COLORS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_THEME_KEY_BORDERS]!!.Preference()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-                SettingsActivity2.allPrefs.map[Settings.PREF_THEME_DAY_NIGHT]!!.Preference()
-            if (dayNightMode)
-                SettingsActivity2.allPrefs.map[Settings.PREF_THEME_COLORS_NIGHT]!!.Preference()
-            if (dayNightMode && darkTheme == KeyboardTheme.THEME_USER_NIGHT)
-                SettingsActivity2.allPrefs.map[NonSettingsPrefs.ADJUST_COLORS_NIGHT]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_NAVBAR_COLOR]!!.Preference()
-            SettingsActivity2.allPrefs.map[NonSettingsPrefs.BACKGROUND_IMAGE]!!.Preference()
-            SettingsActivity2.allPrefs.map[NonSettingsPrefs.BACKGROUND_IMAGE_LANDSCAPE]!!.Preference()
-        }
-        PreferenceCategory(stringResource(R.string.settings_category_miscellaneous)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_SPLIT_KEYBOARD]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SPLIT_SPACER_SCALE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_NARROW_KEY_GAPS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_KEYBOARD_HEIGHT_SCALE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_BOTTOM_PADDING_SCALE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SPACE_BAR_TEXT]!!.Preference()
-            SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_FONT]!!.Preference()
-        }
-    }
+        prefs = items
+    )
 }
 
 fun createAppearancePrefs(context: Context) = listOf(

@@ -30,25 +30,25 @@ fun GestureTypingScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true)
-    val gestureTrailEnabled = prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true)
     val gestureFloatingPreviewEnabled = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true)
+    val items = listOf(Settings.PREF_GESTURE_INPUT) +
+            if (prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true))
+                listOfNotNull(
+                    Settings.PREF_GESTURE_PREVIEW_TRAIL,
+                    Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
+                    if (gestureFloatingPreviewEnabled)
+                        Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC else null,
+                    Settings.PREF_GESTURE_SPACE_AWARE,
+                    Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN,
+                    if (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true) || gestureFloatingPreviewEnabled)
+                        Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION else null
+                )
+            else emptyList()
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_gesture),
-    ) {
-        SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_INPUT]!!.Preference()
-        if (gestureEnabled) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_PREVIEW_TRAIL]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT]!!.Preference()
-            if (gestureFloatingPreviewEnabled)
-                SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_SPACE_AWARE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN]!!.Preference()
-            if (gestureTrailEnabled || gestureFloatingPreviewEnabled)
-                SettingsActivity2.allPrefs.map[Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION]!!.Preference()
-        }
-    }
+        prefs = items
+    )
 }
 
 fun createGestureTypingPrefs(context: Context) = listOf(

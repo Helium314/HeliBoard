@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -42,45 +45,13 @@ fun MainSettingsScreen(
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.ime_settings),
+        prefs = emptyList(),
     ) {
-        Preference(
-            name = stringResource(R.string.settings_screen_preferences),
-            onClick = onClickPreferences,
-            icon = R.drawable.ic_settings_preferences_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        Preference(
-            name = stringResource(R.string.settings_screen_appearance),
-            onClick = onClickAppearance,
-            icon = R.drawable.ic_settings_appearance_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        Preference(
-            name = stringResource(R.string.settings_screen_toolbar),
-            onClick = onClickToolbar,
-            icon = R.drawable.ic_settings_toolbar_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        if (JniUtils.sHaveGestureLib)
+        Column(Modifier.verticalScroll(rememberScrollState())) {
             Preference(
-                name = stringResource(R.string.settings_screen_gesture),
-                onClick = onClickGestureTyping,
-                icon = R.drawable.ic_settings_gesture_foreground
+                name = stringResource(R.string.settings_screen_preferences),
+                onClick = onClickPreferences,
+                icon = R.drawable.ic_settings_preferences_foreground
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_left),
@@ -88,42 +59,74 @@ fun MainSettingsScreen(
                     contentDescription = null
                 )
             }
-        Preference(
-            name = stringResource(R.string.settings_screen_correction),
-            onClick = onClickTextCorrection,
-            icon = R.drawable.ic_settings_correction_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        Preference(
-            name = stringResource(R.string.settings_screen_advanced),
-            onClick = onClickAdvanced,
-            icon = R.drawable.ic_settings_advanced_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        Preference(
-            name = stringResource(R.string.settings_screen_about),
-            onClick = onClickAbout,
-            icon = R.drawable.ic_settings_about_foreground
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
-        PreferenceCategory(
-            title = "old screens"
-        ) {
+            Preference(
+                name = stringResource(R.string.settings_screen_appearance),
+                onClick = onClickAppearance,
+                icon = R.drawable.ic_settings_appearance_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            Preference(
+                name = stringResource(R.string.settings_screen_toolbar),
+                onClick = onClickToolbar,
+                icon = R.drawable.ic_settings_toolbar_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            if (JniUtils.sHaveGestureLib)
+                Preference(
+                    name = stringResource(R.string.settings_screen_gesture),
+                    onClick = onClickGestureTyping,
+                    icon = R.drawable.ic_settings_gesture_foreground
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_left),
+                        modifier = Modifier.scale(-1f, 1f),
+                        contentDescription = null
+                    )
+                }
+            Preference(
+                name = stringResource(R.string.settings_screen_correction),
+                onClick = onClickTextCorrection,
+                icon = R.drawable.ic_settings_correction_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            Preference(
+                name = stringResource(R.string.settings_screen_advanced),
+                onClick = onClickAdvanced,
+                icon = R.drawable.ic_settings_advanced_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            Preference(
+                name = stringResource(R.string.settings_screen_about),
+                onClick = onClickAbout,
+                icon = R.drawable.ic_settings_about_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            PreferenceCategory(title = "old screens")
             Preference(
                 name = stringResource(R.string.language_and_layouts_title),
                 onClick = { ctx.getActivity()?.switchTo(LanguageSettingsFragment()) }

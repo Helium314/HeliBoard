@@ -25,7 +25,6 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
@@ -38,46 +37,44 @@ import helium314.keyboard.settings.keyboardNeedsReload
 fun PreferencesScreen(
     onClickBack: () -> Unit,
 ) {
+    val prefs = LocalContext.current.prefs()
+    val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    if ((b?.value ?: 0) < 0)
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+    val items = listOfNotNull(
+        R.string.settings_category_input,
+        Settings.PREF_SHOW_HINTS,
+        if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, true))
+            Settings.PREF_POPUP_KEYS_LABELS_ORDER else null,
+        Settings.PREF_POPUP_KEYS_ORDER,
+        Settings.PREF_SHOW_POPUP_HINTS,
+        Settings.PREF_POPUP_ON,
+        Settings.PREF_VIBRATE_ON,
+        if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, true))
+            Settings.PREF_VIBRATION_DURATION_SETTINGS else null,
+        if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, true))
+            Settings.PREF_VIBRATE_IN_DND_MODE else null,
+        Settings.PREF_SOUND_ON,
+        if (prefs.getBoolean(Settings.PREF_SOUND_ON, true))
+            Settings.PREF_KEYPRESS_SOUND_VOLUME else null,
+        R.string.settings_category_additional_keys,
+        Settings.PREF_SHOW_NUMBER_ROW,
+        if (getEnabledSubtypes(prefs, true).any { it.locale().language in localesWithLocalizedNumberRow })
+            Settings.PREF_LOCALIZED_NUMBER_ROW else null,
+        Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
+        Settings.PREF_LANGUAGE_SWITCH_KEY,
+        Settings.PREF_SHOW_EMOJI_KEY,
+        Settings.PREF_REMOVE_REDUNDANT_POPUPS,
+        R.string.settings_category_clipboard_history,
+        Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
+        if (prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true))
+            Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME else null
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_preferences),
-    ) {
-        val prefs = LocalContext.current.prefs()
-        val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
-        if ((b?.value ?: 0) < 0)
-            Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        PreferenceCategory(stringResource(R.string.settings_category_input)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_HINTS]!!.Preference()
-            if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, true))
-                SettingsActivity2.allPrefs.map[Settings.PREF_POPUP_KEYS_LABELS_ORDER]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_POPUP_KEYS_ORDER]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_POPUP_HINTS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_POPUP_ON]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_VIBRATE_ON]!!.Preference()
-            if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, true))
-                SettingsActivity2.allPrefs.map[Settings.PREF_VIBRATION_DURATION_SETTINGS]!!.Preference()
-            if (prefs.getBoolean(Settings.PREF_VIBRATE_ON, true))
-                SettingsActivity2.allPrefs.map[Settings.PREF_VIBRATE_IN_DND_MODE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SOUND_ON]!!.Preference()
-            if (prefs.getBoolean(Settings.PREF_SOUND_ON, true))
-                SettingsActivity2.allPrefs.map[Settings.PREF_KEYPRESS_SOUND_VOLUME]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME]!!.Preference()
-        }
-        PreferenceCategory(stringResource(R.string.settings_category_additional_keys)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_NUMBER_ROW]!!.Preference()
-            if (getEnabledSubtypes(prefs, true).any { it.locale().language in localesWithLocalizedNumberRow })
-                SettingsActivity2.allPrefs.map[Settings.PREF_LOCALIZED_NUMBER_ROW]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_LANGUAGE_SWITCH_KEY]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_EMOJI_KEY]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_REMOVE_REDUNDANT_POPUPS]!!.Preference()
-        }
-        PreferenceCategory(stringResource(R.string.settings_category_clipboard_history)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_CLIPBOARD_HISTORY]!!.Preference()
-            if (prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true))
-                SettingsActivity2.allPrefs.map[Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME]!!.Preference()
-        }
-    }
+        prefs = items
+    )
 }
 
 fun createPreferencesPrefs(context: Context) = listOf(

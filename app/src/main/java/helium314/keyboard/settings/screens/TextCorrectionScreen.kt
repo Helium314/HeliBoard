@@ -5,8 +5,6 @@ import android.Manifest
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,7 +33,6 @@ import helium314.keyboard.settings.ListPreference
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
-import helium314.keyboard.settings.PreferenceCategory
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
@@ -52,46 +49,34 @@ fun TextCorrectionScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, true)
-    val personalizedSuggestionsEnabled = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true)
     val suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true)
+    val items = listOfNotNull(
+        NonSettingsPrefs.EDIT_PERSONAL_DICTIONARY,
+        R.string.settings_category_correction,
+        Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
+        Settings.PREF_AUTO_CORRECTION,
+        if (autocorrectEnabled) Settings.PREF_MORE_AUTO_CORRECTION else null,
+        if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
+        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECTION_CONFIDENCE else null,
+        Settings.PREF_AUTO_CAP,
+        Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
+        Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
+        R.string.settings_category_suggestions,
+        Settings.PREF_SHOW_SUGGESTIONS,
+        if (suggestionsEnabled) Settings.PREF_ALWAYS_SHOW_SUGGESTIONS else null,
+        if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
+        Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
+        Settings.PREF_BIGRAM_PREDICTIONS,
+        Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
+        Settings.PREF_USE_CONTACTS,
+        if (prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true))
+            Settings.PREF_ADD_TO_PERSONAL_DICTIONARY else null
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_correction),
-    ) {
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.EDIT_PERSONAL_DICTIONARY]!!.Preference()
-        PreferenceCategory(stringResource(R.string.settings_category_correction)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_CORRECTION]!!.Preference()
-            AnimatedVisibility(visible = autocorrectEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_MORE_AUTO_CORRECTION]!!.Preference()
-            }
-            AnimatedVisibility(visible = autocorrectEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_AUTOCORRECT_SHORTCUTS]!!.Preference()
-            }
-            AnimatedVisibility(visible = autocorrectEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_CORRECTION_CONFIDENCE]!!.Preference()
-            }
-            SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_CAP]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION]!!.Preference()
-        }
-        PreferenceCategory(stringResource(R.string.settings_category_suggestions)) {
-            SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_SUGGESTIONS]!!.Preference()
-            AnimatedVisibility(visible = suggestionsEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_ALWAYS_SHOW_SUGGESTIONS]!!.Preference()
-            }
-            SettingsActivity2.allPrefs.map[Settings.PREF_KEY_USE_PERSONALIZED_DICTS]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_BIGRAM_PREDICTIONS]!!.Preference()
-            AnimatedVisibility(visible = suggestionsEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER]!!.Preference()
-            }
-            SettingsActivity2.allPrefs.map[Settings.PREF_SUGGEST_CLIPBOARD_CONTENT]!!.Preference()
-            SettingsActivity2.allPrefs.map[Settings.PREF_USE_CONTACTS]!!.Preference()
-            AnimatedVisibility(visible = personalizedSuggestionsEnabled, modifier = Modifier.fillMaxWidth()) {
-                SettingsActivity2.allPrefs.map[Settings.PREF_ADD_TO_PERSONAL_DICTIONARY]!!.Preference()
-            }
-        }
-    }
+        prefs = items
+    )
 }
 
 fun createCorrectionPrefs(context: Context) = listOf(

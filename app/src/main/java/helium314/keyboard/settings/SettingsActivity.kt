@@ -25,16 +25,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   there is a lot more ambiguous naming...
 //  animations when stuff (dis)appears
 //   LaunchedEffect, AnimatedVisibility
-//  bg image inconsistent about being on toolbar or not
+//  bg image inconsistent about being on toolbar or not (is this new?)
 //  maybe move some large prefs out of their screens into separate files (backup/restore!)
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
-//    -> use remember for things that are slow, but be careful about things that can change (e.g. values derived from prefs)
-//   improve performance when loading screens with many settings (lazyColumn?)
-//    first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
-//    screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
-//    lazyColumn also has a "key", this should be used and be the pref name (or maybe title because that's also for category separators)
+//    -> use remember for things that are slow, but be careful they don't change from outside the composable
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
 //  PRs adding prefs -> need to do before continuing

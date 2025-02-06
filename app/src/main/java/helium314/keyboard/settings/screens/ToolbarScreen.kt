@@ -4,13 +4,10 @@ package helium314.keyboard.settings.screens
 import android.content.Context
 import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,8 +29,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
-import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
@@ -43,7 +38,6 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.keyboardNeedsReload
 
@@ -51,19 +45,21 @@ import helium314.keyboard.settings.keyboardNeedsReload
 fun ToolbarScreen(
     onClickBack: () -> Unit,
 ) {
+    val items = listOf(
+        Settings.PREF_TOOLBAR_KEYS,
+        Settings.PREF_PINNED_TOOLBAR_KEYS,
+        Settings.PREF_CLIPBOARD_TOOLBAR_KEYS,
+        NonSettingsPrefs.CUSTOM_KEY_CODES,
+        Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
+        Settings.PREF_AUTO_SHOW_TOOLBAR,
+        Settings.PREF_AUTO_HIDE_TOOLBAR,
+        Settings.PREF_VARIABLE_TOOLBAR_DIRECTION
+    )
     SearchPrefScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_toolbar),
-    ) {
-        SettingsActivity2.allPrefs.map[Settings.PREF_TOOLBAR_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_PINNED_TOOLBAR_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_CLIPBOARD_TOOLBAR_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_KEY_CODES]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_QUICK_PIN_TOOLBAR_KEYS]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_SHOW_TOOLBAR]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_AUTO_HIDE_TOOLBAR]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_VARIABLE_TOOLBAR_DIRECTION]!!.Preference()
-    }
+        prefs = items
+    )
 }
 
 fun createToolbarPrefs(context: Context) = listOf(
@@ -83,7 +79,7 @@ fun createToolbarPrefs(context: Context) = listOf(
             onClick = { showDialog = true },
         )
         if (showDialog)
-            // todo: CUSTOM_KEY_CODES vs the 2 actual prefs that are changed...
+            // todo (later): CUSTOM_KEY_CODES vs the 2 actual prefs that are changed...
             ToolbarKeysCustomizer(
                 onDismissRequest = { showDialog = false }
             )
