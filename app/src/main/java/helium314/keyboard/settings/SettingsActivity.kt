@@ -14,18 +14,11 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  make all prefs actually work
-//   advanced (not much)
-//  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
-//  make the pref lists more compact (compare with old settings)
-//  try making text size similar to old state (also in dialogs)
-//  more similar dialog style args (for all dialogs, or for none)
-//  check whether dialogs have the same colors, i think currently it's a bit inconsistent
-//   see all the properties for each alertDialog -> any way to set it in a single place?
-//  title too huge for bg image and text on spacebar dialogs, also maybe somewhere else -> where to set in one place?
+//  try making a dialog with reduced padding
+//  avoid duplicate code in SearchScreen
+//  work on todos in other files
 //  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities
-//  work on todos in other files
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
 //  use better / more structured and clear names and arrangement of files

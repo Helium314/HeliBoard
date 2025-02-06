@@ -34,7 +34,6 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.AllPrefs

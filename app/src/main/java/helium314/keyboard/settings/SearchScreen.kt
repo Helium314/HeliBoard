@@ -69,7 +69,6 @@ fun SearchPrefScreen(
         }
         Surface(
             color = MaterialTheme.colorScheme.surfaceContainer,
-            //shadowElevation = TopAppBarDefaults.??
         ) {
             Column {
                 TopAppBar(
@@ -99,10 +98,9 @@ fun SearchPrefScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    //colors = TextFieldDefaults.colors(
-                    //    textColor = MaterialTheme.colorScheme.onSurface,
-                    //    backgroundColor = MaterialTheme.colorScheme.surface
-                    //)
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
                 )
             }
         }
@@ -122,11 +120,7 @@ fun SearchPrefScreen(
         else
             CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
                 val filteredPrefs = SettingsActivity2.allPrefs.filter(searchText.text)
-                LazyColumn(
-                    //state = listState, // better not, remembering scroll state when changing search term feels wrong
-                    // todo: scrolling should consider keyboard, but not working, from https://developer.android.com/develop/ui/compose/layouts/insets#ime-animations
-                    //modifier = Modifier.imePadding().imeNestedScroll()
-                ) {
+                LazyColumn {
                     items(filteredPrefs) {
                         it.Preference()
                     }
@@ -192,20 +186,15 @@ fun <T: Any> SearchScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    //colors = TextFieldDefaults.colors(
-                    //    textColor = MaterialTheme.colorScheme.onSurface,
-                    //    backgroundColor = MaterialTheme.colorScheme.surface
-                    //)
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
                 )
             }
         }
         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
             val filteredItems = items.filter { filter(searchText.text, it) }
-            LazyColumn(
-                //state = listState, // better not, remembering scroll state when changing search term feels wrong
-                // todo: scrolling should consider keyboard, but not working, from https://developer.android.com/develop/ui/compose/layouts/insets#ime-animations
-                //modifier = Modifier.imePadding().imeNestedScroll()
-            ) {
+            LazyColumn {
                 items(filteredItems) {
                     itemContent(it)
                 }

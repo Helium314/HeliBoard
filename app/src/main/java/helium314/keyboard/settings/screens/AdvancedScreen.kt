@@ -110,9 +110,9 @@ fun AdvancedSettingsScreen(
         SettingsActivity2.allPrefs.map[Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY]!!.Preference()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
             SettingsActivity2.allPrefs.map[Settings.PREF_SHOW_SETUP_WIZARD_ICON]!!.Preference()
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_SYMBOL_SPACE]!!.Preference() // todo: this is ugly
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference() // todo: this is ugly
-        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_CLIP]!!.Preference() // todo: this is ugly
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_SYMBOL_SPACE]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_EMOJI]!!.Preference()
+        SettingsActivity2.allPrefs.map[Settings.PREF_ABC_AFTER_CLIP]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_CUSTOM_CURRENCY_KEY]!!.Preference()
         SettingsActivity2.allPrefs.map[Settings.PREF_MORE_POPUP_KEYS]!!.Preference()
         SettingsActivity2.allPrefs.map[NonSettingsPrefs.CUSTOM_SYMBOLS_NUMBER_LAYOUTS]!!.Preference()

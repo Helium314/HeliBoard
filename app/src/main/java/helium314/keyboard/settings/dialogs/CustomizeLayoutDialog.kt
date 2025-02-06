@@ -1,9 +1,11 @@
 package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
@@ -46,5 +48,6 @@ fun CustomizeLayoutDialog(
             valid
         },
         singleLine = false,
+        modifier = Modifier.imePadding()
     )
 }
