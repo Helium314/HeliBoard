@@ -14,7 +14,6 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  try making a dialog with reduced padding
 //  work on todos in other files
 //  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?

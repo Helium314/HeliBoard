@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.checkLayout
@@ -49,6 +50,9 @@ fun CustomizeLayoutDialog(
             valid
         },
         singleLine = false,
-        modifier = Modifier.imePadding()
+        modifier = Modifier.imePadding(),
+        // decorFitsSystemWindows = false is necessary so the dialog is not covered by keyboard
+        // but this also stops the background from being darkened... great idea to combine both
+        properties = DialogProperties(decorFitsSystemWindows = false)
     )
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.window.DialogProperties
 
 // mostly taken from StreetComplete / SCEE
 /** Dialog with which to input text. OK button is only clickable if [checkTextValid] returns true. */
@@ -35,6 +36,7 @@ fun TextInputDialog(
     textInputLabel: @Composable (() -> Unit)? = null,
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
+    properties: DialogProperties = DialogProperties(),
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -66,6 +68,7 @@ fun TextInputDialog(
                 singleLine = singleLine
             )
         },
+        properties = properties
     )
 }
 
