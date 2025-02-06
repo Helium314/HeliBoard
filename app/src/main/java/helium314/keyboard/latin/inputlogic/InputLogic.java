@@ -1302,7 +1302,13 @@ public final class InputLogic {
                         // broken apps expect something to happen in this case so that they can
                         // catch it and have their broken interface react. If you need the keyboard
                         // to do this, you're doing it wrong -- please fix your app.
-                        mConnection.deleteTextBeforeCursor(1);
+                        //  To make this more interesting, web browsers, and apps that are basically
+                        // browsers under the hood, in too many cases don't understand "deleteSurroundingText".
+                        // So we try to send a backspace keypress instead.
+                        if ((getCurrentInputEditorInfo().inputType & InputType.TYPE_MASK_VARIATION)
+                                == InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
+                            sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
+                        else mConnection.deleteTextBeforeCursor(1);
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }
