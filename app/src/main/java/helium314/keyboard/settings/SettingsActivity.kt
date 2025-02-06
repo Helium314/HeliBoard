@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  try making a dialog with reduced padding
 //  work on todos in other files
 //  check dark and light theme (don't have dynamic)
+//  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
 //  rename both settingsActivities
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
@@ -35,17 +36,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    first check whether it's really necessary (test advanced or correction screen normal and with lazyColumn)
 //    screens could have a lazy column of preferences and category separators, and the list has an if-setting-then-null for hiding
 //    lazyColumn also has a "key", this should be used and be the pref name (or maybe title because that's also for category separators)
-//  nice arrows (in top bar, and as next-screen indicator)
-//  PRs adding prefs -> need to do before continuing
-//   1319 (soon)
-//   1263 (no response for 3 weeks)
-//  merge main to implement all the new settings
-//  consider IME insets when searching
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
-//  try making old fragment back stuff work better, and try the different themes (with and without top bar)
-//  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
-//  consider using simple list picker dialog (but the "full" one is probably better for language settings stuff)
-//  spdx headers everywhere
+//  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
+//  PRs adding prefs -> need to do before continuing
+//   1263 (no response for several weeks now...)
+//  merge main to implement all the new settings
 
 // what should be done, but not in this PR
 //  in general: changes to anything outside the new settings (unless necessary), and changes to how screens / fragments work
@@ -62,6 +57,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  adjust debug settings
 //   have them in main screen?
 //   allow users to find the individual settings in search even if debug settings are not enabled?
+//  replace the setup wizard
 
 //  consider disabled settings & search
 //   don't show -> users confused

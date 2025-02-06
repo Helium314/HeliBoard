@@ -97,13 +97,14 @@ fun <T: Any> SearchScreen(
                             else onClickBack()
                         }) {
                             Icon(
-                                painterResource(R.drawable.ic_arrow_left), // todo: "old" arrow icon existed, so must be somewhere in resources (maybe androidx?)
+                                painterResource(R.drawable.baseline_arrow_back_24),
                                 stringResource(R.string.spoken_description_action_previous)
                             )
                         }
                     },
                     actions = {
-                        IconButton(onClick = { setShowSearch(!showSearch) }) { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
+                        IconButton(onClick = { setShowSearch(!showSearch) })
+                        { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
                     },
                 )
                 ExpandableSearchField(
