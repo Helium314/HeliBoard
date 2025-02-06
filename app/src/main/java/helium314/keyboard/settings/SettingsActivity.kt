@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  try making a dialog with reduced padding
-//  avoid duplicate code in SearchScreen
 //  work on todos in other files
 //  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities

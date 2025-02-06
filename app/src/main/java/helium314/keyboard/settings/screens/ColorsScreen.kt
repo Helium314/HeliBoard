@@ -20,9 +20,9 @@ fun ColorsScreen(
     SearchScreen(
         title = stringResource(if (night) R.string.select_user_colors_night else R.string.select_user_colors),
         onClickBack = onClickBack,
-        items = availableColors,
-        filter = { search, color -> color.displayName.contains(search, true) }
-    ) { }
+        filteredItems = { search -> availableColors.filter { it.displayName.contains(search, true) } },
+        itemContent = { }
+    )
 }
 
 private class ColorSetting(

@@ -45,101 +45,31 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchPrefScreen(
     onClickBack: () -> Unit,
     title: String,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    var searchText by remember { mutableStateOf(TextFieldValue()) } // must be outside th column to work without messing up cursor position
-    Column(Modifier.fillMaxSize()) {
-        // rememberSaveable would be better, but does not work with TextFieldValue
-        //  if we just store the string, the cursor is messed up
-        //  hmm... no, sth else is messing up that thing, and I just didn't notice
-        var showSearch by remember { mutableStateOf(false) }
-
-        fun setShowSearch(value: Boolean) {
-            showSearch = value
-            if (!value) searchText = TextFieldValue()
-        }
-        BackHandler {
-            if (showSearch) setShowSearch(false)
-            else onClickBack()
-        }
-        Surface(
-            color = MaterialTheme.colorScheme.surfaceContainer,
-        ) {
-            Column {
-                TopAppBar(
-                    title = { Text(title) },
-                    windowInsets = TopAppBarDefaults.windowInsets,
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            if (showSearch) setShowSearch(false)
-                            else onClickBack()
-                        }) {
-                            Icon(
-                                painterResource(R.drawable.ic_arrow_left), // todo: "old" arrow icon existed, so must be somewhere in resources (maybe androidx?)
-                                stringResource(R.string.spoken_description_action_previous)
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { setShowSearch(!showSearch) }) { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
-                    },
-                    //elevation = 0.dp
-                )
-                ExpandableSearchField(
-                    expanded = showSearch,
-                    onDismiss = { setShowSearch(false) },
-                    search = searchText,
-                    onSearchChange = { searchText = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.surface
-                    )
-                )
-            }
-        }
-        if (searchText.text.isBlank())
-            CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
-                Column(
-                    Modifier
-                        .verticalScroll(rememberScrollState())
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(
-                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
-                            ))
-                ) {
-                    content()
-                }
-            }
-        else
-            CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
-                val filteredPrefs = SettingsActivity2.allPrefs.filter(searchText.text)
-                LazyColumn {
-                    items(filteredPrefs) {
-                        it.Preference()
-                    }
-                }
-            }
-    }
+    SearchScreen(
+        onClickBack = onClickBack,
+        title = title,
+        content = content,
+        filteredItems = { SettingsActivity2.allPrefs.filter(it) },
+        itemContent = { it.Preference() }
+    )
 }
 
-// todo: this is just copy paste from above, could probably share more code
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T: Any> SearchScreen(
     onClickBack: () -> Unit,
     title: String,
-    items: List<T>,
-    filter: (String, T) -> Boolean,
+    filteredItems: (String) -> List<T>,
     itemContent: @Composable (T) -> Unit,
+    content: @Composable (ColumnScope.() -> Unit)? = null,
 ) {
-    var searchText by remember { mutableStateOf(TextFieldValue()) } // must be outside th column to work without messing up cursor position
+    var searchText by remember { mutableStateOf(TextFieldValue()) } // must be outside the column to work without messing up cursor position
     Column(Modifier.fillMaxSize()) {
         // rememberSaveable would be better, but does not work with TextFieldValue
         //  if we just store the string, the cursor is messed up
@@ -156,7 +86,6 @@ fun <T: Any> SearchScreen(
         }
         Surface(
             color = MaterialTheme.colorScheme.surfaceContainer,
-            //shadowElevation = TopAppBarDefaults.??
         ) {
             Column {
                 TopAppBar(
@@ -176,7 +105,6 @@ fun <T: Any> SearchScreen(
                     actions = {
                         IconButton(onClick = { setShowSearch(!showSearch) }) { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
                     },
-                    //elevation = 0.dp
                 )
                 ExpandableSearchField(
                     expanded = showSearch,
@@ -193,10 +121,24 @@ fun <T: Any> SearchScreen(
             }
         }
         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
-            val filteredItems = items.filter { filter(searchText.text, it) }
-            LazyColumn {
-                items(filteredItems) {
-                    itemContent(it)
+            if (searchText.text.isBlank() && content != null) {
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(
+                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+                            )
+                        )
+                ) {
+                    content()
+                }
+            } else {
+                val items = filteredItems(searchText.text)
+                LazyColumn {
+                    items(items) {
+                        itemContent(it)
+                    }
                 }
             }
         }
