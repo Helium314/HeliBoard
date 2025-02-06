@@ -31,17 +31,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ListPickerDialog
+import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
+import helium314.keyboard.settings.screens.GetIcon
 
 // taken from StreetComplete (and a bit SCEE)
 
@@ -255,6 +260,91 @@ fun <T: Any> ListPreference(
         )
     }
 }
+
+@Composable
+fun ReorderSwitchPreference(def: PrefDef, default: String) {
+    var showDialog by remember { mutableStateOf(false) }
+    Preference(
+        name = def.title,
+        description = def.description,
+        onClick = { showDialog = true },
+    )
+    if (showDialog) {
+        val ctx = LocalContext.current
+        val prefs = ctx.prefs()
+        val items = prefs.getString(def.key, default)!!.split(";").mapTo(ArrayList()) {
+            val both = it.split(",")
+            KeyAndState(both.first(), both.last().toBoolean())
+        }
+        ReorderDialog(
+            onConfirmed = { reorderedItems ->
+                val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
+                prefs.edit().putString(def.key, value).apply()
+                keyboardNeedsReload = true
+            },
+            onDismissRequest = { showDialog = false },
+            onNeutral = { prefs.edit().remove(def.key).apply() },
+            neutralButtonText = if (prefs.contains(def.key)) stringResource(R.string.button_default) else null,
+            items = items,
+            title = { Text(def.title) },
+            displayItem = { item ->
+                var checked by remember { mutableStateOf(item.state) }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    KeyboardIconsSet.instance.GetIcon(item.name)
+                    val text = item.name.lowercase().getStringResourceOrName("", ctx)
+                    Text(text, Modifier.weight(1f))
+                    Switch(
+                        checked = checked,
+                        onCheckedChange = { item.state = it; checked = it }
+                    )
+                }
+            },
+            getKey = { it.name }
+        )
+    }
+}
+
+@Composable
+fun ToolbarKeyReorderDialog(
+    prefKey: String,
+    default: String,
+    title: String,
+    onDismiss: () -> Unit
+) {
+    val ctx = LocalContext.current
+    val prefs = ctx.prefs()
+    val items = prefs.getString(prefKey, default)!!.split(";").mapTo(ArrayList()) {
+        val both = it.split(",")
+        KeyAndState(both.first(), both.last().toBoolean())
+    }
+    ReorderDialog(
+        onConfirmed = { reorderedItems ->
+            val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
+            prefs.edit().putString(prefKey, value).apply()
+            keyboardNeedsReload = true
+        },
+        onDismissRequest = onDismiss,
+        onNeutral = { prefs.edit().remove(prefKey).apply() },
+        neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
+        items = items,
+        title = { Text(title) },
+        displayItem = { item ->
+            var checked by remember { mutableStateOf(item.state) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                KeyboardIconsSet.instance.GetIcon(item.name)
+                val text = item.name.lowercase().getStringResourceOrName("", ctx)
+                Text(text, Modifier.weight(1f))
+                Switch(
+                    checked = checked,
+                    onCheckedChange = { item.state = it; checked = it }
+                )
+            }
+        },
+        getKey = { it.name }
+    )
+}
+
+private class KeyAndState(var name: String, var state: Boolean)
 
 private fun <T: Any> getPrefOfType(prefs: SharedPreferences, key: String, default: T): T =
     when (default) {

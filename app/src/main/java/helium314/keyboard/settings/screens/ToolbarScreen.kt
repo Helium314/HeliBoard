@@ -37,6 +37,7 @@ import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.NonSettingsPrefs
 import helium314.keyboard.settings.PrefDef
 import helium314.keyboard.settings.Preference
+import helium314.keyboard.settings.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
 import helium314.keyboard.settings.SwitchPreference
@@ -66,46 +67,13 @@ fun ToolbarScreen(
 
 fun createToolbarPrefs(context: Context) = listOf(
     PrefDef(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) { def ->
-        var showDialog by remember { mutableStateOf(false) }
-        Preference(
-            name = def.title,
-            onClick = { showDialog = true },
-        )
-        if (showDialog) {
-            ToolbarKeyReorderDialog(
-                def.key,
-                defaultToolbarPref,
-                def.title,
-            ) { showDialog = false }
-        }
+        ReorderSwitchPreference(def, defaultToolbarPref)
     },
     PrefDef(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) { def ->
-        var showDialog by remember { mutableStateOf(false) }
-        Preference(
-            name = def.title,
-            onClick = { showDialog = true },
-        )
-        if (showDialog) {
-            ToolbarKeyReorderDialog(
-                def.key,
-                defaultPinnedToolbarPref,
-                def.title,
-            ) { showDialog = false }
-        }
+        ReorderSwitchPreference(def, defaultPinnedToolbarPref)
     },
     PrefDef(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) { def ->
-        var showDialog by remember { mutableStateOf(false) }
-        Preference(
-            name = def.title,
-            onClick = { showDialog = true },
-        )
-        if (showDialog) {
-            ToolbarKeyReorderDialog(
-                def.key,
-                defaultClipboardToolbarPref,
-                def.title,
-            ) { showDialog = false }
-        }
+        ReorderSwitchPreference(def, defaultClipboardToolbarPref)
     },
     PrefDef(context, NonSettingsPrefs.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) { def ->
         var showDialog by remember { mutableStateOf(false) }
@@ -144,48 +112,6 @@ fun createToolbarPrefs(context: Context) = listOf(
         )
     }
 )
-
-@Composable
-fun ToolbarKeyReorderDialog(
-    prefKey: String,
-    default: String,
-    title: String,
-    onDismiss: () -> Unit
-) {
-    val ctx = LocalContext.current
-    val prefs = ctx.prefs()
-    val items = prefs.getString(prefKey, default)!!.split(";").mapTo(ArrayList()) {
-        val both = it.split(",")
-        KeyAndState(both.first(), both.last().toBoolean())
-    }
-    ReorderDialog(
-        onConfirmed = { reorderedItems ->
-            val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
-            prefs.edit().putString(prefKey, value).apply()
-            keyboardNeedsReload = true
-        },
-        onDismissRequest = onDismiss,
-        onNeutral = { prefs.edit().remove(prefKey).apply() },
-        neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
-        items = items,
-        title = { Text(title) },
-        displayItem = { item ->
-            var checked by remember { mutableStateOf(item.state) }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                KeyboardIconsSet.instance.GetIcon(item.name)
-                val text = item.name.lowercase().getStringResourceOrName("", ctx)
-                Text(text, Modifier.weight(1f))
-                Switch(
-                    checked = checked,
-                    onCheckedChange = { item.state = it; checked = it }
-                )
-            }
-        },
-        getKey = { it.name }
-    )
-}
-
-private class KeyAndState(var name: String, var state: Boolean)
 
 @Preview
 @Composable

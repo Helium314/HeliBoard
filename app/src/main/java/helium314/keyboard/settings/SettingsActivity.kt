@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
 //  make all prefs actually work
-//   preferences
 //   advanced (not much)
 //  try moving the recomposition of pref change somewhere else, so it's not duplicated everywhere
 //  make the pref lists more compact (compare with old settings)
@@ -23,12 +22,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  more similar dialog style args (for all dialogs, or for none)
 //  check whether dialogs have the same colors, i think currently it's a bit inconsistent
 //   see all the properties for each alertDialog -> any way to set it in a single place?
-//  yes/no/default can now be confirmDialog
 //  title too huge for bg image and text on spacebar dialogs, also maybe somewhere else -> where to set in one place?
 //  check dark and light theme (don't have dynamic)
 //  rename both settingsActivities
 //  work on todos in other files
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
+//   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
 //  use better / more structured and clear names and arrangement of files
 //   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
 //   there is a lot more ambiguous naming...
@@ -64,6 +63,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  color settings (should at least change how colors are stored, and have a color search/filter)
 //  allow users to add custom themes instead of only having a single one (maybe also switchable in colors settings)
 //  one single place for default values (to be used in composables and settings)
+//   does it make sense to put this into PrefDef?
 //  make auto_correct_threshold a float directly with the list pref (needs pref upgrade)
 //  using context.prefs() outside settings
 //  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES into one pref (don't forget settings upgrade)
