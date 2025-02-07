@@ -61,44 +61,28 @@ fun SettingsNavHost(
             )
         }
         composable(SettingsDestination.About) {
-            AboutScreen(
-                onClickBack = ::goBack
-            )
+            AboutScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.TextCorrection) {
-            TextCorrectionScreen(
-                onClickBack = ::goBack
-            )
+            TextCorrectionScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Preferences) {
-            PreferencesScreen(
-                onClickBack = ::goBack
-            )
+            PreferencesScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Toolbar) {
-            ToolbarScreen(
-                onClickBack = ::goBack
-            )
+            ToolbarScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.GestureTyping) {
-            GestureTypingScreen(
-                onClickBack = ::goBack
-            )
+            GestureTypingScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Advanced) {
-            AdvancedSettingsScreen(
-                onClickBack = ::goBack
-            )
+            AdvancedSettingsScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Debug) {
-            DebugScreen(
-                onClickBack = ::goBack
-            )
+            DebugScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Appearance) {
-            AppearanceScreen(
-                onClickBack = ::goBack
-            )
+            AppearanceScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.PersonalDictionary) {
 //            PersonalDictionarySettingsScreen(

@@ -88,8 +88,13 @@ fun AppearanceScreen(
         Settings.PREF_NARROW_KEY_GAPS,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
+        Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
+        Settings.PREF_SIDE_PADDING_SCALE,
+        Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
         Settings.PREF_SPACE_BAR_TEXT,
-        NonSettingsPrefs.CUSTOM_FONT
+        NonSettingsPrefs.CUSTOM_FONT,
+        Settings.PREF_FONT_SCALE,
+        Settings.PREF_EMOJI_FONT_SCALE,
     )
     SearchPrefScreen(
         onClickBack = onClickBack,
@@ -248,6 +253,33 @@ fun createAppearancePrefs(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
     },
+    PrefDef(context, Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, R.string.prefs_bottom_padding_scale_landscape) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 0f,
+            range = 0f..5f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
+    },
+    PrefDef(context, Settings.PREF_SIDE_PADDING_SCALE, R.string.prefs_side_padding_scale) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 0f,
+            range = 0f..3f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
+    },
+    PrefDef(context, Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE, R.string.prefs_side_padding_scale_landscape) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 0f,
+            range = 0f..3f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
+    },
     PrefDef(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { def ->
         var showDialog by remember { mutableStateOf(false) }
         val prefs = LocalContext.current.prefs()
@@ -316,6 +348,24 @@ fun createAppearancePrefs(context: Context) = listOf(
             )
         if (showErrorDialog)
             InfoDialog(stringResource(R.string.file_read_error)) { showErrorDialog = false }
+    },
+    PrefDef(context, Settings.PREF_FONT_SCALE, R.string.prefs_font_scale) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 1f,
+            range = 0.5f..1.5f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
+    },
+    PrefDef(context, Settings.PREF_EMOJI_FONT_SCALE, R.string.prefs_emoji_font_scale) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 1f,
+            range = 0.5f..1.5f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
     },
 )
 

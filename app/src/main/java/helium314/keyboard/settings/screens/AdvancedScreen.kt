@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.preference.PreferenceManager
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
@@ -101,6 +102,9 @@ fun AdvancedSettingsScreen(
         Settings.PREF_KEY_LONGPRESS_TIMEOUT,
         Settings.PREF_SPACE_HORIZONTAL_SWIPE,
         Settings.PREF_SPACE_VERTICAL_SWIPE,
+        if (Settings.readHorizontalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+            || Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE)
+            Settings.PREF_LANGUAGE_SWIPE_DISTANCE else null,
         Settings.PREF_DELETE_SWIPE,
         Settings.PREF_SPACE_TO_CHANGE_LANG,
         Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD,
@@ -160,6 +164,15 @@ fun createAdvancedPrefs(context: Context) = listOf(
             stringResource(R.string.action_none) to "none",
         )
         ListPreference(def, items, "none")
+    },
+    PrefDef(context, Settings.PREF_LANGUAGE_SWIPE_DISTANCE, R.string.prefs_language_swipe_distance) { def ->
+        SliderPreference(
+            name = def.title,
+            pref = def.key,
+            default = 5,
+            range = 2f..18f,
+            description = { it.toString() }
+        )
     },
     PrefDef(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
         SwitchPreference(it, true)

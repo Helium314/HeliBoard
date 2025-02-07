@@ -30,9 +30,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   consider that stuff in composables can get called quite often on any changes
 //    -> use remember for things that are slow, but be careful they don't change from outside the composable
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
-//  PRs adding prefs -> need to do before continuing
+//  PRs adding prefs -> need to finish and merge main before finishing this PR
 //   1263 (no response for several weeks now...)
-//  merge main to implement all the new settings
 //  really use the restart dialog for debug settings stuff?
 //   could do it the old way, and hide debug settings from search
 

@@ -61,6 +61,8 @@ fun PreferencesScreen(
         Settings.PREF_SHOW_NUMBER_ROW,
         if (getEnabledSubtypes(prefs, true).any { it.locale().language in localesWithLocalizedNumberRow })
             Settings.PREF_LOCALIZED_NUMBER_ROW else null,
+        if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, true) && prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false))
+            Settings.PREF_SHOW_NUMBER_ROW_HINTS else null,
         Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
         Settings.PREF_LANGUAGE_SWITCH_KEY,
         Settings.PREF_SHOW_EMOJI_KEY,
@@ -114,6 +116,9 @@ fun createPreferencesPrefs(context: Context) = listOf(
     },
     PrefDef(context, Settings.PREF_LOCALIZED_NUMBER_ROW, R.string.localized_number_row, R.string.localized_number_row_summary) {
         SwitchPreference(it, true) { KeyboardLayoutSet.onSystemLocaleChanged() }
+    },
+    PrefDef(context, Settings.PREF_SHOW_NUMBER_ROW_HINTS, R.string.number_row_hints) {
+        SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
     PrefDef(context, Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, R.string.show_language_switch_key) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
