@@ -23,8 +23,8 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -32,14 +32,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun BackgroundImagePref(def: PrefDef, isLandscape: Boolean) {
+fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
     var showDayNightDialog by remember { mutableStateOf(false) }
     var showSelectionDialog by remember { mutableStateOf(false) }
     var showErrorDialog by remember { mutableStateOf(false) }
     var isNight by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     fun getFile() = Settings.getCustomBackgroundFile(ctx, isNight, isLandscape)
-    val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0) // necessary to reload dayNightPref
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val dayNightPref = Settings.readDayNightPref(ctx.prefs(), ctx.resources)
@@ -60,7 +60,7 @@ fun BackgroundImagePref(def: PrefDef, isLandscape: Boolean) {
         .addCategory(Intent.CATEGORY_OPENABLE)
         .setType("image/*")
     Preference(
-        name = def.title,
+        name = setting.title,
         onClick = {
             if (dayNightPref) {
                 showDayNightDialog = true

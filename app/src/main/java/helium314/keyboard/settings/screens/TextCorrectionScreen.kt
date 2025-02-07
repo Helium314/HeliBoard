@@ -28,13 +28,13 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
-import helium314.keyboard.settings.AllPrefs
+import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
-import helium314.keyboard.settings.NonSettingsPrefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.SettingsWithoutKey
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchPrefScreen
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -45,13 +45,13 @@ fun TextCorrectionScreen(
     onClickBack: () -> Unit,
 ) {
     val prefs = LocalContext.current.prefs()
-    val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, true)
     val suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true)
     val items = listOfNotNull(
-        NonSettingsPrefs.EDIT_PERSONAL_DICTIONARY,
+        SettingsWithoutKey.EDIT_PERSONAL_DICTIONARY,
         R.string.settings_category_correction,
         Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
         Settings.PREF_AUTO_CORRECTION,
@@ -79,8 +79,8 @@ fun TextCorrectionScreen(
     )
 }
 
-fun createCorrectionPrefs(context: Context) = listOf(
-    PrefDef(context, NonSettingsPrefs.EDIT_PERSONAL_DICTIONARY, R.string.edit_personal_dictionary) {
+fun createCorrectionSettings(context: Context) = listOf(
+    Setting(context, SettingsWithoutKey.EDIT_PERSONAL_DICTIONARY, R.string.edit_personal_dictionary) {
         val ctx = LocalContext.current
         Preference(
             name = stringResource(R.string.edit_personal_dictionary),
@@ -93,27 +93,27 @@ fun createCorrectionPrefs(context: Context) = listOf(
             )
         }
     },
-    PrefDef(context, Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
+    Setting(context, Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
         R.string.prefs_block_potentially_offensive_title, R.string.prefs_block_potentially_offensive_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_AUTO_CORRECTION,
+    Setting(context, Settings.PREF_AUTO_CORRECTION,
         R.string.autocorrect, R.string.auto_correction_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_MORE_AUTO_CORRECTION,
+    Setting(context, Settings.PREF_MORE_AUTO_CORRECTION,
         R.string.more_autocorrect, R.string.more_autocorrect_summary
     ) {
         SwitchPreference(it, true) // todo (later): shouldn't it better be false?
     },
-    PrefDef(context, Settings.PREF_AUTOCORRECT_SHORTCUTS,
+    Setting(context, Settings.PREF_AUTOCORRECT_SHORTCUTS,
         R.string.auto_correct_shortcuts, R.string.auto_correct_shortcuts_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_AUTO_CORRECTION_CONFIDENCE, R.string.auto_correction_confidence) {
+    Setting(context, Settings.PREF_AUTO_CORRECTION_CONFIDENCE, R.string.auto_correction_confidence) {
         val items = listOf(
             stringResource(R.string.auto_correction_threshold_mode_modest) to "0",
             stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
@@ -121,38 +121,36 @@ fun createCorrectionPrefs(context: Context) = listOf(
         )
         ListPreference(it, items, "0")
     },
-    PrefDef(context, Settings.PREF_AUTO_CAP,
+    Setting(context, Settings.PREF_AUTO_CAP,
         R.string.auto_cap, R.string.auto_cap_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
+    Setting(context, Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
         R.string.use_double_space_period, R.string.use_double_space_period_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
+    Setting(context, Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
         R.string.autospace_after_punctuation, R.string.autospace_after_punctuation_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_SHOW_SUGGESTIONS,
+    Setting(context, Settings.PREF_SHOW_SUGGESTIONS,
         R.string.prefs_show_suggestions, R.string.prefs_show_suggestions_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_ALWAYS_SHOW_SUGGESTIONS,
+    Setting(context, Settings.PREF_ALWAYS_SHOW_SUGGESTIONS,
         R.string.prefs_always_show_suggestions, R.string.prefs_always_show_suggestions_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
+    Setting(context, Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         R.string.use_personalized_dicts, R.string.use_personalized_dicts_summary
-    ) { prefDef ->
+    ) { setting ->
         var showConfirmDialog by remember { mutableStateOf(false) }
-        SwitchPreference(
-            prefDef,
-            true,
+        SwitchPreference(setting, true,
             allowCheckedChange = {
                 showConfirmDialog = !it
                 it
@@ -163,41 +161,39 @@ fun createCorrectionPrefs(context: Context) = listOf(
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
                 onConfirmed = {
-                    prefs.edit().putBoolean(prefDef.key, false).apply()
+                    prefs.edit().putBoolean(setting.key, false).apply()
                 },
                 text = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
             )
         }
 
     },
-    PrefDef(context, Settings.PREF_BIGRAM_PREDICTIONS,
+    Setting(context, Settings.PREF_BIGRAM_PREDICTIONS,
         R.string.bigram_prediction, R.string.bigram_prediction_summary
     ) {
         SwitchPreference(it, true) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
+    Setting(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
         R.string.center_suggestion_text_to_enter, R.string.center_suggestion_text_to_enter_summary
     ) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
+    Setting(context, Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
         R.string.suggest_clipboard_content, R.string.suggest_clipboard_content_summary
     ) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_USE_CONTACTS,
+    Setting(context, Settings.PREF_USE_CONTACTS,
         R.string.use_contacts_dict, R.string.use_contacts_dict_summary
-    ) { def ->
-        val activity = LocalContext.current.getActivity() ?: return@PrefDef
+    ) { setting ->
+        val activity = LocalContext.current.getActivity() ?: return@Setting
         var granted by remember { mutableStateOf(PermissionsUtil.checkAllPermissionsGranted(activity, Manifest.permission.READ_CONTACTS)) }
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
             granted = it
             if (granted)
-                activity.prefs().edit().putBoolean(def.key, true).apply()
+                activity.prefs().edit().putBoolean(setting.key, true).apply()
         }
-        SwitchPreference(
-            def,
-            false,
+        SwitchPreference(setting, false,
             allowCheckedChange = {
                 if (it && !granted) {
                     launcher.launch(Manifest.permission.READ_CONTACTS)
@@ -206,7 +202,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
             }
         )
     },
-    PrefDef(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
+    Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
     ) {
         SwitchPreference(it, false)
@@ -216,7 +212,7 @@ fun createCorrectionPrefs(context: Context) = listOf(
 @Preview
 @Composable
 private fun PreferencePreview() {
-    SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
+    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
     Theme(true) {
         Surface {
             TextCorrectionScreen {  }

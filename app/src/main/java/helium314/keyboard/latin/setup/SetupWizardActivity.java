@@ -26,13 +26,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.utils.ActivityThemeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
-import helium314.keyboard.settings.SettingsActivity2;
+import helium314.keyboard.settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -166,7 +165,7 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
                 0 /* finishedInstruction */, R.drawable.sym_keyboard_language_switch,
                 R.string.setup_step3_action);
         step3.setAction(() -> {
-            final Intent intent = new Intent(getApplicationContext(), SettingsActivity2.class);
+            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             intent.setAction(Intent.ACTION_VIEW);
             startActivity(intent);
             finish();
@@ -224,11 +223,11 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
 
     private void invokeSettingsOfThisIme() {
         final Intent intent = new Intent();
-        intent.setClass(this, SettingsActivity2.class);
+        intent.setClass(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(SettingsActivity.EXTRA_ENTRY_KEY,
-                SettingsActivity.EXTRA_ENTRY_VALUE_APP_ICON);
+//        intent.putExtra(OldSettingsActivity.EXTRA_ENTRY_KEY,
+//                OldSettingsActivity.EXTRA_ENTRY_VALUE_APP_ICON);
         startActivity(intent);
     }
 

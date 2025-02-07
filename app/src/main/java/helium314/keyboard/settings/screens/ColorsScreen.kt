@@ -27,7 +27,7 @@ fun ColorsScreen(
 }
 
 private class ColorSetting(
-    val pref: String, // old, this should go away
+    val key: String, // old, this should go away
     val displayName: String,
     var auto: Boolean, // not for all
     var color: Int

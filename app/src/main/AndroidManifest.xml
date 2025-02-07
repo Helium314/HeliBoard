@@ -74,7 +74,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name="helium314.keyboard.settings.SettingsActivity2"
+        <activity android:name="helium314.keyboard.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
                 android:windowSoftInputMode="adjustResize"
                 android:label="@string/ime_settings"

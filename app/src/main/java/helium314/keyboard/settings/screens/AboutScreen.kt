@@ -29,12 +29,12 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.AllPrefs
-import helium314.keyboard.settings.NonSettingsPrefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.SettingsContainer
+import helium314.keyboard.settings.SettingsWithoutKey
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchPrefScreen
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,12 +44,12 @@ fun AboutScreen(
     onClickBack: () -> Unit,
 ) {
     val items = listOf(
-        NonSettingsPrefs.APP,
-        NonSettingsPrefs.VERSION,
-        NonSettingsPrefs.LICENSE,
-        NonSettingsPrefs.HIDDEN_FEATURES,
-        NonSettingsPrefs.GITHUB,
-        NonSettingsPrefs.SAVE_LOG
+        SettingsWithoutKey.APP,
+        SettingsWithoutKey.VERSION,
+        SettingsWithoutKey.LICENSE,
+        SettingsWithoutKey.HIDDEN_FEATURES,
+        SettingsWithoutKey.GITHUB,
+        SettingsWithoutKey.SAVE_LOG
     )
     SearchPrefScreen(
         onClickBack = onClickBack,
@@ -58,8 +58,8 @@ fun AboutScreen(
     )
 }
 
-fun createAboutPrefs(context: Context) = listOf(
-    PrefDef(context, NonSettingsPrefs.APP, R.string.english_ime_name, R.string.app_slogan) {
+fun createAboutSettings(context: Context) = listOf(
+    Setting(context, SettingsWithoutKey.APP, R.string.english_ime_name, R.string.app_slogan) {
         Preference(
             name = it.title,
             description = it.description,
@@ -67,7 +67,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_launcher_foreground // use the bitmap trick here if we really want the colored icon
         )
     },
-    PrefDef(context, NonSettingsPrefs.VERSION, R.string.version) {
+    Setting(context, SettingsWithoutKey.VERSION, R.string.version) {
         var count by rememberSaveable { mutableIntStateOf(0) }
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
@@ -85,7 +85,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_foreground
         )
     },
-    PrefDef(context, NonSettingsPrefs.LICENSE, R.string.license, R.string.gnu_gpl) {
+    Setting(context, SettingsWithoutKey.LICENSE, R.string.license, R.string.gnu_gpl) {
         val ctx = LocalContext.current
         Preference(
             name = it.title,
@@ -99,7 +99,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_license_foreground
         )
     },
-    PrefDef(context, NonSettingsPrefs.HIDDEN_FEATURES, R.string.hidden_features_title, R.string.hidden_features_summary) {
+    Setting(context, SettingsWithoutKey.HIDDEN_FEATURES, R.string.hidden_features_title, R.string.hidden_features_summary) {
         val ctx = LocalContext.current
         Preference(
             name = it.title,
@@ -123,7 +123,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_hidden_features_foreground
         )
     },
-    PrefDef(context, NonSettingsPrefs.GITHUB, R.string.about_github_link) {
+    Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
         val ctx = LocalContext.current
         Preference(
             name = it.title,
@@ -137,7 +137,7 @@ fun createAboutPrefs(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_github_foreground
         )
     },
-    PrefDef(context, NonSettingsPrefs.SAVE_LOG, R.string.save_log) { def ->
+    Setting(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { setting ->
         val ctx = LocalContext.current
         val scope = rememberCoroutineScope()
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -150,8 +150,8 @@ fun createAboutPrefs(context: Context) = listOf(
             }
         }
         Preference(
-            name = def.title,
-            description = def.description,
+            name = setting.title,
+            description = setting.description,
             onClick = {
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
@@ -171,7 +171,7 @@ fun createAboutPrefs(context: Context) = listOf(
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
+    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
     Theme(true) {
         Surface {
             AboutScreen {  }

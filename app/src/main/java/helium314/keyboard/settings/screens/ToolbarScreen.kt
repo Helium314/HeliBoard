@@ -29,13 +29,13 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
-import helium314.keyboard.settings.AllPrefs
-import helium314.keyboard.settings.NonSettingsPrefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.SettingsContainer
+import helium314.keyboard.settings.SettingsWithoutKey
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchPrefScreen
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
@@ -49,7 +49,7 @@ fun ToolbarScreen(
         Settings.PREF_TOOLBAR_KEYS,
         Settings.PREF_PINNED_TOOLBAR_KEYS,
         Settings.PREF_CLIPBOARD_TOOLBAR_KEYS,
-        NonSettingsPrefs.CUSTOM_KEY_CODES,
+        SettingsWithoutKey.CUSTOM_KEY_CODES,
         Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         Settings.PREF_AUTO_SHOW_TOOLBAR,
         Settings.PREF_AUTO_HIDE_TOOLBAR,
@@ -62,17 +62,17 @@ fun ToolbarScreen(
     )
 }
 
-fun createToolbarPrefs(context: Context) = listOf(
-    PrefDef(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
+fun createToolbarSettingss(context: Context) = listOf(
+    Setting(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
         ReorderSwitchPreference(it, defaultToolbarPref)
     },
-    PrefDef(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) {
+    Setting(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) {
         ReorderSwitchPreference(it, defaultPinnedToolbarPref)
     },
-    PrefDef(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) {
+    Setting(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) {
         ReorderSwitchPreference(it, defaultClipboardToolbarPref)
     },
-    PrefDef(context, NonSettingsPrefs.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
+    Setting(context, SettingsWithoutKey.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
         var showDialog by remember { mutableStateOf(false) }
         Preference(
             name = it.title,
@@ -84,20 +84,20 @@ fun createToolbarPrefs(context: Context) = listOf(
                 onDismissRequest = { showDialog = false }
             )
     },
-    PrefDef(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
+    Setting(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary)
     {
         SwitchPreference(it, false,) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary)
+    Setting(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary)
     {
         SwitchPreference(it, false,)
     },
-    PrefDef(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary)
+    Setting(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary)
     {
         SwitchPreference(it, false,)
     },
-    PrefDef(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION,
+    Setting(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION,
         R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary)
     {
         SwitchPreference(it, true,)
@@ -107,7 +107,7 @@ fun createToolbarPrefs(context: Context) = listOf(
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
+    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
     KeyboardIconsSet.instance.loadIcons(LocalContext.current)
     Theme(true) {
         Surface {

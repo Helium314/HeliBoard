@@ -119,7 +119,7 @@ private fun PreferencePreview() {
             )
             SliderPreference(
                 name = "SliderPreference",
-                pref = "",
+                key = "",
                 default = 1,
                 description = { it.toString() },
                 range = -5f..5f
@@ -138,7 +138,7 @@ private fun PreferencePreview() {
             }
             SwitchPreference(
                 name = "SwitchPreference",
-                pref = "none",
+                key = "none",
                 default = true
             )
             Preference(

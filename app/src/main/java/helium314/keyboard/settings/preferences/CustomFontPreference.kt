@@ -17,14 +17,14 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import java.io.File
 
 @Composable
-fun CustomFontPreference(def: PrefDef) {
+fun CustomFontPreference(setting: Setting) {
     val ctx = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var showErrorDialog by remember { mutableStateOf(false) }
@@ -49,7 +49,7 @@ fun CustomFontPreference(def: PrefDef) {
         .addCategory(Intent.CATEGORY_OPENABLE)
         .setType("*/*")
     Preference(
-        name = def.title,
+        name = setting.title,
         onClick = {
             if (fontFile.exists())
                 showDialog = true

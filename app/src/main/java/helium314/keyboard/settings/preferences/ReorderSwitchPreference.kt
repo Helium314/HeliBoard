@@ -16,37 +16,37 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.screens.GetIcon
 
 @Composable
-fun ReorderSwitchPreference(def: PrefDef, default: String) {
+fun ReorderSwitchPreference(setting: Setting, default: String) {
     var showDialog by remember { mutableStateOf(false) }
     Preference(
-        name = def.title,
-        description = def.description,
+        name = setting.title,
+        description = setting.description,
         onClick = { showDialog = true },
     )
     if (showDialog) {
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
-        val items = prefs.getString(def.key, default)!!.split(";").mapTo(ArrayList()) {
+        val items = prefs.getString(setting.key, default)!!.split(";").mapTo(ArrayList()) {
             val both = it.split(",")
             KeyAndState(both.first(), both.last().toBoolean())
         }
         ReorderDialog(
             onConfirmed = { reorderedItems ->
                 val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
-                prefs.edit().putString(def.key, value).apply()
+                prefs.edit().putString(setting.key, value).apply()
                 keyboardNeedsReload = true
             },
             onDismissRequest = { showDialog = false },
-            onNeutral = { prefs.edit().remove(def.key).apply() },
-            neutralButtonText = if (prefs.contains(def.key)) stringResource(R.string.button_default) else null,
+            onNeutral = { prefs.edit().remove(setting.key).apply() },
+            neutralButtonText = if (prefs.contains(setting.key)) stringResource(R.string.button_default) else null,
             items = items,
-            title = { Text(def.title) },
+            title = { Text(setting.title) },
             displayItem = { item ->
                 var checked by remember { mutableStateOf(item.state) }
                 Row(verticalAlignment = Alignment.CenterVertically) {

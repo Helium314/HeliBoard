@@ -39,8 +39,8 @@ import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
-import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -54,7 +54,7 @@ import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
 @Composable
-fun BackupRestorePreference(def: PrefDef) {
+fun BackupRestorePreference(setting: Setting) {
     var showDialog by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
@@ -180,13 +180,10 @@ fun BackupRestorePreference(def: PrefDef) {
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         onCustomLayoutFileListChanged()
-        (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.value = 210 // for settings reload
+        (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
         keyboardNeedsReload = true
     }
-    Preference(
-        name = def.title,
-        onClick = { showDialog = true }
-    )
+    Preference(name = setting.title, onClick = { showDialog = true })
     if (showDialog) {
         ConfirmationDialog(
             onDismissRequest = { showDialog = false },

@@ -9,14 +9,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.LayoutEditDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import java.io.File
 
 @Composable
 fun LayoutEditPreference(
-    def: PrefDef,
+    setting: Setting,
     items: List<String>,
     getItemName: @Composable (String) -> String,
     getDefaultLayout: @Composable (String?) -> String?,
@@ -25,7 +25,7 @@ fun LayoutEditPreference(
     val ctx = LocalContext.current
     var layout: String? by remember { mutableStateOf(null) }
     Preference(
-    name = def.title,
+    name = setting.title,
     onClick = { showDialog = true }
     )
     if (showDialog) {
@@ -36,7 +36,7 @@ fun LayoutEditPreference(
             items = items,
             getItemName = getItemName,
             onItemSelected = { layout = it },
-            title = { Text(def.title) }
+            title = { Text(setting.title) }
         )
     }
     if (layout != null) {

@@ -14,13 +14,10 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  use better / more structured and clear names and arrangement of files
-//   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
-//   there is a lot more ambiguous naming...
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
-//  rename both settingsActivities
+//  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
 //  bg image inconsistent about being on toolbar or not (is this new?)
@@ -28,7 +25,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
 //    -> use remember for things that are slow, but be careful they don't change from outside the composable
-//  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
 //  PRs adding prefs -> need to finish and merge main before finishing this PR
 //   1263 (no response for several weeks now...)
 //  really use the restart dialog for debug settings stuff?
@@ -65,6 +61,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  actually lenient json parsing is not good in a certain way: we should show an error if a json property is unknown
 //  syntax highlighting for json? should show basic json errors
 //  does restore prefs not delete dictionaries?
+//  don't require to switch keyboard when entering settings
 
 // preliminary results:
 // looks ok (ugly M3 switches)
@@ -83,7 +80,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  -> too much, but still ok if we can get nicer preference stuff
 //  meh, and using a TextField adds another 300 kb... huge chunks for sth that seems so small
 
-class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
 
@@ -92,7 +89,7 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         if (Settings.getInstance().current == null)
             Settings.init(this)
 
-        allPrefs = AllPrefs(this)
+        settingsContainer = SettingsContainer(this)
 
         // todo: when removing old settings completely, remove settings_activity.xml and supportFragmentManager stuff
 //        val cv = ComposeView(context = this)
@@ -133,8 +130,8 @@ class SettingsActivity2 : AppCompatActivity(), SharedPreferences.OnSharedPrefere
     }
 
     companion object {
-        // public write so compose previews can show the pref screens
-        lateinit var allPrefs: AllPrefs
+        // public write so compose previews can show the screens
+        lateinit var settingsContainer: SettingsContainer
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {

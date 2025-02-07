@@ -63,13 +63,13 @@ fun SearchPrefScreen(
                             if (it is Int)
                                 PreferenceCategory(stringResource(it))
                             else
-                                SettingsActivity2.allPrefs.map[it]!!.Preference()
+                                SettingsActivity.settingsContainer[it]!!.Preference()
 
                         }
                     }
                 }
         },
-        filteredItems = { SettingsActivity2.allPrefs.filter(it) },
+        filteredItems = { SettingsActivity.settingsContainer.filter(it) },
         itemContent = { it.Preference() }
     )
 }

@@ -20,11 +20,11 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.DebugSettingsFragment
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.AllPrefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.SettingsContainer
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchPrefScreen
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -49,21 +49,18 @@ fun DebugScreen(
     )
 }
 
-fun createDebugPrefs(context: Context) = listOf(
-    PrefDef(context, DebugSettings.PREF_SHOW_DEBUG_SETTINGS, R.string.prefs_show_debug_settings) { def ->
+fun createDebugSettings(context: Context) = listOf(
+    Setting(context, DebugSettings.PREF_SHOW_DEBUG_SETTINGS, R.string.prefs_show_debug_settings) { setting ->
         val prefs = LocalContext.current.prefs()
-        SwitchPreference(
-            name = def.title,
-            pref = def.key,
-            default = false,
-        ) { if (!it) prefs.edit().putBoolean(DebugSettings.PREF_DEBUG_MODE, false).apply() }
+        SwitchPreference(setting, false)
+        { if (!it) prefs.edit().putBoolean(DebugSettings.PREF_DEBUG_MODE, false).apply() }
     },
-    PrefDef(context, DebugSettings.PREF_DEBUG_MODE, R.string.prefs_debug_mode) { def ->
+    Setting(context, DebugSettings.PREF_DEBUG_MODE, R.string.prefs_debug_mode) { setting ->
         val prefs = LocalContext.current.prefs()
         var showConfirmDialog by remember { mutableStateOf(false) }
         SwitchPreference(
-            name = def.title,
-            pref = def.key,
+            name = setting.title,
+            key = setting.key,
             description = stringResource(R.string.version_text, BuildConfig.VERSION_NAME),
             default = false,
         ) {
@@ -78,12 +75,12 @@ fun createDebugPrefs(context: Context) = listOf(
             )
         }
     },
-    PrefDef(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) { def ->
-        SwitchPreference(def, false) { keyboardNeedsReload = true }
+    Setting(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) {
+        SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) { def ->
+    Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
         var showConfirmDialog by remember { mutableStateOf(false) }
-        SwitchPreference(def, false) { showConfirmDialog = true }
+        SwitchPreference(it, false) { showConfirmDialog = true }
         if (showConfirmDialog) {
             ConfirmationDialog(
                 onDismissRequest = { showConfirmDialog = false },
@@ -92,17 +89,17 @@ fun createDebugPrefs(context: Context) = listOf(
             )
         }
     },
-    PrefDef(context, DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, R.string.sliding_key_input_preview, R.string.sliding_key_input_preview_summary) { def ->
+    Setting(context, DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, R.string.sliding_key_input_preview, R.string.sliding_key_input_preview_summary) { def ->
         SwitchPreference(def, false)
     },
-) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map {
-    PrefDef(context, DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + it, R.string.button_default) { def ->
+) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { type ->
+    Setting(context, DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {
         val ctx = LocalContext.current
         Preference(
-            name = "Dump $it dictionary",
+            name = "Dump $type dictionary",
             onClick = {
                 val intent = Intent(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION)
-                intent.putExtra(DictionaryDumpBroadcastReceiver.DICTIONARY_NAME_KEY, it)
+                intent.putExtra(DictionaryDumpBroadcastReceiver.DICTIONARY_NAME_KEY, type)
                 ctx.sendBroadcast(intent)
             }
         )
@@ -112,7 +109,7 @@ fun createDebugPrefs(context: Context) = listOf(
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
+    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
     Theme(true) {
         Surface {
             DebugScreen { }

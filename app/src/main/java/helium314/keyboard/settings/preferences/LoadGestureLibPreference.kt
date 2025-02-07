@@ -20,7 +20,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import java.io.File
 import java.io.FileInputStream
@@ -28,7 +28,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 @Composable
-fun LoadGestureLibPreference(def: PrefDef) {
+fun LoadGestureLibPreference(setting: Setting) {
     var showDialog by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
@@ -74,7 +74,7 @@ fun LoadGestureLibPreference(def: PrefDef) {
         }
     }
     Preference(
-        name = def.title,
+        name = setting.title,
         onClick = { showDialog = true }
     )
     if (showDialog) {

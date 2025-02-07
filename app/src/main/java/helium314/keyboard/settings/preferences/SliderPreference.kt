@@ -14,8 +14,8 @@ import androidx.core.content.edit
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import helium314.keyboard.settings.dialogs.SliderDialog
 import kotlin.math.roundToInt
@@ -25,7 +25,7 @@ import kotlin.math.roundToInt
 fun <T: Number> SliderPreference(
     name: String,
     modifier: Modifier = Modifier,
-    pref: String,
+    key: String,
     description: @Composable (T) -> String,
     default: T,
     range: ClosedFloatingPointRange<Float>,
@@ -34,11 +34,11 @@ fun <T: Number> SliderPreference(
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    val b = (ctx.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val initialValue = if (default is Int || default is Float)
-        getPrefOfType(prefs, pref, default)
+        getPrefOfType(prefs, key, default)
     else throw IllegalArgumentException("only float and int are supported")
 
     var showDialog by remember { mutableStateOf(false) }
@@ -52,8 +52,8 @@ fun <T: Number> SliderPreference(
         SliderDialog(
             onDismissRequest = { showDialog = false },
             onDone = {
-                if (default is Int) prefs.edit().putInt(pref, it.toInt()).apply()
-                else prefs.edit().putFloat(pref, it).apply()
+                if (default is Int) prefs.edit().putInt(key, it.toInt()).apply()
+                else prefs.edit().putFloat(key, it).apply()
             },
             initialValue = initialValue.toFloat(),
             range = range,
@@ -63,7 +63,7 @@ fun <T: Number> SliderPreference(
             },
             onValueChanged = onValueChanged,
             showDefault = true,
-            onDefault = { prefs.edit().remove(pref).apply() },
+            onDefault = { prefs.edit().remove(key).apply() },
             intermediateSteps = stepSize?.let {
                 // this is not nice, but slider wants it like this...
                 ((range.endInclusive - range.start) / it - 1).toInt()
@@ -74,16 +74,16 @@ fun <T: Number> SliderPreference(
 @Composable
 // just in here so we can keep getPrefOfType private... rename file?
 fun <T: Any> ListPreference(
-    def: PrefDef,
+    setting: Setting,
     items: List<Pair<String, T>>,
     default: T,
     onChanged: (T) -> Unit = { }
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
-    val selected = items.firstOrNull { it.second == getPrefOfType(prefs, def.key, default) }
+    val selected = items.firstOrNull { it.second == getPrefOfType(prefs, setting.key, default) }
     Preference(
-        name = def.title,
+        name = setting.title,
         description = selected?.first,
         onClick = { showDialog = true }
     )
@@ -93,11 +93,11 @@ fun <T: Any> ListPreference(
             items = items,
             onItemSelected = {
                 if (it == selected) return@ListPickerDialog
-                putPrefOfType(prefs, def.key, it.second)
+                putPrefOfType(prefs, setting.key, it.second)
                 onChanged(it.second)
             },
             selectedItem = selected,
-            title = { Text(def.title) },
+            title = { Text(setting.title) },
             getItemName = { it.first }
         )
     }

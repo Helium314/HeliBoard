@@ -22,12 +22,12 @@ import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getEnabledSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.AllPrefs
+import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
-import helium314.keyboard.settings.PrefDef
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchPrefScreen
-import helium314.keyboard.settings.SettingsActivity2
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
@@ -38,7 +38,7 @@ fun PreferencesScreen(
     onClickBack: () -> Unit,
 ) {
     val prefs = LocalContext.current.prefs()
-    val b = (LocalContext.current.getActivity() as? SettingsActivity2)?.prefChanged?.collectAsState()
+    val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val items = listOfNotNull(
@@ -79,51 +79,51 @@ fun PreferencesScreen(
     )
 }
 
-fun createPreferencesPrefs(context: Context) = listOf(
-    PrefDef(context, Settings.PREF_SHOW_HINTS, R.string.show_hints, R.string.show_hints_summary) {
+fun createPreferencesSettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_SHOW_HINTS, R.string.show_hints, R.string.show_hints_summary) {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER, R.string.hint_source) {
+    Setting(context, Settings.PREF_POPUP_KEYS_LABELS_ORDER, R.string.hint_source) {
         ReorderSwitchPreference(it, POPUP_KEYS_LABEL_DEFAULT)
     },
-    PrefDef(context, Settings.PREF_POPUP_KEYS_ORDER, R.string.popup_order) {
+    Setting(context, Settings.PREF_POPUP_KEYS_ORDER, R.string.popup_order) {
         ReorderSwitchPreference(it, POPUP_KEYS_ORDER_DEFAULT)
     },
-    PrefDef(context, Settings.PREF_SHOW_POPUP_HINTS, R.string.show_popup_hints, R.string.show_popup_hints_summary) {
+    Setting(context, Settings.PREF_SHOW_POPUP_HINTS, R.string.show_popup_hints, R.string.show_popup_hints_summary) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_POPUP_ON, R.string.popup_on_keypress) {
+    Setting(context, Settings.PREF_POPUP_ON, R.string.popup_on_keypress) {
         val dm = LocalContext.current.resources.displayMetrics
         val px600 = with(LocalDensity.current) { 600.dp.toPx() }
         SwitchPreference(it, dm.widthPixels >= px600 || dm.heightPixels >= px600)
     },
-    PrefDef(context, Settings.PREF_VIBRATE_ON, R.string.vibrate_on_keypress) {
+    Setting(context, Settings.PREF_VIBRATE_ON, R.string.vibrate_on_keypress) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_VIBRATE_IN_DND_MODE, R.string.vibrate_in_dnd_mode) {
+    Setting(context, Settings.PREF_VIBRATE_IN_DND_MODE, R.string.vibrate_in_dnd_mode) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
+    Setting(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
+    Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
     {
         SwitchPreference(it, true)
     },
-    PrefDef(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
+    Setting(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_LOCALIZED_NUMBER_ROW, R.string.localized_number_row, R.string.localized_number_row_summary) {
+    Setting(context, Settings.PREF_LOCALIZED_NUMBER_ROW, R.string.localized_number_row, R.string.localized_number_row_summary) {
         SwitchPreference(it, true) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
-    PrefDef(context, Settings.PREF_SHOW_NUMBER_ROW_HINTS, R.string.number_row_hints) {
+    Setting(context, Settings.PREF_SHOW_NUMBER_ROW_HINTS, R.string.number_row_hints) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, R.string.show_language_switch_key) {
+    Setting(context, Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, R.string.show_language_switch_key) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_LANGUAGE_SWITCH_KEY, R.string.language_switch_key_behavior) {
+    Setting(context, Settings.PREF_LANGUAGE_SWITCH_KEY, R.string.language_switch_key_behavior) {
         ListPreference(
             it,
             listOf(
@@ -134,18 +134,18 @@ fun createPreferencesPrefs(context: Context) = listOf(
             "internal"
         ) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
+    Setting(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, false)
     },
-    PrefDef(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
+    Setting(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)
     {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
-    PrefDef(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { def ->
+    Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { setting ->
         SliderPreference(
-            name = def.title,
-            pref = def.key,
+            name = setting.title,
+            key = setting.key,
             default = 10,
             description = {
                 if (it < 0) stringResource(R.string.settings_no_limit)
@@ -154,10 +154,10 @@ fun createPreferencesPrefs(context: Context) = listOf(
             range = -1f..120f,
         )
     },
-    PrefDef(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { def ->
+    Setting(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { setting ->
         SliderPreference(
-            name = def.title,
-            pref = def.key,
+            name = setting.title,
+            key = setting.key,
             default = -1,
             description = {
                 if (it < 0) stringResource(R.string.settings_system_default)
@@ -167,11 +167,11 @@ fun createPreferencesPrefs(context: Context) = listOf(
             onValueChanged = { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) }
         )
     },
-    PrefDef(context, Settings.PREF_KEYPRESS_SOUND_VOLUME, R.string.prefs_keypress_sound_volume_settings) { def ->
+    Setting(context, Settings.PREF_KEYPRESS_SOUND_VOLUME, R.string.prefs_keypress_sound_volume_settings) { setting ->
         val audioManager = LocalContext.current.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         SliderPreference(
-            name = def.title,
-            pref = def.key,
+            name = setting.title,
+            key = setting.key,
             default = -0.01f,
             description = {
                 if (it < 0) stringResource(R.string.settings_system_default)
@@ -189,7 +189,7 @@ private val localesWithLocalizedNumberRow = listOf("ar", "bn", "fa", "gu", "hi",
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity2.allPrefs = AllPrefs(LocalContext.current)
+    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
     Theme(true) {
         Surface {
             PreferencesScreen { }
