@@ -22,10 +22,10 @@ import helium314.keyboard.latin.settings.DebugSettingsFragment
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
 import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.Preference
+import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
-import helium314.keyboard.settings.SwitchPreference
+import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.keyboardNeedsReload

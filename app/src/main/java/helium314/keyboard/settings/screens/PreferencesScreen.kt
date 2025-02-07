@@ -23,13 +23,13 @@ import helium314.keyboard.latin.utils.getEnabledSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.AllPrefs
-import helium314.keyboard.settings.ListPreference
+import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.PrefDef
-import helium314.keyboard.settings.ReorderSwitchPreference
+import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity2
-import helium314.keyboard.settings.SliderPreference
-import helium314.keyboard.settings.SwitchPreference
+import helium314.keyboard.settings.preferences.SliderPreference
+import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.keyboardNeedsReload
 

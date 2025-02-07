@@ -14,7 +14,6 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  maybe move some large prefs out of their screens into separate files (backup/restore!)
 //  use better / more structured and clear names and arrangement of files
 //   the prefDef and AllPrefs, also be clear about pref <-> key <-> prefKey (all used, probably should be latter)
 //   there is a lot more ambiguous naming...
