@@ -113,6 +113,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void forceUpdateKeyboardTheme(@NonNull Context displayContext) {
+        Settings settings = Settings.getInstance();
+        settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
         mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
     }
 
