@@ -34,6 +34,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -83,12 +84,9 @@ fun <T: Any> SearchScreen(
     itemContent: @Composable (T) -> Unit,
     content: @Composable (ColumnScope.() -> Unit)? = null,
 ) {
-    var searchText by remember { mutableStateOf(TextFieldValue()) } // must be outside the column to work without messing up cursor position
+    var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Column(Modifier.fillMaxSize()) {
-        // rememberSaveable would be better, but does not work with TextFieldValue
-        //  if we just store the string, the cursor is messed up
-        //  hmm... no, sth else is messing up that thing, and I just didn't notice
-        var showSearch by remember { mutableStateOf(false) }
+        var showSearch by rememberSaveable { mutableStateOf(false) }
 
         fun setShowSearch(value: Boolean) {
             showSearch = value

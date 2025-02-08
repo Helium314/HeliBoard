@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,7 +42,7 @@ fun <T: Number> SliderPreference(
         getPrefOfType(prefs, key, default)
     else throw IllegalArgumentException("only float and int are supported")
 
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     Preference(
         name = name,
         onClick = { showDialog = true },
@@ -79,7 +80,7 @@ fun <T: Any> ListPreference(
     default: T,
     onChanged: (T) -> Unit = { }
 ) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
     val selected = items.firstOrNull { it.second == getPrefOfType(prefs, setting.key, default) }
     Preference(

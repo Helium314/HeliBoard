@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,7 +74,7 @@ fun createToolbarSettingss(context: Context) = listOf(
         ReorderSwitchPreference(it, defaultClipboardToolbarPref)
     },
     Setting(context, SettingsWithoutKey.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
-        var showDialog by remember { mutableStateOf(false) }
+        var showDialog by rememberSaveable { mutableStateOf(false) }
         Preference(
             name = it.title,
             onClick = { showDialog = true },

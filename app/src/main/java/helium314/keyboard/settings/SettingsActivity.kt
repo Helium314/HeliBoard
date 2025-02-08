@@ -14,8 +14,6 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  try implementation("com.github.skydoves:colorpicker-compose:1.1.2")
-//  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)

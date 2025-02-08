@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -149,7 +150,7 @@ fun createCorrectionSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         R.string.use_personalized_dicts, R.string.use_personalized_dicts_summary
     ) { setting ->
-        var showConfirmDialog by remember { mutableStateOf(false) }
+        var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
         SwitchPreference(setting, true,
             allowCheckedChange = {
                 showConfirmDialog = !it

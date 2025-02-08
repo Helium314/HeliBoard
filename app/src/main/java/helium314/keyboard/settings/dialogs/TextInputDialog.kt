@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -40,12 +41,19 @@ fun TextInputDialog(
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
     val focusRequester = remember { FocusRequester() }
-
-    var value by remember {
-        mutableStateOf(TextFieldValue(initialText, selection = TextRange(if (singleLine) initialText.length else 0)))
+    // crappy workaround because otherwise we get a disappearing dialog and a crash
+    // but doesn't work perfectly, dialog doesn't nicely show up again...
+    // todo: understand why it works in ExpandableSearchField, but not here
+    var done by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(initialText) {
+        if (done) return@LaunchedEffect
+        focusRequester.requestFocus()
+        done = true
     }
 
-    LaunchedEffect(initialText) { focusRequester.requestFocus() }
+    var value by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(initialText, selection = TextRange(if (singleLine) initialText.length else 0)))
+    }
 
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,

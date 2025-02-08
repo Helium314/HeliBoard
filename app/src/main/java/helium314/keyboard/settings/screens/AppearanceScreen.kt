@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -122,7 +123,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
-        var showDialog by remember { mutableStateOf(false) }
+        var showDialog by rememberSaveable { mutableStateOf(false) }
         Preference(
             name = setting.title,
             onClick = { showDialog = true }
@@ -269,7 +270,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { setting ->
-        var showDialog by remember { mutableStateOf(false) }
+        var showDialog by rememberSaveable { mutableStateOf(false) } // todo: textInputDialog...
         val prefs = LocalContext.current.prefs()
         Preference(
             name = setting.title,

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,8 +48,8 @@ fun ToolbarKeysCustomizer(
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    var showKeyCustomizer: ToolbarKey? by remember { mutableStateOf(null) }
-    var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
+    var showKeyCustomizer: ToolbarKey? by rememberSaveable { mutableStateOf(null) }
+    var showDeletePrefConfirmDialog by rememberSaveable { mutableStateOf(false) }
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         cancelButtonText = stringResource(R.string.dialog_close),
@@ -100,8 +101,8 @@ private fun ToolbarKeyCustomizer(
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    var code by remember { mutableStateOf(TextFieldValue(getCodeForToolbarKey(key).toString())) }
-    var longPressCode by remember { mutableStateOf(TextFieldValue(getCodeForToolbarKeyLongClick(key).toString())) }
+    var code by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(getCodeForToolbarKey(key).toString())) }
+    var longPressCode by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(getCodeForToolbarKeyLongClick(key).toString())) }
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = {

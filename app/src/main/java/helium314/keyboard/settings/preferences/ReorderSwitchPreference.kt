@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +24,7 @@ import helium314.keyboard.settings.screens.GetIcon
 
 @Composable
 fun ReorderSwitchPreference(setting: Setting, default: String) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     Preference(
         name = setting.title,
         description = setting.description,
@@ -48,7 +49,7 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
             items = items,
             title = { Text(setting.title) },
             displayItem = { item ->
-                var checked by remember { mutableStateOf(item.state) }
+                var checked by rememberSaveable { mutableStateOf(item.state) }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     KeyboardIconsSet.instance.GetIcon(item.name)
                     val text = item.name.lowercase().getStringResourceOrName("", ctx)

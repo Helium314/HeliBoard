@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
@@ -19,9 +20,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,8 +67,8 @@ fun CustomizeIconsDialog(
             else item
         }
     }
-    var showIconDialog: Pair<String, String>? by remember { mutableStateOf(null) }
-    var showDeletePrefConfirmDialog by remember { mutableStateOf(false) }
+    var showIconDialog: Pair<String, String>? by rememberSaveable { mutableStateOf(null) }
+    var showDeletePrefConfirmDialog by rememberSaveable { mutableStateOf(false) }
     val prefs = ctx.prefs()
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -97,7 +100,13 @@ fun CustomizeIconsDialog(
         iconsSet.addAll(iconsForName)
         KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) }
         val icons = iconsSet.toList()
-        var selectedIcon by remember { mutableStateOf(KeyboardIconsSet.instance.iconIds[iconName]) }
+        var selectedIcon by rememberSaveable { mutableStateOf(KeyboardIconsSet.instance.iconIds[iconName]) }
+
+        val gridState = rememberLazyGridState()
+        LaunchedEffect(selectedIcon) {
+            val index = icons.indexOf(selectedIcon)
+            if (index != -1) gridState.scrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
+        }
         ThreeButtonAlertDialog(
             onDismissRequest = { showIconDialog = null },
             onConfirmed = {
@@ -123,7 +132,8 @@ fun CustomizeIconsDialog(
             title = { Text(showIconDialog!!.second) },
             text = {
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 64.dp)
+                    columns = GridCells.Adaptive(minSize = 64.dp),
+                    state = gridState
                 ) {
                     items(icons, key = { it }) { resId ->
                         val drawable = ContextCompat.getDrawable(ctx, resId)?.mutate() ?: return@items

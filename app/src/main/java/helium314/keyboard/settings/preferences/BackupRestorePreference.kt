@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -55,10 +56,10 @@ import java.util.zip.ZipOutputStream
 
 @Composable
 fun BackupRestorePreference(setting: Setting) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    var error: String? by remember { mutableStateOf(null) }
+    var error: String? by rememberSaveable { mutableStateOf(null) }
     val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
         "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups

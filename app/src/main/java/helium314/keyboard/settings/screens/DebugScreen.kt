@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -57,7 +58,7 @@ fun createDebugSettings(context: Context) = listOf(
     },
     Setting(context, DebugSettings.PREF_DEBUG_MODE, R.string.prefs_debug_mode) { setting ->
         val prefs = LocalContext.current.prefs()
-        var showConfirmDialog by remember { mutableStateOf(false) }
+        var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
         SwitchPreference(
             name = setting.title,
             key = setting.key,
@@ -79,7 +80,7 @@ fun createDebugSettings(context: Context) = listOf(
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
     Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
-        var showConfirmDialog by remember { mutableStateOf(false) }
+        var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
         SwitchPreference(it, false) { showConfirmDialog = true }
         if (showConfirmDialog) {
             ConfirmationDialog(

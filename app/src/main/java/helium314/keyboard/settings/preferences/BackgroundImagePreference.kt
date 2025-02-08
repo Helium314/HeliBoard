@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -33,10 +34,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
-    var showDayNightDialog by remember { mutableStateOf(false) }
-    var showSelectionDialog by remember { mutableStateOf(false) }
-    var showErrorDialog by remember { mutableStateOf(false) }
-    var isNight by remember { mutableStateOf(false) }
+    var showDayNightDialog by rememberSaveable { mutableStateOf(false) }
+    var showSelectionDialog by rememberSaveable { mutableStateOf(false) }
+    var showErrorDialog by rememberSaveable { mutableStateOf(false) }
+    var isNight by rememberSaveable { mutableStateOf(false) }
     val ctx = LocalContext.current
     fun getFile() = Settings.getCustomBackgroundFile(ctx, isNight, isLandscape)
     val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()

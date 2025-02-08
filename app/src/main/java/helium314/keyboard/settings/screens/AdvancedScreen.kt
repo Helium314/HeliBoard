@@ -165,7 +165,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         SwitchPreference(it, false)
     },
     Setting(context, Settings.PREF_CUSTOM_CURRENCY_KEY, R.string.customize_currencies) { setting ->
-        var showDialog by remember { mutableStateOf(false) }
+        var showDialog by remember { mutableStateOf(false) } // todo: textInputDialog...
         Preference(
             name = setting.title,
             onClick = { showDialog = true }

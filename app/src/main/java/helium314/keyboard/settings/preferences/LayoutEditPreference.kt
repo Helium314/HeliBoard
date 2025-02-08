@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
@@ -21,9 +22,9 @@ fun LayoutEditPreference(
     getItemName: @Composable (String) -> String,
     getDefaultLayout: @Composable (String?) -> String?,
 ) {
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     val ctx = LocalContext.current
-    var layout: String? by remember { mutableStateOf(null) }
+    var layout: String? by rememberSaveable { mutableStateOf(null) }
     Preference(
     name = setting.title,
     onClick = { showDialog = true }
