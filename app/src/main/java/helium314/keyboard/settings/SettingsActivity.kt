@@ -14,8 +14,6 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo
-//  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
-//   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
@@ -59,6 +57,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  syntax highlighting for json? should show basic json errors
 //  does restore prefs not delete dictionaries?
 //  don't require to switch keyboard when entering settings
+//  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
+//   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
+//   copying onMeasure from ClipboardHistoryView to KeyboardWrapperView helps
+//    but the keyboard is still empty/white
 
 // preliminary results:
 // looks ok (ugly M3 switches)
