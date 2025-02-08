@@ -14,6 +14,7 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
+//  try implementation("com.github.skydoves:colorpicker-compose:1.1.2")
 //  dialogs should be rememberSaveable to survive display orientation change and stuff?
 //  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
@@ -25,6 +26,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
 //    -> use remember for things that are slow, but be careful they don't change from outside the composable
+//   not so nice now on S4 mini, try non-debug
+//    maybe related to lazy column?
 //  PRs adding prefs -> need to finish and merge main before finishing this PR
 //   1263 (no response for several weeks now...)
 //  really use the restart dialog for debug settings stuff?
@@ -73,12 +76,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //   much of this is before the app actually starts (before App.onCreate), maybe loading the many compose classes slows down startup
 //  -> should be fine on reasonably recent phones (imo even still acceptable on S4 mini)
 // apk size increase
-//  ca 900 kb with base + material2
-//  another 300 kb with navHost (and activity-compose, but not needed)
-//  another 300 kb when switching material2 to material3
-//  ca 150 kb reduction when removing androidx.preference
-//  -> too much, but still ok if we can get nicer preference stuff
-//  meh, and using a TextField adds another 300 kb... huge chunks for sth that seems so small
+//  initially it was 900 kB, and another 300 kB for Material3
+//  textField and others add more (not sure what exactly), and now we're already at 2 MB...
 
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }

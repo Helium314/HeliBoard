@@ -71,7 +71,8 @@ fun AppearanceScreen(
         SettingsWithoutKey.BACKGROUND_IMAGE_LANDSCAPE,
         R.string.settings_category_miscellaneous,
         Settings.PREF_ENABLE_SPLIT_KEYBOARD,
-        Settings.PREF_SPLIT_SPACER_SCALE,
+        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false))
+            Settings.PREF_SPLIT_SPACER_SCALE else null,
         Settings.PREF_NARROW_KEY_GAPS,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
