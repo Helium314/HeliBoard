@@ -100,12 +100,13 @@ fun CustomizeIconsDialog(
         iconsSet.addAll(iconsForName)
         KeyboardIconsSet.getAllIcons(ctx).forEach { iconsSet.addAll(it.value) }
         val icons = iconsSet.toList()
-        var selectedIcon by rememberSaveable { mutableStateOf(KeyboardIconsSet.instance.iconIds[iconName]) }
+        val initialIcon = KeyboardIconsSet.instance.iconIds[iconName]
+        var selectedIcon by rememberSaveable { mutableStateOf(initialIcon) }
 
         val gridState = rememberLazyGridState()
-        LaunchedEffect(selectedIcon) {
-            val index = icons.indexOf(selectedIcon)
-            if (index != -1) gridState.scrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
+        LaunchedEffect(initialIcon) {
+            val index = icons.indexOf(initialIcon)
+            if (index != -1) gridState.animateScrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
         }
         ThreeButtonAlertDialog(
             onDismissRequest = { showIconDialog = null },

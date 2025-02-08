@@ -14,7 +14,6 @@ import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // todo (roughly in order)
-//  check dark and light theme (don't have dynamic)
 //  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
 //  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
