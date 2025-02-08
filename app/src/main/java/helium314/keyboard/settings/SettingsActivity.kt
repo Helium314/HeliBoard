@@ -13,9 +13,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
-// todo (roughly in order)
-//  any way to get rid of the "old" background on starting settings? probably comes from app theme, can we avoid it?
-//  try making old fragment back stuff work better, and try the different themes (with and without top bar, it should only appear for old fragments)
+// todo
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
 //  bg image inconsistent about being on toolbar or not (is this new?)
@@ -27,25 +25,25 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    maybe related to lazy column?
 //  PRs adding prefs -> need to finish and merge main before finishing this PR
 //   1263 (no response for several weeks now...)
-//  really use the restart dialog for debug settings stuff?
-//   could do it the old way, and hide debug settings from search
 
 // what should be done, but not in this PR
+//  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES into one pref (don't forget settings upgrade)
+//  replace the setup wizard
+//  platformActivityTheme background color should align with compose background (also consider dynamic colors)
+//   probably no need for appcompat any more
+//  replace color settings (should at least change how colors are stored, and have a color search/filter)
 //  in general: changes to anything outside the new settings (unless necessary), and changes to how screens / fragments work
 //  re-organize screens, no need to keep exactly the same arrangement
 //  language settings (should change more than just move to compose)
 //  user dictionary settings (or maybe leave old state for a while?)
-//  color settings (should at least change how colors are stored, and have a color search/filter)
 //  allow users to add custom themes instead of only having a single one (maybe also switchable in colors settings)
 //  one single place for default values (to be used in composables and settings)
 //   does it make sense to put this into PrefDef?
 //  make auto_correct_threshold a float directly with the list pref (needs pref upgrade)
-//  using context.prefs() outside settings
-//  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES into one pref (don't forget settings upgrade)
+//  use context.prefs() outside settings
 //  adjust debug settings
 //   have them in main screen?
 //   allow users to find the individual settings in search even if debug settings are not enabled?
-//  replace the setup wizard
 
 //  consider disabled settings & search
 //   don't show -> users confused

@@ -3,14 +3,10 @@ package helium314.keyboard.settings.screens
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,13 +24,15 @@ import helium314.keyboard.settings.SearchPrefScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.preferences.PreferenceCategory
 
 @Composable
 fun DebugScreen(
     onClickBack: () -> Unit,
 ) {
+    val ctx = LocalContext.current
+    val settings = createDebugSettings(ctx)
     val items = listOfNotNull(
         if (!BuildConfig.DEBUG) DebugSettings.PREF_SHOW_DEBUG_SETTINGS else null,
         DebugSettings.PREF_DEBUG_MODE,
@@ -44,13 +42,30 @@ fun DebugScreen(
         R.string.prefs_dump_dynamic_dicts
     ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + it }
     SearchPrefScreen(
-        onClickBack = onClickBack,
+        onClickBack = {
+            if (needsRestart) {
+                val intent = Intent.makeRestartActivityTask(ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)?.component)
+                intent.setPackage(ctx.packageName)
+                ctx.startActivity(intent)
+                Runtime.getRuntime().exit(0)
+            }
+            onClickBack()
+        },
         title = stringResource(R.string.debug_settings_title),
         prefs = items
-    )
+    ) {
+        LazyColumn {
+            items(items, key = { it }) { item ->
+                if (item is Int) PreferenceCategory(stringResource(item))
+                else settings.first { it.key == item }.Preference()
+            }
+        }
+    }
 }
 
-fun createDebugSettings(context: Context) = listOf(
+private var needsRestart = false
+
+private fun createDebugSettings(context: Context) = listOf(
     Setting(context, DebugSettings.PREF_SHOW_DEBUG_SETTINGS, R.string.prefs_show_debug_settings) { setting ->
         val prefs = LocalContext.current.prefs()
         SwitchPreference(setting, false)
@@ -58,7 +73,6 @@ fun createDebugSettings(context: Context) = listOf(
     },
     Setting(context, DebugSettings.PREF_DEBUG_MODE, R.string.prefs_debug_mode) { setting ->
         val prefs = LocalContext.current.prefs()
-        var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
         SwitchPreference(
             name = setting.title,
             key = setting.key,
@@ -66,29 +80,14 @@ fun createDebugSettings(context: Context) = listOf(
             default = false,
         ) {
             if (!it) prefs.edit().putBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false).apply()
-            showConfirmDialog = true
-        }
-        if (showConfirmDialog) {
-            ConfirmationDialog(
-                onDismissRequest = { showConfirmDialog = false },
-                onConfirmed = { Runtime.getRuntime().exit(0) },
-                text = { Text(stringResource(R.string.message_restart_required)) }
-            )
+            needsRestart = true
         }
     },
     Setting(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) {
         SwitchPreference(it, false) { keyboardNeedsReload = true }
     },
     Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
-        var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
-        SwitchPreference(it, false) { showConfirmDialog = true }
-        if (showConfirmDialog) {
-            ConfirmationDialog(
-                onDismissRequest = { showConfirmDialog = false },
-                onConfirmed = { Runtime.getRuntime().exit(0) },
-                text = { Text(stringResource(R.string.message_restart_required)) }
-            )
-        }
+        SwitchPreference(it, false) { needsRestart = true }
     },
     Setting(context, DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, R.string.sliding_key_input_preview, R.string.sliding_key_input_preview_summary) { def ->
         SwitchPreference(def, false)
