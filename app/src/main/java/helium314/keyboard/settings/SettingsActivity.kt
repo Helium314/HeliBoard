@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 // todo
 //  calling KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext()) while keyboard is showing shows just full screen background
 //   but reload while keyboard is showing would be great (isn't it at least semi-done when changing one-handed mode?)
-//  bg image inconsistent about being on toolbar or not (is this new?)
 //  performance
 //   find a nice way of testing (probably add logs for measuring time and recompositions)
 //   consider that stuff in composables can get called quite often on any changes
