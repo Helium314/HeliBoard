@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
@@ -212,7 +213,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         BackgroundImagePref(it, true)
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD, R.string.enable_split_keyboard) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, false) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
     Setting(context, Settings.PREF_SPLIT_SPACER_SCALE, R.string.split_spacer_scale) { setting ->
         SliderPreference(
@@ -224,7 +225,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, R.string.enable_split_keyboard_landscape) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, false) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
     Setting(context, Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE, R.string.split_spacer_scale_landscape) { setting ->
         SliderPreference(
