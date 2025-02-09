@@ -18,7 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.prefs
 import kotlin.math.abs
 
 class KeyboardWrapperView @JvmOverloads constructor(
@@ -78,8 +78,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
                     if (abs(changePercent) < 1) return@setOnTouchListener true
                     x = motionEvent.rawX
-                    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-                    val oldScale = Settings.readOneHandedModeScale(prefs, Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
+                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)

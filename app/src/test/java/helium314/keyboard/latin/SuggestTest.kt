@@ -15,6 +15,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
@@ -253,7 +254,7 @@ class SuggestTest {
     }
 
     @Test fun `shortcuts are not autocorrected when setting is off`() {
-        val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
+        val prefs = latinIME.prefs()
         prefs.edit { putBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, false) }
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
@@ -268,7 +269,7 @@ class SuggestTest {
     }
 
     private fun setAutCorrectThreshold(threshold: String) {
-        val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
+        val prefs = latinIME.prefs()
         prefs.edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
     }
 

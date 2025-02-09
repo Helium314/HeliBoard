@@ -243,7 +243,7 @@ private fun loadResourceSubtypes(resources: Resources) {
 
 // remove custom subtypes without a layout file
 private fun removeInvalidCustomSubtypes(context: Context) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
     val customSubtypeFiles by lazy { getCustomLayoutFiles(context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
@@ -259,15 +259,14 @@ private fun removeInvalidCustomSubtypes(context: Context) {
 }
 
 private fun loadAdditionalSubtypes(context: Context) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(context.prefs(), context.resources)
     val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
     additionalSubtypes.addAll(subtypes)
 }
 
 // requires loadResourceSubtypes to be called before
 private fun loadEnabledSubtypes(context: Context) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
         .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 

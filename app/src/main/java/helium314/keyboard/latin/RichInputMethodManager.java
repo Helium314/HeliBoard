@@ -18,7 +18,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ScriptUtils;
@@ -171,7 +171,7 @@ public class RichInputMethodManager {
             if (imi == getInputMethodOfThisIme()) {
                 // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
                 // use it to fall back to system locales or en_US to avoid returning an empty list
-                result = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(sInstance.mContext), allowsImplicitlySelectedSubtypes);
+                result = SubtypeSettingsKt.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }
@@ -319,7 +319,7 @@ public class RichInputMethodManager {
 
         // search for first secondary language & script match
         final int count = subtypes.size();
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        final SharedPreferences prefs = KtxKt.prefs(mContext);
         final String language = locale.getLanguage();
         final String script = ScriptUtils.script(locale);
         for (int i = 0; i < count; ++i) {
@@ -350,13 +350,13 @@ public class RichInputMethodManager {
 
     public void refreshSubtypeCaches() {
         mInputMethodInfoCache.clear();
-        SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        SharedPreferences prefs = KtxKt.prefs(mContext);
         updateCurrentSubtype(SubtypeSettingsKt.getSelectedSubtype(prefs));
         updateShortcutIme();
     }
 
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
-        SubtypeSettingsKt.setSelectedSubtype(DeviceProtectedUtils.getSharedPreferences(mContext), subtype);
+        SubtypeSettingsKt.setSelectedSubtype(KtxKt.prefs(mContext), subtype);
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 

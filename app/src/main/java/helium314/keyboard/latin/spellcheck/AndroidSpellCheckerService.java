@@ -30,7 +30,7 @@ import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
@@ -79,7 +79,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public void onCreate() {
         super.onCreate();
         mRecommendedThreshold = Float.parseFloat(getString(R.string.spellchecker_recommended_threshold_value));
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
+        final SharedPreferences prefs = KtxKt.prefs(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
         final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());

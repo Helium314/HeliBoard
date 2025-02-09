@@ -13,7 +13,7 @@ import android.text.TextUtils;
 
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.settings.SettingsValues;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
 
@@ -339,7 +339,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         Log.i(TAG, "resetDictionaries, force reloading main dictionary: " + forceReloadMainDictionary);
         final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
-            addAll(Settings.getSecondaryLocales(DeviceProtectedUtils.getSharedPreferences(context), newLocale));
+            addAll(Settings.getSecondaryLocales(KtxKt.prefs(context), newLocale));
         }};
 
         // Do not use contacts dictionary if we do not have permissions to read contacts.

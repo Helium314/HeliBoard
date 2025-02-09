@@ -53,7 +53,7 @@ import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.DebugSettings;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.TypefaceUtils;
@@ -151,7 +151,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
 
         PointerTracker.init(mainKeyboardViewAttr, mTimerHandler, this /* DrawingProxy */);
 
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final SharedPreferences prefs = KtxKt.prefs(context);
         final boolean forceNonDistinctMultitouch = prefs.getBoolean(
                 DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, false);
         final boolean hasDistinctMultitouch = context.getPackageManager()

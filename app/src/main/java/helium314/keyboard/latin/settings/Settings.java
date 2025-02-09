@@ -40,6 +40,7 @@ import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.JniUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
@@ -237,7 +238,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private void onCreate(final Context context) {
         mContext = context;
-        mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
+        mPrefs = KtxKt.prefs(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
     }
 

@@ -13,6 +13,8 @@ import android.os.Binder;
 import android.provider.UserDictionary.Words;
 import android.service.textservice.SpellCheckerService.Session;
 import android.text.TextUtils;
+
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
 import android.view.inputmethod.InputMethodManager;
@@ -30,7 +32,6 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils;
 
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
@@ -153,7 +154,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     // localeString for this app is always empty, get it from settings if possible
                     // and we're sure this app is used
                     if (SubtypeSettingsKt.getInitialized() && "dummy".equals(currentInputMethodSubtype.getExtraValue())) {
-                        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mService);
+                        final SharedPreferences prefs = KtxKt.prefs(mService);
                         return SubtypeSettingsKt.getSelectedSubtype(prefs).getLocale();
                     }
                 }

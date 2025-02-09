@@ -28,13 +28,13 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 
 @SuppressLint("CustomViewStyleable")
@@ -68,7 +68,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        getEnabledClipboardToolbarKeys(DeviceProtectedUtils.getSharedPreferences(context))
+        getEnabledClipboardToolbarKeys(context.prefs())
             .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
     }

@@ -43,6 +43,7 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.infoDialog
+import helium314.keyboard.latin.utils.prefs
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
@@ -62,7 +63,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         get() = prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0)
         set(value) { prefs.edit().putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), value).apply() }
 
-    private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
+    private val prefs by lazy { requireContext().prefs() }
 
     private val colorPrefsAndNames by lazy {
         listOf(

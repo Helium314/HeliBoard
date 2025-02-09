@@ -9,14 +9,13 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.getCustomLayoutFile
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
@@ -39,7 +38,7 @@ class App : Application() {
 }
 
 fun checkVersionUpgrade(context: Context) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
@@ -171,7 +170,7 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
         }
     } catch (_: Exception) {}
     // upgrade prefs
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     if (prefs.all.containsKey("theme_variant")) {
         prefs.edit().putString(Settings.PREF_THEME_COLORS, prefs.getString("theme_variant", "")).apply()
         prefs.edit().remove("theme_variant").apply()

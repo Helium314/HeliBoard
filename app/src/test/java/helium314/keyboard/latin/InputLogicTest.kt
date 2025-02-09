@@ -22,8 +22,8 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.Robolectric
@@ -165,7 +165,7 @@ class InputLogicTest {
         input('.')
         input('a')
         assertEquals("hello.a", textBeforeCursor)
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello")
         input('.')
         input('a')
@@ -180,7 +180,7 @@ class InputLogicTest {
         input('a')
         assertEquals("hello.a", textBeforeCursor)
         assertEquals("hello.a there", text)
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setText("hello there")
         setCursorPosition(5) // after hello
         input('.')
@@ -191,7 +191,7 @@ class InputLogicTest {
 
     @Test fun noAutospaceInUrlField() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("example.net")
         assertEquals("example. net", text)
         lastAddedWord = ""
@@ -221,7 +221,7 @@ class InputLogicTest {
 
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("http://example.net")
         assertEquals("http://example.net", text)
         assertEquals("http", lastAddedWord)
@@ -230,14 +230,14 @@ class InputLogicTest {
 
     @Test fun noAutospaceForDetectedEmail() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("mail@example.com")
         assertEquals("mail@example.com", text)
         assertEquals("mail@example", lastAddedWord) // todo: do we want this? not really nice, but don't want to be too aggressive with URL detection disabled
         assertEquals("com", composingText) // todo: maybe this should still see the whole address as a single word? or don't be too aggressive?
         setText("")
         lastAddedWord = ""
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("mail@example.com")
         assertEquals("", lastAddedWord)
         assertEquals("mail@example.com", composingText)
@@ -245,23 +245,23 @@ class InputLogicTest {
 
     @Test fun urlDetectionThings() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("...h")
         assertEquals("...h", text)
         assertEquals("h", composingText)
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("bla..")
         assertEquals("bla..", text)
         assertEquals("", composingText)
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("bla.c")
         assertEquals("bla.c", text)
         assertEquals("bla.c", composingText)
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         input("bla")
         input('.')
         functionalKeyPress(KeyCode.SHIFT) // should remove the phantom space (in addition to normal effect)
@@ -272,7 +272,7 @@ class InputLogicTest {
 
     @Test fun stripSeparatorsBeforeAddingToHistoryWithURLDetection() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("example.com.")
         assertEquals("example.com.", composingText)
         input(' ')
@@ -281,7 +281,7 @@ class InputLogicTest {
 
     @Test fun dontSelectConsecutiveSeparatorsWithURLDetection() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("bla..")
         assertEquals("", composingText)
         assertEquals("bla..", text)
@@ -300,7 +300,7 @@ class InputLogicTest {
         input('a')
         input('b')
         assertEquals("", composingText)
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         input('.')
         input('c')
         assertEquals("", composingText)
@@ -315,7 +315,7 @@ class InputLogicTest {
 
     @Test fun `select whole thing except http(s) as composing word if URL detection enabled and selecting`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("http://example.com")
         setCursorPosition(13) // between l and e
         assertEquals("example.com", composingText)
@@ -326,14 +326,14 @@ class InputLogicTest {
 
     @Test fun `select whole thing except http(s) as composing word if URL detection enabled and typing`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("http://example.com")
         assertEquals("example.com", composingText)
     }
 
     @Test fun `don't add partial URL to history`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("http:/") // just so lastAddedWord isn't set to http
         chainInput("/bla.com")
         assertEquals("", lastAddedWord)
@@ -341,7 +341,7 @@ class InputLogicTest {
 
     @Test fun urlProperlySelected() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
@@ -357,7 +357,7 @@ class InputLogicTest {
 
     @Test fun urlProperlySelectedWhenNotDeletingFullTld() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setText("http://example.com/here")
         setCursorPosition(18) // after .com
         functionalKeyPress(KeyCode.DELETE)
@@ -372,7 +372,7 @@ class InputLogicTest {
 
     @Test fun dontCommitPartialUrlBeforeFirstPeriod() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         // type http://bla. -> bla not selected, but clearly url, also means http://bla is committed which we probably don't want
         chainInput("http://bla.")
         assertEquals("bla.", composingText)
@@ -391,7 +391,7 @@ class InputLogicTest {
 
     @Test fun `intermediate commit in text field without protocol and with URL detection`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("bla.com/img.jpg")
         assertEquals("bla", lastAddedWord)
         assertEquals("bla.com/img.jpg", composingText)
@@ -399,7 +399,7 @@ class InputLogicTest {
 
     @Test fun `only protocol commit in text field with protocol and URL detection`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("http://bla.com/img.jpg")
         assertEquals("http", lastAddedWord)
         assertEquals("bla.com/img.jpg", composingText)
@@ -416,7 +416,7 @@ class InputLogicTest {
 
     @Test fun `no intermediate commit in URL field with protocol and URL detection`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("http://bla.com/img.jpg")
         assertEquals("http", lastAddedWord) // todo: somehow avoid?
@@ -435,7 +435,7 @@ class InputLogicTest {
 
     @Test fun `no intermediate commit in URL field without protocol and with URL detection`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("bla.com/img.jpg")
         assertEquals("", lastAddedWord)
@@ -446,7 +446,7 @@ class InputLogicTest {
     @Test fun `don't accidentally detect some other text fields as URI`() {
         // see comment in InputLogic.textBeforeCursorMayBeUrlOrSimilar
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE)
         chainInput("Hey,why")
         assertEquals("Hey, why", text)
@@ -460,7 +460,7 @@ class InputLogicTest {
         assertEquals("", composingText)
         // then with URL detection
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         chainInput("15:50-17")
         assertEquals("15:50-17", text)
         assertEquals("", composingText)
@@ -476,7 +476,7 @@ class InputLogicTest {
 
     @Test fun `autospace works in URL field when input isn't URL`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         pickSuggestion("this")
         input('b')
@@ -488,7 +488,7 @@ class InputLogicTest {
     // https://github.com/Helium314/HeliBoard/issues/229
     @Test fun `autospace works in URL field when input isn't URL, also for multiple suggestions`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         pickSuggestion("this")
         pickSuggestion("is")
@@ -545,7 +545,7 @@ class InputLogicTest {
 
     @Test fun `autospace works in URL field when starting with quotes`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         input("\"")
         pickSuggestion("this")
@@ -569,21 +569,21 @@ class InputLogicTest {
         assertEquals("\"\"\"", text)
 
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"\"\"")
         assertEquals("\"\"\"", text)
     }
 
     @Test fun `autospace still happens after "`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\"you")
         assertEquals("\"hello\" you", text)
     }
 
     @Test fun `autospace still happens after " if next word is in quotes`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\"\"you\"")
         assertEquals("\"hello\" \"you\"", text)
     }
@@ -599,14 +599,14 @@ class InputLogicTest {
 
     @Test fun `autospace still happens after " if nex word is in " and after comma`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("\"hello\",\"you\"")
         assertEquals("\"hello\", \"you\"", text)
     }
 
     @Test fun `autospace in json editor`() {
         reset()
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
         chainInput("{\"label\":\"")
         assertEquals("{\"label\": \"", text)
         input('c')
@@ -676,7 +676,7 @@ class InputLogicTest {
         lastAddedWord = ""
 
         // reset settings
-        DeviceProtectedUtils.getSharedPreferences(latinIME).edit { clear() }
+        latinIME.prefs().edit { clear() }
 
         setText("") // (re)sets selection and composing word
     }

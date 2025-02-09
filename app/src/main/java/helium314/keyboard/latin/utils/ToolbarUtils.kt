@@ -62,7 +62,7 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
 
 private fun setToolbarButtonActivatedState(button: ImageButton) {
     button.isActivated = when (button.tag) {
-        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(button.context))
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(button.context.prefs())
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         SPLIT -> Settings.getInstance().current.mIsSplitKeyboardEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
@@ -226,7 +226,7 @@ fun toolbarKeysCustomizer(context: Context) {
         .setTitle(R.string.customize_toolbar_key_codes)
         .setView(ScrollView(context).apply { addView(ll) })
         .setPositiveButton(R.string.dialog_close, null)
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
         builder.setNeutralButton(R.string.button_default) { _, _ ->
             confirmDialog(context, context.getString(R.string.customize_toolbar_key_code_reset_message), context.getString(android.R.string.ok)) {
@@ -257,7 +257,7 @@ fun toolbarKeysCustomizer(context: Context) {
 @SuppressLint("SetTextI18n")
 private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     val layout = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     var keyCode: String? = null
     var longpressCode: String? = null
     val builder = AlertDialog.Builder(context)

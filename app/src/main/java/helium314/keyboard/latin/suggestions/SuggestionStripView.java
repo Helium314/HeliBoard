@@ -58,7 +58,7 @@ import helium314.keyboard.latin.settings.DebugSettings;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
@@ -143,7 +143,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final SharedPreferences prefs = KtxKt.prefs(context);
         DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -392,9 +392,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag);
                 mToolbar.findViewWithTag(tag).setBackground(mEnabledToolKeyBackground);
-                ToolbarUtilsKt.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.addPinnedKey(KtxKt.prefs(getContext()), tag);
             } else {
-                ToolbarUtilsKt.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.removePinnedKey(KtxKt.prefs(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
             }

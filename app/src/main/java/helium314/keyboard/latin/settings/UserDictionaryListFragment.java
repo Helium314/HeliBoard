@@ -24,7 +24,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
@@ -105,7 +105,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     }
 
     static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final SharedPreferences prefs = KtxKt.prefs(context);
         final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
         final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 

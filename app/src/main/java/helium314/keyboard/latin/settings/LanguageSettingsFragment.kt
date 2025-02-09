@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
@@ -29,6 +28,7 @@ import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getEnabledSubtypes
 import helium314.keyboard.latin.utils.getSystemLocales
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.prefs
 import java.util.*
 
 // not a SettingsFragment, because with androidx.preferences it's very complicated or
@@ -38,7 +38,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private lateinit var languageFilterList: LanguageFilterList
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var prefs: SharedPreferences
     private lateinit var systemOnlySwitch: Switch
     private val dictionaryLocales by lazy { getDictionaryLocales(requireContext()) }
 
@@ -56,22 +56,22 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = DeviceProtectedUtils.getSharedPreferences(requireContext())
+        prefs = requireContext().prefs()
 
         SubtypeLocaleUtils.init(requireContext())
 
-        enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
+        enabledSubtypes.addAll(getEnabledSubtypes(prefs))
         systemLocales.addAll(getSystemLocales())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
         systemOnlySwitch = view.findViewById(R.id.language_switch)
-        systemOnlySwitch.isChecked = sharedPreferences.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
+        systemOnlySwitch.isChecked = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
         systemOnlySwitch.setOnCheckedChangeListener { _, b ->
-            sharedPreferences.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
+            prefs.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
             enabledSubtypes.clear()
-            enabledSubtypes.addAll(getEnabledSubtypes(sharedPreferences))
+            enabledSubtypes.addAll(getEnabledSubtypes(prefs))
             loadSubtypes(b)
         }
         languageFilterList = LanguageFilterList(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))

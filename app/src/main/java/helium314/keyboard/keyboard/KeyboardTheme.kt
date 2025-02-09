@@ -18,7 +18,7 @@ import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
 import helium314.keyboard.latin.common.readAllColorsMap
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.prefs
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -84,7 +84,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
 
         @JvmStatic
         fun getKeyboardTheme(context: Context): KeyboardTheme {
-            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+            val prefs = context.prefs()
             val style = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL)
             val borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
             val matchingId = when (style) {

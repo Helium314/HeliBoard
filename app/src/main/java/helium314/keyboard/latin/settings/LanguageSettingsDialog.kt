@@ -39,7 +39,7 @@ class LanguageSettingsDialog(
     private val onlySystemLocales: Boolean,
     private val reloadSetting: () -> Unit
 ) : AlertDialog(context), LanguageSettingsFragment.Listener {
-    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    private val prefs = context.prefs()
     private val binding = LocaleSettingsDialogBinding.inflate(LayoutInflater.from(context))
     private val mainLocale = infos.first().subtype.locale()
     private var hasInternalDictForLanguage = false

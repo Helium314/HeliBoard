@@ -8,9 +8,9 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.customIconIds
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.prefs
 import java.util.Locale
 
 class KeyboardIconsSet private constructor() {
@@ -19,7 +19,7 @@ class KeyboardIconsSet private constructor() {
     private val iconsByName = HashMap<String, Drawable>(80)
 
     fun loadIcons(context: Context) {
-        val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+        val prefs = context.prefs()
         val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
         val defaultIds = when (iconStyle) {
             KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo
@@ -281,8 +281,7 @@ class KeyboardIconsSet private constructor() {
 
         fun getAllIcons(context: Context): Map<String, List<Int>> {
             // currently active style first
-            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-            val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
+            val iconStyle = context.prefs().getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
             return keyboardIconsMaterial.entries.associate { (name, id) ->
                 name to when (iconStyle) {
                     KeyboardTheme.STYLE_HOLO -> listOfNotNull(keyboardIconsHolo[name], keyboardIconsRounded[name], id)

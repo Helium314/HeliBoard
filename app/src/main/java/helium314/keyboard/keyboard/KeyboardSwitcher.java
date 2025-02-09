@@ -44,7 +44,7 @@ import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.CapsModeUtils;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
@@ -651,7 +651,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             mKeyboardView.closing();
         }
         PointerTracker.clearOldViewData();
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(displayContext);
+        final SharedPreferences prefs = KtxKt.prefs(displayContext);
         if (mSuggestionStripView != null)
             prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
         if (mClipboardHistoryView != null)

@@ -39,7 +39,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
 }
 
 fun showMissingDictionaryDialog(context: Context, locale: Locale) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, false) || locale.toString() == "zz")
         return
     val repositoryLink = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
@@ -99,7 +99,7 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
 fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val usedLocaleLanguageTags = hashSetOf<String>()
     getEnabledSubtypes(prefs).forEach { subtype ->
         val locale = subtype.locale()

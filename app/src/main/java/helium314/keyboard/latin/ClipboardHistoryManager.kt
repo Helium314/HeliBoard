@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isGone
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.compat.ClipboardManagerCompat
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -19,9 +18,9 @@ import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.isValidNumber
 import helium314.keyboard.latin.databinding.ClipboardSuggestionBinding
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.InputTypeUtils
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.prefs
 import kotlin.collections.ArrayList
 
 class ClipboardHistoryManager(
@@ -37,7 +36,7 @@ class ClipboardHistoryManager(
         clipboardManager.addPrimaryClipChangedListener(this)
         if (historyEntries.isEmpty())
             loadPinnedClips()
-        if (Settings.readClipboardHistoryEnabled(DeviceProtectedUtils.getSharedPreferences(latinIME)))
+        if (Settings.readClipboardHistoryEnabled(latinIME.prefs()))
             fetchPrimaryClip()
     }
 

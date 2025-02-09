@@ -13,7 +13,7 @@ import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
@@ -129,7 +129,7 @@ final class EmojiCategory {
     private int mCurrentCategoryPageId = 0;
 
     public EmojiCategory(final Context ctx, final KeyboardLayoutSet layoutSet, final TypedArray emojiPaletteViewAttr) {
-        mPrefs = DeviceProtectedUtils.getSharedPreferences(ctx);
+        mPrefs = KtxKt.prefs(ctx);
         mRes = ctx.getResources();
         mContext = ctx;
         mMaxRecentsKeyCount = mRes.getInteger(R.integer.config_emoji_keyboard_max_recents_key_count);

@@ -10,8 +10,8 @@ import android.content.Context
 import android.os.Build
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.settings.DebugSettings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.prefs
 import java.io.File
 import java.io.IOException
 import java.io.PrintWriter
@@ -24,8 +24,7 @@ object DebugFlags {
 
     @JvmStatic
     fun init(context: Context) {
-        val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-        DEBUG_ENABLED = prefs.getBoolean(DebugSettings.PREF_DEBUG_MODE, false)
+        DEBUG_ENABLED = context.prefs().getBoolean(DebugSettings.PREF_DEBUG_MODE, false)
         if (DEBUG_ENABLED || BuildConfig.DEBUG)
             CrashReportExceptionHandler(context.applicationContext).install()
     }

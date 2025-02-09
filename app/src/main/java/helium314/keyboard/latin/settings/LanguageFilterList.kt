@@ -21,12 +21,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.addEnabledSubtype
 import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.isAdditionalSubtype
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeEnabledSubtype
 import helium314.keyboard.latin.utils.showMissingDictionaryDialog
 
@@ -58,7 +58,7 @@ class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false
-    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    private val prefs = context.prefs()
     var fragment: LanguageSettingsFragment? = null
 
     var list: List<MutableList<SubtypeInfo>> = list
