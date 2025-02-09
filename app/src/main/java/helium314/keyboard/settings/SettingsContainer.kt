@@ -24,7 +24,11 @@ class SettingsContainer(context: Context) {
 
     operator fun get(key: Any): Setting? = map[key]
 
-    // could be more elaborate, but should be good enough for a start
+    // filtering could be more elaborate, but should be good enough for a start
+    // always have all settings in search, because:
+    //  don't show disabled settings -> users confused
+    //  show as disabled (i.e. no interaction possible) -> users confused
+    //  show, but change will not do anything because another setting needs to be enabled first -> probably best
     fun filter(searchTerm: String): List<Setting> {
         val term = searchTerm.lowercase()
         val results = mutableSetOf<Setting>()
