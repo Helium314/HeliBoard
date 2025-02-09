@@ -240,11 +240,11 @@ public class SettingsValues {
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
         mClipboardHistoryRetentionTime = Settings.readClipboardHistoryRetentionTime(prefs, res);
 
-        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
-        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+        mOneHandedModeEnabled = Settings.readOneHandedModeEnabled(prefs, isLandscape);
+        mOneHandedModeGravity = Settings.readOneHandedModeGravity(prefs, isLandscape);
         if (mOneHandedModeEnabled) {
             final float baseScale = res.getFraction(R.fraction.config_one_handed_mode_width, 1, 1);
-            final float extraScale = Settings.readOneHandedModeScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT);
+            final float extraScale = Settings.readOneHandedModeScale(prefs, isLandscape);
             mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
         } else
             mOneHandedModeScale = 1f;
@@ -270,8 +270,8 @@ public class SettingsValues {
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
-        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
-        mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, isLandscape);
+        mSidePaddingScale = Settings.readSidePaddingScale(prefs, isLandscape);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);

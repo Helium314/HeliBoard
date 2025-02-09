@@ -492,8 +492,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, false);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + portrait, false);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + !isLandscape, false);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
@@ -501,8 +501,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
-    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + portrait, 1f);
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + !isLandscape, 1f);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
@@ -511,8 +511,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     @SuppressLint("RtlHardcoded")
-    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + portrait, Gravity.LEFT);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + !isLandscape, Gravity.LEFT);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
