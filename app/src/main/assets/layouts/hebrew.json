@@ -2,12 +2,12 @@
   [
     { "$": "variation_selector",
       "email": { "label": "-" },
-      "url": { "label": "-" },
+      "uri": { "label": "-" },
       "default": { "label": "'", "popup": { "relevant": [{ "label": "׳" }, { "label": "״" }, { "label": "\"" }] } }
     },
     { "$": "variation_selector",
       "email": { "label": "_" },
-      "url": { "label": "_" },
+      "uri": { "label": "_" },
       "default": { "label": "-", "popup": { "relevant": [{ "label": "־" }, { "label": "_" }] } }
     },
     { "label": "ק", "popup": {

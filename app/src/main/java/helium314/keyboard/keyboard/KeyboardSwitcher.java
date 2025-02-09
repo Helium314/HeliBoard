@@ -541,7 +541,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     // Displays a toast-like message with the provided text for a specified duration.
-    public void showFakeToast(final String text, final int timeMillis) {
+    private void showFakeToast(final String text, final int timeMillis) {
         if (mFakeToastView.getVisibility() == View.VISIBLE) return;
 
         final Drawable appIcon = mFakeToastView.getCompoundDrawables()[0];

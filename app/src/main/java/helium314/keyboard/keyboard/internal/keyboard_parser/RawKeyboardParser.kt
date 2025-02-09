@@ -27,6 +27,7 @@ import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.getCustomFunctionalLayoutName
 import helium314.keyboard.latin.utils.getCustomLayoutFile
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -69,7 +70,9 @@ object RawKeyboardParser {
      *   codes of multi_text_key not used, only the label
      *   (currently) popups is always read to [number, main, relevant] layoutPopupKeys, no choice of which to use or which hint is provided
      */
-    fun parseJsonString(layoutText: String): List<List<AbstractKeyData>> = florisJsonConfig.decodeFromString(layoutText.stripCommentLines())
+    fun parseJsonString(layoutText: String, strict: Boolean = true): List<List<AbstractKeyData>> =
+        if (strict) checkJsonConfig.decodeFromString(layoutText.stripCommentLines())
+        else florisJsonConfig.decodeFromString(layoutText.stripCommentLines())
 
     /** Parse simple layouts, defined only as rows of (normal) keys with popup keys. */
     fun parseSimpleString(layoutText: String): List<List<KeyData>> {
@@ -90,7 +93,7 @@ object RawKeyboardParser {
         val layoutFileName = getLayoutFileName(layoutName, context)
         val layoutText = if (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
             try {
-                getCustomLayoutFile(layoutFileName, context).readText()
+                getCustomLayoutFile(layoutFileName, context).readText().trimStart()
             } catch (e: Exception) { // fall back to defaults if for some reason file is broken
                 val name = when {
                     layoutName.contains("functional") -> "functional_keys.json"
@@ -102,15 +105,17 @@ object RawKeyboardParser {
                 context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
             }
         } else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
-        if (layoutFileName.endsWith(".json") || layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+        if (layoutFileName.endsWith(".json") || (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX) && layoutText.startsWith("["))) {
             try {
-                val florisKeyData = parseJsonString(layoutText)
+                val florisKeyData = parseJsonString(layoutText, false)
                 return { params ->
                     florisKeyData.mapTo(mutableListOf()) { row ->
                         row.mapNotNullTo(mutableListOf()) { it.compute(params) }
                     }
                 }
-            } catch (_: Exception) { }
+            } catch (e: Exception) {
+                Log.w(TAG, "could not parse json layout for $layoutName, falling back to simple layout parsing", e)
+            }
         }
         // not a json, or invalid json
         val simpleKeyData = parseSimpleString(layoutText)
@@ -178,10 +183,44 @@ object RawKeyboardParser {
      * modified
      * SPDX-License-Identifier: Apache-2.0
      */
+    @OptIn(ExperimentalSerializationApi::class)
     private val florisJsonConfig = Json {
+        allowTrailingComma = true
         classDiscriminator = "$"
         encodeDefaults = true
         ignoreUnknownKeys = true
+        isLenient = true
+        serializersModule = SerializersModule {
+            polymorphic(AbstractKeyData::class) {
+                subclass(TextKeyData::class, TextKeyData.serializer())
+                subclass(AutoTextKeyData::class, AutoTextKeyData.serializer())
+                subclass(MultiTextKeyData::class, MultiTextKeyData.serializer())
+                subclass(CaseSelector::class, CaseSelector.serializer())
+                subclass(ShiftStateSelector::class, ShiftStateSelector.serializer())
+                subclass(VariationSelector::class, VariationSelector.serializer())
+                subclass(KeyboardStateSelector::class, KeyboardStateSelector.serializer())
+                subclass(LayoutDirectionSelector::class, LayoutDirectionSelector.serializer())
+                subclass(CharWidthSelector::class, CharWidthSelector.serializer())
+                subclass(KanaSelector::class, KanaSelector.serializer())
+                defaultDeserializer { TextKeyData.serializer() }
+            }
+            polymorphic(KeyData::class) {
+                subclass(TextKeyData::class, TextKeyData.serializer())
+                subclass(AutoTextKeyData::class, AutoTextKeyData.serializer())
+                subclass(MultiTextKeyData::class, MultiTextKeyData.serializer())
+                defaultDeserializer { TextKeyData.serializer() }
+            }
+        }
+    }
+
+    // copy of florisJsonConfig, but with ignoreUnknownKeys = false so users get warned
+    // this is not default because users may have old layouts that should not stop working on app upgrade
+    @OptIn(ExperimentalSerializationApi::class)
+    private val checkJsonConfig = Json {
+        allowTrailingComma = true
+        classDiscriminator = "$"
+        encodeDefaults = true
+        ignoreUnknownKeys = false
         isLenient = true
         serializersModule = SerializersModule {
             polymorphic(AbstractKeyData::class) {

@@ -458,6 +458,15 @@ f""", // no newline at the end
         }
     }
 
+    @Test fun parseExistingLayouts() {
+        latinIME.assets.list("layouts")?.forEach {
+            val content = latinIME.assets.open("layouts/$it").reader().readText()
+            if (it.endsWith(".json"))
+                RawKeyboardParser.parseJsonString(content)
+            else RawKeyboardParser.parseSimpleString(content)
+        }
+    }
+
     private data class Expected(val code: Int, val label: String? = null, val icon: String? = null, val text: String? = null, val popups: List<Pair<String?, Int>>? = null)
 
     private fun assertIsExpected(json: String, expected: Expected) {
