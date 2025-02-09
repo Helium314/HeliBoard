@@ -21,7 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-public final class SettingsActivity extends AppCompatActivity
+public final class OldSettingsActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 

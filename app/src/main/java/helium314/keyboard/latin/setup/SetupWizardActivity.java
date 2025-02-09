@@ -26,12 +26,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.utils.ActivityThemeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.LeakGuardHandlerWrapper;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
+import helium314.keyboard.settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -104,10 +104,9 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            return;
+        if (actionBar != null) {
+            actionBar.hide();
         }
-        actionBar.hide();
         getWindow().setStatusBarColor(getResources().getColor(R.color.setup_background));
         ActivityThemeUtils.setActivityTheme(this);
 
@@ -227,8 +226,8 @@ public final class SetupWizardActivity extends AppCompatActivity implements View
         intent.setClass(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(SettingsActivity.EXTRA_ENTRY_KEY,
-                SettingsActivity.EXTRA_ENTRY_VALUE_APP_ICON);
+//        intent.putExtra(OldSettingsActivity.EXTRA_ENTRY_KEY,
+//                OldSettingsActivity.EXTRA_ENTRY_VALUE_APP_ICON);
         startActivity(intent);
     }
 

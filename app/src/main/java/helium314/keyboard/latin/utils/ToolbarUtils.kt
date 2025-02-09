@@ -322,12 +322,12 @@ fun readCustomLongpressCodes(prefs: SharedPreferences) = prefs.getString(Setting
         it.substringBefore(",") to code
     }
 
-private fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
+fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
     val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")
     prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, string).apply()
 }
 
-private fun writeCustomLongpressCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
+fun writeCustomLongpressCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
     val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")
     prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, string).apply()
 }

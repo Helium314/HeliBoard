@@ -73,7 +73,6 @@ import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -89,6 +88,8 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
+import helium314.keyboard.settings.SettingsActivity;
+import helium314.keyboard.settings.SettingsActivityKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -899,6 +900,8 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        reloadIfNecessary();
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
@@ -1974,6 +1977,15 @@ public class LatinIME extends InputMethodService implements
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
                     KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
             // deallocateMemory always called on hiding, and should not be called when showing
+        }
+    }
+
+    private void reloadIfNecessary() {
+        // better do the reload when showing the keyboard next time, and not on settings change
+        if (SettingsActivityKt.keyboardNeedsReload) {
+            KeyboardLayoutSet.onKeyboardThemeChanged();
+            mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
+            SettingsActivityKt.keyboardNeedsReload = false;
         }
     }
 }

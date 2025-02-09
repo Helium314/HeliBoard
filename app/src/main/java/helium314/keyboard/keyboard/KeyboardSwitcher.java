@@ -113,6 +113,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void forceUpdateKeyboardTheme(@NonNull Context displayContext) {
+        Settings settings = Settings.getInstance();
+        settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
         mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
     }
 
@@ -489,8 +491,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // Reload the entire keyboard set with the same parameters, and switch to the previous layout
         boolean wasEmoji = isShowingEmojiPalettes();
         boolean wasClipboard = isShowingClipboardHistory();
-        loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
-                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        reloadKeyboard();
         if (wasEmoji)
             setEmojiKeyboard();
         else if (wasClipboard) {
@@ -511,8 +512,13 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 !settings.getCurrent().mIsSplitKeyboardEnabled,
                 mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE
         );
-        loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
-                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        reloadKeyboard();
+    }
+
+    public void reloadKeyboard() {
+        if (mCurrentInputView != null)
+            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getInstance().getCurrent(),
+                    mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
 
     /**

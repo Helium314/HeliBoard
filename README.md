@@ -105,7 +105,6 @@ __Planned features and improvements:__
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__
-* Material 3 (not worth adding 1.5 MB to app size)
 * Dictionaries for more languages (you can still download them)
 * Anything that requires additional permissions, unless there is a _very_ good reason
 
