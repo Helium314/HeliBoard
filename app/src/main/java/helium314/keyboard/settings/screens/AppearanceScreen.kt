@@ -73,6 +73,9 @@ fun AppearanceScreen(
         Settings.PREF_ENABLE_SPLIT_KEYBOARD,
         if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false))
             Settings.PREF_SPLIT_SPACER_SCALE else null,
+        Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE,
+        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, false))
+            Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE else null,
         Settings.PREF_NARROW_KEY_GAPS,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
@@ -212,6 +215,18 @@ fun createAppearanceSettings(context: Context) = listOf(
         SwitchPreference(it, false)
     },
     Setting(context, Settings.PREF_SPLIT_SPACER_SCALE, R.string.split_spacer_scale) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = SettingsValues.DEFAULT_SIZE_SCALE,
+            range = 0.5f..2f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { keyboardNeedsReload = true }
+    },
+    Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, R.string.enable_split_keyboard_landscape) {
+        SwitchPreference(it, false)
+    },
+    Setting(context, Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE, R.string.split_spacer_scale_landscape) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
