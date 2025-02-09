@@ -5,11 +5,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.isGone
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -29,6 +31,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         settingsContainer = SettingsContainer(this)
 
+        val spellchecker = intent?.getBooleanExtra("spellchecker", false) ?: false
+
         // todo: when removing old settings completely, remove settings_activity.xml and supportFragmentManager stuff
 //        val cv = ComposeView(context = this)
 //        setContentView(cv)
@@ -40,14 +44,20 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         findViewById<ComposeView>(R.id.navHost).setContent {
             Theme {
                 Surface {
-                    SettingsNavHost(
-                        onClickBack = {
-//                            this.finish() // todo: when removing old settings
-                            if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null)
-                                this.finish()
-                            else supportFragmentManager.popBackStack()
+                    if (spellchecker)
+                        Column { // lazy way of implementing spell checker settings
+                            settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
+                            settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                         }
-                    )
+                    else
+                    SettingsNavHost(
+                            onClickBack = {
+//                                this.finish() // todo: when removing old settings
+                                if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null)
+                                    this.finish()
+                                else supportFragmentManager.popBackStack()
+                            }
+                        )
                 }
             }
         }

@@ -92,8 +92,8 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </activity>
 
         <activity android:name=".spellcheck.SpellCheckerSettingsActivity"
-                  android:theme="@style/platformActivityTheme"
-                  android:label="@string/android_spell_checker_settings"
+                android:theme="@style/platformActivityTheme"
+                android:label="@string/spell_checker_service_name"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
