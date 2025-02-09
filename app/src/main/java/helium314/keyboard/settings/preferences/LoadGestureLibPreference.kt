@@ -82,6 +82,7 @@ fun LoadGestureLibPreference(setting: Setting) {
         ConfirmationDialog(
             onDismissRequest = { showDialog = false },
             onConfirmed = {
+                showDialog = false
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .setType("application/octet-stream")

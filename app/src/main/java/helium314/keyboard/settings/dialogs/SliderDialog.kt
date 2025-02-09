@@ -36,7 +36,7 @@ fun SliderDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         neutralButtonText = if (showDefault) stringResource(R.string.button_default) else null,
-        onNeutral = onDefault,
+        onNeutral = { onDismissRequest(); onDefault() },
         onConfirmed = { onDone(sliderPosition) },
         modifier = modifier,
         title = title,

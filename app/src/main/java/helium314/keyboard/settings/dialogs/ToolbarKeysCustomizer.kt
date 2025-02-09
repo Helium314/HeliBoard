@@ -114,6 +114,7 @@ private fun ToolbarKeyCustomizer(
                 stringResource(R.string.button_default)
             else null,
         onNeutral = {
+            onDismissRequest()
             val keys = readCustomKeyCodes(prefs).toMutableMap()
             keys.remove(key.name)
             prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()

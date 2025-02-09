@@ -74,7 +74,7 @@ fun ThreeButtonAlertDialog(
                 Row {
                     if (neutralButtonText != null)
                         TextButton(
-                            onClick = { onDismissRequest(); onNeutral() }
+                            onClick = onNeutral
                         ) { Text(neutralButtonText) }
                     Spacer(modifier.weight(1f))
                     TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }

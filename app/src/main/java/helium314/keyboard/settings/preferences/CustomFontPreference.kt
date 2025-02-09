@@ -63,6 +63,7 @@ fun CustomFontPreference(setting: Setting) {
             onDismissRequest = { showDialog = false },
             onConfirmed = { launcher.launch(intent) },
             onNeutral = {
+                showDialog = false
                 fontFile.delete()
                 Settings.clearCachedTypeface()
                 keyboardNeedsReload = true

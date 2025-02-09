@@ -52,7 +52,7 @@ fun <T: Any> ReorderDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { onConfirmed(reorderableItems) },
-        onNeutral = onNeutral,
+        onNeutral = { onDismissRequest(); onNeutral() },
         neutralButtonText = neutralButtonText,
         modifier = modifier,
         title = title,

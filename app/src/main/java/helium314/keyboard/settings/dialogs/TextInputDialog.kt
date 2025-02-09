@@ -61,7 +61,7 @@ fun TextInputDialog(
         confirmButtonText = confirmButtonText,
         checkOk = { checkTextValid(value.text) },
         neutralButtonText = neutralButtonText,
-        onNeutral = onNeutral,
+        onNeutral = { onDismissRequest(); onNeutral() },
         modifier = modifier,
         title = title,
         text = {

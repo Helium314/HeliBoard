@@ -193,6 +193,7 @@ fun BackupRestorePreference(setting: Setting) {
             confirmButtonText = stringResource(R.string.button_backup),
             neutralButtonText = stringResource(R.string.button_restore),
             onNeutral = {
+                showDialog = false
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .setType("application/zip")

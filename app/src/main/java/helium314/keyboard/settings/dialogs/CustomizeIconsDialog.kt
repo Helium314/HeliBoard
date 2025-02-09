@@ -121,6 +121,7 @@ fun CustomizeIconsDialog(
             },
             neutralButtonText = if (customIconNames(prefs).contains(iconName)) stringResource(R.string.button_default) else null,
             onNeutral = {
+                showIconDialog = null
                 runCatching {
                     val icons2 = customIconNames(prefs).toMutableMap()
                     icons2.remove(iconName)
