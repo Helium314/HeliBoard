@@ -82,4 +82,9 @@ fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
     }
 }
 
+/** SharedPreferences from deviceProtectedContext, which are accessible even without unlocking.
+ *  They should not be used to store sensitive data! */
 fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)
+
+/** The "default" preferences that are only accessible after the device has been unlocked. */
+fun Context.protectedPrefs(): SharedPreferences = getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE)

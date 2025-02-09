@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
-import androidx.preference.PreferenceManager;
 
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
@@ -587,7 +586,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static String readPinnedClipString(final Context context) {
         try {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
             return prefs.getString(PREF_PINNED_CLIPS, "");
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
@@ -597,7 +596,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void writePinnedClipString(final Context context, final String clips) {
         try {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
             prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked

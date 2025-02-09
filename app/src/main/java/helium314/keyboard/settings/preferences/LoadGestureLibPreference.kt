@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
@@ -21,7 +20,7 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.latin.utils.JniUtils
-import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import java.io.File
@@ -33,7 +32,7 @@ import java.io.IOException
 fun LoadGestureLibPreference(setting: Setting) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val ctx = LocalContext.current
-    val prefs = ctx.prefs()
+    val prefs = ctx.protectedPrefs()
     val abi = Build.SUPPORTED_ABIS[0]
     val libFile = File(ctx.filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
     fun renameToLibFileAndRestart(file: File, checksum: String) {

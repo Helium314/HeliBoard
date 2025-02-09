@@ -16,6 +16,7 @@ import helium314.keyboard.latin.utils.getCustomLayoutFile
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
 
@@ -233,8 +234,8 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     // move pinned clips to credential protected storage if device is not locked (should never happen)
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
     try {
-        val defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-        defaultPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
+        val defaultProtectedPrefs = context.protectedPrefs()
+        defaultProtectedPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
         prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
     } catch (_: IllegalStateException) {
         // SharedPreferences in credential encrypted storage are not available until after user is unlocked

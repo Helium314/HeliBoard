@@ -10,12 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.preference.PreferenceManager
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
@@ -39,6 +37,7 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import helium314.keyboard.settings.Setting
@@ -114,7 +113,7 @@ fun BackupRestorePreference(setting: Setting) {
                     settingsToJsonStream(prefs.all, zipStream)
                     zipStream.closeEntry()
                     zipStream.putNextEntry(ZipEntry(PROTECTED_PREFS_FILE_NAME))
-                    settingsToJsonStream(PreferenceManager.getDefaultSharedPreferences(ctx).all, zipStream)
+                    settingsToJsonStream(ctx.protectedPrefs().all, zipStream)
                     zipStream.closeEntry()
                     zipStream.close()
                 }
@@ -157,7 +156,7 @@ fun BackupRestorePreference(setting: Setting) {
                                 readJsonLinesToSettings(prefLines, prefs)
                             } else if (entry.name == PROTECTED_PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
-                                val protectedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx)
+                                val protectedPrefs = ctx.protectedPrefs()
                                 protectedPrefs.edit().clear().apply()
                                 readJsonLinesToSettings(prefLines, protectedPrefs)
                             }

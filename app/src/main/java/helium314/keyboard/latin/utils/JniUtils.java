@@ -11,8 +11,6 @@ import android.app.Application;
 import android.os.Build;
 import android.text.TextUtils;
 
-import androidx.preference.PreferenceManager;
-
 import helium314.keyboard.latin.App;
 import helium314.keyboard.latin.BuildConfig;
 import helium314.keyboard.latin.settings.Settings;
@@ -64,7 +62,7 @@ public final class JniUtils {
                     // we want the default preferences, because storing the checksum in device protected storage is discouraged
                     // see https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()
                     // if device is locked, this will throw an IllegalStateException
-                    wantedChecksum = PreferenceManager.getDefaultSharedPreferences(app).getString(Settings.PREF_LIBRARY_CHECKSUM, wantedChecksum);
+                    wantedChecksum = KtxKt.protectedPrefs(app).getString(Settings.PREF_LIBRARY_CHECKSUM, wantedChecksum);
                 }
                 final FileInputStream libStream = new FileInputStream(userSuppliedLibrary);
                 final String checksum = ChecksumCalculator.INSTANCE.checksum(libStream);
