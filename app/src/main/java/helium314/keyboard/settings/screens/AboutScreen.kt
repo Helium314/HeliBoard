@@ -33,7 +33,7 @@ import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import kotlinx.coroutines.Dispatchers
@@ -51,10 +51,10 @@ fun AboutScreen(
         SettingsWithoutKey.GITHUB,
         SettingsWithoutKey.SAVE_LOG
     )
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_about),
-        prefs = items
+        settings = items
     )
 }
 

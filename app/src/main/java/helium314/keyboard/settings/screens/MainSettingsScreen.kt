@@ -27,7 +27,7 @@ import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Theme
 
 @Composable
@@ -42,10 +42,10 @@ fun MainSettingsScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.ime_settings),
-        prefs = emptyList(),
+        settings = emptyList(),
     ) {
         Column(Modifier.verticalScroll(rememberScrollState())) {
             Preference(

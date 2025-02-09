@@ -20,7 +20,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
@@ -41,7 +41,7 @@ fun DebugScreen(
         DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW,
         R.string.prefs_dump_dynamic_dicts
     ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + it }
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = {
             if (needsRestart) {
                 val intent = Intent.makeRestartActivityTask(ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)?.component)
@@ -52,8 +52,9 @@ fun DebugScreen(
             onClickBack()
         },
         title = stringResource(R.string.debug_settings_title),
-        prefs = items
+        settings = emptyList()
     ) {
+        // the preferences are not in SettingsContainer, so set content instead
         LazyColumn {
             items(items, key = { it }) { item ->
                 if (item is Int) PreferenceCategory(stringResource(item))

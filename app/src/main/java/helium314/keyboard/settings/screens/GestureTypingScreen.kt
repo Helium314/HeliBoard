@@ -15,7 +15,7 @@ import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
@@ -31,23 +31,26 @@ fun GestureTypingScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val gestureFloatingPreviewEnabled = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true)
-    val items = listOf(Settings.PREF_GESTURE_INPUT) +
-            if (prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true))
-                listOfNotNull(
-                    Settings.PREF_GESTURE_PREVIEW_TRAIL,
-                    Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
-                    if (gestureFloatingPreviewEnabled)
-                        Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC else null,
-                    Settings.PREF_GESTURE_SPACE_AWARE,
-                    Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN,
-                    if (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true) || gestureFloatingPreviewEnabled)
-                        Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION else null
-                )
-            else emptyList()
-    SearchPrefScreen(
+    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true)
+    val items = listOf(
+        Settings.PREF_GESTURE_INPUT,
+        if (gestureEnabled)
+            Settings.PREF_GESTURE_PREVIEW_TRAIL else null,
+        if (gestureEnabled)
+            Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT else null,
+        if (gestureEnabled && gestureFloatingPreviewEnabled)
+            Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC else null,
+        if (gestureEnabled)
+            Settings.PREF_GESTURE_SPACE_AWARE else null,
+        if (gestureEnabled)
+            Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN else null,
+        if (gestureEnabled && (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true) || gestureFloatingPreviewEnabled))
+            Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION else null
+        )
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_gesture),
-        prefs = items
+        settings = items
     )
 }
 

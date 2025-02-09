@@ -26,7 +26,7 @@ import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
@@ -41,7 +41,7 @@ fun PreferencesScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val items = listOfNotNull(
+    val items = listOf(
         R.string.settings_category_input,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, true))
@@ -72,10 +72,10 @@ fun PreferencesScreen(
         if (prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true))
             Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME else null
     )
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_preferences),
-        prefs = items
+        settings = items
     )
 }
 

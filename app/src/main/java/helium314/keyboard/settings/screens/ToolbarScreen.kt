@@ -11,7 +11,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,7 +34,7 @@ import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
@@ -56,14 +55,14 @@ fun ToolbarScreen(
         Settings.PREF_AUTO_HIDE_TOOLBAR,
         Settings.PREF_VARIABLE_TOOLBAR_DIRECTION
     )
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_toolbar),
-        prefs = items
+        settings = items
     )
 }
 
-fun createToolbarSettingss(context: Context) = listOf(
+fun createToolbarSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
         ReorderSwitchPreference(it, defaultToolbarPref)
     },

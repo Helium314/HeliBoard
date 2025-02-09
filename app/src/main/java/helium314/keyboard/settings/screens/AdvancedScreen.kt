@@ -38,7 +38,7 @@ import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.preferences.SliderPreference
@@ -55,7 +55,7 @@ fun AdvancedSettingsScreen(
     onClickBack: () -> Unit,
 ) {
     val prefs = LocalContext.current.prefs()
-    val items = listOfNotNull(
+    val items = listOf(
         Settings.PREF_ALWAYS_INCOGNITO_MODE,
         Settings.PREF_KEY_LONGPRESS_TIMEOUT,
         Settings.PREF_SPACE_HORIZONTAL_SWIPE,
@@ -82,10 +82,10 @@ fun AdvancedSettingsScreen(
         Settings.PREF_URL_DETECTION,
         if (BuildConfig.BUILD_TYPE != "nouserlib") SettingsWithoutKey.LOAD_GESTURE_LIB else null
     )
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_advanced),
-        prefs = items
+        settings = items
     )
 }
 

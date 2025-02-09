@@ -4,13 +4,14 @@ package helium314.keyboard.settings
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import helium314.keyboard.settings.screens.createAboutSettings
 import helium314.keyboard.settings.screens.createAdvancedSettings
 import helium314.keyboard.settings.screens.createAppearanceSettings
 import helium314.keyboard.settings.screens.createCorrectionSettings
 import helium314.keyboard.settings.screens.createGestureTypingSettings
 import helium314.keyboard.settings.screens.createPreferencesSettings
-import helium314.keyboard.settings.screens.createToolbarSettingss
+import helium314.keyboard.settings.screens.createToolbarSettings
 
 class SettingsContainer(context: Context) {
     private val list = createSettings(context)
@@ -37,6 +38,7 @@ class SettingsContainer(context: Context) {
     }
 }
 
+@Immutable
 class Setting(
     context: Context,
     val key: String,
@@ -55,7 +57,7 @@ class Setting(
 
 // intentionally not putting individual debug settings in here so user knows the context
 private fun createSettings(context: Context) = createAboutSettings(context) +
-            createCorrectionSettings(context) + createPreferencesSettings(context) + createToolbarSettingss(context) +
+            createCorrectionSettings(context) + createPreferencesSettings(context) + createToolbarSettings(context) +
             createGestureTypingSettings(context) + createAdvancedSettings(context) + createAppearanceSettings(context)
 
 object SettingsWithoutKey {

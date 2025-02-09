@@ -34,7 +34,7 @@ import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.SearchPrefScreen
+import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
@@ -51,7 +51,7 @@ fun TextCorrectionScreen(
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, true)
     val suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, true)
-    val items = listOfNotNull(
+    val items = listOf(
         SettingsWithoutKey.EDIT_PERSONAL_DICTIONARY,
         R.string.settings_category_correction,
         Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE,
@@ -73,10 +73,10 @@ fun TextCorrectionScreen(
         if (prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true))
             Settings.PREF_ADD_TO_PERSONAL_DICTIONARY else null
     )
-    SearchPrefScreen(
+    SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.settings_screen_correction),
-        prefs = items
+        settings = items
     )
 }
 

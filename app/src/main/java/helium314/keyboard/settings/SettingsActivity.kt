@@ -13,19 +13,11 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
-// todo
-//  performance
-//   find a nice way of testing (probably add logs for measuring time and recompositions)
-//   consider that stuff in composables can get called quite often on any changes
-//    -> use remember for things that are slow, but be careful they don't change from outside the composable
-//   not so nice now on S4 mini, try non-debug
-//    maybe related to lazy column?
-//  PRs adding prefs -> need to finish and merge main before finishing this PR
-//   1263 (no response for several weeks now...)
-
 // what should be done, but not in this PR
 //  merge PREF_TOOLBAR_CUSTOM_KEY_CODES and PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES into one pref (don't forget settings upgrade)
 //  replace the setup wizard
+//   initially: just move view to settingsFragmentContainer, don't use activity (only if little work)
+//   then: put it in compose, in or outside the navHost?
 //  platformActivityTheme background color should align with compose background (also consider dynamic colors)
 //   probably no need for appcompat any more
 //  replace color settings (should at least change how colors are stored, and have a color search/filter)
@@ -75,6 +67,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //  initially it was 900 kB, and another 300 kB for Material3
 //  textField and others add more (not sure what exactly), and now we're already at 2 MB...
 
+// todo: with compose, app startup is slower and UI needs some "warmup" time to be snappy
+//  maybe baseline profiles help?
+//  https://developer.android.com/codelabs/android-baseline-profiles-improve
+//  https://developer.android.com/codelabs/jetpack-compose-performance#2
+//  https://developer.android.com/topic/performance/baselineprofiles/overview
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
