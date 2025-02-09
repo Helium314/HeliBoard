@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Rechercher noms contacts"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Correcteur orthographique utilise entrées de liste de contacts."</string>
     <string name="vibrate_on_keypress">"Vibrer à chaque touche"</string>
@@ -85,7 +84,7 @@
     <string name="setup_next_action">"Étape suivante"</string>
     <string name="setup_steps_title">"Configurer <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Activer <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Cochez « <xliff:g id="APPLICATION_NAME">%s</xliff:g> » dans le menu Langues et méthodes d\'entrée. Cela permettra à l\'application de fonctionner sur votre appareil."</string>
+    <string name="setup_step1_instruction">Cochez «<xliff:g id="APPLICATION_NAME">%s</xliff:g> » dans le menu Langues et méthodes d\'entrée. Cela permettra à l\'application de fonctionner sur votre appareil.\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> est déjà activée dans le menu Langues et méthodes d\'entrée. Excellent, passons à la prochaine étape!"</string>
     <string name="setup_step1_action">"Activer le clavier dans les paramètres"</string>
     <string name="setup_step2_title">"Basculer vers <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>

@@ -12,13 +12,14 @@ tl;dr:
 
 <!--
 issue template below, please remove above text before submitting (and the template too if you think it's a good idea)
-Please choose a meaningful title for your issue
+Please choose a meaningful title for your issue, and consider that if you want help you should provide enough information that people can actually help
 -->
 
 **Describe the bug**
 
 **To Reproduce**
 If possible, provide all the necessary steps to reproduce your problem, including the involved apps or settings if relevant.
+In case you cannot reproduce the bug, say so and provide information about when the bug may occur for you. Settings and the app you're writing in are usually important, please don't omit them.
 
 **Expected behavior**
 If it's not obvious (e.g. not crash), describe how you think the app should behave.

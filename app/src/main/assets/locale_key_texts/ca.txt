@@ -5,7 +5,11 @@ i í ï
 o ò ó
 u ú ü
 c ç
+l l·l
 punctuation !autoColumnOrder!9 \, ? ! · # ) ( / ; ' @ : - " + \% &
 
 [extra_keys]
 2: ç
+
+[tlds]
+cat es

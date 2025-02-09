@@ -52,8 +52,9 @@ public final class KeyboardCodesSet {
         "key_emoji",
         "key_unspecified",
         "key_clipboard",
-        "key_start_onehanded",
-        "key_stop_onehanded",
+        "key_toggle_onehanded",
+        "key_start_onehanded", // keep name to avoid breaking custom layouts
+        "key_stop_onehanded", // keep name to avoid breaking custom layouts
         "key_switch_onehanded"
     };
 
@@ -77,8 +78,9 @@ public final class KeyboardCodesSet {
         KeyCode.EMOJI,
         KeyCode.NOT_SPECIFIED,
         KeyCode.CLIPBOARD,
-        KeyCode.START_ONE_HANDED_MODE,
-        KeyCode.STOP_ONE_HANDED_MODE,
+        KeyCode.TOGGLE_ONE_HANDED_MODE,
+        KeyCode.TOGGLE_ONE_HANDED_MODE,
+        KeyCode.TOGGLE_ONE_HANDED_MODE,
         KeyCode.SWITCH_ONE_HANDED_MODE
     };
 

@@ -146,10 +146,17 @@ class Event private constructor(
         }
 
         // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
-        fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?): Event { // TODO: add an argument or something if we ever create a software layout with dead keys.
+        fun createDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, next: Event?): Event {
             return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState,
                     Constants.EXTERNAL_KEYBOARD_COORDINATE, Constants.EXTERNAL_KEYBOARD_COORDINATE,
                     null, FLAG_DEAD, next)
+        }
+
+        // This creates an input event for a dead character. @see {@link #FLAG_DEAD}
+        @JvmStatic
+        fun createSoftwareDeadEvent(codePoint: Int, keyCode: Int, metaState: Int, x: Int, y: Int, next: Event?): Event {
+            return Event(EVENT_TYPE_INPUT_KEYPRESS, null, codePoint, keyCode, metaState, x, y,
+                null, FLAG_DEAD, next)
         }
 
         /**

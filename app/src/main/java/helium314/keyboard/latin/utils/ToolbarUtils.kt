@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.core.view.forEach
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -27,7 +29,9 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
-import kotlinx.serialization.encodeToString
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import java.util.Locale
@@ -39,8 +43,27 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     val contentDescriptionId = context.resources.getIdentifier(key.name.lowercase(), "string", context.packageName)
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
-    button.isActivated = !when (key) {
-        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(context))
+    setToolbarButtonActivatedState(button)
+    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
+    return button
+}
+
+fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: String?) {
+    // settings need to be updated when buttons change
+    if (key != Settings.PREF_AUTO_CORRECTION
+        && key != Settings.PREF_ALWAYS_INCOGNITO_MODE
+        && key?.startsWith(Settings.PREF_ONE_HANDED_MODE_PREFIX) == false)
+        return
+
+    GlobalScope.launch {
+        delay(10) // need to wait until SettingsValues are reloaded
+        buttonsGroup.forEach { if (it is ImageButton) setToolbarButtonActivatedState(it) }
+    }
+}
+
+private fun setToolbarButtonActivatedState(button: ImageButton) {
+    button.isActivated = when (button.tag) {
+        INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(button.context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         SPLIT -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                      Settings.getInstance().current.mIsSplitKeyboardLandscapeEnabled
@@ -50,8 +73,6 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
-    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
-    return button
 }
 
 fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomToolbarKeyCode(key) ?: when (key) {
@@ -66,7 +87,7 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     COPY -> KeyCode.CLIPBOARD_COPY
     CUT -> KeyCode.CLIPBOARD_CUT
     PASTE -> KeyCode.CLIPBOARD_PASTE
-    ONE_HANDED -> if (Settings.getInstance().current.mOneHandedModeEnabled) KeyCode.STOP_ONE_HANDED_MODE else KeyCode.START_ONE_HANDED_MODE
+    ONE_HANDED -> KeyCode.TOGGLE_ONE_HANDED_MODE
     INCOGNITO -> KeyCode.TOGGLE_INCOGNITO_MODE
     AUTOCORRECT -> KeyCode.TOGGLE_AUTOCORRECT
     CLEAR_CLIPBOARD -> KeyCode.CLIPBOARD_CLEAR_HISTORY
@@ -206,11 +227,21 @@ fun toolbarKeysCustomizer(context: Context) {
         orientation = LinearLayout.VERTICAL
         setPadding(3 * padding, padding, padding, padding)
     }
-    val dialog = AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context)
         .setTitle(R.string.customize_toolbar_key_codes)
         .setView(ScrollView(context).apply { addView(ll) })
         .setPositiveButton(R.string.dialog_close, null)
-        .create()
+    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
+        builder.setNeutralButton(R.string.button_default) { _, _ ->
+            confirmDialog(context, context.getString(R.string.customize_toolbar_key_code_reset_message), context.getString(android.R.string.ok)) {
+                prefs.edit {
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES)
+                    remove(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)
+                }
+            }
+        }
+    val dialog = builder.create()
     val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
     ToolbarKey.entries.forEach { key ->
         val binding = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
@@ -269,14 +300,14 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     layout.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
         setText(getCodeForToolbarKey(key).toString())
         doAfterTextChanged {
-            keyCode = it?.toString()
+            keyCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
     layout.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
         setText(getCodeForToolbarKeyLongClick(key).toString())
         doAfterTextChanged {
-            longpressCode = it?.toString()
+            longpressCode = it?.toString()?.ifEmpty { "0" }
             checkOk()
         }
     }
@@ -285,13 +316,13 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
 }
 
 fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
-        .split(";").associate {
+        .split(";").filter { it.isNotEmpty()}.associate {
             val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
             it.substringBefore(",") to code
         }
 
 fun readCustomLongpressCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!
-    .split(";").associate {
+    .split(";").filter { it.isNotEmpty()}.associate {
         val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
         it.substringBefore(",") to code
     }

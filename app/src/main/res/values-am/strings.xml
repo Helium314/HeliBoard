@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"የእውቅያ ስሞችን ተመልከት"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"ፊደል አራሚ ከእውቅያ ዝርዝርህ የገቡትን ይጠቀማል"</string>
     <string name="vibrate_on_keypress">"በቁልፍመጫንጊዜ አንዝር"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"ቀጣይ ደረጃ"</string>
     <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ን በማዋቀር ላይ"</string>
     <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ን ያንቁ"</string>
-    <string name="setup_step1_instruction">"እባክዎ «<xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን በእርስዎ የቋንቋ እና ግቤት ቅንብሮች ውስጥ መኖሩን ያረጋግጡት። ይሄ እሱ በመሣሪያዎ ላይ እንዲሄድ ይፈቅድለታል።"</string>
+    <string name="setup_step1_instruction">እባክዎ <xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን በእርስዎ የቋንቋ እና ግቤት ቅንብሮች ውስጥ መኖሩን ያረጋግጡት። ይሄ እሱ በመሣሪያዎ ላይ እንዲሄድ ይፈቅድለታል።\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> አስቀድሞ በእርስዎ ቋንቋ እና ግቤት ቅንብሮች ውስጥ ነቅቷል፣ ስለዚህ ይህ ደረጃ ተከናውኗል። ወደ ቀጣዩ እንሂድ!"</string>
     <string name="setup_step1_action">"በቅንብሮች ውስጥ ያንቁ"</string>
     <string name="setup_step2_title">"ወደ <xliff:g id="APPLICATION_NAME">%s</xliff:g> ይቀይሩ"</string>
-    <string name="setup_step2_instruction">"በመቀጠል «<xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን እንደ የጽሑፍ ግቤት ስልትዎ ይምረጡት።"</string>
+    <string name="setup_step2_instruction">በመቀጠል <xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን እንደ የጽሑፍ ግቤት ስልትዎ ይምረጡት።\"</string>
     <string name="setup_step2_action">"የግቤት ስልቶችን ቀያይር"</string>
     <string name="setup_step3_title">"እንኳን ደስ አለዎት፣ በቃ ጨርሰዋል!"</string>
     <string name="setup_step3_instruction">"አሁን በሁሉም ተወዳጅ መተግበሪያዎችዎ ላይ በ<xliff:g id="APPLICATION_NAME">%s</xliff:g> መተየብ ይችላሉ።"</string>

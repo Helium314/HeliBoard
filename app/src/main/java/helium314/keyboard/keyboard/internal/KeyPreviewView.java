@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard.internal;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtilsKt;
+import helium314.keyboard.latin.settings.Settings;
 
 import java.util.HashSet;
 
@@ -33,6 +35,7 @@ public class KeyPreviewView extends AppCompatTextView {
 
     private final Rect mBackgroundPadding = new Rect();
     private static final HashSet<String> sNoScaleXTextSet = new HashSet<>();
+    private final Typeface mTypeface;
 
     public KeyPreviewView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
@@ -41,6 +44,7 @@ public class KeyPreviewView extends AppCompatTextView {
     public KeyPreviewView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setGravity(Gravity.CENTER);
+        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     public void setPreviewVisual(final Key key, final KeyboardIconsSet iconsSet, final KeyDrawParams drawParams) {
@@ -53,8 +57,9 @@ public class KeyPreviewView extends AppCompatTextView {
 
         setCompoundDrawables(null, null, null, null);
         setTextColor(drawParams.mPreviewTextColor);
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectPreviewTextSize(drawParams));
-        setTypeface(key.selectPreviewTypeface(drawParams));
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectPreviewTextSize(drawParams)
+                * Settings.getInstance().getCurrent().mFontSizeMultiplier);
+        setTypeface(mTypeface == null ? key.selectPreviewTypeface(drawParams) : mTypeface);
         // TODO Should take care of temporaryShiftLabel here.
         setTextAndScaleX(key.getPreviewLabel());
     }

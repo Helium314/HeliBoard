@@ -25,6 +25,7 @@ import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -59,6 +60,7 @@ import helium314.keyboard.latin.utils.editCustomLayout
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
+import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
@@ -71,17 +73,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
-/**
- * "Advanced" settings sub screen.
- *
- * This settings sub screen handles the following advanced preferences.
- * - Key popup dismiss delay
- * - Keypress vibration duration
- * - Keypress sound volume
- * - Show app icon
- * - Improve keyboard
- * - Debug settings
- */
 @Suppress("KotlinConstantConditions") // build type might be a constant, but depends on... build type!
 class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
@@ -91,6 +82,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
+        "custom_font".toRegex(),
     ) }
 
     // is there any way to get additional information into the ActivityResult? would remove the need for 5 times the (almost) same code
@@ -133,6 +125,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             removePreference("load_gesture_library")
         }
         setupKeyLongpressTimeoutSettings()
+        setupEmojiSdkSetting()
+        setupLanguageSwipeDistanceSettings()
+        updateLangSwipeDistanceVisibility(sharedPreferences)
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
@@ -432,6 +427,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         // reload current prefs screen
         preferenceScreen.removeAll()
         setupPreferences()
+        onCustomLayoutFileListChanged()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
@@ -533,10 +529,72 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    private fun setupEmojiSdkSetting() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_EMOJI_MAX_SDK)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT)
+
+            override fun readDefaultValue(key: String) = Build.VERSION.SDK_INT
+
+            override fun getValueText(value: Int) = "Android " + when(value) {
+                21 -> "5.0"
+                22 -> "5.1"
+                23 -> "6"
+                24 -> "7.0"
+                25 -> "7.1"
+                26 -> "8.0"
+                27 -> "8.1"
+                28 -> "9"
+                29 -> "10"
+                30 -> "11"
+                31 -> "12"
+                32 -> "12L"
+                33 -> "13"
+                34 -> "14"
+                35 -> "15"
+                else -> "version unknown"
+            }
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
+    private fun setupLanguageSwipeDistanceSettings() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_LANGUAGE_SWIPE_DISTANCE)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = Settings.readLanguageSwipeDistance(prefs, resources)
+
+            override fun readDefaultValue(key: String) = Settings.readDefaultLanguageSwipeDistance(resources)
+
+            override fun getValueText(value: Int) = value.toString()
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
+    private fun updateLangSwipeDistanceVisibility(prefs: SharedPreferences) {
+        val horizontalSpaceSwipe = Settings.readHorizontalSpaceSwipe(prefs)
+        val verticalSpaceSwipe = Settings.readVerticalSpaceSwipe(prefs)
+        val visibility = horizontalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+                || verticalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, visibility)
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
             Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
+            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
+            Settings.PREF_EMOJI_MAX_SDK -> KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         }
     }
 

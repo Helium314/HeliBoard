@@ -49,7 +49,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         if (id.isEmojiKeyboard) {
             mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
-            keysInRows = EmojiParser(mParams, mContext).parse()
+            keysInRows = EmojiParser(mParams, mContext, Settings.getInstance().current.mEmojiMaxSdk).parse()
         } else {
             try {
                 setupParams()

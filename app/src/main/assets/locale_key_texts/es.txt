@@ -10,3 +10,6 @@ punctuation !autoColumnOrder!9 \, ? ! # ) ( / ; ¡ ' @ : - " + \% & ¿
 
 [extra_keys]
 2: ñ
+
+[tlds]
+es com.es

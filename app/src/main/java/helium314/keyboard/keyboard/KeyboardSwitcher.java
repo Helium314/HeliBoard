@@ -8,6 +8,7 @@ package helium314.keyboard.keyboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -40,8 +41,10 @@ import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
+import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.CapsModeUtils;
+import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
@@ -59,7 +62,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private View mEmojiTabStripView;
     private LinearLayout mClipboardStripView;
     private HorizontalScrollView mClipboardStripScrollView;
-    private View mSuggestionStripView;
+    private SuggestionStripView mSuggestionStripView;
     private ClipboardHistoryView mClipboardHistoryView;
     private TextView mFakeToastView;
     private LatinIME mLatinIME;
@@ -74,6 +77,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private Context mThemeContext;
     private int mCurrentUiMode;
     private int mCurrentOrientation;
+    private int mCurrentDpi;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -112,18 +116,20 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
     }
 
-    private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context,
-            final KeyboardTheme keyboardTheme) {
+    private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context, final KeyboardTheme keyboardTheme) {
+        final Resources res = context.getResources();
         if (mThemeContext == null
                 || !keyboardTheme.equals(mKeyboardTheme)
-                || mCurrentOrientation != context.getResources().getConfiguration().orientation
-                || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                || !mThemeContext.getResources().equals(context.getResources())
+                || mCurrentDpi != res.getDisplayMetrics().densityDpi
+                || mCurrentOrientation != res.getConfiguration().orientation
+                || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                || !mThemeContext.getResources().equals(res)
                 || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
-            mCurrentUiMode = context.getResources().getConfiguration().uiMode;
-            mCurrentOrientation = context.getResources().getConfiguration().orientation;
+            mCurrentUiMode = res.getConfiguration().uiMode;
+            mCurrentOrientation = res.getConfiguration().orientation;
+            mCurrentDpi = res.getDisplayMetrics().densityDpi;
             KeyboardLayoutSet.onKeyboardThemeChanged();
             return true;
         }
@@ -134,9 +140,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             final int currentAutoCapsState, final int currentRecapitalizeState) {
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(
                 mThemeContext, editorInfo);
-        final Resources res = mThemeContext.getResources();
-        final int keyboardWidth = ResourceUtils.getKeyboardWidth(res, settingsValues);
-        final int keyboardHeight = ResourceUtils.getKeyboardHeight(res, settingsValues);
+        final int keyboardWidth = ResourceUtils.getKeyboardWidth(mThemeContext, settingsValues);
+        final int keyboardHeight = ResourceUtils.getKeyboardHeight(mThemeContext.getResources(), settingsValues);
         final boolean oneHandedModeEnabled = settingsValues.mOneHandedModeEnabled;
         final int orientation = mThemeContext.getResources().getConfiguration().orientation;
         boolean splitLayoutEnabled;
@@ -330,7 +335,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setEmojiKeyboard");
         }
-        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
         mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -351,7 +355,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (DEBUG_ACTION) {
             Log.d(TAG, "setClipboardKeyboard");
         }
-        final Keyboard keyboard = mKeyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
         mMainKeyboardFrame.setVisibility(View.VISIBLE);
         // The visibility of {@link #mKeyboardView} must be aligned with {@link #MainKeyboardFrame}.
         // @see #getVisibleKeyboardView() and
@@ -656,6 +659,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             mKeyboardView.closing();
         }
         PointerTracker.clearOldViewData();
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(displayContext);
+        if (mSuggestionStripView != null)
+            prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
+        if (mClipboardHistoryView != null)
+            prefs.unregisterOnSharedPreferenceChangeListener(mClipboardHistoryView);
 
         updateKeyboardThemeAndContextThemeWrapper(displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
         mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(R.layout.input_view, null);
@@ -678,6 +686,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mClipboardStripScrollView = mCurrentInputView.findViewById(R.id.clipboard_strip_scroll_view);
         mSuggestionStripView = mCurrentInputView.findViewById(R.id.suggestion_strip_view);
 
+        prefs.registerOnSharedPreferenceChangeListener(mSuggestionStripView);
+        prefs.registerOnSharedPreferenceChangeListener(mClipboardHistoryView);
         PointerTracker.switchTo(mKeyboardView);
         return mCurrentInputView;
     }

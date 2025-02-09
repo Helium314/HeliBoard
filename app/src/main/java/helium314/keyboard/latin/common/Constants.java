@@ -224,8 +224,7 @@ public final class Constants {
         case CODE_TAB: return "tab";
         case CODE_ENTER: return "enter";
         case CODE_SPACE: return "space";
-        case KeyCode.START_ONE_HANDED_MODE: return "startOneHandedMode";
-        case KeyCode.STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
+        case KeyCode.TOGGLE_ONE_HANDED_MODE: return "toggleOneHandedMode";
         case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
         case KeyCode.SPLIT_LAYOUT: return "splitLayout";
         case KeyCode.NUMPAD: return "numpad";

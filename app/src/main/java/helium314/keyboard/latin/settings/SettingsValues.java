@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -60,6 +61,7 @@ public class SettingsValues {
     // From preferences
     public final boolean mAutoCap;
     public final boolean mVibrateOn;
+    public final boolean mVibrateInDndMode;
     public final boolean mSoundOn;
     public final boolean mKeyPreviewPopupOn;
     public final boolean mShowsVoiceInputKey;
@@ -68,6 +70,7 @@ public class SettingsValues {
     private final boolean mShowsLanguageSwitchKey;
     public final boolean mShowsNumberRow;
     public final boolean mLocalizedNumberRow;
+    public final boolean mShowNumberRowHints;
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
     public final boolean mSpaceForLangChange;
@@ -78,6 +81,7 @@ public class SettingsValues {
     public final boolean mBlockPotentiallyOffensive;
     public final int mSpaceSwipeHorizontal;
     public final int mSpaceSwipeVertical;
+    public final int mLanguageSwipeDistance;
     public final boolean mDeleteSwipeEnabled;
     public final boolean mAutospaceAfterPunctuationEnabled;
     public final boolean mClipboardHistoryEnabled;
@@ -113,6 +117,7 @@ public class SettingsValues {
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
     public final float mBottomPaddingScale;
+    public final float mSidePaddingScale;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
     public final boolean mAlphaAfterEmojiInEmojiView;
@@ -120,6 +125,8 @@ public class SettingsValues {
     public final boolean mAlphaAfterSymbolAndSpace;
     public final boolean mRemoveRedundantPopups;
     public final String mSpaceBarText;
+    public final float mFontSizeMultiplier;
+    public final float mFontSizeMultiplierEmoji;
 
     // From the input box
     @NonNull
@@ -132,6 +139,7 @@ public class SettingsValues {
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
     public final int mScoreLimitForAutocorrect;
+    public final boolean mAutoCorrectShortcuts;
     private final boolean mSuggestionsEnabledPerUserSettings;
     private final boolean mOverrideShowingSuggestions;
     public final boolean mSuggestClipboardContent;
@@ -139,6 +147,7 @@ public class SettingsValues {
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
     public final boolean mHasCustomFunctionalLayout;
+    public final int mEmojiMaxSdk;
 
     // User-defined colors
     public final Colors mColors;
@@ -157,6 +166,7 @@ public class SettingsValues {
         // Get the settings preferences
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, true) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs, res);
+        mVibrateInDndMode = prefs.getBoolean(Settings.PREF_VIBRATE_IN_DND_MODE, false);
         mSoundOn = Settings.readKeypressSoundEnabled(prefs, res);
         mKeyPreviewPopupOn = Settings.readKeyPreviewPopupEnabled(prefs, res);
         mSlidingKeyInputPreviewEnabled = prefs.getBoolean(
@@ -168,6 +178,7 @@ public class SettingsValues {
         mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false); // only relevant for default functional key layout
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
         mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, true);
+        mShowNumberRowHints = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW_HINTS, false);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, false);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
@@ -188,6 +199,7 @@ public class SettingsValues {
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
+        mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, true);
         mBigramPredictionEnabled = readBigramPredictionEnabled(prefs, res);
         mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
@@ -227,6 +239,7 @@ public class SettingsValues {
         mDisplayOrientation = res.getConfiguration().orientation;
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
+        mLanguageSwipeDistance = Settings.readLanguageSwipeDistance(prefs, res);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
         mAutospaceAfterPunctuationEnabled = Settings.readAutospaceAfterPunctuationEnabled(prefs);
         mClipboardHistoryEnabled = Settings.readClipboardHistoryEnabled(prefs);
@@ -255,14 +268,15 @@ public class SettingsValues {
 
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, false);
         mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
-        mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, false);
+        mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, true);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, true);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
                 mBlockPotentiallyOffensive,
                 prefs.getBoolean(Settings.PREF_GESTURE_SPACE_AWARE, false)
         );
         mSpacingAndPunctuations = new SpacingAndPunctuations(res, mUrlDetectionEnabled);
-        mBottomPaddingScale = prefs.getFloat(Settings.PREF_BOTTOM_PADDING_SCALE, DEFAULT_SIZE_SCALE);
+        mBottomPaddingScale = Settings.readBottomPaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        mSidePaddingScale = Settings.readSidePaddingScale(prefs, mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
         mLongPressSymbolsForNumpad = prefs.getBoolean(Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, false);
         mAutoShowToolbar = prefs.getBoolean(Settings.PREF_AUTO_SHOW_TOOLBAR, false);
         mAutoHideToolbar = readSuggestionsEnabled(prefs) && prefs.getBoolean(Settings.PREF_AUTO_HIDE_TOOLBAR, false);
@@ -270,8 +284,11 @@ public class SettingsValues {
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, false);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, false);
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, true);
-        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, true);
+        mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, false);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, "");
+        mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Build.VERSION.SDK_INT);
+        mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, DEFAULT_SIZE_SCALE);
+        mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, DEFAULT_SIZE_SCALE);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

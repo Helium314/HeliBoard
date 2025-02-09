@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"연락처 이름 조회"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"맞춤법 검사기가 연락처 목록의 항목을 사용합니다."</string>
     <string name="vibrate_on_keypress">"키를 누를 때 진동 발생"</string>

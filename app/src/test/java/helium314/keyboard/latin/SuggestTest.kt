@@ -7,6 +7,7 @@ import helium314.keyboard.ShadowInputMethodManager2
 import helium314.keyboard.ShadowLocaleManagerCompat
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION
+import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo.KIND_WHITELIST
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.StringUtils
@@ -14,8 +15,6 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SuggestionResults
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
@@ -24,6 +23,8 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
@@ -42,7 +43,7 @@ class SuggestTest {
     private val thresholdAggressive = "1"
     private val thresholdVeryAggressive = "2"
 
-    @Before fun setUp() {
+    @BeforeTest fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()
@@ -65,7 +66,7 @@ class SuggestTest {
         // not corrected because first suggestion score is too low
     }
 
-    @Test fun `'ill' to 'I'll' if 'ill' not used before in this context, and I'll has shortcut`() {
+    @Test fun `'ill' to 'I'll' if 'ill' not used before in this context, and I'll is whitelisted`() {
         val locale = Locale.ENGLISH
         val result = shouldBeAutoCorrected(
             "ill",
@@ -228,6 +229,44 @@ class SuggestTest {
         // not even allowed to check because of low score for ne
     }
 
+    @Test fun `shortcuts might be autocorrected by default`() {
+        val locale = Locale.ENGLISH
+        val result = shouldBeAutoCorrected(
+            "gd",
+            listOf(suggestion("good", 700000, locale, true)),
+            null,
+            null,
+            locale,
+            thresholdAggressive
+        )
+        assert(result.last()) // should be corrected
+
+        val result2 = shouldBeAutoCorrected(
+            "gd",
+            listOf(suggestion("good", 300000, locale, true)),
+            null,
+            null,
+            locale,
+            thresholdModest
+        )
+        assert(!result2.last()) // should not be corrected
+    }
+
+    @Test fun `shortcuts are not autocorrected when setting is off`() {
+        val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
+        prefs.edit { putBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, false) }
+        val locale = Locale.ENGLISH
+        val result = shouldBeAutoCorrected(
+            "gd",
+            listOf(suggestion("good", 12000000, locale, true)),
+            null,
+            null,
+            locale,
+            thresholdAggressive
+        )
+        assert(!result.last()) // should not be corrected
+    }
+
     private fun setAutCorrectThreshold(threshold: String) {
         val prefs = DeviceProtectedUtils.getSharedPreferences(latinIME)
         prefs.edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
@@ -269,16 +308,18 @@ class SuggestTest {
 
 private var currentTypingLocale = Locale.ENGLISH
 
-fun suggestion(word: String, score: Int, locale: Locale) =
+fun suggestion(word: String, score: Int, locale: Locale, shortcut: Boolean = false) =
     SuggestedWordInfo(
         /* word */ word,
         /* prevWordsContext */ "", // irrelevant
 
-        // typically 2B for shortcut, 1.5M for exact match, 600k for close match
+        // typically 2B for whitelisted, 1.5M for exact match, 600k for close match
         // when previous word context is empty, scores are usually 200+ if word is known and somewhat often used, 0 if unknown
         /* score */ score,
 
-        /* kindAndFlags */ if (score == Int.MAX_VALUE) KIND_WHITELIST else KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION,
+        /* kindAndFlags */ if (score == Int.MAX_VALUE) KIND_WHITELIST
+            else if (shortcut) KIND_SHORTCUT // whitelist & shortcut only counts a whitelist
+            else KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION, // shortcuts seem to never have this flag
         /* sourceDict */ TestDict(locale),
         /* indexOfTouchPointOfSecondWord */ 0, // irrelevant
         /* autoCommitFirstWordConfidence */ 0 // irrelevant?

@@ -346,9 +346,9 @@ public final class InputLogic {
      * @param settingsValues the current values of the settings.
      * @return whether the cursor has moved as a result of user interaction.
      */
-    public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd,
-            final int newSelStart, final int newSelEnd, final SettingsValues settingsValues) {
-        if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd)) {
+    public boolean onUpdateSelection(final int oldSelStart, final int oldSelEnd, final int newSelStart,
+             final int newSelEnd, final int composingSpanStart, final int composingSpanEnd, final SettingsValues settingsValues) {
+        if (mConnection.isBelatedExpectedUpdate(oldSelStart, newSelStart, oldSelEnd, newSelEnd, composingSpanStart, composingSpanEnd)) {
             return false;
         }
         // TODO: the following is probably better done in resetEntireInputState().
@@ -535,6 +535,11 @@ public final class InputLogic {
             } else {
                 commitTyped(settingsValues, LastComposedWord.NOT_A_SEPARATOR);
             }
+        } else if (mConnection.hasSelection()) {
+            final CharSequence selectedText = mConnection.getSelectedText(0);
+            if (selectedText != null)
+                // set selected text as rejected to avoid glide typing resulting in exactly the selected word again
+                mWordComposer.setRejectedBatchModeSuggestion(selectedText.toString());
         }
         final int codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
         if (Character.isLetterOrDigit(codePointBeforeCursor)
@@ -777,7 +782,7 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
-                    KeyCode.START_ONE_HANDED_MODE, KeyCode.STOP_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
+                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
                     KeyCode.CTRL, KeyCode.ALT, KeyCode.FN, KeyCode.META:
                 break;
             default:
@@ -1210,7 +1215,12 @@ public final class InputLogic {
                 }
                 return;
             }
-            if (mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
+            // todo: this is currently disabled, as it causes inconsistencies with textInput, depending whether the end
+            //  is part of a word (where we start composing) or not (where we end in code below)
+            //  see https://github.com/Helium314/HeliBoard/issues/1019
+            //  with better emoji detection on backspace (getFullEmojiAtEnd), this functionality might not be necessary
+            //  -> enable again if there are issues, otherwise delete the code, together with mEnteredText
+            if (false && mEnteredText != null && mConnection.sameAsTextBeforeCursor(mEnteredText)) {
                 // Cancel multi-character input: remove the text we just entered.
                 // This is triggered on backspace after a key that inputs multiple characters,
                 // like the smiley key or the .com key.
@@ -1295,7 +1305,13 @@ public final class InputLogic {
                         // broken apps expect something to happen in this case so that they can
                         // catch it and have their broken interface react. If you need the keyboard
                         // to do this, you're doing it wrong -- please fix your app.
-                        mConnection.deleteTextBeforeCursor(1);
+                        //  To make this more interesting, web browsers, and apps that are basically
+                        // browsers under the hood, in too many cases don't understand "deleteSurroundingText".
+                        // So we try to send a backspace keypress instead.
+                        if ((getCurrentInputEditorInfo().inputType & InputType.TYPE_MASK_VARIATION)
+                                == InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
+                            sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
+                        else mConnection.deleteTextBeforeCursor(1);
                         // TODO: Add a new StatsUtils method onBackspaceWhenNoText()
                         return;
                     }

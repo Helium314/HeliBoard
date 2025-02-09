@@ -1,6 +1,9 @@
 [popup_keys]
 a à ª
-e è é
+e è é ə
 i ì
 o ò ó º
 u ù
+
+[tlds]
+it gov.it edu.it

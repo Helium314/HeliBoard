@@ -6,8 +6,8 @@ import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_CYRILLIC
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_DEVANAGARI
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ScriptUtilsTest {
     @Test fun defaultScript() {

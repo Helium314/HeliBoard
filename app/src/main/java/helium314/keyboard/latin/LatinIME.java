@@ -89,6 +89,7 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
+import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -884,8 +885,9 @@ public class LatinIME extends InputMethodService implements
         }
         // Try switching to a subtype matching the hint language.
         for (final Locale hintLocale : hintLocales) {
-            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3)
-                return; // current locale is already a good match, and we want to avoid unnecessary layout switches
+            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3
+                    || CollectionsKt.any(mSettings.getCurrent().mSecondaryLocales, (secLocale) -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= 3))
+                return; // current locales are already a good match, and we want to avoid unnecessary layout switches
             final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
@@ -1118,7 +1120,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues settingsValues = mSettings.getCurrent();
         if (isInputViewShown()
                 && mInputLogic.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-                settingsValues)) {
+                composingSpanStart, composingSpanEnd, settingsValues)) {
             mKeyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(),
                     getCurrentRecapitalizeState());
         }
@@ -1485,16 +1487,14 @@ public class LatinIME extends InputMethodService implements
                 case KeyCode.TOGGLE_INCOGNITO_MODE -> {mSettings.toggleAlwaysIncognitoMode(); return; }
             }
         }
-        // TODO: this processing does not belong inside LatinIME, the caller should be doing this.
-        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
-        // x and y include some padding, but everything down the line (especially native
-        // code) needs the coordinates in the keyboard frame.
-        // TODO: We should reconsider which coordinate system should be used to represent
-        // keyboard event. Also we should pull this up -- LatinIME has no business doing
-        // this transformation, it should be done already before calling onEvent.
-        final int keyX = mainKeyboardView.getKeyX(x);
-        final int keyY = mainKeyboardView.getKeyY(y);
-        final Event event = createSoftwareKeypressEvent(codePoint, metaState, keyX, keyY, isKeyRepeat);
+        final Event event;
+        // checking if the character is a combining accent
+        if (0x300 <= codePoint && codePoint <= 0x35b) {
+            event = Event.createSoftwareDeadEvent(codePoint, 0, metaState, x, y, null);
+        } else {
+            event = createSoftwareKeypressEvent(codePoint, metaState, x, y, isKeyRepeat);
+        }
+
         onEvent(event);
     }
 

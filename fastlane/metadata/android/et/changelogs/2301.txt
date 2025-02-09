@@ -1,0 +1,9 @@
+* Võimalus kohandada ridade arvu, tööriistariba koode, ikoone, tühikuklahvi teksti, alumist emojide rida ja lõikelaua vaateid
+* Eraldasime ikoonide ja klahvistiku stiilid
+* Mittevajalike hüpikakende vaikimisi eemaldamine (pisiparandusega)
+* Rahulikum meetod oma sõnastiku täiendamisel
+* Eemaldasime rahulikust vaatest värina
+* Parandasime jõudlust mahuka teksti kopeerimisel
+* Parandasime hüpikakende osaliselt vigased kirjavahemärgid
+* Parandasime mõned tekstidubleerimise vead
+* Muud pisiparandused

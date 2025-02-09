@@ -97,7 +97,7 @@ public class UserDictionaryAddWordFragment extends SubScreenFragment {
         saveWordButton.setVisibility(TextUtils.isEmpty(mWordEditText.getText().toString()) ? View.INVISIBLE : View.VISIBLE);
 
         final Button deleteWordButton = mRootView.findViewById(R.id.user_dictionary_delete_button);
-        final Drawable deleteWordIcon = toScaledBitmapDrawable(R.drawable.ic_delete, 0.75f);
+        final Drawable deleteWordIcon = toScaledBitmapDrawable(R.drawable.ic_bin, 0.75f);
         deleteWordButton.setCompoundDrawablesWithIntrinsicBounds(null, null, deleteWordIcon, null);
         deleteWordButton.setOnClickListener(v -> {
             mContents.delete(requireContext());

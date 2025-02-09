@@ -18,6 +18,8 @@
     <string name="use_contacts_for_spellchecking_option_summary">Spell checker uses entries from your contact list</string>
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
+    <!-- Option to provide vibrate/haptic feedback on keypress even in do not disturb mode -->
+    <string name="vibrate_in_dnd_mode">Vibrate in do not disturb mode</string>
     <!-- Option to play back sound on keypress in soft keyboard -->
     <string name="sound_on_keypress">Sound on keypress</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
@@ -120,6 +122,10 @@
     <string name="more_autocorrect_summary">Auto-correct even when not explicitly requested by the input field</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
     <string name="auto_correction_confidence">Auto-correction confidence</string>
+    <!-- Option to enable auto correction for shortcuts (will correct shortcut to the actual word) -->
+    <string name="auto_correct_shortcuts">Auto-correct shortcuts</string>
+    <!-- Description for auto_correct_shortcuts -->
+    <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_off">Off</string>
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
@@ -235,6 +241,8 @@
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
+    <!-- Title of the setting to enable number row hints -->
+    <string name="number_row_hints">Show hints on number row</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -295,7 +303,7 @@
     <!-- Option to remove popup keys that already exist on the base keyboard -->
     <string name="remove_redundant_popups">Remove redundant popups</string>
     <!-- Description of the remove_redundant_popups setting -->
-    <string name="remove_redundant_popups_summary">Suppress popup keys that are present on the base layout</string>
+    <string name="remove_redundant_popups_summary">Suppress popup keys that are already present on the base layout</string>
     <!-- Title of the setting enabling long press on space key to change IME -->
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
@@ -308,8 +316,20 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
+    <!-- Title of the setting for adjusting font size on the keyboard -->
+    <!-- Title of the setting for setting side padding -->
+    <string name="prefs_side_padding_scale">Side padding scale</string>
+    <!-- Title of the setting for setting side padding in landscape mode -->
+    <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
+    <string name="prefs_font_scale">Keyboard font scale</string>
+    <!-- Title of the setting for adjusting font size in emoji view -->
+    <string name="prefs_emoji_font_scale">Emoji view font scale</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
+    <!-- Title of the setting for adding / removing custom font file -->
+    <string name="custom_font">Set custom font from file</string>
     <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -349,6 +369,8 @@
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->      
@@ -363,6 +385,9 @@
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
+    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype [CHAR LIMIT=25]
+         (Phonetic) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
     <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype [CHAR LIMIT=25]
          (Sebeolsik 390) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
@@ -542,6 +567,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Clipboard bottom row</string>
     <!-- Title for customizing background image -->
     <string name="customize_background_image">Set background image</string>
+    <!-- Title for customizing background image in landscape mode -->
+    <string name="customize_background_image_landscape">Set background image (landscape)</string>
+    <!-- Description for customize_background_image_landscape -->
+    <string name="summary_customize_background_image_landscape">If not set, portrait image will be used</string>
     <!-- Title for customizing currencies -->
     <string name="customize_currencies">Customize currencies</string>
     <!-- Info for customizing currencies -->
@@ -566,6 +595,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
     <!-- Title of the setting for key long press delay [CHAR LIMIT=35] -->
     <string name="prefs_key_longpress_timeout_settings">Key long press delay</string>
+    <!-- Title of the setting for overriding Android SDK level for showing emojis [CHAR LIMIT=35] -->
+    <string name="prefs_key_emoji_max_sdk">Override Emoji version</string>
     <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
     <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
@@ -914,6 +945,8 @@ New dictionary:
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
     <!-- Label for zero-width non-joiner key, currently used only for showing the icon name -->
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
+    <!-- Label for bin (delete) key, currently used only for showing the icon name -->
+    <string name="label_bin" tools:keep="@string/label_bin">Bin</string>
     <!-- Title of the setting for horizontal spacebar swipe gesture -->
     <string name="show_horizontal_space_swipe">Horizontal spacebar swipe gesture</string>
     <!-- Title of the setting for vertical spacebar swipe gesture -->
@@ -928,8 +961,12 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the settings for adjusting the language swipe gesture distance -->
+    <string name="prefs_language_swipe_distance">Switch language swipe distance</string>
     <!-- Title of the setting to customize toolbar key codes -->
     <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
+    <!-- Confirmation message when resetting all custom toolbar key codes -->
+    <string name="customize_toolbar_key_code_reset_message">Really clear all customized key codes?</string>
     <!-- Text for showing / setting key code -->
     <string name="key_code">Key code</string>
     <!-- Text for showing / setting long press code -->
@@ -946,4 +983,6 @@ New dictionary:
     <string name="toast_msg_clipboard_copy">Content copied</string>
     <!-- Title of the setting to customize icons for keyboard and toolbar keys -->
     <string name="customize_icons">Customize icons</string>
+    <!-- Confirmation message when resetting all custom icons -->
+    <string name="customize_icons_reset_message">Really reset all customized icons?</string>
 </resources>

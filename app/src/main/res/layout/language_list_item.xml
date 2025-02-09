@@ -32,7 +32,7 @@
     <ImageView
         android:id="@+id/delete_button"
         android:paddingEnd="10dp"
-        android:src="@drawable/ic_delete"
+        android:src="@drawable/ic_bin"
         app:tint="@color/foreground_weak"
         android:visibility="gone"
         android:layout_gravity="center_vertical"

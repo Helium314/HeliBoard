@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.define.DebugFlags;
+import helium314.keyboard.latin.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -345,7 +346,7 @@ public class SuggestedWords {
 
         public boolean isAppropriateForAutoCorrection() {
             return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0
-                    || isKindOf(KIND_SHORTCUT);
+                    || (isKindOf(KIND_SHORTCUT) && Settings.getInstance().getCurrent().mAutoCorrectShortcuts);
         }
 
         public void setDebugString(final String str) {

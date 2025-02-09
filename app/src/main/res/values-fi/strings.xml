@@ -84,11 +84,11 @@
     <string name="setup_next_action">"Seuraava vaihe"</string>
     <string name="setup_steps_title">"Sovelluksen <xliff:g id="APPLICATION_NAME">%s</xliff:g> asetukset"</string>
     <string name="setup_step1_title">"Ota <xliff:g id="APPLICATION_NAME">%s</xliff:g> käyttöön"</string>
-    <string name="setup_step1_instruction">"Valitse <xliff:g id="APPLICATION_NAME">%s</xliff:g> Kielet ja syöttötapa ‑asetuksissa. Se antaa sovellukselle luvan toimia laitteellasi."</string>
+    <string name="setup_step1_instruction">Valitse<xliff:g id="APPLICATION_NAME">%s</xliff:g> Kielet ja syöttötapa ‑asetuksissa. Se antaa sovellukselle luvan toimia laitteellasi.\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> on jo otettu käyttöön Kielet ja syöttötapa ‑asetuksissa, joten tämä vaihe on valmis. Siirrytään eteenpäin!"</string>
     <string name="setup_step1_action">"Ota käyttöön asetuksissa"</string>
     <string name="setup_step2_title">"Siirry sovellukseen <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Valitse <xliff:g id="APPLICATION_NAME">%s</xliff:g> käytössä olevaksi tekstinsyöttötavaksi."</string>
+    <string name="setup_step2_instruction">Valitse<xliff:g id="APPLICATION_NAME">%s</xliff:g> käytössä olevaksi tekstinsyöttötavaksi.\"</string>
     <string name="setup_step2_action">"Vaihda syöttötapaa"</string>
     <string name="setup_step3_title">"Onneksi olkoon, valmista tuli!"</string>
     <string name="setup_step3_instruction">"Nyt voit kirjoittaa kaikissa lempisovelluksissasi sovelluksen <xliff:g id="APPLICATION_NAME">%s</xliff:g> avulla."</string>

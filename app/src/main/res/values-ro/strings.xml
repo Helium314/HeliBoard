@@ -276,8 +276,7 @@
     <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="delete_layout">Ștergi cu adevărat aspectul personalizat %s?</string>
-    <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;
-\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
+    <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;\n\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Greutate:</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
     <string name="select_user_colors_night">Ajustează culorile (noapte)</string>
@@ -288,13 +287,7 @@
     <string name="select_color_suggestion">Text bandă de sugestii</string>
     <string name="hidden_features_text">stocarea protejată a dispozitivului</string>
     <string name="button_add_to_language">Adaugă la %s</string>
-    <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”?
-\n
-\nDicționarul curent:
-\n%2$s
-\n
-\nDicționarul nou:
-\n%3$s</string>
+    <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”? \n \nDicționarul curent: \n%2$s \n \nDicționarul nou: \n%3$s</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mai întunecată</string>
     <string name="main_colors">Afișează numai culorile principale</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rotunjit</string>

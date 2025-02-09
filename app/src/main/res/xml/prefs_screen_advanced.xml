@@ -43,6 +43,13 @@
         android:title="@string/show_vertical_space_swipe"
         latin:singleLineTitle="false" />
 
+    <helium314.keyboard.latin.settings.SeekBarDialogPreference
+        android:key="language_swipe_distance"
+        android:title="@string/prefs_language_swipe_distance"
+        latin:minValue="2"
+        latin:maxValue="18"
+        latin:stepValue="1" />
+
     <SwitchPreference
         android:key="delete_swipe"
         android:title="@string/delete_swipe"
@@ -117,6 +124,13 @@
 
     <PreferenceCategory
         android:title="@string/settings_category_experimental">
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="emoji_max_sdk"
+            android:title="@string/prefs_key_emoji_max_sdk"
+            latin:minValue="21"
+            latin:maxValue="35"
+            latin:stepValue="1" />
 
         <SwitchPreference
             android:key="url_detection"

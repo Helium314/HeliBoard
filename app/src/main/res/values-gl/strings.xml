@@ -78,14 +78,14 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para o teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Benvinda a <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
+    <string name="setup_welcome_title">Ben vida a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura por xestos"</string>
     <string name="setup_start_action">"Comezar"</string>
     <string name="setup_next_action">"Seguinte paso"</string>
     <string name="setup_steps_title">"Configurando <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Activar <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Comproba a aplicación <xliff:g id="APPLICATION_NAME">%s</xliff:g> na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo."</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> xa está activada en Idiomas e Axustes de escritura, así que isto xa está. Imos ao seguinte paso!</string>
+    <string name="setup_step1_instruction">Comproba a aplicación<xliff:g id="APPLICATION_NAME">%s</xliff:g> na configuración Idioma e introdución de texto para que se poida executar no teu dispositivo.\"</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> xa está activada en Idiomas e Axustes de escritura, así que isto xa está. Imos ao seguinte paso!\"</string>
     <string name="setup_step1_action">"Activar en Configuración"</string>
     <string name="setup_step2_title">"Cambiar a <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"A continuación, selecciona \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" como o método de introdución de texto activo."</string>
@@ -387,7 +387,7 @@
     <string name="space_swipe_toggle_numpad_entry">Ver Teclado Numérico</string>
     <string name="show_popup_keys_main">Engadir variantes moi comúns (por defecto)</string>
     <string name="remove_redundant_popups">Retirar emerxentes redundantes</string>
-    <string name="remove_redundant_popups_summary">Retira as letras emerxentes que están presentes na disposición base</string>
+    <string name="remove_redundant_popups_summary">Retira as letras emerxentes que xa están presentes na disposición base</string>
     <string name="after_symbol_and_space">Premer no enter o espazo despois doutras teclas na vista de símbolos</string>
     <string name="after_emoji">Seleccionar emoji na vista de emojis</string>
     <string name="after_clip">Seleccionar entrada no historial do portapapeis</string>
@@ -417,4 +417,6 @@
     <string name="key_code">Código da tecla</string>
     <string name="long_press_code">Código pulsación longa</string>
     <string name="customize_icons">Personalizar iconas</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Papeleira</string>
+    <string name="customize_icons_reset_message">Restablecer todas as iconas personalizadas?</string>
 </resources>

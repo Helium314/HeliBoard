@@ -28,7 +28,7 @@ class KeyboardIconsSet private constructor() {
         }
         val overrideIds = customIconIds(context, prefs)
         val ids = if (overrideIds.isEmpty()) defaultIds else defaultIds + overrideIds
-        if (ids == iconIds) return
+        if (!needsReload && ids == iconIds) return
         iconIds = ids
         iconsByName.clear()
         ids.forEach { (name, id) ->
@@ -40,6 +40,7 @@ class KeyboardIconsSet private constructor() {
                 Log.w(TAG, "Drawable resource for icon $name not found")
             }
         }
+        needsReload = false
     }
 
     fun getIconDrawable(name: String?): Drawable? = name?.lowercase(Locale.US)?.let {
@@ -118,7 +119,7 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right,
-            NAME_BIN to                         R.drawable.ic_delete,
+            NAME_BIN to                         R.drawable.ic_bin,
         ).apply {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
@@ -179,7 +180,7 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right,
-            NAME_BIN to                         R.drawable.ic_delete,
+            NAME_BIN to                         R.drawable.ic_bin,
         ).apply {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
@@ -240,7 +241,7 @@ class KeyboardIconsSet private constructor() {
             NAME_SWITCH_ONEHANDED_KEY to        R.drawable.ic_arrow_left_rounded,
             NAME_RESIZE_ONEHANDED_KEY to        R.drawable.ic_arrow_horizontal_rounded,
             NAME_TOOLBAR_KEY to                 R.drawable.ic_arrow_right_rounded,
-            NAME_BIN to                         R.drawable.ic_delete_rounded,
+            NAME_BIN to                         R.drawable.ic_bin_rounded,
         ).apply {
             ToolbarKey.entries.forEach {
                 put(it.name.lowercase(Locale.US), when (it) {
@@ -292,5 +293,6 @@ class KeyboardIconsSet private constructor() {
         }
 
         val instance = KeyboardIconsSet()
+        var needsReload = false
     }
 }

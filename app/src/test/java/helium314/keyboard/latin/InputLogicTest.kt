@@ -24,9 +24,6 @@ import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ScriptUtils
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.robolectric.Robolectric
@@ -37,6 +34,9 @@ import org.robolectric.annotation.Implements
 import org.robolectric.shadows.ShadowLog
 import java.util.*
 import kotlin.math.min
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [
@@ -61,7 +61,8 @@ class InputLogicTest {
     private val composingReader = RichInputConnection::class.java.getDeclaredField("mComposingText").apply { isAccessible = true }
     private val connectionComposingText get() = (composingReader.get(connection) as CharSequence).toString()
 
-    @Before fun setUp() {
+    @BeforeTest
+    fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
         // start logging only after latinIME is created, avoids showing the stack traces if library is not found
         ShadowLog.setupLogging()
@@ -200,6 +201,22 @@ class InputLogicTest {
         assertEquals("", lastAddedWord)
         assertEquals("example.net", text)
         assertEquals("example.net", composingText)
+    }
+
+    // fails because
+    //  period is not handled with handleSeparatorEvent in this case
+    //  pickSuggestion sets phantom space state
+    //  insertAutomaticSpaceIfOptionsAndTextAllow allows the space
+    // todo: fix it either in some of those functions, or by finally improving URL detection in a reasonable (and performant) way
+    @Test fun noAutospaceInUrlFieldWhenPickingSuggestion() {
+        if (BuildConfig.BUILD_TYPE == "runTests") return
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
+        chainInput("exam")
+        pickSuggestion("example")
+        assertEquals("example", text)
+        input('.')
+        assertEquals("example.", text)
     }
 
     @Test fun noAutospaceForDetectedUrl() { // "light" version, should work without url detection
@@ -596,6 +613,57 @@ class InputLogicTest {
         assertEquals("{\"label\": \"c", text)
     }
 
+    @Test fun `text input and delete`() {
+        reset()
+        input("hello")
+        assertEquals("hello", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hell", text)
+
+        reset()
+        input("hello ")
+        assertEquals("hello ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello", text)
+    }
+
+    @Test fun `emoji text input and delete`() {
+        reset()
+        input("🕵🏼")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("", text)
+
+        reset()
+        input("\uD83D\uDD75\uD83C\uDFFC")
+        input(' ')
+        assertEquals("🕵🏼 ", text)
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("", text)
+    }
+
+    @Test fun `revert autocorrect on delete`() {
+        reset()
+        chainInput("hullo")
+        getAutocorrectedWithSpaceAfter("hello", "hullo")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hullo", text)
+
+        // todo: now we want some way to disable revert on backspace, either per setting or something else
+        //  need to avoid getting into the mLastComposedWord.canRevertCommit() part of handleBackspaceEvent
+    }
+
+    @Test fun `remove glide typing word on delete`() {
+        reset()
+        glideTypingInput("hello")
+        assertEquals("hello", text)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("", text)
+
+        // todo: now we want some way to disable delete-all on backspace, either per setting or something else
+        //  need to avoid getting into the mWordComposer.isBatchMode() part of handleBackspaceEvent
+    }
+
     // ------- helper functions ---------
 
     // should be called before every test, so the same state is guaranteed
@@ -629,6 +697,7 @@ class InputLogicTest {
 
         if (currentScript != ScriptUtils.SCRIPT_HANGUL // check fails if hangul combiner merges symbols
             && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
+            && !latinIME.mInputLogic.mSuggestedWords.mWillAutoCorrect // autocorrect obviously creates inconsistencies
             ) {
             if (phantomSpaceToInsert.isEmpty())
                 assertEquals(oldBefore + insert, textBeforeCursor)
@@ -732,6 +801,22 @@ class InputLogicTest {
         val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
         latinIME.pickSuggestionManually(info)
         checkConnectionConsistency()
+    }
+
+    // only works when autocorrect is on, separator after word is required
+    private fun getAutocorrectedWithSpaceAfter(suggestion: String, typedWord: String?) {
+        val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
+        val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, null, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, 0, 0)
+        latinIME.mInputLogic.setSuggestedWords(sw)
+        input(' ')
+        checkConnectionConsistency()
+    }
+
+    private fun glideTypingInput(word: String) {
+        val info = SuggestedWordInfo(word, "", 0, 0, null, 0, 0)
+        val sw = SuggestedWords(ArrayList(listOf(info)), null, info, true, false, false, 0, 0)
+        latinIME.mInputLogic.onUpdateTailBatchInputCompleted(settingsValues, sw, KeyboardSwitcher.getInstance())
     }
 
     private fun checkConnectionConsistency() {
@@ -952,11 +1037,12 @@ private val ic = object : InputConnection {
             it.selectionEnd = selectionEnd
         }
     }
+    // only effect is flashing, so whatever...
+    override fun commitCorrection(p0: CorrectionInfo?): Boolean = true
     // implement only when necessary
     override fun getCursorCapsMode(p0: Int): Int = TODO("Not yet implemented")
     override fun deleteSurroundingTextInCodePoints(p0: Int, p1: Int): Boolean = TODO("Not yet implemented")
     override fun commitCompletion(p0: CompletionInfo?): Boolean = TODO("Not yet implemented")
-    override fun commitCorrection(p0: CorrectionInfo?): Boolean = TODO("Not yet implemented")
     override fun performEditorAction(p0: Int): Boolean = TODO("Not yet implemented")
     override fun performContextMenuAction(p0: Int): Boolean = TODO("Not yet implemented")
     override fun clearMetaKeyStates(p0: Int): Boolean = TODO("Not yet implemented")

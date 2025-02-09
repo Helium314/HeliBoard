@@ -1,6 +1,7 @@
 package helium314.keyboard.keyboard
 
 import android.view.KeyEvent
+import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
@@ -18,6 +19,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
     private var metaState = 0 // is this enough, or are there threading issues with the different PointerTrackers?
+
+    // language slide state
+    private var initialSubtype: InputMethodSubtype? = null
+    private var subtypeSwitchCount = 0
 
     // todo: maybe keep meta state presses to KeyboardActionListenerImpl, and avoid calls to press/release key
     private fun adjustMetaState(code: Int, remove: Boolean) {
@@ -43,8 +48,10 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         keyboardSwitcher.onReleaseKey(primaryCode, withSliding, latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
     }
 
-    override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) =
-        latinIME.onCodeInput(primaryCode, metaState, x, y, isKeyRepeat)
+    override fun onCodeInput(primaryCode: Int, x: Int, y: Int, isKeyRepeat: Boolean) {
+        val mkv = keyboardSwitcher.mainKeyboardView
+        latinIME.onCodeInput(primaryCode, metaState, mkv.getKeyX(x), mkv.getKeyY(y), isKeyRepeat)
+    }
 
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
@@ -80,6 +87,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         KeyboardActionListener.SWIPE_SWITCH_LANGUAGE -> onLanguageSlide(steps)
         KeyboardActionListener.SWIPE_TOGGLE_NUMPAD -> toggleNumpad(false, false)
         else -> false
+    }
+
+    override fun onEndSpaceSwipe(){
+        initialSubtype = null
+        subtypeSwitchCount = 0
     }
 
     override fun toggleNumpad(withSliding: Boolean, forceReturnToAlpha: Boolean): Boolean {
@@ -122,7 +134,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     private fun onLanguageSlide(steps: Int): Boolean {
-        if (abs(steps) < 4) return false
+        if (abs(steps) < settings.current.mLanguageSwipeDistance) return false
         val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
         if (subtypes.size <= 1) { // only allow if we have more than one subtype
             return false
@@ -133,7 +145,18 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         wantedIndex %= subtypes.size
         if (wantedIndex < 0)
             wantedIndex += subtypes.size
-        KeyboardSwitcher.getInstance().switchToSubtype(subtypes[wantedIndex])
+        val newSubtype = subtypes[wantedIndex]
+
+        // do not switch if we would switch to the initial subtype after cycling all other subtypes
+        if (initialSubtype == null)
+            initialSubtype = current
+        if (initialSubtype == newSubtype) {
+            if ((subtypeSwitchCount > 0 && steps > 0) || ((subtypeSwitchCount < 0 && steps < 0)))
+                return true
+        }
+        if (steps > 0) subtypeSwitchCount++ else subtypeSwitchCount--
+
+        KeyboardSwitcher.getInstance().switchToSubtype(newSubtype)
         return true
     }
 

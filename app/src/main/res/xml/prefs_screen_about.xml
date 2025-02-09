@@ -24,7 +24,7 @@
         android:summary="@string/gnu_gpl"
         android:icon="@drawable/ic_settings_about_license">
         <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/Helium314/HeliBoard/blob/main/LICENSE-GPL-3" />
+            android:data="https://github.com/Helium314/HeliBoard/blob/main/LICENSE" />
     </Preference>
 
     <Preference

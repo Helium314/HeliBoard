@@ -111,19 +111,17 @@ fun checkVersionUpgrade(context: Context) {
         if (additionalSubtypeString.contains(".")) { // means there are custom layouts
             val subtypeStrings = additionalSubtypeString.split(";")
             val newSubtypeStrings = subtypeStrings.mapNotNull {
+                if ("." !in it) // not a custom subtype, nothing to do
+                    return@mapNotNull it
                 val split = it.split(":").toMutableList()
-                Log.i("test", "0: $it")
                 if (split.size < 2) return@mapNotNull null // should never happen
                 val oldName = split[1]
                 val newName = oldName.substringBeforeLast(".") + "."
                 if (oldName == newName) return@mapNotNull split.joinToString(":") // should never happen
                 val oldFile = getCustomLayoutFile(oldName, context)
                 val newFile = getCustomLayoutFile(newName, context)
-                Log.i("test", "1")
                 if (!oldFile.exists()) return@mapNotNull null // should never happen
-                Log.i("test", "2")
                 if (newFile.exists()) newFile.delete() // should never happen
-                Log.i("test", "3")
                 oldFile.renameTo(newFile)
                 val enabledSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
                 if (enabledSubtypes.contains(oldName))
@@ -163,12 +161,12 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     try {
         val bgDay = File(context.filesDir, "custom_background_image")
         if (bgDay.isFile) {
-            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false), true)
+            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false, false), true)
             bgDay.delete()
         }
         val bgNight = File(context.filesDir, "custom_background_image_night")
         if (bgNight.isFile) {
-            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true), true)
+            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true, false), true)
             bgNight.delete()
         }
     } catch (_: Exception) {}

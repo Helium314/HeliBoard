@@ -65,6 +65,7 @@ public class KeyboardView extends View {
     private static final float KET_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
     private final Colors mColors;
     private float mKeyScaleForText;
+    protected float mFontSizeMultiplier;
 
     // The maximum key label width in the proportion to the key width.
     private static final float MAX_LABEL_RATIO = 0.90f;
@@ -95,6 +96,7 @@ public class KeyboardView extends View {
     @NonNull
     private final Paint mPaint = new Paint();
     private final Paint.FontMetrics mFontMetrics = new Paint.FontMetrics();
+    protected final Typeface mTypeface;
 
     public KeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -144,6 +146,7 @@ public class KeyboardView extends View {
         keyAttr.recycle();
 
         mPaint.setAntiAlias(true);
+        mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
     @Nullable
@@ -187,6 +190,9 @@ public class KeyboardView extends View {
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
+        mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
+                ? Settings.getInstance().getCurrent().mFontSizeMultiplierEmoji
+                : Settings.getInstance().getCurrent().mFontSizeMultiplier;
     }
 
     /**
@@ -381,8 +387,8 @@ public class KeyboardView extends View {
         float labelBaseline = centerY;
         final String label = key.getLabel();
         if (label != null) {
-            paint.setTypeface(key.selectTypeface(params));
-            paint.setTextSize(key.selectTextSize(params));
+            paint.setTypeface(mTypeface == null ? key.selectTypeface(params) : mTypeface);
+            paint.setTextSize(key.selectTextSize(params) * mFontSizeMultiplier);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
 
@@ -444,10 +450,10 @@ public class KeyboardView extends View {
         // Draw hint label.
         final String hintLabel = key.getHintLabel();
         if (hintLabel != null && mShowsHints) {
-            paint.setTextSize(key.selectHintTextSize(params));
+            paint.setTextSize(key.selectHintTextSize(params) * mFontSizeMultiplier); // maybe take sqrt to not have such extreme changes?
             paint.setColor(key.selectHintTextColor(params));
             // TODO: Should add a way to specify type face for hint letters
-            paint.setTypeface(Typeface.DEFAULT_BOLD);
+            paint.setTypeface(mTypeface == null ? Typeface.DEFAULT_BOLD : mTypeface);
             blendAlpha(paint, params.mAnimAlpha);
             final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
             final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
@@ -559,7 +565,7 @@ public class KeyboardView extends View {
         } else {
             paint.setColor(key.selectTextColor(mKeyDrawParams));
             paint.setTypeface(key.selectTypeface(mKeyDrawParams));
-            paint.setTextSize(key.selectTextSize(mKeyDrawParams));
+            paint.setTextSize(key.selectTextSize(mKeyDrawParams) * mFontSizeMultiplier);
         }
         return paint;
     }

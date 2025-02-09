@@ -32,6 +32,8 @@ main,hu,
 main,it,
 main,kn,
 main,ks,
+main,km,
+main,la,
 main,lv,
 main,lt,
 main,lb,
@@ -54,6 +56,8 @@ main,sr,
 main,sd,
 main,sl,
 main,es,
+main,zgh_ZZ,
+main,zgh,
 main,sv,
 main,ta,
 main,te,
@@ -94,6 +98,7 @@ main,kk,exp
 main,lv,exp
 main,lt,exp
 addon,ml_ZZ,exp
+main,ne,exp
 main,nb,exp
 main,pms,exp
 main,pl,exp

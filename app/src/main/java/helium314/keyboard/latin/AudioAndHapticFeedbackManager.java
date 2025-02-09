@@ -92,7 +92,7 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public void performHapticFeedback(final View viewToPerformHapticFeedbackOn) {
-        if (!mSettingsValues.mVibrateOn || mDoNotDisturb) {
+        if (!mSettingsValues.mVibrateOn || (mDoNotDisturb && !mSettingsValues.mVibrateInDndMode)) {
             return;
         }
         if (mSettingsValues.mKeypressVibrationDuration >= 0) {

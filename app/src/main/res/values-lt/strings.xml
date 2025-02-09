@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_for_spellchecking_option_title">"Kontaktų vardų paieška"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Rašybos tikrinimo progr. naudoja įrašus, esančius kontaktų sąraše"</string>
     <string name="vibrate_on_keypress">"Vibruoti, kai paspaudžiami klavišai"</string>
@@ -85,11 +84,11 @@
     <string name="setup_next_action">"Kitas veiksmas"</string>
     <string name="setup_steps_title">"„<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ sąranka"</string>
     <string name="setup_step1_title">"Įgalinkite „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
-    <string name="setup_step1_instruction">"Skiltyje „Kalbos ir įvesties nustatymai“ žr. „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“. Programa bus įgalinta veikti įrenginyje."</string>
+    <string name="setup_step1_instruction">Skiltyje „Kalbos ir įvesties nustatymai“ žr. <xliff:g id="APPLICATION_NAME">%s</xliff:g>“. Programa bus įgalinta veikti įrenginyje.\"</string>
     <string name="setup_step1_finished_instruction">"„<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ jau įgalinta jūsų „Kalbos ir įvesties nustatymuose“, todėl šis veiksmas yra atliktas. Galite pereiti prie kito!"</string>
     <string name="setup_step1_action">"Įgalinti nustatymuose"</string>
     <string name="setup_step2_title">"Perjungimas į „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
-    <string name="setup_step2_instruction">"Toliau pasirinkite „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ kaip aktyvų teksto įvesties metodą."</string>
+    <string name="setup_step2_instruction">Toliau pasirinkite <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ kaip aktyvų teksto įvesties metodą.\"</string>
     <string name="setup_step2_action">"Perjungti įvesties metodus"</string>
     <string name="setup_step3_title">"Sveikiname, viską nustatėte!"</string>
     <string name="setup_step3_instruction">"Dabar galite įvesti visas mėgstamas programas naudodami „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“."</string>

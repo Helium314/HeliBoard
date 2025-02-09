@@ -83,12 +83,12 @@
     <string name="setup_start_action">"Alustamine"</string>
     <string name="setup_next_action">"Järgmine toiming"</string>
     <string name="setup_steps_title">"Rakenduse <xliff:g id="APPLICATION_NAME">%s</xliff:g> seadistamine"</string>
-    <string name="setup_step1_title">Luba <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Märgi oma keele- ja sisendiseadetes rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”. See lubab rakenduse käitamise sinu seadmes.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME">%s</xliff:g> on sinu keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
+    <string name="setup_step1_title">Võta <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> kasutusele</string>
+    <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ rakendus lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME">%s</xliff:g> on sinu nutiseadme keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
     <string name="setup_step1_action">"Luba seadetes"</string>
-    <string name="setup_step2_title">Võta rakendus <xliff:g id="APPLICATION_NAME">%s</xliff:g> kõikjal kasutusele</string>
-    <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>”.</string>
+    <string name="setup_step2_title">Võta <xliff:g id="APPLICATION_NAME">%s</xliff:g> rakendus kõikjal kasutusele</string>
+    <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“.</string>
     <string name="setup_step2_action">"Vaheta sisestusmeetodeid"</string>
     <string name="setup_step3_title">"Õnnitleme. Kõik on valmis!"</string>
     <string name="setup_step3_instruction">Nüüd saad rakendusega <xliff:g id="APPLICATION_NAME">%s</xliff:g> sisestada kõikides oma lemmikrakendustes.</string>
@@ -266,7 +266,7 @@
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
     <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
     <string name="add_new_dictionary_title">Lisa sõnastik failist</string>
-    <string name="add_new_dictionary_ask_locale">Mis keelele lisame „%1$s“/„%2$s“ sõnastiku?</string>
+    <string name="add_new_dictionary_ask_locale">Mis keelele lisame „1$s“/„%2$s“ sõnastiku?</string>
     <string name="user_dict_settings_add_weight_value">Kaal:</string>
     <string name="customize_currencies">Kohanda valuutasid</string>
     <string name="dictionary_settings_category">Sõnastikud</string>
@@ -290,19 +290,12 @@
     <string name="dictionary_load_error">Viga sõnastikufaili laadimisel</string>
     <string name="no_dictionary_dont_show_again_button">Ära näita enam uuesti</string>
     <string name="button_add_to_language">Lisa lokaati: %s</string>
-    <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „%1$s“?
-\n
-\nPraegune sõnastik:
-\n„%2$s“
-\n
-\nUus sõnastik:
-\n„%3$s“</string>
+    <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „1$s“? \n \nPraegune sõnastik: \n„%2$s“ \n \nUus sõnastik: \n„%3$s“</string>
     <string name="dictionary_file_error">Viga: valitud fail pole korrektne sõnastikufail</string>
     <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
     <string name="replace_dictionary">Asenda sõnastik</string>
     <string name="remove_dictionary_message">Kas kindlasti tahad eemaldada enda lisatud sõnastiku „%s“?</string>
-    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;
-\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
+    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;\n\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
     <string name="available_dictionary_experimental">%s (katseline)</string>
     <string name="icon_style">Ikooni stiil</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Numbririda</string>
@@ -452,4 +445,6 @@
     <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Tähestik (Colemak Mod-DH)</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Tähestik (Bépo)</string>
     <string name="settings_screen_toolbar">Tööriistariba</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Prügikast</string>
+    <string name="customize_icons_reset_message">Kas kindlasti soovid lähtestada kõik sinu seadistatud ikoonid?</string>
 </resources>

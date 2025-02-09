@@ -91,12 +91,16 @@ public class KeyboardParams {
     public boolean mAllowRedundantPopupKeys;
     @NonNull
     public LocaleKeyboardInfos mLocaleKeyboardInfos;
+    public boolean setTabletExtraKeys;
 
     public int mMostCommonKeyHeight = 0;
     public int mMostCommonKeyWidth = 0;
 
     // should be enabled for all alphabet layouts, except for specific layouts when shifted
     public boolean mProximityCharsCorrectionEnabled;
+
+    // only for removing redundant popup keys
+    public List<Key.KeyParams> baseKeys;
 
     @NonNull
     public final TouchPositionCorrection mTouchPositionCorrection = new TouchPositionCorrection();
@@ -145,12 +149,12 @@ public class KeyboardParams {
     }
 
     public void removeRedundantPopupKeys() {
-        if (mAllowRedundantPopupKeys) {
+        if (mAllowRedundantPopupKeys || baseKeys == null) {
             return;
         }
         final PopupKeySpec.LettersOnBaseLayout lettersOnBaseLayout =
                 new PopupKeySpec.LettersOnBaseLayout();
-        for (final Key key : mSortedKeys) {
+        for (final Key.KeyParams key : baseKeys) {
             lettersOnBaseLayout.addLetter(key);
         }
         final ArrayList<Key> allKeys = new ArrayList<>(mSortedKeys);
@@ -159,6 +163,7 @@ public class KeyboardParams {
             final Key filteredKey = Key.removeRedundantPopupKeys(key, lettersOnBaseLayout);
             mSortedKeys.add(mUniqueKeysCache.getUniqueKey(filteredKey));
         }
+        baseKeys = null;
     }
 
     private int mMaxHeightCount = 0;
@@ -220,10 +225,12 @@ public class KeyboardParams {
             mBottomPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
                     * Settings.getInstance().getCurrent().mBottomPaddingScale);
-            mLeftPadding = (int) keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardLeftPadding, width, width, 0);
-            mRightPadding = (int) keyboardAttr.getFraction(
-                    R.styleable.Keyboard_keyboardRightPadding, width, width, 0);
+            mLeftPadding = (int) (keyboardAttr.getFraction(
+                    R.styleable.Keyboard_keyboardLeftPadding, width, width, 0)
+                    * Settings.getInstance().getCurrent().mSidePaddingScale);
+            mRightPadding = (int) (keyboardAttr.getFraction(
+                    R.styleable.Keyboard_keyboardRightPadding, width, width, 0)
+                    * Settings.getInstance().getCurrent().mSidePaddingScale);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
             final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
@@ -233,7 +240,6 @@ public class KeyboardParams {
             mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
             mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
-            // todo: maybe settings should not be accessed from here?
             if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
                 mRelativeHorizontalGap = keyboardAttr.getFraction(
                         R.styleable.Keyboard_horizontalGapNarrow, 1, 1, 0);
@@ -280,5 +286,6 @@ public class KeyboardParams {
             keyAttr.recycle();
             keyboardAttr.recycle();
         }
+        setTabletExtraKeys = Settings.getInstance().isTablet() && !mId.mSubtype.isCustom();
     }
 }

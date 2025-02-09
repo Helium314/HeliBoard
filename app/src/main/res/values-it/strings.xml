@@ -69,7 +69,7 @@
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Aggiungi"</string>
     <string name="remove">"Rimuovi"</string>
-    <string name="save">Esporta</string>
+    <string name="save">Salva</string>
     <string name="subtype_locale">"Lingua"</string>
     <string name="keyboard_layout_set">"Layout"</string>
     <string name="prefs_keypress_vibration_duration_settings">Durata vibrazione tasti</string>
@@ -85,7 +85,7 @@
     <string name="setup_steps_title">Configurazione di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Seleziona \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" nelle impostazioni \'Lingua e immissione\' del tuo dispositivo per autorizzare l\'app.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.\"</string>
     <string name="setup_step1_action">Attiva nelle impostazioni</string>
     <string name="setup_step2_title">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Infine, attiva \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" come metodo di immissione di testo.</string>
@@ -122,10 +122,10 @@
     <string name="more_keys_strip_description">Altri tasti</string>
     <string name="autospace_after_punctuation_summary">Alla digitazione di una nuova parola, inserisce automaticamente lo spazio dopo la punteggiatura</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
-    <string name="settings_category_clipboard_history">Cronologia degli appunti</string>
+    <string name="settings_category_clipboard_history">Cronologia appunti</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Nessun limite</string>
-    <string name="enable_clipboard_history">Attiva la cronologia degli appunti</string>
+    <string name="enable_clipboard_history">Attiva la cronologia appunti</string>
     <string name="enable_clipboard_history_summary">Se disattivata, il tasto \'Appunti\' incolla direttamente l\'ultimo contenuto</string>
     <string name="clipboard_history_retention_time">Durata dei contenuti nella cronologia</string>
     <string name="spell_checker_service_name">HeliBoard - Controllo ortografico</string>
@@ -133,7 +133,7 @@
     <string name="number_row">Riga dei numeri</string>
     <string name="delete_swipe">Scorri per cancellare</string>
     <string name="delete_swipe_summary">Scorri indietro partendo da \'Backspace\' per selezionare e rimuovere porzioni di testo più ampie in una sola volta</string>
-    <string name="incognito">Forza la modalità incognito</string>
+    <string name="incognito">Modalità incognito</string>
     <string name="show_emoji_key">Tasto emoji</string>
     <string name="number_row_summary">Mostra sempre la riga dei numeri</string>
     <string name="show_hints">Mostra indicatori sui tasti</string>
@@ -161,7 +161,7 @@
     <string name="label_go_key">"Vai"</string>
     <string name="label_next_key">→</string>
     <string name="label_previous_key">←</string>
-    <string name="label_done_key">"Fine"</string>
+    <string name="label_done_key">OK</string>
     <string name="label_send_key">"Invia"</string>
     <string name="label_search_key">"Cerca"</string>
     <string name="label_pause_key">"Pausa"</string>
@@ -342,38 +342,7 @@
     <string name="var_toolbar_direction_summary">Inverte la direzione quando la tastiera è di tipo destra-sinistra</string>
     <string name="var_toolbar_direction">Direzione della barra degli strumenti</string>
     <string name="select_color_accent">Colore accento</string>
-    <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attivano funzionalità aggiuntive:
-\n\t• Appunti &amp;#65515; Incolla&lt;br&gt;
-\n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt;
-\n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt;
-\n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt;
-\n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt;
-\n\t• Copia &amp;#65515; Taglia&lt;br&gt;
-\n\t• Seleziona parola &amp;#65515; Seleziona tutto&lt;br&gt;
-\n\t• Annulla &amp;#8596; Ripristina&lt;br&gt;&lt;br&gt;
-\n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra.
-\n► Con la pressione prolungata del tasto virgola si accede alle funzionalità appunti, emoji, modalità una mano, impostazioni, cambio lingua.
-\n► Quando è abilitata la modalità incognito, l\'apprendimento delle parole è sospeso e le emoji recenti non sono memorizzate.
-\n► In modalità incognito, un tap sull\'icona \'Incognito\' permette di accedere alla barra degli strumenti.
-\n► Scorrimento da \'Maiuscolo\': lo scorrimento dal tasto \'Maiuscolo\' a una lettera permette di digitare in maiuscolo solo il carattere scelto.
-\n► È possibile tener premuto il tasto \'Maiuscolo\' o \'Simboli\', digitare uno o più caratteri e rilasciare per tornare alla tastiera precedente.
-\n► La pressione lunga su un suggerimento mostra altri suggerimenti, più un tasto \'Elimina\' per rimuovere il suggerimento stesso.
-\n► È possibile scorrere verso l\'alto da un suggerimento per aprire altri suggerimenti e rilasciare su un suggerimento per selezionarlo.
-\n► È possibile toccare a lungo una voce della cronologia degli appunti per fissarla (mantenerla negli appunti finché non viene sbloccata nello stesso modo).
-\n► È possibile eliminare facilmente una voce della cronologia degli appunti trascinandola verso sinistra fuori dallo schermo (tranne quando è bloccata).
-\n► Dopo aver selezionato un testo, è possibile alternare tra varianti tutto in maiuscolo, tutto in minuscolo e maiuscola iniziale.
-\n► È possibile aggiungere dizionari aprendoli da un qualsiasi gestore file.
-\n\t• Supporta solo &lt;i&gt;content-uris&lt;/i&gt;, non &lt;i&gt;file-uris&lt;/i&gt;: potrebbe non funzionare con alcuni gestori di file.&lt;br&gt;&lt;br&gt;
-\n► Gli utenti che eseguono backup manuali con accesso root, non troveranno il file esportato nella cartella predefinita, perché l\'app usa %s al fine di permettere il caricamento delle impostazioni prima dello sblocco del dispositivo.
-\n\t• Il file delle preferenze condivise è salvato nella cartella: &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; (potrebbe variare in base al dispositivo e alla versione di Android).
-\n&lt;i&gt;&lt;b&gt;App di debug / Modalità debug&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt;
-\n► È possibile premere a lungo un suggerimento per mostrare il dizionario di origine.
-\n► Quando si utilizza l\'APK di debug, è possibile trovare le impostazioni di debug tra le preferenze avanzate. Lo strumento permette lo scaricamento dei dizionari nel registro.
-\n\t• Se si usa una versione \'normale\' dell\'app, si può accedere alla Modalità Sviluppatore toccando più volte la versione del sistema operativo in Informazioni (può variare in base al produttore): nelle impostazioni avanzate del dispositivo apparirà una nuova sezione \'Strumenti Sviluppatore\' che contiene gli strumenti di debug.
-\n\t• Quando si abilita \'Mostra informazioni sui suggerimenti\', accanto ai suggerimenti appariranno alcuni indicatori numerici che corrispondono a determinati punteggi interni, più il dizionario di origine.
-\n► In caso di arresto anomalo dell\'app, verrà chiesto se si desidera ottenere i registri al successivo accesso alle impostazioni.
-\n► Se è attiva la digitazione multilingue, la barra spaziatrice mostrerà un codice che corrisponde alla lingua corrente.
-\n► Per nascondere gli indicatori numerici accanto ai suggerimenti, disabilitare \'Mostra informazioni sui suggerimenti\' dalle impostazioni.</string>
+    <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attivano funzionalità aggiuntive: &lt;br&gt;\n\t• Appunti &amp;#65515; Incolla&lt;br&gt; \n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt; \n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt; \n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt; \n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt; \n\t• Copia &amp;#65515; Taglia&lt;br&gt; \n\t• Seleziona parola &amp;#8596; Seleziona tutto&lt;br&gt; \n\t• Annulla &amp;#8596; Ripeti&lt;br&gt;&lt;br&gt; \n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra. &lt;br&gt; &lt;br&gt;\n► Con la pressione prolungata del tasto virgola si accede alle funzionalità appunti, emoji, modalità una mano, impostazioni e cambio lingua: &lt;br&gt;\n\t• Le funzionalità emoji e cambio lingua non saranno visibili se il relativo tasto è abilitato. &lt;br&gt; \n\t• Per alcuni layout non è il tasto virgola, ma quello presente nella stessa posizione (es. \"q\" per il layout Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando è abilitata la modalità incognito, l\'apprendimento delle parole è sospeso e le emoji recenti non sono memorizzate. &lt;br&gt; &lt;br&gt;\n► In modalità incognito, si accede alla barra degli strumenti toccando l\'icona \"Incognito\". &lt;br&gt; &lt;br&gt;\n► Scorrimento da \"Maiuscolo\": lo scorrimento dal tasto \"Maiuscolo\" a una lettera permette di digitare in maiuscolo solo il carattere scelto. &lt;br&gt; &lt;br&gt;\n► È possibile tener premuto il tasto \"Maiuscolo\" o \"Simboli\", digitare uno o più caratteri e rilasciare per tornare alla tastiera precedente. &lt;br&gt; &lt;br&gt;\n► La pressione lunga su un suggerimento mostra altri suggerimenti, più un tasto \"Elimina\" per rimuovere il suggerimento stesso. &lt;br&gt; &lt;br&gt;\n► È possibile scorrere verso l\'alto da un suggerimento per aprire altri suggerimenti e rilasciare su un suggerimento per selezionarlo. &lt;br&gt; &lt;br&gt;\n► È possibile toccare a lungo una voce della cronologia appunti per fissarla (rimane negli appunti finché non viene rilasciata nello stesso modo). &lt;br&gt; &lt;br&gt;\n► È possibile eliminare facilmente una voce della cronologia appunti trascinandola verso sinistra fuori dallo schermo (tranne quando è fissata). &lt;br&gt; &lt;br&gt;\n► Premendo il tasto \"Maiuscolo\" dopo aver selezionato un testo, è possibile renderlo tutto in maiuscolo, tutto in minuscolo oppure con le iniziali maiuscole. &lt;br&gt; &lt;br&gt;\n► È possibile aggiungere dizionari aprendoli da un qualsiasi gestore file. &lt;br&gt;\n\t• Supporta solo &lt;i&gt;content-uri&lt;/i&gt;, non &lt;i&gt;file-uri&lt;/i&gt;: potrebbe non funzionare con alcuni gestori di file.&lt;br&gt;&lt;br&gt; \n► Per gli utenti che eseguono manualmente il backup con accesso root: &lt;br&gt;\n\t• Su Android 7 e versioni successive, il file delle preferenze non si trova nella cartella predefinita, perché l\'app usa %s al fine di permettere il caricamento delle impostazioni prima dello sblocco del dispositivo (es. all\'avvio del sistema). &lt;br&gt;\n\t• Il file si trova invece nella cartella: &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; (potrebbe variare in base al dispositivo e alla versione di Android). &lt;br&gt;&lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modalità debug / APK di debug&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt; \n► È possibile premere a lungo un suggerimento per mostrare il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► Quando si utilizza un APK di debug, è possibile trovare le impostazioni di debug nella sezione \"Avanzate\". Non sono particolarmente utili, se non per scaricare i dizionari nel log. &lt;br&gt;\n\t• Nella versione normale (release) dell\'app, è possibile accedervi solo dopo aver toccato più volte la versione dell\'app nella sezione \"Informazioni\". &lt;br&gt;\n\t• Quando si abilita \"Mostra informazioni sui suggerimenti\", sopra ai suggerimenti appariranno alcuni indicatori numerici che mostrano un determinato punteggio interno e il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► In caso di arresto anomalo dell\'app, verrà chiesto se si desidera ottenere i log dell\'arresto anomalo al successivo accesso alle impostazioni. &lt;br&gt; &lt;br&gt;\n► Se è attiva la digitazione multilingue, la barra spaziatrice mostrerà il valore di affidabilità usato per determinare la lingua corrente. &lt;br&gt; &lt;br&gt;\n► Per nascondere gli indicatori numerici accanto ai suggerimenti, disabilitare \"Mostra informazioni sui suggerimenti\".</string>
     <string name="pinned_toolbar_keys">Scegli i tasti permanenti (icone visibili anche con la barra degli strumenti nascosta)</string>
     <string name="quick_pin_toolbar_keys">Fissa i tasti alla barra degli strumenti con una pressione lunga</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tasti funzione</string>
@@ -388,8 +357,8 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tasti funzione (Altri simboli)</string>
     <string name="settings_screen_toolbar">Barra degli strumenti</string>
     <string name="center_suggestion_text_to_enter">Usa sempre la parola suggerita al centro</string>
-    <string name="close_history" tools:keep="@string/close_history">Chiudi la cronologia degli appunti</string>
-    <string name="clipboard_toolbar_keys">Seleziona i tasti mostrati insieme alla cronologia degli appunti</string>
+    <string name="close_history" tools:keep="@string/close_history">Chiudi la cronologia appunti</string>
+    <string name="clipboard_toolbar_keys">Seleziona i tasti mostrati con la cronologia appunti</string>
     <string name="language_switch_key_behavior">Comportamento del tasto di cambio lingua</string>
     <string name="center_suggestion_text_to_enter_summary">All\'aggiunta di uno spazio o di un segno di punteggiatura, il suggerimento centrale è inserito automaticamente</string>
     <string name="customize_functional_key_layouts">Personalizza i layout dei tasti funzione</string>
@@ -414,7 +383,7 @@
     <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
     <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
     <string name="after_symbol_and_space">Dopo l\'inserimento di un carattere dalla schermata simboli, seguito da uno spazio o un \'a capo\'</string>
-    <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia degli appunti</string>
+    <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia appunti</string>
     <string name="show_popup_keys_main">Aggiungi varianti molto comuni (impostazione predefinita)</string>
     <string name="page_up" tools:keep="@string/page_up">Pagina su</string>
     <string name="page_down" tools:keep="@string/page_down">Pagina giù</string>
@@ -426,15 +395,15 @@
     <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
     <string name="gesture_floating_preview_static">Anteprima mobile dinamica</string>
     <string name="gesture_floating_preview_dynamic_summary">Sposta l\'anteprima seguendo il gesto</string>
-    <string name="layout_number_row" tools:keep="@string/layout_number_row">Riga numerica</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Riga dei numeri</string>
     <string name="prefs_space_bar_text">Testo personalizzato sulla barra spaziatrice</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji riga inferiore</string>
-    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Riga inferiore degli appunti</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Selettore emoji (ultima riga)</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Cronologia appunti (ultima riga)</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Termina la modalità con una mano</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Invio</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Blocco maiuscole</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Elimina</string>
-    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spazio (disposizione numerica)</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spazio (layout numerico)</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ridimensiona la modalità con una mano</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambia lato modalità con una mano</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Inserimento vocale disabilitato</string>
@@ -443,10 +412,12 @@
     <string name="key_code">Codice tasto</string>
     <string name="long_press_code">Codice pressione prolungata</string>
     <string name="customize_icons">Personalizza icone</string>
-    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiusc</string>
-    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiusc (maiuscolo)</string>
-    <string name="label_tab_key" tools:keep="@string/label_tab_key">Scheda</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiuscolo</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiuscolo (attivo)</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab (tabulazione)</string>
     <string name="icon_style">Stile Icona</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
+    <string name="customize_icons_reset_message">Vuoi davvero resettare tutte le icone personalizzate?</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Cestino</string>
 </resources>

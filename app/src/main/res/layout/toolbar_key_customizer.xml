@@ -18,7 +18,7 @@
             android:id="@+id/toolbar_key_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout

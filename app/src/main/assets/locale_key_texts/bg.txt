@@ -3,3 +3,6 @@
 
 [labels]
 alphabet: АБВ
+
+[tlds]
+bg

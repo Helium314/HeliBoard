@@ -9,3 +9,6 @@
 
 [labels]
 alphabet: ΑΒΓ
+
+[tlds]
+gr
