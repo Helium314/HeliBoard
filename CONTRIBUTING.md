@@ -20,6 +20,7 @@ Some hints for finding what you're looking for:
 * Suggestions: `DictionaryFacilitatorImpl`, `Suggest`, `InputLogic`, and `SuggestionStripView` (in order from creation to display)
 * Forwarding entered text / keys to the app / text field: `RichInputConnection`
 * Receiving events and information from the app / text field: `LatinIME`
+* Settings are in `SettingsValues`, with some functionality in `Settings` and the default values in `Default`
 
 # Guidelines
 

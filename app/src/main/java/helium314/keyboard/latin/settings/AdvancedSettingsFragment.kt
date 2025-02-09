@@ -419,7 +419,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
+        val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
         updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
         reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
@@ -518,9 +518,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = Settings.readKeyLongpressTimeout(prefs, resources)
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Defaults.PREF_KEY_LONGPRESS_TIMEOUT)
 
-            override fun readDefaultValue(key: String) = Settings.readDefaultKeyLongpressTimeout(resources)
+            override fun readDefaultValue(key: String) = 300
 
             override fun getValueText(value: Int) =
                 resources.getString(R.string.abbreviation_unit_milliseconds, value.toString())
@@ -570,9 +570,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = Settings.readLanguageSwipeDistance(prefs, resources)
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, 5)
 
-            override fun readDefaultValue(key: String) = Settings.readDefaultLanguageSwipeDistance(resources)
+            override fun readDefaultValue(key: String) = 5
 
             override fun getValueText(value: Int) = value.toString()
 

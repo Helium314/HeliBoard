@@ -17,6 +17,7 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
@@ -26,7 +27,7 @@ import java.util.*
  *  subtypes for system locales will be returned, or en-US if none found. */
 fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
     require(initialized)
-    if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true))
+    if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES))
         return getDefaultEnabledSubtypes()
     if (fallback && enabledSubtypes.isEmpty())
         return getDefaultEnabledSubtypes()
@@ -76,16 +77,16 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
-fun addAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
+fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+    val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
     val additionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toMutableSet()
     additionalSubtypes.add(subtype)
     val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
     Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
 }
 
-fun removeAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = Settings.readPrefAdditionalSubtypes(prefs, resources)
+fun removeAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+    val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
     val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
     val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
     val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
@@ -94,14 +95,14 @@ fun removeAdditionalSubtype(prefs: SharedPreferences, resources: Resources, subt
 
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
-    val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.toLocaleAndLayout()
-    val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)) getDefaultEnabledSubtypes()
+    val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toLocaleAndLayout()
+    val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES)) getDefaultEnabledSubtypes()
         else enabledSubtypes
     val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
     if (subtype != null) {
         return subtype
     } else {
-        Log.w(TAG, "selected subtype $localeAndLayout / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")} not found")
+        Log.w(TAG, "selected subtype $localeAndLayout / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)} not found")
     }
     if (subtypes.isNotEmpty())
         return subtypes.first()
@@ -113,7 +114,7 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
 
 fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     val subtypeString = subtype.prefString()
-    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "") == subtypeString)
+    if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE) == subtypeString)
         return
     prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
 }
@@ -170,7 +171,7 @@ fun init(context: Context) {
 
     loadResourceSubtypes(context.resources)
     removeInvalidCustomSubtypes(context)
-    loadAdditionalSubtypes(context)
+    loadAdditionalSubtypes(context.prefs())
     loadEnabledSubtypes(context)
     initialized = true
 }
@@ -244,7 +245,7 @@ private fun loadResourceSubtypes(resources: Resources) {
 // remove custom subtypes without a layout file
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = context.prefs()
-    val additionalSubtypes = Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";")
+    val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(";")
     val customSubtypeFiles by lazy { getCustomLayoutFiles(context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
@@ -258,8 +259,8 @@ private fun removeInvalidCustomSubtypes(context: Context) {
     Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(";"))
 }
 
-private fun loadAdditionalSubtypes(context: Context) {
-    val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(context.prefs(), context.resources)
+private fun loadAdditionalSubtypes(prefs: SharedPreferences) {
+    val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
     val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
     additionalSubtypes.addAll(subtypes)
 }
@@ -267,7 +268,7 @@ private fun loadAdditionalSubtypes(context: Context) {
 // requires loadResourceSubtypes to be called before
 private fun loadEnabledSubtypes(context: Context) {
     val prefs = context.prefs()
-    val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
+    val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
         .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 
     for (localeAndLayout in subtypeStrings) {
@@ -299,12 +300,12 @@ private fun loadEnabledSubtypes(context: Context) {
 }
 
 private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String) {
-    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!
+    val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
     val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
     if (newString == oldSubtypeString)
         return // already removed
     prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
-    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, "")) {
+    if (subtypeString == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)) {
         // switch subtype if the currently used one has been disabled
         try {
             val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)

@@ -44,7 +44,7 @@ public final class AdditionalSubtypeUtils {
     private static final int INDEX_OF_EXTRA_VALUE = 2;
     private static final int LENGTH_WITHOUT_EXTRA_VALUE = (INDEX_OF_KEYBOARD_LAYOUT + 1);
     private static final int LENGTH_WITH_EXTRA_VALUE = (INDEX_OF_EXTRA_VALUE + 1);
-    private static final String PREF_SUBTYPE_SEPARATOR = ";";
+    public static final String PREF_SUBTYPE_SEPARATOR = ";";
 
     private static InputMethodSubtype createAdditionalSubtypeInternal(
             final Locale locale, final String keyboardLayoutSetName,

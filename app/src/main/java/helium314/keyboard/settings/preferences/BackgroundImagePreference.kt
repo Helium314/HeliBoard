@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
@@ -44,7 +45,7 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
     val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0) // necessary to reload dayNightPref
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val dayNightPref = Settings.readDayNightPref(ctx.prefs(), ctx.resources)
+    val dayNightPref = ctx.prefs().getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)
     if (!dayNightPref)
         isNight = false
     val scope = rememberCoroutineScope()

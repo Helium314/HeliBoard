@@ -26,6 +26,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.DebugSettings
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
 import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
@@ -76,7 +77,8 @@ fun AdvancedSettingsScreen(
         SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS,
         SettingsWithoutKey.CUSTOM_FUNCTIONAL_LAYOUTS,
         SettingsWithoutKey.BACKUP_RESTORE,
-        if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false)) SettingsWithoutKey.DEBUG_SETTINGS else null,
+        if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, Defaults.PREF_SHOW_DEBUG_SETTINGS))
+            SettingsWithoutKey.DEBUG_SETTINGS else null,
         R.string.settings_category_experimental,
         Settings.PREF_EMOJI_MAX_SDK,
         Settings.PREF_URL_DETECTION,
@@ -94,13 +96,13 @@ fun createAdvancedSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_ALWAYS_INCOGNITO_MODE,
         R.string.incognito, R.string.prefs_force_incognito_mode_summary)
     {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
     },
     Setting(context, Settings.PREF_KEY_LONGPRESS_TIMEOUT, R.string.prefs_key_longpress_timeout_settings) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 300,
+            default = Defaults.PREF_KEY_LONGPRESS_TIMEOUT,
             range = 100f..700f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, it.toString()) }
         )
@@ -112,7 +114,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
             stringResource(R.string.action_none) to "none",
         )
-        ListPreference(it, items, "move_cursor")
+        ListPreference(it, items, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)
     },
     Setting(context, Settings.PREF_SPACE_VERTICAL_SWIPE, R.string.show_vertical_space_swipe) {
         val items = listOf(
@@ -121,48 +123,48 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.space_swipe_toggle_numpad_entry) to "toggle_numpad",
             stringResource(R.string.action_none) to "none",
         )
-        ListPreference(it, items, "none")
+        ListPreference(it, items, Defaults.PREF_SPACE_VERTICAL_SWIPE)
     },
     Setting(context, Settings.PREF_LANGUAGE_SWIPE_DISTANCE, R.string.prefs_language_swipe_distance) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 5,
+            default = Defaults.PREF_LANGUAGE_SWIPE_DISTANCE,
             range = 2f..18f,
             description = { it.toString() }
         )
     },
     Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
     },
     Setting(context, Settings.PREF_SPACE_TO_CHANGE_LANG,
         R.string.prefs_long_press_keyboard_to_change_lang,
         R.string.prefs_long_press_keyboard_to_change_lang_summary)
     {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_SPACE_TO_CHANGE_LANG)
     },
     Setting(context, Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, R.string.prefs_long_press_symbol_for_numpad) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD)
     },
     Setting(context, Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY, R.string.prefs_enable_emoji_alt_physical_key,
         R.string.prefs_enable_emoji_alt_physical_key_summary)
     {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY)
     },
     Setting(context, Settings.PREF_SHOW_SETUP_WIZARD_ICON, R.string.prefs_enable_emoji_alt_physical_key_summary) {
         val ctx = LocalContext.current
-        SwitchPreference(it, true) { SystemBroadcastReceiver.toggleAppIcon(ctx) }
+        SwitchPreference(it, Defaults.PREF_SHOW_SETUP_WIZARD_ICON) { SystemBroadcastReceiver.toggleAppIcon(ctx) }
     },
     Setting(context, Settings.PREF_ABC_AFTER_SYMBOL_SPACE,
         R.string.switch_keyboard_after, R.string.after_symbol_and_space)
     {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_ABC_AFTER_SYMBOL_SPACE)
     },
     Setting(context, Settings.PREF_ABC_AFTER_EMOJI, R.string.switch_keyboard_after, R.string.after_emoji) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_ABC_AFTER_EMOJI)
     },
     Setting(context, Settings.PREF_ABC_AFTER_CLIP, R.string.switch_keyboard_after, R.string.after_clip) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_ABC_AFTER_EMOJI)
     },
     Setting(context, Settings.PREF_CUSTOM_CURRENCY_KEY, R.string.customize_currencies) { setting ->
         var showDialog by remember { mutableStateOf(false) } // todo: textInputDialog...
@@ -175,7 +177,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             TextInputDialog(
                 onDismissRequest = { showDialog = false },
                 textInputLabel = { Text(stringResource(R.string.customize_currencies_detail)) },
-                initialText = prefs.getString(setting.key, "")!!,
+                initialText = prefs.getString(setting.key, Defaults.PREF_CUSTOM_CURRENCY_KEY)!!,
                 onConfirmed = { prefs.edit().putString(setting.key, it).apply(); KeyboardLayoutSet.onSystemLocaleChanged() },
                 title = { Text(stringResource(R.string.customize_currencies)) },
                 neutralButtonText = if (prefs.contains(setting.key)) stringResource(R.string.button_default) else null,
@@ -191,7 +193,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             stringResource(R.string.show_popup_keys_more) to "more",
             stringResource(R.string.show_popup_keys_all) to "all",
         )
-        ListPreference(it, items, "main") { KeyboardLayoutSet.onSystemLocaleChanged() }
+        ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
     Setting(context, SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) { setting ->
         LayoutEditPreference(
@@ -229,7 +231,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = Build.VERSION.SDK_INT,
+            default = Defaults.PREF_EMOJI_MAX_SDK,
             range = 21f..35f,
             description = {
                 "Android " + when(it) {
@@ -255,7 +257,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         )
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_URL_DETECTION)
     },
     Setting(context, SettingsWithoutKey.LOAD_GESTURE_LIB, R.string.load_gesture_library, R.string.load_gesture_library_summary) {
         LoadGestureLibPreference(it)

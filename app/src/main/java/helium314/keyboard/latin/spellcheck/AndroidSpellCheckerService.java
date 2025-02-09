@@ -27,6 +27,7 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
@@ -82,7 +83,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final SharedPreferences prefs = KtxKt.prefs(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
-        final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+        final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
         SubtypeSettingsKt.init(this);
     }
@@ -94,10 +95,10 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (Settings.PREF_USE_CONTACTS.equals(key)) {
-            final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, true);
+            final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, Defaults.PREF_USE_CONTACTS);
             mDictionaryFacilitatorCache.setUseContactsDictionary(useContactsDictionary);
         } else if (Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE.equals(key)) {
-            final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+            final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
             mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
         }
     }

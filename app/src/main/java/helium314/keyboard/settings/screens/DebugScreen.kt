@@ -16,6 +16,7 @@ import helium314.keyboard.latin.DictionaryFacilitator
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.DebugSettingsFragment
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
@@ -78,20 +79,20 @@ private fun createDebugSettings(context: Context) = listOf(
             name = setting.title,
             key = setting.key,
             description = stringResource(R.string.version_text, BuildConfig.VERSION_NAME),
-            default = false,
+            default = Defaults.PREF_DEBUG_MODE,
         ) {
             if (!it) prefs.edit().putBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false).apply()
             needsRestart = true
         }
     },
     Setting(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) {
-        SwitchPreference(it, false) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_SUGGESTION_INFOS) { keyboardNeedsReload = true }
     },
     Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
-        SwitchPreference(it, false) { needsRestart = true }
+        SwitchPreference(it, Defaults.PREF_FORCE_NON_DISTINCT_MULTITOUCH) { needsRestart = true }
     },
     Setting(context, DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, R.string.sliding_key_input_preview, R.string.sliding_key_input_preview_summary) { def ->
-        SwitchPreference(def, false)
+        SwitchPreference(def, Defaults.PREF_SLIDING_KEY_INPUT_PREVIEW)
     },
 ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { type ->
     Setting(context, DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {

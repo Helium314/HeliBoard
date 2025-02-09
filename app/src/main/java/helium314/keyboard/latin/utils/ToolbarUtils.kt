@@ -26,6 +26,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
 import kotlinx.coroutines.GlobalScope
@@ -62,7 +63,7 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
 
 private fun setToolbarButtonActivatedState(button: ImageButton) {
     button.isActivated = when (button.tag) {
-        INCOGNITO -> Settings.readAlwaysIncognitoMode(button.context.prefs())
+        INCOGNITO -> button.context.prefs().getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
         SPLIT -> Settings.getInstance().current.mIsSplitKeyboardEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
@@ -310,17 +311,19 @@ private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
     dialog.show()
 }
 
-fun readCustomKeyCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "")!!
+fun readCustomKeyCodes(prefs: SharedPreferences) =
+    prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Defaults.PREF_TOOLBAR_CUSTOM_KEY_CODES)!!
         .split(";").filter { it.isNotEmpty()}.associate {
             val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
             it.substringBefore(",") to code
         }
 
-fun readCustomLongpressCodes(prefs: SharedPreferences) = prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, "")!!
-    .split(";").filter { it.isNotEmpty()}.associate {
-        val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
-        it.substringBefore(",") to code
-    }
+fun readCustomLongpressCodes(prefs: SharedPreferences) =
+    prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Defaults.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)!!
+        .split(";").filter { it.isNotEmpty()}.associate {
+            val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
+            it.substringBefore(",") to code
+        }
 
 fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
     val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")

@@ -106,7 +106,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
         final SharedPreferences prefs = KtxKt.prefs(context);
-        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES);
         final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"

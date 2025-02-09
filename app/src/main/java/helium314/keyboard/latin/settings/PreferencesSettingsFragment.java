@@ -125,13 +125,13 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
         setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
-                Settings.readVibrationEnabled(prefs, res));
+                Settings.readVibrationEnabled(prefs));
         setPreferenceVisible(Settings.PREF_VIBRATE_IN_DND_MODE,
-                Settings.readVibrationEnabled(prefs, res));
+                Settings.readVibrationEnabled(prefs));
         setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
-                Settings.readKeypressSoundEnabled(prefs, res));
+                prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON));
         setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
-                Settings.readClipboardHistoryEnabled(prefs));
+                prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY));
     }
 
     private void setupKeypressVibrationDurationSettings() {
@@ -155,7 +155,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readKeypressVibrationDuration(prefs);
+                return prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS);
             }
 
             @Override
@@ -210,7 +210,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs));
+                return getPercentageFromValue(prefs.getFloat(Settings.PREF_KEYPRESS_SOUND_VOLUME, Defaults.PREF_KEYPRESS_SOUND_VOLUME));
             }
 
             @Override
@@ -255,7 +255,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readClipboardHistoryRetentionTime(prefs, res);
+                return prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
             }
 
             @Override

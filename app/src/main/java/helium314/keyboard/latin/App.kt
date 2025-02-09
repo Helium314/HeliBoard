@@ -4,8 +4,8 @@ package helium314.keyboard.latin
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
-import androidx.preference.PreferenceManager
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
@@ -25,6 +25,7 @@ class App : Application() {
         super.onCreate()
         checkVersionUpgrade(this)
         app = this
+        Defaults.initDynamicDefaults(this)
     }
 
     companion object {
@@ -107,7 +108,7 @@ fun checkVersionUpgrade(context: Context) {
         }
     }
     if (oldVersion <= 2201) {
-        val additionalSubtypeString = Settings.readPrefAdditionalSubtypes(prefs, context.resources)
+        val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         if (additionalSubtypeString.contains(".")) { // means there are custom layouts
             val subtypeStrings = additionalSubtypeString.split(";")
             val newSubtypeStrings = subtypeStrings.mapNotNull {
@@ -226,7 +227,7 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
     }
     // upgrade additional subtype locale strings
     val additionalSubtypes = mutableListOf<String>()
-    Settings.readPrefAdditionalSubtypes(prefs, context.resources).split(";").forEach {
+    prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(";").forEach {
         val localeString = it.substringBefore(":")
         additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
     }

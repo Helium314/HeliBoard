@@ -354,7 +354,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun onClickLoadImage(landscape: Boolean): Boolean {
-        if (Settings.readDayNightPref(sharedPreferences, resources)) {
+        if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)) {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.day_or_night_image)
                 .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false, landscape) }

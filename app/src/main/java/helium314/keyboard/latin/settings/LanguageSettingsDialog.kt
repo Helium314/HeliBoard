@@ -112,7 +112,7 @@ class LanguageSettingsDialog(
             return
         }
 
-        addAdditionalSubtype(prefs, context.resources, newSubtype)
+        addAdditionalSubtype(prefs, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
         KeyboardLayoutSet.onKeyboardThemeChanged()
@@ -205,7 +205,7 @@ class LanguageSettingsDialog(
                         infos.remove(subtype)
                         if (isCustom)
                             removeCustomLayoutFile(layoutSetName, context)
-                        removeAdditionalSubtype(prefs, context.resources, subtype.subtype)
+                        removeAdditionalSubtype(prefs, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }

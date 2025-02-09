@@ -25,6 +25,7 @@ import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.getActivity
@@ -75,7 +76,7 @@ fun createAboutSettings(context: Context) = listOf(
             name = it.title,
             description = stringResource(R.string.version_text, BuildConfig.VERSION_NAME),
             onClick = {
-                if (prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, false) || BuildConfig.DEBUG)
+                if (prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, Defaults.PREF_SHOW_DEBUG_SETTINGS) || BuildConfig.DEBUG)
                     return@Preference
                 count++
                 if (count < 5) return@Preference

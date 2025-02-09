@@ -25,10 +25,8 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.TypedValueCompat
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
-import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
-import helium314.keyboard.latin.utils.defaultToolbarPref
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
@@ -64,13 +62,13 @@ fun ToolbarScreen(
 
 fun createToolbarSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
-        ReorderSwitchPreference(it, defaultToolbarPref)
+        ReorderSwitchPreference(it, Defaults.PREF_TOOLBAR_KEYS)
     },
     Setting(context, Settings.PREF_PINNED_TOOLBAR_KEYS, R.string.pinned_toolbar_keys) {
-        ReorderSwitchPreference(it, defaultPinnedToolbarPref)
+        ReorderSwitchPreference(it, Defaults.PREF_PINNED_TOOLBAR_KEYS)
     },
     Setting(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) {
-        ReorderSwitchPreference(it, defaultClipboardToolbarPref)
+        ReorderSwitchPreference(it, Defaults.PREF_CLIPBOARD_TOOLBAR_KEYS)
     },
     Setting(context, SettingsWithoutKey.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
         var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -87,20 +85,20 @@ fun createToolbarSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary)
     {
-        SwitchPreference(it, false,) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_QUICK_PIN_TOOLBAR_KEYS) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary)
     {
-        SwitchPreference(it, false,)
+        SwitchPreference(it, Defaults.PREF_AUTO_SHOW_TOOLBAR)
     },
     Setting(context, Settings.PREF_AUTO_HIDE_TOOLBAR, R.string.auto_hide_toolbar, R.string.auto_hide_toolbar_summary)
     {
-        SwitchPreference(it, false,)
+        SwitchPreference(it, Defaults.PREF_AUTO_HIDE_TOOLBAR)
     },
     Setting(context, Settings.PREF_VARIABLE_TOOLBAR_DIRECTION,
         R.string.var_toolbar_direction, R.string.var_toolbar_direction_summary)
     {
-        SwitchPreference(it, true,)
+        SwitchPreference(it, Defaults.PREF_VARIABLE_TOOLBAR_DIRECTION)
     }
 )
 

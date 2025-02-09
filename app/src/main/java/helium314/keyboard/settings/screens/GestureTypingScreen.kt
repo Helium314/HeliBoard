@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
@@ -30,8 +31,8 @@ fun GestureTypingScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val gestureFloatingPreviewEnabled = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, true)
-    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, true)
+    val gestureFloatingPreviewEnabled = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, Defaults.PREF_GESTURE_FLOATING_PREVIEW_TEXT)
+    val gestureEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
     val items = listOf(
         Settings.PREF_GESTURE_INPUT,
         if (gestureEnabled)
@@ -44,7 +45,8 @@ fun GestureTypingScreen(
             Settings.PREF_GESTURE_SPACE_AWARE else null,
         if (gestureEnabled)
             Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN else null,
-        if (gestureEnabled && (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, true) || gestureFloatingPreviewEnabled))
+        if (gestureEnabled &&
+            (prefs.getBoolean(Settings.PREF_GESTURE_PREVIEW_TRAIL, Defaults.PREF_GESTURE_PREVIEW_TRAIL) || gestureFloatingPreviewEnabled))
             Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION else null
         )
     SearchSettingsScreen(
@@ -56,21 +58,21 @@ fun GestureTypingScreen(
 
 fun createGestureTypingSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_GESTURE_INPUT, R.string.gesture_input, R.string.gesture_input_summary) {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_GESTURE_INPUT)
     },
     Setting(context, Settings.PREF_GESTURE_PREVIEW_TRAIL, R.string.gesture_preview_trail) {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_GESTURE_PREVIEW_TRAIL)
     },
     Setting(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT,
         R.string.gesture_floating_preview_static, R.string.gesture_floating_preview_static_summary)
     {
-        SwitchPreference(it, true)
+        SwitchPreference(it, Defaults.PREF_GESTURE_FLOATING_PREVIEW_TEXT)
     },
     Setting(context, Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC,
         R.string.gesture_floating_preview_text, R.string.gesture_floating_preview_dynamic_summary)
     { def ->
         val ctx = LocalContext.current
-        SwitchPreference(def, true) {
+        SwitchPreference(def, Defaults.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC) {
             // is this complexity and 2 pref keys for one setting really needed?
             // default value is based on system reduced motion
             val default = Settings.readGestureDynamicPreviewDefault(ctx)
@@ -81,13 +83,13 @@ fun createGestureTypingSettings(context: Context) = listOf(
         }
     },
     Setting(context, Settings.PREF_GESTURE_SPACE_AWARE, R.string.gesture_space_aware, R.string.gesture_space_aware_summary) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_GESTURE_SPACE_AWARE)
     },
     Setting(context, Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, R.string.gesture_fast_typing_cooldown) { def ->
         SliderPreference(
             name = def.title,
             key = def.key,
-            default = 500,
+            default = Defaults.PREF_GESTURE_FAST_TYPING_COOLDOWN,
             range = 0f..500f,
             description = {
                 if (it <= 0) stringResource(R.string.gesture_fast_typing_cooldown_instant)
@@ -99,7 +101,7 @@ fun createGestureTypingSettings(context: Context) = listOf(
         SliderPreference(
             name = def.title,
             key = def.key,
-            default = 800,
+            default = Defaults.PREF_GESTURE_TRAIL_FADEOUT_DURATION,
             range = 100f..1900f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, (it + 100).toString()) },
             stepSize = 10,

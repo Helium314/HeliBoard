@@ -14,14 +14,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.ColorsNightSettingsFragment
 import helium314.keyboard.latin.settings.ColorsSettingsFragment
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
@@ -52,30 +51,30 @@ fun AppearanceScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && Settings.readDayNightPref(prefs, ctx.resources)
+    val dayNightMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)
     val items = listOf(
         R.string.settings_screen_theme,
         Settings.PREF_THEME_STYLE,
         Settings.PREF_ICON_STYLE,
         Settings.PREF_CUSTOM_ICON_NAMES,
         Settings.PREF_THEME_COLORS,
-        if (prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT) == KeyboardTheme.THEME_USER)
+        if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_USER)
             SettingsWithoutKey.ADJUST_COLORS else null,
         Settings.PREF_THEME_KEY_BORDERS,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             Settings.PREF_THEME_DAY_NIGHT else null,
         if (dayNightMode) Settings.PREF_THEME_COLORS_NIGHT else null,
-        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK) == KeyboardTheme.THEME_USER_NIGHT)
+        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_USER_NIGHT)
             SettingsWithoutKey.ADJUST_COLORS_NIGHT else null,
         Settings.PREF_NAVBAR_COLOR,
         SettingsWithoutKey.BACKGROUND_IMAGE,
         SettingsWithoutKey.BACKGROUND_IMAGE_LANDSCAPE,
         R.string.settings_category_miscellaneous,
         Settings.PREF_ENABLE_SPLIT_KEYBOARD,
-        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, false))
+        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD, Defaults.PREF_ENABLE_SPLIT_KEYBOARD))
             Settings.PREF_SPLIT_SPACER_SCALE else null,
         Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE,
-        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, false))
+        if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE))
             Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE else null,
         Settings.PREF_NARROW_KEY_GAPS,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
@@ -105,14 +104,13 @@ fun createAppearanceSettings(context: Context) = listOf(
         ListPreference(
             setting,
             items,
-            KeyboardTheme.STYLE_MATERIAL
+            Defaults.PREF_ICON_STYLE
         ) {
             if (it != KeyboardTheme.STYLE_HOLO) {
-                // todo (later): use defaults once they exist
-                if (prefs.getString(Settings.PREF_THEME_COLORS, "") == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().putString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT).apply()
-                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, "") == KeyboardTheme.THEME_HOLO_WHITE)
-                    prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK).apply()
+                if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_HOLO_WHITE)
+                    prefs.edit().remove(Settings.PREF_THEME_COLORS).apply()
+                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_HOLO_WHITE)
+                    prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
             }
         }
     },
@@ -122,7 +120,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ListPreference(
             setting,
             items,
-            KeyboardTheme.STYLE_MATERIAL
+            Defaults.PREF_ICON_STYLE
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
@@ -144,7 +142,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)
+        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
         val items = KeyboardTheme.COLORS.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle != KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
@@ -153,7 +151,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ListPreference(
             setting,
             items,
-            KeyboardTheme.THEME_LIGHT
+            Defaults.PREF_THEME_COLORS
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_THEME_COLORS_NIGHT, R.string.theme_colors_night) { setting ->
@@ -161,7 +159,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL)
+        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
         val items = KeyboardTheme.COLORS_DARK.mapNotNull {
             if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
                 return@mapNotNull null
@@ -170,7 +168,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ListPreference(
             setting,
             items,
-            KeyboardTheme.THEME_DARK
+            Defaults.PREF_THEME_COLORS_NIGHT
         ) { keyboardNeedsReload = true }
     },
     Setting(context, SettingsWithoutKey.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) {
@@ -196,13 +194,13 @@ fun createAppearanceSettings(context: Context) = listOf(
         )
     },
     Setting(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {
-        SwitchPreference(it, false)
+        SwitchPreference(it, Defaults.PREF_THEME_KEY_BORDERS)
     },
     Setting(context, Settings.PREF_THEME_DAY_NIGHT, R.string.day_night_mode, R.string.day_night_mode_summary) {
-        SwitchPreference(it, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_THEME_DAY_NIGHT) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_NAVBAR_COLOR, R.string.theme_navbar, R.string.day_night_mode_summary) {
-        SwitchPreference(it, Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        SwitchPreference(it, Defaults.PREF_NAVBAR_COLOR)
     },
     Setting(context, SettingsWithoutKey.BACKGROUND_IMAGE, R.string.customize_background_image) {
         BackgroundImagePref(it, false)
@@ -213,37 +211,37 @@ fun createAppearanceSettings(context: Context) = listOf(
         BackgroundImagePref(it, true)
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD, R.string.enable_split_keyboard) {
-        SwitchPreference(it, false) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+        SwitchPreference(it, Defaults.PREF_ENABLE_SPLIT_KEYBOARD) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
     Setting(context, Settings.PREF_SPLIT_SPACER_SCALE, R.string.split_spacer_scale) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = SettingsValues.DEFAULT_SIZE_SCALE,
+            default = Defaults.PREF_SPLIT_SPACER_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, R.string.enable_split_keyboard_landscape) {
-        SwitchPreference(it, false) { KeyboardSwitcher.getInstance().reloadKeyboard() }
+        SwitchPreference(it, Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE) { KeyboardSwitcher.getInstance().reloadKeyboard() }
     },
     Setting(context, Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE, R.string.split_spacer_scale_landscape) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = SettingsValues.DEFAULT_SIZE_SCALE,
+            default = Defaults.PREF_SPLIT_SPACER_SCALE_LANDSCAPE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
-        SwitchPreference(it, false) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_NARROW_KEY_GAPS) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE, R.string.prefs_keyboard_height_scale) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = SettingsValues.DEFAULT_SIZE_SCALE,
+            default = Defaults.PREF_KEYBOARD_HEIGHT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -252,7 +250,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = SettingsValues.DEFAULT_SIZE_SCALE,
+            default = Defaults.PREF_BOTTOM_PADDING_SCALE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -261,7 +259,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 0f,
+            default = Defaults.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -270,7 +268,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 0f,
+            default = Defaults.PREF_SIDE_PADDING_SCALE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -279,7 +277,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 0f,
+            default = Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -290,7 +288,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         Preference(
             name = setting.title,
             onClick = { showDialog = true },
-            description = prefs.getString(setting.key, "")
+            description = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT)
         )
         if (showDialog) {
             TextInputDialog(
@@ -299,7 +297,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                     prefs.edit().putString(setting.key, it).apply()
                     keyboardNeedsReload = true
                 },
-                initialText = prefs.getString(setting.key, "") ?: "",
+                initialText = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT) ?: "",
                 title = { Text(setting.title) },
                 checkTextValid = { true }
             )
@@ -312,7 +310,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = def.title,
             key = def.key,
-            default = 1f,
+            default = Defaults.PREF_FONT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
@@ -321,7 +319,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = 1f,
+            default = Defaults.PREF_EMOJI_FONT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { keyboardNeedsReload = true }
