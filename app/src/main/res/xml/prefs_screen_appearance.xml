@@ -94,6 +94,18 @@
             latin:maxValue="200" /> <!-- percentage -->
 
         <SwitchPreference
+            android:key="split_keyboard_landscape"
+            android:title="@string/enable_split_keyboard_landscape"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="split_spacer_scale_landscape"
+            android:title="@string/split_spacer_scale_landscape"
+            latin:minValue="50"
+            latin:maxValue="200" /> <!-- percentage -->
+
+        <SwitchPreference
             android:key="narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"

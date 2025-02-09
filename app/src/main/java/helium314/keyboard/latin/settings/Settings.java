@@ -109,7 +109,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
+    public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
+    public static final String PREF_SPLIT_SPACER_SCALE_LANDSCAPE = "split_spacer_scale_landscape";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
@@ -516,6 +518,21 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+    }
+
+    public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : PREF_ENABLE_SPLIT_KEYBOARD;
+        mPrefs.edit().putBoolean(pref, enabled).apply();
+    }
+
+    public static boolean readSplitKeyboardEnabled(final SharedPreferences prefs, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : PREF_ENABLE_SPLIT_KEYBOARD;
+        return prefs.getBoolean(pref, false);
+    }
+
+    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_SPLIT_SPACER_SCALE_LANDSCAPE : PREF_SPLIT_SPACER_SCALE;
+        return prefs.getFloat(pref, SettingsValues.DEFAULT_SIZE_SCALE);
     }
 
     public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
