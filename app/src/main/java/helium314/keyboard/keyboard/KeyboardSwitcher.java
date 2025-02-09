@@ -507,6 +507,16 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         Settings.getInstance().writeOneHandedModeGravity(mKeyboardViewWrapper.getOneHandedGravity());
     }
 
+    public void toggleSplitKeyboardMode() {
+        final Settings settings = Settings.getInstance();
+        settings.writeSplitKeyboardEnabled(
+                !settings.getCurrent().mIsSplitKeyboardEnabled,
+                mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE
+        );
+        loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), settings.getCurrent(),
+                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+    }
+
     /**
      * Displays a toast message.
      *
