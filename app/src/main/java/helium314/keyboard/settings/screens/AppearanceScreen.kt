@@ -283,7 +283,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         ) { keyboardNeedsReload = true }
     },
     Setting(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { setting ->
-        var showDialog by rememberSaveable { mutableStateOf(false) } // todo: textInputDialog...
+        var showDialog by rememberSaveable { mutableStateOf(false) }
         val prefs = LocalContext.current.prefs()
         Preference(
             name = setting.title,
