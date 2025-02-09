@@ -63,8 +63,9 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
     private val splitLandscapePref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE) }
-    private val splitPortraitPref:  TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT) }
+    private val splitPortraitPref:  TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
     private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
+    private val splitScaleLandscapePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE) }
 
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -116,6 +117,14 @@ class AppearanceSettingsFragment : SubScreenFragment() {
             splitScalePref?.isVisible = splitPortraitPref?.isChecked == true
             splitPortraitPref?.setOnPreferenceChangeListener { _, value ->
                 splitScalePref?.isVisible = value as Boolean
+                true
+            }
+        }
+        if (splitScaleLandscapePref != null) {
+            setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE, SettingsValues.DEFAULT_SIZE_SCALE)
+            splitScaleLandscapePref?.isVisible = splitLandscapePref?.isChecked == true
+            splitLandscapePref?.setOnPreferenceChangeListener { _, value ->
+                splitScaleLandscapePref?.isVisible = value as Boolean
                 true
             }
         }

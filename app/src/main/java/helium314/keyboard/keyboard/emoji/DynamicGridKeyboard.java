@@ -9,7 +9,6 @@ package helium314.keyboard.keyboard.emoji;
 import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt.EMOJI_HINT_LABEL;
 
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.text.TextUtils;
 import helium314.keyboard.latin.utils.Log;
 
@@ -58,9 +57,7 @@ final class DynamicGridKeyboard extends Keyboard {
         final int paddingWidth = mOccupiedWidth - mBaseWidth;
         mBaseWidth = width - paddingWidth;
         mOccupiedWidth = width;
-        final float spacerWidth = ( Settings.getInstance().getCurrent().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE ) ?
-                Settings.getInstance().getCurrent().mSplitKeyboardLandscapeSpacerRelativeWidth * mBaseWidth :
-                Settings.getInstance().getCurrent().mSplitKeyboardPortraitSpacerRelativeWidth * mBaseWidth;
+        final float spacerWidth = Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();

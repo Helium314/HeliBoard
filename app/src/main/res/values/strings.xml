@@ -48,12 +48,14 @@
     <string name="settings_category_experimental">Experimental</string>
     <!-- Settings category title for Appearance & Layout/Misc [CHAR LIMIT=33] -->
     <string name="settings_category_miscellaneous">Miscellaneous</string>
-    <!--  Option for enabling or disabling the split keyboard layout in Landscape. [CHAR LIMIT=65]-->
-    <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape mode)</string>
-    <!--  Option for enabling or disabling the split keyboard layout in Portrait. [CHAR LIMIT=65]-->
-    <string name="enable_split_keyboard_portrait">Enable split keyboard (portrait mode)</string>
-    <!--  Option for setting distance for split keyboard -->
+    <!--  Option for enabling or disabling the split keyboard layout in portrait mode. [CHAR LIMIT=65]-->
+    <string name="enable_split_keyboard">Enable split keyboard</string>
+    <!--  Option for enabling or disabling the split keyboard layout in landscape mode. [CHAR LIMIT=65]-->
+    <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
+    <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
+    <!--  Option for setting distance for split keyboard in landscape mode -->
+    <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
@@ -271,7 +273,7 @@
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
-    <string name="split" tools:keep="@string/split">Split keyboard toggle</string>
+    <string name="split" tools:keep="@string/split">Split keyboard</string>
     <string name="full_left" tools:keep="@string/full_left">Full left</string>
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
     <string name="page_start" tools:keep="@string/page_start">Page start</string>

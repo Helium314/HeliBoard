@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
@@ -65,11 +64,7 @@ private fun setToolbarButtonActivatedState(button: ImageButton) {
     button.isActivated = when (button.tag) {
         INCOGNITO -> Settings.readAlwaysIncognitoMode(DeviceProtectedUtils.getSharedPreferences(button.context))
         ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
-        SPLIT -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                     Settings.getInstance().current.mIsSplitKeyboardLandscapeEnabled
-                 } else {
-                     Settings.getInstance().current.mIsSplitKeyboardPortraitEnabled
-                 }
+        SPLIT -> Settings.getInstance().current.mIsSplitKeyboardEnabled
         AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
         else -> true
     }

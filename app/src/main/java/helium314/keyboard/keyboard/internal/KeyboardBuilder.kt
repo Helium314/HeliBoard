@@ -6,7 +6,6 @@
 package helium314.keyboard.keyboard.internal
 
 import android.content.Context
-import android.content.res.Configuration
 import android.content.res.Resources
 import android.util.Xml
 import androidx.annotation.XmlRes
@@ -127,12 +126,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun addSplit() {
-        val spacerRelativeWidth: Float
-        if ( Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE ) {
-            spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardLandscapeSpacerRelativeWidth;
-        } else {
-            spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardPortraitSpacerRelativeWidth;
-        }
+        val spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()

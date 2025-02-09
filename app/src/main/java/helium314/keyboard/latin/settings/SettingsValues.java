@@ -105,10 +105,8 @@ public class SettingsValues {
     public final boolean mSlidingKeyInputPreviewEnabled;
     public final int mKeyLongpressTimeout;
     public final boolean mEnableEmojiAltPhysicalKey;
-    public final boolean mIsSplitKeyboardPortraitEnabled;
-    public final boolean mIsSplitKeyboardLandscapeEnabled;
-    public final float mSplitKeyboardLandscapeSpacerRelativeWidth;
-    public final float mSplitKeyboardPortraitSpacerRelativeWidth;
+    public final boolean mIsSplitKeyboardEnabled;
+    public final float mSplitKeyboardSpacerRelativeWidth;
     public final boolean mQuickPinToolbarKeys;
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
@@ -159,6 +157,7 @@ public class SettingsValues {
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
+        mDisplayOrientation = res.getConfiguration().orientation;
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -204,15 +203,12 @@ public class SettingsValues {
         mSuggestClipboardContent = readSuggestClipboardContent(prefs, res);
         mDoubleSpacePeriodTimeout = res.getInteger(R.integer.config_double_space_period_timeout);
         mHasHardwareKeyboard = Settings.readHasHardwareKeyboard(res.getConfiguration());
+        final boolean isLandscape = mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
         final float displayWidthDp = TypedValueCompat.pxToDp(res.getDisplayMetrics().widthPixels, res.getDisplayMetrics());
-        mIsSplitKeyboardPortraitEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_PORTRAIT, false) && displayWidthDp > 0;
-        mIsSplitKeyboardLandscapeEnabled = prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, false) && displayWidthDp > 0;
+        mIsSplitKeyboardEnabled = Settings.readSplitKeyboardEnabled(prefs, isLandscape);
         // determine spacerWidth from display width and scale setting
-        mSplitKeyboardPortraitSpacerRelativeWidth = mIsSplitKeyboardPortraitEnabled
-                ? Math.min(Math.max((displayWidthDp) / 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
-                : 0f;
-        mSplitKeyboardLandscapeSpacerRelativeWidth = mIsSplitKeyboardLandscapeEnabled
-                ? Math.min(Math.max((displayWidthDp) / 0.15f, 0.15f), 0.35f) * prefs.getFloat(Settings.PREF_SPLIT_SPACER_SCALE, DEFAULT_SIZE_SCALE)
+        mSplitKeyboardSpacerRelativeWidth = mIsSplitKeyboardEnabled
+                ? Math.min(Math.max((displayWidthDp - 600) / 600f + 0.15f, 0.15f), 0.35f) * Settings.readSplitSpacerScale(prefs, isLandscape)
                 : 0f;
         mQuickPinToolbarKeys = prefs.getBoolean(Settings.PREF_QUICK_PIN_TOOLBAR_KEYS, false);
         mScreenMetrics = Settings.readScreenMetrics(res);
@@ -236,7 +232,6 @@ public class SettingsValues {
         mIncognitoModeEnabled = Settings.readAlwaysIncognitoMode(prefs) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, DEFAULT_SIZE_SCALE);
-        mDisplayOrientation = res.getConfiguration().orientation;
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
         mLanguageSwipeDistance = Settings.readLanguageSwipeDistance(prefs, res);
