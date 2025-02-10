@@ -58,14 +58,14 @@ fun AppearanceScreen(
         Settings.PREF_ICON_STYLE,
         Settings.PREF_CUSTOM_ICON_NAMES,
         Settings.PREF_THEME_COLORS,
-        if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_USER)
-            SettingsWithoutKey.ADJUST_COLORS else null,
+//        if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_USER)
+//            SettingsWithoutKey.ADJUST_COLORS else null, // todo: remove, this should be part of the color selection menu
         Settings.PREF_THEME_KEY_BORDERS,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             Settings.PREF_THEME_DAY_NIGHT else null,
         if (dayNightMode) Settings.PREF_THEME_COLORS_NIGHT else null,
-        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_USER_NIGHT)
-            SettingsWithoutKey.ADJUST_COLORS_NIGHT else null,
+//        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_USER_NIGHT)
+//            SettingsWithoutKey.ADJUST_COLORS_NIGHT else null, // todo: remove, this should be part of the color selection menu
         Settings.PREF_NAVBAR_COLOR,
         SettingsWithoutKey.BACKGROUND_IMAGE,
         SettingsWithoutKey.BACKGROUND_IMAGE_LANDSCAPE,
@@ -142,10 +142,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
-        val items = KeyboardTheme.COLORS.mapNotNull {
-            if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle != KeyboardTheme.STYLE_HOLO)
-                return@mapNotNull null
+        val items = KeyboardTheme.getAvailableColors(ctx.prefs(), false).map {
             it.getStringResourceOrName("theme_name_", ctx) to it
         }
         ListPreference(
@@ -159,10 +156,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val currentStyle = ctx.prefs().getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
-        val items = KeyboardTheme.COLORS_DARK.mapNotNull {
-            if (it == KeyboardTheme.THEME_HOLO_WHITE && currentStyle == KeyboardTheme.STYLE_HOLO)
-                return@mapNotNull null
+        val items = KeyboardTheme.getAvailableColors(ctx.prefs(), true).map {
             it.getStringResourceOrName("theme_name_", ctx) to it
         }
         ListPreference(
@@ -171,14 +165,14 @@ fun createAppearanceSettings(context: Context) = listOf(
             Defaults.PREF_THEME_COLORS_NIGHT
         ) { keyboardNeedsReload = true }
     },
-    Setting(context, SettingsWithoutKey.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) {
+/*    Setting(context, SettingsWithoutKey.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) {
         val ctx = LocalContext.current
         Preference(
             name = it.title,
             description = it.description,
             onClick = {
                 ctx.getActivity()?.switchTo(ColorsSettingsFragment())
-                //SettingsDestination.navigateTo(SettingsDestination.Colors) todo: later
+                //SettingsDestination.navigateTo(SettingsDestination.Colors) todo: soon
             }
         )
     },
@@ -189,10 +183,10 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 ctx.getActivity()?.switchTo(ColorsNightSettingsFragment())
-                //SettingsDestination.navigateTo(SettingsDestination.ColorsNight) todo: later
+                //SettingsDestination.navigateTo(SettingsDestination.ColorsNight) todo: soon
             }
         )
-    },
+    },*/
     Setting(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {
         SwitchPreference(it, Defaults.PREF_THEME_KEY_BORDERS)
     },

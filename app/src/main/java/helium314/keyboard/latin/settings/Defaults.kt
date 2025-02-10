@@ -143,4 +143,7 @@ object Defaults {
     const val PREF_SHOW_SUGGESTION_INFOS = false
     const val PREF_FORCE_NON_DISTINCT_MULTITOUCH = false
     const val PREF_SLIDING_KEY_INPUT_PREVIEW = true
+    const val PREF_USER_COLORS = "{}"
+    const val PREF_USER_MORE_COLORS = 0
+    const val PREF_USER_ALL_COLORS = ""
 }

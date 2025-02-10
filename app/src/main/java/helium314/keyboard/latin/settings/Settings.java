@@ -12,18 +12,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
 
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
@@ -34,7 +30,6 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
-import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
@@ -67,20 +62,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
-    public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
-    public static final String PREF_THEME_USER_COLOR_NIGHT_PREFIX = "theme_dark_color_";
-    public static final String PREF_COLOR_KEYS_SUFFIX = "keys";
-    public static final String PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX = "functional_keys";
-    public static final String PREF_COLOR_SPACEBAR_SUFFIX = "spacebar";
-    public static final String PREF_COLOR_SPACEBAR_TEXT_SUFFIX = "spacebar_text";
-    public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
-    public static final String PREF_COLOR_GESTURE_SUFFIX = "gesture";
-    public static final String PREF_COLOR_TEXT_SUFFIX = "text";
-    public static final String PREF_COLOR_SUGGESTION_TEXT_SUFFIX = "suggestion_text";
-    public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
-    public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
-    public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
+    public static final String PREF_USER_COLORS_PREFIX = "user_colors_";
+    public static final String PREF_USER_ALL_COLORS_PREFIX = "user_all_colors_";
+    public static final String PREF_USER_MORE_COLORS_PREFIX = "user_more_colors_";
+
     public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
     public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
@@ -190,11 +175,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
-    public static final String PREF_SHOW_MORE_COLORS = "show_more_colors";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
-
-    private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
-    private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -523,76 +504,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         boolean isNight = ResourceUtils.isNight(context.getResources());
         if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
         else isNight = isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT);
-        final String themeColors = (isNight)
+        final String themeName = (isNight)
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
                 : prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS);
         final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE);
 
-        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs, isNight);
-    }
-
-    public static int readUserColor(final SharedPreferences prefs, final Context context, final String colorName, final boolean isNight) {
-        final String pref = getColorPref(colorName, isNight);
-        if (prefs.getBoolean(pref + PREF_AUTO_USER_COLOR_SUFFIX, true)) {
-            return determineAutoColor(prefs, context, colorName, isNight);
-        }
-        if (prefs.contains(pref))
-            return prefs.getInt(pref, Color.GRAY);
-        else return determineAutoColor(prefs, context, colorName, isNight);
-    }
-
-    public static String getColorPref(final String color, final boolean isNight) {
-        return (isNight ? PREF_THEME_USER_COLOR_NIGHT_PREFIX : PREF_THEME_USER_COLOR_PREFIX) + color;
-    }
-
-    private static int determineAutoColor(final SharedPreferences prefs, final Context context, final String color, final boolean isNight) {
-        switch (color) {
-            case PREF_COLOR_ACCENT_SUFFIX:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-                    // try determining accent color on Android 10 & 11, accent is not available in resources
-                    final Context wrapper = new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault);
-                    final TypedValue value = new TypedValue();
-                    if (wrapper.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true))
-                        return value.data;
-                }
-                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
-            case PREF_COLOR_GESTURE_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_ACCENT_SUFFIX, isNight);
-            case PREF_COLOR_SUGGESTION_TEXT_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-            case PREF_COLOR_TEXT_SUFFIX:
-                // base it on background color, and not key, because it's also used for suggestions
-                final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);
-                if (ColorUtilKt.isBrightColor(background)) {
-                    // but if key borders are enabled, we still want reasonable contrast
-                    if (!prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
-                            || ColorUtilKt.isGoodContrast(Color.BLACK, readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight)))
-                        return Color.BLACK;
-                    else
-                        return Color.GRAY;
-                }
-                else return Color.WHITE;
-            case PREF_COLOR_HINT_TEXT_SUFFIX:
-                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
-                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-            case PREF_COLOR_KEYS_SUFFIX:
-                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
-            case PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX:
-                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight), true);
-            case PREF_COLOR_SPACEBAR_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
-            case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
-                final int spacebar = readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight);
-                final int hintText = readUserColor(prefs, context, PREF_COLOR_HINT_TEXT_SUFFIX, isNight);
-                if (ColorUtilKt.isGoodContrast(hintText, spacebar)) return hintText & 0x80FFFFFF; // add some transparency
-                final int text = readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-                if (ColorUtilKt.isGoodContrast(text, spacebar)) return text & 0x80FFFFFF;
-                if (ColorUtilKt.isBrightColor(spacebar)) return Color.BLACK & 0x80FFFFFF;
-                else return Color.WHITE & 0x80FFFFFF;
-            case PREF_COLOR_BACKGROUND_SUFFIX:
-            default:
-                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);
-        }
+        return KeyboardTheme.getThemeColors(themeName, themeStyle, context, prefs, isNight);
     }
 
     public static Context getDayNightContext(final Context context, final boolean wantNight) {

@@ -4,10 +4,13 @@ package helium314.keyboard.latin
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.settings.colorPrefsAndResIds
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -19,6 +22,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import java.io.File
+import java.util.EnumMap
 
 class App : Application() {
     override fun onCreate() {
@@ -97,13 +101,13 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit { putBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true) }
     }
     if (oldVersion <= 2100) {
-        if (prefs.contains(Settings.PREF_SHOW_MORE_COLORS)) {
-            val moreColors = prefs.getInt(Settings.PREF_SHOW_MORE_COLORS, 0)
+        if (prefs.contains("show_more_colors")) {
+            val moreColors = prefs.getInt("show_more_colors", 0)
             prefs.edit {
-                putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, false), moreColors)
+                putInt("theme_color_show_more_colors", moreColors)
                 if (prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, false))
-                    putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, true), moreColors)
-                remove(Settings.PREF_SHOW_MORE_COLORS)
+                    putInt("theme_dark_color_show_more_colors", moreColors)
+                remove("show_more_colors")
             }
         }
     }
@@ -143,6 +147,69 @@ fun checkVersionUpgrade(context: Context) {
             if (newFile.exists()) newFile.delete() // should never happen
             it.renameTo(newFile)
         }
+    }
+    if (oldVersion <= 2301) {
+        // upgrade and remove old color prefs
+        fun readAllColorsMap(isNight: Boolean): EnumMap<ColorType, Int> {
+            val prefPrefix = if (isNight) "theme_dark_color_" else "theme_color_"
+            val colorsString = prefs.getString(prefPrefix + "all_colors", "") ?: ""
+            val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
+            colorsString.split(";").forEach {
+                val ct = try {
+                    ColorType.valueOf(it.substringBefore(",").uppercase())
+                } catch (_: Exception) {
+                    return@forEach
+                }
+                val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
+                colorMap[ct] = i
+            }
+            return colorMap
+        }
+        // day colors
+        val themeNameDay = context.getString(R.string.theme_name_user)
+        val colorsDay = colorPrefsAndResIds.associate {
+            val pref = "theme_color_" + it.first
+            val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
+            val result = it.first to (color to prefs.getBoolean(pref + "_auto", true))
+            prefs.edit().remove(pref).remove(pref + "_auto").apply()
+            result
+        }
+        if (colorsDay.any { it.value.first != null }) {
+            KeyboardTheme.writeUserColors(prefs, themeNameDay, colorsDay)
+        }
+        val moreColorsDay = prefs.getInt("theme_color_show_more_colors", 0)
+        prefs.edit().remove("theme_color_show_more_colors").apply()
+        KeyboardTheme.writeUserMoreColors(prefs, themeNameDay, moreColorsDay)
+        if (prefs.contains("theme_color_all_colors")) {
+            val allColorsDay = readAllColorsMap(false)
+            prefs.edit().remove("theme_color_all_colors").apply()
+            KeyboardTheme.writeUserAllColors(prefs, themeNameDay, allColorsDay)
+        }
+        if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == "user")
+            prefs.edit().putString(Settings.PREF_THEME_COLORS, themeNameDay).apply()
+
+        // same for night colors
+        val themeNameNight = context.getString(R.string.theme_name_user_night)
+        val colorsNight = colorPrefsAndResIds.associate {
+            val pref = "theme_dark_color_" + it.first
+            val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
+            val result = it.first to (color to prefs.getBoolean(pref + "_auto", true))
+            prefs.edit().remove(pref).remove(pref + "_auto").apply()
+            result
+        }
+        if (colorsNight.any { it.value.first != null }) {
+            KeyboardTheme.writeUserColors(prefs, themeNameNight, colorsNight)
+        }
+        val moreColorsNight = prefs.getInt("theme_dark_color_show_more_colors", 0)
+        prefs.edit().remove("theme_dark_color_show_more_colors").apply()
+        KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
+        if (prefs.contains("theme_dark_color_all_colors")) {
+            val allColorsNight = readAllColorsMap(false)
+            prefs.edit().remove("theme_dark_color_all_colors").apply()
+            KeyboardTheme.writeUserAllColors(prefs, themeNameNight, allColorsNight)
+        }
+        if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == "user_night")
+            prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, themeNameNight).apply()
     }
     upgradeToolbarPrefs(prefs)
     onCustomLayoutFileListChanged() // just to be sure

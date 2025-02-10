@@ -3,7 +3,6 @@
 package helium314.keyboard.latin.common
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.TypedArray
@@ -19,7 +18,6 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
@@ -29,7 +27,6 @@ import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import helium314.keyboard.latin.common.ColorType.*
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.adjustLuminosityAndKeepAlpha
 import helium314.keyboard.latin.utils.brighten
 import helium314.keyboard.latin.utils.brightenOrDarken
@@ -598,30 +595,6 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     }
 
     private fun getColorFilter(color: ColorType) = colorFilters.getOrPut(color) { colorFilter(get(color)) }
-}
-
-fun readAllColorsMap(prefs: SharedPreferences, isNight: Boolean): EnumMap<ColorType, Int> {
-    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
-    val colorsString = prefs.getString(prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX, "") ?: ""
-    val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
-    colorsString.split(";").forEach {
-        val ct = try {
-            ColorType.valueOf(it.substringBefore(",").uppercase())
-        } catch (_: Exception) { // todo: which one?
-            return@forEach
-        }
-        val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
-        colorMap[ct] = i
-    }
-    return colorMap
-}
-
-fun writeAllColorsMap(colorMap: EnumMap<ColorType, Int>, prefs: SharedPreferences, isNight: Boolean) {
-    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
-    prefs.edit { putString(
-        prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX,
-        colorMap.map { "${it.key},${it.value}" }.joinToString(";")
-    ) }
 }
 
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {

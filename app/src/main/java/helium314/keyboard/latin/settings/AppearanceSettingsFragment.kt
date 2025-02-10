@@ -168,7 +168,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun setColorPrefs(style: String) {
-        colorsPref.apply {
+/*        colorsPref.apply {
             entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS.toTypedArray()
                 else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
@@ -195,11 +195,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 userColorsPrefNight?.isVisible = value == KeyboardTheme.THEME_USER_NIGHT
                 true
             }
-        }
+        }*/
     }
 
     private fun setupTheme() {
-        stylePref.apply {
+/*        stylePref.apply {
             entryValues = KeyboardTheme.STYLES
             entries = entryValues.getNamesFromResourcesIfAvailable("style_name_")
             if (value !in entryValues)
@@ -232,7 +232,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         colorsNightPref?.isVisible = dayNightPref?.isChecked == true
         userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
-        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT*/
     }
 
     // performance is not good, but not bad enough to justify work
