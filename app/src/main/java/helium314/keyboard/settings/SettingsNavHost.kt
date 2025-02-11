@@ -38,8 +38,6 @@ fun SettingsNavHost(
     fun goBack() {
         if (!navController.popBackStack()) onClickBack()
     }
-    if (target.value != SettingsDestination.Settings)
-        navController.navigate(route = target.value)
 
     NavHost(
         navController = navController,
@@ -102,6 +100,8 @@ fun SettingsNavHost(
             ColorsScreen(isNight = true, onClickBack = ::goBack)
         }
     }
+    if (target.value != SettingsDestination.Settings)
+        navController.navigate(route = target.value)
 }
 
 object SettingsDestination {
