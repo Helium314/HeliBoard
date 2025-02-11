@@ -20,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +37,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
@@ -45,6 +49,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.colorPrefsAndResIds
 import helium314.keyboard.latin.settings.getColorPrefsToHideInitially
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
@@ -58,13 +63,28 @@ fun ColorsScreen(
     onClickBack: () -> Unit
 ) {
     // todo:
-    //  need to force opposite theme if necessary!
     //  allow save (load should be in theme selector, maybe here too)
     //   import/export should now also store theme name
     //   handle name collisions on load by simply appending a number
     //  make sure import of old colors works
 
     val ctx = LocalContext.current
+
+    // is there really no better way of only setting forceOpposite while the screen is shown (and not paused)?
+    // lifecycle stuff is weird, there is no pause and similar when activity is paused
+    DisposableEffect(isNight) {
+        onDispose { // works on pressing back
+            (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(false)
+        }
+    }
+    (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(isNight != ResourceUtils.isNight(ctx.resources))
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
+    LaunchedEffect(lifecycleState) {
+        if (lifecycleState == Lifecycle.State.RESUMED)
+            (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(isNight != ResourceUtils.isNight(ctx.resources))
+    }
+
     val prefs = ctx.prefs()
     val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
@@ -107,7 +127,7 @@ fun ColorsScreen(
                             newThemeName = it
                         nameField = it
                     },
-  //                  modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f)
                 )
                 CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.secondary) {
                     // todo: this should indicate whether name is saved, but looks like a button

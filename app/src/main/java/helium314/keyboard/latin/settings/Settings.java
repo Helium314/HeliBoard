@@ -39,6 +39,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import helium314.keyboard.settings.SettingsActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -502,7 +503,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
+        if (SettingsActivity.Companion.getForceOppositeTheme()) isNight = !isNight;
         else isNight = isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT);
         final String themeName = (isNight)
                 ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)

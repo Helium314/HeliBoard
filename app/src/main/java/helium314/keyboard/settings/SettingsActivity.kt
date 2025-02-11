@@ -77,11 +77,34 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         super.onStop()
     }
 
+    override fun onPause() {
+        super.onPause()
+        paused = true
+        if (forceOppositeTheme) keyboardNeedsReload = true
+        forceOppositeTheme = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        paused = false
+    }
+
+    private var paused = true
+    fun setForceOppositeTheme(opposite: Boolean) {
+        if (paused) return
+        if (forceOppositeTheme != opposite) {
+            keyboardNeedsReload = true
+        }
+        forceOppositeTheme = opposite
+    }
+
     companion object {
         // public write so compose previews can show the screens
         // having it in a companion object is not ideal as it will stay in memory even after settings are closed
         // but it's small enough to not care
         lateinit var settingsContainer: SettingsContainer
+
+        var forceOppositeTheme = false
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {
