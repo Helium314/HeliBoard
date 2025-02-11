@@ -439,9 +439,6 @@ class ColorsNightSettingsFragment : ColorsSettingsFragment() {
 //    override val titleResId = R.string.select_user_colors_night
 }
 
-@Serializable
-data class SaveThoseColors(val moreColors: Int, val colors: Map<String, Pair<Int?, Boolean>>)
-
 val colorPrefsAndResIds = listOf(
     KeyboardTheme.COLOR_BACKGROUND to R.string.select_color_background,
     KeyboardTheme.COLOR_KEYS to R.string.select_color_key_background,

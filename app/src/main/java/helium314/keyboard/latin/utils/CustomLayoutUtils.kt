@@ -252,9 +252,9 @@ private fun findMatchingLayout(layoutNames: List<String>, mainLayoutName: String
         ?: layoutNames.firstOrNull { it.count { it == '.' } == 2 }
 }
 
-private fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
+fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
 
-private fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
+fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
 
 // this goes into prefs and file names, so do not change!
 const val CUSTOM_LAYOUT_PREFIX = "custom."

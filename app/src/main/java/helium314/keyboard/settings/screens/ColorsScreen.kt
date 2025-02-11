@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -50,12 +58,15 @@ import helium314.keyboard.latin.settings.colorPrefsAndResIds
 import helium314.keyboard.latin.settings.getColorPrefsToHideInitially
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.encodeBase36
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Composable
 fun ColorsScreen(
@@ -114,6 +125,11 @@ fun ColorsScreen(
 
     var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
     var chosenColor: ColorSetting? by remember { mutableStateOf(null) }
+    val saveLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+        ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.writer()?.use { it.write(getColorString(prefs, newThemeName.text)) }
+    }
     SearchScreen(
         title = {
             var nameValid by rememberSaveable { mutableStateOf(true) }
@@ -144,6 +160,17 @@ fun ColorsScreen(
             stringResource(R.string.main_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 0) },
             stringResource(R.string.more_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 1) },
             stringResource(R.string.all_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 2) },
+            stringResource(R.string.save) to {
+                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .putExtra(Intent.EXTRA_TITLE,"theme.json")
+                    .setType("application/json")
+                saveLauncher.launch(intent)
+            },
+            stringResource(R.string.copy_to_clipboard) to {
+                val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                cm.setPrimaryClip(ClipData.newPlainText("HeliBoard theme", getColorString(prefs, newThemeName.text)))
+            },
         ),
         onClickBack = onClickBack,
         filteredItems = { search -> shownColors.filter {
@@ -203,6 +230,19 @@ fun ColorsScreen(
         }
     }
 }
+
+private fun getColorString(prefs: SharedPreferences, themeName: String): String {
+    val moreColors = KeyboardTheme.readUserMoreColors(prefs, themeName)
+    if (moreColors == 2) {
+        val colors = KeyboardTheme.readUserAllColors(prefs, themeName).map { it.key.name to it.value }
+        return Json.encodeToString((colors + (encodeBase36(themeName) to 0)).toMap()) // put theme name in here too
+    }
+    val colors = KeyboardTheme.readUserColors(prefs, themeName).associate { it.name to (it.color to (it.auto == true)) }
+    return Json.encodeToString(SaveThoseColors(themeName, moreColors, colors))
+}
+
+@Serializable
+data class SaveThoseColors(val name: String? = null, val moreColors: Int, val colors: Map<String, Pair<Int?, Boolean>>)
 
 @Preview
 @Composable
