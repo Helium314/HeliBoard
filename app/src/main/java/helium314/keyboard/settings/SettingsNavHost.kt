@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -100,7 +101,7 @@ fun SettingsNavHost(
             ColorsScreen(isNight = true, onClickBack = ::goBack)
         }
     }
-    if (target.value != SettingsDestination.Settings)
+    if (target.value != SettingsDestination.Settings/* && target.value != navController.currentBackStackEntry?.destination?.route*/)
         navController.navigate(route = target.value)
 }
 
@@ -128,5 +129,6 @@ object SettingsDestination {
             navScope.launch { delay(10); navTarget.value = target }
         } else
             navTarget.value = target
+        navScope.launch { delay(50); navTarget.value = Settings }
     }
 }

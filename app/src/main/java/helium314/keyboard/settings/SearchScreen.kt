@@ -113,6 +113,7 @@ fun <T: Any> SearchScreen(
 ) {
     var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Column(Modifier.fillMaxSize()) {
+        // todo: saving is good on orientation change, but bad on pressing back...
         var showSearch by rememberSaveable { mutableStateOf(false) }
 
         fun setShowSearch(value: Boolean) {
@@ -120,7 +121,7 @@ fun <T: Any> SearchScreen(
             if (!value) searchText = TextFieldValue()
         }
         BackHandler {
-            if (showSearch) setShowSearch(false)
+            if (showSearch || searchText.text.isNotEmpty()) setShowSearch(false)
             else onClickBack()
         }
         Surface(
