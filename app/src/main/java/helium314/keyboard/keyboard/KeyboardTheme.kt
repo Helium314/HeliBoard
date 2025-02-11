@@ -378,6 +378,22 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             return colorMap
         }
 
+        fun getUnusedThemeName(initialName: String, prefs: SharedPreferences): String {
+            val existingNames = prefs.all.keys.mapNotNull {
+                when {
+                    it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
+                    else -> null
+                }
+            }.toSortedSet()
+            if (initialName !in existingNames) return initialName
+            var i = 1
+            while ("$initialName$i" in existingNames)
+                i++
+            return "$initialName$i"
+        }
+
         // returns false if not renamed due to invalid name or collision
         fun renameUserColors(from: String, to: String, prefs: SharedPreferences): Boolean {
             if (to.isBlank()) return false // don't want that

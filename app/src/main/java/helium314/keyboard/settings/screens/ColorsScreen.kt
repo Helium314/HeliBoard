@@ -73,12 +73,6 @@ fun ColorsScreen(
     isNight: Boolean,
     onClickBack: () -> Unit
 ) {
-    // todo:
-    //  allow save (load should be in theme selector, maybe here too)
-    //   import/export should now also store theme name
-    //   handle name collisions on load by simply appending a number
-    //  make sure import of old colors works
-
     val ctx = LocalContext.current
 
     // is there really no better way of only setting forceOpposite while the screen is shown (and not paused)?
@@ -163,7 +157,7 @@ fun ColorsScreen(
             stringResource(R.string.save) to {
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
-                    .putExtra(Intent.EXTRA_TITLE,"theme.json")
+                    .putExtra(Intent.EXTRA_TITLE,"${newThemeName.text}.json")
                     .setType("application/json")
                 saveLauncher.launch(intent)
             },

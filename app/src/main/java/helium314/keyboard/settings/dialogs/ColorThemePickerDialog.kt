@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
+import android.app.Activity
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -31,16 +38,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.decodeBase36
+import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.screens.SaveThoseColors
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
+import java.util.EnumMap
 
-// specialized variant of ListPickerDialog
 @Composable
 fun ColorThemePickerDialog(
     onDismissRequest: () -> Unit,
@@ -71,16 +85,14 @@ fun ColorThemePickerDialog(
         val index = colors.indexOf(selectedColor)
         if (index != -1) state.scrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
     }
+    var showLoadDialog by remember { mutableStateOf(false) }
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         cancelButtonText = stringResource(R.string.dialog_close),
         onConfirmed = { },
         confirmButtonText = null,
-//        neutralButtonText = stringResource(R.string.load),
-        onNeutral = {
-            // todo: launcher to select file
-            //  when importing make sure name is not in use
-        },
+        neutralButtonText = stringResource(R.string.load),
+        onNeutral = { showLoadDialog = true },
         title = { Text(setting.title) },
         text = {
             CompositionLocalProvider(
@@ -173,6 +185,66 @@ fun ColorThemePickerDialog(
             }
         },
     )
+    if (showLoadDialog) {
+        var errorDialog by remember { mutableStateOf(false) }
+        val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+            ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
+                errorDialog = loadColorString(it.reader().readText(), prefs)
+            }
+        }
+        ConfirmationDialog(
+            onDismissRequest = { showLoadDialog = false },
+            onConfirmed = {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream", "application/json"))
+                    .setType("*/*")
+                loadFilePicker.launch(intent)
+            },
+            confirmButtonText = stringResource(R.string.button_load_custom),
+            onNeutral = {
+                val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = cm.primaryClip?.takeIf { it.itemCount > 0 } ?: return@ConfirmationDialog
+                val text = clip.getItemAt(0).text
+                errorDialog = loadColorString(text.toString(), prefs)
+            },
+            neutralButtonText = "load from clipboard" // todo: this is too long, maybe better if "load file" is changed to "load"?
+        )
+        if (errorDialog)
+            InfoDialog("error") { showLoadDialog = false } // also error dialog to false?
+    }
+}
+
+private fun loadColorString(colorString: String, prefs: SharedPreferences): Boolean {
+    try {
+        val that = Json.decodeFromString<SaveThoseColors>(colorString)
+        val themeName = KeyboardTheme.getUnusedThemeName(that.name ?: "imported colors", prefs)
+        val colors = that.colors.map { ColorSetting(it.key, it.value.second, it.value.first) }
+        KeyboardTheme.writeUserColors(prefs, themeName, colors)
+        KeyboardTheme.writeUserMoreColors(prefs, themeName, that.moreColors)
+    } catch (e: SerializationException) {
+        try {
+            val allColorsStringMap = Json.decodeFromString<Map<String, Int>>(colorString)
+            val allColors = EnumMap<ColorType, Int>(ColorType::class.java)
+            var themeName = "imported colors"
+            allColorsStringMap.forEach {
+                try {
+                    allColors[ColorType.valueOf(it.key)] = it.value
+                } catch (_: IllegalArgumentException) {
+                    themeName = decodeBase36(it.key)
+                }
+            }
+            themeName = KeyboardTheme.getUnusedThemeName(themeName, prefs)
+            KeyboardTheme.writeUserAllColors(prefs, themeName, allColors)
+            KeyboardTheme.writeUserMoreColors(prefs, themeName, 2)
+        } catch (e: SerializationException) {
+            return false
+        }
+    }
+    keyboardNeedsReload = true
+    return true
 }
 
 @Preview
