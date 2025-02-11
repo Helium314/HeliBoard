@@ -30,6 +30,7 @@ import com.github.skydoves.colorpicker.compose.BrightnessSlider
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 
+// todo: needs different layout in landscape (bars on the side or something like that)
 @Composable
 fun ColorPickerDialog(
     onDismissRequest: () -> Unit,

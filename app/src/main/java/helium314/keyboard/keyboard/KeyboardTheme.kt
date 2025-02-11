@@ -12,6 +12,7 @@ import android.os.Build
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.AllColors
 import helium314.keyboard.latin.common.ColorType
@@ -371,6 +372,41 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                 colorMap[ct] = i
             }
             return colorMap
+        }
+
+        // returns false if not renamed due to invalid name or collision
+        fun renameUserColors(from: String, to: String, prefs: SharedPreferences): Boolean {
+            if (to.isBlank()) return false // don't want that
+            if (to == from) return true // nothing to do
+            val existingNames = prefs.all.keys.mapNotNull {
+                when {
+                    it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
+                    else -> null
+                }
+            }.toSortedSet()
+            if (to in existingNames) return false
+            // all good, now rename
+            prefs.edit {
+                if (prefs.contains(Settings.PREF_USER_COLORS_PREFIX + from)) {
+                    putString(Settings.PREF_USER_COLORS_PREFIX + to, prefs.getString(Settings.PREF_USER_COLORS_PREFIX + from, ""))
+                    remove(Settings.PREF_USER_COLORS_PREFIX + from)
+                }
+                if (prefs.contains(Settings.PREF_USER_ALL_COLORS_PREFIX + from)) {
+                    putString(Settings.PREF_USER_ALL_COLORS_PREFIX + to, prefs.getString(Settings.PREF_USER_ALL_COLORS_PREFIX + from, ""))
+                    remove(Settings.PREF_USER_ALL_COLORS_PREFIX + from)
+                }
+                if (prefs.contains(Settings.PREF_USER_MORE_COLORS_PREFIX + from)) {
+                    putInt(Settings.PREF_USER_MORE_COLORS_PREFIX + to, prefs.getInt(Settings.PREF_USER_MORE_COLORS_PREFIX + from, 0))
+                    remove(Settings.PREF_USER_MORE_COLORS_PREFIX + from)
+                }
+                if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == from)
+                    putString(Settings.PREF_THEME_COLORS, to)
+                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == from)
+                    putString(Settings.PREF_THEME_COLORS_NIGHT, to)
+            }
+            return true
         }
 
         fun determineUserColor(colors: List<ColorSetting>, context: Context, colorName: String, isNight: Boolean): Int {

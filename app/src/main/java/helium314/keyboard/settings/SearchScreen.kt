@@ -56,7 +56,7 @@ fun SearchSettingsScreen(
 ) {
     SearchScreen(
         onClickBack = onClickBack,
-        title = title,
+        title = { Text(title) },
         content = {
             if (content != null) content()
             else {
@@ -101,7 +101,7 @@ fun SearchSettingsScreen(
 @Composable
 fun <T: Any> SearchScreen(
     onClickBack: () -> Unit,
-    title: String,
+    title: @Composable () -> Unit,
     filteredItems: (String) -> List<T>,
     itemContent: @Composable (T) -> Unit,
     content: @Composable (ColumnScope.() -> Unit)? = null,
@@ -123,7 +123,7 @@ fun <T: Any> SearchScreen(
         ) {
             Column {
                 TopAppBar(
-                    title = { Text(title) },
+                    title = title,
                     windowInsets = TopAppBarDefaults.windowInsets,
                     navigationIcon = {
                         IconButton(onClick = {

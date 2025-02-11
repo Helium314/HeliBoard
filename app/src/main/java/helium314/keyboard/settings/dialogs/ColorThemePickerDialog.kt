@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
 import androidx.compose.foundation.clickable
@@ -56,6 +57,7 @@ fun ColorThemePickerDialog(
         when {
             it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
             it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
+            it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
             else -> null
         }
     }.toSortedSet() // we don't want duplicates, and we want a consistent order

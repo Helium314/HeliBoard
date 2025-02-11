@@ -8,25 +8,31 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.ColorSetting
@@ -88,9 +94,34 @@ fun ColorsScreen(
     fun ColorSetting.displayColor() = if (auto == true) KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
         else color ?: KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
 
+    var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
     var chosenColor: ColorSetting? by remember { mutableStateOf(null) }
     SearchScreen(
-        title = themeName,
+        title = {
+            var nameValid by rememberSaveable { mutableStateOf(true) }
+            var nameField by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(newThemeName) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextField(
+                    value = nameField,
+                    onValueChange = {
+                        nameValid = KeyboardTheme.renameUserColors(newThemeName.text, it.text, prefs)
+                        if (nameValid)
+                            newThemeName = it
+                        nameField = it
+                    },
+  //                  modifier = Modifier.weight(1f)
+                )
+                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.secondary) {
+                    // todo: this should indicate whether name is saved, but looks like a button
+                    //  either make it flash and then disappear, or use a better indicator
+                    Icon(
+                        painterResource(if (nameValid) R.drawable.ic_setup_check else R.drawable.ic_close),
+                        null,
+                        Modifier.width(24.dp)
+                    )
+                }
+            }
+        },
         onClickBack = onClickBack,
         filteredItems = { search -> shownColors.filter {
             it.displayName.split(" ", "_").any { it.startsWith(search, true) }
@@ -107,7 +138,9 @@ fun ColorsScreen(
                         .background(Color(colorSetting.displayColor()), shape = CircleShape)
                         .size(50.dp)
                 )
-                Column(Modifier.weight(1f).padding(horizontal = 16.dp)) {
+                Column(Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)) {
                     Text(colorSetting.displayName)
                     if (colorSetting.auto == true)
                         CompositionLocalProvider(
