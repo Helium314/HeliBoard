@@ -70,14 +70,9 @@ fun <T: Any> ListPickerDialog(
                                     }
                                     selected = item
                                 }
-                                .padding(horizontal = 24.dp)
+                                .padding(horizontal = if (showRadioButtons) 8.dp else 16.dp)
                                 .heightIn(min = 40.dp)
                         ) {
-                            Text(
-                                text = getItemName(item),
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.weight(1f),
-                            )
                             if (showRadioButtons)
                                 RadioButton(
                                     selected = selected == item,
@@ -89,6 +84,11 @@ fun <T: Any> ListPickerDialog(
                                         selected = item
                                     }
                                 )
+                            Text(
+                                text = getItemName(item),
+                                style = MaterialTheme.typography.bodyLarge,
+                                modifier = Modifier.weight(1f),
+                            )
                         }
                     }
                 }
