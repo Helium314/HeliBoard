@@ -24,6 +24,7 @@ import helium314.keyboard.latin.utils.brightenOrDarken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isGoodContrast
 import helium314.keyboard.latin.utils.prefs
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 
@@ -59,19 +60,23 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         const val THEME_PINK = "pink"
         const val THEME_SAND = "sand"
         const val THEME_VIOLETTE = "violette"
-        fun getAvailableColors(prefs: SharedPreferences, isNight: Boolean) = listOfNotNull(
-            if (!isNight) THEME_LIGHT else null, THEME_DARK, if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) THEME_DYNAMIC else null,
-            if (prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE) == STYLE_HOLO) THEME_HOLO_WHITE  else null,
-            THEME_DARKER, THEME_BLACK, if (!isNight) THEME_BLUE_GRAY else null, if (!isNight) THEME_BROWN else null,
-            THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, if (!isNight) THEME_INDIGO else null, if (!isNight) THEME_PINK else null,
-            THEME_OCEAN, if (!isNight) THEME_SAND else null, THEME_VIOLETTE
-        ) + prefs.all.keys.mapNotNull {
-            when {
-                it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
-                it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
-                else -> null
-            }
-        }.toSortedSet() // we don't want duplicates, and we want a consistent order
+        fun getAvailableDefaultColors(prefs: SharedPreferences, isNight: Boolean) = listOfNotNull(
+            if (!isNight) THEME_LIGHT else null, THEME_DARK,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) THEME_DYNAMIC else null,
+            if (prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE) == STYLE_HOLO) THEME_HOLO_WHITE else null,
+            THEME_DARKER,
+            THEME_BLACK,
+            if (!isNight) THEME_BLUE_GRAY else null,
+            if (!isNight) THEME_BROWN else null,
+            THEME_CHOCOLATE,
+            THEME_CLOUDY,
+            THEME_FOREST,
+            if (!isNight) THEME_INDIGO else null,
+            if (!isNight) THEME_PINK else null,
+            THEME_OCEAN,
+            if (!isNight) THEME_SAND else null,
+            THEME_VIOLETTE
+        )
         val STYLES = arrayOf(STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED)
 
         // These should be aligned with Keyboard.themeId and Keyboard.Case.keyboardTheme
@@ -326,13 +331,13 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             }
         }
 
-        fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: Map<String, Pair<Int?, Boolean>>) {
+        fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: List<ColorSetting>) {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
-            val value = Json.encodeToString(colors.filterValues { it.first != null })
+            val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
             prefs.edit().putString(key, value).apply()
         }
 
-        fun readUserColors(prefs: SharedPreferences, themeName: String): Map<String, Pair<Int, Boolean>> {
+        fun readUserColors(prefs: SharedPreferences, themeName: String): List<ColorSetting> {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
             return Json.decodeFromString(prefs.getString(key, Defaults.PREF_USER_COLORS)!!)
         }
@@ -368,14 +373,16 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             return colorMap
         }
 
-        fun determineUserColor(colors: Map<String, Pair<Int?, Boolean>>, context: Context, colorName: String, isNight: Boolean): Int {
-            val (color, auto) = colors[colorName] ?: (null to true)
+        fun determineUserColor(colors: List<ColorSetting>, context: Context, colorName: String, isNight: Boolean): Int {
+            val c = colors.firstOrNull { it.name == colorName }
+            val color = c?.color
+            val auto = c?.auto ?: true
             return if (auto || color == null)
                 determineAutoColor(colors, colorName, isNight, context)
             else color
         }
 
-        private fun determineAutoColor(colors: Map<String, Pair<Int?, Boolean>>, colorName: String, isNight: Boolean, context: Context): Int {
+        private fun determineAutoColor(colors: List<ColorSetting>, colorName: String, isNight: Boolean, context: Context): Int {
             when (colorName) {
                 COLOR_ACCENT -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -426,4 +433,9 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             }
         }
     }
+}
+
+@Serializable
+data class ColorSetting(val name: String, val auto: Boolean?, val color: Int?) {
+    var displayName = name
 }

@@ -4,6 +4,7 @@ package helium314.keyboard.latin
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
+import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
@@ -167,14 +168,14 @@ fun checkVersionUpgrade(context: Context) {
         }
         // day colors
         val themeNameDay = context.getString(R.string.theme_name_user)
-        val colorsDay = colorPrefsAndResIds.associate {
+        val colorsDay = colorPrefsAndResIds.map {
             val pref = "theme_color_" + it.first
             val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
-            val result = it.first to (color to prefs.getBoolean(pref + "_auto", true))
+            val result = ColorSetting(it.first, prefs.getBoolean(pref + "_auto", true), color)
             prefs.edit().remove(pref).remove(pref + "_auto").apply()
             result
         }
-        if (colorsDay.any { it.value.first != null }) {
+        if (colorsDay.any { it.color != null }) {
             KeyboardTheme.writeUserColors(prefs, themeNameDay, colorsDay)
         }
         val moreColorsDay = prefs.getInt("theme_color_show_more_colors", 0)
@@ -190,14 +191,14 @@ fun checkVersionUpgrade(context: Context) {
 
         // same for night colors
         val themeNameNight = context.getString(R.string.theme_name_user_night)
-        val colorsNight = colorPrefsAndResIds.associate {
+        val colorsNight = colorPrefsAndResIds.map {
             val pref = "theme_dark_color_" + it.first
             val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
-            val result = it.first to (color to prefs.getBoolean(pref + "_auto", true))
+            val result = ColorSetting(it.first, prefs.getBoolean(pref + "_auto", true), color)
             prefs.edit().remove(pref).remove(pref + "_auto").apply()
             result
         }
-        if (colorsNight.any { it.value.first != null }) {
+        if (colorsNight.any { it.color!= null }) {
             KeyboardTheme.writeUserColors(prefs, themeNameNight, colorsNight)
         }
         val moreColorsNight = prefs.getInt("theme_dark_color_show_more_colors", 0)

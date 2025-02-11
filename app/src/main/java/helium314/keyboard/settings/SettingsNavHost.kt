@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
+import helium314.keyboard.settings.screens.ColorsScreen
 import helium314.keyboard.settings.screens.DebugScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
@@ -95,16 +96,10 @@ fun SettingsNavHost(
 //            )
         }
         composable(SettingsDestination.Colors) {
-//            ColorsScreen(
-//                night = false,
-//                onClickBack = ::goBack
-//            )
+            ColorsScreen(isNight = false, onClickBack = ::goBack)
         }
         composable(SettingsDestination.ColorsNight) {
-//            ColorsScreen(
-//                night = true,
-//                onClickBack = ::goBack
-//            )
+            ColorsScreen(isNight = true, onClickBack = ::goBack)
         }
     }
 }

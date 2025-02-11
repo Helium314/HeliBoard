@@ -86,7 +86,6 @@ fun <T: Any> ListPickerDialog(
                                 )
                             Text(
                                 text = getItemName(item),
-                                style = MaterialTheme.typography.bodyLarge,
                                 modifier = Modifier.weight(1f),
                             )
                         }

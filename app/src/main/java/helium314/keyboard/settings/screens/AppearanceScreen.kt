@@ -17,15 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.ColorsNightSettingsFragment
-import helium314.keyboard.latin.settings.ColorsSettingsFragment
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
@@ -36,6 +33,7 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.dialogs.ColorThemePickerDialog
 import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -58,14 +56,10 @@ fun AppearanceScreen(
         Settings.PREF_ICON_STYLE,
         Settings.PREF_CUSTOM_ICON_NAMES,
         Settings.PREF_THEME_COLORS,
-//        if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == KeyboardTheme.THEME_USER)
-//            SettingsWithoutKey.ADJUST_COLORS else null, // todo: remove, this should be part of the color selection menu
         Settings.PREF_THEME_KEY_BORDERS,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             Settings.PREF_THEME_DAY_NIGHT else null,
         if (dayNightMode) Settings.PREF_THEME_COLORS_NIGHT else null,
-//        if (dayNightMode && prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_USER_NIGHT)
-//            SettingsWithoutKey.ADJUST_COLORS_NIGHT else null, // todo: remove, this should be part of the color selection menu
         Settings.PREF_NAVBAR_COLOR,
         SettingsWithoutKey.BACKGROUND_IMAGE,
         SettingsWithoutKey.BACKGROUND_IMAGE_LANDSCAPE,
@@ -139,54 +133,44 @@ fun createAppearanceSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { setting ->
         val ctx = LocalContext.current
+        val prefs = ctx.prefs()
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val items = KeyboardTheme.getAvailableColors(ctx.prefs(), false).map {
-            it.getStringResourceOrName("theme_name_", ctx) to it
-        }
-        ListPreference(
-            setting,
-            items,
-            Defaults.PREF_THEME_COLORS
-        ) { keyboardNeedsReload = true }
+        var showDialog by rememberSaveable { mutableStateOf(false) }
+        Preference(
+            name = setting.title,
+            description = prefs.getString(setting.key, Defaults.PREF_THEME_COLORS)!!.getStringResourceOrName("theme_name_", ctx),
+            onClick = { showDialog = true }
+        )
+        if (showDialog)
+            ColorThemePickerDialog(
+                onDismissRequest = { showDialog = false },
+                setting = setting,
+                isNight = false,
+                default = Defaults.PREF_THEME_COLORS
+            )
     },
     Setting(context, Settings.PREF_THEME_COLORS_NIGHT, R.string.theme_colors_night) { setting ->
         val ctx = LocalContext.current
         val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
+        val prefs = ctx.prefs()
         if ((b?.value ?: 0) < 0)
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-        val items = KeyboardTheme.getAvailableColors(ctx.prefs(), true).map {
-            it.getStringResourceOrName("theme_name_", ctx) to it
-        }
-        ListPreference(
-            setting,
-            items,
-            Defaults.PREF_THEME_COLORS_NIGHT
-        ) { keyboardNeedsReload = true }
-    },
-/*    Setting(context, SettingsWithoutKey.ADJUST_COLORS, R.string.select_user_colors, R.string.select_user_colors_summary) {
-        val ctx = LocalContext.current
+        var showDialog by rememberSaveable { mutableStateOf(false) }
         Preference(
-            name = it.title,
-            description = it.description,
-            onClick = {
-                ctx.getActivity()?.switchTo(ColorsSettingsFragment())
-                //SettingsDestination.navigateTo(SettingsDestination.Colors) todo: soon
-            }
+            name = setting.title,
+            description = prefs.getString(setting.key, Defaults.PREF_THEME_COLORS_NIGHT)!!.getStringResourceOrName("theme_name_", ctx),
+            onClick = { showDialog = true }
         )
+        if (showDialog)
+            ColorThemePickerDialog(
+                onDismissRequest = { showDialog = false },
+                setting = setting,
+                isNight = true,
+                default = Defaults.PREF_THEME_COLORS_NIGHT
+            )
     },
-    Setting(context, SettingsWithoutKey.ADJUST_COLORS_NIGHT, R.string.select_user_colors_night, R.string.select_user_colors_summary) {
-        val ctx = LocalContext.current
-        Preference(
-            name = it.title,
-            description = it.description,
-            onClick = {
-                ctx.getActivity()?.switchTo(ColorsNightSettingsFragment())
-                //SettingsDestination.navigateTo(SettingsDestination.ColorsNight) todo: soon
-            }
-        )
-    },*/
     Setting(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {
         SwitchPreference(it, Defaults.PREF_THEME_KEY_BORDERS)
     },
