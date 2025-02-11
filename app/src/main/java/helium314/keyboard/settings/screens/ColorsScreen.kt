@@ -51,7 +51,6 @@ import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
-import helium314.keyboard.settings.keyboardNeedsReload
 
 @Composable
 fun ColorsScreen(
@@ -59,11 +58,10 @@ fun ColorsScreen(
     onClickBack: () -> Unit
 ) {
     // todo:
-    //  allow switching moreColors (three dot menu? dropdown / spinner for visibility?)
+    //  need to force opposite theme if necessary!
     //  allow save (load should be in theme selector, maybe here too)
     //   import/export should now also store theme name
     //   handle name collisions on load by simply appending a number
-    //  allow editing theme name
     //  make sure import of old colors works
 
     val ctx = LocalContext.current
@@ -122,6 +120,11 @@ fun ColorsScreen(
                 }
             }
         },
+        menu = listOf(
+            stringResource(R.string.main_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 0) },
+            stringResource(R.string.more_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 1) },
+            stringResource(R.string.all_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 2) },
+        ),
         onClickBack = onClickBack,
         filteredItems = { search -> shownColors.filter {
             it.displayName.split(" ", "_").any { it.startsWith(search, true) }
@@ -156,7 +159,6 @@ fun ColorsScreen(
                         val newUserColors = (oldUserColors + ColorSetting(colorSetting.name, it, colorSetting.color))
                             .reversed().distinctBy { it.displayName }
                         KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
-                        keyboardNeedsReload = true
                     })
             }
         }
@@ -178,7 +180,6 @@ fun ColorsScreen(
                     .reversed().distinctBy { it.displayName }
                 KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
             }
-            keyboardNeedsReload = true
         }
     }
 }
