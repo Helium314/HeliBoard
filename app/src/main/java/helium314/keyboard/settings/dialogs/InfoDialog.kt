@@ -3,6 +3,7 @@ package helium314.keyboard.settings.dialogs
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun InfoDialog(
@@ -12,6 +13,7 @@ fun InfoDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         text = { Text(message) },
+        cancelButtonText = stringResource(android.R.string.ok),
         onConfirmed = { },
         confirmButtonText = null
     )
