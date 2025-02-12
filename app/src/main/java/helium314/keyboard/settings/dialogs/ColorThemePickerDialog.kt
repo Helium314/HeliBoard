@@ -144,11 +144,11 @@ fun ColorThemePickerDialog(
                 val text = clip.getItemAt(0).text
                 errorDialog = !loadColorString(text.toString(), prefs)
             },
-            neutralButtonText = "load from clipboard" // todo: this is too long, maybe better if "load file" is changed to "load"?
+            neutralButtonText = stringResource(R.string.paste)
         )
     }
     if (errorDialog)
-        InfoDialog("error") { errorDialog = false }
+        InfoDialog(stringResource(R.string.file_read_error)) { errorDialog = false } // todo: text (not always a file)
 }
 
 @Composable
@@ -159,7 +159,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(start = 10.dp)
     ) {
-        Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add)) // todo: should it be a button?
+        Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add))
         TextField(
             value = textValue,
             onValueChange = { textValue = it },
