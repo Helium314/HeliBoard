@@ -3,9 +3,11 @@ package helium314.keyboard.latin
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Defaults
@@ -22,6 +24,7 @@ import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
+import helium314.keyboard.latin.utils.writeCustomKeyCodes
 import java.io.File
 import java.util.EnumMap
 
@@ -211,6 +214,27 @@ fun checkVersionUpgrade(context: Context) {
         }
         if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == "user_night")
             prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, themeNameNight).apply()
+    }
+    if (oldVersion <= 2302) {
+        fun readCustomKeyCodes(setting: String) =
+            prefs.getString(setting, "")!!
+                .split(";").filter { it.isNotEmpty()}.associate {
+                    val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
+                    it.substringBefore(",") to code
+                }
+        val customCodes = readCustomKeyCodes("toolbar_custom_key_codes")
+        val customLongpressCodes = readCustomKeyCodes("toolbar_custom_longpress_codes")
+        prefs.edit().remove("toolbar_custom_longpress_codes").remove("toolbar_custom_key_codes").apply()
+        val combined = EnumMap<ToolbarKey, Pair<Int?, Int?>>(ToolbarKey::class.java)
+        customCodes.forEach { runCatching {
+            val key = ToolbarKey.valueOf(it.key)
+            combined[key] = (combined[key] ?: (null to null)).copy(first = it.value)
+        } }
+        customLongpressCodes.forEach { runCatching {
+            val key = ToolbarKey.valueOf(it.key)
+            combined[key] = (combined[key] ?: (null to null)).copy(second = it.value)
+        } }
+        writeCustomKeyCodes(prefs, combined)
     }
     upgradeToolbarPrefs(prefs)
     onCustomLayoutFileListChanged() // just to be sure

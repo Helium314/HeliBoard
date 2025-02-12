@@ -47,7 +47,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -69,7 +68,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
-    public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -187,8 +185,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
     private static Typeface sCachedTypeface;
     private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
-    private Map<String, Integer> mCustomToolbarKeyCodes = null;
-    private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
     private static final Settings sInstance = new Settings();
 
@@ -236,8 +232,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 Log.w(TAG, "onSharedPreferenceChanged called before loadSettings.");
                 return;
             }
-            mCustomToolbarLongpressCodes = null;
-            mCustomToolbarKeyCodes = null;
+            ToolbarUtilsKt.clearCustomToolbarKeyCodes();
             loadSettings(mContext, mSettingsValues.mLocale, mSettingsValues.mInputAttributes);
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
@@ -543,15 +538,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public Integer getCustomToolbarKeyCode(ToolbarKey key) {
-        if (mCustomToolbarKeyCodes == null)
-            mCustomToolbarKeyCodes = ToolbarUtilsKt.readCustomKeyCodes(mPrefs);
-        return mCustomToolbarKeyCodes.get(key.name());
+        return ToolbarUtilsKt.getCustomKeyCode(key, mPrefs);
     }
 
     public Integer getCustomToolbarLongpressCode(ToolbarKey key) {
-        if (mCustomToolbarLongpressCodes == null)
-            mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
-        return mCustomToolbarLongpressCodes.get(key.name());
+        return ToolbarUtilsKt.getCustomLongpressKeyCode(key, mPrefs);
     }
 
     public static File getCustomFontFile(final Context context) {

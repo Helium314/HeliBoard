@@ -13,7 +13,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -24,7 +23,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.edit
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
@@ -35,13 +33,9 @@ import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.readCustomKeyCodes
-import helium314.keyboard.latin.utils.readCustomLongpressCodes
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
-import helium314.keyboard.latin.utils.writeCustomLongpressCodes
 import helium314.keyboard.settings.screens.GetIcon
-import kotlinx.serialization.json.Json
 
-// todo (later): reading and writing prefs should be done in the preference, or at least with the provided (single!) pref key
 @Composable
 fun ToolbarKeysCustomizer(
     onDismissRequest: () -> Unit
@@ -55,7 +49,7 @@ fun ToolbarKeysCustomizer(
         cancelButtonText = stringResource(R.string.dialog_close),
         confirmButtonText = null,
         onConfirmed = { },
-        neutralButtonText = if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty()) stringResource(R.string.button_default) else null,
+        neutralButtonText = if (readCustomKeyCodes(prefs).isNotEmpty()) stringResource(R.string.button_default) else null,
         onNeutral = { showDeletePrefConfirmDialog = true },
         title = { Text(stringResource(R.string.customize_toolbar_key_codes)) },
         text = {
@@ -85,10 +79,7 @@ fun ToolbarKeysCustomizer(
             onConfirmed = {
                 showDeletePrefConfirmDialog = false
                 onDismissRequest()
-                prefs.edit {
-                    remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES)
-                    remove(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)
-                }
+                prefs.edit().remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES).apply()
             },
             text = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
         )
@@ -106,21 +97,19 @@ private fun ToolbarKeyCustomizer(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = {
-            writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to checkCode(code)))
-            writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to checkCode(longPressCode)))
+            val codes = readCustomKeyCodes(prefs)
+            codes[key] = checkCode(code) to checkCode(longPressCode)
+            writeCustomKeyCodes(prefs, codes)
         },
         checkOk = { checkCode(code) != null && checkCode(longPressCode) != null },
-        neutralButtonText = if (readCustomKeyCodes(prefs).containsKey(key.name) || readCustomLongpressCodes(prefs).containsKey(key.name))
+        neutralButtonText = if (readCustomKeyCodes(prefs).containsKey(key))
                 stringResource(R.string.button_default)
             else null,
         onNeutral = {
             onDismissRequest()
-            val keys = readCustomKeyCodes(prefs).toMutableMap()
-            keys.remove(key.name)
-            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
-            val longpressKeys = readCustomLongpressCodes(prefs).toMutableMap()
-            longpressKeys.remove(key.name)
-            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
+            val keys = readCustomKeyCodes(prefs)
+            keys.remove(key)
+            writeCustomKeyCodes(prefs, keys)
         },
         title = { Text(key.name.lowercase().getStringResourceOrName("", ctx)) },
         text = {

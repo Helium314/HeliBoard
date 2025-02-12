@@ -1,38 +1,22 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
-import androidx.core.graphics.BlendModeColorFilterCompat
-import androidx.core.graphics.BlendModeCompat
 import androidx.core.view.forEach
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import java.util.EnumMap
 import java.util.Locale
 
@@ -217,120 +201,37 @@ private fun getEnabledToolbarKeys(prefs: SharedPreferences, pref: String, defaul
     }
 }
 
-fun toolbarKeysCustomizer(context: Context) {
-    val padding = ResourceUtils.toPx(8, context.resources)
-    val ll = LinearLayout(context).apply {
-        orientation = LinearLayout.VERTICAL
-        setPadding(3 * padding, padding, padding, padding)
-    }
-    val builder = AlertDialog.Builder(context)
-        .setTitle(R.string.customize_toolbar_key_codes)
-        .setView(ScrollView(context).apply { addView(ll) })
-        .setPositiveButton(R.string.dialog_close, null)
-    val prefs = context.prefs()
-    if (readCustomKeyCodes(prefs).isNotEmpty() || readCustomLongpressCodes(prefs).isNotEmpty())
-        builder.setNeutralButton(R.string.button_default) { _, _ ->
-            confirmDialog(context, context.getString(R.string.customize_toolbar_key_code_reset_message), context.getString(android.R.string.ok)) {
-                prefs.edit {
-                    remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES)
-                    remove(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)
-                }
-            }
-        }
-    val dialog = builder.create()
-    val cf = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(context, R.color.foreground), BlendModeCompat.SRC_IN)
-    ToolbarKey.entries.forEach { key ->
-        val binding = ReorderDialogItemBinding.inflate(LayoutInflater.from(context), ll, true)
-        binding.reorderItemIcon.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
-        binding.reorderItemIcon.colorFilter = cf
-        binding.reorderItemIcon.isVisible = true
-        binding.reorderItemName.text = key.name.lowercase().getStringResourceOrName("", context)
-        binding.root.setOnClickListener {
-            toolbarKeyCustomizer(context, key)
-            dialog.dismiss()
-        }
-        binding.reorderItemSwitch.isGone = true
-        binding.reorderItemDragIndicator.isGone = true
-    }
-    dialog.show()
-}
-
-@SuppressLint("SetTextI18n")
-private fun toolbarKeyCustomizer(context: Context, key: ToolbarKey) {
-    val layout = LayoutInflater.from(context).inflate(R.layout.toolbar_key_customizer, null)
-    val prefs = context.prefs()
-    var keyCode: String? = null
-    var longpressCode: String? = null
-    val builder = AlertDialog.Builder(context)
-        .setTitle(key.name.lowercase().getStringResourceOrName("", context))
-        .setView(ScrollView(context).apply { addView(layout) })
-        .setPositiveButton(android.R.string.ok) { _, _ ->
-            val newKeyCode = runCatching { keyCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
-            val newLongpressCode = runCatching { longpressCode?.toIntOrNull()?.checkAndConvertCode() }.getOrNull()?.takeIf { it < Char.MAX_VALUE.code }
-            if (newKeyCode != null)
-                writeCustomKeyCodes(prefs, readCustomKeyCodes(prefs) + (key.name to newKeyCode))
-            if (newLongpressCode != null)
-                writeCustomLongpressCodes(prefs, readCustomLongpressCodes(prefs) + (key.name to newLongpressCode))
-            toolbarKeysCustomizer(context)
-        }
-        .setNegativeButton(android.R.string.cancel) { _, _ -> toolbarKeysCustomizer(context) }
-    if (readCustomKeyCodes(prefs).containsKey(key.name) || readCustomLongpressCodes(prefs).containsKey(key.name))
-        builder.setNeutralButton(R.string.button_default) { _, _ ->
-            val keys = readCustomKeyCodes(prefs).toMutableMap()
-            keys.remove(key.name)
-            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Json.encodeToString(keys)).apply()
-            val longpressKeys = readCustomLongpressCodes(prefs).toMutableMap()
-            longpressKeys.remove(key.name)
-            prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Json.encodeToString(longpressKeys)).apply()
-            toolbarKeysCustomizer(context)
-        }
-    val dialog = builder.create()
-
-    fun checkOk() {
-        val keyOk = keyCode == null
-                || runCatching { keyCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
-        val longPressOk = longpressCode == null
-                || runCatching { longpressCode?.toIntOrNull()?.let { it.checkAndConvertCode() <= Char.MAX_VALUE.code } }.getOrNull() ?: false
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.isEnabled = keyOk && longPressOk
-    }
-    layout.findViewById<EditText>(R.id.toolbar_key_code)?.apply {
-        setText(getCodeForToolbarKey(key).toString())
-        doAfterTextChanged {
-            keyCode = it?.toString()?.ifEmpty { "0" }
-            checkOk()
-        }
-    }
-    layout.findViewById<EditText>(R.id.toolbar_key_longpress_code)?.apply {
-        setText(getCodeForToolbarKeyLongClick(key).toString())
-        doAfterTextChanged {
-            longpressCode = it?.toString()?.ifEmpty { "0" }
-            checkOk()
-        }
-    }
-
-    dialog.show()
-}
-
-fun readCustomKeyCodes(prefs: SharedPreferences) =
-    prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Defaults.PREF_TOOLBAR_CUSTOM_KEY_CODES)!!
-        .split(";").filter { it.isNotEmpty()}.associate {
-            val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
-            it.substringBefore(",") to code
-        }
-
-fun readCustomLongpressCodes(prefs: SharedPreferences) =
-    prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, Defaults.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES)!!
-        .split(";").filter { it.isNotEmpty()}.associate {
-            val code = runCatching { it.substringAfter(",").toIntOrNull()?.checkAndConvertCode() }.getOrNull()
-            it.substringBefore(",") to code
-        }
-
-fun writeCustomKeyCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
-    val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")
+fun writeCustomKeyCodes(prefs: SharedPreferences, codes: EnumMap<ToolbarKey, Pair<Int?, Int?>>) {
+    val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key.name},${it.first},${it.second}" } }.joinToString(";")
     prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, string).apply()
 }
 
-fun writeCustomLongpressCodes(prefs: SharedPreferences, codes: Map<String, Int?>) {
-    val string = codes.mapNotNull { entry -> entry.value?.let { "${entry.key},$it" } }.joinToString(";")
-    prefs.edit().putString(Settings.PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES, string).apply()
+fun readCustomKeyCodes(prefs: SharedPreferences): EnumMap<ToolbarKey, Pair<Int?, Int?>> {
+    val map = EnumMap<ToolbarKey, Pair<Int?, Int?>>(ToolbarKey::class.java)
+    prefs.getString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, Defaults.PREF_TOOLBAR_CUSTOM_KEY_CODES)!!
+        .split(";").forEach {
+            runCatching {
+                val s = it.split(",")
+                map[ToolbarKey.valueOf(s[0])] = s[1].toIntOrNull() to s[2].toIntOrNull()
+            }
+        }
+    return map
 }
+
+fun getCustomKeyCode(key: ToolbarKey, prefs: SharedPreferences): Int? {
+    if (customToolbarKeyCodes == null)
+        customToolbarKeyCodes = readCustomKeyCodes(prefs)
+    return customToolbarKeyCodes!![key]?.first
+}
+
+fun getCustomLongpressKeyCode(key: ToolbarKey, prefs: SharedPreferences): Int? {
+    if (customToolbarKeyCodes == null)
+        customToolbarKeyCodes = readCustomKeyCodes(prefs)
+    return customToolbarKeyCodes!![key]?.second
+}
+
+fun clearCustomToolbarKeyCodes() {
+    customToolbarKeyCodes = null
+}
+
+private var customToolbarKeyCodes: EnumMap<ToolbarKey, Pair<Int?, Int?>>? = null

@@ -124,6 +124,8 @@ fun ColorThemePickerDialog(
         val uri = it.data?.data ?: return@rememberLauncherForActivityResult
         ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
             errorDialog = !loadColorString(it.reader().readText(), prefs)
+            if (!errorDialog)
+                onDismissRequest() // todo: for some reason the list doesn't update after importing a file, only from clipboard
         }
     }
     if (showLoadDialog) {
@@ -265,7 +267,6 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
             return false
         }
     }
-    keyboardNeedsReload = true
     return true
 }
 
