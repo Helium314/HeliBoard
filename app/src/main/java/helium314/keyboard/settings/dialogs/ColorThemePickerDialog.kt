@@ -26,6 +26,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,11 +44,13 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.decodeBase36
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.screens.SaveThoseColors
@@ -64,7 +67,11 @@ fun ColorThemePickerDialog(
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
-    val defaultColors = KeyboardTheme.getAvailableDefaultColors(prefs, false)
+    val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
+    if ((b?.value ?: 0) < 0)
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+
+    val defaultColors = KeyboardTheme.getAvailableDefaultColors(prefs, isNight)
 
     // prefs.all is null in preview only
     val userColors = (prefs.all ?: mapOf(Settings.PREF_USER_COLORS_PREFIX + "usercolor" to "") ).keys.mapNotNull {
@@ -86,6 +93,7 @@ fun ColorThemePickerDialog(
         if (index != -1) state.scrollToItem(index, -state.layoutInfo.viewportSize.height / 3)
     }
     var showLoadDialog by remember { mutableStateOf(false) }
+    val targetScreen = if (isNight) SettingsDestination.ColorsNight else SettingsDestination.Colors
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         cancelButtonText = stringResource(R.string.dialog_close),
@@ -101,99 +109,24 @@ fun ColorThemePickerDialog(
                 LazyColumn(state = state) {
                     items(colors) { item ->
                         if (item == "") {
-                            var textValue by remember { mutableStateOf(TextFieldValue()) }
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
-                                Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add)) // todo: should it be a button?
-                                TextField(
-                                    value = textValue,
-                                    onValueChange = { textValue = it },
-                                    modifier = Modifier.weight(1f),
-                                    singleLine = true
-                                )
-                                IconButton(
-                                    enabled = textValue.text.isNotEmpty() && textValue.text !in userColors,
-                                    onClick = {
-                                        onDismissRequest()
-                                        prefs.edit().putString(setting.key, textValue.text).apply()
-                                        if (isNight) SettingsDestination.navigateTo(SettingsDestination.ColorsNight)
-                                        else SettingsDestination.navigateTo(SettingsDestination.Colors)
-                                        keyboardNeedsReload = true
-                                    }
-                                ) { Icon(painterResource(R.drawable.ic_edit), null) }
-                            }
+                            AddColorRow(onDismissRequest, userColors, targetScreen, setting.key)
                         } else {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier
-                                    .clickable {
-                                        onDismissRequest()
-                                        prefs.edit().putString(setting.key, item).apply()
-                                        keyboardNeedsReload = true
-                                    }
-                                    .padding(start = 6.dp)
-                                    .heightIn(min = 40.dp)
-                            ) {
-                                RadioButton(
-                                    selected = selectedColor == item,
-                                    onClick = {
-                                        onDismissRequest()
-                                        prefs.edit().putString(setting.key, item).apply()
-                                        keyboardNeedsReload = true
-                                    }
-                                )
-                                Text(
-                                    text = item.getStringResourceOrName("theme_name_", ctx),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    modifier = Modifier.weight(1f),
-                                )
-                                if (item in userColors) {
-                                    var showDialog by remember { mutableStateOf(false) }
-                                    IconButton(
-                                        onClick = { showDialog = true }
-                                    ) { Icon(painterResource(R.drawable.ic_bin), null) }
-                                    IconButton(
-                                        onClick = {
-                                            onDismissRequest()
-                                            prefs.edit().putString(setting.key, item).apply()
-                                            if (isNight) SettingsDestination.navigateTo(SettingsDestination.ColorsNight)
-                                            else SettingsDestination.navigateTo(SettingsDestination.Colors)
-                                            keyboardNeedsReload = true
-                                        }
-                                    ) { Icon(painterResource(R.drawable.ic_edit), null) }
-                                    if (showDialog)
-                                        ConfirmationDialog(
-                                            onDismissRequest = { showDialog = false },
-                                            text = { Text(stringResource(R.string.delete_confirmation, item)) },
-                                            onConfirmed = {
-                                                onDismissRequest()
-                                                prefs.edit().remove(Settings.PREF_USER_COLORS_PREFIX + item)
-                                                    .remove(Settings.PREF_USER_ALL_COLORS_PREFIX + item)
-                                                    .remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item).apply()
-                                                if (item == selectedColor)
-                                                    prefs.edit().remove(setting.key).apply()
-                                                keyboardNeedsReload = true
-                                            }
-                                        )
-                                }
-                            }
+                            ColorItemRow(onDismissRequest, item, item == selectedColor, item in userColors, targetScreen, setting.key)
                         }
                     }
                 }
             }
         },
     )
-    if (showLoadDialog) {
-        var errorDialog by remember { mutableStateOf(false) }
-        val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-            val uri = it.data?.data ?: return@rememberLauncherForActivityResult
-            ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
-                errorDialog = loadColorString(it.reader().readText(), prefs)
-            }
+    var errorDialog by remember { mutableStateOf(false) }
+    val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+        ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
+            errorDialog = !loadColorString(it.reader().readText(), prefs)
         }
+    }
+    if (showLoadDialog) {
         ConfirmationDialog(
             onDismissRequest = { showLoadDialog = false },
             onConfirmed = {
@@ -205,18 +138,107 @@ fun ColorThemePickerDialog(
             },
             confirmButtonText = stringResource(R.string.button_load_custom),
             onNeutral = {
+                showLoadDialog = false
                 val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = cm.primaryClip?.takeIf { it.itemCount > 0 } ?: return@ConfirmationDialog
                 val text = clip.getItemAt(0).text
-                errorDialog = loadColorString(text.toString(), prefs)
+                errorDialog = !loadColorString(text.toString(), prefs)
             },
             neutralButtonText = "load from clipboard" // todo: this is too long, maybe better if "load file" is changed to "load"?
         )
-        if (errorDialog)
-            InfoDialog("error") { showLoadDialog = false } // also error dialog to false?
+    }
+    if (errorDialog)
+        InfoDialog("error") { errorDialog = false }
+}
+
+@Composable
+private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<String>, targetScreen: String, prefKey: String) {
+    var textValue by remember { mutableStateOf(TextFieldValue()) }
+    val prefs = LocalContext.current.prefs()
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(start = 10.dp)
+    ) {
+        Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add)) // todo: should it be a button?
+        TextField(
+            value = textValue,
+            onValueChange = { textValue = it },
+            modifier = Modifier.weight(1f),
+            singleLine = true
+        )
+        IconButton(
+            enabled = textValue.text.isNotEmpty() && textValue.text !in userColors,
+            onClick = {
+                onDismissRequest()
+                prefs.edit().putString(prefKey, textValue.text).apply()
+                SettingsDestination.navigateTo(targetScreen)
+                keyboardNeedsReload = true
+            }
+        ) { Icon(painterResource(R.drawable.ic_edit), null) }
     }
 }
 
+@Composable
+fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String) {
+    val ctx = LocalContext.current
+    val prefs = ctx.prefs()
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clickable {
+                onDismissRequest()
+                prefs.edit().putString(prefKey, item).apply()
+                keyboardNeedsReload = true
+            }
+            .padding(start = 6.dp)
+            .heightIn(min = 40.dp)
+    ) {
+        RadioButton(
+            selected = isSelected,
+            onClick = {
+                onDismissRequest()
+                prefs.edit().putString(prefKey, item).apply()
+                keyboardNeedsReload = true
+            }
+        )
+        Text(
+            text = item.getStringResourceOrName("theme_name_", ctx),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f),
+        )
+        if (isUser) {
+            var showDialog by remember { mutableStateOf(false) }
+            IconButton(
+                onClick = { showDialog = true }
+            ) { Icon(painterResource(R.drawable.ic_bin), null) }
+            IconButton(
+                onClick = {
+                    onDismissRequest()
+                    prefs.edit().putString(prefKey, item).apply()
+                    SettingsDestination.navigateTo(targetScreen)
+                    keyboardNeedsReload = true
+                }
+            ) { Icon(painterResource(R.drawable.ic_edit), null) }
+            if (showDialog)
+                ConfirmationDialog(
+                    onDismissRequest = { showDialog = false },
+                    text = { Text(stringResource(R.string.delete_confirmation, item)) },
+                    onConfirmed = {
+                        showDialog = false
+                        prefs.edit().remove(Settings.PREF_USER_COLORS_PREFIX + item)
+                            .remove(Settings.PREF_USER_ALL_COLORS_PREFIX + item)
+                            .remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item).apply()
+                        if (isSelected)
+                            prefs.edit().remove(prefKey).apply()
+                        keyboardNeedsReload = true
+                    }
+                )
+        }
+    }
+}
+
+// returns whether the string was successfully deserialized and stored in prefs
 private fun loadColorString(colorString: String, prefs: SharedPreferences): Boolean {
     try {
         val that = Json.decodeFromString<SaveThoseColors>(colorString)
