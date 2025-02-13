@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.COMBINING_RULES;
-import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME;
 
 import androidx.annotation.NonNull;
@@ -274,7 +273,7 @@ public final class SubtypeLocaleUtils {
 
     @NonNull
     public static String getKeyboardLayoutSetName(final InputMethodSubtype subtype) {
-        String keyboardLayoutSet = subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET);
+        String keyboardLayoutSet = SubtypeUtilsKt.explicitMainLayoutName(subtype);
         if (keyboardLayoutSet == null && subtype.isAsciiCapable()) {
             keyboardLayoutSet = QWERTY;
         }

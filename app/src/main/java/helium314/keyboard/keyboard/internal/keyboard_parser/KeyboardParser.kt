@@ -311,8 +311,8 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     // some layouts have different number layout, and there we don't want the numbers on the top row
-    // todo: actually should not be in here, but in subtype extra values
-    private fun hasNumbersOnTopRow() = params.mId.mSubtype.keyboardLayoutSetName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+    // todo: this should be derived from main layout and popup / hint order settings
+    private fun hasNumbersOnTopRow() = params.mId.mSubtype.mainLayoutName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
 
     companion object {
         private const val TAG = "KeyboardParser"

@@ -11,7 +11,7 @@ object HangulEventDecoder {
 
     @JvmStatic
     fun decodeHardwareKeyEvent(subtype: RichInputMethodSubtype, event: KeyEvent, defaultEvent: () -> Event): Event {
-        val layout = LAYOUTS[subtype.keyboardLayoutSetName] ?: return defaultEvent()
+        val layout = LAYOUTS[subtype.mainLayoutName] ?: return defaultEvent()
         val codePoint = layout[event.keyCode]?.let { if (event.isShiftPressed) it.second else it.first } ?: return defaultEvent()
         val hardwareEvent = Event.createHardwareKeypressEvent(codePoint, event.keyCode, event.metaState, null, event.repeatCount != 0)
         return decodeSoftwareKeyEvent(hardwareEvent)

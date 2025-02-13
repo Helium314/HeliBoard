@@ -22,7 +22,6 @@ import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.databinding.LanguageListItemBinding
@@ -138,10 +137,10 @@ class LanguageSettingsDialog(
         val layouts = mutableListOf<String>()
         val displayNames = mutableListOf<String>()
         infos.forEach {
-            val layoutSetName = it.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET)
-            if (layoutSetName?.startsWith(CUSTOM_LAYOUT_PREFIX) == false // don't allow copying custom layout (at least for now)
-                    && !layoutSetName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
-                layouts.add(layoutSetName)
+            val mainLayoutName = it.subtype.mainLayoutName()
+            if (!mainLayoutName.startsWith(CUSTOM_LAYOUT_PREFIX) // don't allow copying custom layout (at least for now)
+                    && !mainLayoutName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
+                layouts.add(mainLayoutName)
                 displayNames.add(it.subtype.displayName(context).toString())
             }
         }
@@ -169,7 +168,7 @@ class LanguageSettingsDialog(
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
-        val layoutSetName = subtype.subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "qwerty"
+        val layoutSetName = subtype.subtype.mainLayoutName()
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: subtype.subtype.displayName(context)

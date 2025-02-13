@@ -41,35 +41,20 @@ public final class Constants {
     }
 
     public static final class Subtype {
-        /**
-         * The subtype mode used to indicate that the subtype is a keyboard.
-         */
+        /** The subtype mode used to indicate that the subtype is a keyboard. */
         public static final String KEYBOARD_MODE = "keyboard";
 
         // some extra values:
         //  TrySuppressingImeSwitcher: not documented, but used in Android source
-        //  AsciiCapable: not used, but recommended for Android 9- because of known issues
         //  SupportTouchPositionCorrection: never read, never used outside AOSP keyboard -> can be removed?
-        //  EmojiCapable: there is some description in Constants, but actually it's never read
-        //  KeyboardLayoutSet: obvious
         public static final class ExtraValue {
-            /**
-             * The subtype extra value used to indicate that this subtype is capable of
-             * entering ASCII characters.
-             */
+            /** Indicates that this subtype is capable of entering ASCII characters (not used, but recommended for Android 9 and older). */
             public static final String ASCII_CAPABLE = "AsciiCapable";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is enabled
-             * when the default subtype is not marked as ascii capable.
-             */
-            public static final String ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE =
-                    "EnabledWhenDefaultIsNotAsciiCapable";
+            /** Indicates that this subtype is enabled when the default subtype is not marked as ascii capable (used where?). */
+            public static final String ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE = "EnabledWhenDefaultIsNotAsciiCapable";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is capable of
-             * entering emoji characters.
-             */
+            /** Indicates that this subtype is capable of entering emoji characters (always set?). */
             public static final String EMOJI_CAPABLE = "EmojiCapable";
 
             /** Indicates that the subtype does not have a shift key */
@@ -84,25 +69,28 @@ public final class Constants {
              * this extra value.
              * This extra value is supported on JellyBean and later.
              */
-            public static final String UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME =
-                    "UntranslatableReplacementStringInSubtypeName";
+            public static final String UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME = "UntranslatableReplacementStringInSubtypeName";
 
-            /**
-             * The subtype extra value used to indicate this subtype keyboard layout set name.
-             * This extra value is private to LatinIME.
-             */
+            /** Contains the layouts used by this subtype. This extra value is private to LatinIME.*/
             public static final String KEYBOARD_LAYOUT_SET = "KeyboardLayoutSet";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is an additional subtype
-             * that the user defined. This extra value is private to LatinIME.
-             */
+            /** Indicates that this subtype is an additional subtype that the user defined. This extra value is private to LatinIME. */
             public static final String IS_ADDITIONAL_SUBTYPE = "isAdditionalSubtype";
 
-            /**
-             * The subtype extra value used to specify the combining rules.
-             */
+            /** The subtype extra value used to specify the combining rules (currently not used). */
             public static final String COMBINING_RULES = "CombiningRules";
+
+            /** Overrides the general popup order setting */
+            public static final String POPUP_ORDER = "PopupOrder";
+
+            /** Overrides the general hint order / priority setting */
+            public static final String HINT_ORDER = "HintOrder";
+
+            /** Language tags indicating enabled secondary locales */
+            public static final String SECONDARY_LOCALES = "SecondaryLocales";
+
+            /** Overrides the general "more popups" setting */
+            public static final String MORE_POPUPS = "MorePopups";
 
             private ExtraValue() {
                 // This utility class is not publicly instantiable.

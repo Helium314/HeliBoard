@@ -224,7 +224,7 @@ fun getCustomFunctionalLayoutName(elementId: Int, subtype: InputMethodSubtype, c
     val customFunctionalLayoutNames = getCustomLayoutFiles(context).filter { it.name.contains("functional") }.map { it.name.substringBeforeLast(".") + "." }
     if (customFunctionalLayoutNames.isEmpty()) return null
     val languageTag = subtype.locale().toLanguageTag()
-    val mainLayoutName = subtype.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET) ?: "qwerty"
+    val mainLayoutName = subtype.mainLayoutName()
 
     if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
         findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED) }, mainLayoutName, languageTag)

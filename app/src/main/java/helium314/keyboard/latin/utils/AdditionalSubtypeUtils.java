@@ -81,7 +81,7 @@ public final class AdditionalSubtypeUtils {
 
     private static String getPrefSubtype(final InputMethodSubtype subtype) {
         final String keyboardLayoutSetName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
-        final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName;
+        final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=MAIN:" + keyboardLayoutSetName;
         final String extraValue = StringUtils.removeFromCommaSplittableTextIfExists(
                 layoutExtraValue, StringUtils.removeFromCommaSplittableTextIfExists(
                         IS_ADDITIONAL_SUBTYPE, subtype.getExtraValue()));
@@ -173,7 +173,7 @@ public final class AdditionalSubtypeUtils {
             final String keyboardLayoutSetName, final boolean isAsciiCapable,
             final boolean isEmojiCapable) {
         final ArrayList<String> extraValueItems = new ArrayList<>();
-        extraValueItems.add(KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName);
+        extraValueItems.add(KEYBOARD_LAYOUT_SET + "=MAIN:" + keyboardLayoutSetName);
         if (isAsciiCapable) {
             extraValueItems.add(ASCII_CAPABLE);
         }
@@ -213,7 +213,7 @@ public final class AdditionalSubtypeUtils {
         // - EmojiCapable
         // - isAdditionalSubtype
         final ArrayList<String> compatibilityExtraValueItems = new ArrayList<>();
-        compatibilityExtraValueItems.add(KEYBOARD_LAYOUT_SET + "=" + keyboardLayoutSetName);
+        compatibilityExtraValueItems.add(KEYBOARD_LAYOUT_SET + "=MAIN:" + keyboardLayoutSetName);
         compatibilityExtraValueItems.add(ASCII_CAPABLE);
         if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
             compatibilityExtraValueItems.add(UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" +

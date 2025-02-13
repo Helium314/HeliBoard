@@ -39,6 +39,7 @@ fun MainSettingsScreen(
     onClickGestureTyping: () -> Unit,
     onClickAdvanced: () -> Unit,
     onClickAppearance: () -> Unit,
+    onClickLanguage: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -48,6 +49,17 @@ fun MainSettingsScreen(
         settings = emptyList(),
     ) {
         Column(Modifier.verticalScroll(rememberScrollState())) {
+            Preference(
+                name = stringResource(R.string.language_and_layouts_title),
+                onClick = onClickLanguage,
+                icon = R.drawable.ic_settings_languages_foreground
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
             Preference(
                 name = stringResource(R.string.settings_screen_preferences),
                 onClick = onClickPreferences,
@@ -169,7 +181,7 @@ fun MainSettingsScreen(
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

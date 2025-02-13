@@ -123,8 +123,8 @@ object RawKeyboardParser {
             simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
                 val newRow = row.toMutableList()
                 if (params.mId.isAlphabetKeyboard
-                        && params.mId.mSubtype.keyboardLayoutSetName.endsWith("+")
-                        && "$layoutName+" ==  params.mId.mSubtype.keyboardLayoutSetName
+                        && params.mId.mSubtype.mainLayoutName.endsWith("+")
+                        && "$layoutName+" ==  params.mId.mSubtype.mainLayoutName
                     ) {
                     params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
                 }
@@ -145,7 +145,7 @@ object RawKeyboardParser {
         KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
         KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LAYOUT_EMOJI_BOTTOM_ROW
         KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LAYOUT_CLIPBOARD_BOTTOM_ROW
-        else -> params.mId.mSubtype.keyboardLayoutSetName.substringBeforeLast("+")
+        else -> params.mId.mSubtype.mainLayoutName.substringBeforeLast("+")
     }
 
     private fun getFunctionalLayoutName(params: KeyboardParams, context: Context): String {

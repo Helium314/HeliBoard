@@ -206,14 +206,14 @@ public class RichInputMethodManager {
         updateCurrentSubtype(newSubtype);
         updateShortcutIme();
         if (DEBUG) {
-            Log.w(TAG, "onSubtypeChanged: " + mCurrentRichInputMethodSubtype.getNameForLogging());
+            Log.w(TAG, "onSubtypeChanged: " + mCurrentRichInputMethodSubtype);
         }
     }
 
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
-        sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        sForcedSubtypeForTesting = RichInputMethodSubtype.Companion.get(subtype);
     }
 
     @NonNull
@@ -357,7 +357,7 @@ public class RichInputMethodManager {
 
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
         SubtypeSettingsKt.setSelectedSubtype(KtxKt.prefs(mContext), subtype);
-        mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        mCurrentRichInputMethodSubtype = RichInputMethodSubtype.Companion.get(subtype);
     }
 
     public static boolean canSwitchLanguage() {

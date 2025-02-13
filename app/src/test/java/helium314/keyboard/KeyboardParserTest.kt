@@ -494,7 +494,7 @@ f""", // no newline at the end
         val editorInfoField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mEditorInfo").apply { isAccessible = true }
         editorInfoField.set(layoutParams, editorInfo)
         val subtypeField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mSubtype").apply { isAccessible = true }
-        subtypeField.set(layoutParams, RichInputMethodSubtype(subtype))
+        subtypeField.set(layoutParams, RichInputMethodSubtype.get(subtype))
         val widthField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardWidth").apply { isAccessible = true }
         widthField.setInt(layoutParams, 500)
         val heightField = KeyboardLayoutSet.Params::class.java.getDeclaredField("mKeyboardHeight").apply { isAccessible = true }

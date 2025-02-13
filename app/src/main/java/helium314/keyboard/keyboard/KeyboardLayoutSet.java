@@ -236,7 +236,7 @@ public final class KeyboardLayoutSet {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
             final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0;
             mParams.mSubtype = (forceAscii && !asciiCapable)
-                    ? RichInputMethodSubtype.getNoLanguageSubtype()
+                    ? RichInputMethodSubtype.Companion.getNoLanguageSubtype()
                     : subtype;
             return this;
         }
@@ -326,8 +326,8 @@ public final class KeyboardLayoutSet {
     public static KeyboardId getFakeKeyboardId(final int elementId) {
         final Params params = new Params();
         params.mEditorInfo = new EditorInfo();
-        params.mSubtype = RichInputMethodSubtype.getEmojiSubtype();
-        params.mSubtype.getKeyboardLayoutSetName();
+        params.mSubtype = RichInputMethodSubtype.Companion.getEmojiSubtype();
+        params.mSubtype.getMainLayoutName();
         return new KeyboardId(elementId, params);
     }
 }

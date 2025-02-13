@@ -857,7 +857,7 @@ public class LatinIME extends InputMethodService implements
     public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
         // Note that the calling sequence of onCreate() and onCurrentInputMethodSubtypeChanged()
         // is not guaranteed. It may even be called at the same time on a different thread.
-        if (subtype.hashCode() == 0xf000000f) {
+        if (subtype.hashCode() == 0x7000000f) {
             // For some reason sometimes the system wants to set the dummy subtype, which messes with the currently enabled subtype.
             // Now that the dummy subtype has a fixed id, we can easily avoid enabling it.
             return;

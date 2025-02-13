@@ -161,7 +161,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             try {
                 final InputMethodSubtype qwerty = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
-                        .setSubtype(new RichInputMethodSubtype(qwerty))
+                        .setSubtype(RichInputMethodSubtype.Companion.get(qwerty))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                         .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                         .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())

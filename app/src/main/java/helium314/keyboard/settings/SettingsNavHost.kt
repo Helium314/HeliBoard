@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -57,6 +56,7 @@ fun SettingsNavHost(
                 onClickGestureTyping = { navController.navigate(SettingsDestination.GestureTyping) },
                 onClickAdvanced = { navController.navigate(SettingsDestination.Advanced) },
                 onClickAppearance = { navController.navigate(SettingsDestination.Appearance) },
+                onClickLanguage = { navController.navigate(SettingsDestination.Languages) },
                 onClickBack = ::goBack,
             )
         }
@@ -90,9 +90,7 @@ fun SettingsNavHost(
 //            )
         }
         composable(SettingsDestination.Languages) {
-//            LanguagesSettingsScreen(
-//                onClickBack = ::goBack
-//            )
+//            LanguageScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Colors) {
             ColorsScreen(isNight = false, onClickBack = ::goBack)

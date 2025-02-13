@@ -41,7 +41,7 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
 
 fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
     val subtypes = resourceSubtypesByLocale.values.flatten()
-    val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.getExtraValueOf(Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET)
+    val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.explicitMainLayoutName()
     if (name != null) return name
     return when (locale.script()) {
         ScriptUtils.SCRIPT_LATIN -> "qwerty"
