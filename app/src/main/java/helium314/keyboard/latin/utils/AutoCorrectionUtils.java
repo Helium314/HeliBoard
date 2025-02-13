@@ -36,7 +36,7 @@ public final class AutoCorrectionUtils {
             if (DebugFlags.DEBUG_ENABLED) {
                 Log.d(TAG, "Normalized " + consideredWord + "," + suggestion + ","
                         + autoCorrectionSuggestionScore + ", " + normalizedScore
-                        + "(" + threshold + ")");
+                        + " (" + threshold + ")");
             }
             if (normalizedScore >= threshold) {
                 if (DebugFlags.DEBUG_ENABLED) {

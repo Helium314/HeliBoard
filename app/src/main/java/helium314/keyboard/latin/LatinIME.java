@@ -691,9 +691,7 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUsePersonalizedDicts,
                 false, settingsValues.mAccount, "", this);
-        if (settingsValues.mAutoCorrectEnabled) {
-            mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
-        }
+        mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
     }
 
     /**
@@ -1017,9 +1015,7 @@ public class LatinIME extends InputMethodService implements
 
         if (isDifferentTextField) {
             mainKeyboardView.closing();
-            if (currentSettingsValues.mAutoCorrectEnabled) {
-                suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
-            }
+            suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
             switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
             if (needToCallLoadKeyboardLater) {
                 // If we need to call loadKeyboard again later, we need to save its state now. The

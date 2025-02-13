@@ -268,11 +268,6 @@ class SuggestTest {
         assert(!result.last()) // should not be corrected
     }
 
-    private fun setAutCorrectThreshold(threshold: String) {
-        val prefs = latinIME.prefs()
-        prefs.edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, threshold) }
-    }
-
     private fun shouldBeAutoCorrected(word: String, // typed word
                               suggestions: List<SuggestedWordInfo>, // suggestions ordered by score, including suggestion for typed word if in dictionary
                               firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
@@ -280,7 +275,9 @@ class SuggestTest {
                               typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
                               autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
     ): List<Boolean> {
-        setAutCorrectThreshold(autoCorrectThreshold)
+        latinIME.prefs().edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, autoCorrectThreshold) }
+        // enable "more autocorrect" so we actually have autocorrect even though we don't set a compatible input type
+        latinIME.prefs().edit { putBoolean(Settings.PREF_MORE_AUTO_CORRECTION, true) }
         currentTypingLocale = typingLocale
         val suggestionsContainer = ArrayList<SuggestedWordInfo>().apply { addAll(suggestions) }
         val suggestionResults = SuggestionResults(suggestions.size, false, false)
