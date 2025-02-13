@@ -5,7 +5,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
@@ -47,6 +46,7 @@ fun LayoutEditPreference(
                 it.name.startsWith("$layout.")
             else it.name.startsWith("$CUSTOM_LAYOUT_PREFIX$layout.")
         }?.name
+        // todo: never set originalLayout null if custom layout file does not exist!
         val originalLayout = if (customLayoutName != null) null
         else getDefaultLayout(layout)?.let { ctx.assets.open("layouts" + File.separator + it).reader().readText() }
         LayoutEditDialog(
