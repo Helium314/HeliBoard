@@ -6,14 +6,14 @@
 
 package helium314.keyboard.latin;
 
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
 
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
@@ -52,21 +52,12 @@ public abstract class Dictionary {
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
     public static final String TYPE_USER_HISTORY = "history";
+    @NonNull
     public final String mDictType;
     // The locale for this dictionary. May be null if unknown (phony dictionary for example).
     public final Locale mLocale;
 
-    /**
-     * Set out of the dictionary types listed above that are based on data specific to the user,
-     * e.g., the user's contacts.
-     */
-    private static final HashSet<String> sUserSpecificDictionaryTypes = new HashSet<>(Arrays.asList(
-            TYPE_USER_TYPED,
-            TYPE_USER,
-            TYPE_CONTACTS,
-            TYPE_USER_HISTORY));
-
-    public Dictionary(final String dictType, final Locale locale) {
+    public Dictionary(@NonNull final String dictType, final Locale locale) {
         mDictType = dictType;
         mLocale = locale;
     }
@@ -178,7 +169,13 @@ public abstract class Dictionary {
      * @return Whether this dictionary is specific to the user.
      */
     public boolean isUserSpecific() {
-        return sUserSpecificDictionaryTypes.contains(mDictType);
+        return switch (mDictType) {
+            case TYPE_USER_TYPED,
+                 TYPE_USER,
+                 TYPE_CONTACTS,
+                 TYPE_USER_HISTORY -> true;
+            default -> false;
+        };
     }
 
     /**
