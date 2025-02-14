@@ -273,7 +273,7 @@ public final class SubtypeLocaleUtils {
 
     @NonNull
     public static String getKeyboardLayoutSetName(final InputMethodSubtype subtype) {
-        String keyboardLayoutSet = SubtypeUtilsKt.explicitMainLayoutName(subtype);
+        String keyboardLayoutSet = SubtypeUtilsKt.mainLayoutName(subtype);
         if (keyboardLayoutSet == null && subtype.isAsciiCapable()) {
             keyboardLayoutSet = QWERTY;
         }

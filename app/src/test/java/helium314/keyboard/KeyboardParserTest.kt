@@ -8,14 +8,13 @@ import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
-import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeySpecParser.KeySpecParserError
 import helium314.keyboard.keyboard.internal.KeyboardBuilder
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.TouchPositionCorrection
 import helium314.keyboard.keyboard.internal.UniqueKeysCache
+import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
@@ -119,7 +118,7 @@ f""", // no newline at the end
         val wantedKeyLabels = listOf(listOf("a", "b", "c"), listOf("d", "e", "f"))
         layoutStrings.forEachIndexed { i, layout ->
             println(i)
-            val keyLabels = RawKeyboardParser.parseSimpleString(layout).map { it.map { it.toKeyParams(params).mLabel } }
+            val keyLabels = LayoutParser.parseSimpleString(layout).map { it.map { it.toKeyParams(params).mLabel } }
             assertEquals(wantedKeyLabels, keyLabels)
         }
     }
@@ -321,12 +320,12 @@ f""", // no newline at the end
 
     @Test fun invalidKeys() {
         assertFailsWith<KeySpecParserError> {
-            RawKeyboardParser.parseJsonString("""[[{ "label": "!icon/clipboard_action_key" }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+            LayoutParser.parseJsonString("""[[{ "label": "!icon/clipboard_action_key" }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         }
     }
 
     @Test fun popupWithCodeAndLabel() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "w", "popup": {
+        val key = LayoutParser.parseJsonString("""[[{ "label": "w", "popup": {
           "main": { "code":   55, "label": "!" }
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
         assertEquals("!", key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
@@ -334,7 +333,7 @@ f""", // no newline at the end
     }
 
     @Test fun popupWithCodeAndIcon() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "w", "popup": {
+        val key = LayoutParser.parseJsonString("""[[{ "label": "w", "popup": {
           "main": { "code":   55, "label": "!icon/clipboard_action_key" }
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
         assertEquals(null, key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
@@ -343,7 +342,7 @@ f""", // no newline at the end
     }
 
     @Test fun popupToolbarKey() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "x", "popup": {
+        val key = LayoutParser.parseJsonString("""[[{ "label": "x", "popup": {
           "main": { "label": "undo" }
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
         assertEquals(null, key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
@@ -352,7 +351,7 @@ f""", // no newline at the end
     }
 
     @Test fun popupKeyWithIconAndImplicitText() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
+        val key = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|aa" }
       ]
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
@@ -361,7 +360,7 @@ f""", // no newline at the end
         assertEquals(KeyCode.MULTIPLE_CODE_POINTS, key.toKeyParams(params).mPopupKeys?.first()?.mCode)
         assertEquals("aa", key.toKeyParams(params).mPopupKeys?.first()?.mOutputText)
 
-        val key2 = RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
+        val key2 = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|" }
       ]
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
@@ -373,7 +372,7 @@ f""", // no newline at the end
 
     // output text is null here, maybe should be changed?
     @Test fun popupKeyWithIconAndCodeAndImplicitText() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
+        val key = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|", "code": 55 }
       ]
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
@@ -382,7 +381,7 @@ f""", // no newline at the end
         assertEquals(55, key.toKeyParams(params).mPopupKeys?.first()?.mCode)
         assertEquals(null, key.toKeyParams(params).mPopupKeys?.first()?.mOutputText)
 
-        val key2 = RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
+        val key2 = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|a", "code": 55 }
       ]
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
@@ -391,7 +390,7 @@ f""", // no newline at the end
         assertEquals(55, key2.toKeyParams(params).mPopupKeys?.first()?.mCode)
         assertEquals(null, key2.toKeyParams(params).mPopupKeys?.first()?.mOutputText)
 
-        val key3 = RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
+        val key3 = LayoutParser.parseJsonString("""[[{ "label": "a", "popup": { "relevant": [
        { "label": "!icon/go_key|aa", "code": 55 }
       ]
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
@@ -403,14 +402,14 @@ f""", // no newline at the end
 
     @Test fun invalidPopupKeys() {
         assertFailsWith<KeySpecParserError> {
-            RawKeyboardParser.parseJsonString("""[[{ "label": "a", "popup": {
+            LayoutParser.parseJsonString("""[[{ "label": "a", "popup": {
           "main": { "label": "!icon/clipboard_action_key" }
     } }]]""").map { it.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         }
     }
 
     @Test fun popupSymbolAlpha() {
-        val key = RawKeyboardParser.parseJsonString("""[[{ "label": "c", "popup": {
+        val key = LayoutParser.parseJsonString("""[[{ "label": "c", "popup": {
           "main": { "code":   -10001, "label": "x" }
     } }]]""").map { it.mapNotNull { it.compute(params) } }.flatten().single()
         assertEquals("x", key.toKeyParams(params).mPopupKeys?.first()?.mLabel)
@@ -462,8 +461,8 @@ f""", // no newline at the end
         latinIME.assets.list("layouts")?.forEach {
             val content = latinIME.assets.open("layouts/$it").reader().readText()
             if (it.endsWith(".json"))
-                RawKeyboardParser.parseJsonString(content)
-            else RawKeyboardParser.parseSimpleString(content)
+                LayoutParser.parseJsonString(content)
+            else LayoutParser.parseSimpleString(content)
         }
     }
 
@@ -474,7 +473,7 @@ f""", // no newline at the end
     }
 
     private fun assertAreExpected(json: String, expected: List<Expected>) {
-        val keys = RawKeyboardParser.parseJsonString(json).map { it.mapNotNull { it.compute(params) } }.flatten()
+        val keys = LayoutParser.parseJsonString(json).map { it.mapNotNull { it.compute(params) } }.flatten()
         keys.forEachIndexed { index, keyData ->
             println("data: key ${keyData.label}: code ${keyData.code}, popups: ${keyData.popup.getPopupKeyLabels(params)}")
             val keyParams = keyData.toKeyParams(params)

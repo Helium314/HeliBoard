@@ -22,7 +22,6 @@ import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardActionListener
@@ -37,7 +36,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
@@ -165,7 +163,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     private fun showCustomizeSymbolNumberLayoutsDialog() {
-        val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
+/*        val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_symbols_number_layouts)
             .setItems(layoutNames) { di, i ->
@@ -174,7 +172,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
-    }
+*/    }
 
     private fun customizeSymbolNumberLayout(layoutName: String) {
         val customLayoutName = getCustomLayoutFiles(requireContext()).map { it.name }

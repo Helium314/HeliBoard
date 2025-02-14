@@ -166,7 +166,7 @@
             android:imeSubtypeLocale="ar"
             android:languageTag="ar"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic|SYMBOLS:symbols_arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -175,7 +175,7 @@
             android:imeSubtypeLocale="ar"
             android:languageTag="ar"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic_pc,NoShiftKey,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic_pc|SYMBOLS:symbols_arabic,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -184,7 +184,7 @@
             android:imeSubtypeLocale="ar"
             android:languageTag="ar"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic_hijai,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:arabic_hijai|SYMBOLS:symbols_arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -409,7 +409,7 @@
             android:imeSubtypeLocale="fa"
             android:languageTag="fa"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:farsi,NoShiftKey,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:farsi|SYMBOLS:symbols_arabic,NoShiftKey,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
@@ -1060,7 +1060,7 @@
             android:imeSubtypeLocale="ur_PK"
             android:languageTag="ur-PK"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:urdu,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:urdu|SYMBOLS:symbols_arabic,EmojiCapable"
             android:isAsciiCapable="false"
         />
     <!-- This Uzbek keyboard is a preliminary layout.

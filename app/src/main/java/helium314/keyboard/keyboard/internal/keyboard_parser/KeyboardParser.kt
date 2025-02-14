@@ -17,10 +17,9 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.latin.common.isEmoji
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
 import helium314.keyboard.latin.utils.POPUP_KEYS_NUMBER
-import helium314.keyboard.latin.utils.ScriptUtils
-import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.replaceFirst
 import helium314.keyboard.latin.utils.splitAt
 import helium314.keyboard.latin.utils.sumOf
@@ -47,7 +46,20 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     fun parseLayout(): ArrayList<ArrayList<KeyParams>> {
         params.readAttributes(context, null)
 
-        val baseKeys = RawKeyboardParser.parseLayout(params, context)
+        // todo: maybe determine layoutType earlier, and to less stuff based on elementId
+        val layoutType = when (params.mId.mElementId) {
+            KeyboardId.ELEMENT_SYMBOLS -> LayoutType.SYMBOLS
+            KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LayoutType.MORE_SYMBOLS
+            KeyboardId.ELEMENT_PHONE -> LayoutType.PHONE
+            KeyboardId.ELEMENT_PHONE_SYMBOLS -> LayoutType.PHONE_SYMBOLS
+            KeyboardId.ELEMENT_NUMBER -> LayoutType.NUMBER
+            KeyboardId.ELEMENT_NUMPAD -> if (Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE)
+                LayoutType.NUMPAD_LANDSCAPE else LayoutType.NUMPAD
+            KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LayoutType.EMOJI_BOTTOM
+            KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LayoutType.CLIPBOARD_BOTTOM
+            else -> LayoutType.MAIN
+        }
+        val baseKeys = LayoutParser.parseLayout(layoutType, params, context)
         val keysInRows = createRows(baseKeys)
         val heightRescale: Float
         if (params.mId.isEmojiClipBottomRow) {
@@ -94,7 +106,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (!params.mAllowRedundantPopupKeys)
             params.baseKeys = baseKeys.flatMap { it.map { it.toKeyParams(params) } }
 
-        val allFunctionalKeys = RawKeyboardParser.parseLayout(params, context, true)
+        val allFunctionalKeys = LayoutParser.parseLayout(LayoutType.FUNCTIONAL, params, context)
         adjustBottomFunctionalRowAndBaseKeys(allFunctionalKeys, baseKeys)
 
         if (allFunctionalKeys.none { it.singleOrNull()?.isKeyPlaceholder() == true })
@@ -272,8 +284,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     private fun addSymbolPopupKeys(baseKeys: MutableList<MutableList<KeyData>>) {
-        val layoutName = if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
-        val layout = RawKeyboardParser.parseLayout(layoutName, params, context)
+        val layout = LayoutParser.parseLayout(LayoutType.SYMBOLS, params, context)
         layout.forEachIndexed { i, row ->
             val baseRow = baseKeys.getOrNull(i) ?: return@forEachIndexed
             row.forEachIndexed { j, key ->
@@ -283,7 +294,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
     private fun getNumberRow(): MutableList<KeyData> {
-        val row = RawKeyboardParser.parseLayout(LAYOUT_NUMBER_ROW, params, context).first()
+        val row = LayoutParser.parseLayout(LayoutType.NUMBER_ROW, params, context).first()
         val localizedNumbers = params.mLocaleKeyboardInfos.localizedNumberKeys
         if (localizedNumbers?.size != 10) return row
         if (Settings.getInstance().current.mLocalizedNumberRow) {

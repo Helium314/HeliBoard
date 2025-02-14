@@ -32,6 +32,7 @@ import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
+import helium314.keyboard.latin.utils.LayoutType;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
@@ -68,6 +69,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
+    public static final String PREF_LAYOUT_PREFIX = "layout_";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -547,6 +549,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static File getCustomFontFile(final Context context) {
         return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
+    }
+
+    public static String getLayoutName(final LayoutType type, final SharedPreferences prefs) {
+        return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
     }
 
     @Nullable

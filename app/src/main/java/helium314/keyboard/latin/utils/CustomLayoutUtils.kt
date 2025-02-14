@@ -14,17 +14,17 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardParams
+import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.FileUtils
-import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import kotlinx.serialization.SerializationException
 import java.io.File
 import java.io.IOException
 import java.math.BigInteger
+import java.util.EnumMap
 
 fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     if (uri == null)
@@ -85,7 +85,7 @@ fun checkLayout(layoutContent: String, context: Context): Boolean {
     params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
     addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
     try {
-        val keys = RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+        val keys = LayoutParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         return checkKeys(keys)
     } catch (e: SerializationException) {
         Log.w(TAG, "json parsing error", e)
@@ -96,13 +96,13 @@ fun checkLayout(layoutContent: String, context: Context): Boolean {
         return false
     }
     try {
-        val keys = RawKeyboardParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
+        val keys = LayoutParser.parseSimpleString(layoutContent).map { row -> row.map { it.toKeyParams(params) } }
         return checkKeys(keys)
     } catch (e: Exception) { Log.w(TAG, "error parsing custom simple layout", e) }
     if (layoutContent.trimStart().startsWith("[") && layoutContent.trimEnd().endsWith("]")) {
         // layout can't be loaded, assume it's json -> load json layout again because the error message shown to the user is from the most recent error
         try {
-            RawKeyboardParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+            LayoutParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
         } catch (e: Exception) { Log.w(TAG, "json parsing error", e) }
     }
     return false
@@ -149,20 +149,28 @@ fun checkKeys(keys: List<List<Key.KeyParams>>): Boolean {
 }
 
 /** don't rename or delete the file without calling [onCustomLayoutFileListChanged] */
-fun getCustomLayoutFile(layoutName: String, context: Context) =
+fun getCustomLayoutFile(layoutName: String, context: Context) = // todo: remove
     File(getCustomLayoutsDir(context), layoutName)
 
 // cache to avoid frequently listing files
 /** don't rename or delete files without calling [onCustomLayoutFileListChanged] */
-fun getCustomLayoutFiles(context: Context): List<File> {
+fun getCustomLayoutFiles(context: Context): List<File> { // todo: remove, AND USE THE NEW THING FOR SUBTYPE SETTINGS
     customLayouts?.let { return it }
     val layouts = getCustomLayoutsDir(context).listFiles()?.toList() ?: emptyList()
     customLayouts = layouts
     return layouts
 }
 
+fun getCustomLayoutFiles(layoutType: LayoutType, context: Context): List<File> =
+    customLayoutMap.getOrPut(layoutType) {
+        File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder).listFiles()?.toList() ?: emptyList()
+    }
+
+private val customLayoutMap = EnumMap<LayoutType, List<File>>(LayoutType::class.java)
+
 fun onCustomLayoutFileListChanged() {
     customLayouts = null
+    customLayoutMap.clear()
 }
 
 private fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
@@ -213,45 +221,6 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
         builder.setTitle(displayName)
     }
     builder.show()
-}
-
-fun hasCustomFunctionalLayout(subtype: InputMethodSubtype, context: Context): Boolean {
-    val anyCustomFunctionalLayout = getCustomFunctionalLayoutName(KeyboardId.ELEMENT_ALPHABET, subtype, context)
-        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS, subtype, context)
-        ?: getCustomFunctionalLayoutName(KeyboardId.ELEMENT_SYMBOLS_SHIFTED, subtype, context)
-    return anyCustomFunctionalLayout != null
-}
-
-fun getCustomFunctionalLayoutName(elementId: Int, subtype: InputMethodSubtype, context: Context): String? {
-    val customFunctionalLayoutNames = getCustomLayoutFiles(context).filter { it.name.contains("functional") }.map { it.name.substringBeforeLast(".") + "." }
-    if (customFunctionalLayoutNames.isEmpty()) return null
-    val languageTag = subtype.locale().toLanguageTag()
-    val mainLayoutName = subtype.mainLayoutName()
-
-    if (elementId == KeyboardId.ELEMENT_SYMBOLS_SHIFTED) {
-        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED) }, mainLayoutName, languageTag)
-            ?.let { return it }
-    }
-    if (elementId == KeyboardId.ELEMENT_SYMBOLS) {
-        findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS) }, mainLayoutName, languageTag)
-            ?.let { return it }
-    }
-    return findMatchingLayout(customFunctionalLayoutNames.filter { it.startsWith(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL) }, mainLayoutName, languageTag)
-}
-
-// todo (when adding custom layouts per locale or main layout): adjust mainLayoutName for custom layouts?
-//  remove language tag and file ending (currently name is e.g. custom.en-US.abcdfdsg3.json, and we could use abcdfdsg3 only)
-//  this way, custom layouts with same name could use same custom functional layouts
-//  currently there is no way to set the language tag or main layout name, so changes don't break backwards compatibility
-private fun findMatchingLayout(layoutNames: List<String>, mainLayoutName: String, languageTag: String): String? {
-    // first find layout with matching locale and main layout
-    return layoutNames.firstOrNull { it.endsWith(".$languageTag.$mainLayoutName.") }
-    // then find matching main layout
-        ?: layoutNames.firstOrNull { it.endsWith(".$mainLayoutName.") }
-        // then find matching language
-        ?: layoutNames.firstOrNull { it.endsWith(".$languageTag.") }
-        // then find "normal" functional layout (make use of the '.' separator
-        ?: layoutNames.firstOrNull { it.count { it == '.' } == 2 }
 }
 
 fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)

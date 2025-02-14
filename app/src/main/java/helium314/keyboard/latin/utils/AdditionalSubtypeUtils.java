@@ -38,7 +38,7 @@ public final class AdditionalSubtypeUtils {
         return subtype.containsExtraValueKey(IS_ADDITIONAL_SUBTYPE);
     }
 
-    private static final String LOCALE_AND_LAYOUT_SEPARATOR = ":";
+    public static final String LOCALE_AND_EXTRA_SEPARATOR = "§";
     private static final int INDEX_OF_LANGUAGE_TAG = 0;
     private static final int INDEX_OF_KEYBOARD_LAYOUT = 1;
     private static final int INDEX_OF_EXTRA_VALUE = 2;
@@ -85,10 +85,12 @@ public final class AdditionalSubtypeUtils {
         final String extraValue = StringUtils.removeFromCommaSplittableTextIfExists(
                 layoutExtraValue, StringUtils.removeFromCommaSplittableTextIfExists(
                         IS_ADDITIONAL_SUBTYPE, subtype.getExtraValue()));
-        final String basePrefSubtype = SubtypeUtilsKt.locale(subtype).toLanguageTag() + LOCALE_AND_LAYOUT_SEPARATOR
+        if (extraValue.contains(PREF_SUBTYPE_SEPARATOR) || extraValue.contains(LOCALE_AND_EXTRA_SEPARATOR))
+            throw new IllegalArgumentException("extra value contains not allowed characters " + extraValue);
+        final String basePrefSubtype = SubtypeUtilsKt.locale(subtype).toLanguageTag() + LOCALE_AND_EXTRA_SEPARATOR
                 + keyboardLayoutSetName;
         return extraValue.isEmpty() ? basePrefSubtype
-                : basePrefSubtype + LOCALE_AND_LAYOUT_SEPARATOR + extraValue;
+                : basePrefSubtype + LOCALE_AND_EXTRA_SEPARATOR + extraValue;
     }
 
     public static InputMethodSubtype[] createAdditionalSubtypesArray(final String prefSubtypes) {
@@ -107,7 +109,7 @@ public final class AdditionalSubtypeUtils {
 
     // use string created with getPrefSubtype
     public static InputMethodSubtype createSubtypeFromString(final String prefSubtype) {
-        final String[] elems = prefSubtype.split(LOCALE_AND_LAYOUT_SEPARATOR);
+        final String[] elems = prefSubtype.split(LOCALE_AND_EXTRA_SEPARATOR);
         if (elems.length != LENGTH_WITHOUT_EXTRA_VALUE
                 && elems.length != LENGTH_WITH_EXTRA_VALUE) {
             Log.w(TAG, "Unknown additional subtype specified: " + prefSubtype);

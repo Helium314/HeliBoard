@@ -35,6 +35,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
 
     val mainLayoutName: String get() = layouts[LayoutType.MAIN] ?: "qwerty"
 
+    /** layout names for this subtype by LayoutType */
     val layouts = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
 
     val isCustom: Boolean get() = mainLayoutName.startsWith(CUSTOM_LAYOUT_PREFIX)

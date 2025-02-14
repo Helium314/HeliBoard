@@ -9,6 +9,7 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LABEL_DEFAULT
 import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
@@ -25,6 +26,22 @@ object Defaults {
         val dm = context.resources.displayMetrics
         val px600 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 600f, dm)
         PREF_POPUP_ON = dm.widthPixels >= px600 || dm.heightPixels >= px600
+    }
+
+    // must correspond to a file name
+    val LayoutType.default get() = when (this) {
+        LayoutType.MAIN -> "qwerty"
+        LayoutType.SYMBOLS -> "symbols"
+        LayoutType.MORE_SYMBOLS -> "symbols_shifted"
+        LayoutType.FUNCTIONAL -> if (Settings.getInstance().isTablet) "functional_keys_tablet" else "functional_keys"
+        LayoutType.NUMBER -> "number"
+        LayoutType.NUMBER_ROW -> "number_row"
+        LayoutType.NUMPAD -> "numpad"
+        LayoutType.NUMPAD_LANDSCAPE -> "numpad_landscape"
+        LayoutType.PHONE -> "phone"
+        LayoutType.PHONE_SYMBOLS -> "phone_symbols"
+        LayoutType.EMOJI_BOTTOM -> "emoji_bottom_row"
+        LayoutType.CLIPBOARD_BOTTOM -> "clipboard_bottom_row"
     }
 
     const val PREF_THEME_STYLE = KeyboardTheme.STYLE_MATERIAL
@@ -56,8 +73,10 @@ object Defaults {
     const val PREF_LANGUAGE_SWITCH_KEY = "internal"
     const val PREF_SHOW_EMOJI_KEY = false
     const val PREF_VARIABLE_TOOLBAR_DIRECTION = true
-    const val PREF_ADDITIONAL_SUBTYPES = "de:qwerty:AsciiCapable${AdditionalSubtypeUtils.PREF_SUBTYPE_SEPARATOR}" +
-            "fr:qwertz:AsciiCapable${AdditionalSubtypeUtils.PREF_SUBTYPE_SEPARATOR}hu:qwerty:AsciiCapable"
+    private const val ls = AdditionalSubtypeUtils.LOCALE_AND_EXTRA_SEPARATOR
+    private const val subs = AdditionalSubtypeUtils.PREF_SUBTYPE_SEPARATOR
+    const val PREF_ADDITIONAL_SUBTYPES = "de${ls}qwerty${ls}AsciiCapable${subs}" +
+            "fr${ls}qwertz:${ls}AsciiCapable${subs}hu${ls}qwerty${ls}AsciiCapable"
     const val PREF_ENABLE_SPLIT_KEYBOARD = false
     const val PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = false
     const val PREF_SPLIT_SPACER_SCALE = SettingsValues.DEFAULT_SIZE_SCALE

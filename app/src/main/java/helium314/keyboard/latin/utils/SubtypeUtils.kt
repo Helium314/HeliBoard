@@ -16,12 +16,7 @@ fun InputMethodSubtype.locale(): Locale {
     @Suppress("deprecation") return locale.constructLocale()
 }
 
-fun InputMethodSubtype.mainLayoutName(): String {
-    val map = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
-    return map[LayoutType.MAIN] ?: "qwerty"
-}
-
-fun InputMethodSubtype.explicitMainLayoutName(): String? {
+fun InputMethodSubtype.mainLayoutName(): String? {
     val map = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
     return map[LayoutType.MAIN]
 }

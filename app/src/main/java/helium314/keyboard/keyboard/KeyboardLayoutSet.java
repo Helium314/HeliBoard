@@ -16,9 +16,9 @@ import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.settings.Settings;
@@ -104,7 +104,7 @@ public final class KeyboardLayoutSet {
     private static void clearKeyboardCache() {
         sKeyboardCache.clear();
         sUniqueKeysCache.clear();
-        RawKeyboardParser.INSTANCE.clearCache();
+        LayoutParser.INSTANCE.clearCache();
         KeyboardIconsSet.Companion.setNeedsReload(true);
     }
 

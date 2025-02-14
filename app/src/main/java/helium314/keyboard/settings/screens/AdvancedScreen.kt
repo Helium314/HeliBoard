@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
@@ -74,8 +73,6 @@ fun AdvancedSettingsScreen(
         Settings.PREF_ABC_AFTER_CLIP,
         Settings.PREF_CUSTOM_CURRENCY_KEY,
         Settings.PREF_MORE_POPUP_KEYS,
-        SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS,
-        SettingsWithoutKey.CUSTOM_FUNCTIONAL_LAYOUTS,
         SettingsWithoutKey.BACKUP_RESTORE,
         if (BuildConfig.DEBUG || prefs.getBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, Defaults.PREF_SHOW_DEBUG_SETTINGS))
             SettingsWithoutKey.DEBUG_SETTINGS else null,
@@ -195,7 +192,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         )
         ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
-    Setting(context, SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) { setting ->
+/*    Setting(context, SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) { setting ->
         LayoutEditPreference(
             setting = setting,
             items = RawKeyboardParser.symbolAndNumberLayouts,
@@ -211,7 +208,7 @@ fun createAdvancedSettings(context: Context) = listOf(
             getItemName = { it.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", LocalContext.current) },
             getDefaultLayout = { if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json" }
         )
-    },
+    },*/ // todo: these settings are disabled for now -> remove them and use a layoutScreen instead
     Setting(context, SettingsWithoutKey.BACKUP_RESTORE, R.string.backup_restore_title) {
         BackupRestorePreference(it)
     },

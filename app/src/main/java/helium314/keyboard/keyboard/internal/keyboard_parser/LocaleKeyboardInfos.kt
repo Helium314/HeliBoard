@@ -195,6 +195,9 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
     }
 }
 
+fun hasLocalizedNumberRow(locale: Locale, context: Context) =
+    getStreamForLocale(locale, context)?.bufferedReader()?.readLines()?.any { it == "[number_row]" } == true
+
 private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     params.mSecondaryLocales.forEach { locale ->

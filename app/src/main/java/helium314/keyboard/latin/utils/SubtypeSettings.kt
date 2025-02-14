@@ -13,7 +13,6 @@ import androidx.core.content.edit
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
-import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
@@ -41,7 +40,7 @@ fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
 
 fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
     val subtypes = resourceSubtypesByLocale.values.flatten()
-    val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.explicitMainLayoutName()
+    val name = LocaleUtils.getBestMatch(locale, subtypes) { it.locale() }?.mainLayoutName()
     if (name != null) return name
     return when (locale.script()) {
         ScriptUtils.SCRIPT_LATIN -> "qwerty"
@@ -246,7 +245,7 @@ private fun loadResourceSubtypes(resources: Resources) {
 private fun removeInvalidCustomSubtypes(context: Context) {
     val prefs = context.prefs()
     val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(";")
-    val customSubtypeFiles by lazy { getCustomLayoutFiles(context).map { it.name } }
+    val customSubtypeFiles by lazy { getCustomLayoutFiles(LayoutType.MAIN, context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")

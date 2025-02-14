@@ -2,8 +2,6 @@
 package helium314.keyboard.keyboard.internal.keyboard_parser
 
 import android.content.Context
-import android.content.res.Configuration
-import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AbstractKeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.AutoTextKeyData
@@ -19,45 +17,32 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.VariationSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
 import helium314.keyboard.latin.common.splitOnWhitespace
+import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
+import helium314.keyboard.latin.utils.LayoutType
+import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.ScriptUtils
-import helium314.keyboard.latin.utils.ScriptUtils.script
-import helium314.keyboard.latin.utils.getCustomFunctionalLayoutName
-import helium314.keyboard.latin.utils.getCustomLayoutFile
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
+import helium314.keyboard.latin.utils.prefs
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import java.io.File
 
-object RawKeyboardParser {
-    private const val TAG = "RawKeyboardParser"
-    private val rawLayoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
+object LayoutParser {
+    private const val TAG = "LayoutParser"
+    private val layoutCache = hashMapOf<String, (KeyboardParams) -> MutableList<MutableList<KeyData>>>()
 
-    val symbolAndNumberLayouts = listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC,
-        LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS,
-        LAYOUT_NUMBER_ROW, LAYOUT_EMOJI_BOTTOM_ROW, LAYOUT_CLIPBOARD_BOTTOM_ROW)
+    fun clearCache() = layoutCache.clear()
 
-    fun clearCache() = rawLayoutCache.clear()
-
-    fun parseLayout(params: KeyboardParams, context: Context, isFunctional: Boolean = false): MutableList<MutableList<KeyData>> {
-        val layoutName = if (isFunctional) {
-            if (!params.mId.isAlphaOrSymbolKeyboard) return mutableListOf(mutableListOf())
-            else getFunctionalLayoutName(params, context)
-        } else {
-            getLayoutName(params, context)
-        }
-        return rawLayoutCache.getOrPut(layoutName) {
-            createCacheLambda(layoutName, context)
-        }(params)
-    }
-
-    fun parseLayout(layoutName: String, params: KeyboardParams, context: Context): MutableList<MutableList<KeyData>> {
-        return rawLayoutCache.getOrPut(layoutName) {
-            createCacheLambda(layoutName, context)
+    fun parseLayout(layoutType: LayoutType, params: KeyboardParams, context: Context): MutableList<MutableList<KeyData>> {
+        if (layoutType == LayoutType.FUNCTIONAL && !params.mId.isAlphaOrSymbolKeyboard)
+            return mutableListOf(mutableListOf()) // no functional keys
+        val layoutName = if (layoutType == LayoutType.MAIN) params.mId.mSubtype.mainLayoutName
+            else params.mId.mSubtype.layouts[layoutType] ?: Settings.getLayoutName(layoutType, context.prefs())
+        return layoutCache.getOrPut(layoutType.name + layoutName) {
+            createCacheLambda(layoutType, layoutName, context)
         }(params)
     }
 
@@ -89,25 +74,12 @@ object RawKeyboardParser {
         else split.first().toTextKey(split.drop(1))
     }
 
-    private fun createCacheLambda(layoutName: String, context: Context): (KeyboardParams) -> MutableList<MutableList<KeyData>> {
-        val layoutFileName = getLayoutFileName(layoutName, context)
-        val layoutText = if (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+    private fun createCacheLambda(layoutType: LayoutType, layoutName: String, context: Context):
+                (KeyboardParams) -> MutableList<MutableList<KeyData>> {
+        val layoutFileContent = getLayoutFileContent(layoutType, layoutName.substringBefore("+"), context).trimStart()
+        if (layoutFileContent.startsWith("[") || (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX) && layoutFileContent.startsWith("/"))) {
             try {
-                getCustomLayoutFile(layoutFileName, context).readText().trimStart()
-            } catch (e: Exception) { // fall back to defaults if for some reason file is broken
-                val name = when {
-                    layoutName.contains("functional") -> "functional_keys.json"
-                    layoutName.contains("number_row") -> "number_row.txt"
-                    layoutName.contains("symbols") -> "symbols.txt"
-                    else -> "qwerty.txt"
-                }
-                Log.e(TAG, "cannot open layout $layoutName, falling back to $name", e)
-                context.assets.open("layouts${File.separator}$name").reader().use { it.readText() }
-            }
-        } else context.assets.open("layouts${File.separator}$layoutFileName").reader().use { it.readText() }
-        if (layoutFileName.endsWith(".json") || (layoutFileName.startsWith(CUSTOM_LAYOUT_PREFIX) && layoutText.startsWith("["))) {
-            try {
-                val florisKeyData = parseJsonString(layoutText, false)
+                val florisKeyData = parseJsonString(layoutFileContent, false)
                 return { params ->
                     florisKeyData.mapTo(mutableListOf()) { row ->
                         row.mapNotNullTo(mutableListOf()) { it.compute(params) }
@@ -118,60 +90,26 @@ object RawKeyboardParser {
             }
         }
         // not a json, or invalid json
-        val simpleKeyData = parseSimpleString(layoutText)
+        val simpleKeyData = parseSimpleString(layoutFileContent)
         return { params ->
             simpleKeyData.mapIndexedTo(mutableListOf()) { i, row ->
                 val newRow = row.toMutableList()
-                if (params.mId.isAlphabetKeyboard
-                        && params.mId.mSubtype.mainLayoutName.endsWith("+")
-                        && "$layoutName+" ==  params.mId.mSubtype.mainLayoutName
-                    ) {
+                if (params.mId.isAlphabetKeyboard && layoutName.endsWith("+"))
                     params.mLocaleKeyboardInfos.getExtraKeys(i+1)?.let { newRow.addAll(it) }
-                }
                 newRow
             }
         }
     }
 
-    private fun getLayoutName(params: KeyboardParams, context: Context) = when (params.mId.mElementId) {
-        KeyboardId.ELEMENT_SYMBOLS -> if (params.mId.locale.script() == ScriptUtils.SCRIPT_ARABIC) LAYOUT_SYMBOLS_ARABIC else LAYOUT_SYMBOLS
-        KeyboardId.ELEMENT_SYMBOLS_SHIFTED -> LAYOUT_SYMBOLS_SHIFTED
-        KeyboardId.ELEMENT_NUMPAD -> if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-            LAYOUT_NUMPAD_LANDSCAPE
-        else
-            LAYOUT_NUMPAD
-        KeyboardId.ELEMENT_NUMBER -> LAYOUT_NUMBER
-        KeyboardId.ELEMENT_PHONE -> LAYOUT_PHONE
-        KeyboardId.ELEMENT_PHONE_SYMBOLS -> LAYOUT_PHONE_SYMBOLS
-        KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LAYOUT_EMOJI_BOTTOM_ROW
-        KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LAYOUT_CLIPBOARD_BOTTOM_ROW
-        else -> params.mId.mSubtype.mainLayoutName.substringBeforeLast("+")
-    }
-
-    private fun getFunctionalLayoutName(params: KeyboardParams, context: Context): String {
-        if (Settings.getInstance().current.mHasCustomFunctionalLayout) {
-            getCustomFunctionalLayoutName(params.mId.mElementId, params.mId.mSubtype.rawSubtype, context)
-                ?.let { return it }
-        }
-        return if (Settings.getInstance().isTablet) "functional_keys_tablet" else "functional_keys"
-    }
-
-    /** returns the file name matching the layout name, making sure the file exists (falling back to qwerty.txt) */
-    private fun getLayoutFileName(layoutName: String, context: Context): String {
-        val customFiles = getCustomLayoutFiles(context).map { it.name }
-        if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
-            return customFiles.firstOrNull { it.startsWith(layoutName)}
-                ?: if (layoutName.contains("functional")) "functional_keys.json" else "qwerty.txt" // fallback to defaults
-        }
-        val assetsFiles by lazy { context.assets.list("layouts")!! }
-        return if (layoutName in symbolAndNumberLayouts) {
-            customFiles.firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.")}
-                ?: assetsFiles.first { it.startsWith(layoutName) }
-        } else {
-            // can't be custom layout, so it must be in assets
-            val searchName = layoutName.substringBeforeLast("+") // consider there are layouts ending in "+" for adding extra keys
-            assetsFiles.firstOrNull { it.startsWith(searchName) } ?: "qwerty.txt" // in case it was removed
-        }
+    private fun getLayoutFileContent(layoutType: LayoutType, layoutName: String, context: Context): String {
+        if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX))
+            getCustomLayoutFiles(layoutType, context)
+                .firstOrNull { it.name.startsWith(layoutName) }?.let { return it.readText() }
+        val layouts = context.assets.list(layoutType.folder)!!
+        layouts.firstOrNull { it.startsWith("$layoutName.") }
+            ?.let { return context.assets.open(layoutType.folder + it).reader().readText() }
+        val fallback = layouts.first { it.startsWith(layoutType.default) } // must exist!
+        return context.assets.open(layoutType.folder + fallback).reader().readText()
     }
 
     // allow commenting lines by starting them with "//"
