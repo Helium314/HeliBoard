@@ -54,7 +54,6 @@ fun LayoutEditDialog(
                 || isNameValid(LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text))
             )
 
-    val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
     TextInputDialog(
         onDismissRequest = {
             job?.cancel()
@@ -85,10 +84,10 @@ fun LayoutEditDialog(
             job?.cancel()
             if (!valid) {
                 job = scope.launch {
-                    delay(3000)
                     val message = Log.getLog(10)
                         .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")
+                    delay(3000)
                     Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
                 }
             }
