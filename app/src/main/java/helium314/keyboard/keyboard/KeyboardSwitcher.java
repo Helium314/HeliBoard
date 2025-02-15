@@ -42,7 +42,6 @@ import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.CapsModeUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
@@ -50,6 +49,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
@@ -159,7 +159,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         } catch (KeyboardLayoutSetException e) {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
-                final InputMethodSubtype qwerty = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
+                final InputMethodSubtype qwerty = SubtypeUtilsAdditional.INSTANCE
+                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                         .setSubtype(RichInputMethodSubtype.Companion.get(qwerty))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)

@@ -20,9 +20,7 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
-import java.util.*
-
-// todo: move some parts, to subtypeUtils, and only keep actual settings?
+import java.util.Locale
 
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
  *  subtypes for system locales will be returned, or en-US if none found. */
@@ -78,28 +76,12 @@ fun removeEnabledSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) 
     RichInputMethodManager.getInstance().refreshSubtypeCaches()
 }
 
-fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
-    val additionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString).toMutableSet()
-    additionalSubtypes.add(subtype)
-    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(additionalSubtypes.toTypedArray())
-    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
-}
-
-fun removeAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
-    val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
-    val oldAdditionalSubtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(oldAdditionalSubtypesString)
-    val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
-    val newAdditionalSubtypesString = AdditionalSubtypeUtils.createPrefSubtypes(newAdditionalSubtypes.toTypedArray())
-    Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
-}
-
 fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     require(initialized)
     val localeAndLayout = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toLocaleAndLayout()
     val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES)) getDefaultEnabledSubtypes()
         else enabledSubtypes
-    val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+    val subtype = subtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getMainLayoutName(it) }
     if (subtype != null) {
         return subtype
     } else {
@@ -108,8 +90,8 @@ fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
     if (subtypes.isNotEmpty())
         return subtypes.first()
     val defaultSubtypes = getDefaultEnabledSubtypes()
-    return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
-        ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == SubtypeLocaleUtils.getKeyboardLayoutSetName(it) }
+    return defaultSubtypes.firstOrNull { localeAndLayout.first == it.locale() && localeAndLayout.second == SubtypeLocaleUtils.getMainLayoutName(it) }
+        ?: defaultSubtypes.firstOrNull { localeAndLayout.first.language == it.locale().language && localeAndLayout.second == SubtypeLocaleUtils.getMainLayoutName(it) }
         ?: defaultSubtypes.first()
 }
 
@@ -120,11 +102,12 @@ fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
     prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
 }
 
+// todo: use this or the version in SubtypeUtilsAdditional?
 fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
     return subtype in additionalSubtypes
 }
 
-fun updateAdditionalSubtypes(subtypes: Array<InputMethodSubtype>) {
+fun updateAdditionalSubtypes(subtypes: List<InputMethodSubtype>) {
     additionalSubtypes.clear()
     additionalSubtypes.addAll(subtypes)
     RichInputMethodManager.getInstance().refreshSubtypeCaches()
@@ -202,7 +185,7 @@ private fun InputMethodSubtype.prefString(): String {
         @Suppress("deprecation") // it's debug logging, better get all information
         Log.e(TAG, "unknown language, should not happen ${locale}, $languageTag, $extraValue, ${hashCode()}, $nameResId")
     }
-    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getKeyboardLayoutSetName(this)
+    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getMainLayoutName(this)
 }
 
 private fun String.toLocaleAndLayout(): Pair<Locale, String> =
@@ -263,8 +246,8 @@ private fun removeInvalidCustomSubtypes(context: Context) { // todo: new layout 
 }
 
 private fun loadAdditionalSubtypes(prefs: SharedPreferences) {
-    val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
-    val subtypes = AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypeString)
+    val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+    val subtypes = SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypeString)
     additionalSubtypes.addAll(subtypes)
 }
 
@@ -286,8 +269,8 @@ private fun loadEnabledSubtypes(context: Context) {
             continue
         }
 
-        val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.second }
-            ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first && SubtypeLocaleUtils.getKeyboardLayoutSetName(it) == localeAndLayout.second }
+        val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getMainLayoutName(it) == localeAndLayout.second }
+            ?: additionalSubtypes.firstOrNull { it.locale() == localeAndLayout.first && SubtypeLocaleUtils.getMainLayoutName(it) == localeAndLayout.second }
         if (subtype == null) {
             val message = "subtype $localeAndLayout could not be loaded"
             Log.w(TAG, message)

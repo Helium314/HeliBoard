@@ -42,7 +42,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
 
     val fullDisplayName: String get() {
             if (isNoLanguage) {
-                return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(rawSubtype)!!
+                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype)!!
             }
             return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(locale)
         }
@@ -51,7 +51,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
         // Get the RichInputMethodSubtype's middle display name in its locale.
         get() {
             if (isNoLanguage) {
-                return SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(rawSubtype)!!
+                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype)!!
             }
             return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(locale)
         }

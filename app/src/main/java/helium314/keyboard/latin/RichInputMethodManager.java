@@ -302,7 +302,7 @@ public class RichInputMethodManager {
         final int count = myImi.getSubtypeCount();
         for (int i = 0; i < count; i++) {
             final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
-            final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
+            final String layoutName = SubtypeLocaleUtils.getMainLayoutName(subtype);
             if (locale.equals(SubtypeUtilsKt.locale(subtype))
                     && keyboardLayoutSetName.equals(layoutName)) {
                 return subtype;

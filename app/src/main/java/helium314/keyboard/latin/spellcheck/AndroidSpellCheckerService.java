@@ -30,9 +30,9 @@ import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.util.Locale;
@@ -200,7 +200,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));
         }
         final String keyboardLayoutName = SubtypeSettingsKt.getMatchingLayoutSetNameForLocale(locale);
-        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(locale, keyboardLayoutName);
+        final InputMethodSubtype subtype = SubtypeUtilsAdditional.INSTANCE.createDummyAdditionalSubtype(locale, keyboardLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
     }

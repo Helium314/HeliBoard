@@ -89,7 +89,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     if (infos.size > 1 && !onlySystemLocales) {
                         var start = true
                         infos.forEach {
-                            val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                            val string = SpannableString(SubtypeLocaleUtils.getMainLayoutDisplayName(it.subtype)
                                 ?: it.subtype.displayName(context))
                             if (it.isEnabled)
                                 string.setSpan(StyleSpan(Typeface.BOLD), 0, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

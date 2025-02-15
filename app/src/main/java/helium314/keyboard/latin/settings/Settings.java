@@ -29,7 +29,6 @@ import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.LocaleUtils;
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -38,6 +37,7 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 import helium314.keyboard.settings.SettingsActivity;
@@ -242,7 +242,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         }
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
             final String additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES);
-            SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
+            SubtypeSettingsKt.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
         }
     }
 

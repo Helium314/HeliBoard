@@ -19,9 +19,9 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToP
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodSubtype
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.POPUP_KEYS_LAYOUT
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
@@ -418,21 +418,21 @@ f""", // no newline at the end
 
     @Test fun canLoadKeyboard() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
+        val subtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(kb.sortedKeys.size, keys.sumOf { it.size })
     }
 
     @Test fun `dvorak has 4 rows`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "dvorak", true)
+        val subtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "dvorak", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(keys.size, 4)
     }
 
     @Test fun `de_DE has extra keys`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
+        val subtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(Locale.GERMANY, "qwertz+", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         assertEquals(11, keys[0].size)
         assertEquals(11, keys[1].size)
@@ -445,7 +445,7 @@ f""", // no newline at the end
 
     @Test fun `popup key count does not depend on shift for (for simple layout)`() {
         val editorInfo = EditorInfo()
-        val subtype = createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
+        val subtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(Locale.ENGLISH, "qwerty", true)
         val (kb, keys) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET)
         val (kb2, keys2) = buildKeyboard(editorInfo, subtype, KeyboardId.ELEMENT_ALPHABET_AUTOMATIC_SHIFTED)
         assertEquals(kb.sortedKeys.size, kb2.sortedKeys.size)

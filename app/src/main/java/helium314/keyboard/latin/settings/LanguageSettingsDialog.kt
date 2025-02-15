@@ -78,8 +78,8 @@ class LanguageSettingsDialog(
         if (infos.first().subtype.isAsciiCapable) {
             binding.addSubtype.setOnClickListener {
                 val layouts = context.resources.getStringArray(R.array.predefined_layouts)
-                    .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getKeyboardLayoutSetName(it.subtype) == layoutName } }
-                val displayNames = layouts.map { SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) }
+                    .filterNot { layoutName -> infos.any { SubtypeLocaleUtils.getMainLayoutName(it.subtype) == layoutName } }
+                val displayNames = layouts.map { SubtypeLocaleUtils.getMainLayoutDisplayName(it) }
                 Builder(context)
                     .setTitle(R.string.keyboard_layout_set)
                     .setItems(displayNames.toTypedArray()) { di, i ->
@@ -101,17 +101,17 @@ class LanguageSettingsDialog(
 
     private fun addSubtype(name: String) {
         LayoutUtilsCustom.onCustomLayoutFileListChanged()
-        val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
+        val newSubtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
-        val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
-        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype) }
+        val displayName = SubtypeLocaleUtils.getMainLayoutDisplayName(newSubtype)
+        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getMainLayoutDisplayName(it.subtype) }
         if (old != null) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
             return
         }
 
-        addAdditionalSubtype(prefs, newSubtype)
+        SubtypeUtilsAdditional.addAdditionalSubtype(prefs, newSubtype)
         addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
         KeyboardLayoutSet.onKeyboardThemeChanged()
@@ -147,7 +147,7 @@ class LanguageSettingsDialog(
         if (infos.first().subtype.isAsciiCapable) {
             context.resources.getStringArray(R.array.predefined_layouts).forEach {
                 layouts.add(it)
-                displayNames.add(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it) ?: it)
+                displayNames.add(SubtypeLocaleUtils.getMainLayoutDisplayName(it) ?: it)
             }
         }
         Builder(context)
@@ -170,7 +170,7 @@ class LanguageSettingsDialog(
         val row = LayoutInflater.from(context).inflate(R.layout.language_list_item, listView)
         val layoutSetName = subtype.subtype.mainLayoutName() ?: "qwerty"
         row.findViewById<TextView>(R.id.language_name).text =
-            SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
+            SubtypeLocaleUtils.getMainLayoutDisplayName(subtype.subtype)
                 ?: subtype.subtype.displayName(context)
         if (LayoutUtilsCustom.isCustomLayout(layoutSetName)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
@@ -204,7 +204,7 @@ class LanguageSettingsDialog(
                         infos.remove(subtype)
                         if (isCustom)
                             LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
-                        removeAdditionalSubtype(prefs, subtype.subtype)
+                        SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }

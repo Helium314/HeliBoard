@@ -30,11 +30,11 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
@@ -175,8 +175,8 @@ fun BackupRestorePreference(setting: Setting) {
         wait.await()
         checkVersionUpgrade(ctx)
         Settings.getInstance().startListener()
-        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
-        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
+        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+        updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
         reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)

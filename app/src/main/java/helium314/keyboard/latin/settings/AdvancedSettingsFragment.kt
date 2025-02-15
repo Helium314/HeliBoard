@@ -45,11 +45,11 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.infoDialog
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
@@ -409,8 +409,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)
-        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
+        val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+        updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
         reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)
