@@ -22,7 +22,6 @@ import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardActionListener
@@ -68,6 +67,9 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -284,12 +286,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             .setTitle(R.string.backup_restore_title)
             .setMessage(R.string.backup_restore_message)
             .setNegativeButton(R.string.button_backup) { _, _ ->
+                val currentDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         requireContext().getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_backup.zip"
+                            .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
                     .setType("application/zip")
                 backupFilePicker.launch(intent)
