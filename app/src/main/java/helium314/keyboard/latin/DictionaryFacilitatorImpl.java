@@ -16,6 +16,23 @@ import android.view.inputmethod.InputMethodSubtype;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import helium314.keyboard.keyboard.Keyboard;
 import helium314.keyboard.latin.NgramContext.WordInfo;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
@@ -34,23 +51,6 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
@@ -274,6 +274,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_CONTACTS) != null;
     }
 
+    public boolean usesApps() {
+        return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_APPS) != null;
+    }
+
     public boolean usesPersonalization() {
         return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_USER_HISTORY) != null;
     }
@@ -306,6 +310,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 case Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
                 case Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
                 case Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
+                case Dictionary.TYPE_APPS -> AppsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account);
                 default -> null;
             };
         } catch (final SecurityException | IllegalArgumentException e) {
@@ -332,6 +337,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             final Context context,
             @NonNull final Locale newLocale,
             final boolean useContactsDict,
+            final boolean useAppsDict,
             final boolean usePersonalizedDicts,
             final boolean forceReloadMainDictionary,
             @Nullable final String account,
@@ -363,6 +369,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (useContactsDict
                 && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS)) {
             subDictTypesToUse.add(Dictionary.TYPE_CONTACTS);
+        }
+        if (useAppsDict) {
+            subDictTypesToUse.add(Dictionary.TYPE_APPS);
         }
         if (usePersonalizedDicts) {
             subDictTypesToUse.add(Dictionary.TYPE_USER_HISTORY);
@@ -958,6 +967,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         if (historyDict != null) {
             historyDict.removeUnigramEntryDynamically(word);
         }
+
         // and from personal dictionary
         final ExpandableBinaryDictionary userDict = group.getSubDict(Dictionary.TYPE_USER);
         if (userDict != null) {
@@ -965,19 +975,28 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         }
 
         final ExpandableBinaryDictionary contactsDict = group.getSubDict(Dictionary.TYPE_CONTACTS);
-        if (contactsDict != null) {
-            if (contactsDict.isInDictionary(word)) {
-                contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
-                addToBlacklist(word, group);
-                return;
-            }
-        }
-        if (!group.hasDict(Dictionary.TYPE_MAIN, null))
+        if (contactsDict != null && contactsDict.isInDictionary(word)) {
+            contactsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
+            addToBlacklist(word, group);
             return;
+        }
+
+        final ExpandableBinaryDictionary appsDict = group.getSubDict(Dictionary.TYPE_APPS);
+        if (appsDict != null && appsDict.isInDictionary(word)) {
+            appsDict.removeUnigramEntryDynamically(word); // will be gone until next reload of dict
+            addToBlacklist(word, group);
+            return;
+        }
+
+        if (!group.hasDict(Dictionary.TYPE_MAIN, null)) {
+            return;
+        }
+
         if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(word)) {
             addToBlacklist(word, group);
             return;
         }
+
         final String lowercase = word.toLowerCase(group.mLocale);
         if (group.getDict(Dictionary.TYPE_MAIN).isValidWord(lowercase)) {
             addToBlacklist(lowercase, group);

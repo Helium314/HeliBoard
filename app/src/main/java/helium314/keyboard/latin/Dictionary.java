@@ -48,6 +48,7 @@ public abstract class Dictionary {
     // phony dictionary instances for them.
     public static final String TYPE_MAIN = "main";
     public static final String TYPE_CONTACTS = "contacts";
+    public static final String TYPE_APPS = "apps";
     // User dictionary, the system-managed one.
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
@@ -173,6 +174,7 @@ public abstract class Dictionary {
             case TYPE_USER_TYPED,
                  TYPE_USER,
                  TYPE_CONTACTS,
+                 TYPE_APPS,
                  TYPE_USER_HISTORY -> true;
             default -> false;
         };

@@ -76,6 +76,10 @@
     <string name="use_contacts_dict">Look up contact names</string>
     <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction -->
     <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
+    <!-- Option name for enabling or disabling the use of installed app names for suggestion and correction -->
+    <string name="use_apps_dict">Look up app names</string>
+    <!-- Description for option enabling or disabling the use of installed app names for suggestion and correction -->
+    <string name="use_apps_dict_summary">Use names of installed apps for suggestions and corrections</string>
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
     <!-- Dialog message informing that dictionaries will be deleted on changing the setting -->
