@@ -267,7 +267,7 @@ public final class SubtypeLocaleUtils {
     @Nullable
     public static String getMainLayoutDisplayName(@NonNull final String layoutName) {
         if (LayoutUtilsCustom.INSTANCE.isCustomLayout(layoutName))
-            return LayoutUtilsCustom.INSTANCE.getCustomLayoutDisplayName(layoutName);
+            return LayoutUtilsCustom.INSTANCE.getSecondaryLayoutDisplayName(layoutName);
         return sKeyboardLayoutToDisplayNameMap.get(layoutName);
     }
 

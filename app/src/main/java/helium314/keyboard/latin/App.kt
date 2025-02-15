@@ -19,6 +19,9 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
+import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.prefs
@@ -344,15 +347,32 @@ fun checkVersionUpgrade(context: Context) {
                     val dir = File(folder, LayoutType.MAIN.folder)
                     dir.mkdirs()
                     file.renameTo(File(dir, file.name))
-                    // todo: maybe rename to custom.latn.name. instead of custom.en-GB.name. for latin script?
-                    //  just make sure the subtypes are still working when the file name is different (need to upgrade PREF_ADDITIONAL_SUBTYPES)
-                    //  also consider name collision when a user has layout with the same name for 2 languages
-                    //   decode name, append number, encode name
                 }
             }
         }
         if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES))
             prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.replace(":", "§")).apply()
+    }
+    if (oldVersion <= 2304) {
+        // rename layout files for latin scripts, and adjust layouts stored in prefs accordingly
+        LayoutUtilsCustom.getCustomLayoutFiles(LayoutType.MAIN, context).forEach {
+            val locale = it.name.substringAfter("custom.").substringBefore(".").constructLocale()
+            if (locale.script() != SCRIPT_LATIN) return@forEach
+            // change language tag to SCRIPT_LATIN, but
+            //  avoid overwriting if 2 layouts have a different language tag, but the same name
+            val layoutDisplayName = LayoutUtilsCustom.getSecondaryLayoutDisplayName(it.name)
+            var newFile = File(it.parentFile!!, LayoutUtilsCustom.getMainLayoutName(layoutDisplayName, locale))
+            var i = 1
+            while (newFile.exists()) // make sure name is not already in use, e.g. custom.en.abcd. and custom.it.abcd. would both be custom.Latn.abcd
+                newFile = File(it.parentFile!!, LayoutUtilsCustom.getMainLayoutName(layoutDisplayName + i++, locale))
+            it.renameTo(newFile)
+            // modify prefs
+            listOf(Settings.PREF_ENABLED_SUBTYPES, Settings.PREF_SELECTED_SUBTYPE, Settings.PREF_ADDITIONAL_SUBTYPES).forEach { key ->
+                val value = prefs.getString(key, "")!!
+                if (it.name in value)
+                    prefs.edit().putString(key, value.replace(it.name, newFile.name)).apply()
+            }
+        }
     }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onCustomLayoutFileListChanged() // just to be sure

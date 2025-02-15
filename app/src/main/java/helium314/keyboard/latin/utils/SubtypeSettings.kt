@@ -57,7 +57,7 @@ fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
     val subtypeString = newSubtype.prefString()
-    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!.split(SUBTYPE_SEPARATOR)
+    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(SUBTYPE_SEPARATOR)
     val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
     prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 

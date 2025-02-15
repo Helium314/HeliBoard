@@ -206,7 +206,7 @@ private fun LayoutItemRow(
             }
         )
         Text(
-            text = if (isCustom) LayoutUtilsCustom.getCustomLayoutDisplayName(layoutName)
+            text = if (isCustom) LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutName)
                 else layoutName.getStringResourceOrName("layout_", ctx),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f),
@@ -219,7 +219,7 @@ private fun LayoutItemRow(
             if (showDeleteDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getCustomLayoutDisplayName(layoutName))) },
+                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutName))) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false

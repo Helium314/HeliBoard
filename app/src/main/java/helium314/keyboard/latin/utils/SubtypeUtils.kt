@@ -26,6 +26,6 @@ fun InputMethodSubtype.mainLayoutName(): String? {
 fun InputMethodSubtype.displayName(context: Context): CharSequence {
     val layoutName = SubtypeLocaleUtils.getMainLayoutName(this)
     if (LayoutUtilsCustom.isCustomLayout(layoutName))
-        return "${LocaleUtils.getLocaleDisplayNameInSystemLocale(locale(), context)} (${LayoutUtilsCustom.getCustomLayoutDisplayName(layoutName)})"
+        return "${LocaleUtils.getLocaleDisplayNameInSystemLocale(locale(), context)} (${LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutName)})"
     return SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
 }

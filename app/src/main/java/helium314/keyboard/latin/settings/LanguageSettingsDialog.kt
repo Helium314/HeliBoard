@@ -202,14 +202,14 @@ class LanguageSettingsDialog(
                     fun delete() {
                         binding.subtypes.removeView(row)
                         infos.remove(subtype)
-                        if (isCustom)
-                            LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
+                        //if (isCustom)
+                        //    LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
                         SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, LayoutUtilsCustom.getCustomLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }

@@ -14,10 +14,13 @@ object LayoutUtils {
         if (locale == null)
             return getAllAvailableSubtypes().mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
-            return getAllAvailableSubtypes().filter { it.isAsciiCapable && LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
+            return getAllAvailableSubtypes().filter { it.isAsciiCapable && !LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
                 .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
         return getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
     }
+
+    fun getLMainLayoutsForLocales(locales: List<Locale>, context: Context): Collection<String> =
+        locales.flatMapTo(HashSet()) { getAvailableLayouts(LayoutType.MAIN, context, it) }.sorted()
 
     fun getContent(layoutType: LayoutType, layoutName: String, context: Context): String {
         val layouts = context.assets.list(layoutType.folder)!!

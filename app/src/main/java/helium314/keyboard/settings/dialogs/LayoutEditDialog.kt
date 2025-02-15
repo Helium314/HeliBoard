@@ -44,7 +44,7 @@ fun LayoutEditDialog(
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
-            if (startIsCustom) LayoutUtilsCustom.getCustomLayoutDisplayName(initialLayoutName)
+            if (startIsCustom) LayoutUtilsCustom.getSecondaryLayoutDisplayName(initialLayoutName)
             else initialLayoutName.getStringResourceOrName("layout_", ctx)
         ))
     }
