@@ -18,11 +18,10 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.VariationSele
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtils
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -76,7 +75,7 @@ object LayoutParser {
     private fun createCacheLambda(layoutType: LayoutType, layoutName: String, context: Context):
                 (KeyboardParams) -> MutableList<MutableList<KeyData>> {
         val layoutFileContent = getLayoutFileContent(layoutType, layoutName.substringBefore("+"), context).trimStart()
-        if (layoutFileContent.startsWith("[") || (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX) && layoutFileContent.startsWith("/"))) {
+        if (layoutFileContent.startsWith("[") || (LayoutUtilsCustom.isCustomLayout(layoutName) && layoutFileContent.startsWith("/"))) {
             try {
                 val florisKeyData = parseJsonString(layoutFileContent, false)
                 return { params ->
@@ -101,8 +100,8 @@ object LayoutParser {
     }
 
     private fun getLayoutFileContent(layoutType: LayoutType, layoutName: String, context: Context): String {
-        if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX))
-            getCustomLayoutFiles(layoutType, context)
+        if (LayoutUtilsCustom.isCustomLayout(layoutName))
+            LayoutUtilsCustom.getCustomLayoutFiles(layoutType, context)
                 .firstOrNull { it.name.startsWith(layoutName) }?.let { return it.readText() }
         return LayoutUtils.getContent(layoutType, layoutName, context)
     }

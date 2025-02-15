@@ -20,14 +20,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.LayoutType
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.checkLayout
-import helium314.keyboard.latin.utils.getCustomLayoutFile
-import helium314.keyboard.latin.utils.getCustomLayoutDisplayName
-import helium314.keyboard.latin.utils.getCustomLayoutName
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.isCustomLayout
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -47,17 +42,17 @@ fun LayoutEditDialog(
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var job: Job? = null
-    val startIsCustom = isCustomLayout(initialLayoutName)
+    val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
-            if (startIsCustom) getCustomLayoutDisplayName(initialLayoutName)
+            if (startIsCustom) LayoutUtilsCustom.getCustomLayoutDisplayName(initialLayoutName)
             else initialLayoutName.getStringResourceOrName("layout_", ctx)
         ))
     }
     val nameValid = displayNameValue.text.isNotBlank()
             && (
-                (startIsCustom && getCustomLayoutName(displayNameValue.text) == initialLayoutName)
-                || isNameValid(getCustomLayoutName(displayNameValue.text))
+                (startIsCustom && LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text) == initialLayoutName)
+                || isNameValid(LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text))
             )
 
     TextInputDialog(
@@ -66,15 +61,15 @@ fun LayoutEditDialog(
             onDismissRequest()
         },
         onConfirmed = {
-            val newLayoutName = getCustomLayoutName(displayNameValue.text)
+            val newLayoutName = LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text)
             if (startIsCustom && initialLayoutName != newLayoutName)
-                getCustomLayoutFile(initialLayoutName, layoutType, ctx).delete()
-            getCustomLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
-            onCustomLayoutFileListChanged()
+                LayoutUtilsCustom.getCustomLayoutFile(initialLayoutName, layoutType, ctx).delete()
+            LayoutUtilsCustom.getCustomLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
+            LayoutUtilsCustom.onCustomLayoutFileListChanged()
             keyboardNeedsReload = true
         },
         confirmButtonText = stringResource(R.string.save),
-        initialText = startContent ?: getCustomLayoutFile(initialLayoutName, layoutType, ctx).readText(),
+        initialText = startContent ?: LayoutUtilsCustom.getCustomLayoutFile(initialLayoutName, layoutType, ctx).readText(),
         singleLine = false,
         title = {
             TextField(
@@ -87,13 +82,13 @@ fun LayoutEditDialog(
             )
         },
         checkTextValid = {
-            val valid = checkLayout(it, ctx)
+            val valid = LayoutUtilsCustom.checkLayout(it, ctx)
             job?.cancel()
             if (!valid) {
                 job = scope.launch {
                     delay(3000)
                     val message = Log.getLog(10)
-                        .lastOrNull { it.tag == "CustomLayoutUtils" }?.message
+                        .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")
                     Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
                 }

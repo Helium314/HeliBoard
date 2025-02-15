@@ -100,7 +100,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtype(name: String) {
-        onCustomLayoutFileListChanged()
+        LayoutUtilsCustom.onCustomLayoutFileListChanged()
         val newSubtype = AdditionalSubtypeUtils.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
         val displayName = SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(newSubtype)
@@ -138,7 +138,7 @@ class LanguageSettingsDialog(
         val displayNames = mutableListOf<String>()
         infos.forEach {
             val mainLayoutName = it.subtype.mainLayoutName() ?: "qwerty"
-            if (!mainLayoutName.startsWith(CUSTOM_LAYOUT_PREFIX) // don't allow copying custom layout (at least for now)
+            if (!LayoutUtilsCustom.isCustomLayout(mainLayoutName) // don't allow copying custom layout (at least for now)
                     && !mainLayoutName.endsWith("+")) { // don't allow copying layouts only defined via extra keys
                 layouts.add(mainLayoutName)
                 displayNames.add(it.subtype.displayName(context).toString())
@@ -155,7 +155,7 @@ class LanguageSettingsDialog(
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
                 val fileName = context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
-                loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
+                LayoutUtilsCustom.loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
                     displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -163,7 +163,7 @@ class LanguageSettingsDialog(
     }
 
     override fun onNewLayoutFile(uri: Uri?) {
-        loadCustomLayout(uri, mainLocale.toLanguageTag(), context) { addSubtype(it) }
+        LayoutUtilsCustom.loadCustomLayout(uri, mainLocale.toLanguageTag(), context) { addSubtype(it) }
     }
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
@@ -172,9 +172,9 @@ class LanguageSettingsDialog(
         row.findViewById<TextView>(R.id.language_name).text =
             SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(subtype.subtype)
                 ?: subtype.subtype.displayName(context)
-        if (layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)) {
+        if (LayoutUtilsCustom.isCustomLayout(layoutSetName)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
-            row.findViewById<View>(R.id.language_text).setOnClickListener { editCustomLayout(layoutSetName, context) }
+            row.findViewById<View>(R.id.language_text).setOnClickListener { LayoutUtilsCustom.editCustomLayout(layoutSetName, context) }
         } else {
             row.findViewById<View>(R.id.language_details).isGone = true
         }
@@ -198,18 +198,18 @@ class LanguageSettingsDialog(
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
                 setOnClickListener {
-                    val isCustom = layoutSetName.startsWith(CUSTOM_LAYOUT_PREFIX)
+                    val isCustom = LayoutUtilsCustom.isCustomLayout(layoutSetName)
                     fun delete() {
                         binding.subtypes.removeView(row)
                         infos.remove(subtype)
                         if (isCustom)
-                            removeCustomLayoutFile(layoutSetName, context)
+                            LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
                         removeAdditionalSubtype(prefs, subtype.subtype)
                         removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, getCustomLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, LayoutUtilsCustom.getCustomLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }

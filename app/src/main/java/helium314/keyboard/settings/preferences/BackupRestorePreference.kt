@@ -31,12 +31,11 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
@@ -63,7 +62,7 @@ fun BackupRestorePreference(setting: Setting) {
     var error: String? by rememberSaveable { mutableStateOf(null) }
     val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
-        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
+        "layouts/${LayoutUtilsCustom.CUSTOM_LAYOUT_PREFIX}+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
@@ -181,7 +180,7 @@ fun BackupRestorePreference(setting: Setting) {
         reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
-        onCustomLayoutFileListChanged()
+        LayoutUtilsCustom.onCustomLayoutFileListChanged()
         (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
         keyboardNeedsReload = true
     }

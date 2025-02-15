@@ -11,8 +11,8 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.isRtlLanguage
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.LayoutType
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.locale
@@ -38,7 +38,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
     /** layout names for this subtype by LayoutType */
     val layouts = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
 
-    val isCustom: Boolean get() = mainLayoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
+    val isCustom: Boolean get() = LayoutUtilsCustom.isCustomLayout(mainLayoutName)
 
     val fullDisplayName: String get() {
             if (isNoLanguage) {

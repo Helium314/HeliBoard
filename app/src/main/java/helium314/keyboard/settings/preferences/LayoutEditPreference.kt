@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
-
+/*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +14,7 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.LayoutEditDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import java.io.File
-/*
+
 @Composable
 fun LayoutEditPreference(
     setting: Setting,

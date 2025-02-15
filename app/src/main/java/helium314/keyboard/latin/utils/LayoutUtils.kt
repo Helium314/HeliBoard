@@ -14,7 +14,7 @@ object LayoutUtils {
         if (locale == null)
             return getAllAvailableSubtypes().mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
-            return getAllAvailableSubtypes().filter { it.isAsciiCapable && it.mainLayoutName()?.startsWith(CUSTOM_LAYOUT_PREFIX) == false }
+            return getAllAvailableSubtypes().filter { it.isAsciiCapable && LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
                 .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
         return getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
     }

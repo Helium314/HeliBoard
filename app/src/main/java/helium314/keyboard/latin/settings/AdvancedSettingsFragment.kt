@@ -46,19 +46,11 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
 import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.ResourceUtils
-import helium314.keyboard.latin.utils.editCustomLayout
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.infoDialog
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.reloadEnabledSubtypes
 import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
@@ -76,7 +68,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
-        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
+//        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
@@ -134,7 +126,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             true
         }
         findPreference<Preference>("custom_functional_key_layouts")?.setOnPreferenceClickListener {
-            showCustomizeFunctionalKeyLayoutsDialog()
+//            showCustomizeFunctionalKeyLayoutsDialog()
             true
         }
 
@@ -173,7 +165,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             .setNegativeButton(android.R.string.cancel, null)
             .show()
 */    }
-
+/*
     private fun customizeSymbolNumberLayout(layoutName: String) {
         val customLayoutName = getCustomLayoutFiles(requireContext()).map { it.name }
             .firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
@@ -211,7 +203,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         val displayName = layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext())
         editCustomLayout(customLayoutName ?: "$layoutName.", requireContext(), originalLayout, displayName)
     }
-
+*/
     @SuppressLint("ApplySharedPref")
     private fun onClickLoadLibrary(): Boolean {
         // get architecture for telling user which file to use
@@ -425,7 +417,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         // reload current prefs screen
         preferenceScreen.removeAll()
         setupPreferences()
-        onCustomLayoutFileListChanged()
+//        onCustomLayoutFileListChanged()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 

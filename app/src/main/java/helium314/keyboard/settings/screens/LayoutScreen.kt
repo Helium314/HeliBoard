@@ -13,11 +13,10 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.displayNameId
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.getCustomLayoutDisplayName
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.isCustomLayout
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
@@ -51,7 +50,7 @@ fun createLayoutSettings(context: Context) = listOf(
             Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
         var showDialog by rememberSaveable { mutableStateOf(false) }
         val currentLayout = Settings.readDefaultLayoutName(layoutType, prefs)
-        val displayName = if (isCustomLayout(currentLayout)) getCustomLayoutDisplayName(currentLayout)
+        val displayName = if (LayoutUtilsCustom.isCustomLayout(currentLayout)) LayoutUtilsCustom.getCustomLayoutDisplayName(currentLayout)
             else currentLayout.getStringResourceOrName("layout_", ctx)
         Preference(
             name = setting.title,

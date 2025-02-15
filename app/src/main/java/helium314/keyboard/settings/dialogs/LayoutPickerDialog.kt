@@ -43,14 +43,10 @@ import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtils
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.checkLayout
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.getCustomLayoutDisplayName
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.latin.utils.getCustomLayoutName
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
@@ -72,7 +68,7 @@ fun LayoutPickerDialog(
     val currentLayout = Settings.readDefaultLayoutName(layoutType, prefs)
     val internalLayouts = LayoutUtils.getAvailableLayouts(layoutType, ctx)
     // todo: getCustomLayoutFiles does not work nicely for main layout, but currently this dialog is not used for them
-    val customLayouts = getCustomLayoutFiles(layoutType, ctx).map { it.name }.sorted()
+    val customLayouts = LayoutUtilsCustom.getCustomLayoutFiles(layoutType, ctx).map { it.name }.sorted()
     val layouts = internalLayouts + customLayouts + ""
 
     val state = rememberLazyListState()
@@ -94,7 +90,7 @@ fun LayoutPickerDialog(
         }
         cr.openInputStream(uri)?.use {
             val content = it.reader().readText()
-            errorDialog = !checkLayout(content, ctx)
+            errorDialog = !LayoutUtilsCustom.checkLayout(content, ctx)
             if (!errorDialog)
                 newLayoutDialog = (name ?: layoutType.default) to content
         }
@@ -129,8 +125,8 @@ fun LayoutPickerDialog(
                                         prefs.edit().remove(Settings.PREF_LAYOUT_PREFIX + layoutType.name).apply()
                                         keyboardNeedsReload = true
                                     }
-                                    getCustomLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
-                                    onCustomLayoutFileListChanged()
+                                    LayoutUtilsCustom.getCustomLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
+                                    LayoutUtilsCustom.onCustomLayoutFileListChanged()
                                 },
                                 layoutType = layoutType,
                                 layoutName = item,
@@ -171,7 +167,7 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<
             singleLine = true
         )
         IconButton(
-            enabled = textValue.text.isNotEmpty() && getCustomLayoutName(textValue.text) !in userLayouts,
+            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getCustomLayoutName(textValue.text) !in userLayouts,
             onClick = { onNewLayout(textValue.text) }
         ) { Icon(painterResource(R.drawable.ic_edit), null) }
     }
@@ -210,7 +206,7 @@ private fun LayoutItemRow(
             }
         )
         Text(
-            text = if (isCustom) getCustomLayoutDisplayName(layoutName)
+            text = if (isCustom) LayoutUtilsCustom.getCustomLayoutDisplayName(layoutName)
                 else layoutName.getStringResourceOrName("layout_", ctx),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f),
@@ -223,7 +219,7 @@ private fun LayoutItemRow(
             if (showDeleteDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    text = { Text(stringResource(R.string.delete_layout, getCustomLayoutDisplayName(layoutName))) },
+                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getCustomLayoutDisplayName(layoutName))) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false

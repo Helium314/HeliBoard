@@ -122,7 +122,7 @@ public final class AdditionalSubtypeUtils {
         final boolean asciiCapable = ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_LATIN);
         // Here we assume that all the additional subtypes are EmojiCapable
         final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(locale, keyboardLayoutSetName, asciiCapable);
-        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !LayoutUtilsCustomKt.isCustomLayout(keyboardLayoutSetName)) {
+        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !LayoutUtilsCustom.INSTANCE.isCustomLayout(keyboardLayoutSetName)) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
             return null;

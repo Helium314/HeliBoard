@@ -9,21 +9,18 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.settings.colorPrefsAndResIds
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
+import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
-import helium314.keyboard.latin.utils.encodeBase36
-import helium314.keyboard.latin.utils.getCustomLayoutFile
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
@@ -50,6 +47,10 @@ class App : Application() {
     }
 }
 
+// old variant for old folder structure
+private fun getCustomLayoutFile(layoutName: String, context: Context): File =
+    File(File(DeviceProtectedUtils.getFilesDir(context), "layouts"), layoutName)
+
 fun checkVersionUpgrade(context: Context) {
     val prefs = context.prefs()
     val oldVersion = prefs.getInt(Settings.PREF_VERSION_CODE, 0)
@@ -67,9 +68,9 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == 0) // new install or restoring settings from old app name
         upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
-        val oldShiftSymbolsFile = getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}shift_symbols", context)
+        val oldShiftSymbolsFile = getCustomLayoutFile("custom.shift_symbols", context)
         if (oldShiftSymbolsFile.exists()) {
-            oldShiftSymbolsFile.renameTo(getCustomLayoutFile("${CUSTOM_LAYOUT_PREFIX}symbols_shifted", context))
+            oldShiftSymbolsFile.renameTo(getCustomLayoutFile("custom.symbols_shifted", context))
         }
 
         // rename subtype setting, and clean old subtypes that might remain in some cases
@@ -147,8 +148,8 @@ fun checkVersionUpgrade(context: Context) {
             Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
         }
         // rename other custom layouts
-        onCustomLayoutFileListChanged()
-        getCustomLayoutFiles(context).forEach {
+        LayoutUtilsCustom.onCustomLayoutFileListChanged()
+        File(DeviceProtectedUtils.getFilesDir(context), "layouts").listFiles()?.forEach {
             val newFile = getCustomLayoutFile(it.name.substringBeforeLast(".") + ".", context)
             if (newFile.name == it.name) return@forEach
             if (newFile.exists()) newFile.delete() // should never happen
@@ -243,99 +244,99 @@ fun checkVersionUpgrade(context: Context) {
         File(DeviceProtectedUtils.getFilesDir(context), "layouts").listFiles()?.forEach { file ->
             val folder = DeviceProtectedUtils.getFilesDir(context)
             when (file.name) {
-                "${CUSTOM_LAYOUT_PREFIX}symbols." -> {
+                "custom.symbols." -> {
                     val dir = File(folder, LayoutType.SYMBOLS.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("symbols")}."
+                    val name = "custom.${encodeBase36("symbols")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.SYMBOLS.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}symbols_shifted." -> {
+                "custom.symbols_shifted." -> {
                     val dir = File(folder, LayoutType.MORE_SYMBOLS.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("symbols_shifted")}."
+                    val name = "custom.${encodeBase36("symbols_shifted")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.MORE_SYMBOLS.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}symbols_arabic." -> {
+                "custom.symbols_arabic." -> {
                     val dir = File(folder, LayoutType.SYMBOLS.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("symbols_arabic")}."
+                    val name = "custom.${encodeBase36("symbols_arabic")}."
                     file.renameTo(File(dir, name))
                 }
-                "${CUSTOM_LAYOUT_PREFIX}numpad." -> {
+                "custom.numpad." -> {
                     val dir = File(folder, LayoutType.NUMPAD.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("numpad")}."
+                    val name = "custom.${encodeBase36("numpad")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.NUMPAD.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}numpad_landscape." -> {
+                "custom.numpad_landscape." -> {
                     val dir = File(folder, LayoutType.NUMPAD_LANDSCAPE.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("numpad_landscape")}."
+                    val name = "custom.${encodeBase36("numpad_landscape")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.NUMPAD_LANDSCAPE.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}number." -> {
+                "custom.number." -> {
                     val dir = File(folder, LayoutType.NUMBER.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("number")}."
+                    val name = "custom.${encodeBase36("number")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.NUMBER.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}phone." -> {
+                "custom.phone." -> {
                     val dir = File(folder, LayoutType.PHONE.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("phone")}."
+                    val name = "custom.${encodeBase36("phone")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.PHONE.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}phone_symbols." -> {
+                "custom.phone_symbols." -> {
                     val dir = File(folder, LayoutType.PHONE_SYMBOLS.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("phone_symbols")}."
+                    val name = "custom.${encodeBase36("phone_symbols")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.PHONE_SYMBOLS.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}number_row." -> {
+                "custom.number_row." -> {
                     val dir = File(folder, LayoutType.NUMBER_ROW.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("number_row")}."
+                    val name = "custom.${encodeBase36("number_row")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.NUMBER_ROW.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}emoji_bottom_row." -> {
+                "custom.emoji_bottom_row." -> {
                     val dir = File(folder, LayoutType.EMOJI_BOTTOM.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("emoji_bottom_row")}."
+                    val name = "custom.${encodeBase36("emoji_bottom_row")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.EMOJI_BOTTOM.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}clip_bottom_row." -> {
+                "custom.clip_bottom_row." -> {
                     val dir = File(folder, LayoutType.CLIPBOARD_BOTTOM.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("clip_bottom_row")}."
+                    val name = "custom.${encodeBase36("clip_bottom_row")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.CLIPBOARD_BOTTOM.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}functional_keys." -> {
+                "custom.functional_keys." -> {
                     val dir = File(folder, LayoutType.FUNCTIONAL.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("functional_keys")}."
+                    val name = "custom.${encodeBase36("functional_keys")}."
                     file.renameTo(File(dir, name))
                     prefs.edit().putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.FUNCTIONAL.name, name).apply()
                 }
-                "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols." -> {
+                "custom.functional_keys_symbols." -> {
                     val dir = File(folder, LayoutType.FUNCTIONAL.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("functional_keys_symbols")}."
+                    val name = "custom.${encodeBase36("functional_keys_symbols")}."
                     file.renameTo(File(dir, name))
                 }
-                "${CUSTOM_LAYOUT_PREFIX}functional_keys_symbols_shifted." -> {
+                "custom.functional_keys_symbols_shifted." -> {
                     val dir = File(folder, LayoutType.FUNCTIONAL.folder)
                     dir.mkdirs()
-                    val name = "$CUSTOM_LAYOUT_PREFIX${encodeBase36("functional_keys_symbols_shifted")}."
+                    val name = "custom.${encodeBase36("functional_keys_symbols_shifted")}."
                     file.renameTo(File(dir, name))
                 }
                 else -> {
@@ -354,7 +355,7 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.replace(":", "§")).apply()
     }
     upgradeToolbarPrefs(prefs)
-    onCustomLayoutFileListChanged() // just to be sure
+    LayoutUtilsCustom.onCustomLayoutFileListChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 

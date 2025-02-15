@@ -6,6 +6,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
+import java.math.BigInteger
 import java.util.Locale
 
 fun loopOverCodePoints(s: CharSequence, run: (Int) -> Boolean) {
@@ -123,6 +124,10 @@ fun String.decapitalize(locale: Locale): String {
         return this
     return replaceFirstChar { it.lowercase(locale) }
 }
+
+fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
+
+fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
