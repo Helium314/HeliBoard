@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -128,27 +127,18 @@ fun ColorsScreen(
         title = {
             var nameValid by rememberSaveable { mutableStateOf(true) }
             var nameField by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(newThemeName) }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                TextField(
-                    value = nameField,
-                    onValueChange = {
-                        nameValid = KeyboardTheme.renameUserColors(newThemeName.text, it.text, prefs)
-                        if (nameValid)
-                            newThemeName = it
-                        nameField = it
-                    },
-                    modifier = Modifier.weight(1f)
-                )
-                CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.secondary) {
-                    // todo: this should indicate whether name is saved, but looks like a button
-                    //  either make it flash and then disappear, or use a better indicator
-                    Icon(
-                        painterResource(if (nameValid) R.drawable.ic_setup_check else R.drawable.ic_close),
-                        null,
-                        Modifier.width(24.dp)
-                    )
-                }
-            }
+            TextField(
+                value = nameField,
+                onValueChange = {
+                    nameValid = KeyboardTheme.renameUserColors(newThemeName.text, it.text, prefs)
+                    if (nameValid)
+                        newThemeName = it
+                    nameField = it
+                },
+                isError = !nameValid,
+//                supportingText = { if (!nameValid) Text("name already in use") } // this is cutting off bottom half of the actual text...
+                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) }
+            )
         },
         menu = listOf(
             stringResource(R.string.main_colors) to { KeyboardTheme.writeUserMoreColors(prefs, newThemeName.text, 0) },
