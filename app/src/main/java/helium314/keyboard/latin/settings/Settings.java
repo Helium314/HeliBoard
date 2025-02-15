@@ -28,6 +28,7 @@ import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
+import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
@@ -479,7 +480,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), Defaults.PREF_SECONDARY_LOCALES);
 
         final ArrayList<Locale> locales = new ArrayList<>();
-        for (String languageTag : localesString.split(";")) {
+        for (String languageTag : localesString.split(Constants.Separators.KV)) {
             if (languageTag.isEmpty()) continue;
             locales.add(LocaleUtils.constructLocale(languageTag));
         }
@@ -493,7 +494,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         }
         final StringBuilder sb = new StringBuilder();
         for (Locale locale : locales) {
-            sb.append(";").append(locale.toLanguageTag());
+            sb.append(Constants.Separators.KV).append(locale.toLanguageTag());
         }
         prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), sb.toString()).apply();
     }

@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodSubtype
 import android.view.inputmethod.InputMethodSubtype.InputMethodSubtypeBuilder
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
@@ -69,30 +70,30 @@ object SubtypeUtilsAdditional {
     // todo: adjust so we can store more stuff in extra values
     private fun getPrefSubtype(subtype: InputMethodSubtype): String {
         val mainLayoutName = SubtypeLocaleUtils.getMainLayoutName(subtype)
-        val layoutExtraValue = ExtraValue.KEYBOARD_LAYOUT_SET + "=MAIN:" + mainLayoutName
+        val layoutExtraValue = ExtraValue.KEYBOARD_LAYOUT_SET + "=MAIN" + Separators.KV + mainLayoutName
         val extraValue = StringUtils.removeFromCommaSplittableTextIfExists(
             layoutExtraValue, StringUtils.removeFromCommaSplittableTextIfExists(
                 ExtraValue.IS_ADDITIONAL_SUBTYPE, subtype.extraValue
             )
         )
-        require(!extraValue.contains(PREF_SUBTYPE_SEPARATOR) && !extraValue.contains(LOCALE_AND_EXTRA_SEPARATOR))
+        require(!extraValue.contains(Separators.SETS) && !extraValue.contains(Separators.SET))
             { "extra value contains not allowed characters $extraValue" }
-        val basePrefSubtype = subtype.locale().toLanguageTag() + LOCALE_AND_EXTRA_SEPARATOR + mainLayoutName
+        val basePrefSubtype = subtype.locale().toLanguageTag() + Separators.SET + mainLayoutName
         return if (extraValue.isEmpty()) basePrefSubtype
-        else basePrefSubtype + LOCALE_AND_EXTRA_SEPARATOR + extraValue
+        else basePrefSubtype + Separators.SET + extraValue
     }
 
     fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {
         if (TextUtils.isEmpty(prefSubtypes)) {
             return emptyList()
         }
-        return prefSubtypes.split(PREF_SUBTYPE_SEPARATOR)
+        return prefSubtypes.split(Separators.SETS)
             .mapNotNull { createSubtypeFromString(it) }
     }
 
     // use string created with getPrefSubtype
     fun createSubtypeFromString(prefSubtype: String): InputMethodSubtype? {
-        val elems = prefSubtype.split(LOCALE_AND_EXTRA_SEPARATOR)
+        val elems = prefSubtype.split(Separators.SET)
         if (elems.size != LENGTH_WITHOUT_EXTRA_VALUE && elems.size != LENGTH_WITH_EXTRA_VALUE) {
             Log.w(TAG, "Unknown additional subtype specified: $prefSubtype")
             return null
@@ -118,7 +119,7 @@ object SubtypeUtilsAdditional {
         val sb = StringBuilder()
         for (subtype in subtypes) {
             if (sb.isNotEmpty()) {
-                sb.append(PREF_SUBTYPE_SEPARATOR)
+                sb.append(Separators.SETS)
             }
             sb.append(getPrefSubtype(subtype))
         }
@@ -132,7 +133,7 @@ object SubtypeUtilsAdditional {
         val sb = StringBuilder()
         for (prefSubtype in prefSubtypes) {
             if (sb.isNotEmpty()) {
-                sb.append(PREF_SUBTYPE_SEPARATOR)
+                sb.append(Separators.SETS)
             }
             sb.append(prefSubtype)
         }
@@ -221,8 +222,6 @@ object SubtypeUtilsAdditional {
     }
 
     private val TAG: String = SubtypeUtilsAdditional::class.java.simpleName
-    const val LOCALE_AND_EXTRA_SEPARATOR: String = "§"
-    const val PREF_SUBTYPE_SEPARATOR: String = ";"
     private const val INDEX_OF_LANGUAGE_TAG: Int = 0
     private const val INDEX_OF_KEYBOARD_LAYOUT: Int = 1
     private const val INDEX_OF_EXTRA_VALUE: Int = 2

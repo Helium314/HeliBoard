@@ -102,6 +102,18 @@ public final class Constants {
         }
     }
 
+    /** Separators for use in extra values and preferences. Notably cannot be = and , as they are already used in extra values */
+    public static final class Separators {
+        /** key-value separator (to be used in subtype extra values) */
+        public static final String KV = ":";
+        /** separator between entries that might be key-value pairs (to be used in subtype extra values) */
+        public static final String ENTRY = "|";
+        /** separator between sets of entries (to be used for storing data for additional subtypes) */
+        public static final String SET = "§";
+        /** separator for sets (to be used for storing multiple extra additional subtypes in prefs) */
+        public static final String SETS = ";";
+    }
+
     public static final class TextUtils {
         /**
          * Capitalization mode for {@link android.text.TextUtils#getCapsMode}: don't capitalize

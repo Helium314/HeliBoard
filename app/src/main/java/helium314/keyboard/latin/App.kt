@@ -8,6 +8,7 @@ import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Defaults
@@ -350,7 +351,8 @@ fun checkVersionUpgrade(context: Context) {
             }
         }
         if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES))
-            prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.replace(":", "§")).apply()
+            prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
+                .replace(":", Separators.SET)).apply()
     }
     if (oldVersion <= 2304) {
         // rename layout files for latin scripts, and adjust layouts stored in prefs accordingly
@@ -371,6 +373,23 @@ fun checkVersionUpgrade(context: Context) {
                 if (it.name in value)
                     prefs.edit().putString(key, value.replace(it.name, newFile.name)).apply()
             }
+        }
+    }
+    if (oldVersion <= 2305) {
+        (prefs.all.keys.filter { it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) || it.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER) } +
+                listOf(Settings.PREF_TOOLBAR_KEYS, Settings.PREF_PINNED_TOOLBAR_KEYS, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS)).forEach {
+            if (!prefs.contains(it)) return@forEach
+            val newValue = prefs.getString(it, "")!!.replace(",", Separators.KV).replace(";", Separators.ENTRY)
+            prefs.edit().putString(it, newValue).apply()
+        }
+        listOf(Settings.PREF_ENABLED_SUBTYPES, Settings.PREF_SELECTED_SUBTYPE, Settings.PREF_ADDITIONAL_SUBTYPES).forEach {
+            if (!prefs.contains(it)) return@forEach
+            val value = prefs.getString(it, "")!!.replace(":", Separators.SET)
+            prefs.edit().putString(it, value).apply()
+        }
+        prefs.all.keys.filter { it.startsWith(Settings.PREF_SECONDARY_LOCALES_PREFIX) }.forEach {
+            val newValue = prefs.getString(it, "")!!.replace(";", Separators.KV)
+            prefs.edit().putString(it, newValue).apply()
         }
     }
     upgradeToolbarPrefs(prefs)

@@ -13,6 +13,7 @@ import androidx.core.content.edit
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
@@ -57,8 +58,8 @@ fun getMatchingLayoutSetNameForLocale(locale: Locale): String {
 fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
     require(initialized)
     val subtypeString = newSubtype.prefString()
-    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(SUBTYPE_SEPARATOR)
-    val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(SUBTYPE_SEPARATOR)
+    val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
+    val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(Separators.SETS)
     prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
     if (newSubtype !in enabledSubtypes) {
@@ -185,14 +186,14 @@ private fun InputMethodSubtype.prefString(): String {
         @Suppress("deprecation") // it's debug logging, better get all information
         Log.e(TAG, "unknown language, should not happen ${locale}, $languageTag, $extraValue, ${hashCode()}, $nameResId")
     }
-    return locale().toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + SubtypeLocaleUtils.getMainLayoutName(this)
+    return locale().toLanguageTag() + Separators.SET + SubtypeLocaleUtils.getMainLayoutName(this)
 }
 
 private fun String.toLocaleAndLayout(): Pair<Locale, String> =
-    substringBefore(LOCALE_LAYOUT_SEPARATOR).constructLocale() to substringAfter(LOCALE_LAYOUT_SEPARATOR)
+    substringBefore(Separators.SET).constructLocale() to substringAfter(Separators.SET)
 
 private fun Pair<Locale, String>.prefString() =
-    first.toLanguageTag() + LOCALE_LAYOUT_SEPARATOR + second
+    first.toLanguageTag() + Separators.SET + second
 
 private fun loadResourceSubtypes(resources: Resources) {
     val xml = resources.getXml(R.xml.method)
@@ -255,7 +256,7 @@ private fun loadAdditionalSubtypes(prefs: SharedPreferences) {
 private fun loadEnabledSubtypes(context: Context) {
     val prefs = context.prefs()
     val subtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-        .split(SUBTYPE_SEPARATOR).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
+        .split(Separators.SETS).filter { it.isNotEmpty() }.map { it.toLocaleAndLayout() }
 
     for (localeAndLayout in subtypeStrings) {
         val subtypesForLocale = resourceSubtypesByLocale[localeAndLayout.first]
@@ -287,7 +288,7 @@ private fun loadEnabledSubtypes(context: Context) {
 
 private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String) {
     val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-    val newString = (oldSubtypeString.split(SUBTYPE_SEPARATOR) - subtypeString).joinToString(SUBTYPE_SEPARATOR)
+    val newString = (oldSubtypeString.split(Separators.SETS) - subtypeString).joinToString(Separators.SETS)
     if (newString == oldSubtypeString)
         return // already removed
     prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
@@ -310,7 +311,4 @@ private val resourceSubtypesByLocale = LinkedHashMap<Locale, MutableList<InputMe
 private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
 private val systemLocales = mutableListOf<Locale>()
 private val systemSubtypes = mutableListOf<InputMethodSubtype>()
-
-private const val SUBTYPE_SEPARATOR = ";"
-private const val LOCALE_LAYOUT_SEPARATOR = ":"
 private const val TAG = "SubtypeSettings"

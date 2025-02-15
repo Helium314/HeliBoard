@@ -7,11 +7,11 @@ import android.util.TypedValue
 import android.view.Gravity
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.BuildConfig
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LABEL_DEFAULT
 import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
@@ -73,10 +73,9 @@ object Defaults {
     const val PREF_LANGUAGE_SWITCH_KEY = "internal"
     const val PREF_SHOW_EMOJI_KEY = false
     const val PREF_VARIABLE_TOOLBAR_DIRECTION = true
-    private const val ls = SubtypeUtilsAdditional.LOCALE_AND_EXTRA_SEPARATOR
-    private const val subs = SubtypeUtilsAdditional.PREF_SUBTYPE_SEPARATOR
-    const val PREF_ADDITIONAL_SUBTYPES = "de${ls}qwerty${ls}AsciiCapable${subs}" +
-            "fr${ls}qwertz:${ls}AsciiCapable${subs}hu${ls}qwerty${ls}AsciiCapable"
+    const val PREF_ADDITIONAL_SUBTYPES = "de${Separators.SET}qwerty${Separators.SET}AsciiCapable${Separators.SETS}" +
+            "fr${Separators.SET}qwertz${Separators.SET}AsciiCapable${Separators.SETS}" +
+            "hu${Separators.SET}qwerty${Separators.SET}AsciiCapable"
     const val PREF_ENABLE_SPLIT_KEYBOARD = false
     const val PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = false
     const val PREF_SPLIT_SPACER_SCALE = SettingsValues.DEFAULT_SIZE_SCALE

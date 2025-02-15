@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -16,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
@@ -34,13 +34,13 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
     if (showDialog) {
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
-        val items = prefs.getString(setting.key, default)!!.split(";").mapTo(ArrayList()) {
-            val both = it.split(",")
+        val items = prefs.getString(setting.key, default)!!.split(Separators.ENTRY).mapTo(ArrayList()) {
+            val both = it.split(Separators.KV)
             KeyAndState(both.first(), both.last().toBoolean())
         }
         ReorderDialog(
             onConfirmed = { reorderedItems ->
-                val value = reorderedItems.joinToString(";") { it.name + "," + it.state }
+                val value = reorderedItems.joinToString(Separators.ENTRY) { it.name + Separators.KV + it.state }
                 prefs.edit().putString(setting.key, value).apply()
                 keyboardNeedsReload = true
             },
