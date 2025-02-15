@@ -181,7 +181,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
 }
 
 @Composable
-fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String) {
+private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean, isUser: Boolean, targetScreen: String, prefKey: String) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     Row(
@@ -217,6 +217,7 @@ fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected: Boolean
             IconButton(
                 onClick = {
                     onDismissRequest()
+                    // todo: maybe no need to set it as default when using the navigation specials
                     prefs.edit().putString(prefKey, item).apply()
                     SettingsDestination.navigateTo(targetScreen)
                     keyboardNeedsReload = true
@@ -272,7 +273,7 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
 
 @Preview
 @Composable
-private fun PreviewListPickerDialog() {
+private fun Preview() {
     ColorThemePickerDialog(
         onDismissRequest = {},
         setting = Setting(LocalContext.current, "", R.string.settings) {},

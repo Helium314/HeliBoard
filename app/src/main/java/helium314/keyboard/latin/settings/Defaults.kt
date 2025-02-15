@@ -41,7 +41,7 @@ object Defaults {
         LayoutType.PHONE -> "phone"
         LayoutType.PHONE_SYMBOLS -> "phone_symbols"
         LayoutType.EMOJI_BOTTOM -> "emoji_bottom_row"
-        LayoutType.CLIPBOARD_BOTTOM -> "clipboard_bottom_row"
+        LayoutType.CLIPBOARD_BOTTOM -> "clip_bottom_row"
     }
 
     const val PREF_THEME_STYLE = KeyboardTheme.STYLE_MATERIAL

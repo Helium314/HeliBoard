@@ -987,6 +987,8 @@ New dictionary:
     <string name="customize_icons">Customize icons</string>
     <!-- Confirmation message when resetting all custom icons -->
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
-    <!-- Confirmation message when deleting a something (used for custom colors) -->
+    <!-- Confirmation message when deleting a something (currently used for custom colors) -->
     <string name="delete_confirmation">Really delete %s?</string>
+    <!-- Message when chosen name is invalid (empty or already taked) -->
+    <string name="name_invalid">Invalid name</string>
 </resources>

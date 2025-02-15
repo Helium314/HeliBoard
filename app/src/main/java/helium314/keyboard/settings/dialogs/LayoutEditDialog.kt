@@ -3,7 +3,9 @@ package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,50 +14,78 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.checkLayout
 import helium314.keyboard.latin.utils.getCustomLayoutFile
-import helium314.keyboard.latin.utils.getLayoutDisplayName
+import helium314.keyboard.latin.utils.getCustomLayoutDisplayName
+import helium314.keyboard.latin.utils.getCustomLayoutName
+import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.isCustomLayout
 import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+// todo: make it wider!
+//  maybe make it a completely separate dialog, not even using the 3-button thing?
+//  though we could provide with parameter, and maybe some sort of reduce-padding option
 @Composable
 fun LayoutEditDialog(
     onDismissRequest: () -> Unit,
-    layoutName: String,
+    layoutType: LayoutType,
+    initialLayoutName: String,
     startContent: String? = null,
-    displayName: String? = null
+    isNameValid: (String) -> Boolean
 ) {
     val ctx = LocalContext.current
-    val file = getCustomLayoutFile(layoutName, ctx)
     val scope = rememberCoroutineScope()
     var job: Job? = null
-    var showDeleteConfirmation by rememberSaveable { mutableStateOf(false) }
+    val startIsCustom = isCustomLayout(initialLayoutName)
+    var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(
+            if (startIsCustom) getCustomLayoutDisplayName(initialLayoutName)
+            else initialLayoutName.getStringResourceOrName("layout_", ctx)
+        ))
+    }
+    val nameValid = displayNameValue.text.isNotBlank()
+            && (
+                (startIsCustom && getCustomLayoutName(displayNameValue.text) == initialLayoutName)
+                || isNameValid(getCustomLayoutName(displayNameValue.text))
+            )
+
     TextInputDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            job?.cancel()
+            onDismissRequest()
+        },
         onConfirmed = {
-            file.parentFile?.mkdir()
-            file.writeText(it)
+            val newLayoutName = getCustomLayoutName(displayNameValue.text)
+            if (startIsCustom && initialLayoutName != newLayoutName)
+                getCustomLayoutFile(initialLayoutName, layoutType, ctx).delete()
+            getCustomLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
             onCustomLayoutFileListChanged()
             keyboardNeedsReload = true
         },
         confirmButtonText = stringResource(R.string.save),
-        neutralButtonText = if (displayName != null && file.exists()) stringResource(R.string.delete) else null,
-        onNeutral = {
-            if (!file.exists()) return@TextInputDialog
-            file.delete()
-            onCustomLayoutFileListChanged()
-            keyboardNeedsReload = true
-        },
-        initialText = startContent ?: file.readText(),
+        initialText = startContent ?: getCustomLayoutFile(initialLayoutName, layoutType, ctx).readText(),
         singleLine = false,
-        title = { Text(displayName ?: getLayoutDisplayName(layoutName)) },
+        title = {
+            TextField(
+                value = displayNameValue,
+                onValueChange = { displayNameValue = it },
+                isError = !nameValid,
+                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
+                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
+//                textStyle = MaterialTheme.typography.titleMedium, // todo: only makes it a tiny bit smaller, find a better way
+            )
+        },
         checkTextValid = {
             val valid = checkLayout(it, ctx)
             job?.cancel()
@@ -68,23 +98,12 @@ fun LayoutEditDialog(
                     Toast.makeText(ctx, ctx.getString(R.string.layout_error, message), Toast.LENGTH_LONG).show()
                 }
             }
-            valid
+            valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
         modifier = Modifier.imePadding(),
         // decorFitsSystemWindows = false is necessary so the dialog is not covered by keyboard
         // but this also stops the background from being darkened... great idea to combine both
+        // todo: also it results in an ugly effect when adding a new layout... need to find something else
         properties = DialogProperties(decorFitsSystemWindows = false)
     )
-    if (showDeleteConfirmation)
-        ConfirmationDialog(
-            onDismissRequest = { showDeleteConfirmation = false },
-            onConfirmed = {
-                onDismissRequest()
-                file.delete()
-                onCustomLayoutFileListChanged()
-                keyboardNeedsReload = true
-            },
-            text = { Text(stringResource(R.string.delete_layout, displayName ?: "")) },
-            confirmButtonText = stringResource(R.string.delete)
-        )
 }

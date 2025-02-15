@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.InputType
-import android.view.inputmethod.InputMethodSubtype
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
@@ -25,6 +24,8 @@ import java.io.File
 import java.io.IOException
 import java.math.BigInteger
 import java.util.EnumMap
+
+// todo: object like LayoutUtils
 
 fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
     if (uri == null)
@@ -175,13 +176,22 @@ fun onCustomLayoutFileListChanged() {
 
 private fun getCustomLayoutsDir(context: Context) = File(DeviceProtectedUtils.getFilesDir(context), "layouts")
 
-// undo the name changes in loadCustomLayout when clicking ok
-fun getLayoutDisplayName(layoutName: String) =
+fun getCustomLayoutDisplayName(layoutName: String) =
     try {
-        decodeBase36(layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).substringAfter(".").substringBeforeLast("."))
+        decodeBase36(layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).substringBeforeLast("."))
     } catch (_: NumberFormatException) {
         layoutName
     }
+
+fun getCustomLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
+
+fun isCustomLayout(layoutName: String) = layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
+
+fun getCustomLayoutFile(layoutName: String, layoutType: LayoutType, context: Context): File {
+    val file = File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder + layoutName)
+    file.parentFile?.mkdirs()
+    return file
+}
 
 fun removeCustomLayoutFile(layoutName: String, context: Context) {
     getCustomLayoutFile(layoutName, context).delete()
@@ -193,7 +203,7 @@ fun editCustomLayout(layoutName: String, context: Context, startContent: String?
         setText(startContent ?: file.readText())
     }
     val builder = AlertDialog.Builder(context)
-        .setTitle(getLayoutDisplayName(layoutName))
+        .setTitle(getCustomLayoutDisplayName(layoutName))
         .setView(editText)
         .setPositiveButton(R.string.save) { _, _ ->
             val content = editText.text.toString()

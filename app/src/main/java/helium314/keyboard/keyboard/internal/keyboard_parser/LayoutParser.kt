@@ -17,11 +17,10 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.TextKeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.VariationSelector
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
 import helium314.keyboard.latin.common.splitOnWhitespace
-import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.LayoutType
-import helium314.keyboard.latin.utils.LayoutType.Companion.folder
+import helium314.keyboard.latin.utils.LayoutUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getCustomLayoutFiles
 import helium314.keyboard.latin.utils.prefs
@@ -40,7 +39,7 @@ object LayoutParser {
         if (layoutType == LayoutType.FUNCTIONAL && !params.mId.isAlphaOrSymbolKeyboard)
             return mutableListOf(mutableListOf()) // no functional keys
         val layoutName = if (layoutType == LayoutType.MAIN) params.mId.mSubtype.mainLayoutName
-            else params.mId.mSubtype.layouts[layoutType] ?: Settings.getLayoutName(layoutType, context.prefs())
+            else params.mId.mSubtype.layouts[layoutType] ?: Settings.readDefaultLayoutName(layoutType, context.prefs())
         return layoutCache.getOrPut(layoutType.name + layoutName) {
             createCacheLambda(layoutType, layoutName, context)
         }(params)
@@ -105,11 +104,7 @@ object LayoutParser {
         if (layoutName.startsWith(CUSTOM_LAYOUT_PREFIX))
             getCustomLayoutFiles(layoutType, context)
                 .firstOrNull { it.name.startsWith(layoutName) }?.let { return it.readText() }
-        val layouts = context.assets.list(layoutType.folder)!!
-        layouts.firstOrNull { it.startsWith("$layoutName.") }
-            ?.let { return context.assets.open(layoutType.folder + it).reader().readText() }
-        val fallback = layouts.first { it.startsWith(layoutType.default) } // must exist!
-        return context.assets.open(layoutType.folder + fallback).reader().readText()
+        return LayoutUtils.getContent(layoutType, layoutName, context)
     }
 
     // allow commenting lines by starting them with "//"

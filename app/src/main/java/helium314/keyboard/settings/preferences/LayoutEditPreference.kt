@@ -14,7 +14,7 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.LayoutEditDialog
 import helium314.keyboard.settings.dialogs.ListPickerDialog
 import java.io.File
-
+/*
 @Composable
 fun LayoutEditPreference(
     setting: Setting,
@@ -57,3 +57,4 @@ fun LayoutEditPreference(
         )
     }
 }
+*/

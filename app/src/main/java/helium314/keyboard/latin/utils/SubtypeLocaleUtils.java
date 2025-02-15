@@ -266,8 +266,8 @@ public final class SubtypeLocaleUtils {
 
     @Nullable
     public static String getKeyboardLayoutSetDisplayName(@NonNull final String layoutName) {
-        if (layoutName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX))
-            return CustomLayoutUtilsKt.getLayoutDisplayName(layoutName);
+        if (LayoutUtilsCustomKt.isCustomLayout(layoutName))
+            return LayoutUtilsCustomKt.getCustomLayoutDisplayName(layoutName);
         return sKeyboardLayoutToDisplayNameMap.get(layoutName);
     }
 

@@ -22,6 +22,8 @@ import helium314.keyboard.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
 import java.util.*
 
+// todo: move some parts, to subtypeUtils, and only keep actual settings?
+
 /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
  *  subtypes for system locales will be returned, or en-US if none found. */
 fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
@@ -147,6 +149,8 @@ fun hasMatchingSubtypeForLocale(locale: Locale): Boolean {
     require(initialized)
     return !resourceSubtypesByLocale[locale].isNullOrEmpty()
 }
+
+fun getSubtypesForLocale(locale: Locale): List<InputMethodSubtype> = resourceSubtypesByLocale[locale].orEmpty()
 
 fun getAvailableSubtypeLocales(): Collection<Locale> {
     require(initialized)

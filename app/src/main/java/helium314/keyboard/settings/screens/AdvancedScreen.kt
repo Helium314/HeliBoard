@@ -27,11 +27,6 @@ import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
-import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
@@ -47,7 +42,6 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.BackupRestorePreference
-import helium314.keyboard.settings.preferences.LayoutEditPreference
 import helium314.keyboard.settings.preferences.LoadGestureLibPreference
 
 @Composable
@@ -192,23 +186,6 @@ fun createAdvancedSettings(context: Context) = listOf(
         )
         ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
-/*    Setting(context, SettingsWithoutKey.CUSTOM_SYMBOLS_NUMBER_LAYOUTS, R.string.customize_symbols_number_layouts) { setting ->
-        LayoutEditPreference(
-            setting = setting,
-            items = RawKeyboardParser.symbolAndNumberLayouts,
-            getItemName = { it.getStringResourceOrName("layout_", LocalContext.current) },
-            getDefaultLayout = { LocalContext.current.assets.list("layouts")?.firstOrNull { it.startsWith("$it.") } }
-        )
-    },
-    Setting(context, SettingsWithoutKey.CUSTOM_FUNCTIONAL_LAYOUTS, R.string.customize_functional_key_layouts) { setting ->
-        LayoutEditPreference(
-            setting = setting,
-            items = listOf(CUSTOM_FUNCTIONAL_LAYOUT_NORMAL, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS, CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED)
-                .map { it.substringBeforeLast(".") },
-            getItemName = { it.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", LocalContext.current) },
-            getDefaultLayout = { if (Settings.getInstance().isTablet) "functional_keys_tablet.json" else "functional_keys.json" }
-        )
-    },*/ // todo: these settings are disabled for now -> remove them and use a layoutScreen instead
     Setting(context, SettingsWithoutKey.BACKUP_RESTORE, R.string.backup_restore_title) {
         BackupRestorePreference(it)
     },

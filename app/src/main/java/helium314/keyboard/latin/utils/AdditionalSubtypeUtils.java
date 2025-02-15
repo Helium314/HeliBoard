@@ -79,6 +79,7 @@ public final class AdditionalSubtypeUtils {
         return createAdditionalSubtypeInternal(locale, keyboardLayoutSetName, asciiCapable, true);
     }
 
+    // todo: adjust so we can store more stuff in extra values
     private static String getPrefSubtype(final InputMethodSubtype subtype) {
         final String keyboardLayoutSetName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
         final String layoutExtraValue = KEYBOARD_LAYOUT_SET + "=MAIN:" + keyboardLayoutSetName;
@@ -121,7 +122,7 @@ public final class AdditionalSubtypeUtils {
         final boolean asciiCapable = ScriptUtils.script(locale).equals(ScriptUtils.SCRIPT_LATIN);
         // Here we assume that all the additional subtypes are EmojiCapable
         final InputMethodSubtype subtype = createEmojiCapableAdditionalSubtype(locale, keyboardLayoutSetName, asciiCapable);
-        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !keyboardLayoutSetName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX)) {
+        if (subtype.getNameResId() == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !LayoutUtilsCustomKt.isCustomLayout(keyboardLayoutSetName)) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
             return null;

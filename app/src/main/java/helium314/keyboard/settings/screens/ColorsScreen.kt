@@ -136,7 +136,7 @@ fun ColorsScreen(
                     nameField = it
                 },
                 isError = !nameValid,
-//                supportingText = { if (!nameValid) Text("name already in use") } // this is cutting off bottom half of the actual text...
+//                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid) } // todo: this is cutting off bottom half of the actual text...
                 trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) }
             )
         },

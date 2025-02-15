@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -48,7 +49,7 @@ fun ThreeButtonAlertDialog(
         properties = properties
     ) {
         Box(
-            modifier = modifier.sizeIn(minWidth = 280.dp, maxWidth = 560.dp),
+            modifier = modifier.widthIn(min = 280.dp, max = 560.dp),
             propagateMinConstraints = true
         ) {
             Surface(

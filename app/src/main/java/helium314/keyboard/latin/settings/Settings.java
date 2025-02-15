@@ -551,8 +551,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
     }
 
-    public static String getLayoutName(final LayoutType type, final SharedPreferences prefs) {
+    // "default" layout as in this is used if nothing else is specified in the subtype
+    public static String readDefaultLayoutName(final LayoutType type, final SharedPreferences prefs) {
         return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
+    }
+
+    public static void writeDefaultLayoutName(final String name, final LayoutType type, final SharedPreferences prefs) {
+        prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
     }
 
     @Nullable
