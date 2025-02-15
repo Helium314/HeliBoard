@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.ComposeView
+import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -28,6 +28,10 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         super.onCreate(savedInstanceState)
         if (Settings.getInstance().current == null)
             Settings.init(this)
+
+        // with this the layout edit dialog is not covered by the keyboard
+        //  alterative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView.rootView) { _, insets -> insets }
 
         settingsContainer = SettingsContainer(this)
 

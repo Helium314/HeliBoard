@@ -2,7 +2,9 @@
 package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -14,10 +16,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
@@ -52,6 +54,7 @@ fun LayoutEditDialog(
                 || isNameValid(LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text))
             )
 
+    val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
     TextInputDialog(
         onDismissRequest = {
             job?.cancel()
@@ -91,11 +94,9 @@ fun LayoutEditDialog(
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
-        modifier = Modifier.imePadding(),
-        // decorFitsSystemWindows = false is necessary so the dialog is not covered by keyboard
-        // but this also stops the background from being darkened... great idea to combine both
-        // todo: also it results in an ugly effect when adding a new layout... need to find something else
-        properties = DialogProperties(decorFitsSystemWindows = false),
+        // todo: this looks weird when the text field is not covered by the keyboard, but better then not seeing the bottom part of the field...
+        modifier = Modifier.padding(bottom = with(LocalDensity.current)
+            { (WindowInsets.ime.getBottom(LocalDensity.current) / 2 + 36).toDp() }), // why is the /2 necessary?
         reducePadding = true,
     )
 }

@@ -56,38 +56,38 @@ fun ThreeButtonAlertDialog(
                 color = MaterialTheme.colorScheme.surface,
                 contentColor = contentColorFor(MaterialTheme.colorScheme.surface),
             ) {
-            Column(modifier = Modifier.padding(
-                start = if (reducePadding) 8.dp else 16.dp,
-                end = if (reducePadding) 8.dp else 16.dp,
-                top = if (reducePadding) 8.dp else 16.dp,
-                bottom = if (reducePadding) 2.dp else 6.dp
-            )) {
-                title?.let {
-                    CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleLarge) {
-                        Box(Modifier.padding(PaddingValues(bottom = if (reducePadding) 4.dp else 16.dp))) {
-                            title()
+                Column(modifier = Modifier.padding(
+                    start = if (reducePadding) 8.dp else 16.dp,
+                    end = if (reducePadding) 8.dp else 16.dp,
+                    top = if (reducePadding) 8.dp else 16.dp,
+                    bottom = if (reducePadding) 2.dp else 6.dp
+                )) {
+                    title?.let {
+                        CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleLarge) {
+                            Box(Modifier.padding(PaddingValues(bottom = if (reducePadding) 4.dp else 16.dp))) {
+                                title()
+                            }
                         }
                     }
-                }
-                text?.let {
-                    CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
-                        Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
-                            text()
+                    text?.let {
+                        CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
+                            Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
+                                text()
+                            }
                         }
                     }
-                }
-                Row {
-                    if (neutralButtonText != null)
-                        TextButton(
-                            onClick = onNeutral
-                        ) { Text(neutralButtonText) }
-                    Spacer(modifier.weight(1f))
-                    TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }
-                    if (confirmButtonText != null)
-                        TextButton(
-                            enabled = checkOk(),
-                            onClick = { onDismissRequest(); onConfirmed() },
-                        ) { Text(confirmButtonText) }
+                    Row {
+                        if (neutralButtonText != null)
+                            TextButton(
+                                onClick = onNeutral
+                            ) { Text(neutralButtonText) }
+                        Spacer(modifier.weight(1f))
+                        TextButton(onClick = onDismissRequest) { Text(cancelButtonText) }
+                        if (confirmButtonText != null)
+                            TextButton(
+                                enabled = checkOk(),
+                                onClick = { onDismissRequest(); onConfirmed() },
+                            ) { Text(confirmButtonText) }
                     }
                 }
             }
