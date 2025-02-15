@@ -101,7 +101,7 @@ object LayoutParser {
 
     private fun getLayoutFileContent(layoutType: LayoutType, layoutName: String, context: Context): String {
         if (LayoutUtilsCustom.isCustomLayout(layoutName))
-            LayoutUtilsCustom.getCustomLayoutFiles(layoutType, context)
+            LayoutUtilsCustom.getLayoutFiles(layoutType, context)
                 .firstOrNull { it.name.startsWith(layoutName) }?.let { return it.readText() }
         return LayoutUtils.getContent(layoutType, layoutName, context)
     }

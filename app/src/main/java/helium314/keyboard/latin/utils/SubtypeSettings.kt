@@ -232,7 +232,7 @@ private fun loadResourceSubtypes(resources: Resources) {
 private fun removeInvalidCustomSubtypes(context: Context) { // todo: new layout structure!
     val prefs = context.prefs()
     val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(";")
-    val customSubtypeFiles by lazy { LayoutUtilsCustom.getCustomLayoutFiles(LayoutType.MAIN, context).map { it.name } }
+    val customSubtypeFiles by lazy { LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).map { it.name } }
     val subtypesToRemove = mutableListOf<String>()
     additionalSubtypes.forEach {
         val name = it.substringAfter(":").substringBefore(":")

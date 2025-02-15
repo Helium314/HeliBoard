@@ -180,7 +180,7 @@ fun BackupRestorePreference(setting: Setting) {
         reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
-        LayoutUtilsCustom.onCustomLayoutFileListChanged()
+        LayoutUtilsCustom.onLayoutFileChanged()
         (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
         keyboardNeedsReload = true
     }

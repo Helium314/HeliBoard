@@ -50,8 +50,8 @@ fun LayoutEditDialog(
     }
     val nameValid = displayNameValue.text.isNotBlank()
             && (
-                (startIsCustom && LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text) == initialLayoutName)
-                || isNameValid(LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text))
+                (startIsCustom && LayoutUtilsCustom.getLayoutName(displayNameValue.text) == initialLayoutName)
+                || isNameValid(LayoutUtilsCustom.getLayoutName(displayNameValue.text))
             )
 
     TextInputDialog(
@@ -60,15 +60,15 @@ fun LayoutEditDialog(
             onDismissRequest()
         },
         onConfirmed = {
-            val newLayoutName = LayoutUtilsCustom.getCustomLayoutName(displayNameValue.text)
+            val newLayoutName = LayoutUtilsCustom.getLayoutName(displayNameValue.text)
             if (startIsCustom && initialLayoutName != newLayoutName)
-                LayoutUtilsCustom.getCustomLayoutFile(initialLayoutName, layoutType, ctx).delete()
-            LayoutUtilsCustom.getCustomLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
-            LayoutUtilsCustom.onCustomLayoutFileListChanged()
+                LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).delete()
+            LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
+            LayoutUtilsCustom.onLayoutFileChanged()
             keyboardNeedsReload = true
         },
         confirmButtonText = stringResource(R.string.save),
-        initialText = startContent ?: LayoutUtilsCustom.getCustomLayoutFile(initialLayoutName, layoutType, ctx).readText(),
+        initialText = startContent ?: LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).readText(),
         singleLine = false,
         title = {
             TextField(

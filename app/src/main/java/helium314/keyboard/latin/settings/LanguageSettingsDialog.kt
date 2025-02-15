@@ -100,7 +100,7 @@ class LanguageSettingsDialog(
     }
 
     private fun addSubtype(name: String) {
-        LayoutUtilsCustom.onCustomLayoutFileListChanged()
+        LayoutUtilsCustom.onLayoutFileChanged()
         val newSubtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
         val displayName = SubtypeLocaleUtils.getMainLayoutDisplayName(newSubtype)
@@ -155,7 +155,7 @@ class LanguageSettingsDialog(
             .setItems(displayNames.toTypedArray()) { di, i ->
                 di.dismiss()
                 val fileName = context.assets.list("layouts")?.firstOrNull { it.startsWith(layouts[i]) } ?: return@setItems
-                LayoutUtilsCustom.loadCustomLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
+                LayoutUtilsCustom.loadLayout(context.assets.open("layouts${File.separator}$fileName").reader().readText(),
                     displayNames[i], mainLocale.toLanguageTag(), context) { addSubtype(it) }
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -163,7 +163,7 @@ class LanguageSettingsDialog(
     }
 
     override fun onNewLayoutFile(uri: Uri?) {
-        LayoutUtilsCustom.loadCustomLayout(uri, mainLocale.toLanguageTag(), context) { addSubtype(it) }
+        LayoutUtilsCustom.loadLayout(uri, mainLocale.toLanguageTag(), context) { addSubtype(it) }
     }
 
     private fun addSubtypeToView(subtype: SubtypeInfo) {
@@ -174,7 +174,7 @@ class LanguageSettingsDialog(
                 ?: subtype.subtype.displayName(context)
         if (LayoutUtilsCustom.isCustomLayout(layoutSetName)) {
             row.findViewById<TextView>(R.id.language_details).setText(R.string.edit_layout)
-            row.findViewById<View>(R.id.language_text).setOnClickListener { LayoutUtilsCustom.editCustomLayout(layoutSetName, context) }
+            row.findViewById<View>(R.id.language_text).setOnClickListener { LayoutUtilsCustom.editLayout(layoutSetName, context) }
         } else {
             row.findViewById<View>(R.id.language_details).isGone = true
         }

@@ -19,7 +19,6 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.ToolbarKey
@@ -151,7 +150,7 @@ fun checkVersionUpgrade(context: Context) {
             Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
         }
         // rename other custom layouts
-        LayoutUtilsCustom.onCustomLayoutFileListChanged()
+        LayoutUtilsCustom.onLayoutFileChanged()
         File(DeviceProtectedUtils.getFilesDir(context), "layouts").listFiles()?.forEach {
             val newFile = getCustomLayoutFile(it.name.substringBeforeLast(".") + ".", context)
             if (newFile.name == it.name) return@forEach
@@ -355,7 +354,7 @@ fun checkVersionUpgrade(context: Context) {
     }
     if (oldVersion <= 2304) {
         // rename layout files for latin scripts, and adjust layouts stored in prefs accordingly
-        LayoutUtilsCustom.getCustomLayoutFiles(LayoutType.MAIN, context).forEach {
+        LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).forEach {
             val locale = it.name.substringAfter("custom.").substringBefore(".").constructLocale()
             if (locale.script() != SCRIPT_LATIN) return@forEach
             // change language tag to SCRIPT_LATIN, but
@@ -375,7 +374,7 @@ fun checkVersionUpgrade(context: Context) {
         }
     }
     upgradeToolbarPrefs(prefs)
-    LayoutUtilsCustom.onCustomLayoutFileListChanged() // just to be sure
+    LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
 }
 

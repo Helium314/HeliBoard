@@ -29,7 +29,7 @@ import java.util.EnumMap
 import java.util.Locale
 
 object LayoutUtilsCustom {
-    fun loadCustomLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
+    fun loadLayout(uri: Uri?, languageTag: String, context: Context, onAdded: (String) -> Unit) {
         if (uri == null)
             return infoDialog(context, context.getString(R.string.layout_error, "layout file not found"))
         val layoutContent: String
@@ -50,10 +50,10 @@ object LayoutUtilsCustom {
                     name = it.getString(idx).substringBeforeLast(".")
             }
         }
-        loadCustomLayout(layoutContent, name, languageTag, context, onAdded)
+        loadLayout(layoutContent, name, languageTag, context, onAdded)
     }
 
-    fun loadCustomLayout(layoutContent: String, layoutName: String, languageTag: String, context: Context, onAdded: (String) -> Unit) {
+    fun loadLayout(layoutContent: String, layoutName: String, languageTag: String, context: Context, onAdded: (String) -> Unit) {
         var name = layoutName
         if (!checkLayout(layoutContent, context))
             return infoDialog(context, context.getString(R.string.layout_error, "invalid layout file, ${Log.getLog(10).lastOrNull { it.tag == TAG }?.message}"))
@@ -72,7 +72,7 @@ object LayoutUtilsCustom {
             .setPositiveButton(android.R.string.ok) { _, _ ->
                 // name must be encoded to avoid issues with validity of subtype extra string or file name
                 name = "$CUSTOM_LAYOUT_PREFIX${languageTag}.${encodeBase36(name)}."
-                val file = getCustomLayoutFile(name, LayoutType.MAIN, context)
+                val file = getLayoutFile(name, LayoutType.MAIN, context)
                 if (file.exists())
                     file.delete()
                 file.parentFile?.mkdir()
@@ -151,7 +151,7 @@ object LayoutUtilsCustom {
         return true
     }
 
-    fun getCustomLayoutFiles(layoutType: LayoutType, context: Context, locale: Locale? = null): List<File> {
+    fun getLayoutFiles(layoutType: LayoutType, context: Context, locale: Locale? = null): List<File> {
         val layouts = customLayoutMap.getOrPut(layoutType) {
             File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder).listFiles()?.toList() ?: emptyList()
         }
@@ -162,7 +162,7 @@ object LayoutUtilsCustom {
         return layouts.filter { it.name.startsWith(CUSTOM_LAYOUT_PREFIX + locale.toLanguageTag() + ".") }
     }
 
-    fun onCustomLayoutFileListChanged() {
+    fun onLayoutFileChanged() {
         customLayoutMap.clear()
     }
 
@@ -175,7 +175,7 @@ object LayoutUtilsCustom {
             layoutName
         }
 
-    fun getCustomLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
+    fun getLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
 
     fun getMainLayoutName(displayName: String, locale: Locale) =
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
@@ -184,14 +184,14 @@ object LayoutUtilsCustom {
 
     fun isCustomLayout(layoutName: String) = layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
 
-    fun getCustomLayoutFile(layoutName: String, layoutType: LayoutType, context: Context): File {
+    fun getLayoutFile(layoutName: String, layoutType: LayoutType, context: Context): File {
         val file = File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder + layoutName)
         file.parentFile?.mkdirs()
         return file
     }
 
-    fun editCustomLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
-        val file = getCustomLayoutFile(layoutName, LayoutType.MAIN, context)
+    fun editLayout(layoutName: String, context: Context, startContent: String? = null, displayName: CharSequence? = null) {
+        val file = getLayoutFile(layoutName, LayoutType.MAIN, context)
         val editText = EditText(context).apply {
             setText(startContent ?: file.readText())
         }
@@ -201,12 +201,12 @@ object LayoutUtilsCustom {
             .setPositiveButton(R.string.save) { _, _ ->
                 val content = editText.text.toString()
                 if (!checkLayout(content, context)) {
-                    editCustomLayout(layoutName, context, content)
+                    editLayout(layoutName, context, content)
                     infoDialog(context, context.getString(R.string.layout_error, Log.getLog(10).lastOrNull { it.tag == TAG }?.message))
                 } else {
                     file.parentFile?.mkdir()
                     file.writeText(content)
-                    onCustomLayoutFileListChanged()
+                    onLayoutFileChanged()
                     KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                 }
             }
@@ -216,7 +216,7 @@ object LayoutUtilsCustom {
                 builder.setNeutralButton(R.string.delete) { _, _ ->
                     confirmDialog(context, context.getString(R.string.delete_layout, displayName), context.getString(R.string.delete)) {
                         file.delete()
-                        onCustomLayoutFileListChanged()
+                        onLayoutFileChanged()
                         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
                     }
                 }
@@ -230,5 +230,4 @@ object LayoutUtilsCustom {
     const val CUSTOM_LAYOUT_PREFIX = "custom."
     private const val TAG = "LayoutUtilsCustom"
     private val customLayoutMap = EnumMap<LayoutType, List<File>>(LayoutType::class.java)
-
 }

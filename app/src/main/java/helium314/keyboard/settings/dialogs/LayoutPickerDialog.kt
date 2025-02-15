@@ -68,7 +68,7 @@ fun LayoutPickerDialog(
     val currentLayout = Settings.readDefaultLayoutName(layoutType, prefs)
     val internalLayouts = LayoutUtils.getAvailableLayouts(layoutType, ctx)
     // todo: getCustomLayoutFiles does not work nicely for main layout, but currently this dialog is not used for them
-    val customLayouts = LayoutUtilsCustom.getCustomLayoutFiles(layoutType, ctx).map { it.name }.sorted()
+    val customLayouts = LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).map { it.name }.sorted()
     val layouts = internalLayouts + customLayouts + ""
 
     val state = rememberLazyListState()
@@ -125,8 +125,8 @@ fun LayoutPickerDialog(
                                         prefs.edit().remove(Settings.PREF_LAYOUT_PREFIX + layoutType.name).apply()
                                         keyboardNeedsReload = true
                                     }
-                                    LayoutUtilsCustom.getCustomLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
-                                    LayoutUtilsCustom.onCustomLayoutFileListChanged()
+                                    LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
+                                    LayoutUtilsCustom.onLayoutFileChanged()
                                 },
                                 layoutType = layoutType,
                                 layoutName = item,
@@ -167,7 +167,7 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<
             singleLine = true
         )
         IconButton(
-            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getCustomLayoutName(textValue.text) !in userLayouts,
+            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text) !in userLayouts,
             onClick = { onNewLayout(textValue.text) }
         ) { Icon(painterResource(R.drawable.ic_edit), null) }
     }
