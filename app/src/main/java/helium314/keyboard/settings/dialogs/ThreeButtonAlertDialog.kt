@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +28,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.settings.Theme
 
-// text should be smaller, and background should be darkened
 @Composable
 fun ThreeButtonAlertDialog(
     onDismissRequest: () -> Unit,
@@ -42,6 +40,7 @@ fun ThreeButtonAlertDialog(
     confirmButtonText: String? = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
+    reducePadding: Boolean = false,
     properties: DialogProperties = DialogProperties()
 ) {
     Dialog(
@@ -57,17 +56,22 @@ fun ThreeButtonAlertDialog(
                 color = MaterialTheme.colorScheme.surface,
                 contentColor = contentColorFor(MaterialTheme.colorScheme.surface),
             ) {
-            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 6.dp)) {
+            Column(modifier = Modifier.padding(
+                start = if (reducePadding) 8.dp else 16.dp,
+                end = if (reducePadding) 8.dp else 16.dp,
+                top = if (reducePadding) 8.dp else 16.dp,
+                bottom = if (reducePadding) 2.dp else 6.dp
+            )) {
                 title?.let {
                     CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleLarge) {
-                        Box(Modifier.padding(PaddingValues(bottom = 16.dp))) {
+                        Box(Modifier.padding(PaddingValues(bottom = if (reducePadding) 4.dp else 16.dp))) {
                             title()
                         }
                     }
                 }
                 text?.let {
                     CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
-                        Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = 8.dp)) {
+                        Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
                             text()
                         }
                     }

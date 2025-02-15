@@ -28,9 +28,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-// todo: make it wider!
-//  maybe make it a completely separate dialog, not even using the 3-button thing?
-//  though we could provide with parameter, and maybe some sort of reduce-padding option
 @Composable
 fun LayoutEditDialog(
     onDismissRequest: () -> Unit,
@@ -78,7 +75,6 @@ fun LayoutEditDialog(
                 isError = !nameValid,
                 supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
                 trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
-//                textStyle = MaterialTheme.typography.titleMedium, // todo: only makes it a tiny bit smaller, find a better way
             )
         },
         checkTextValid = {
@@ -99,6 +95,7 @@ fun LayoutEditDialog(
         // decorFitsSystemWindows = false is necessary so the dialog is not covered by keyboard
         // but this also stops the background from being darkened... great idea to combine both
         // todo: also it results in an ugly effect when adding a new layout... need to find something else
-        properties = DialogProperties(decorFitsSystemWindows = false)
+        properties = DialogProperties(decorFitsSystemWindows = false),
+        reducePadding = true,
     )
 }

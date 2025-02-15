@@ -38,6 +38,7 @@ fun TextInputDialog(
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
     properties: DialogProperties = DialogProperties(),
+    reducePadding: Boolean = false,
     checkTextValid: (text: String) -> Boolean = { it.isNotBlank() }
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -77,7 +78,8 @@ fun TextInputDialog(
                 singleLine = singleLine
             )
         },
-        properties = properties
+        properties = properties,
+        reducePadding = reducePadding,
     )
 }
 
