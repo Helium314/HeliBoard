@@ -25,7 +25,7 @@ import helium314.keyboard.settings.dialogs.LayoutPickerDialog
 import helium314.keyboard.settings.preferences.Preference
 
 @Composable
-fun LayoutScreen(
+fun SecondaryLayoutScreen(
     onClickBack: () -> Unit,
 ) {
     // todo: enable main layouts

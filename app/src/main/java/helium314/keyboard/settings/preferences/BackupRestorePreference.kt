@@ -134,8 +134,11 @@ fun BackupRestorePreference(setting: Setting) {
                 ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use { inputStream ->
                     ZipInputStream(inputStream).use { zip ->
                         var entry: ZipEntry? = zip.nextEntry
-                        val filesDir = ctx.filesDir?.path ?: return@execute
-                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx).path
+                        val filesDir = ctx.filesDir ?: return@execute
+                        val deviceProtectedFilesDir = DeviceProtectedUtils.getFilesDir(ctx)
+                        filesDir.deleteRecursively()
+                        deviceProtectedFilesDir.deleteRecursively()
+                        LayoutUtilsCustom.onLayoutFileChanged()
                         Settings.getInstance().stopListener()
                         while (entry != null) {
                             if (entry.name.startsWith("unprotected${File.separator}")) {

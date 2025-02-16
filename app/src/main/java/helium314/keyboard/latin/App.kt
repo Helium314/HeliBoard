@@ -252,6 +252,7 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion <= 2303) {
         File(DeviceProtectedUtils.getFilesDir(context), "layouts").listFiles()?.forEach { file ->
             val folder = DeviceProtectedUtils.getFilesDir(context)
+            if (file.isDirectory) return@forEach
             when (file.name) {
                 "custom.symbols." -> {
                     val dir = File(folder, LayoutType.SYMBOLS.folder)
