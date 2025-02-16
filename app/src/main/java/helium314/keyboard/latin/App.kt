@@ -82,21 +82,20 @@ fun checkVersionUpgrade(context: Context) {
         if (oldShiftSymbolsFile.exists()) {
             oldShiftSymbolsFile.renameTo(getCustomLayoutFile("custom.symbols_shifted", context))
         }
-
-        // rename subtype setting, and clean old subtypes that might remain in some cases
-        val subtypesPref = prefs.getString("enabled_input_styles", "")!!
-            .split(";").filter { it.isNotEmpty() }
-            .map {
-                val localeAndLayout = it.split(":").toMutableList()
-                localeAndLayout[0] = localeAndLayout[0].constructLocale().toLanguageTag()
-                localeAndLayout.joinToString(":")
-            }.toSet().joinToString(";")
-        val selectedSubtype = prefs.getString("selected_input_style", "")
-        prefs.edit {
-            remove("enabled_input_styles")
-            putString(Settings.PREF_ENABLED_SUBTYPES, subtypesPref)
-            remove("selected_input_style")
-            putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype)
+        if (prefs.contains("enabled_input_styles")) {
+            // rename subtype setting, and clean old subtypes that might remain in some cases
+            val subtypesPref = prefs.getString("enabled_input_styles", "")!!
+                .split(";").filter { it.isNotEmpty() }
+                .map {
+                    val localeAndLayout = it.split(":").toMutableList()
+                    localeAndLayout[0] = localeAndLayout[0].constructLocale().toLanguageTag()
+                    localeAndLayout.joinToString(":")
+                }.toSet().joinToString(";")
+            prefs.edit().remove("enabled_input_styles").putString(Settings.PREF_ENABLED_SUBTYPES, subtypesPref).apply()
+        }
+        if (prefs.contains("selected_input_style")) {
+            val selectedSubtype = prefs.getString("selected_input_style", "")
+            prefs.edit().remove("selected_input_style").putString(Settings.PREF_SELECTED_SUBTYPE, selectedSubtype).apply()
         }
     }
     if (oldVersion <= 2000) {
@@ -529,12 +528,14 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
         prefs.edit().remove("spellcheck_use_contacts").apply()
     }
     // upgrade additional subtype locale strings
-    val additionalSubtypes = mutableListOf<String>()
-    prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(";").forEach {
-        val localeString = it.substringBefore(":")
-        additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
+    if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES)) {
+        val additionalSubtypes = mutableListOf<String>()
+        prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(";").forEach {
+            val localeString = it.substringBefore(":")
+            additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
+        }
+        Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
     }
-    Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
     // move pinned clips to credential protected storage if device is not locked (should never happen)
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
     try {
