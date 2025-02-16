@@ -34,7 +34,7 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
     if (showDialog) {
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
-        val items = prefs.getString(setting.key, default)!!.split(Separators.ENTRY).mapTo(ArrayList()) {
+        val items = prefs.getString(setting.key, default)!!.split(Separators.ENTRY).map {
             val both = it.split(Separators.KV)
             KeyAndState(both.first(), both.last().toBoolean())
         }
@@ -54,7 +54,9 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     KeyboardIconsSet.instance.GetIcon(item.name)
                     val text = item.name.lowercase().getStringResourceOrName("", ctx)
-                    Text(text, Modifier.weight(1f))
+                    val actualText = if (text != item.name.lowercase()) text
+                        else item.name.lowercase().getStringResourceOrName("popup_keys_", ctx)
+                    Text(actualText, Modifier.weight(1f))
                     Switch(
                         checked = checked,
                         onCheckedChange = { item.state = it; checked = it }

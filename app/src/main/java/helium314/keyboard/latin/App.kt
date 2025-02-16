@@ -447,6 +447,13 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().putString(key, new).apply()
         }
     }
+    if (oldVersion <= 2307) {
+        prefs.all.keys.forEach {
+            if (!it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) && !it.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER))
+                return@forEach
+            prefs.edit().putString(it, prefs.getString(it, "")!!.replace("popup_keys_", "")).apply()
+        }
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

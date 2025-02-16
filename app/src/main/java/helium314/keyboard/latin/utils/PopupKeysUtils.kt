@@ -9,11 +9,11 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlL
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
 import helium314.keyboard.latin.common.Constants.Separators
 
-const val POPUP_KEYS_NUMBER = "popup_keys_number"
-private const val POPUP_KEYS_LANGUAGE_PRIORITY = "popup_keys_language_priority"
-const val POPUP_KEYS_LAYOUT = "popup_keys_layout"
-private const val POPUP_KEYS_SYMBOLS = "popup_keys_symbols"
-private const val POPUP_KEYS_LANGUAGE = "popup_keys_language"
+const val POPUP_KEYS_NUMBER = "number"
+private const val POPUP_KEYS_LANGUAGE_PRIORITY = "language_priority"
+const val POPUP_KEYS_LAYOUT = "layout"
+private const val POPUP_KEYS_SYMBOLS = "symbols"
+private const val POPUP_KEYS_LANGUAGE = "language"
 const val POPUP_KEYS_LABEL_DEFAULT = POPUP_KEYS_NUMBER + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_LANGUAGE_PRIORITY +
         Separators.KV + false + Separators.ENTRY + POPUP_KEYS_LAYOUT + Separators.KV + true + Separators.ENTRY +
         POPUP_KEYS_SYMBOLS + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_LANGUAGE + Separators.KV + false
