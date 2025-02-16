@@ -46,10 +46,10 @@ object SubtypeUtilsAdditional {
     }
 
     fun createDummyAdditionalSubtype(locale: Locale, mainLayoutName: String) =
-        createAdditionalSubtype(locale, "MAIN${Separators.KV}$mainLayoutName", false, false)
+        createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", false, false)
 
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
-        createAdditionalSubtype(locale, "MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
+        createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
 
     fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
