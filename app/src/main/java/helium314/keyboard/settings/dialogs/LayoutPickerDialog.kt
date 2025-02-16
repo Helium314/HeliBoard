@@ -167,7 +167,7 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<
             singleLine = true
         )
         IconButton(
-            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text) !in userLayouts,
+            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getSecondaryLayoutName(textValue.text) !in userLayouts,
             onClick = { onNewLayout(textValue.text) }
         ) { Icon(painterResource(R.drawable.ic_edit), null) }
     }
@@ -206,7 +206,7 @@ private fun LayoutItemRow(
             }
         )
         Text(
-            text = if (isCustom) LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutName)
+            text = if (isCustom) LayoutUtilsCustom.getDisplayName(layoutName)
                 else layoutName.getStringResourceOrName("layout_", ctx),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f),
@@ -219,7 +219,7 @@ private fun LayoutItemRow(
             if (showDeleteDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutName))) },
+                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false

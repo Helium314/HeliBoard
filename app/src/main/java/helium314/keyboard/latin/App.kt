@@ -9,6 +9,7 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants.Separators
+import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Defaults
@@ -22,8 +23,14 @@ import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.SettingsSubtype
+import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
+import helium314.keyboard.latin.utils.getResourceSubtypes
+import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
@@ -361,7 +368,7 @@ fun checkVersionUpgrade(context: Context) {
             if (locale.script() != SCRIPT_LATIN) return@forEach
             // change language tag to SCRIPT_LATIN, but
             //  avoid overwriting if 2 layouts have a different language tag, but the same name
-            val layoutDisplayName = LayoutUtilsCustom.getSecondaryLayoutDisplayName(it.name)
+            val layoutDisplayName = LayoutUtilsCustom.getDisplayName(it.name)
             var newFile = File(it.parentFile!!, LayoutUtilsCustom.getMainLayoutName(layoutDisplayName, locale))
             var i = 1
             while (newFile.exists()) // make sure name is not already in use, e.g. custom.en.abcd. and custom.it.abcd. would both be custom.Latn.abcd
@@ -390,6 +397,54 @@ fun checkVersionUpgrade(context: Context) {
         prefs.all.keys.filter { it.startsWith(Settings.PREF_SECONDARY_LOCALES_PREFIX) }.forEach {
             val newValue = prefs.getString(it, "")!!.replace(";", Separators.KV)
             prefs.edit().putString(it, newValue).apply()
+        }
+    }
+    if (oldVersion <= 2306) {
+        // upgrade additional, enabled, and selected subtypes to same format of locale and (filtered) extra value
+        if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES)) {
+            val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(Separators.SETS).mapNotNull { pref ->
+                val oldSplit = pref.split(Separators.SET)
+                val languageTag = oldSplit[0]
+                val mainLayoutName = oldSplit[1]
+                val extraValue = oldSplit[2]
+                SettingsSubtype(
+                    languageTag.constructLocale(),
+                    ExtraValue.KEYBOARD_LAYOUT_SET + "=MAIN" + Separators.KV + mainLayoutName + "," + extraValue
+                ).toAdditionalSubtype()?.let { it.toSettingsSubtype().toPref() }
+            }.joinToString(Separators.SETS)
+            prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new).apply()
+        }
+        listOf(Settings.PREF_ENABLED_SUBTYPES, Settings.PREF_SELECTED_SUBTYPE).forEach { key ->
+            if (!prefs.contains(key)) return@forEach
+            val resourceSubtypes = getResourceSubtypes(context.resources)
+            val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+            val additionalSubtypes = SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypeString)
+            val new = prefs.getString(key, "")!!.split(Separators.SETS).joinToString(Separators.SETS) { pref ->
+                val oldSplit = pref.split(Separators.SET)
+                val languageTag = oldSplit[0]
+                val mainLayoutName = oldSplit[1]
+                // we now need more information than just locale and main layout name, get it from existing subtypes
+                val filtered = additionalSubtypes.filter {
+                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                }
+                if (filtered.isNotEmpty())
+                    return@joinToString filtered.first().toSettingsSubtype().toPref()
+                // find best matching resource subtype
+                val goodMatch = resourceSubtypes.filter {
+                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                }
+                if (goodMatch.isNotEmpty())
+                    return@joinToString goodMatch.first().toSettingsSubtype().toPref()
+                // not sure how we can get here, but better deal with it
+                val okMatch = resourceSubtypes.filter {
+                    it.locale().language == languageTag.constructLocale().language && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                }
+                if (okMatch.isNotEmpty())
+                    okMatch.first().toSettingsSubtype().toPref()
+                else resourceSubtypes.first { it.locale().language == languageTag.constructLocale().language }
+                    .toSettingsSubtype().toPref()
+            }
+            prefs.edit().putString(key, new).apply()
         }
     }
     upgradeToolbarPrefs(prefs)

@@ -166,7 +166,7 @@ object LayoutUtilsCustom {
         customLayoutMap.clear()
     }
 
-    fun getSecondaryLayoutDisplayName(layoutName: String) =
+    fun getDisplayName(layoutName: String) =
         try {
             if (layoutName.count { it == '.' } == 3) // main layout: "custom.<locale or script>.<name>.", other: custom.<name>.
                 decodeBase36(layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).substringAfter(".").substringBeforeLast("."))
@@ -175,7 +175,7 @@ object LayoutUtilsCustom {
             layoutName
         }
 
-    fun getLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
+    fun getSecondaryLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
 
     fun getMainLayoutName(displayName: String, locale: Locale) =
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
@@ -196,7 +196,7 @@ object LayoutUtilsCustom {
             setText(startContent ?: file.readText())
         }
         val builder = AlertDialog.Builder(context)
-            .setTitle(getSecondaryLayoutDisplayName(layoutName))
+            .setTitle(getDisplayName(layoutName))
             .setView(editText)
             .setPositiveButton(R.string.save) { _, _ ->
                 val content = editText.text.toString()

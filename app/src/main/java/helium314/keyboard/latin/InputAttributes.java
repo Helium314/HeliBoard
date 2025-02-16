@@ -8,10 +8,10 @@ package helium314.keyboard.latin;
 
 import android.os.Build;
 import android.text.InputType;
-import helium314.keyboard.latin.utils.Log;
 import android.view.inputmethod.EditorInfo;
 
-import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.common.StringUtilsKt;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 
 import java.util.ArrayList;
@@ -256,10 +256,9 @@ public final class InputAttributes {
                 mTargetApplicationPackageName);
     }
 
-    public static boolean inPrivateImeOptions(final String packageName, final String key,
-            final EditorInfo editorInfo) {
+    public static boolean inPrivateImeOptions(final String packageName, final String key, final EditorInfo editorInfo) {
         if (editorInfo == null) return false;
         final String findingKey = (packageName != null) ? packageName + "." + key : key;
-        return StringUtils.containsInCommaSplittableText(findingKey, editorInfo.privateImeOptions);
+        return StringUtilsKt.containsValueWhenSplit(editorInfo.privateImeOptions, findingKey, ",");
     }
 }

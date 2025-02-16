@@ -44,14 +44,14 @@ fun LayoutEditDialog(
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
-            if (startIsCustom) LayoutUtilsCustom.getSecondaryLayoutDisplayName(initialLayoutName)
+            if (startIsCustom) LayoutUtilsCustom.getDisplayName(initialLayoutName)
             else initialLayoutName.getStringResourceOrName("layout_", ctx)
         ))
     }
     val nameValid = displayNameValue.text.isNotBlank()
             && (
-                (startIsCustom && LayoutUtilsCustom.getLayoutName(displayNameValue.text) == initialLayoutName)
-                || isNameValid(LayoutUtilsCustom.getLayoutName(displayNameValue.text))
+                (startIsCustom && LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text) == initialLayoutName)
+                || isNameValid(LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text))
             )
 
     TextInputDialog(
@@ -60,7 +60,7 @@ fun LayoutEditDialog(
             onDismissRequest()
         },
         onConfirmed = {
-            val newLayoutName = LayoutUtilsCustom.getLayoutName(displayNameValue.text)
+            val newLayoutName = LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text)
             if (startIsCustom && initialLayoutName != newLayoutName)
                 LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).delete()
             LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)

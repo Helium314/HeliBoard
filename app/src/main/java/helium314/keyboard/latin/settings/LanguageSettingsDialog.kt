@@ -209,7 +209,7 @@ class LanguageSettingsDialog(
                         reloadSetting()
                     }
                     if (isCustom) {
-                        confirmDialog(context, context.getString(R.string.delete_layout, LayoutUtilsCustom.getSecondaryLayoutDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
+                        confirmDialog(context, context.getString(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutSetName)), context.getString(R.string.delete)) { delete() }
                     } else {
                         delete()
                     }

@@ -129,6 +129,11 @@ fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toSt
 
 fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
 
+fun containsValueWhenSplit(string: String?, value: String, split: String): Boolean {
+    if (string == null) return false
+    return string.split(split).contains(value)
+}
+
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
 fun isEmoji(s: CharSequence): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
