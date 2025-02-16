@@ -16,9 +16,10 @@ import helium314.keyboard.settings.screens.AppearanceScreen
 import helium314.keyboard.settings.screens.ColorsScreen
 import helium314.keyboard.settings.screens.DebugScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
-import helium314.keyboard.settings.screens.LayoutScreen
+import helium314.keyboard.settings.screens.LanguageScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
+import helium314.keyboard.settings.screens.SecondaryLayoutScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
 import kotlinx.coroutines.CoroutineScope
@@ -92,10 +93,10 @@ fun SettingsNavHost(
 //            )
         }
         composable(SettingsDestination.Languages) {
-//            LanguageScreen(onClickBack = ::goBack)
+            LanguageScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Layouts) {
-            LayoutScreen(onClickBack = ::goBack)
+            SecondaryLayoutScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Colors) {
             ColorsScreen(isNight = false, onClickBack = ::goBack)

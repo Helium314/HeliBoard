@@ -11,6 +11,7 @@ import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAY
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import org.xmlpull.v1.XmlPullParser
 import java.util.Locale
@@ -64,22 +65,23 @@ fun getResourceSubtypes(resources: Resources): List<InputMethodSubtype> {
 
 /** Workaround for SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale ignoring custom layout names */
 // todo (later): this should be done properly and in SubtypeLocaleUtils
-fun InputMethodSubtype.displayName(context: Context): CharSequence {
+fun InputMethodSubtype.displayName(context: Context): String {
     val layoutName = SubtypeLocaleUtils.getMainLayoutName(this)
     if (LayoutUtilsCustom.isCustomLayout(layoutName))
         return "${LocaleUtils.getLocaleDisplayNameInSystemLocale(locale(), context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
     return SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
 }
 
-data class SettingsSubtype(val locale: Locale, val extraValue: String) {
+// some kind of intermediate between the string stored in preferences and an InputMethodSubtype
+data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
-    fun toPref() = locale.toLanguageTag() + Separators.SET + extraValue
+    fun toPref() = locale.toLanguageTag() + Separators.SET + extraValues
 
     /** Creates an additional subtype from the SettingsSubtype.
      *  Resulting InputMethodSubtypes are equal if SettingsSubtypes are equal */
     fun toAdditionalSubtype(): InputMethodSubtype? {
         val asciiCapable = locale.script() == ScriptUtils.SCRIPT_LATIN
-        val subtype = SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValue, asciiCapable, true)
+        val subtype = SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValues, asciiCapable, true)
         if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !LayoutUtilsCustom.isCustomLayout(mainLayoutName() ?: "qwerty")) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
@@ -89,7 +91,40 @@ data class SettingsSubtype(val locale: Locale, val extraValue: String) {
         return subtype
     }
 
-    fun mainLayoutName() = LayoutType.getMainLayoutFromExtraValue(extraValue)
+    fun mainLayoutName() = LayoutType.getMainLayoutFromExtraValue(extraValues)
+
+    fun layoutName(type: LayoutType) = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")[type]
+
+    fun with(extraValueKey: String, extraValue: String?): SettingsSubtype {
+        val newList = extraValues.split(",")
+            .filterNot { it.startsWith("$extraValueKey=") || it == extraValueKey }
+        val newValue = if (extraValue == null) extraValueKey else "$extraValueKey=$extraValue"
+        val newValues = (newList + newValue).joinToString(",")
+        return copy(extraValues = newValues)
+    }
+
+    fun without(extraValueKey: String): SettingsSubtype {
+        val newValues = extraValues.split(",")
+            .filterNot { it.startsWith("$extraValueKey=") || it == extraValueKey }
+            .joinToString(",")
+        return copy(extraValues = newValues)
+    }
+
+    fun getExtraValueOf(extraValueKey: String): String? = extraValues.split(",")
+        .firstOrNull { it.startsWith("$extraValueKey=") }?.substringAfter("$extraValueKey=")
+
+    fun withLayout(type: LayoutType, name: String): SettingsSubtype {
+        val map = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
+        map[type] = name
+        return with(KEYBOARD_LAYOUT_SET, map.toExtraValue())
+    }
+
+    fun withoutLayout(type: LayoutType): SettingsSubtype {
+        val map = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
+        map.remove(type)
+        return if (map.isEmpty()) without(KEYBOARD_LAYOUT_SET)
+        else with(KEYBOARD_LAYOUT_SET, map.toExtraValue())
+    }
 
     companion object {
         fun String.toSettingsSubtype() =
@@ -109,6 +144,8 @@ data class SettingsSubtype(val locale: Locale, val extraValue: String) {
                 // todo: this is in "old" additional subtypes, but where was it set?
                 //  must have been by app in 2.3, but not any more?
                 //  anyway, a. we can easily create it again, and b. it may contain "bad" characters messing up the extra value
+                // removing UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME changes the name of some layouts,
+                // e.g. from "English (United States)" to "English (US)"
                         || it.startsWith(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
             }.joinToString(",")
             require(!filteredExtraValue.contains(Separators.SETS) && !filteredExtraValue.contains(Separators.SET))

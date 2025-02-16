@@ -23,7 +23,10 @@ import helium314.keyboard.latin.settings.LanguageSettingsFragment
 import helium314.keyboard.latin.settings.PreferencesSettingsFragment
 import helium314.keyboard.latin.settings.ToolbarSettingsFragment
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
+import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
@@ -49,9 +52,11 @@ fun MainSettingsScreen(
         title = stringResource(R.string.ime_settings),
         settings = emptyList(),
     ) {
+        val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(ctx.prefs(), true)
         Column(Modifier.verticalScroll(rememberScrollState())) {
             Preference(
                 name = stringResource(R.string.language_and_layouts_title),
+                description = enabledSubtypes.joinToString(", ") { it.displayName(ctx) },
                 onClick = onClickLanguage,
                 icon = R.drawable.ic_settings_languages_foreground
             ) {
@@ -118,7 +123,7 @@ fun MainSettingsScreen(
                 )
             }
             Preference(
-                name = stringResource(R.string.keyboard_layout_set),
+                name = stringResource(R.string.settings_screen_secondary_layouts),
                 onClick = onClickLayouts,
                 icon = R.drawable.ic_ime_switcher
             ) {

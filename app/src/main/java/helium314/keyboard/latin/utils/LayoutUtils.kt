@@ -1,6 +1,7 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
@@ -12,10 +13,11 @@ object LayoutUtils {
         if (layoutType != LayoutType.MAIN)
             return context.assets.list(layoutType.folder)?.map { it.substringBefore(".") }.orEmpty()
         if (locale == null)
-            return SubtypeSettings.getAllAvailableSubtypes().mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
-        if (locale.script() == ScriptUtils.SCRIPT_LATIN)
-            return SubtypeSettings.getAllAvailableSubtypes().filter { it.isAsciiCapable && !LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
+            return SubtypeSettings.getAllAvailableSubtypes()
                 .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
+                .apply { addAll(context.resources.getStringArray(R.array.predefined_layouts)) }
+        if (locale.script() == ScriptUtils.SCRIPT_LATIN)
+            return context.resources.getStringArray(R.array.predefined_layouts).toList()
         return SubtypeSettings.getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
     }
 

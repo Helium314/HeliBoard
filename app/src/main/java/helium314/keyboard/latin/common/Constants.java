@@ -92,6 +92,9 @@ public final class Constants {
             /** Overrides the general "more popups" setting */
             public static final String MORE_POPUPS = "MorePopups";
 
+            /** Overrides the general "localized number row" setting */
+            public static final String LOCALIZED_NUMBER_ROW = "LocalizedNumberRow";
+
             private ExtraValue() {
                 // This utility class is not publicly instantiable.
             }

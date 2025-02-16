@@ -51,6 +51,7 @@ object SubtypeUtilsAdditional {
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
 
+    // todo: consider using SettingsSubtype
     fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         val additionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString).toMutableSet()
@@ -65,6 +66,27 @@ object SubtypeUtilsAdditional {
         val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
         val newAdditionalSubtypesString = createPrefSubtypes(newAdditionalSubtypes)
         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+    }
+
+    // updates additional subtypes, enabled subtypes, and selected subtype
+    fun changeAdditionalSubtype(from: SettingsSubtype, to: SettingsSubtype, prefs: SharedPreferences) {
+        val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+            .split(Separators.SETS).mapTo(sortedSetOf()) {
+                if (it == from.toPref()) to.toPref() else it
+            }
+        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new.joinToString(Separators.SETS)).apply()
+
+        val fromSubtype = from.toAdditionalSubtype() // will be null if we edit a resource subtype
+        val toSubtype = to.toAdditionalSubtype() // should never be null
+        if (SubtypeSettings.getSelectedSubtype(prefs) == fromSubtype && toSubtype != null) {
+            SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
+        }
+        if (SubtypeSettings.getEnabledSubtypes(prefs, false).contains(fromSubtype)) {
+            if (fromSubtype != null)
+                SubtypeSettings.removeEnabledSubtype(prefs, fromSubtype)
+            if (toSubtype != null)
+                SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
+        }
     }
 
     fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {

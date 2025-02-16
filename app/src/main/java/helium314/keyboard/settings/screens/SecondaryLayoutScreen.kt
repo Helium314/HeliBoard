@@ -28,20 +28,16 @@ import helium314.keyboard.settings.preferences.Preference
 fun SecondaryLayoutScreen(
     onClickBack: () -> Unit,
 ) {
-    // todo: enable main layouts
-    //  which layouts to show? all is too much, maybe limit to latin and layouts for enabled locales (and system locales?)
+    // no main layouts in here
+    // could be added later, but need to decide how to do it (showing all main layouts is too much)
     SearchSettingsScreen(
         onClickBack = onClickBack,
-        title = stringResource(R.string.keyboard_layout_set),
+        title = stringResource(R.string.settings_screen_secondary_layouts),
         settings = LayoutType.entries.filter { it != LayoutType.MAIN }.map { Settings.PREF_LAYOUT_PREFIX + it.name }
     )
 }
 
-fun createLayoutSettings(context: Context) = listOf(
-    Setting(context, Settings.PREF_LAYOUT_PREFIX + LayoutType.MAIN, R.string.customize_functional_key_layouts) { // todo: title
-        // todo: actual content
-    },
-) + LayoutType.entries.filter { it != LayoutType.MAIN }.map { layoutType ->
+fun createLayoutSettings(context: Context) = LayoutType.entries.filter { it != LayoutType.MAIN }.map { layoutType ->
     Setting(context, Settings.PREF_LAYOUT_PREFIX + layoutType, layoutType.displayNameId) { setting ->
         val ctx = LocalContext.current
         val prefs = ctx.prefs()

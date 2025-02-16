@@ -539,8 +539,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
     <!-- Title for customizing functional key layouts -->
     <string name="customize_functional_key_layouts">Customize functional key layouts</string>
+    <!-- Settings screen title for secondary layouts (functional keys, symbols, numpad, ...) -->
+    <string name="settings_screen_secondary_layouts">Secondary layouts</string>
     <!-- Name for functional keys layout -->
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
+    <!-- Name for functional keys layout for tablets -->
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functional keys (large screen)</string>
     <!-- Name for functional keys layout when showing symbols layout -->
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
     <!-- Name for functional keys layout when showing more symbols layout -->
