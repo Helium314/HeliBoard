@@ -1,19 +1,36 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.widget.RelativeLayout
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
+import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.cleanUnusedMainDicts
+import helium314.keyboard.latin.utils.init
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 // todo: with compose, app startup is slower and UI needs some "warmup" time to be snappy
 //  maybe baseline profiles help?
@@ -28,6 +45,10 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         super.onCreate(savedInstanceState)
         if (Settings.getInstance().current == null)
             Settings.init(this)
+        init(this) // todo: move into object so it's clear what is initialized
+        ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
+        if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
+            askAboutCrashReports()
 
         // with this the layout edit dialog is not covered by the keyboard
         //  alterative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
@@ -100,6 +121,64 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             keyboardNeedsReload = true
         }
         forceOppositeTheme = opposite
+    }
+
+    // todo: crash report stuff just just taken from old SettingsFragment and kotlinized
+    //  it should be updated to use compose, and maybe move to MainSettingsScreen
+    private val crashReportFiles = mutableListOf<File>()
+    private fun askAboutCrashReports() {
+        // find crash report files
+        val dir: File = getExternalFilesDir(null) ?: return
+        val allFiles = dir.listFiles() ?: return
+        crashReportFiles.clear()
+        for (file in allFiles) {
+            if (file.name.startsWith("crash_report")) crashReportFiles.add(file)
+        }
+        if (crashReportFiles.isEmpty()) return
+        AlertDialog.Builder(this)
+            .setMessage("Crash report files found")
+            .setPositiveButton("get") { _, _ ->
+                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
+                intent.setType("application/zip")
+                crashReportFilePicker.launch(intent)
+            }
+            .setNeutralButton("delete") { _, _ ->
+                for (file in crashReportFiles) {
+                    file.delete() // don't care whether it fails, though user will complain
+                }
+            }
+            .setNegativeButton("ignore", null)
+            .show()
+    }
+    private val crashReportFilePicker: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode != RESULT_OK || it.data == null) return@registerForActivityResult
+        val uri = it.data!!.data
+        if (uri != null) ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { saveCrashReport(uri) }
+    }
+    private fun saveCrashReport(uri: Uri?) {
+        if (uri == null || crashReportFiles.isEmpty()) return
+        try {
+            contentResolver.openOutputStream(uri)?.use {
+                val bos = BufferedOutputStream(it)
+                val z = ZipOutputStream(bos)
+                for (file in crashReportFiles) {
+                    val f = FileInputStream(file)
+                    z.putNextEntry(ZipEntry(file.name))
+                    FileUtils.copyStreamToOtherStream(f, z)
+                    f.close()
+                    z.closeEntry()
+                }
+                z.close()
+                bos.close()
+                for (file in crashReportFiles) {
+                    file.delete()
+                }
+                crashReportFiles.clear()
+            }
+        } catch (ignored: IOException) {
+        }
     }
 
     companion object {
