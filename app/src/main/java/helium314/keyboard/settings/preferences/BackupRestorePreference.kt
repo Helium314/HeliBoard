@@ -34,12 +34,11 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
-import helium314.keyboard.latin.utils.reloadEnabledSubtypes
-import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -176,8 +175,8 @@ fun BackupRestorePreference(setting: Setting) {
         checkVersionUpgrade(ctx)
         Settings.getInstance().startListener()
         val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
-        reloadEnabledSubtypes(ctx)
+        SubtypeSettings.updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
+        SubtypeSettings.reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()

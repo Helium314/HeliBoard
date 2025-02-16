@@ -102,7 +102,7 @@ fun cleanUnusedMainDicts(context: Context) {
     val dirs = dictionaryDir.listFiles() ?: return
     val prefs = context.prefs()
     val usedLocaleLanguageTags = hashSetOf<String>()
-    getEnabledSubtypes(prefs).forEach { subtype ->
+    SubtypeSettings.getEnabledSubtypes(prefs).forEach { subtype ->
         val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
         Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }

@@ -49,10 +49,9 @@ import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.infoDialog
-import helium314.keyboard.latin.utils.reloadEnabledSubtypes
-import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -410,8 +409,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
         val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
-        reloadEnabledSubtypes(requireContext())
+        SubtypeSettings.updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
+        SubtypeSettings.reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)
         // reload current prefs screen

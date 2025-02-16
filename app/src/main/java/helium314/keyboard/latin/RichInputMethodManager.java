@@ -23,7 +23,7 @@ import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.Collections;
@@ -171,7 +171,7 @@ public class RichInputMethodManager {
             if (imi == getInputMethodOfThisIme()) {
                 // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
                 // use it to fall back to system locales or en_US to avoid returning an empty list
-                result = SubtypeSettingsKt.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
+                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }
@@ -351,12 +351,12 @@ public class RichInputMethodManager {
     public void refreshSubtypeCaches() {
         mInputMethodInfoCache.clear();
         SharedPreferences prefs = KtxKt.prefs(mContext);
-        updateCurrentSubtype(SubtypeSettingsKt.getSelectedSubtype(prefs));
+        updateCurrentSubtype(SubtypeSettings.INSTANCE.getSelectedSubtype(prefs));
         updateShortcutIme();
     }
 
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
-        SubtypeSettingsKt.setSelectedSubtype(KtxKt.prefs(mContext), subtype);
+        SubtypeSettings.INSTANCE.setSelectedSubtype(KtxKt.prefs(mContext), subtype);
         mCurrentRichInputMethodSubtype = RichInputMethodSubtype.Companion.get(subtype);
     }
 

@@ -22,7 +22,7 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import kotlin.collections.ArraysKt;
@@ -106,7 +106,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (pref == null) return;
         // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
         final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur" };
-        for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
+        for (final InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(getSharedPreferences(), true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(SubtypeUtilsKt.locale(subtype).getLanguage()))) {
                 pref.setVisible(true);
                 return;

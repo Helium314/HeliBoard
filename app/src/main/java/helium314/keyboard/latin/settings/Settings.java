@@ -37,7 +37,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
@@ -243,7 +243,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         }
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
             final String additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES);
-            SubtypeSettingsKt.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
+            SubtypeSettings.INSTANCE.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
         }
     }
 

@@ -21,8 +21,8 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
-import helium314.keyboard.latin.utils.init
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
@@ -45,7 +45,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         super.onCreate(savedInstanceState)
         if (Settings.getInstance().current == null)
             Settings.init(this)
-        init(this) // todo: move into object so it's clear what is initialized
+        SubtypeSettings.init(this)
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports()

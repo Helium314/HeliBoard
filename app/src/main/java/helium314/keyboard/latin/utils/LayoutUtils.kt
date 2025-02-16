@@ -12,11 +12,11 @@ object LayoutUtils {
         if (layoutType != LayoutType.MAIN)
             return context.assets.list(layoutType.folder)?.map { it.substringBefore(".") }.orEmpty()
         if (locale == null)
-            return getAllAvailableSubtypes().mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
+            return SubtypeSettings.getAllAvailableSubtypes().mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
-            return getAllAvailableSubtypes().filter { it.isAsciiCapable && !LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
+            return SubtypeSettings.getAllAvailableSubtypes().filter { it.isAsciiCapable && !LayoutUtilsCustom.isCustomLayout(it.mainLayoutName() ?: "qwerty") }
                 .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
-        return getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
+        return SubtypeSettings.getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
     }
 
     fun getLMainLayoutsForLocales(locales: List<Locale>, context: Context): Collection<String> =

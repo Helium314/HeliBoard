@@ -104,7 +104,7 @@ class LanguageSettingsDialog(
         val newSubtype = SubtypeUtilsAdditional.createEmojiCapableAdditionalSubtype(mainLocale, name, infos.first().subtype.isAsciiCapable)
         val newSubtypeInfo = newSubtype.toSubtypeInfo(mainLocale, context, true, infos.first().hasDictionary) // enabled by default
         val displayName = SubtypeLocaleUtils.getMainLayoutDisplayName(newSubtype)
-        val old = infos.firstOrNull { isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getMainLayoutDisplayName(it.subtype) }
+        val old = infos.firstOrNull { SubtypeSettings.isAdditionalSubtype(it.subtype) && displayName == SubtypeLocaleUtils.getMainLayoutDisplayName(it.subtype) }
         if (old != null) {
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(context)
             reloadSetting()
@@ -112,7 +112,7 @@ class LanguageSettingsDialog(
         }
 
         SubtypeUtilsAdditional.addAdditionalSubtype(prefs, newSubtype)
-        addEnabledSubtype(prefs, newSubtype)
+        SubtypeSettings.addEnabledSubtype(prefs, newSubtype)
         addSubtypeToView(newSubtypeInfo)
         KeyboardLayoutSet.onKeyboardThemeChanged()
         infos.add(newSubtypeInfo)
@@ -185,15 +185,15 @@ class LanguageSettingsDialog(
                 if (b) {
                     if (!infos.first().hasDictionary)
                         showMissingDictionaryDialog(context, mainLocale)
-                    addEnabledSubtype(prefs, subtype.subtype)
+                    SubtypeSettings.addEnabledSubtype(prefs, subtype.subtype)
                 }
                 else
-                    removeEnabledSubtype(prefs, subtype.subtype)
+                    SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
                 subtype.isEnabled = b
                 reloadSetting()
             }
         }
-        if (isAdditionalSubtype(subtype.subtype)) {
+        if (SubtypeSettings.isAdditionalSubtype(subtype.subtype)) {
             row.findViewById<Switch>(R.id.language_switch).isEnabled = true
             row.findViewById<ImageView>(R.id.delete_button).apply {
                 isVisible = true
@@ -205,7 +205,7 @@ class LanguageSettingsDialog(
                         //if (isCustom)
                         //    LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
                         SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
-                        removeEnabledSubtype(prefs, subtype.subtype)
+                        SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {

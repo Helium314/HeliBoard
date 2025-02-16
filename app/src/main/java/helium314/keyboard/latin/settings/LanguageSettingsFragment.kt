@@ -23,10 +23,8 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
-import helium314.keyboard.latin.utils.getAllAvailableSubtypes
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getDictionaryLocales
-import helium314.keyboard.latin.utils.getEnabledSubtypes
-import helium314.keyboard.latin.utils.getSystemLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import java.util.*
@@ -60,8 +58,8 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
         SubtypeLocaleUtils.init(requireContext())
 
-        enabledSubtypes.addAll(getEnabledSubtypes(prefs))
-        systemLocales.addAll(getSystemLocales())
+        enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes(prefs))
+        systemLocales.addAll(SubtypeSettings.getSystemLocales())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -71,7 +69,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         systemOnlySwitch.setOnCheckedChangeListener { _, b ->
             prefs.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
             enabledSubtypes.clear()
-            enabledSubtypes.addAll(getEnabledSubtypes(prefs))
+            enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes(prefs))
             loadSubtypes(b)
         }
         languageFilterList = LanguageFilterList(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))
@@ -97,7 +95,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
     private fun loadSubtypes(systemOnly: Boolean) {
         sortedSubtypesByDisplayName.clear()
         // list of all subtypes, any subtype added to sortedSubtypes will be removed to avoid duplicates
-        val allSubtypes = getAllAvailableSubtypes().toMutableList()
+        val allSubtypes = SubtypeSettings.getAllAvailableSubtypes().toMutableList()
         fun List<Locale>.sortedAddToSubtypesAndRemoveFromAllSubtypes() {
             val subtypesToAdd = mutableListOf<SubtypeInfo>()
             forEach { locale ->

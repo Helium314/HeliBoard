@@ -30,7 +30,7 @@ import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ScriptUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -247,7 +247,7 @@ public class SettingsValues {
             mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
         } else
             mOneHandedModeScale = 1f;
-        final InputMethodSubtype selectedSubtype = SubtypeSettingsKt.getSelectedSubtype(prefs);
+        final InputMethodSubtype selectedSubtype = SubtypeSettings.INSTANCE.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
         mShowMorePopupKeys = selectedSubtype.isAsciiCapable()
                 ? Settings.readMorePopupKeysPref(prefs)

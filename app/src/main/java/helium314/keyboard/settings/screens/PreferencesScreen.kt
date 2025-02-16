@@ -15,8 +15,8 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.getEnabledSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsContainer
@@ -57,7 +57,7 @@ fun PreferencesScreen(
             Settings.PREF_KEYPRESS_SOUND_VOLUME else null,
         R.string.settings_category_additional_keys,
         Settings.PREF_SHOW_NUMBER_ROW,
-        if (getEnabledSubtypes(prefs, true).any { it.locale().language in localesWithLocalizedNumberRow })
+        if (SubtypeSettings.getEnabledSubtypes(prefs, true).any { it.locale().language in localesWithLocalizedNumberRow })
             Settings.PREF_LOCALIZED_NUMBER_ROW else null,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS)
             && prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, Defaults.PREF_SHOW_NUMBER_ROW))

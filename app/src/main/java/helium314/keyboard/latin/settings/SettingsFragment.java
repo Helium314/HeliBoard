@@ -29,7 +29,7 @@ import helium314.keyboard.latin.utils.DictionaryUtilsKt;
 import helium314.keyboard.latin.utils.ExecutorUtils;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.List;
@@ -77,7 +77,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
         // sometimes wrong languages are returned when not initializing on creation of LatinIME
         // this might be a bug, at least it's not documented
         // but anyway, here is really rare (LatinIme should be loaded when the settings are opened)
-        SubtypeSettingsKt.init(getActivity());
+        SubtypeSettings.INSTANCE.init(getActivity());
 
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
@@ -85,7 +85,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private String getEnabledSubtypesLabel() {
-        final List<InputMethodSubtype> subtypes = SubtypeSettingsKt.getEnabledSubtypes(KtxKt.prefs(getActivity()), true);
+        final List<InputMethodSubtype> subtypes = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(getActivity()), true);
         final StringBuilder sb = new StringBuilder();
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)

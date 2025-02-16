@@ -86,7 +86,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
 import helium314.keyboard.settings.SettingsActivityKt;
@@ -572,7 +572,7 @@ public class LatinIME extends InputMethodService implements
     public void onCreate() {
         Settings.init(this);
         DebugFlags.init(this);
-        SubtypeSettingsKt.init(this);
+        SubtypeSettings.INSTANCE.init(this);
         KeyboardIconsSet.Companion.getInstance().loadIcons(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
@@ -745,7 +745,7 @@ public class LatinIME extends InputMethodService implements
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
         Log.i(TAG, "onConfigurationChanged");
-        SubtypeSettingsKt.reloadSystemLocales(this);
+        SubtypeSettings.INSTANCE.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();
             mInputLogic.onOrientationChange(mSettings.getCurrent());

@@ -31,7 +31,7 @@ import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.KtxKt;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
@@ -85,7 +85,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
         final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
-        SubtypeSettingsKt.init(this);
+        SubtypeSettings.INSTANCE.init(this);
     }
 
     public float getRecommendedThreshold() {
@@ -199,7 +199,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
             Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));
         }
-        final String mainLayoutName = SubtypeSettingsKt.getMatchingMainLayoutNameForLocale(locale);
+        final String mainLayoutName = SubtypeSettings.INSTANCE.getMatchingMainLayoutNameForLocale(locale);
         final InputMethodSubtype subtype = SubtypeUtilsAdditional.INSTANCE.createDummyAdditionalSubtype(locale, mainLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
