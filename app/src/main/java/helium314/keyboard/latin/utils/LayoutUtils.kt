@@ -18,7 +18,7 @@ object LayoutUtils {
                 .apply { addAll(context.resources.getStringArray(R.array.predefined_layouts)) }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
             return context.resources.getStringArray(R.array.predefined_layouts).toList()
-        return SubtypeSettings.getSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
+        return SubtypeSettings.getResourceSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
     }
 
     fun getLMainLayoutsForLocales(locales: List<Locale>, context: Context): Collection<String> =

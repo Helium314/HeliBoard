@@ -137,7 +137,7 @@ object SubtypeSettings {
         return !resourceSubtypesByLocale[locale].isNullOrEmpty()
     }
 
-    fun getSubtypesForLocale(locale: Locale): List<InputMethodSubtype> = resourceSubtypesByLocale[locale].orEmpty()
+    fun getResourceSubtypesForLocale(locale: Locale): List<InputMethodSubtype> = resourceSubtypesByLocale[locale].orEmpty()
 
     fun getAvailableSubtypeLocales(): Collection<Locale> {
         require(initialized)

@@ -224,8 +224,21 @@ public final class SubtypeLocaleUtils {
     }
 
     @NonNull
-    public static String getSubtypeDisplayNameInSystemLocale(
-            @NonNull final InputMethodSubtype subtype) {
+    public static String getDisplayNameInSystemLocale(@NonNull final String mainLayoutName, @NonNull final Locale locale) {
+        final String displayName = getMainLayoutDisplayName(mainLayoutName);
+        if (displayName != null) // works for custom and latin layouts
+            return displayName;
+        // we have some locale-specific layout
+        for (InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getResourceSubtypesForLocale(locale)) {
+            final String main = LayoutType.Companion.getMainLayoutFromExtraValue(subtype.getExtraValue());
+            if (mainLayoutName.equals(main))
+                return getSubtypeDisplayNameInSystemLocale(subtype);
+        }
+        return mainLayoutName; // should never happen...
+    }
+
+    @NonNull
+    public static String getSubtypeDisplayNameInSystemLocale(@NonNull final InputMethodSubtype subtype) {
         final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
         return getSubtypeDisplayNameInternal(subtype, displayLocale);
     }
