@@ -26,6 +26,7 @@ import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -95,6 +96,7 @@ public final class KeyboardLayoutSet {
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
         LocaleKeyboardInfosKt.clearCache();
+        SubtypeLocaleUtils.clearDisplayNameCache();
     }
 
     public static void onKeyboardThemeChanged() {

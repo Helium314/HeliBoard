@@ -67,7 +67,6 @@ fun LanguageScreen(
             }
         },
         filteredItems = { term ->
-            // todo: maybe better performance with display name cache?
             sortedSubtypes.filter {
                 it.displayName(ctx).replace("(", "")
                     .splitOnWhitespace().any { it.startsWith(term, true) }
@@ -116,7 +115,7 @@ fun LanguageScreen(
     }
 }
 
-// todo: sorting is slow, need to cache displayName (overall or just in getSortedSubtypes), and then it should be fine
+// sorting by display name is still slow, even with the cache... but probably good enough
 private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val systemLocales = SubtypeSettings.getSystemLocales()
     val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(context.prefs(), true)
