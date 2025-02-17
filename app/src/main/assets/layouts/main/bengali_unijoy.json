@@ -9,12 +9,9 @@
       "default": {
         "label": "ঙ",
         "popup": {
-          "main": {
-            "label": "ং"
-          },
           "relevant": [
             {
-              "label": "১"
+              "label": "ং"
             }
           ]
         }
@@ -29,12 +26,9 @@
       "default": {
         "label": "য",
         "popup": {
-          "main": {
-            "label": "য়"
-          },
           "relevant": [
             {
-              "label": "২"
+              "label": "য়"
             }
           ]
         }
@@ -49,12 +43,9 @@
       "default": {
         "label": "ড",
         "popup": {
-          "main": {
-            "label": "ঢ"
-          },
           "relevant": [
             {
-              "label": "৩"
+              "label": "ঢ"
             }
           ]
         }
@@ -69,12 +60,9 @@
       "default": {
         "label": "প",
         "popup": {
-          "main": {
-            "label": "ফ"
-          },
           "relevant": [
             {
-              "label": "৪"
+              "label": "ফ"
             }
           ]
         }
@@ -89,12 +77,9 @@
       "default": {
         "label": "ট",
         "popup": {
-          "main": {
-            "label": "ঠ"
-          },
           "relevant": [
             {
-              "label": "৫"
+              "label": "ঠ"
             }
           ]
         }
@@ -109,12 +94,9 @@
       "default": {
         "label": "চ",
         "popup": {
-          "main": {
-            "label": "ছ"
-          },
           "relevant": [
             {
-              "label": "৬"
+              "label": "ছ"
             }
           ]
         }
@@ -129,12 +111,9 @@
       "default": {
         "label": "জ",
         "popup": {
-          "main": {
-            "label": "ঝ"
-          },
           "relevant": [
             {
-              "label": "৭"
+              "label": "ঝ"
             }
           ]
         }
@@ -149,12 +128,9 @@
       "default": {
         "label": "হ",
         "popup": {
-          "main": {
-            "label": "ঞ"
-          },
           "relevant": [
             {
-              "label": "৮"
+              "label": "ঞ"
             }
           ]
         }
@@ -169,12 +145,9 @@
       "default": {
         "label": "গ",
         "popup": {
-          "main": {
-            "label": "ঘ"
-          },
           "relevant": [
             {
-              "label": "৯"
+              "label": "ঘ"
             }
           ]
         }
@@ -189,12 +162,9 @@
       "default": {
         "label": "ড়",
         "popup": {
-          "main": {
-            "label": "ঢ়"
-          },
           "relevant": [
             {
-              "label": "০"
+              "label": "ঢ়"
             }
           ]
         }
