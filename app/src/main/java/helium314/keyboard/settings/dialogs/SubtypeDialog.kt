@@ -3,7 +3,6 @@ package helium314.keyboard.settings.dialogs
 import android.content.Context
 import android.view.inputmethod.InputMethodSubtype
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +32,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MAIN
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MORE
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.hasLocalizedNumberRow
+import helium314.keyboard.keyboard.internal.keyboard_parser.morePopupKeysResId
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
@@ -62,6 +66,8 @@ import java.util.Locale
 //  save when "editing" a resource subtypes is not working
 //  default buttons missing
 //  string resources
+//  dialog doesn't look good...
+//  settings upgrade to move the override settings to extra values, and actually use them (via getSelectedSubtype, not RichIMM)
 @Composable
 fun SubtypeDialog(
     // could also use InputMethodSubtype if there is any advantage
@@ -93,9 +99,8 @@ fun SubtypeDialog(
         text = {
             Column(
                 modifier = Modifier.verticalScroll(scrollState),
-                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                WithDescription("main layout") {
+                WithSmallTitle("main layout") {
                     val appLayouts = LayoutUtils.getAvailableLayouts(LayoutType.MAIN, ctx, currentSubtype.locale)
                     val customLayouts = LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, ctx, currentSubtype.locale).map { it.name }
                     DropDownField(
@@ -105,52 +110,37 @@ fun SubtypeDialog(
                             currentSubtype = currentSubtype.withLayout(LayoutType.MAIN, it)
                         }
                     ) {
-                        // todo: displayName can be complicated and may require an inputmehtodsubtype...
+                        // todo: displayName can be complicated and may require an inputmethodsubtype...
                         //  maybe search for stuff in resource subtypes?
                         Text(it)
                         // todo: edit button? or only for selected layout? and delete button?
                     }
                 }
-                WithDescription(stringResource(R.string.secondary_locale)) {
-                    TextButton(onClick = { showSecondaryLocaleDialog = true }, Modifier.fillMaxWidth()) {
+                WithSmallTitle(stringResource(R.string.secondary_locale)) {
+                    TextButton(onClick = { showSecondaryLocaleDialog = true }) {
                         val text = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
                             ?.split(Separators.KV)?.joinToString(", ") {
                                 LocaleUtils.getLocaleDisplayNameInSystemLocale(it.constructLocale(), ctx)
                             } ?: "none"
-                        Text(text, style = MaterialTheme.typography.bodyLarge)
+                        Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
                     }
                 }
-                TextButton(onClick = { showSecondaryLocaleDialog = true }) {
-                    val text = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
-                        ?.split(Separators.KV)?.joinToString(", ") {
-                            LocaleUtils.getLocaleDisplayNameInSystemLocale(it.constructLocale(), ctx)
-                        } ?: ""
-                    Column(Modifier.fillMaxWidth()) {
-                        Text(stringResource(R.string.secondary_locale))
-                        Text(text, style = MaterialTheme.typography.bodyLarge)
-                    }
-                }
-                WithDescription("dictionaries") {
+                WithSmallTitle("dictionaries") {
                     // todo: maybe remove here and use a separate screen for dictionary management
                     //  would be clearer, as dicts are per language (and no intention to change it)
                     Text("not yet implemented")
                 }
+                // todo: this looks strange without the title
                 TextButton(onClick = { showKeyOrderDialog = true })
                     { Text(stringResource(R.string.popup_order), Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge) }
                 TextButton(onClick = { showHintOrderDialog = true })
                     { Text(stringResource(R.string.hint_source), Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge) }
                 if (currentSubtype.locale.script() == SCRIPT_LATIN)
-                    WithDescription(stringResource(R.string.show_popup_keys_title)) {
+                    WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
                         val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-                        val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
-                        val textResId = when (value) { // todo: this should not be duplicated... see below
-                            "normal" -> R.string.show_popup_keys_normal
-                            "more" -> R.string.show_popup_keys_more
-                            "all" -> R.string.show_popup_keys_all
-                            else -> R.string.show_popup_keys_main
-                        }
+                        val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
                         TextButton(onClick = { showMorePopupsDialog = true }, Modifier.fillMaxWidth())
-                            { Text(stringResource(textResId)) }
+                            { Text(stringResource(morePopupKeysResId(value))) }
                     }
                 if (hasLocalizedNumberRow(currentSubtype.locale, ctx))
                     Row {
@@ -167,7 +157,7 @@ fun SubtypeDialog(
                 LayoutType.entries.forEach { type ->
                     if (type == LayoutType.MAIN) return@forEach
                     // todo: also some default button, to be shown when necessary, uses currentSubtype.withoutLayout(type)
-                    WithDescription(stringResource(type.displayNameId)) {
+                    WithSmallTitle(stringResource(type.displayNameId)) {
                         val explicitLayout = currentSubtype.layoutName(type)
                         val layout = explicitLayout ?: Settings.readDefaultLayoutName(type, prefs)
                         val defaultLayouts = LayoutUtils.getAvailableLayouts(type, ctx)
@@ -231,21 +221,13 @@ fun SubtypeDialog(
     }
     if (showMorePopupsDialog) {
         // todo: default button in here? or next to the pref?
-        val items = listOf("normal", "main", "more", "all")
+        val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL)
         val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
         val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
         ListPickerDialog(
             onDismissRequest = { showMorePopupsDialog = false },
             items = items,
-            getItemName = {
-                val textResId = when (it) { // todo: this should not be duplicated... now we have it twice here, and in advanced settings
-                    "normal" -> R.string.show_popup_keys_normal
-                    "more" -> R.string.show_popup_keys_more
-                    "all" -> R.string.show_popup_keys_all
-                    else -> R.string.show_popup_keys_main
-                }
-                stringResource(textResId)
-            },
+            getItemName = { stringResource(morePopupKeysResId(it)) },
             selectedItem = value,
             onItemSelected = { currentSubtype = currentSubtype.with(ExtraValue.MORE_POPUPS, it) }
         )
@@ -293,12 +275,12 @@ private fun PopupOrderDialog(
 }
 
 @Composable
-private fun WithDescription(
+private fun WithSmallTitle(
     description: String,
     content: @Composable () -> Unit,
 ) {
     Column {
-        Text(description, style = MaterialTheme.typography.bodySmall)
+        Text(description, style = MaterialTheme.typography.titleSmall)
         content()
     }
 }

@@ -89,7 +89,7 @@ public class SettingsValues {
     public final int mOneHandedModeGravity;
     public final float mOneHandedModeScale;
     public final boolean mNarrowKeyGaps;
-    public final int mShowMorePopupKeys;
+    public final String mShowMorePopupKeys;
     public final List<String> mPopupKeyTypes;
     public final List<String> mPopupKeyLabelSources;
     public final List<Locale> mSecondaryLocales;
@@ -250,7 +250,7 @@ public class SettingsValues {
         final InputMethodSubtype selectedSubtype = SubtypeSettings.INSTANCE.getSelectedSubtype(prefs);
         mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
         mShowMorePopupKeys = selectedSubtype.isAsciiCapable()
-                ? Settings.readMorePopupKeysPref(prefs)
+                ? prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
                 : LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
         mColors = Settings.getColorsForCurrentTheme(context, prefs);
 

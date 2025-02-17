@@ -23,7 +23,6 @@ import androidx.annotation.StringRes;
 
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
@@ -440,15 +439,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
         }
-    }
-
-    public static int readMorePopupKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)) {
-            case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
-            case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
-            case "normal" -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
-            default -> LocaleKeyboardInfosKt.POPUP_KEYS_MAIN;
-        };
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {

@@ -580,7 +580,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
-            Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            "more_popup_keys" -> KeyboardLayoutSet.onSystemLocaleChanged()
             Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
             Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
             Settings.PREF_EMOJI_MAX_SDK -> KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())

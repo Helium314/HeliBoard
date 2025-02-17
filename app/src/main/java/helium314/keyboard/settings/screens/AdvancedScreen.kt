@@ -20,6 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MAIN
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MORE
+import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
+import helium314.keyboard.keyboard.internal.keyboard_parser.morePopupKeysResId
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.SystemBroadcastReceiver
@@ -178,12 +183,9 @@ fun createAdvancedSettings(context: Context) = listOf(
         }
     },
     Setting(context, Settings.PREF_MORE_POPUP_KEYS, R.string.show_popup_keys_title) {
-        val items = listOf(
-            stringResource(R.string.show_popup_keys_normal) to "normal",
-            stringResource(R.string.show_popup_keys_main) to "main",
-            stringResource(R.string.show_popup_keys_more) to "more",
-            stringResource(R.string.show_popup_keys_all) to "all",
-        )
+        val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL).map { setting ->
+            setting to stringResource(morePopupKeysResId(setting))
+        }
         ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
     Setting(context, SettingsWithoutKey.BACKUP_RESTORE, R.string.backup_restore_title) {

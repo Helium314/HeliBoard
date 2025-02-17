@@ -7,6 +7,7 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.splitOnFirstSpacesOnly
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
@@ -188,7 +189,7 @@ fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
     localeKeyboardInfosCache[locale.toString()]
         ?: LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
 
-fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: String) {
     val locales = params.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() }) {
         createLocaleKeyTexts(context, params, popupKeysSetting)
@@ -198,7 +199,7 @@ fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKey
 fun hasLocalizedNumberRow(locale: Locale, context: Context) =
     getStreamForLocale(locale, context)?.bufferedReader()?.readLines()?.any { it == "[number_row]" } == true
 
-private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: String): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
@@ -305,6 +306,13 @@ private fun getCurrency(locale: Locale): String {
     }
 }
 
+fun morePopupKeysResId(popupKeysSetting: String) = when (popupKeysSetting) {
+    POPUP_KEYS_ALL -> R.string.show_popup_keys_all
+    POPUP_KEYS_MORE -> R.string.show_popup_keys_more
+    POPUP_KEYS_NORMAL -> R.string.show_popup_keys_normal
+    else -> R.string.show_popup_keys_main
+}
+
 // needs at least 4 popupKeys for working shift-symbol keyboard
 private val euro = "€" to listOf("£", "¥", "$", "¢", "₱")
 private val dram = "֏" to listOf("€", "₽", "$", "£", "¥")
@@ -316,10 +324,10 @@ private val dollar = "$" to listOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 
-const val POPUP_KEYS_ALL = 2
-const val POPUP_KEYS_MORE = 1
-const val POPUP_KEYS_MAIN = 3
-const val POPUP_KEYS_NORMAL = 0
+const val POPUP_KEYS_ALL = "all"
+const val POPUP_KEYS_MORE = "more"
+const val POPUP_KEYS_MAIN = "main"
+const val POPUP_KEYS_NORMAL = "normal"
 
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
 
