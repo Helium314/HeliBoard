@@ -204,7 +204,7 @@ fun BackupRestorePreference(setting: Setting) {
                 restoreLauncher.launch(intent)
             },
             onConfirmed = {
-                val currentDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().time)
+                val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
