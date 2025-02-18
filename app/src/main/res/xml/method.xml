@@ -910,7 +910,7 @@
             android:imeSubtypeLocale="ru"
             android:languageTag="ru"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=russian_extended,SupportTouchPositionCorrection,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:russian_extended,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
             
     />
@@ -1072,7 +1072,7 @@
             android:imeSubtypeLocale="uk"
             android:languageTag="uk"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=ukrainian_extended,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:ukrainian_extended,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
