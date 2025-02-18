@@ -21,13 +21,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
-import helium314.keyboard.latin.utils.addEnabledSubtype
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.displayName
-import helium314.keyboard.latin.utils.isAdditionalSubtype
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.removeEnabledSubtype
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.showMissingDictionaryDialog
 
 class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
@@ -58,7 +56,7 @@ class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), context: Context) :
     RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var onlySystemLocales = false
-    private val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    private val prefs = context.prefs()
     var fragment: LanguageSettingsFragment? = null
 
     var list: List<MutableList<SubtypeInfo>> = list
@@ -89,7 +87,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                     if (infos.size > 1 && !onlySystemLocales) {
                         var start = true
                         infos.forEach {
-                            val string = SpannableString(SubtypeLocaleUtils.getKeyboardLayoutSetDisplayName(it.subtype)
+                            val string = SpannableString(SubtypeLocaleUtils.getMainLayoutDisplayName(it.subtype)
                                 ?: it.subtype.displayName(context))
                             if (it.isEnabled)
                                 string.setSpan(StyleSpan(Typeface.BOLD), 0, string.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -125,10 +123,10 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                         if (b) {
                             if (!infos.first().hasDictionary)
                                 showMissingDictionaryDialog(context, infos.first().subtype.locale())
-                            addEnabledSubtype(prefs, infos.first().subtype)
+                            SubtypeSettings.addEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = true
                         } else {
-                            removeEnabledSubtype(prefs, infos.first().subtype)
+                            SubtypeSettings.removeEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = false
                         }
                     }
@@ -154,7 +152,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
 
         private fun sort(infos: MutableList<SubtypeInfo>) {
             if (infos.size <= 1) return
-            infos.sortWith(compareBy({ isAdditionalSubtype(it.subtype) }, { it.displayName }))
+            infos.sortWith(compareBy({ SubtypeSettings.isAdditionalSubtype(it.subtype) }, { it.displayName }))
         }
     }
 }

@@ -18,7 +18,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.prefs
 import kotlin.math.abs
 
 class KeyboardWrapperView @JvmOverloads constructor(
@@ -78,14 +78,12 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
                     if (abs(changePercent) < 1) return@setOnTouchListener true
                     x = motionEvent.rawX
-                    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-                    val oldScale = Settings.readOneHandedModeScale(prefs, Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
+                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
                     oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
-                    keyboardActionListener?.onCodeInput(KeyCode.START_ONE_HANDED_MODE,
-                        Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    KeyboardSwitcher.getInstance().setOneHandedModeEnabled(true)
                 }
                 else -> x = 0f
             }
@@ -119,7 +117,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
     override fun onClick(view: View) {
         if (view === stopOneHandedModeBtn) {
-            keyboardActionListener?.onCodeInput(KeyCode.STOP_ONE_HANDED_MODE,
+            keyboardActionListener?.onCodeInput(KeyCode.TOGGLE_ONE_HANDED_MODE,
                 Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */)
         } else if (view === switchOneHandedModeBtn) {

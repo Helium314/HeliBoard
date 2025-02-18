@@ -94,6 +94,18 @@
             latin:maxValue="200" /> <!-- percentage -->
 
         <SwitchPreference
+            android:key="split_keyboard_landscape"
+            android:title="@string/enable_split_keyboard_landscape"
+            android:persistent="true"
+            android:defaultValue="false" />
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="split_spacer_scale_landscape"
+            android:title="@string/split_spacer_scale_landscape"
+            latin:minValue="50"
+            latin:maxValue="200" /> <!-- percentage -->
+
+        <SwitchPreference
             android:key="narrow_key_gaps"
             android:title="@string/prefs_narrow_key_gaps"
             android:defaultValue="true"
@@ -111,6 +123,27 @@
             latin:minValue="0"
             latin:maxValue="500" /> <!-- percentage -->
 
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="bottom_padding_scale_landscape"
+            android:title="@string/prefs_bottom_padding_scale_landscape"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="500" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="side_padding_scale"
+            android:title="@string/prefs_side_padding_scale"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="300" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="side_padding_scale_landscape"
+            android:title="@string/prefs_side_padding_scale_landscape"
+            latin:defaultValue="0"
+            latin:minValue="0"
+            latin:maxValue="300" /> <!-- percentage -->
+
         <EditTextPreference
             android:key="space_bar_text"
             android:title="@string/prefs_space_bar_text"
@@ -122,6 +155,18 @@
             android:title="@string/custom_font"
             android:defaultValue=""
             android:persistent="true" />
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="font_scale"
+            android:title="@string/prefs_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
+
+        <helium314.keyboard.latin.settings.SeekBarDialogPreference
+            android:key="emoji_font_scale"
+            android:title="@string/prefs_emoji_font_scale"
+            latin:minValue="50"
+            latin:maxValue="150" /> <!-- percentage -->
 
     </PreferenceCategory>
 

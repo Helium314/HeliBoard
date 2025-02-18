@@ -6,47 +6,41 @@
 
 package helium314.keyboard.latin.settings;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
-import androidx.preference.PreferenceManager;
 
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardTheme;
-import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
+import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.LocaleUtils;
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
-import helium314.keyboard.latin.utils.ColorUtilKt;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
-import helium314.keyboard.latin.utils.JniUtils;
+import helium314.keyboard.latin.utils.KtxKt;
+import helium314.keyboard.latin.utils.LayoutType;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import helium314.keyboard.settings.SettingsActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +48,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -70,23 +63,13 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_THEME_COLORS_NIGHT = "theme_colors_night";
     public static final String PREF_THEME_KEY_BORDERS = "theme_key_borders";
     public static final String PREF_THEME_DAY_NIGHT = "theme_auto_day_night";
-    public static final String PREF_THEME_USER_COLOR_PREFIX = "theme_color_";
-    public static final String PREF_THEME_USER_COLOR_NIGHT_PREFIX = "theme_dark_color_";
-    public static final String PREF_COLOR_KEYS_SUFFIX = "keys";
-    public static final String PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX = "functional_keys";
-    public static final String PREF_COLOR_SPACEBAR_SUFFIX = "spacebar";
-    public static final String PREF_COLOR_SPACEBAR_TEXT_SUFFIX = "spacebar_text";
-    public static final String PREF_COLOR_ACCENT_SUFFIX = "accent";
-    public static final String PREF_COLOR_GESTURE_SUFFIX = "gesture";
-    public static final String PREF_COLOR_TEXT_SUFFIX = "text";
-    public static final String PREF_COLOR_SUGGESTION_TEXT_SUFFIX = "suggestion_text";
-    public static final String PREF_COLOR_HINT_TEXT_SUFFIX = "hint_text";
-    public static final String PREF_COLOR_BACKGROUND_SUFFIX = "background";
-    public static final String PREF_AUTO_USER_COLOR_SUFFIX = "_auto";
-    public static final String PREF_ALL_COLORS_SUFFIX = "all_colors";
+    public static final String PREF_USER_COLORS_PREFIX = "user_colors_";
+    public static final String PREF_USER_ALL_COLORS_PREFIX = "user_all_colors_";
+    public static final String PREF_USER_MORE_COLORS_PREFIX = "user_more_colors_";
+
     public static final String PREF_CUSTOM_ICON_NAMES = "custom_icon_names";
     public static final String PREF_TOOLBAR_CUSTOM_KEY_CODES = "toolbar_custom_key_codes";
-    public static final String PREF_TOOLBAR_CUSTOM_LONGPRESS_CODES = "toolbar_custom_longpress_codes";
+    public static final String PREF_LAYOUT_PREFIX = "layout_";
 
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -109,9 +92,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
+    public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
     public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
+    public static final String PREF_SPLIT_SPACER_SCALE_LANDSCAPE = "split_spacer_scale_landscape";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
+    public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
+    public static final String PREF_SIDE_PADDING_SCALE = "side_padding_scale";
+    public static final String PREF_SIDE_PADDING_SCALE_LANDSCAPE = "side_padding_scale_landscape";
+    public static final String PREF_FONT_SCALE = "font_scale";
+    public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
     public static final String PREF_SPACE_HORIZONTAL_SWIPE = "horizontal_space_swipe";
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
@@ -142,6 +132,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
+    public static final String PREF_SHOW_NUMBER_ROW_HINTS = "show_number_row_hints";
     public static final String PREF_CUSTOM_CURRENCY_KEY = "custom_currency_key";
 
     public static final String PREF_SHOW_HINTS = "show_hints";
@@ -151,6 +142,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
+    public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
@@ -184,11 +176,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static final String PREF_PINNED_CLIPS = "pinned_clips";
     public static final String PREF_VERSION_CODE = "version_code";
-    public static final String PREF_SHOW_MORE_COLORS = "show_more_colors";
     public static final String PREF_LIBRARY_CHECKSUM = "lib_checksum";
-
-    private static final float UNDEFINED_PREFERENCE_VALUE_FLOAT = -1.0f;
-    private static final int UNDEFINED_PREFERENCE_VALUE_INT = -1;
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -199,8 +187,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     private final static Drawable[] sCachedBackgroundImages = new Drawable[4];
     private static Typeface sCachedTypeface;
     private static boolean sCustomTypefaceLoaded; // to avoid repeatedly checking custom typeface file when there is no custom typeface
-    private Map<String, Integer> mCustomToolbarKeyCodes = null;
-    private Map<String, Integer> mCustomToolbarLongpressCodes = null;
 
     private static final Settings sInstance = new Settings();
 
@@ -228,7 +214,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     private void onCreate(final Context context) {
         mContext = context;
-        mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
+        mPrefs = KtxKt.prefs(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -248,16 +234,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 Log.w(TAG, "onSharedPreferenceChanged called before loadSettings.");
                 return;
             }
-            mCustomToolbarLongpressCodes = null;
-            mCustomToolbarKeyCodes = null;
+            ToolbarUtilsKt.clearCustomToolbarKeyCodes();
             loadSettings(mContext, mSettingsValues.mLocale, mSettingsValues.mInputAttributes);
             StatsUtils.onLoadSettings(mSettingsValues);
         } finally {
             mSettingsValuesLock.unlock();
         }
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
-            final String additionalSubtypes = readPrefAdditionalSubtypes(prefs, mContext.getResources());
-            SubtypeSettingsKt.updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes));
+            final String additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES);
+            SubtypeSettings.INSTANCE.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
         }
     }
 
@@ -292,26 +277,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_screen_metrics);
     }
 
-    // Accessed from the settings interface, hence public
-    public static boolean readKeypressSoundEnabled(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_SOUND_ON, res.getBoolean(R.bool.config_default_sound_enabled));
-    }
-
-    public static boolean readVibrationEnabled(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_VIBRATE_ON, res.getBoolean(R.bool.config_default_vibration_enabled))
+    public static boolean readVibrationEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_VIBRATE_ON, Defaults.PREF_VIBRATE_ON)
                 && AudioAndHapticFeedbackManager.getInstance().hasVibrator();
     }
 
-    public static boolean readAutoCorrectEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
-    }
-
-    public static boolean readMoreAutoCorrectEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_MORE_AUTO_CORRECTION, true);
-    }
-
     public void toggleAutoCorrect() {
-        mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !readAutoCorrectEnabled(mPrefs)).apply();
+        final boolean oldValue = mPrefs.getBoolean(PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION);
+        mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !oldValue).apply();
     }
 
     public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
@@ -319,22 +292,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
-    public static boolean readCenterSuggestionTextToEnter(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, res.getBoolean(R.bool.config_center_suggestion_text_to_enter));
-    }
-
-    public static boolean readBlockPotentiallyOffensive(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_BLOCK_POTENTIALLY_OFFENSIVE,
-                res.getBoolean(R.bool.config_block_potentially_offensive));
-    }
-
-    public static boolean readGestureInputEnabled(final SharedPreferences prefs) {
-        return JniUtils.sHaveGestureLib && prefs.getBoolean(PREF_GESTURE_INPUT, true);
-    }
-
-    public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs, final Context context) {
-        final boolean followSystem = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, true);
-        final boolean defValue = readGestureDynamicPreviewDefault(context);
+    public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs) {
+        final boolean followSystem = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, Defaults.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM);
+        final boolean defValue = Defaults.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM;
         final boolean curValue = prefs.getBoolean(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC, defValue);
         return followSystem ? defValue : curValue;
     }
@@ -348,81 +308,17 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         ) != 0.0f;
     }
 
-    public static int readGestureFastTypingCooldown(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_FAST_TYPING_COOLDOWN, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureFastTypingCooldown(res);
-    }
-
     public static int readDefaultGestureFastTypingCooldown(final Resources res) {
         return res.getInteger(R.integer.config_gesture_static_time_threshold_after_fast_typing);
     }
 
-    public static int readGestureTrailFadeoutDuration(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_GESTURE_TRAIL_FADEOUT_DURATION, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultGestureTrailFadeoutDuration(res);
-    }
-
-    public static int readDefaultGestureTrailFadeoutDuration(final Resources res) {
-        return res.getInteger(R.integer.config_gesture_trail_fadeout_duration_default);
-    }
-
-    public static boolean readKeyPreviewPopupEnabled(final SharedPreferences prefs, final Resources res) {
-        final boolean defaultKeyPreviewPopup = res.getBoolean(R.bool.config_default_key_preview_popup);
-        return prefs.getBoolean(PREF_POPUP_ON, defaultKeyPreviewPopup);
-    }
-
-    public static boolean readAlwaysIncognitoMode(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_ALWAYS_INCOGNITO_MODE, false);
-    }
-
     public void toggleAlwaysIncognitoMode() {
-        mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !readAlwaysIncognitoMode(mPrefs)).apply();
-    }
-
-
-    public static String readPrefAdditionalSubtypes(final SharedPreferences prefs, final Resources res) {
-        final String predefinedPrefSubtypes = AdditionalSubtypeUtils.createPrefSubtypes(
-                res.getStringArray(R.array.predefined_subtypes));
-        return prefs.getString(PREF_ADDITIONAL_SUBTYPES, predefinedPrefSubtypes);
+        final boolean oldValue = mPrefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE);
+        mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
     }
 
     public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
-    }
-
-    public static float readKeypressSoundVolume(final SharedPreferences prefs) {
-        return prefs.getFloat(PREF_KEYPRESS_SOUND_VOLUME, UNDEFINED_PREFERENCE_VALUE_FLOAT);
-    }
-
-    public static int readKeyLongpressTimeout(final SharedPreferences prefs, final Resources res) {
-        final int milliseconds = prefs.getInt(
-                PREF_KEY_LONGPRESS_TIMEOUT, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds
-                : readDefaultKeyLongpressTimeout(res);
-    }
-
-    public static int readDefaultKeyLongpressTimeout(final Resources res) {
-        return res.getInteger(R.integer.config_default_longpress_key_timeout);
-    }
-
-    public static int readKeypressVibrationDuration(final SharedPreferences prefs) {
-        return prefs.getInt(PREF_VIBRATION_DURATION_SETTINGS, UNDEFINED_PREFERENCE_VALUE_INT);
-    }
-
-    public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_ENABLE_CLIPBOARD_HISTORY, true);
-    }
-
-    public static int readClipboardHistoryRetentionTime(final SharedPreferences prefs,
-                                              final Resources res) {
-        final int minutes = prefs.getInt(
-                PREF_CLIPBOARD_HISTORY_RETENTION_TIME, UNDEFINED_PREFERENCE_VALUE_INT);
-        return (minutes != UNDEFINED_PREFERENCE_VALUE_INT) ? minutes
-                : readDefaultClipboardHistoryRetentionTime(res);
     }
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
@@ -430,7 +326,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
-        return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, "none")) {
+        return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
             case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
@@ -439,20 +335,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static int readVerticalSpaceSwipe(final SharedPreferences prefs) {
-        return switch (prefs.getString(PREF_SPACE_VERTICAL_SWIPE, "none")) {
+        return switch (prefs.getString(PREF_SPACE_VERTICAL_SWIPE, Defaults.PREF_SPACE_VERTICAL_SWIPE)) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
             case "switch_language" -> KeyboardActionListener.SWIPE_SWITCH_LANGUAGE;
             case "toggle_numpad" -> KeyboardActionListener.SWIPE_TOGGLE_NUMPAD;
             default -> KeyboardActionListener.SWIPE_NO_ACTION;
         };
-    }
-
-    public static boolean readDeleteSwipeEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_DELETE_SWIPE, true);
-    }
-
-    public static boolean readAutospaceAfterPunctuationEnabled(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_AUTOSPACE_AFTER_PUNCTUATION, false);
     }
 
     public static boolean readFullscreenModeAllowed(final Resources res) {
@@ -468,11 +356,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             // Default value
             return !isApplicationInSystemImage;
         }
-        return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, false);
+        return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, Defaults.PREF_SHOW_SETUP_WIZARD_ICON);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + portrait, false);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_MODE);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
@@ -480,8 +368,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
-    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + portrait, 1f);
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_SCALE);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
@@ -489,14 +377,40 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
-    @SuppressLint("RtlHardcoded")
-    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean portrait) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + portrait, Gravity.LEFT);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
+        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_GRAVITY);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
                 (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+    }
+
+    public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : PREF_ENABLE_SPLIT_KEYBOARD;
+        mPrefs.edit().putBoolean(pref, enabled).apply();
+    }
+
+    public static boolean readSplitKeyboardEnabled(final SharedPreferences prefs, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : PREF_ENABLE_SPLIT_KEYBOARD;
+        return prefs.getBoolean(pref, isLandscape ? Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : Defaults.PREF_ENABLE_SPLIT_KEYBOARD);
+    }
+
+    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean isLandscape) {
+        final String pref = isLandscape ? PREF_SPLIT_SPACER_SCALE_LANDSCAPE : PREF_SPLIT_SPACER_SCALE;
+        return prefs.getFloat(pref, isLandscape ? Defaults.PREF_SPLIT_SPACER_SCALE_LANDSCAPE : Defaults.PREF_SPLIT_SPACER_SCALE);
+    }
+
+    public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
+        if (landscape)
+            return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, Defaults.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE);
+        return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, Defaults.PREF_BOTTOM_PADDING_SCALE);
+    }
+
+    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
+        if (landscape)
+            return prefs.getFloat(PREF_SIDE_PADDING_SCALE_LANDSCAPE, Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE);
+        return prefs.getFloat(PREF_SIDE_PADDING_SCALE, Defaults.PREF_SIDE_PADDING_SCALE);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
@@ -508,38 +422,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 && conf.hardKeyboardHidden != Configuration.HARDKEYBOARDHIDDEN_YES;
     }
 
-    public static void writeEmojiRecentKeys(final SharedPreferences prefs, String str) {
-        prefs.edit().putString(PREF_EMOJI_RECENT_KEYS, str).apply();
-    }
-
-    public static String readEmojiRecentKeys(final SharedPreferences prefs) {
-        return prefs.getString(PREF_EMOJI_RECENT_KEYS, "");
-    }
-
-    public static void writeLastShownEmojiCategoryId(
-            final SharedPreferences prefs, final int categoryId) {
-        prefs.edit().putInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, categoryId).apply();
-    }
-
-    public static int readLastShownEmojiCategoryId(
-            final SharedPreferences prefs, final int defValue) {
-        return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, defValue);
-    }
-
-    public static void writeLastShownEmojiCategoryPageId(
-            final SharedPreferences prefs, final int categoryId) {
-        prefs.edit().putInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, categoryId).apply();
-    }
-
-    public static int readLastShownEmojiCategoryPageId(
-            final SharedPreferences prefs, final int defValue) {
-        return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
-    }
-
     public static String readPinnedClipString(final Context context) {
         try {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            return prefs.getString(PREF_PINNED_CLIPS, "");
+            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
+            return prefs.getString(PREF_PINNED_CLIPS, Defaults.PREF_PINNED_CLIPS);
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
             return "";
@@ -548,20 +434,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void writePinnedClipString(final Context context, final String clips) {
         try {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = KtxKt.protectedPrefs(context);
             prefs.edit().putString(PREF_PINNED_CLIPS, clips).apply();
         } catch (final IllegalStateException e) {
             // SharedPreferences in credential encrypted storage are not available until after user is unlocked
         }
-    }
-
-    public static int readMorePopupKeysPref(final SharedPreferences prefs) {
-        return switch (prefs.getString(Settings.PREF_MORE_POPUP_KEYS, "main")) {
-            case "all" -> LocaleKeyboardInfosKt.POPUP_KEYS_ALL;
-            case "more" -> LocaleKeyboardInfosKt.POPUP_KEYS_MORE;
-            case "normal" -> LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
-            default -> LocaleKeyboardInfosKt.POPUP_KEYS_MAIN;
-        };
     }
 
     @Nullable public static Drawable readUserBackgroundImage(final Context context, final boolean night) {
@@ -585,19 +462,15 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return new File(DeviceProtectedUtils.getFilesDir(context), "custom_background_image" + (landscape ? "_landscape" : "") + (night ? "_night" : ""));
     }
 
-    public static boolean readDayNightPref(final SharedPreferences prefs, final Resources res) {
-        return prefs.getBoolean(PREF_THEME_DAY_NIGHT, res.getBoolean(R.bool.day_night_default));
-    }
-
     public static void clearCachedBackgroundImages() {
         Arrays.fill(sCachedBackgroundImages, null);
     }
 
     public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
-        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "");
+        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), Defaults.PREF_SECONDARY_LOCALES);
 
         final ArrayList<Locale> locales = new ArrayList<>();
-        for (String languageTag : localesString.split(";")) {
+        for (String languageTag : localesString.split(Constants.Separators.KV)) {
             if (languageTag.isEmpty()) continue;
             locales.add(LocaleUtils.constructLocale(languageTag));
         }
@@ -611,85 +484,21 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         }
         final StringBuilder sb = new StringBuilder();
         for (Locale locale : locales) {
-            sb.append(";").append(locale.toLanguageTag());
+            sb.append(Constants.Separators.KV).append(locale.toLanguageTag());
         }
         prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), sb.toString()).apply();
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
         boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (ColorsSettingsFragment.Companion.getForceOppositeTheme()) isNight = !isNight;
-        else isNight = isNight && readDayNightPref(prefs, context.getResources());
-        final String themeColors = (isNight)
-                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, KeyboardTheme.THEME_DARK)
-                : prefs.getString(Settings.PREF_THEME_COLORS, KeyboardTheme.THEME_LIGHT);
-        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, KeyboardTheme.STYLE_MATERIAL);
+        if (SettingsActivity.Companion.getForceOppositeTheme()) isNight = !isNight;
+        else isNight = isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT);
+        final String themeName = (isNight)
+                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
+                : prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS);
+        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE);
 
-        return KeyboardTheme.getThemeColors(themeColors, themeStyle, context, prefs, isNight);
-    }
-
-    public static int readUserColor(final SharedPreferences prefs, final Context context, final String colorName, final boolean isNight) {
-        final String pref = getColorPref(colorName, isNight);
-        if (prefs.getBoolean(pref + PREF_AUTO_USER_COLOR_SUFFIX, true)) {
-            return determineAutoColor(prefs, context, colorName, isNight);
-        }
-        if (prefs.contains(pref))
-            return prefs.getInt(pref, Color.GRAY);
-        else return determineAutoColor(prefs, context, colorName, isNight);
-    }
-
-    public static String getColorPref(final String color, final boolean isNight) {
-        return (isNight ? PREF_THEME_USER_COLOR_NIGHT_PREFIX : PREF_THEME_USER_COLOR_PREFIX) + color;
-    }
-
-    private static int determineAutoColor(final SharedPreferences prefs, final Context context, final String color, final boolean isNight) {
-        switch (color) {
-            case PREF_COLOR_ACCENT_SUFFIX:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-                    // try determining accent color on Android 10 & 11, accent is not available in resources
-                    final Context wrapper = new ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault);
-                    final TypedValue value = new TypedValue();
-                    if (wrapper.getTheme().resolveAttribute(android.R.attr.colorAccent, value, true))
-                        return value.data;
-                }
-                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.accent);
-            case PREF_COLOR_GESTURE_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_ACCENT_SUFFIX, isNight);
-            case PREF_COLOR_SUGGESTION_TEXT_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-            case PREF_COLOR_TEXT_SUFFIX:
-                // base it on background color, and not key, because it's also used for suggestions
-                final int background = readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight);
-                if (ColorUtilKt.isBrightColor(background)) {
-                    // but if key borders are enabled, we still want reasonable contrast
-                    if (!prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
-                            || ColorUtilKt.isGoodContrast(Color.BLACK, readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight)))
-                        return Color.BLACK;
-                    else
-                        return Color.GRAY;
-                }
-                else return Color.WHITE;
-            case PREF_COLOR_HINT_TEXT_SUFFIX:
-                if (ColorUtilKt.isBrightColor(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight))) return Color.DKGRAY;
-                else return readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-            case PREF_COLOR_KEYS_SUFFIX:
-                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_BACKGROUND_SUFFIX, isNight), isNight);
-            case PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX:
-                return ColorUtilKt.brightenOrDarken(readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight), true);
-            case PREF_COLOR_SPACEBAR_SUFFIX:
-                return readUserColor(prefs, context, PREF_COLOR_KEYS_SUFFIX, isNight);
-            case PREF_COLOR_SPACEBAR_TEXT_SUFFIX:
-                final int spacebar = readUserColor(prefs, context, PREF_COLOR_SPACEBAR_SUFFIX, isNight);
-                final int hintText = readUserColor(prefs, context, PREF_COLOR_HINT_TEXT_SUFFIX, isNight);
-                if (ColorUtilKt.isGoodContrast(hintText, spacebar)) return hintText & 0x80FFFFFF; // add some transparency
-                final int text = readUserColor(prefs, context, PREF_COLOR_TEXT_SUFFIX, isNight);
-                if (ColorUtilKt.isGoodContrast(text, spacebar)) return text & 0x80FFFFFF;
-                if (ColorUtilKt.isBrightColor(spacebar)) return Color.BLACK & 0x80FFFFFF;
-                else return Color.WHITE & 0x80FFFFFF;
-            case PREF_COLOR_BACKGROUND_SUFFIX:
-            default:
-                return ContextCompat.getColor(getDayNightContext(context, isNight), R.color.keyboard_background);
-        }
+        return KeyboardTheme.getThemeColors(themeName, themeStyle, context, prefs, isNight);
     }
 
     public static Context getDayNightContext(final Context context, final boolean wantNight) {
@@ -718,23 +527,28 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public String readCustomCurrencyKey() {
-        return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, "");
+        return mPrefs.getString(PREF_CUSTOM_CURRENCY_KEY, Defaults.PREF_CUSTOM_CURRENCY_KEY);
     }
 
     public Integer getCustomToolbarKeyCode(ToolbarKey key) {
-        if (mCustomToolbarKeyCodes == null)
-            mCustomToolbarKeyCodes = ToolbarUtilsKt.readCustomKeyCodes(mPrefs);
-        return mCustomToolbarKeyCodes.get(key.name());
+        return ToolbarUtilsKt.getCustomKeyCode(key, mPrefs);
     }
 
     public Integer getCustomToolbarLongpressCode(ToolbarKey key) {
-        if (mCustomToolbarLongpressCodes == null)
-            mCustomToolbarLongpressCodes = ToolbarUtilsKt.readCustomLongpressCodes(mPrefs);
-        return mCustomToolbarLongpressCodes.get(key.name());
+        return ToolbarUtilsKt.getCustomLongpressKeyCode(key, mPrefs);
     }
 
     public static File getCustomFontFile(final Context context) {
         return new File(DeviceProtectedUtils.getFilesDir(context), "custom_font");
+    }
+
+    // "default" layout as in this is used if nothing else is specified in the subtype
+    public static String readDefaultLayoutName(final LayoutType type, final SharedPreferences prefs) {
+        return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
+    }
+
+    public static void writeDefaultLayoutName(final String name, final LayoutType type, final SharedPreferences prefs) {
+        prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
     }
 
     @Nullable

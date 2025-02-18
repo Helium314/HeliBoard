@@ -25,10 +25,8 @@ task makeEmoji(type: JavaExec, dependsOn: ['jar']) {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
 }
-
-
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21

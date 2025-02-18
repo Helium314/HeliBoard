@@ -16,3 +16,6 @@
 
 [labels]
 alphabet: АБВ
+
+[tlds]
+ru

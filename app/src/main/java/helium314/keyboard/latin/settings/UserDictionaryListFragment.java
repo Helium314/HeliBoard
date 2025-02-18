@@ -24,9 +24,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.Comparator;
@@ -105,12 +105,12 @@ public class UserDictionaryListFragment extends SubScreenFragment {
     }
 
     static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true);
+        final SharedPreferences prefs = KtxKt.prefs(context);
+        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES);
         final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
-        for (InputMethodSubtype mainSubtype : SubtypeSettingsKt.getEnabledSubtypes(prefs, true)) {
+        for (InputMethodSubtype mainSubtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(prefs, true)) {
             final Locale mainLocale = SubtypeUtilsKt.locale(mainSubtype);
             if (!mainLocale.toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE)) {
                 sortedLocales.add(mainLocale);
@@ -121,7 +121,7 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
         }
 
-        sortedLocales.addAll(SubtypeSettingsKt.getSystemLocales());
+        sortedLocales.addAll(SubtypeSettings.INSTANCE.getSystemLocales());
         return sortedLocales;
     }
 

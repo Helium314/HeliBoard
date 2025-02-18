@@ -9,16 +9,26 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
-import android.os.Build.VERSION_CODES
+import android.util.TypedValue
+import android.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.AllColors
+import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Colors
 import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
-import helium314.keyboard.latin.common.readAllColorsMap
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.brightenOrDarken
+import helium314.keyboard.latin.utils.isBrightColor
+import helium314.keyboard.latin.utils.isGoodContrast
+import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.keyboardNeedsReload
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import java.util.EnumMap
 
 class KeyboardTheme // Note: The themeId should be aligned with "themeId" attribute of Keyboard style in values/themes-<style>.xml.
 private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
@@ -30,20 +40,18 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
     }
 
     companion object {
-        // old themes
+        // old themes, now called styles
         const val STYLE_MATERIAL = "Material"
         const val STYLE_HOLO = "Holo"
         const val STYLE_ROUNDED = "Rounded"
 
-        // new themes using the custom colors
+        // new themes that are just colors
         const val THEME_LIGHT = "light"
         const val THEME_HOLO_WHITE = "holo_white"
         const val THEME_DARK = "dark"
         const val THEME_DARKER = "darker"
         const val THEME_BLACK = "black"
         const val THEME_DYNAMIC = "dynamic"
-        const val THEME_USER = "user"
-        const val THEME_USER_NIGHT = "user_night"
         const val THEME_BLUE_GRAY = "blue_gray"
         const val THEME_BROWN = "brown"
         const val THEME_CHOCOLATE = "chocolate"
@@ -54,14 +62,22 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         const val THEME_PINK = "pink"
         const val THEME_SAND = "sand"
         const val THEME_VIOLETTE = "violette"
-        val COLORS = listOfNotNull(
-            THEME_LIGHT, if (Build.VERSION.SDK_INT < VERSION_CODES.S) null else THEME_DYNAMIC, THEME_HOLO_WHITE, THEME_DARK,
-            THEME_DARKER, THEME_BLACK, THEME_BLUE_GRAY, THEME_BROWN, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST,
-            THEME_INDIGO, THEME_PINK, THEME_OCEAN, THEME_SAND, THEME_VIOLETTE, THEME_USER
-        )
-        val COLORS_DARK = listOfNotNull(
-            THEME_HOLO_WHITE, THEME_DARK, if (Build.VERSION.SDK_INT < VERSION_CODES.S) null else THEME_DYNAMIC,
-            THEME_DARKER, THEME_BLACK, THEME_CHOCOLATE, THEME_CLOUDY, THEME_FOREST, THEME_OCEAN, THEME_VIOLETTE, THEME_USER_NIGHT
+        fun getAvailableDefaultColors(prefs: SharedPreferences, isNight: Boolean) = listOfNotNull(
+            if (!isNight) THEME_LIGHT else null, THEME_DARK,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) THEME_DYNAMIC else null,
+            if (prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE) == STYLE_HOLO) THEME_HOLO_WHITE else null,
+            THEME_DARKER,
+            THEME_BLACK,
+            if (!isNight) THEME_BLUE_GRAY else null,
+            if (!isNight) THEME_BROWN else null,
+            THEME_CHOCOLATE,
+            THEME_CLOUDY,
+            THEME_FOREST,
+            if (!isNight) THEME_INDIGO else null,
+            if (!isNight) THEME_PINK else null,
+            THEME_OCEAN,
+            if (!isNight) THEME_SAND else null,
+            THEME_VIOLETTE
         )
         val STYLES = arrayOf(STYLE_MATERIAL, STYLE_HOLO, STYLE_ROUNDED)
 
@@ -82,11 +98,23 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             KeyboardTheme(THEME_ID_ROUNDED_BASE_BORDER, R.style.KeyboardTheme_Rounded_Base_Border)
         )
 
+        // named colors, with names from old settings
+        const val COLOR_ACCENT = "accent"
+        const val COLOR_GESTURE = "gesture"
+        const val COLOR_SUGGESTION_TEXT = "suggestion_text"
+        const val COLOR_TEXT = "text"
+        const val COLOR_HINT_TEXT = "hint_text"
+        const val COLOR_KEYS = "keys"
+        const val COLOR_FUNCTIONAL_KEYS = "functional_keys"
+        const val COLOR_SPACEBAR = "spacebar"
+        const val COLOR_SPACEBAR_TEXT = "spacebar_text"
+        const val COLOR_BACKGROUND = "background"
+
         @JvmStatic
         fun getKeyboardTheme(context: Context): KeyboardTheme {
-            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-            val style = prefs.getString(Settings.PREF_THEME_STYLE, STYLE_MATERIAL)
-            val borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+            val prefs = context.prefs()
+            val style = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
+            val borders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val matchingId = when (style) {
                 STYLE_HOLO -> THEME_ID_HOLO_BASE
                 STYLE_ROUNDED -> if (borders) THEME_ID_ROUNDED_BASE_BORDER else THEME_ID_ROUNDED_BASE
@@ -100,46 +128,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         }
 
         @JvmStatic
-        fun getThemeColors(themeColors: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
-            val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)
+        fun getThemeColors(themeName: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
+            val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
-            return when (themeColors) {
-                THEME_USER -> if (prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
-                    AllColors(readAllColorsMap(prefs, false), themeStyle, hasBorders, backgroundImage)
-                else DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, false),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, false),
-                    keyboardBackground = backgroundImage
-                )
-                THEME_USER_NIGHT -> if (prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0) == 2)
-                    AllColors(readAllColorsMap(prefs, true), themeStyle, hasBorders, backgroundImage)
-                else DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_ACCENT_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_BACKGROUND_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_KEYS_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_FUNCTIONAL_KEYS_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_TEXT_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_HINT_TEXT_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SUGGESTION_TEXT_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_SPACEBAR_TEXT_SUFFIX, true),
-                    Settings.readUserColor(prefs, context, Settings.PREF_COLOR_GESTURE_SUFFIX, true),
-                    keyboardBackground = backgroundImage
-                )
+            return when (themeName) {
                 THEME_DYNAMIC -> {
-                    if (Build.VERSION.SDK_INT >= VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
                     else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
                 }
                 THEME_DARK -> DefaultColors(
@@ -314,19 +308,190 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     Color.WHITE,
                     keyboardBackground = backgroundImage
                 )
-                else /* THEME_LIGHT */ -> DefaultColors(
-                    themeStyle,
-                    hasBorders,
-                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
-                    ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
-                    ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
-                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
-                    keyboardBackground = backgroundImage
+                else -> { // user-defined theme
+                    if (readUserMoreColors(prefs, themeName) == 2)
+                        AllColors(readUserAllColors(prefs, themeName), themeStyle, hasBorders, backgroundImage)
+                    else {
+                        val colors = readUserColors(prefs, themeName)
+                        DefaultColors(
+                            themeStyle,
+                            hasBorders,
+                            determineUserColor(colors, context, COLOR_ACCENT, false),
+                            determineUserColor(colors, context, COLOR_BACKGROUND, false),
+                            determineUserColor(colors, context, COLOR_KEYS, false),
+                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, false),
+                            determineUserColor(colors, context, COLOR_SPACEBAR, false),
+                            determineUserColor(colors, context, COLOR_TEXT, false),
+                            determineUserColor(colors, context, COLOR_HINT_TEXT, false),
+                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, false),
+                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, false),
+                            determineUserColor(colors, context, COLOR_GESTURE, false),
+                            backgroundImage,
+                        )
+                    }
+                }
+            }
+        }
+
+        fun writeUserColors(prefs: SharedPreferences, themeName: String, colors: List<ColorSetting>) {
+            val key = Settings.PREF_USER_COLORS_PREFIX + themeName
+            val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
+            prefs.edit().putString(key, value).apply()
+            keyboardNeedsReload = true
+        }
+
+        fun readUserColors(prefs: SharedPreferences, themeName: String): List<ColorSetting> {
+            val key = Settings.PREF_USER_COLORS_PREFIX + themeName
+            return Json.decodeFromString(prefs.getString(key, Defaults.PREF_USER_COLORS)!!)
+        }
+
+        fun writeUserMoreColors(prefs: SharedPreferences, themeName: String, value: Int) {
+            val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
+            prefs.edit().putInt(key, value).apply()
+            keyboardNeedsReload = true
+        }
+
+        fun readUserMoreColors(prefs: SharedPreferences, themeName: String): Int {
+            val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
+            return prefs.getInt(key, Defaults.PREF_USER_MORE_COLORS)
+        }
+
+        fun writeUserAllColors(prefs: SharedPreferences, themeName: String, colorMap: EnumMap<ColorType, Int>) {
+            val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
+            prefs.edit().putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")).apply()
+            keyboardNeedsReload = true
+        }
+
+        fun readUserAllColors(prefs: SharedPreferences, themeName: String): EnumMap<ColorType, Int> {
+            val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
+            val colorsString = prefs.getString(key, Defaults.PREF_USER_ALL_COLORS)!!
+            val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
+            colorsString.split(";").forEach {
+                val ct = try {
+                    ColorType.valueOf(it.substringBefore(",").uppercase())
+                } catch (_: Exception) { // todo: which one?
+                    return@forEach
+                }
+                val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
+                colorMap[ct] = i
+            }
+            return colorMap
+        }
+
+        fun getUnusedThemeName(initialName: String, prefs: SharedPreferences): String {
+            val existingNames = prefs.all.keys.mapNotNull {
+                when {
+                    it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
+                    else -> null
+                }
+            }.toSortedSet()
+            if (initialName !in existingNames) return initialName
+            var i = 1
+            while ("$initialName$i" in existingNames)
+                i++
+            return "$initialName$i"
+        }
+
+        // returns false if not renamed due to invalid name or collision
+        fun renameUserColors(from: String, to: String, prefs: SharedPreferences): Boolean {
+            if (to.isBlank()) return false // don't want that
+            if (to == from) return true // nothing to do
+            val existingNames = prefs.all.keys.mapNotNull {
+                when {
+                    it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
+                    it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
+                    else -> null
+                }
+            }.toSortedSet()
+            if (to in existingNames) return false
+            // all good, now rename
+            prefs.edit {
+                if (prefs.contains(Settings.PREF_USER_COLORS_PREFIX + from)) {
+                    putString(Settings.PREF_USER_COLORS_PREFIX + to, prefs.getString(Settings.PREF_USER_COLORS_PREFIX + from, ""))
+                    remove(Settings.PREF_USER_COLORS_PREFIX + from)
+                }
+                if (prefs.contains(Settings.PREF_USER_ALL_COLORS_PREFIX + from)) {
+                    putString(Settings.PREF_USER_ALL_COLORS_PREFIX + to, prefs.getString(Settings.PREF_USER_ALL_COLORS_PREFIX + from, ""))
+                    remove(Settings.PREF_USER_ALL_COLORS_PREFIX + from)
+                }
+                if (prefs.contains(Settings.PREF_USER_MORE_COLORS_PREFIX + from)) {
+                    putInt(Settings.PREF_USER_MORE_COLORS_PREFIX + to, prefs.getInt(Settings.PREF_USER_MORE_COLORS_PREFIX + from, 0))
+                    remove(Settings.PREF_USER_MORE_COLORS_PREFIX + from)
+                }
+                if (prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS) == from)
+                    putString(Settings.PREF_THEME_COLORS, to)
+                if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == from)
+                    putString(Settings.PREF_THEME_COLORS_NIGHT, to)
+            }
+            return true
+        }
+
+        fun determineUserColor(colors: List<ColorSetting>, context: Context, colorName: String, isNight: Boolean): Int {
+            val c = colors.firstOrNull { it.name == colorName }
+            val color = c?.color
+            val auto = c?.auto ?: true
+            return if (auto || color == null)
+                determineAutoColor(colors, colorName, isNight, context)
+            else color
+        }
+
+        private fun determineAutoColor(colors: List<ColorSetting>, colorName: String, isNight: Boolean, context: Context): Int {
+            when (colorName) {
+                COLOR_ACCENT -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                        // try determining accent color on Android 10 & 11, accent is not available in resources
+                        val wrapper: Context = ContextThemeWrapper(context, android.R.style.Theme_DeviceDefault)
+                        val value = TypedValue()
+                        if (wrapper.theme.resolveAttribute(android.R.attr.colorAccent, value, true)) return value.data
+                    }
+                    return ContextCompat.getColor(Settings.getDayNightContext(context, isNight), R.color.accent)
+                }
+                COLOR_GESTURE -> return determineUserColor(colors, context, COLOR_ACCENT, isNight)
+                COLOR_SUGGESTION_TEXT ->
+                    return determineUserColor(colors, context, COLOR_TEXT, isNight)
+                COLOR_TEXT -> {
+                    // base it on background color, and not key, because it's also used for suggestions
+                    val background = determineUserColor(colors, context, COLOR_BACKGROUND, isNight)
+                    return if (isBrightColor(background)) {
+                        // but if key borders are enabled, we still want reasonable contrast
+                        if (!context.prefs().getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
+                            || isGoodContrast(Color.BLACK, determineUserColor(colors, context, COLOR_KEYS, isNight))
+                        ) Color.BLACK
+                        else Color.GRAY
+                    } else Color.WHITE
+                }
+                COLOR_HINT_TEXT -> {
+                    return if (isBrightColor(determineUserColor(colors, context, COLOR_KEYS, isNight))) Color.DKGRAY
+                    else determineUserColor(colors, context, COLOR_TEXT, isNight)
+                }
+                COLOR_KEYS ->
+                    return brightenOrDarken(determineUserColor(colors, context, COLOR_BACKGROUND, isNight), isNight)
+                COLOR_FUNCTIONAL_KEYS ->
+                    return brightenOrDarken(determineUserColor(colors, context, COLOR_KEYS, isNight), true)
+                COLOR_SPACEBAR -> return determineUserColor(colors, context, COLOR_KEYS, isNight)
+                COLOR_SPACEBAR_TEXT -> {
+                    val spacebar = determineUserColor(colors, context, COLOR_SPACEBAR, isNight)
+                    val hintText = determineUserColor(colors, context, COLOR_HINT_TEXT, isNight)
+                    if (isGoodContrast(hintText, spacebar)) return hintText and -0x7f000001 // add some transparency
+                    val text = determineUserColor(colors, context, COLOR_TEXT, isNight)
+                    if (isGoodContrast(text, spacebar)) return text and -0x7f000001
+                    return if (isBrightColor(spacebar)) Color.BLACK and -0x7f000001
+                    else Color.WHITE and -0x7f000001
+                }
+                COLOR_BACKGROUND -> return ContextCompat.getColor(
+                    Settings.getDayNightContext(context, isNight),
+                    R.color.keyboard_background
                 )
+                else -> return ContextCompat.getColor(Settings.getDayNightContext(context, isNight), R.color.keyboard_background)
             }
         }
     }
+}
+
+@Serializable
+data class ColorSetting(val name: String, val auto: Boolean?, val color: Int?) {
+    var displayName = name
 }

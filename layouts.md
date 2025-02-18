@@ -1,8 +1,10 @@
-A compilation of information about the layout formats usable in this app.
+# A compilation of information about the layout formats usable in this app.
 
 There are two distinct formats:
 * the _simple_ format is a text file with one key label per line, and two consecutive line breaks indicating a switch to the next row, [example](app/src/main/assets/layouts/qwerty.txt)
 * the _json_ format taken from [FlorisBoard](https://github.com/florisboard/florisboard/blob/master/CONTRIBUTING.md#adding-the-layout), but only "normal" keys are supported (i.e. no action keys and similar), [example](app/src/main/assets/layouts/azerty.json)
+
+You can add both directly in the app, see the related [FAQ](https://github.com/Helium314/HeliBoard/wiki/Customization#layouts).
 
 ## General notes
 Adding too many keys or too long texts will make the keyboard look awkward or broken, and even crash the app under some specific conditions (popup keys are especially prone for this).
@@ -37,7 +39,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
     * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
     * `keyboard_state_selector`: keys for `emojiKeyEnabled`, `languageKeyEnabled`, `symbols`, `moreSymbols`, `alphabet`, `default` (all optional)
-      * the `keyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
+      * the `<emoji/language>KeyEnabled` keys will be used if the corresponding setting is enabled, `symbols`, `moreSymbols`, `alphabet` will be used when the said keyboard view is active
     * `layout_direction_selector`: keys for `ltr` and `rtl` (both mandatory)
 ### Properties
 * A (non-selector) key can have the following properties:

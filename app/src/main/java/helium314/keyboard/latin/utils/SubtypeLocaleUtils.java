@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.COMBINING_RULES;
-import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET;
 import static helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME;
 
 import androidx.annotation.NonNull;
@@ -123,7 +122,7 @@ public final class SubtypeLocaleUtils {
         return NO_LANGUAGE + "_" + keyboardLayoutName;
     }
 
-    public static int getSubtypeNameId(final Locale locale, final String keyboardLayoutName) {
+    public static int getSubtypeNameResId(final Locale locale, final String keyboardLayoutName) {
         final String languageTag = locale.toLanguageTag();
         if (isExceptionalLocale(locale)) {
             return sExceptionalLocaleToWithLayoutNameIdsMap.get(languageTag);
@@ -225,8 +224,21 @@ public final class SubtypeLocaleUtils {
     }
 
     @NonNull
-    public static String getSubtypeDisplayNameInSystemLocale(
-            @NonNull final InputMethodSubtype subtype) {
+    public static String getDisplayNameInSystemLocale(@NonNull final String mainLayoutName, @NonNull final Locale locale) {
+        final String displayName = getMainLayoutDisplayName(mainLayoutName);
+        if (displayName != null) // works for custom and latin layouts
+            return displayName;
+        // we have some locale-specific layout
+        for (InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getResourceSubtypesForLocale(locale)) {
+            final String main = LayoutType.Companion.getMainLayoutFromExtraValue(subtype.getExtraValue());
+            if (mainLayoutName.equals(main))
+                return getSubtypeDisplayNameInSystemLocale(subtype);
+        }
+        return mainLayoutName; // should never happen...
+    }
+
+    @NonNull
+    public static String getSubtypeDisplayNameInSystemLocale(@NonNull final InputMethodSubtype subtype) {
         final Locale displayLocale = ConfigurationCompatKt.locale(sResources.getConfiguration());
         return getSubtypeDisplayNameInternal(subtype, displayLocale);
     }
@@ -236,7 +248,7 @@ public final class SubtypeLocaleUtils {
         if (subtype == null) {
             return "<null subtype>";
         }
-        return SubtypeUtilsKt.locale(subtype) + "/" + getKeyboardLayoutSetName(subtype);
+        return SubtypeUtilsKt.locale(subtype) + "/" + getMainLayoutName(subtype);
     }
 
     @NonNull
@@ -260,30 +272,30 @@ public final class SubtypeLocaleUtils {
     }
 
     @Nullable
-    public static String getKeyboardLayoutSetDisplayName(@NonNull final InputMethodSubtype subtype) {
-        final String layoutName = getKeyboardLayoutSetName(subtype);
-        return getKeyboardLayoutSetDisplayName(layoutName);
+    public static String getMainLayoutDisplayName(@NonNull final InputMethodSubtype subtype) {
+        final String layoutName = getMainLayoutName(subtype);
+        return getMainLayoutDisplayName(layoutName);
     }
 
     @Nullable
-    public static String getKeyboardLayoutSetDisplayName(@NonNull final String layoutName) {
-        if (layoutName.startsWith(CustomLayoutUtilsKt.CUSTOM_LAYOUT_PREFIX))
-            return CustomLayoutUtilsKt.getLayoutDisplayName(layoutName);
+    public static String getMainLayoutDisplayName(@NonNull final String layoutName) {
+        if (LayoutUtilsCustom.INSTANCE.isCustomLayout(layoutName))
+            return LayoutUtilsCustom.INSTANCE.getDisplayName(layoutName);
         return sKeyboardLayoutToDisplayNameMap.get(layoutName);
     }
 
     @NonNull
-    public static String getKeyboardLayoutSetName(final InputMethodSubtype subtype) {
-        String keyboardLayoutSet = subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET);
-        if (keyboardLayoutSet == null && subtype.isAsciiCapable()) {
-            keyboardLayoutSet = QWERTY;
+    public static String getMainLayoutName(final InputMethodSubtype subtype) {
+        String mainLayoutName = SubtypeUtilsKt.mainLayoutName(subtype);
+        if (mainLayoutName == null && subtype.isAsciiCapable()) {
+            mainLayoutName = QWERTY;
         }
-        if (keyboardLayoutSet == null) { // we could search for a subtype with the correct script, but this is a bug anyway...
+        if (mainLayoutName == null) { // we could search for a subtype with the correct script, but this is a bug anyway...
             Log.w(TAG, "KeyboardLayoutSet not found, use QWERTY: " +
                     "locale=" + subtype.getLocale() + " extraValue=" + subtype.getExtraValue());
             return QWERTY;
         }
-        return keyboardLayoutSet;
+        return mainLayoutName;
     }
 
     public static String getCombiningRulesExtraValue(final InputMethodSubtype subtype) {

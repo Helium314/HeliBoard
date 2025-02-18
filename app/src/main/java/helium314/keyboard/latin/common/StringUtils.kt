@@ -6,6 +6,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.StringUtils.mightBeEmoji
 import helium314.keyboard.latin.common.StringUtils.newSingleCodePointString
 import helium314.keyboard.latin.settings.SpacingAndPunctuations
+import java.math.BigInteger
 import java.util.Locale
 
 fun loopOverCodePoints(s: CharSequence, run: (Int) -> Boolean) {
@@ -62,13 +63,24 @@ fun getFullEmojiAtEnd(s: CharSequence): String {
     while (offset > 0) {
         val codepoint = text.codePointBefore(offset)
         // stop if codepoint can't be emoji
-        if (!mightBeEmoji(codepoint)) return ""
+        if (!mightBeEmoji(codepoint))
+            return text.substring(offset)
         offset -= Character.charCount(codepoint)
-        // todo: if codepoint in 0x1F3FB..0x1F3FF -> combine with other emojis in front, but only if they actually combine
-        //  why isn't this done with zwj like everything else? skin tones can be emojis by themselves...
         if (offset > 0 && text[offset - 1].code == KeyCode.ZWJ) {
+            // todo: this appends ZWJ in weird cases like text, ZWJ, emoji
+            //  and detects single ZWJ as emoji (at least irrelevant for current use of getFullEmojiAtEnd)
             offset -= 1
             continue
+        }
+
+        if (codepoint in 0x1F3FB..0x1F3FF) {
+            // Skin tones are not added with ZWJ, but just appended. This is not nice as they can be emojis on their own,
+            // but that's how it is done. Assume that an emoji before the skin tone will get merged (usually correct in practice)
+            val codepointBefore = text.codePointBefore(offset)
+            if (isEmoji(codepointBefore)) {
+                offset -= Character.charCount(codepointBefore)
+                continue
+            }
         }
         // check the whole text after offset
         val textToCheck = text.substring(offset)
@@ -76,7 +88,7 @@ fun getFullEmojiAtEnd(s: CharSequence): String {
             return textToCheck
         }
     }
-    return ""
+    return text.substring(offset)
 }
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
@@ -111,6 +123,15 @@ fun String.decapitalize(locale: Locale): String {
     if (isEmpty() || !this[0].isUpperCase())
         return this
     return replaceFirstChar { it.lowercase(locale) }
+}
+
+fun encodeBase36(string: String): String = BigInteger(string.toByteArray()).toString(36)
+
+fun decodeBase36(string: String) = BigInteger(string, 36).toByteArray().decodeToString()
+
+fun containsValueWhenSplit(string: String?, value: String, split: String): Boolean {
+    if (string == null) return false
+    return string.split(split).contains(value)
 }
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))

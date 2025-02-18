@@ -10,6 +10,8 @@ import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+
+import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
@@ -197,7 +199,7 @@ final class DynamicGridKeyboard extends Keyboard {
             }
         }
         final String jsonStr = JsonUtils.listToJsonStr(keys);
-        Settings.writeEmojiRecentKeys(mPrefs, jsonStr);
+        mPrefs.edit().putString(Settings.PREF_EMOJI_RECENT_KEYS, jsonStr).apply();
     }
 
     private Key getKeyByCode(final Collection<DynamicGridKeyboard> keyboards,
@@ -229,7 +231,7 @@ final class DynamicGridKeyboard extends Keyboard {
     }
 
     public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {
-        final String str = Settings.readEmojiRecentKeys(mPrefs);
+        final String str = mPrefs.getString(Settings.PREF_EMOJI_RECENT_KEYS, Defaults.PREF_EMOJI_RECENT_KEYS);
         final List<Object> keys = JsonUtils.jsonStrToList(str);
         for (final Object o : keys) {
             final Key key;

@@ -4,18 +4,22 @@ package helium314.keyboard.latin.utils
 import android.content.SharedPreferences
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
-import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyLabel.rtlLabel
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet
+import helium314.keyboard.latin.common.Constants.Separators
 
-const val POPUP_KEYS_NUMBER = "popup_keys_number"
-private const val POPUP_KEYS_LANGUAGE_PRIORITY = "popup_keys_language_priority"
-const val POPUP_KEYS_LAYOUT = "popup_keys_layout"
-private const val POPUP_KEYS_SYMBOLS = "popup_keys_symbols"
-private const val POPUP_KEYS_LANGUAGE = "popup_keys_language"
-const val POPUP_KEYS_LABEL_DEFAULT = "$POPUP_KEYS_NUMBER,true;$POPUP_KEYS_LANGUAGE_PRIORITY,false;$POPUP_KEYS_LAYOUT,true;$POPUP_KEYS_SYMBOLS,true;$POPUP_KEYS_LANGUAGE,false"
-const val POPUP_KEYS_ORDER_DEFAULT = "$POPUP_KEYS_LANGUAGE_PRIORITY,true;$POPUP_KEYS_NUMBER,true;$POPUP_KEYS_SYMBOLS,true;$POPUP_KEYS_LAYOUT,true;$POPUP_KEYS_LANGUAGE,true"
+const val POPUP_KEYS_NUMBER = "number"
+private const val POPUP_KEYS_LANGUAGE_PRIORITY = "language_priority"
+const val POPUP_KEYS_LAYOUT = "layout"
+private const val POPUP_KEYS_SYMBOLS = "symbols"
+private const val POPUP_KEYS_LANGUAGE = "language"
+const val POPUP_KEYS_LABEL_DEFAULT = POPUP_KEYS_NUMBER + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_LANGUAGE_PRIORITY +
+        Separators.KV + false + Separators.ENTRY + POPUP_KEYS_LAYOUT + Separators.KV + true + Separators.ENTRY +
+        POPUP_KEYS_SYMBOLS + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_LANGUAGE + Separators.KV + false
+const val POPUP_KEYS_ORDER_DEFAULT = POPUP_KEYS_LANGUAGE_PRIORITY + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_NUMBER +
+        Separators.KV + true + Separators.ENTRY + POPUP_KEYS_SYMBOLS + Separators.KV + true + Separators.ENTRY +
+        POPUP_KEYS_LAYOUT + Separators.KV + true + Separators.ENTRY + POPUP_KEYS_LANGUAGE + Separators.KV + true
 
 private val allPopupKeyTypes = listOf(POPUP_KEYS_NUMBER, POPUP_KEYS_LAYOUT, POPUP_KEYS_SYMBOLS, POPUP_KEYS_LANGUAGE, POPUP_KEYS_LANGUAGE_PRIORITY)
 

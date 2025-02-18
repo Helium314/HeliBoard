@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -30,27 +31,24 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.rarepebble.colorpicker.ColorPickerView
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.default
-import helium314.keyboard.latin.common.readAllColorsMap
-import helium314.keyboard.latin.common.splitOnWhitespace
-import helium314.keyboard.latin.common.writeAllColorsMap
 import helium314.keyboard.latin.databinding.ColorSettingBinding
 import helium314.keyboard.latin.databinding.ColorSettingsBinding
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.infoDialog
+import helium314.keyboard.latin.utils.prefs
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
 
 open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvider {
-
+/*
     private val binding by viewBinding(ColorSettingsBinding::bind)
     open val isNight = false
     open val titleResId = R.string.select_user_colors
@@ -62,7 +60,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         get() = prefs.getInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), 0)
         set(value) { prefs.edit().putInt(Settings.getColorPref(Settings.PREF_SHOW_MORE_COLORS, isNight), value).apply() }
 
-    private val prefs by lazy { DeviceProtectedUtils.getSharedPreferences(requireContext()) }
+    private val prefs by lazy { requireContext().prefs() }
 
     private val colorPrefsAndNames by lazy {
         listOf(
@@ -108,7 +106,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         activity?.removeMenuProvider(this)
     }
-
+*/
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         menu.add(Menu.NONE, 0, Menu.NONE, R.string.main_colors)
         menu.add(Menu.NONE, 1, Menu.NONE, R.string.more_colors)
@@ -120,7 +118,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         // necessary, even though we only have a single menu item
         // because the back arrow on top absurdly is implemented as a menu item
-        if (menuItem.itemId in 0..2) {
+/*        if (menuItem.itemId in 0..2) {
             if (moreColors == menuItem.itemId) return true
             if (moreColors == 2 || menuItem.itemId == 2) {
                 RichInputMethodManager.getInstance().inputMethodManager.hideSoftInputFromWindow(binding.dummyText.windowToken, 0)
@@ -137,10 +135,10 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         if (menuItem.itemId == 4) {
             loadDialog()
             return true
-        }
+        }*/
         return false
     }
-
+/*
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         // updateColorPrefs must be called after super.onViewStateRestored because for some reason Android
@@ -321,14 +319,12 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             RichInputMethodManager.getInstance().inputMethodManager.showSoftInput(binding.dummyText, 0)
         }
     }
-
+*/
     companion object {
         var forceOppositeTheme = false
     }
-
+/*
     // ----------------- stuff for import / export ---------------------------
-    @Serializable
-    private data class SaveThoseColors(val moreColors: Int, val colors: Map<String, Pair<Int?, Boolean>>)
 
     private fun saveDialog() {
         AlertDialog.Builder(requireContext())
@@ -414,7 +410,7 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
         if (moreColors == 2)
             return Json.encodeToString(readAllColorsMap(prefs, isNight).map { it.key.name to it.value }.toMap())
         // read the actual prefs!
-        val colors = colorPrefsAndNames.associate {
+        val colors = colorPrefsAndResIds.associate {
             val pref = Settings.getColorPref(it.first, isNight)
             val color = if (prefs.contains(pref)) prefs.getInt(pref, 0) else null
             it.first to (color to prefs.getBoolean(pref + Settings.PREF_AUTO_USER_COLOR_SUFFIX, true))
@@ -435,10 +431,29 @@ open class ColorsSettingsFragment : Fragment(R.layout.color_settings), MenuProvi
             loadColorString(it.reader().readText())
         } ?: infoDialog(requireContext(), R.string.file_read_error)
     }
-
+*/
 }
 
 class ColorsNightSettingsFragment : ColorsSettingsFragment() {
-    override val isNight = true
-    override val titleResId = R.string.select_user_colors_night
+//    override val isNight = true
+//    override val titleResId = R.string.select_user_colors_night
+}
+
+val colorPrefsAndResIds = listOf(
+    KeyboardTheme.COLOR_BACKGROUND to R.string.select_color_background,
+    KeyboardTheme.COLOR_KEYS to R.string.select_color_key_background,
+    KeyboardTheme.COLOR_FUNCTIONAL_KEYS to R.string.select_color_functional_key_background,
+    KeyboardTheme.COLOR_SPACEBAR to R.string.select_color_spacebar_background,
+    KeyboardTheme.COLOR_TEXT to R.string.select_color_key,
+    KeyboardTheme.COLOR_HINT_TEXT to R.string.select_color_key_hint,
+    KeyboardTheme.COLOR_SUGGESTION_TEXT to R.string.select_color_suggestion,
+    KeyboardTheme.COLOR_SPACEBAR_TEXT to R.string.select_color_spacebar_text,
+    KeyboardTheme.COLOR_ACCENT to R.string.select_color_accent,
+    KeyboardTheme.COLOR_GESTURE to R.string.select_color_gesture,
+)
+
+fun getColorPrefsToHideInitially(prefs: SharedPreferences): List<String> {
+    return listOf(KeyboardTheme.COLOR_SUGGESTION_TEXT, KeyboardTheme.COLOR_SPACEBAR_TEXT, KeyboardTheme.COLOR_GESTURE) +
+            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(KeyboardTheme.COLOR_SPACEBAR_TEXT)
+            else listOf(KeyboardTheme.COLOR_FUNCTIONAL_KEYS)
 }

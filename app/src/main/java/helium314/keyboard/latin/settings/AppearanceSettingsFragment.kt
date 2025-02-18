@@ -62,8 +62,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     private val dayNightPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_THEME_DAY_NIGHT) }
     private val userColorsPref: Preference by lazy { preferenceScreen.findPreference("theme_select_colors")!! }
     private val userColorsPrefNight: Preference? by lazy { preferenceScreen.findPreference("theme_select_colors_night") }
-    private val splitPref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
+    private val splitLandscapePref: TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE) }
+    private val splitPortraitPref:  TwoStatePreference? by lazy { preferenceScreen.findPreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD) }
     private val splitScalePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE) }
+    private val splitScaleLandscapePref: Preference? by lazy { preferenceScreen.findPreference(Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE) }
 
     private val dayImageFilePicker = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@registerForActivityResult
@@ -105,11 +107,24 @@ class AppearanceSettingsFragment : SubScreenFragment() {
 
         setupScalePrefs(Settings.PREF_KEYBOARD_HEIGHT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
         setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, 0f)
+        setupScalePrefs(Settings.PREF_FONT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_EMOJI_FONT_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
+        setupScalePrefs(Settings.PREF_SIDE_PADDING_SCALE, 0f)
+        setupScalePrefs(Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE, 0f)
         if (splitScalePref != null) {
             setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE, SettingsValues.DEFAULT_SIZE_SCALE)
-            splitScalePref?.isVisible = splitPref?.isChecked == true
-            splitPref?.setOnPreferenceChangeListener { _, value ->
+            splitScalePref?.isVisible = splitPortraitPref?.isChecked == true
+            splitPortraitPref?.setOnPreferenceChangeListener { _, value ->
                 splitScalePref?.isVisible = value as Boolean
+                true
+            }
+        }
+        if (splitScaleLandscapePref != null) {
+            setupScalePrefs(Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE, SettingsValues.DEFAULT_SIZE_SCALE)
+            splitScaleLandscapePref?.isVisible = splitLandscapePref?.isChecked == true
+            splitLandscapePref?.setOnPreferenceChangeListener { _, value ->
+                splitScaleLandscapePref?.isVisible = value as Boolean
                 true
             }
         }
@@ -150,17 +165,10 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 removePreference("theme_select_colors_night")
             }
         }
-        val metrics = requireContext().resources.displayMetrics
-        val widthDp = TypedValueCompat.pxToDp(metrics.widthPixels.toFloat(), metrics)
-        val heightDp = TypedValueCompat.pxToDp(metrics.heightPixels.toFloat(), metrics)
-        if ((min(widthDp, heightDp) < 600 && max(widthDp, heightDp) < 720)) {
-            removePreference(Settings.PREF_ENABLE_SPLIT_KEYBOARD)
-            removePreference(Settings.PREF_SPLIT_SPACER_SCALE)
-        }
     }
 
     private fun setColorPrefs(style: String) {
-        colorsPref.apply {
+/*        colorsPref.apply {
             entryValues = if (style == KeyboardTheme.STYLE_HOLO) KeyboardTheme.COLORS.toTypedArray()
                 else KeyboardTheme.COLORS.filterNot { it == KeyboardTheme.THEME_HOLO_WHITE }.toTypedArray()
             entries = entryValues.getNamesFromResourcesIfAvailable("theme_name_")
@@ -187,11 +195,11 @@ class AppearanceSettingsFragment : SubScreenFragment() {
                 userColorsPrefNight?.isVisible = value == KeyboardTheme.THEME_USER_NIGHT
                 true
             }
-        }
+        }*/
     }
 
     private fun setupTheme() {
-        stylePref.apply {
+/*        stylePref.apply {
             entryValues = KeyboardTheme.STYLES
             entries = entryValues.getNamesFromResourcesIfAvailable("style_name_")
             if (value !in entryValues)
@@ -224,7 +232,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
         }
         colorsNightPref?.isVisible = dayNightPref?.isChecked == true
         userColorsPref.isVisible = colorsPref.value == KeyboardTheme.THEME_USER
-        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT
+        userColorsPrefNight?.isVisible = dayNightPref?.isChecked == true && colorsNightPref?.value == KeyboardTheme.THEME_USER_NIGHT*/
     }
 
     // performance is not good, but not bad enough to justify work
@@ -346,7 +354,7 @@ class AppearanceSettingsFragment : SubScreenFragment() {
     }
 
     private fun onClickLoadImage(landscape: Boolean): Boolean {
-        if (Settings.readDayNightPref(sharedPreferences, resources)) {
+        if (sharedPreferences.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT)) {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.day_or_night_image)
                 .setPositiveButton(R.string.day_or_night_day) { _, _ -> customImageDialog(false, landscape) }

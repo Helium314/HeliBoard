@@ -27,11 +27,12 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.common.ComposedData;
+import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.KtxKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.util.Locale;
@@ -79,12 +80,12 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public void onCreate() {
         super.onCreate();
         mRecommendedThreshold = Float.parseFloat(getString(R.string.spellchecker_recommended_threshold_value));
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
+        final SharedPreferences prefs = KtxKt.prefs(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
-        final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+        final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
-        SubtypeSettingsKt.init(this);
+        SubtypeSettings.INSTANCE.init(this);
     }
 
     public float getRecommendedThreshold() {
@@ -94,10 +95,10 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
         if (Settings.PREF_USE_CONTACTS.equals(key)) {
-            final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, true);
+            final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, Defaults.PREF_USE_CONTACTS);
             mDictionaryFacilitatorCache.setUseContactsDictionary(useContactsDictionary);
         } else if (Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE.equals(key)) {
-            final boolean blockOffensive = Settings.readBlockPotentiallyOffensive(prefs, getResources());
+            final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
             mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
         }
     }
@@ -198,8 +199,8 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
             editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
             Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));
         }
-        final String keyboardLayoutName = SubtypeSettingsKt.getMatchingLayoutSetNameForLocale(locale);
-        final InputMethodSubtype subtype = AdditionalSubtypeUtils.createDummyAdditionalSubtype(locale, keyboardLayoutName);
+        final String mainLayoutName = SubtypeSettings.INSTANCE.getMatchingMainLayoutNameForLocale(locale);
+        final InputMethodSubtype subtype = SubtypeUtilsAdditional.INSTANCE.createDummyAdditionalSubtype(locale, mainLayoutName);
         final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
     }
@@ -210,7 +211,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(this, editorInfo);
         return builder
                 .setKeyboardGeometry(SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT)
-                .setSubtype(RichInputMethodSubtype.getRichInputMethodSubtype(subtype))
+                .setSubtype(RichInputMethodSubtype.Companion.get(subtype))
                 .setIsSpellChecker(true)
                 .disableTouchPositionCorrectionData()
                 .build();

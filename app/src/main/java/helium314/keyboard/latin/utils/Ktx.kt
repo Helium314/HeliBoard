@@ -1,6 +1,15 @@
 package helium314.keyboard.latin.utils
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.SharedPreferences
+import android.view.View
+import android.widget.RelativeLayout
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import helium314.keyboard.latin.R
 
 // generic extension functions
 
@@ -13,9 +22,9 @@ inline fun <T> Iterable<T>.sumOf(selector: (T) -> Float): Float {
     return sum
 }
 
-fun CharSequence.getStringResourceOrName(prefix: String, context: Context): CharSequence {
+fun CharSequence.getStringResourceOrName(prefix: String, context: Context): String {
     val resId = context.resources.getIdentifier(prefix + this, "string", context.packageName)
-    return if (resId == 0) this else context.getString(resId)
+    return if (resId == 0) this.toString() else context.getString(resId)
 }
 
 /**
@@ -54,3 +63,28 @@ fun <T> MutableList<T>.replaceFirst(predicate: (T) -> Boolean, with: (T) -> T) {
     val i = indexOfFirst(predicate)
     if (i >= 0) this[i] = with(this[i])
 }
+
+fun Context.getActivity(): ComponentActivity? {
+    val componentActivity = when (this) {
+        is ComponentActivity -> this
+        is ContextWrapper -> baseContext.getActivity()
+        else -> null
+    }
+    return componentActivity
+}
+
+// todo: should not be necessary after full pref switch to compose
+fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
+    (this as AppCompatActivity).supportFragmentManager.commit {
+        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).visibility = View.VISIBLE
+        replace(R.id.settingsFragmentContainer, fragment)
+        addToBackStack(null)
+    }
+}
+
+/** SharedPreferences from deviceProtectedContext, which are accessible even without unlocking.
+ *  They should not be used to store sensitive data! */
+fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferences(this)
+
+/** The "default" preferences that are only accessible after the device has been unlocked. */
+fun Context.protectedPrefs(): SharedPreferences = getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE)

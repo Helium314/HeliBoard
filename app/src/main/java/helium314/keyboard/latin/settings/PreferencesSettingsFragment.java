@@ -22,7 +22,7 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.utils.DialogUtilsKt;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import kotlin.collections.ArraysKt;
@@ -54,6 +54,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         setupHistoryRetentionTimeSettings();
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         setLocalizedNumberRowVisibility();
+        setNumberRowHintsVisibility();
         findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(getSharedPreferences().getBoolean(Settings.PREF_SHOW_HINTS, false));
         findPreference(Settings.PREF_POPUP_KEYS_ORDER).setOnPreferenceClickListener((pref) -> {
             DialogUtilsKt.reorderDialog(requireContext(), Settings.PREF_POPUP_KEYS_ORDER,
@@ -77,12 +78,18 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings();
         if (key == null) return;
         switch (key) {
-            case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW,
+            case Settings.PREF_POPUP_KEYS_ORDER, Settings.PREF_SHOW_POPUP_HINTS, Settings.PREF_SHOW_NUMBER_ROW_HINTS,
                     Settings.PREF_POPUP_KEYS_LABELS_ORDER, Settings.PREF_LANGUAGE_SWITCH_KEY,
-                    Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY , Settings.PREF_REMOVE_REDUNDANT_POPUPS-> mReloadKeyboard = true;
+                    Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, Settings.PREF_REMOVE_REDUNDANT_POPUPS -> mReloadKeyboard = true;
+            case Settings.PREF_SHOW_NUMBER_ROW -> {
+                setNumberRowHintsVisibility();
+                mReloadKeyboard = true;
+            }
             case Settings.PREF_LOCALIZED_NUMBER_ROW -> KeyboardLayoutSet.onSystemLocaleChanged();
-            case Settings.PREF_SHOW_HINTS
-                    -> findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+            case Settings.PREF_SHOW_HINTS -> {
+                findPreference(Settings.PREF_POPUP_KEYS_LABELS_ORDER).setVisible(prefs.getBoolean(Settings.PREF_SHOW_HINTS, false));
+                setNumberRowHintsVisibility();
+            }
         }
     }
 
@@ -99,7 +106,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (pref == null) return;
         // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
         final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur" };
-        for (final InputMethodSubtype subtype : SubtypeSettingsKt.getEnabledSubtypes(getSharedPreferences(), true)) {
+        for (final InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(getSharedPreferences(), true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(SubtypeUtilsKt.locale(subtype).getLanguage()))) {
                 pref.setVisible(true);
                 return;
@@ -108,17 +115,23 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         pref.setVisible(false);
     }
 
+    private void setNumberRowHintsVisibility() {
+        var prefs = getSharedPreferences();
+        setPreferenceVisible(Settings.PREF_SHOW_NUMBER_ROW_HINTS, prefs.getBoolean(Settings.PREF_SHOW_HINTS, false)
+                        && prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false));
+    }
+
     private void refreshEnablingsOfKeypressSoundAndVibrationAndHistRetentionSettings() {
         final SharedPreferences prefs = getSharedPreferences();
         final Resources res = getResources();
         setPreferenceVisible(Settings.PREF_VIBRATION_DURATION_SETTINGS,
-                Settings.readVibrationEnabled(prefs, res));
+                Settings.readVibrationEnabled(prefs));
         setPreferenceVisible(Settings.PREF_VIBRATE_IN_DND_MODE,
-                Settings.readVibrationEnabled(prefs, res));
+                Settings.readVibrationEnabled(prefs));
         setPreferenceVisible(Settings.PREF_KEYPRESS_SOUND_VOLUME,
-                Settings.readKeypressSoundEnabled(prefs, res));
+                prefs.getBoolean(Settings.PREF_SOUND_ON, Defaults.PREF_SOUND_ON));
         setPreferenceVisible(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
-                Settings.readClipboardHistoryEnabled(prefs));
+                prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY));
     }
 
     private void setupKeypressVibrationDurationSettings() {
@@ -142,7 +155,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readKeypressVibrationDuration(prefs);
+                return prefs.getInt(Settings.PREF_VIBRATION_DURATION_SETTINGS, Defaults.PREF_VIBRATION_DURATION_SETTINGS);
             }
 
             @Override
@@ -197,7 +210,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return getPercentageFromValue(Settings.readKeypressSoundVolume(prefs));
+                return getPercentageFromValue(prefs.getFloat(Settings.PREF_KEYPRESS_SOUND_VOLUME, Defaults.PREF_KEYPRESS_SOUND_VOLUME));
             }
 
             @Override
@@ -242,7 +255,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readClipboardHistoryRetentionTime(prefs, res);
+                return prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
             }
 
             @Override

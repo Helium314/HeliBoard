@@ -41,35 +41,20 @@ public final class Constants {
     }
 
     public static final class Subtype {
-        /**
-         * The subtype mode used to indicate that the subtype is a keyboard.
-         */
+        /** The subtype mode used to indicate that the subtype is a keyboard. */
         public static final String KEYBOARD_MODE = "keyboard";
 
         // some extra values:
         //  TrySuppressingImeSwitcher: not documented, but used in Android source
-        //  AsciiCapable: not used, but recommended for Android 9- because of known issues
         //  SupportTouchPositionCorrection: never read, never used outside AOSP keyboard -> can be removed?
-        //  EmojiCapable: there is some description in Constants, but actually it's never read
-        //  KeyboardLayoutSet: obvious
         public static final class ExtraValue {
-            /**
-             * The subtype extra value used to indicate that this subtype is capable of
-             * entering ASCII characters.
-             */
+            /** Indicates that this subtype is capable of entering ASCII characters (not used, but recommended for Android 9 and older). */
             public static final String ASCII_CAPABLE = "AsciiCapable";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is enabled
-             * when the default subtype is not marked as ascii capable.
-             */
-            public static final String ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE =
-                    "EnabledWhenDefaultIsNotAsciiCapable";
+            /** Indicates that this subtype is enabled when the default subtype is not marked as ascii capable (used where?). */
+            public static final String ENABLED_WHEN_DEFAULT_IS_NOT_ASCII_CAPABLE = "EnabledWhenDefaultIsNotAsciiCapable";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is capable of
-             * entering emoji characters.
-             */
+            /** Indicates that this subtype is capable of entering emoji characters (always set?). */
             public static final String EMOJI_CAPABLE = "EmojiCapable";
 
             /** Indicates that the subtype does not have a shift key */
@@ -84,25 +69,31 @@ public final class Constants {
              * this extra value.
              * This extra value is supported on JellyBean and later.
              */
-            public static final String UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME =
-                    "UntranslatableReplacementStringInSubtypeName";
+            public static final String UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME = "UntranslatableReplacementStringInSubtypeName";
 
-            /**
-             * The subtype extra value used to indicate this subtype keyboard layout set name.
-             * This extra value is private to LatinIME.
-             */
+            /** Contains the layouts used by this subtype. This extra value is private to LatinIME.*/
             public static final String KEYBOARD_LAYOUT_SET = "KeyboardLayoutSet";
 
-            /**
-             * The subtype extra value used to indicate that this subtype is an additional subtype
-             * that the user defined. This extra value is private to LatinIME.
-             */
+            /** Indicates that this subtype is an additional subtype that the user defined. This extra value is private to LatinIME. */
             public static final String IS_ADDITIONAL_SUBTYPE = "isAdditionalSubtype";
 
-            /**
-             * The subtype extra value used to specify the combining rules.
-             */
+            /** The subtype extra value used to specify the combining rules (currently not used). */
             public static final String COMBINING_RULES = "CombiningRules";
+
+            /** Overrides the general popup order setting */
+            public static final String POPUP_ORDER = "PopupOrder";
+
+            /** Overrides the general hint order / priority setting */
+            public static final String HINT_ORDER = "HintOrder";
+
+            /** Language tags indicating enabled secondary locales */
+            public static final String SECONDARY_LOCALES = "SecondaryLocales";
+
+            /** Overrides the general "more popups" setting */
+            public static final String MORE_POPUPS = "MorePopups";
+
+            /** Overrides the general "localized number row" setting */
+            public static final String LOCALIZED_NUMBER_ROW = "LocalizedNumberRow";
 
             private ExtraValue() {
                 // This utility class is not publicly instantiable.
@@ -112,6 +103,18 @@ public final class Constants {
         private Subtype() {
             // This utility class is not publicly instantiable.
         }
+    }
+
+    /** Separators for use in extra values and preferences. Notably cannot be = and , as they are already used in extra values */
+    public static final class Separators {
+        /** key-value separator (to be used in subtype extra values) */
+        public static final String KV = ":";
+        /** separator between entries that might be key-value pairs (to be used in subtype extra values) */
+        public static final String ENTRY = "|";
+        /** separator between sets of entries (to be used for storing data for additional subtypes) */
+        public static final String SET = "§";
+        /** separator for sets (to be used for storing multiple extra additional subtypes in prefs) */
+        public static final String SETS = ";";
     }
 
     public static final class TextUtils {
@@ -224,9 +227,9 @@ public final class Constants {
         case CODE_TAB: return "tab";
         case CODE_ENTER: return "enter";
         case CODE_SPACE: return "space";
-        case KeyCode.START_ONE_HANDED_MODE: return "startOneHandedMode";
-        case KeyCode.STOP_ONE_HANDED_MODE: return "stopOneHandedMode";
+        case KeyCode.TOGGLE_ONE_HANDED_MODE: return "toggleOneHandedMode";
         case KeyCode.SWITCH_ONE_HANDED_MODE: return "switchOneHandedMode";
+        case KeyCode.SPLIT_LAYOUT: return "splitLayout";
         case KeyCode.NUMPAD: return "numpad";
         default:
             if (code < CODE_SPACE) return String.format("\\u%02X", code);

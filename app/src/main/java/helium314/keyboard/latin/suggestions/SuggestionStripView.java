@@ -55,10 +55,11 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.settings.DebugSettings;
+import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
@@ -70,7 +71,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
-        OnLongClickListener {
+        OnLongClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     public interface Listener {
         void pickSuggestionManually(SuggestedWordInfo word);
         void onCodeInput(int primaryCode, int x, int y, boolean isKeyRepeat);
@@ -143,8 +144,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     public SuggestionStripView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         final Colors colors = Settings.getInstance().getCurrent().mColors;
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
-        DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, false);
+        final SharedPreferences prefs = KtxKt.prefs(context);
+        DEBUG_SUGGESTIONS = prefs.getBoolean(DebugSettings.PREF_SHOW_SUGGESTION_INFOS, Defaults.PREF_SHOW_SUGGESTION_INFOS);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.suggestions_strip, this);
@@ -229,6 +230,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         colors.setBackground(this, ColorType.STRIP_BACKGROUND);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences prefs, @Nullable String key) {
+        ToolbarUtilsKt.setToolbarButtonsActivatedStateOnPrefChange(mPinnedKeys, key);
+        ToolbarUtilsKt.setToolbarButtonsActivatedStateOnPrefChange(mToolbar, key);
     }
 
     /**
@@ -386,9 +393,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag);
                 mToolbar.findViewWithTag(tag).setBackground(mEnabledToolKeyBackground);
-                ToolbarUtilsKt.addPinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.addPinnedKey(KtxKt.prefs(getContext()), tag);
             } else {
-                ToolbarUtilsKt.removePinnedKey(DeviceProtectedUtils.getSharedPreferences(getContext()), tag);
+                ToolbarUtilsKt.removePinnedKey(KtxKt.prefs(getContext()), tag);
                 mToolbar.findViewWithTag(tag).setBackground(mDefaultBackground.getConstantState().newDrawable(getResources()));
                 mPinnedKeys.removeView(pinnedKeyView);
             }
@@ -647,11 +654,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             if (code != KeyCode.UNSPECIFIED) {
                 Log.d(TAG, "click toolbar key "+tag);
                 mListener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false);
-                if (tag == ToolbarKey.INCOGNITO || tag == ToolbarKey.AUTOCORRECT || tag == ToolbarKey.ONE_HANDED) {
-                    if (tag == ToolbarKey.INCOGNITO)
-                        updateKeys(); // update icon
-                    view.setActivated(!view.isActivated());
-                }
+                if (tag == ToolbarKey.INCOGNITO)
+                    updateKeys(); // update expand key icon
                 return;
             }
         }

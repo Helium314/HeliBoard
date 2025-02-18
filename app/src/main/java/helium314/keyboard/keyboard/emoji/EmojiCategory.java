@@ -13,7 +13,9 @@ import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.common.DefaultColors;
+import helium314.keyboard.latin.settings.Defaults;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.core.graphics.PaintCompat;
@@ -129,7 +131,7 @@ final class EmojiCategory {
     private int mCurrentCategoryPageId = 0;
 
     public EmojiCategory(final Context ctx, final KeyboardLayoutSet layoutSet, final TypedArray emojiPaletteViewAttr) {
-        mPrefs = DeviceProtectedUtils.getSharedPreferences(ctx);
+        mPrefs = KtxKt.prefs(ctx);
         mRes = ctx.getResources();
         mContext = ctx;
         mMaxRecentsKeyCount = mRes.getInteger(R.integer.config_emoji_keyboard_max_recents_key_count);
@@ -157,8 +159,8 @@ final class EmojiCategory {
         addShownCategoryId(EmojiCategory.ID_EMOTICONS);
 
         DynamicGridKeyboard recentsKbd = getKeyboard(EmojiCategory.ID_RECENTS, 0);
-        mCurrentCategoryId = Settings.readLastShownEmojiCategoryId(mPrefs, defaultCategoryId);
-        mCurrentCategoryPageId = Settings.readLastShownEmojiCategoryPageId(mPrefs, 0);
+        mCurrentCategoryId = mPrefs.getInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, defaultCategoryId);
+        mCurrentCategoryPageId = mPrefs.getInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, Defaults.PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID);
         if (!isShownCategoryId(mCurrentCategoryId)) {
             mCurrentCategoryId = defaultCategoryId;
         } else if (mCurrentCategoryId == EmojiCategory.ID_RECENTS &&
@@ -173,6 +175,8 @@ final class EmojiCategory {
 
     public void clearKeyboardCache() {
         mCategoryKeyboardMap.clear();
+        for (CategoryProperties props: mShownCategories)
+            props.mPageCount = -1; // reset page count in case size (number of keys per row) changed
     }
 
     private void addShownCategoryId(final int categoryId) {
@@ -232,12 +236,12 @@ final class EmojiCategory {
 
     public void setCurrentCategoryId(final int categoryId) {
         mCurrentCategoryId = categoryId;
-        Settings.writeLastShownEmojiCategoryId(mPrefs, categoryId);
+        mPrefs.edit().putInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_ID, categoryId).apply();
     }
 
     public void setCurrentCategoryPageId(final int id) {
         mCurrentCategoryPageId = id;
-        Settings.writeLastShownEmojiCategoryPageId(mPrefs, id);
+        mPrefs.edit().putInt(Settings.PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, id).apply();
     }
 
     public int getCurrentCategoryPageId() {

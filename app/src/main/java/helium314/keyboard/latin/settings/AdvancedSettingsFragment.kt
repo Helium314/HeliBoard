@@ -22,9 +22,9 @@ import androidx.core.content.edit
 import androidx.core.widget.doAfterTextChanged
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.latin.utils.ChecksumCalculator
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -36,7 +36,6 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
@@ -46,22 +45,13 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
-import helium314.keyboard.latin.utils.AdditionalSubtypeUtils
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_NORMAL
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS
-import helium314.keyboard.latin.utils.CUSTOM_FUNCTIONAL_LAYOUT_SYMBOLS_SHIFTED
-import helium314.keyboard.latin.utils.CUSTOM_LAYOUT_PREFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.ResourceUtils
-import helium314.keyboard.latin.utils.editCustomLayout
-import helium314.keyboard.latin.utils.getCustomLayoutFiles
-import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.SubtypeSettings
+import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.infoDialog
-import helium314.keyboard.latin.utils.onCustomLayoutFileListChanged
-import helium314.keyboard.latin.utils.reloadEnabledSubtypes
-import helium314.keyboard.latin.utils.updateAdditionalSubtypes
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -77,7 +67,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     private val libfile by lazy { File(requireContext().filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME) }
     private val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
-        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
+//        "layouts/$CUSTOM_LAYOUT_PREFIX+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
@@ -125,6 +115,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         setupKeyLongpressTimeoutSettings()
         setupEmojiSdkSetting()
+        setupLanguageSwipeDistanceSettings()
+        updateLangSwipeDistanceVisibility(sharedPreferences)
         findPreference<Preference>("load_gesture_library")?.setOnPreferenceClickListener { onClickLoadLibrary() }
         findPreference<Preference>("backup_restore")?.setOnPreferenceClickListener { showBackupRestoreDialog() }
 
@@ -133,7 +125,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             true
         }
         findPreference<Preference>("custom_functional_key_layouts")?.setOnPreferenceClickListener {
-            showCustomizeFunctionalKeyLayoutsDialog()
+//            showCustomizeFunctionalKeyLayoutsDialog()
             true
         }
 
@@ -162,7 +154,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
     }
 
     private fun showCustomizeSymbolNumberLayoutsDialog() {
-        val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
+/*        val layoutNames = RawKeyboardParser.symbolAndNumberLayouts.map { it.getStringResourceOrName("layout_", requireContext()) }.toTypedArray()
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.customize_symbols_number_layouts)
             .setItems(layoutNames) { di, i ->
@@ -171,8 +163,8 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
-    }
-
+*/    }
+/*
     private fun customizeSymbolNumberLayout(layoutName: String) {
         val customLayoutName = getCustomLayoutFiles(requireContext()).map { it.name }
             .firstOrNull { it.startsWith("$CUSTOM_LAYOUT_PREFIX$layoutName.") }
@@ -210,7 +202,7 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         val displayName = layoutName.substringAfter(CUSTOM_LAYOUT_PREFIX).getStringResourceOrName("layout_", requireContext())
         editCustomLayout(customLayoutName ?: "$layoutName.", requireContext(), originalLayout, displayName)
     }
-
+*/
     @SuppressLint("ApplySharedPref")
     private fun onClickLoadLibrary(): Boolean {
         // get architecture for telling user which file to use
@@ -416,15 +408,15 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = Settings.readPrefAdditionalSubtypes(sharedPreferences, resources)
-        updateAdditionalSubtypes(AdditionalSubtypeUtils.createAdditionalSubtypesArray(additionalSubtypes))
-        reloadEnabledSubtypes(requireContext())
+        val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+        SubtypeSettings.updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
+        SubtypeSettings.reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)
         // reload current prefs screen
         preferenceScreen.removeAll()
         setupPreferences()
-        onCustomLayoutFileListChanged()
+//        onCustomLayoutFileListChanged()
         KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
     }
 
@@ -515,9 +507,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = Settings.readKeyLongpressTimeout(prefs, resources)
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Defaults.PREF_KEY_LONGPRESS_TIMEOUT)
 
-            override fun readDefaultValue(key: String) = Settings.readDefaultKeyLongpressTimeout(resources)
+            override fun readDefaultValue(key: String) = 300
 
             override fun getValueText(value: Int) =
                 resources.getString(R.string.abbreviation_unit_milliseconds, value.toString())
@@ -560,10 +552,37 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         })
     }
 
+    private fun setupLanguageSwipeDistanceSettings() {
+        val prefs = sharedPreferences
+        findPreference<SeekBarDialogPreference>(Settings.PREF_LANGUAGE_SWIPE_DISTANCE)?.setInterface(object : ValueProxy {
+            override fun writeValue(value: Int, key: String) = prefs.edit().putInt(key, value).apply()
+
+            override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
+
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, 5)
+
+            override fun readDefaultValue(key: String) = 5
+
+            override fun getValueText(value: Int) = value.toString()
+
+            override fun feedbackValue(value: Int) {}
+        })
+    }
+
+    private fun updateLangSwipeDistanceVisibility(prefs: SharedPreferences) {
+        val horizontalSpaceSwipe = Settings.readHorizontalSpaceSwipe(prefs)
+        val verticalSpaceSwipe = Settings.readVerticalSpaceSwipe(prefs)
+        val visibility = horizontalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+                || verticalSpaceSwipe == KeyboardActionListener.SWIPE_SWITCH_LANGUAGE
+        setPreferenceVisible(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, visibility)
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String?) {
         when (key) {
             Settings.PREF_SHOW_SETUP_WIZARD_ICON -> SystemBroadcastReceiver.toggleAppIcon(requireContext())
-            Settings.PREF_MORE_POPUP_KEYS -> KeyboardLayoutSet.onSystemLocaleChanged()
+            "more_popup_keys" -> KeyboardLayoutSet.onSystemLocaleChanged()
+            Settings.PREF_SPACE_HORIZONTAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
+            Settings.PREF_SPACE_VERTICAL_SWIPE -> updateLangSwipeDistanceVisibility(prefs)
             Settings.PREF_EMOJI_MAX_SDK -> KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(requireContext())
         }
     }

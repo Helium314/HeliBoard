@@ -73,7 +73,6 @@ import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.settings.SettingsActivity;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -87,8 +86,10 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
+import helium314.keyboard.settings.SettingsActivity;
+import helium314.keyboard.settings.SettingsActivityKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -571,7 +572,7 @@ public class LatinIME extends InputMethodService implements
     public void onCreate() {
         Settings.init(this);
         DebugFlags.init(this);
-        SubtypeSettingsKt.init(this);
+        SubtypeSettings.INSTANCE.init(this);
         KeyboardIconsSet.Companion.getInstance().loadIcons(this);
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
@@ -690,9 +691,7 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUsePersonalizedDicts,
                 false, settingsValues.mAccount, "", this);
-        if (settingsValues.mAutoCorrectEnabled) {
-            mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
-        }
+        mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
     }
 
     /**
@@ -746,7 +745,7 @@ public class LatinIME extends InputMethodService implements
     public void onConfigurationChanged(final Configuration conf) {
         SettingsValues settingsValues = mSettings.getCurrent();
         Log.i(TAG, "onConfigurationChanged");
-        SubtypeSettingsKt.reloadSystemLocales(this);
+        SubtypeSettings.INSTANCE.reloadSystemLocales(this);
         if (settingsValues.mDisplayOrientation != conf.orientation) {
             mHandler.startOrientationChanging();
             mInputLogic.onOrientationChange(mSettings.getCurrent());
@@ -856,7 +855,7 @@ public class LatinIME extends InputMethodService implements
     public void onCurrentInputMethodSubtypeChanged(final InputMethodSubtype subtype) {
         // Note that the calling sequence of onCreate() and onCurrentInputMethodSubtypeChanged()
         // is not guaranteed. It may even be called at the same time on a different thread.
-        if (subtype.hashCode() == 0xf000000f) {
+        if (subtype.hashCode() == 0x7000000f) {
             // For some reason sometimes the system wants to set the dummy subtype, which messes with the currently enabled subtype.
             // Now that the dummy subtype has a fixed id, we can easily avoid enabling it.
             return;
@@ -899,6 +898,8 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        reloadIfNecessary();
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
@@ -1014,9 +1015,7 @@ public class LatinIME extends InputMethodService implements
 
         if (isDifferentTextField) {
             mainKeyboardView.closing();
-            if (currentSettingsValues.mAutoCorrectEnabled) {
-                suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
-            }
+            suggest.setAutoCorrectionThreshold(currentSettingsValues.mAutoCorrectionThreshold);
             switcher.loadKeyboard(editorInfo, currentSettingsValues, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
             if (needToCallLoadKeyboardLater) {
                 // If we need to call loadKeyboard again later, we need to save its state now. The
@@ -1974,6 +1973,15 @@ public class LatinIME extends InputMethodService implements
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
                     KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
             // deallocateMemory always called on hiding, and should not be called when showing
+        }
+    }
+
+    private void reloadIfNecessary() {
+        // better do the reload when showing the keyboard next time, and not on settings change
+        if (SettingsActivityKt.keyboardNeedsReload) {
+            KeyboardLayoutSet.onKeyboardThemeChanged();
+            mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
+            SettingsActivityKt.keyboardNeedsReload = false;
         }
     }
 }

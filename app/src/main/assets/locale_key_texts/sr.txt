@@ -6,3 +6,6 @@
 
 [labels]
 alphabet: АБВ
+
+[tlds]
+rs

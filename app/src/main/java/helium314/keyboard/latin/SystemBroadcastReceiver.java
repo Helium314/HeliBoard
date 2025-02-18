@@ -14,36 +14,37 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Process;
+
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.setup.SetupActivity;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils;
 
 /**
  * This class detects the {@link Intent#ACTION_MY_PACKAGE_REPLACED} broadcast intent when this IME
  * package has been replaced by a newer version of the same package. This class also detects
  * {@link Intent#ACTION_BOOT_COMPLETED} and {@link Intent#ACTION_USER_INITIALIZE} broadcast intent.
- *
+ * <p>
  * If this IME has already been installed in the system image and a new version of this IME has
  * been installed, {@link Intent#ACTION_MY_PACKAGE_REPLACED} is received by this receiver and it
  * will hide the setup wizard's icon.
- *
+ * <p>
  * If this IME has already been installed in the data partition and a new version of this IME has
  * been installed, {@link Intent#ACTION_MY_PACKAGE_REPLACED} is received by this receiver but it
  * will not hide the setup wizard's icon, and the icon will appear on the launcher.
- *
+ * <p>
  * If this IME hasn't been installed yet and has been newly installed, no
  * {@link Intent#ACTION_MY_PACKAGE_REPLACED} will be sent and the setup wizard's icon will appear
  * on the launcher.
- *
+ * <p>
  * When the device has been booted, {@link Intent#ACTION_BOOT_COMPLETED} is received by this
  * receiver and it checks whether the setup wizard's icon should be appeared or not on the launcher
  * depending on which partition this IME is installed.
- *
+ * <p>
  * When the system locale has been changed, {@link Intent#ACTION_LOCALE_CHANGED} is received by
  * this receiver and the {@link KeyboardLayoutSet}'s cache is cleared.
  */
@@ -86,7 +87,7 @@ public final class SystemBroadcastReceiver extends BroadcastReceiver {
     public static void toggleAppIcon(final Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             return; // can't change visibility in Android 10 and above
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(context);
+        final SharedPreferences prefs = KtxKt.prefs(context);
         context.getPackageManager().setComponentEnabledSetting(
                 new ComponentName(context, SetupActivity.class),
                 Settings.readShowSetupWizardIcon(prefs, context)

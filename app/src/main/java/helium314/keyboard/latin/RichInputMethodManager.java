@@ -18,12 +18,12 @@ import android.view.inputmethod.InputMethodSubtype;
 import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LanguageOnSpacebarUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
-import helium314.keyboard.latin.utils.SubtypeSettingsKt;
+import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.Collections;
@@ -171,7 +171,7 @@ public class RichInputMethodManager {
             if (imi == getInputMethodOfThisIme()) {
                 // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
                 // use it to fall back to system locales or en_US to avoid returning an empty list
-                result = SubtypeSettingsKt.getEnabledSubtypes(DeviceProtectedUtils.getSharedPreferences(sInstance.mContext), allowsImplicitlySelectedSubtypes);
+                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }
@@ -206,14 +206,14 @@ public class RichInputMethodManager {
         updateCurrentSubtype(newSubtype);
         updateShortcutIme();
         if (DEBUG) {
-            Log.w(TAG, "onSubtypeChanged: " + mCurrentRichInputMethodSubtype.getNameForLogging());
+            Log.w(TAG, "onSubtypeChanged: " + mCurrentRichInputMethodSubtype);
         }
     }
 
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     static void forceSubtype(@NonNull final InputMethodSubtype subtype) {
-        sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        sForcedSubtypeForTesting = RichInputMethodSubtype.Companion.get(subtype);
     }
 
     @NonNull
@@ -302,7 +302,7 @@ public class RichInputMethodManager {
         final int count = myImi.getSubtypeCount();
         for (int i = 0; i < count; i++) {
             final InputMethodSubtype subtype = myImi.getSubtypeAt(i);
-            final String layoutName = SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype);
+            final String layoutName = SubtypeLocaleUtils.getMainLayoutName(subtype);
             if (locale.equals(SubtypeUtilsKt.locale(subtype))
                     && keyboardLayoutSetName.equals(layoutName)) {
                 return subtype;
@@ -319,7 +319,7 @@ public class RichInputMethodManager {
 
         // search for first secondary language & script match
         final int count = subtypes.size();
-        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        final SharedPreferences prefs = KtxKt.prefs(mContext);
         final String language = locale.getLanguage();
         final String script = ScriptUtils.script(locale);
         for (int i = 0; i < count; ++i) {
@@ -350,14 +350,14 @@ public class RichInputMethodManager {
 
     public void refreshSubtypeCaches() {
         mInputMethodInfoCache.clear();
-        SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
-        updateCurrentSubtype(SubtypeSettingsKt.getSelectedSubtype(prefs));
+        SharedPreferences prefs = KtxKt.prefs(mContext);
+        updateCurrentSubtype(SubtypeSettings.INSTANCE.getSelectedSubtype(prefs));
         updateShortcutIme();
     }
 
     private void updateCurrentSubtype(final InputMethodSubtype subtype) {
-        SubtypeSettingsKt.setSelectedSubtype(DeviceProtectedUtils.getSharedPreferences(mContext), subtype);
-        mCurrentRichInputMethodSubtype = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
+        SubtypeSettings.INSTANCE.setSelectedSubtype(KtxKt.prefs(mContext), subtype);
+        mCurrentRichInputMethodSubtype = RichInputMethodSubtype.Companion.get(subtype);
     }
 
     public static boolean canSwitchLanguage() {

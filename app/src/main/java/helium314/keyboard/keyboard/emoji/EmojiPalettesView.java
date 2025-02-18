@@ -38,7 +38,7 @@ import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
-import helium314.keyboard.latin.utils.DeviceProtectedUtils;
+import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -89,7 +89,7 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
-        builder.setSubtype(RichInputMethodSubtype.getEmojiSubtype());
+        builder.setSubtype(RichInputMethodSubtype.Companion.getEmojiSubtype());
         builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(context, Settings.getInstance().getCurrent()),
                 mEmojiLayoutParams.getEmojiKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
@@ -117,6 +117,7 @@ public final class EmojiPalettesView extends LinearLayout
                 + getPaddingLeft() + getPaddingRight();
         final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
                 + getPaddingTop() + getPaddingBottom();
+        mEmojiCategoryPageIndicatorView.mWidth = width;
         setMeasuredDimension(width, height);
     }
 
@@ -272,6 +273,7 @@ public final class EmojiPalettesView extends LinearLayout
             mEmojiRecyclerView.setAdapter(mEmojiPalettesAdapter);
             setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
         }
+        setupSidePadding();
     }
 
     private void setupBottomRowKeyboard(final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
@@ -281,6 +283,31 @@ public final class EmojiPalettesView extends LinearLayout
         final KeyboardLayoutSet kls = KeyboardLayoutSet.Builder.buildEmojiClipBottomRow(getContext(), editorInfo);
         final Keyboard keyboard = kls.getKeyboard(KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW);
         keyboardView.setKeyboard(keyboard);
+    }
+
+    private void setupSidePadding() {
+        final SettingsValues sv = Settings.getInstance().getCurrent();
+        final int keyboardWidth = ResourceUtils.getKeyboardWidth(getContext(), sv);
+        final TypedArray keyboardAttr = getContext().obtainStyledAttributes(
+                null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
+        final float leftPadding = keyboardAttr.getFraction(R.styleable.Keyboard_keyboardLeftPadding,
+                keyboardWidth, keyboardWidth, 0f) * sv.mSidePaddingScale;
+        final float rightPadding =  keyboardAttr.getFraction(R.styleable.Keyboard_keyboardRightPadding,
+                keyboardWidth, keyboardWidth, 0f) * sv.mSidePaddingScale;
+        keyboardAttr.recycle();
+        mEmojiRecyclerView.setPadding(
+                (int) leftPadding,
+                mEmojiRecyclerView.getPaddingTop(),
+                (int) rightPadding,
+                mEmojiRecyclerView.getPaddingBottom()
+        );
+        mEmojiCategoryPageIndicatorView.setPadding(
+                (int) leftPadding,
+                mEmojiCategoryPageIndicatorView.getPaddingTop(),
+                (int) rightPadding,
+                mEmojiCategoryPageIndicatorView.getPaddingBottom()
+        );
+        // setting width does not do anything, so we have some workaround in EmojiCategoryPageIndicatorView
     }
 
     public void stopEmojiPalettes() {

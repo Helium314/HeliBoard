@@ -123,51 +123,6 @@ public final class StringUtils {
         return new String(Character.toChars(codePoint));
     }
 
-    public static boolean containsInArray(@NonNull final String text,
-                                          @NonNull final String[] array) {
-        for (final String element : array) {
-            if (text.equals(element)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Comma-Splittable Text is similar to Comma-Separated Values (CSV) but has much simpler syntax.
-     * Unlike CSV, Comma-Splittable Text has no escaping mechanism, so that the text can't contain
-     * a comma character in it.
-     */
-    @NonNull
-    private static final String SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT = ",";
-
-    public static boolean containsInCommaSplittableText(@NonNull final String text,
-                                                        @Nullable final String extraValues) {
-        if (isEmpty(extraValues)) {
-            return false;
-        }
-        return containsInArray(text, extraValues.split(SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT));
-    }
-
-    @NonNull
-    public static String removeFromCommaSplittableTextIfExists(@NonNull final String text,
-                                                               @Nullable final String extraValues) {
-        if (isEmpty(extraValues)) {
-            return EMPTY_STRING;
-        }
-        final String[] elements = extraValues.split(SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT);
-        if (!containsInArray(text, elements)) {
-            return extraValues;
-        }
-        final ArrayList<String> result = new ArrayList<>(elements.length - 1);
-        for (final String element : elements) {
-            if (!text.equals(element)) {
-                result.add(element);
-            }
-        }
-        return join(SEPARATOR_FOR_COMMA_SPLITTABLE_TEXT, result);
-    }
-
     /**
      * Remove duplicates from an array of strings.
      * <p>

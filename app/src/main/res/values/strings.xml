@@ -48,10 +48,14 @@
     <string name="settings_category_experimental">Experimental</string>
     <!-- Settings category title for Appearance & Layout/Misc [CHAR LIMIT=33] -->
     <string name="settings_category_miscellaneous">Miscellaneous</string>
-    <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
+    <!--  Option for enabling or disabling the split keyboard layout in portrait mode. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
-    <!--  Option for setting distance for split keyboard -->
+    <!--  Option for enabling or disabling the split keyboard layout in landscape mode. [CHAR LIMIT=65]-->
+    <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
+    <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
+    <!--  Option for setting distance for split keyboard in landscape mode -->
+    <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
     <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
@@ -239,6 +243,8 @@
     <string name="localized_number_row">Localize number row</string>
     <!-- Description of the settings to localize number row -->
     <string name="localized_number_row_summary">Prefer localized over latin numbers</string>
+    <!-- Title of the setting to enable number row hints -->
+    <string name="number_row_hints">Show hints on number row</string>
     <!-- Title of the setting to show key hints -->
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
@@ -267,6 +273,7 @@
     <string name="select_all" tools:keep="@string/select_all" translatable="false">@android:string/selectAll</string>
     <string name="select_word" tools:keep="@string/select_word">Select word</string>
     <string name="one_handed" tools:keep="@string/one_handed">One-handed mode</string>
+    <string name="split" tools:keep="@string/split">Split keyboard</string>
     <string name="full_left" tools:keep="@string/full_left">Full left</string>
     <string name="full_right" tools:keep="@string/full_right">Full right</string>
     <string name="page_start" tools:keep="@string/page_start">Page start</string>
@@ -311,6 +318,16 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
+    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
+    <!-- Title of the setting for adjusting font size on the keyboard -->
+    <!-- Title of the setting for setting side padding -->
+    <string name="prefs_side_padding_scale">Side padding scale</string>
+    <!-- Title of the setting for setting side padding in landscape mode -->
+    <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
+    <string name="prefs_font_scale">Keyboard font scale</string>
+    <!-- Title of the setting for adjusting font size in emoji view -->
+    <string name="prefs_emoji_font_scale">Emoji view font scale</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Title of the setting for adding / removing custom font file -->
@@ -522,8 +539,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
     <!-- Title for customizing functional key layouts -->
     <string name="customize_functional_key_layouts">Customize functional key layouts</string>
+    <!-- Settings screen title for secondary layouts (functional keys, symbols, numpad, ...) -->
+    <string name="settings_screen_secondary_layouts">Secondary layouts</string>
     <!-- Name for functional keys layout -->
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functional keys</string>
+    <!-- Name for functional keys layout for tablets -->
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Functional keys (large screen)</string>
     <!-- Name for functional keys layout when showing symbols layout -->
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functional keys (Symbols)</string>
     <!-- Name for functional keys layout when showing more symbols layout -->
@@ -946,6 +967,8 @@ New dictionary:
     <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
     <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
+    <!-- Title of the settings for adjusting the language swipe gesture distance -->
+    <string name="prefs_language_swipe_distance">Switch language swipe distance</string>
     <!-- Title of the setting to customize toolbar key codes -->
     <string name="customize_toolbar_key_codes">Customize toolbar key codes</string>
     <!-- Confirmation message when resetting all custom toolbar key codes -->
@@ -968,4 +991,8 @@ New dictionary:
     <string name="customize_icons">Customize icons</string>
     <!-- Confirmation message when resetting all custom icons -->
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
+    <!-- Confirmation message when deleting a something (currently used for custom colors) -->
+    <string name="delete_confirmation">Really delete %s?</string>
+    <!-- Message when chosen name is invalid (empty or already taked) -->
+    <string name="name_invalid">Invalid name</string>
 </resources>

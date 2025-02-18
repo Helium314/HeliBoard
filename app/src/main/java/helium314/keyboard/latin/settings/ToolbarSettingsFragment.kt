@@ -10,7 +10,6 @@ import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.defaultToolbarPref
 import helium314.keyboard.latin.utils.reorderDialog
-import helium314.keyboard.latin.utils.toolbarKeysCustomizer
 
 class ToolbarSettingsFragment : SubScreenFragment() {
     private var reloadKeyboard = false
@@ -47,7 +46,7 @@ class ToolbarSettingsFragment : SubScreenFragment() {
             }
         findPreference<Preference>("customize_key_codes")?.onPreferenceClickListener =
             Preference.OnPreferenceClickListener {
-                toolbarKeysCustomizer(requireContext())
+                //toolbarKeysCustomizer(requireContext())
                 true
             }
     }

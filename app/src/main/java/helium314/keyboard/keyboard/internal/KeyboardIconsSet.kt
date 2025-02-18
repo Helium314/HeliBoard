@@ -7,10 +7,11 @@ import androidx.core.content.ContextCompat
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.customIconIds
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.prefs
 import java.util.Locale
 
 class KeyboardIconsSet private constructor() {
@@ -19,8 +20,8 @@ class KeyboardIconsSet private constructor() {
     private val iconsByName = HashMap<String, Drawable>(80)
 
     fun loadIcons(context: Context) {
-        val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-        val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
+        val prefs = context.prefs()
+        val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, Defaults.PREF_ICON_STYLE)
         val defaultIds = when (iconStyle) {
             KeyboardTheme.STYLE_HOLO -> keyboardIconsHolo
             KeyboardTheme.STYLE_ROUNDED -> keyboardIconsRounded
@@ -152,6 +153,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }
         } }
@@ -212,6 +214,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
+                    ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }
         } }
@@ -272,14 +275,14 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.FULL_RIGHT -> R.drawable.ic_to_end_rounded
                     ToolbarKey.PAGE_START -> R.drawable.ic_page_start_rounded
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end_rounded
+                    ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                 })
             }
         } }
 
         fun getAllIcons(context: Context): Map<String, List<Int>> {
             // currently active style first
-            val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-            val iconStyle = prefs.getString(Settings.PREF_ICON_STYLE, KeyboardTheme.STYLE_MATERIAL)
+            val iconStyle = context.prefs().getString(Settings.PREF_ICON_STYLE, Defaults.PREF_ICON_STYLE)
             return keyboardIconsMaterial.entries.associate { (name, id) ->
                 name to when (iconStyle) {
                     KeyboardTheme.STYLE_HOLO -> listOfNotNull(keyboardIconsHolo[name], keyboardIconsRounded[name], id)

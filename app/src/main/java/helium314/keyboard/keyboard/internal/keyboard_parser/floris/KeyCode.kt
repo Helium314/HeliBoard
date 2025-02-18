@@ -125,8 +125,8 @@ object KeyCode {
 
     // heliboard only codes
     const val SYMBOL_ALPHA =              -10001
-    const val START_ONE_HANDED_MODE =     -10002
-    const val STOP_ONE_HANDED_MODE =      -10003
+    const val TOGGLE_ONE_HANDED_MODE =    -10002
+    const val TOGGLE_ONE_HANDED_MODE_2 =  -10003 // does the same as TOGGLE_ONE_HANDED_MODE (used to be start & stop)
     const val SWITCH_ONE_HANDED_MODE =    -10004
     const val SHIFT_ENTER =               -10005
     const val ACTION_NEXT =               -10006
@@ -179,7 +179,7 @@ object KeyCode {
         FN, CLIPBOARD_CLEAR_HISTORY, NUMPAD,
 
         // heliboard only
-        SYMBOL_ALPHA, START_ONE_HANDED_MODE, STOP_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SHIFT_ENTER,
+        SYMBOL_ALPHA, TOGGLE_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SPLIT_LAYOUT, SHIFT_ENTER,
         ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
         PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
@@ -189,6 +189,7 @@ object KeyCode {
         IME_UI_MODE_TEXT -> ALPHA
         VIEW_PHONE -> ALPHA // phone keyboard is treated like alphabet, just with different layout
         VIEW_PHONE2 -> SYMBOL
+        TOGGLE_ONE_HANDED_MODE_2 -> TOGGLE_ONE_HANDED_MODE
 
         else -> throw IllegalStateException("key code $this not yet supported")
     }

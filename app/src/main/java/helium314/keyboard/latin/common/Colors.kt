@@ -3,7 +3,6 @@
 package helium314.keyboard.latin.common
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.content.res.TypedArray
@@ -19,7 +18,6 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.ColorUtils
@@ -29,7 +27,6 @@ import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_HOLO
 import helium314.keyboard.keyboard.KeyboardTheme.Companion.STYLE_MATERIAL
 import helium314.keyboard.latin.common.ColorType.*
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.adjustLuminosityAndKeepAlpha
 import helium314.keyboard.latin.utils.brighten
 import helium314.keyboard.latin.utils.brightenOrDarken
@@ -150,7 +147,11 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     private val spaceBarStateList: ColorStateList
     private val adjustedBackgroundStateList: ColorStateList
     private val stripBackgroundList: ColorStateList
-    private val toolbarKeyStateList = activatedStateList(keyText, darken(darken(keyText)))
+    private val toolbarKeyStateList = activatedStateList(
+        keyText,
+        if (isBrightColor(keyText)) darken(darken(keyText))
+        else brighten(brighten(keyText))
+    )
 
     /** darkened variant of [accent] because the accent color is always light for dynamic colors */
     private val adjustedAccent: Int = darken(accent)
@@ -195,12 +196,12 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         }
         adjustedBackgroundStateList =
             if (themeStyle == STYLE_HOLO) {
-                stateList(accent, adjustedBackground)
+                pressedStateList(accent, adjustedBackground)
             } else if (isNight) {
-                if (hasKeyBorders) stateList(doubleAdjustedAccent, keyBackground)
-                else stateList(adjustedAccent, adjustedKeyBackground)
+                if (hasKeyBorders) pressedStateList(doubleAdjustedAccent, keyBackground)
+                else pressedStateList(adjustedAccent, adjustedKeyBackground)
             } else {
-                stateList(accent, Color.WHITE)
+                pressedStateList(accent, Color.WHITE)
             }
 
         val stripBackground = if (keyboardBackground == null && !hasKeyBorders) {
@@ -210,7 +211,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         }
         val pressedStripElementBackground = if (keyboardBackground == null) adjustedBackground
         else if (isDarkColor(background)) 0x22ffffff else 0x11000000
-        stripBackgroundList = stateList(pressedStripElementBackground, stripBackground)
+        stripBackgroundList = pressedStateList(pressedStripElementBackground, stripBackground)
 
         adjustedBackgroundFilter =
             if (themeStyle == STYLE_HOLO) colorFilter(adjustedBackground)
@@ -218,47 +219,47 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
 
         if (hasKeyBorders) {
             backgroundStateList =
-                if (!isNight) stateList(adjustedFunctionalKey, background)
-                else stateList(adjustedKeyBackground, background)
+                if (!isNight) pressedStateList(adjustedFunctionalKey, background)
+                else pressedStateList(adjustedKeyBackground, background)
 
             keyStateList =
-                if (!isNight) stateList(adjustedBackground, keyBackground)
-                else stateList(adjustedKeyBackground, keyBackground)
+                if (!isNight) pressedStateList(adjustedBackground, keyBackground)
+                else pressedStateList(adjustedKeyBackground, keyBackground)
 
             functionalKeyStateList =
-                if (!isNight) stateList(doubleAdjustedFunctionalKey, functionalKey)
-                else stateList(functionalKey, doubleAdjustedKeyBackground)
+                if (!isNight) pressedStateList(doubleAdjustedFunctionalKey, functionalKey)
+                else pressedStateList(functionalKey, doubleAdjustedKeyBackground)
 
             actionKeyStateList =
-                if (!isNight) stateList(gesture, accent)
-                else stateList(doubleAdjustedAccent, accent)
+                if (!isNight) pressedStateList(gesture, accent)
+                else pressedStateList(doubleAdjustedAccent, accent)
 
             spaceBarStateList =
-                if (themeStyle == STYLE_HOLO) stateList(spaceBar, spaceBar)
+                if (themeStyle == STYLE_HOLO) pressedStateList(spaceBar, spaceBar)
                 else keyStateList
 
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
             backgroundStateList =
-                if (!isNight) stateList(adjustedFunctionalKey, background)
-                else stateList(adjustedKeyBackground, background)
+                if (!isNight) pressedStateList(adjustedFunctionalKey, background)
+                else pressedStateList(adjustedKeyBackground, background)
 
             keyStateList =
-                if (!isNight) stateList(adjustedFunctionalKey, Color.TRANSPARENT)
-                else stateList(functionalKey, Color.TRANSPARENT)
+                if (!isNight) pressedStateList(adjustedFunctionalKey, Color.TRANSPARENT)
+                else pressedStateList(functionalKey, Color.TRANSPARENT)
 
             functionalKeyStateList =
-                if (themeStyle == STYLE_HOLO) stateList(functionalKey, Color.TRANSPARENT)
+                if (themeStyle == STYLE_HOLO) pressedStateList(functionalKey, Color.TRANSPARENT)
                 else keyStateList
 
             actionKeyStateList =
-                if (themeStyle == STYLE_HOLO) stateList(accent, Color.TRANSPARENT)
-                else if (!isNight) stateList(gesture, accent)
-                else stateList(doubleAdjustedAccent, accent)
+                if (themeStyle == STYLE_HOLO) pressedStateList(accent, Color.TRANSPARENT)
+                else if (!isNight) pressedStateList(gesture, accent)
+                else pressedStateList(doubleAdjustedAccent, accent)
 
             spaceBarStateList =
-                if (!isNight) stateList(gesture, adjustedFunctionalKey)
-                else stateList(adjustedKeyBackground, spaceBar)
+                if (!isNight) pressedStateList(gesture, adjustedFunctionalKey)
+                else pressedStateList(adjustedKeyBackground, spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
 
@@ -398,7 +399,11 @@ class DefaultColors (
     private val spaceBarStateList: ColorStateList
     private val adjustedBackgroundStateList: ColorStateList
     private val stripBackgroundList: ColorStateList
-    private val toolbarKeyStateList = activatedStateList(suggestionText, darken(darken(suggestionText)))
+    private val toolbarKeyStateList = activatedStateList(
+        suggestionText,
+        if (isBrightColor(suggestionText)) darken(darken(suggestionText))
+        else brighten(brighten(suggestionText))
+    )
     private var backgroundSetupDone = false
 
     init {
@@ -409,7 +414,7 @@ class DefaultColors (
             adjustedBackground = darken(background)
             doubleAdjustedBackground = darken(adjustedBackground)
         }
-        adjustedBackgroundStateList = stateList(doubleAdjustedBackground, adjustedBackground)
+        adjustedBackgroundStateList = pressedStateList(doubleAdjustedBackground, adjustedBackground)
 
         val stripBackground: Int
         val pressedStripElementBackground: Int
@@ -424,7 +429,7 @@ class DefaultColors (
             stripBackground = adjustedBackground
             pressedStripElementBackground = doubleAdjustedBackground
         }
-        stripBackgroundList = stateList(pressedStripElementBackground, stripBackground)
+        stripBackgroundList = pressedStateList(pressedStripElementBackground, stripBackground)
 
         if (themeStyle == STYLE_HOLO && keyboardBackground == null) {
             val darkerBackground = adjustLuminosityAndKeepAlpha(background, -0.2f)
@@ -437,22 +442,22 @@ class DefaultColors (
 
         adjustedBackgroundFilter = colorFilter(adjustedBackground)
         if (hasKeyBorders) {
-            backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = if (themeStyle == STYLE_HOLO) stateList(keyBackground, keyBackground)
-                else stateList(brightenOrDarken(keyBackground, true), keyBackground)
-            functionalKeyStateList = stateList(brightenOrDarken(functionalKey, true), functionalKey)
+            backgroundStateList = pressedStateList(brightenOrDarken(background, true), background)
+            keyStateList = if (themeStyle == STYLE_HOLO) pressedStateList(keyBackground, keyBackground)
+                else pressedStateList(brightenOrDarken(keyBackground, true), keyBackground)
+            functionalKeyStateList = pressedStateList(brightenOrDarken(functionalKey, true), functionalKey)
             actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
-                else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = if (themeStyle == STYLE_HOLO) stateList(spaceBar, spaceBar)
-                else stateList(brightenOrDarken(spaceBar, true), spaceBar)
+                else pressedStateList(brightenOrDarken(accent, true), accent)
+            spaceBarStateList = if (themeStyle == STYLE_HOLO) pressedStateList(spaceBar, spaceBar)
+                else pressedStateList(brightenOrDarken(spaceBar, true), spaceBar)
         } else {
             // need to set color to background if key borders are disabled, or there will be ugly keys
-            backgroundStateList = stateList(brightenOrDarken(background, true), background)
-            keyStateList = stateList(keyBackground, Color.TRANSPARENT)
+            backgroundStateList = pressedStateList(brightenOrDarken(background, true), background)
+            keyStateList = pressedStateList(keyBackground, Color.TRANSPARENT)
             functionalKeyStateList = keyStateList
             actionKeyStateList = if (themeStyle == STYLE_HOLO) functionalKeyStateList
-                else stateList(brightenOrDarken(accent, true), accent)
-            spaceBarStateList = stateList(brightenOrDarken(spaceBar, true), spaceBar)
+                else pressedStateList(brightenOrDarken(accent, true), accent)
+            spaceBarStateList = pressedStateList(brightenOrDarken(spaceBar, true), spaceBar)
         }
         keyTextFilter = colorFilter(keyText)
         actionKeyIconColorFilter = when {
@@ -556,7 +561,7 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     override fun get(color: ColorType): Int = colorMap[color] ?: color.default()
 
     override fun setColor(drawable: Drawable, color: ColorType) {
-        val colorStateList = stateListMap.getOrPut(color) { stateList(brightenOrDarken(get(color), true), get(color)) }
+        val colorStateList = stateListMap.getOrPut(color) { pressedStateList(brightenOrDarken(get(color), true), get(color)) }
         DrawableCompat.setTintMode(drawable, PorterDuff.Mode.MULTIPLY)
         DrawableCompat.setTintList(drawable, colorStateList)
     }
@@ -592,43 +597,19 @@ class AllColors(private val colorMap: EnumMap<ColorType, Int>, override val them
     private fun getColorFilter(color: ColorType) = colorFilters.getOrPut(color) { colorFilter(get(color)) }
 }
 
-fun readAllColorsMap(prefs: SharedPreferences, isNight: Boolean): EnumMap<ColorType, Int> {
-    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
-    val colorsString = prefs.getString(prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX, "") ?: ""
-    val colorMap = EnumMap<ColorType, Int>(ColorType::class.java)
-    colorsString.split(";").forEach {
-        val ct = try {
-            ColorType.valueOf(it.substringBefore(",").uppercase())
-        } catch (_: Exception) { // todo: which one?
-            return@forEach
-        }
-        val i = it.substringAfter(",").toIntOrNull() ?: return@forEach
-        colorMap[ct] = i
-    }
-    return colorMap
-}
-
-fun writeAllColorsMap(colorMap: EnumMap<ColorType, Int>, prefs: SharedPreferences, isNight: Boolean) {
-    val prefPrefix = if (isNight) Settings.PREF_THEME_USER_COLOR_NIGHT_PREFIX else Settings.PREF_THEME_USER_COLOR_PREFIX
-    prefs.edit { putString(
-        prefPrefix + Settings.PREF_ALL_COLORS_SUFFIX,
-        colorMap.map { "${it.key},${it.value}" }.joinToString(";")
-    ) }
-}
-
 private fun colorFilter(color: Int, mode: BlendModeCompat = BlendModeCompat.MODULATE): ColorFilter {
     // using !! for the color filter because null is only returned for unsupported blend modes, which are not used
     return BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, mode)!!
 }
 
-private fun stateList(pressed: Int, normal: Int): ColorStateList {
+private fun pressedStateList(pressed: Int, normal: Int): ColorStateList {
     val states = arrayOf(intArrayOf(android.R.attr.state_pressed), intArrayOf(-android.R.attr.state_pressed))
     return ColorStateList(states, intArrayOf(pressed, normal))
 }
 
-private fun activatedStateList(normal: Int, activated: Int): ColorStateList {
-    val states = arrayOf(intArrayOf(-android.R.attr.state_activated), intArrayOf(android.R.attr.state_activated))
-    return ColorStateList(states, intArrayOf(normal, activated))
+private fun activatedStateList(activated: Int, normal: Int): ColorStateList {
+    val states = arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf(-android.R.attr.state_activated))
+    return ColorStateList(states, intArrayOf(activated, normal))
 }
 
 enum class ColorType {

@@ -12,6 +12,7 @@ import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import java.io.File
 import java.util.*
@@ -39,8 +40,8 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
 }
 
 fun showMissingDictionaryDialog(context: Context, locale: Locale) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
-    if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, false) || locale.toString() == "zz")
+    val prefs = context.prefs()
+    if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, Defaults.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG) || locale.toString() == "zz")
         return
     val repositoryLink = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
     val dictionaryLink = "<a href='$DICTIONARY_URL/src/branch/main/dictionaries/main_$locale.dict'>" + context.getString(
@@ -99,9 +100,9 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
 fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val usedLocaleLanguageTags = hashSetOf<String>()
-    getEnabledSubtypes(prefs).forEach { subtype ->
+    SubtypeSettings.getEnabledSubtypes(prefs).forEach { subtype ->
         val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
         Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }

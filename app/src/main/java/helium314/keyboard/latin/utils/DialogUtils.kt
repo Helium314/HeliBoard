@@ -62,7 +62,7 @@ fun reorderDialog(
     @StringRes dialogTitleId: Int,
     getIcon: (String) -> Drawable? = { null }
 ) {
-    val prefs = DeviceProtectedUtils.getSharedPreferences(context)
+    val prefs = context.prefs()
     val orderedItems = prefs.getString(key, defaultSetting)!!.split(";").mapTo(ArrayList()) {
         val both = it.split(",")
         both.first() to both.last().toBoolean()

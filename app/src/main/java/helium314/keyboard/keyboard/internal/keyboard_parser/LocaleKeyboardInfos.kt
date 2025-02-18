@@ -7,6 +7,7 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.toTextKey
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.splitOnFirstSpacesOnly
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
@@ -43,6 +44,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
+    val tlds = getLocaleTlds(locale) // todo: USE IT
 
     init {
         readStream(dataStream, false, true)
@@ -74,15 +76,23 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     "[extra_keys]" -> { mode = READER_MODE_EXTRA_KEYS; return@forEachLine }
                     "[labels]" -> { mode = READER_MODE_LABELS; return@forEachLine }
                     "[number_row]" -> { mode = READER_MODE_NUMBER_ROW; return@forEachLine }
+                    "[tlds]" -> { mode = READER_MODE_TLD; return@forEachLine }
                 }
                 when (mode) {
                     READER_MODE_POPUP_KEYS -> addPopupKeys(line, priority)
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
+                    READER_MODE_TLD -> line.splitOnWhitespace().forEach { tlds.add(".$it") }
                 }
             }
         }
+    }
+
+    fun addDefaultTlds(locale: Locale) {
+        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+            tlds.add(".eu")
+        tlds.addAll(defaultTlds.splitOnWhitespace())
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
@@ -179,19 +189,23 @@ fun getOrCreate(context: Context, locale: Locale): LocaleKeyboardInfos =
     localeKeyboardInfosCache[locale.toString()]
         ?: LocaleKeyboardInfos(getStreamForLocale(locale, context), locale)
 
-fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: Int) {
+fun addLocaleKeyTextsToParams(context: Context, params: KeyboardParams, popupKeysSetting: String) {
     val locales = params.mSecondaryLocales + params.mId.locale
     params.mLocaleKeyboardInfos = localeKeyboardInfosCache.getOrPut(locales.joinToString { it.toString() }) {
         createLocaleKeyTexts(context, params, popupKeysSetting)
     }
 }
 
-private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: Int): LocaleKeyboardInfos {
+fun hasLocalizedNumberRow(locale: Locale, context: Context) =
+    getStreamForLocale(locale, context)?.bufferedReader()?.readLines()?.any { it == "[number_row]" } == true
+
+private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popupKeysSetting: String): LocaleKeyboardInfos {
     val lkt = LocaleKeyboardInfos(getStreamForLocale(params.mId.locale, context), params.mId.locale)
     params.mSecondaryLocales.forEach { locale ->
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context), true)
     }
+    lkt.addDefaultTlds(params.mId.locale)
     when (popupKeysSetting) {
         POPUP_KEYS_MAIN -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"), false)
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
@@ -212,6 +226,20 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
+private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
+    val ccLower = locale.country.lowercase()
+    val tlds = LinkedHashSet<String>()
+    if (ccLower.isEmpty() || ccLower == "zz")
+        return tlds
+    specialCountryTlds.forEach {
+        if (ccLower != it.first) return@forEach
+        tlds.addAll(it.second.splitOnWhitespace())
+        return tlds
+    }
+    tlds.add(".$ccLower")
+    return tlds
+}
+
 fun clearCache() = localeKeyboardInfosCache.clear()
 
 // cache the texts, so they don't need to be read over and over
@@ -222,6 +250,7 @@ private const val READER_MODE_POPUP_KEYS = 1
 private const val READER_MODE_EXTRA_KEYS = 2
 private const val READER_MODE_LABELS = 3
 private const val READER_MODE_NUMBER_ROW = 4
+private const val READER_MODE_TLD = 5
 
 // probably could be improved and extended, currently this is what's done in key_styles_currency.xml
 private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
@@ -277,6 +306,13 @@ private fun getCurrency(locale: Locale): String {
     }
 }
 
+fun morePopupKeysResId(popupKeysSetting: String) = when (popupKeysSetting) {
+    POPUP_KEYS_ALL -> R.string.show_popup_keys_all
+    POPUP_KEYS_MORE -> R.string.show_popup_keys_more
+    POPUP_KEYS_NORMAL -> R.string.show_popup_keys_normal
+    else -> R.string.show_popup_keys_main
+}
+
 // needs at least 4 popupKeys for working shift-symbol keyboard
 private val euro = "€" to listOf("£", "¥", "$", "¢", "₱")
 private val dram = "֏" to listOf("€", "₽", "$", "£", "¥")
@@ -288,9 +324,22 @@ private val dollar = "$" to listOf("£", "¢", "€", "¥", "₱")
 private val euroCountries = "AD|AT|BE|BG|HR|CY|CZ|DA|EE|FI|FR|DE|GR|HU|IE|IT|XK|LV|LT|LU|MT|MO|ME|NL|PL|PT|RO|SM|SK|SI|ES|VA".toRegex()
 private val euroLocales = "bg|ca|cs|da|de|el|en|es|et|eu|fi|fr|ga|gl|hr|hu|it|lb|lt|lv|mt|nl|pl|pt|ro|sk|sl|sq|sr|sv".toRegex()
 
-const val POPUP_KEYS_ALL = 2
-const val POPUP_KEYS_MORE = 1
-const val POPUP_KEYS_MAIN = 3
-const val POPUP_KEYS_NORMAL = 0
+const val POPUP_KEYS_ALL = "all"
+const val POPUP_KEYS_MORE = "more"
+const val POPUP_KEYS_MAIN = "main"
+const val POPUP_KEYS_NORMAL = "normal"
 
 private const val LOCALE_TEXTS_FOLDER = "locale_key_texts"
+
+// either tld is not simply lowercase ISO 3166-1 code, or there are multiple according to some list
+private val specialCountryTlds = listOf(
+    "bd" to ".bd .com.bd",
+    "bq" to ".bq .an .nl",
+    "bl" to ".bl .gp .fr",
+    "sx" to ".sx .an",
+    "gb" to ".uk .co.uk",
+    "eh" to ".eh .ma",
+    "mf" to ".mf .gp .fr",
+    "tl" to ".tl .tp",
+)
+private const val defaultTlds = ".com .gov .edu .org .net"

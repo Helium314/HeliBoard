@@ -30,7 +30,7 @@ import helium314.keyboard.latin.R;
 public final class DebugSettingsFragment extends SubScreenFragment
         implements Preference.OnPreferenceClickListener {
     private static final String PREF_KEY_DUMP_DICTS = "dump_dictionaries";
-    private static final String PREF_KEY_DUMP_DICT_PREFIX = "dump_dictionaries";
+    public static final String PREF_KEY_DUMP_DICT_PREFIX = "dump_dictionaries";
 
     private boolean mServiceNeedsRestart = false;
     private TwoStatePreference mDebugMode;

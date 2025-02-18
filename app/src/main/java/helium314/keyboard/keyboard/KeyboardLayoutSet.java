@@ -16,9 +16,9 @@ import helium314.keyboard.keyboard.internal.KeyboardBuilder;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.UniqueKeysCache;
+import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
-import helium314.keyboard.keyboard.internal.keyboard_parser.RawKeyboardParser;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.RichInputMethodSubtype;
 import helium314.keyboard.latin.settings.Settings;
@@ -104,7 +104,7 @@ public final class KeyboardLayoutSet {
     private static void clearKeyboardCache() {
         sKeyboardCache.clear();
         sUniqueKeysCache.clear();
-        RawKeyboardParser.INSTANCE.clearCache();
+        LayoutParser.INSTANCE.clearCache();
         KeyboardIconsSet.Companion.setNeedsReload(true);
     }
 
@@ -236,7 +236,7 @@ public final class KeyboardLayoutSet {
             final boolean asciiCapable = subtype.getRawSubtype().isAsciiCapable();
             final boolean forceAscii = (mParams.mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) != 0;
             mParams.mSubtype = (forceAscii && !asciiCapable)
-                    ? RichInputMethodSubtype.getNoLanguageSubtype()
+                    ? RichInputMethodSubtype.Companion.getNoLanguageSubtype()
                     : subtype;
             return this;
         }
@@ -326,8 +326,8 @@ public final class KeyboardLayoutSet {
     public static KeyboardId getFakeKeyboardId(final int elementId) {
         final Params params = new Params();
         params.mEditorInfo = new EditorInfo();
-        params.mSubtype = RichInputMethodSubtype.getEmojiSubtype();
-        params.mSubtype.getKeyboardLayoutSetName();
+        params.mSubtype = RichInputMethodSubtype.Companion.getEmojiSubtype();
+        params.mSubtype.getMainLayoutName();
         return new KeyboardId(elementId, params);
     }
 }

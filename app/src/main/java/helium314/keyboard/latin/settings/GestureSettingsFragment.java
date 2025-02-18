@@ -53,7 +53,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
     private void refreshSettingsEnablement() {
         final SharedPreferences prefs = getSharedPreferences();
-        final boolean gestureInputEnabled = Settings.readGestureInputEnabled(prefs);
+        final boolean gestureInputEnabled = prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT);
         setPreferenceVisible(Settings.PREF_GESTURE_PREVIEW_TRAIL, gestureInputEnabled);
         setPreferenceVisible(Settings.PREF_GESTURE_FLOATING_PREVIEW_TEXT, gestureInputEnabled);
         final boolean gesturePreviewEnabled = gestureInputEnabled
@@ -71,7 +71,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
         final SwitchPreference pref = findPreference(Settings.PREF_GESTURE_FLOATING_PREVIEW_DYNAMIC);
         if (pref == null) return;
         final SharedPreferences prefs = getSharedPreferences();
-        pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs, requireContext()));
+        pref.setChecked(Settings.readGestureDynamicPreviewEnabled(prefs));
         pref.setOnPreferenceChangeListener((preference, newValue) -> {
             // default value is based on system reduced motion
             final boolean defValue = Settings.readGestureDynamicPreviewDefault(requireContext());
@@ -102,7 +102,7 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readGestureFastTypingCooldown(prefs, res);
+                return prefs.getInt(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Defaults.PREF_GESTURE_FAST_TYPING_COOLDOWN);
             }
 
             @Override
@@ -143,12 +143,12 @@ public final class GestureSettingsFragment extends SubScreenFragment {
 
             @Override
             public int readValue(final String key) {
-                return Settings.readGestureTrailFadeoutDuration(prefs, res);
+                return prefs.getInt(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Defaults.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
             }
 
             @Override
             public int readDefaultValue(final String key) {
-                return Settings.readDefaultGestureTrailFadeoutDuration(res);
+                return 800;
             }
 
             @Override
