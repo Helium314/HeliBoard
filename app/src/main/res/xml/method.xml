@@ -265,7 +265,7 @@
             android:imeSubtypeLocale="bn_IN"
             android:languageTag="bn-IN"
             android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:bengali_inscript,NoShiftKey,EmojiCapable"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:bengali_inscript,EmojiCapable"
             android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
