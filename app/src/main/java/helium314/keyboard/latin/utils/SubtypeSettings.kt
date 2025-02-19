@@ -24,7 +24,6 @@ object SubtypeSettings {
     /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
      *  subtypes for system locales will be returned, or en-US if none found. */
     fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
-        require(initialized)
         if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES))
             return getDefaultEnabledSubtypes()
         if (fallback && enabledSubtypes.isEmpty())
@@ -32,10 +31,8 @@ object SubtypeSettings {
         return enabledSubtypes.toList()
     }
 
-    fun getAllAvailableSubtypes(): List<InputMethodSubtype> {
-        require(initialized)
-        return resourceSubtypesByLocale.values.flatten() + additionalSubtypes
-    }
+    fun getAllAvailableSubtypes(): List<InputMethodSubtype> =
+        resourceSubtypesByLocale.values.flatten() + additionalSubtypes
 
     fun getMatchingMainLayoutNameForLocale(locale: Locale): String {
         val subtypes = resourceSubtypesByLocale.values.flatten()
@@ -54,7 +51,6 @@ object SubtypeSettings {
     }
 
     fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
-        require(initialized)
         val subtypeString = newSubtype.toSettingsSubtype().toPref()
         val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
         val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(Separators.SETS)
@@ -69,7 +65,6 @@ object SubtypeSettings {
 
     /** @return whether subtype was actually removed */
     fun removeEnabledSubtype(context: Context, subtype: InputMethodSubtype): Boolean {
-        require(initialized)
         if (!removeEnabledSubtype(context.prefs(), subtype.toSettingsSubtype().toPref())) return false
         if (!enabledSubtypes.remove(subtype)) reloadEnabledSubtypes(context)
         else RichInputMethodManager.getInstance().refreshSubtypeCaches()
@@ -77,7 +72,6 @@ object SubtypeSettings {
     }
 
     fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
-        require(initialized)
         val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()
         if (selectedSubtype.isAdditionalSubtype(prefs)) {
             val selectedAdditionalSubtype = selectedSubtype.toAdditionalSubtype()
@@ -109,14 +103,9 @@ object SubtypeSettings {
     }
 
     // todo: use this or the version in SubtypeUtilsAdditional?
-    fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean {
-        return subtype in additionalSubtypes
-    }
+    fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean = subtype in additionalSubtypes
 
-    fun getAdditionalSubtypes(): List<InputMethodSubtype> {
-        require(initialized)
-        return additionalSubtypes.toList()
-    }
+    fun getAdditionalSubtypes(): List<InputMethodSubtype> = additionalSubtypes.toList()
 
     fun reloadSystemLocales(context: Context) {
         systemLocales.clear()
@@ -128,25 +117,15 @@ object SubtypeSettings {
         systemSubtypes.clear()
     }
 
-    fun getSystemLocales(): List<Locale> {
-        require(initialized)
-        return systemLocales.toList()
-    }
+    fun getSystemLocales(): List<Locale> = systemLocales.toList()
 
-    fun hasMatchingSubtypeForLocale(locale: Locale): Boolean {
-        require(initialized)
-        return !resourceSubtypesByLocale[locale].isNullOrEmpty()
-    }
+    fun hasMatchingSubtypeForLocale(locale: Locale): Boolean = !resourceSubtypesByLocale[locale].isNullOrEmpty()
 
     fun getResourceSubtypesForLocale(locale: Locale): List<InputMethodSubtype> = resourceSubtypesByLocale[locale].orEmpty()
 
-    fun getAvailableSubtypeLocales(): List<Locale> {
-        require(initialized)
-        return resourceSubtypesByLocale.keys.toList()
-    }
+    fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()
 
     fun reloadEnabledSubtypes(context: Context) {
-        require(initialized)
         enabledSubtypes.clear()
         removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
@@ -155,7 +134,6 @@ object SubtypeSettings {
     }
 
     fun init(context: Context) {
-        if (initialized) return
         SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
 
         // necessary to set system locales at start, because for some weird reason (bug?)
@@ -166,7 +144,6 @@ object SubtypeSettings {
         removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
-        initialized = true
     }
 
     private fun getDefaultEnabledSubtypes(): List<InputMethodSubtype> {
@@ -275,12 +252,10 @@ object SubtypeSettings {
         return true
     }
 
-    var initialized = false
-        private set
     private val enabledSubtypes = mutableListOf<InputMethodSubtype>()
     private val resourceSubtypesByLocale = LinkedHashMap<Locale, MutableList<InputMethodSubtype>>(100)
     private val additionalSubtypes = mutableListOf<InputMethodSubtype>()
     private val systemLocales = mutableListOf<Locale>()
     private val systemSubtypes = mutableListOf<InputMethodSubtype>()
-    private const val TAG = "SubtypeSettings"
+    private val TAG = SubtypeSettings::class.simpleName
 }

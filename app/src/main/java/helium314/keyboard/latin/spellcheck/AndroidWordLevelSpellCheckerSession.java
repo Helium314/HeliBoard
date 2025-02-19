@@ -153,7 +153,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     }
                     // localeString for this app is always empty, get it from settings if possible
                     // and we're sure this app is used
-                    if (SubtypeSettings.INSTANCE.getInitialized() && "dummy".equals(currentInputMethodSubtype.getExtraValue())) {
+                    if ("dummy".equals(currentInputMethodSubtype.getExtraValue())) {
                         final SharedPreferences prefs = KtxKt.prefs(mService);
                         return SubtypeSettings.INSTANCE.getSelectedSubtype(prefs).getLocale();
                     }

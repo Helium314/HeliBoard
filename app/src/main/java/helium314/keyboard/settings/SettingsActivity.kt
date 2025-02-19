@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.RelativeLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,7 +16,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
+import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.BuildConfig
+import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
@@ -43,9 +46,10 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Settings.getInstance().current == null)
-            Settings.init(this)
-        SubtypeSettings.init(this)
+        if (Settings.getInstance().current == null) {
+            val inputAttributes = InputAttributes(EditorInfo(), false, packageName)
+            Settings.getInstance().loadSettings(this, resources.configuration.locale(), inputAttributes)
+        }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports()

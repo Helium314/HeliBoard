@@ -12,6 +12,7 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.encodeBase36
+import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
@@ -21,7 +22,6 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
-import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SettingsSubtype
@@ -43,6 +43,10 @@ import java.util.EnumMap
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        Settings.init(this)
+        DebugFlags.init(this)
+        SubtypeSettings.init(this)
+
         checkVersionUpgrade(this)
         app = this
         Defaults.initDynamicDefaults(this)
@@ -458,7 +462,6 @@ fun checkVersionUpgrade(context: Context) {
         }
     }
     if (oldVersion <= 2308) {
-        SubtypeSettings.init(context) // not sure, but there may be cases where it's not initialized
         SubtypeSettings.reloadEnabledSubtypes(context)
         prefs.all.keys.toList().forEach { key ->
             if (key.startsWith(Settings.PREF_POPUP_KEYS_ORDER+"_")) {

@@ -74,11 +74,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
 
-        // sometimes wrong languages are returned when not initializing on creation of LatinIME
-        // this might be a bug, at least it's not documented
-        // but anyway, here is really rare (LatinIme should be loaded when the settings are opened)
-        SubtypeSettings.INSTANCE.init(getActivity());
-
         findPreference("screen_languages").setSummary(getEnabledSubtypesLabel());
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             askAboutCrashReports();

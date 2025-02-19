@@ -23,7 +23,6 @@ object DebugFlags {
     @JvmField
     var DEBUG_ENABLED = false
 
-    @JvmStatic
     fun init(context: Context) {
         DEBUG_ENABLED = context.prefs().getBoolean(DebugSettings.PREF_DEBUG_MODE, Defaults.PREF_DEBUG_MODE)
         if (DEBUG_ENABLED || BuildConfig.DEBUG)
