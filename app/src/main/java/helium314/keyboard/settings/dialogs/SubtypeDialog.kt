@@ -68,6 +68,10 @@ import java.util.Locale
 // todo:
 //  "+" layouts for languages that have one are not selectable, they should use the language name
 //  fix the display name (why is the layout always added now e.g. after adding a secondary locale, when it's not there initially?)
+//  some way of editing, adding and removing main layouts
+//   here or in layouts screen?
+//    layouts screen: that would be the purpose, but there is no default for main, and it's language dependent
+//   here we need at least an indicator which layouts are custom (edit or delete buttons)
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
@@ -366,9 +370,8 @@ private fun DefaultButton(
         onClick = onDefault,
         enabled = !isDefault
     ) {
-        Icon(painterResource(R.drawable.sym_keyboard_settings_holo), "default") // todo: more understandable icon!
+        Icon(painterResource(R.drawable.ic_settings_default), "default")
     }
-
 }
 
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): List<Locale> =

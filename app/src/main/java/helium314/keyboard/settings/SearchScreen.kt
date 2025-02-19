@@ -137,7 +137,7 @@ fun <T: Any> SearchScreen(
                             else onClickBack()
                         }) {
                             Icon(
-                                painterResource(R.drawable.baseline_arrow_back_24),
+                                painterResource(R.drawable.ic_arrow_back),
                                 stringResource(R.string.spoken_description_action_previous)
                             )
                         }
