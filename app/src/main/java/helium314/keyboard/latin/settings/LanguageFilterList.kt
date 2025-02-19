@@ -27,6 +27,7 @@ import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.showMissingDictionaryDialog
+import java.util.Locale
 
 class LanguageFilterList(searchField: EditText, recyclerView: RecyclerView) {
 
@@ -98,14 +99,14 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                             sb.append(string)
                         }
                     }
-                    val secondaryLocales = Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
+                    val secondaryLocales = emptyList<Locale>()
                     if (secondaryLocales.isNotEmpty()) {
                         if (sb.isNotEmpty())
                             sb.append("\n")
-                        sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
-                            .joinToString(", ") {
-                                LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context)
-                            })
+                        //sb.append(Settings.getSecondaryLocales(prefs, infos.first().subtype.locale())
+                        //    .joinToString(", ") {
+                        //        LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context)
+                        //    })
                     }
                     text = sb
                     if (text.isBlank()) isGone = true
@@ -126,7 +127,7 @@ private class LanguageAdapter(list: List<MutableList<SubtypeInfo>> = listOf(), c
                             SubtypeSettings.addEnabledSubtype(prefs, infos.first().subtype)
                             infos.first().isEnabled = true
                         } else {
-                            SubtypeSettings.removeEnabledSubtype(prefs, infos.first().subtype)
+                            SubtypeSettings.removeEnabledSubtype(context, infos.first().subtype)
                             infos.first().isEnabled = false
                         }
                     }

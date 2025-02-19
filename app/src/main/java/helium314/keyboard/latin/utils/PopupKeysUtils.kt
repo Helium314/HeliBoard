@@ -98,9 +98,9 @@ private fun transformLabel(label: String, params: KeyboardParams): String =
     } else label
 
 /** returns a list of enabled popup keys for pref [key] */
-fun getEnabledPopupKeys(prefs: SharedPreferences, key: String, defaultSetting: String): List<String> {
-    return prefs.getString(key, defaultSetting)?.split(";")?.mapNotNull {
-        val split = it.split(",")
+fun getEnabledPopupKeys(string: String): List<String> {
+    return string.split(Separators.ENTRY).mapNotNull {
+        val split = it.split(Separators.KV)
         if (split.last() == "true") split.first() else null
-    } ?: emptyList()
+    }
 }

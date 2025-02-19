@@ -84,7 +84,7 @@ fun LanguageScreen(
                     Text(item.displayName(ctx), style = MaterialTheme.typography.bodyLarge)
                     val description = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
                         ?.joinToString(", ") { LocaleUtils.getLocaleDisplayNameInSystemLocale(it.constructLocale(), ctx) }
-                    if (description != null)
+                    if (description != null) // todo: description should clarify when it's a default subtype that can't be changed / will be cloned
                         Text(
                             text = description,
                             style = MaterialTheme.typography.bodyMedium,
@@ -95,7 +95,7 @@ fun LanguageScreen(
                     checked = item in SubtypeSettings.getEnabledSubtypes(prefs),
                     onCheckedChange = {
                         if (it) SubtypeSettings.addEnabledSubtype(prefs, item)
-                        else SubtypeSettings.removeEnabledSubtype(prefs, item)
+                        else SubtypeSettings.removeEnabledSubtype(ctx, item)
                     }
                 )
             }
@@ -106,8 +106,9 @@ fun LanguageScreen(
         SubtypeDialog(
             onDismissRequest = { selectedSubtype = null },
             onConfirmed = {
-                // todo: this does not work when "modifying" a resource subtype
-                SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype.toSettingsSubtype(), it, prefs)
+                // todo: this does not work when "modifying" a resource subtype like German (Germany) or Danish (probably because of the + layout)
+                //  maybe this also applied to upgrading
+                SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype.toSettingsSubtype(), it, ctx)
                 sortedSubtypes = getSortedSubtypes(ctx)
             },
             subtype = oldSubtype

@@ -59,15 +59,17 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getDictionaryLocales
+import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 // todo:
 //  save when "editing" a resource subtypes is not working
+//   but really needs to, because e.g. a user may just want to add a secondary locale on swedish qwerty+
 //  settings upgrade to move the override settings to extra values, and actually use them (via getSelectedSubtype, not RichIMM)
+//  maybe hide some settings initially? list is long, any maybe e.g. more popups doesn't need to be subtype-dependent
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
@@ -90,7 +92,7 @@ fun SubtypeDialog(
         neutralButtonText = if (SubtypeSettings.isAdditionalSubtype(subtype)) null else stringResource(R.string.delete),
         onNeutral = {
             SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype)
-            SubtypeSettings.removeEnabledSubtype(prefs, subtype)
+            SubtypeSettings.removeEnabledSubtype(ctx, subtype)
 
         }, // maybe confirm dialog?
         title = { Text(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype)) },
@@ -103,8 +105,8 @@ fun SubtypeDialog(
                     val appLayouts = LayoutUtils.getAvailableLayouts(LayoutType.MAIN, ctx, currentSubtype.locale)
                     val customLayouts = LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, ctx, currentSubtype.locale).map { it.name }
                     DropDownField(
-                        items = appLayouts + customLayouts,
-                        selectedItem = currentSubtype.mainLayoutName() ?: "qwerty", // todo: what about qwerty+ and similar?
+                        items = appLayouts + customLayouts, // todo: allow the "+" layouts for languages that have one
+                        selectedItem = currentSubtype.mainLayoutName() ?: "qwerty",
                         onSelected = {
                             currentSubtype = currentSubtype.withLayout(LayoutType.MAIN, it)
                         }
@@ -114,13 +116,14 @@ fun SubtypeDialog(
                         //  yes, even just to make clear what is custom
                     }
                 }
-                WithSmallTitle(stringResource(R.string.secondary_locale)) {
-                    TextButton(onClick = { showSecondaryLocaleDialog = true }) {
-                        val text = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
-                            ?.split(Separators.KV)?.joinToString(", ") {
-                                LocaleUtils.getLocaleDisplayNameInSystemLocale(it.constructLocale(), ctx)
-                            } ?: stringResource(R.string.action_none)
-                        Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
+                if (availableLocalesForScript.size > 1) {
+                    WithSmallTitle(stringResource(R.string.secondary_locale)) {
+                        TextButton(onClick = { showSecondaryLocaleDialog = true }) {
+                            val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
+                                    LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx)
+                                }.ifEmpty { stringResource(R.string.action_none) }
+                            Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
                 }
                 WithSmallTitle("dictionaries") {

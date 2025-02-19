@@ -30,6 +30,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
 
@@ -117,7 +118,11 @@ public class UserDictionaryListFragment extends SubScreenFragment {
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
             if (!localeSystemOnly) {
-                sortedLocales.addAll(Settings.getSecondaryLocales(prefs, mainLocale));
+                final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(prefs, false);
+                for (InputMethodSubtype subtype : enabled) {
+                    if (SubtypeUtilsKt.locale(subtype).equals(mainLocale))
+                        sortedLocales.addAll(SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue()));
+                }
             }
         }
 

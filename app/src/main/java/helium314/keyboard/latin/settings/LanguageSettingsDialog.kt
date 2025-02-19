@@ -188,7 +188,7 @@ class LanguageSettingsDialog(
                     SubtypeSettings.addEnabledSubtype(prefs, subtype.subtype)
                 }
                 else
-                    SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
+                    SubtypeSettings.removeEnabledSubtype(context, subtype.subtype)
                 subtype.isEnabled = b
                 reloadSetting()
             }
@@ -205,7 +205,7 @@ class LanguageSettingsDialog(
                         //if (isCustom)
                         //    LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
                         SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
-                        SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
+                        SubtypeSettings.removeEnabledSubtype(context, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
@@ -226,7 +226,7 @@ class LanguageSettingsDialog(
             mainLocale,
             infos.first().subtype.isAsciiCapable
         )
-        val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+        val selectedSecondaryLocales = emptyList<Locale>()// Settings.getSecondaryLocales(prefs, mainLocale)
         selectedSecondaryLocales.forEach {
             addSecondaryLocaleView(it)
         }
@@ -234,14 +234,14 @@ class LanguageSettingsDialog(
             binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocale)).sortedBy { it.displayName }
+                    val locales = (availableSecondaryLocales).sortedBy { it.displayName }
                     val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.button_select_language)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
-                            val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
-                            Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
+                            //val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                            //Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
                             addSecondaryLocaleView(locale)
                             di.dismiss()
                             reloadSetting()
@@ -264,8 +264,8 @@ class LanguageSettingsDialog(
         rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
-                val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
-                Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
+                //val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                //Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
                 reloadDictionaries()

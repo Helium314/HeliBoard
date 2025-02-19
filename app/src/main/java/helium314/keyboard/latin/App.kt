@@ -21,10 +21,12 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SettingsSubtype
 import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
@@ -380,6 +382,7 @@ fun checkVersionUpgrade(context: Context) {
                 if (it.name in value)
                     prefs.edit().putString(key, value.replace(it.name, newFile.name)).apply()
             }
+            LayoutUtilsCustom.onLayoutFileChanged()
         }
     }
     if (oldVersion <= 2305) {
@@ -394,7 +397,7 @@ fun checkVersionUpgrade(context: Context) {
             val value = prefs.getString(it, "")!!.replace(":", Separators.SET)
             prefs.edit().putString(it, value).apply()
         }
-        prefs.all.keys.filter { it.startsWith(Settings.PREF_SECONDARY_LOCALES_PREFIX) }.forEach {
+        prefs.all.keys.filter { it.startsWith("secondary_locales_") }.forEach {
             val newValue = prefs.getString(it, "")!!.replace(";", Separators.KV)
             prefs.edit().putString(it, newValue).apply()
         }
@@ -452,6 +455,61 @@ fun checkVersionUpgrade(context: Context) {
             if (!it.startsWith(Settings.PREF_POPUP_KEYS_ORDER) && !it.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER))
                 return@forEach
             prefs.edit().putString(it, prefs.getString(it, "")!!.replace("popup_keys_", "")).apply()
+        }
+    }
+    if (oldVersion <= 2308) {
+        SubtypeSettings.init(context) // not sure, but there may be cases where it's not initialized
+        SubtypeSettings.reloadEnabledSubtypes(context)
+        prefs.all.keys.toList().forEach { key ->
+            if (key.startsWith(Settings.PREF_POPUP_KEYS_ORDER+"_")) {
+                val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_ORDER+"_").constructLocale()
+                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                    if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
+                        SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
+                    }
+                }
+                val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
+                additional.split(Separators.SETS).forEach inner@{
+                    val subtype = it.toSettingsSubtype()
+                    if (subtype.locale != locale) return@inner
+                    val newSubtype = subtype.with(ExtraValue.POPUP_ORDER, prefs.getString(key, ""))
+                    SubtypeUtilsAdditional.changeAdditionalSubtype(subtype, newSubtype, context)
+                }
+                prefs.edit().remove(key).apply()
+            }
+            if (key.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_")) {
+                val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_").constructLocale()
+                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                    if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
+                        SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
+                    }
+                }
+                val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
+                additional.split(Separators.SETS).forEach inner@{
+                    val subtype = it.toSettingsSubtype()
+                    if (subtype.locale != locale) return@inner
+                    val newSubtype = subtype.with(ExtraValue.HINT_ORDER, prefs.getString(key, ""))
+                    SubtypeUtilsAdditional.changeAdditionalSubtype(subtype, newSubtype, context)
+                }
+                prefs.edit().remove(key).apply()
+            }
+            if (key.startsWith("secondary_locales_")) {
+                val locale = key.substringAfter("secondary_locales_").constructLocale()
+                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                    if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
+                        SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
+                    }
+                }
+                val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
+                val secondaryLocales = prefs.getString(key, "")!!.split(Separators.KV).filter { it.isNotBlank() }.joinToString(Separators.KV)
+                additional.split(Separators.SETS).forEach inner@{
+                    val subtype = it.toSettingsSubtype()
+                    if (subtype.locale != locale) return@inner
+                    val newSubtype = subtype.with(ExtraValue.SECONDARY_LOCALES, secondaryLocales)
+                    SubtypeUtilsAdditional.changeAdditionalSubtype(subtype, newSubtype, context)
+                }
+                prefs.edit().remove(key).apply()
+            }
         }
     }
     upgradeToolbarPrefs(prefs)

@@ -105,7 +105,9 @@ fun cleanUnusedMainDicts(context: Context) {
     SubtypeSettings.getEnabledSubtypes(prefs).forEach { subtype ->
         val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
-        Settings.getSecondaryLocales(prefs, locale).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
+    }
+    SubtypeSettings.getAdditionalSubtypes().forEach { subtype ->
+        getSecondaryLocales(subtype.extraValue).forEach { usedLocaleLanguageTags.add(it.toLanguageTag()) }
     }
     for (dir in dirs) {
         if (!dir.isDirectory) continue

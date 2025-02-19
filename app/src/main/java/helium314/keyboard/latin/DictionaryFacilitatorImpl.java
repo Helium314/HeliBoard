@@ -16,6 +16,7 @@ import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
+import android.view.inputmethod.InputMethodSubtype;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ import helium314.keyboard.latin.personalization.UserHistoryDictionary;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.ExecutorUtils;
+import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -102,15 +105,6 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             if (locale.equals(dictionaryGroup.mLocale)) return true;
         }
         return false;
-    }
-
-    /**
-     * Returns whether this facilitator is exactly for this account.
-     *
-     * @param account the account to test against.
-     */
-    public boolean isForAccount(@Nullable final String account) {
-        return TextUtils.equals(mDictionaryGroups.get(0).mAccount, account);
     }
 
     /**
@@ -277,12 +271,10 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         return getCurrentlyPreferredDictionaryGroup().mLocale;
     }
 
-    @Override
     public boolean usesContacts() {
         return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_CONTACTS) != null;
     }
 
-    @Override
     public boolean usesPersonalization() {
         return mDictionaryGroups.get(0).getSubDict(Dictionary.TYPE_USER_HISTORY) != null;
     }
@@ -290,6 +282,19 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     @Override
     public String getAccount() {
         return null;
+    }
+
+    @Override
+    public boolean usesSameSettings(@NonNull final List<Locale> locales, final boolean contacts,
+            final boolean personalization, @Nullable final String account) {
+        final boolean first = usesContacts() == contacts && usesPersonalization() == personalization
+                && TextUtils.equals(mDictionaryGroups.get(0).mAccount, account)
+                && locales.size() == mDictionaryGroups.size();
+        if (!first) return false;
+        for (int i = 0; i < locales.size(); i++) {
+            if (locales.get(i) != mDictionaryGroups.get(i).mLocale) return false;
+        }
+        return true;
     }
 
     @Nullable
@@ -339,7 +344,20 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
         Log.i(TAG, "resetDictionaries, force reloading main dictionary: " + forceReloadMainDictionary);
         final List<Locale> allLocales = new ArrayList<>() {{
             add(newLocale);
-            addAll(Settings.getSecondaryLocales(KtxKt.prefs(context), newLocale));
+
+            // adding secondary locales is a bit tricky since they depend on the subtype
+            // but usually this is called with the selected subtype locale
+            final InputMethodSubtype selected = SubtypeSettings.INSTANCE.getSelectedSubtype(KtxKt.prefs(context));
+            if (SubtypeUtilsKt.locale(selected).equals(newLocale)) {
+                addAll(SubtypeUtilsKt.getSecondaryLocales(selected.getExtraValue()));
+            } else {
+                // probably we're called from the spell checker when using a different app as keyboard
+                final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(context), false);
+                for (InputMethodSubtype subtype : enabled) {
+                    if (SubtypeUtilsKt.locale(subtype).equals(newLocale))
+                        addAll(SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue()));
+                }
+            }
         }};
 
         // Do not use contacts dictionary if we do not have permissions to read contacts.

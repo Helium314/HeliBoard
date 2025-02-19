@@ -669,11 +669,15 @@ public class LatinIME extends InputMethodService implements
         } else {
             subtypeLocale = subtypeSwitcherLocale;
         }
-        if (mDictionaryFacilitator.isForLocale(subtypeLocale)
-                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)
-                && mDictionaryFacilitator.usesContacts() == mSettings.getCurrent().mUseContactsDictionary
-                && mDictionaryFacilitator.usesPersonalization() == mSettings.getCurrent().mUsePersonalizedDicts
-        ) {
+        final ArrayList<Locale> locales = new ArrayList<>();
+        locales.add(subtypeLocale);
+        locales.addAll(mSettings.getCurrent().mSecondaryLocales);
+        if (mDictionaryFacilitator.usesSameSettings(
+                locales,
+                mSettings.getCurrent().mUseContactsDictionary,
+                mSettings.getCurrent().mUsePersonalizedDicts,
+                mSettings.getCurrent().mAccount
+        )) {
             return;
         }
         resetDictionaryFacilitator(subtypeLocale);

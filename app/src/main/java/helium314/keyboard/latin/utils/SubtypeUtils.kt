@@ -1,6 +1,7 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
@@ -11,8 +12,11 @@ import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAY
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.settings.Defaults
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.SettingsSubtype.Companion.getExtraValueOf
 import org.xmlpull.v1.XmlPullParser
 import java.util.Locale
 
@@ -72,6 +76,30 @@ fun InputMethodSubtype.displayName(context: Context): String {
     return SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
 }
 
+fun getHasLocalizedNumberRow(subtype: InputMethodSubtype, prefs: SharedPreferences): Boolean =
+    subtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
+        ?: prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, Defaults.PREF_LOCALIZED_NUMBER_ROW)
+
+fun getPopupKeyTypes(subtype: InputMethodSubtype, prefs: SharedPreferences): List<String> {
+    val string = subtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
+        ?: prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, Defaults.PREF_POPUP_KEYS_ORDER)!!
+    return getEnabledPopupKeys(string)
+}
+
+fun getPopupKeyLabelSources(subtype: InputMethodSubtype, prefs: SharedPreferences): List<String> {
+    val string = subtype.getExtraValueOf(ExtraValue.HINT_ORDER)
+        ?: prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, Defaults.PREF_POPUP_KEYS_LABELS_ORDER)!!
+    return getEnabledPopupKeys(string)
+}
+
+fun getMoreKeys(subtype: InputMethodSubtype, prefs: SharedPreferences): String =
+    subtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
+        ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
+
+fun getSecondaryLocales(extraValues: String): List<Locale> =
+    extraValues.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
+        ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty()
+
 // some kind of intermediate between the string stored in preferences and an InputMethodSubtype
 data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
@@ -110,10 +138,9 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
         return copy(extraValues = newValues)
     }
 
-    fun getExtraValueOf(extraValueKey: String): String? = extraValues.split(",")
-        .firstOrNull { it.startsWith("$extraValueKey=") }?.substringAfter("$extraValueKey=")
+    fun getExtraValueOf(extraValueKey: String): String? = extraValues.getExtraValueOf(extraValueKey)
 
-    fun withLayout(type: LayoutType, name: String): SettingsSubtype {
+     fun withLayout(type: LayoutType, name: String): SettingsSubtype {
         val map = LayoutType.getLayoutMap(getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
         map[type] = name
         return with(KEYBOARD_LAYOUT_SET, map.toExtraValue())
@@ -126,9 +153,16 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
         else with(KEYBOARD_LAYOUT_SET, map.toExtraValue())
     }
 
+    fun isAdditionalSubtype(prefs: SharedPreferences) =
+        prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+            .split(Separators.SETS).contains(toPref())
+
     companion object {
         fun String.toSettingsSubtype() =
             SettingsSubtype(substringBefore(Separators.SET).constructLocale(), substringAfter(Separators.SET))
+
+        fun String.getExtraValueOf(extraValueKey: String) = split(",")
+            .firstOrNull { it.startsWith("$extraValueKey=") }?.substringAfter("$extraValueKey=")
 
         /** Creates a SettingsSubtype from the given InputMethodSubtype.
          *  Will strip some extra values that are set when creating the InputMethodSubtype from SettingsSubtype */

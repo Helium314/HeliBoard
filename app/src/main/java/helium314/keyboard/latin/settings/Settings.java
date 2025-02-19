@@ -27,8 +27,6 @@ import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.Colors;
-import helium314.keyboard.latin.common.Constants;
-import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -43,10 +41,8 @@ import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 import helium314.keyboard.settings.SettingsActivity;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -147,7 +143,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
 
-    public static final String PREF_SECONDARY_LOCALES_PREFIX = "secondary_locales_";
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "navbar_color";
     public static final String PREF_NARROW_KEY_GAPS = "narrow_key_gaps";
@@ -241,8 +236,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             mSettingsValuesLock.unlock();
         }
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
-            final String additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES);
-            SubtypeSettings.INSTANCE.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
+            SubtypeSettings.INSTANCE.reloadEnabledSubtypes(mContext);
         }
     }
 
@@ -464,29 +458,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void clearCachedBackgroundImages() {
         Arrays.fill(sCachedBackgroundImages, null);
-    }
-
-    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
-        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), Defaults.PREF_SECONDARY_LOCALES);
-
-        final ArrayList<Locale> locales = new ArrayList<>();
-        for (String languageTag : localesString.split(Constants.Separators.KV)) {
-            if (languageTag.isEmpty()) continue;
-            locales.add(LocaleUtils.constructLocale(languageTag));
-        }
-        return locales;
-    }
-
-    public static void setSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale, final List<Locale> locales) {
-        if (locales.isEmpty()) {
-            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "").apply();
-            return;
-        }
-        final StringBuilder sb = new StringBuilder();
-        for (Locale locale : locales) {
-            sb.append(Constants.Separators.KV).append(locale.toLanguageTag());
-        }
-        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), sb.toString()).apply();
     }
 
     public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
