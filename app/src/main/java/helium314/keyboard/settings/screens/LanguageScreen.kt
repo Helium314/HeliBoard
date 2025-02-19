@@ -107,8 +107,6 @@ fun LanguageScreen(
         SubtypeDialog(
             onDismissRequest = { selectedSubtype = null },
             onConfirmed = {
-                // todo: this does not work when "modifying" a resource subtype like German (Germany) or Danish (probably because of the + layout)
-                //  maybe this also applied to upgrading
                 SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype.toSettingsSubtype(), it, ctx)
                 sortedSubtypes = getSortedSubtypes(ctx)
             },

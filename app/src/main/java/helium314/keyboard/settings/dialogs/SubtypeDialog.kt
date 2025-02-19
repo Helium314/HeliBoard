@@ -66,10 +66,8 @@ import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 // todo:
-//  save when "editing" a resource subtypes is not working
-//   but really needs to, because e.g. a user may just want to add a secondary locale on swedish qwerty+
-//  settings upgrade to move the override settings to extra values, and actually use them (via getSelectedSubtype, not RichIMM)
-//  maybe hide some settings initially? list is long, any maybe e.g. more popups doesn't need to be subtype-dependent
+//  "+" layouts for languages that have one are not selectable, they should use the language name
+//  fix the display name (why is the layout always added now e.g. after adding a secondary locale, when it's not there initially?)
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
@@ -105,7 +103,7 @@ fun SubtypeDialog(
                     val appLayouts = LayoutUtils.getAvailableLayouts(LayoutType.MAIN, ctx, currentSubtype.locale)
                     val customLayouts = LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, ctx, currentSubtype.locale).map { it.name }
                     DropDownField(
-                        items = appLayouts + customLayouts, // todo: allow the "+" layouts for languages that have one
+                        items = appLayouts + customLayouts,
                         selectedItem = currentSubtype.mainLayoutName() ?: "qwerty",
                         onSelected = {
                             currentSubtype = currentSubtype.withLayout(LayoutType.MAIN, it)

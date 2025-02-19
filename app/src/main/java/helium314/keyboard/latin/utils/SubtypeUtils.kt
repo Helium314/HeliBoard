@@ -110,7 +110,9 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
     fun toAdditionalSubtype(): InputMethodSubtype? {
         val asciiCapable = locale.script() == ScriptUtils.SCRIPT_LATIN
         val subtype = SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValues, asciiCapable, true)
-        if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT && !LayoutUtilsCustom.isCustomLayout(mainLayoutName() ?: SubtypeLocaleUtils.QWERTY)) {
+        if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT
+            && mainLayoutName()?.endsWith("+") != true // "+" layouts and custom layouts are always "unknown"
+            && !LayoutUtilsCustom.isCustomLayout(mainLayoutName() ?: SubtypeLocaleUtils.QWERTY)) {
             // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
             // layout has been removed.
             Log.w(SettingsSubtype::class.simpleName, "unknown additional subtype $this")
