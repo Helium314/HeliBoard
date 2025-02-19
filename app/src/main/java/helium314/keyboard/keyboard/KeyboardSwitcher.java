@@ -49,6 +49,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
@@ -160,7 +161,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
                 final InputMethodSubtype qwerty = SubtypeUtilsAdditional.INSTANCE
-                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
+                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), SubtypeLocaleUtils.QWERTY, true);
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                         .setSubtype(RichInputMethodSubtype.Companion.get(qwerty))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)

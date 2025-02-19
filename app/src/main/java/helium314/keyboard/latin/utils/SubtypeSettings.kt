@@ -199,7 +199,7 @@ object SubtypeSettings {
         val customLayoutFiles by lazy { LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).map { it.name } }
         val subtypesToRemove = mutableListOf<String>()
         additionalSubtypes.forEach {
-            val name = it.toSettingsSubtype().mainLayoutName() ?: "qwerty"
+            val name = it.toSettingsSubtype().mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
             if (!LayoutUtilsCustom.isCustomLayout(name)) return@forEach
             if (name !in customLayoutFiles)
                 subtypesToRemove.add(it)
@@ -240,7 +240,7 @@ object SubtypeSettings {
                 continue
             }
 
-            val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getMainLayoutName(it) == (settingsSubtype.mainLayoutName() ?: "qwerty") }
+            val subtype = subtypesForLocale.firstOrNull { SubtypeLocaleUtils.getMainLayoutName(it) == (settingsSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY) }
             if (subtype == null) {
                 val message = "subtype $settingsSubtype could not be loaded"
                 Log.w(TAG, message)

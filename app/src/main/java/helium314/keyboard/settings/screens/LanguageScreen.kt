@@ -33,6 +33,7 @@ import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.displayName
@@ -141,8 +142,8 @@ private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
         { !(SubtypeSettings.isAdditionalSubtype(it) && !isDefaultSubtype(it) ) },
         {
             @Suppress("DEPRECATION")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) it.languageTag == "zz"
-            else it.locale == "zz"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) it.languageTag == SubtypeLocaleUtils.NO_LANGUAGE
+            else it.locale == SubtypeLocaleUtils.NO_LANGUAGE
         },
         { it.displayName(context) }
     )
