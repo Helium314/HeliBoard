@@ -41,7 +41,6 @@ fun LayoutEditDialog(
 ) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
-    var job: Job? = null
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
@@ -57,7 +56,7 @@ fun LayoutEditDialog(
 
     TextInputDialog(
         onDismissRequest = {
-            job?.cancel()
+            errorJob?.cancel()
             onDismissRequest()
         },
         onConfirmed = {
@@ -84,10 +83,9 @@ fun LayoutEditDialog(
         },
         checkTextValid = {
             val valid = LayoutUtilsCustom.checkLayout(it, ctx)
-            job?.cancel()
+            errorJob?.cancel()
             if (!valid) {
-                job = scope.launch {
-                    // todo: this can end up in toast-spam
+                errorJob = scope.launch {
                     val message = Log.getLog(10)
                         .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")
@@ -103,3 +101,6 @@ fun LayoutEditDialog(
         reducePadding = true,
     )
 }
+
+// the job is here to make sure old jobs are canceled
+private var errorJob: Job? = null
