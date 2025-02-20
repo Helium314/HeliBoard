@@ -66,12 +66,12 @@ import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 // todo:
-//  "+" layouts for languages that have one are not selectable, they should use the language name
 //  fix the display name (why is the layout always added now e.g. after adding a secondary locale, when it's not there initially?)
 //  some way of editing, adding and removing main layouts
 //   here or in layouts screen?
 //    layouts screen: that would be the purpose, but there is no default for main, and it's language dependent
 //   here we need at least an indicator which layouts are custom (edit or delete buttons)
+//  sometimes the layout is not enabled after changing something
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
