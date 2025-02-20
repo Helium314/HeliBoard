@@ -24,6 +24,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Job
@@ -61,8 +62,10 @@ fun LayoutEditDialog(
         },
         onConfirmed = {
             val newLayoutName = LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text)
-            if (startIsCustom && initialLayoutName != newLayoutName)
+            if (startIsCustom && initialLayoutName != newLayoutName) {
                 LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).delete()
+                SubtypeSettings.onRenameLayout(layoutType, initialLayoutName, newLayoutName, ctx)
+            }
             LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
             LayoutUtilsCustom.onLayoutFileChanged()
             keyboardNeedsReload = true
@@ -84,6 +87,7 @@ fun LayoutEditDialog(
             job?.cancel()
             if (!valid) {
                 job = scope.launch {
+                    // todo: this can end up in toast-spam
                     val message = Log.getLog(10)
                         .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")

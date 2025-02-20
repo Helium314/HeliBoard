@@ -125,6 +125,25 @@ object SubtypeSettings {
 
     fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()
 
+    fun onRenameLayout(type: LayoutType, from: String, to: String, context: Context) {
+        val prefs = context.prefs()
+        listOf(
+            Settings.PREF_ADDITIONAL_SUBTYPES to Defaults.PREF_ADDITIONAL_SUBTYPES,
+            Settings.PREF_ENABLED_SUBTYPES to Defaults.PREF_ENABLED_SUBTYPES,
+            Settings.PREF_SELECTED_SUBTYPE to Defaults.PREF_SELECTED_SUBTYPE
+        ).forEach { (key, default) ->
+            val new = prefs.getString(key, default)!!.split(Separators.SETS).joinToString(Separators.SETS) {
+                val subtype = it.toSettingsSubtype()
+                if (subtype.layoutName(type) == from) subtype.withLayout(type, to).toPref()
+                else subtype.toPref()
+            }
+            prefs.edit().putString(key, new).apply()
+        }
+        if (Settings.readDefaultLayoutName(type, prefs) == from)
+            Settings.writeDefaultLayoutName(to, type, prefs)
+        reloadEnabledSubtypes(context)
+    }
+
     fun reloadEnabledSubtypes(context: Context) {
         enabledSubtypes.clear()
         removeInvalidCustomSubtypes(context)
