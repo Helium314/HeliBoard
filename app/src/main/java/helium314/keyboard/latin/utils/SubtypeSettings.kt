@@ -125,7 +125,7 @@ object SubtypeSettings {
 
     fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()
 
-    fun onRenameLayout(type: LayoutType, from: String, to: String, context: Context) {
+    fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
         listOf(
             Settings.PREF_ADDITIONAL_SUBTYPES to Defaults.PREF_ADDITIONAL_SUBTYPES,
@@ -134,7 +134,10 @@ object SubtypeSettings {
         ).forEach { (key, default) ->
             val new = prefs.getString(key, default)!!.split(Separators.SETS).joinToString(Separators.SETS) {
                 val subtype = it.toSettingsSubtype()
-                if (subtype.layoutName(type) == from) subtype.withLayout(type, to).toPref()
+                if (subtype.layoutName(type) == from) {
+                    if (to == null) subtype.withoutLayout(type).toPref()
+                    else subtype.withLayout(type, to).toPref()
+                }
                 else subtype.toPref()
             }
             prefs.edit().putString(key, new).apply()

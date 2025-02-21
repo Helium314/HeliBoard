@@ -518,8 +518,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
     }
 
-    public static void writeDefaultLayoutName(final String name, final LayoutType type, final SharedPreferences prefs) {
-        prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
+    public static void writeDefaultLayoutName(@Nullable final String name, final LayoutType type, final SharedPreferences prefs) {
+        if (name == null) prefs.edit().remove(PREF_LAYOUT_PREFIX + type.name()).apply();
+        else prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
     }
 
     @Nullable

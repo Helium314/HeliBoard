@@ -100,12 +100,7 @@ fun LayoutPickerDialog(
                                 onDismissRequest = onDismissRequest,
                                 onClickEdit = { newLayoutDialog = it },
                                 onDelete = { deletedLayout ->
-                                    if (item == deletedLayout) {
-                                        prefs.edit().remove(Settings.PREF_LAYOUT_PREFIX + layoutType.name).apply()
-                                        keyboardNeedsReload = true
-                                    }
-                                    LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
-                                    LayoutUtilsCustom.onLayoutFileChanged()
+                                    LayoutUtilsCustom.deleteLayout(deletedLayout, layoutType, ctx)
                                 },
                                 layoutType = layoutType,
                                 layoutName = item,
