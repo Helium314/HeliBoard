@@ -1,11 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
-import android.app.Activity
-import android.content.Intent
-import android.provider.OpenableColumns
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -51,8 +46,12 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.layoutFilePicker
+import helium314.keyboard.settings.layoutIntent
 
 // modified copy of ColorPickerDialog, later check whether stuff can be re-used
+// todo:
+//  call SubtypeSettings.onRenameLayout on rename!
 @Composable
 fun LayoutPickerDialog(
     onDismissRequest: () -> Unit,
@@ -67,7 +66,6 @@ fun LayoutPickerDialog(
 
     val currentLayout = Settings.readDefaultLayoutName(layoutType, prefs)
     val internalLayouts = LayoutUtils.getAvailableLayouts(layoutType, ctx)
-    // todo: getCustomLayoutFiles does not work nicely for main layout, but currently this dialog is not used for them
     val customLayouts = LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).map { it.name }.sorted()
     val layouts = internalLayouts + customLayouts + ""
 
@@ -78,22 +76,8 @@ fun LayoutPickerDialog(
     }
     var errorDialog by rememberSaveable { mutableStateOf(false) }
     var newLayoutDialog: Pair<String, String?>? by rememberSaveable { mutableStateOf(null) }
-    val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
-        val cr = ctx.getActivity()?.contentResolver ?: return@rememberLauncherForActivityResult
-        val name = cr.query(uri, null, null, null, null)?.use { c ->
-            if (!c.moveToFirst()) return@use null
-            val index = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            if (index < 0) null
-            else c.getString(index)
-        }
-        cr.openInputStream(uri)?.use {
-            val content = it.reader().readText()
-            errorDialog = !LayoutUtilsCustom.checkLayout(content, ctx)
-            if (!errorDialog)
-                newLayoutDialog = (name ?: layoutType.default) to content
-        }
+    val picker = layoutFilePicker { content, name ->
+        newLayoutDialog = (name ?: layoutType.default) to content
     }
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -101,12 +85,7 @@ fun LayoutPickerDialog(
         onConfirmed = { },
         confirmButtonText = null,
         neutralButtonText = stringResource(R.string.button_load_custom),
-        onNeutral = {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream", "application/json"))
-                .setType("*/*")
-            loadFilePicker.launch(intent) },
+        onNeutral = { picker.launch(layoutIntent) },
         title = { Text(setting.title) },
         text = {
             CompositionLocalProvider(

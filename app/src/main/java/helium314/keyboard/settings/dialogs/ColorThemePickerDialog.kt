@@ -1,13 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
-import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -52,6 +49,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.screens.SaveThoseColors
 import kotlinx.serialization.SerializationException
@@ -119,9 +117,7 @@ fun ColorThemePickerDialog(
         },
     )
     var errorDialog by remember { mutableStateOf(false) }
-    val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+    val loadFilePicker = filePicker { uri ->
         ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
             errorDialog = !loadColorString(it.reader().readText(), prefs)
             if (!errorDialog)

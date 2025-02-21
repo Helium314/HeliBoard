@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +24,6 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
@@ -35,7 +31,6 @@ import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
@@ -43,6 +38,7 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
+import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -67,12 +63,10 @@ fun BackupRestorePreference(setting: Setting) {
         "custom_background_image.*".toRegex(),
         "custom_font".toRegex(),
     ) }
-    val backupLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val backupLauncher = filePicker { uri ->
         // zip all files matching the backup patterns
         // essentially this is the typed words information, and user-added dictionaries
-        val filesDir = ctx.filesDir ?: return@rememberLauncherForActivityResult
+        val filesDir = ctx.filesDir ?: return@filePicker
         val filesPath = filesDir.path + File.separator
         val files = mutableListOf<File>()
         filesDir.walk().forEach { file ->
@@ -125,9 +119,7 @@ fun BackupRestorePreference(setting: Setting) {
         }
         wait.await()
     }
-    val restoreLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val restoreLauncher = filePicker { uri ->
         val wait = CountDownLatch(1)
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
             try {

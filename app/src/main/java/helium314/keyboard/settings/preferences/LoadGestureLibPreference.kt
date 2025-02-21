@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Build
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +20,7 @@ import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.filePicker
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -43,9 +41,7 @@ fun LoadGestureLibPreference(setting: Setting) {
         Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
     var tempFilePath: String? by rememberSaveable { mutableStateOf(null) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val launcher = filePicker { uri ->
         val tmpfile = File(ctx.filesDir.absolutePath + File.separator + "tmplib")
         try {
             val otherTemporaryFile = File(ctx.filesDir.absolutePath + File.separator + "tmpfile")
