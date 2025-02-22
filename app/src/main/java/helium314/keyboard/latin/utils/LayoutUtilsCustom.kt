@@ -183,12 +183,16 @@ object LayoutUtilsCustom {
             layoutName
         }
 
-    fun getSecondaryLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
 
-    fun getMainLayoutName(displayName: String, locale: Locale) =
-        if (locale.script() == ScriptUtils.SCRIPT_LATIN)
+    /** @return layoutName for given [displayName]. If [layoutType ]is MAIN, non-null [locale] must be supplied */
+    fun getLayoutName(displayName: String, layoutType: LayoutType, locale: Locale? = null): String {
+        if (layoutType != LayoutType.MAIN)
+            return CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
+        if (locale == null) throw IllegalArgumentException("locale for main layout not specified")
+        return if (locale.script() == ScriptUtils.SCRIPT_LATIN)
             CUSTOM_LAYOUT_PREFIX + ScriptUtils.SCRIPT_LATIN + "." + encodeBase36(displayName) + "."
         else CUSTOM_LAYOUT_PREFIX + locale.toLanguageTag() + "." + encodeBase36(displayName) + "."
+    }
 
     fun isCustomLayout(layoutName: String) = layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
 

@@ -39,6 +39,7 @@ import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
@@ -55,6 +56,7 @@ fun LanguageScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     var selectedSubtype: InputMethodSubtype? by remember { mutableStateOf(null) } // todo: rememberSaveable? maybe with SettingsSubtype?
+    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(prefs)
     SearchScreen(
         onClickBack = onClickBack,
         title = {
@@ -93,7 +95,7 @@ fun LanguageScreen(
                         )
                 }
                 Switch(
-                    checked = item in SubtypeSettings.getEnabledSubtypes(prefs),
+                    checked = item in enabledSubtypes,
                     onCheckedChange = {
                         if (it) SubtypeSettings.addEnabledSubtype(prefs, item)
                         else SubtypeSettings.removeEnabledSubtype(ctx, item)
@@ -105,7 +107,10 @@ fun LanguageScreen(
     if (selectedSubtype != null) {
         val oldSubtype = selectedSubtype!!
         SubtypeDialog(
-            onDismissRequest = { selectedSubtype = null },
+            onDismissRequest = {
+                selectedSubtype = null
+                sortedSubtypes = getSortedSubtypes(ctx) // todo: not good, only necessary when a main layout is deleted
+            },
             onConfirmed = {
                 SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype.toSettingsSubtype(), it, ctx)
                 sortedSubtypes = getSortedSubtypes(ctx)

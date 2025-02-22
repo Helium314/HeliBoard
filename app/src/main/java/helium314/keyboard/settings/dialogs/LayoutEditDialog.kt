@@ -25,11 +25,14 @@ import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
+import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun LayoutEditDialog(
@@ -37,7 +40,9 @@ fun LayoutEditDialog(
     layoutType: LayoutType,
     initialLayoutName: String,
     startContent: String? = null,
-    isNameValid: (String) -> Boolean
+    locale: Locale? = null,
+    onEdited: (newLayoutName: String) -> Unit = { },
+    isNameValid: ((String) -> Boolean)?
 ) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -50,8 +55,8 @@ fun LayoutEditDialog(
     }
     val nameValid = displayNameValue.text.isNotBlank()
             && (
-                (startIsCustom && LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text) == initialLayoutName)
-                || isNameValid(LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text))
+                (startIsCustom && LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale) == initialLayoutName)
+                || isNameValid?.let { it(LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale)) } == true
             )
 
     TextInputDialog(
@@ -60,26 +65,31 @@ fun LayoutEditDialog(
             onDismissRequest()
         },
         onConfirmed = {
-            val newLayoutName = LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text)
+            val newLayoutName = LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale)
             if (startIsCustom && initialLayoutName != newLayoutName) {
                 LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).delete()
                 SubtypeSettings.onRenameLayout(layoutType, initialLayoutName, newLayoutName, ctx)
             }
             LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
             LayoutUtilsCustom.onLayoutFileChanged()
+            onEdited(newLayoutName)
+            (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 555
             keyboardNeedsReload = true
         },
         confirmButtonText = stringResource(R.string.save),
         initialText = startContent ?: LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).readText(),
         singleLine = false,
         title = {
-            TextField(
-                value = displayNameValue,
-                onValueChange = { displayNameValue = it },
-                isError = !nameValid,
-                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
-                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
-            )
+            if (isNameValid == null)
+                Text(displayNameValue.text)
+            else
+                TextField(
+                    value = displayNameValue,
+                    onValueChange = { displayNameValue = it },
+                    isError = !nameValid,
+                    supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
+                    trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
+                )
         },
         checkTextValid = {
             val valid = LayoutUtilsCustom.checkLayout(it, ctx)

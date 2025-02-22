@@ -94,7 +94,7 @@ fun LayoutPickerDialog(
                 LazyColumn(state = state) {
                     items(layouts) { item ->
                         if (item == "") {
-                            AddLayoutRow({ newLayoutDialog = it to "" }, customLayouts)
+                            AddLayoutRow({ newLayoutDialog = it to "" }, layoutType, customLayouts)
                         } else {
                             LayoutItemRow(
                                 onDismissRequest = onDismissRequest,
@@ -127,7 +127,7 @@ fun LayoutPickerDialog(
 }
 
 @Composable
-private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<String>) {
+private fun AddLayoutRow(onNewLayout: (String) -> Unit, layoutType: LayoutType, userLayouts: Collection<String>) {
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -141,7 +141,7 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<
             singleLine = true
         )
         IconButton(
-            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getSecondaryLayoutName(textValue.text) !in userLayouts,
+            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts,
             onClick = { onNewLayout(textValue.text) }
         ) { Icon(painterResource(R.drawable.ic_edit), null) }
     }

@@ -24,7 +24,6 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
-import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +39,7 @@ import java.util.zip.ZipOutputStream
 //  https://developer.android.com/codelabs/android-baseline-profiles-improve
 //  https://developer.android.com/codelabs/jetpack-compose-performance#2
 //  https://developer.android.com/topic/performance/baselineprofiles/overview
+// todo: consider viewModel, at least for LanguageScreen and ColorsScreen it might help making them less awkward and complicated
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed

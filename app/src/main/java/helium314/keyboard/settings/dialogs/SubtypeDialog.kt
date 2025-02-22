@@ -61,17 +61,19 @@ import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.layoutFilePicker
+import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 // todo:
 //  fix the display name (why is the layout always added now e.g. after adding a secondary locale, when it's not there initially?)
-//  some way of editing, adding and removing main layouts
-//   here or in layouts screen?
-//    layouts screen: that would be the purpose, but there is no default for main, and it's language dependent
-//   here we need at least an indicator which layouts are custom (edit or delete buttons)
-//  sometimes the layout is not enabled after changing something
+//  dropdown content is not refreshed on deleting a layout, maybe need to do the pref listener trick
+//  layout edit dialog does not care about ime padding when called from here
+//  rotating closes the dialog
+//  split this up a little, it's too long... and maybe we could re-use parts other dialogs?
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
@@ -91,12 +93,12 @@ fun SubtypeDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { onConfirmed(currentSubtype) },
-        neutralButtonText = if (SubtypeSettings.isAdditionalSubtype(subtype)) null else stringResource(R.string.delete),
+        neutralButtonText = if (SubtypeSettings.isAdditionalSubtype(subtype)) stringResource(R.string.delete) else null,
         onNeutral = {
+            onDismissRequest()
             SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype)
             SubtypeSettings.removeEnabledSubtype(ctx, subtype)
-
-        }, // maybe confirm dialog?
+        },
         title = { Text(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype)) },
         text = {
             Column(
@@ -106,6 +108,11 @@ fun SubtypeDialog(
                 WithSmallTitle(stringResource(R.string.keyboard_layout_set)) {
                     val appLayouts = LayoutUtils.getAvailableLayouts(LayoutType.MAIN, ctx, currentSubtype.locale)
                     val customLayouts = LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, ctx, currentSubtype.locale).map { it.name }
+                    var showAddLayoutDialog by remember { mutableStateOf(false) }
+                    var showLayoutEditDialog: Pair<String, String?>? by remember { mutableStateOf(null) }
+                    val layoutPicker = layoutFilePicker { content, name ->
+                        showLayoutEditDialog = (name ?: "new layout") to content
+                    }
                     DropDownField(
                         items = appLayouts + customLayouts,
                         selectedItem = currentSubtype.mainLayoutName() ?: "qwerty",
@@ -113,9 +120,73 @@ fun SubtypeDialog(
                             currentSubtype = currentSubtype.withLayout(LayoutType.MAIN, it)
                         }
                     ) {
-                        Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
-                        // todo: edit button? or only for selected layout? and delete button?
-                        //  yes, even just to make clear what is custom
+                        var showLayoutDeleteDialog by remember { mutableStateOf(false) }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
+                            Row (verticalAlignment = Alignment.CenterVertically) {
+                                Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = it to null })
+                                if (it in customLayouts && subtype.mainLayoutName() != it) // don't allow current main layout
+                                    Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete), Modifier.clickable { showLayoutDeleteDialog = true })
+                            }
+                        }
+                        if (showLayoutDeleteDialog) {
+                            // todo: if layout used by other subtypes: either disable button, or explicitly mention in text
+                            ConfirmationDialog(
+                                onDismissRequest = { showLayoutDeleteDialog = false },
+                                confirmButtonText = stringResource(R.string.delete),
+                                title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(it))) },
+                                onConfirmed = {
+                                    if (it == currentSubtype.mainLayoutName())
+                                        currentSubtype = currentSubtype.withoutLayout(LayoutType.MAIN)
+                                    LayoutUtilsCustom.deleteLayout(it, LayoutType.MAIN, ctx)
+                                }
+                            )
+                        }
+                    }
+                    // todo: should be in same row as DropDownField
+                    //  maybe make the default button more customizable
+                    IconButton(
+                        { showAddLayoutDialog = true }
+                    ) { Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.button_title_add_custom_layout)) }
+                    if (showLayoutEditDialog != null) {
+                        val layoutName = showLayoutEditDialog!!.first
+                        val startContent = showLayoutEditDialog?.second
+                            ?: if (layoutName in appLayouts) LayoutUtils.getContent(LayoutType.MAIN, layoutName, ctx)
+                            else null
+                        LayoutEditDialog(
+                            onDismissRequest = { showLayoutEditDialog = null },
+                            layoutType = LayoutType.MAIN,
+                            initialLayoutName = layoutName,
+                            startContent = startContent,
+                            locale = currentSubtype.locale,
+                            // only can edit name for new custom layout
+                            isNameValid = if (layoutName in customLayouts) null else ({ it !in customLayouts }),
+                            onEdited = {
+                                if (layoutName !in customLayouts)
+                                    currentSubtype = currentSubtype.withLayout(LayoutType.MAIN, it)
+                            }
+                        )
+                    }
+                    if (showAddLayoutDialog) {
+                        // todo: maybe supply link to discussion section for layouts
+                        // todo: no html for compose, so message is broken
+                        //  try annotatedString
+                        val link = "<a href='$LAYOUT_FORMAT_URL'>" + ctx.getString(R.string.dictionary_link_text) + "</a>"
+                        ConfirmationDialog(
+                            onDismissRequest = { showAddLayoutDialog = false },
+                            title = { Text(stringResource(R.string.button_title_add_custom_layout)) },
+                            text = { Text(stringResource(R.string.message_add_custom_layout, link)) },
+                            onConfirmed = { showLayoutEditDialog = "new layout" to "" },
+                            neutralButtonText = stringResource(R.string.button_load_custom),
+                            onNeutral = {
+                                showAddLayoutDialog = false
+                                layoutPicker.launch(layoutIntent)
+                            }
+                        )
                     }
                 }
                 if (availableLocalesForScript.size > 1) {
@@ -128,12 +199,6 @@ fun SubtypeDialog(
                         }
                     }
                 }
-                WithSmallTitle("dictionaries") {
-                    // todo: maybe remove here and use a separate screen for dictionary management
-                    //  would be clearer, as dicts are per language (and no intention to change it)
-                    Text("not yet implemented")
-                }
-                // todo: this looks strange without the title
                 Row {
                     TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
                     { Text(stringResource(R.string.popup_order), style = MaterialTheme.typography.bodyLarge) }
@@ -200,9 +265,22 @@ fun SubtypeDialog(
                         ) {
                             val displayName = if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
                             else it.getStringResourceOrName("layout_", ctx)
-                            Text(displayName)
-                            // content is name, and if it's user layout there is an edit button
-                            // also maybe there should be an "add" button similar to the old settings
+                            var showLayoutEditDialog by remember { mutableStateOf(false) }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(displayName, Modifier.padding(end = 8.dp))
+                                if (LayoutUtilsCustom.isCustomLayout(it))
+                                    Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = true })
+                            }
+                            if (showLayoutEditDialog)
+                                LayoutEditDialog(
+                                    onDismissRequest = { showLayoutEditDialog = false },
+                                    layoutType = type,
+                                    initialLayoutName = it,
+                                    isNameValid = null
+                                )
                         }
                     }
                 }
@@ -325,7 +403,6 @@ private fun <T>DropDownField(
     var expanded by remember { mutableStateOf(false) }
     Box(
         Modifier.clickable { expanded = !expanded }
-            //.border(2.dp, MaterialTheme.colorScheme.onSecondary)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -376,3 +453,5 @@ private fun DefaultButton(
 
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): List<Locale> =
     getDictionaryLocales(context).filter { it != mainLocale && it.script() == mainLocale.script() }
+
+private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md"

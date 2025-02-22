@@ -132,14 +132,14 @@ object SubtypeSettings {
             Settings.PREF_ENABLED_SUBTYPES to Defaults.PREF_ENABLED_SUBTYPES,
             Settings.PREF_SELECTED_SUBTYPE to Defaults.PREF_SELECTED_SUBTYPE
         ).forEach { (key, default) ->
-            val new = prefs.getString(key, default)!!.split(Separators.SETS).joinToString(Separators.SETS) {
+            val new = prefs.getString(key, default)!!.split(Separators.SETS).mapTo(mutableSetOf()) {
                 val subtype = it.toSettingsSubtype()
                 if (subtype.layoutName(type) == from) {
                     if (to == null) subtype.withoutLayout(type).toPref()
                     else subtype.withLayout(type, to).toPref()
                 }
                 else subtype.toPref()
-            }
+            }.joinToString(Separators.SETS)
             prefs.edit().putString(key, new).apply()
         }
         if (Settings.readDefaultLayoutName(type, prefs) == from)

@@ -73,6 +73,10 @@ object SubtypeUtilsAdditional {
     // updates additional subtypes, enabled subtypes, and selected subtype
     fun changeAdditionalSubtype(from: SettingsSubtype, to: SettingsSubtype, context: Context) {
         val prefs = context.prefs()
+        // read now because there may be an intermediate state where the subtype is invalid and thus removed
+        val isSelected = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype() == from
+        val isEnabled = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
+            .any { it.toSettingsSubtype() == from }
         val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
             .split(Separators.SETS).mapNotNullTo(sortedSetOf()) {
                 if (it == from.toPref()) null else it
@@ -81,11 +85,11 @@ object SubtypeUtilsAdditional {
 
         val fromSubtype = from.toAdditionalSubtype() // will be null if we edit a resource subtype
         val toSubtype = to.toAdditionalSubtype() // should never be null
-        val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()
-        if (selectedSubtype == from && toSubtype != null) {
+        if (isSelected && toSubtype != null) {
             SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
         }
-        if (fromSubtype != null && SubtypeSettings.removeEnabledSubtype(context, fromSubtype) && toSubtype != null) {
+        if (fromSubtype != null && isEnabled && toSubtype != null) {
+            SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
             SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
         }
     }

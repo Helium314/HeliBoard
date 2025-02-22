@@ -375,10 +375,10 @@ fun checkVersionUpgrade(context: Context) {
             // change language tag to SCRIPT_LATIN, but
             //  avoid overwriting if 2 layouts have a different language tag, but the same name
             val layoutDisplayName = LayoutUtilsCustom.getDisplayName(it.name)
-            var newFile = File(it.parentFile!!, LayoutUtilsCustom.getMainLayoutName(layoutDisplayName, locale))
+            var newFile = File(it.parentFile!!, LayoutUtilsCustom.getLayoutName(layoutDisplayName, LayoutType.MAIN, locale))
             var i = 1
             while (newFile.exists()) // make sure name is not already in use, e.g. custom.en.abcd. and custom.it.abcd. would both be custom.Latn.abcd
-                newFile = File(it.parentFile!!, LayoutUtilsCustom.getMainLayoutName(layoutDisplayName + i++, locale))
+                newFile = File(it.parentFile!!, LayoutUtilsCustom.getLayoutName(layoutDisplayName + i++, LayoutType.MAIN, locale))
             it.renameTo(newFile)
             // modify prefs
             listOf(Settings.PREF_ENABLED_SUBTYPES, Settings.PREF_SELECTED_SUBTYPE, Settings.PREF_ADDITIONAL_SUBTYPES).forEach { key ->
