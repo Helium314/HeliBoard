@@ -86,7 +86,7 @@ fun ThreeButtonAlertDialog(
                         if (confirmButtonText != null)
                             TextButton(
                                 enabled = checkOk(),
-                                onClick = { onDismissRequest(); onConfirmed() },
+                                onClick = { onConfirmed(); onDismissRequest() },
                             ) { Text(confirmButtonText) }
                     }
                 }

@@ -44,6 +44,7 @@ fun MainSettingsScreen(
     onClickAppearance: () -> Unit,
     onClickLanguage: () -> Unit,
     onClickLayouts: () -> Unit,
+    onClickDictionaries: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
@@ -134,6 +135,17 @@ fun MainSettingsScreen(
                 )
             }
             Preference(
+                name = stringResource(R.string.dictionary_settings_category),
+                onClick = onClickDictionaries,
+                icon = R.drawable.ic_dictionary
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    modifier = Modifier.scale(-1f, 1f),
+                    contentDescription = null
+                )
+            }
+            Preference(
                 name = stringResource(R.string.settings_screen_advanced),
                 onClick = onClickAdvanced,
                 icon = R.drawable.ic_settings_advanced_foreground
@@ -198,7 +210,7 @@ fun MainSettingsScreen(
 private fun PreviewScreen() {
     Theme(true) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

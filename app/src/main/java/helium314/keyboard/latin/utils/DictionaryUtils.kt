@@ -15,8 +15,7 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import java.io.File
-import java.util.*
-import kotlin.collections.HashSet
+import java.util.Locale
 
 fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val locales = HashSet<Locale>()

@@ -1,0 +1,93 @@
+package helium314.keyboard.settings.dialogs
+
+import android.content.Intent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import helium314.keyboard.compat.locale
+import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.latin.Dictionary
+import helium314.keyboard.latin.R
+import helium314.keyboard.latin.ReadOnlyBinaryDictionary
+import helium314.keyboard.latin.common.LocaleUtils
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.makedict.DictionaryHeader
+import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
+import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.SubtypeSettings
+import java.io.File
+import java.util.Locale
+
+@Composable
+fun NewDictionaryDialog(
+    onDismissRequest: () -> Unit,
+    cachedFile: File,
+    mainLocale: Locale?
+) {
+    val (error, header) = checkDict(cachedFile)
+    if (error != null) {
+        InfoDialog(stringResource(error), onDismissRequest)
+        cachedFile.delete()
+    } else if (header != null) {
+        val ctx = LocalContext.current
+        val dictLocale = header.mLocaleString.constructLocale()
+        var locale by remember { mutableStateOf(mainLocale ?: dictLocale) }
+        val comparer = compareBy<Locale>({ it != mainLocale}, { it != dictLocale }, { it.script() != dictLocale.script() })
+        val locales = SubtypeSettings.getAvailableSubtypeLocales().sortedWith(comparer)
+        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, ctx)
+        val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + USER_DICTIONARY_SUFFIX)
+        ThreeButtonAlertDialog(
+            onDismissRequest = { onDismissRequest(); cachedFile.delete() },
+            onConfirmed = {
+                dictFile.parentFile?.mkdirs()
+                dictFile.delete()
+                cachedFile.renameTo(dictFile)
+                if (header.mIdString.substringBefore(":") == Dictionary.TYPE_MAIN) {
+                    // replaced main dict, remove the one created from internal data
+                    val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.getExtractedMainDictFilename())
+                    internalMainDictFile.delete()
+                }
+                val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
+                ctx.sendBroadcast(newDictBroadcast)
+            },
+            text = {
+                Column {
+                    Text(header.info(LocalContext.current.resources.configuration.locale()))
+                    // todo: dropdown takes very long to load, should be lazy!
+                    //  but can't be lazy because of measurements (has width of widest element)
+                    //  -> what do?
+                    DropDownField(
+                        selectedItem = locale,
+                        onSelected = { locale = it },
+                        items = locales
+                    ) { Text(LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx)) }
+                    if (locale.script() != dictLocale.script())
+                        Text("wrong script", color = MaterialTheme.colorScheme.error) // todo: string resource
+                    if (dictFile.exists())
+                        Text("will overwrite existing dictionary", color = MaterialTheme.colorScheme.error) // todo: string resource
+                }
+            }
+        )
+    }
+}
+
+private fun checkDict(file: File): Pair<Int?, DictionaryHeader?> {
+    val newHeader = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file, 0, file.length())
+        ?: return R.string.dictionary_file_error to null
+
+    val locale = newHeader.mLocaleString.constructLocale()
+    val dict = ReadOnlyBinaryDictionary(file.absolutePath, 0, file.length(), false, locale, "test")
+    if (!dict.isValidDictionary) {
+        dict.close()
+        return R.string.dictionary_load_error to null
+    }
+    return null to newHeader
+}

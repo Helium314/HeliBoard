@@ -295,6 +295,7 @@ fun SubtypeDialog(
                 currentSubtype = if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
                 else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
             },
+            title = { Text("languages with dictionaries") }, // todo: string resource
             items = availableLocalesForScript,
             initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
                 ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
@@ -392,7 +393,7 @@ private fun WithSmallTitle(
 }
 
 @Composable
-private fun <T>DropDownField(
+fun <T>DropDownField(
     items: List<T>,
     selectedItem: T,
     onSelected: (T) -> Unit,

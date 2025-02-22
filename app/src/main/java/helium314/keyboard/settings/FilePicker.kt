@@ -16,9 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.settings.dialogs.InfoDialog
+import helium314.keyboard.settings.dialogs.NewDictionaryDialog
+import java.io.File
+import java.util.Locale
 
 val layoutIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
     .addCategory(Intent.CATEGORY_OPENABLE)
@@ -59,3 +63,22 @@ fun layoutFilePicker(
     return loadFilePicker
 }
 
+@Composable
+fun dictionaryFilePicker(mainLocale: Locale?): ManagedActivityResultLauncher<Intent, ActivityResult> {
+    val ctx = LocalContext.current
+    val cachedDictionaryFile = File(ctx.cacheDir.path + File.separator + "temp_dict")
+    var done by remember { mutableStateOf(false) }
+    val picker = filePicker { uri ->
+        cachedDictionaryFile.delete()
+        FileUtils.copyContentUriToNewFile(uri, ctx, cachedDictionaryFile)
+        done = true
+    }
+    if (done)
+        NewDictionaryDialog(
+            onDismissRequest = { done = false },
+            cachedDictionaryFile,
+            mainLocale
+        )
+
+    return picker
+}

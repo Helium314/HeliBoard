@@ -13,6 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
@@ -26,6 +28,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.dialogs.NewDictionaryDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
 import java.io.File
@@ -43,6 +46,8 @@ import java.util.zip.ZipOutputStream
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
+    private val dictUriFlow = MutableStateFlow<Uri?>(null)
+    private val cachedDictionaryFile by lazy { File(this.cacheDir.path + File.separator + "temp_dict") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             askAboutCrashReports()
 
         // with this the layout edit dialog is not covered by the keyboard
-        //  alterative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
+        //  alternative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView.rootView) { _, insets -> insets }
 
         settingsContainer = SettingsContainer(this)
@@ -73,13 +78,14 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         findViewById<ComposeView>(R.id.navHost).setContent {
             Theme {
                 Surface {
+                    val dictUri by dictUriFlow.collectAsState()
                     if (spellchecker)
                         Column { // lazy way of implementing spell checker settings
                             settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
                             settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                         }
                     else
-                    SettingsNavHost(
+                        SettingsNavHost(
                             onClickBack = {
 //                                this.finish() // todo: when removing old settings
                                 if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null)
@@ -87,8 +93,24 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                                 else supportFragmentManager.popBackStack()
                             }
                         )
+                    if (dictUri != null) {
+                        NewDictionaryDialog(
+                            onDismissRequest = { dictUriFlow.value = null },
+                            cachedFile = cachedDictionaryFile,
+                            mainLocale = null
+                        )
+                    }
                 }
             }
+        }
+
+        if (intent?.action == Intent.ACTION_VIEW) {
+            intent?.data?.let {
+                cachedDictionaryFile.delete()
+                FileUtils.copyContentUriToNewFile(it, this, cachedDictionaryFile)
+                dictUriFlow.value = it
+            }
+            intent = null
         }
     }
 

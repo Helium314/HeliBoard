@@ -389,7 +389,7 @@ class LanguageSettingsDialog(
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */
-fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
+private fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
     val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
