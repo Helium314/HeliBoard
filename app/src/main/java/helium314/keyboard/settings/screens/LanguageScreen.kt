@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
-import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
@@ -39,7 +39,6 @@ import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
@@ -86,7 +85,7 @@ fun LanguageScreen(
                 Column(modifier = Modifier.weight(1f)) {
                     Text(item.displayName(ctx), style = MaterialTheme.typography.bodyLarge)
                     val description = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
-                        ?.joinToString(", ") { LocaleUtils.getLocaleDisplayNameInSystemLocale(it.constructLocale(), ctx) }
+                        ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx) }
                     if (description != null) // todo: description should clarify when it's a default subtype that can't be changed / will be cloned
                         Text(
                             text = description,

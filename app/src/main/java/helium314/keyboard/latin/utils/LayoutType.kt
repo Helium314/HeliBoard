@@ -25,7 +25,7 @@ enum class LayoutType {
         val LayoutType.folder get() = "layouts${File.separator}${name.lowercase()}${File.separator}"
 
         val LayoutType.displayNameId get() = when (this) {
-            MAIN -> TODO()
+            MAIN -> R.string.subtype_no_language
             SYMBOLS -> R.string.layout_symbols
             MORE_SYMBOLS -> R.string.layout_symbols_shifted
             FUNCTIONAL -> R.string.layout_functional_keys

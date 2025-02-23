@@ -9,8 +9,8 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
-import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -72,7 +72,7 @@ fun getResourceSubtypes(resources: Resources): List<InputMethodSubtype> {
 fun InputMethodSubtype.displayName(context: Context): String {
     val layoutName = SubtypeLocaleUtils.getMainLayoutName(this)
     if (LayoutUtilsCustom.isCustomLayout(layoutName))
-        return "${LocaleUtils.getLocaleDisplayNameInSystemLocale(locale(), context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
+        return "${locale().localizedDisplayName(context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
     return SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
 }
 

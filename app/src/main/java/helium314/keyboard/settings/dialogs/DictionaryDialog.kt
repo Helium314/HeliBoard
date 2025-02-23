@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.LocaleUtils
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.settings.dictionaryFilePicker
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
@@ -44,7 +44,7 @@ fun DictionaryDialog(
         onConfirmed = {},
         confirmButtonText = null,
         cancelButtonText = stringResource(R.string.dialog_close),
-        title = { Text(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, ctx)) },
+        title = { Text(locale.localizedDisplayName(ctx)) },
         text = {
             Column {
                 if (hasInternal) {

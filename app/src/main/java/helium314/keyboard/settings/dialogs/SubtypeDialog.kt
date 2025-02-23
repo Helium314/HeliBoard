@@ -43,8 +43,8 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.morePopupKeysResId
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
-import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
@@ -134,11 +134,12 @@ fun SubtypeDialog(
                             }
                         }
                         if (showLayoutDeleteDialog) {
-                            // todo: if layout used by other subtypes: either disable button, or explicitly mention in text
+                            val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }.any { it != subtype }
                             ConfirmationDialog(
                                 onDismissRequest = { showLayoutDeleteDialog = false },
                                 confirmButtonText = stringResource(R.string.delete),
                                 title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(it))) },
+                                text = { if (others) Text(stringResource(R.string.layout_in_use)) },
                                 onConfirmed = {
                                     if (it == currentSubtype.mainLayoutName())
                                         currentSubtype = currentSubtype.withoutLayout(LayoutType.MAIN)
@@ -193,7 +194,7 @@ fun SubtypeDialog(
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
-                                    LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx)
+                                    it.localizedDisplayName(ctx)
                                 }.ifEmpty { stringResource(R.string.action_none) }
                             Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
                         }
@@ -299,7 +300,7 @@ fun SubtypeDialog(
             items = availableLocalesForScript,
             initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
                 ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
-            getItemName = { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx) }
+            getItemName = { it.localizedDisplayName(ctx) }
         )
     if (showKeyOrderDialog) {
         val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)

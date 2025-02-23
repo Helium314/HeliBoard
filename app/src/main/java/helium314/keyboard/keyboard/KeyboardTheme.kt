@@ -369,7 +369,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             colorsString.split(";").forEach {
                 val ct = try {
                     ColorType.valueOf(it.substringBefore(",").uppercase())
-                } catch (_: Exception) { // todo: which one?
+                } catch (_: IllegalArgumentException) {
                     return@forEach
                 }
                 val i = it.substringAfter(",").toIntOrNull() ?: return@forEach

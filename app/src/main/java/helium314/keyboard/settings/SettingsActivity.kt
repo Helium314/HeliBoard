@@ -7,12 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.RelativeLayout
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
@@ -28,6 +26,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.NewDictionaryDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.BufferedOutputStream
@@ -48,6 +47,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
     private val dictUriFlow = MutableStateFlow<Uri?>(null)
     private val cachedDictionaryFile by lazy { File(this.cacheDir.path + File.separator + "temp_dict") }
+    private val crashReportFiles = MutableStateFlow<List<File>>(emptyList())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
-            askAboutCrashReports()
+            crashReportFiles.value = findCrashReports()
 
         // with this the layout edit dialog is not covered by the keyboard
         //  alternative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
@@ -79,6 +79,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             Theme {
                 Surface {
                     val dictUri by dictUriFlow.collectAsState()
+                    val crashReports by crashReportFiles.collectAsState()
+                    val crashFilePicker = filePicker { saveCrashReports(it) }
                     if (spellchecker)
                         Column { // lazy way of implementing spell checker settings
                             settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
@@ -98,6 +100,23 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                             onDismissRequest = { dictUriFlow.value = null },
                             cachedFile = cachedDictionaryFile,
                             mainLocale = null
+                        )
+                    }
+                    if (crashReports.isNotEmpty()) {
+                        ConfirmationDialog(
+                            cancelButtonText = "ignore",
+                            onDismissRequest = { crashReportFiles.value = emptyList() },
+                            neutralButtonText = "delete",
+                            onNeutral = { crashReports.forEach { it.delete() }; crashReportFiles.value = emptyList() },
+                            confirmButtonText = "get",
+                            onConfirmed = {
+                                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                                intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
+                                intent.setType("application/zip")
+                                crashFilePicker.launch(intent)
+                            },
+                            text = { Text("Crash report files found") },
                         )
                     }
                 }
@@ -149,47 +168,21 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         forceOppositeTheme = opposite
     }
 
-    // todo: crash report stuff just just taken from old SettingsFragment and kotlinized
-    //  it should be updated to use compose, and maybe move to MainSettingsScreen
-    private val crashReportFiles = mutableListOf<File>()
-    private fun askAboutCrashReports() {
+    private fun findCrashReports(): List<File> {
         // find crash report files
-        val dir: File = getExternalFilesDir(null) ?: return
-        val allFiles = dir.listFiles() ?: return
-        crashReportFiles.clear()
-        for (file in allFiles) {
-            if (file.name.startsWith("crash_report")) crashReportFiles.add(file)
-        }
-        if (crashReportFiles.isEmpty()) return
-        AlertDialog.Builder(this)
-            .setMessage("Crash report files found")
-            .setPositiveButton("get") { _, _ ->
-                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                intent.setType("application/zip")
-                crashReportFilePicker.launch(intent)
-            }
-            .setNeutralButton("delete") { _, _ ->
-                for (file in crashReportFiles) {
-                    file.delete() // don't care whether it fails, though user will complain
-                }
-            }
-            .setNegativeButton("ignore", null)
-            .show()
+        val dir: File = getExternalFilesDir(null) ?: return emptyList()
+        val allFiles = dir.listFiles() ?: return emptyList()
+        return allFiles.filter { it.name.startsWith("crash_report") }
     }
-    private val crashReportFilePicker: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != RESULT_OK || it.data == null) return@registerForActivityResult
-        val uri = it.data!!.data
-        if (uri != null) ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { saveCrashReport(uri) }
-    }
-    private fun saveCrashReport(uri: Uri?) {
-        if (uri == null || crashReportFiles.isEmpty()) return
+
+    private fun saveCrashReports(uri: Uri) {
+        val files = findCrashReports()
+        if (files.isEmpty()) return
         try {
             contentResolver.openOutputStream(uri)?.use {
                 val bos = BufferedOutputStream(it)
                 val z = ZipOutputStream(bos)
-                for (file in crashReportFiles) {
+                for (file in files) {
                     val f = FileInputStream(file)
                     z.putNextEntry(ZipEntry(file.name))
                     FileUtils.copyStreamToOtherStream(f, z)
@@ -198,10 +191,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                 }
                 z.close()
                 bos.close()
-                for (file in crashReportFiles) {
+                for (file in files) {
                     file.delete()
                 }
-                crashReportFiles.clear()
             }
         } catch (ignored: IOException) {
         }

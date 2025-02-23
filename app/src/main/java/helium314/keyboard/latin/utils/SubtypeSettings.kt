@@ -102,7 +102,6 @@ object SubtypeSettings {
         prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
     }
 
-    // todo: use this or the version in SubtypeUtilsAdditional?
     fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean = subtype in additionalSubtypes
 
     fun getAdditionalSubtypes(): List<InputMethodSubtype> = additionalSubtypes.toList()

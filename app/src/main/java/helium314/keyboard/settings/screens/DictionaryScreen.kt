@@ -21,6 +21,7 @@ import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DICTIONARY_URL
@@ -56,7 +57,7 @@ fun DictionaryScreen(
             if (term.isBlank()) dictionaryLocales
             else dictionaryLocales.filter {
                     it.language != SubtypeLocaleUtils.NO_LANGUAGE &&
-                    LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx).replace("(", "")
+                    it.localizedDisplayName(ctx).replace("(", "")
                         .splitOnWhitespace().any { it.startsWith(term, true) }
                 }
         },
@@ -73,7 +74,7 @@ fun DictionaryScreen(
                     val types = dicts.mapTo(mutableListOf()) { it.name.substringBefore("_${USER_DICTIONARY_SUFFIX}") }
                     if (hasInternal && !types.contains(Dictionary.TYPE_MAIN))
                         types.add(0, stringResource(R.string.internal_dictionary_summary))
-                    Text(LocaleUtils.getLocaleDisplayNameInSystemLocale(it, ctx))
+                    Text(it.localizedDisplayName(ctx))
                     Text(
                         types.joinToString(", "),
                         style = MaterialTheme.typography.bodyMedium,

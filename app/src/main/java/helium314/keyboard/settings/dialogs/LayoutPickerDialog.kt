@@ -34,14 +34,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
@@ -190,16 +193,22 @@ private fun LayoutItemRow(
             IconButton(
                 onClick = { showDeleteDialog = true }
             ) { Icon(painterResource(R.drawable.ic_bin), null) }
-            if (showDeleteDialog)
+            if (showDeleteDialog) {
+                val inUse = SubtypeSettings.getAdditionalSubtypes().any { st ->
+                    val map = LayoutType.getLayoutMap(st.getExtraValueOf(ExtraValue.KEYBOARD_LAYOUT_SET))
+                    map[layoutType] == layoutName
+                }
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
+                    title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
+                    text = { if (inUse) Text(stringResource(R.string.layout_in_use)) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false
                         onDelete(layoutName)
                     }
                 )
+            }
         }
         IconButton(
             onClick = { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
