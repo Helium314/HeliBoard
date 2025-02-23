@@ -91,8 +91,8 @@ fun LayoutEditDialog(
                     trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
                 )
         },
-        checkTextValid = {
-            val valid = LayoutUtilsCustom.checkLayout(it, ctx)
+        checkTextValid = { text ->
+            val valid = LayoutUtilsCustom.checkLayout(text, ctx)
             errorJob?.cancel()
             if (!valid) {
                 errorJob = scope.launch {
@@ -105,13 +105,13 @@ fun LayoutEditDialog(
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
-        // todo: this looks weird when the text field is not covered by the keyboard (long dialog)
-        //  but better than not seeing the bottom part of the field...
+        // this looks weird when the text field is not covered by the keyboard (long dialog)
+        // but better than not seeing the bottom part of the field...
         modifier = Modifier.padding(bottom = with(LocalDensity.current)
             { (bottomInsets / 2 + 36).toDp() }), // why is the /2 necessary?
         reducePadding = true,
     )
 }
 
-// the job is here to make sure old jobs are canceled
+// the job is here (outside the composable to make sure old jobs are canceled
 private var errorJob: Job? = null

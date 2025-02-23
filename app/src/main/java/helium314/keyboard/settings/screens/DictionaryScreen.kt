@@ -44,7 +44,8 @@ fun DictionaryScreen(
 ) {
     val ctx = LocalContext.current
     val enabledLanguages = SubtypeSettings.getEnabledSubtypes(ctx.prefs(), true).map { it.locale().language }
-    val comparer = compareBy<Locale>({ it.language !in enabledLanguages }, { it.displayName }) // todo: could also prefer if there is a user-added dict
+    val cachedDictFolders = DictionaryInfoUtils.getCachedDirectoryList(ctx).orEmpty().map { it.name }
+    val comparer = compareBy<Locale>({ it.language !in enabledLanguages }, { it.toLanguageTag() !in cachedDictFolders}, { it.displayName })
     val dictionaryLocales = getDictionaryLocales(ctx).sortedWith(comparer).toMutableList()
     dictionaryLocales.add(0, Locale(SubtypeLocaleUtils.NO_LANGUAGE))
     var selectedLocale: Locale? by remember { mutableStateOf(null) }
@@ -55,26 +56,26 @@ fun DictionaryScreen(
         title = { Text(stringResource(R.string.dictionary_settings_category)) },
         filteredItems = { term ->
             if (term.isBlank()) dictionaryLocales
-            else dictionaryLocales.filter {
-                    it.language != SubtypeLocaleUtils.NO_LANGUAGE &&
-                    it.localizedDisplayName(ctx).replace("(", "")
-                        .splitOnWhitespace().any { it.startsWith(term, true) }
+            else dictionaryLocales.filter { loc ->
+                    loc.language != SubtypeLocaleUtils.NO_LANGUAGE
+                            && loc.localizedDisplayName(ctx).replace("(", "")
+                                .splitOnWhitespace().any { it.startsWith(term, true) }
                 }
         },
-        itemContent = {
-            if (it.language == SubtypeLocaleUtils.NO_LANGUAGE) {
+        itemContent = { locale ->
+            if (locale.language == SubtypeLocaleUtils.NO_LANGUAGE) {
                 Text(stringResource(R.string.add_new_dictionary_title), Modifier.clickable { showAddDictDialog = true })
             } else {
                 Column(
-                    Modifier.clickable { selectedLocale = it }
+                    Modifier.clickable { selectedLocale = locale }
                         .padding(vertical = 6.dp, horizontal = 16.dp)
                         .fillMaxWidth()
                 ) {
-                    val (dicts, hasInternal) = getUserAndInternalDictionaries(ctx, it)
+                    val (dicts, hasInternal) = getUserAndInternalDictionaries(ctx, locale)
                     val types = dicts.mapTo(mutableListOf()) { it.name.substringBefore("_${USER_DICTIONARY_SUFFIX}") }
                     if (hasInternal && !types.contains(Dictionary.TYPE_MAIN))
                         types.add(0, stringResource(R.string.internal_dictionary_summary))
-                    Text(it.localizedDisplayName(ctx))
+                    Text(locale.localizedDisplayName(ctx))
                     Text(
                         types.joinToString(", "),
                         style = MaterialTheme.typography.bodyMedium,

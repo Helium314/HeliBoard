@@ -66,7 +66,6 @@ fun TextInputDialog(
         modifier = modifier,
         title = title,
         text = {
-            // todo: this sometimes looks weird on start (like non-outlined field where the label is in the text field)
             OutlinedTextField(
                 value = value,
                 onValueChange = { value = it },

@@ -115,9 +115,8 @@ public class DictionaryInfoUtils {
     /**
      * Find out the cache directory associated with a specific locale.
      */
-    public static String getCacheDirectoryForLocale(final Locale locale, final Context context) {
-        final String relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag());
-        final String absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator + relativeDirectoryName;
+    public static String getAndCreateCacheDirectoryForLocale(final Locale locale, final Context context) {
+        final String absoluteDirectoryName = getCacheDirectoryForLocale(locale, context);
         final File directory = new File(absoluteDirectoryName);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
@@ -127,8 +126,13 @@ public class DictionaryInfoUtils {
         return absoluteDirectoryName;
     }
 
+    public static String getCacheDirectoryForLocale(final Locale locale, final Context context) {
+        final String relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag());
+        return getWordListCacheDirectory(context) + File.separator + relativeDirectoryName;
+    }
+
     public static File[] getCachedDictsForLocale(final Locale locale, final Context context) {
-        final File cachedDir = new File(getCacheDirectoryForLocale(locale, context));
+        final File cachedDir = new File(getAndCreateCacheDirectoryForLocale(locale, context));
         if (!cachedDir.isDirectory())
             return new File[]{};
         return cachedDir.listFiles();

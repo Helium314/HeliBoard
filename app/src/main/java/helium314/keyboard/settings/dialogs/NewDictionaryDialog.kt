@@ -51,7 +51,7 @@ fun NewDictionaryDialog(
         val locales = SubtypeSettings.getAvailableSubtypeLocales()
             .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }
             .sortedWith(comparer)
-        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, ctx)
+        val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, ctx)
         val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
         val info = header.info(ctx.resources.configuration.locale())

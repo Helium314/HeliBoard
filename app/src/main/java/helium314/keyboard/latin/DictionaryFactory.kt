@@ -27,7 +27,7 @@ import java.util.Locale
  * @return an initialized instance of DictionaryCollection
  */
 fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection {
-    val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context)
+    val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, context)
     val dictList = LinkedList<Dictionary>()
     // get cached dict files
     val (userDicts, extractedDicts) = DictionaryInfoUtils.getCachedDictsForLocale(locale, context)

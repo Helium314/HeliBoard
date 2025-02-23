@@ -392,7 +392,7 @@ class LanguageSettingsDialog(
 private fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
+    val userLocaleDir = File(DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(USER_DICTIONARY_SUFFIX))

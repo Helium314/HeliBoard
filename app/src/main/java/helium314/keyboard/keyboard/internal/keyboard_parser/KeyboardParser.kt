@@ -267,7 +267,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val numberRowCopy = numberRow.toMutableList()
             numberRowCopy.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRowCopy
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && hasNumbersOnTopRow()) {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && !hasBuiltInNumbers()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
                     val layout = it.indexOf(POPUP_KEYS_LAYOUT)
@@ -321,9 +321,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         return row
     }
 
-    // some layouts have different number layout, and there we don't want the numbers on the top row
-    // todo: this should be derived from main layout and popup / hint order settings
-    private fun hasNumbersOnTopRow() = params.mId.mSubtype.mainLayoutName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+    // some layouts have numbers hardcoded in the main layout (pcqwerty as keys, and others as popups)
+    private fun hasBuiltInNumbers() = params.mId.mSubtype.mainLayoutName == "pcqwerty"
+            || (Settings.getInstance().current.mPopupKeyTypes.contains(POPUP_KEYS_LAYOUT)
+                && params.mId.mSubtype.mainLayoutName in listOf("lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+            )
 
     companion object {
         private const val TAG = "KeyboardParser"

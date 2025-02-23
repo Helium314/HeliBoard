@@ -107,7 +107,7 @@ class NewDictionaryAdder(private val context: Context, private val onAdded: ((Bo
 
     private fun addDictAndAskToReplace(header: DictionaryHeader, mainLocale: Locale) {
         val dictionaryType = header.mIdString.substringBefore(":")
-        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(mainLocale, context)
+        val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(mainLocale, context)
         val dictFile = File(cacheDir, dictionaryType + "_" + USER_DICTIONARY_SUFFIX)
 
         fun moveDict(replaced: Boolean) {

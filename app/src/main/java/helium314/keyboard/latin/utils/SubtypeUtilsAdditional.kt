@@ -23,7 +23,6 @@ object SubtypeUtilsAdditional {
     // todo: extra value does not contain UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME for custom layout
     //  it did contain that key in 2.3, but where was it set? anyway, need to be careful with separators if we want to use it
     //  see also todo in SettingsSubtype
-    // todo: the name always contains the layout, but we may just use the original one
     fun createAdditionalSubtype(locale: Locale, extraValue: String, isAsciiCapable: Boolean,
                                         isEmojiCapable: Boolean): InputMethodSubtype {
         val mainLayoutName = LayoutType.getMainLayoutFromExtraValue(extraValue) ?: "qwerty"
@@ -53,7 +52,7 @@ object SubtypeUtilsAdditional {
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
 
-    // todo: consider using SettingsSubtype
+    // todo: consider using SettingsSubtype (nah, this can be removed after removing old settings)
     fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         val additionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString).toMutableSet()
