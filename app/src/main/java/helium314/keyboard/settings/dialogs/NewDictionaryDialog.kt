@@ -48,7 +48,9 @@ fun NewDictionaryDialog(
         var locale by remember { mutableStateOf(mainLocale ?: dictLocale) }
         val enabledLanguages = SubtypeSettings.getEnabledSubtypes(ctx.prefs()).map { it.locale().language }
         val comparer = compareBy<Locale>({ it != mainLocale }, { it != dictLocale }, { it.language !in enabledLanguages }, { it.script() != dictLocale.script() })
-        val locales = SubtypeSettings.getAvailableSubtypeLocales().sortedWith(comparer)
+        val locales = SubtypeSettings.getAvailableSubtypeLocales()
+            .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }
+            .sortedWith(comparer)
         val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, ctx)
         val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
@@ -70,9 +72,6 @@ fun NewDictionaryDialog(
             text = {
                 Column {
                     Text(info)
-                    // todo: dropdown takes very long to load, should be lazy!
-                    //  but can't be lazy because of measurements (has width of widest element)
-                    //  -> what do?
                     DropDownField(
                         selectedItem = locale,
                         onSelected = { locale = it },
