@@ -213,10 +213,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             IconButton(
                 onClick = {
                     onDismissRequest()
-                    // todo: maybe no need to set it as default when using the navigation specials
-                    prefs.edit().putString(prefKey, item).apply()
-                    SettingsDestination.navigateTo(targetScreen)
-                    keyboardNeedsReload = true
+                    SettingsDestination.navigateTo(targetScreen + item)
                 }
             ) { Icon(painterResource(R.drawable.ic_edit), null) }
             if (showDialog)

@@ -21,10 +21,12 @@ import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.brightenOrDarken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isGoodContrast
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -128,7 +130,20 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         }
 
         @JvmStatic
-        fun getThemeColors(themeName: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
+        fun getColorsForCurrentTheme(context: Context): Colors {
+            val prefs = context.prefs()
+            val isNight = SettingsActivity.forceNight
+                ?: (ResourceUtils.isNight(context.resources) && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT))
+            val themeName = SettingsActivity.forceTheme ?: if (isNight)
+                prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
+            else
+                prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)
+            val themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
+
+            return getThemeColors(themeName!!, themeStyle!!, context, prefs, isNight)
+        }
+
+        private fun getThemeColors(themeName: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeName) {

@@ -22,11 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import helium314.keyboard.keyboard.KeyboardActionListener;
-import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -35,10 +33,8 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
-import helium314.keyboard.settings.SettingsActivity;
 
 import java.io.File;
 import java.util.Arrays;
@@ -458,18 +454,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void clearCachedBackgroundImages() {
         Arrays.fill(sCachedBackgroundImages, null);
-    }
-
-    public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
-        boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (SettingsActivity.Companion.getForceOppositeTheme()) isNight = !isNight;
-        else isNight = isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT);
-        final String themeName = (isNight)
-                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
-                : prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS);
-        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE);
-
-        return KeyboardTheme.getThemeColors(themeName, themeStyle, context, prefs, isNight);
     }
 
     public static Context getDayNightContext(final Context context, final boolean wantNight) {

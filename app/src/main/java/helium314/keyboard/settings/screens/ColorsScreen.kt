@@ -70,6 +70,7 @@ import kotlinx.serialization.json.Json
 @Composable
 fun ColorsScreen(
     isNight: Boolean,
+    theme: String?,
     onClickBack: () -> Unit
 ) {
     val ctx = LocalContext.current
@@ -78,15 +79,15 @@ fun ColorsScreen(
     // lifecycle stuff is weird, there is no pause and similar when activity is paused
     DisposableEffect(isNight) {
         onDispose { // works on pressing back
-            (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(false)
+            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(null, null)
         }
     }
-    (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(isNight != ResourceUtils.isNight(ctx.resources))
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
     LaunchedEffect(lifecycleState) {
-        if (lifecycleState == Lifecycle.State.RESUMED)
-            (ctx.getActivity() as? SettingsActivity)?.setForceOppositeTheme(isNight != ResourceUtils.isNight(ctx.resources))
+        if (lifecycleState == Lifecycle.State.RESUMED) {
+            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(theme, isNight)
+        }
     }
 
     val prefs = ctx.prefs()
@@ -94,7 +95,7 @@ fun ColorsScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
 
-    val themeName = if (isNight) prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)!!
+    val themeName = theme ?: if (isNight) prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)!!
         else prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)!!
     val moreColors = KeyboardTheme.readUserMoreColors(prefs, themeName)
     val userColors = KeyboardTheme.readUserColors(prefs, themeName)
@@ -136,8 +137,9 @@ fun ColorsScreen(
                     nameField = it
                 },
                 isError = !nameValid,
-//                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid) } // todo: this is cutting off bottom half of the actual text...
-                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) }
+//                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) } // todo: this is cutting off bottom half of the actual text...
+                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
+                singleLine = true,
             )
         },
         menu = listOf(
@@ -233,7 +235,7 @@ data class SaveThoseColors(val name: String? = null, val moreColors: Int, val co
 private fun Preview() {
     Theme(true) {
         Surface {
-            ColorsScreen(false) { }
+            ColorsScreen(false, null) { }
         }
     }
 }

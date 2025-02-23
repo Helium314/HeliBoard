@@ -113,11 +113,11 @@ fun SettingsNavHost(
         composable(SettingsDestination.Layouts) {
             SecondaryLayoutScreen(onClickBack = ::goBack)
         }
-        composable(SettingsDestination.Colors) {
-            ColorsScreen(isNight = false, onClickBack = ::goBack)
+        composable(SettingsDestination.Colors + "{theme}") {
+            ColorsScreen(isNight = false, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
-        composable(SettingsDestination.ColorsNight) {
-            ColorsScreen(isNight = true, onClickBack = ::goBack)
+        composable(SettingsDestination.ColorsNight + "{theme}") {
+            ColorsScreen(isNight = true, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
     }
     if (target.value != SettingsDestination.Settings/* && target.value != navController.currentBackStackEntry?.destination?.route*/)
@@ -134,8 +134,8 @@ object SettingsDestination {
     const val Advanced = "advanced"
     const val Debug = "debug"
     const val Appearance = "appearance"
-    const val Colors = "colors"
-    const val ColorsNight = "colors_night"
+    const val Colors = "colors/"
+    const val ColorsNight = "colors_night/"
     const val PersonalDictionaries = "personal_dictionaries"
     const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"

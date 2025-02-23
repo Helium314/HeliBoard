@@ -150,8 +150,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     override fun onPause() {
         super.onPause()
         paused = true
-        if (forceOppositeTheme) keyboardNeedsReload = true
-        forceOppositeTheme = false
+        if (forceNight != null || forceTheme != null) keyboardNeedsReload = true
+        forceNight = false
+        forceTheme = null
     }
 
     override fun onResume() {
@@ -160,12 +161,13 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     }
 
     private var paused = true
-    fun setForceOppositeTheme(opposite: Boolean) {
+    fun setForceTheme(theme: String?, night: Boolean?) {
         if (paused) return
-        if (forceOppositeTheme != opposite) {
+        if (forceTheme != theme || forceNight != night) {
             keyboardNeedsReload = true
         }
-        forceOppositeTheme = opposite
+        forceTheme = theme
+        forceNight = night
     }
 
     private fun findCrashReports(): List<File> {
@@ -205,7 +207,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         // but it's small enough to not care
         lateinit var settingsContainer: SettingsContainer
 
-        var forceOppositeTheme = false
+        var forceNight: Boolean? = null
+        var forceTheme: String? = null
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {
