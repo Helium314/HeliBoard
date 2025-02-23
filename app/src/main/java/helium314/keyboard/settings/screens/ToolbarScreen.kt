@@ -47,7 +47,7 @@ fun ToolbarScreen(
         Settings.PREF_TOOLBAR_KEYS,
         Settings.PREF_PINNED_TOOLBAR_KEYS,
         Settings.PREF_CLIPBOARD_TOOLBAR_KEYS,
-        SettingsWithoutKey.CUSTOM_KEY_CODES,
+        Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES,
         Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         Settings.PREF_AUTO_SHOW_TOOLBAR,
         Settings.PREF_AUTO_HIDE_TOOLBAR,
@@ -70,15 +70,15 @@ fun createToolbarSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, R.string.clipboard_toolbar_keys) {
         ReorderSwitchPreference(it, Defaults.PREF_CLIPBOARD_TOOLBAR_KEYS)
     },
-    Setting(context, SettingsWithoutKey.CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
+    Setting(context, Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, R.string.customize_toolbar_key_codes) {
         var showDialog by rememberSaveable { mutableStateOf(false) }
         Preference(
             name = it.title,
             onClick = { showDialog = true },
         )
         if (showDialog)
-            // todo (later): CUSTOM_KEY_CODES vs the 2 actual prefs that are changed...
             ToolbarKeysCustomizer(
+                key = it.key,
                 onDismissRequest = { showDialog = false }
             )
     },

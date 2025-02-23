@@ -44,7 +44,6 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
@@ -52,9 +51,6 @@ import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
 
-// modified copy of ColorPickerDialog, later check whether stuff can be re-used
-// todo:
-//  call SubtypeSettings.onRenameLayout on rename!
 @Composable
 fun LayoutPickerDialog(
     onDismissRequest: () -> Unit,

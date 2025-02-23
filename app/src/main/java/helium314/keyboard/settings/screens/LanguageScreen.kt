@@ -108,11 +108,10 @@ fun LanguageScreen(
         SubtypeDialog(
             onDismissRequest = {
                 selectedSubtype = null
-                sortedSubtypes = getSortedSubtypes(ctx) // todo: not good, only necessary when a main layout is deleted
+                sortedSubtypes = getSortedSubtypes(ctx)
             },
             onConfirmed = {
                 SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype.toSettingsSubtype(), it, ctx)
-                sortedSubtypes = getSortedSubtypes(ctx)
             },
             subtype = oldSubtype
         )

@@ -38,6 +38,7 @@ import helium314.keyboard.settings.screens.GetIcon
 
 @Composable
 fun ToolbarKeysCustomizer(
+    key: String,
     onDismissRequest: () -> Unit
 ) {
     val ctx = LocalContext.current
@@ -79,7 +80,7 @@ fun ToolbarKeysCustomizer(
             onConfirmed = {
                 showDeletePrefConfirmDialog = false
                 onDismissRequest()
-                prefs.edit().remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES).apply()
+                prefs.edit().remove(key).apply()
             },
             text = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
         )
@@ -149,7 +150,7 @@ fun PreviewToolbarKeyCustomizer() {
 fun PreviewToolbarKeysCustomizer() {
     Settings.init(LocalContext.current)
     KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-    ToolbarKeysCustomizer { }
+    ToolbarKeysCustomizer("") { }
 }
 
 private fun checkCode(code: TextFieldValue) = runCatching {
