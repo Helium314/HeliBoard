@@ -4,7 +4,9 @@ package helium314.keyboard.settings
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets.Type
 import android.view.inputmethod.EditorInfo
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -61,7 +63,13 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         // with this the layout edit dialog is not covered by the keyboard
         //  alternative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
-        ViewCompat.setOnApplyWindowInsetsListener(window.decorView.rootView) { _, insets -> insets }
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView.rootView) { _, insets ->
+            @Suppress("DEPRECATION")
+            bottomInsets.value = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                    insets.getInsets(Type.ime()).bottom
+                else insets.systemWindowInsetBottom
+            insets
+        }
 
         settingsContainer = SettingsContainer(this)
 
@@ -209,6 +217,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         var forceNight: Boolean? = null
         var forceTheme: String? = null
+
+        // weird inset forwarding because otherwise layout dialog sometimes doesn't care about keyboard showing
+        var bottomInsets = MutableStateFlow(0)
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {

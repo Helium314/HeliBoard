@@ -2,13 +2,12 @@
 package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -47,6 +46,7 @@ fun LayoutEditDialog(
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
+    val bottomInsets by SettingsActivity.bottomInsets.collectAsState()
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
             if (startIsCustom) LayoutUtilsCustom.getDisplayName(initialLayoutName)
@@ -105,9 +105,10 @@ fun LayoutEditDialog(
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
-        // todo: this looks weird when the text field is not covered by the keyboard, but better then not seeing the bottom part of the field...
+        // todo: this looks weird when the text field is not covered by the keyboard (long dialog)
+        //  but better than not seeing the bottom part of the field...
         modifier = Modifier.padding(bottom = with(LocalDensity.current)
-            { (WindowInsets.ime.getBottom(LocalDensity.current) / 2 + 36).toDp() }), // why is the /2 necessary?
+            { (bottomInsets / 2 + 36).toDp() }), // why is the /2 necessary?
         reducePadding = true,
     )
 }

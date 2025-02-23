@@ -73,7 +73,6 @@ import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 // todo:
-//  layout edit dialog does not care about ime padding when called from here, why?
 //  rotating closes the dialog
 @Composable
 fun SubtypeDialog(
