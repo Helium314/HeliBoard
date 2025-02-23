@@ -571,7 +571,6 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onCreate() {
         KeyboardIconsSet.Companion.getInstance().loadIcons(this);
-        RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);

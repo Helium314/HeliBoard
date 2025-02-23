@@ -46,6 +46,7 @@ class App : Application() {
         Settings.init(this)
         DebugFlags.init(this)
         SubtypeSettings.init(this)
+        RichInputMethodManager.init(this)
 
         checkVersionUpgrade(this)
         app = this
