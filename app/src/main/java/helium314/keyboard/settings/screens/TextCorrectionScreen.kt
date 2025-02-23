@@ -37,6 +37,8 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.SettingsNavHost
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -83,10 +85,9 @@ fun TextCorrectionScreen(
 
 fun createCorrectionSettings(context: Context) = listOf(
     Setting(context, SettingsWithoutKey.EDIT_PERSONAL_DICTIONARY, R.string.edit_personal_dictionary) {
-        val ctx = LocalContext.current
         Preference(
             name = stringResource(R.string.edit_personal_dictionary),
-            onClick = { ctx.getActivity()?.switchTo(UserDictionaryListFragment()) },
+            onClick = { SettingsDestination.navigateTo(SettingsDestination.PersonalDictionaries) },
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_left),

@@ -103,7 +103,7 @@ fun SearchSettingsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <T: Any> SearchScreen(
+fun <T: Any?> SearchScreen(
     onClickBack: () -> Unit,
     title: @Composable () -> Unit,
     filteredItems: (String) -> List<T>,

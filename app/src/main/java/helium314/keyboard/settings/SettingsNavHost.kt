@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
@@ -19,6 +21,8 @@ import helium314.keyboard.settings.screens.DictionaryScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.LanguageScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
+import helium314.keyboard.settings.screens.PersonalDictionariesScreen
+import helium314.keyboard.settings.screens.PersonalDictionaryScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.SecondaryLayoutScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
@@ -28,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun SettingsNavHost(
@@ -89,10 +94,15 @@ fun SettingsNavHost(
         composable(SettingsDestination.Appearance) {
             AppearanceScreen(onClickBack = ::goBack)
         }
-        composable(SettingsDestination.PersonalDictionary) {
-//            PersonalDictionarySettingsScreen(
-//                onClickBack = ::goBack
-//            )
+        composable(SettingsDestination.PersonalDictionary + "{locale}") {
+            val locale = it.arguments?.getString("locale")?.takeIf { it.isNotBlank() }?.constructLocale()
+            PersonalDictionaryScreen(
+                onClickBack = ::goBack,
+                locale = locale
+            )
+        }
+        composable(SettingsDestination.PersonalDictionaries) {
+            PersonalDictionariesScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Languages) {
             LanguageScreen(onClickBack = ::goBack)
@@ -126,7 +136,8 @@ object SettingsDestination {
     const val Appearance = "appearance"
     const val Colors = "colors"
     const val ColorsNight = "colors_night"
-    const val PersonalDictionary = "personal_dictionary"
+    const val PersonalDictionaries = "personal_dictionaries"
+    const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"
     const val Layouts = "layouts"
     const val Dictionaries = "dictionaries"

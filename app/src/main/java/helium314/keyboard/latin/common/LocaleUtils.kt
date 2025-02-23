@@ -186,6 +186,10 @@ object LocaleUtils {
         return getLocaleDisplayNameInLocale(locale, context.resources, context.resources.configuration.locale())
     }
 
+    // todo: use this instead of getLocaleDisplayNameInSystemLocale in .kt files
+    fun Locale.localizedDisplayName(context: Context) =
+        getLocaleDisplayNameInLocale(this, context.resources, context.resources.configuration.locale())
+
     @JvmStatic
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
