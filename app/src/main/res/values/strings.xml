@@ -196,6 +196,8 @@
     <string name="button_restore">Restore</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
+    <!-- Clarification which locales are available for multilingual typing -->
+    <string name="locales_with_dict">Languages with dictionaries</string>
     <!-- Preferences item for loading an external gesture typing library -->
     <string name="load_gesture_library">Load gesture typing library</string>
     <!-- Description for "load_gesture_library" option -->
