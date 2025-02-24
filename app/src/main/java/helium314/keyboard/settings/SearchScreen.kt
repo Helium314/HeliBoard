@@ -113,8 +113,7 @@ fun <T: Any?> SearchScreen(
 ) {
     var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Column(Modifier.fillMaxSize()) {
-        // todo: saving is good on orientation change, but bad on pressing back...
-        var showSearch by rememberSaveable { mutableStateOf(false) }
+        var showSearch by remember { mutableStateOf(false) }
 
         fun setShowSearch(value: Boolean) {
             showSearch = value
@@ -182,12 +181,15 @@ fun <T: Any?> SearchScreen(
         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
             if (searchText.text.isBlank() && content != null) {
                 Column(
-                    Modifier
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(
-                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
-                            )
-                        )
+                    // todo: how and where to best deal with insets?
+                    //  here? manifest android:windowSoftInputMode="adjustResize"?
+                    //  other?
+//                    Modifier
+//                        .windowInsetsPadding(
+//                            WindowInsets.safeDrawing.only(
+//                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+//                            )
+//                        )
                 ) {
                     content()
                 }
