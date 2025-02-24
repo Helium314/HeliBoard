@@ -26,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,6 +54,7 @@ import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.screens.SaveThoseColors
+import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
@@ -118,16 +120,18 @@ fun ColorThemePickerDialog(
         },
     )
     var errorDialog by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
     val loadFilePicker = filePicker { uri ->
         ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
-            errorDialog = !loadColorString(it.reader().readText(), prefs)
-            if (!errorDialog)
-                onDismissRequest() // todo: for some reason the list doesn't update after importing a file, only from clipboard
+            val text = it.reader().readText()
+            // theme not added when done without coroutine (maybe prefs listener is not yet registered?)
+            scope.launch { errorDialog = !loadColorString(text, prefs) }
         }
     }
     if (showLoadDialog) {
         ConfirmationDialog(
             onDismissRequest = { showLoadDialog = false },
+            title = { Text(stringResource(R.string.load)) },
             onConfirmed = {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
