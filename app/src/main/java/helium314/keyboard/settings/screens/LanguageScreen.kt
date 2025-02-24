@@ -32,6 +32,7 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.MissingDictionaryDialog
 import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -43,6 +44,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.SubtypeDialog
+import java.util.Locale
 
 @Composable
 fun LanguageScreen(
@@ -82,6 +84,7 @@ fun LanguageScreen(
                     .clickable { selectedSubtype = item }
                     .padding(vertical = 6.dp, horizontal = 16.dp)
             ) {
+                var showNoDictDialog by remember { mutableStateOf(false) }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(item.displayName(ctx), style = MaterialTheme.typography.bodyLarge)
                     val description = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
@@ -96,10 +99,14 @@ fun LanguageScreen(
                 Switch(
                     checked = item in enabledSubtypes,
                     onCheckedChange = {
+                        if (it && !dictsAvailable(item.locale(), ctx))
+                            showNoDictDialog = true
                         if (it) SubtypeSettings.addEnabledSubtype(prefs, item)
                         else SubtypeSettings.removeEnabledSubtype(ctx, item)
                     }
                 )
+                if (showNoDictDialog)
+                    MissingDictionaryDialog({ showNoDictDialog = false }, item.locale())
             }
         }
     )
@@ -116,6 +123,11 @@ fun LanguageScreen(
             subtype = oldSubtype
         )
     }
+}
+
+private fun dictsAvailable(locale: Locale, context: Context): Boolean {
+    val (dicts, hasInternal) = getUserAndInternalDictionaries(context, locale)
+    return hasInternal || dicts.isNotEmpty()
 }
 
 // sorting by display name is still slow, even with the cache... but probably good enough

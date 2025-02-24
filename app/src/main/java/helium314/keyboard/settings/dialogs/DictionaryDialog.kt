@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,11 +25,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
+import helium314.keyboard.latin.utils.createDictionaryTextAnnotated
 import helium314.keyboard.settings.dictionaryFilePicker
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.util.Locale
@@ -46,7 +51,8 @@ fun DictionaryDialog(
         cancelButtonText = stringResource(R.string.dialog_close),
         title = { Text(locale.localizedDisplayName(ctx)) },
         text = {
-            Column {
+            val state = rememberScrollState()
+            Column(Modifier.verticalScroll(state)) {
                 if (hasInternal) {
                     val color = if (dictionaries.none { it.startsWith(Dictionary.TYPE_MAIN + ":") }) MaterialTheme.colorScheme.onSurface
                     else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f) // for disabled look
@@ -77,6 +83,11 @@ fun DictionaryDialog(
                             onConfirmed = { it.delete() },
                             text = { Text(stringResource(R.string.remove_dictionary_message, type ?: ""))}
                         )
+                }
+                val dictString = createDictionaryTextAnnotated(locale)
+                if (dictString.isNotEmpty()) {
+                    HorizontalDivider()
+                    Text(dictString, style = LocalTextStyle.current.merge(lineHeight = 1.8.em))
                 }
             }
         },

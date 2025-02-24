@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
@@ -28,6 +29,7 @@ import helium314.keyboard.latin.utils.DICTIONARY_URL
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
+import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
@@ -96,9 +98,14 @@ fun DictionaryScreen(
             },
             title = { Text(stringResource(R.string.add_new_dictionary_title)) },
             text = {
-                // todo: no html in compose
-                val dictLink = "<a href='$DICTIONARY_URL'>" + ctx.getString(R.string.dictionary_link_text) + "</a>"
-                Text(stringResource(R.string.add_dictionary, dictLink))
+                // addDictString contains "%s" since we didn't supply a formatArg
+                val addDictString = stringResource(R.string.add_dictionary)
+                val annotated = buildAnnotatedString {
+                    append(addDictString.substringBefore("%s"))
+                    appendLink(stringResource(R.string.dictionary_link_text), DICTIONARY_URL)
+                    append(addDictString.substringAfter("%s"))
+                }
+                Text(annotated)
             }
         )
     }

@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
@@ -60,6 +61,7 @@ import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtyp
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
+import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
@@ -379,14 +381,19 @@ private fun MainLayoutRow(
             )
         }
         if (showAddLayoutDialog) {
-            // todo: maybe supply link to discussion section for layouts
-            // todo: no html for compose, so message is broken
-            //  try annotatedString
-            val link = "<a href='$LAYOUT_FORMAT_URL'>" + ctx.getString(R.string.dictionary_link_text) + "</a>"
+            // layoutString contains "%s" since we didn't supply a formatArg
+            val layoutString = stringResource(R.string.message_add_custom_layout)
+            val linkText = stringResource(R.string.dictionary_link_text)
+            val annotated = buildAnnotatedString {
+                append(layoutString.substringBefore("%s"))
+                appendLink(linkText, LAYOUT_FORMAT_URL)
+                append(layoutString.substringAfter("%s"))
+            }
+
             ConfirmationDialog(
                 onDismissRequest = { showAddLayoutDialog = false },
                 title = { Text(stringResource(R.string.button_title_add_custom_layout)) },
-                text = { Text(stringResource(R.string.message_add_custom_layout, link)) },
+                text = { Text(annotated) },
                 onConfirmed = { showLayoutEditDialog = "new layout" to "" },
                 neutralButtonText = stringResource(R.string.button_load_custom),
                 onNeutral = {
