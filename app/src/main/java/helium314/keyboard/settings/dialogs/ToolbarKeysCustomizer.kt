@@ -53,7 +53,7 @@ fun ToolbarKeysCustomizer(
         neutralButtonText = if (readCustomKeyCodes(prefs).isNotEmpty()) stringResource(R.string.button_default) else null,
         onNeutral = { showDeletePrefConfirmDialog = true },
         title = { Text(stringResource(R.string.customize_toolbar_key_codes)) },
-        text = {
+        content = {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -82,7 +82,7 @@ fun ToolbarKeysCustomizer(
                 onDismissRequest()
                 prefs.edit().remove(key).apply()
             },
-            text = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
+            content = { Text(stringResource(R.string.customize_toolbar_key_code_reset_message)) }
         )
 }
 
@@ -113,7 +113,7 @@ private fun ToolbarKeyCustomizer(
             writeCustomKeyCodes(prefs, keys)
         },
         title = { Text(key.name.lowercase().getStringResourceOrName("", ctx)) },
-        text = {
+        content = {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(stringResource(R.string.key_code), Modifier.weight(0.5f))

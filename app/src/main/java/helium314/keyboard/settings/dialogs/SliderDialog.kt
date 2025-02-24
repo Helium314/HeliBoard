@@ -40,7 +40,7 @@ fun SliderDialog(
         onConfirmed = { onDone(sliderPosition) },
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {

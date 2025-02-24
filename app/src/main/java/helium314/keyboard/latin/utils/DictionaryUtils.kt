@@ -136,7 +136,7 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
         cancelButtonText = stringResource(R.string.dialog_close),
         onConfirmed = { prefs.edit { putBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, true) } },
         confirmButtonText = stringResource(R.string.no_dictionary_dont_show_again_button),
-        text = { Text(annotatedString) }
+        content = { Text(annotatedString) }
     )
 }
 

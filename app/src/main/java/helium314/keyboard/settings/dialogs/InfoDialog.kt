@@ -12,7 +12,7 @@ fun InfoDialog(
 ) {
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        text = { Text(message) },
+        content = { Text(message) },
         cancelButtonText = stringResource(android.R.string.ok),
         onConfirmed = { },
         confirmButtonText = null

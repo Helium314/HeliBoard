@@ -106,7 +106,7 @@ fun SubtypeDialog(
             SubtypeSettings.removeEnabledSubtype(ctx, subtype)
         },
         title = { Text(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype)) },
-        text = {
+        content = {
             Column(
                 modifier = Modifier.verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -351,7 +351,7 @@ private fun MainLayoutRow(
                     onDismissRequest = { showLayoutDeleteDialog = false },
                     confirmButtonText = stringResource(R.string.delete),
                     title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(it))) },
-                    text = { if (others) Text(stringResource(R.string.layout_in_use)) },
+                    content = { if (others) Text(stringResource(R.string.layout_in_use)) },
                     onConfirmed = {
                         if (it == currentSubtype.mainLayoutName())
                             setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
@@ -393,7 +393,7 @@ private fun MainLayoutRow(
             ConfirmationDialog(
                 onDismissRequest = { showAddLayoutDialog = false },
                 title = { Text(stringResource(R.string.button_title_add_custom_layout)) },
-                text = { Text(annotated) },
+                content = { Text(annotated) },
                 onConfirmed = { showLayoutEditDialog = "new layout" to "" },
                 neutralButtonText = stringResource(R.string.button_load_custom),
                 onNeutral = {

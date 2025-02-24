@@ -181,7 +181,7 @@ fun BackupRestorePreference(setting: Setting) {
         ConfirmationDialog(
             onDismissRequest = { showDialog = false },
             title = { Text(stringResource(R.string.backup_restore_title)) },
-            text = { Text(stringResource(R.string.backup_restore_message)) },
+            content = { Text(stringResource(R.string.backup_restore_message)) },
             confirmButtonText = stringResource(R.string.button_backup),
             neutralButtonText = stringResource(R.string.button_restore),
             onNeutral = {

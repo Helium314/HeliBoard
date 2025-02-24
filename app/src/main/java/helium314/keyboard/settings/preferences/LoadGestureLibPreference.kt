@@ -85,7 +85,7 @@ fun LoadGestureLibPreference(setting: Setting) {
                 launcher.launch(intent)
             },
             title = { Text(stringResource(R.string.load_gesture_library)) },
-            text = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
+            content = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
             neutralButtonText = if (libFile.exists()) stringResource(R.string.load_gesture_library_button_delete) else null,
             onNeutral = {
                 libFile.delete()
@@ -100,7 +100,7 @@ fun LoadGestureLibPreference(setting: Setting) {
                 File(tempFilePath!!).delete()
                 tempFilePath = null
             },
-            text = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
+            content = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
             onConfirmed = {
                 val tempFile = File(tempFilePath!!)
                 renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")

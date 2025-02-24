@@ -45,7 +45,7 @@ fun <T: Any> MultiListPickerDialog(
         confirmButtonText = stringResource(android.R.string.ok),
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {

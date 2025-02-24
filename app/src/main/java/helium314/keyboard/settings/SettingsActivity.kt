@@ -124,7 +124,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                                 intent.setType("application/zip")
                                 crashFilePicker.launch(intent)
                             },
-                            text = { Text("Crash report files found") },
+                            content = { Text("Crash report files found") },
                         )
                     }
                 }

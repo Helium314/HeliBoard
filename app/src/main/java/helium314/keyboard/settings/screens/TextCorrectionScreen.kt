@@ -25,11 +25,9 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.settings.UserDictionaryListFragment
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
@@ -38,7 +36,6 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.SettingsNavHost
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -166,7 +163,7 @@ fun createCorrectionSettings(context: Context) = listOf(
                 onConfirmed = {
                     prefs.edit().putBoolean(setting.key, false).apply()
                 },
-                text = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
+                content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
             )
         }
 

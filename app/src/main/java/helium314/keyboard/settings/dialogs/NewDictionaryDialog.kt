@@ -69,7 +69,7 @@ fun NewDictionaryDialog(
                 val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
                 ctx.sendBroadcast(newDictBroadcast)
             },
-            text = {
+            content = {
                 Column {
                     Text(info)
                     DropDownField(

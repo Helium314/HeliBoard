@@ -56,7 +56,7 @@ fun <T: Any> ReorderDialog(
         neutralButtonText = neutralButtonText,
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             LazyColumn(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(4.dp),

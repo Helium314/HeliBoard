@@ -97,7 +97,7 @@ fun DictionaryScreen(
                 dictPicker.launch(intent)
             },
             title = { Text(stringResource(R.string.add_new_dictionary_title)) },
-            text = {
+            content = {
                 // addDictString contains "%s" since we didn't supply a formatArg
                 val addDictString = stringResource(R.string.add_dictionary)
                 val annotated = buildAnnotatedString {

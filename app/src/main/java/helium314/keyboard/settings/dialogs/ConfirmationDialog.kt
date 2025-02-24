@@ -17,7 +17,7 @@ fun ConfirmationDialog(
     onConfirmed: () -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null,
     confirmButtonText: String = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
@@ -32,7 +32,7 @@ fun ConfirmationDialog(
         onNeutral = onNeutral,
         modifier = modifier,
         title = title,
-        text = text,
+        content = content,
     )
 }
 
@@ -44,6 +44,6 @@ private fun PreviewConfirmDialog() {
         onConfirmed = {},
         neutralButtonText = "hi",
         confirmButtonText = "I don't care",
-        text = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
+        content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
     )
 }

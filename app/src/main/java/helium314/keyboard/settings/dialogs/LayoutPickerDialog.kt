@@ -86,7 +86,7 @@ fun LayoutPickerDialog(
         neutralButtonText = stringResource(R.string.button_load_custom),
         onNeutral = { picker.launch(layoutIntent) },
         title = { Text(setting.title) },
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -197,7 +197,7 @@ private fun LayoutItemRow(
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
                     title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
-                    text = { if (inUse) Text(stringResource(R.string.layout_in_use)) },
+                    content = { if (inUse) Text(stringResource(R.string.layout_in_use)) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false

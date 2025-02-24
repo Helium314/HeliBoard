@@ -50,7 +50,7 @@ fun DictionaryDialog(
         confirmButtonText = null,
         cancelButtonText = stringResource(R.string.dialog_close),
         title = { Text(locale.localizedDisplayName(ctx)) },
-        text = {
+        content = {
             val state = rememberScrollState()
             Column(Modifier.verticalScroll(state)) {
                 if (hasInternal) {
@@ -81,7 +81,7 @@ fun DictionaryDialog(
                         ConfirmationDialog(
                             onDismissRequest = { showDeleteDialog = false },
                             onConfirmed = { it.delete() },
-                            text = { Text(stringResource(R.string.remove_dictionary_message, type ?: ""))}
+                            content = { Text(stringResource(R.string.remove_dictionary_message, type ?: ""))}
                         )
                 }
                 val dictString = createDictionaryTextAnnotated(locale)

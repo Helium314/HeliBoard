@@ -54,7 +54,7 @@ fun ColorPickerDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { onConfirmed(controller.selectedColor.value.toArgb()) },
         title = { Text(title) },
-        text = {
+        content = {
             Column {
                 Row {
                     Surface(

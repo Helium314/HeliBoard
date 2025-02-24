@@ -34,7 +34,7 @@ fun ThreeButtonAlertDialog(
     onConfirmed: () -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null,
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -69,10 +69,10 @@ fun ThreeButtonAlertDialog(
                             }
                         }
                     }
-                    text?.let {
+                    content?.let {
                         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
                             Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
-                                text()
+                                content()
                             }
                         }
                     }
@@ -102,7 +102,7 @@ private fun Preview() {
         ThreeButtonAlertDialog(
             onDismissRequest = {},
             onConfirmed = { },
-            text = { Text("hello") },
+            content = { Text("hello") },
             title = { Text("title") },
             neutralButtonText = "Default"
         )

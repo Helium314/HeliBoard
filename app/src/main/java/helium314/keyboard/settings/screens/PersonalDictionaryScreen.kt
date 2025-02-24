@@ -110,7 +110,7 @@ fun PersonalDictionaryScreen(
                     )
                 }
             },
-            text = {
+            content = {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {

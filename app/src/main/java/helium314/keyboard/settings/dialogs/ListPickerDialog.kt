@@ -53,7 +53,7 @@ fun <T: Any> ListPickerDialog(
         checkOk = { selected != null },
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {

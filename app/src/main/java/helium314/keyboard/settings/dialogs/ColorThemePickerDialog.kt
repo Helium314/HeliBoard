@@ -100,7 +100,7 @@ fun ColorThemePickerDialog(
         neutralButtonText = stringResource(R.string.load),
         onNeutral = { showLoadDialog = true },
         title = { Text(setting.title) },
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -219,7 +219,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             if (showDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDialog = false },
-                    text = { Text(stringResource(R.string.delete_confirmation, item)) },
+                    content = { Text(stringResource(R.string.delete_confirmation, item)) },
                     onConfirmed = {
                         showDialog = false
                         prefs.edit().remove(Settings.PREF_USER_COLORS_PREFIX + item)

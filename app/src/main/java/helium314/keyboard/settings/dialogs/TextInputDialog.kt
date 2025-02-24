@@ -65,7 +65,7 @@ fun TextInputDialog(
         onNeutral = { onDismissRequest(); onNeutral() },
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             OutlinedTextField(
                 value = value,
                 onValueChange = { value = it },
