@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -32,6 +29,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.createDictionaryTextAnnotated
+import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.dictionaryFilePicker
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.util.Locale
@@ -72,9 +70,7 @@ fun DictionaryDialog(
                             Column {
                                 Text(header.info(LocalContext.current.resources.configuration.locale()), style = MaterialTheme.typography.bodyMedium)
                             }
-                            IconButton(
-                                onClick = { showDeleteDialog = true }
-                            ) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
+                            DeleteButton { showDeleteDialog = true }
                         }
                     }
                     if (showDeleteDialog)

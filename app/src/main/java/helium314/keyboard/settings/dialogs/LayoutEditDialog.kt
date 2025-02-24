@@ -3,7 +3,6 @@ package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -16,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import helium314.keyboard.latin.R
@@ -26,6 +24,7 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Job
@@ -88,7 +87,7 @@ fun LayoutEditDialog(
                     onValueChange = { displayNameValue = it },
                     isError = !nameValid,
                     supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
-                    trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), stringResource(R.string.name_invalid)) },
+                    trailingIcon = { if (!nameValid) CloseIcon(R.string.name_invalid) },
                 )
         },
         checkTextValid = { text ->

@@ -68,6 +68,7 @@ import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.DefaultButton
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
@@ -125,18 +126,16 @@ fun SubtypeDialog(
                 Row {
                     TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
                     { Text(stringResource(R.string.popup_order), style = MaterialTheme.typography.bodyLarge) }
-                    DefaultButton(
-                        { currentSubtype = currentSubtype.without(ExtraValue.POPUP_ORDER) },
-                        currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null
-                    )
+                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
+                        currentSubtype = currentSubtype.without(ExtraValue.POPUP_ORDER)
+                    }
                 }
                 Row {
                     TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
                     { Text(stringResource(R.string.hint_source), style = MaterialTheme.typography.bodyLarge) }
-                    DefaultButton(
-                        { currentSubtype = currentSubtype.without(ExtraValue.HINT_ORDER) },
-                        currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null
-                    )
+                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
+                        currentSubtype = currentSubtype.without(ExtraValue.HINT_ORDER)
+                    }
                 }
                 if (currentSubtype.locale.script() == SCRIPT_LATIN) {
                     WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
@@ -145,10 +144,9 @@ fun SubtypeDialog(
                         Row {
                             TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
                             { Text(stringResource(morePopupKeysResId(value))) }
-                            DefaultButton(
-                                { currentSubtype = currentSubtype.without(ExtraValue.MORE_POPUPS) },
-                                explicitValue == null
-                            )
+                            DefaultButton(explicitValue == null) {
+                                currentSubtype = currentSubtype.without(ExtraValue.MORE_POPUPS)
+                            }
                         }
                     }
                 }
@@ -162,10 +160,9 @@ fun SubtypeDialog(
                                 currentSubtype = currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString())
                             }
                         )
-                        DefaultButton(
-                            { currentSubtype = currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW) },
-                            checked == null
-                        )
+                        DefaultButton(checked == null) {
+                            currentSubtype = currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW)
+                        }
                     }
                 }
                 HorizontalDivider()
@@ -183,10 +180,9 @@ fun SubtypeDialog(
                             onSelected = {
                                 currentSubtype = currentSubtype.withLayout(type, it)
                             },
-                            extraButton = { DefaultButton(
-                                onDefault = { currentSubtype = currentSubtype.withoutLayout(type) },
-                                isDefault = explicitLayout == null
-                            ) },
+                            extraButton = { DefaultButton(explicitLayout == null) {
+                                currentSubtype = currentSubtype.withoutLayout(type)
+                            } },
                         ) {
                             val displayName = if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
                             else it.getStringResourceOrName("layout_", ctx)
@@ -459,19 +455,6 @@ fun <T>DropDownField(
                 onClick = { expanded = false; onSelected(it) }
             )
         }
-    }
-}
-
-@Composable
-private fun DefaultButton(
-    onDefault: () -> Unit,
-    isDefault: Boolean
-) {
-    IconButton(
-        onClick = onDefault,
-        enabled = !isDefault
-    ) {
-        Icon(painterResource(R.drawable.ic_settings_default), "default")
     }
 }
 

@@ -7,15 +7,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
@@ -28,6 +25,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings.getSystemLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsDestination
 import java.util.Locale
@@ -63,11 +61,7 @@ fun PersonalDictionariesScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(it.getLocaleDisplayNameForUserDictSettings(ctx), style = MaterialTheme.typography.bodyLarge)
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_left),
-                    modifier = Modifier.scale(-1f, 1f),
-                    contentDescription = null
-                )
+                NextScreenIcon()
             }
         }
     )

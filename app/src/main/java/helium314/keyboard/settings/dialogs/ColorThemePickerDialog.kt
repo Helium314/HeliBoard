@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -46,6 +45,8 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
@@ -164,15 +165,12 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
             modifier = Modifier.weight(1f),
             singleLine = true
         )
-        IconButton(
-            enabled = textValue.text.isNotEmpty() && textValue.text !in userColors,
-            onClick = {
-                onDismissRequest()
-                prefs.edit().putString(prefKey, textValue.text).apply()
-                SettingsDestination.navigateTo(targetScreen)
-                keyboardNeedsReload = true
-            }
-        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
+        EditButton(textValue.text.isNotEmpty() && textValue.text !in userColors) {
+            onDismissRequest()
+            prefs.edit().putString(prefKey, textValue.text).apply()
+            SettingsDestination.navigateTo(targetScreen)
+            keyboardNeedsReload = true
+        }
     }
 }
 
@@ -207,15 +205,11 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
         )
         if (isUser) {
             var showDialog by remember { mutableStateOf(false) }
-            IconButton(
-                onClick = { showDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
-            IconButton(
-                onClick = {
-                    onDismissRequest()
-                    SettingsDestination.navigateTo(targetScreen + item)
-                }
-            ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
+            DeleteButton { showDialog = true }
+            EditButton {
+                onDismissRequest()
+                SettingsDestination.navigateTo(targetScreen + item)
+            }
             if (showDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDialog = false },

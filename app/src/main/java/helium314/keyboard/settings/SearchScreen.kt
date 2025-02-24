@@ -144,13 +144,13 @@ fun <T: Any?> SearchScreen(
                     },
                     actions = {
                         IconButton(onClick = { setShowSearch(!showSearch) })
-                        { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
+                        { SearchIcon() }
                         if (menu != null)
                             Box {
                                 var showMenu by remember { mutableStateOf(false) }
                                 IconButton(
                                     onClick = { showMenu = true }
-                                ) { Icon(painterResource(R.drawable.ic_arrow_left,), "menu", Modifier.rotate(-90f)) }
+                                ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
                                 DropdownMenu(
                                     expanded = showMenu,
                                     onDismissRequest = { showMenu = false }
@@ -224,11 +224,11 @@ fun ExpandableSearchField(
             value = search,
             onValueChange = onSearchChange,
             modifier = modifier.focusRequester(focusRequester),
-            leadingIcon = { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) },
+            leadingIcon = { SearchIcon() },
             trailingIcon = { IconButton(onClick = {
                 if (search.text.isBlank()) onDismiss()
                 else onSearchChange(TextFieldValue())
-            }) { Icon(painterResource(R.drawable.ic_close), stringResource(android.R.string.cancel)) } },
+            }) { CloseIcon(android.R.string.cancel) } },
             singleLine = true,
             colors = colors
         )

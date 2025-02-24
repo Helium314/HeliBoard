@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -45,6 +44,8 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -139,10 +140,9 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, layoutType: LayoutType, 
             modifier = Modifier.weight(1f),
             singleLine = true
         )
-        IconButton(
-            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts,
-            onClick = { onNewLayout(textValue.text) }
-        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
+        EditButton(textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts) {
+            onNewLayout(textValue.text)
+        }
     }
 }
 
@@ -186,9 +186,7 @@ private fun LayoutItemRow(
         )
         if (isCustom) {
             var showDeleteDialog by remember { mutableStateOf(false) }
-            IconButton(
-                onClick = { showDeleteDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
+            DeleteButton { showDeleteDialog = true }
             if (showDeleteDialog) {
                 val inUse = SubtypeSettings.getAdditionalSubtypes().any { st ->
                     val map = LayoutType.getLayoutMap(st.getExtraValueOf(ExtraValue.KEYBOARD_LAYOUT_SET))
@@ -206,9 +204,7 @@ private fun LayoutItemRow(
                 )
             }
         }
-        IconButton(
-            onClick = { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
-        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
+        EditButton { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
     }
 }
 
