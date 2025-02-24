@@ -159,41 +159,50 @@ fun ColorsScreen(
             },
         ),
         onClickBack = onClickBack,
-        filteredItems = { search -> shownColors.filter {
-            it.displayName.split(" ", "_").any { it.startsWith(search, true) }
-        } },
+        filteredItems = { search ->
+            val result = shownColors.filter { it.displayName.split(" ", "_").any { it.startsWith(search, true) } }
+            if (moreColors == 2) result.toMutableList<ColorSetting?>().apply { add(0, null) }
+            else result
+        },
         itemContent = { colorSetting ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .clickable { chosenColor = colorSetting }
-            ) {
-                Spacer(
-                    modifier = Modifier
-                        .background(Color(colorSetting.displayColor()), shape = CircleShape)
-                        .size(50.dp)
+            if (colorSetting == null)
+                Text( // not a colorSetting, but still best done as part of the list
+                    stringResource(R.string.all_colors_warning),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Column(Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp)) {
-                    Text(colorSetting.displayName)
-                    if (colorSetting.auto == true)
-                        CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.bodyMedium,
-                            LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
-                        ) {
-                            Text(stringResource(R.string.auto_user_color))
-                        }
+            else
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .clickable { chosenColor = colorSetting }
+                ) {
+                    Spacer(
+                        modifier = Modifier
+                            .background(Color(colorSetting.displayColor()), shape = CircleShape)
+                            .size(50.dp)
+                    )
+                    Column(Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp)) {
+                        Text(colorSetting.displayName)
+                        if (colorSetting.auto == true)
+                            CompositionLocalProvider(
+                                LocalTextStyle provides MaterialTheme.typography.bodyMedium,
+                                LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant
+                            ) {
+                                Text(stringResource(R.string.auto_user_color))
+                            }
+                    }
+                    if (colorSetting.auto != null)
+                        Switch(colorSetting.auto, onCheckedChange = {
+                            val oldUserColors = KeyboardTheme.readUserColors(prefs, themeName)
+                            val newUserColors = (oldUserColors + ColorSetting(colorSetting.name, it, colorSetting.color))
+                                .reversed().distinctBy { it.displayName }
+                            KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
+                        })
                 }
-                if (colorSetting.auto != null)
-                    Switch(colorSetting.auto, onCheckedChange = {
-                        val oldUserColors = KeyboardTheme.readUserColors(prefs, themeName)
-                        val newUserColors = (oldUserColors + ColorSetting(colorSetting.name, it, colorSetting.color))
-                            .reversed().distinctBy { it.displayName }
-                        KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
-                    })
-            }
         }
     )
     if (chosenColor != null) {
