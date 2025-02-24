@@ -142,7 +142,7 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, layoutType: LayoutType, 
         IconButton(
             enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts,
             onClick = { onNewLayout(textValue.text) }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
     }
 }
 
@@ -188,7 +188,7 @@ private fun LayoutItemRow(
             var showDeleteDialog by remember { mutableStateOf(false) }
             IconButton(
                 onClick = { showDeleteDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), null) }
+            ) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
             if (showDeleteDialog) {
                 val inUse = SubtypeSettings.getAdditionalSubtypes().any { st ->
                     val map = LayoutType.getLayoutMap(st.getExtraValueOf(ExtraValue.KEYBOARD_LAYOUT_SET))
@@ -208,7 +208,7 @@ private fun LayoutItemRow(
         }
         IconButton(
             onClick = { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
     }
 }
 

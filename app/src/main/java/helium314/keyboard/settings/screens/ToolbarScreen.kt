@@ -120,10 +120,10 @@ fun KeyboardIconsSet.GetIcon(name: String?) {
     val drawable = getNewDrawable(name, ctx)
     Box(Modifier.size(40.dp), contentAlignment = Alignment.Center) {
         if (drawable is VectorDrawable)
-            Icon(painterResource(iconIds[name?.lowercase()]!!), null, Modifier.fillMaxSize(0.8f))
+            Icon(painterResource(iconIds[name?.lowercase()]!!), name, Modifier.fillMaxSize(0.8f))
         else if (drawable != null) {
             val px = TypedValueCompat.dpToPx(40f, ctx.resources.displayMetrics).toInt()
-            Icon(drawable.toBitmap(px, px).asImageBitmap(), null, Modifier.fillMaxSize(0.8f))
+            Icon(drawable.toBitmap(px, px).asImageBitmap(), name, Modifier.fillMaxSize(0.8f))
         }
     }
 }

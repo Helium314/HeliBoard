@@ -172,7 +172,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
                 SettingsDestination.navigateTo(targetScreen)
                 keyboardNeedsReload = true
             }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
     }
 }
 
@@ -209,13 +209,13 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             var showDialog by remember { mutableStateOf(false) }
             IconButton(
                 onClick = { showDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), null) }
+            ) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
             IconButton(
                 onClick = {
                     onDismissRequest()
                     SettingsDestination.navigateTo(targetScreen + item)
                 }
-            ) { Icon(painterResource(R.drawable.ic_edit), null) }
+            ) { Icon(painterResource(R.drawable.ic_edit), "edit") }
             if (showDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDialog = false },

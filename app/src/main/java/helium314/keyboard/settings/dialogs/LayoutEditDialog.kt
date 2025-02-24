@@ -88,7 +88,7 @@ fun LayoutEditDialog(
                     onValueChange = { displayNameValue = it },
                     isError = !nameValid,
                     supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
-                    trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
+                    trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), stringResource(R.string.name_invalid)) },
                 )
         },
         checkTextValid = { text ->
