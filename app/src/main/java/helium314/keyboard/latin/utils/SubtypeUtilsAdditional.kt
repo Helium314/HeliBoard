@@ -58,7 +58,10 @@ object SubtypeUtilsAdditional {
         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
     }
 
-    fun removeAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+    // todo: SettingsSubtype?
+    fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
+        val prefs = context.prefs()
+        SubtypeSettings.removeEnabledSubtype(context, subtype)
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         val oldAdditionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString)
         val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }

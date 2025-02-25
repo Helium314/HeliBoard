@@ -2,7 +2,6 @@
 package helium314.keyboard.settings.dialogs
 
 import android.content.Context
-import android.view.inputmethod.InputMethodSubtype
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -77,12 +76,10 @@ import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
-// todo:
-//  rotating closes the dialog
 @Composable
 fun SubtypeDialog(
     onDismissRequest: () -> Unit,
-    subtype: InputMethodSubtype,
+    initialSubtype: SettingsSubtype,
     onConfirmed: (SettingsSubtype) -> Unit,
 ) {
     // todo: make sure the values are always correct (e.g. if using rememberSaveable and rotating)
@@ -91,7 +88,7 @@ fun SubtypeDialog(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    var currentSubtype by remember { mutableStateOf(subtype.toSettingsSubtype()) }
+    var currentSubtype by remember { mutableStateOf(initialSubtype) }
     val availableLocalesForScript = getAvailableSecondaryLocales(ctx, currentSubtype.locale).sortedBy { it.toLanguageTag() }
     var showSecondaryLocaleDialog by remember { mutableStateOf(false) }
     var showKeyOrderDialog by remember { mutableStateOf(false) }
@@ -102,19 +99,22 @@ fun SubtypeDialog(
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
         onConfirmed = { onConfirmed(currentSubtype) },
-        neutralButtonText = if (SubtypeSettings.isAdditionalSubtype(subtype)) stringResource(R.string.delete) else null,
+        neutralButtonText = if (initialSubtype.isAdditionalSubtype(prefs)) stringResource(R.string.delete) else null,
         onNeutral = {
+            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
+            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
             onDismissRequest()
-            SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype)
-            SubtypeSettings.removeEnabledSubtype(ctx, subtype)
         },
-        title = { Text(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype)) },
+        title = {
+            val mainLayout = initialSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
+            Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(mainLayout, initialSubtype.locale))
+        },
         content = {
             Column(
                 modifier = Modifier.verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                MainLayoutRow(subtype, currentSubtype, customMainLayouts) { currentSubtype = it }
+                MainLayoutRow(initialSubtype, currentSubtype, customMainLayouts) { currentSubtype = it }
                 if (availableLocalesForScript.size > 1) {
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
@@ -306,7 +306,7 @@ private fun PopupOrderDialog(
 
 @Composable
 private fun MainLayoutRow(
-    subtype: InputMethodSubtype,
+    initialSubtype: SettingsSubtype,
     currentSubtype: SettingsSubtype,
     customLayouts: List<String>,
     setCurrentSubtype: (SettingsSubtype) -> Unit,
@@ -339,12 +339,13 @@ private fun MainLayoutRow(
                 Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
                     Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = it to null })
-                    if (it in customLayouts && subtype.mainLayoutName() != it) // don't allow current main layout
+                    if (it in customLayouts && initialSubtype.mainLayoutName() != it) // don't allow current main layout
                         Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete), Modifier.clickable { showLayoutDeleteDialog = true })
                 }
             }
             if (showLayoutDeleteDialog) {
-                val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }.any { it != subtype }
+                val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }
+                    .any { it.toSettingsSubtype() != initialSubtype }
                 ConfirmationDialog(
                     onDismissRequest = { showLayoutDeleteDialog = false },
                     confirmButtonText = stringResource(R.string.delete),

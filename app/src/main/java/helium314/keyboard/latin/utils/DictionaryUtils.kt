@@ -109,6 +109,10 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
 @Composable
 fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
     val prefs = LocalContext.current.prefs()
+    if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, Defaults.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG)) {
+        onDismissRequest()
+        return
+    }
     val availableDicts = createDictionaryTextAnnotated(locale)
     val dictLink = "${Links.DICTIONARY_URL}/src/branch/main/dictionaries/main_$locale.dict"
     val message = stringResource(R.string.no_dictionary_message, "§repl1§", locale.toString(), "§repl2§")

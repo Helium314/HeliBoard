@@ -206,7 +206,7 @@ class LanguageSettingsDialog(
                         infos.remove(subtype)
                         //if (isCustom)
                         //    LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
-                        SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
+                        SubtypeUtilsAdditional.removeAdditionalSubtype(context, subtype.subtype)
                         SubtypeSettings.removeEnabledSubtype(context, subtype.subtype)
                         reloadSetting()
                     }

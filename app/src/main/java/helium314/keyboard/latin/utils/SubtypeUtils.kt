@@ -127,7 +127,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
     fun with(extraValueKey: String, extraValue: String?): SettingsSubtype {
         val newList = extraValues.split(",")
-            .filterNot { it.startsWith("$extraValueKey=") || it == extraValueKey }
+            .filterNot { it.isBlank() || it.startsWith("$extraValueKey=") || it == extraValueKey }
         val newValue = if (extraValue == null) extraValueKey else "$extraValueKey=$extraValue"
         val newValues = (newList + newValue).joinToString(",")
         return copy(extraValues = newValues)
@@ -135,7 +135,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
     fun without(extraValueKey: String): SettingsSubtype {
         val newValues = extraValues.split(",")
-            .filterNot { it.startsWith("$extraValueKey=") || it == extraValueKey }
+            .filterNot { it.isBlank() || it.startsWith("$extraValueKey=") || it == extraValueKey }
             .joinToString(",")
         return copy(extraValues = newValues)
     }
@@ -174,7 +174,8 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
                 Log.e(SettingsSubtype::class.simpleName, "unknown language, should not happen ${locale}, $languageTag, $extraValue, ${hashCode()}, $nameResId")
             }
             val filteredExtraValue = extraValue.split(",").filterNot {
-                it == ExtraValue.ASCII_CAPABLE
+                it.isBlank()
+                        || it == ExtraValue.ASCII_CAPABLE
                         || it == ExtraValue.EMOJI_CAPABLE
                         || it == ExtraValue.IS_ADDITIONAL_SUBTYPE
                         || it.startsWith(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
