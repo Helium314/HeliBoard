@@ -59,7 +59,7 @@ fun LanguageScreen(
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     var selectedSubtype: String? by rememberSaveable { mutableStateOf(null) }
-    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(prefs)
+    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes()
     SearchScreen(
         onClickBack = onClickBack,
         title = {
@@ -135,7 +135,7 @@ private fun dictsAvailable(locale: Locale, context: Context): Boolean {
 // sorting by display name is still slow, even with the cache... but probably good enough
 private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val systemLocales = SubtypeSettings.getSystemLocales()
-    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(context.prefs(), true)
+    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
     val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(context)?.mapNotNull { dir ->
         if (!dir.isDirectory)
             return@mapNotNull null

@@ -171,7 +171,7 @@ public class RichInputMethodManager {
             if (imi == getInputMethodOfThisIme()) {
                 // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
                 // use it to fall back to system locales or en_US to avoid returning an empty list
-                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
+                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }

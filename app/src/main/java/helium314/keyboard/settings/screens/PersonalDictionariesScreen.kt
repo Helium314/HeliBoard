@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
-import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,14 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.splitOnWhitespace
-import helium314.keyboard.latin.settings.Defaults
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings.getEnabledSubtypes
 import helium314.keyboard.latin.utils.SubtypeSettings.getSystemLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsDestination
@@ -38,7 +34,7 @@ fun PersonalDictionariesScreen(
 ) {
     // todo: consider adding "add word" button like old settings (requires additional navigation parameter, should not be hard)
     val ctx = LocalContext.current
-    val locales: MutableList<Locale?> = getSortedDictionaryLocales(LocalContext.current).toMutableList()
+    val locales: MutableList<Locale?> = getSortedDictionaryLocales().toMutableList()
     locales.add(0, null)
     SearchScreen(
         onClickBack = onClickBack,
@@ -68,23 +64,19 @@ fun PersonalDictionariesScreen(
     )
 }
 
-fun getSortedDictionaryLocales(context: Context): TreeSet<Locale> {
-    val prefs = context.prefs()
-    val localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES)
+fun getSortedDictionaryLocales(): TreeSet<Locale> {
     val sortedLocales = sortedSetOf<Locale>(compareBy { it.toLanguageTag().lowercase() })
 
     // Add the main language selected in the "Language and Layouts" setting except "No language"
-    for (mainSubtype in getEnabledSubtypes(prefs, true)) {
+    for (mainSubtype in getEnabledSubtypes(true)) {
         val mainLocale = mainSubtype.locale()
         if (mainLocale.toLanguageTag() != SubtypeLocaleUtils.NO_LANGUAGE) {
             sortedLocales.add(mainLocale)
         }
-        // Secondary language is added only if main language is selected and if system language is not enabled
-        if (!localeSystemOnly) {
-            val enabled = getEnabledSubtypes(prefs, false)
-            for (subtype in enabled) {
-                if (subtype.locale() == mainLocale) sortedLocales.addAll(getSecondaryLocales(subtype.extraValue))
-            }
+        // Secondary language is added only if main language is selected
+        val enabled = getEnabledSubtypes(false)
+        for (subtype in enabled) {
+            if (subtype.locale() == mainLocale) sortedLocales.addAll(getSecondaryLocales(subtype.extraValue))
         }
     }
 

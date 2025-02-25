@@ -180,9 +180,8 @@ fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
 fun cleanUnusedMainDicts(context: Context) {
     val dictionaryDir = File(DictionaryInfoUtils.getWordListCacheDirectory(context))
     val dirs = dictionaryDir.listFiles() ?: return
-    val prefs = context.prefs()
     val usedLocaleLanguageTags = hashSetOf<String>()
-    SubtypeSettings.getEnabledSubtypes(prefs).forEach { subtype ->
+    SubtypeSettings.getEnabledSubtypes().forEach { subtype ->
         val locale = subtype.locale()
         usedLocaleLanguageTags.add(locale.toLanguageTag())
     }

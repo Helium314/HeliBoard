@@ -23,9 +23,7 @@ import java.util.Locale
 object SubtypeSettings {
     /** @return enabled subtypes. If no subtypes are enabled, but a contextForFallback is provided,
      *  subtypes for system locales will be returned, or en-US if none found. */
-    fun getEnabledSubtypes(prefs: SharedPreferences, fallback: Boolean = false): List<InputMethodSubtype> {
-        if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES))
-            return getDefaultEnabledSubtypes()
+    fun getEnabledSubtypes(fallback: Boolean = false): List<InputMethodSubtype> {
         if (fallback && enabledSubtypes.isEmpty())
             return getDefaultEnabledSubtypes()
         return enabledSubtypes.toList()
@@ -78,17 +76,15 @@ object SubtypeSettings {
             if (selectedAdditionalSubtype != null) return selectedAdditionalSubtype
         }
         // no additional subtype, must be a resource subtype
-        val subtypes = if (prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES)) getDefaultEnabledSubtypes()
-        else enabledSubtypes
 
-        val subtype = subtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
+        val subtype = enabledSubtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
         if (subtype != null) {
             return subtype
         } else {
             Log.w(TAG, "selected subtype $selectedSubtype / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)} not found")
         }
-        if (subtypes.isNotEmpty())
-            return subtypes.first()
+        if (enabledSubtypes.isNotEmpty())
+            return enabledSubtypes.first()
         val defaultSubtypes = getDefaultEnabledSubtypes()
         return defaultSubtypes.firstOrNull { it.locale() == selectedSubtype.locale && it.mainLayoutName() == it.mainLayoutName() }
             ?: defaultSubtypes.firstOrNull { it.locale().language == selectedSubtype.locale.language }

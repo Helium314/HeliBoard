@@ -47,7 +47,7 @@ fun NewDictionaryDialog(
         val ctx = LocalContext.current
         val dictLocale = header.mLocaleString.constructLocale()
         var locale by remember { mutableStateOf(mainLocale ?: dictLocale) }
-        val enabledLanguages = SubtypeSettings.getEnabledSubtypes(ctx.prefs()).map { it.locale().language }
+        val enabledLanguages = SubtypeSettings.getEnabledSubtypes().map { it.locale().language }
         val comparer = compareBy<Locale>({ it != mainLocale }, { it != dictLocale }, { it.language !in enabledLanguages }, { it.script() != dictLocale.script() })
         val locales = SubtypeSettings.getAvailableSubtypeLocales()
             .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }

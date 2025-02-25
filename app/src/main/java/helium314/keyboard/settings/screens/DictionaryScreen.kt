@@ -33,7 +33,6 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.DictionaryDialog
@@ -46,7 +45,7 @@ fun DictionaryScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    val enabledLanguages = SubtypeSettings.getEnabledSubtypes(ctx.prefs(), true).map { it.locale().language }
+    val enabledLanguages = SubtypeSettings.getEnabledSubtypes(true).map { it.locale().language }
     val cachedDictFolders = DictionaryInfoUtils.getCachedDirectoryList(ctx).orEmpty().map { it.name }
     val comparer = compareBy<Locale>({ it.language !in enabledLanguages }, { it.toLanguageTag() !in cachedDictFolders}, { it.displayName })
     val dictionaryLocales = getDictionaryLocales(ctx).sortedWith(comparer).toMutableList()

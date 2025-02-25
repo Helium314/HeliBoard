@@ -51,7 +51,7 @@ fun MainSettingsScreen(
         title = stringResource(R.string.ime_settings),
         settings = emptyList(),
     ) {
-        val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(ctx.prefs(), true)
+        val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
         Column(Modifier.verticalScroll(rememberScrollState())) {
             Preference(
                 name = stringResource(R.string.language_and_layouts_title),

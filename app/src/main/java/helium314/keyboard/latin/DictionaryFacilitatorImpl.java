@@ -10,11 +10,6 @@ import android.Manifest;
 import android.content.Context;
 import android.provider.UserDictionary;
 import android.text.TextUtils;
-
-import helium314.keyboard.latin.common.StringUtilsKt;
-import helium314.keyboard.latin.settings.SettingsValues;
-import helium314.keyboard.latin.utils.KtxKt;
-import helium314.keyboard.latin.utils.Log;
 import android.util.LruCache;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -27,11 +22,15 @@ import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
 import helium314.keyboard.latin.personalization.UserHistoryDictionary;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
 import helium314.keyboard.latin.utils.ExecutorUtils;
+import helium314.keyboard.latin.utils.KtxKt;
+import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 import helium314.keyboard.latin.utils.SuggestionResults;
@@ -352,7 +351,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 addAll(SubtypeUtilsKt.getSecondaryLocales(selected.getExtraValue()));
             } else {
                 // probably we're called from the spell checker when using a different app as keyboard
-                final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(context), false);
+                final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(false);
                 for (InputMethodSubtype subtype : enabled) {
                     if (SubtypeUtilsKt.locale(subtype).equals(newLocale))
                         addAll(SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue()));

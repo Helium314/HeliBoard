@@ -107,22 +107,19 @@ public class UserDictionaryListFragment extends SubScreenFragment {
 
     static TreeSet<Locale> getSortedDictionaryLocales(final Context context) {
         final SharedPreferences prefs = KtxKt.prefs(context);
-        final boolean localeSystemOnly = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, Defaults.PREF_USE_SYSTEM_LOCALES);
         final TreeSet<Locale> sortedLocales = new TreeSet<>(new LocaleComparator());
 
         // Add the main language selected in the "Language and Layouts" setting except "No language"
-        for (InputMethodSubtype mainSubtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(prefs, true)) {
+        for (InputMethodSubtype mainSubtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(true)) {
             final Locale mainLocale = SubtypeUtilsKt.locale(mainSubtype);
             if (!mainLocale.toLanguageTag().equals(SubtypeLocaleUtils.NO_LANGUAGE)) {
                 sortedLocales.add(mainLocale);
             }
             // Secondary language is added only if main language is selected and if system language is not enabled
-            if (!localeSystemOnly) {
-                final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(prefs, false);
-                for (InputMethodSubtype subtype : enabled) {
-                    if (SubtypeUtilsKt.locale(subtype).equals(mainLocale))
-                        sortedLocales.addAll(SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue()));
-                }
+            final List<InputMethodSubtype> enabled = SubtypeSettings.INSTANCE.getEnabledSubtypes(false);
+            for (InputMethodSubtype subtype : enabled) {
+                if (SubtypeUtilsKt.locale(subtype).equals(mainLocale))
+                    sortedLocales.addAll(SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue()));
             }
         }
 

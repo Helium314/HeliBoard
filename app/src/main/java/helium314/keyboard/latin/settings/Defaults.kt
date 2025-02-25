@@ -135,7 +135,6 @@ object Defaults {
     const val PREF_NARROW_KEY_GAPS = false
     const val PREF_ENABLED_SUBTYPES = ""
     const val PREF_SELECTED_SUBTYPE = ""
-    const val PREF_USE_SYSTEM_LOCALES = true
     const val PREF_URL_DETECTION = false
     const val PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = false
     const val PREF_QUICK_PIN_TOOLBAR_KEYS = false

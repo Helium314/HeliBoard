@@ -467,7 +467,7 @@ fun checkVersionUpgrade(context: Context) {
         prefs.all.keys.toList().forEach { key ->
             if (key.startsWith(Settings.PREF_POPUP_KEYS_ORDER+"_")) {
                 val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_ORDER+"_").constructLocale()
-                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                SubtypeSettings.getEnabledSubtypes().forEach {
                     if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
                         SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
                     }
@@ -483,7 +483,7 @@ fun checkVersionUpgrade(context: Context) {
             }
             if (key.startsWith(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_")) {
                 val locale = key.substringAfter(Settings.PREF_POPUP_KEYS_LABELS_ORDER+"_").constructLocale()
-                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                SubtypeSettings.getEnabledSubtypes().forEach {
                     if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
                         SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
                     }
@@ -499,7 +499,7 @@ fun checkVersionUpgrade(context: Context) {
             }
             if (key.startsWith("secondary_locales_")) {
                 val locale = key.substringAfter("secondary_locales_").constructLocale()
-                SubtypeSettings.getEnabledSubtypes(prefs).forEach {
+                SubtypeSettings.getEnabledSubtypes().forEach {
                     if (it.locale() == locale && !SubtypeSettings.isAdditionalSubtype(it)) {
                         SubtypeUtilsAdditional.changeAdditionalSubtype(it.toSettingsSubtype(), it.toSettingsSubtype(), context)
                     }

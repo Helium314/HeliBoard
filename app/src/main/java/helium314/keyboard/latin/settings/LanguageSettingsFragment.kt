@@ -58,18 +58,17 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
 
         SubtypeLocaleUtils.init(requireContext())
 
-        enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes(prefs))
+        enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes())
         systemLocales.addAll(SubtypeSettings.getSystemLocales())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState) ?: return null
         systemOnlySwitch = view.findViewById(R.id.language_switch)
-        systemOnlySwitch.isChecked = prefs.getBoolean(Settings.PREF_USE_SYSTEM_LOCALES, true)
+        systemOnlySwitch.isChecked = false
         systemOnlySwitch.setOnCheckedChangeListener { _, b ->
-            prefs.edit { putBoolean(Settings.PREF_USE_SYSTEM_LOCALES, b) }
             enabledSubtypes.clear()
-            enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes(prefs))
+            enabledSubtypes.addAll(SubtypeSettings.getEnabledSubtypes())
             loadSubtypes(b)
         }
         languageFilterList = LanguageFilterList(view.findViewById(R.id.search_field), view.findViewById(R.id.language_list))

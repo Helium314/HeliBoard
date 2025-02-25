@@ -156,7 +156,7 @@ fun PersonalDictionaryScreen(
                     ) {
                         Text(stringResource(R.string.user_dict_settings_add_locale_option_name), Modifier.fillMaxWidth(0.3f))
                         DropDownField(
-                            items = getSpecificallySortedLocales(ctx, locale),
+                            items = getSpecificallySortedLocales(locale),
                             selectedItem = newLocale,
                             onSelected = { newLocale = it },
                         ) {
@@ -230,8 +230,8 @@ private fun doesWordExist(word: String, locale: Locale?, context: Context): Bool
     }
 }
 
-private fun getSpecificallySortedLocales(context: Context, firstLocale: Locale?): List<Locale?> {
-    val list: MutableList<Locale?> = getSortedDictionaryLocales(context).toMutableList()
+private fun getSpecificallySortedLocales(firstLocale: Locale?): List<Locale?> {
+    val list: MutableList<Locale?> = getSortedDictionaryLocales().toMutableList()
     list.remove(firstLocale)
     list.remove(null)
     list.add(0, firstLocale)

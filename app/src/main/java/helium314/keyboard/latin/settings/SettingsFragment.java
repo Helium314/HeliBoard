@@ -80,7 +80,7 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private String getEnabledSubtypesLabel() {
-        final List<InputMethodSubtype> subtypes = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(getActivity()), true);
+        final List<InputMethodSubtype> subtypes = SubtypeSettings.INSTANCE.getEnabledSubtypes(true);
         final StringBuilder sb = new StringBuilder();
         for (final InputMethodSubtype subtype : subtypes) {
             if (sb.length() > 0)
