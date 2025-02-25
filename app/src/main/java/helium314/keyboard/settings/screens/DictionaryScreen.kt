@@ -20,12 +20,12 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
-import helium314.keyboard.latin.utils.DICTIONARY_URL
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -102,7 +102,7 @@ fun DictionaryScreen(
                 val addDictString = stringResource(R.string.add_dictionary)
                 val annotated = buildAnnotatedString {
                     append(addDictString.substringBefore("%s"))
-                    appendLink(stringResource(R.string.dictionary_link_text), DICTIONARY_URL)
+                    appendLink(stringResource(R.string.dictionary_link_text), Links.DICTIONARY_URL)
                     append(addDictString.substringAfter("%s"))
                 }
                 Text(annotated)

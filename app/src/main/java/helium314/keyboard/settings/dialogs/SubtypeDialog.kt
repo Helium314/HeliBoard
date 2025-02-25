@@ -45,6 +45,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.morePopupKeysResId
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.settings.Defaults
@@ -380,10 +381,15 @@ private fun MainLayoutRow(
             // layoutString contains "%s" since we didn't supply a formatArg
             val layoutString = stringResource(R.string.message_add_custom_layout)
             val linkText = stringResource(R.string.dictionary_link_text)
+            val discussionSectionText = stringResource(R.string.get_layouts_message)
             val annotated = buildAnnotatedString {
                 append(layoutString.substringBefore("%s"))
-                appendLink(linkText, LAYOUT_FORMAT_URL)
+                appendLink(linkText, Links.LAYOUT_FORMAT_URL)
                 append(layoutString.substringAfter("%s"))
+                appendLine()
+                append(discussionSectionText.substringBefore("%s"))
+                appendLink(stringResource(R.string.discussion_section_link), Links.CUSTOM_LAYOUTS)
+                append(discussionSectionText.substringAfter("%s"))
             }
 
             ConfirmationDialog(
@@ -460,5 +466,3 @@ fun <T>DropDownField(
 
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): List<Locale> =
     getDictionaryLocales(context).filter { it != mainLocale && it.script() == mainLocale.script() }
-
-private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md"

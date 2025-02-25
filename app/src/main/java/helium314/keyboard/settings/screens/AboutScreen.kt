@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.Log
@@ -93,7 +94,7 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard/blob/main/LICENSE-GPL-3".toUri()
+                intent.data = Links.LICENSE.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
@@ -131,7 +132,7 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard".toUri()
+                intent.data = Links.GITHUB.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },

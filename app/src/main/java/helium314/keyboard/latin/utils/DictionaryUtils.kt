@@ -16,6 +16,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.core.content.edit
 import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Defaults
@@ -50,8 +51,8 @@ fun showMissingDictionaryDialog(context: Context, locale: Locale) {
     if (prefs.getBoolean(Settings.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG, Defaults.PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG)
         || locale.toString() == SubtypeLocaleUtils.NO_LANGUAGE)
         return
-    val repositoryLink = "<a href='$DICTIONARY_URL'>" + context.getString(R.string.dictionary_link_text) + "</a>"
-    val dictionaryLink = "<a href='$DICTIONARY_URL/src/branch/main/dictionaries/main_$locale.dict'>" + context.getString(
+    val repositoryLink = "<a href='${Links.DICTIONARY_URL}'>" + context.getString(R.string.dictionary_link_text) + "</a>"
+    val dictionaryLink = "<a href='${Links.DICTIONARY_URL}/src/branch/main/dictionaries/main_$locale.dict'>" + context.getString(
         R.string.dictionary_link_text) + "</a>"
     val startMessage = context.getString( // todo: now with the available dicts csv, is the full text still necessary?
         R.string.no_dictionary_message,
@@ -88,8 +89,8 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
         val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
         val dictString = if (experimental.isEmpty()) rawDictString
         else context.getString(R.string.available_dictionary_experimental, rawDictString)
-        val dictBaseUrl = DICTIONARY_URL + DICTIONARY_DOWNLOAD_SUFFIX +
-                if (experimental.isEmpty()) DICTIONARY_NORMAL_SUFFIX else DICTIONARY_EXPERIMENTAL_SUFFIX
+        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX +
+                if (experimental.isEmpty()) Links.DICTIONARY_NORMAL_SUFFIX else Links.DICTIONARY_EXPERIMENTAL_SUFFIX
         val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
         val fullText = "<li><a href='$dictLink'>$dictString</a></li>"
         knownDicts.add(fullText)
@@ -109,7 +110,7 @@ fun createDictionaryTextHtml(message: String, locale: Locale, context: Context):
 fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
     val prefs = LocalContext.current.prefs()
     val availableDicts = createDictionaryTextAnnotated(locale)
-    val dictLink = "$DICTIONARY_URL/src/branch/main/dictionaries/main_$locale.dict"
+    val dictLink = "${Links.DICTIONARY_URL}/src/branch/main/dictionaries/main_$locale.dict"
     val message = stringResource(R.string.no_dictionary_message, "§repl1§", locale.toString(), "§repl2§")
         .replace("<br>", "\n") // compose doesn't understand html... // todo: modify the string?
 
@@ -120,7 +121,7 @@ fun MissingDictionaryDialog(onDismissRequest: () -> Unit, locale: Locale) {
 
     val annotatedString = buildAnnotatedString {
         append(part1)
-        appendLink(stringResource(R.string.dictionary_link_text), DICTIONARY_URL)
+        appendLink(stringResource(R.string.dictionary_link_text), Links.DICTIONARY_URL)
         append(part2)
         appendLink(stringResource(R.string.dictionary_link_text), dictLink)
         append(part3)
@@ -158,8 +159,8 @@ fun createDictionaryTextAnnotated(locale: Locale): AnnotatedString {
         val rawDictString = "$type: ${dictLocale.getDisplayName(context.resources.configuration.locale())}"
         val dictString = if (experimental.isEmpty()) rawDictString
         else context.getString(R.string.available_dictionary_experimental, rawDictString)
-        val dictBaseUrl = DICTIONARY_URL + DICTIONARY_DOWNLOAD_SUFFIX +
-                if (experimental.isEmpty()) DICTIONARY_NORMAL_SUFFIX else DICTIONARY_EXPERIMENTAL_SUFFIX
+        val dictBaseUrl = Links.DICTIONARY_URL + Links.DICTIONARY_DOWNLOAD_SUFFIX +
+                if (experimental.isEmpty()) Links.DICTIONARY_NORMAL_SUFFIX else Links.DICTIONARY_EXPERIMENTAL_SUFFIX
         val dictLink = dictBaseUrl + type + "_" + localeString.lowercase() + ".dict"
         knownDicts.add(dictString to dictLink)
     }
@@ -195,8 +196,3 @@ fun cleanUnusedMainDicts(context: Context) {
 
 private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
     dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
-
-const val DICTIONARY_URL = "https://codeberg.org/Helium314/aosp-dictionaries"
-const val DICTIONARY_DOWNLOAD_SUFFIX = "/src/branch/main/"
-const val DICTIONARY_NORMAL_SUFFIX = "dictionaries/"
-const val DICTIONARY_EXPERIMENTAL_SUFFIX = "dictionaries_experimental/"

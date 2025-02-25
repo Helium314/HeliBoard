@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,9 +41,11 @@ import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
@@ -132,6 +135,15 @@ fun ColorThemePickerDialog(
         ConfirmationDialog(
             onDismissRequest = { showLoadDialog = false },
             title = { Text(stringResource(R.string.load)) },
+            content = {
+                val text = stringResource(R.string.get_colors_message)
+                val annotated = buildAnnotatedString {
+                    append(text.substringBefore("%s"))
+                    appendLink(stringResource(R.string.discussion_section_link), Links.CUSTOM_COLORS)
+                    append(text.substringAfter("%s"))
+                }
+                Text(annotated)
+            },
             onConfirmed = {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)

@@ -22,6 +22,8 @@ import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links.DICTIONARY_URL
+import helium314.keyboard.latin.common.Links.LAYOUT_FORMAT_URL
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.databinding.LanguageListItemBinding
@@ -425,4 +427,3 @@ private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale, a
     return locales
 }
 
-private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md"
