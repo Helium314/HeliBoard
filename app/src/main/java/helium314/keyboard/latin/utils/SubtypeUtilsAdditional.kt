@@ -20,9 +20,6 @@ object SubtypeUtilsAdditional {
         return subtype.containsExtraValueKey(ExtraValue.IS_ADDITIONAL_SUBTYPE)
     }
 
-    // todo: extra value does not contain UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME for custom layout
-    //  it did contain that key in 2.3, but where was it set? anyway, need to be careful with separators if we want to use it
-    //  see also todo in SettingsSubtype
     fun createAdditionalSubtype(locale: Locale, extraValue: String, isAsciiCapable: Boolean,
                                         isEmojiCapable: Boolean): InputMethodSubtype {
         val mainLayoutName = LayoutType.getMainLayoutFromExtraValue(extraValue) ?: "qwerty"
@@ -157,6 +154,10 @@ object SubtypeUtilsAdditional {
         if (isAsciiCapable)
             extraValueItems.add(ExtraValue.ASCII_CAPABLE)
         if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
+            // this seems to be for shorter names (e.g. English (US) instead English (United States))
+            // but is now also used for languages that are not known by Android (at least older versions)
+            // todo: actually this should never contain a custom layout name, because it may contain any
+            //  characters including , and = which may break extra values
             extraValueItems.add(
                 ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" + SubtypeLocaleUtils.getMainLayoutDisplayName(mainLayoutName)
             )

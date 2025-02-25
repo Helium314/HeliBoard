@@ -177,12 +177,6 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
                 it == ExtraValue.ASCII_CAPABLE
                         || it == ExtraValue.EMOJI_CAPABLE
                         || it == ExtraValue.IS_ADDITIONAL_SUBTYPE
-                // todo: UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME is in "old" additional subtypes, but where was it set?
-                //  must have been done by 2.3, can't find it being done explicitly
-                //  anyway, a. we can easily create it again, and b. it may contain "bad" characters messing up the extra value
-                //  see also todo at createAdditionalSubtype
-                // removing UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME changes the name of some layouts,
-                // e.g. from "English (United States)" to "English (US)"
                         || it.startsWith(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
             }.joinToString(",")
             require(!filteredExtraValue.contains(Separators.SETS) && !filteredExtraValue.contains(Separators.SET))
