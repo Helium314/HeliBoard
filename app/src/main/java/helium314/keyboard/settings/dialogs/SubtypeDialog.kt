@@ -82,13 +82,15 @@ fun SubtypeDialog(
     initialSubtype: SettingsSubtype,
     onConfirmed: (SettingsSubtype) -> Unit,
 ) {
-    // todo: make sure the values are always correct (e.g. if using rememberSaveable and rotating)
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    var currentSubtype by remember { mutableStateOf(initialSubtype) }
+    var currentSubtypeString by rememberSaveable { mutableStateOf(initialSubtype.toPref()) }
+    val currentSubtype = currentSubtypeString.toSettingsSubtype()
+    fun setCurrentSubtype(subtype: SettingsSubtype) { currentSubtypeString = subtype.toPref() }
+
     val availableLocalesForScript = getAvailableSecondaryLocales(ctx, currentSubtype.locale).sortedBy { it.toLanguageTag() }
     var showSecondaryLocaleDialog by remember { mutableStateOf(false) }
     var showKeyOrderDialog by remember { mutableStateOf(false) }
@@ -114,7 +116,7 @@ fun SubtypeDialog(
                 modifier = Modifier.verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                MainLayoutRow(initialSubtype, currentSubtype, customMainLayouts) { currentSubtype = it }
+                MainLayoutRow(initialSubtype, currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
                 if (availableLocalesForScript.size > 1) {
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
@@ -129,14 +131,14 @@ fun SubtypeDialog(
                     TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
                     { Text(stringResource(R.string.popup_order), style = MaterialTheme.typography.bodyLarge) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
-                        currentSubtype = currentSubtype.without(ExtraValue.POPUP_ORDER)
+                        setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
                     }
                 }
                 Row {
                     TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
                     { Text(stringResource(R.string.hint_source), style = MaterialTheme.typography.bodyLarge) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
-                        currentSubtype = currentSubtype.without(ExtraValue.HINT_ORDER)
+                        setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
                     }
                 }
                 if (currentSubtype.locale.script() == SCRIPT_LATIN) {
@@ -147,7 +149,7 @@ fun SubtypeDialog(
                             TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
                             { Text(stringResource(morePopupKeysResId(value))) }
                             DefaultButton(explicitValue == null) {
-                                currentSubtype = currentSubtype.without(ExtraValue.MORE_POPUPS)
+                                setCurrentSubtype(currentSubtype.without(ExtraValue.MORE_POPUPS))
                             }
                         }
                     }
@@ -159,11 +161,11 @@ fun SubtypeDialog(
                         Switch(
                             checked = checked ?: prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, Defaults.PREF_LOCALIZED_NUMBER_ROW),
                             onCheckedChange = {
-                                currentSubtype = currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString())
+                                setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
                             }
                         )
                         DefaultButton(checked == null) {
-                            currentSubtype = currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW)
+                            setCurrentSubtype(currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW))
                         }
                     }
                 }
@@ -180,10 +182,10 @@ fun SubtypeDialog(
                             items = defaultLayouts + customLayouts,
                             selectedItem = layout,
                             onSelected = {
-                                currentSubtype = currentSubtype.withLayout(type, it)
+                                setCurrentSubtype(currentSubtype.withLayout(type, it))
                             },
                             extraButton = { DefaultButton(explicitLayout == null) {
-                                currentSubtype = currentSubtype.withoutLayout(type)
+                                setCurrentSubtype(currentSubtype.withoutLayout(type))
                             } },
                         ) {
                             val displayName = if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
@@ -215,8 +217,10 @@ fun SubtypeDialog(
             onDismissRequest = { showSecondaryLocaleDialog = false },
             onConfirmed = { locales ->
                 val newValue = locales.joinToString(Separators.KV) { it.toLanguageTag() }
-                currentSubtype = if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
-                else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
+                setCurrentSubtype(
+                    if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
+                    else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
+                )
             },
             title = { Text(stringResource(R.string.locales_with_dict)) },
             items = availableLocalesForScript,
@@ -232,8 +236,10 @@ fun SubtypeDialog(
             title = stringResource(R.string.popup_order),
             showDefault = setting != null,
             onConfirmed = {
-                currentSubtype = if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
+                setCurrentSubtype(
+                    if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
                     else currentSubtype.with(ExtraValue.POPUP_ORDER, it)
+                )
             }
         )
     }
@@ -245,8 +251,10 @@ fun SubtypeDialog(
             title = stringResource(R.string.hint_source),
             showDefault = setting != null,
             onConfirmed = {
-                currentSubtype = if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
+                setCurrentSubtype(
+                    if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
                     else currentSubtype.with(ExtraValue.HINT_ORDER, it)
+                )
             }
         )
     }
@@ -259,7 +267,7 @@ fun SubtypeDialog(
             items = items,
             getItemName = { stringResource(morePopupKeysResId(it)) },
             selectedItem = value,
-            onItemSelected = { currentSubtype = currentSubtype.with(ExtraValue.MORE_POPUPS, it) }
+            onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
         )
     }
 }
