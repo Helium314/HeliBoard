@@ -16,6 +16,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -308,6 +309,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
+    }
+
+    public static int readDefaultKeyLongpressTimeout() {
+        final int default_longpress_key_timeout = ViewConfiguration.getLongPressTimeout();
+        return default_longpress_key_timeout;
     }
 
     public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {

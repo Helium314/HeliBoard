@@ -505,9 +505,9 @@ class AdvancedSettingsFragment : SubScreenFragment() {
 
             override fun writeDefaultValue(key: String) = prefs.edit().remove(key).apply()
 
-            override fun readValue(key: String) = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Defaults.PREF_KEY_LONGPRESS_TIMEOUT)
+            override fun readValue(key: String) = prefs.getInt(Settings.PREF_KEY_LONGPRESS_TIMEOUT, Settings.readDefaultKeyLongpressTimeout())
 
-            override fun readDefaultValue(key: String) = 300
+            override fun readDefaultValue(key: String) = Settings.readDefaultKeyLongpressTimeout()
 
             override fun getValueText(value: Int) =
                 resources.getString(R.string.abbreviation_unit_milliseconds, value.toString())
