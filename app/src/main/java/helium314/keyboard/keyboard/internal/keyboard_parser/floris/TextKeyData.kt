@@ -301,6 +301,8 @@ sealed interface KeyData : AbstractKeyData {
     // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
     fun getPopupLabel(params: KeyboardParams): String {
         val newLabel = processLabel(params)
+        if (newLabel == "!")
+            Log.w("test", "code $code, newCode ${processCode()}")
         if (code == KeyCode.UNSPECIFIED) {
             if (newLabel == label) return label
             val newCode = processCode()
@@ -315,10 +317,13 @@ sealed interface KeyData : AbstractKeyData {
                 return "${newLabel.substringBefore("|")}|${StringUtils.newSingleCodePointString(code)}"
             }
             return "$newLabel|${StringUtils.newSingleCodePointString(code)}"
-
         }
         if (code in KeyCode.Spec.CURRENCY) {
             return getCurrencyLabel(params)
+        }
+        if (code == KeyCode.MULTIPLE_CODE_POINTS && this is MultiTextKeyData) {
+            val outputText = String(codePoints, 0, codePoints.size)
+            return "${newLabel}|$outputText"
         }
         return if (newLabel.endsWith("|")) "$newLabel!code/${processCode()}" // for toolbar keys
         else "$newLabel|!code/${processCode()}"
