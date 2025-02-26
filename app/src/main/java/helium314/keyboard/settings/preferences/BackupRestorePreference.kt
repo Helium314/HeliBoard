@@ -44,6 +44,9 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileInputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -192,12 +195,13 @@ fun BackupRestorePreference(setting: Setting) {
                 restoreLauncher.launch(intent)
             },
             onConfirmed = {
+                val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_backup.zip"
+                            .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
                     .setType("application/zip")
                 backupLauncher.launch(intent)
