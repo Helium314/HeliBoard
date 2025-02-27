@@ -31,7 +31,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -116,7 +115,8 @@ fun ColorsScreen(
         else color ?: KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
 
     var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
-    var chosenColor: ColorSetting? by remember { mutableStateOf(null) }
+    var chosenColorString: String by rememberSaveable { mutableStateOf("") }
+    val chosenColor = runCatching { Json.decodeFromString<ColorSetting?>(chosenColorString) }.getOrNull()
     val saveLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
         val uri = it.data?.data ?: return@rememberLauncherForActivityResult
@@ -174,7 +174,7 @@ fun ColorsScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .clickable { chosenColor = colorSetting }
+                        .clickable { chosenColorString = Json.encodeToString(colorSetting) }
                 ) {
                     Spacer(
                         modifier = Modifier
@@ -204,19 +204,18 @@ fun ColorsScreen(
         }
     )
     if (chosenColor != null) {
-        val color = chosenColor!!
         ColorPickerDialog(
-            onDismissRequest = { chosenColor = null },
-            initialColor = color.displayColor(),
-            title = color.displayName,
+            onDismissRequest = { chosenColorString = "" },
+            initialColor = chosenColor.displayColor(),
+            title = chosenColor.displayName,
         ) {
             if (moreColors == 2) {
                 val oldColors = KeyboardTheme.readUserAllColors(prefs, themeName)
-                oldColors[ColorType.valueOf(color.name)] = it
+                oldColors[ColorType.valueOf(chosenColor.name)] = it
                 KeyboardTheme.writeUserAllColors(prefs, themeName, oldColors)
             } else {
                 val oldUserColors = KeyboardTheme.readUserColors(prefs, themeName)
-                val newUserColors = (oldUserColors + ColorSetting(color.name, false, it))
+                val newUserColors = (oldUserColors + ColorSetting(chosenColor.name, false, it))
                     .reversed().distinctBy { it.displayName }
                 KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
             }

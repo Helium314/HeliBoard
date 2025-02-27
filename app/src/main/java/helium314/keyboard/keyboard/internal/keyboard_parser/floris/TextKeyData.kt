@@ -301,8 +301,6 @@ sealed interface KeyData : AbstractKeyData {
     // idea: directly create PopupKeySpec, but need to deal with needsToUpcase and popupKeysColumnAndFlags
     fun getPopupLabel(params: KeyboardParams): String {
         val newLabel = processLabel(params)
-        if (newLabel == "!")
-            Log.w("test", "code $code, newCode ${processCode()}")
         if (code == KeyCode.UNSPECIFIED) {
             if (newLabel == label) return label
             val newCode = processCode()
