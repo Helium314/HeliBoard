@@ -127,7 +127,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                 || mCurrentOrientation != res.getConfiguration().orientation
                 || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 || !mThemeContext.getResources().equals(res)
-                || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
+                || Settings.getValues().mColors.haveColorsChanged(context)) {
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
             mCurrentUiMode = res.getConfiguration().uiMode;
@@ -193,7 +193,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
-        final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
+        final SettingsValues currentSettingsValues = Settings.getValues();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
         // TODO: pass this object to setKeyboard instead of getting the current values.
         final MainKeyboardView keyboardView = mKeyboardView;
@@ -519,7 +519,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void reloadKeyboard() {
         if (mCurrentInputView != null)
-            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getInstance().getCurrent(),
+            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                     mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
 

@@ -220,9 +220,9 @@ public final class KeyboardLayoutSet {
         public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
             final Builder builder = new Builder(context, ei);
             builder.mParams.mMode = KeyboardId.MODE_TEXT;
-            final int width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().getCurrent());
+            final int width = ResourceUtils.getKeyboardWidth(context, Settings.getValues());
             // actually the keyboard does not have full height, but at this point we use it to get correct key heights
-            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getValues());
             builder.setKeyboardGeometry(width, height);
             builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
             return builder.build();

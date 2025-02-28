@@ -118,7 +118,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
         // Otherwise, if the relevant setting is enabled, show the typed word in the middle.
         val indexOfTypedWord = if (hasAutoCorrection) 2 else 1
-        if ((hasAutoCorrection || Settings.getInstance().current.mCenterSuggestionTextToEnter)
+        if ((hasAutoCorrection || Settings.getValues().mCenterSuggestionTextToEnter)
             && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(typedWordString)) {
             if (typedWordFirstOccurrenceWordInfo != null) {
                 if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString)
@@ -153,7 +153,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             else typedWordString
         val firstAndTypedEmptyInfos by lazy { getEmptyWordSuggestions() }
 
-        val scoreLimit = Settings.getInstance().current.mScoreLimitForAutocorrect
+        val scoreLimit = Settings.getValues().mScoreLimitForAutocorrect
         // We allow auto-correction if whitelisting is not required or the word is whitelisted,
         // or if the word had more than one char and was not suggested.
         val allowsToBeAutoCorrected: Boolean
@@ -344,7 +344,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         suggestionsContainer: ArrayList<SuggestedWordInfo>,
         nextWordSuggestions: SuggestionResults, rejected: SuggestedWordInfo?
     ): SuggestedWordInfo? {
-        if (pseudoTypedWordInfo == null || !Settings.getInstance().current.mUsePersonalizedDicts
+        if (pseudoTypedWordInfo == null || !Settings.getValues().mUsePersonalizedDicts
             || pseudoTypedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_MAIN || suggestionsContainer.size < 2
         ) return pseudoTypedWordInfo
         nextWordSuggestions.removeAll { info: SuggestedWordInfo -> info.mScore < 170 } // we only want reasonably often typed words, value may require tuning

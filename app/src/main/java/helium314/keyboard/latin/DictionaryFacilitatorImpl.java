@@ -569,7 +569,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
         // add word to user dictionary if it is in no other dictionary except user history dictionary,
         // reasoning: typing the same word again -> we probably want it in some dictionary permanently
-        final SettingsValues sv = Settings.getInstance().getCurrent();
+        final SettingsValues sv = Settings.getValues();
         if (sv.mAddToPersonalDictionary // require the setting
                 && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/Helium314/HeliBoard/issues/427#issuecomment-1905438000
                 && mDictionaryGroups.get(0).hasDict(Dictionary.TYPE_USER_HISTORY, mDictionaryGroups.get(0).mAccount) // require personalized suggestions

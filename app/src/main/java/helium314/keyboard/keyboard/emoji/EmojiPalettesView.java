@@ -85,12 +85,12 @@ public final class EmojiPalettesView extends LinearLayout
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        mColors = Settings.getInstance().getCurrent().mColors;
+        mColors = Settings.getValues().mColors;
         final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, null);
         final Resources res = context.getResources();
         mEmojiLayoutParams = new EmojiLayoutParams(res);
         builder.setSubtype(RichInputMethodSubtype.Companion.getEmojiSubtype());
-        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(context, Settings.getInstance().getCurrent()),
+        builder.setKeyboardGeometry(ResourceUtils.getKeyboardWidth(context, Settings.getValues()),
                 mEmojiLayoutParams.getEmojiKeyboardHeight());
         final KeyboardLayoutSet layoutSet = builder.build();
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
@@ -113,9 +113,9 @@ public final class EmojiPalettesView extends LinearLayout
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final Resources res = getContext().getResources();
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        final int width = ResourceUtils.getKeyboardWidth(getContext(), Settings.getInstance().getCurrent())
+        final int width = ResourceUtils.getKeyboardWidth(getContext(), Settings.getValues())
                 + getPaddingLeft() + getPaddingRight();
-        final int height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().getCurrent())
+        final int height = ResourceUtils.getKeyboardHeight(res, Settings.getValues())
                 + getPaddingTop() + getPaddingBottom();
         mEmojiCategoryPageIndicatorView.mWidth = width;
         setMeasuredDimension(width, height);
@@ -252,7 +252,7 @@ public final class EmojiPalettesView extends LinearLayout
             mKeyboardActionListener.onCodeInput(code, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
         }
         mKeyboardActionListener.onReleaseKey(code, false);
-        if (Settings.getInstance().getCurrent().mAlphaAfterEmojiInEmojiView)
+        if (Settings.getValues().mAlphaAfterEmojiInEmojiView)
             mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
     }
 
@@ -286,7 +286,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     private void setupSidePadding() {
-        final SettingsValues sv = Settings.getInstance().getCurrent();
+        final SettingsValues sv = Settings.getValues();
         final int keyboardWidth = ResourceUtils.getKeyboardWidth(getContext(), sv);
         final TypedArray keyboardAttr = getContext().obtainStyledAttributes(
                 null, R.styleable.Keyboard, R.attr.keyboardStyle, R.style.Keyboard);
@@ -352,9 +352,9 @@ public final class EmojiPalettesView extends LinearLayout
         final View current = mTabStrip.findViewWithTag((long) categoryId);
 
         if (old instanceof ImageView)
-            Settings.getInstance().getCurrent().mColors.setColor((ImageView) old, ColorType.EMOJI_CATEGORY);
+            Settings.getValues().mColors.setColor((ImageView) old, ColorType.EMOJI_CATEGORY);
         if (current instanceof ImageView)
-            Settings.getInstance().getCurrent().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
+            Settings.getValues().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
     }
 
     public void clearKeyboardCache() {

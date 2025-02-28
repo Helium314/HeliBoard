@@ -361,9 +361,9 @@ public class RichInputMethodManager {
 
     public static boolean canSwitchLanguage() {
         if (!isInitialized()) return false;
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
+        if (Settings.getValues().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
             return true;
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
+        if (Settings.getValues().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
             return true;
         return false;
     }

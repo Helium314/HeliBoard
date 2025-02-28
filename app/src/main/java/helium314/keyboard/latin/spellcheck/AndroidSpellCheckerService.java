@@ -189,7 +189,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     }
 
     private Keyboard createKeyboardForLocale(final Locale locale) {
-        if (Settings.getInstance().getCurrent() == null) {
+        if (Settings.getValues() == null) {
             // creating a keyboard reads SettingsValues from Settings instance
             // maybe it would be "more correct" to create an instance of SettingsValues and use that one instead
             // but creating a global one if not existing should be fine too

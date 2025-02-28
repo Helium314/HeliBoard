@@ -46,8 +46,8 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
         private static final char[] TEXT_HEIGHT_REFERENCE_CHAR = { 'M' };
 
         public GesturePreviewTextParams(final TypedArray mainKeyboardViewAttr) {
-            final Colors colors = Settings.getInstance().getCurrent().mColors;
-            mGesturePreviewDynamic = Settings.getInstance().getCurrent().mGestureFloatingPreviewDynamicEnabled;
+            final Colors colors = Settings.getValues().mColors;
+            mGesturePreviewDynamic = Settings.getValues().mGestureFloatingPreviewDynamicEnabled;
             mGesturePreviewTextSize = mainKeyboardViewAttr.getDimensionPixelSize(
                     R.styleable.MainKeyboardView_gestureFloatingPreviewTextSize, 0);
             mGesturePreviewTextColor = colors.get(ColorType.KEY_TEXT);

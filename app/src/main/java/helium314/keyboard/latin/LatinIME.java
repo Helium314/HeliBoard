@@ -954,7 +954,7 @@ public class LatinIME extends InputMethodService implements
         final boolean isDifferentTextField = !restarting || inputTypeChanged;
 
         StatsUtils.onStartInputView(editorInfo.inputType,
-                Settings.getInstance().getCurrent().mDisplayOrientation,
+                Settings.getValues().mDisplayOrientation,
                 !isDifferentTextField);
 
         // The EditorInfo might have a flag that affects fullscreen mode.

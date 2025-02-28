@@ -60,7 +60,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Settings.getInstance().current == null) {
+        if (Settings.getValues() == null) {
             val inputAttributes = InputAttributes(EditorInfo(), false, packageName)
             Settings.getInstance().loadSettings(this, resources.configuration.locale(), inputAttributes)
         }

@@ -48,7 +48,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
         if (id.isEmojiKeyboard) {
             mParams.mAllowRedundantPopupKeys = true
             readAttributes(R.xml.kbd_emoji)
-            keysInRows = EmojiParser(mParams, mContext, Settings.getInstance().current.mEmojiMaxSdk).parse()
+            keysInRows = EmojiParser(mParams, mContext, Settings.getValues().mEmojiMaxSdk).parse()
         } else {
             try {
                 setupParams()
@@ -65,7 +65,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun setupParams() {
-        val sv = Settings.getInstance().current
+        val sv = Settings.getValues()
         mParams.mAllowRedundantPopupKeys = !sv.mRemoveRedundantPopups
         mParams.mProximityCharsCorrectionEnabled = mParams.mId.mElementId == KeyboardId.ELEMENT_ALPHABET
                 || (mParams.mId.isAlphabetKeyboard && !mParams.mId.mSubtype.hasExtraValue(Constants.Subtype.ExtraValue.NO_SHIFT_PROXIMITY_CORRECTION))
@@ -126,7 +126,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
     }
 
     private fun addSplit() {
-        val spacerRelativeWidth = Settings.getInstance().current.mSplitKeyboardSpacerRelativeWidth
+        val spacerRelativeWidth = Settings.getValues().mSplitKeyboardSpacerRelativeWidth
         // adjust gaps for the whole keyboard, so it's the same for all rows
         mParams.mRelativeHorizontalGap *= 1f / (1f + spacerRelativeWidth)
         mParams.mHorizontalGap = (mParams.mRelativeHorizontalGap * mParams.mId.mWidth).toInt()

@@ -36,7 +36,7 @@ final class GestureTrailDrawingParams {
     public final int mTrailLingerDuration;
 
     public GestureTrailDrawingParams(final TypedArray mainKeyboardViewAttr) {
-        mTrailColor = Settings.getInstance().getCurrent().mColors.get(ColorType.GESTURE_TRAIL);
+        mTrailColor = Settings.getValues().mColors.get(ColorType.GESTURE_TRAIL);
         mTrailStartWidth = mainKeyboardViewAttr.getDimension(
                 R.styleable.MainKeyboardView_gestureTrailStartWidth, 0.0f);
         mTrailEndWidth = mainKeyboardViewAttr.getDimension(
@@ -55,7 +55,7 @@ final class GestureTrailDrawingParams {
                         R.styleable.MainKeyboardView_gestureTrailFadeoutStartDelay, 0);
         mFadeoutDuration = GestureTrailDrawingPoints.DEBUG_SHOW_POINTS
                 ? FADEOUT_DURATION_FOR_DEBUG
-                : Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
+                : Settings.getValues().mGestureTrailFadeoutDuration;
         mTrailLingerDuration = mFadeoutStartDelay + mFadeoutDuration;
         mUpdateInterval = mainKeyboardViewAttr.getInt(
                 R.styleable.MainKeyboardView_gestureTrailUpdateInterval, 0);
