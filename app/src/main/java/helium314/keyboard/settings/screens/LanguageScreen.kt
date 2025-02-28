@@ -89,9 +89,12 @@ fun LanguageScreen(
                 var showNoDictDialog by remember { mutableStateOf(false) }
                 Column(modifier = Modifier.weight(1f)) {
                     Text(item.displayName(ctx), style = MaterialTheme.typography.bodyLarge)
-                    val description = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
-                        ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx) }
-                    if (description != null) // todo: description should clarify when it's a default subtype that can't be changed / will be cloned
+                    val description = if (SubtypeSettings.isAdditionalSubtype(item)) {
+                        val secondaryLocales = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
+                            ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx) }
+                        stringResource(R.string.custom_subtype) + (secondaryLocales?.let { "\n$it" } ?: "")
+                    } else null
+                    if (description != null)
                         Text(
                             text = description,
                             style = MaterialTheme.typography.bodyMedium,

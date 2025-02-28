@@ -1005,4 +1005,6 @@ New dictionary:
     <string name="delete_confirmation">Really delete %s?</string>
     <!-- Message when chosen name is invalid (empty or already taken) -->
     <string name="name_invalid">Invalid name</string>
+    <!-- Description indicating a subtype in Locales & Layouts has customizations -->
+    <string name="custom_subtype">Custom subtype</string>
 </resources>
