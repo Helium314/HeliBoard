@@ -42,6 +42,9 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.customIconNames
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 import kotlinx.serialization.json.Json
 
@@ -178,9 +181,11 @@ fun CustomizeIconsDialog(
 @Preview
 @Composable
 private fun Preview() {
-    KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-    CustomizeIconsDialog(
-        prefKey = "",
-        onDismissRequest = { },
-    )
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        CustomizeIconsDialog(
+            prefKey = "",
+            onDismissRequest = { },
+        )
+    }
 }

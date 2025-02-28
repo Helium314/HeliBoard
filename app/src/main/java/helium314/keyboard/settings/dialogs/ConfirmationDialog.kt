@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // taken from StreetComplete
 /** Slight specialization of an alert dialog: AlertDialog with OK and Cancel button. Both buttons
@@ -39,11 +41,13 @@ fun ConfirmationDialog(
 @Preview
 @Composable
 private fun PreviewConfirmDialog() {
-    ConfirmationDialog(
-        onDismissRequest = {  },
-        onConfirmed = {},
-        neutralButtonText = "hi",
-        confirmButtonText = "I don't care",
-        content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
-    )
+    Theme(previewDark) {
+        ConfirmationDialog(
+            onDismissRequest = { },
+            onConfirmed = {},
+            neutralButtonText = "hi",
+            confirmButtonText = "I don't care",
+            content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
+        )
+    }
 }

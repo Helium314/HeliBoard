@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.splitOnWhitespace
@@ -25,6 +27,9 @@ import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import java.util.Locale
 import java.util.TreeSet
 
@@ -82,4 +87,15 @@ fun getSortedDictionaryLocales(): TreeSet<Locale> {
 
     sortedLocales.addAll(getSystemLocales())
     return sortedLocales
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        Surface {
+            PersonalDictionariesScreen { }
+        }
+    }
 }

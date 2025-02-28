@@ -67,7 +67,7 @@ fun layoutFilePicker(
 @Composable
 fun dictionaryFilePicker(mainLocale: Locale?): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
-    val cachedDictionaryFile = File(ctx.cacheDir.path + File.separator + "temp_dict")
+    val cachedDictionaryFile = File(ctx.cacheDir?.path + File.separator + "temp_dict")
     var done by remember { mutableStateOf(false) }
     val picker = filePicker { uri ->
         cachedDictionaryFile.delete()

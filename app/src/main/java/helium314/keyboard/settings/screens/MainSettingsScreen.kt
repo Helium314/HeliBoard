@@ -23,13 +23,14 @@ import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun MainSettingsScreen(
@@ -146,7 +147,8 @@ fun MainSettingsScreen(
 @Preview
 @Composable
 private fun PreviewScreen() {
-    Theme(true) {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
         Surface {
             MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }

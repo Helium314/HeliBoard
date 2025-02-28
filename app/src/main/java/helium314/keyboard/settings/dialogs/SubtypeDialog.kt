@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
@@ -72,8 +73,11 @@ import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DefaultButton
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
@@ -496,3 +500,12 @@ fun <T>DropDownField(
 
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): List<Locale> =
     getDictionaryLocales(context).filter { it != mainLocale && it.script() == mainLocale.script() }
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        SubtypeDialog({}, SettingsSubtype(Locale.ENGLISH, "")) { }
+    }
+}

@@ -19,7 +19,6 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
@@ -28,7 +27,9 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun PreferencesScreen(
@@ -186,8 +187,8 @@ private val localesWithLocalizedNumberRow = listOf("ar", "bn", "fa", "gu", "hi",
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
         Surface {
             PreferencesScreen { }
         }

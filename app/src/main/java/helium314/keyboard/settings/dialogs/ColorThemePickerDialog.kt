@@ -54,8 +54,10 @@ import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.SaveThoseColors
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
@@ -277,10 +279,12 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
 @Preview
 @Composable
 private fun Preview() {
-    ColorThemePickerDialog(
-        onDismissRequest = {},
-        setting = Setting(LocalContext.current, "", R.string.settings) {},
-        default = "dark",
-        isNight = true
-    )
+    Theme(previewDark) {
+        ColorThemePickerDialog(
+            onDismissRequest = {},
+            setting = Setting(LocalContext.current, "", R.string.settings) {},
+            default = "dark",
+            isNight = true
+        )
+    }
 }

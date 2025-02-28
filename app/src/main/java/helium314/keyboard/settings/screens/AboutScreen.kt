@@ -38,6 +38,7 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -177,7 +178,7 @@ fun createAboutSettings(context: Context) = listOf(
 @Composable
 private fun Preview() {
     SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             AboutScreen {  }
         }

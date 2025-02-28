@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
@@ -34,6 +33,9 @@ import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.readCustomKeyCodes
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 
 @Composable
@@ -138,21 +140,22 @@ private fun ToolbarKeyCustomizer(
     )
 }
 
+private fun checkCode(code: TextFieldValue) = runCatching {
+    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode() <= Char.MAX_VALUE.code }
+}.getOrNull()
+
 @Preview
 @Composable
-fun PreviewToolbarKeyCustomizer() {
-    Settings.init(LocalContext.current)
+private fun PreviewToolbarKeyCustomizer() {
+    initPreview(LocalContext.current)
     ToolbarKeyCustomizer(ToolbarKey.CUT) { }
 }
 
 @Preview
 @Composable
-fun PreviewToolbarKeysCustomizer() {
-    Settings.init(LocalContext.current)
-    KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-    ToolbarKeysCustomizer("") { }
+private fun PreviewToolbarKeysCustomizer() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        ToolbarKeysCustomizer("") { }
+    }
 }
-
-private fun checkCode(code: TextFieldValue) = runCatching {
-    code.text.toIntOrNull()?.takeIf { it.checkAndConvertCode() <= Char.MAX_VALUE.code }
-}.getOrNull()

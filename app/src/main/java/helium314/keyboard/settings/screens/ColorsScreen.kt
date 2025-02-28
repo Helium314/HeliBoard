@@ -61,6 +61,7 @@ import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
+import helium314.keyboard.settings.previewDark
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -239,7 +240,7 @@ data class SaveThoseColors(val name: String? = null, val moreColors: Int, val co
 @Preview
 @Composable
 private fun Preview() {
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             ColorsScreen(false, null) { }
         }

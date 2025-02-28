@@ -32,7 +32,7 @@ fun LoadGestureLibPreference(setting: Setting) {
     val ctx = LocalContext.current
     val prefs = ctx.protectedPrefs()
     val abi = Build.SUPPORTED_ABIS[0]
-    val libFile = File(ctx.filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
+    val libFile = File(ctx.filesDir?.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
     fun renameToLibFileAndRestart(file: File, checksum: String) {
         libFile.delete()
         // store checksum in default preferences (soo JniUtils)

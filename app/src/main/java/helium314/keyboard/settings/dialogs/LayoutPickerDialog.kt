@@ -48,9 +48,11 @@ import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun LayoutPickerDialog(
@@ -211,9 +213,11 @@ private fun LayoutItemRow(
 @Preview
 @Composable
 private fun Preview() {
-    LayoutPickerDialog(
-        onDismissRequest = {},
-        setting = Setting(LocalContext.current, "", R.string.settings) {},
-        layoutType = LayoutType.SYMBOLS
-    )
+    Theme(previewDark) {
+        LayoutPickerDialog(
+            onDismissRequest = {},
+            setting = Setting(LocalContext.current, "", R.string.settings) {},
+            layoutType = LayoutType.SYMBOLS
+        )
+    }
 }

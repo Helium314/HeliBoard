@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodSubtype
 import android.widget.Toast
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.content.edit
+import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants.Separators
@@ -104,10 +105,14 @@ object SubtypeSettings {
 
     fun reloadSystemLocales(context: Context) {
         systemLocales.clear()
-        val localeList = LocaleManagerCompat.getSystemLocales(context)
-        (0 until localeList.size()).forEach {
-            val locale = localeList[it]
-            if (locale != null) systemLocales.add(locale)
+        try {
+            val localeList = LocaleManagerCompat.getSystemLocales(context)
+            (0 until localeList.size()).forEach {
+                val locale = localeList[it]
+                if (locale != null) systemLocales.add(locale)
+            }
+        } catch (_: Throwable) {
+            systemLocales.add(context.resources.configuration.locale())
         }
         systemSubtypes.clear()
     }

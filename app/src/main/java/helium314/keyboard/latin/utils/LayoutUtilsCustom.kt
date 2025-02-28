@@ -20,6 +20,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.common.encodeBase36
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.settings.keyboardNeedsReload
@@ -84,6 +85,8 @@ object LayoutUtilsCustom {
     }
 
     fun checkLayout(layoutContent: String, context: Context): Boolean {
+        if (Settings.getValues() == null)
+            Settings.getInstance().loadSettings(context)
         val params = KeyboardParams()
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)

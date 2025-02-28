@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
 import android.content.Context
@@ -202,13 +203,23 @@ fun WelcomeWizard(
     }
 }
 
+@Preview
+@Composable
+private fun Preview() {
+    Theme(previewDark) {
+        Surface {
+            WelcomeWizard({}) {  }
+        }
+    }
+}
+
 @Preview(
     // content cut off on real device, but not here... great?
     device = "spec:orientation=landscape,width=400dp,height=780dp"
 )
 @Composable
-private fun Preview() {
-    Theme(true) {
+private fun WidePreview() {
+    Theme(previewDark) {
         Surface {
             WelcomeWizard({}) {  }
         }

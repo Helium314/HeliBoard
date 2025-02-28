@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.Dictionary
 import helium314.keyboard.latin.R
@@ -34,9 +36,12 @@ import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.settings.SearchScreen
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.DictionaryDialog
 import helium314.keyboard.settings.dictionaryFilePicker
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import java.io.File
 import java.util.Locale
 
@@ -137,4 +142,15 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
         DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale() ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
     }
     return userDicts to (best != null)
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        Surface {
+            DictionaryScreen { }
+        }
+    }
 }

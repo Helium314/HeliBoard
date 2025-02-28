@@ -16,11 +16,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
@@ -237,6 +239,14 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
             SubtypeSettings.INSTANCE.reloadEnabledSubtypes(mContext);
         }
+    }
+
+    /** convenience function for the rare situations where we need to load settings but may not have a keyboard */
+    public void loadSettings(final Context context) {
+        if (mSettingsValues != null) return;
+        final Locale locale = ConfigurationCompatKt.locale(context.getResources().getConfiguration());
+        final InputAttributes inputAttributes = new InputAttributes(new EditorInfo(), false, context.getPackageName());
+        loadSettings(context, locale, inputAttributes);
     }
 
     public void loadSettings(final Context context, final Locale locale,

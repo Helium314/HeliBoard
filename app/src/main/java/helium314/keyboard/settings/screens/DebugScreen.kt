@@ -18,15 +18,15 @@ import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.DebugSettingsFragment
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.PreferenceCategory
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun DebugScreen(
@@ -111,8 +111,8 @@ private fun createDebugSettings(context: Context) = listOf(
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
         Surface {
             DebugScreen { }
         }

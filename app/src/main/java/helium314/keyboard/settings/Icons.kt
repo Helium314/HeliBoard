@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,12 +50,16 @@ fun DefaultButton(isDefault: Boolean, onClick: () -> Unit) {
 @Preview
 @Composable
 private fun Preview() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        NextScreenIcon()
-        SearchIcon()
-        CloseIcon(R.string.dialog_close)
-        EditButton {  }
-        DeleteButton {  }
-        DefaultButton(false) { }
+    Theme(previewDark) {
+        Surface {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                NextScreenIcon()
+                SearchIcon()
+                CloseIcon(R.string.dialog_close)
+                EditButton {  }
+                DeleteButton {  }
+                DefaultButton(false) { }
+            }
+        }
     }
 }

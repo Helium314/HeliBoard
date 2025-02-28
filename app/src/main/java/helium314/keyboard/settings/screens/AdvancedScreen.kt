@@ -45,6 +45,7 @@ import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.BackupRestorePreference
 import helium314.keyboard.settings.preferences.LoadGestureLibPreference
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -235,7 +236,7 @@ fun createAdvancedSettings(context: Context) = listOf(
 @Composable
 private fun Preview() {
     SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             AdvancedSettingsScreen { }
         }

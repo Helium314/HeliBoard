@@ -29,7 +29,6 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.prefs
 import java.io.File
 import java.util.Locale
 

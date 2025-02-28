@@ -21,6 +21,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // mostly taken from StreetComplete / SCEE
 /** Dialog with which to input text. OK button is only clickable if [checkTextValid] returns true. */
@@ -85,12 +87,14 @@ fun TextInputDialog(
 @Preview
 @Composable
 private fun Preview() {
-    TextInputDialog(
-        onDismissRequest = {},
-        onConfirmed = {},
-        title = { Text("Title") },
-        initialText = "some text\nand another line",
-        singleLine = false,
-        textInputLabel = { Text("fill it") }
-    )
+    Theme(previewDark) {
+        TextInputDialog(
+            onDismissRequest = {},
+            onConfirmed = {},
+            title = { Text("Title") },
+            initialText = "some text\nand another line",
+            singleLine = false,
+            textInputLabel = { Text("fill it") }
+        )
+    }
 }

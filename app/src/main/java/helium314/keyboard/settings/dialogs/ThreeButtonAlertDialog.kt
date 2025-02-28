@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun ThreeButtonAlertDialog(
@@ -98,7 +99,7 @@ fun ThreeButtonAlertDialog(
 @Preview
 @Composable
 private fun Preview() {
-    Theme {
+    Theme(previewDark) {
         ThreeButtonAlertDialog(
             onDismissRequest = {},
             onConfirmed = { },

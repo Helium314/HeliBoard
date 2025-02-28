@@ -33,6 +33,8 @@ import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun ColorPickerDialog(
@@ -144,5 +146,16 @@ fun ColorPickerDialog(
 @Preview
 @Composable
 private fun Preview() {
-    ColorPickerDialog({}, -0x0f4488aa, "color name", {})
+    Theme(previewDark) {
+        ColorPickerDialog({}, -0x0f4488aa, "color name", {})
+    }
+}
+
+// for some reason this is cut of while both previews are shown
+@Preview(device = "spec:orientation=landscape,width=400dp,height=780dp")
+@Composable
+private fun WidePreview() {
+    Theme(previewDark) {
+        ColorPickerDialog({}, -0x0f4488aa, "color name", {})
+    }
 }

@@ -27,17 +27,16 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.settings.SettingsContainer
-import helium314.keyboard.settings.SettingsWithoutKey
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.preferences.ReorderSwitchPreference
 import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun ToolbarScreen(
@@ -102,18 +101,6 @@ fun createToolbarSettings(context: Context) = listOf(
     }
 )
 
-@Preview
-@Composable
-private fun Preview() {
-    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-    Theme(true) {
-        Surface {
-            ToolbarScreen { }
-        }
-    }
-}
-
 @Composable
 fun KeyboardIconsSet.GetIcon(name: String?) {
     val ctx = LocalContext.current
@@ -124,6 +111,17 @@ fun KeyboardIconsSet.GetIcon(name: String?) {
         else if (drawable != null) {
             val px = TypedValueCompat.dpToPx(40f, ctx.resources.displayMetrics).toInt()
             Icon(drawable.toBitmap(px, px).asImageBitmap(), name, Modifier.fillMaxSize(0.8f))
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        Surface {
+            ToolbarScreen { }
         }
     }
 }
