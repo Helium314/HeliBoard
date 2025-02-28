@@ -40,6 +40,8 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 @Composable
 fun AboutScreen(
@@ -155,12 +157,13 @@ fun createAboutSettings(context: Context) = listOf(
             name = setting.title,
             description = setting.description,
             onClick = {
+                val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_log_${System.currentTimeMillis()}.txt"
+                            .replace(" ", "_") + "_log_$date.txt"
                     )
                     .setType("text/plain")
                 launcher.launch(intent)

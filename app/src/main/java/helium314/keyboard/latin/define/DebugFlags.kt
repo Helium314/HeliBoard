@@ -17,6 +17,8 @@ import java.io.File
 import java.io.IOException
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 object DebugFlags {
@@ -63,7 +65,8 @@ ${Log.getLog(100).joinToString("\n")}
     private fun writeCrashReportToFile(text: String) {
         try {
             val dir = appContext.getExternalFilesDir(null) ?: return
-            val crashReportFile = File(dir, "crash_report_${System.currentTimeMillis()}.txt")
+            val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
+            val crashReportFile = File(dir, "crash_report_$date.txt")
             crashReportFile.writeText(text)
         } catch (ignored: IOException) {
         }
