@@ -80,7 +80,7 @@ object SubtypeSettings {
         val subtype = enabledSubtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
         if (subtype != null) {
             return subtype
-        } else {
+        } else if (enabledSubtypes.isNotEmpty()) {
             Log.w(TAG, "selected subtype $selectedSubtype / ${prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)} not found")
         }
         if (enabledSubtypes.isNotEmpty())

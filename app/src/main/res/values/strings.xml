@@ -1003,6 +1003,6 @@ New dictionary:
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
     <!-- Confirmation message when deleting a something (currently used for custom colors) -->
     <string name="delete_confirmation">Really delete %s?</string>
-    <!-- Message when chosen name is invalid (empty or already taked) -->
+    <!-- Message when chosen name is invalid (empty or already taken) -->
     <string name="name_invalid">Invalid name</string>
 </resources>

@@ -21,6 +21,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +56,7 @@ import helium314.keyboard.latin.utils.LayoutType.Companion.displayNameId
 import helium314.keyboard.latin.utils.LayoutUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
-import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
+import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SettingsSubtype
 import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
@@ -90,6 +91,25 @@ fun SubtypeDialog(
     var currentSubtypeString by rememberSaveable { mutableStateOf(initialSubtype.toPref()) }
     val currentSubtype = currentSubtypeString.toSettingsSubtype()
     fun setCurrentSubtype(subtype: SettingsSubtype) { currentSubtypeString = subtype.toPref() }
+    LaunchedEffect(currentSubtypeString) {
+        if (ScriptUtils.scriptSupportsUppercase(currentSubtype.locale)) return@LaunchedEffect
+        // update the noShiftKey extra value
+        val mainLayout = currentSubtype.mainLayoutName()
+        val noShiftKey = if (mainLayout != null && LayoutUtilsCustom.isCustomLayout(mainLayout)) {
+            // determine from layout
+            val content = LayoutUtilsCustom.getLayoutFile(mainLayout, LayoutType.MAIN, ctx).readText()
+            !content.contains("\"shift_state_selector\"")
+        } else {
+            // determine from subtype with same layout
+            SubtypeSettings.getResourceSubtypesForLocale(currentSubtype.locale)
+                .firstOrNull { it.mainLayoutName() == mainLayout }
+                ?.containsExtraValueKey(ExtraValue.NO_SHIFT_KEY) ?: false
+        }
+        if (!noShiftKey && currentSubtype.hasExtraValueOf(ExtraValue.NO_SHIFT_KEY))
+            setCurrentSubtype(currentSubtype.without(ExtraValue.NO_SHIFT_KEY))
+        else if (noShiftKey && !currentSubtype.hasExtraValueOf(ExtraValue.NO_SHIFT_KEY))
+            setCurrentSubtype(currentSubtype.with(ExtraValue.NO_SHIFT_KEY))
+    }
 
     val availableLocalesForScript = getAvailableSecondaryLocales(ctx, currentSubtype.locale).sortedBy { it.toLanguageTag() }
     var showSecondaryLocaleDialog by remember { mutableStateOf(false) }
@@ -141,7 +161,7 @@ fun SubtypeDialog(
                         setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
                     }
                 }
-                if (currentSubtype.locale.script() == SCRIPT_LATIN) {
+                if (currentSubtype.locale.script() == ScriptUtils.SCRIPT_LATIN) {
                     WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
                         val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
                         val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
@@ -155,7 +175,7 @@ fun SubtypeDialog(
                     }
                 }
                 if (hasLocalizedNumberRow(currentSubtype.locale, ctx)) {
-                    Row {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
                         Text(stringResource(R.string.localized_number_row), Modifier.weight(1f))
                         Switch(
