@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -8,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets.Type
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -15,6 +17,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
@@ -26,6 +31,7 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
@@ -50,6 +56,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     private val dictUriFlow = MutableStateFlow<Uri?>(null)
     private val cachedDictionaryFile by lazy { File(this.cacheDir.path + File.separator + "temp_dict") }
     private val crashReportFiles = MutableStateFlow<List<File>>(emptyList())
+    private var paused = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +67,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             crashReportFiles.value = findCrashReports()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // with this the layout edit dialog is not covered by the keyboard
         //  alternative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
@@ -89,6 +97,10 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                     val dictUri by dictUriFlow.collectAsState()
                     val crashReports by crashReportFiles.collectAsState()
                     val crashFilePicker = filePicker { saveCrashReports(it) }
+                    var showWelcomeWizard by rememberSaveable { mutableStateOf(
+                        !UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm)
+                                || !UncachedInputMethodManagerUtils.isThisImeEnabled(this, imm)
+                    ) }
                     if (spellchecker)
                         Column { // lazy way of implementing spell checker settings
                             settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
@@ -126,6 +138,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                             },
                             content = { Text("Crash report files found") },
                         )
+                    }
+                    if (showWelcomeWizard) {
+                        WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
                     }
                 }
             }
@@ -168,7 +183,6 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         paused = false
     }
 
-    private var paused = true
     fun setForceTheme(theme: String?, night: Boolean?) {
         if (paused) return
         if (forceTheme != theme || forceNight != night) {
