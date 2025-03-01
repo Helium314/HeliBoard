@@ -11,7 +11,8 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.settings.SettingsSubtype
+import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import java.util.Locale
 
 object SubtypeUtilsAdditional {

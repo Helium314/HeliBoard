@@ -35,7 +35,6 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
-import helium314.keyboard.latin.customIconNames
 import helium314.keyboard.latin.databinding.ReorderDialogItemBinding
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ResourceUtils

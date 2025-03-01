@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
-package helium314.keyboard.latin
+package helium314.keyboard.latin.settings
 
 import android.content.Context
 import android.content.SharedPreferences
-import helium314.keyboard.latin.settings.Defaults
-import helium314.keyboard.latin.settings.Settings
 import kotlinx.serialization.json.Json
 
 fun customIconNames(prefs: SharedPreferences) = runCatching {

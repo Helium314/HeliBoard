@@ -39,7 +39,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.TypedValueCompat
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.customIconNames
+import helium314.keyboard.latin.settings.customIconNames
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Theme

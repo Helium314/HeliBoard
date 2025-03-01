@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.customIconIds
+import helium314.keyboard.latin.settings.customIconIds
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
