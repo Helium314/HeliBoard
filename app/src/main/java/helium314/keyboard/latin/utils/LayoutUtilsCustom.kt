@@ -23,7 +23,6 @@ import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.serialization.SerializationException
 import java.io.File
 import java.io.IOException
@@ -174,7 +173,7 @@ object LayoutUtilsCustom {
         getLayoutFile(layoutName, layoutType, context).delete()
         onLayoutFileChanged()
         SubtypeSettings.onRenameLayout(layoutType, layoutName, null, context)
-        keyboardNeedsReload = true
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
 
     fun getDisplayName(layoutName: String) =

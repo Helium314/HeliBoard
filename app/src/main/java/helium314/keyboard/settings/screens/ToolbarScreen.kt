@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.TypedValueCompat
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
@@ -35,7 +36,6 @@ import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -84,7 +84,7 @@ fun createToolbarSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
         R.string.quick_pin_toolbar_keys, R.string.quick_pin_toolbar_keys_summary)
     {
-        SwitchPreference(it, Defaults.PREF_QUICK_PIN_TOOLBAR_KEYS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_QUICK_PIN_TOOLBAR_KEYS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_AUTO_SHOW_TOOLBAR, R.string.auto_show_toolbar, R.string.auto_show_toolbar_summary)
     {

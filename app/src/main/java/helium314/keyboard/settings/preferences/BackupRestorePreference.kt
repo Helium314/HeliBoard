@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
 import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD_LANDSCAPE
@@ -39,7 +40,6 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
 import helium314.keyboard.settings.filePicker
-import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileInputStream
@@ -177,7 +177,7 @@ fun BackupRestorePreference(setting: Setting) {
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()
         (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
-        keyboardNeedsReload = true
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
     Preference(name = setting.title, onClick = { showDialog = true })
     if (showDialog) {

@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
@@ -29,7 +30,6 @@ import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -77,7 +77,7 @@ fun LayoutEditDialog(
             LayoutUtilsCustom.onLayoutFileChanged()
             onEdited(newLayoutName)
             (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 555
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         },
         confirmButtonText = stringResource(R.string.save),
         initialText = startContent ?: LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).readText(),

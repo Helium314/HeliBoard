@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import helium314.keyboard.compat.locale
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.R
@@ -173,7 +174,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     override fun onPause() {
         super.onPause()
         paused = true
-        if (forceNight != null || forceTheme != null) keyboardNeedsReload = true
+        if (forceNight != null || forceTheme != null)
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         forceNight = false
         forceTheme = null
     }
@@ -186,7 +188,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     fun setForceTheme(theme: String?, night: Boolean?) {
         if (paused) return
         if (forceTheme != theme || forceNight != night) {
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
         forceTheme = theme
         forceNight = night
@@ -240,6 +242,3 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         prefChanged.value++
     }
 }
-
-@JvmField
-var keyboardNeedsReload = false

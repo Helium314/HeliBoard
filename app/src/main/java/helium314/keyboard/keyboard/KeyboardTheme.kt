@@ -27,7 +27,6 @@ import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isGoodContrast
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
@@ -352,7 +351,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
             val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
             prefs.edit().putString(key, value).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserColors(prefs: SharedPreferences, themeName: String): List<ColorSetting> {
@@ -363,7 +362,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun writeUserMoreColors(prefs: SharedPreferences, themeName: String, value: Int) {
             val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
             prefs.edit().putInt(key, value).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserMoreColors(prefs: SharedPreferences, themeName: String): Int {
@@ -374,7 +373,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun writeUserAllColors(prefs: SharedPreferences, themeName: String, colorMap: EnumMap<ColorType, Int>) {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
             prefs.edit().putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserAllColors(prefs: SharedPreferences, themeName: String): EnumMap<ColorType, Int> {

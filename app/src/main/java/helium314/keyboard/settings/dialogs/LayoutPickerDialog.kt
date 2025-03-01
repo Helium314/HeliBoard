@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults.default
@@ -49,7 +50,6 @@ import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.previewDark
@@ -167,7 +167,7 @@ private fun LayoutItemRow(
             .clickable {
                 onDismissRequest()
                 Settings.writeDefaultLayoutName(layoutName, layoutType, prefs)
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
             .padding(start = 6.dp)
             .heightIn(min = 40.dp)
@@ -177,7 +177,7 @@ private fun LayoutItemRow(
             onClick = {
                 onDismissRequest()
                 Settings.writeDefaultLayoutName(layoutName, layoutType, prefs)
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
         Text(

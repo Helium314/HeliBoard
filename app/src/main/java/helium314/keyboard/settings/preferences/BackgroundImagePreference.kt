@@ -19,6 +19,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.settings.Defaults
@@ -30,7 +31,6 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
-import helium314.keyboard.settings.keyboardNeedsReload
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -105,7 +105,7 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
             onNeutral = {
                 getFile().delete()
                 Settings.clearCachedBackgroundImages()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
     }
@@ -117,7 +117,7 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
 private fun setBackgroundImage(ctx: Context, uri: Uri, isNight: Boolean, isLandscape: Boolean): Boolean {
     val imageFile = Settings.getCustomBackgroundFile(ctx, isNight, isLandscape)
     FileUtils.copyContentUriToNewFile(uri, ctx, imageFile)
-    keyboardNeedsReload = true
+    KeyboardSwitcher.getInstance().setThemeNeedsReload()
     try {
         BitmapFactory.decodeFile(imageFile.absolutePath)
     } catch (_: Exception) {

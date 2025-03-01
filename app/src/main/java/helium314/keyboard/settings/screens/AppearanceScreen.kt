@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -36,7 +37,6 @@ import helium314.keyboard.settings.dialogs.ColorThemePickerDialog
 import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.BackgroundImagePref
 import helium314.keyboard.settings.preferences.CustomFontPreference
 import helium314.keyboard.settings.previewDark
@@ -116,7 +116,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             setting,
             items,
             Defaults.PREF_ICON_STYLE
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
         var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -125,11 +125,11 @@ fun createAppearanceSettings(context: Context) = listOf(
             onClick = { showDialog = true }
         )
         if (showDialog) {
-            if (keyboardNeedsReload) {
+/*            if (keyboardNeedsReload) {
                 KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(LocalContext.current)
                 keyboardNeedsReload = false
             }
-            CustomizeIconsDialog(setting.key) { showDialog = false }
+*/            CustomizeIconsDialog(setting.key) { showDialog = false }
         }
     },
     Setting(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { setting ->
@@ -173,10 +173,10 @@ fun createAppearanceSettings(context: Context) = listOf(
             )
     },
     Setting(context, Settings.PREF_THEME_KEY_BORDERS, R.string.key_borders) {
-        SwitchPreference(it, Defaults.PREF_THEME_KEY_BORDERS)
+        SwitchPreference(it, Defaults.PREF_THEME_KEY_BORDERS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_THEME_DAY_NIGHT, R.string.day_night_mode, R.string.day_night_mode_summary) {
-        SwitchPreference(it, Defaults.PREF_THEME_DAY_NIGHT) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_THEME_DAY_NIGHT) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_NAVBAR_COLOR, R.string.theme_navbar, R.string.day_night_mode_summary) {
         SwitchPreference(it, Defaults.PREF_NAVBAR_COLOR)
@@ -199,7 +199,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_SPLIT_SPACER_SCALE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, R.string.enable_split_keyboard_landscape) {
         SwitchPreference(it, Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE) { KeyboardSwitcher.getInstance().reloadKeyboard() }
@@ -211,10 +211,10 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_SPLIT_SPACER_SCALE_LANDSCAPE,
             range = 0.5f..2f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_NARROW_KEY_GAPS, R.string.prefs_narrow_key_gaps) {
-        SwitchPreference(it, Defaults.PREF_NARROW_KEY_GAPS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_NARROW_KEY_GAPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_KEYBOARD_HEIGHT_SCALE, R.string.prefs_keyboard_height_scale) { setting ->
         SliderPreference(
@@ -223,7 +223,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_KEYBOARD_HEIGHT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_BOTTOM_PADDING_SCALE, R.string.prefs_bottom_padding_scale) { setting ->
         SliderPreference(
@@ -232,7 +232,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_BOTTOM_PADDING_SCALE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, R.string.prefs_bottom_padding_scale_landscape) { setting ->
         SliderPreference(
@@ -241,7 +241,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
             range = 0f..5f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SIDE_PADDING_SCALE, R.string.prefs_side_padding_scale) { setting ->
         SliderPreference(
@@ -250,7 +250,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_SIDE_PADDING_SCALE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE, R.string.prefs_side_padding_scale_landscape) { setting ->
         SliderPreference(
@@ -259,7 +259,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { setting ->
         var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -274,7 +274,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                 onDismissRequest = { showDialog = false },
                 onConfirmed = {
                     prefs.edit().putString(setting.key, it).apply()
-                    keyboardNeedsReload = true
+                    KeyboardSwitcher.getInstance().setThemeNeedsReload()
                 },
                 initialText = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT) ?: "",
                 title = { Text(setting.title) },
@@ -292,7 +292,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_FONT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_EMOJI_FONT_SCALE, R.string.prefs_emoji_font_scale) { setting ->
         SliderPreference(
@@ -301,7 +301,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             default = Defaults.PREF_EMOJI_FONT_SCALE,
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
 )
 

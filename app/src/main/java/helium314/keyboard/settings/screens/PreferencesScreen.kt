@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
@@ -28,7 +29,6 @@ import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -90,7 +90,7 @@ fun createPreferencesSettings(context: Context) = listOf(
         ReorderSwitchPreference(it, Defaults.PREF_POPUP_KEYS_ORDER)
     },
     Setting(context, Settings.PREF_SHOW_POPUP_HINTS, R.string.show_popup_hints, R.string.show_popup_hints_summary) {
-        SwitchPreference(it, Defaults.PREF_SHOW_POPUP_HINTS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_POPUP_HINTS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_POPUP_ON, R.string.popup_on_keypress) {
         SwitchPreference(it, Defaults.PREF_POPUP_ON)
@@ -110,16 +110,16 @@ fun createPreferencesSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
     },
     Setting(context, Settings.PREF_SHOW_NUMBER_ROW, R.string.number_row, R.string.number_row_summary) {
-        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_LOCALIZED_NUMBER_ROW, R.string.localized_number_row, R.string.localized_number_row_summary) {
         SwitchPreference(it, Defaults.PREF_LOCALIZED_NUMBER_ROW) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
     Setting(context, Settings.PREF_SHOW_NUMBER_ROW_HINTS, R.string.number_row_hints) {
-        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW_HINTS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_NUMBER_ROW_HINTS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, R.string.show_language_switch_key) {
-        SwitchPreference(it, Defaults.PREF_SHOW_LANGUAGE_SWITCH_KEY) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_LANGUAGE_SWITCH_KEY) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_LANGUAGE_SWITCH_KEY, R.string.language_switch_key_behavior) {
         ListPreference(
@@ -130,7 +130,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 stringResource(R.string.language_switch_key_switch_both) to "both"
             ),
             Defaults.PREF_LANGUAGE_SWITCH_KEY
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SHOW_EMOJI_KEY, R.string.show_emoji_key) {
         SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_KEY)
@@ -138,7 +138,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_REMOVE_REDUNDANT_POPUPS,
         R.string.remove_redundant_popups, R.string.remove_redundant_popups_summary)
     {
-        SwitchPreference(it, Defaults.PREF_REMOVE_REDUNDANT_POPUPS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_REMOVE_REDUNDANT_POPUPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { setting ->
         SliderPreference(

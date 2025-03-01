@@ -38,6 +38,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.ColorSetting
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
@@ -56,7 +57,6 @@ import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.filePicker
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.SaveThoseColors
 import kotlinx.coroutines.launch
@@ -187,7 +187,7 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
             onDismissRequest()
             prefs.edit().putString(prefKey, textValue.text).apply()
             SettingsDestination.navigateTo(targetScreen)
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     }
 }
@@ -203,7 +203,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             .clickable {
                 onDismissRequest()
                 prefs.edit().putString(prefKey, item).apply()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
             .padding(start = 6.dp)
             .heightIn(min = 40.dp)
@@ -213,7 +213,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             onClick = {
                 onDismissRequest()
                 prefs.edit().putString(prefKey, item).apply()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
         Text(
@@ -239,7 +239,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
                             .remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item).apply()
                         if (isSelected)
                             prefs.edit().remove(prefKey).apply()
-                        keyboardNeedsReload = true
+                        KeyboardSwitcher.getInstance().setThemeNeedsReload()
                     }
                 )
         }

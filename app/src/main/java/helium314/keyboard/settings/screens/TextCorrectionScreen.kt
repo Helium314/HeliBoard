@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Defaults
@@ -36,7 +37,6 @@ import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -163,7 +163,7 @@ fun createCorrectionSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_BIGRAM_PREDICTIONS,
         R.string.bigram_prediction, R.string.bigram_prediction_summary
     ) {
-        SwitchPreference(it, Defaults.PREF_BIGRAM_PREDICTIONS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_BIGRAM_PREDICTIONS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER,
         R.string.center_suggestion_text_to_enter, R.string.center_suggestion_text_to_enter_summary

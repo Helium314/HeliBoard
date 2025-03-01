@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.DictionaryDumpBroadcastReceiver
 import helium314.keyboard.latin.DictionaryFacilitator
@@ -24,7 +25,6 @@ import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.previewDark
 
@@ -86,7 +86,7 @@ private fun createDebugSettings(context: Context) = listOf(
         }
     },
     Setting(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) {
-        SwitchPreference(it, Defaults.PREF_SHOW_SUGGESTION_INFOS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_SUGGESTION_INFOS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
         SwitchPreference(it, Defaults.PREF_FORCE_NON_DISTINCT_MULTITOUCH) { needsRestart = true }

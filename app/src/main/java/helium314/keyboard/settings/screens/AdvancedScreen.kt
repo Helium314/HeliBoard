@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MAIN
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MORE
@@ -42,7 +43,6 @@ import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.TextInputDialog
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.BackupRestorePreference
 import helium314.keyboard.settings.preferences.LoadGestureLibPreference
 import helium314.keyboard.settings.previewDark
@@ -221,7 +221,7 @@ fun createAdvancedSettings(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onValueChanged =  { keyboardNeedsReload = true }
+            onValueChanged =  { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
         )
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {
