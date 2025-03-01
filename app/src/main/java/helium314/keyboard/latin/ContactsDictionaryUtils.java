@@ -7,6 +7,7 @@
 package helium314.keyboard.latin;
 
 import helium314.keyboard.latin.common.Constants;
+import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.util.Locale;
 
@@ -36,7 +37,14 @@ public class ContactsDictionaryUtils {
      * Returns true if the locale supports using first name and last name as bigrams.
      */
     public static boolean useFirstLastBigramsForLocale(final Locale locale) {
-        // TODO: Add firstname/lastname bigram rules for other languages.
-        return locale != null && locale.getLanguage().equals(Locale.ENGLISH.getLanguage());
+        // todo (later): incomplete, see https://en.wikipedia.org/wiki/Personal_name#Name_order
+        return switch (ScriptUtils.script(locale)) {
+            case ScriptUtils.SCRIPT_CYRILLIC -> true;
+            case ScriptUtils.SCRIPT_LATIN -> switch (locale.getLanguage()) {
+                case "hu", "ro", "vi" -> false;
+                default -> true;
+            };
+            default -> false;
+        };
     }
 }
