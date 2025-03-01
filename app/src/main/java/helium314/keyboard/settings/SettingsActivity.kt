@@ -123,7 +123,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                             mainLocale = null
                         )
                     }
-                    if (crashReports.isNotEmpty()) {
+                    if (!showWelcomeWizard && !spellchecker && crashReports.isNotEmpty()) {
                         ConfirmationDialog(
                             cancelButtonText = "ignore",
                             onDismissRequest = { crashReportFiles.value = emptyList() },
@@ -140,7 +140,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                             content = { Text("Crash report files found") },
                         )
                     }
-                    if (showWelcomeWizard) {
+                    if (!spellchecker && showWelcomeWizard) {
                         WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
                     }
                 }
