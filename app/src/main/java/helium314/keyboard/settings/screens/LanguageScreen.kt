@@ -34,7 +34,6 @@ import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.MissingDictionaryDialog
@@ -147,7 +146,7 @@ private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(context)?.mapNotNull { dir ->
         if (!dir.isDirectory)
             return@mapNotNull null
-        if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
+        if (dir.list()?.any { it.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) } == true)
             dir.name.constructLocale()
         else null
     }.orEmpty()

@@ -155,7 +155,7 @@ class LanguageSettingsFragment : Fragment(R.layout.language_settings) {
         val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(requireContext())?.mapNotNull { dir ->
             if (!dir.isDirectory)
                 return@mapNotNull null
-            if (dir.list()?.any { it.endsWith(USER_DICTIONARY_SUFFIX) } == true)
+            if (dir.list()?.any { it.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) } == true)
                 dir.name.constructLocale()
             else null
         }
@@ -225,5 +225,3 @@ class SubtypeInfo(val displayName: String, val subtype: InputMethodSubtype, var 
 
 fun InputMethodSubtype.toSubtypeInfo(locale: Locale, context: Context, isEnabled: Boolean, hasDictionary: Boolean): SubtypeInfo =
     SubtypeInfo(LocaleUtils.getLocaleDisplayNameInSystemLocale(locale, context), this, isEnabled, hasDictionary)
-
-const val USER_DICTIONARY_SUFFIX = "user.dict"

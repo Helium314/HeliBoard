@@ -29,6 +29,7 @@ import java.util.Locale;
 public class DictionaryInfoUtils {
     private static final String TAG = DictionaryInfoUtils.class.getSimpleName();
     public static final String DEFAULT_MAIN_DICT = "main";
+    public static final String USER_DICTIONARY_SUFFIX = "user.dict";
     public static final String MAIN_DICT_PREFIX = DEFAULT_MAIN_DICT + "_";
     // 6 digits - unicode is limited to 21 bits
     private static final int MAX_HEX_DIGITS_FOR_CODEPOINT = 6;

@@ -29,6 +29,7 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.databinding.LanguageListItemBinding
 import helium314.keyboard.latin.databinding.LocaleSettingsDialogBinding
 import helium314.keyboard.latin.utils.*
+import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import java.io.File
 import java.util.*

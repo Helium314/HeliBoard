@@ -28,7 +28,6 @@ import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.splitOnWhitespace
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -79,7 +78,7 @@ fun DictionaryScreen(
                         .fillMaxWidth()
                 ) {
                     val (dicts, hasInternal) = getUserAndInternalDictionaries(ctx, locale)
-                    val types = dicts.mapTo(mutableListOf()) { it.name.substringBefore("_${USER_DICTIONARY_SUFFIX}") }
+                    val types = dicts.mapTo(mutableListOf()) { it.name.substringBefore("_${DictionaryInfoUtils.USER_DICTIONARY_SUFFIX}") }
                     if (hasInternal && !types.contains(Dictionary.TYPE_MAIN))
                         types.add(0, stringResource(R.string.internal_dictionary_summary))
                     Text(locale.localizedDisplayName(ctx))
@@ -129,7 +128,7 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
     val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
-            if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
+            if (it.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX))
                 userDicts.add(it)
             else if (it.name.startsWith(DictionaryInfoUtils.MAIN_DICT_PREFIX))
                 hasInternalDict = true

@@ -438,22 +438,3 @@ class ColorsNightSettingsFragment : ColorsSettingsFragment() {
 //    override val isNight = true
 //    override val titleResId = R.string.select_user_colors_night
 }
-
-val colorPrefsAndResIds = listOf(
-    KeyboardTheme.COLOR_BACKGROUND to R.string.select_color_background,
-    KeyboardTheme.COLOR_KEYS to R.string.select_color_key_background,
-    KeyboardTheme.COLOR_FUNCTIONAL_KEYS to R.string.select_color_functional_key_background,
-    KeyboardTheme.COLOR_SPACEBAR to R.string.select_color_spacebar_background,
-    KeyboardTheme.COLOR_TEXT to R.string.select_color_key,
-    KeyboardTheme.COLOR_HINT_TEXT to R.string.select_color_key_hint,
-    KeyboardTheme.COLOR_SUGGESTION_TEXT to R.string.select_color_suggestion,
-    KeyboardTheme.COLOR_SPACEBAR_TEXT to R.string.select_color_spacebar_text,
-    KeyboardTheme.COLOR_ACCENT to R.string.select_color_accent,
-    KeyboardTheme.COLOR_GESTURE to R.string.select_color_gesture,
-)
-
-fun getColorPrefsToHideInitially(prefs: SharedPreferences): List<String> {
-    return listOf(KeyboardTheme.COLOR_SUGGESTION_TEXT, KeyboardTheme.COLOR_SPACEBAR_TEXT, KeyboardTheme.COLOR_GESTURE) +
-            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(KeyboardTheme.COLOR_SPACEBAR_TEXT)
-            else listOf(KeyboardTheme.COLOR_FUNCTIONAL_KEYS)
-}

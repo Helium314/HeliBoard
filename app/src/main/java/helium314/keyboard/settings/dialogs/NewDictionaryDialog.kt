@@ -24,7 +24,6 @@ import helium314.keyboard.latin.ReadOnlyBinaryDictionary
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.makedict.DictionaryHeader
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -52,7 +51,7 @@ fun NewDictionaryDialog(
             .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }
             .sortedWith(comparer)
         val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, ctx)
-        val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + USER_DICTIONARY_SUFFIX)
+        val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
         val info = header.info(ctx.resources.configuration.locale())
         ThreeButtonAlertDialog(

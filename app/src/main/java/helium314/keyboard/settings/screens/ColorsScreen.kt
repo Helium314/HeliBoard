@@ -51,8 +51,6 @@ import helium314.keyboard.latin.common.default
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.settings.colorPrefsAndResIds
-import helium314.keyboard.latin.settings.getColorPrefsToHideInitially
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
@@ -236,6 +234,25 @@ private fun getColorString(prefs: SharedPreferences, themeName: String): String 
 
 @Serializable
 data class SaveThoseColors(val name: String? = null, val moreColors: Int, val colors: Map<String, Pair<Int?, Boolean>>)
+
+val colorPrefsAndResIds = listOf(
+    KeyboardTheme.COLOR_BACKGROUND to R.string.select_color_background,
+    KeyboardTheme.COLOR_KEYS to R.string.select_color_key_background,
+    KeyboardTheme.COLOR_FUNCTIONAL_KEYS to R.string.select_color_functional_key_background,
+    KeyboardTheme.COLOR_SPACEBAR to R.string.select_color_spacebar_background,
+    KeyboardTheme.COLOR_TEXT to R.string.select_color_key,
+    KeyboardTheme.COLOR_HINT_TEXT to R.string.select_color_key_hint,
+    KeyboardTheme.COLOR_SUGGESTION_TEXT to R.string.select_color_suggestion,
+    KeyboardTheme.COLOR_SPACEBAR_TEXT to R.string.select_color_spacebar_text,
+    KeyboardTheme.COLOR_ACCENT to R.string.select_color_accent,
+    KeyboardTheme.COLOR_GESTURE to R.string.select_color_gesture,
+)
+
+private fun getColorPrefsToHideInitially(prefs: SharedPreferences): List<String> {
+    return listOf(KeyboardTheme.COLOR_SUGGESTION_TEXT, KeyboardTheme.COLOR_SPACEBAR_TEXT, KeyboardTheme.COLOR_GESTURE) +
+            if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, false)) listOf(KeyboardTheme.COLOR_SPACEBAR_TEXT)
+            else listOf(KeyboardTheme.COLOR_FUNCTIONAL_KEYS)
+}
 
 @Preview
 @Composable

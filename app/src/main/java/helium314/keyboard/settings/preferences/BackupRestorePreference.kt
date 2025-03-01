@@ -25,8 +25,8 @@ import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
@@ -264,7 +264,7 @@ private fun readJsonLinesToSettings(list: List<String>, prefs: SharedPreferences
 // todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name
 private fun upgradeFileNames(originalName: String): String {
     return when {
-        originalName.endsWith(USER_DICTIONARY_SUFFIX) -> {
+        originalName.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) -> {
             // replace directory after switch to language tag
             val dirName = originalName.substringAfter(File.separator).substringBefore(File.separator)
             originalName.replace(dirName, dirName.constructLocale().toLanguageTag())
