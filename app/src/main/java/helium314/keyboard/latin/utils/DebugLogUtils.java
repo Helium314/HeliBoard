@@ -36,18 +36,4 @@ public final class DebugLogUtils {
         }
         return sb.toString();
     }
-
-    /**
-     * Get the stack trace contained in an exception as a human-readable string.
-     * @param t the throwable
-     * @return the human-readable stack trace
-     */
-    public static String getStackTrace(final Throwable t) {
-        final StringBuilder sb = new StringBuilder();
-        final StackTraceElement[] frames = t.getStackTrace();
-        for (int j = 0; j < frames.length; ++j) {
-            sb.append(frames[j].toString() + "\n");
-        }
-        return sb.toString();
-    }
 }

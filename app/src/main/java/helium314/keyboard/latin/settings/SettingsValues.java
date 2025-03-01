@@ -28,12 +28,10 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
-import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,13 +41,7 @@ import java.util.Locale;
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
-    private static final String TAG = SettingsValues.class.getSimpleName();
-    // "floatMaxValue" and "floatNegativeInfinity" are special marker strings for
-    // Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
-    private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
-    private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
     public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
-    public static final float AUTO_CORRECTION_DISABLED_THRESHOLD = Float.MAX_VALUE;
 
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
@@ -195,7 +187,7 @@ public class SettingsValues {
         mCenterSuggestionTextToEnter = prefs.getBoolean(Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, Defaults.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
                 ? prefs.getFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
-                : AUTO_CORRECTION_DISABLED_THRESHOLD;
+                : Float.MAX_VALUE;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, Defaults.PREF_AUTOCORRECT_SHORTCUTS);

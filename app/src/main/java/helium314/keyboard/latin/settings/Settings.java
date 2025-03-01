@@ -46,9 +46,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
-    // Settings screens
-    public static final String SCREEN_DEBUG = "screen_debug";
-    public static final String SCREEN_GESTURE = "screen_gesture";
 
     // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";

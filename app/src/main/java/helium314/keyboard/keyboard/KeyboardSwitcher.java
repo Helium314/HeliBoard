@@ -114,18 +114,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    // todo: maybe we can remove this after removing old setting?
-    public void forceUpdateKeyboardTheme(@NonNull Context displayContext) {
-        Settings settings = Settings.getInstance();
-        settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
-        final boolean showing = mLatinIME.isInputViewShown();
-        if (showing)
-            mLatinIME.hideWindow();
-        mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
-        if (showing)
-            mLatinIME.showWindow(true);
-    }
-
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context, final KeyboardTheme keyboardTheme) {
         final Resources res = context.getResources();
         if (mThemeNeedsReload
