@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets.Type
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -29,6 +30,7 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
@@ -65,6 +67,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             crashReportFiles.value = findCrashReports()
+        setStatusBarIconColor()
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // with this the layout edit dialog is not covered by the keyboard
@@ -203,6 +206,16 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
             }
         } catch (ignored: IOException) {
         }
+    }
+
+    // deprecated but works... ideally it would be done automatically like it worked before switching to compose
+    private fun setStatusBarIconColor() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
+        val view = window.decorView
+        if (ResourceUtils.isNight(resources))
+            view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        else
+            view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     companion object {
