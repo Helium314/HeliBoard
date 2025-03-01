@@ -5,7 +5,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight">
+    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
     <!-- Some items are duplicated from the original platform-theme file to ensure that the
          "android/system_accent_*" or "android/system_neutral_*" colors are used. -->
 
@@ -15,10 +15,6 @@
         <item name="android:statusBarColor">@color/action_bar_color</item>
         <item name="android:navigationBarColor">@color/setup_background</item>
 
-        <item name="actionBarStyle">@style/ActionBarStyle</item>
-        <item name="android:actionBarSize">80dp</item>
-        <item name="actionBarSize">80dp</item>
-
         <!-- Preference list background color -->
         <item name="android:windowBackground">@color/setup_background</item>
 
@@ -27,16 +23,8 @@
 
         <item name="android:buttonCornerRadius">50dp</item>
 
-        <item name="android:spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
-        <item name="spinnerDropDownItemStyle">@style/DropDownMenuTheme</item>
-
         <!-- Menu background -->
         <item name="android:itemBackground">@color/drop_down_menu_background</item>
-    </style>
-
-    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/action_bar_color</item>*
-        <item name="background">@color/action_bar_color</item>
     </style>
 
     <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
@@ -44,11 +32,6 @@
         <item name="colorBackgroundFloating">@color/dialog_background</item>
         <item name="android:dialogCornerRadius">28dp</item>
         <item name="dialogCornerRadius">28dp</item>
-    </style>
-
-    <style name="DropDownMenuTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:background">@color/drop_down_menu_background</item>
-        <item name="background">@color/drop_down_menu_background</item>
     </style>
 
 </resources>
