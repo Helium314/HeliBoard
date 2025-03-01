@@ -77,15 +77,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
-        val width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().current) + paddingLeft + paddingRight
-        val height = ResourceUtils.getKeyboardHeight(res, Settings.getInstance().current) + paddingTop + paddingBottom
+        val width = ResourceUtils.getKeyboardWidth(context, Settings.getValues()) + paddingLeft + paddingRight
+        val height = ResourceUtils.getKeyboardHeight(res, Settings.getValues()) + paddingTop + paddingBottom
         setMeasuredDimension(width, height)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
         if (initialized) return
-        val colors = Settings.getInstance().current.mColors
+        val colors = Settings.getValues().mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
             pinnedIconResId = pinIconId
@@ -231,7 +231,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
         keyboardActionListener?.onTextInput(clipContent?.content.toString())
         keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
-        if (Settings.getInstance().current.mAlphaAfterClipHistoryEntry)
+        if (Settings.getValues().mAlphaAfterClipHistoryEntry)
             keyboardActionListener?.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 

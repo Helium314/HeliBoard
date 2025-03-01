@@ -305,7 +305,7 @@ final class EmojiCategory {
                 return mCategoryKeyboardMap.get(categoryKeyboardMapKey);
             }
 
-            final int currentWidth = ResourceUtils.getKeyboardWidth(mContext, Settings.getInstance().getCurrent());
+            final int currentWidth = ResourceUtils.getKeyboardWidth(mContext, Settings.getValues());
             if (categoryId == EmojiCategory.ID_RECENTS) {
                 final DynamicGridKeyboard kbd = new DynamicGridKeyboard(mPrefs,
                         mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
@@ -338,7 +338,7 @@ final class EmojiCategory {
     private int computeMaxKeyCountPerPage() {
         final DynamicGridKeyboard tempKeyboard = new DynamicGridKeyboard(mPrefs,
                 mLayoutSet.getKeyboard(KeyboardId.ELEMENT_EMOJI_RECENTS),
-                0, 0, ResourceUtils.getKeyboardWidth(mContext, Settings.getInstance().getCurrent()));
+                0, 0, ResourceUtils.getKeyboardWidth(mContext, Settings.getValues()));
         return MAX_LINE_COUNT_PER_PAGE * tempKeyboard.getColumnsCount();
     }
 

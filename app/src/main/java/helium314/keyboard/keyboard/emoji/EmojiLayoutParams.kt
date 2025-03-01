@@ -21,7 +21,7 @@ internal class EmojiLayoutParams(res: Resources) {
     val bottomRowKeyboardHeight: Int
 
     init {
-        val sv = Settings.getInstance().current
+        val sv = Settings.getValues()
         val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
 
         val keyVerticalGap = if (sv.mNarrowKeyGaps) {

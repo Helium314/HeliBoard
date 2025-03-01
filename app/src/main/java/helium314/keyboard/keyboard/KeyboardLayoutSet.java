@@ -26,6 +26,7 @@ import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -95,6 +96,7 @@ public final class KeyboardLayoutSet {
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
         LocaleKeyboardInfosKt.clearCache();
+        SubtypeLocaleUtils.clearDisplayNameCache();
     }
 
     public static void onKeyboardThemeChanged() {
@@ -218,9 +220,9 @@ public final class KeyboardLayoutSet {
         public static KeyboardLayoutSet buildEmojiClipBottomRow(final Context context, @Nullable final EditorInfo ei) {
             final Builder builder = new Builder(context, ei);
             builder.mParams.mMode = KeyboardId.MODE_TEXT;
-            final int width = ResourceUtils.getKeyboardWidth(context, Settings.getInstance().getCurrent());
+            final int width = ResourceUtils.getKeyboardWidth(context, Settings.getValues());
             // actually the keyboard does not have full height, but at this point we use it to get correct key heights
-            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getInstance().getCurrent());
+            final int height = ResourceUtils.getKeyboardHeight(context.getResources(), Settings.getValues());
             builder.setKeyboardGeometry(width, height);
             builder.setSubtype(RichInputMethodManager.getInstance().getCurrentSubtype());
             return builder.build();

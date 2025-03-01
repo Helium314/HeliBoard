@@ -46,6 +46,7 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.SeekBarDialogPreference.ValueProxy
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.ResourceUtils
@@ -57,6 +58,9 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -273,12 +277,13 @@ class AdvancedSettingsFragment : SubScreenFragment() {
             .setTitle(R.string.backup_restore_title)
             .setMessage(R.string.backup_restore_message)
             .setNegativeButton(R.string.button_backup) { _, _ ->
+                val currentDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         requireContext().getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_backup.zip"
+                            .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
                     .setType("application/zip")
                 backupFilePicker.launch(intent)
@@ -408,8 +413,6 @@ class AdvancedSettingsFragment : SubScreenFragment() {
         }
         checkVersionUpgrade(requireContext())
         Settings.getInstance().startListener()
-        val additionalSubtypes = sharedPreferences.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        SubtypeSettings.updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
         SubtypeSettings.reloadEnabledSubtypes(requireContext())
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         activity?.sendBroadcast(newDictBroadcast)

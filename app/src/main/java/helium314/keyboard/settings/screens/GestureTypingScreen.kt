@@ -8,20 +8,22 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun GestureTypingScreen(
@@ -79,7 +81,7 @@ fun createGestureTypingSettings(context: Context) = listOf(
             val followingSystem = it == default
             // allow the default to be overridden
             ctx.prefs().edit().putBoolean(Settings.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, followingSystem).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     },
     Setting(context, Settings.PREF_GESTURE_SPACE_AWARE, R.string.gesture_space_aware, R.string.gesture_space_aware_summary) {
@@ -105,15 +107,16 @@ fun createGestureTypingSettings(context: Context) = listOf(
             range = 100f..1900f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, (it + 100).toString()) },
             stepSize = 10,
-        ) { keyboardNeedsReload = true }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
 )
 
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    JniUtils.sHaveGestureLib = true
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
         Surface {
             GestureTypingScreen { }
         }

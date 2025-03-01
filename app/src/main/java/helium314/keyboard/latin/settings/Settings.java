@@ -16,19 +16,17 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import helium314.keyboard.compat.ConfigurationCompatKt;
 import helium314.keyboard.keyboard.KeyboardActionListener;
-import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
-import helium314.keyboard.latin.common.Colors;
-import helium314.keyboard.latin.common.Constants;
-import helium314.keyboard.latin.common.LocaleUtils;
 import helium314.keyboard.latin.utils.DeviceProtectedUtils;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.LayoutType;
@@ -37,16 +35,12 @@ import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.RunInLocaleKt;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
-import helium314.keyboard.settings.SettingsActivity;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -147,13 +141,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "enable_clipboard_history";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "clipboard_history_retention_time";
 
-    public static final String PREF_SECONDARY_LOCALES_PREFIX = "secondary_locales_";
     public static final String PREF_ADD_TO_PERSONAL_DICTIONARY = "add_to_personal_dictionary";
     public static final String PREF_NAVBAR_COLOR = "navbar_color";
     public static final String PREF_NARROW_KEY_GAPS = "narrow_key_gaps";
     public static final String PREF_ENABLED_SUBTYPES = "enabled_subtypes";
     public static final String PREF_SELECTED_SUBTYPE = "selected_subtype";
-    public static final String PREF_USE_SYSTEM_LOCALES = "use_system_locales";
     public static final String PREF_URL_DETECTION = "url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
     public static final String PREF_QUICK_PIN_TOOLBAR_KEYS = "quick_pin_toolbar_keys";
@@ -204,6 +196,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return sInstance;
     }
 
+    public static SettingsValues getValues() {
+        return sInstance.mSettingsValues;
+    }
+
     public static void init(final Context context) {
         sInstance.onCreate(context);
     }
@@ -241,9 +237,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             mSettingsValuesLock.unlock();
         }
         if (PREF_ADDITIONAL_SUBTYPES.equals(key)) {
-            final String additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES);
-            SubtypeSettings.INSTANCE.updateAdditionalSubtypes(SubtypeUtilsAdditional.INSTANCE.createAdditionalSubtypes(additionalSubtypes));
+            SubtypeSettings.INSTANCE.reloadEnabledSubtypes(mContext);
         }
+    }
+
+    /** convenience function for the rare situations where we need to load settings but may not have a keyboard */
+    public void loadSettings(final Context context) {
+        if (mSettingsValues != null) return;
+        final Locale locale = ConfigurationCompatKt.locale(context.getResources().getConfiguration());
+        final InputAttributes inputAttributes = new InputAttributes(new EditorInfo(), false, context.getPackageName());
+        loadSettings(context, locale, inputAttributes);
     }
 
     public void loadSettings(final Context context, final Locale locale,
@@ -365,7 +368,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
@@ -374,7 +377,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeScale(final Float scale) {
         mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
     }
 
     public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
@@ -383,7 +386,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (getCurrent().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {
@@ -466,41 +469,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         Arrays.fill(sCachedBackgroundImages, null);
     }
 
-    public static List<Locale> getSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale) {
-        final String localesString = prefs.getString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), Defaults.PREF_SECONDARY_LOCALES);
-
-        final ArrayList<Locale> locales = new ArrayList<>();
-        for (String languageTag : localesString.split(Constants.Separators.KV)) {
-            if (languageTag.isEmpty()) continue;
-            locales.add(LocaleUtils.constructLocale(languageTag));
-        }
-        return locales;
-    }
-
-    public static void setSecondaryLocales(final SharedPreferences prefs, final Locale mainLocale, final List<Locale> locales) {
-        if (locales.isEmpty()) {
-            prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), "").apply();
-            return;
-        }
-        final StringBuilder sb = new StringBuilder();
-        for (Locale locale : locales) {
-            sb.append(Constants.Separators.KV).append(locale.toLanguageTag());
-        }
-        prefs.edit().putString(PREF_SECONDARY_LOCALES_PREFIX + mainLocale.toLanguageTag(), sb.toString()).apply();
-    }
-
-    public static Colors getColorsForCurrentTheme(final Context context, final SharedPreferences prefs) {
-        boolean isNight = ResourceUtils.isNight(context.getResources());
-        if (SettingsActivity.Companion.getForceOppositeTheme()) isNight = !isNight;
-        else isNight = isNight && prefs.getBoolean(PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT);
-        final String themeName = (isNight)
-                ? prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
-                : prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS);
-        final String themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE);
-
-        return KeyboardTheme.getThemeColors(themeName, themeStyle, context, prefs, isNight);
-    }
-
     public static Context getDayNightContext(final Context context, final boolean wantNight) {
         final boolean isNight = ResourceUtils.isNight(context.getResources());
         if (isNight == wantNight)
@@ -547,8 +515,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getString(PREF_LAYOUT_PREFIX + type.name(), Defaults.INSTANCE.getDefault(type));
     }
 
-    public static void writeDefaultLayoutName(final String name, final LayoutType type, final SharedPreferences prefs) {
-        prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
+    public static void writeDefaultLayoutName(@Nullable final String name, final LayoutType type, final SharedPreferences prefs) {
+        if (name == null) prefs.edit().remove(PREF_LAYOUT_PREFIX + type.name()).apply();
+        else prefs.edit().putString(PREF_LAYOUT_PREFIX + type.name(), name).apply();
     }
 
     @Nullable

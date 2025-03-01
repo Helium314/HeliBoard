@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Separators
@@ -20,7 +21,6 @@ import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ReorderDialog
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.screens.GetIcon
 
 @Composable
@@ -42,7 +42,7 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
             onConfirmed = { reorderedItems ->
                 val value = reorderedItems.joinToString(Separators.ENTRY) { it.name + Separators.KV + it.state }
                 prefs.edit().putString(setting.key, value).apply()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             },
             onDismissRequest = { showDialog = false },
             onNeutral = { prefs.edit().remove(setting.key).apply() },

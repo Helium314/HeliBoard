@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // modified version of ListPickerDialog for selecting multiple items
 @Composable
@@ -45,7 +47,7 @@ fun <T: Any> MultiListPickerDialog(
         confirmButtonText = stringResource(android.R.string.ok),
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -83,12 +85,14 @@ fun <T: Any> MultiListPickerDialog(
 @Composable
 private fun Preview() {
     val items = remember { (0..<5).toList() }
-    MultiListPickerDialog(
-        onDismissRequest = {},
-        items = items,
-        onConfirmed = {},
-        title = { Text("Select something") },
-        initialSelection = listOf(2, 4),
-        getItemName = { "Item $it" },
-    )
+    Theme(previewDark) {
+        MultiListPickerDialog(
+            onDismissRequest = {},
+            items = items,
+            onConfirmed = {},
+            title = { Text("Select something") },
+            initialSelection = listOf(2, 4),
+            getItemName = { "Item $it" },
+        )
+    }
 }

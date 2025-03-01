@@ -22,11 +22,14 @@ import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links.DICTIONARY_URL
+import helium314.keyboard.latin.common.Links.LAYOUT_FORMAT_URL
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.databinding.LanguageListItemBinding
 import helium314.keyboard.latin.databinding.LocaleSettingsDialogBinding
 import helium314.keyboard.latin.utils.*
+import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import java.io.File
 import java.util.*
@@ -188,7 +191,7 @@ class LanguageSettingsDialog(
                     SubtypeSettings.addEnabledSubtype(prefs, subtype.subtype)
                 }
                 else
-                    SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
+                    SubtypeSettings.removeEnabledSubtype(context, subtype.subtype)
                 subtype.isEnabled = b
                 reloadSetting()
             }
@@ -204,8 +207,8 @@ class LanguageSettingsDialog(
                         infos.remove(subtype)
                         //if (isCustom)
                         //    LayoutUtilsCustom.removeCustomLayoutFile(layoutSetName, context)
-                        SubtypeUtilsAdditional.removeAdditionalSubtype(prefs, subtype.subtype)
-                        SubtypeSettings.removeEnabledSubtype(prefs, subtype.subtype)
+                        SubtypeUtilsAdditional.removeAdditionalSubtype(context, subtype.subtype)
+                        SubtypeSettings.removeEnabledSubtype(context, subtype.subtype)
                         reloadSetting()
                     }
                     if (isCustom) {
@@ -226,7 +229,7 @@ class LanguageSettingsDialog(
             mainLocale,
             infos.first().subtype.isAsciiCapable
         )
-        val selectedSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+        val selectedSecondaryLocales = emptyList<Locale>()// Settings.getSecondaryLocales(prefs, mainLocale)
         selectedSecondaryLocales.forEach {
             addSecondaryLocaleView(it)
         }
@@ -234,14 +237,14 @@ class LanguageSettingsDialog(
             binding.addSecondaryLanguage.apply {
                 isVisible = true
                 setOnClickListener {
-                    val locales = (availableSecondaryLocales - Settings.getSecondaryLocales(prefs, mainLocale)).sortedBy { it.displayName }
+                    val locales = (availableSecondaryLocales).sortedBy { it.displayName }
                     val localeNames = locales.map { LocaleUtils.getLocaleDisplayNameInSystemLocale(it, context) }.toTypedArray()
                     Builder(context)
                         .setTitle(R.string.button_select_language)
                         .setItems(localeNames) { di, i ->
                             val locale = locales[i]
-                            val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
-                            Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
+                            //val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                            //Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales + locale)
                             addSecondaryLocaleView(locale)
                             di.dismiss()
                             reloadSetting()
@@ -264,8 +267,8 @@ class LanguageSettingsDialog(
         rowBinding.deleteButton.apply {
             isVisible = true
             setOnClickListener {
-                val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
-                Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
+                //val currentSecondaryLocales = Settings.getSecondaryLocales(prefs, mainLocale)
+                //Settings.setSecondaryLocales(prefs, mainLocale, currentSecondaryLocales - locale)
                 binding.secondaryLocales.removeView(rowBinding.root)
                 reloadSetting()
                 reloadDictionaries()
@@ -389,10 +392,10 @@ class LanguageSettingsDialog(
 }
 
 /** @return list of user dictionary files and whether an internal dictionary exists */
-fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
+private fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
+    val userLocaleDir = File(DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, context))
     if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(USER_DICTIONARY_SUFFIX))
@@ -425,4 +428,3 @@ private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale, a
     return locales
 }
 
-private const val LAYOUT_FORMAT_URL = "https://github.com/Helium314/HeliBoard/blob/main/layouts.md"

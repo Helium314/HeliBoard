@@ -1,6 +1,8 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
 import android.content.Context
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -9,6 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
@@ -21,8 +24,11 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.LayoutPickerDialog
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.Preference
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun SecondaryLayoutScreen(
@@ -59,5 +65,16 @@ fun createLayoutSettings(context: Context) = LayoutType.entries.filter { it != L
                 setting = setting,
                 layoutType = layoutType
             )
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        Surface {
+            SecondaryLayoutScreen { }
+        }
     }
 }

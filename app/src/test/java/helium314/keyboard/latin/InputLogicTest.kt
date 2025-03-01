@@ -49,7 +49,7 @@ import kotlin.test.assertEquals
 ])
 class InputLogicTest {
     private lateinit var latinIME: LatinIME
-    private val settingsValues get() = Settings.getInstance().current
+    private val settingsValues get() = Settings.getValues()
     private val inputLogic get() = latinIME.mInputLogic
     private val connection: RichInputConnection get() = inputLogic.mConnection
     private val composerReader = InputLogic::class.java.getDeclaredField("mWordComposer").apply { isAccessible = true }

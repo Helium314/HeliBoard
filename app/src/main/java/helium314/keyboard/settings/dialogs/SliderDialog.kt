@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun SliderDialog(
@@ -40,7 +42,7 @@ fun SliderDialog(
         onConfirmed = { onDone(sliderPosition) },
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -70,12 +72,14 @@ fun SliderDialog(
 @Preview
 @Composable
 private fun PreviewSliderDialog() {
-    SliderDialog(
-        onDismissRequest = { },
-        onDone = { },
-        initialValue = 100f,
-        range = 0f..500f,
-        title = { Text("move it") },
-        showDefault = true
-    )
+    Theme(previewDark) {
+        SliderDialog(
+            onDismissRequest = { },
+            onDone = { },
+            initialValue = 100f,
+            range = 0f..500f,
+            title = { Text("move it") },
+            showDefault = true
+        )
+    }
 }

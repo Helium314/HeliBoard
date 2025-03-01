@@ -16,9 +16,10 @@ object LayoutUtils {
             return SubtypeSettings.getAllAvailableSubtypes()
                 .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
                 .apply { addAll(context.resources.getStringArray(R.array.predefined_layouts)) }
+        val layouts = SubtypeSettings.getResourceSubtypesForLocale(locale).mapNotNullTo(mutableSetOf()) { it.mainLayoutName() }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)
-            return context.resources.getStringArray(R.array.predefined_layouts).toList()
-        return SubtypeSettings.getResourceSubtypesForLocale(locale).mapNotNullTo(HashSet()) { it.mainLayoutName() }
+            layouts.addAll(context.resources.getStringArray(R.array.predefined_layouts))
+        return layouts
     }
 
     fun getLMainLayoutsForLocales(locales: List<Locale>, context: Context): Collection<String> =

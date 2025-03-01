@@ -196,6 +196,8 @@
     <string name="button_restore">Restore</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
+    <!-- Clarification which locales are available for multilingual typing -->
+    <string name="locales_with_dict">Languages with dictionaries</string>
     <!-- Preferences item for loading an external gesture typing library -->
     <string name="load_gesture_library">Load gesture typing library</string>
     <!-- Description for "load_gesture_library" option -->
@@ -384,6 +386,8 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <!-- Description for Bengali (Baishakhi) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
@@ -515,7 +519,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="keyboard_layout_set">Layout</string>
     <!-- Button text and title for adding a custom layout -->
     <string name="button_title_add_custom_layout">Add custom layout</string>
-    <!-- Message text for adding a custom layout, interpreted as HTML -->
+    <!-- Message text for adding a custom layout -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
     <!-- Button text for loading a custom layout, image or theme file -->
     <string name="button_load_custom">Load file</string>
@@ -529,8 +533,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_copy_existing_layout">Copy existing layout</string>
     <!-- Title text for choosing a layout name -->
     <string name="title_layout_name_select">Set layout name</string>
-    <!-- Message when deleting a layouts -->
+    <!-- Message when deleting a layout -->
     <string name="delete_layout">Really delete custom layout %s?</string>
+    <!-- Message when layout to be deleted is in use -->
+    <string name="layout_in_use">Warning: layout is in currently use</string>
     <!-- Message on layout error -->
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
@@ -684,11 +690,11 @@ New dictionary:
         You can download dictionaries %1$s, or check whether a dictionary for \"%2$s\" can be downloaded directly %3$s."</string>
     <!-- Button to never show the no_dictionary_message when enabling a language that has no dictionary -->
     <string name="no_dictionary_dont_show_again_button">"Don't show again"</string>
-    <!-- Message for the user dictionary selection dialog, %s will be replaced by dictionary_link_text. This string will be interpreted as HTML -->
+    <!-- Message for the user dictionary selection dialog, %s will be replaced by dictionary_link_text. -->
     <string name="add_dictionary">"Select a dictionary to add. Dictionaries in .dict format can be downloaded %s."</string>
-    <!-- Title of the link to the download page inserted into messages (add_dictionary and no_dictionary_message) -->
+    <!-- Title of the link to the download page inserted into several messages -->
     <string name="dictionary_link_text">"here"</string>
-    <!-- Title of an item in the list of available dictionaries when the dictionary is experimental. This string will be interpreted as HTML -->
+    <!-- Title of an item in the list of available dictionaries when the dictionary is experimental. -->
     <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
@@ -837,6 +843,12 @@ New dictionary:
     <string name="select_color_accent">Accent</string>
     <!-- Selection: gesture color. -->
     <string name="select_color_gesture">Gesture input</string>
+    <!-- Message displayed when clicking "load" button in color theme picker. "%s" will be replaced by discussion_section_link -->
+    <string name="get_colors_message">"You can find and share colors in the %s."</string>
+    <!-- Message displayed when clicking add button for layouts. "%s" will be replaced by discussion_section_link -->
+    <string name="get_layouts_message">"You can find and share layouts in the %s."</string>
+    <!-- Text to be used in get_colors_message and get_layouts_message -->
+    <string name="discussion_section_link">"discussion section"</string>
     <!-- Settings screen title for about [CHAR LIMIT=33]-->
     <string name="settings_screen_about">About</string>
     <!-- version for about screen-->
@@ -993,6 +1005,8 @@ New dictionary:
     <string name="customize_icons_reset_message">Really reset all customized icons?</string>
     <!-- Confirmation message when deleting a something (currently used for custom colors) -->
     <string name="delete_confirmation">Really delete %s?</string>
-    <!-- Message when chosen name is invalid (empty or already taked) -->
+    <!-- Message when chosen name is invalid (empty or already taken) -->
     <string name="name_invalid">Invalid name</string>
+    <!-- Description indicating a subtype in Locales & Layouts has customizations -->
+    <string name="custom_subtype">Custom subtype</string>
 </resources>

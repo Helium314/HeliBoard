@@ -160,7 +160,7 @@ final class EmojiAltPhysicalKeyDetector {
     }
 
     private static boolean shouldProcessEvent(@NonNull final KeyEvent keyEvent) {
-        if (!Settings.getInstance().getCurrent().mEnableEmojiAltPhysicalKey) {
+        if (!Settings.getValues().mEnableEmojiAltPhysicalKey) {
             // The feature is disabled.
             if (DEBUG) {
                 Log.d(TAG, "shouldProcessEvent(): Disabled");

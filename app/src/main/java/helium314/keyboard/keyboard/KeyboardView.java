@@ -104,7 +104,7 @@ public class KeyboardView extends View {
 
     public KeyboardView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        mColors = Settings.getInstance().getCurrent().mColors;
+        mColors = Settings.getValues().mColors;
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
@@ -126,7 +126,7 @@ public class KeyboardView extends View {
                 R.styleable.KeyboardView_spacebarIconWidthRatio, 1.0f);
         mKeyHintLetterPadding = keyboardViewAttr.getDimension(
                 R.styleable.KeyboardView_keyHintLetterPadding, 0.0f);
-        mKeyPopupHintLetter = Settings.getInstance().getCurrent().mShowsPopupHints
+        mKeyPopupHintLetter = Settings.getValues().mShowsPopupHints
                 ? keyboardViewAttr.getString(R.styleable.KeyboardView_keyPopupHintLetter)
                 : "";
         mKeyPopupHintLetterPadding = keyboardViewAttr.getDimension(
@@ -184,15 +184,15 @@ public class KeyboardView extends View {
         }
 
         mKeyboard = keyboard;
-        mKeyScaleForText = (float) Math.sqrt(1 / Settings.getInstance().getCurrent().mKeyboardHeightScale);
+        mKeyScaleForText = (float) Math.sqrt(1 / Settings.getValues().mKeyboardHeightScale);
         final int scaledKeyHeight = (int) ((keyboard.mMostCommonKeyHeight - keyboard.mVerticalGap) * mKeyScaleForText);
         mKeyDrawParams.updateParams(scaledKeyHeight, mKeyVisualAttributes);
         mKeyDrawParams.updateParams(scaledKeyHeight, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
         mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
-                ? Settings.getInstance().getCurrent().mFontSizeMultiplierEmoji
-                : Settings.getInstance().getCurrent().mFontSizeMultiplier;
+                ? Settings.getValues().mFontSizeMultiplierEmoji
+                : Settings.getValues().mFontSizeMultiplier;
     }
 
     /**
@@ -281,8 +281,8 @@ public class KeyboardView extends View {
             return;
         }
 
-        mShowsHints = Settings.getInstance().getCurrent().mShowsHints;
-        final float scale = Settings.getInstance().getCurrent().mKeyboardHeightScale;
+        mShowsHints = Settings.getValues().mShowsHints;
+        final float scale = Settings.getValues().mKeyboardHeightScale;
         mIconScaleFactor = scale < 0.8f ? scale + 0.2f : 1f;
         final Paint paint = mPaint;
         final Drawable background = getBackground();

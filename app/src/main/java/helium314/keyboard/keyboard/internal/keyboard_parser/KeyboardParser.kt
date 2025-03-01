@@ -53,7 +53,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             KeyboardId.ELEMENT_PHONE -> LayoutType.PHONE
             KeyboardId.ELEMENT_PHONE_SYMBOLS -> LayoutType.PHONE_SYMBOLS
             KeyboardId.ELEMENT_NUMBER -> LayoutType.NUMBER
-            KeyboardId.ELEMENT_NUMPAD -> if (Settings.getInstance().current.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE)
+            KeyboardId.ELEMENT_NUMPAD -> if (Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE)
                 LayoutType.NUMPAD_LANDSCAPE else LayoutType.NUMPAD
             KeyboardId.ELEMENT_EMOJI_BOTTOM_ROW -> LayoutType.EMOJI_BOTTOM
             KeyboardId.ELEMENT_CLIPBOARD_BOTTOM_ROW -> LayoutType.CLIPBOARD_BOTTOM
@@ -65,7 +65,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         if (params.mId.isEmojiClipBottomRow) {
             heightRescale = 4f
             // params rescale is not perfect, especially mTopPadding may cause 1 pixel offsets because it's already been converted to int once
-            if (Settings.getInstance().current.mShowsNumberRow) {
+            if (Settings.getValues().mShowsNumberRow) {
                 params.mOccupiedHeight /= 5
                 params.mBaseHeight /= 5
                 params.mTopPadding = (params.mTopPadding / 5.0).roundToInt()
@@ -100,7 +100,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             addSymbolPopupKeys(baseKeys)
         if (params.mId.isAlphaOrSymbolKeyboard && params.mId.mNumberRowEnabled) {
             val newLabelFlags = defaultLabelFlags or
-                    if (Settings.getInstance().current.mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
+                    if (Settings.getValues().mShowNumberRowHints) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL
             baseKeys.add(0, numberRow.mapTo(mutableListOf()) { it.copy(newLabelFlags = newLabelFlags) })
         }
         if (!params.mAllowRedundantPopupKeys)
@@ -267,7 +267,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
             val numberRowCopy = numberRow.toMutableList()
             numberRowCopy.forEachIndexed { index, keyData -> keyData.popup.symbol = baseKeys[0].getOrNull(index)?.label }
             baseKeys[0] = numberRowCopy
-        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && hasNumbersOnTopRow()) {
+        } else if (!params.mId.mNumberRowEnabled && params.mId.isAlphabetKeyboard && !hasBuiltInNumbers()) {
             if (baseKeys[0].any { it.popup.main != null || !it.popup.relevant.isNullOrEmpty() } // first row of baseKeys has any layout popup key
                 && params.mPopupKeyLabelSources.let {
                     val layout = it.indexOf(POPUP_KEYS_LAYOUT)
@@ -297,7 +297,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         val row = LayoutParser.parseLayout(LayoutType.NUMBER_ROW, params, context).first()
         val localizedNumbers = params.mLocaleKeyboardInfos.localizedNumberKeys
         if (localizedNumbers?.size != 10) return row
-        if (Settings.getInstance().current.mLocalizedNumberRow) {
+        if (Settings.getValues().mLocalizedNumberRow) {
             // replace 0-9 with localized numbers, and move latin number into popup
             for (i in row.indices) {
                 val key = row[i]
@@ -321,9 +321,11 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
         return row
     }
 
-    // some layouts have different number layout, and there we don't want the numbers on the top row
-    // todo: this should be derived from main layout and popup / hint order settings
-    private fun hasNumbersOnTopRow() = params.mId.mSubtype.mainLayoutName !in listOf("pcqwerty", "lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+    // some layouts have numbers hardcoded in the main layout (pcqwerty as keys, and others as popups)
+    private fun hasBuiltInNumbers() = params.mId.mSubtype.mainLayoutName == "pcqwerty"
+            || (Settings.getValues().mPopupKeyTypes.contains(POPUP_KEYS_LAYOUT)
+                && params.mId.mSubtype.mainLayoutName in listOf("lao", "thai", "korean_sebeolsik_390", "korean_sebeolsik_final")
+            )
 
     companion object {
         private const val TAG = "KeyboardParser"

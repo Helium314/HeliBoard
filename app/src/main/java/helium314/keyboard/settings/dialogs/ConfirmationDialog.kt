@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // taken from StreetComplete
 /** Slight specialization of an alert dialog: AlertDialog with OK and Cancel button. Both buttons
@@ -17,7 +19,7 @@ fun ConfirmationDialog(
     onConfirmed: () -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null,
     confirmButtonText: String = stringResource(android.R.string.ok),
     cancelButtonText: String = stringResource(android.R.string.cancel),
     neutralButtonText: String? = null,
@@ -32,18 +34,20 @@ fun ConfirmationDialog(
         onNeutral = onNeutral,
         modifier = modifier,
         title = title,
-        text = text,
+        content = content,
     )
 }
 
 @Preview
 @Composable
 private fun PreviewConfirmDialog() {
-    ConfirmationDialog(
-        onDismissRequest = {  },
-        onConfirmed = {},
-        neutralButtonText = "hi",
-        confirmButtonText = "I don't care",
-        text = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
-    )
+    Theme(previewDark) {
+        ConfirmationDialog(
+            onDismissRequest = { },
+            onConfirmed = {},
+            neutralButtonText = "hi",
+            confirmButtonText = "I don't care",
+            content = { Text(stringResource(R.string.disable_personalized_dicts_message)) }
+        )
+    }
 }

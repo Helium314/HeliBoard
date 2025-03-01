@@ -20,6 +20,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.common.encodeBase36
+import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import kotlinx.serialization.SerializationException
@@ -83,6 +84,8 @@ object LayoutUtilsCustom {
     }
 
     fun checkLayout(layoutContent: String, context: Context): Boolean {
+        if (Settings.getValues() == null)
+            Settings.getInstance().loadSettings(context)
         val params = KeyboardParams()
         params.mId = KeyboardLayoutSet.getFakeKeyboardId(KeyboardId.ELEMENT_ALPHABET)
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
@@ -166,6 +169,13 @@ object LayoutUtilsCustom {
         customLayoutMap.clear()
     }
 
+    fun deleteLayout(layoutName: String, layoutType: LayoutType, context: Context) {
+        getLayoutFile(layoutName, layoutType, context).delete()
+        onLayoutFileChanged()
+        SubtypeSettings.onRenameLayout(layoutType, layoutName, null, context)
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
+    }
+
     fun getDisplayName(layoutName: String) =
         try {
             if (layoutName.count { it == '.' } == 3) // main layout: "custom.<locale or script>.<name>.", other: custom.<name>.
@@ -175,12 +185,16 @@ object LayoutUtilsCustom {
             layoutName
         }
 
-    fun getSecondaryLayoutName(displayName: String) = CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
 
-    fun getMainLayoutName(displayName: String, locale: Locale) =
-        if (locale.script() == ScriptUtils.SCRIPT_LATIN)
+    /** @return layoutName for given [displayName]. If [layoutType ]is MAIN, non-null [locale] must be supplied */
+    fun getLayoutName(displayName: String, layoutType: LayoutType, locale: Locale? = null): String {
+        if (layoutType != LayoutType.MAIN)
+            return CUSTOM_LAYOUT_PREFIX + encodeBase36(displayName) + "."
+        if (locale == null) throw IllegalArgumentException("locale for main layout not specified")
+        return if (locale.script() == ScriptUtils.SCRIPT_LATIN)
             CUSTOM_LAYOUT_PREFIX + ScriptUtils.SCRIPT_LATIN + "." + encodeBase36(displayName) + "."
         else CUSTOM_LAYOUT_PREFIX + locale.toLanguageTag() + "." + encodeBase36(displayName) + "."
+    }
 
     fun isCustomLayout(layoutName: String) = layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
 

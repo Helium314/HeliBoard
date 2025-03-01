@@ -8,6 +8,13 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.withLink
 import androidx.fragment.app.commit
 import helium314.keyboard.latin.R
 
@@ -88,3 +95,13 @@ fun Context.prefs(): SharedPreferences = DeviceProtectedUtils.getSharedPreferenc
 
 /** The "default" preferences that are only accessible after the device has been unlocked. */
 fun Context.protectedPrefs(): SharedPreferences = getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE)
+
+@Composable
+fun AnnotatedString.Builder.appendLink(text: String, url: String) =
+    withLink(
+        LinkAnnotation.Url(
+        url,
+        styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary))
+    )) {
+        append(text)
+    }

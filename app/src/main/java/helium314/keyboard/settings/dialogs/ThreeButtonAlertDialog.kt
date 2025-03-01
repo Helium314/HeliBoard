@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun ThreeButtonAlertDialog(
@@ -34,7 +35,7 @@ fun ThreeButtonAlertDialog(
     onConfirmed: () -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable (() -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
+    content: @Composable (() -> Unit)? = null,
     onNeutral: () -> Unit = { },
     checkOk: () -> Boolean = { true },
     confirmButtonText: String? = stringResource(android.R.string.ok),
@@ -69,10 +70,10 @@ fun ThreeButtonAlertDialog(
                             }
                         }
                     }
-                    text?.let {
+                    content?.let {
                         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
                             Box(Modifier.weight(weight = 1f, fill = false).padding(bottom = if (reducePadding) 2.dp else 8.dp)) {
-                                text()
+                                content()
                             }
                         }
                     }
@@ -86,7 +87,7 @@ fun ThreeButtonAlertDialog(
                         if (confirmButtonText != null)
                             TextButton(
                                 enabled = checkOk(),
-                                onClick = { onDismissRequest(); onConfirmed() },
+                                onClick = { onConfirmed(); onDismissRequest() },
                             ) { Text(confirmButtonText) }
                     }
                 }
@@ -98,11 +99,11 @@ fun ThreeButtonAlertDialog(
 @Preview
 @Composable
 private fun Preview() {
-    Theme {
+    Theme(previewDark) {
         ThreeButtonAlertDialog(
             onDismissRequest = {},
             onConfirmed = { },
-            text = { Text("hello") },
+            content = { Text("hello") },
             title = { Text("title") },
             neutralButtonText = "Default"
         )

@@ -20,9 +20,9 @@ public final class SetupActivity extends Activity {
         super.onCreate(savedInstanceState);
         final Intent intent = new Intent();
         final InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        if (UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm))
+//        if (UncachedInputMethodManagerUtils.isThisImeCurrent(this, imm))
             intent.setClass(this, SettingsActivity.class);
-        else intent.setClass(this, SetupWizardActivity.class);
+//        else intent.setClass(this, SetupWizardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

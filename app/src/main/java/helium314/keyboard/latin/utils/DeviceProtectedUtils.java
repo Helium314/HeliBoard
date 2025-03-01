@@ -26,12 +26,10 @@ public final class DeviceProtectedUtils {
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
             return prefs;
         }
-        Context deviceProtectedContext = getDeviceProtectedContext(context);
-        if (deviceProtectedContext == null) { // not relevant in practice, but happens when compose previews access shared preferences
-            prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            return prefs;
-        }
+        final Context deviceProtectedContext = getDeviceProtectedContext(context);
         prefs = PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
+        if (prefs.getAll() == null)
+            return prefs; // happens for compose previews
         if (prefs.getAll().isEmpty()) {
             Log.i(TAG, "Device encrypted storage is empty, copying values from credential encrypted storage");
             deviceProtectedContext.moveSharedPreferencesFrom(context, android.preference.PreferenceManager.getDefaultSharedPreferencesName(context));
@@ -42,7 +40,9 @@ public final class DeviceProtectedUtils {
     // keep this private to avoid accidental use of device protected context anywhere in the app
     private static Context getDeviceProtectedContext(final Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return context;
-        return context.isDeviceProtectedStorage() ? context : context.createDeviceProtectedStorageContext();
+        final Context ctx = context.isDeviceProtectedStorage() ? context : context.createDeviceProtectedStorageContext();
+        if (ctx == null) return context; // happens for compose previews
+        else return ctx;
     }
 
     public static File getFilesDir(final Context context) {

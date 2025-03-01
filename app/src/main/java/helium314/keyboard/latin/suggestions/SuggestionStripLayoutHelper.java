@@ -117,7 +117,7 @@ final class SuggestionStripLayoutHelper {
         mSuggestionStripOptions = a.getInt(R.styleable.SuggestionStripView_suggestionStripOptions, 0);
         mAlphaObsoleted = ResourceUtils.getFraction(a, R.styleable.SuggestionStripView_alphaObsoleted, 1.0f);
 
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        final Colors colors = Settings.getValues().mColors;
         mColorValidTypedWord = colors.get(ColorType.SUGGESTION_VALID_WORD);
         mColorTypedWord = colors.get(ColorType.SUGGESTION_TYPED_WORD);
         mColorAutoCorrect = colors.get(ColorType.SUGGESTION_AUTO_CORRECT);
@@ -222,7 +222,7 @@ final class SuggestionStripLayoutHelper {
      */
     private int getPositionInSuggestionStrip(final int indexInSuggestedWords,
             final SuggestedWords suggestedWords) {
-        final SettingsValues settingsValues = Settings.getInstance().getCurrent();
+        final SettingsValues settingsValues = Settings.getValues();
         final boolean shouldOmitTypedWord = shouldOmitTypedWord(suggestedWords.mInputStyle,
                 settingsValues.mGestureFloatingPreviewTextEnabled, true);
         return getPositionInSuggestionStrip(indexInSuggestedWords, suggestedWords.mWillAutoCorrect,

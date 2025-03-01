@@ -9,7 +9,6 @@ import android.content.Context
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import java.io.File
@@ -27,11 +26,11 @@ import java.util.Locale
  * @return an initialized instance of DictionaryCollection
  */
 fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection {
-    val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context)
+    val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, context)
     val dictList = LinkedList<Dictionary>()
     // get cached dict files
     val (userDicts, extractedDicts) = DictionaryInfoUtils.getCachedDictsForLocale(locale, context)
-        .partition { it.name.endsWith(USER_DICTIONARY_SUFFIX) }
+        .partition { it.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) }
     // add user dicts to list
     userDicts.forEach { checkAndAddDictionaryToListIfNotExisting(it, dictList, locale) }
     // add extracted dicts to list (after userDicts, to skip extracted dicts of same type)

@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 
@@ -56,7 +58,7 @@ fun <T: Any> ReorderDialog(
         neutralButtonText = neutralButtonText,
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             LazyColumn(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -93,11 +95,13 @@ fun <T: Any> ReorderDialog(
 @Preview
 @Composable
 private fun Preview() {
-    ReorderDialog(
-        onConfirmed = {},
-        onDismissRequest = {},
-        items = listOf(1, 2, 3),
-        displayItem = { Text(it.toString(), Modifier.fillMaxWidth(), textAlign = TextAlign.Center) },
-        getKey = { it.toString() }
-    )
+    Theme(previewDark) {
+        ReorderDialog(
+            onConfirmed = {},
+            onDismissRequest = {},
+            items = listOf(1, 2, 3),
+            displayItem = { Text(it.toString(), Modifier.fillMaxWidth(), textAlign = TextAlign.Center) },
+            getKey = { it.toString() }
+        )
+    }
 }

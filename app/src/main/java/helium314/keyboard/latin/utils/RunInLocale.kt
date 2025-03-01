@@ -9,7 +9,7 @@ import java.util.Locale
 fun <T> runInLocale(context: Context, locale: Locale, run: (Context) -> T): T {
     val config = Configuration(context.resources.configuration)
     config.setLocale(locale)
-    val localeContext = context.createConfigurationContext(config)
+    val localeContext = context.createConfigurationContext(config) ?: context
     return run(localeContext)
 }
 

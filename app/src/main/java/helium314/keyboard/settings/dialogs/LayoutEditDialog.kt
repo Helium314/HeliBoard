@@ -2,13 +2,11 @@
 package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,18 +15,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
+import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.CloseIcon
+import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @Composable
 fun LayoutEditDialog(
@@ -36,12 +42,14 @@ fun LayoutEditDialog(
     layoutType: LayoutType,
     initialLayoutName: String,
     startContent: String? = null,
-    isNameValid: (String) -> Boolean
+    locale: Locale? = null,
+    onEdited: (newLayoutName: String) -> Unit = { },
+    isNameValid: ((String) -> Boolean)?
 ) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
-    var job: Job? = null
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
+    val bottomInsets by SettingsActivity.bottomInsets.collectAsState()
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
             if (startIsCustom) LayoutUtilsCustom.getDisplayName(initialLayoutName)
@@ -50,40 +58,47 @@ fun LayoutEditDialog(
     }
     val nameValid = displayNameValue.text.isNotBlank()
             && (
-                (startIsCustom && LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text) == initialLayoutName)
-                || isNameValid(LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text))
+                (startIsCustom && LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale) == initialLayoutName)
+                || isNameValid?.let { it(LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale)) } == true
             )
 
     TextInputDialog(
         onDismissRequest = {
-            job?.cancel()
+            errorJob?.cancel()
             onDismissRequest()
         },
         onConfirmed = {
-            val newLayoutName = LayoutUtilsCustom.getSecondaryLayoutName(displayNameValue.text)
-            if (startIsCustom && initialLayoutName != newLayoutName)
+            val newLayoutName = LayoutUtilsCustom.getLayoutName(displayNameValue.text, layoutType, locale)
+            if (startIsCustom && initialLayoutName != newLayoutName) {
                 LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).delete()
+                SubtypeSettings.onRenameLayout(layoutType, initialLayoutName, newLayoutName, ctx)
+            }
             LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
             LayoutUtilsCustom.onLayoutFileChanged()
-            keyboardNeedsReload = true
+            onEdited(newLayoutName)
+            (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 555
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         },
         confirmButtonText = stringResource(R.string.save),
         initialText = startContent ?: LayoutUtilsCustom.getLayoutFile(initialLayoutName, layoutType, ctx).readText(),
         singleLine = false,
         title = {
-            TextField(
-                value = displayNameValue,
-                onValueChange = { displayNameValue = it },
-                isError = !nameValid,
-                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
-                trailingIcon = { if (!nameValid) Icon(painterResource(R.drawable.ic_close), null) },
-            )
+            if (isNameValid == null)
+                Text(displayNameValue.text)
+            else
+                TextField(
+                    value = displayNameValue,
+                    onValueChange = { displayNameValue = it },
+                    isError = !nameValid,
+                    supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
+                    trailingIcon = { if (!nameValid) CloseIcon(R.string.name_invalid) },
+                )
         },
-        checkTextValid = {
-            val valid = LayoutUtilsCustom.checkLayout(it, ctx)
-            job?.cancel()
+        checkTextValid = { text ->
+            val valid = LayoutUtilsCustom.checkLayout(text, ctx)
+            errorJob?.cancel()
             if (!valid) {
-                job = scope.launch {
+                errorJob = scope.launch {
                     val message = Log.getLog(10)
                         .lastOrNull { it.tag == "LayoutUtilsCustom" }?.message
                         ?.split("\n")?.take(2)?.joinToString("\n")
@@ -93,9 +108,23 @@ fun LayoutEditDialog(
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
-        // todo: this looks weird when the text field is not covered by the keyboard, but better then not seeing the bottom part of the field...
+        // this looks weird when the text field is not covered by the keyboard (long dialog)
+        // but better than not seeing the bottom part of the field...
         modifier = Modifier.padding(bottom = with(LocalDensity.current)
-            { (WindowInsets.ime.getBottom(LocalDensity.current) / 2 + 36).toDp() }), // why is the /2 necessary?
+            { (bottomInsets / 2 + 36).toDp() }), // why is the /2 necessary?
         reducePadding = true,
     )
+}
+
+// the job is here (outside the composable to make sure old jobs are canceled
+private var errorJob: Job? = null
+
+@Preview
+@Composable
+private fun Preview() {
+    val content = LocalContext.current.assets.open("layouts/main/dvorak.json").reader().readText()
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        LayoutEditDialog({}, LayoutType.MAIN, "qwerty", locale = Locale.ENGLISH, startContent = content) { true }
+    }
 }

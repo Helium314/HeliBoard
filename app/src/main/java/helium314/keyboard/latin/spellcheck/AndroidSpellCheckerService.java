@@ -85,7 +85,6 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
         final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
-        SubtypeSettings.INSTANCE.init(this);
     }
 
     public float getRecommendedThreshold() {
@@ -190,11 +189,10 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     }
 
     private Keyboard createKeyboardForLocale(final Locale locale) {
-        if (Settings.getInstance().getCurrent() == null) {
+        if (Settings.getValues() == null) {
             // creating a keyboard reads SettingsValues from Settings instance
             // maybe it would be "more correct" to create an instance of SettingsValues and use that one instead
             // but creating a global one if not existing should be fine too
-            Settings.init(this);
             final EditorInfo editorInfo = new EditorInfo();
             editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
             Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));

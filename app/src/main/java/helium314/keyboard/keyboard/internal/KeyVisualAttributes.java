@@ -114,7 +114,7 @@ public final class KeyVisualAttributes {
                 R.styleable.Keyboard_Key_keyPreviewTextRatio);
 
         // todo: check what colors do, and if irrelevant and no plan to use -> remove here and from attr
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        final Colors colors = Settings.getValues().mColors;
         mTextColor = colors.get(ColorType.KEY_TEXT);
         // when? -> isShiftedLetterActivated, which is a label flag
         mTextInactivatedColor = keyAttr.getColor(R.styleable.Keyboard_Key_keyTextInactivatedColor, 0);

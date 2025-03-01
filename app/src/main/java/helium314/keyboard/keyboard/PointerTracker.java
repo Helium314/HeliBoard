@@ -745,7 +745,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private boolean isSwiper(final int code) {
-        final SettingsValues sv = Settings.getInstance().getCurrent();
+        final SettingsValues sv = Settings.getValues();
         return switch (code) {
             case Constants.CODE_SPACE -> sv.mSpaceSwipeHorizontal != KeyboardActionListener.SWIPE_NO_ACTION
                     || sv.mSpaceSwipeVertical != KeyboardActionListener.SWIPE_NO_ACTION;
@@ -921,7 +921,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private void onKeySwipe(final int code, final int x, final int y, final long eventTime) {
-        final SettingsValues sv = Settings.getInstance().getCurrent();
+        final SettingsValues sv = Settings.getValues();
         final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
         // we don't want keyswipes to start immediately if the user is fast-typing,
         // see https://github.com/openboard-team/openboard/issues/411
@@ -1137,7 +1137,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         final int code = key.getCode();
         if (code == KeyCode.LANGUAGE_SWITCH
-                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getInstance().getCurrent().mSpaceForLangChange)
+                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
         ) {
             // Long pressing the space key invokes IME switcher dialog.
             if (sListener.onCustomRequest(Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)) {
@@ -1146,7 +1146,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 return;
             }
         }
-        if (code == KeyCode.SYMBOL_ALPHA && Settings.getInstance().getCurrent().mLongPressSymbolsForNumpad) {
+        if (code == KeyCode.SYMBOL_ALPHA && Settings.getValues().mLongPressSymbolsForNumpad) {
             // toggle numpad with sliding input enabled, forcing return to the alpha layout when done
             sListener.toggleNumpad(true, true);
             return;
@@ -1249,7 +1249,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     private int getLongPressTimeout(final int code) {
-        final int longpressTimeout = Settings.getInstance().getCurrent().mKeyLongpressTimeout;
+        final int longpressTimeout = Settings.getValues().mKeyLongpressTimeout;
         if (code == KeyCode.SHIFT || code == KeyCode.SYMBOL_ALPHA) {
             // We use slightly longer timeout for shift-lock and the numpad long-press.
             return longpressTimeout * 3 / 2;

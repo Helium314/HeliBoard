@@ -1,5 +1,6 @@
 package helium314.keyboard.latin.utils
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
@@ -10,7 +11,8 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.utils.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.settings.SettingsSubtype
+import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import java.util.Locale
 
 object SubtypeUtilsAdditional {
@@ -19,13 +21,10 @@ object SubtypeUtilsAdditional {
         return subtype.containsExtraValueKey(ExtraValue.IS_ADDITIONAL_SUBTYPE)
     }
 
-    // todo: extra value does not contain UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME for custom layout
-    //  it did contain that key in 2.3, but where was it set? anyway, need to be careful with separators if we want to use it
-    //  see also todo in SettingsSubtype
     fun createAdditionalSubtype(locale: Locale, extraValue: String, isAsciiCapable: Boolean,
                                         isEmojiCapable: Boolean): InputMethodSubtype {
         val mainLayoutName = LayoutType.getMainLayoutFromExtraValue(extraValue) ?: "qwerty"
-        val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)
+        val nameId = getNameResId(locale, mainLayoutName)
         val fullExtraValue = extraValue + "," + getAdditionalExtraValues(locale, mainLayoutName, isAsciiCapable, isEmojiCapable)
         val subtypeId = getSubtypeId(locale, fullExtraValue, isAsciiCapable)
         val builder = InputMethodSubtypeBuilder()
@@ -51,7 +50,7 @@ object SubtypeUtilsAdditional {
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
 
-    // todo: consider using SettingsSubtype
+    // todo: consider using SettingsSubtype (nah, this can be removed after removing old settings)
     fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         val additionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString).toMutableSet()
@@ -60,7 +59,10 @@ object SubtypeUtilsAdditional {
         Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
     }
 
-    fun removeAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
+    // todo: SettingsSubtype?
+    fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
+        val prefs = context.prefs()
+        SubtypeSettings.removeEnabledSubtype(context, subtype)
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
         val oldAdditionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString)
         val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
@@ -69,23 +71,26 @@ object SubtypeUtilsAdditional {
     }
 
     // updates additional subtypes, enabled subtypes, and selected subtype
-    fun changeAdditionalSubtype(from: SettingsSubtype, to: SettingsSubtype, prefs: SharedPreferences) {
+    fun changeAdditionalSubtype(from: SettingsSubtype, to: SettingsSubtype, context: Context) {
+        val prefs = context.prefs()
+        // read now because there may be an intermediate state where the subtype is invalid and thus removed
+        val isSelected = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype() == from
+        val isEnabled = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
+            .any { it.toSettingsSubtype() == from }
         val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-            .split(Separators.SETS).mapTo(sortedSetOf()) {
-                if (it == from.toPref()) to.toPref() else it
-            }
+            .split(Separators.SETS).mapNotNullTo(sortedSetOf()) {
+                if (it == from.toPref()) null else it
+            } + to.toPref()
         prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new.joinToString(Separators.SETS)).apply()
 
         val fromSubtype = from.toAdditionalSubtype() // will be null if we edit a resource subtype
         val toSubtype = to.toAdditionalSubtype() // should never be null
-        if (SubtypeSettings.getSelectedSubtype(prefs) == fromSubtype && toSubtype != null) {
+        if (isSelected && toSubtype != null) {
             SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
         }
-        if (SubtypeSettings.getEnabledSubtypes(prefs, false).contains(fromSubtype)) {
-            if (fromSubtype != null)
-                SubtypeSettings.removeEnabledSubtype(prefs, fromSubtype)
-            if (toSubtype != null)
-                SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
+        if (fromSubtype != null && isEnabled && toSubtype != null) {
+            SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
+            SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
         }
     }
 
@@ -99,6 +104,15 @@ object SubtypeUtilsAdditional {
         if (subtypes.isEmpty())
             return ""
         return subtypes.joinToString(Separators.SETS) { it.toSettingsSubtype().toPref() }
+    }
+
+    private fun getNameResId(locale: Locale, mainLayoutName: String): Int {
+        val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)
+        if (nameId != SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT) return nameId
+        SubtypeSettings.getResourceSubtypesForLocale(locale).forEach {
+            if (it.mainLayoutName() == mainLayoutName) return it.nameResId
+        }
+        return SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT
     }
 
     /**
@@ -144,6 +158,10 @@ object SubtypeUtilsAdditional {
         if (isAsciiCapable)
             extraValueItems.add(ExtraValue.ASCII_CAPABLE)
         if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
+            // this seems to be for shorter names (e.g. English (US) instead English (United States))
+            // but is now also used for languages that are not known by Android (at least older versions)
+            // todo: actually this should never contain a custom layout name, because it may contain any
+            //  characters including , and = which may break extra values
             extraValueItems.add(
                 ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" + SubtypeLocaleUtils.getMainLayoutDisplayName(mainLayoutName)
             )

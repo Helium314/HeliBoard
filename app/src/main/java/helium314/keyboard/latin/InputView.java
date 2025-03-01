@@ -44,7 +44,7 @@ public final class InputView extends FrameLayout {
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
                 mMainKeyboardView, suggestionStripView);
         ViewKt.doOnNextLayout(this, v -> {
-            Settings.getInstance().getCurrent().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
+            Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
             return null;
         });
     }

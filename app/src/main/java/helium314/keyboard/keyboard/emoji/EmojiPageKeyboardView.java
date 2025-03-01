@@ -241,7 +241,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     private int getLongPressTimeout() {
-        return Settings.getInstance().getCurrent().mKeyLongpressTimeout;
+        return Settings.getValues().mKeyLongpressTimeout;
     }
 
     /**

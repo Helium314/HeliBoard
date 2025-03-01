@@ -106,7 +106,7 @@ public final class PreferencesSettingsFragment extends SubScreenFragment {
         if (pref == null) return;
         // locales that have a number row defined (not good to have it hardcoded, but reading a bunch of files may be noticeably slow)
         final String[] numberRowLocales = new String[] { "ar", "bn", "fa", "gu", "hi", "kn", "mr", "ne", "ur" };
-        for (final InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(getSharedPreferences(), true)) {
+        for (final InputMethodSubtype subtype : SubtypeSettings.INSTANCE.getEnabledSubtypes(true)) {
             if (ArraysKt.any(numberRowLocales, (l) -> l.equals(SubtypeUtilsKt.locale(subtype).getLanguage()))) {
                 pref.setVisible(true);
                 return;

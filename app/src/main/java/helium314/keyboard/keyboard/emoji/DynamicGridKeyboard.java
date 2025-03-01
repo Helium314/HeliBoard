@@ -59,14 +59,14 @@ final class DynamicGridKeyboard extends Keyboard {
         final int paddingWidth = mOccupiedWidth - mBaseWidth;
         mBaseWidth = width - paddingWidth;
         mOccupiedWidth = width;
-        final float spacerWidth = Settings.getInstance().getCurrent().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
+        final float spacerWidth = Settings.getValues().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
         final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
         final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
         final float widthScale = determineWidthScale(key0.getWidth() + horizontalGap);
         mHorizontalGap = (int) (horizontalGap * widthScale);
         mHorizontalStep = (int) ((key0.getWidth() + horizontalGap) * widthScale);
-        mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getInstance().getCurrent().mKeyboardHeightScale));
+        mVerticalStep = (int) ((key0.getHeight() + mVerticalGap) / Math.sqrt(Settings.getValues().mKeyboardHeightScale));
         mColumnsNum = mBaseWidth / mHorizontalStep;
         if (spacerWidth > 0)
             setSpacerColumns(spacerWidth);

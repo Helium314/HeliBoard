@@ -10,14 +10,18 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
 import helium314.keyboard.settings.screens.ColorsScreen
 import helium314.keyboard.settings.screens.DebugScreen
+import helium314.keyboard.settings.screens.DictionaryScreen
 import helium314.keyboard.settings.screens.GestureTypingScreen
 import helium314.keyboard.settings.screens.LanguageScreen
 import helium314.keyboard.settings.screens.MainSettingsScreen
+import helium314.keyboard.settings.screens.PersonalDictionariesScreen
+import helium314.keyboard.settings.screens.PersonalDictionaryScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.SecondaryLayoutScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
@@ -60,6 +64,7 @@ fun SettingsNavHost(
                 onClickAppearance = { navController.navigate(SettingsDestination.Appearance) },
                 onClickLanguage = { navController.navigate(SettingsDestination.Languages) },
                 onClickLayouts = { navController.navigate(SettingsDestination.Layouts) },
+                onClickDictionaries = { navController.navigate(SettingsDestination.Dictionaries) },
                 onClickBack = ::goBack,
             )
         }
@@ -87,22 +92,30 @@ fun SettingsNavHost(
         composable(SettingsDestination.Appearance) {
             AppearanceScreen(onClickBack = ::goBack)
         }
-        composable(SettingsDestination.PersonalDictionary) {
-//            PersonalDictionarySettingsScreen(
-//                onClickBack = ::goBack
-//            )
+        composable(SettingsDestination.PersonalDictionary + "{locale}") {
+            val locale = it.arguments?.getString("locale")?.takeIf { it.isNotBlank() }?.constructLocale()
+            PersonalDictionaryScreen(
+                onClickBack = ::goBack,
+                locale = locale
+            )
+        }
+        composable(SettingsDestination.PersonalDictionaries) {
+            PersonalDictionariesScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Languages) {
             LanguageScreen(onClickBack = ::goBack)
         }
+        composable(SettingsDestination.Dictionaries) {
+            DictionaryScreen(onClickBack = ::goBack)
+        }
         composable(SettingsDestination.Layouts) {
             SecondaryLayoutScreen(onClickBack = ::goBack)
         }
-        composable(SettingsDestination.Colors) {
-            ColorsScreen(isNight = false, onClickBack = ::goBack)
+        composable(SettingsDestination.Colors + "{theme}") {
+            ColorsScreen(isNight = false, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
-        composable(SettingsDestination.ColorsNight) {
-            ColorsScreen(isNight = true, onClickBack = ::goBack)
+        composable(SettingsDestination.ColorsNight + "{theme}") {
+            ColorsScreen(isNight = true, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
     }
     if (target.value != SettingsDestination.Settings/* && target.value != navController.currentBackStackEntry?.destination?.route*/)
@@ -119,11 +132,13 @@ object SettingsDestination {
     const val Advanced = "advanced"
     const val Debug = "debug"
     const val Appearance = "appearance"
-    const val Colors = "colors"
-    const val ColorsNight = "colors_night"
-    const val PersonalDictionary = "personal_dictionary"
+    const val Colors = "colors/"
+    const val ColorsNight = "colors_night/"
+    const val PersonalDictionaries = "personal_dictionaries"
+    const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"
     const val Layouts = "layouts"
+    const val Dictionaries = "dictionaries"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

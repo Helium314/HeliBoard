@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.Log
@@ -37,8 +38,11 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 @Composable
 fun AboutScreen(
@@ -93,7 +97,7 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard/blob/main/LICENSE-GPL-3".toUri()
+                intent.data = Links.LICENSE.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
@@ -131,7 +135,7 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard".toUri()
+                intent.data = Links.GITHUB.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
@@ -154,12 +158,13 @@ fun createAboutSettings(context: Context) = listOf(
             name = setting.title,
             description = setting.description,
             onClick = {
+                val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_log_${System.currentTimeMillis()}.txt"
+                            .replace(" ", "_") + "_log_$date.txt"
                     )
                     .setType("text/plain")
                 launcher.launch(intent)
@@ -173,7 +178,7 @@ fun createAboutSettings(context: Context) = listOf(
 @Composable
 private fun Preview() {
     SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             AboutScreen {  }
         }

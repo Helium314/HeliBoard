@@ -5,7 +5,8 @@ modified
 SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -20,7 +21,9 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:supportsRtl="true"
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
-            android:directBootAware="true">
+            android:directBootAware="true"
+            tools:remove="android:appComponentFactory"
+            tools:targetApi="p">
 
         <!-- Services -->
         <service android:name="LatinIME"

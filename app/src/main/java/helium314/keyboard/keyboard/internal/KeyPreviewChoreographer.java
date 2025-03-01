@@ -107,7 +107,7 @@ public final class KeyPreviewChoreographer {
         }
         final boolean hasPopupKeys = (key.getPopupKeys() != null);
         keyPreviewView.setPreviewBackground(hasPopupKeys, keyPreviewPosition);
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
+        final Colors colors = Settings.getValues().mColors;
         colors.setBackground(keyPreviewView, ColorType.KEY_PREVIEW);
 
         // The key preview is placed vertically above the top edge of the parent key with an

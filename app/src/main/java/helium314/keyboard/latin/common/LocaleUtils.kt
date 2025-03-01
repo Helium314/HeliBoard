@@ -158,7 +158,7 @@ object LocaleUtils {
             } else if (elements.size == 2) {
                 if (region == "ZZ") Locale.forLanguageTag(elements[0] + "-Latn")
                 else Locale(language, region!!)
-            } else if (language == "zz") { // localeParams.length == 3
+            } else if (language == SubtypeLocaleUtils.NO_LANGUAGE) { // localeParams.length == 3
                 Locale.Builder().setLanguage(language).setVariant(elements[2]).setScript("Latn").build()
             } else if (elements[2].startsWith("#")) {
                 // best guess: elements[2] is a script, e.g. sr-Latn locale to string is sr__#Latn
@@ -185,6 +185,9 @@ object LocaleUtils {
     fun getLocaleDisplayNameInSystemLocale(locale: Locale, context: Context): String {
         return getLocaleDisplayNameInLocale(locale, context.resources, context.resources.configuration.locale())
     }
+
+    fun Locale.localizedDisplayName(context: Context) =
+        getLocaleDisplayNameInLocale(this, context.resources, context.resources.configuration.locale())
 
     @JvmStatic
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
