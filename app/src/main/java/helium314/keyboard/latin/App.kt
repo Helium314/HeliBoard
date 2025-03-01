@@ -410,7 +410,7 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion <= 2306) {
         // upgrade additional, enabled, and selected subtypes to same format of locale and (filtered) extra value
         if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES)) {
-            val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(Separators.SETS).mapNotNull { pref ->
+            val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(Separators.SETS).filter { it.isNotEmpty() }.mapNotNull { pref ->
                 val oldSplit = pref.split(Separators.SET)
                 val languageTag = oldSplit[0]
                 val mainLayoutName = oldSplit[1]
@@ -427,7 +427,7 @@ fun checkVersionUpgrade(context: Context) {
             val resourceSubtypes = getResourceSubtypes(context.resources)
             val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
             val additionalSubtypes = SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypeString)
-            val new = prefs.getString(key, "")!!.split(Separators.SETS).joinToString(Separators.SETS) { pref ->
+            val new = prefs.getString(key, "")!!.split(Separators.SETS).filter { it.isNotEmpty() }.joinToString(Separators.SETS) { pref ->
                 val oldSplit = pref.split(Separators.SET)
                 val languageTag = oldSplit[0]
                 val mainLayoutName = oldSplit[1]
@@ -473,7 +473,7 @@ fun checkVersionUpgrade(context: Context) {
                     }
                 }
                 val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
-                additional.split(Separators.SETS).forEach inner@{
+                additional.split(Separators.SETS).filter { it.isNotEmpty() }.forEach inner@{
                     val subtype = it.toSettingsSubtype()
                     if (subtype.locale != locale) return@inner
                     val newSubtype = subtype.with(ExtraValue.POPUP_ORDER, prefs.getString(key, ""))
@@ -489,7 +489,7 @@ fun checkVersionUpgrade(context: Context) {
                     }
                 }
                 val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
-                additional.split(Separators.SETS).forEach inner@{
+                additional.split(Separators.SETS).filter { it.isNotEmpty() }.forEach inner@{
                     val subtype = it.toSettingsSubtype()
                     if (subtype.locale != locale) return@inner
                     val newSubtype = subtype.with(ExtraValue.HINT_ORDER, prefs.getString(key, ""))
@@ -506,7 +506,7 @@ fun checkVersionUpgrade(context: Context) {
                 }
                 val additional = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!
                 val secondaryLocales = prefs.getString(key, "")!!.split(Separators.KV).filter { it.isNotBlank() }.joinToString(Separators.KV)
-                additional.split(Separators.SETS).forEach inner@{
+                additional.split(Separators.SETS).filter { it.isNotEmpty() }.forEach inner@{
                     val subtype = it.toSettingsSubtype()
                     if (subtype.locale != locale) return@inner
                     val newSubtype = subtype.with(ExtraValue.SECONDARY_LOCALES, secondaryLocales)
