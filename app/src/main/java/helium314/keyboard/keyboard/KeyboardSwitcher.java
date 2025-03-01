@@ -739,6 +739,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // Hide and show IME, showing will trigger the reload.
         // Reloading while IME is shown is glitchy, and hiding / showing is so fast the user shouldn't notice.
         mLatinIME.hideWindow();
-        mLatinIME.showWindow(true);
+        try {
+            mLatinIME.showWindow(true);
+        } catch (IllegalStateException e) {
+            // in tests isInputViewShown returns true, but showWindow throws "IllegalStateException: Window token is not set yet."
+        }
     }
 }
