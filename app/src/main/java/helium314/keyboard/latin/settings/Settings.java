@@ -324,10 +324,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
-    public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
-        return res.getInteger(R.integer.config_clipboard_history_retention_time);
-    }
-
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
         return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
