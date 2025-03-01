@@ -125,9 +125,9 @@ fun createPreferencesSettings(context: Context) = listOf(
         ListPreference(
             it,
             listOf(
-                "internal" to stringResource(R.string.switch_language),
-                "input_method" to stringResource(R.string.language_switch_key_switch_input_method),
-                "both" to stringResource(R.string.language_switch_key_switch_both)
+                stringResource(R.string.switch_language) to "internal",
+                stringResource(R.string.language_switch_key_switch_input_method) to "input_method",
+                stringResource(R.string.language_switch_key_switch_both) to "both"
             ),
             Defaults.PREF_LANGUAGE_SWITCH_KEY
         ) { keyboardNeedsReload = true }

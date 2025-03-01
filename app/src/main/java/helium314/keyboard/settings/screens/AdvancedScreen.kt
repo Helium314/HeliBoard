@@ -182,7 +182,7 @@ fun createAdvancedSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_MORE_POPUP_KEYS, R.string.show_popup_keys_title) {
         val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL).map { setting ->
-            setting to stringResource(morePopupKeysResId(setting))
+            stringResource(morePopupKeysResId(setting)) to setting
         }
         ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
