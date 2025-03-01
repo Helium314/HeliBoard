@@ -17,6 +17,7 @@ import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import java.util.Locale
@@ -50,9 +51,10 @@ object SubtypeSettings {
     }
 
     fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
-        val subtypeString = newSubtype.toSettingsSubtype().toPref()
-        val oldSubtypeStrings = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
-        val newString = (oldSubtypeStrings + subtypeString).filter { it.isNotBlank() }.toSortedSet().joinToString(Separators.SETS)
+        val subtype = newSubtype.toSettingsSubtype()
+        val subtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
+            .split(Separators.SETS).filter { it.isNotBlank() }.map { it.toSettingsSubtype() } + subtype
+        val newString = subtypes.map { it.toPref() }.toSortedSet().joinToString(Separators.SETS)
         prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
         if (newSubtype !in enabledSubtypes) {
@@ -64,7 +66,7 @@ object SubtypeSettings {
 
     /** @return whether subtype was actually removed */
     fun removeEnabledSubtype(context: Context, subtype: InputMethodSubtype): Boolean {
-        if (!removeEnabledSubtype(context.prefs(), subtype.toSettingsSubtype().toPref())) return false
+        if (!removeEnabledSubtype(context.prefs(), subtype.toSettingsSubtype())) return false
         if (!enabledSubtypes.remove(subtype)) reloadEnabledSubtypes(context)
         else RichInputMethodManager.getInstance().refreshSubtypeCaches()
         return true
@@ -93,10 +95,12 @@ object SubtypeSettings {
     }
 
     fun setSelectedSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
-        val subtypeString = subtype.toSettingsSubtype().toPref()
-        if (subtype.locale().toLanguageTag().isEmpty() || prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE) == subtypeString)
+        val settingsSubtype = subtype.toSettingsSubtype()
+        if (settingsSubtype.locale.toLanguageTag().isEmpty()) {
+            Log.w(TAG, "tried to set subtype with empty locale: $settingsSubtype")
             return
-        prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, subtypeString) }
+        }
+        prefs.edit { putString(Settings.PREF_SELECTED_SUBTYPE, settingsSubtype.toPref()) }
     }
 
     fun isAdditionalSubtype(subtype: InputMethodSubtype): Boolean = subtype in additionalSubtypes
@@ -235,7 +239,7 @@ object SubtypeSettings {
                 if (DebugFlags.DEBUG_ENABLED)
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 else // don't remove in debug mode
-                    removeEnabledSubtype(prefs, settingsSubtype.toPref())
+                    removeEnabledSubtype(prefs, settingsSubtype)
                 continue
             }
 
@@ -246,7 +250,7 @@ object SubtypeSettings {
                 if (DebugFlags.DEBUG_ENABLED)
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 else // don't remove in debug mode
-                    removeEnabledSubtype(prefs, settingsSubtype.toPref())
+                    removeEnabledSubtype(prefs, settingsSubtype)
                 continue
             }
 
@@ -255,17 +259,18 @@ object SubtypeSettings {
     }
 
     /** @return whether pref was changed */
-    private fun removeEnabledSubtype(prefs: SharedPreferences, subtypeString: String): Boolean {
-        val oldSubtypeString = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-        val newString = (oldSubtypeString.split(Separators.SETS) - subtypeString).joinToString(Separators.SETS)
-        if (newString == oldSubtypeString)
-            return false// already removed
-        prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
-        if (subtypeString == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)) {
+    private fun removeEnabledSubtype(prefs: SharedPreferences, subtype: SettingsSubtype): Boolean {
+        val oldSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
+            .split(Separators.SETS).filter { it.isNotEmpty() }.map { it.toSettingsSubtype() }
+        val newSubtypes = oldSubtypes - subtype
+        if (oldSubtypes == newSubtypes)
+            return false // already removed
+        prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newSubtypes.joinToString(Separators.SETS) { it.toPref() }) }
+        if (subtype == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()) {
             // switch subtype if the currently used one has been disabled
             try {
                 val nextSubtype = RichInputMethodManager.getInstance().getNextSubtypeInThisIme(true)
-                if (subtypeString == nextSubtype?.toSettingsSubtype()?.toPref())
+                if (subtype == nextSubtype?.toSettingsSubtype())
                     KeyboardSwitcher.getInstance().switchToSubtype(getDefaultEnabledSubtypes().first())
                 else
                     KeyboardSwitcher.getInstance().switchToSubtype(nextSubtype)

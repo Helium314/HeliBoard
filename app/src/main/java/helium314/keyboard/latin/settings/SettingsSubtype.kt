@@ -83,8 +83,12 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
             .split(Separators.SETS).contains(toPref())
 
     companion object {
-        fun String.toSettingsSubtype() =
-            SettingsSubtype(substringBefore(Separators.SET).constructLocale(), substringAfter(Separators.SET))
+        fun String.toSettingsSubtype(): SettingsSubtype =
+            SettingsSubtype(
+                substringBefore(Separators.SET).constructLocale(),
+                // we want a sorted string for reliable comparison
+                substringAfter(Separators.SET).split(",").sorted().joinToString(",")
+            )
 
         fun String.getExtraValueOf(extraValueKey: String) = split(",")
             .firstOrNull { it.startsWith("$extraValueKey=") }?.substringAfter("$extraValueKey=")
@@ -108,7 +112,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
                         || it == ExtraValue.EMOJI_CAPABLE
                         || it == ExtraValue.IS_ADDITIONAL_SUBTYPE
                         || it.startsWith(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
-            }.joinToString(",")
+            }.sorted().joinToString(",")
             require(!filteredExtraValue.contains(Separators.SETS) && !filteredExtraValue.contains(Separators.SET))
             { "extra value contains not allowed characters $filteredExtraValue" }
             return SettingsSubtype(locale(), filteredExtraValue)
