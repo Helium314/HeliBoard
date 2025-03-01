@@ -56,7 +56,7 @@ fun TextCorrectionScreen(
         Settings.PREF_AUTO_CORRECTION,
         if (autocorrectEnabled) Settings.PREF_MORE_AUTO_CORRECTION else null,
         if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
-        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECTION_CONFIDENCE else null,
+        if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_THRESHOLD else null,
         Settings.PREF_AUTO_CAP,
         Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
         Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
@@ -105,13 +105,14 @@ fun createCorrectionSettings(context: Context) = listOf(
     ) {
         SwitchPreference(it, Defaults.PREF_AUTOCORRECT_SHORTCUTS)
     },
-    Setting(context, Settings.PREF_AUTO_CORRECTION_CONFIDENCE, R.string.auto_correction_confidence) {
+    Setting(context, Settings.PREF_AUTO_CORRECT_THRESHOLD, R.string.auto_correction_confidence) {
         val items = listOf(
-            stringResource(R.string.auto_correction_threshold_mode_modest) to "0",
-            stringResource(R.string.auto_correction_threshold_mode_aggressive) to "1",
-            stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to "2",
+            stringResource(R.string.auto_correction_threshold_mode_modest) to 0.185f,
+            stringResource(R.string.auto_correction_threshold_mode_aggressive) to 0.067f,
+            stringResource(R.string.auto_correction_threshold_mode_very_aggressive) to -1f,
         )
-        ListPreference(it, items, Defaults.PREF_AUTO_CORRECTION_CONFIDENCE)
+        // todo: consider making it a slider, and maybe somehow adjust range so we can show %
+        ListPreference(it, items, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
     },
     Setting(context, Settings.PREF_AUTO_CAP,
         R.string.auto_cap, R.string.auto_cap_summary

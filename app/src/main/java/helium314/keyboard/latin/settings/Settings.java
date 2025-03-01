@@ -72,7 +72,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
-    public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
+    public static final String PREF_AUTO_CORRECT_THRESHOLD = "auto_correct_threshold";
     public static final String PREF_AUTOCORRECT_SHORTCUTS = "autocorrect_shortcuts";
     public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
@@ -288,11 +288,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAutoCorrect() {
         final boolean oldValue = mPrefs.getBoolean(PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION);
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !oldValue).apply();
-    }
-
-    public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
-        return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
-                res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
     public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs) {

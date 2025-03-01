@@ -62,7 +62,7 @@ object Defaults {
     var PREF_POPUP_ON = true
     const val PREF_AUTO_CORRECTION = true
     const val PREF_MORE_AUTO_CORRECTION = false
-    const val PREF_AUTO_CORRECTION_CONFIDENCE = "0"
+    const val PREF_AUTO_CORRECT_THRESHOLD = 0.185f
     const val PREF_AUTOCORRECT_SHORTCUTS = true
     const val PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = false
     const val PREF_SHOW_SUGGESTIONS = true

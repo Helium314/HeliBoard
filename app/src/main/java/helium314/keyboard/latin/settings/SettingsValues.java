@@ -194,7 +194,7 @@ public class SettingsValues {
                 && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
         mCenterSuggestionTextToEnter = prefs.getBoolean(Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, Defaults.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
-                ? readAutoCorrectionThreshold(res, prefs)
+                ? prefs.getFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
                 : AUTO_CORRECTION_DISABLED_THRESHOLD;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
@@ -340,39 +340,6 @@ public class SettingsValues {
 
     public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
-    }
-
-    // todo: way too complicated
-    private static float readAutoCorrectionThreshold(final Resources res,
-                                                     final SharedPreferences prefs) {
-        final String currentAutoCorrectionSetting = Settings.readAutoCorrectConfidence(prefs, res);
-        final String[] autoCorrectionThresholdValues = res.getStringArray(
-                R.array.auto_correction_threshold_values);
-        // When autoCorrectionThreshold is greater than 1.0, it's like auto correction is off.
-        final float autoCorrectionThreshold;
-        try {
-            final int arrayIndex = Integer.parseInt(currentAutoCorrectionSetting);
-            if (arrayIndex >= 0 && arrayIndex < autoCorrectionThresholdValues.length) {
-                final String val = autoCorrectionThresholdValues[arrayIndex];
-                if (FLOAT_MAX_VALUE_MARKER_STRING.equals(val)) {
-                    autoCorrectionThreshold = Float.MAX_VALUE;
-                } else if (FLOAT_NEGATIVE_INFINITY_MARKER_STRING.equals(val)) {
-                    autoCorrectionThreshold = Float.NEGATIVE_INFINITY;
-                } else {
-                    autoCorrectionThreshold = Float.parseFloat(val);
-                }
-            } else {
-                autoCorrectionThreshold = Float.MAX_VALUE;
-            }
-        } catch (final NumberFormatException e) {
-            // Whenever the threshold settings are correct, never come here.
-            Log.w(TAG, "Cannot load auto correction threshold setting."
-                    + " currentAutoCorrectionSetting: " + currentAutoCorrectionSetting
-                    + ", autoCorrectionThresholdValues: "
-                    + Arrays.toString(autoCorrectionThresholdValues), e);
-            return Float.MAX_VALUE;
-        }
-        return autoCorrectionThreshold;
     }
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {

@@ -516,6 +516,16 @@ fun checkVersionUpgrade(context: Context) {
             }
         }
     }
+    if (oldVersion <= 2309) {
+        if (prefs.contains("auto_correction_confidence")) {
+            val value = when (prefs.getString("auto_correction_confidence", "0")) {
+                "1" -> 0.067f
+                "2" -> -1f
+                else -> 0.185f
+            }
+            prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
+        }
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
