@@ -71,7 +71,8 @@ fun AppearanceScreen(
         Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE,
         if (prefs.getBoolean(Settings.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE, Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE))
             Settings.PREF_SPLIT_SPACER_SCALE_LANDSCAPE else null,
-        Settings.PREF_NARROW_KEY_GAPS,
+        if (prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS))
+            Settings.PREF_NARROW_KEY_GAPS else null,
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
@@ -267,7 +268,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         Preference(
             name = setting.title,
             onClick = { showDialog = true },
-            description = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT)
+            description = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT)?.takeIf { it.isNotEmpty() }
         )
         if (showDialog) {
             TextInputDialog(
