@@ -2,12 +2,6 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
-import android.net.Uri
-import android.provider.OpenableColumns
-import android.text.InputType
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import androidx.core.widget.doAfterTextChanged
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
@@ -16,8 +10,6 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
-import helium314.keyboard.latin.R
-import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.settings.Settings
@@ -25,7 +17,6 @@ import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import kotlinx.serialization.SerializationException
 import java.io.File
-import java.io.IOException
 import java.util.EnumMap
 import java.util.Locale
 
