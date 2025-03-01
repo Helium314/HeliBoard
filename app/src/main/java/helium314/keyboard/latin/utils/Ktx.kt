@@ -1,13 +1,9 @@
 package helium314.keyboard.latin.utils
 
-import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.SharedPreferences
-import android.view.View
-import android.widget.RelativeLayout
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
@@ -15,8 +11,6 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.withLink
-import androidx.fragment.app.commit
-import helium314.keyboard.latin.R
 
 // generic extension functions
 
@@ -78,15 +72,6 @@ fun Context.getActivity(): ComponentActivity? {
         else -> null
     }
     return componentActivity
-}
-
-// todo: should not be necessary after full pref switch to compose
-fun Activity.switchTo(fragment: androidx.fragment.app.Fragment) {
-    (this as AppCompatActivity).supportFragmentManager.commit {
-        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).visibility = View.VISIBLE
-        replace(R.id.settingsFragmentContainer, fragment)
-        addToBackStack(null)
-    }
 }
 
 /** SharedPreferences from deviceProtectedContext, which are accessible even without unlocking.

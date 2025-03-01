@@ -16,7 +16,6 @@ import helium314.keyboard.latin.DictionaryDumpBroadcastReceiver
 import helium314.keyboard.latin.DictionaryFacilitator
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
-import helium314.keyboard.latin.settings.DebugSettingsFragment
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Setting
@@ -41,7 +40,7 @@ fun DebugScreen(
         DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH,
         DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW,
         R.string.prefs_dump_dynamic_dicts
-    ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + it }
+    ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettings.PREF_KEY_DUMP_DICT_PREFIX + it }
     SearchSettingsScreen(
         onClickBack = {
             if (needsRestart) {
@@ -95,7 +94,7 @@ private fun createDebugSettings(context: Context) = listOf(
         SwitchPreference(def, Defaults.PREF_SLIDING_KEY_INPUT_PREVIEW)
     },
 ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { type ->
-    Setting(context, DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {
+    Setting(context, DebugSettings.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {
         val ctx = LocalContext.current
         Preference(
             name = "Dump $type dictionary",

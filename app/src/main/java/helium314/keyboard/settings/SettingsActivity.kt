@@ -10,8 +10,7 @@ import android.os.Bundle
 import android.view.WindowInsets.Type
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -22,12 +21,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
-import androidx.core.view.isGone
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
-import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
@@ -51,7 +48,7 @@ import java.util.zip.ZipOutputStream
 //  https://developer.android.com/codelabs/jetpack-compose-performance#2
 //  https://developer.android.com/topic/performance/baselineprofiles/overview
 // todo: consider viewModel, at least for LanguageScreen and ColorsScreen it might help making them less awkward and complicated
-class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
     private val dictUriFlow = MutableStateFlow<Uri?>(null)
@@ -84,15 +81,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         val spellchecker = intent?.getBooleanExtra("spellchecker", false) ?: false
 
-        // todo: when removing old settings completely, remove settings_activity.xml and supportFragmentManager stuff
-//        val cv = ComposeView(context = this)
-//        setContentView(cv)
-        setContentView(R.layout.settings_activity)
-        supportFragmentManager.addOnBackStackChangedListener {
-            updateContainerVisibility()
-        }
-//        cv.setContent { // todo: when removing old settings
-        findViewById<ComposeView>(R.id.navHost).setContent {
+        val cv = ComposeView(context = this)
+        setContentView(cv)
+        cv.setContent {
             Theme {
                 Surface {
                     val dictUri by dictUriFlow.collectAsState()
@@ -108,14 +99,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
                             settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                         }
                     else
-                        SettingsNavHost(
-                            onClickBack = {
-//                                this.finish() // todo: when removing old settings
-                                if (supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null)
-                                    this.finish()
-                                else supportFragmentManager.popBackStack()
-                            }
-                        )
+                        SettingsNavHost(onClickBack = { this.finish() })
                     if (dictUri != null) {
                         NewDictionaryDialog(
                             onDismissRequest = { dictUriFlow.value = null },
@@ -155,10 +139,6 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             }
             intent = null
         }
-    }
-
-    private fun updateContainerVisibility() { // todo: remove when removing old settings
-        findViewById<RelativeLayout>(R.id.settingsFragmentContainer).isGone = supportFragmentManager.findFragmentById(R.id.settingsFragmentContainer) == null
     }
 
     override fun onStart() {

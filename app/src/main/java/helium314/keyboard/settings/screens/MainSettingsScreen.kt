@@ -11,22 +11,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.settings.AboutFragment
-import helium314.keyboard.latin.settings.AdvancedSettingsFragment
-import helium314.keyboard.latin.settings.AppearanceSettingsFragment
-import helium314.keyboard.latin.settings.CorrectionSettingsFragment
-import helium314.keyboard.latin.settings.GestureSettingsFragment
-import helium314.keyboard.latin.settings.LanguageSettingsFragment
-import helium314.keyboard.latin.settings.PreferencesSettingsFragment
-import helium314.keyboard.latin.settings.ToolbarSettingsFragment
 import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.displayName
-import helium314.keyboard.latin.utils.getActivity
-import helium314.keyboard.latin.utils.switchTo
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.initPreview
@@ -106,40 +95,6 @@ fun MainSettingsScreen(
                 onClick = onClickAbout,
                 icon = R.drawable.ic_settings_about_foreground
             ) { NextScreenIcon() }
-            PreferenceCategory(title = "old screens")
-            Preference(
-                name = stringResource(R.string.language_and_layouts_title),
-                onClick = { ctx.getActivity()?.switchTo(LanguageSettingsFragment()) }
-            )
-            Preference(
-                name = stringResource(R.string.settings_screen_preferences),
-                onClick = { ctx.getActivity()?.switchTo(PreferencesSettingsFragment()) }
-            )
-            Preference(
-                name = stringResource(R.string.settings_screen_appearance),
-                onClick = { ctx.getActivity()?.switchTo(AppearanceSettingsFragment()) }
-            )
-            Preference(
-                name = stringResource(R.string.settings_screen_toolbar),
-                onClick = { ctx.getActivity()?.switchTo(ToolbarSettingsFragment()) }
-            )
-            if (JniUtils.sHaveGestureLib)
-                Preference(
-                    name = stringResource(R.string.settings_screen_gesture),
-                    onClick = { ctx.getActivity()?.switchTo(GestureSettingsFragment()) }
-                )
-            Preference(
-                name = stringResource(R.string.settings_screen_correction),
-                onClick = { ctx.getActivity()?.switchTo(CorrectionSettingsFragment()) }
-            )
-            Preference(
-                name = stringResource(R.string.settings_screen_advanced),
-                onClick = { ctx.getActivity()?.switchTo(AdvancedSettingsFragment()) }
-            )
-            Preference(
-                name = stringResource(R.string.settings_screen_about),
-                onClick = { ctx.getActivity()?.switchTo(AboutFragment()) }
-            )
         }
     }
 }

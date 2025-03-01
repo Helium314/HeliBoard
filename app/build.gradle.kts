@@ -117,9 +117,6 @@ dependencies {
     implementation("sh.calvin.reorderable:reorderable:2.4.2") // for easier re-ordering
     implementation("com.github.skydoves:colorpicker-compose:1.1.2") // for user-defined colors
 
-    // color picker for user-defined colors
-    implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")
-
     // test
     testImplementation(kotlin("test"))
     testImplementation("junit:junit:4.13.2")
