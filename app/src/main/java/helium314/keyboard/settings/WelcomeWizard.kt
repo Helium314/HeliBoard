@@ -69,7 +69,7 @@ fun WelcomeWizard(
         if (step == 2)
             scope.launch {
                 while (step == 2 && !UncachedInputMethodManagerUtils.isThisImeCurrent(ctx, imm)) {
-                    delay(200)
+                    delay(50)
                 }
                 step = 3
             }
