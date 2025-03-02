@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Поиск в контактах"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Использовать имена контактов при проверке правописания"</string>
+    <string name="use_contacts_dict">"Поиск в контактах"</string>
     <string name="vibrate_on_keypress">"Виброотклик клавиш"</string>
     <string name="sound_on_keypress">"Звук клавиш"</string>
     <string name="popup_on_keypress">"Увеличивать при нажатии"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Клавиша смены языка"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">"По умолчанию"</string>
-    <string name="use_contacts_dict">"Подсказывать имена"</string>
     <string name="use_contacts_dict_summary">"Подсказывать исправления на основе имен из списка контактов"</string>
     <string name="use_personalized_dicts">"Пользовательские словари"</string>
     <string name="use_double_space_period">"Точки автоматически"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Заглавные автоматически"</string>
     <string name="auto_cap_summary">"Писать первое слово предложения с прописной буквы"</string>
     <string name="edit_personal_dictionary">"Личный словарь"</string>
-    <string name="configure_dictionaries_title">"Дополнительные словари"</string>
     <string name="main_dictionary">"Основной словарь"</string>
     <string name="prefs_show_suggestions">"Варианты исправлений"</string>
     <string name="prefs_show_suggestions_summary">"Предлагать варианты слов во время ввода"</string>
@@ -102,12 +99,9 @@
     <string name="show_setup_wizard_icon">Показывать значок приложения</string>
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
     <string name="dictionary_settings_title">Дополнительные словари</string>
-    <string name="dictionary_settings_summary">Настройки словарей</string>
     <string name="dictionary_available">Доступен словарь</string>
-    <string name="cannot_connect_to_dict_service">Сбой подключения</string>
     <string name="no_dictionaries_available">Словарей нет</string>
     <string name="last_update">Последнее обновление</string>
-    <string name="main_dict_description">Основной словарь</string>
     <string name="settings">Настройки</string>
     <string name="delete">Удалить</string>
     <string name="version_text">Версия <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -183,8 +177,6 @@
     <string name="theme_name_black">Чёрная</string>
     <string name="theme_name_user">Пользовательская</string>
     <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
-    <string name="select_user_colors">Настройка цветов темы</string>
-    <string name="select_user_colors_night">Настройка цветов темы (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
     <string name="hint_show_keyboard">Нажмите для предпросмотра</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
@@ -250,7 +242,6 @@
     <string name="show_popup_keys_normal">Показать варианты, определённые в языках клавиатуры</string>
     <string name="show_popup_keys_more">Добавить распространённые варианты</string>
     <string name="replace_dictionary">Заменить словарь</string>
-    <string name="button_add_to_language">Добавить в %s</string>
     <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
@@ -277,7 +268,6 @@
     <string name="show_popup_keys_all">Добавить все доступные варианты</string>
     <string name="more_autocorrect">Больше автокоррекции</string>
     <string name="split_spacer_scale">Расстояние разделения</string>
-    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь \"%1$s\" для %2$s?</string>
     <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений (может вызвать проблемы)</string>
     <string name="switch_language">Смена языка</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
@@ -318,7 +308,6 @@
     <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё ещё используете его для %2$s?</string>
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
     <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для \"%2$s\" напрямую %3$s."</string>
-    <string name="customize_symbols_number_layouts">Настройка расположения символов и чисел</string>
     <string name="available_dictionary_experimental">%s (экспериментальный)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символы (арабские)</string>
@@ -392,7 +381,6 @@
     <string name="more_colors">Показать больше цветов</string>
     <string name="all_colors_warning">Эта настройка показывает все цвета, используемые внутри приложения. Список цветов может меняться. Цвет по умолчанию является случайным, и имена не будут переведены.</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функциональные клавиши (Дополнительные символы)</string>
-    <string name="customize_functional_key_layouts">Изменить раскладку функциональных клавиш</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функциональные клавиши</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функциональные клавиши (Символы)</string>
     <string name="gesture_fast_typing_cooldown_instant">Всегда начинать немедленно</string>

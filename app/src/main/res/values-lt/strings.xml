@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Kontaktų vardų paieška"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Rašybos tikrinimo progr. naudoja įrašus, esančius kontaktų sąraše"</string>
+    <string name="use_contacts_dict">"Kontaktų vardų paieška"</string>
     <string name="vibrate_on_keypress">"Vibruoti, kai paspaudžiami klavišai"</string>
     <string name="sound_on_keypress">"Klavišo paspaudimo garsas"</string>
     <string name="popup_on_keypress">"Iššoka paspaudus klavišą"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Kalbos keitimo klavišas"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Sist. numat. nustat."</string>
-    <string name="use_contacts_dict">"Siūlyti kontaktų vardus"</string>
     <string name="use_contacts_dict_summary">"Siūlant ir taisant naudoti vardus iš „Kontaktų“"</string>
     <string name="use_personalized_dicts">"Suasmeninti pasiūlymai"</string>
     <string name="use_double_space_period">"Tšk. ir tarp. pal. dukart"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automatinis didžiųjų raidžių rašymas"</string>
     <string name="auto_cap_summary">"Kiekvieno sakinio pirmą žodį rašyti iš didžiosios raidės"</string>
     <string name="edit_personal_dictionary">"Asmeninis žodynas"</string>
-    <string name="configure_dictionaries_title">"Papildomi žodynai"</string>
     <string name="main_dictionary">"Pagrindinis žodynas"</string>
     <string name="prefs_show_suggestions">"Rodyti taisymo pasiūlymus"</string>
     <string name="prefs_show_suggestions_summary">"Įvedant tekstą pateikti siūlomų žodžių"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Rodyti programos piktogramą"</string>
     <string name="show_setup_wizard_icon_summary">"Pateikti programos piktogramą paleidimo priemonėje"</string>
     <string name="dictionary_settings_title">"Papildomi žodynai"</string>
-    <string name="dictionary_settings_summary">"Žodynų nustatymai"</string>
     <string name="dictionary_available">"Galimas žodynas"</string>
-    <string name="cannot_connect_to_dict_service">"Prisijung. problema"</string>
     <string name="no_dictionaries_available">"Nėra galimų žodynų"</string>
     <string name="last_update">"Paskutinį kartą atnaujinta"</string>
-    <string name="main_dict_description">"Pagrindinis žodynas"</string>
     <string name="settings">"Nustatymai"</string>
     <string name="delete">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; <xliff:g id="LANGUAGE_NAME">%1$s</xliff:g> žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>

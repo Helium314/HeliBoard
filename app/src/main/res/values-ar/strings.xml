@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"بحث في أسماء جهات الاتصال"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"يستخدم المدقق الإملائي إدخالات من قائمة جهات الاتصال"</string>
+    <string name="use_contacts_dict">"بحث في أسماء جهات الاتصال"</string>
     <string name="vibrate_on_keypress">"اهتزاز عند ضغط مفتاح"</string>
     <string name="sound_on_keypress">"صوت عند الضغط على مفتاح"</string>
     <string name="popup_on_keypress">"انبثاق عند ضغط مفتاح"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"مفتاح تبديل اللغة"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ملي ثانية</string>
     <string name="settings_system_default">"الضبط التلقائي للنظام"</string>
-    <string name="use_contacts_dict">"اقتراح أسماء جهات الاتصال"</string>
     <string name="use_contacts_dict_summary">"استخدام الأسماء من جهات الاتصال للاقتراحات والتصحيحات"</string>
     <string name="use_personalized_dicts">"اقتراحات مخصصة"</string>
     <string name="use_double_space_period">"نقطة المسافة المزدوجة"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"أحرف كبيرة تلقائيًا"</string>
     <string name="auto_cap_summary">"كتابة الحرف الأول من كل جملة بحرف كبير"</string>
     <string name="edit_personal_dictionary">"القاموس الشخصي"</string>
-    <string name="configure_dictionaries_title">"القواميس الإضافية"</string>
     <string name="main_dictionary">"القاموس الرئيسي"</string>
     <string name="prefs_show_suggestions">أظهِر اقتراحات التصحيح</string>
     <string name="prefs_show_suggestions_summary">أظهِر الكلمات المقترحة أثناء الكتابة</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">اعرض رمز التطبيق</string>
     <string name="show_setup_wizard_icon_summary">اعرض رمز التطبيق في المشغل</string>
     <string name="dictionary_settings_title">"القواميس الإضافية"</string>
-    <string name="dictionary_settings_summary">"إعدادات القواميس"</string>
     <string name="dictionary_available">"القاموس متاح"</string>
-    <string name="cannot_connect_to_dict_service">"مشكلة في الاتصال بخدمة القاموس"</string>
     <string name="no_dictionaries_available">"لا تتوفر أي قواميس"</string>
     <string name="last_update">"تاريخ آخر تحديث"</string>
-    <string name="main_dict_description">"القاموس الرئيسي"</string>
     <string name="settings">"إعدادات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -232,7 +226,6 @@
     <string name="dictionary_link_text">هنا</string>
     <string name="button_select_language">اختر اللغة</string>
     <string name="replace_dictionary">استبدل القاموس</string>
-    <string name="button_add_to_language">أضف إلى %s</string>
     <string name="no_dictionary_dont_show_again_button">لا تظهره مرة أخرى</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">فاتح</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">داكن</string>
@@ -248,7 +241,6 @@
     <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
     <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
     <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
-    <string name="add_new_dictionary_ask_locale">إلى أي لغة يجب إضافة القاموس \"%1$s\" لـ %2$s؟</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">النيلي</string>
     <string name="subtype_xdq">كايتاج</string>
     <string name="add_dictionary">حدد القاموس الذي تريد إضافته. يمكن تنزيل القواميس بتنسيق .dict ‏%s.</string>
@@ -257,7 +249,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة ارقام</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
-    <string name="customize_symbols_number_layouts">تخصيص الرموز وتخطيطات الأرقام</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة رقمية (أفقي)</string>
     <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
@@ -312,8 +303,6 @@
     <string name="select_color_functional_key_background">الخلفية الرئيسية الوظيفية</string>
     <string name="select_color_suggestion">نص شريط الاقتراح</string>
     <string name="main_colors">أظهِر الألوان الرئيسية فقط</string>
-    <string name="select_user_colors_night">ضبط الألوان (ليلا)</string>
-    <string name="select_user_colors">ضبط الألوان</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">محدد من قبل المستخدم (ليلا)</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">البنفسج</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">شوكولاتة</string>
@@ -386,7 +375,6 @@
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">مانسي (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">أظهِر المزيد من الالوان</string>
     <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي عشوائي، ولن تتم ترجمة الأسماء.</string>
-    <string name="customize_functional_key_layouts">تخصيص تخطيطات المفاتيح الوظيفية</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">المفاتيح الوظيفية (الرموز)</string>

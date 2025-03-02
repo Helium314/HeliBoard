@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Fletta upp tengiliðum"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Ritvilluleit notar færslur úr tengiliðalistanum þínum"</string>
+    <string name="use_contacts_dict">"Fletta upp tengiliðum"</string>
     <string name="vibrate_on_keypress">"Titringur þegar ýtt er á lykla"</string>
     <string name="sound_on_keypress">"Hljóð þegar ýtt er á lykil"</string>
     <string name="popup_on_keypress">Stafagluggi við innslátt</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Lykill til að breyta tungumáli"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> msek</string>
     <string name="settings_system_default">Sjálfgefið í kerfi</string>
-    <string name="use_contacts_dict">"Stinga upp á tengiliðum"</string>
     <string name="use_contacts_dict_summary">"Nota nöfn úr tengiliðum fyrir tillögur og leiðréttingar"</string>
     <string name="use_personalized_dicts">"Persónulegar tillögur"</string>
     <string name="use_double_space_period">"Punktur við tvöfalt bil"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Sjálfvirkir hástafir"</string>
     <string name="auto_cap_summary">"Setja hástaf í upphaf hverrar málsgreinar"</string>
     <string name="edit_personal_dictionary">Sérsniðið orðasafn</string>
-    <string name="configure_dictionaries_title">"Viðbótarorðabækur"</string>
     <string name="main_dictionary">Aðalorðasafn</string>
     <string name="prefs_show_suggestions">"Sýna leiðréttingartillögur"</string>
     <string name="prefs_show_suggestions_summary">"Sýna orðatillögur við innslátt"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Sýna forritstákn"</string>
     <string name="show_setup_wizard_icon_summary">"Sýna forritstákn í ræsiforritinu"</string>
     <string name="dictionary_settings_title">Viðbótarorðasöfn</string>
-    <string name="dictionary_settings_summary">Stillingar fyrir orðasöfn</string>
     <string name="dictionary_available">Orðasafn í boði</string>
-    <string name="cannot_connect_to_dict_service">Vandamál við að tengjast orðasafnsþjónustu</string>
     <string name="no_dictionaries_available">Engin orðasöfn eru í boði</string>
     <string name="last_update">"Síðast uppfært"</string>
-    <string name="main_dict_description">Aðalorðasafn</string>
     <string name="settings">"Stillingar"</string>
     <string name="delete">"Eyða"</string>
     <string name="version_text">"Útgáfa <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -211,7 +205,6 @@
     <string name="setup_step3_action">Stilla lyklaborðið</string>
     <string name="available_dictionary_experimental">%s (á tilraunastigi)</string>
     <string name="user_dict_settings_add_weight_value">Vægi:</string>
-    <string name="button_add_to_language">Bæta í %s</string>
     <string name="add_new_dictionary_title">Bæta við orðsafni úr skrá</string>
     <string name="dictionary_link_text">hér</string>
     <string name="subtype_mns">Mansi</string>
@@ -239,8 +232,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> mín</string>
     <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
     <string name="settings_no_limit">Engin takmörk</string>
-    <string name="select_user_colors">Aðlaga liti</string>
-    <string name="select_user_colors_night">Aðlaga liti (nótt)</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dekkra</string>
     <string name="select_user_colors_summary">Veldu liti fyrir texta og bakgrunn</string>
     <string name="add_to_personal_dictionary">Bæta orðum við einkaorðasafn</string>
@@ -343,7 +334,6 @@
     <string name="hint_source">Veldu uppruna ábendinga</string>
     <string name="toolbar_keys">Veldu lykla á verkfærastiku</string>
     <string name="clipboard_toolbar_keys">Veldu klippispjaldslykla á verkfærastiku</string>
-    <string name="customize_symbols_number_layouts">Sérsníða framsetningu tákna og talna</string>
     <string name="customize_currencies_detail">Stilltu aðal- og allt að 6 viðbótar gjaldmiðlatákn, aðskilin með bilum</string>
     <string name="disable_personalized_dicts_message">Aðvörun: Sé þessi stilling gerð óvirk verða öll lærð gögn hreinsuð</string>
     <string name="dictionary_file_error">Villa: Valin skrá er ekki gild orðasafnsskrá</string>
@@ -365,7 +355,6 @@
     <string name="prefs_bottom_padding_scale">Kvarði fyllingar neðst</string>
     <string name="after_clip">Velja færslu í ferilskrá klippispjalds</string>
     <string name="after_emoji">Velja tjáningartákn í tjáningartáknasýn</string>
-    <string name="add_new_dictionary_ask_locale">Vil hvaða tungumál ætti að bæta nýja orðasafninu \"%1$s\" fyrir %2$s ?</string>
     <string name="remove_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%s\"?</string>
     <string name="add_dictionary">Veldu orðasafn til að bæta við. Orðasöfn á .dict sniði er hægt að sækja %s.</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Geislandi hvítt</string>
@@ -409,7 +398,6 @@
     <string name="select_color_functional_key_background">Bakgrunnur aðgerðalykils</string>
     <string name="dictionary_file_wrong_locale">Valda skráin er fyrir %1$s, en búist var við %2$s. Samt að nota það fyrir %2$s?</string>
     <string name="hidden_features_text">geymslurými varið af tæki</string>
-    <string name="customize_functional_key_layouts">Sérsníða framsetningu aðgerðalykla</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Aðgerðalyklar</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Aðgerðalyklar (tákn)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Aðgerðalyklar (fleiri tákn)</string>

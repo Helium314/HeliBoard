@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="ime_settings">Mga Setting ng HeliBoard</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Gagamitin ng spell checker ang mga entry mula sa iyong listahan ng contact</string>
     <string name="vibrate_on_keypress">Mag-vibrate sa keypress</string>
     <string name="sound_on_keypress">Tunog sa keypress</string>
     <string name="popup_on_keypress">Mag-popup sa keypress</string>
@@ -26,7 +25,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_system_default">Default ng sistema</string>
     <string name="settings_no_limit">Walang limitasyon</string>
-    <string name="use_contacts_dict">Imungkahi ang mga pangalan ng Mga Contact</string>
     <string name="disable_personalized_dicts_message">Babala: Ang pag-disable ng setting na ito ay iki-clear ang mga natutong data</string>
     <string name="use_personalized_dicts">Personalized na mungkahi</string>
     <string name="add_to_personal_dictionary_summary">Gamitin ang personal na diksyunaryo ng device para ilagay ang mga natutong salita</string>
@@ -34,7 +32,6 @@
     <string name="auto_cap">Auto-capitalization</string>
     <string name="auto_cap_summary">I-capitalize ang unang salita ng bawat pangungusap</string>
     <string name="edit_personal_dictionary">Personal na diksyunaryo</string>
-    <string name="configure_dictionaries_title">Mga add-on na diksyunaryo</string>
     <string name="main_dictionary">Paunang diksyunaryo</string>
     <string name="prefs_show_suggestions">Ipakita ang mga suhestiyon sa pagwawasto</string>
     <string name="prefs_show_suggestions_summary">Ipakita ang mga iminumungkahing salita habang nagta-type</string>
@@ -51,7 +48,7 @@
     <string name="auto_correction_threshold_mode_aggressive">Agresibo</string>
     <string name="spell_checker_service_name">Spell Checker ng HeliBoard</string>
     <string name="android_spell_checker_settings">Mga Setting ng Spell Checker ng Heliboard</string>
-    <string name="use_contacts_for_spellchecking_option_title">Hanapin ang mga pangalan ng contact</string>
+    <string name="use_contacts_dict">Hanapin ang mga pangalan ng contact</string>
     <string name="settings_category_suggestions">Mga mungkahi</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="use_contacts_dict_summary">Gamitin ang pangalan mula sa Mga Contact para sa mungkahi at pagtatama</string>

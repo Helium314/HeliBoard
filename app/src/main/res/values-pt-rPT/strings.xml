@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Procurar nomes de contac."</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"O corretor ortográfico utiliza entradas da sua lista de contactos"</string>
+    <string name="use_contacts_dict">"Procurar nomes de contac."</string>
     <string name="vibrate_on_keypress">"Vibrar ao primir as teclas"</string>
     <string name="sound_on_keypress">"Som ao premir as teclas"</string>
     <string name="popup_on_keypress">"Mostrar popup ao premir tecla"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Tecla alterar idioma"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predef. do sistema"</string>
-    <string name="use_contacts_dict">"Sugerir nomes de Contactos"</string>
     <string name="use_contacts_dict_summary">"Utilizar nomes dos Contactos para sugestões e correções"</string>
     <string name="use_personalized_dicts">"Sugestões personalizadas"</string>
     <string name="use_double_space_period">"Ponto de espaço duplo"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Letras maiúsculas automáticas"</string>
     <string name="auto_cap_summary">"Maiúscula no início da frase"</string>
     <string name="edit_personal_dictionary">"Dicionário pessoal"</string>
-    <string name="configure_dictionaries_title">"Dicionários extras"</string>
     <string name="main_dictionary">"Dicionário principal"</string>
     <string name="prefs_show_suggestions">"Mostrar sugestões de correcção"</string>
     <string name="prefs_show_suggestions_summary">"Apresentar sugestões de palavras ao escrever"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Mostrar ícone da aplicação"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone da aplicação no iniciador"</string>
     <string name="dictionary_settings_title">"Dicionários suplementares"</string>
-    <string name="dictionary_settings_summary">"Definições dos dicionários"</string>
     <string name="dictionary_available">"Dicionário disponível"</string>
-    <string name="cannot_connect_to_dict_service">"Problema ao ligar ao serviço de dicionário"</string>
     <string name="no_dictionaries_available">"Nenhum dicionário"</string>
     <string name="last_update">"Última atualização"</string>
-    <string name="main_dict_description">"Dicionário principal"</string>
     <string name="settings">"Definições"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

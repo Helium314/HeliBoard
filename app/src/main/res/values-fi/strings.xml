@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Nimien tarkistus"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Yhteystietojesi nimien oikeinkirjoitus tarkistetaan"</string>
+    <string name="use_contacts_dict">"Nimien tarkistus"</string>
     <string name="vibrate_on_keypress">"Käytä värinää näppäimiä painettaessa"</string>
     <string name="sound_on_keypress">"Toista ääni näppäimiä painettaessa"</string>
     <string name="popup_on_keypress">"Ponnahdusikkuna painalluksella"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Kielenvaihtonäppäin"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Järjestelmän oletusarvo"</string>
-    <string name="use_contacts_dict">"Ehdota yht.tietojen nimiä"</string>
     <string name="use_contacts_dict_summary">Käytä yhteystietojen nimiä ehdotuksissa ja korjauksissa</string>
     <string name="use_personalized_dicts">"Personoidut ehdotukset"</string>
     <string name="use_double_space_period">"Kaksoisvälilyönti = piste"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automaattiset isot kirjaimet"</string>
     <string name="auto_cap_summary">Kirjoita jokaisen lauseen ensimmäinen sana isolla</string>
     <string name="edit_personal_dictionary">"Oma sanakirja"</string>
-    <string name="configure_dictionaries_title">"Sanakirjalisäosat"</string>
     <string name="main_dictionary">"Pääsanakirja"</string>
     <string name="prefs_show_suggestions">"Näytä korjausehdotukset"</string>
     <string name="prefs_show_suggestions_summary">Näytä ehdotetut sanat kirjoittaessasi</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Näytä sovelluskuvake"</string>
     <string name="show_setup_wizard_icon_summary">Näytä sovelluskuvake käynnistysohjelmassa</string>
     <string name="dictionary_settings_title">"Sanakirjalisäosat"</string>
-    <string name="dictionary_settings_summary">"Sanakirjojen asetukset"</string>
     <string name="dictionary_available">"Sanakirja saatavilla"</string>
-    <string name="cannot_connect_to_dict_service">Ongelma yhteyden muodostamisessa sanakirjapalveluun</string>
     <string name="no_dictionaries_available">"Ei sanak. saatavilla"</string>
     <string name="last_update">"Päivitetty viimeksi"</string>
-    <string name="main_dict_description">"Pääsanakirja"</string>
     <string name="settings">"Asetukset"</string>
     <string name="delete">"Poista"</string>
     <string name="version_text">"Versio <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -181,8 +175,6 @@
     <string name="backup_restore_title">Varmuuskopioi ja palauta</string>
     <string name="backup_restore_message">Tallenna tai lataa tiedosto. Varoitus: palauttaminen ylikirjoittaa olemassa olevan datan</string>
     <string name="button_copy_existing_layout">Kopioi olemassa oleva asettelu</string>
-    <string name="select_user_colors_night">Säädä värejä (yö)</string>
-    <string name="select_user_colors">Säädä värejä</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Käyttäjän määrittämä (yö)</string>
     <string name="license">Avoimen lähdekoodin lisenssi</string>
     <string name="prefs_keyboard_height_scale">Näppäimistön korkeusskaalaus</string>

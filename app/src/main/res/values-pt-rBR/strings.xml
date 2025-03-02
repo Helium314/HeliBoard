@@ -7,7 +7,6 @@
     <string name="ime_settings">Configurações do HeliBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
-    <string name="use_contacts_for_spellchecking_option_summary">O corretor ortográfico usa itens da sua lista de contatos</string>
     <string name="settings_screen_gesture">Digitação por Gestos</string>
     <string name="settings_screen_correction">Correção de Texto</string>
     <string name="settings_screen_advanced">Avançado</string>
@@ -24,7 +23,6 @@
     <string name="use_double_space_period_summary">Tocar duas vezes na barra de espaço insere um ponto seguido por um espaço</string>
     <string name="auto_cap">Maiúsculas automáticas</string>
     <string name="auto_cap_summary">Começar cada palavra de cada frase com letra maiúscula</string>
-    <string name="configure_dictionaries_title">Adicionar dicionários</string>
     <string name="prefs_block_potentially_offensive_title">Bloquear palavras ofensivas</string>
     <string name="prefs_block_potentially_offensive_summary">Não sugerir palavras potencialmente ofensivas</string>
     <string name="autocorrect">Correção automática</string>
@@ -79,7 +77,6 @@
     <string name="setup_step3_title">Parabéns, está tudo pronto!</string>
     <string name="show_setup_wizard_icon">Mostrar ícone do app</string>
     <string name="dictionary_settings_title">Adicionar dicionários</string>
-    <string name="cannot_connect_to_dict_service">Erro ao se conectar ao serviço de dicionário</string>
     <string name="no_dictionaries_available">Nenhum dicionário disponível</string>
     <string name="last_update">Última atualização em</string>
     <string name="settings">Configurações</string>
@@ -95,7 +92,7 @@
     <string name="key_borders">Bordas nas teclas</string>
     <string name="spell_checker_service_name">Corretor Ortográfico do HeliBoard</string>
     <string name="android_spell_checker_settings">Configurações do corretor ortográfico do HeliBoard</string>
-    <string name="use_contacts_for_spellchecking_option_title">Buscar por nomes de contatos</string>
+    <string name="use_contacts_dict">Buscar por nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>
     <string name="settings_category_clipboard_history">Histórico da área de transferência</string>
@@ -104,7 +101,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Sem limite</string>
     <string name="settings_system_default">Padrão do Sistema</string>
-    <string name="use_contacts_dict">Sugerir nomes de contatos</string>
     <string name="edit_personal_dictionary">Dicionário pessoal</string>
     <string name="main_dictionary">Dicionário principal</string>
     <string name="prefs_show_suggestions">Mostrar sugestões de correção</string>
@@ -133,12 +129,10 @@
     <string name="setup_step1_instruction">Por favor, ative o \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.\"</string>
     <string name="setup_finish_action">Concluído</string>
     <string name="show_setup_wizard_icon_summary">Mostrar o ícone do app na launcher</string>
-    <string name="dictionary_settings_summary">Configurações para dicionários</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Em seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como o seu método de entrada ativo.\"</string>
     <string name="setup_step3_instruction">Agora, você pode usar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar nos seus apps favoritos.</string>
-    <string name="main_dict_description">Dicionário principal</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_word_hint">Escreva uma palavra</string>
@@ -225,7 +219,6 @@
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
     <string name="no_dictionary_message">"Sem um dicionário, você receberá apenas sugestões para o texto digitado antes.&lt;br&gt;\n        Você pode baixar dicionários %1$s, ou verifique se um dicionário para \"%2$s\" pode ser baixado diretamente %3$s."</string>
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabeto (Bépo)</string>
-    <string name="add_new_dictionary_ask_locale">Para qual idioma o dicionário \"%1$s\" para %2$s deve ser adicionado?</string>
     <string name="user_dict_word_already_present">Essa palavra já está presente no dicionário do usuário %s. Digite outra.</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido pelo usuário (noite)</string>
     <string name="select_color_key">Texto da tecla</string>
@@ -252,7 +245,6 @@
     <string name="message_add_custom_layout">Selecionar um arquivo num formato compatível. Infomações sobre os formatos estão disponíveis em %s.</string>
     <string name="button_copy_existing_layout">Copiar layout existente</string>
     <string name="edit_layout">Toque para editar o layout bruto</string>
-    <string name="customize_symbols_number_layouts">Customizar layouts de símbolos ou números</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mais símbolos</string>
@@ -263,7 +255,6 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Teclado numérico (paisagem)</string>
     <string name="dictionary_settings_category">Dicionários</string>
     <string name="internal_dictionary_summary">Dicionário interno principal</string>
-    <string name="button_add_to_language">Adicionar para %s</string>
     <string name="replace_dictionary_message">Deseja realmente substituir o dicionário \"%1$s\" adicionado pelo usuário?
 \n
 \nDicionário atual:
@@ -306,8 +297,6 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Areia</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo usuário</string>
-    <string name="select_user_colors">Ajustar cores</string>
-    <string name="select_user_colors_night">Ajustar cores (noite)</string>
     <string name="auto_user_color">Escolher cor automaticamente</string>
     <string name="main_colors">Mostrar somente cores principais</string>
     <string name="all_colors">Mostrar todas as cores</string>
@@ -380,7 +369,6 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionais</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas funcionais (Símbolos)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionais (Mais símbolos)</string>
-    <string name="customize_functional_key_layouts">Customizar layouts de teclas funcionais</string>
     <string name="switch_keyboard_after">Altere para o teclado principal depois…</string>
     <string name="after_clip">Selecionando entrada do histórico da área de transferência</string>
     <string name="after_emoji">Selecionando emoji na tela de emoji</string>

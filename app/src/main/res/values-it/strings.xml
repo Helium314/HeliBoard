@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">Nomi dei contatti</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Usa le voci dell\'elenco contatti</string>
+    <string name="use_contacts_dict">Nomi dei contatti</string>
     <string name="vibrate_on_keypress">"Vibrazione tasti"</string>
     <string name="sound_on_keypress">"Suono tasti"</string>
     <string name="popup_on_keypress">"Popup tasti"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Tasto \'Cambia lingua\'</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predefinito"</string>
-    <string name="use_contacts_dict">"Suggerisci nomi di contatti"</string>
     <string name="use_contacts_dict_summary">Utilizza i nomi dei contatti per suggerimenti e correzioni</string>
     <string name="use_personalized_dicts">"Suggerimenti personalizzati"</string>
     <string name="use_double_space_period">"Doppio spazio per punto"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Maiuscole automatiche"</string>
     <string name="auto_cap_summary">"Iniziale maiuscola per la prima parola di ogni frase"</string>
     <string name="edit_personal_dictionary">"Dizionario personale"</string>
-    <string name="configure_dictionaries_title">"Dizionari aggiuntivi"</string>
     <string name="main_dictionary">"Dizionario principale"</string>
     <string name="prefs_show_suggestions">Mostra suggerimenti di correzione</string>
     <string name="prefs_show_suggestions_summary">"Visualizza le parole suggerite durante la digitazione"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">Mostra l\'icona dell\'app</string>
     <string name="show_setup_wizard_icon_summary">Mostra HeliBoard tra le app di Android</string>
     <string name="dictionary_settings_title">Dizionari</string>
-    <string name="dictionary_settings_summary">Impostazioni dei dizionari</string>
     <string name="dictionary_available">"Dizionario disponibile"</string>
-    <string name="cannot_connect_to_dict_service">Impossibile connettersi al servizio dei dizionari</string>
     <string name="no_dictionaries_available">"Nessun dizionario"</string>
     <string name="last_update">"Ultimo aggiornamento"</string>
-    <string name="main_dict_description">"Dizionario principale"</string>
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
     <string name="version_text">Versione <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -242,7 +236,6 @@
     <string name="setup_step3_action">Configura la tastiera</string>
     <string name="day_or_night_night">Scuro</string>
     <string name="prefs_bottom_padding_scale">Spaziatura dal bordo inferiore</string>
-    <string name="select_user_colors_night">Colori personalizzati (tema scuro)</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Scuro</string>
     <string name="main_colors">Mostra solo i colori principali</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colori dinamici</string>
@@ -276,7 +269,6 @@
     <string name="hint_show_keyboard">Tocca per vedere l\'anteprima</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Personalizzato (tema chiaro)</string>
     <string name="replace_dictionary">Sostituisci dizionario</string>
-    <string name="button_add_to_language">Aggiungi a %s</string>
     <string name="select_color_background">Sfondo della tastiera</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indaco</string>
     <string name="about_github_link">Visualizza su GitHub</string>
@@ -306,7 +298,6 @@
 \nNuovo dizionario:
 \n%3$s</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetto</string>
-    <string name="add_new_dictionary_ask_locale">A quale lingua deve essere aggiunto il dizionario \"%1$s\" per %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
     <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti in base al testo immesso in precedenza.&lt;br&gt;\n\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">Non mostrare più</string>
@@ -314,7 +305,6 @@
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
     <string name="text_tap_languages">Tocca la lingua per aprire le impostazioni</string>
-    <string name="select_user_colors">Colori personalizzati (tema chiaro)</string>
     <string name="save_log">Salva log</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
     <string name="internal_dictionary_summary">Dizionario interno principale</string>
@@ -325,7 +315,6 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefono</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numeri</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Tastierino numerico (orizzontale)</string>
-    <string name="customize_symbols_number_layouts">Layout numerici, simboli e altro</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Tastierino numerico</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboli telefono</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (studenti)</string>
@@ -360,7 +349,6 @@
     <string name="clipboard_toolbar_keys">Scegli i tasti mostrati insieme alla cronologia appunti (nella barra superiore)</string>
     <string name="language_switch_key_behavior">Comportamento del tasto \'Cambia lingua\'</string>
     <string name="center_suggestion_text_to_enter_summary">All\'aggiunta di uno spazio o di un segno di punteggiatura, il suggerimento centrale è inserito automaticamente</string>
-    <string name="customize_functional_key_layouts">Tasti funzione</string>
     <string name="toast_msg_clipboard_copy">Testo copiato</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mostra i colori estesi</string>

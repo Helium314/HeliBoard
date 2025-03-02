@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"חיפוש שמות של אנשי קשר"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"בודק האיות משתמש בערכים מרשימת אנשי הקשר שלך"</string>
+    <string name="use_contacts_dict">"חיפוש שמות של אנשי קשר"</string>
     <string name="vibrate_on_keypress">"רטט בלחיצה על מקשים"</string>
     <string name="sound_on_keypress">"צלילים בעת לחיצה על מקשים"</string>
     <string name="popup_on_keypress">חלונית קופצת בלחיצה על מקש</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"מתג החלפת שפה"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> אלפ\' שניה"</string>
     <string name="settings_system_default">"ברירת מחדל של המערכת"</string>
-    <string name="use_contacts_dict">"הצע שמות של אנשי קשר"</string>
     <string name="use_contacts_dict_summary">השתמש בשמות מרשימת אנשי הקשר עבור הצעות ותיקונים</string>
     <string name="use_personalized_dicts">"הצעות מותאמות אישית"</string>
     <string name="use_double_space_period">"רווח כפול לנקודה"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">אותיות רישיות אוטומטיות</string>
     <string name="auto_cap_summary">שינוי לאות גדולה במילה הראשונה של כל משפט</string>
     <string name="edit_personal_dictionary">"מילון אישי"</string>
-    <string name="configure_dictionaries_title">"תוספי מילונים"</string>
     <string name="main_dictionary">"מילון ראשי"</string>
     <string name="prefs_show_suggestions">הצגת הצעות לתיקונים</string>
     <string name="prefs_show_suggestions_summary">הצגת הצעות למילים בעת הקלדה</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"הצג את סמל האפליקציה"</string>
     <string name="show_setup_wizard_icon_summary">"הצג את סמל האפליקציה במפעיל"</string>
     <string name="dictionary_settings_title">"תוספי מילונים"</string>
-    <string name="dictionary_settings_summary">"הגדרות עבור מילונים"</string>
     <string name="dictionary_available">"מילון זמין"</string>
-    <string name="cannot_connect_to_dict_service">"בעיה בהתחברות לשירות המילון"</string>
     <string name="no_dictionaries_available">"אין מילונים זמינים"</string>
     <string name="last_update">"עודכן לאחרונה"</string>
-    <string name="main_dict_description">"מילון ראשי"</string>
     <string name="settings">"הגדרות"</string>
     <string name="delete">"מחק"</string>
     <string name="version_text">"גרסה <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -178,7 +172,6 @@
     <string name="dictionary_file_error">שגיאה: הקובץ שנבחר אינו קובץ מילון תקף</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">סגול</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">שחור</string>
-    <string name="select_user_colors">התאמת הצבעים</string>
     <string name="action_none">ללא</string>
     <string name="var_toolbar_direction">כיוון משתנה של סרגל הכלים</string>
     <string name="auto_show_toolbar">הצגה אוטומטית של סרגל הכלים</string>
@@ -257,7 +250,6 @@
     <string name="clipboard_toolbar_keys">בחירת כפתורי סרגל הכלים של הלוח</string>
     <string name="edit_layout">לחיצה לעריכת פריסת בסיס</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">שוקולד</string>
-    <string name="customize_symbols_number_layouts">התאמת פריסות סימנים ומספרים</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">סימנים</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">סימנים (ערבית)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">סימנים נוספים</string>
@@ -269,10 +261,8 @@
     <string name="load">טעינה</string>
     <string name="button_save_file">שמירה לקובץ</string>
     <string name="copy_to_clipboard">העתקה ללוח</string>
-    <string name="add_new_dictionary_ask_locale">לאיזו שפה להוסיף את המילון \"%1$s\" ל%2$s ?</string>
     <string name="dictionary_file_wrong_script">שגיאה: הכתב אינו תואם למקלדת זו</string>
     <string name="dictionary_load_error">שגיאה בטעינת קובץ מילון</string>
-    <string name="select_user_colors_night">התאמת הצבעים (לילה)</string>
     <string name="auto_user_color">בחירת צבע אוטומטית</string>
     <string name="main_colors">הצגת צבעים ראשיים בלבד</string>
     <string name="show_horizontal_space_swipe">מחוות החלקה אופקית על מקש רווח</string>
@@ -334,7 +324,6 @@
     <string name="save_log">שמירת לוג</string>
     <string name="down" tools:keep="@string/down">מטה</string>
     <string name="button_select_language">בחירת השפה</string>
-    <string name="button_add_to_language">הוספה ל%s</string>
     <string name="delete_layout">באמת למחוק את הפריסה המותאמת %s?</string>
     <string name="day_or_night_image">להגדיר תמונה למצב יום או לילה?</string>
     <string name="day_or_night_night">לילה</string>
@@ -377,7 +366,6 @@
     <string name="var_toolbar_direction_summary">הפיכת הכיוון כאשר נבחרה מקלדת מסוג מימין-לשמאל</string>
     <string name="show_popup_keys_main">הוספת ניבים נפוצים מאד (ברירת המחדל)</string>
     <string name="remove_redundant_popups">הסרת חלוניות קופצות מיותרות</string>
-    <string name="customize_functional_key_layouts">התאמת פריסת כפתורים פונקציונליים</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">כפתורים פונקציונליים</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">כפתורים פונקציונליים (סימנים)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">כפתורים פונקציונליים (סימנים נוספים)</string>

@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Iskanje imen stikov"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Črkovalnik uporablja vnose s seznama stikov"</string>
+    <string name="use_contacts_dict">"Iskanje imen stikov"</string>
     <string name="vibrate_on_keypress">"Vibriranje ob pritisku tipke"</string>
     <string name="sound_on_keypress">"Zvok ob pritisku tipke"</string>
     <string name="popup_on_keypress">"Povečaj črko ob pritisku"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tipka za preklop med jeziki"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Sistemsko privzeto"</string>
-    <string name="use_contacts_dict">"Predlagaj imena stikov"</string>
     <string name="use_contacts_dict_summary">"Uporaba imen iz stikov za predloge in popravke"</string>
     <string name="use_personalized_dicts">"Prilagojeni predlogi"</string>
     <string name="use_double_space_period">"Dva presl. za vnos pike"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Samod. velike začetnice"</string>
     <string name="auto_cap_summary">"Prvo besedo stavka piši z veliko začetnico"</string>
     <string name="edit_personal_dictionary">"Osebni slovar"</string>
-    <string name="configure_dictionaries_title">"Dodatni slovarji"</string>
     <string name="main_dictionary">"Glavni slovar"</string>
     <string name="prefs_show_suggestions">"Pokaži predloge popravkov"</string>
     <string name="prefs_show_suggestions_summary">"Pokaži predlagane besede med tipkanjem"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Pokaži ikono aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikaz ikone aplikacije v zaganjalniku"</string>
     <string name="dictionary_settings_title">"Dodatni slovarji"</string>
-    <string name="dictionary_settings_summary">"Nastavitve za slovarje"</string>
     <string name="dictionary_available">"Slovar je na voljo"</string>
-    <string name="cannot_connect_to_dict_service">"Težava s povezavo"</string>
     <string name="no_dictionaries_available">"Ni slovarjev"</string>
     <string name="last_update">"Nazadnje posodobljeno"</string>
-    <string name="main_dict_description">"Glavni slovar"</string>
     <string name="settings">"Nastavitve"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Različica <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

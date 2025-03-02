@@ -60,7 +60,6 @@
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="settings_no_limit">Ulac tilisa</string>
     <string name="edit_personal_dictionary">Amawal udmawan</string>
-    <string name="configure_dictionaries_title">Imawalen nniḍen</string>
     <string name="autocorrect">Aseɣti awurman</string>
     <string name="main_dictionary">Amawal agejdan</string>
     <string name="prefs_show_suggestions">Ssken-d isumar n useɣti</string>
@@ -74,7 +73,6 @@
     <string name="bigram_prediction">Assuter i wawal i d-iteddun</string>
     <string name="day_or_night_day">Ass</string>
     <string name="show_setup_wizard_icon">Ssken-d tignit n usnas</string>
-    <string name="dictionary_settings_summary">Iɣewwaṛen i yimawalen</string>
     <string name="dictionary_settings_category">Imawalen</string>
     <string name="user_dict_settings_all_languages">I tutlayin akk</string>
     <string name="user_dict_add_word_button">Rnu awal</string>
@@ -94,7 +92,6 @@
     <string name="subtype_en_US">Taglizit (Iwunak Yeddukklen)</string>
     <string name="subtype_no_language">War tutlayt (Agemmay)</string>
     <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Agemmay alatini (DVORAK)</string>
-    <string name="button_add_to_language">Rnu ɣer %s</string>
     <string name="user_dict_settings_add_dialog_title">Rnu ɣer umawal</string>
     <string name="more_colors">Sken ugar n yiniten</string>
     <string name="use_system_language_to_select_input_method_subtypes">Seqdec tutlayin n unagraw</string>
@@ -104,7 +101,6 @@
     <string name="more_keys_strip_description">Tiqeffalin nniḍen</string>
     <string name="subtype_no_language_qwerty">Agemmay alatini (QWERTY)</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Aberkan</string>
-    <string name="main_dict_description">Amawal agejdan</string>
     <string name="select_color_key">Aḍris n tqeffalin</string>
     <string name="button_load_custom">Ɛebbi afaylu</string>
     <string name="button_select_language">Fren tutlayt</string>

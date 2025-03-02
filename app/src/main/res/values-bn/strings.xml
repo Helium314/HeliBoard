@@ -7,8 +7,7 @@
     <string name="spell_checker_service_name">হেলিবোর্ড বানান পরীক্ষক</string>
     <string name="ime_settings">হেলিবোর্ড সেটিংস</string>
     <string name="android_spell_checker_settings">হেলিবোর্ড বানান পরীক্ষক সেটিংস</string>
-    <string name="use_contacts_for_spellchecking_option_title">পরিচিতি তালিকায় নাম অনুসন্ধান</string>
-    <string name="use_contacts_for_spellchecking_option_summary">বানান পরীক্ষক আপনার পরিচিতি তালিকা থেকে তথ্য ব্যবহার করবে</string>
+    <string name="use_contacts_dict">পরিচিতি তালিকায় নাম অনুসন্ধান</string>
     <string name="vibrate_on_keypress">কিপ্রেস কম্পন</string>
     <string name="sound_on_keypress">কিপ্রেসের শব্দ</string>
     <string name="popup_on_keypress">কিপ্রেস পপআপ</string>
@@ -34,7 +33,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> মিনিট</string>
     <string name="settings_system_default">সিস্টেম ডিফল্ট</string>
     <string name="settings_no_limit">সীমাহীন</string>
-    <string name="use_contacts_dict">পরিচিতি নাম থেকে পরামর্শ</string>
     <string name="use_contacts_dict_summary">পরামর্শ ও সংশোধনীর জন্য পরিচিতি থেকে নাম ব্যবহার</string>
     <string name="use_personalized_dicts">ব্যক্তিগতকৃত পরামর্শ</string>
     <string name="add_to_personal_dictionary">ব্যক্তিগত অভিধানে শব্দ সংযুক্তি</string>
@@ -44,7 +42,6 @@
     <string name="auto_cap">অটো-ক্যাপিটালাইজেশন</string>
     <string name="auto_cap_summary">বাক্যের প্রথম শব্দ বড় হাতের বর্ণ দিয়ে শুরু হবে</string>
     <string name="edit_personal_dictionary">ব্যক্তিগত অভিধান</string>
-    <string name="configure_dictionaries_title">অ্যাড-অন অভিধান</string>
     <string name="main_dictionary">মূল অভিধান</string>
     <string name="prefs_show_suggestions">সংশোধনের পরামর্শ প্রদর্শন</string>
     <string name="prefs_show_suggestions_summary">লেখার সময় প্রস্তাবিত শব্দ প্রদর্শন</string>
@@ -155,13 +152,10 @@
     <string name="show_setup_wizard_icon">অ্যাপ আইকন প্রদর্শন</string>
     <string name="show_setup_wizard_icon_summary">লঞ্চারে অ্যাপ আইকন প্রদর্শন</string>
     <string name="dictionary_settings_title">অ্যাড-অন অভিধান</string>
-    <string name="dictionary_settings_summary">অভিধানের জন্য সেটিংস</string>
     <string name="dictionary_settings_category">অভিধান</string>
     <string name="internal_dictionary_summary">অভ্যন্তরীণ মূল অভিধান</string>
     <string name="add_new_dictionary_title">"ফাইল থেকে অভিধান সংযুক্তি"</string>
-    <string name="add_new_dictionary_ask_locale">%2$s এর \"%1$s\" অভিধান কোন ভাষার জন্য সংযুক্ত হবে?</string>
     <string name="button_select_language">ভাষা নির্বাচন</string>
-    <string name="button_add_to_language">%s এ সংযুক্তি</string>
     <string name="replace_dictionary_message">ব্যবহারকারী-যোগকৃত অভিধান \"%1$s\" প্রতিস্থাপন করতে নিশ্চিত?
 \n
 \nবর্তমান অভিধান:
@@ -182,10 +176,8 @@
     <string name="dictionary_file_wrong_locale_ok">"তবুও ব্যবহার করুন"</string>
     <string name="dictionary_load_error">অভিধান ফাইল অধিযোজন করতে ত্রুটি</string>
     <string name="dictionary_available">অভিধান উপলব্ধ</string>
-    <string name="cannot_connect_to_dict_service">অভিধান পরিষেবার সাথে সংযুক্ত হতে সমস্যা হচ্ছে</string>
     <string name="no_dictionaries_available">কোনো অভিধান উপলব্ধ নয়</string>
     <string name="last_update">সর্বশেষ আপডেট</string>
-    <string name="main_dict_description">মূল অভিধান</string>
     <string name="settings">সেটিংস</string>
     <string name="delete">বিলোপ করুন</string>
     <string name="version_text">সংস্করণ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -214,8 +206,6 @@
     <string name="theme_name_black">কালো</string>
     <string name="theme_name_user">ব্যবহারকারী নির্ধারিত</string>
     <string name="theme_name_user_night">ব্যবহারকারী নির্ধারিত (অন্ধকার)</string>
-    <string name="select_user_colors">রং সমন্বয়</string>
-    <string name="select_user_colors_night">রং সমন্বয় (অন্ধকার)</string>
     <string name="auto_user_color">স্বয়ংক্রিয় রং নির্বাচন</string>
     <string name="hint_show_keyboard">প্রাগ্‌দর্শনের জন্য ক্লিক করুন</string>
     <string name="select_user_colors_summary">লেখা এবং পটভূমির জন্য রং নির্বাচন</string>
@@ -333,7 +323,6 @@
     <string name="button_title_add_custom_layout">নিজস্বীকৃত লেআউট সংযুক্তি</string>
     <string name="delete_layout">নিজস্বীকৃত লেআউট %s বিলোপ করতে নিশ্চিত?</string>
     <string name="day_or_night_image">আলো অথবা অন্ধকার মোডের জন্য ছবি নির্বাচিত হবে?</string>
-    <string name="customize_symbols_number_layouts">প্রতীক এবং সংখ্যার লেআউট নিজস্বীকরণ</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">নম্বর প্যাড</string>
     <string name="user_dict_word_already_present">এই শব্দটি ইতোমধ্যে %s ব্যবহারকারী অভিধানে উপলব্ধ। অন্য আরেকটি শব্দ টাইপ করুন।</string>
     <string name="select_color_spacebar_background">স্পেসবারের পটভূমি</string>
@@ -365,7 +354,6 @@
     <string name="quick_pin_toolbar_keys_summary">পিন করা নেই এমন অন্য টুলবার বোতামের দীর্ঘচাপের কার্যাবলি নিষ্ক্রিয় করবে</string>
     <string name="more_colors">অধিক রং প্রদর্শন</string>
     <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। ডিফল্ট রং যেকোনো একটি হতে পারে এবং রঙের নাম অনুবাদ করা হবে না।</string>
-    <string name="customize_functional_key_layouts">ফাংশনাল বোতাম লেআউট নিজস্বীকরণ</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">ফাংশনাল বোতাম (প্রতীক)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">ফাংশনাল বোতাম (অধিক প্রতীক)</string>

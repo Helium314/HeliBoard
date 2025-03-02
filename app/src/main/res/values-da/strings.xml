@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Anvend kontaktnavne"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Stavekontrol bruger oplysninger fra din kontaktliste</string>
+    <string name="use_contacts_dict">"Anvend kontaktnavne"</string>
     <string name="vibrate_on_keypress">Vibrer ved tastetryk</string>
     <string name="sound_on_keypress">"Lyd ved tastetryk"</string>
     <string name="popup_on_keypress">"Pop op ved tastetryk"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Tast til sprogskift</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="settings_system_default">"Systemstandard"</string>
-    <string name="use_contacts_dict">Foreslå kontaktnavne</string>
     <string name="use_contacts_dict_summary">"Brug navne fra Kontakter til forslag og rettelser"</string>
     <string name="use_personalized_dicts">Personlige forslag</string>
     <string name="use_double_space_period">"To mellemrum for punktum"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Skriv automatisk med stort"</string>
     <string name="auto_cap_summary">"Skriv det første ord i hver sætning med stort"</string>
     <string name="edit_personal_dictionary">"Personlig ordbog"</string>
-    <string name="configure_dictionaries_title">"Ekstra ordbøger"</string>
     <string name="main_dictionary">"Hovedordbog"</string>
     <string name="prefs_show_suggestions">"Vis rettelsesforslag"</string>
     <string name="prefs_show_suggestions_summary">"Vis ordforslag under indtastning"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Vis appikon"</string>
     <string name="show_setup_wizard_icon_summary">Vis applikationsikon i launcheren</string>
     <string name="dictionary_settings_title">"Ekstra ordbøger"</string>
-    <string name="dictionary_settings_summary">"Indstillinger for ordbøger"</string>
     <string name="dictionary_available">Ordbog tilgængelig</string>
-    <string name="cannot_connect_to_dict_service">Ingen ordbogstjeneste</string>
     <string name="no_dictionaries_available">"Ingen tilg. ordbøger"</string>
     <string name="last_update">"Sidst opdateret"</string>
-    <string name="main_dict_description">"Hovedordbog"</string>
     <string name="settings">"Indstillinger"</string>
     <string name="delete">"Slet"</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -211,7 +205,6 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonsymboler</string>
     <string name="theme_navbar">Farv navigationslinje</string>
-    <string name="customize_symbols_number_layouts">Tilpas symboler og nummerlayout</string>
     <string name="load">Indlæs</string>
     <string name="button_save_file">Gem til fil</string>
     <string name="copy_to_clipboard">Kopiér til udklipsholder</string>
@@ -258,7 +251,6 @@
     <string name="backup_restore_message">Gem eller indlæs fra fil. Advarsel: Gendannelse overskriver eksisterende data</string>
     <string name="button_title_add_custom_layout">Tilføj brugerdefineret layout</string>
     <string name="dictionary_file_error">Fejl: Den valgte fil er ikke en gyldig ordbogsfil</string>
-    <string name="add_new_dictionary_ask_locale">Til hvilket sprog skal ordbogen \"%1$s\" for %2$s føjes?</string>
     <string name="custom_font">Indstil brugerdefineret skrifttype fra fil</string>
     <string name="delete_layout">Slet brugerdefineret layout %s?</string>
     <string name="edit_layout">Tryk for at redigere rå layout</string>
@@ -275,7 +267,6 @@
     <string name="after_symbol_and_space">Tryk på enter eller mellemrum efter andre taster i symbolvisning</string>
     <string name="dictionary_settings_category">Ordbøger</string>
     <string name="internal_dictionary_summary">Intern hovedordbog</string>
-    <string name="button_add_to_language">Føj til %s</string>
     <string name="replace_dictionary">Erstat ordbog</string>
     <string name="no_dictionary_dont_show_again_button">Vis ikke igen</string>
     <string name="add_dictionary">Vælg en ordbog at tilføje. Ordbøger i .dict-format kan hentes %s.</string>
@@ -332,8 +323,6 @@
     <string name="main_colors">Vis kun hovedfarver</string>
     <string name="all_colors">Vis alle farver</string>
     <string name="select_user_colors_summary">Vælg farver til tekst og baggrunde</string>
-    <string name="select_user_colors">Juster farver</string>
-    <string name="select_user_colors_night">Juster farver (nat)</string>
     <string name="select_color_background">Tastaturbaggrund</string>
     <string name="select_color_key_hint">Tekst til tastehint</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>

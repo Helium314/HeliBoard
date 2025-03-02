@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Przeszukaj kontakty"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Sprawdzanie pisowni bierze pod uwagę wpisy z listy kontaktów</string>
+    <string name="use_contacts_dict">"Przeszukaj kontakty"</string>
     <string name="vibrate_on_keypress">"Wibracja przy naciśnięciu"</string>
     <string name="sound_on_keypress">"Dźwięk przy naciśnięciu"</string>
     <string name="popup_on_keypress">"Powiększ po naciśnięciu"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Klawisz zmiany języka"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Ustawienie domyślne"</string>
-    <string name="use_contacts_dict">"Proponuj osoby z kontaktów"</string>
     <string name="use_contacts_dict_summary">"W podpowiedziach i poprawkach używaj nazwisk z kontaktów"</string>
     <string name="use_personalized_dicts">"Dostosowane sugestie"</string>
     <string name="use_double_space_period">"Szybka kropka ze spacją"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Wstawiaj wielkie litery"</string>
     <string name="auto_cap_summary">"Zaczynaj każde zdanie wielką literą"</string>
     <string name="edit_personal_dictionary">"Słownik osobisty"</string>
-    <string name="configure_dictionaries_title">"Dodatkowe słowniki"</string>
     <string name="main_dictionary">"Słownik główny"</string>
     <string name="prefs_show_suggestions">"Pokazuj propozycje poprawek"</string>
     <string name="prefs_show_suggestions_summary">"Wyświetlaj proponowane słowa podczas wpisywania"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Pokaż ikonę aplikacji"</string>
     <string name="show_setup_wizard_icon_summary">"Wyświetlaj ikonę aplikacji w programie uruchamiającym"</string>
     <string name="dictionary_settings_title">"Słowniki dodatkowe"</string>
-    <string name="dictionary_settings_summary">"Ustawienia słowników"</string>
     <string name="dictionary_available">"Słownik dostępny"</string>
-    <string name="cannot_connect_to_dict_service">"Problem z połączeniem z usługą słownika"</string>
     <string name="no_dictionaries_available">"Brak słowników"</string>
     <string name="last_update">"Ostatnia aktualizacja"</string>
-    <string name="main_dict_description">"Słownik główny"</string>
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
     <string name="version_text">Wersja <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -168,7 +162,6 @@
     <string name="label_pause_key">"Pauza"</string>
     <string name="label_wait_key">"Czekaj"</string>
     <string name="prefs_always_show_suggestions">Zawsze pokazuj sugestie</string>
-    <string name="select_user_colors_night">Dostosuj kolory (tryb nocny)</string>
     <string name="internal_dictionary_summary">Główny słownik wewnętrzny</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ciemne</string>
     <string name="main_colors">Pokaż tylko główne kolory</string>
@@ -264,7 +257,6 @@
     <string name="show_popup_keys_more">Pokaż popularne warianty</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Własne</string>
     <string name="replace_dictionary">Zastąp słownik</string>
-    <string name="button_add_to_language">Dodaj do %s</string>
     <string name="select_color_background">Tło klawiatury</string>
     <string name="clipboard" tools:keep="@string/clipboard">Schowek</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indygo</string>
@@ -326,7 +318,6 @@
     <string name="show_popup_keys_all">Pokaż wszystkie dostępne warianty</string>
     <string name="more_autocorrect">Zaawansowana autokorekta</string>
     <string name="split_spacer_scale">Szerokość podziału</string>
-    <string name="add_new_dictionary_ask_locale">Do którego języka dodać słownik \"%1$s\" przeznaczony dla: %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Wartość:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii (może powodować problemy)</string>
     <string name="title_layout_name_select">Nazwij układ</string>
@@ -349,7 +340,6 @@
     <string name="show_popup_keys_title">Pokaż więcej liter ze znakami diakrytycznymi w wyskakującym okienku</string>
     <string name="one_handed" tools:keep="@string/one_handed">Tryb jednej ręki</string>
     <string name="layout_error">Błąd układu: %s</string>
-    <string name="select_user_colors">Dostosuj kolory</string>
     <string name="secondary_locale">Pisanie wielojęzyczne</string>
     <string name="backup_restore_message">Zapisz lub przywróć z pliku. Uwaga: przywrócenie spowoduje zastąpienie istniejących danych</string>
     <string name="save_log">Zapisz dziennik zdarzeń</string>
@@ -358,7 +348,6 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Białe Holo</string>
     <string name="language_switch_key_switch_both">Zmień oba</string>
     <string name="available_dictionary_experimental">%s (eksperymentalny)</string>
-    <string name="customize_symbols_number_layouts">Dostosuj układy symboli i liczb</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symbole</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
@@ -389,7 +378,6 @@
     <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Domyślny kolor jest losowy, a nazwy nie zostaną przetłumaczone.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Klawisze funkcyjne</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Klawisze funkcyjne (dodatkowe symbole)</string>
-    <string name="customize_functional_key_layouts">Dostosuj układy klawiszy funkcyjnych</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Klawisze funkcyjne (symbole)</string>
     <string name="quick_pin_toolbar_keys">Przypnij klawisz paska narzędzi po długim naciśnięciu</string>
     <string name="settings_screen_toolbar">Pasek narzędzi</string>

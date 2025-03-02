@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Cari nama kontak"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Pemeriksa ejaan menggunakan entri dari daftar kontak Anda"</string>
+    <string name="use_contacts_dict">"Cari nama kontak"</string>
     <string name="vibrate_on_keypress">"Getar jika tombol ditekan"</string>
     <string name="sound_on_keypress">"Berbunyi jika tombol ditekan"</string>
     <string name="popup_on_keypress">"Muncul saat tombol ditekan"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tombol pengalih bahasa"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> md"</string>
     <string name="settings_system_default">"Default sistem"</string>
-    <string name="use_contacts_dict">"Sarankan nama Kontak"</string>
     <string name="use_contacts_dict_summary">"Menggunakan nama dari Kontak untuk saran dan koreksi"</string>
     <string name="use_personalized_dicts">"Saran hasil personalisasi"</string>
     <string name="use_double_space_period">"Titik spasi ganda"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Kapitalisasi otomatis"</string>
     <string name="auto_cap_summary">"Kapitalisasi kata pertama di setiap kalimat"</string>
     <string name="edit_personal_dictionary">"Kamus pribadi"</string>
-    <string name="configure_dictionaries_title">"Kamus pengaya"</string>
     <string name="main_dictionary">"Kamus utama"</string>
     <string name="prefs_show_suggestions">"Tampilkan saran koreksi"</string>
     <string name="prefs_show_suggestions_summary">"Tampilkan kata yang disarankan ketika mengetik"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Tampilkan ikon aplikasi"</string>
     <string name="show_setup_wizard_icon_summary">"Menampillkan ikon aplikasi di peluncur"</string>
     <string name="dictionary_settings_title">"Kamus pengaya"</string>
-    <string name="dictionary_settings_summary">"Setelan untuk kamus"</string>
     <string name="dictionary_available">"Kamus yang tersedia"</string>
-    <string name="cannot_connect_to_dict_service">"Problem koneksi kamus"</string>
     <string name="no_dictionaries_available">"Tidak tersedia kamus"</string>
     <string name="last_update">"Terakhir diperbarui"</string>
-    <string name="main_dict_description">"Kamus utama"</string>
     <string name="settings">"Setelan"</string>
     <string name="delete">"Hapus"</string>
     <string name="version_text">Versi <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -235,7 +229,6 @@
     <string name="message_add_custom_layout">Pilih file dalam format yang kompatibel. Informasi tentang format tersedia %s.</string>
     <string name="switch_language">Ganti Bahasa</string>
     <string name="hint_source">Pilih sumber petunjuk</string>
-    <string name="customize_symbols_number_layouts">Kustomisasi tata letak simbol dan angka</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simbol</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simbol (bahasa Arab)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Lebih banyak simbol</string>
@@ -278,8 +271,6 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Tema yang ditentukan pengguna</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Tema yang ditentukan pengguna (mode malam)</string>
-    <string name="select_user_colors">Sesuaikan warna</string>
-    <string name="button_add_to_language">Tambahkan ke %s</string>
     <string name="replace_dictionary_message">Yakin ingin mengganti kamus bawaan pengguna \"%1$s\"?
 \n
 \nKamus saat ini:
@@ -290,7 +281,6 @@
     <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;\n        Anda bisa mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
     <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
-    <string name="add_new_dictionary_ask_locale">Pada bahasa apa kamus \"%1$s\" untuk %2$s harus ditambahkan?</string>
     <string name="no_dictionary_dont_show_again_button">Jangan tampilkan lagi</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Cerah</string>
     <string name="user_dict_settings_add_weight_value">Berat:</string>
@@ -301,7 +291,6 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Hutan</string>
     <string name="action_none">Tidak ada</string>
     <string name="space_swipe_move_cursor_entry">Gerakkan Kursor</string>
-    <string name="select_user_colors_night">Sesuaikan warna (mode malam)</string>
     <string name="auto_user_color">Pilih warna secara otomatis</string>
     <string name="main_colors">Tampilkan warna utama saja</string>
     <string name="all_colors">Tampilkan semua warna</string>
@@ -416,7 +405,6 @@
     <string name="customize_toolbar_key_code_reset_message">Benarkah semua kode kunci yang disesuaikan terhapus?</string>
     <string name="hidden_features_message">► Menekan lama tombol bilah alat yang disematkan menghasilkan fungsi tambahan: &lt;br&gt; \n• clipboard &amp;#65515; tempel &lt;br&gt; \n• pindahkan ke kiri dan kanan &amp;#65515; kata ke kiri dan kanan &lt;br&gt; \n• pindahkan ke atas dan bawah &amp;#65515; halaman ke atas dan bawah &lt;br&gt; \n• kata ke kiri dan kanan &amp;#65515; awal baris &lt;br&gt; \n• halaman ke atas dan bawah &amp;#65515; awal halaman &lt;br&gt; \n• salin &amp;#65515; potong &lt;br&gt; \n• pilih kata &amp;#8596; pilih semua &lt;br&gt; \n• batalkan &amp;#8596; ulangi &lt;br&gt; &lt;br&gt; \n► Menekan lama tombol pada bilah alat strip saran akan menyematkannya ke strip saran. &lt;br&gt; &lt;br&gt; \n► Tekan lama tombol Koma untuk mengakses Tampilan Clipboard, Tampilan Emoji, Mode Satu Tangan, Pengaturan, atau Ganti Bahasa: &lt;br&gt; \n• Tampilan Emoji dan Ganti Bahasa akan menghilang jika Anda mengaktifkan tombol terkait; &lt;br&gt; \n• Untuk beberapa tata letak, yang aktif bukanlah tombol Koma, tetapi tombol pada posisi yang sama (misalnya, \'q\' untuk tata letak Dvorak). &lt;br&gt; &lt;br&gt; \n► Saat mode penyamaran diaktifkan, tidak ada kata yang akan dipelajari, dan tidak ada emoji yang akan ditambahkan ke yang terbaru. &lt;br&gt; &lt;br&gt; \n► Tekan ikon Penyamaran untuk mengakses bilah alat. &lt;br&gt; &lt;br&gt; \n► Input tombol geser: Geser dari shift ke tombol lain untuk mengetik satu tombol huruf kapital: &lt;br&gt; \n• Ini juga berfungsi untuk tombol \'?123\' untuk mengetik satu simbol dari papan ketik simbol, dan untuk tombol terkait. &lt;br&gt; &lt;br&gt; \n► Tahan tombol shift atau simbol, tekan satu atau beberapa tombol, lalu lepaskan tombol shift atau simbol untuk kembali ke papan ketik sebelumnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama saran di strip saran untuk menampilkan lebih banyak saran, dan tombol hapus untuk menghapus saran ini. &lt;br&gt; &lt;br&gt; \n► Geser ke atas dari saran untuk membuka lebih banyak saran, dan lepaskan pada saran untuk memilihnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama entri dalam riwayat clipboard untuk menyematkannya (simpan di clipboard hingga Anda melepas sematannya). &lt;br&gt; &lt;br&gt; \n► Geser ke kiri dalam tampilan clipboard untuk menghapus entri (kecuali saat disematkan) &lt;br&gt; &lt;br&gt; \n► Pilih teks dan tekan shift untuk beralih antara kata-kata huruf besar, huruf kecil, dan huruf kapital. &lt;br&gt; &lt;br&gt; \n► Anda dapat menambahkan kamus dengan membukanya di file explorer: &lt;br&gt; \n• Ini hanya berfungsi dengan &lt;i&gt;content-uris&lt;i&gt; dan tidak dengan &lt;i&gt;file-uris&lt;i&gt;, yang berarti mungkin tidak berfungsi dengan beberapa file explorer. &lt;br&gt; &lt;br&gt; \n► Untuk pengguna yang melakukan pencadangan manual dengan akses root: &lt;br&gt; \n• Dimulai pada Android 7, file preferensi bersama tidak berada di lokasi default, karena aplikasi menggunakan %s. Ini diperlukan agar pengaturan dapat dibaca sebelum perangkat dibuka kuncinya, misalnya saat boot; &lt;br&gt; \n• File terletak di datauser_de0package_idshared_prefs meskipun ini mungkin bergantung pada perangkat dan versi Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode debug APK&lt;b&gt;&lt;i&gt; &lt;br&gt; &lt;br&gt; \n► Tekan lama saran untuk menampilkan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan APK debug, Anda dapat menemukan Setelan Debug di Preferensi Lanjutan, meskipun kegunaannya terbatas kecuali untuk membuang kamus ke dalam log. &lt;br&gt; \n• Untuk APK rilis, Anda perlu mengetuk versi di &lt;i&gt;Tentang&lt;i&gt; beberapa kali, lalu Anda dapat menemukan setelan debug di &lt;i&gt;Preferensi Lanjutan&lt;i&gt;. &lt;br&gt; \n• Saat mengaktifkan &lt;i&gt;Tampilkan info saran&lt;i&gt;, saran akan memiliki beberapa angka kecil di atas yang menunjukkan beberapa skor internal dan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Jika terjadi kerusakan aplikasi, Anda akan diminta apakah Anda menginginkan log kerusakan saat membuka Setelan. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan pengetikan multibahasa, bilah spasi akan menunjukkan nilai keyakinan yang digunakan untuk menentukan bahasa yang saat ini digunakan. &lt;br&gt; &lt;br&gt; \n► Saran akan memiliki beberapa angka kecil di bagian atas yang menunjukkan beberapa skor internal dan kamus sumber (dapat dinonaktifkan).</string>
     <string name="all_colors_warning">Pengaturan ini menampilkan semua warna yang digunakan secara internal. Daftar warna dapat berubah sewaktu-waktu. Warna default bersifat acak, dan nama-namanya tidak akan diterjemahkan.</string>
-    <string name="customize_functional_key_layouts">Sesuaikan tata letak tombol fungsional</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tombol fungsi</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tombol Fungsional (Simbol)</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Menghapus</string>

@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Verificare nume în agendă"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Verificatorul ortografic utilizează intrări din lista de contacte"</string>
+    <string name="use_contacts_dict">"Verificare nume în agendă"</string>
     <string name="vibrate_on_keypress">"Vibrare la apăsarea tastei"</string>
     <string name="sound_on_keypress">"Sunet la apăsarea tastei"</string>
     <string name="popup_on_keypress">"Pop-up la apăsarea tastei"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tastă comutare limbi"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> msec."</string>
     <string name="settings_system_default">"Valoare prestabilită"</string>
-    <string name="use_contacts_dict">Sugerează nume din Agendă</string>
     <string name="use_contacts_dict_summary">Utilizează numele din Agendă pentru sugestii și corecții</string>
     <string name="use_personalized_dicts">"Sugestii personalizate"</string>
     <string name="use_double_space_period">"Inserează punct spațiu"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Scriere automată cu majuscule"</string>
     <string name="auto_cap_summary">"Scrie cu majusculă primul cuvânt din fiecare propoziție"</string>
     <string name="edit_personal_dictionary">"Dicționar personal"</string>
-    <string name="configure_dictionaries_title">"Dicționare suplimentare"</string>
     <string name="main_dictionary">"Dicționar principal"</string>
     <string name="prefs_show_suggestions">Afișează sugestii de corectare</string>
     <string name="prefs_show_suggestions_summary">"Afișează sugestii de cuvinte în timpul introducerii textului"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">Afișează pictograma aplicației</string>
     <string name="show_setup_wizard_icon_summary">Afișează pictograma aplicației în lansator</string>
     <string name="dictionary_settings_title">"Dicționare suplimentare"</string>
-    <string name="dictionary_settings_summary">"Setări pentru dicționare"</string>
     <string name="dictionary_available">"Dicționar disponibil"</string>
-    <string name="cannot_connect_to_dict_service">"Eroare conectare la serviciu dicționar"</string>
     <string name="no_dictionaries_available">"Niciun dicționar"</string>
     <string name="last_update">"Data ultimei modificări"</string>
-    <string name="main_dict_description">"Dicționar principal"</string>
     <string name="settings">"Setări"</string>
     <string name="delete">Șterge</string>
     <string name="version_text">Versiunea <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -217,7 +211,6 @@
     <string name="file_read_error">Nu se poate citi fișierul</string>
     <string name="title_layout_name_select">Setează numele aspectului</string>
     <string name="edit_layout">Atinge pentru a edita aspectul brut</string>
-    <string name="customize_symbols_number_layouts">Personalizează simbolurile și modelele de numere</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboluri</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboluri (Arabă)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Mai multe simboluri</string>
@@ -226,7 +219,6 @@
     <string name="layout_number" tools:keep="@string/layout_number">Numere</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (peisaj)</string>
-    <string name="add_new_dictionary_ask_locale">În ce limbă ar trebui adăugat dicționarul „%1$s” pentru %2$s?</string>
     <string name="button_select_language">Selectează limba</string>
     <string name="replace_dictionary">Înlocuiește dicționarul</string>
     <string name="remove_dictionary_message">Elimini cu adevărat dicționarul adăugat de utilizator „%s”?</string>
@@ -266,7 +258,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Roz</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Nisip</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definită de utilizator (noapte)</string>
-    <string name="select_user_colors">Ajustează culorile</string>
     <string name="all_colors">Afișează toate culorile</string>
     <string name="auto_user_color">Alege culoarea automat</string>
     <string name="gnu_gpl">Licență GNU General Public v3.0</string>
@@ -279,14 +270,12 @@
     <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;\n\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Greutate:</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definită de utilizator</string>
-    <string name="select_user_colors_night">Ajustează culorile (noapte)</string>
     <string name="button_copy_existing_layout">Copiază aspectul existent</string>
     <string name="dictionary_settings_category">Dicționare</string>
     <string name="internal_dictionary_summary">Dicționar principal intern</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ocean</string>
     <string name="select_color_suggestion">Text bandă de sugestii</string>
     <string name="hidden_features_text">stocarea protejată a dispozitivului</string>
-    <string name="button_add_to_language">Adaugă la %s</string>
     <string name="replace_dictionary_message">Înlocuiești cu adevărat dicționarul adăugat de utilizator „%1$s”? \n \nDicționarul curent: \n%2$s \n \nDicționarul nou: \n%3$s</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mai întunecată</string>
     <string name="main_colors">Afișează numai culorile principale</string>
@@ -394,7 +383,6 @@
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Arată mai multe culori</string>
     <string name="all_colors_warning">Această setare expune toate culorile care sunt utilizate intern. Lista de culori se poate schimba în orice moment. Culoarea implicită este aleatorie, iar numele nu vor fi traduse.</string>
-    <string name="customize_functional_key_layouts">Personalizează aspectul tastelor funcționale</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Taste funcționale</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Taste funcționale (Simboluri)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Taste funcționale (Mai multe simboluri)</string>

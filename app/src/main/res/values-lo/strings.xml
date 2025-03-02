@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"ຊອກຫາລາຍຊື່ຜູ້ຕິດຕໍ່"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"ໂຕຊ່ວຍສະກົດໃຊ້ຂໍ້ມູນຈາກລາຍການຂອງລາຍຊື່ຜູ່ຕິດຕໍ່ຂອງທ່ານ"</string>
+    <string name="use_contacts_dict">"ຊອກຫາລາຍຊື່ຜູ້ຕິດຕໍ່"</string>
     <string name="vibrate_on_keypress">"ສັ່ນເຕືອນເມື່ອພິມ"</string>
     <string name="sound_on_keypress">"ສຽງໃນການກົດປຸ່ມ"</string>
     <string name="popup_on_keypress">"ໂຕອັກສອນເວລາພິມ"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"ປຸ່ມປ່ຽນພາສາ"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"ຄ່າເລີ່ມຕົ້ນຂອງລະບົບ"</string>
-    <string name="use_contacts_dict">"ແນະນຳລາຍຊື່ຜູ່ຕິດຕໍ່"</string>
     <string name="use_contacts_dict_summary">"ໃຊ້ຊື່ຈາກລາຍຊື່ຜູ່ຕິດຕໍ່ສຳລັບການແນະນຳ ແລະ ການຊ່ວຍແກ້ຄຳ"</string>
     <string name="use_personalized_dicts">"ຄຳແນະນຳຕາມການນຳໃຊ້ຂອງທ່ານ"</string>
     <string name="use_double_space_period">"ຍະຫວ່າງສອງເທື່ອເພື່ອໃສ່ຈ້ຳເມັດ"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"ເຮັດໂຕພິມໃຫຍ່ອັດຕະໂນມັດ"</string>
     <string name="auto_cap_summary">"ເຮັດໂຕພິມໃຫຍ່ໃຫ້ໂຕອັກສອນທຳອິດຂອງແຕ່ລໃນປະໂຫຍກ"</string>
     <string name="edit_personal_dictionary">"ວັດຈະນານຸກົມສ່ວນຕົວ"</string>
-    <string name="configure_dictionaries_title">"ໂຕເສີມວັດຈະນານຸກົມ"</string>
     <string name="main_dictionary">"ວັດຈະນານຸກົມຫຼັກ"</string>
     <string name="prefs_show_suggestions">"ສະແດງການແນະນຳຄຳທີ່ຖືກຕ້ອງ"</string>
     <string name="prefs_show_suggestions_summary">"ສະແດງຄຳສັບທີ່ແນະນຳໃນເວລາທີ່ກຳລັງພິມ"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"ສະແດງໄອຄອນຂອງແອັບ"</string>
     <string name="show_setup_wizard_icon_summary">"ສະແດງໄອຄອນຂອງແອັບໃນ Launcher"</string>
     <string name="dictionary_settings_title">"ໂຕເສີມວັດຈະນານຸກົມ"</string>
-    <string name="dictionary_settings_summary">"ການຕັ້ງຄ່າສຳລັບວັດຈະນານຸກົມ"</string>
     <string name="dictionary_available">"ມີວັດຈະນານຸກົມ"</string>
-    <string name="cannot_connect_to_dict_service">"ມີປັນຫາໃນການເຊື່ອມຕໍ່ກັບບໍລິການວັດຈະນານຸກົມ"</string>
     <string name="no_dictionaries_available">"ບໍ່ມີວັດຈະນານຸກົມ"</string>
     <string name="last_update">"ອັບເດດຫຼ້າສຸດ"</string>
-    <string name="main_dict_description">"ວັດຈະນານຸກົມຫຼັກ"</string>
     <string name="settings">"ການຕັ້ງຄ່າ"</string>
     <string name="delete">"ລຶບ"</string>
     <string name="version_text">"ເວີຊັນ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

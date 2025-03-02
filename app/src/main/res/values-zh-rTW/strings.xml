@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"查詢聯絡人姓名"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"拼字檢查程式使用你的聯絡人清單項目"</string>
+    <string name="use_contacts_dict">"查詢聯絡人姓名"</string>
     <string name="vibrate_on_keypress">"按鍵時震動"</string>
     <string name="sound_on_keypress">"按鍵聲音"</string>
     <string name="popup_on_keypress">"按鍵時顯示大型字體"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"語言切換鍵"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> 毫秒"</string>
     <string name="settings_system_default">"系統預設"</string>
-    <string name="use_contacts_dict">"聯絡人姓名建議"</string>
     <string name="use_contacts_dict_summary">"根據「聯絡人」名稱提供建議與修正"</string>
     <string name="use_personalized_dicts">"個人化建議"</string>
     <string name="use_double_space_period">"輕觸兩下空格鍵即插入句號"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"自動大寫"</string>
     <string name="auto_cap_summary">"句首字詞大寫"</string>
     <string name="edit_personal_dictionary">"個人字典"</string>
-    <string name="configure_dictionaries_title">"外掛字典"</string>
     <string name="main_dictionary">"主要字典"</string>
     <string name="prefs_show_suggestions">"顯示修正建議"</string>
     <string name="prefs_show_suggestions_summary">"輸入時顯示建議字詞"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"顯示應用程式圖示"</string>
     <string name="show_setup_wizard_icon_summary">"在啟動器中顯示應用程式圖示"</string>
     <string name="dictionary_settings_title">"外掛字典"</string>
-    <string name="dictionary_settings_summary">"字典設定"</string>
     <string name="dictionary_available">"可用的字典"</string>
-    <string name="cannot_connect_to_dict_service">"連線至字典服務時發生問題"</string>
     <string name="no_dictionaries_available">"沒有可用的字典"</string>
     <string name="last_update">"上次更新時間："</string>
-    <string name="main_dict_description">"主要字典"</string>
     <string name="settings">"設定"</string>
     <string name="delete">"刪除"</string>
     <string name="version_text">"版本 <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

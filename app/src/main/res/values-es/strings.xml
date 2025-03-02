@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Nombres de contactos"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Añadir nombres de tu lista de contactos al corrector"</string>
+    <string name="use_contacts_dict">"Nombres de contactos"</string>
     <string name="vibrate_on_keypress">"Vibrar al pulsar tecla"</string>
     <string name="sound_on_keypress">"Sonar al pulsar tecla"</string>
     <string name="popup_on_keypress">"Ampliar al pulsar tecla"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tecla para cambiar de idioma"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predeterminado"</string>
-    <string name="use_contacts_dict">"Sugerir contactos"</string>
     <string name="use_contacts_dict_summary">Utilizar nombres de contactos para sugerencias y correcciones</string>
     <string name="use_personalized_dicts">"Sugerencias personalizadas"</string>
     <string name="use_double_space_period">"Doble espacio inserta punto"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Mayúsculas automáticas"</string>
     <string name="auto_cap_summary">"Escribir la primera letra de cada frase en mayúscula"</string>
     <string name="edit_personal_dictionary">"Diccionario personal"</string>
-    <string name="configure_dictionaries_title">"Diccionarios complementarios"</string>
     <string name="main_dictionary">"Diccionario principal"</string>
     <string name="prefs_show_suggestions">"Sugerencias de correcciones"</string>
     <string name="prefs_show_suggestions_summary">"Mostrar las palabras sugeridas mientras escribes"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Mostrar icono de aplicación"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar icono de aplicación en menú de aplicaciones"</string>
     <string name="dictionary_settings_title">"Diccionarios complementarios"</string>
-    <string name="dictionary_settings_summary">"Ajustes de diccionarios"</string>
     <string name="dictionary_available">"Diccionario disponible"</string>
-    <string name="cannot_connect_to_dict_service">"Error al conectar"</string>
     <string name="no_dictionaries_available">"No hay diccionarios"</string>
     <string name="last_update">"Última actualización"</string>
-    <string name="main_dict_description">"Diccionario principal"</string>
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -205,7 +199,6 @@
     <string name="down" tools:keep="@string/down">Abajo</string>
     <string name="add_new_dictionary_title">Añadir diccionario desde archivo</string>
     <string name="button_select_language">Seleccionar idioma</string>
-    <string name="button_add_to_language">Añadir a %s</string>
     <string name="replace_dictionary">Reemplazar diccionario</string>
     <string name="remove_dictionary_message">¿Desea eliminar el diccionario añadido por el usuario \"%s\"?</string>
     <string name="no_dictionary_dont_show_again_button">No ver de nuevo</string>
@@ -233,8 +226,6 @@
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Negro</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Color dinámico</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrón</string>
-    <string name="select_user_colors">Ajustar colores</string>
-    <string name="select_user_colors_night">Ajustar colores (modo oscuro)</string>
     <string name="auto_user_color">Elegir color automáticamente</string>
     <string name="main_colors">Ver solo colores principales</string>
     <string name="all_colors">Ver todos los colores</string>
@@ -275,7 +266,6 @@
     <string name="add_dictionary">Seleccione un diccionario para añadir. Los diccionarios con formato .dict pueden ser descargados %s.</string>
     <string name="disable_personalized_dicts_message">Advertencia: Si desactiva esta opción, se borrarán los datos aprendidos</string>
     <string name="language_and_layouts_title">Idiomas y diseños</string>
-    <string name="customize_symbols_number_layouts">Personalizar los símbolos y la disposición de los números</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Más símbolos</string>
     <string name="layout_number" tools:keep="@string/layout_number">Números</string>
@@ -318,7 +308,6 @@
     <string name="var_toolbar_direction_summary">Invertir dirección cuando un subtipo de teclado Derecha-a-Izquierda está seleccionado</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudiante)</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
-    <string name="add_new_dictionary_ask_locale">¿A qué idioma debe agregarse el diccionario \"%1$s\" para %2$s?</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido por el usuario</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Arena</string>
@@ -328,7 +317,6 @@
     <string name="hidden_features_text">almacenamiento protegido del dispositivo</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="edit_layout">Tocar para editar el layout</string>
-    <string name="customize_functional_key_layouts">Personalizar la disposición de las teclas funcionales</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas funcionales (Símbolos)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionales (Más símbolos)</string>
     <string name="day_or_night_night">Noche</string>

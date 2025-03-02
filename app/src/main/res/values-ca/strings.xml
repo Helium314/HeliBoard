@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Cerca noms de contactes"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"El corrector ortogràfic utilitza entrades de la llista de contactes"</string>
+    <string name="use_contacts_dict">"Cerca noms de contactes"</string>
     <string name="vibrate_on_keypress">"Vibra en prémer tecles"</string>
     <string name="sound_on_keypress">"So en prémer tecles"</string>
     <string name="popup_on_keypress">"Amplia en prémer tecles"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tecla de canvi d\'idioma"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="settings_system_default">"Predeterminat"</string>
-    <string name="use_contacts_dict">"Suggereix noms de contactes"</string>
     <string name="use_contacts_dict_summary">"Utilitza els noms de contactes per fer suggeriments i correccions"</string>
     <string name="use_personalized_dicts">"Suggeriments personalitzats"</string>
     <string name="use_double_space_period">"Doble espai per punt"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Majúscules automàtiques"</string>
     <string name="auto_cap_summary">"Escriu en majúscula la primera lletra de la primera paraula de cada frase"</string>
     <string name="edit_personal_dictionary">"Diccionari personal"</string>
-    <string name="configure_dictionaries_title">"Diccionaris complementaris"</string>
     <string name="main_dictionary">"Diccionari principal"</string>
     <string name="prefs_show_suggestions">Mostra suggeriments de correcció</string>
     <string name="prefs_show_suggestions_summary">"Mostra les paraules suggerides mentre escrius"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Mostra la icona de l\'aplicació"</string>
     <string name="show_setup_wizard_icon_summary">"Mostra la icona de l\'aplicació al menú d\'aplicacions"</string>
     <string name="dictionary_settings_title">"Diccionaris complementaris"</string>
-    <string name="dictionary_settings_summary">"Configuració dels diccionaris"</string>
     <string name="dictionary_available">"Diccionari disponible"</string>
-    <string name="cannot_connect_to_dict_service">Problema en connectar-se al servei de diccionari</string>
     <string name="no_dictionaries_available">"Cap diccion. dispon."</string>
     <string name="last_update">"Última actualització"</string>
-    <string name="main_dict_description">"Diccionari principal"</string>
     <string name="settings">"Configuració"</string>
     <string name="delete">"Suprimeix"</string>
     <string name="version_text">Versió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -200,7 +194,6 @@
     <string name="prefs_space_bar_text">Text personalitzat a la barra espaiadora</string>
     <string name="customize_currencies">Personalitza divises</string>
     <string name="customize_currencies_detail">Estableix símbols de moneda principal i fins a 6 secundaris, separats per espai</string>
-    <string name="button_add_to_language">Afegir a %s</string>
     <string name="localized_number_row_summary">Prefereix els localitzats als nombres llatins</string>
     <string name="quick_pin_toolbar_keys">Fixa la tecla de la barra d\'eines en prémer llargament</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de nombres</string>
@@ -215,7 +208,6 @@
     <string name="setup_step3_action">Configura el teclat</string>
     <string name="internal_dictionary_summary">Diccionari principal intern</string>
     <string name="add_new_dictionary_title">Afegeix diccionari des de fitxer</string>
-    <string name="add_new_dictionary_ask_locale">A quin idioma s\'ha d\'afegir el diccionari \"%1$s\" de %2$s?</string>
     <string name="button_select_language">Selecciona l\'idioma</string>
     <string name="replace_dictionary_message">Realment substituir el diccionari afegit per l\'usuari «%1$s»?\n\nDiccionari actual:\n%2$s\n\nNou diccionari:\n%3$s</string>
     <string name="replace_dictionary">Substitueix diccionari</string>
@@ -225,7 +217,6 @@
     <string name="title_layout_name_select">Estableix el nom de la disposició</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbols (Àrab)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbols</string>
-    <string name="customize_symbols_number_layouts">Personalitza símbols i disposicions de nombres</string>
     <string name="load">Carrega</string>
     <string name="show_popup_keys_title">Mostra més lletres amb signes diacrítics a l\'ampliació</string>
     <string name="prefs_narrow_key_gaps">Reduir els espais entre tecles</string>
@@ -311,7 +302,6 @@
     <string name="show_popup_keys_main">Afegeix variants molt habituals (per defecte)</string>
     <string name="remove_redundant_popups_summary">Suprimeix les ampliacions de tecla que ja estan presents a la disposició base</string>
     <string name="remove_redundant_popups">Elimina les ampliacions redundants</string>
-    <string name="customize_functional_key_layouts">Personalitza les disposicions de tecles funcionals</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tecles funcionals</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tecles funcionals (Símbols)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tecles funcionals (Més símbols)</string>
@@ -406,8 +396,6 @@
     <string name="customize_toolbar_key_code_reset_message">Esborrar realment tots els codis de tecla personalitzats?</string>
     <string name="customize_icons">Personalitza les icones</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Negre</string>
-    <string name="select_user_colors_night">Ajustar els colors (nit)</string>
-    <string name="select_user_colors">Ajustar els colors</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab.</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Esborra</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Majs.</string>

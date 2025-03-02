@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Potraži imena kontakata"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Kontrolor pravopisa koristi unose sa liste kontakata"</string>
+    <string name="use_contacts_dict">"Potraži imena kontakata"</string>
     <string name="vibrate_on_keypress">"Vibriraj na pritisak tastera"</string>
     <string name="sound_on_keypress">"Zvuk na pritisak tastera"</string>
     <string name="popup_on_keypress">"Iskačući prozor prilikom pritiska tastera"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Taster za prebacivanje jezika"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Podrazumevano"</string>
-    <string name="use_contacts_dict">"Predloži imena kontakata"</string>
     <string name="use_contacts_dict_summary">"Koristi imena iz Kontakata za predloge i ispravke"</string>
     <string name="use_personalized_dicts">"Personalizovani predlozi"</string>
     <string name="use_double_space_period">"Tačka i razmak"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automatski unos velikih slova"</string>
     <string name="auto_cap_summary">"Pisanje velikog slova na početku svake rečenice"</string>
     <string name="edit_personal_dictionary">"Lični rečnik"</string>
-    <string name="configure_dictionaries_title">"Pomoćni rečnici"</string>
     <string name="main_dictionary">"Glavni rečnik"</string>
     <string name="prefs_show_suggestions">"Prikaži predloge za ispravku"</string>
     <string name="prefs_show_suggestions_summary">"Prikazivanje predloženih reči tokom unosa teksta"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Ikona aplikacije se prikazuje u pokretaču"</string>
     <string name="dictionary_settings_title">"Pomoćni rečnici"</string>
-    <string name="dictionary_settings_summary">"Podešavanja za rečnike"</string>
     <string name="dictionary_available">"Rečnik je dostupan"</string>
-    <string name="cannot_connect_to_dict_service">"Problem pri povezivanju s uslugom rečnika"</string>
     <string name="no_dictionaries_available">"Nema dostupnih rečnika"</string>
     <string name="last_update">"Poslednje ažuriranje"</string>
-    <string name="main_dict_description">"Glavni rečnik"</string>
     <string name="settings">"Podešavanja"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Verzija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

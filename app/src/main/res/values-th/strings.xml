@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"ค้นหารายชื่อติดต่อ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"เครื่องตรวจตัวสะกดใช้รายการจากรายชื่อติดต่อของคุณ"</string>
+    <string name="use_contacts_dict">"ค้นหารายชื่อติดต่อ"</string>
     <string name="vibrate_on_keypress">"สั่นเมื่อกดปุ่ม"</string>
     <string name="sound_on_keypress">"ส่งเสียงเมื่อกดปุ่ม"</string>
     <string name="popup_on_keypress">"ป๊อปอัปเมื่อกดแป้น"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"แป้นสลับภาษา"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> มิลลิวิ"</string>
     <string name="settings_system_default">"ค่าเริ่มต้นของระบบ"</string>
-    <string name="use_contacts_dict">"แนะนำชื่อผู้ติดต่อ"</string>
     <string name="use_contacts_dict_summary">"ใช้ชื่อจากรายชื่อติดต่อสำหรับคำแนะนำและการแก้ไข"</string>
     <string name="use_personalized_dicts">"คำแนะนำในแบบของคุณ"</string>
     <string name="use_double_space_period">"เคาะวรรคสองครั้งเพื่อพิมพ์จุด"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"ปรับเป็นตัวพิมพ์ใหญ่อัตโนมัติ"</string>
     <string name="auto_cap_summary">"ทำให้คำแรกของทุกประโยคเป็นตัวพิมพ์ใหญ่"</string>
     <string name="edit_personal_dictionary">"พจนานุกรมส่วนตัว"</string>
-    <string name="configure_dictionaries_title">"พจนานุกรม Add-On"</string>
     <string name="main_dictionary">"พจนานุกรมหลัก"</string>
     <string name="prefs_show_suggestions">"แสดงคำแนะนำการแก้ไข"</string>
     <string name="prefs_show_suggestions_summary">"แสดงคำที่แนะนำขณะพิมพ์"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"แสดงไอคอนแอป"</string>
     <string name="show_setup_wizard_icon_summary">"แสดงไอคอนแอปพลิเคชันในตัวเรียกใช้งาน"</string>
     <string name="dictionary_settings_title">"พจนานุกรมส่วนเสริม"</string>
-    <string name="dictionary_settings_summary">"การตั้งค่าสำหรับพจนานุกรม"</string>
     <string name="dictionary_available">"มีพจนานุกรมให้ใช้งาน"</string>
-    <string name="cannot_connect_to_dict_service">"พบปัญหาขณะเชื่อมต่อ"</string>
     <string name="no_dictionaries_available">"ไม่มีพจนานุกรม"</string>
     <string name="last_update">"ปรับปรุงแก้ไขครั้งล่าสุด"</string>
-    <string name="main_dict_description">"พจนานุกรมหลัก"</string>
     <string name="settings">"การตั้งค่า"</string>
     <string name="delete">"ลบ"</string>
     <string name="version_text">"เวอร์ชัน <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

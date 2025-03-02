@@ -78,7 +78,7 @@ fun WelcomeWizard(
     }
     val useWideLayout = height < 500 && width > height
     val stepBackgroundColor = Color(ContextCompat.getColor(ctx, R.color.setup_step_background))
-    val textColor = Color(ContextCompat.getColor(ctx, R.color.setup_step_action_text))
+    val textColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_action))
     val textColorDim = textColor.copy(alpha = 0.5f)
     val appName = stringResource(ctx.applicationInfo.labelRes)
     @Composable fun bigText() {

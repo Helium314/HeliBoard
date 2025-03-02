@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Kontakt adlarına baxın"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Orfoqrafik yoxlanış kontakt siyahınızdakı qeydlərdən istifadə edir"</string>
+    <string name="use_contacts_dict">"Kontakt adlarına baxın"</string>
     <string name="vibrate_on_keypress">"Vibrasiyalı klikləmə"</string>
     <string name="sound_on_keypress">"Klikləmə səsi"</string>
     <string name="popup_on_keypress">"Klikləmədə popup"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Dil keçidi düyməsi"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> millisaniyə"</string>
     <string name="settings_system_default">"Sistem defoltu"</string>
-    <string name="use_contacts_dict">"Kontakt adları təklif edin"</string>
     <string name="use_contacts_dict_summary">"Təklif və korreksiya üçün Kontaktlardakı adlardan istifadə edin"</string>
     <string name="use_personalized_dicts">"Fərdiləşmiş təkliflər"</string>
     <string name="use_double_space_period">"İkili boşluq periodu"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Avtomatik böyük hərfləşmə"</string>
     <string name="auto_cap_summary">"Hər cümlənin ilk sözünü böyük hərflə yaz"</string>
     <string name="edit_personal_dictionary">"Şəxsi lüğət"</string>
-    <string name="configure_dictionaries_title">"Əlavə lüğətlər"</string>
     <string name="main_dictionary">"Əsas lüğət"</string>
     <string name="prefs_show_suggestions">"Korreksiya təkliflərini göstər"</string>
     <string name="prefs_show_suggestions_summary">"Yazarkən təklif edilən sözləri ekranda göstər"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Tətbiq ikonasını göstər"</string>
     <string name="show_setup_wizard_icon_summary">"Başlatma panelində tətbiq ikonasını göstər"</string>
     <string name="dictionary_settings_title">"Əlavə lüğətlər"</string>
-    <string name="dictionary_settings_summary">"Lüğət üçün ayarlar"</string>
     <string name="dictionary_available">"Lüğət mövcuddur"</string>
-    <string name="cannot_connect_to_dict_service">"Lüğət xidmətinə bağlantı problemi"</string>
     <string name="no_dictionaries_available">"Lüğət mövcud deyil"</string>
     <string name="last_update">"Son yeniləmə"</string>
-    <string name="main_dict_description">"Əsas lüğət"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> nömrəli versiya"</string>

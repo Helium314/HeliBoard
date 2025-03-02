@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">Contactpersoonnamen opzoeken</string>
-    <string name="use_contacts_for_spellchecking_option_summary">De spellingcontrole maakt gebruikt van je contactpersonenlijst</string>
+    <string name="use_contacts_dict">Contactpersoonnamen opzoeken</string>
     <string name="vibrate_on_keypress">"Trillen bij toetsaanslag"</string>
     <string name="sound_on_keypress">"Geluid bij toetsaanslag"</string>
     <string name="popup_on_keypress">"Pop-up bij toetsaanslag"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Taalkeuzetoets</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="settings_system_default">"Systeemstandaard"</string>
-    <string name="use_contacts_dict">"Contactnamen suggereren"</string>
     <string name="use_contacts_dict_summary">"Namen uit Contacten gebruiken voor suggesties en correcties"</string>
     <string name="use_personalized_dicts">"Gepersonaliseerde suggesties"</string>
     <string name="use_double_space_period">Dubbel-spatie punt</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">Automatische hoofdletters</string>
     <string name="auto_cap_summary">Het eerste woord van elke zin met een hoofdletter</string>
     <string name="edit_personal_dictionary">"Persoonlijk woordenboek"</string>
-    <string name="configure_dictionaries_title">Aanvullende woordenboeken</string>
     <string name="main_dictionary">Hoofdwoordenboek</string>
     <string name="prefs_show_suggestions">"Correctievoorstellen weergeven"</string>
     <string name="prefs_show_suggestions_summary">"Voorgestelde woorden weergeven tijdens typen"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"App-pictogram weergeven"</string>
     <string name="show_setup_wizard_icon_summary">"App-pictogram weergeven in het opstartprogramma"</string>
     <string name="dictionary_settings_title">Aanvullende woordenboeken</string>
-    <string name="dictionary_settings_summary">"Instellingen voor woordenboeken"</string>
     <string name="dictionary_available">"Woordenboek beschikbaar"</string>
-    <string name="cannot_connect_to_dict_service">"Verbindingsprobleem woordenboekservice"</string>
     <string name="no_dictionaries_available">"Geen woordenboeken"</string>
     <string name="last_update">"Laatst bijgewerkt"</string>
-    <string name="main_dict_description">Hoofdwoordenboek</string>
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
     <string name="version_text">Versie <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -171,7 +165,6 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Zand</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Aangepast (nacht)</string>
-    <string name="select_user_colors">Kleuren aanpassen</string>
     <string name="prefs_narrow_key_gaps">Smalle toetsruimte</string>
     <string name="setup_step3_action">Het toetsenbord configureren</string>
     <string name="split_spacer_scale">Scheidingsruimte</string>
@@ -218,7 +211,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Cijferregel</string>
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
     <string name="title_layout_name_select">Naam van lay-out instellen</string>
-    <string name="customize_symbols_number_layouts">Symbolen en nummer-lay-outs aanpassen</string>
     <string name="delete_layout">Aangepaste lay-out %s verwijderen?</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbolen (Arabisch)</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Aangepast</string>
@@ -289,8 +281,6 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefoon</string>
     <string name="dictionary_settings_category">Woordenboeken</string>
     <string name="add_new_dictionary_title">Woordenboek toevoegen vanuit bestand</string>
-    <string name="add_new_dictionary_ask_locale">Aan welke taal moet het woordenboek \"%1$s\" voor %2$s worden toegevoegd?</string>
-    <string name="button_add_to_language">Toevoegen aan %s</string>
     <string name="no_dictionary_dont_show_again_button">Niet meer laten zien</string>
     <string name="dictionary_link_text">hier</string>
     <string name="dictionary_file_wrong_locale_ok">Toch gebruiken</string>
@@ -308,7 +298,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolade</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bos</string>
     <string name="theme_navbar">Navigatiebalk kleuren</string>
-    <string name="select_user_colors_night">Kleuren aanpassen (nacht)</string>
     <string name="auto_user_color">Kleuren automatisch kiezen</string>
     <string name="main_colors">Alleen hoofdkleuren weergeven</string>
     <string name="more_colors">Meer kleuren tonen</string>
@@ -390,7 +379,6 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functietoetsen (symbolen)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Functietoetsen (meer symbolen)</string>
-    <string name="customize_functional_key_layouts">Functietoets-layouts aanpassen</string>
     <string name="pinned_toolbar_keys">Vastgezette werkbalktoetsen selecteren</string>
     <string name="quick_pin_toolbar_keys">Werkbalktoets vastzetten bij lang indrukken</string>
     <string name="quick_pin_toolbar_keys_summary">Hiermee worden andere lang indrukkenacties uitgeschakeld voor werkbalktoetsen die niet zijn vastgezet</string>

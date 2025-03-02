@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"연락처 이름 조회"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"맞춤법 검사기가 연락처 목록의 항목을 사용합니다."</string>
+    <string name="use_contacts_dict">"연락처 이름 조회"</string>
     <string name="vibrate_on_keypress">"키를 누를 때 진동 발생"</string>
     <string name="sound_on_keypress">"키를 누를 때 소리 발생"</string>
     <string name="popup_on_keypress">"키를 누를 때 팝업"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"언어 전환 키"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"시스템 기본값"</string>
-    <string name="use_contacts_dict">"주소록 이름 활용"</string>
     <string name="use_contacts_dict_summary">"추천 및 수정에 주소록의 이름 사용"</string>
     <string name="use_personalized_dicts">"맞춤 추천 검색어"</string>
     <string name="use_double_space_period">"더블스페이스 마침표"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"자동 대문자화"</string>
     <string name="auto_cap_summary">"문장의 첫 단어를 대문자로 표시"</string>
     <string name="edit_personal_dictionary">"개인 사전"</string>
-    <string name="configure_dictionaries_title">"사전 추가"</string>
     <string name="main_dictionary">"기본 사전"</string>
     <string name="prefs_show_suggestions">"수정 제안 표시"</string>
     <string name="prefs_show_suggestions_summary">"글자를 입력하는 동안 추천 단어 표시"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"앱 아이콘 표시"</string>
     <string name="show_setup_wizard_icon_summary">"런처에 애플리케이션 아이콘 표시"</string>
     <string name="dictionary_settings_title">"사전 추가"</string>
-    <string name="dictionary_settings_summary">"사전 설정"</string>
     <string name="dictionary_available">"사전 사용 가능"</string>
-    <string name="cannot_connect_to_dict_service">"사전 서비스에 연결하는 중에 문제가 발생했습니다."</string>
     <string name="no_dictionaries_available">"사용할 수 있는 사전이 없습니다."</string>
     <string name="last_update">"최종 업데이트"</string>
-    <string name="main_dict_description">"기본 사전"</string>
     <string name="settings">"설정"</string>
     <string name="delete">"삭제"</string>
     <string name="version_text">버전 <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

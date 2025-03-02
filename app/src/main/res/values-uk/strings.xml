@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Шукати імена контактів"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Для перевірки правопису використовувати список контактів"</string>
+    <string name="use_contacts_dict">"Шукати імена контактів"</string>
     <string name="vibrate_on_keypress">Вібрація при натисканні клавіш</string>
     <string name="sound_on_keypress">Звук при натиску клавіш</string>
     <string name="popup_on_keypress">"Збільшення натиснутих"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Клавіша зміни мови"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">Типово</string>
-    <string name="use_contacts_dict">Пропонувати імена контактів</string>
     <string name="use_contacts_dict_summary">"Показувати виправлення на основі імен зі списку контактів"</string>
     <string name="use_personalized_dicts">"Персональні пропозиції"</string>
     <string name="use_double_space_period">"Крапка подвійним пробілом"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">Починати речення з великої</string>
     <string name="auto_cap_summary">"Писати перше слово в кожному реченні з великої літери"</string>
     <string name="edit_personal_dictionary">"Особистий словник"</string>
-    <string name="configure_dictionaries_title">"Додані словники"</string>
     <string name="main_dictionary">"Основний словник"</string>
     <string name="prefs_show_suggestions">"Варіанти виправлень"</string>
     <string name="prefs_show_suggestions_summary">"Відображати пропоновані слова під час вводу"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">Показувати піктограму програми</string>
     <string name="show_setup_wizard_icon_summary">Відображати піктограму програми нв лаунчері</string>
     <string name="dictionary_settings_title">Додаткові словники</string>
-    <string name="dictionary_settings_summary">Налаштування для словників</string>
     <string name="dictionary_available">Словник доступний</string>
-    <string name="cannot_connect_to_dict_service">"Нема з’єднання зі службою словника"</string>
     <string name="no_dictionaries_available">Словники недоступні</string>
     <string name="last_update">Останнє оновлення</string>
-    <string name="main_dict_description">Основний словник</string>
     <string name="settings">Налаштування</string>
     <string name="delete">Видалити</string>
     <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -147,8 +141,6 @@
     <string name="theme_name_black">Чорна</string>
     <string name="theme_name_user">Користувацька</string>
     <string name="theme_name_user_night">Користувацька (темна)</string>
-    <string name="select_user_colors">Налаштування кольорів теми</string>
-    <string name="select_user_colors_night">Налаштування кольорів теми (темна тема)</string>
     <string name="auto_user_color">Автоматичний вибір кольору</string>
     <string name="hint_show_keyboard">Натисніть, щоб переглянути</string>
     <string name="select_user_colors_summary">Виберіть кольори для тексту та фону</string>
@@ -282,7 +274,6 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Числова клавіатура</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числова клавіатура (горизонтальна)</string>
     <string name="customize_background_image">Встановити фонове зображення</string>
-    <string name="customize_symbols_number_layouts">Налаштування розташування символів та чисел</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Символи</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символи (арабські)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Більше символів</string>
@@ -308,7 +299,6 @@
     <string name="select_color_suggestion">Текст смуги пропозицій</string>
     <string name="hidden_features_text">сховище, захищене пристроєм</string>
     <string name="dictionary_settings_category">Словники</string>
-    <string name="add_new_dictionary_ask_locale">До якої мови слід додати словник «%1$s» для: %2$s?</string>
     <string name="day_or_night_day">День</string>
     <string name="day_or_night_night">Ніч</string>
     <string name="setup_step3_action">Налаштування клавіатури</string>
@@ -316,7 +306,6 @@
     <string name="internal_dictionary_summary">Внутрішній основний словник</string>
     <string name="add_new_dictionary_title">Додати словник із файлу</string>
     <string name="button_select_language">Виберіть мову</string>
-    <string name="button_add_to_language">Додати до %s</string>
     <string name="replace_dictionary">Замінити словник</string>
     <string name="no_dictionary_dont_show_again_button">Більше не показувати</string>
     <string name="add_dictionary">Виберіть, щоб додати словник. Словники у форматі .dict можна завантажити у %s.</string>
@@ -382,7 +371,6 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функціональні клавіші</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функціональні клавіші (Символи)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функціональні клавіші (Додаткові символи)</string>
-    <string name="customize_functional_key_layouts">Змінити розкладку функціональних клавіш</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Ряд з цифрами</string>
     <string name="gesture_floating_preview_static">Плавучий передперегляд</string>
     <string name="gesture_floating_preview_static_summary">Показувати пропозицію під час вводу жестами</string>

@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">Otsi nimesid kontaktidest</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Õigekirjakontroll kasutab teie kontaktisikute loendi sissekandeid"</string>
+    <string name="use_contacts_dict">Otsi nimesid kontaktidest</string>
     <string name="vibrate_on_keypress">"Vibreeri klahvivajutusel"</string>
     <string name="sound_on_keypress">"Heli klahvivajutusel"</string>
     <string name="popup_on_keypress">"Klahvivajutusel kuva hüpik"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Keelevahetuse nupp"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">Süsteemi väärtus</string>
-    <string name="use_contacts_dict">"Soovita kontakti nimesid"</string>
     <string name="use_contacts_dict_summary">"Kasuta soovitusteks ja parandusteks nimesid kontaktiloendist"</string>
     <string name="use_personalized_dicts">"Isikupärast. soovitused"</string>
     <string name="use_double_space_period">"Punkt tühikuklahviga"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automaatne suurtähtede kasutamine"</string>
     <string name="auto_cap_summary">"Iga lause esimese sõna kirjutamine suure algustähega"</string>
     <string name="edit_personal_dictionary">"Isiklik sõnastik"</string>
-    <string name="configure_dictionaries_title">"Pistiksõnaraamatud"</string>
     <string name="main_dictionary">"Peamine sõnaraamat"</string>
     <string name="prefs_show_suggestions">"Kuva korrigeerimise soovitused"</string>
     <string name="prefs_show_suggestions_summary">"Kuva sisestamise ajal sõnasoovitusi"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Kuva rakenduse ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Rakenduse ikooni kuvamine käivitajas"</string>
     <string name="dictionary_settings_title">"Pistiksõnastikud"</string>
-    <string name="dictionary_settings_summary">"Sõnastike seaded"</string>
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
-    <string name="cannot_connect_to_dict_service">"Probleem sõnastikuga ühendumisel"</string>
     <string name="no_dictionaries_available">"Sõnastikke pole"</string>
     <string name="last_update">"Viimati värskendatud"</string>
-    <string name="main_dict_description">"Peamine sõnastik"</string>
     <string name="settings">"Seaded"</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">"Versioon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -266,7 +260,6 @@
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
     <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
     <string name="add_new_dictionary_title">Lisa sõnastik failist</string>
-    <string name="add_new_dictionary_ask_locale">Mis keelele lisame „%1$s“/„%2$s“ sõnastiku?</string>
     <string name="user_dict_settings_add_weight_value">Kaal:</string>
     <string name="customize_currencies">Kohanda valuutasid</string>
     <string name="dictionary_settings_category">Sõnastikud</string>
@@ -289,7 +282,6 @@
     <string name="dictionary_link_text">siit</string>
     <string name="dictionary_load_error">Viga sõnastikufaili laadimisel</string>
     <string name="no_dictionary_dont_show_again_button">Ära näita enam uuesti</string>
-    <string name="button_add_to_language">Lisa lokaati: %s</string>
     <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „%1$s“? \n \nPraegune sõnastik: \n„%2$s“ \n \nUus sõnastik: \n„%3$s“</string>
     <string name="dictionary_file_error">Viga: valitud fail pole korrektne sõnastikufail</string>
     <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
@@ -306,7 +298,6 @@
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitagi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="hidden_features_title">Peidetud funktsionaalsuse kirjeldus</string>
     <string name="hidden_features_text">seadme turvatud andmekogu</string>
-    <string name="customize_functional_key_layouts">Kohanda funktsiooniklahvide paigutust</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktsiooniklahvid (sümbolid)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="auto_show_toolbar">Näita tööriistariba automaatselt</string>
@@ -336,14 +327,11 @@
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tume</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Must</string>
     <string name="edit_layout">Kalvistiku paigutuse muutmiseks klõpsi</string>
-    <string name="customize_symbols_number_layouts">Kohanda sümbolite ja numbrite paigutust</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Täiendavad sümbolid</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Sinu määratud (öövaade)</string>
     <string name="all_colors">Näita kõiki värve</string>
     <string name="load_will_overwrite">Uue välimuse laadimine asendab praeguse</string>
-    <string name="select_user_colors">Kohanda värve</string>
-    <string name="select_user_colors_night">Kohanda värve (öövaade)</string>
     <string name="auto_user_color">Vali värv automaatselt</string>
     <string name="main_colors">Näita vaid põhivärve</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolaadipruun</string>

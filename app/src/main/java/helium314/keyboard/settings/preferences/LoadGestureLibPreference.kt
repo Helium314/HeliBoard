@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.compose.material3.Text
@@ -25,6 +26,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
+@SuppressLint("ApplySharedPref")
 @Composable
 fun LoadGestureLibPreference(setting: Setting) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -78,6 +80,7 @@ fun LoadGestureLibPreference(setting: Setting) {
                     .setType("application/octet-stream")
                 launcher.launch(intent)
             },
+            confirmButtonText = stringResource(R.string.load_gesture_library_button_load),
             title = { Text(stringResource(R.string.load_gesture_library)) },
             content = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
             neutralButtonText = if (libFile.exists()) stringResource(R.string.load_gesture_library_button_delete) else null,
