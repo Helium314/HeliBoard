@@ -10,8 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
-import androidx.preference.PreferenceManager;
-
 import java.io.File;
 
 public final class DeviceProtectedUtils {
@@ -23,11 +21,11 @@ public final class DeviceProtectedUtils {
         if (prefs != null)
             return prefs;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            prefs = getDefaultSharedPreferences(context);
             return prefs;
         }
         final Context deviceProtectedContext = getDeviceProtectedContext(context);
-        prefs = PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
+        prefs = getDefaultSharedPreferences(deviceProtectedContext);
         if (prefs.getAll() == null)
             return prefs; // happens for compose previews
         if (prefs.getAll().isEmpty()) {
@@ -43,6 +41,11 @@ public final class DeviceProtectedUtils {
         final Context ctx = context.isDeviceProtectedStorage() ? context : context.createDeviceProtectedStorageContext();
         if (ctx == null) return context; // happens for compose previews
         else return ctx;
+    }
+
+    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+        // from androidx.preference.PreferenceManager
+        return context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE);
     }
 
     public static File getFilesDir(final Context context) {

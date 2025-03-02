@@ -123,8 +123,6 @@ object SubtypeSettings {
 
     fun getSystemLocales(): List<Locale> = systemLocales.toList()
 
-    fun hasMatchingSubtypeForLocale(locale: Locale): Boolean = !resourceSubtypesByLocale[locale].isNullOrEmpty()
-
     fun getResourceSubtypesForLocale(locale: Locale): List<InputMethodSubtype> = resourceSubtypesByLocale[locale].orEmpty()
 
     fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()

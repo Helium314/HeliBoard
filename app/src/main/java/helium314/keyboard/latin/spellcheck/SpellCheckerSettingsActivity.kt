@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.spellcheck
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import helium314.keyboard.settings.SettingsActivity
 
-// the Settings in SettingsContainer expect to be in a SettingsActivity, so we use a simple way of getting there
-class SpellCheckerSettingsActivity : ComponentActivity() {
+class SpellCheckerSettingsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = Intent()

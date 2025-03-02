@@ -46,9 +46,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public final class Settings implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();
-    // Settings screens
-    public static final String SCREEN_DEBUG = "screen_debug";
-    public static final String SCREEN_GESTURE = "screen_gesture";
 
     // theme-related stuff
     public static final String PREF_THEME_STYLE = "theme_style";
@@ -72,7 +69,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_POPUP_ON = "popup_on";
     public static final String PREF_AUTO_CORRECTION = "auto_correction";
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
-    public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "auto_correction_confidence";
+    public static final String PREF_AUTO_CORRECT_THRESHOLD = "auto_correct_threshold";
     public static final String PREF_AUTOCORRECT_SHORTCUTS = "autocorrect_shortcuts";
     public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
@@ -290,11 +287,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.edit().putBoolean(Settings.PREF_AUTO_CORRECTION, !oldValue).apply();
     }
 
-    public static String readAutoCorrectConfidence(final SharedPreferences prefs, final Resources res) {
-        return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
-                res.getString(R.string.auto_correction_threshold_mode_index_modest));
-    }
-
     public static boolean readGestureDynamicPreviewEnabled(final SharedPreferences prefs) {
         final boolean followSystem = prefs.getBoolean(PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM, Defaults.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM);
         final boolean defValue = Defaults.PREF_GESTURE_DYNAMIC_PREVIEW_FOLLOW_SYSTEM;
@@ -322,10 +314,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
         prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
-    }
-
-    public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
-        return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

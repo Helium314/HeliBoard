@@ -13,7 +13,6 @@ import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import helium314.keyboard.latin.common.DefaultColors;
 import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;

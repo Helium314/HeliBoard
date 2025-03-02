@@ -70,7 +70,6 @@ import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.define.ProductionFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
-import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -109,8 +108,7 @@ import androidx.core.content.ContextCompat;
  */
 public class LatinIME extends InputMethodService implements
         SuggestionStripView.Listener, SuggestionStripViewAccessor,
-        DictionaryFacilitator.DictionaryInitializationListener,
-        PermissionsManager.PermissionsResultCallback {
+        DictionaryFacilitator.DictionaryInitializationListener {
     static final String TAG = LatinIME.class.getSimpleName();
     private static final boolean TRACE = false;
 
@@ -1377,11 +1375,6 @@ public class LatinIME extends InputMethodService implements
                     Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
         }
         return keyboard.getCoordinates(codePoints);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(boolean allGranted) {
-        setNeutralSuggestionStrip();
     }
 
     public void displaySettingsDialog() {

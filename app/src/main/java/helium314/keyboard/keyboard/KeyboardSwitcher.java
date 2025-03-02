@@ -114,18 +114,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    // todo: maybe we can remove this after removing old setting?
-    public void forceUpdateKeyboardTheme(@NonNull Context displayContext) {
-        Settings settings = Settings.getInstance();
-        settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
-        final boolean showing = mLatinIME.isInputViewShown();
-        if (showing)
-            mLatinIME.hideWindow();
-        mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
-        if (showing)
-            mLatinIME.showWindow(true);
-    }
-
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context, final KeyboardTheme keyboardTheme) {
         final Resources res = context.getResources();
         if (mThemeNeedsReload
@@ -739,6 +727,10 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         // Hide and show IME, showing will trigger the reload.
         // Reloading while IME is shown is glitchy, and hiding / showing is so fast the user shouldn't notice.
         mLatinIME.hideWindow();
-        mLatinIME.showWindow(true);
+        try {
+            mLatinIME.showWindow(true);
+        } catch (IllegalStateException e) {
+            // in tests isInputViewShown returns true, but showWindow throws "IllegalStateException: Window token is not set yet."
+        }
     }
 }

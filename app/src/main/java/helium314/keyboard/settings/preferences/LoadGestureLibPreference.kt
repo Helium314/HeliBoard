@@ -3,7 +3,6 @@ package helium314.keyboard.settings.preferences
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -59,11 +58,6 @@ fun LoadGestureLibPreference(setting: Setting) {
                 renameToLibFileAndRestart(tmpfile, checksum)
             } else {
                 tempFilePath = tmpfile.absolutePath
-                AlertDialog.Builder(ctx)
-                    .setMessage(ctx.getString(R.string.checksum_mismatch_message, abi))
-                    .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibFileAndRestart(tmpfile, checksum) }
-                    .setNegativeButton(android.R.string.cancel) { _, _ -> tmpfile.delete() }
-                    .show()
             }
         } catch (e: IOException) {
             tmpfile.delete()

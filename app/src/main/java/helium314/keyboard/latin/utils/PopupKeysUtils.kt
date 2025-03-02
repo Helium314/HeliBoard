@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin.utils
 
-import android.content.SharedPreferences
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardParams
@@ -97,7 +96,7 @@ private fun transformLabel(label: String, params: KeyboardParams): String =
         label.rtlLabel(params)
     } else label
 
-/** returns a list of enabled popup keys for pref [key] */
+/** returns a list of enabled popup keys */
 fun getEnabledPopupKeys(string: String): List<String> {
     return string.split(Separators.ENTRY).mapNotNull {
         val split = it.split(Separators.KV)

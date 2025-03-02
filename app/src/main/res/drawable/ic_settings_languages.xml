@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:inset="@dimen/settings_screen_icon_inset"
-    android:drawable="@drawable/ic_settings_languages_foreground"/>
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="@color/foreground"
+        android:pathData="M480 880q-82 0-155-31-73-32-127-86-55-55-86-128-32-73-32-155 0-83 32-155 31-73 86-127 54-55 127-86 73-32 155-32 83 0 156 32 72 31 127 86 54 54 86 127 31 72 31 155 0 82-31 155-32 73-86 128-55 54-127 86-73 31-156 31Zm0-82q26-36 45-75t31-83H404q12 44 31 83t45 75Zm-104-16q-18-33-31-68-14-36-23-74H204q29 50 73 87 43 37 99 55Zm208 0q56-18 100-55 43-37 72-87H638q-9 38-22 74-14 35-32 68ZM170 560h136l-4-39q-2-20-2-41t2-40l4-40H170q-5 20-7 40-3 19-3 40t3 41q2 19 7 39Zm216 0h188l5-39 1-41-1-40-5-40H386l-4 40q-2 19-2 40t2 41l4 39Zm268 0h136l8-39q2-20 2-41t-2-40l-8-40H654l5 40 1 40-1 41-5 39Zm-16-240h118q-29-50-72-87-44-37-100-55 18 33 32 69 13 35 22 73Zm-234 0h152q-12-44-31-83t-45-75q-26 36-45 75t-31 83Zm-200 0h118q9-38 23-73 13-36 31-69-56 18-99 55-44 37-73 87Z"/>
+</vector>

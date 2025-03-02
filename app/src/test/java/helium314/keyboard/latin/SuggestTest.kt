@@ -40,9 +40,9 @@ class SuggestTest {
     private val suggest get() = latinIME.mInputLogic.mSuggest
 
     // values taken from the string array auto_correction_threshold_mode_indexes
-    private val thresholdModest = "0"
-    private val thresholdAggressive = "1"
-    private val thresholdVeryAggressive = "2"
+    private val thresholdModest = 0.185f
+    private val thresholdAggressive = 0.067f
+    private val thresholdVeryAggressive = -1f
 
     @BeforeTest fun setUp() {
         latinIME = Robolectric.setupService(LatinIME::class.java)
@@ -273,9 +273,9 @@ class SuggestTest {
                               firstSuggestionForEmpty: SuggestedWordInfo?, // first suggestion if typed word would be empty (null if none)
                               typedWordSuggestionForEmpty: SuggestedWordInfo?, // suggestion for actually typed word if typed word would be empty (null if none)
                               typingLocale: Locale, // used for checking whether suggestion locale is the same, relevant e.g. for English i -> I shortcut, but we want Polish i
-                              autoCorrectThreshold: String // 0, 1, or 2, but better use the vals on top with the corresponding name
+                              autoCorrectThreshold: Float
     ): List<Boolean> {
-        latinIME.prefs().edit { putString(Settings.PREF_AUTO_CORRECTION_CONFIDENCE, autoCorrectThreshold) }
+        latinIME.prefs().edit { putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, autoCorrectThreshold) }
         // enable "more autocorrect" so we actually have autocorrect even though we don't set a compatible input type
         latinIME.prefs().edit { putBoolean(Settings.PREF_MORE_AUTO_CORRECTION, true) }
         currentTypingLocale = typingLocale

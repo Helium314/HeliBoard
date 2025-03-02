@@ -13,8 +13,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 34
-        versionCode = 2309
-        versionName = "2.3+dev8"
+        versionCode = 2310
+        versionName = "2.3+dev9"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -100,7 +100,6 @@ dependencies {
     // androidx
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.preference:preference:1.2.1")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.autofill:autofill:1.1.0")
 
@@ -116,9 +115,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.7")
     implementation("sh.calvin.reorderable:reorderable:2.4.2") // for easier re-ordering
     implementation("com.github.skydoves:colorpicker-compose:1.1.2") // for user-defined colors
-
-    // color picker for user-defined colors
-    implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")
 
     // test
     testImplementation(kotlin("test"))

@@ -118,7 +118,7 @@ private fun PreferencePreview() {
                 Preference(
                     name = "Preference with icon",
                     onClick = {},
-                    icon = R.drawable.ic_settings_about_foreground
+                    icon = R.drawable.ic_settings_about
                 )
                 SliderPreference(
                     name = "SliderPreference",
@@ -131,7 +131,7 @@ private fun PreferencePreview() {
                     name = "Preference with icon and description",
                     description = "some text",
                     onClick = {},
-                    icon = R.drawable.ic_settings_about_foreground
+                    icon = R.drawable.ic_settings_about
                 )
                 Preference(
                     name = "Preference with switch",

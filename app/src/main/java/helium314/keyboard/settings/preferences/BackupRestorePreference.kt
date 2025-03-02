@@ -13,14 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD_LANDSCAPE
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
@@ -277,7 +269,7 @@ private fun upgradeFileNames(originalName: String): String {
         originalName.startsWith("layouts") -> {
             // replace file name after switch to language tag, but only if it's not a layout
             val localeString = originalName.substringAfter(".").substringBefore(".")
-            if (localeString in listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC, LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS))
+            if (localeString in listOf("symbols", "symbols_shifted", "symbols_arabic", "number", "numpad", "numpad_landscape", "phone", "phone_symbols"))
                 return originalName // it's a layout!
             val locale = localeString.constructLocale()
             if (locale.toLanguageTag() != "und")
