@@ -156,11 +156,8 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
 
     override fun onPause() {
         super.onPause()
+        setForceTheme(null, null)
         paused = true
-        if (forceNight != null || forceTheme != null)
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        forceNight = false
-        forceTheme = null
     }
 
     override fun onResume() {
@@ -170,11 +167,11 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
 
     fun setForceTheme(theme: String?, night: Boolean?) {
         if (paused) return
-        if (forceTheme != theme || forceNight != night) {
-            KeyboardSwitcher.getInstance().setThemeNeedsReload()
-        }
+        if (forceTheme == theme && forceNight == night)
+            return
         forceTheme = theme
         forceNight = night
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
 
     private fun findCrashReports(): List<File> {

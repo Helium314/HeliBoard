@@ -655,6 +655,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
         if (mClipboardHistoryView != null)
             prefs.unregisterOnSharedPreferenceChangeListener(mClipboardHistoryView);
+        if (mThemeNeedsReload) // necessary in some cases (e.g. theme switch) when mThemeNeedsReload is set before first keyboard load
+            Settings.getInstance().loadSettings(displayContext, Settings.getValues().mLocale, Settings.getValues().mInputAttributes);
 
         updateKeyboardThemeAndContextThemeWrapper(displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
         mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(R.layout.input_view, null);
