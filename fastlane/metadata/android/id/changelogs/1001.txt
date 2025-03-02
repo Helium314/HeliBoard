@@ -1,0 +1,20 @@
+* ikon baru oleh @FabianOvrWrt dengan kontribusi dari @the-eclectic-dyslexic (#517, #592)
+* trackpad dan tombol alih bahasa yang lebih dapat disesuaikan oleh @arcarum (#486)
+* menambahkan % ke tata letak simbol shift (#568, #428)
+* meningkatkan perilaku saat tombol alih bahasa diatur untuk mengganti bahasa dan papan ketik
+* menampilkan tautan ke kamus yang ada saat menambahkan kamus
+* menambahkan tata letak Kaitag oleh @alkaitagi (#519)
+* menambahkan tata letak Probhat oleh @fahimscirex (#489)
+* secara opsional membalik urutan bilah alat untuk bahasa RTL oleh @codokie (#557, #574)
+* memungkinkan penyesuaian tata letak khusus (numpad, telepon, ...)
+* masih dalam tahap percobaan, karena tata letak dasar dapat berubah
+* memperbarui spellchecker.xml untuk menyertakan lokal tempat kamus tersedia, tetapi tidak disertakan dalam aplikasi
+* memperbarui terjemahan (terima kasih kepada semua penerjemah!)
+* peningkatan ndk oleh @Syphyr (#560)
+* peningkatan kode isi otomatis sebaris oleh @arcarum (#595)
+* perbaikan masalah dengan dialog tombol bilah alat (#505)
+* perbaikan masalah dengan tata letak Turki (#508)
+* perbaikan status sakelar yang salah saat berputar di layar warna kustom (#563)
+* perbaikan masalah dengan emoji terkini yang tidak dimuat (#527)
+* perbaikan masalah dengan angka yang tidak muncul di bidang tertentu (#585)
+* beberapa perbaikan kecil

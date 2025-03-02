@@ -1,0 +1,4 @@
+* afegir la tecla de la barra d'eines emoji, de @codokie (#845, #837)
+* millores pel que fa a les lletres duplicades (núm. 225 i potser altres)
+* evitar col·locar el cursor dins dels emojis (#859)
+* correccions menors per a les funcions afegides recentment

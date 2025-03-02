@@ -1,0 +1,9 @@
+* ubah ikon untuk koreksi otomatis dan pilih semua tombol bilah alat oleh @codokie (#524, #651)
+* tambahkan tata letak Chuvash oleh @tenextractor (#677)
+* tambahkan tombol bilah alat potong oleh @codokie (#678)
+* perbarui tata letak Probhat oleh @fahimscirex (#628)
+* tampilkan ikon bilah alat dalam dialog tombol bilah alat
+* tambahkan tombol tutup dalam riwayat clipboard oleh @codokie (#403, #649)
+* tambahkan tata letak Rusia (Siswa) oleh @Zolax9 (#640)
+* buat numpad pada penekanan lama tombol simbol menjadi opsional (#588)
+* perbaikan dan penyempurnaan kecil, termasuk #632, #637, #638 oleh @RHJihan

@@ -1,0 +1,8 @@
+* Behebung der fehlerhaften Funktionstastenanordnung für Tablets
+* Sprachumschalttaste nur anzeigen, wenn es etwas zu schalten gibt
+* Standardfarben für die Einstellung "Alle Farben" zufällig statt grau machen
+* Startverzögerung für Gesten während des Tippens anpassen, by @devycarol
+* Anpassen der Währungsschlüssel ermöglichen
+* Langes Drücken der Umschalttaste -&gt; Feststelltaste reduzieren, von @devycarol
+* Hochgestellte Popups in Zahlenreihen und Symbolen erweitern, by @b02860de585071a2
+* kleinere Korrekturen und Verbesserungen

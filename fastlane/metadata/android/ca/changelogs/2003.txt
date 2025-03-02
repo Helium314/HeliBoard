@@ -1,0 +1,11 @@
+* disseny de tecles funcionals personalitzable
+* ajust símbols i més dissenys
+* suport per a tecles alt, ctrl, fn i meta
+* estendre barra eines (premuda llarga i fixació opcional, auto mostra/amaga, millor barra eines de porta-retalls...)
+* afe. tecla de pestanya
+* afe. indicador de bloq. majs.
+* afe. dissenys alguns idiomes
+* afe. tecles barra eines com a tecles teclat
+* permet personalitzar tots els colors
+* notificació en copiar text
+* correcs. errors i més millores, consulteu notes de versió

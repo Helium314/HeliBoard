@@ -1,0 +1,9 @@
+* muuta automaattisen korjauksen kuvakkeita ja valitse kaikki työkalupalkin näppäimet @codokien avulla (#524, #651)
+* lisää tšuvashin asettelu, tekijä @tenextractor (#677)
+* lisää leikkaustyökalupalkin näppäin kirjoittaja @codokie (#678)
+* päivitä Probhat-asetteluun @fahimscirex (#628)
+* Näytä työkalupalkin kuvakkeet työkalupalkin näppäinvalintaikkunassa
+* lisää sulkemispainike leikepöydän historiaan, kirjoittaja @codokie (#403, #649)
+* lisää venäläinen (opiskelija) ulkoasu @Zolax9 (#640)
+* tee numeronäppäimistöstä symbolien näppäimen pitkä painallus valinnaiseksi (#588)
+* pieniä korjauksia ja parannuksia, mukaan lukien #632, #637, #638 @RHJihan

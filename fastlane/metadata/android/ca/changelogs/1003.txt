@@ -1,0 +1,9 @@
+* canviar icones per auto-correcció i seleccionar totes les tecles d'eines @codokie #524 #651
+* afe. disseny txuvaix @tenextractor #677
+* afe. tecla de tallar a eines @codokie #678
+* actualitzar disseny Probhat @fahimscirex #628
+* mostrar icones d'eines al diàleg de la barra
+* afe. botó tancar a historial de porta-retalls @codokie #403 #649
+* afe. disseny rus estudiant @Zolax9 #640
+* fer opcional la premuda llarga de símbols a teclat numèric #588
+* correccions i millores #632 #637 #638 @RHJihan

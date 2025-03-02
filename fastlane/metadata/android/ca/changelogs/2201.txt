@@ -1,0 +1,2 @@
+* afegir opcions visuals per escriptura gestual, de @devycarol (#944)
+* actualitzar algunes icones, per @BlackyHawky (#977)

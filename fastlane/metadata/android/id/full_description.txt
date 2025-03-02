@@ -1,0 +1,56 @@
+HeliBoard adalah papan ketik sumber terbuka yang mengutamakan privasi, berdasarkan AOSP OpenBoard.
+
+Tidak menggunakan izin internet, dan karenanya 100% offline.
+
+Fitur:
+
+<ul>
+
+<li>Tambahkan kamus untuk saran dan pemeriksaan ejaan<li>
+
+<ul>
+
+<li>buat kamus Anda sendiri, atau dapatkan <a href="https:codeberg.orgHelium314aosp-dictionaries#dictionaries">di sini<a>, atau di bagian <a href="https:codeberg.orgHelium314aosp-dictionaries#experimental-dictionaries">eksperimental<a> (kualitas dapat bervariasi)<li>
+
+<li>kamus tambahan untuk emoji atau simbol ilmiah dapat digunakan untuk memberikan saran (mirip dengan "pencarian emoji")<li>
+
+<li>perlu dicatat bahwa untuk tata letak Korea, saran hanya berfungsi menggunakan <a href="https:github.comopenboard-teamopenboardcommit83fca9533c03b9fecc009fc632577226bbd6301f">kamus ini<a>, alat-alat dalam repositori kamus tidak dapat membuat kamus yang berfungsi<li>
+
+<ul>
+
+<li>Sesuaikan tema keyboard (gaya, warna, dan gambar latar)<li>
+
+<ul>
+
+<li>dapat mengikuti pengaturan siang dan malam sistem pada Android 10+ (dan pada beberapa versi Android 9)<li>
+
+<li>dapat mengikuti warna dinamis untuk Android 12+<li>
+
+<ul>
+
+<li>Sesuaikan tata letak keyboard <a href="https:github.comHelium314HeliBoardblobmainlayouts.md">(hanya tersedia saat menonaktifkan <i>gunakan bahasa sistem<i>)<li>
+
+<li>Sesuaikan tata letak khusus, seperti simbol, angka, atau tata letak tombol fungsional<li>
+
+<li>Mengetik multibahasa<li>
+
+<li>Mengetik geser (<i>hanya dengan pustaka sumber tertutup<i> ☹️)<li>
+
+<ul>
+
+<li>pustaka tidak disertakan dalam aplikasi, karena tidak ada pustaka sumber terbuka yang kompatibel yang tersedia<li>
+
+<li>dapat diekstrak dari paket GApps ("<i>swypelibs<i>"), atau diunduh <a href="https:github.comerkserkserksopenboardtree46fdf2b550035ca69299ce312fa158e7ade36967appsrcmainjniLibs">di sini<a> (klik pada berkas dan kemudian "raw" atau tombol unduh kecil)<li>
+
+<ul>
+
+<li>Riwayat clipboard<li>
+
+<li>Mode satu tangan<li>
+
+<li>Papan ketik terpisah (hanya tersedia jika layar cukup besar)<li>
+
+<li>Papan angka<li>
+
+<li>Cadangkan dan pulihkan setelan dan data riwayat kata yang dipelajari<li>
+<ul>

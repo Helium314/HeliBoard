@@ -1,0 +1,9 @@
+* Salli numerorivin, työkalurivin koodien, kuvakkeiden, välilyöntitekstin, alarivin mukauttaminen emoji- ja leikepöytänäkymiä varten
+* Erota kuvaketyyli näppäimistötyylistä
+* Poista tarpeettomat ponnahdusikkunat oletuksena käytöstä (ja lisää pieni korjaus)
+* Vähemmän aggressiivinen sanojen lisääminen henkilökohtaiseen sanakirjaan
+* Ei värinää Älä häiritse -tilassa
+* Paranna suorituskykyä kopioitaessa suurta tekstiä
+* Korjaa osittain rikkinäiset välimerkit ponnahdusikkunat
+* Korjaa jotkin ongelmat, joissa teksti on päällekkäistä
+* Pienet asiat ja lisää viankorjauksia

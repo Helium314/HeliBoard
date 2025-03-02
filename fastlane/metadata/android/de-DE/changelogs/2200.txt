@@ -1,0 +1,11 @@
+* Möglichkeit zum Speichern/Exportieren benutzerdefinierter Themen hinzufügen
+* Pfeiltasten auf der Tastatur wiederholbar machen
+* mehr Cursor-Symbolleisten-Tasten (Seite hoch/runter(/Start/Ende, Wort links/rechts)
+* Einfügetaste hinzufügen
+* Verbesserung des Wischverhaltens von Tasten
+* Leertaste zum Umschalten des Ziffernblocks hinzugefügt
+* Zwischenablage-Vorschlag für kürzlich kopierten Text hinzugefügt
+* Text bei erneutem Drücken der Auswahltasten abwählen
+* einige Farben in den Einstellungen für Android 12+ einstellen
+* sprachabhängige Popup-Tasten anpassen
+* kleinere Korrekturen und Verbesserungen
