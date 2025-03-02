@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,6 +48,17 @@ fun DefaultButton(isDefault: Boolean, onClick: () -> Unit) {
     }
 }
 
+@Composable
+fun ExpandButton(enabled: Boolean = true, onClick: () -> Unit) {
+    IconButton(onClick = onClick, enabled = enabled) {
+        Icon(
+            painterResource(R.drawable.ic_arrow_left),
+            "expand",
+            Modifier.rotate(-90f)
+        )
+    }
+}
+
 @Preview
 @Composable
 private fun Preview() {
@@ -56,9 +68,10 @@ private fun Preview() {
                 NextScreenIcon()
                 SearchIcon()
                 CloseIcon(R.string.dialog_close)
-                EditButton {  }
-                DeleteButton {  }
+                EditButton { }
+                DeleteButton { }
                 DefaultButton(false) { }
+                ExpandButton { }
             }
         }
     }

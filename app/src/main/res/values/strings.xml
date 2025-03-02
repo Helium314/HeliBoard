@@ -634,7 +634,7 @@ disposition rather than other common dispositions for Latin languages. -->
     <!-- Description for the option to show setup wizard application icon of this IME in the launcher. -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
     <!-- Title and summary of the dictionary settings screen -->
-    <string name="dictionary_settings_title">Add-on dictionaries</string>
+    <string name="dictionary_settings_title">Add-on dictionaries</string> <!-- todo: name and description should change -->
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
     <!-- Summary text for built-in dictionary -->

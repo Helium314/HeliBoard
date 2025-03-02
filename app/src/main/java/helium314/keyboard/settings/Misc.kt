@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,10 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import helium314.keyboard.latin.R
 
 
 @Composable
@@ -54,16 +49,7 @@ fun <T>DropDownField(
             Box(Modifier.weight(1f)) {
                 itemContent(selectedItem)
             }
-            IconButton(
-                onClick = { expanded = !expanded },
-                enabled = items.size > 1
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_arrow_left),
-                    "show dropdown",
-                    Modifier.rotate(-90f)
-                )
-            }
+            ExpandButton(items.size > 1) { expanded = !expanded }
             if (extraButton != null)
                 extraButton()
         }
