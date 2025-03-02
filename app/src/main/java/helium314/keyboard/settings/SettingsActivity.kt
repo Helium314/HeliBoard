@@ -67,7 +67,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             crashReportFiles.value = findCrashReports()
-        setStatusBarIconColor()
+        setSystemBarIconColor()
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // with this the layout edit dialog is not covered by the keyboard
@@ -206,13 +206,20 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
     }
 
     // deprecated but works... ideally it would be done automatically like it worked before switching to compose
-    private fun setStatusBarIconColor() {
+    private fun setSystemBarIconColor() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
         val view = window.decorView
-        if (ResourceUtils.isNight(resources))
-            view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        else
-            view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (ResourceUtils.isNight(resources))
+                view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+            else
+                view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        } else {
+            if (ResourceUtils.isNight(resources))
+                view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            else
+                view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 
     companion object {
