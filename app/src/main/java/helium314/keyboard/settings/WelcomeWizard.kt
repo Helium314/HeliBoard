@@ -81,6 +81,7 @@ fun WelcomeWizard(
     val stepBackgroundColor = Color(ContextCompat.getColor(ctx, R.color.setup_step_background))
     val textColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_action))
     val textColorDim = textColor.copy(alpha = 0.5f)
+    val titleColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_title))
     val appName = stringResource(ctx.applicationInfo.labelRes)
     @Composable fun bigText() {
         val resource = if (step == 0) R.string.setup_welcome_title else R.string.setup_steps_title
@@ -89,12 +90,14 @@ fun WelcomeWizard(
                 stringResource(resource, appName),
                 style = MaterialTheme.typography.displayMedium,
                 textAlign = TextAlign.Center,
+                color = titleColor,
             )
             if (JniUtils.sHaveGestureLib)
                 Text(
                     stringResource(R.string.setup_welcome_additional_description),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.End,
+                    color = titleColor,
                     modifier = Modifier.fillMaxWidth()
                 )
         }
@@ -149,9 +152,9 @@ fun WelcomeWizard(
                     action = close
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("1", color = if (step == 1) textColor else textColorDim)
-                    Text("2", color = if (step == 2) textColor else textColorDim)
-                    Text("3", color = if (step == 3) textColor else textColorDim)
+                    Text("1", color = if (step == 1) titleColor else textColorDim)
+                    Text("2", color = if (step == 2) titleColor else textColorDim)
+                    Text("3", color = if (step == 3) titleColor else textColorDim)
                 }
                 Column(Modifier
                     .background(color = stepBackgroundColor)
