@@ -32,8 +32,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
+import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.SearchScreen
-import helium314.keyboard.settings.dialogs.DropDownField
 import helium314.keyboard.settings.dialogs.ThreeButtonAlertDialog
 import java.util.Locale
 

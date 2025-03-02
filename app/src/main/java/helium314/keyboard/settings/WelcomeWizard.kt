@@ -47,6 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -83,12 +84,20 @@ fun WelcomeWizard(
     val appName = stringResource(ctx.applicationInfo.labelRes)
     @Composable fun bigText() {
         val resource = if (step == 0) R.string.setup_welcome_title else R.string.setup_steps_title
-        Text(
-            stringResource(resource, appName),
-            style = MaterialTheme.typography.displayMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 36.dp)
-        )
+        Column(Modifier.padding(bottom = 36.dp)) {
+            Text(
+                stringResource(resource, appName),
+                style = MaterialTheme.typography.displayMedium,
+                textAlign = TextAlign.Center,
+            )
+            if (JniUtils.sHaveGestureLib)
+                Text(
+                    stringResource(R.string.setup_welcome_additional_description),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
+        }
     }
     @Composable fun steps() {
         if (step == 0)
