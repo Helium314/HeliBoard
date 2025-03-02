@@ -82,13 +82,13 @@
     <string name="setup_welcome_additional_description">"dengan Ketikan Gestur"</string>
     <string name="setup_start_action">"Memulai"</string>
     <string name="setup_next_action">"Langkah berikutnya"</string>
-    <string name="setup_steps_title">Menyiapkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Aktifkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Silakan aktifkan \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" di dalam pengaturan Bahasa &amp; Masukan sistem. Ini akan mengizinkan aplikasi untuk bekerja pada perangkat Anda.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sudah diaktifkan di dalam pengaturan Bahasa &amp; Masukan sistem. Siapkan yang berikutnya!</string>
+    <string name="setup_steps_title">Menyiapkan&lt;xliff:g id=\"NAMA_APLIKASI\" contoh=\"Papan Ketik Android\"&gt;%s&lt;xliff:g&gt;</string>
+    <string name="setup_step1_title">Aktifkan&lt;xliff:g id=\"NAMA_APLIKASI\" contoh=\"Papan Ketik Android\"&gt;%s&lt;xliff:g&gt;</string>
+    <string name="setup_step1_instruction">Harap periksa \\&lt;xliff:g id=\"NAMA_APLIKASI\" contoh=\"Papan Ketik Android\"&gt;%s&lt;xliff:g&gt;\" di setelan Bahasa &amp;amp; masukan Anda. Ini akan mengizinkannya untuk berjalan di perangkat Anda.\"</string>
+    <string name="setup_step1_finished_instruction">&lt;xliff:g id=\"NAMA_APLIKASI\" contoh=\"Papan Ketik Android\"&gt;%s&lt;xliff:g&gt; sudah diaktifkan di pengaturan Bahasa &amp;amp; masukan Anda, jadi langkah ini sudah selesai. Lanjut ke langkah berikutnya!\"</string>
     <string name="setup_step1_action">"Aktifkan dalam Setelan"</string>
-    <string name="setup_step2_title">Beralih ke <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Selanjutnya, pilih \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" sebagai metode masukan Anda yang aktif.</string>
+    <string name="setup_step2_title">Switch to<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">Next, select \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method.\"</string>
     <string name="setup_step2_action">"Alihkan metode masukan"</string>
     <string name="setup_step3_title">"Selamat, Anda sudah siap!"</string>
     <string name="setup_step3_instruction">Sekarang Anda bisa mengetik di semua aplikasi favorit Anda dengan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -184,7 +184,7 @@
     <string name="load_gesture_library_button_load">Muat pustaka</string>
     <string name="load_gesture_library_button_delete">Hapus pustaka</string>
     <string name="show_popup_keys_title">Tampilkan lebih banyak huruf dengan diakritik pada layar sembulan</string>
-    <string name="show_popup_keys_normal">Tampilkan varian yang didefinisikan pada bahasa papan ketik (bawaan)</string>
+    <string name="show_popup_keys_normal">Tampilkan varian yang ditentukan dalam bahasa keyboard</string>
     <string name="show_popup_keys_more">Tambahkan varian umum</string>
     <string name="show_popup_keys_all">Tambahkan semua varian yang tersedia</string>
     <string name="url_detection_title">Deteksi URL</string>
@@ -287,8 +287,7 @@
 \n
 \nKamus baru:
 \n%3$s</string>
-    <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;
-\n        Anda bisa mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
+    <string name="no_dictionary_message">"Tanpa kamus, Anda hanya akan mendapatkan saran untuk teks yang Anda masukkan sebelumnya.&lt;br&gt;\n        Anda bisa mengunduh kamus %1$s, atau memeriksa apakah kamus untuk \"%2$s\" dapat diunduh secara langsung dari %3$s."</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Hitam</string>
     <string name="setup_step3_action">Mengonfigurasi papan ketik</string>
     <string name="add_new_dictionary_ask_locale">Pada bahasa apa kamus \"%1$s\" untuk %2$s harus ditambahkan?</string>
@@ -343,4 +342,113 @@
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Tampilkan lebih banyak warna</string>
+    <string name="gesture_fast_typing_cooldown">Pendinginan pengetikan cepat</string>
+    <string name="gesture_fast_typing_cooldown_instant">Selalu mulai secara instan</string>
+    <string name="gesture_floating_preview_static">Pratinjau mengambang</string>
+    <string name="gesture_floating_preview_static_summary">Lihat kata yang disarankan sambil memberi isyarat</string>
+    <string name="gesture_floating_preview_dynamic_summary">Pindahkan pratinjau selama gerakan</string>
+    <string name="gesture_trail_fadeout_duration">Umur jejak gerakan</string>
+    <string name="prefs_space_bar_text">Teks khusus pada bilah spasi</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Baris nomor</string>
+    <string name="customize_currencies">Sesuaikan mata uang</string>
+    <string name="toast_msg_clipboard_copy">Konten disalin</string>
+    <string name="auto_show_toolbar">Bilah alat pertunjukan otomatis</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tombol fungsi (Lebih banyak simbol)</string>
+    <string name="center_suggestion_text_to_enter">Selalu gunakan saran pertengahan</string>
+    <string name="center_suggestion_text_to_enter_summary">Saat menekan spasi atau tanda baca, saran tengah akan dimasukkan</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji baris bawah</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Baris bawah clipboard</string>
+    <string name="customize_currencies_detail">Tetapkan simbol mata uang utama dan hingga 6 simbol mata uang sekunder, dipisahkan dengan spasi</string>
+    <string name="var_toolbar_direction">Arah bilah alat variabel</string>
+    <string name="subtype_generic_extended">&lt;xliff:g id=\"NAMA_BAHASA\" contoh=\"Bahasa Kannada\"&gt;%s&lt;xliff:g&gt; (Diperluas)</string>
+    <string name="load">Memuat</string>
+    <string name="button_save_file">Simpan ke file</string>
+    <string name="auto_show_toolbar_summary">Tampilkan bilah alat jika input dimulai atau teks dipilih</string>
+    <string name="page_start" tools:keep="@string/page_start">Awal halaman</string>
+    <string name="vibrate_in_dnd_mode">Bergetar dalam mode jangan ganggu</string>
+    <string name="page_end" tools:keep="@string/page_end">Akhir halaman</string>
+    <string name="word_left" tools:keep="@string/word_left">Kata tersisa</string>
+    <string name="clipboard_toolbar_keys">Pilih tombol bilah alat clipboard</string>
+    <string name="quick_pin_toolbar_keys">Sematkan tombol bilah alat saat ditekan lama</string>
+    <string name="quick_pin_toolbar_keys_summary">Ini akan menonaktifkan tindakan tekan lama lainnya untuk tombol bilah alat yang tidak disematkan</string>
+    <string name="prefs_long_press_symbol_for_numpad">Tekan lama tombol simbol untuk numpad</string>
+    <string name="subtype_generic_phonetic">&lt;xliff:g id=\"NAMA_BAHASA\" contoh=\"Bahasa Hindi\"&gt;%s&lt;xliff:g&gt; (Fonetik)</string>
+    <string name="prefs_key_emoji_max_sdk">Ganti versi Emoji</string>
+    <string name="long_press_code">Kode tekan lama</string>
+    <string name="subtype_dru">Dargwa(Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (&lt;xliff:g id=\"LAYOUT_KEYBOARD\" contoh=\"QWERTY\"&gt;%s&lt;xliff:g&gt;)</string>
+    <string name="key_code">Kode kunci</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Kunci huruf kapital</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space (tata letak angka)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Akhiri mode satu tangan</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ubah ukuran mode satu tangan</string>
+    <string name="space_swipe_toggle_numpad_entry">Alihkan Numpad</string>
+    <string name="auto_correct_shortcuts">Pintasan koreksi otomatis</string>
+    <string name="auto_correct_shortcuts_summary">Saat diaktifkan, pintasan mungkin diperluas dengan koreksi otomatis</string>
+    <string name="page_down" tools:keep="@string/page_down">Halaman bawah</string>
+    <string name="pinned_toolbar_keys">Pilih tombol bilah alat yang disematkan</string>
+    <string name="page_up" tools:keep="@string/page_up">Halaman atas</string>
+    <string name="word_right" tools:keep="@string/word_right">Kata yang tepat</string>
+    <string name="load_will_overwrite">Memuat akan menimpa tema saat ini</string>
+    <string name="custom_font">Atur font khusus dari file</string>
+    <string name="copy_to_clipboard">Salin ke clipboard</string>
+    <string name="customize_background_image_landscape">Mengatur gambar latar belakang (lanskap)</string>
+    <string name="summary_customize_background_image_landscape">Jika tidak diatur, gambar potret akan digunakan</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Penggabung lebar nol</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Non-joiner lebar nol</string>
+    <string name="auto_hide_toolbar_summary">Sembunyikan bilah alat saat saran tersedia</string>
+    <string name="customize_icons">Sesuaikan ikon</string>
+    <string name="var_toolbar_direction_summary">Membalikkan arah saat subtipe papan ketik kanan-ke-kiri dipilih</string>
+    <string name="auto_hide_toolbar">Sembunyikan bilah alat secara otomatis</string>
+    <string name="after_symbol_and_space">Menekan enter atau spasi setelah tombol lain dalam tampilan simbol</string>
+    <string name="switch_keyboard_after">Beralih ke keyboard utama setelah…</string>
+    <string name="after_emoji">Memilih emoji dalam tampilan emoji</string>
+    <string name="after_clip">Memilih entri riwayat clipboard</string>
+    <string name="show_popup_keys_main">Tambahkan varian yang sangat umum (default)</string>
+    <string name="remove_redundant_popups_summary">Tekan tombol popup yang sudah ada pada tata letak dasar</string>
+    <string name="settings_screen_toolbar">Bilah Alat</string>
+    <string name="remove_redundant_popups">Hapus popup yang berlebihan</string>
+    <string name="customize_icons_reset_message">Benarkah harus mereset semua ikon yang disesuaikan?</string>
+    <string name="language_switch_key_behavior">Perilaku tombol alih bahasa</string>
+    <string name="suggest_clipboard_content">Sarankan konten papan klip</string>
+    <string name="suggest_clipboard_content_summary">Tampilkan konten clipboard yang baru saja disalin sebagai saran</string>
+    <string name="customize_toolbar_key_code_reset_message">Benarkah semua kode kunci yang disesuaikan terhapus?</string>
+    <string name="hidden_features_message">► Menekan lama tombol bilah alat yang disematkan menghasilkan fungsi tambahan: &lt;br&gt; \n• clipboard &amp;#65515; tempel &lt;br&gt; \n• pindahkan ke kiri dan kanan &amp;#65515; kata ke kiri dan kanan &lt;br&gt; \n• pindahkan ke atas dan bawah &amp;#65515; halaman ke atas dan bawah &lt;br&gt; \n• kata ke kiri dan kanan &amp;#65515; awal baris &lt;br&gt; \n• halaman ke atas dan bawah &amp;#65515; awal halaman &lt;br&gt; \n• salin &amp;#65515; potong &lt;br&gt; \n• pilih kata &amp;#8596; pilih semua &lt;br&gt; \n• batalkan &amp;#8596; ulangi &lt;br&gt; &lt;br&gt; \n► Menekan lama tombol pada bilah alat strip saran akan menyematkannya ke strip saran. &lt;br&gt; &lt;br&gt; \n► Tekan lama tombol Koma untuk mengakses Tampilan Clipboard, Tampilan Emoji, Mode Satu Tangan, Pengaturan, atau Ganti Bahasa: &lt;br&gt; \n• Tampilan Emoji dan Ganti Bahasa akan menghilang jika Anda mengaktifkan tombol terkait; &lt;br&gt; \n• Untuk beberapa tata letak, yang aktif bukanlah tombol Koma, tetapi tombol pada posisi yang sama (misalnya, \'q\' untuk tata letak Dvorak). &lt;br&gt; &lt;br&gt; \n► Saat mode penyamaran diaktifkan, tidak ada kata yang akan dipelajari, dan tidak ada emoji yang akan ditambahkan ke yang terbaru. &lt;br&gt; &lt;br&gt; \n► Tekan ikon Penyamaran untuk mengakses bilah alat. &lt;br&gt; &lt;br&gt; \n► Input tombol geser: Geser dari shift ke tombol lain untuk mengetik satu tombol huruf kapital: &lt;br&gt; \n• Ini juga berfungsi untuk tombol \'?123\' untuk mengetik satu simbol dari papan ketik simbol, dan untuk tombol terkait. &lt;br&gt; &lt;br&gt; \n► Tahan tombol shift atau simbol, tekan satu atau beberapa tombol, lalu lepaskan tombol shift atau simbol untuk kembali ke papan ketik sebelumnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama saran di strip saran untuk menampilkan lebih banyak saran, dan tombol hapus untuk menghapus saran ini. &lt;br&gt; &lt;br&gt; \n► Geser ke atas dari saran untuk membuka lebih banyak saran, dan lepaskan pada saran untuk memilihnya. &lt;br&gt; &lt;br&gt; \n► Tekan lama entri dalam riwayat clipboard untuk menyematkannya (simpan di clipboard hingga Anda melepas sematannya). &lt;br&gt; &lt;br&gt; \n► Geser ke kiri dalam tampilan clipboard untuk menghapus entri (kecuali saat disematkan) &lt;br&gt; &lt;br&gt; \n► Pilih teks dan tekan shift untuk beralih antara kata-kata huruf besar, huruf kecil, dan huruf kapital. &lt;br&gt; &lt;br&gt; \n► Anda dapat menambahkan kamus dengan membukanya di file explorer: &lt;br&gt; \n• Ini hanya berfungsi dengan &lt;i&gt;content-uris&lt;i&gt; dan tidak dengan &lt;i&gt;file-uris&lt;i&gt;, yang berarti mungkin tidak berfungsi dengan beberapa file explorer. &lt;br&gt; &lt;br&gt; \n► Untuk pengguna yang melakukan pencadangan manual dengan akses root: &lt;br&gt; \n• Dimulai pada Android 7, file preferensi bersama tidak berada di lokasi default, karena aplikasi menggunakan %s. Ini diperlukan agar pengaturan dapat dibaca sebelum perangkat dibuka kuncinya, misalnya saat boot; &lt;br&gt; \n• File terletak di datauser_de0package_idshared_prefs meskipun ini mungkin bergantung pada perangkat dan versi Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode debug APK&lt;b&gt;&lt;i&gt; &lt;br&gt; &lt;br&gt; \n► Tekan lama saran untuk menampilkan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan APK debug, Anda dapat menemukan Setelan Debug di Preferensi Lanjutan, meskipun kegunaannya terbatas kecuali untuk membuang kamus ke dalam log. &lt;br&gt; \n• Untuk APK rilis, Anda perlu mengetuk versi di &lt;i&gt;Tentang&lt;i&gt; beberapa kali, lalu Anda dapat menemukan setelan debug di &lt;i&gt;Preferensi Lanjutan&lt;i&gt;. &lt;br&gt; \n• Saat mengaktifkan &lt;i&gt;Tampilkan info saran&lt;i&gt;, saran akan memiliki beberapa angka kecil di atas yang menunjukkan beberapa skor internal dan kamus sumber. &lt;br&gt; &lt;br&gt; \n► Jika terjadi kerusakan aplikasi, Anda akan diminta apakah Anda menginginkan log kerusakan saat membuka Setelan. &lt;br&gt; &lt;br&gt; \n► Saat menggunakan pengetikan multibahasa, bilah spasi akan menunjukkan nilai keyakinan yang digunakan untuk menentukan bahasa yang saat ini digunakan. &lt;br&gt; &lt;br&gt; \n► Saran akan memiliki beberapa angka kecil di bagian atas yang menunjukkan beberapa skor internal dan kamus sumber (dapat dinonaktifkan).</string>
+    <string name="all_colors_warning">Pengaturan ini menampilkan semua warna yang digunakan secara internal. Daftar warna dapat berubah sewaktu-waktu. Warna default bersifat acak, dan nama-namanya tidak akan diterjemahkan.</string>
+    <string name="customize_functional_key_layouts">Sesuaikan tata letak tombol fungsional</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tombol fungsi</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tombol Fungsional (Simbol)</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Menghapus</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (bergeser)</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">tab</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Masukan suara dinonaktifkan</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Tampilkan sembunyikan bilah alat</string>
+    <string name="customize_toolbar_key_codes">Sesuaikan kode tombol bilah alat</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Beralih ke sisi mode satu tangan</string>
+    <string name="icon_style">Ikon style</string>
+    <string name="label_bin" tools:keep="@string/label_bin">bin</string>
+    <string name="custom_subtype">Subtipe khusus</string>
+    <string name="settings_screen_secondary_layouts">Tata letak sekunder</string>
+    <string name="discussion_section_link">Bagian Diskusi</string>
+    <string name="layout_in_use">PERINGATAN: Tata letak sedang digunakan saat ini</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Kunci fungsional (layar besar)</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="get_layouts_message">Anda dapat menemukan dan berbagi tata letak di %s.</string>
+    <string name="enable_split_keyboard_landscape">Aktifkan keyboard split (lansekap)</string>
+    <string name="split_spacer_scale_landscape">Jarak split (lanskap)</string>
+    <string name="delete_confirmation">Benaran mau dihapus %s?</string>
+    <string name="name_invalid">Nama invalid</string>
+    <string name="prefs_bottom_padding_scale_landscape">Skala padding bawah (lanskap)</string>
+    <string name="prefs_font_scale">Skala font keyboard</string>
+    <string name="prefs_emoji_font_scale">Skala font tampilan emoji</string>
+    <string name="prefs_side_padding_scale">Skala bantalan samping</string>
+    <string name="prefs_side_padding_scale_landscape">Skala bantalan samping (lanskap)</string>
+    <string name="number_row_hints">Tampilkan petunjuk pada baris nomor</string>
+    <string name="prefs_language_swipe_distance">Beralih Jarak Gesek Bahasa</string>
+    <string name="locales_with_dict">Bahasa dengan kamus</string>
+    <string name="split" tools:keep="@string/split">Keyboard terpisah</string>
+    <string name="get_colors_message">Anda dapat menemukan dan berbagi warna di %s.</string>
 </resources>

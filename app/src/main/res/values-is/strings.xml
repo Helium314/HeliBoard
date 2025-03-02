@@ -3,12 +3,12 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Fletta upp tengiliðum"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"Ritvilluleit notar færslur úr tengiliðalistanum þínum"</string>
     <string name="vibrate_on_keypress">"Titringur þegar ýtt er á lykla"</string>
     <string name="sound_on_keypress">"Hljóð þegar ýtt er á lykil"</string>
-    <string name="popup_on_keypress">"Stækkaðir stafir við innslátt"</string>
+    <string name="popup_on_keypress">Stafagluggi við innslátt</string>
     <string name="settings_screen_preferences">"Kjörstillingar"</string>
     <string name="settings_screen_gesture">"Bendingainnsláttur"</string>
     <string name="settings_screen_correction">"Textaleiðrétting"</string>
@@ -17,8 +17,8 @@
     <string name="enable_split_keyboard">"Virkja skipt lyklaborð"</string>
     <string name="language_switch_key_switch_input_method">"Skipta um innsláttaraðferð"</string>
     <string name="show_language_switch_key">"Lykill til að breyta tungumáli"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms."</string>
-    <string name="settings_system_default">"Sjálfgildi kerfis"</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> msek</string>
+    <string name="settings_system_default">Sjálfgefið í kerfi</string>
     <string name="use_contacts_dict">"Stinga upp á tengiliðum"</string>
     <string name="use_contacts_dict_summary">"Nota nöfn úr tengiliðum fyrir tillögur og leiðréttingar"</string>
     <string name="use_personalized_dicts">"Persónulegar tillögur"</string>
@@ -26,13 +26,13 @@
     <string name="use_double_space_period_summary">"Ef ýtt er tvisvar á bilslána er settur inn punktur og svo bil"</string>
     <string name="auto_cap">"Sjálfvirkir hástafir"</string>
     <string name="auto_cap_summary">"Setja hástaf í upphaf hverrar málsgreinar"</string>
-    <string name="edit_personal_dictionary">"Sérsniðin orðabók"</string>
+    <string name="edit_personal_dictionary">Sérsniðið orðasafn</string>
     <string name="configure_dictionaries_title">"Viðbótarorðabækur"</string>
-    <string name="main_dictionary">"Aðalorðabók"</string>
+    <string name="main_dictionary">Aðalorðasafn</string>
     <string name="prefs_show_suggestions">"Sýna leiðréttingartillögur"</string>
     <string name="prefs_show_suggestions_summary">"Sýna orðatillögur við innslátt"</string>
-    <string name="prefs_block_potentially_offensive_title">"Útiloka dónaleg orð"</string>
-    <string name="prefs_block_potentially_offensive_summary">"Ekki stinga upp á orðum sem kunna að vera dónaleg"</string>
+    <string name="prefs_block_potentially_offensive_title">Útiloka meiðandi orð</string>
+    <string name="prefs_block_potentially_offensive_summary">Ekki stinga upp á orðum sem kunna að vera meiðandi eða dónaleg</string>
     <string name="autocorrect">"Sjálfv. leiðrétting"</string>
     <string name="auto_correction_summary">"Bil og greinarmerki leiðrétta sjálfkrafa innsláttarvillur"</string>
     <string name="auto_correction_threshold_mode_off">"Slökkt"</string>
@@ -66,7 +66,7 @@
     <string name="subtype_no_language_dvorak">"Stafróf (Dvorak)"</string>
     <string name="subtype_no_language_colemak">"Stafróf (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty">"Stafróf (tölva)"</string>
-    <string name="subtype_emoji">"Emoji-tákn"</string>
+    <string name="subtype_emoji">Tjáningartákn</string>
     <string name="add">"Bæta við"</string>
     <string name="remove">"Fjarlægja"</string>
     <string name="save">"Vista"</string>
@@ -75,8 +75,8 @@
     <string name="prefs_keypress_vibration_duration_settings">"Lengd lyklatitrings"</string>
     <string name="prefs_keypress_sound_volume_settings">"Styrkur lyklahljóða"</string>
     <string name="prefs_key_longpress_timeout_settings">"Töf áður en lykli er haldið inni"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Emoji fyrir vélbúnaðarlyklaborð"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Alt-lykillinn á lyklaborðinu birtir töflu yfir emoji-tákn"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Tjáningartákn fyrir vélbúnaðarlyklaborð</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Alt-lykillinn á lyklaborðinu birtir töflu yfir tjáningartákn</string>
     <string name="button_default">"Sjálfgefið"</string>
     <string name="setup_welcome_title">"Velkomin(n) í <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"með bendingainnslætti"</string>
@@ -84,35 +84,35 @@
     <string name="setup_next_action">"Næsta skref"</string>
     <string name="setup_steps_title">"Uppsetning <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Virkjaðu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">Hakaðu við <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ í stillingum tungumáls og innsláttar. Þetta veitir því heimild til að keyra í tækinu.\"</string>
+    <string name="setup_step1_instruction">Merktu við <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ í stillingum tungumálsins þíns og innsláttar. Þetta veitir því heimild til að keyra í tækinu.\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> er þegar virkt í stillingum tungumáls og innsláttar og lokið hefur verið við þetta skref. Vindum okkur í næsta!"</string>
     <string name="setup_step1_action">"Virkja í stillingum"</string>
     <string name="setup_step2_title">"Skiptu yfir í <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Næst skaltu velja <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ sem virka innsláttaraðferð fyrir texta.\"</string>
+    <string name="setup_step2_instruction">Næst skaltu velja <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ sem virka innsláttaraðferð fyrir texta.\"</string>
     <string name="setup_step2_action">"Skipta um innsláttaraðferð"</string>
     <string name="setup_step3_title">"Til hamingju, allt er klárt!"</string>
-    <string name="setup_step3_instruction">"Nú geturðu notað <xliff:g id="APPLICATION_NAME">%s</xliff:g> til að skrifa í öllum uppáhaldsforritunum þínum."</string>
+    <string name="setup_step3_instruction">Nú geturðu notað<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> til að skrifa í öllum uppáhaldsforritunum þínum.</string>
     <string name="setup_finish_action">"Lokið"</string>
     <string name="show_setup_wizard_icon">"Sýna forritstákn"</string>
     <string name="show_setup_wizard_icon_summary">"Sýna forritstákn í ræsiforritinu"</string>
-    <string name="dictionary_settings_title">"Viðbótarorðabækur"</string>
-    <string name="dictionary_settings_summary">"Stillingar fyrir orðabækur"</string>
-    <string name="dictionary_available">"Orðabók í boði"</string>
-    <string name="cannot_connect_to_dict_service">"Vandamál við að tengjast orðabókarþjónustu"</string>
-    <string name="no_dictionaries_available">"Engar orðabækur"</string>
+    <string name="dictionary_settings_title">Viðbótarorðasöfn</string>
+    <string name="dictionary_settings_summary">Stillingar fyrir orðasöfn</string>
+    <string name="dictionary_available">Orðasafn í boði</string>
+    <string name="cannot_connect_to_dict_service">Vandamál við að tengjast orðasafnsþjónustu</string>
+    <string name="no_dictionaries_available">Engin orðasöfn eru í boði</string>
     <string name="last_update">"Síðast uppfært"</string>
-    <string name="main_dict_description">"Aðalorðabók"</string>
+    <string name="main_dict_description">Aðalorðasafn</string>
     <string name="settings">"Stillingar"</string>
     <string name="delete">"Eyða"</string>
     <string name="version_text">"Útgáfa <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
     <string name="user_dict_settings_add_menu_title">"Bæta við"</string>
-    <string name="user_dict_settings_add_dialog_title">"Bæta við orðabók"</string>
-    <string name="user_dict_settings_add_shortcut_option_name">"Flýtileið:"</string>
+    <string name="user_dict_settings_add_dialog_title">Bæta við orðasafni</string>
+    <string name="user_dict_settings_add_shortcut_option_name">Stytting:</string>
     <string name="user_dict_settings_add_locale_option_name">"Tungumál:"</string>
     <string name="user_dict_settings_add_word_hint">"Sláðu inn orð"</string>
-    <string name="user_dict_settings_add_shortcut_hint">"Valfrjáls flýtileið"</string>
+    <string name="user_dict_settings_add_shortcut_hint">Valfrjáls stytting</string>
     <string name="user_dict_settings_edit_dialog_title">"Breyta orði"</string>
-    <string name="user_dict_settings_empty_text">"Engin orð eru í orðabók notanda. Bættu við orðum með því að ýta á hnappinn Bæta við (+)."</string>
+    <string name="user_dict_settings_empty_text">Engin orð eru í orðasafni notanda. Bættu við orðum með því að ýta á hnappinn Bæta við (+).</string>
     <string name="user_dict_settings_all_languages">"Fyrir öll tungumál"</string>
     <string name="user_dict_settings_more_languages">"Fleiri tungumál…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -130,4 +130,309 @@
     <string name="label_search_key">"Leita"</string>
     <string name="label_pause_key">"Hlé"</string>
     <string name="label_wait_key">"Bíða"</string>
+    <string name="toast_msg_clipboard_copy">Efni afritað</string>
+    <string name="gesture_floating_preview_static">Fljótandi forskoðun</string>
+    <string name="more_keys_strip_description">Fleiri lyklar</string>
+    <string name="user_dict_add_word_button">Bæta við orði</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Tölur</string>
+    <string name="customize_currencies">Sérsníða gjaldmiðla</string>
+    <string name="theme_colors">Litir</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rúnnað</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="theme_style">Stíll</string>
+    <string name="spell_checker_service_name">Stafsetningarleiðrétting HeliBoard</string>
+    <string name="ime_settings">Stillingar HeliBoard</string>
+    <string name="button_backup">Öryggisafrit</string>
+    <string name="load_gesture_library_button_load">Hlaða inn orðasafni</string>
+    <string name="load_gesture_library_button_delete">Eyða orðasafni</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Tjáningartákn í neðstu röð</string>
+    <string name="dictionary_settings_category">Orðasöfn</string>
+    <string name="internal_dictionary_summary">Innra aðalorðasafn</string>
+    <string name="button_select_language">Veldu tungumál</string>
+    <string name="replace_dictionary">Skipta út orðasafni</string>
+    <string name="select_word" tools:keep="@string/select_word">Veldu orð</string>
+    <string name="android_spell_checker_settings">Stillingar stafsetningarleiðréttingar HeliBoard</string>
+    <string name="settings_category_input">Innsláttur</string>
+    <string name="settings_category_additional_keys">Viðbótarlyklar</string>
+    <string name="settings_category_clipboard_history">Ferilskrá klippispjalds</string>
+    <string name="settings_category_correction">Leiðréttingar</string>
+    <string name="settings_category_suggestions">Tillögur</string>
+    <string name="settings_category_experimental">Á tilraunastigi</string>
+    <string name="settings_category_miscellaneous">Ýmislegt</string>
+    <string name="switch_language">Skipta um tungumál</string>
+    <string name="language_switch_key_switch_both">Skipta um bæði</string>
+    <string name="show_emoji_key">Tjáningartáknalykill</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Talnaröð</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Tungumál</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Framsetning</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Tákn</string>
+    <string name="emoji" tools:keep="@string/emoji">Tjáningartákn</string>
+    <string name="customize_icons">Sérsníða táknmyndir</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Sími</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Talnaröð</string>
+    <string name="day_or_night_day">Dagur</string>
+    <string name="left" tools:keep="@string/left">Vinstri</string>
+    <string name="right" tools:keep="@string/right">Hægri</string>
+    <string name="up" tools:keep="@string/up">Upp</string>
+    <string name="down" tools:keep="@string/down">Niður</string>
+    <string name="word_left" tools:keep="@string/word_left">Orð til vinstri</string>
+    <string name="word_right" tools:keep="@string/word_right">Orð til hægri</string>
+    <string name="page_up" tools:keep="@string/page_up">Síða upp</string>
+    <string name="page_down" tools:keep="@string/page_down">Síða niður</string>
+    <string name="close_history" tools:keep="@string/close_history">Loka klippispjaldsferli</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (viðaukið)</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="day_or_night_night">Nótt</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (hljóðfræðitákn)</string>
+    <string name="load">Hlaða</string>
+    <string name="button_save_file">Vista í skrá</string>
+    <string name="copy_to_clipboard">Afrita á klippispjald</string>
+    <string name="long_press_code">Kóði fyrir að ýta lengi</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="button_restore">Endurheimta</string>
+    <string name="url_detection_title">Greina slóðir</string>
+    <string name="language_and_layouts_title">Tungumál og framsetning</string>
+    <string name="number_row_summary">Alltaf sýna talnaröð</string>
+    <string name="number_row">Talnaröð</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="button_copy_existing_layout">Afrita fyrirliggjandi framsetningu</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Tungumál (forgangs)</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Klippispjald</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Hreinsa klippispjald</string>
+    <string name="voice" tools:keep="@string/voice">Raddinnsláttur</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Einnar-handar hamur</string>
+    <string name="file_read_error">Get ekki lesið skrá</string>
+    <string name="button_load_custom">Hlaða inn skrá</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="customize_background_image_landscape">Setja bakgrunnsmynd (lárétt)</string>
+    <string name="setup_step3_action">Stilla lyklaborðið</string>
+    <string name="available_dictionary_experimental">%s (á tilraunastigi)</string>
+    <string name="user_dict_settings_add_weight_value">Vægi:</string>
+    <string name="button_add_to_language">Bæta í %s</string>
+    <string name="add_new_dictionary_title">Bæta við orðsafni úr skrá</string>
+    <string name="dictionary_link_text">hér</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Tákn</string>
+    <string name="customize_background_image">Setja bakgrunnsmynd</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Tákn (arabísk)</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Fleiri tákn</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símatákn</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Talnaborð</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Talnaborð (lárétt)</string>
+    <string name="icon_style">Stíll táknmynda</string>
+    <string name="full_left" tools:keep="@string/full_left">Alveg til vinstri</string>
+    <string name="full_right" tools:keep="@string/full_right">Alveg til hægri</string>
+    <string name="page_start" tools:keep="@string/page_start">Upphaf síðu</string>
+    <string name="page_end" tools:keep="@string/page_end">Endir síðu</string>
+    <string name="space_swipe_move_cursor_entry">Færa bendil</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="no_dictionary_dont_show_again_button">Ekki birta þetta aftur</string>
+    <string name="key_code">Lykilkóði</string>
+    <string name="delete_swipe">Stroka til að eyða</string>
+    <string name="save_log">Vista atvikaskrá</string>
+    <string name="prefs_space_bar_text">Sérsniðinn texti á bilslá</string>
+    <string name="auto_show_toolbar">Birta verkfærastiku sjálfvirkt</string>
+    <string name="key_borders">Jaðrar lykla</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> mín</string>
+    <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
+    <string name="settings_no_limit">Engin takmörk</string>
+    <string name="select_user_colors">Aðlaga liti</string>
+    <string name="select_user_colors_night">Aðlaga liti (nótt)</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dekkra</string>
+    <string name="select_user_colors_summary">Veldu liti fyrir texta og bakgrunn</string>
+    <string name="add_to_personal_dictionary">Bæta orðum við einkaorðasafn</string>
+    <string name="enable_clipboard_history">Virkja klippispjaldsferil</string>
+    <string name="backup_restore_title">Öryggisafrit og endurheimta</string>
+    <string name="backup_error">Villa í öryggisafriti: %s</string>
+    <string name="restore_error">Villa við endurheimtingu frá öryggisafriti: %s</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Dökkt</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Djúpfjólublátt</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Úthaf</string>
+    <string name="theme_colors_night">Litir (nótt)</string>
+    <string name="select_color_key">Texti á lykli</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sandur</string>
+    <string name="show_horizontal_space_swipe">Bendistroka fyrir lárétta bilslá</string>
+    <string name="select_color_background">Bakgrunnur lyklaborðs</string>
+    <string name="settings_screen_about">Um hugbúnaðinn</string>
+    <string name="settings_screen_toolbar">Verkfærastika</string>
+    <string name="vibrate_in_dnd_mode">Titra í \'Ekki ónáða\'-ham</string>
+    <string name="split_spacer_scale">Lengd skiptingar</string>
+    <string name="prefs_always_show_suggestions">Alltaf birta tillögur</string>
+    <string name="title_layout_name_select">Stilla heiti framsetningar</string>
+    <string name="delete_layout">Virkilega eyða sérsniðnu framsetningunni %s?</string>
+    <string name="button_title_add_custom_layout">Bæta við sérsniðinni framsetningu</string>
+    <string name="more_autocorrect">Fleiri sjálfvirkar leiðréttingar</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Brúnt</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Bleikt</string>
+    <string name="show_vertical_space_swipe">Bendistroka fyrir lóðrétta bilslá</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ljósfjólublátt</string>
+    <string name="var_toolbar_direction">Breytileg stefna verkfærastiku</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Skýjað</string>
+    <string name="auto_correction_confidence">Nákvæmni sjálfvirkar leiðréttingar</string>
+    <string name="gesture_floating_preview_dynamic_summary">Færa forskoðun á meðan bendingu stendur</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Svart</string>
+    <string name="auto_correct_shortcuts">Styttingar fyrir sjálfvirka leiðréttingu</string>
+    <string name="gesture_floating_preview_static_summary">Sjá tillögu að orði á meðan bendingu stendur</string>
+    <string name="gesture_trail_fadeout_duration">Líftími bendingaslóðar</string>
+    <string name="gesture_fast_typing_cooldown_instant">Alltaf byrja strax</string>
+    <string name="load_gesture_library">Hlaða inn aðgerðasafni bendingainnsláttar</string>
+    <string name="secondary_locale">Fjöltyngdur innsláttur</string>
+    <string name="localized_number_row">Staðfæra talnaröð</string>
+    <string name="show_hints">Birta ábendingar á lyklum</string>
+    <string name="prefs_narrow_key_gaps">Mjó bil milli lykla</string>
+    <string name="suggest_clipboard_content">Stinga upp á efni af klippispjaldi</string>
+    <string name="layout_error">Villa í framsetningu: %s</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Ljóst</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Breytilegir litir</string>
+    <string name="select_color_key_background">Bakgrunnur lykils</string>
+    <string name="select_color_spacebar_background">Bakgrunnur bilslár</string>
+    <string name="select_color_accent">Broddur</string>
+    <string name="license">Opinn og frjáls grunnkóði</string>
+    <string name="gnu_gpl">Almennt GNU General Public notkunarleyfi útg. 3.0</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Hætta í einnar-handar ham</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Breyta stærð einnar-handar hams</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Skipta um hlið einnar-handar hams</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Raddinnsláttur óvirkur</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">ZWJ-núllbreiddar tengi</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">ZWNJ-núllbreiddar ekki-tengi</string>
+    <string name="action_none">Ekkert</string>
+    <string name="switch_keyboard_after">Skipta á aðallyklaborð eftir…</string>
+    <string name="day_night_mode">Sjálfvirkur dags-/næturhamur</string>
+    <string name="customize_toolbar_key_code_reset_message">Viltu í alvörunni hreinsa alla sérsniðna lyklakóða?</string>
+    <string name="auto_user_color">Velja lit sjálfvirkt</string>
+    <string name="hint_show_keyboard">Smelltu til að forskoða</string>
+    <string name="more_colors">Sýna fleiri liti</string>
+    <string name="all_colors">Sýna alla liti</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Færsla / Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Dálkur / Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Eyða / Del</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Hnika / Shift</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Hástafalás / Caps Lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Bil (framsetning talna)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (hnikað)</string>
+    <string name="about_github_link">Skoða á GitHub</string>
+    <string name="select_color_gesture">Innsláttur með bendingum</string>
+    <string name="version">Útgáfa</string>
+    <string name="dialog_close">Loka</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blágrátt</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Skilgreint af notanda</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Skilgreint af notanda (nótt)</string>
+    <string name="main_colors">Sýna einungis aðalliti</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Súkkulaði</string>
+    <string name="select_color_key_hint">Ábendingartexti lykils</string>
+    <string name="select_color_spacebar_text">Texti bilslár</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Skógur</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Rusl</string>
+    <string name="space_swipe_toggle_numpad_entry">Víxla talnaborði af/á</string>
+    <string name="customize_icons_reset_message">Viltu í alvörunni endurstilla allar sérsniðnar táknmyndir?</string>
+    <string name="show_hints_summary">Birta ábendingar þegar ýtt er lengi</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Sýna / fela verkfærastiku</string>
+    <string name="prefs_language_swipe_distance">Lengd stroku til að skipta um tungumál</string>
+    <string name="customize_toolbar_key_codes">Sérsníða lyklakóða verkfærastiku</string>
+    <string name="auto_hide_toolbar">Fela verkfærastiku sjálfvirkt</string>
+    <string name="clipboard_history_retention_time">Tími sem á að geyma breytingaferil</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (námsmanna)</string>
+    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Stafróf (Workman)</string>
+    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Stafróf (Colemak Mod-DH)</string>
+    <string name="autospace_after_punctuation">Sjálfvirkt bil á eftir greinamerkjum</string>
+    <string name="custom_font">Velja sérsniðið letur úr skrá</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Stafróf (Bépo)</string>
+    <string name="hint_source">Veldu uppruna ábendinga</string>
+    <string name="toolbar_keys">Veldu lykla á verkfærastiku</string>
+    <string name="clipboard_toolbar_keys">Veldu klippispjaldslykla á verkfærastiku</string>
+    <string name="customize_symbols_number_layouts">Sérsníða framsetningu tákna og talna</string>
+    <string name="customize_currencies_detail">Stilltu aðal- og allt að 6 viðbótar gjaldmiðlatákn, aðskilin með bilum</string>
+    <string name="disable_personalized_dicts_message">Aðvörun: Sé þessi stilling gerð óvirk verða öll lærð gögn hreinsuð</string>
+    <string name="dictionary_file_error">Villa: Valin skrá er ekki gild orðasafnsskrá</string>
+    <string name="add_to_personal_dictionary_summary">Nota einkaorðasafn til að geyma lærð orð</string>
+    <string name="center_suggestion_text_to_enter">Alltaf nota miðjutillögu</string>
+    <string name="hidden_features_summary">Birta eiginleika sem annars væri kannski ekki tekið eftir</string>
+    <string name="show_popup_keys_main">Bæta við mjög algengum tilbrigðum (sjálfgefið)</string>
+    <string name="day_or_night_image">Stilla mynd fyrir dags- eða næturham?</string>
+    <string name="prefs_key_emoji_max_sdk">Rétthærra en útgáfa tjáningartákna</string>
+    <string name="show_popup_keys_title">Sýna fleiri stafi með broddmerkjum í smáglugga</string>
+    <string name="show_popup_keys_normal">Sýna tilbrigði sem skilgreind eru í tungumálum lyklaborðs</string>
+    <string name="show_popup_keys_more">Bæta við algengum tilbrigðum</string>
+    <string name="show_popup_keys_all">Bæta við öllum tiltækum tilbrigðum</string>
+    <string name="prefs_keyboard_height_scale">Kvarði lyklaborðs í hæð</string>
+    <string name="summary_customize_background_image_landscape">Ef þetta er ekki stillt verður lóðrétt mynd notuð</string>
+    <string name="dictionary_file_wrong_script">Villa: forskrift er ekki samhæfð þessu lyklaborði</string>
+    <string name="dictionary_file_wrong_locale_ok">Samt nota</string>
+    <string name="dictionary_load_error">Villa við að hlaða inn orðasafnsskrá</string>
+    <string name="prefs_bottom_padding_scale">Kvarði fyllingar neðst</string>
+    <string name="after_clip">Velja færslu í ferilskrá klippispjalds</string>
+    <string name="after_emoji">Velja tjáningartákn í tjáningartáknasýn</string>
+    <string name="add_new_dictionary_ask_locale">Vil hvaða tungumál ætti að bæta nýja orðasafninu \"%1$s\" fyrir %2$s ?</string>
+    <string name="remove_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%s\"?</string>
+    <string name="add_dictionary">Veldu orðasafn til að bæta við. Orðasöfn á .dict sniði er hægt að sækja %s.</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Geislandi hvítt</string>
+    <string name="day_night_mode_summary">Útlit mun fylgja kerfisstillingum</string>
+    <string name="remove_redundant_popups">Fjarlægja ónotaða smáglugga</string>
+    <string name="replace_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%1$s\"?\n\nFyrirliggjandi orðasafn:\n%2$s\n\nNýtt orðasafn:\n%3$s</string>
+    <string name="text_tap_languages">Ýttu á tungumálið til að opna stillingar</string>
+    <string name="theme_navbar">Lita leiðsagnarstikuna</string>
+    <string name="prefs_bottom_padding_scale_landscape">Kvarði fyllingar neðst (lárétt)</string>
+    <string name="prefs_font_scale">Kvarði leturs á lyklaborði</string>
+    <string name="prefs_emoji_font_scale">Kvarði leturs í tjáningartáknasýn</string>
+    <string name="prefs_side_padding_scale">Kvarði fyllingar til hliðar</string>
+    <string name="prefs_side_padding_scale_landscape">Kvarði fyllingar til hliðar (lárétt)</string>
+    <string name="load_will_overwrite">Að hlaða inn þessu mun skrifa yfir fyrirliggjandi þema</string>
+    <string name="hidden_features_title">Lýsing á földum eiginleikum</string>
+    <string name="prefs_force_incognito_mode_summary">Gera óvirkt að læra ný orð</string>
+    <string name="quick_pin_toolbar_keys">Festa verkfærastikulykil við að ýta lengi</string>
+    <string name="quick_pin_toolbar_keys_summary">Þetta mun gera óvirkar aðgerðir þar sem ýtt er lengi fyrir verkfærastikulykla sem ekki eru festir</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Skipta um innsláttaraðferð með bilslá</string>
+    <string name="prefs_long_press_symbol_for_numpad">Ýttu lengi á táknalykil til að fá talnaborð</string>
+    <string name="center_suggestion_text_to_enter_summary">Við að ýta á bilslá eða greinarmerki verður tillagan í miðjunni sett inn</string>
+    <string name="checksum_mismatch_message">Óþekkt orðasafnsskrá. Ertu viss um að þú hafi fengið hana frá áreiðanlegum aðila og að hún sé fyrir \'%s\'?</string>
+    <string name="load_gesture_library_summary">Gefðu upp innfellt aðgerðasafn til að virkja innslátt með bendingum</string>
+    <string name="backup_restore_message">Vista eða hlaða inn úr skrá. Aðvörun: endurheimta mun yfirskrifa fyrirliggjandi gögn</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Neðsta röð klippispjalds</string>
+    <string name="auto_hide_toolbar_summary">Fela verkfærastikuna þegar tillögur eru í boði</string>
+    <string name="prefs_always_show_suggestions_summary">Hunsa beiðnir frá öðrum forritum um að gera tillögur óvirkar (gæti valdið vandamálum)</string>
+    <string name="incognito">Þvinga fram nafnleysisham</string>
+    <string name="after_symbol_and_space">Með því að ýta á Enter eða Bil á eftir öðrum lyklum í táknasýn</string>
+    <string name="no_dictionary_message">"Án orðasafns muntu einungis fá tillögur að orðum sem þú hefur sett inn áður.&lt;br&gt;\n        Þú getur sótt orðasöfn %1$s, eða athugað hvort orðasafn fyrir \"%2$s\" geti verið sótt beint %3$s."</string>
+    <string name="auto_correct_shortcuts_summary">Hvenær virkar styttingar (flýtileiðir) gætu verið lengdar af sjálfvirku stafsetningaryfirferðinni</string>
+    <string name="enable_clipboard_history_summary">Ef þetta er óvirkt mun klippispjaldslykillinn líma inn efni af klippispjaldi, ef eitthvað er þar</string>
+    <string name="delete_swipe_summary">Strjúktu frá eyðingarlyklinum til að velja og eyða stærri hluta af texta í einu</string>
+    <string name="autospace_after_punctuation_summary">Setja sjálfkrafa bil á eftir greinamerkjum þegar nýtt orð er skrifað</string>
+    <string name="url_detection_summary">Greina slóðir og annað slíkt og meðhöndla sem stakt orð</string>
+    <string name="localized_number_row_summary">Kjósa frekar staðfærðar tölur fram yfir latneskar</string>
+    <string name="more_autocorrect_summary">Leiðrétta sjálfvirkt jafnvel þó ekki sé sérstaklega beðið um það af innsláttarreitnum</string>
+    <string name="suggest_clipboard_content_summary">Birta nýlega afritað efni klippispjalds sem tillögu</string>
+    <string name="message_add_custom_layout">Veldu skrá á samhæfðu sniði. Upplýsingar um hvaða snið eru í boði má finna %s.</string>
+    <string name="user_dict_word_already_present">Þetta orð er nú þegar í orðasafni notandans %s. Skrifaðu annað orð.</string>
+    <string name="select_color_functional_key_background">Bakgrunnur aðgerðalykils</string>
+    <string name="dictionary_file_wrong_locale">Valda skráin er fyrir %1$s, en búist var við %2$s. Samt að nota það fyrir %2$s?</string>
+    <string name="hidden_features_text">geymslurými varið af tæki</string>
+    <string name="customize_functional_key_layouts">Sérsníða framsetningu aðgerðalykla</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Aðgerðalyklar</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Aðgerðalyklar (tákn)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Aðgerðalyklar (fleiri tákn)</string>
+    <string name="select_color_suggestion">Texti á tillöguborða</string>
+    <string name="auto_show_toolbar_summary">Birta verkfærastikuna ef innsláttur byrjar eða texti er valinn</string>
+    <string name="number_row_hints">Birta ábendingar á talnaröð</string>
+    <string name="popup_order">Veldu röðun sprettlykla</string>
+    <string name="pinned_toolbar_keys">Veldu fasta lykla á verkfærastiku</string>
+    <string name="show_popup_hints">Birta ábendingar á aðgerðalyklum</string>
+    <string name="load_gesture_library_message">Þú munt þurfa aðgerðasafnið fyrir \'%s\'. Ósamhæfð aðgerðasöfn gætu hrunið þegar notaður er innsláttur með bendingum. \n\nAðvörun: Öryggisáhætta getur fylgt því að hlaða inn utanaðkomandi kóða. Notaðu einungis aðgerðasöfn frá aðilum sem þú treystir.</string>
+    <string name="var_toolbar_direction_summary">Öfug stefna þegar hægri-til-vinstri undirgerð lyklaborðs er valin</string>
+    <string name="enable_split_keyboard_landscape">Virkja skipt lyklaborð (lárétt)</string>
+    <string name="split_spacer_scale_landscape">Lengd skiptingar (lárétt)</string>
+    <string name="split" tools:keep="@string/split">Skipt lyklaborð</string>
+    <string name="gesture_fast_typing_cooldown">Tafir á hröðum innslætti</string>
+    <string name="show_popup_hints_summary">Birtir ábendingar ef það að ýta lengi á lykil vekur upp viðbótaraðgerðir</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Sé ýtt lengi á bilslá vaknar valmynd fyrir innsláttaraðferð</string>
+    <string name="edit_layout">Ýttu til að breyta grunnframsetningu</string>
+    <string name="hidden_features_message">► Sé ýtt lengi á fasta lykla á verkfærastiku birtast viðbótaraðgerðir: &lt;br&gt; \n\t• klippispjald &amp;#65515; líma &lt;br&gt; \n\t• færa til vinstri/hægri &amp;#65515; orð til vinstri/hægri &lt;br&gt; \n\t• færa upp/niður &amp;#65515; síða upp/niður &lt;br&gt; \n\t• orð til vinstri/hægri &amp;#65515; byrjun/enda línu &lt;br&gt; \n\t• síða upp/niður &amp;#65515; byrjun/endi síðu &lt;br&gt; \n\t• afrita &amp;#65515; klippa &lt;br&gt; \n\t• velja orð &amp;#8596; velja allt &lt;br&gt; \n\t• afturkalla &amp;#8596; endurtaka &lt;br&gt; &lt;br&gt; \n► Sé ýtt lengi á lykla í verkfærastiku tillögustrimils festir þá á tillögustrimilinn. &lt;br&gt; &lt;br&gt; \n► Sé ýtt lengi á kommulykil til að fá aðgang að klippispjaldsyfirliti, tjáningartáknayfirliti, einnar-handar-ham, stillingum eða tungumálaskipti: &lt;br&gt; \n\t• Yfirlit tjáningartákna og tungumálaskipti hverfa ef þú ert með samsvarandi lykil virkan; &lt;br&gt; \n\t• Fyrir sumar framsetningar er það ekki kommulykillinn, heldur lykillinn á sama stað (t.d. er það \'q\' fyrir Dvorak-framsetningu). &lt;br&gt; &lt;br&gt; \n► Þegar nafnlaus hamur er virkjaður verða engin orð lærð og engum tjáningartáknum bætt við í nýlegt. &lt;br&gt; &lt;br&gt; \n► Ýttu á Nafnlaust-táknið til að fá aðgang að verkfærastikunni. &lt;br&gt; &lt;br&gt; \n► Rennslisinnsláttur lykla: strjúktu frá Shift yfir á annan lykil til að setja inn stakan hástaf: &lt;br&gt; \n\t• Þetta virkar einnig fyrir \'?123\' lykilinn til að slá inn stakt tákn af táknaborðinu og eins fyrir tengda lyklaa.► Haltu inni Shift eða táknalykil, ýttu á einn eða fleiri lykla og slepptu svo Shift eða táknalyklinum til að fara aftur á fyrra lyklaborð. &lt;br&gt; &lt;br&gt; \n► Ýttu lengi á tillögu í tillögustrimlinum til að birta fleiri tillögur og eyðingarhnapp til að fjarlægja viðkomandi tillögu. &lt;br&gt; &lt;br&gt; \n► Strjúktu upp frá tillögu til að opna fleiri tillögur og slepptu snertingunni á tillögunni til að velja hana. &lt;br&gt; &lt;br&gt; \n► Ýttu lengi á færslu í klippispjaldsferlinum til að festa hana (halda henni á klippispjaldinu þar til þú losar hana). &lt;br&gt; &lt;br&gt; \n► Strjúktu til vinstri í klippispjaldsyfirlitinu til að fjarlægja færslu (nema þegar hún er fest). &lt;br&gt; &lt;br&gt; \n► Veldu texta og ýttu á shift til að skipta milli hástafa, lágstafa og orða með fyrsta hástaf. &lt;br&gt; &lt;br&gt; \n► Þú getur bætt við orðasöfnum með því að opna þær í skráavafra: &lt;br&gt; \n\t• Þetta virkar aðeins með &lt;i&gt;content-uri&lt;/i&gt; slóðum en ekki með &lt;i&gt;file-uri&lt;/i&gt;, sem þýðir að það gæti ekki virkað í sumum skráavöfrum. &lt;br&gt; &lt;br&gt; \n► Fyrir notendur sem gera handvirkar afritanir með rótaraðgangi: &lt;br&gt; \n\t• Frá og með Android 7 er sameiginlega kjörstillingaskráin ekki á sjálfgefnum stað, vegna þess að forritið notar %s. Þetta er nauðsynlegt svo hægt að lesa stillingar áður en tækinu er aflæst, t.d. við ræsingu; &lt;br&gt; \n\t• Skráin er staðsett í /data/user_de/0/package_id/shared_prefs/ þó þetta gæti verið misjafnt eftir tækjum og útgáfu Android.&lt;i&gt;&lt;b&gt;Villuleitarhamur / villuleit í APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Ýttu lengi á tillögu til að sýna úr hvaða orðasafni hún kemur. &lt;br&gt; &lt;br&gt; \n► Þegar notað er villuleitar-APK geturðu fundið \'Villuleitarstillingar\' inni í \'Ítarlegar stillingar\', þó að notagildið sé takmarkað nema fyrir að demba orðasöfnum í atvikaskrá. &lt;br&gt; \n\t• Fyrir útgefinn APK-pakka þarftu að banka nokkrum sinnum á útgáfunúmerið í &lt;i&gt;Um hugbúnaðinn&lt;/i&gt;, þá geturðu fundið villuleitarstillingar í &lt;i&gt;Ítarlegar stillingar&lt;/i&gt;.&lt;br&gt; \n\t• Þegar &lt;i&gt;Sýna upplýsingar um tillögu&lt;/i&gt; er virkjað, birtist efst á tillögum smáar tölur sem sýna innri einkunn og uppruna orðasafns. &lt;br&gt; &lt;br&gt; \n► Ef forritið hrynur verður spurt hvort þú viljir fá hrunskrárnar þegar þú opnar Stillingar. &lt;br&gt; &lt;br&gt; \n► Þegar notaður er fjöltyngdur innsláttur, mun bilsláin sýna áreiðanleikagildið sem notað er til að ákvarða tungumálið sem verið er að nota. &lt;br&gt; &lt;br&gt; \n► Tillögur munu bera efst smáar tölur sem tákna innri einkunn og uppruna orðasafns (hægt að slökkva á þessu).</string>
+    <string name="remove_redundant_popups_summary">Gera óvirka stafaglugga þegar efni þeirra er þegar til staðar á grunnframsetningu</string>
+    <string name="all_colors_warning">Þessi stilling birtir alla liti sem notaðir eru innvortis. Listinn yfir litina getur breyst með tímanum. Sjálfgefinn litur er tilviljanakenndur og nöfn litanna verða ekki þýdd.</string>
+    <string name="delete_confirmation">Viltu í alvörunni eyða %s?</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Aðgerðalyklar (stór skjár)</string>
+    <string name="name_invalid">Ógilt heiti</string>
+    <string name="settings_screen_secondary_layouts">Auka-framsetningar</string>
 </resources>

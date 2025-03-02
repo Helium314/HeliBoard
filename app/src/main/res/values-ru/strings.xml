@@ -90,11 +90,11 @@
     <string name="setup_next_action">Далее</string>
     <string name="setup_steps_title">Настроить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Включить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
+    <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.\"</string>
     <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!\"</string>
     <string name="setup_step1_action">Включить в настройках</string>
     <string name="setup_step2_title">Переключитесь на<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> в качестве активного метода ввода текста.</string>
+    <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.\"</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
     <string name="setup_step3_instruction">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
@@ -277,7 +277,7 @@
     <string name="show_popup_keys_all">Добавить все доступные варианты</string>
     <string name="more_autocorrect">Больше автокоррекции</string>
     <string name="split_spacer_scale">Расстояние разделения</string>
-    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь 1$s для %2$s?</string>
+    <string name="add_new_dictionary_ask_locale">К какому языку следует добавить словарь \"%1$s\" для %2$s?</string>
     <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений (может вызвать проблемы)</string>
     <string name="switch_language">Смена языка</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Очистить буфер обмена</string>
@@ -295,7 +295,7 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
-    <string name="remove_dictionary_message">Удалить пользовательский словарь s?</string>
+    <string name="remove_dictionary_message">Удалить пользовательский словарь \"%s\"?</string>
     <string name="file_read_error">Не получается прочитать файл</string>
     <string name="dictionary_link_text">здесь</string>
     <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
@@ -305,7 +305,7 @@
     <string name="down" tools:keep="@string/down">Вниз</string>
     <string name="full_left" tools:keep="@string/full_left">В левый конец</string>
     <string name="left" tools:keep="@string/left">Влево</string>
-    <string name="replace_dictionary_message">Заменить пользовательский словарь 1$s?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
+    <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
     <string name="full_right" tools:keep="@string/full_right">В правый конец</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
     <string name="title_layout_name_select">Задать имя раскладки</string>
@@ -317,14 +317,14 @@
     <string name="dictionary_file_wrong_locale_ok">Всё ещё используется</string>
     <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё ещё используете его для %2$s?</string>
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
-    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для 2$s напрямую %3$s."</string>
+    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для \"%2$s\" напрямую %3$s."</string>
     <string name="customize_symbols_number_layouts">Настройка расположения символов и чисел</string>
     <string name="available_dictionary_experimental">%s (экспериментальный)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символы (арабские)</string>
     <string name="layout_number" tools:keep="@string/layout_number">Числа</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Числовая клавиатура</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (горизонтальная)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (ландшафт)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
     <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции:&lt;br&gt;
@@ -419,7 +419,7 @@
     <string name="show_popup_keys_main">Добавить самые распространённые варианты (по умолчанию)</string>
     <string name="remove_redundant_popups">Удалить лишние всплывающие окна</string>
     <string name="remove_redundant_popups_summary">Убрать всплывающие клавиши, присутствующие в базовой раскладке</string>
-    <string name="layout_number_row" tools:keep="@string/layout_number_row">Строка цифр</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Ряд с цифрами</string>
     <string name="gesture_floating_preview_static_summary">Видеть предложенное слово во время набора жестами</string>
     <string name="gesture_trail_fadeout_duration">Время жизни следа жеста</string>
     <string name="prefs_space_bar_text">Пользовательский текст на клавише пробела</string>
@@ -448,4 +448,34 @@
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
     <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Bin</string>
+    <string name="vibrate_in_dnd_mode">Вибрировать в режиме Не беспокоить</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Фонетика)</string>
+    <string name="auto_correct_shortcuts">Автокоррекция сочетаний клавиш</string>
+    <string name="custom_font">Установить пользовательский шрифт из файла</string>
+    <string name="prefs_bottom_padding_scale_landscape">Масштаб нижнего отступа (ландшафт)</string>
+    <string name="prefs_font_scale">Масштаб шрифта клавиатуры</string>
+    <string name="prefs_emoji_font_scale">Масштаб шрифта отображения эмодзи</string>
+    <string name="prefs_side_padding_scale">Масштаб бокового отступа</string>
+    <string name="prefs_side_padding_scale_landscape">Масштаб бокового отступа (ландшафт)</string>
+    <string name="auto_correct_shortcuts_summary">Если включено, сочетания клавиш могут быть расширены с помощью автокоррекции</string>
+    <string name="customize_toolbar_key_code_reset_message">Вы действительно хотите удалить все настроенные коды клавиш?</string>
+    <string name="prefs_key_emoji_max_sdk">Переопределить версию эмодзи</string>
+    <string name="summary_customize_background_image_landscape">Если не установлено, будет использоваться портретное изображение</string>
+    <string name="customize_background_image_landscape">Установить фоновое изображение (ландшафт)</string>
+    <string name="number_row_hints">Показывать подсказки в ряде с цифрами</string>
+    <string name="prefs_language_swipe_distance">Расстояние смахивания для переключения языка</string>
+    <string name="split_spacer_scale_landscape">Расстояние разделения (ландшафт)</string>
+    <string name="enable_split_keyboard_landscape">Включить разделение клавиатуры (ландшафт)</string>
+    <string name="split" tools:keep="@string/split">Разделение клавиатуры</string>
+    <string name="custom_subtype">Пользовательский подтип</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Бенгали">%s</xliff:g> (Байсахи)</string>
+    <string name="layout_in_use">Предупреждение: раскладка в данный момент используется</string>
+    <string name="delete_confirmation">Действительно удалить %s?</string>
+    <string name="settings_screen_secondary_layouts">Дополнительные раскладки</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Функциональные клавиши (большой экран)</string>
+    <string name="locales_with_dict">Языки со словарями</string>
+    <string name="get_colors_message">Найти и поделиться цветами в %s.</string>
+    <string name="get_layouts_message">Найти и поделиться раскладками в %s.</string>
+    <string name="discussion_section_link">обсуждения</string>
+    <string name="name_invalid">Недопустимое имя</string>
 </resources>

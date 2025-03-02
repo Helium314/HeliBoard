@@ -5,7 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">Nomi dei contatti</string>
-    <string name="use_contacts_for_spellchecking_option_summary">La funzione di controllo ortografico usa le voci dell\'elenco contatti</string>
+    <string name="use_contacts_for_spellchecking_option_summary">Usa le voci dell\'elenco contatti</string>
     <string name="vibrate_on_keypress">"Vibrazione tasti"</string>
     <string name="sound_on_keypress">"Suono tasti"</string>
     <string name="popup_on_keypress">"Popup tasti"</string>
@@ -14,9 +14,9 @@
     <string name="settings_screen_correction">"Correzione testo"</string>
     <string name="settings_screen_advanced">"Avanzate"</string>
     <string name="settings_screen_theme">"Tema"</string>
-    <string name="enable_split_keyboard">"Attiva tastiera divisa"</string>
-    <string name="language_switch_key_switch_input_method">Altri metodi di immissione</string>
-    <string name="show_language_switch_key">Tasto di cambio lingua</string>
+    <string name="enable_split_keyboard">Tastiera divisa</string>
+    <string name="language_switch_key_switch_input_method">Cambia tastiera</string>
+    <string name="show_language_switch_key">Tasto \'Cambia lingua\'</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predefinito"</string>
     <string name="use_contacts_dict">"Suggerisci nomi di contatti"</string>
@@ -40,8 +40,8 @@
     <string name="auto_correction_threshold_mode_aggressive">Aggressiva</string>
     <string name="auto_correction_threshold_mode_very_aggressive">Molto aggressiva</string>
     <string name="bigram_prediction">"Suggerimenti parola seguente"</string>
-    <string name="bigram_prediction_summary">"Usa la parola precedente per i suggerimenti"</string>
-    <string name="gesture_input">"Attiva digitazione gestuale"</string>
+    <string name="bigram_prediction_summary">Tieni conto della parola precedente per i suggerimenti</string>
+    <string name="gesture_input">Attiva la digitazione gestuale</string>
     <string name="gesture_input_summary">Digita le parole percorrendo con un gesto le lettere che le compongono</string>
     <string name="gesture_preview_trail">Mostra la traccia del gesto</string>
     <string name="gesture_floating_preview_text">"Anteprima mobile dinamica"</string>
@@ -74,27 +74,27 @@
     <string name="keyboard_layout_set">"Layout"</string>
     <string name="prefs_keypress_vibration_duration_settings">Durata vibrazione tasti</string>
     <string name="prefs_keypress_sound_volume_settings">Volume del suono dei tasti</string>
-    <string name="prefs_key_longpress_timeout_settings">Pressione prolungata</string>
+    <string name="prefs_key_longpress_timeout_settings">Pressione lunga per input secondario</string>
     <string name="prefs_enable_emoji_alt_physical_key">Tasto fisico per passare alle emoji</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Il tasto ALT di una tastiera collegata apre il pannello emoji</string>
     <string name="button_default">"Predefinito"</string>
     <string name="setup_welcome_title">Benvenuto in <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">con la digitazione gestuale</string>
+    <string name="setup_welcome_additional_description">con digitazione gestuale</string>
     <string name="setup_start_action">"Inizia"</string>
     <string name="setup_next_action">"Passaggio successivo"</string>
     <string name="setup_steps_title">Configurazione di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Seleziona \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" nelle impostazioni \'Lingua e immissione\' del tuo dispositivo per autorizzare l\'app.</string>
+    <string name="setup_step1_instruction">Scegli <xliff:g id="APPLICATION_NAME">%s</xliff:g> nelle impostazioni \'Lingua e immissione\' per autorizzare l\'app.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.\"</string>
     <string name="setup_step1_action">Attiva nelle impostazioni</string>
     <string name="setup_step2_title">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Infine, attiva \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" come metodo di immissione di testo.</string>
+    <string name="setup_step2_instruction">Infine, attiva \\<xliff:g id="APPLICATION_NAME">%s</xliff:g> come metodo di immissione di testo.</string>
     <string name="setup_step2_action">"Cambia metodo di immissione"</string>
     <string name="setup_step3_title">Tutto pronto!</string>
     <string name="setup_step3_instruction">Puoi usare <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> per digitare in qualsiasi app.</string>
     <string name="setup_finish_action">Fine</string>
     <string name="show_setup_wizard_icon">Mostra l\'icona dell\'app</string>
-    <string name="show_setup_wizard_icon_summary">Mostra l\'icona nella schermata di avvio delle app</string>
+    <string name="show_setup_wizard_icon_summary">Mostra HeliBoard tra le app di Android</string>
     <string name="dictionary_settings_title">Dizionari</string>
     <string name="dictionary_settings_summary">Impostazioni dei dizionari</string>
     <string name="dictionary_available">"Dizionario disponibile"</string>
@@ -112,7 +112,7 @@
     <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Scorciatoia facoltativa"</string>
     <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
-    <string name="user_dict_settings_empty_text">"Nessuna parola presente nel dizionario utente. Per aggiungere una parola, tocca il pulsante Aggiungi (+)."</string>
+    <string name="user_dict_settings_empty_text">Il dizionario utente è vuoto. Premi \'Aggiungi\' (+) per aggiungere manualmente una parola.</string>
     <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
     <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -120,7 +120,7 @@
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="autospace_after_punctuation">Spazio automatico dopo la punteggiatura</string>
     <string name="more_keys_strip_description">Altri tasti</string>
-    <string name="autospace_after_punctuation_summary">Alla digitazione di una nuova parola, inserisce automaticamente lo spazio dopo la punteggiatura</string>
+    <string name="autospace_after_punctuation_summary">Aggiunge automaticamente uno spazio dopo ogni parola seguita da punteggiatura</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="settings_category_clipboard_history">Cronologia appunti</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
@@ -128,17 +128,17 @@
     <string name="enable_clipboard_history">Attiva la cronologia appunti</string>
     <string name="enable_clipboard_history_summary">Se disattivata, il tasto \'Appunti\' incolla direttamente l\'ultimo contenuto</string>
     <string name="clipboard_history_retention_time">Durata dei contenuti nella cronologia</string>
-    <string name="spell_checker_service_name">HeliBoard - Controllo ortografico</string>
-    <string name="android_spell_checker_settings">HeliBoard - Impostazioni controllo ortografico</string>
+    <string name="spell_checker_service_name">Controllo ortografico HeliBoard</string>
+    <string name="android_spell_checker_settings">Impostazioni del controllo ortografico HeliBoard</string>
     <string name="number_row">Riga dei numeri</string>
     <string name="delete_swipe">Scorri per cancellare</string>
-    <string name="delete_swipe_summary">Scorri indietro partendo da \'Backspace\' per selezionare e rimuovere porzioni di testo più ampie in una sola volta</string>
+    <string name="delete_swipe_summary">Scorri indietro partendo da \'Backspace\' per rimuovere più caratteri o parole in una sola volta</string>
     <string name="incognito">Modalità incognito</string>
     <string name="show_emoji_key">Tasto emoji</string>
     <string name="number_row_summary">Mostra sempre la riga dei numeri</string>
     <string name="show_hints">Mostra indicatori sui tasti</string>
-    <string name="show_hints_summary">Mostra gli indicatori di pressione prolungata dei tasti</string>
-    <string name="prefs_long_press_keyboard_to_change_lang">Cambia metodo di immissione con barra spaziatrice</string>
+    <string name="show_hints_summary">Suggerisce in piccolo sul tasto il carattere ottenibile con la pressione lunga</string>
+    <string name="prefs_long_press_keyboard_to_change_lang">Cambia metodo di immissione con la barra spaziatrice</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Premendo a lungo la barra spaziatrice si attiva il menu di selezione del metodo di immissione</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="day_night_mode_summary">Il tema seguirà le impostazioni di sistema</string>
@@ -147,8 +147,8 @@
     <string name="settings_category_suggestions">Suggerimenti</string>
     <string name="settings_category_experimental">Opzioni sperimentali</string>
     <string name="settings_category_miscellaneous">Varie</string>
-    <string name="settings_category_input">Immissione</string>
-    <string name="ime_settings">HeliBoard - Impostazioni</string>
+    <string name="settings_category_input">Input</string>
+    <string name="ime_settings">Impostazioni di HeliBoard</string>
     <string name="prefs_force_incognito_mode_summary">Disattiva l\'apprendimento di nuove parole</string>
     <string name="key_borders">Bordi dei tasti</string>
     <string name="day_night_mode">Tema chiaro/scuro automatico</string>
@@ -169,9 +169,9 @@
     <string name="prefs_always_show_suggestions">Mostra sempre i suggerimenti</string>
     <string name="up" tools:keep="@string/up">Cursore su</string>
     <string name="voice" tools:keep="@string/voice">Input vocale</string>
-    <string name="show_popup_hints">Mostra indicatori di funzionalità</string>
-    <string name="message_add_custom_layout">Seleziona un file in un formato compatibile. Più informazioni sui formati: %s.</string>
-    <string name="restore_error">Errore nel ripristinare il backup: %s</string>
+    <string name="show_popup_hints">Mostra indicatori dei tasti funzione</string>
+    <string name="message_add_custom_layout">Scegli un file in un formato compatibile. Più informazioni sui formati: %s.</string>
+    <string name="restore_error">Errore durante il ripristino del backup: %s</string>
     <string name="add_to_personal_dictionary_summary">Le nuove parole saranno salvate nel dizionario utente locale del dispositivo</string>
     <string name="button_backup">Backup</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Lingua (priorità)</string>
@@ -185,20 +185,20 @@
     <string name="load_gesture_library_button_delete">Elimina libreria</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Lingua</string>
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
-    <string name="localized_number_row_summary">Mostra i numeri localizzati anziché quelli latini</string>
-    <string name="checksum_mismatch_message">File di libreria sconosciuto. Si è sicuri di averlo ottenuto da una fonte affidabile e che sia per \'%s\'?</string>
+    <string name="localized_number_row_summary">Mostra i numeri in uso nella lingua attiva anziché quelli latini</string>
+    <string name="checksum_mismatch_message">File di libreria sconosciuto. Verifica di averlo ottenuto da una fonte affidabile e che sia per \'%s\'.</string>
     <string name="show_popup_keys_normal">Mostra le varianti di carattere definite dalla lingua</string>
     <string name="show_popup_keys_more">Aggiungi varianti comuni</string>
     <string name="clipboard" tools:keep="@string/clipboard">Appunti</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Riga dei numeri</string>
     <string name="button_restore">Ripristino</string>
-    <string name="popup_order">Seleziona l\'ordine dei tasti a comparsa</string>
-    <string name="hint_source">Seleziona la fonte degli indicatori</string>
+    <string name="popup_order">Ordine / priorità dei tasti popup</string>
+    <string name="hint_source">Fonti degli indicatori</string>
     <string name="load_gesture_library_summary">Carica il file della libreria nativa per la digitazione gestuale</string>
     <string name="url_detection_summary">Cerca di rilevare URL e simili come una singola parola</string>
     <string name="load_gesture_library">Carica la libreria per la digitazione gestuale</string>
     <string name="down" tools:keep="@string/down">Cursore giù</string>
-    <string name="toolbar_keys">Seleziona i tasti della barra degli strumenti</string>
+    <string name="toolbar_keys">Scegli i tasti della barra degli strumenti</string>
     <string name="backup_error">Errore backup: %s</string>
     <string name="show_popup_hints_summary">Indica se premendo a lungo un tasto si attivano funzionalità aggiuntive</string>
     <string name="backup_restore_title">Backup e ripristino</string>
@@ -210,7 +210,7 @@
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
     <string name="url_detection_title">Rilevamento URL</string>
     <string name="full_right" tools:keep="@string/full_right">Fine riga</string>
-    <string name="localized_number_row">Localizza la riga dei numeri</string>
+    <string name="localized_number_row">Numeri in base alla lingua</string>
     <string name="show_popup_keys_all">Aggiungi tutte le varianti disponibili</string>
     <string name="more_autocorrect">Correzione automatica aggiuntiva</string>
     <string name="split_spacer_scale">Distanza tra le due parti</string>
@@ -223,7 +223,7 @@
     <string name="load_gesture_library_button_load">Carica libreria</string>
     <string name="button_load_custom">Carica file</string>
     <string name="button_copy_existing_layout">Duplica un layout esistente</string>
-    <string name="show_popup_keys_title">Mostra più lettere accentate nei tasti a comparsa</string>
+    <string name="show_popup_keys_title">Mostra più opzioni per le lettere nei tasti popup</string>
     <string name="one_handed" tools:keep="@string/one_handed">Modalità a una mano</string>
     <string name="layout_error">Errore layout: %s</string>
     <string name="secondary_locale">Digitazione multilingue</string>
@@ -241,34 +241,34 @@
     <string name="dictionary_settings_category">Dizionari</string>
     <string name="setup_step3_action">Configura la tastiera</string>
     <string name="day_or_night_night">Scuro</string>
-    <string name="prefs_bottom_padding_scale">Spaziatura dal bordo in basso</string>
+    <string name="prefs_bottom_padding_scale">Spaziatura dal bordo inferiore</string>
     <string name="select_user_colors_night">Colori personalizzati (tema scuro)</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Scuro</string>
     <string name="main_colors">Mostra solo i colori principali</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colori dinamici</string>
     <string name="settings_screen_appearance">Aspetto</string>
-    <string name="select_color_key_background">Sfondo tasti</string>
+    <string name="select_color_key_background">Sfondo dei tasti principali</string>
     <string name="theme_colors">Tema chiaro</string>
     <string name="select_color_functional_key_background">Sfondo dei tasti funzione</string>
-    <string name="user_dict_word_already_present">La parola è già presente nel dizionario utente %s.</string>
+    <string name="user_dict_word_already_present">La parola si trova già nel dizionario utente %s.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrotondato</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Nero</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Cioccolato</string>
     <string name="remove_dictionary_message">Vuoi davvero rimuovere il dizionario \"%s\"?</string>
-    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Grigio nuvola</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nuvola</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dictionary_file_wrong_script">Errore: script non compatibile con questa tastiera</string>
     <string name="hidden_features_title">Descrizione delle funzionalità nascoste</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="dictionary_link_text">qui</string>
-    <string name="dictionary_file_error">Errore: Il file selezionato non è un file dizionario valido</string>
+    <string name="dictionary_file_error">Errore: Il file non è un dizionario valido</string>
     <string name="hidden_features_text">spazio di archiviazione protetto</string>
     <string name="theme_navbar">Colora la barra di navigazione</string>
-    <string name="dictionary_file_wrong_locale_ok">Utilizza ancora</string>
+    <string name="dictionary_file_wrong_locale_ok">Ignora e procedi</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
-    <string name="add_dictionary">Selezionare un dizionario da aggiungere. I dizionari in formato .dict possono essere scaricati %s.</string>
-    <string name="dictionary_load_error">Errore nel caricamento del file del dizionario</string>
-    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Grigio-blu</string>
+    <string name="add_dictionary">Scegli un dizionario da aggiungere. I dizionari in formato .dict possono essere scaricati %s.</string>
+    <string name="dictionary_load_error">Errore nel caricamento del dizionario</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Livido</string>
     <string name="select_color_spacebar_text">Testo della barra spaziatrice</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Chiaro</string>
     <string name="user_dict_add_word_button">Aggiungi una parola</string>
@@ -281,21 +281,21 @@
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indaco</string>
     <string name="about_github_link">Visualizza su GitHub</string>
     <string name="version">Versione</string>
-    <string name="button_select_language">Seleziona la lingua</string>
+    <string name="button_select_language">Scegli la lingua</string>
     <string name="select_color_key">Caratteri dei tasti</string>
     <string name="select_color_spacebar_background">Sfondo della barra spaziatrice</string>
-    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Più scuro</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Molto scuro</string>
     <string name="auto_user_color">Scegli automaticamente</string>
     <string name="settings_screen_about">Informazioni</string>
     <string name="license">Licenza open-source</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceano</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sabbia</string>
-    <string name="theme_style">Stile</string>
+    <string name="theme_style">Stile dei tasti</string>
     <string name="hidden_features_summary">Mostra le funzionalità che potrebbero passare inosservate</string>
     <string name="theme_colors_night">Tema scuro</string>
     <string name="all_colors">Mostra tutti i colori</string>
-    <string name="select_user_colors_summary">Seleziona i colori per il testo e gli sfondi</string>
-    <string name="select_color_key_hint">Caratteri degli indicatori dei tasti</string>
+    <string name="select_user_colors_summary">Scegli i colori di tasti, caratteri, icone, ecc.</string>
+    <string name="select_color_key_hint">Testo degli indicatori di popup</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Personalizzato (tema scuro)</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marrone</string>
     <string name="replace_dictionary_message">Vuoi davvero sostituire il dizionario aggiunto dall\'utente \"%1$s\"?
@@ -308,8 +308,7 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violetto</string>
     <string name="add_new_dictionary_ask_locale">A quale lingua deve essere aggiunto il dizionario \"%1$s\" per %2$s?</string>
     <string name="user_dict_settings_add_weight_value">Peso:</string>
-    <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti per il testo immesso in precedenza.&lt;br&gt;
-\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
+    <string name="no_dictionary_message">"Senza un dizionario, si otterranno solo suggerimenti in base al testo immesso in precedenza.&lt;br&gt;\n\n                  È possibile scaricare i dizionari %1$s, oppure verificare se un dizionario per \"%2$s\" può essere scaricato direttamente %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">Non mostrare più</string>
     <string name="dictionary_file_wrong_locale">Il dizionario è stato creato per la lingua %1$s, ma lo stai aggiungendo a %2$s. Confermi?</string>
     <string name="dialog_close">Chiudi</string>
@@ -326,7 +325,7 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefono</string>
     <string name="layout_number" tools:keep="@string/layout_number">Numeri</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Tastierino numerico (orizzontale)</string>
-    <string name="customize_symbols_number_layouts">Personalizzazione dei simboli e dei layout dei numeri</string>
+    <string name="customize_symbols_number_layouts">Layout numerici, simboli e altro</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Tastierino numerico</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Simboli telefono</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (studenti)</string>
@@ -337,20 +336,20 @@
     <string name="space_swipe_move_cursor_entry">Sposta il cursore</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <string name="prefs_long_press_symbol_for_numpad">Premi a lungo il tasto dei simboli per il tastierino numerico</string>
+    <string name="prefs_long_press_symbol_for_numpad">Pressione lunga sul tasto simboli per aprire il tastierino numerico</string>
     <string name="cut" tools:keep="@string/cut">Taglia</string>
     <string name="var_toolbar_direction_summary">Inverte la direzione quando la tastiera è di tipo destra-sinistra</string>
     <string name="var_toolbar_direction">Direzione della barra degli strumenti</string>
     <string name="select_color_accent">Colore accento</string>
-    <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attivano funzionalità aggiuntive: &lt;br&gt;\n\t• Appunti &amp;#65515; Incolla&lt;br&gt; \n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt; \n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt; \n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt; \n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt; \n\t• Copia &amp;#65515; Taglia&lt;br&gt; \n\t• Seleziona parola &amp;#8596; Seleziona tutto&lt;br&gt; \n\t• Annulla &amp;#8596; Ripeti&lt;br&gt;&lt;br&gt; \n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra. &lt;br&gt; &lt;br&gt;\n► Con la pressione prolungata del tasto virgola si accede alle funzionalità appunti, emoji, modalità una mano, impostazioni e cambio lingua: &lt;br&gt;\n\t• Le funzionalità emoji e cambio lingua non saranno visibili se il relativo tasto è abilitato. &lt;br&gt; \n\t• Per alcuni layout non è il tasto virgola, ma quello presente nella stessa posizione (es. \"q\" per il layout Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando è abilitata la modalità incognito, l\'apprendimento delle parole è sospeso e le emoji recenti non sono memorizzate. &lt;br&gt; &lt;br&gt;\n► In modalità incognito, si accede alla barra degli strumenti toccando l\'icona \"Incognito\". &lt;br&gt; &lt;br&gt;\n► Scorrimento da \"Maiuscolo\": lo scorrimento dal tasto \"Maiuscolo\" a una lettera permette di digitare in maiuscolo solo il carattere scelto. &lt;br&gt; &lt;br&gt;\n► È possibile tener premuto il tasto \"Maiuscolo\" o \"Simboli\", digitare uno o più caratteri e rilasciare per tornare alla tastiera precedente. &lt;br&gt; &lt;br&gt;\n► La pressione lunga su un suggerimento mostra altri suggerimenti, più un tasto \"Elimina\" per rimuovere il suggerimento stesso. &lt;br&gt; &lt;br&gt;\n► È possibile scorrere verso l\'alto da un suggerimento per aprire altri suggerimenti e rilasciare su un suggerimento per selezionarlo. &lt;br&gt; &lt;br&gt;\n► È possibile toccare a lungo una voce della cronologia appunti per fissarla (rimane negli appunti finché non viene rilasciata nello stesso modo). &lt;br&gt; &lt;br&gt;\n► È possibile eliminare facilmente una voce della cronologia appunti trascinandola verso sinistra fuori dallo schermo (tranne quando è fissata). &lt;br&gt; &lt;br&gt;\n► Premendo il tasto \"Maiuscolo\" dopo aver selezionato un testo, è possibile renderlo tutto in maiuscolo, tutto in minuscolo oppure con le iniziali maiuscole. &lt;br&gt; &lt;br&gt;\n► È possibile aggiungere dizionari aprendoli da un qualsiasi gestore file. &lt;br&gt;\n\t• Supporta solo &lt;i&gt;content-uri&lt;/i&gt;, non &lt;i&gt;file-uri&lt;/i&gt;: potrebbe non funzionare con alcuni gestori di file.&lt;br&gt;&lt;br&gt; \n► Per gli utenti che eseguono manualmente il backup con accesso root: &lt;br&gt;\n\t• Su Android 7 e versioni successive, il file delle preferenze non si trova nella cartella predefinita, perché l\'app usa %s al fine di permettere il caricamento delle impostazioni prima dello sblocco del dispositivo (es. all\'avvio del sistema). &lt;br&gt;\n\t• Il file si trova invece nella cartella: &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; (potrebbe variare in base al dispositivo e alla versione di Android). &lt;br&gt;&lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modalità debug / APK di debug&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt; \n► È possibile premere a lungo un suggerimento per mostrare il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► Quando si utilizza un APK di debug, è possibile trovare le impostazioni di debug nella sezione \"Avanzate\". Non sono particolarmente utili, se non per scaricare i dizionari nel log. &lt;br&gt;\n\t• Nella versione normale (release) dell\'app, è possibile accedervi solo dopo aver toccato più volte la versione dell\'app nella sezione \"Informazioni\". &lt;br&gt;\n\t• Quando si abilita \"Mostra informazioni sui suggerimenti\", sopra ai suggerimenti appariranno alcuni indicatori numerici che mostrano un determinato punteggio interno e il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► In caso di arresto anomalo dell\'app, verrà chiesto se si desidera ottenere i log dell\'arresto anomalo al successivo accesso alle impostazioni. &lt;br&gt; &lt;br&gt;\n► Se è attiva la digitazione multilingue, la barra spaziatrice mostrerà il valore di affidabilità usato per determinare la lingua corrente. &lt;br&gt; &lt;br&gt;\n► Per nascondere gli indicatori numerici accanto ai suggerimenti, disabilitare \"Mostra informazioni sui suggerimenti\".</string>
-    <string name="pinned_toolbar_keys">Scegli i tasti permanenti (icone visibili anche con la barra degli strumenti nascosta)</string>
+    <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attiva delle funzionalità aggiuntive: &lt;br&gt;\n\t• Appunti &amp;#65515; Incolla&lt;br&gt; \n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt; \n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt; \n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt; \n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt; \n\t• Copia &amp;#65515; Taglia&lt;br&gt; \n\t• Seleziona parola &amp;#8596; Seleziona tutto&lt;br&gt; \n\t• Annulla &amp;#8596; Ripeti&lt;br&gt;&lt;br&gt; \n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra. &lt;br&gt; &lt;br&gt;\n► Con la pressione prolungata del tasto virgola si accede alle funzionalità appunti, emoji, modalità a una mano, impostazioni e cambio lingua: &lt;br&gt;\n\t• Le funzionalità emoji e cambio lingua non saranno visibili se il tasto corrispondente è abilitato. &lt;br&gt; \n\t• Per alcuni layout non è il tasto virgola, ma quello presente nella stessa posizione (ad es. \"q\" per il layout Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando è abilitata la modalità incognito, l\'apprendimento delle parole è sospeso e le emoji recenti non sono memorizzate. &lt;br&gt; &lt;br&gt;\n► In modalità incognito, si accede alla barra degli strumenti toccando l\'icona \"Incognito\". &lt;br&gt; &lt;br&gt;\n► Scorrimento da \"Maiuscolo\": lo scorrimento dal tasto \"Maiuscolo\" a una lettera permette di digitare in maiuscolo solo il carattere scelto. &lt;br&gt; &lt;br&gt;\n► È possibile tenere premuto il tasto \"Maiuscolo\" o \"Simboli\", digitare uno o più caratteri e rilasciare per tornare alla tastiera precedente. &lt;br&gt; &lt;br&gt;\n► La pressione lunga su un suggerimento mostra altri suggerimenti, più un tasto \"Elimina\" per rimuovere il suggerimento stesso. &lt;br&gt; &lt;br&gt;\n► È possibile scorrere verso l\'alto da un suggerimento per aprire altri suggerimenti e rilasciare su un suggerimento per selezionarlo. &lt;br&gt; &lt;br&gt;\n► È possibile toccare a lungo una voce della cronologia appunti per fissarla (rimane negli appunti finché non viene rilasciata nello stesso modo). &lt;br&gt; &lt;br&gt;\n► È possibile eliminare facilmente una voce della cronologia appunti trascinandola verso sinistra fuori dallo schermo (tranne quando è fissata). &lt;br&gt; &lt;br&gt;\n► Premendo il tasto \"Maiuscolo\" dopo aver selezionato un testo, è possibile renderlo tutto in maiuscolo, tutto in minuscolo oppure con le iniziali maiuscole. &lt;br&gt; &lt;br&gt;\n► È possibile aggiungere dizionari aprendoli da un qualsiasi gestore file. &lt;br&gt;\n\t• Supporta solo &lt;i&gt;content-uri&lt;/i&gt;, non &lt;i&gt;file-uri&lt;/i&gt;: potrebbe non funzionare con alcuni gestori di file.&lt;br&gt;&lt;br&gt; \n► Per gli utenti che eseguono manualmente il backup con accesso root: &lt;br&gt;\n\t• Su Android 7 e versioni successive, il file delle preferenze non si trova nella cartella predefinita, perché l\'app usa lo %s al fine di permettere il caricamento delle impostazioni prima dello sblocco del dispositivo (per es. all\'avvio del sistema). &lt;br&gt;\n\t• Il file si trova invece nella cartella &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; (potrebbe variare in base al dispositivo e alla versione di Android). &lt;br&gt;&lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modalità debug / APK di debug&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt; \n► È possibile premere a lungo un suggerimento per mostrare il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► Quando si utilizza un APK di debug, è possibile trovare le impostazioni di debug nella sezione \"Avanzate\". Non sono particolarmente utili, se non per scaricare i dizionari nel log. &lt;br&gt;\n\t• Nella versione normale (release) dell\'app, è possibile accedervi solo dopo aver toccato più volte la versione dell\'app nella sezione \"Informazioni\". &lt;br&gt;\n\t• Quando si abilita \"Mostra informazioni sui suggerimenti\", sopra ai suggerimenti appariranno alcuni indicatori numerici che mostrano un determinato punteggio interno e il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► In caso di arresto anomalo dell\'app, verrà chiesto se si desidera ottenere i log dell\'arresto anomalo al successivo accesso alle impostazioni. &lt;br&gt; &lt;br&gt;\n► Se è attiva la digitazione multilingue, la barra spaziatrice mostrerà il valore di affidabilità usato per determinare la lingua corrente. &lt;br&gt; &lt;br&gt;\n► Per nascondere gli indicatori numerici accanto ai suggerimenti, disabilitare \"Mostra informazioni sui suggerimenti\".</string>
+    <string name="pinned_toolbar_keys">Scegli i tasti permanenti (visibili anche con la barra degli strumenti nascosta)</string>
     <string name="quick_pin_toolbar_keys">Fissa i tasti alla barra degli strumenti con una pressione lunga</string>
-    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tasti funzione</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tasti funzione (Generali)</string>
     <string name="auto_show_toolbar_summary">La barra degli strumenti appare all\'inizio della digitazione o quando si seleziona un testo</string>
     <string name="auto_hide_toolbar">Nascondi automaticamente la barra degli strumenti</string>
     <string name="auto_hide_toolbar_summary">Nasconde la barra degli strumenti quando è possibile mostrare le parole suggerite</string>
     <string name="auto_show_toolbar">Mostra automaticamente la barra degli strumenti</string>
-    <string name="quick_pin_toolbar_keys_summary">Le altre azioni di pressione prolungata per i tasti non fissati non saranno disponibili</string>
+    <string name="quick_pin_toolbar_keys_summary">Le azioni alternative su pressione lunga saranno disponibili solo sui tasti già fissati</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tasti funzione (Simboli)</string>
@@ -358,27 +357,27 @@
     <string name="settings_screen_toolbar">Barra degli strumenti</string>
     <string name="center_suggestion_text_to_enter">Usa sempre la parola suggerita al centro</string>
     <string name="close_history" tools:keep="@string/close_history">Chiudi la cronologia appunti</string>
-    <string name="clipboard_toolbar_keys">Seleziona i tasti mostrati con la cronologia appunti</string>
-    <string name="language_switch_key_behavior">Comportamento del tasto di cambio lingua</string>
+    <string name="clipboard_toolbar_keys">Scegli i tasti mostrati insieme alla cronologia appunti (nella barra superiore)</string>
+    <string name="language_switch_key_behavior">Comportamento del tasto \'Cambia lingua\'</string>
     <string name="center_suggestion_text_to_enter_summary">All\'aggiunta di uno spazio o di un segno di punteggiatura, il suggerimento centrale è inserito automaticamente</string>
-    <string name="customize_functional_key_layouts">Personalizza i layout dei tasti funzione</string>
+    <string name="customize_functional_key_layouts">Tasti funzione</string>
     <string name="toast_msg_clipboard_copy">Testo copiato</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="more_colors">Mostra altri colori</string>
-    <string name="all_colors_warning">Questa impostazione mostra tutti i colori utilizzati internamente. L\'elenco dei colori potrebbe variare in base agli aggiornamenti dell\'app. I colori predefiniti sono casuali e i nomi degli elementi sono mostrati come stringhe di sistema.</string>
+    <string name="more_colors">Mostra i colori estesi</string>
+    <string name="all_colors_warning">Nella lista completa, i colori sono elencati come stringhe di sistema che non possono essere rinominate o tradotte (e potrebbero essere soggette a variazioni in versioni future). I valori iniziali sono casuali.</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="gesture_fast_typing_cooldown">Attesa per l\'inserimento gestuale</string>
     <string name="gesture_fast_typing_cooldown_instant">Nessuna</string>
     <string name="customize_currencies">Personalizza i tasti valuta</string>
-    <string name="customize_currencies_detail">Scegli fino a 6 tasti valuta secondari, separati da spazio</string>
-    <string name="load">Importa</string>
+    <string name="customize_currencies_detail">Scegli fino a 6 simboli di valuta separati da spazio</string>
+    <string name="load">Carica</string>
     <string name="button_save_file">Esporta (file)</string>
     <string name="word_left" tools:keep="@string/word_left">Parola a sinistra</string>
     <string name="word_right" tools:keep="@string/word_right">Parola a destra</string>
     <string name="page_start" tools:keep="@string/page_start">Inizio documento</string>
     <string name="page_end" tools:keep="@string/page_end">Fine documento</string>
     <string name="suggest_clipboard_content">Suggerisci il testo copiato</string>
-    <string name="suggest_clipboard_content_summary">Mostra l\'ultimo testo copiato negli appunti nella barra dei suggerimenti</string>
+    <string name="suggest_clipboard_content_summary">Propone l\'ultimo testo copiato come \'pill\' nella barra dei suggerimenti</string>
     <string name="copy_to_clipboard">Copia negli appunti</string>
     <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
     <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
@@ -388,8 +387,8 @@
     <string name="page_up" tools:keep="@string/page_up">Pagina su</string>
     <string name="page_down" tools:keep="@string/page_down">Pagina giù</string>
     <string name="space_swipe_toggle_numpad_entry">Passa al tastierino numerico</string>
-    <string name="remove_redundant_popups">Rimuovi i tasti a comparsa ripetuti</string>
-    <string name="remove_redundant_popups_summary">Rimuovi i tasti a comparsa già presenti nel layout base</string>
+    <string name="remove_redundant_popups">Rimuovi i tasti popup ripetuti</string>
+    <string name="remove_redundant_popups_summary">Rimuovi i tasti popup già presenti nel layout base</string>
     <string name="load_will_overwrite">Attenzione: l\'importazione sovrascriverà il tema attuale</string>
     <string name="gesture_floating_preview_static_summary">Mostra dinamicamente le parole suggerite durante l\'inserimento</string>
     <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
@@ -397,27 +396,52 @@
     <string name="gesture_floating_preview_dynamic_summary">Sposta l\'anteprima seguendo il gesto</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Riga dei numeri</string>
     <string name="prefs_space_bar_text">Testo personalizzato sulla barra spaziatrice</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Selettore emoji (ultima riga)</string>
-    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Cronologia appunti (ultima riga)</string>
-    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Termina la modalità con una mano</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Selettore emoji (ultima riga in basso)</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Cronologia appunti (ultima riga in basso)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Esci dalla modalità a una mano</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Invio</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Blocco maiuscole</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Elimina</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spazio (layout numerico)</string>
-    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ridimensiona la modalità con una mano</string>
-    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambia lato modalità con una mano</string>
-    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Inserimento vocale disabilitato</string>
-    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostra/nascondi barra degli strumenti</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Ridimensiona la tastiera in modalità a una mano</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Cambia lato in modalità a una mano</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Input vocale (non disponibile)</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostra/nascondi la barra degli strumenti</string>
     <string name="customize_toolbar_key_codes">Personalizza i codici dei tasti della barra degli strumenti</string>
     <string name="key_code">Codice tasto</string>
-    <string name="long_press_code">Codice pressione prolungata</string>
+    <string name="long_press_code">Codice pressione lunga</string>
     <string name="customize_icons">Personalizza icone</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Maiuscolo</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Maiuscolo (attivo)</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab (tabulazione)</string>
-    <string name="icon_style">Stile Icona</string>
+    <string name="icon_style">Stile delle icone</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Zero-width joiner</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Zero-width non-joiner</string>
     <string name="customize_icons_reset_message">Vuoi davvero resettare tutte le icone personalizzate?</string>
-    <string name="label_bin" tools:keep="@string/label_bin">Cestino</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Elimina parola dal dizionario utente</string>
+    <string name="vibrate_in_dnd_mode">Vibrazione attiva in modalità \'Non disturbare\'</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonetico)</string>
+    <string name="prefs_key_emoji_max_sdk">Forza la versione di emoji</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="enable_split_keyboard_landscape">Tastiera divisa (orizzontale)</string>
+    <string name="split_spacer_scale_landscape">Distanza (orizzontale)</string>
+    <string name="split" tools:keep="@string/split">Tastiera divisa</string>
+    <string name="auto_correct_shortcuts_summary">Scorciatoie espanse dalla correzione automatica</string>
+    <string name="delete_confirmation">Vuoi davvero eliminare %s?</string>
+    <string name="custom_font">Scegli font da un file esterno</string>
+    <string name="customize_background_image_landscape">Immagine di sfondo (orizzontale)</string>
+    <string name="summary_customize_background_image_landscape">Se non impostata, sarà la stessa della modalità verticale</string>
+    <string name="customize_toolbar_key_code_reset_message">Vuoi davvero riportare tutti i valori ai predefiniti?</string>
+    <string name="settings_screen_secondary_layouts">Layout secondari</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tasti funzione (schermi grandi)</string>
+    <string name="prefs_bottom_padding_scale_landscape">Spaziatura inferiore (orizzontale)</string>
+    <string name="prefs_font_scale">Dimensione dei caratteri della tastiera</string>
+    <string name="prefs_emoji_font_scale">Dimensione delle emoji</string>
+    <string name="prefs_side_padding_scale">Spaziatura laterale</string>
+    <string name="prefs_side_padding_scale_landscape">Spaziatura laterale (orizzontale)</string>
+    <string name="number_row_hints">Mostra suggerimenti sulla riga dei numeri</string>
+    <string name="auto_correct_shortcuts">Scorciatoie correzione</string>
+    <string name="name_invalid">Nome non valido</string>
+    <string name="prefs_language_swipe_distance">Distanza del trascinamento per il cambio lingua</string>
 </resources>

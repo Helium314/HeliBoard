@@ -452,4 +452,26 @@ Nouveau dictionnaire:
     <string name="customize_icons">Personnaliser les icônes</string>
     <string name="customize_icons_reset_message">Voulez-vous vraiment réinitialiser toutes les icônes personnalisées ?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Corbeille</string>
+    <string name="vibrate_in_dnd_mode">Vibrer en mode Ne pas déranger</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonétique)</string>
+    <string name="prefs_key_emoji_max_sdk">Remplacer la version des Emojis</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">Correction automatique des raccourcis</string>
+    <string name="auto_correct_shortcuts_summary">Lorsque les raccourcis sont activés, ils peuvent être étendus par correction automatique</string>
+    <string name="custom_font">Définir une police personnalisée à partir d\'un fichier</string>
+    <string name="summary_customize_background_image_landscape">Si non défini, l\'image portrait sera utilisée</string>
+    <string name="customize_background_image_landscape">Définir l\'image d\'arrière-plan (paysage)</string>
+    <string name="customize_toolbar_key_code_reset_message">Effacer tous les codes clés personnalisés ?</string>
+    <string name="prefs_bottom_padding_scale_landscape">Hauteur du remplissage inférieur (paysage)</string>
+    <string name="prefs_font_scale">Échelle de police du clavier</string>
+    <string name="prefs_emoji_font_scale">Échelle de police de la vue Emoji</string>
+    <string name="prefs_side_padding_scale_landscape">Espacement latéral (paysage)</string>
+    <string name="prefs_side_padding_scale">Espacement latéral</string>
+    <string name="number_row_hints">Afficher les symboles sur la rangée numérique</string>
+    <string name="prefs_language_swipe_distance">Distance de balayage pour changer de langue</string>
+    <string name="enable_split_keyboard_landscape">Activer le clavier divisé (paysage)</string>
+    <string name="split_spacer_scale_landscape">Distance de séparation (paysage)</string>
+    <string name="split" tools:keep="@string/split">Clavier divisé</string>
+    <string name="delete_confirmation">Voulez-vous vraiment supprimer %s ?</string>
 </resources>

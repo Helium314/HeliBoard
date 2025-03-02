@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Procurar nomes de contac."</string>
     <string name="use_contacts_for_spellchecking_option_summary">"O corretor ortográfico utiliza entradas da sua lista de contactos"</string>
     <string name="vibrate_on_keypress">"Vibrar ao primir as teclas"</string>
@@ -89,7 +89,7 @@
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado em Idiomas e definições de entrada, pelo que este passo está concluído. Vamos avançar para a próxima!\"</string>
     <string name="setup_step1_action">Ativar nas definições</string>
     <string name="setup_step2_title">Alternar para<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">De seguida, selecione <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> como método de introdução.</string>
+    <string name="setup_step2_instruction">De seguida, selecione <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de introdução ativo.\"</string>
     <string name="setup_step2_action">Alternar métodos de introdução</string>
     <string name="setup_step3_title">Parabéns, configuração terminada!</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para escrever nas suas aplicações.</string>
@@ -203,4 +203,17 @@
     <string name="more_autocorrect_summary">Correção automática mesmo quando não é explicitamente solicitada pelo campo de entrada</string>
     <string name="gesture_trail_fadeout_duration">Tempo de vida do rasto do gesto</string>
     <string name="checksum_mismatch_message">Ficheiro de biblioteca desconhecido. Tem a certeza de que o obteve de uma fonte fiável e que é para \'%s\'?</string>
+    <string name="vibrate_in_dnd_mode">Vibrar no modo Não Incomodar</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonético)</string>
+    <string name="prefs_key_emoji_max_sdk">Substituir a versão de Emoji</string>
+    <string name="subtype_dru">Dargínico (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">Atalhos de correção automática</string>
+    <string name="auto_correct_shortcuts_summary">Quando ativado, os atalhos podem ser expandidos pela correção automática</string>
+    <string name="customize_background_image_landscape">Definir imagem de fundo (paisagem)</string>
+    <string name="custom_font">Definir tipo de letra personalizado a partir de um ficheiro</string>
+    <string name="summary_customize_background_image_landscape">Se não for definido, será utilizada a imagem de retrato</string>
+    <string name="customize_toolbar_key_code_reset_message">Limpar realmente todos os códigos de teclas personalizados?</string>
+    <string name="number_row_hints">Mostrar dicas na linha dos números</string>
+    <string name="prefs_language_swipe_distance">Mudar a distância de deslizamento do idioma</string>
 </resources>

@@ -84,7 +84,7 @@
     <string name="setup_next_action">"Pasul următor"</string>
     <string name="setup_steps_title">Se configurează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Activează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Bifează \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" în „Limbi și introducerea textului”. Astfel, o vei autoriza să ruleze pe dispozitiv.</string>
+    <string name="setup_step1_instruction">Bifează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> în „Limbi și introducerea textului”. Astfel, o vei autoriza să ruleze pe dispozitiv.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> este activată deja în „Limbi și introducerea textului”, deci ai finalizat pasul. Treci la următorul!</string>
     <string name="setup_step1_action">Activează în Setări</string>
     <string name="setup_step2_title">Comută la <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
@@ -302,7 +302,7 @@
     <string name="autospace_after_punctuation">Spațiu automat după punctuație</string>
     <string name="autospace_after_punctuation_summary">Se introduce automat spațiu după semnul de punctuație atunci când introduci un cuvânt nou</string>
     <string name="show_popup_keys_title">Afișează mai multe litere cu semne diacritice în pop-up</string>
-    <string name="show_popup_keys_normal">Afișează variantele definite în limbile tastaturii (implicit)</string>
+    <string name="show_popup_keys_normal">Afișează variantele definite în limbile tastaturii</string>
     <string name="prefs_keyboard_height_scale">Scala de înălțime a tastaturii</string>
     <string name="prefs_bottom_padding_scale">Scala de umplere inferioară</string>
     <string name="full_left" tools:keep="@string/full_left">Stânga integral</string>
@@ -334,4 +334,81 @@
     <string name="action_none">Fără</string>
     <string name="space_swipe_move_cursor_entry">Mută cursorul</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="gesture_fast_typing_cooldown_instant">Începe întotdeauna instantaneu</string>
+    <string name="prefs_space_bar_text">Text personalizat pe bara de spațiu</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_show_toolbar">Afișare automată bară de instrumente</string>
+    <string name="customize_currencies">Personalizează monedele</string>
+    <string name="customize_currencies_detail">Setează simboluri valutare principale și până la 6 secundare, separate prin spațiu</string>
+    <string name="quick_pin_toolbar_keys_summary">Aceasta va dezactiva alte acțiuni de apăsare lungă pentru tastele barei de instrumente care nu sunt fixate</string>
+    <string name="settings_screen_toolbar">Bara de instrumente</string>
+    <string name="center_suggestion_text_to_enter">Folosește întotdeauna sugestia de mijloc</string>
+    <string name="center_suggestion_text_to_enter_summary">La apăsarea pe spațiu sau pe semnul de punctuație, va fi introdusă sugestia din mijloc</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rândul Emoji de jos</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul Clipboard de jos</string>
+    <string name="auto_hide_toolbar">Ascundere automată a barei de instrumente</string>
+    <string name="auto_hide_toolbar_summary">Ascunde bara de instrumente când sugestiile devin disponibile</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extins)</string>
+    <string name="copy_to_clipboard">Copiază în clipboard</string>
+    <string name="load">Încarcă</string>
+    <string name="button_save_file">Salvează în fișier</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="page_start" tools:keep="@string/page_start">Începutul paginii</string>
+    <string name="auto_show_toolbar_summary">Afișează bara de instrumente dacă începe introducerea sau este selectat un text</string>
+    <string name="vibrate_in_dnd_mode">Vibrare în modul nu deranjați</string>
+    <string name="language_switch_key_behavior">Comportamentul tastei comutatorului de limbă</string>
+    <string name="gesture_floating_preview_static_summary">Afișează cuvântul sugerat când utilizezi gesturi</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mută previzualizarea în timpul unui gest</string>
+    <string name="gesture_trail_fadeout_duration">Durata de viață a traseului gesturilor</string>
+    <string name="pinned_toolbar_keys">Selectează tastele fixate din bara de instrumente</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Rând de numere</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonetic)</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="key_code">Cod tastă</string>
+    <string name="long_press_code">Cod apăsare lungă</string>
+    <string name="toast_msg_clipboard_copy">Conținut copiat</string>
+    <string name="customize_icons">Personalizează pictogramele</string>
+    <string name="prefs_key_emoji_max_sdk">Suprascrie versiunea Emoji</string>
+    <string name="gesture_floating_preview_static">Previzualizare plutitoare</string>
+    <string name="icon_style">Stilul pictogramei</string>
+    <string name="load_will_overwrite">Încărcarea va suprascrie tema curentă</string>
+    <string name="customize_toolbar_key_codes">Personalizează codurile tastelor din bara de instrumente</string>
+    <string name="suggest_clipboard_content">Sugerează conținut din clipboard</string>
+    <string name="suggest_clipboard_content_summary">Afișează conținutul clipboard copiat recent ca sugestie</string>
+    <string name="page_end" tools:keep="@string/page_end">Sfârșitul paginii</string>
+    <string name="word_left" tools:keep="@string/word_left">Cuvântul din stânga</string>
+    <string name="word_right" tools:keep="@string/word_right">Cuvântul din dreapta</string>
+    <string name="page_up" tools:keep="@string/page_up">Pagină sus</string>
+    <string name="page_down" tools:keep="@string/page_down">Pagină jos</string>
+    <string name="quick_pin_toolbar_keys">Fixează tasta din bara de instrumente la apăsarea lungă</string>
+    <string name="close_history" tools:keep="@string/close_history">Închide istoricul clipboard-ului</string>
+    <string name="clipboard_toolbar_keys">Selectează tastele barei de instrumente clipboard</string>
+    <string name="switch_keyboard_after">Comutare la tastatura principală după…</string>
+    <string name="after_emoji">Se selectează emoji în vizualizarea emoji</string>
+    <string name="after_clip">Se selectează intrarea în istoric din clipboard</string>
+    <string name="after_symbol_and_space">Apăsând enter sau spațiu după alte taste în vizualizarea simbolurilor</string>
+    <string name="space_swipe_toggle_numpad_entry">Comutare Numpad</string>
+    <string name="show_popup_keys_main">Adaugă variante foarte comune (implicit)</string>
+    <string name="remove_redundant_popups">Elimină ferestrele pop-up redundante</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="more_colors">Arată mai multe culori</string>
+    <string name="all_colors_warning">Această setare expune toate culorile care sunt utilizate intern. Lista de culori se poate schimba în orice moment. Culoarea implicită este aleatorie, iar numele nu vor fi traduse.</string>
+    <string name="customize_functional_key_layouts">Personalizează aspectul tastelor funcționale</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Taste funcționale</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Taste funcționale (Simboluri)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Taste funcționale (Mai multe simboluri)</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Şterge</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (activat)</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spațiu (dispunerea numerelor)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Încheie modul cu o singură mână</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Redimensionează modul cu o singură mână</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Schimbă partea modului cu o singură mână</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Introducerea vocală este dezactivată</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Afișează/ascunde bara de instrumente</string>
+    <string name="customize_icons_reset_message">Resetezi cu adevărat toate pictogramele personalizate?</string>
 </resources>

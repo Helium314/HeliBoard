@@ -3,7 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_for_spellchecking_option_title">"Cerca noms de contactes"</string>
     <string name="use_contacts_for_spellchecking_option_summary">"El corrector ortogràfic utilitza entrades de la llista de contactes"</string>
     <string name="vibrate_on_keypress">"Vibra en prémer tecles"</string>
@@ -14,10 +14,10 @@
     <string name="settings_screen_correction">"Correcció de textos"</string>
     <string name="settings_screen_advanced">"Configuració avançada"</string>
     <string name="settings_screen_theme">"Tema"</string>
-    <string name="enable_split_keyboard">"Activa el teclat partit"</string>
+    <string name="enable_split_keyboard">Activa el teclat dividit</string>
     <string name="language_switch_key_switch_input_method">"Altres mètodes d\'introducció"</string>
     <string name="show_language_switch_key">"Tecla de canvi d\'idioma"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="settings_system_default">"Predeterminat"</string>
     <string name="use_contacts_dict">"Suggereix noms de contactes"</string>
     <string name="use_contacts_dict_summary">"Utilitza els noms de contactes per fer suggeriments i correccions"</string>
@@ -29,44 +29,44 @@
     <string name="edit_personal_dictionary">"Diccionari personal"</string>
     <string name="configure_dictionaries_title">"Diccionaris complementaris"</string>
     <string name="main_dictionary">"Diccionari principal"</string>
-    <string name="prefs_show_suggestions">"Suggeriments de correcció"</string>
+    <string name="prefs_show_suggestions">Mostra suggeriments de correcció</string>
     <string name="prefs_show_suggestions_summary">"Mostra les paraules suggerides mentre escrius"</string>
     <string name="prefs_block_potentially_offensive_title">"Bloqueja paraules ofensives"</string>
     <string name="prefs_block_potentially_offensive_summary">"No suggereixis paraules potencialment ofensives"</string>
-    <string name="autocorrect">"Correcció automàtica"</string>
+    <string name="autocorrect">Autocorrecció</string>
     <string name="auto_correction_summary">"Tecla d\'espai i signes de puntuació corregeixen paraules amb errors"</string>
     <string name="auto_correction_threshold_mode_off">"Desactiva"</string>
     <string name="auto_correction_threshold_mode_modest">"Moderada"</string>
     <string name="auto_correction_threshold_mode_aggressive">"Agressiu"</string>
     <string name="auto_correction_threshold_mode_very_aggressive">"Molt agressiu"</string>
-    <string name="bigram_prediction">"Suggeriments paraula següent"</string>
+    <string name="bigram_prediction">Suggeriments de paraula següent</string>
     <string name="bigram_prediction_summary">"Utilitza la paraula anterior per fer suggeriments"</string>
     <string name="gesture_input">"Activa l\'escriptura gestual"</string>
     <string name="gesture_input_summary">"Escriu una paraula fent lliscar el dit per les lletres"</string>
-    <string name="gesture_preview_trail">"Mostra el recorregut del gest"</string>
+    <string name="gesture_preview_trail">Mostra el rastre del gest</string>
     <string name="gesture_floating_preview_text">"Previsualització dinàmica flotant"</string>
     <string name="gesture_space_aware">"Gest de frase"</string>
     <string name="gesture_space_aware_summary">"Per afegir espais als gestos, apropa el dit a la tecla d\'espai"</string>
-    <string name="subtype_en_GB">"anglès (Regne Unit)"</string>
-    <string name="subtype_en_US">"anglès (EUA)"</string>
+    <string name="subtype_en_GB">Anglès (Regne Unit)</string>
+    <string name="subtype_en_US">Anglès (EUA)</string>
     <string name="subtype_es_US">"Espanyol (EUA)"</string>
-    <string name="subtype_hi_Latn">Hinglès</string>
+    <string name="subtype_hi_Latn">Hinglish</string>
     <string name="subtype_sr_Latn">"Serbi (llatí)"</string>
     <string name="subtype_with_layout_en_GB">Anglès (Regne Unit) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Angles (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">Anglès (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_es_US">Espanyol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglès (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">Serbi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacte)</string>
-    <string name="subtype_no_language">"cap idioma (alfabet)"</string>
+    <string name="subtype_no_language">Cap idioma (alfabet)</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
     <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
     <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
     <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
     <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
-    <string name="subtype_emoji">"Emoji"</string>
+    <string name="subtype_emoji">Emojis</string>
     <string name="add">"Afegeix"</string>
     <string name="remove">"Elimina"</string>
     <string name="save">"Desa"</string>
@@ -75,21 +75,21 @@
     <string name="prefs_keypress_vibration_duration_settings">"Durada vibració en prémer"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volum so en prémer tecla"</string>
     <string name="prefs_key_longpress_timeout_settings">"Retard en mantenir premut"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Emoji per al teclat físic"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Amb la tecla Alt del teclat físic es mostra la paleta d\'emoji"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Emojis amb el teclat físic</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Amb la tecla Alt del teclat físic es mostra la paleta d\'emojis</string>
     <string name="button_default">"Predeterminat"</string>
-    <string name="setup_welcome_title">Us donem la benvinguda a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">"amb Escriptura gestual"</string>
+    <string name="setup_welcome_title">Us donem la benvinguda a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_additional_description">amb escriptura gestual</string>
     <string name="setup_start_action">"Comença"</string>
     <string name="setup_next_action">"Pas següent"</string>
-    <string name="setup_steps_title">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>…</string>
-    <string name="setup_step1_title">Activa <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Comproveu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» a la configuració d\'idioma i entrada de text. D\'aquesta manera, es podrà executar al dispositiu.</string>
-    <string name="setup_step1_finished_instruction">L\'aplicació <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idioma i entrada de text. Aneu al pas següent.</string>
-    <string name="setup_step1_action">"Activa a la configuració"</string>
-    <string name="setup_step2_title">Canvia a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">A continuació, seleccioneu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» com a mètode d\'entrada de text actiu.</string>
-    <string name="setup_step2_action">"Canvia els mètodes d\'introducció"</string>
+    <string name="setup_steps_title">S\'està configurant<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Habilita<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_instruction">Comproveu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.\"</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idiomes i entrada, així que ja s\'ha acabat aquest pas. Cap al següent!\"</string>
+    <string name="setup_step1_action">Habilita a la configuració</string>
+    <string name="setup_step2_title">Canvia a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_instruction">A continuació, seleccioneu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" com a mètode d\'entrada de text actiu.\"</string>
+    <string name="setup_step2_action">Canvia els mètodes d\'entrada</string>
     <string name="setup_step3_title">"Enhorabona, ja has acabat!"</string>
     <string name="setup_step3_instruction">Ara ja podeu escriure en totes les vostres aplicacions preferides amb <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Finalitzat"</string>
@@ -98,7 +98,7 @@
     <string name="dictionary_settings_title">"Diccionaris complementaris"</string>
     <string name="dictionary_settings_summary">"Configuració dels diccionaris"</string>
     <string name="dictionary_available">"Diccionari disponible"</string>
-    <string name="cannot_connect_to_dict_service">"Error en connectar amb el diccionari"</string>
+    <string name="cannot_connect_to_dict_service">Problema en connectar-se al servei de diccionari</string>
     <string name="no_dictionaries_available">"Cap diccion. dispon."</string>
     <string name="last_update">"Última actualització"</string>
     <string name="main_dict_description">"Diccionari principal"</string>
@@ -115,21 +115,21 @@
     <string name="user_dict_settings_empty_text">"No tens cap paraula al diccionari de l\'usuari. Toca el botó Afegeix (+) per afegir-n\'hi una."</string>
     <string name="user_dict_settings_all_languages">"Per a tots els idiomes"</string>
     <string name="user_dict_settings_more_languages">"Més idiomes…"</string>
-    <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+    <string name="user_dict_fast_scroll_alphabet">" ABCÇDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_category_clipboard_history">Historial del porta-retalls</string>
     <string name="settings_no_limit">Sense límit</string>
-    <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà els continguts del porta-retalls en cas que contingui alguna cosa.</string>
+    <string name="enable_clipboard_history_summary">Si es desactiva, la tecla del porta-retalls enganxarà el contingut del porta-retalls si n\'hi ha</string>
     <string name="clipboard_history_retention_time">Temps de manteniment a l\'historial</string>
-    <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop.</string>
+    <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop</string>
     <string name="incognito">Força el mode d\'incògnit</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="spell_checker_service_name">Corrector ortogràfic de l\'HeliBoard</string>
     <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'HeliBoard</string>
     <string name="delete_swipe">Esborra amb lliscament</string>
-    <string name="show_emoji_key">Tecla d\'accés a emoticones</string>
-    <string name="prefs_force_incognito_mode_summary">Desactiva l\'aprenentatge de paraules noves.</string>
-    <string name="number_row">Numera les files</string>
-    <string name="number_row_summary">Mostra sempre el número de fila.</string>
+    <string name="show_emoji_key">Tecla d\'accés a emojis</string>
+    <string name="prefs_force_incognito_mode_summary">Desactiva l\'aprenentatge de paraules noves</string>
+    <string name="number_row">Fila de nombres</string>
+    <string name="number_row_summary">Mostra sempre la fila de nombres</string>
     <string name="ime_settings">Configuració de l\'HeliBoard</string>
     <string name="settings_category_input">Entrada</string>
     <string name="settings_category_miscellaneous">Miscel·lània</string>
@@ -142,28 +142,297 @@
     <string name="enable_clipboard_history">Activa l\'historial del porta-retalls</string>
     <string name="autospace_after_punctuation">Espai automàtic després d\'un signe de puntuació</string>
     <string name="more_keys_strip_description">Més tecles</string>
-    <string name="show_hints">Mostra consells de dreceres de teclat</string>
-    <string name="autospace_after_punctuation_summary">Si s\'activa, s\'insereix un espai automàticament després de cada signe de puntuació quan es comença a escriure una paraula nova.</string>
-    <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantenint premuda la barra espaiadora s\'obrirà el menú de selecció del mètode d\'entrada.</string>
+    <string name="show_hints">Mostra consells de tecles</string>
+    <string name="autospace_after_punctuation_summary">Si s\'activa, s\'insereix un espai automàticament després de cada signe de puntuació quan es comença a escriure una paraula nova</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantenint premuda la barra espaiadora s\'obrirà el menú de selecció del mètode d\'entrada</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Canvia el mètode d\'entrada amb la barra espaiadora</string>
-    <string name="show_hints_summary">Mostra consells quan es mantingui premuda una tecla.</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="show_hints_summary">Mostra consells quan es mantingui premuda una tecla</string>
+    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <string name="prefs_keyboard_height_scale">Escala de l\'alçada del teclat</string>
-    <string name="subtype_no_language_workman">Alfabètic (Workman)</string>
-    <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema.</string>
-    <string name="subtype_no_language_colemak_dh">Alfabètic (Colemak Mod-DH)</string>
+    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
+    <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema</string>
+    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
-    <string name="select_input_method">"Selecciona un mètode d\'introducció"</string>
+    <string name="select_input_method">Selecciona un mètode d\'entrada</string>
     <string name="undo">"Desfés"</string>
     <string name="redo">"Refés"</string>
-    <string name="use_personalized_dicts_summary">"Considera comunicacions i dades introd. per millorar suggeriments"</string>
+    <string name="use_personalized_dicts_summary">Aprèn de les teves comunicacions i de les dades escrites per millorar els suggeriments</string>
     <string name="label_go_key">"Ves"</string>
-    <string name="label_next_key">"Seg."</string>
+    <string name="label_next_key">Seg.</string>
     <string name="label_previous_key">"Ant."</string>
     <string name="label_done_key">"Fet"</string>
     <string name="label_send_key">"Envia"</string>
     <string name="label_search_key">"Cerca"</string>
-    <string name="label_pause_key">"Posa en pausa"</string>
-    <string name="label_wait_key">"Esp."</string>
+    <string name="label_pause_key">Pausa</string>
+    <string name="label_wait_key">Espera</string>
+    <string name="gesture_floating_preview_static">Vista prèvia flotant</string>
+    <string name="split_spacer_scale">Distància de divisió</string>
+    <string name="more_autocorrect">Més autocorrecció</string>
+    <string name="center_suggestion_text_to_enter">Fes servir sempre el suggeriment del mig</string>
+    <string name="center_suggestion_text_to_enter_summary">En prémer espai o signe de puntuació, s\'introduirà el suggeriment del mig</string>
+    <string name="prefs_always_show_suggestions_summary">Ignora la sol·licitud d\'altres apps per desactivar els suggeriments (pot causar problemes)</string>
+    <string name="switch_language">Canvia l\'idioma</string>
+    <string name="vibrate_in_dnd_mode">Vibra en mode No Molestar</string>
+    <string name="language_switch_key_switch_both">Canvia ambdós</string>
+    <string name="add_to_personal_dictionary">Afegeix paraules al diccionari personal</string>
+    <string name="add_to_personal_dictionary_summary">Utilitza el diccionari personal del dispositiu per desar les paraules apreses</string>
+    <string name="prefs_always_show_suggestions">Mostra suggeriments sempre</string>
+    <string name="more_autocorrect_summary">Autocorrecció fins i tot quan no ho sol·liciti explícitament el camp d\'entrada</string>
+    <string name="gesture_floating_preview_dynamic_summary">Mou la vista prèvia durant un gest</string>
+    <string name="auto_correct_shortcuts">Dreceres d\'autocorrecció</string>
+    <string name="auto_correct_shortcuts_summary">Quan s\'activa, les dreceres poden ser ampliades per l\'autocorrecció</string>
+    <string name="gesture_floating_preview_static_summary">Mostra la paraula suggerida mentre feu un gest</string>
+    <string name="suggest_clipboard_content">Suggereix contingut del porta-retalls</string>
+    <string name="suggest_clipboard_content_summary">Mostra el contingut del porta-retalls copiat recentment com a suggeriment</string>
+    <string name="language_switch_key_behavior">Comportament de la tecla de canvi d\'idioma</string>
+    <string name="disable_personalized_dicts_message">Avís: si desactiveu aquesta opció s\'esliminaran les dades apreses</string>
+    <string name="gesture_trail_fadeout_duration">Vida útil del rastre de gestos</string>
+    <string name="gesture_fast_typing_cooldown">Temps d\'aturada d\'escriptura ràpida</string>
+    <string name="gesture_fast_typing_cooldown_instant">Inicia sempre a l\'instant</string>
+    <string name="backup_restore_title">Còpia de seguretat i restauració</string>
+    <string name="localized_number_row">Localitza la fila de nombres</string>
+    <string name="one_handed" tools:keep="@string/one_handed">Mode d\'una sola mà</string>
+    <string name="full_left" tools:keep="@string/full_left">Tot a l\'esquerra</string>
+    <string name="full_right" tools:keep="@string/full_right">Tot a la dreta</string>
+    <string name="pinned_toolbar_keys">Seleccioneu les tecles de la barra d\'eines fixades</string>
+    <string name="emoji" tools:keep="@string/emoji">Emojis</string>
+    <string name="prefs_space_bar_text">Text personalitzat a la barra espaiadora</string>
+    <string name="customize_currencies">Personalitza divises</string>
+    <string name="customize_currencies_detail">Estableix símbols de moneda principal i fins a 6 secundaris, separats per espai</string>
+    <string name="button_add_to_language">Afegir a %s</string>
+    <string name="localized_number_row_summary">Prefereix els localitzats als nombres llatins</string>
+    <string name="quick_pin_toolbar_keys">Fixa la tecla de la barra d\'eines en prémer llargament</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de nombres</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioritat)</string>
+    <string name="hint_source">Selecciona l\'origen del consell</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Disposició</string>
+    <string name="popup_order">Selecciona l\'ordre de les tecles ampliades</string>
+    <string name="select_word" tools:keep="@string/select_word">Selecciona la paraula</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del porta-retalls</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior d\'emojis</string>
+    <string name="setup_step3_action">Configura el teclat</string>
+    <string name="internal_dictionary_summary">Diccionari principal intern</string>
+    <string name="add_new_dictionary_title">Afegeix diccionari des de fitxer</string>
+    <string name="add_new_dictionary_ask_locale">A quin idioma s\'ha d\'afegir el diccionari \"%1$s\" de %2$s?</string>
+    <string name="button_select_language">Selecciona l\'idioma</string>
+    <string name="replace_dictionary_message">Realment substituir el diccionari afegit per l\'usuari «%1$s»?\n\nDiccionari actual:\n%2$s\n\nNou diccionari:\n%3$s</string>
+    <string name="replace_dictionary">Substitueix diccionari</string>
+    <string name="remove_dictionary_message">Eliminar realment el diccionari afegit per l\'usuari «%s»?</string>
+    <string name="clipboard_toolbar_keys">Selecciona les tecles de la barra d\'eines del porta-retalls</string>
+    <string name="close_history" tools:keep="@string/close_history">Tanca l\'historial del porta-retalls</string>
+    <string name="title_layout_name_select">Estableix el nom de la disposició</string>
+    <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbols (Àrab)</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbols</string>
+    <string name="customize_symbols_number_layouts">Personalitza símbols i disposicions de nombres</string>
+    <string name="load">Carrega</string>
+    <string name="show_popup_keys_title">Mostra més lletres amb signes diacrítics a l\'ampliació</string>
+    <string name="prefs_narrow_key_gaps">Reduir els espais entre tecles</string>
+    <string name="edit_layout">Toca per editar la disposició en brut</string>
+    <string name="delete_layout">Suprimir realment la disposició personalitzada %s?</string>
+    <string name="layout_error">Error de disposició: %s</string>
+    <string name="customize_background_image">Estableix la imatge de fons</string>
+    <string name="file_read_error">No es pot llegir el fitxer</string>
+    <string name="message_add_custom_layout">Seleccioneu un fitxer en un format compatible. La informació sobre els formats està disponible %s.</string>
+    <string name="button_save_file">Desa al fitxer</string>
+    <string name="url_detection_summary">Intenta detectar URL i similars com una sola paraula</string>
+    <string name="page_start" tools:keep="@string/page_start">Inici de pàgina</string>
+    <string name="page_end" tools:keep="@string/page_end">Final de pàgina</string>
+    <string name="left" tools:keep="@string/left">Esquerra</string>
+    <string name="right" tools:keep="@string/right">Dreta</string>
+    <string name="language_and_layouts_title">Idiomes i disposicions</string>
+    <string name="subtype_xdq">Kaytak</string>
+    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Estès)</string>
+    <string name="button_load_custom">Carrega fitxer</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonètic)</string>
+    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
+    <string name="button_title_add_custom_layout">Afegeix una disposició personalitzada</string>
+    <string name="copy_to_clipboard">Copia al porta-retalls</string>
+    <string name="button_copy_existing_layout">Copia la disposició existent</string>
+    <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Més símbols</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
+    <string name="prefs_key_emoji_max_sdk">Anul·la la versió d\'emojis</string>
+    <string name="subtype_dru">Darguà (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Darguà (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Símbols telefònics</string>
+    <string name="layout_number" tools:keep="@string/layout_number">Nombres</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">Teclat numèric</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Fila de nombres</string>
+    <string name="backup_restore_message">Desa o carrega des del fitxer. Avís: la restauració sobreescriurà les dades existents</string>
+    <string name="backup_error">Error de còpia de seguretat: %s</string>
+    <string name="restore_error">Error en restaurar la còpia de seguretat: %s</string>
+    <string name="button_backup">Còpia de seguretat</string>
+    <string name="button_restore">Restaura</string>
+    <string name="secondary_locale">Escriptura multilingüe</string>
+    <string name="load_gesture_library_summary">Proporciona una biblioteca nativa per habilitar l\'escriptura per gestos</string>
+    <string name="show_popup_keys_normal">Mostra les variants definides en els idiomes del teclat</string>
+    <string name="show_popup_keys_more">Afegeix variants habituals</string>
+    <string name="show_popup_keys_all">Afegeix totes les variants disponibles</string>
+    <string name="url_detection_title">Detecció d\'URL</string>
+    <string name="up" tools:keep="@string/up">Amunt</string>
+    <string name="down" tools:keep="@string/down">Avall</string>
+    <string name="word_left" tools:keep="@string/word_left">Paraula a l\'esquerra</string>
+    <string name="word_right" tools:keep="@string/word_right">Paraula a la dreta</string>
+    <string name="page_up" tools:keep="@string/page_up">Pàgina amunt</string>
+    <string name="page_down" tools:keep="@string/page_down">Pàgina avall</string>
+    <string name="show_popup_hints_summary">Mostra consells si la pressió llarga d\'una tecla activa una funcionalitat addicional</string>
+    <string name="quick_pin_toolbar_keys_summary">Això desactivarà altres accions de pressió llarga per a les tecles de la barra d\'eines que no estiguin fixades</string>
+    <string name="prefs_long_press_symbol_for_numpad">Pressió llarga a la tecla de símbols per al teclat numèric</string>
+    <string name="prefs_bottom_padding_scale">Escala de farciment inferior</string>
+    <string name="load_gesture_library">Carrega la biblioteca d\'escriptura gestual</string>
+    <string name="load_gesture_library_message">Necessitareu la biblioteca per a \'%s\'. Les biblioteques incompatibles poden fallar quan s\'utilitza l\'escriptura gestual. \n\nAvís: carregar codi extern pot suposar un risc de seguretat. Utilitzeu només una biblioteca d\'una font de confiança.</string>
+    <string name="load_gesture_library_button_load">Carregar biblioteca</string>
+    <string name="load_gesture_library_button_delete">Suprimir la biblioteca</string>
+    <string name="checksum_mismatch_message">Fitxer de biblioteca desconegut. Segur que l\'heu obtingut d\'una font de confiança i que és per a «%s»?</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbols</string>
+    <string name="toolbar_keys">Selecciona les tecles de la barra d\'eines</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Porta-retalls</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Esborra el porta-retalls</string>
+    <string name="voice" tools:keep="@string/voice">Entrada de veu</string>
+    <string name="custom_font">Estableix un tipus de lletra personalitzat des de fitxer</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Teclat numèric (apaïsat)</string>
+    <string name="customize_background_image_landscape">Estableix imatge de fons (apaïsat)</string>
+    <string name="summary_customize_background_image_landscape">Si no s\'estableix, s\'utilitzarà la imatge vertical</string>
+    <string name="after_symbol_and_space">Prémer Intro o espai després d\'altres tecles a la vista de símbols</string>
+    <string name="day_or_night_image">Establir la imatge per al mode dia o nocturn?</string>
+    <string name="day_or_night_day">Dia</string>
+    <string name="day_or_night_night">Nit</string>
+    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="show_popup_hints">Mostra consells funcionals</string>
+    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaytak (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="switch_keyboard_after">Canvia al teclat principal després de…</string>
+    <string name="after_clip">Seleccionar l\'entrada de l\'historial del porta-retalls</string>
+    <string name="after_emoji">Seleccionar emoji a la visualització d\'emojis</string>
+    <string name="dictionary_settings_category">Diccionaris</string>
+    <string name="show_popup_keys_main">Afegeix variants molt habituals (per defecte)</string>
+    <string name="remove_redundant_popups_summary">Suprimeix les ampliacions de tecla que ja estan presents a la disposició base</string>
+    <string name="remove_redundant_popups">Elimina les ampliacions redundants</string>
+    <string name="customize_functional_key_layouts">Personalitza les disposicions de tecles funcionals</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Tecles funcionals</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tecles funcionals (Símbols)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tecles funcionals (Més símbols)</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudiant)</string>
+    <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau Gris</string>
+    <string name="dialog_close">Tancar</string>
+    <string name="gnu_gpl">Llicència pública general GNU v3.0</string>
+    <string name="var_toolbar_direction">Direcció variable de la barra d\'eines</string>
+    <string name="auto_hide_toolbar_summary">Amaga la barra d\'eines quan els suggeriments estiguin disponibles</string>
+    <string name="dictionary_file_wrong_script">Error: l\'script no és compatible amb aquest teclat</string>
+    <string name="no_dictionary_message">"Sense un diccionari, només rebràs suggeriments per al text que has introduït abans.&lt;br&gt;\n         Podeu baixar els diccionaris %1$s o comprovar si un diccionari per a «%2$s» es pot baixar directament %3$s."</string>
+    <string name="user_dict_settings_add_weight_value">Pes:</string>
+    <string name="auto_show_toolbar">Mostra automàtica de la barra d\'eines</string>
+    <string name="auto_show_toolbar_summary">Mostra la barra d\'eines si s\'inicia l\'entrada o si selecciona text</string>
+    <string name="var_toolbar_direction_summary">Inverteix la direcció quan es selecciona un subtipus de teclat de dreta a esquerra</string>
+    <string name="dictionary_file_wrong_locale_ok">Encara s\'utilitza</string>
+    <string name="dictionary_load_error">Error en carregar el fitxer del diccionari</string>
+    <string name="theme_style">Estil</string>
+    <string name="select_user_colors_summary">Seleccioneu colors per al text i els fons</string>
+    <string name="select_color_background">Fons del teclat</string>
+    <string name="select_color_key">Text de la tecla</string>
+    <string name="show_horizontal_space_swipe">Gest de lliscar la barra espaiadora horitzontal</string>
+    <string name="dictionary_file_wrong_locale">El fitxer seleccionat és per a %1$s, però s\'esperava %2$s. Encara el feu servir per a %2$s?</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Ennuvolat</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosc</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
+    <string name="settings_screen_about">Quant a</string>
+    <string name="version">Versió</string>
+    <string name="about_github_link">Veure a GitHub</string>
+    <string name="save_log">Desa el registre</string>
+    <string name="select_color_spacebar_text">Text de la barra espaiadora</string>
+    <string name="select_color_accent">Accent</string>
+    <string name="select_color_gesture">Entrada gestual</string>
+    <string name="settings_screen_appearance">Aparença</string>
+    <string name="text_tap_languages">Toqueu l\'idioma per obrir la configuració</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Bloq. de majs.</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espai (disposició numèrica)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Finalitzar el mode amb una sola mà</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Canvia la mida del mode amb una sola mà</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Canvia el costat del mode amb una sola mà</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Entrada de veu desactivada</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostra/amaga la barra d\'eines</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">No-unió d\'amplada zero</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Unió d\'amplada zero</string>
+    <string name="show_vertical_space_swipe">Gest de lliscar la barra espaiadora vertical</string>
+    <string name="action_none">Cap</string>
+    <string name="key_code">Codi de tecla</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Arrodonit</string>
+    <string name="load_will_overwrite">La càrrega sobreescriurà el tema actual</string>
+    <string name="hint_show_keyboard">Feu clic per a una vista prèvia</string>
+    <string name="main_colors">Mostra només els colors principals</string>
+    <string name="all_colors_warning">Aquesta configuració exposa tots els colors que s\'utilitzen internament. La llista de colors pot canviar en qualsevol moment. El color predeterminat és aleatori i els noms no es traduiran.</string>
+    <string name="hidden_features_title">Descripció de les característiques ocultes</string>
+    <string name="no_dictionary_dont_show_again_button">No tornis a mostrar</string>
+    <string name="add_dictionary">Seleccioneu un diccionari per afegir. Els diccionaris en format .dict es poden baixar %s.</string>
+    <string name="dictionary_link_text">aquí</string>
+    <string name="available_dictionary_experimental">%s (experimental)</string>
+    <string name="user_dict_word_already_present">Aquesta paraula ja està present al diccionari de l\'usuari %s. Escriu-ne una altra.</string>
+    <string name="user_dict_add_word_button">Afegeix una paraula</string>
+    <string name="theme_colors">Colors</string>
+    <string name="theme_navbar">Barra de navegació en color</string>
+    <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Blanc</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Fosc</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Més fosc</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Colors dinàmics</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Marró</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">Definit per l\'usuari</string>
+    <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definit per l\'usuari (nit)</string>
+    <string name="auto_user_color">Tria el color automàticament</string>
+    <string name="more_colors">Mostra més colors</string>
+    <string name="all_colors">Mostra tots els colors</string>
+    <string name="select_color_key_hint">Text de la pista de la tecla</string>
+    <string name="select_color_suggestion">Text de la tira de suggeriments</string>
+    <string name="select_color_key_background">Fons de la tecla</string>
+    <string name="select_color_spacebar_background">Fons de la barra espaiadora</string>
+    <string name="settings_screen_toolbar">Barra d\'eines</string>
+    <string name="hidden_features_summary">Mostra característiques que poden passar desapercebudes</string>
+    <string name="hidden_features_text">emmagatzematge protegit del dispositiu</string>
+    <string name="space_swipe_move_cursor_entry">Mou el cursor</string>
+    <string name="space_swipe_toggle_numpad_entry">Commuta el teclat numèric</string>
+    <string name="customize_toolbar_key_codes">Personalitza els codis de tecles de la barra d\'eines</string>
+    <string name="auto_hide_toolbar">Oculta automàticament la barra d\'eines</string>
+    <string name="long_press_code">Codi de pressió llarg</string>
+    <string name="toast_msg_clipboard_copy">Contingut copiat</string>
+    <string name="dictionary_file_error">Error: el fitxer seleccionat no és un fitxer de diccionari vàlid</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceà</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Sorra</string>
+    <string name="customize_toolbar_key_code_reset_message">Esborrar realment tots els codis de tecla personalitzats?</string>
+    <string name="customize_icons">Personalitza les icones</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">Negre</string>
+    <string name="select_user_colors_night">Ajustar els colors (nit)</string>
+    <string name="select_user_colors">Ajustar els colors</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab.</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Esborra</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Majs.</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">MAJS.</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Intro</string>
+    <string name="icon_style">Estil d\'icona</string>
+    <string name="theme_colors_night">Colors (nit)</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">Clar</string>
+    <string name="license">Llicència de codi obert</string>
+    <string name="select_color_functional_key_background">Fons de la tecla funcional</string>
+    <string name="hidden_features_message">► Si premeu llargament les tecles de la barra d\'eines fixades, s\'ofereix una funcionalitat addicional:&lt;br&gt;\n\t • porta-retalls &amp;#65515; enganxa &lt;br&gt;\n\t • moure a l\'esquerra/dreta &amp;#65515; paraula esquerra/dreta &lt;br&gt;\n\t • moure amunt/avall &amp;#65515; pàgina amunt/avall&lt;br&gt;\n\t • paraula esquerra/dreta &amp;#65515; inici/final de línia&lt;br&gt;\n\t • pàgina amunt/avall &amp;#65515; inici/final de la pàgina&lt;br&gt;\n\t • còpia &amp;#65515; talla&lt;br&gt;\n\t • selecciona la paraula &amp;#8596; selecciona-ho tot&lt;br&gt;\n\t • desfer &amp;#8596; refer&lt;br&gt;&lt;br&gt;\n► Prémer llargament les tecles de la barra d\'eines de la tira de suggeriments les fixa a la tira de suggeriments.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla de coma per accedir a la vista del porta-retalls, la vista d\'emoji, el mode d\'una mà, la configuració o canviar l\'idioma:&lt;br&gt;\n\t • La visualització d\'emoji i el canvi d\'idioma desapareixeran si teniu activada la tecla corresponent;&lt;br&gt;\n\t • Per a algunes disposicions no és la tecla de coma, sinó la tecla a la mateixa posició (per exemple, és \'q\' per a la disposició Dvorak).&lt;br&gt;&lt;br&gt;\n► Quan el mode d\'incògnit està activat, no s\'aprendran paraules ni s\'afegiran emojis als recents.&lt;br&gt;&lt;br&gt;\n► Premeu la icona d\'incògnit per accedir a la barra d\'eines.&lt;br&gt;&lt;br&gt;\n► Entrada de tecla lliscant: llisca des de majúscules a una altra tecla per escriure una sola tecla en majúscula:&lt;br&gt;\n\t • Això també funciona per a la tecla \'?123\' per escriure un sol símbol des del teclat de símbols i per a tecles relacionades.&lt;br&gt;&lt;br&gt;\n► Manteniu premuda la tecla majúscules o símbol, premeu una o més tecles i, a continuació, deixeu anar la tecla majúscules o símbol per tornar al teclat anterior.&lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment a la banda de suggeriments per mostrar més suggeriments i un botó d\'eliminació per eliminar aquest suggeriment.&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap amunt des d\'un suggeriment per obrir-ne més i deixeu anar el suggeriment per seleccionar-lo.&lt;br&gt;&lt;br&gt;\n► Premeu llargament una entrada a l\'historial del porta-retalls per fixar-la (mantingueu-la al porta-retalls fins que no la desfixeu).&lt;br&gt;&lt;br&gt;\n► Feu lliscar el dit cap a l\'esquerra a la vista del porta-retalls per eliminar una entrada (excepte quan estigui fixada)&lt;br&gt;&lt;br&gt;\n► Seleccioneu text i premeu majúscules per canviar entre les majúscules, les minúscules i les majúscules.&lt;br&gt;&lt;br&gt;\n► Podeu afegir diccionaris obrint-los en un explorador de fitxers:&lt;br&gt;\n\t • Això només funciona amb &lt;i&gt;URIs de contingut&lt;/i&gt; i no amb &lt;i&gt;URIs d\'arxiu&lt;/i&gt;, el que significa que pot ser que no funcioni amb alguns exploradors de fitxers.&lt;br&gt;&lt;br&gt;\n► Per als usuaris que fan còpies de seguretat manuals amb accés root:&lt;br&gt;\n\t • A partir d\'Android 7, el fitxer de preferències compartides no es troba a la ubicació predeterminada, perquè l\'aplicació utilitza %s. Això és necessari perquè la configuració es pugui llegir abans de desbloquejar el dispositiu, p. a l\'arrencada; br&gt;\n\t • El fitxer es troba a /data/user_de/0/package_id/shared_prefs/ tot i que això pot dependre del dispositiu i de la versió d\'Android.&lt;br&gt;&lt;br&gt;\n&lt;i&gt;&lt;b&gt;Mode de depuració/APK de depuració&lt;/b&gt;&lt;/i&gt; &lt;br&gt;&lt;br&gt;\n► Premeu llargament un suggeriment per mostrar el diccionari d\'origen.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'APK de depuració, podeu trobar la configuració de depuració a les Preferències avançades, tot i que la utilitat és limitada excepte per abocar diccionaris al registre.&lt;br&gt;\n\t • Per a una versió APK, cal que toqueu la versió a &lt;i&gt;Quant a&lt;/i&gt; diverses vegades i, a continuació, podeu trobar la configuració de depuració a &lt;i&gt;Preferències avançades&lt;/i&gt;.&lt;br&gt;\n\t • Quan activeu &lt;i&gt;Mostra informació de suggeriments&lt;/i&gt;, els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font.&lt;br&gt;&lt;br&gt;\n► En cas d\'error de l\'aplicació, se us demanarà si voleu els registres d\'error quan obriu la configuració.&lt;br&gt;&lt;br&gt;\n► Quan utilitzeu l\'escriptura multilingüe, la barra espaiadora mostrarà un valor de confiança utilitzat per determinar l\'idioma utilitzat actualment.&lt;br&gt;&lt;br&gt;\n► Els suggeriments tindran alguns nombres minúsculs a la part superior que mostren una puntuació interna i un diccionari font (es pot desactivar).</string>
+    <string name="customize_icons_reset_message">Restablir realment totes les icones personalitzades?</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Paperera</string>
+    <string name="prefs_bottom_padding_scale_landscape">Escala de farciment inferior (apaïsat)</string>
+    <string name="prefs_font_scale">Escala de lletra del teclat</string>
+    <string name="prefs_emoji_font_scale">Escala de lletra de visualització d\'emoji</string>
+    <string name="prefs_side_padding_scale_landscape">Escala de farciment lateral (apaïsat)</string>
+    <string name="prefs_side_padding_scale">Escala de farciment lateral</string>
+    <string name="number_row_hints">Mostra suggeriments a la fila de nombres</string>
+    <string name="prefs_language_swipe_distance">Canvia la distància de lliscament d\'idioma</string>
+    <string name="split_spacer_scale_landscape">Distància de separació (apaïsat)</string>
+    <string name="enable_split_keyboard_landscape">Activa el teclat dividit (apaïsat)</string>
+    <string name="split" tools:keep="@string/split">Teclat dividit</string>
+    <string name="delete_confirmation">Voleu suprimir %s?</string>
+    <string name="settings_screen_secondary_layouts">Disposicions secundàries</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tecles de funció (pantalla gran)</string>
+    <string name="name_invalid">Nom no vàlid</string>
 </resources>

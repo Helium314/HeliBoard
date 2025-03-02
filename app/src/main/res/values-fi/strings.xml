@@ -20,19 +20,19 @@
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Järjestelmän oletusarvo"</string>
     <string name="use_contacts_dict">"Ehdota yht.tietojen nimiä"</string>
-    <string name="use_contacts_dict_summary">"Käytä yhteystietojen nimiä ehdotuksissa ja korjauksissa."</string>
+    <string name="use_contacts_dict_summary">Käytä yhteystietojen nimiä ehdotuksissa ja korjauksissa</string>
     <string name="use_personalized_dicts">"Personoidut ehdotukset"</string>
     <string name="use_double_space_period">"Kaksoisvälilyönti = piste"</string>
-    <string name="use_double_space_period_summary">"Välilyönnin kaksoisnapautus lisää tekstiin pisteen ja välilyönnin."</string>
+    <string name="use_double_space_period_summary">Välilyöntinäppäimen kaksoisnapautus lisää pisteen, jota seuraa välilyönti</string>
     <string name="auto_cap">"Automaattiset isot kirjaimet"</string>
-    <string name="auto_cap_summary">"Kirjoita jokaisen lauseen ensimmäinen sana isolla alkukirjaimella."</string>
+    <string name="auto_cap_summary">Kirjoita jokaisen lauseen ensimmäinen sana isolla</string>
     <string name="edit_personal_dictionary">"Oma sanakirja"</string>
     <string name="configure_dictionaries_title">"Sanakirjalisäosat"</string>
     <string name="main_dictionary">"Pääsanakirja"</string>
     <string name="prefs_show_suggestions">"Näytä korjausehdotukset"</string>
-    <string name="prefs_show_suggestions_summary">"Näytä sanaehdotukset kirjoitettaessa."</string>
+    <string name="prefs_show_suggestions_summary">Näytä ehdotetut sanat kirjoittaessasi</string>
     <string name="prefs_block_potentially_offensive_title">"Estä loukkaavat sanat"</string>
-    <string name="prefs_block_potentially_offensive_summary">"Älä ehdota mahd. loukkaavia sanoja."</string>
+    <string name="prefs_block_potentially_offensive_summary">Älä ehdota mahdollisesti loukkaavia sanoja</string>
     <string name="autocorrect">"Autom. korjaus"</string>
     <string name="auto_correction_summary">"Välilyönti ja -merkit korjaavat väärinkirjoitetut sanat"</string>
     <string name="auto_correction_threshold_mode_off">"Ei käytössä"</string>
@@ -42,7 +42,7 @@
     <string name="bigram_prediction">"Seuraavan sanan ehdotukset"</string>
     <string name="bigram_prediction_summary">"Käytä edellistä sanaa ehdotuksien perusteena"</string>
     <string name="gesture_input">"Ota piirtokirjoitus käyttöön"</string>
-    <string name="gesture_input_summary">"Syötä sana piirtämällä kirjaimet sormellasi."</string>
+    <string name="gesture_input_summary">Syötä sana liu\'uttamalla kirjainten läpi</string>
     <string name="gesture_preview_trail">"Näytä eleen jälki"</string>
     <string name="gesture_floating_preview_text">"Dynaaminen kelluva esikatselu"</string>
     <string name="gesture_space_aware">"Ilmausele"</string>
@@ -76,7 +76,7 @@
     <string name="prefs_keypress_sound_volume_settings">"Näppäinpainalluksen äänenvoimakkuus"</string>
     <string name="prefs_key_longpress_timeout_settings">"Pitkän painalluksen viive"</string>
     <string name="prefs_enable_emoji_alt_physical_key">"Hymiö fyysisellä näppäimistöllä"</string>
-    <string name="prefs_enable_emoji_alt_physical_key_summary">"Fyysinen Alt-näppäin näyttää hymiövalikoiman."</string>
+    <string name="prefs_enable_emoji_alt_physical_key_summary">Fyysinen Alt-näppäin näyttää emoji-paletin</string>
     <string name="button_default">"Oletusarvot"</string>
     <string name="setup_welcome_title">"Tervetuloa käyttämään sovellusta <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"ja piirtokirjoitus"</string>
@@ -91,14 +91,14 @@
     <string name="setup_step2_instruction">Valitse<xliff:g id="APPLICATION_NAME">%s</xliff:g> käytössä olevaksi tekstinsyöttötavaksi.\"</string>
     <string name="setup_step2_action">"Vaihda syöttötapaa"</string>
     <string name="setup_step3_title">"Onneksi olkoon, valmista tuli!"</string>
-    <string name="setup_step3_instruction">"Nyt voit kirjoittaa kaikissa lempisovelluksissasi sovelluksen <xliff:g id="APPLICATION_NAME">%s</xliff:g> avulla."</string>
+    <string name="setup_step3_instruction">Nyt voit kirjoittaa kaikki suosikkisovelluksesi <xliff:g id="APPLICATION_NAME" example="Android-näppäimistö">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Valmis"</string>
     <string name="show_setup_wizard_icon">"Näytä sovelluskuvake"</string>
-    <string name="show_setup_wizard_icon_summary">"Näytä sovelluskuvake käynnistysohjelmassa."</string>
+    <string name="show_setup_wizard_icon_summary">Näytä sovelluskuvake käynnistysohjelmassa</string>
     <string name="dictionary_settings_title">"Sanakirjalisäosat"</string>
     <string name="dictionary_settings_summary">"Sanakirjojen asetukset"</string>
     <string name="dictionary_available">"Sanakirja saatavilla"</string>
-    <string name="cannot_connect_to_dict_service">"Ei yhteyttä sanak."</string>
+    <string name="cannot_connect_to_dict_service">Ongelma yhteyden muodostamisessa sanakirjapalveluun</string>
     <string name="no_dictionaries_available">"Ei sanak. saatavilla"</string>
     <string name="last_update">"Päivitetty viimeksi"</string>
     <string name="main_dict_description">"Pääsanakirja"</string>
@@ -278,4 +278,49 @@
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Ruskea</string>
     <string name="switch_language">Vaihda kieltä</string>
     <string name="prefs_force_incognito_mode_summary">Poista käytöstä sanojen oppiminen</string>
+    <string name="right" tools:keep="@string/right">Oikea</string>
+    <string name="up" tools:keep="@string/up">Ylös</string>
+    <string name="down" tools:keep="@string/down">Alas</string>
+    <string name="page_end" tools:keep="@string/page_end">Sivun loppu</string>
+    <string name="word_right" tools:keep="@string/word_right">Sana oikea</string>
+    <string name="word_left" tools:keep="@string/word_left">Sana vasen</string>
+    <string name="page_up" tools:keep="@string/page_up">Sivu ylös</string>
+    <string name="page_down" tools:keep="@string/page_down">Sivu alas</string>
+    <string name="add_to_personal_dictionary_summary">Käytä laitteen henkilökohtaista sanakirjaa opittujen sanojen tallentamiseen</string>
+    <string name="more_autocorrect_summary">Korjaa automaattisesti, vaikka syöttökenttä ei sitä nimenomaisesti pyytäisi</string>
+    <string name="show_popup_keys_normal">Näytä näppäimistökielillä määritellyt muunnelmat</string>
+    <string name="center_suggestion_text_to_enter">Käytä aina keskimmäistä ehdotusta</string>
+    <string name="autospace_after_punctuation_summary">Lisää automaattisesti välilyönti välimerkkien jälkeen, kun kirjoitat uutta sanaa</string>
+    <string name="show_popup_keys_title">Näytä lisää diakriittisiä kirjaimia ponnahdusikkunassa</string>
+    <string name="url_detection_summary">Yritä havaita URL-osoitteet ja vastaavat yhdeksi sanaksi</string>
+    <string name="hint_source">Valitse vihjeiden lähde</string>
+    <string name="full_right" tools:keep="@string/full_right">Täysi oikea</string>
+    <string name="full_left" tools:keep="@string/full_left">Täysi vasen</string>
+    <string name="left" tools:keep="@string/left">Vasen</string>
+    <string name="center_suggestion_text_to_enter_summary">Välilyöntiä tai välimerkkiä painettaessa syötetään keskimmäinen ehdotus</string>
+    <string name="gesture_fast_typing_cooldown_instant">Aloita aina välittömästi</string>
+    <string name="gesture_floating_preview_dynamic_summary">Siirrä esikatselua eleen aikana</string>
+    <string name="auto_correction_confidence">Automaattisen korjauksen luottamus</string>
+    <string name="show_hints_summary">Näytä pitkän painalluksen vinkit</string>
+    <string name="delete_swipe_summary">Pyyhkäise poistonäppäimestä valitaksesi ja poistaaksesi suurempia tekstiosia kerralla</string>
+    <string name="show_popup_keys_more">Lisää yleiset muunnelmat</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Kieli (ensisijaisuus)</string>
+    <string name="prefs_always_show_suggestions_summary">Ohita muiden sovellusten pyyntö poistaa ehdotukset käytöstä (saattaa aiheuttaa ongelmia)</string>
+    <string name="page_start" tools:keep="@string/page_start">Sivun alku</string>
+    <string name="vibrate_in_dnd_mode">Värinä Älä häiritse -tilassa</string>
+    <string name="disable_personalized_dicts_message">Varoitus: Tämän asetuksen poistaminen käytöstä poistaa opitut tiedot</string>
+    <string name="gesture_floating_preview_static">Kelluva esikatselu</string>
+    <string name="gesture_floating_preview_static_summary">Katso ehdotettu sana elehtimisen aikana</string>
+    <string name="show_popup_hints">Näytä toiminnalliset vihjeet</string>
+    <string name="auto_correct_shortcuts_summary">Kun käytössä, pikanäppäimet voidaan laajentaa autocorrectilla</string>
+    <string name="gesture_trail_fadeout_duration">Elepolun elinkaari</string>
+    <string name="enable_clipboard_history_summary">Jos se ei ole käytössä, leikepöydän näppäin liittää leikepöydän sisällön, jos sellaista on</string>
+    <string name="load_gesture_library_message">Tarvitset kirjaston kohteelle \'%s\'. Yhteensopimattomat kirjastot voivat kaatua piirtokirjoitusta käytettäessä.\n\nVaroitus: ulkoisen koodin lataaminen voi olla turvallisuusriski. Käytä kirjastoa vain sellaisesta lähteestä, johon luotat.</string>
+    <string name="autospace_after_punctuation">Automaattinen välilyönti välimerkkien jälkeen</string>
+    <string name="show_popup_keys_all">Lisää kaikki saatavilla olevat muunnelmat</string>
+    <string name="delete_swipe">Poista pyyhkäisy</string>
+    <string name="checksum_mismatch_message">Tuntematon kirjastotiedosto. Oletko varma, että sait sen luotettavasta lähteestä ja se on \'%s\':lle?</string>
+    <string name="show_popup_keys_main">Lisää hyvin yleiset muunnelmat (oletus)</string>
+    <string name="remove_redundant_popups">Poista ylimääräiset ponnahdusikkunat</string>
+    <string name="number_row_hints">Näytä vihjeet numerorivillä</string>
 </resources>

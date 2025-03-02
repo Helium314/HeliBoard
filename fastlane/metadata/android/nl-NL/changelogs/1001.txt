@@ -3,8 +3,8 @@
 * % toevoegen om de lay-out van symbolen te verschuiven (#568, #428)
 * verbeter het gedrag wanneer de taalschakeltoets is ingesteld om van taal en toetsenbord te wisselen
 * links naar bestaande woordenboeken weergeven bij het toevoegen van een woordenboek
-* voeg Kaitag-indeling toe door @alkaitagi (#519)
-* voeg Probhat layout toe door @fahimscirex (#489)
+* toevoeging van Kaitag-indeling door @alkaitagi (#519)
+* toevoeging van Probhat layout door @fahimscirex (#489)
 * schakel de werkbalkvolgorde voor RTL-talen optioneel om door @codokie (#557, #574)
 * toestaan dat speciale lay-outs worden aangepast (numpad, telefoon, ...)
   * nog steeds experimenteel, omdat de basislay-outs kunnen veranderen
@@ -12,9 +12,9 @@
 * vertalingen bijwerken (dankzij alle vertalers!)
 * upgrade ndk door @Syphyr (#560)
 * upgrade inline autofill-code door @arcarum (#595)
-* probleem oplossen met het dialoogvenster met de werkbalktoets (#505)
-* probleem oplossen met Turkse lay-out (#508)
+* probleem opgelost met het dialoogvenster met de werkbalktoets (#505)
+* probleem opgelost met Turkse lay-out (#508)
 * fixeer verkeerde schakelaarstatus bij rotatie in kleurenscherm aanpassen (#563)
-* probleem oplossen met recente emoji's die niet worden geladen (#527)
-* probleem oplossen met cijfers die niet in bepaalde velden verschijnen (#585)
-* enkele kleine oplossingen
+* probleem opgelost met recente emoji's die niet worden geladen (#527)
+* probleem opgelost met cijfers die niet in bepaalde velden verschijnen (#585)
+* enkele kleine problemen opgelost
