@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Slå opp kontaktnavn"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Stavekontrollen bruker oppføringer fra kontaktlisten din"</string>
+    <string name="use_contacts_dict">"Slå opp kontaktnavn"</string>
     <string name="vibrate_on_keypress">"Vibrer ved tastetrykk"</string>
     <string name="sound_on_keypress">"Lyd ved tastetrykk"</string>
     <string name="popup_on_keypress">"Forgrunnsvindu ved tastetrykk"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Knapp for språkskifte</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Systemstandard"</string>
-    <string name="use_contacts_dict">"Foreslå kontaktnavn"</string>
     <string name="use_contacts_dict_summary">"Bruk navn fra Kontakter til forslag og korrigeringer"</string>
     <string name="use_personalized_dicts">"Spesialtilpassede forslag"</string>
     <string name="use_double_space_period">"Punktum ved doble mellomrom"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">Automatisk stor forbokstav</string>
     <string name="auto_cap_summary">"Bruk stor forbokstav i det første ordet i hver setning"</string>
     <string name="edit_personal_dictionary">"Personlig ordliste"</string>
-    <string name="configure_dictionaries_title">"Tilleggsordbøker"</string>
     <string name="main_dictionary">"Hovedordliste"</string>
     <string name="prefs_show_suggestions">"Vis rettingsforslag"</string>
     <string name="prefs_show_suggestions_summary">"Vis ordforslag under skriving"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Vis app-ikonet"</string>
     <string name="show_setup_wizard_icon_summary">"Vis app-ikonet i appoversikten"</string>
     <string name="dictionary_settings_title">"Tilleggsordlister"</string>
-    <string name="dictionary_settings_summary">"Innstillinger for ordlister"</string>
     <string name="dictionary_available">"Ordliste tilgjengelig"</string>
-    <string name="cannot_connect_to_dict_service">"Kan ikke koble til ordlistetjenesten"</string>
     <string name="no_dictionaries_available">"Fant ingen ordlister"</string>
     <string name="last_update">"Sist oppdatert"</string>
-    <string name="main_dict_description">"Hovedordliste"</string>
     <string name="settings">"Innstillinger"</string>
     <string name="delete">"Slett"</string>
     <string name="version_text">"Versjon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -203,8 +197,6 @@
     <string name="main_colors">Vi bare hovedfarger</string>
     <string name="all_colors">Vis alle farger</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Brukerdefinert (natt)</string>
-    <string name="select_user_colors">Justere farger</string>
-    <string name="select_user_colors_night">Justere farger (natt)</string>
     <string name="settings_screen_about">Om</string>
     <string name="text_tap_languages">Trykk på språket for å åpne innstillingene</string>
     <string name="settings_screen_appearance">Utseende</string>
@@ -214,7 +206,6 @@
     <string name="select_color_gesture">Inndata med bevegelser</string>
     <string name="license">Open-source lisens</string>
     <string name="hidden_features_text">enhetsbeskyttet lagring</string>
-    <string name="customize_symbols_number_layouts">Tilpass symboler og talloppsett</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (Arabisk)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Flere symboler</string>
@@ -268,7 +259,6 @@
     <string name="day_or_night_day">Dag</string>
     <string name="dictionary_settings_category">Ordbøker</string>
     <string name="button_select_language">Velg språk</string>
-    <string name="button_add_to_language">Legg til %s</string>
     <string name="replace_dictionary_message">Virkelig erstatte brukertillagt ordbok \"%1$s\"?
 \n
 \nNåværende ordbok:
@@ -325,7 +315,6 @@
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="button_title_add_custom_layout">Legg til tilpasset oppsett</string>
     <string name="message_add_custom_layout">Legg til fil med kompatibelt format. Informasjon om kompatible format %s.</string>
-    <string name="add_new_dictionary_ask_locale">Til hvilket språk skal ordbok \"%1$s\" for %2$s legges til?</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
     <string name="save_log">Lagre logg</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Koreansk">%s</xliff:g> (Sebeolsik 390)</string>

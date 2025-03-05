@@ -1,7 +1,6 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import android.view.inputmethod.InputMethodSubtype
 import android.view.inputmethod.InputMethodSubtype.InputMethodSubtypeBuilder
@@ -50,16 +49,6 @@ object SubtypeUtilsAdditional {
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
 
-    // todo: consider using SettingsSubtype (nah, this can be removed after removing old settings)
-    fun addAdditionalSubtype(prefs: SharedPreferences, subtype: InputMethodSubtype) {
-        val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        val additionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString).toMutableSet()
-        additionalSubtypes.add(subtype)
-        val newAdditionalSubtypesString = createPrefSubtypes(additionalSubtypes)
-        Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
-    }
-
-    // todo: SettingsSubtype?
     fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
         val prefs = context.prefs()
         SubtypeSettings.removeEnabledSubtype(context, subtype)

@@ -56,8 +56,7 @@
     <string name="label_send_key">بھیجو</string>
     <string name="label_search_key">کھوجو</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">چاکلیٹ</string>
-    <string name="use_contacts_for_spellchecking_option_title">رابطیاں دے ناں لیاوݨے</string>
-    <string name="use_contacts_for_spellchecking_option_summary">تہاڈے رابطے لفظ جوڑن والا ورتدے</string>
+    <string name="use_contacts_dict">رابطیاں دے ناں لیاوݨے</string>
     <string name="vibrate_on_keypress">چوہݨ توں تھڑکݨا</string>
     <string name="sound_on_keypress">چوہݨ توں آواز</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">کالا</string>

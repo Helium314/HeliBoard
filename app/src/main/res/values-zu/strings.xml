@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Bheka amagama woxhumana nabo"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Isihloli sokupela sisebenzisa okungenayo kusuka kuhlu lalabo oxhumana nabo"</string>
+    <string name="use_contacts_dict">"Bheka amagama woxhumana nabo"</string>
     <string name="vibrate_on_keypress">"Dlidlizelisa ngokucindezela inkinobho"</string>
     <string name="sound_on_keypress">"Umsindo wokucindezela ukhiye"</string>
     <string name="popup_on_keypress">"Ugaxekile ngokucindezela ukhiye"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Ukhiye wokushintsha ullimi"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"Okuzenzakalelayo kwesistimu"</string>
-    <string name="use_contacts_dict">"Sikisela amagama Othintana nabo"</string>
     <string name="use_contacts_dict_summary">"Amagama abasebenzisi kusuka Kothintana nabo bokusikisela nokulungisa"</string>
     <string name="use_personalized_dicts">"Iziphakamiso ezenziwe okomuntu siqu"</string>
     <string name="use_double_space_period">"Isikhathi se-Double-space"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Ukwenza ofeleba okuzenzakalelayo"</string>
     <string name="auto_cap_summary">"Yenza ufeleba wegama lokuqala lomusho ngamunye"</string>
     <string name="edit_personal_dictionary">"Isichazamazwi somuntu"</string>
-    <string name="configure_dictionaries_title">"Faka izichazamazwi"</string>
     <string name="main_dictionary">"Isichazamazwi sakho ngqangi"</string>
     <string name="prefs_show_suggestions">"Bonisa ukusikesela kokulungisa"</string>
     <string name="prefs_show_suggestions_summary">"Bonisa amagama aphakamisiwe ngenkathi uthayipha"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Bonisa isithonjana sohlelo lokusebenza"</string>
     <string name="show_setup_wizard_icon_summary">"Bonisa isithonjana sohlelo lokusebenza kusiqalisi"</string>
     <string name="dictionary_settings_title">"Izichazamazwi ezingezwayo"</string>
-    <string name="dictionary_settings_summary">"Izilungiselelo zezichazamazwi"</string>
     <string name="dictionary_available">"Isichazamazwi siyatholakala"</string>
-    <string name="cannot_connect_to_dict_service">"Inkinga yokuxhumanisa kusevisi yesichazamazwi"</string>
     <string name="no_dictionaries_available">"Azikho izachazimazwi ezitholakalayo"</string>
     <string name="last_update">"Igcine ukulungiswa"</string>
-    <string name="main_dict_description">"Isichazamazwi sakho esisemqoka"</string>
     <string name="settings">"Izilungiselelo"</string>
     <string name="delete">"Susa"</string>
     <string name="version_text">"Inguqulo engu-<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

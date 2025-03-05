@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Angalia majina ya unaowasiliana nao"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Kikagua maendelezo hutumia majina yaliyoingizwa katika orodha yako ya anwani"</string>
+    <string name="use_contacts_dict">"Angalia majina ya unaowasiliana nao"</string>
     <string name="vibrate_on_keypress">"Tetema unabofya kitufe"</string>
     <string name="sound_on_keypress">"Toa sauti unapobofya kitufe"</string>
     <string name="popup_on_keypress">"Ibuka kitufe kinapobonyezwa"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Kitufe cha kubadilisha lugha"</string>
     <string name="abbreviation_unit_milliseconds">"Milisekunde <xliff:g id="MILLISECONDS">%s</xliff:g>"</string>
     <string name="settings_system_default">"Chaguomsingi la mfumo"</string>
-    <string name="use_contacts_dict">"Pendekeza majini ya Anwani"</string>
     <string name="use_contacts_dict_summary">"Tumia majina kutoka kwa Anwani kama mapendekezo na marekebisho"</string>
     <string name="use_personalized_dicts">"Mapendekezo yaliyobadilishwa kukufaa"</string>
     <string name="use_double_space_period">"Kitone baada ya nafasi mbili"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Uwekaji wa herufi kubwa kiotomatiki"</string>
     <string name="auto_cap_summary">"Fanya herufi kubwa neno la kwanza la kila sentensi"</string>
     <string name="edit_personal_dictionary">"Kamusi ya kibinafsi"</string>
-    <string name="configure_dictionaries_title">"Nyongeza za kamusi"</string>
     <string name="main_dictionary">"Kamusi kuu"</string>
     <string name="prefs_show_suggestions">"Onyesha mapendekezo ya marekebisho"</string>
     <string name="prefs_show_suggestions_summary">"Onyesha maneno yaliyopendekezwa wakati unachapa"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Onyesha aikoni ya programu"</string>
     <string name="show_setup_wizard_icon_summary">"Onyesha aikoni ya programu kwenye kifungua programu"</string>
     <string name="dictionary_settings_title">"Kamusi za nyongeza"</string>
-    <string name="dictionary_settings_summary">"Mipangilio ya kamusi"</string>
     <string name="dictionary_available">"Kamusi inapatikana"</string>
-    <string name="cannot_connect_to_dict_service">"Tatizo wakati wa kuunganisha kwenye huduma ya kamusi"</string>
     <string name="no_dictionaries_available">"Hakuna kamusi inayopatikana"</string>
     <string name="last_update">"Ilibadilishwa mwisho"</string>
-    <string name="main_dict_description">"Kamusi kuu"</string>
     <string name="settings">"Mipangilio"</string>
     <string name="delete">"Futa"</string>
     <string name="version_text">"Toleo la <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

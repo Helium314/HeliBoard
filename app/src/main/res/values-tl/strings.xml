@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Maghanap sa mga contact"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Gumagamit ang Spell Checker ng entries mula sa iyong contact list."</string>
+    <string name="use_contacts_dict">"Maghanap sa mga contact"</string>
     <string name="vibrate_on_keypress">"Mag-vibrate sa keypress"</string>
     <string name="sound_on_keypress">"Tumunog sa keypress"</string>
     <string name="popup_on_keypress">"Mag-popup sa keypress"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Key ng panlipat ng wika"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"Default ng system"</string>
-    <string name="use_contacts_dict">"Magmungkahi ng Contact"</string>
     <string name="use_contacts_dict_summary">"Gamitin ang pangalan mula sa Contact para sa mungkahi/pagtatama."</string>
     <string name="use_personalized_dicts">"Personalized na mungkahi"</string>
     <string name="use_double_space_period">"Double-space period"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Auto-capitalization"</string>
     <string name="auto_cap_summary">"I-capitalize ang unang salita ng bawat pangungusap"</string>
     <string name="edit_personal_dictionary">"Personal na diksyunaryo"</string>
-    <string name="configure_dictionaries_title">"Mga add-on na diksyunaryo"</string>
     <string name="main_dictionary">"Pangunahing diksyunaryo"</string>
     <string name="prefs_show_suggestions">"Ipakita ang mga suhestiyon sa pagwawasto"</string>
     <string name="prefs_show_suggestions_summary">"Ipakita ang mga iminumungkahing salita habang nagta-type"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Ipakita ang icon ng app"</string>
     <string name="show_setup_wizard_icon_summary">"Ipakita ang icon ng application sa launcher"</string>
     <string name="dictionary_settings_title">"Mga add-on na diksyunaryo"</string>
-    <string name="dictionary_settings_summary">"Mga setting para sa mga diksyunaryo"</string>
     <string name="dictionary_available">"Available ang diksyunaryo"</string>
-    <string name="cannot_connect_to_dict_service">"Di makakonekta sa serbisyong diksyunaryo"</string>
     <string name="no_dictionaries_available">"Walang mga diksyunaryo"</string>
     <string name="last_update">"Huling na-update"</string>
-    <string name="main_dict_description">"Pangunahing diksyunaryo"</string>
     <string name="settings">"Mga Setting"</string>
     <string name="delete">"I-delete"</string>
     <string name="version_text">"Bersyon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

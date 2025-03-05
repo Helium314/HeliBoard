@@ -150,6 +150,18 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
                     else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
                 }
+                THEME_LIGHT -> DefaultColors(
+                    themeStyle,
+                    hasBorders,
+                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
+                    ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
+                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                    keyboardBackground = backgroundImage
+                )
                 THEME_DARK -> DefaultColors(
                     themeStyle,
                     hasBorders,
@@ -330,16 +342,16 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                         DefaultColors(
                             themeStyle,
                             hasBorders,
-                            determineUserColor(colors, context, COLOR_ACCENT, false),
-                            determineUserColor(colors, context, COLOR_BACKGROUND, false),
-                            determineUserColor(colors, context, COLOR_KEYS, false),
-                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, false),
-                            determineUserColor(colors, context, COLOR_SPACEBAR, false),
-                            determineUserColor(colors, context, COLOR_TEXT, false),
-                            determineUserColor(colors, context, COLOR_HINT_TEXT, false),
-                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, false),
-                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, false),
-                            determineUserColor(colors, context, COLOR_GESTURE, false),
+                            determineUserColor(colors, context, COLOR_ACCENT, isNight),
+                            determineUserColor(colors, context, COLOR_BACKGROUND, isNight),
+                            determineUserColor(colors, context, COLOR_KEYS, isNight),
+                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, isNight),
+                            determineUserColor(colors, context, COLOR_SPACEBAR, isNight),
+                            determineUserColor(colors, context, COLOR_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_HINT_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_GESTURE, isNight),
                             backgroundImage,
                         )
                     }

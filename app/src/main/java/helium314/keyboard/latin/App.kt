@@ -201,9 +201,11 @@ fun checkVersionUpgrade(context: Context) {
         if (colorsDay.any { it.color != null }) {
             KeyboardTheme.writeUserColors(prefs, themeNameDay, colorsDay)
         }
-        val moreColorsDay = prefs.getInt("theme_color_show_more_colors", 0)
-        prefs.edit().remove("theme_color_show_more_colors").apply()
-        KeyboardTheme.writeUserMoreColors(prefs, themeNameDay, moreColorsDay)
+        if (prefs.contains("theme_color_show_more_colors")) {
+            val moreColorsDay = prefs.getInt("theme_color_show_more_colors", 0)
+            prefs.edit().remove("theme_color_show_more_colors").apply()
+            KeyboardTheme.writeUserMoreColors(prefs, themeNameDay, moreColorsDay)
+        }
         if (prefs.contains("theme_color_all_colors")) {
             val allColorsDay = readAllColorsMap(false)
             prefs.edit().remove("theme_color_all_colors").apply()
@@ -224,9 +226,11 @@ fun checkVersionUpgrade(context: Context) {
         if (colorsNight.any { it.color!= null }) {
             KeyboardTheme.writeUserColors(prefs, themeNameNight, colorsNight)
         }
-        val moreColorsNight = prefs.getInt("theme_dark_color_show_more_colors", 0)
-        prefs.edit().remove("theme_dark_color_show_more_colors").apply()
-        KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
+        if (prefs.contains("theme_dark_color_show_more_colors")) {
+            val moreColorsNight = prefs.getInt("theme_dark_color_show_more_colors", 0)
+            prefs.edit().remove("theme_dark_color_show_more_colors").apply()
+            KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
+        }
         if (prefs.contains("theme_dark_color_all_colors")) {
             val allColorsNight = readAllColorsMap(false)
             prefs.edit().remove("theme_dark_color_all_colors").apply()
@@ -514,6 +518,16 @@ fun checkVersionUpgrade(context: Context) {
                 }
                 prefs.edit().remove(key).apply()
             }
+        }
+    }
+    if (oldVersion <= 2309) {
+        if (prefs.contains("auto_correction_confidence")) {
+            val value = when (prefs.getString("auto_correction_confidence", "0")) {
+                "1" -> 0.067f
+                "2" -> -1f
+                else -> 0.185f
+            }
+            prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
         }
     }
     upgradeToolbarPrefs(prefs)

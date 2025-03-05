@@ -1,10 +1,10 @@
-* voeg basisondersteuning toe voor modificatietoetsen
-* voeg lange persfuncties toe aan meer werkbalktoetsen
+* toevoeging van basisondersteuning voor modificatietoetsen
+* toevoeging van lange persfuncties aan meer werkbalktoetsen
 * en meer werkbalktoetsen met klembordgeschiedenis
 * maak de werkbalk van de klembordgeschiedenis aanpasbaar
-* maken het mogelijk om alle kleuren aan te passen
-* voeg instelling toe om altijd te laten zien dat woord moet worden ingevoerd als middelste suggestie
-* voeg caps lock-indicator toe
-* voeg Piemontese, Eastern Mari, Mansi, uitgebreide lay-outs toe voor Kannada en Hongaars
-* repareer afgesneden tekst in de pop-up van sleutelvoorvertoningen op sommige apparaten
+* mogelijkheid om alle kleuren aan te passen
+* toevoeging van instelling om altijd te laten zien dat woord moet worden ingevoerd als middelste suggestie
+* toevoeging caps lock-indicator
+* toevoeging van Piemontese, Eastern Mari, Mansi, uitgebreide lay-outs voor Kannada en Hongaars
+* reparatie van afgesneden tekst in de pop-up van sleutelvoorvertoningen op sommige apparaten
 * verdere oplossingen en verbeteringen, zie release notes

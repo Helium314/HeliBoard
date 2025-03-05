@@ -1,4 +1,4 @@
-* wijzig pictogrammen voor autocorrectie en selecteer alle werkbalktoetsen door @codokie (#524, #651)
+* wijziging van pictogrammen voor autocorrectie en selecteer alle werkbalktoetsen door @codokie (#524, #651)
 * Chuvash-indeling toegevoegd door @tenextractor (#677)
 * toets werkbalk knippen toegevoegd door @codokie (#678)
 * update Probhat layout door @fahimscirex (#628)

@@ -1,0 +1,9 @@
+* Ermöglicht die Anpassung der Zahlenreihe, der Symbolleistencodes, der Symbole, des Leertastentextes, der unteren Reihe für Emoji und der Ansichten der Zwischenablage
+* Entkopplung von Symbolstil und Tastaturstil
+* Überflüssige Popups standardmäßig deaktiviert (und kleine Korrektur hinzugefügt)
+* Weniger aggressives Hinzufügen von Wörtern zum persönlichen Wörterbuch
+* Keine Vibration im Modus "Nicht stören
+* Verbesserte Leistung beim Kopieren großer Textmengen
+* Teilweise defekte Interpunktions-Popups behoben
+* Behebung einiger Probleme mit doppeltem Text
+* Kleinigkeiten und weitere Fehlerbehebungen

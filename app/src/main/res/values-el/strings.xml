@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Αναζήτηση ονομάτων επαφών"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Ο ορθογρ. έλεγχος χρησιμοπ. καταχωρίσεις από τη λίστα επαφών σας"</string>
+    <string name="use_contacts_dict">"Αναζήτηση ονομάτων επαφών"</string>
     <string name="vibrate_on_keypress">"Δόνηση κατά το πάτημα πλήκτρων"</string>
     <string name="sound_on_keypress">"Ήχος πλήκτρων"</string>
     <string name="popup_on_keypress">"Εμφάνιση με το πάτημα πλήκτρου"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Πλήκτρο εναλλαγής γλώσσας"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>χλστ. δ."</string>
     <string name="settings_system_default">"Προεπιλογή"</string>
-    <string name="use_contacts_dict">"Πρόταση ονομάτων επαφών"</string>
     <string name="use_contacts_dict_summary">"Χρησιμοποιήστε ονόματα από τις Επαφές για προτάσεις και διορθ."</string>
     <string name="use_personalized_dicts">"Εξατομικευμένες προτάσεις"</string>
     <string name="use_double_space_period">"Τελεία με διπλό διάστημα"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Αυτόματη χρήση κεφαλαίων"</string>
     <string name="auto_cap_summary">"Χρήση κεφαλαίου στην πρώτη λέξη κάθε πρότασης"</string>
     <string name="edit_personal_dictionary">"Προσωπικό λεξικό"</string>
-    <string name="configure_dictionaries_title">"Πρόσθετα λεξικά"</string>
     <string name="main_dictionary">"Κύριο λεξικό"</string>
     <string name="prefs_show_suggestions">"Εμφ. προτάσεων διόρθωσης"</string>
     <string name="prefs_show_suggestions_summary">"Προβολή προτεινόμενων λέξεων κατά την πληκτρολόγηση"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Εμφάνιση εικονιδίου εφαρμογής"</string>
     <string name="show_setup_wizard_icon_summary">"Εμφάνιση εικονιδίου εφαρμογής στο πρόγραμμα εκκίνησης"</string>
     <string name="dictionary_settings_title">"Πρόσθετα λεξικά"</string>
-    <string name="dictionary_settings_summary">"Ρυθμίσεις για λεξικά"</string>
     <string name="dictionary_available">"Διαθέσιμο λεξικό"</string>
-    <string name="cannot_connect_to_dict_service">"Πρόβλ. σύνδ. στο λεξικό."</string>
     <string name="no_dictionaries_available">"Δεν υπάρχουν λεξικά"</string>
     <string name="last_update">"Τελευταία ενημέρωση"</string>
-    <string name="main_dict_description">"Κύριο λεξικό"</string>
     <string name="settings">"Ρυθμίσεις"</string>
     <string name="delete">"Διαγραφή"</string>
     <string name="version_text">"Έκδοση <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

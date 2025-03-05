@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"အဆက်အသွယ်အမည်များကို ရှာ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"စာလုံးပေါင်းစစ်စနစ်က သင့်အဆက်အသွယ်စာရင်းမှ ရယူအသုံးပြုသည်"</string>
+    <string name="use_contacts_dict">"အဆက်အသွယ်အမည်များကို ရှာ"</string>
     <string name="vibrate_on_keypress">"ခလုတ်နှိပ်သည်နှင့် တုံခါစေပါ"</string>
     <string name="sound_on_keypress">"ခလုတ်နှိပ်လျှင် အသံမြည်"</string>
     <string name="popup_on_keypress">"ခလုတ်နှိပ်လိုက်သည်နှင့် ပေါ်လာရန်"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"ဘာသာစကား ပြောင်းခလုတ်"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"စနစ်ပုံသေ"</string>
-    <string name="use_contacts_dict">"အဆယ်ကသွယ်အမည်များ အကြံပြုမည်"</string>
     <string name="use_contacts_dict_summary">"အကြံပြုချက်များနှင့် အမှားပြင်ခြင်းများအတွက် အဆက်သွယ်မှ အမည်များ အသုံးပြုမည်"</string>
     <string name="use_personalized_dicts">"ကိုယ်ရေးကိုယ်တာ အကြံပြုချက်များ"</string>
     <string name="use_double_space_period">"နှစ်နေရာခြား အဆုံးသတ်"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"အော်တိုစာလုံးကြီးပြောင်း"</string>
     <string name="auto_cap_summary">"စာကြောင်းတိုင်း ပထမစာလုံးကို အကြီးလုပ်ရန်"</string>
     <string name="edit_personal_dictionary">"ကိုယ်ပိုင် အဘိဓာန်"</string>
-    <string name="configure_dictionaries_title">"ပေါင်းထည့်ထားသည့် အဘိဓါန်များ"</string>
     <string name="main_dictionary">"အဓိကအဘိဓါန်"</string>
     <string name="prefs_show_suggestions">"အမှားပြင်ခြင်း အကြံပေးချက်များပြရန်"</string>
     <string name="prefs_show_suggestions_summary">"ရိုက်နေစဉ် အကြံပြုထားသည့် စကားလုံးများ ပြပါ"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"အက်ပ်သင်္ကေတပြခြင်း"</string>
     <string name="show_setup_wizard_icon_summary">"launcher တွင် အပလီကေးရှင်း သင်္ကေတကိုပြရန်"</string>
     <string name="dictionary_settings_title">"ပေါင်းထည့်ထားသည့် အဘိဓါန်များ"</string>
-    <string name="dictionary_settings_summary">"အဘိဓါန်များအတွက် ဆက်တင်များ"</string>
     <string name="dictionary_available">"အဘိဓါန်ရရှိနိုင်"</string>
-    <string name="cannot_connect_to_dict_service">"အဘိဓါန်ဝန်ဆောင်မှုသို့ ချိတ်ဆက်ရန် ပြဿနာရှိနေသည်"</string>
     <string name="no_dictionaries_available">"အဘိဓါန်မရှိ"</string>
     <string name="last_update">"နောက်ဆုံး အသစ်မွမ်းမံမှု"</string>
-    <string name="main_dict_description">"အဓိက အဘိဓါန်"</string>
     <string name="settings">"ဆက်တင်များ"</string>
     <string name="delete">"ဖျက်ရန်"</string>
     <string name="version_text">"ဗားရှင်း <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

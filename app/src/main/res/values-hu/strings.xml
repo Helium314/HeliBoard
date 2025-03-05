@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Névjegyek keresése"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">A helyesírás-ellenőrző használja a névjegyeket is</string>
+    <string name="use_contacts_dict">"Névjegyek keresése"</string>
     <string name="vibrate_on_keypress">"Rezgés gombnyomásra"</string>
     <string name="sound_on_keypress">"Hangjelzés gombnyomásra"</string>
     <string name="popup_on_keypress">Nagyított billentyű gombnyomásra</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Nyelvkapcsoló gomb</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">Rendszer alapértelmezett</string>
-    <string name="use_contacts_dict">Javasoljon névjegyeket</string>
     <string name="use_contacts_dict_summary">Névjegyek használata javaslatokhoz és javításokhoz</string>
     <string name="use_personalized_dicts">"Testreszabott javaslatok"</string>
     <string name="use_double_space_period">Dupla szóköz ponttá válik</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automatikusan nagy kezdőbetű"</string>
     <string name="auto_cap_summary">"Minden mondat első szava nagybetűvel"</string>
     <string name="edit_personal_dictionary">"Személyes szótár"</string>
-    <string name="configure_dictionaries_title">Bővítményes szótárak</string>
     <string name="main_dictionary">"Fő szótár"</string>
     <string name="prefs_show_suggestions">"Javítási ajánlások megjelenítése"</string>
     <string name="prefs_show_suggestions_summary">"A javasolt szavak megjelenítése gépelés közben"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Alkalmazásikon megjelenítése"</string>
     <string name="show_setup_wizard_icon_summary">"Alkalmazásikon megjelenítése az indítóban"</string>
     <string name="dictionary_settings_title">Bővítmény szótárak</string>
-    <string name="dictionary_settings_summary">"Szótárak beállításai"</string>
     <string name="dictionary_available">"Van rendelkezésre álló szótár"</string>
-    <string name="cannot_connect_to_dict_service">Probléma lépett fel a szótár szolgáltatáshoz való csatlakozás során</string>
     <string name="no_dictionaries_available">Nem elérhető szótár</string>
     <string name="last_update">"Legutóbb frissítve"</string>
-    <string name="main_dict_description">"Fő szótár"</string>
     <string name="settings">"Beállítások"</string>
     <string name="delete">"Törlés"</string>
     <string name="version_text">Verzió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -227,7 +221,6 @@
     <string name="use_system_language_to_select_input_method_subtypes">Rendszer nyelveinek használása</string>
     <string name="text_tap_languages">Nyomjon a nyelvre a beállítások megnyitásához</string>
     <string name="hidden_features_title">Rejtett funkciók leírása</string>
-    <string name="customize_symbols_number_layouts">Szimbólumok és számok elrendezésének testre szabása</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Szimbólumok</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Saját ízlés szerint</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Saját ízlés szerint (éjjel)</string>
@@ -274,9 +267,7 @@
     <string name="dictionary_settings_category">Szótárak</string>
     <string name="internal_dictionary_summary">Belső alap szótár</string>
     <string name="add_new_dictionary_title">Szótár hozzáadása fájlból</string>
-    <string name="add_new_dictionary_ask_locale">A \"%1$s\" billentyűhöz tartozó %2$s melyik nyelvhez kívánja hozzárendelni?</string>
     <string name="button_select_language">Nyelv kiválasztása</string>
-    <string name="button_add_to_language">Hozzáadás %s-hoz</string>
     <string name="replace_dictionary_message">Biztosan le akarja cserélni a \"%1$s\" szótárat?
 \n
 \nJelenlegi szótár:
@@ -312,8 +303,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rózsaszín</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Homok</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ibolya</string>
-    <string name="select_user_colors">Színek módosítása</string>
-    <string name="select_user_colors_night">Színek módosítása (éjjel)</string>
     <string name="auto_user_color">Szín automatikus kiválasztása</string>
     <string name="main_colors">Csak fő színek mutatása</string>
     <string name="all_colors">Minden szín mutatása</string>

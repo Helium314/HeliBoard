@@ -72,7 +72,7 @@
       },
       { "$": "shift_state_selector",
         "manualOrLocked": { "label": "খ", "labelFlags": 1073741824 },
-        "default": { "label": "ক" }
+        "default": { "label": "ক", "popup": { "relevant": [{ "label": "খ" }]}}
       },
       { "$": "shift_state_selector",
         "manualOrLocked": { "label": "ং", "labelFlags": 1073741824 },

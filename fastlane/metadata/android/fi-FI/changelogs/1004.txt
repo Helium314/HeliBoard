@@ -1,0 +1,7 @@
+- päivitä serbialainen kyrillinen asettelu @markokocicilta (#704, #705)
+- päivitä Viron ulkoasu @tenextractorilla (#693)
+- korjaa päällekkäiset merkinnät leikepöydän historiassa @codokie (#616, #680)
+- lisää vain tekstimerkintöjä leikepöydän historiaan kirjoittaja @codokie (#711)
+- parempia kuvia metatiedoissa kirjoittaja @RHJihan (#713)
+- Aseta kuvakkeiden väri oikein työkalupalkin valintaikkunassa @codokie (#715, #716)
+- muut korjaukset (#684, #723 ja enemmän)

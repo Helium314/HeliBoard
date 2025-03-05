@@ -1,0 +1,10 @@
+* af. suport bàsic per a les tecles modificadores
+* af. funcions de premuda llarga a més tecles d'eines
+* més tecles a la barra d'eines historial del porta-retalls
+* fer personalitzable barra d'eines historial porta-retalls
+* permet personalitzar tots els colors
+* af. config. per mostrar sempre suggeriment central
+* af. indicador bl. majs.
+* af. idiomes i dissenys ampliats
+* corregir text tallat a finestra emergent de vista prèvia tecles
+* més correccions i millores, vegeu les notes de la versió

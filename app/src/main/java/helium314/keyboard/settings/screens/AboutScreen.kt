@@ -87,7 +87,7 @@ fun createAboutSettings(context: Context) = listOf(
                 prefs.edit().putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply()
                 Toast.makeText(ctx, R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
             },
-            icon = R.drawable.ic_settings_about_foreground
+            icon = R.drawable.ic_settings_about
         )
     },
     Setting(context, SettingsWithoutKey.LICENSE, R.string.license, R.string.gnu_gpl) {
@@ -101,7 +101,7 @@ fun createAboutSettings(context: Context) = listOf(
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_settings_about_license_foreground
+            icon = R.drawable.ic_settings_about_license
         )
     },
     Setting(context, SettingsWithoutKey.HIDDEN_FEATURES, R.string.hidden_features_title, R.string.hidden_features_summary) {
@@ -125,7 +125,7 @@ fun createAboutSettings(context: Context) = listOf(
                 builder.show()
                 (builder.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
             },
-            icon = R.drawable.ic_settings_about_hidden_features_foreground
+            icon = R.drawable.ic_settings_about_hidden_features
         )
     },
     Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
@@ -139,7 +139,7 @@ fun createAboutSettings(context: Context) = listOf(
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_settings_about_github_foreground
+            icon = R.drawable.ic_settings_about_github
         )
     },
     Setting(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { setting ->
@@ -169,7 +169,7 @@ fun createAboutSettings(context: Context) = listOf(
                     .setType("text/plain")
                 launcher.launch(intent)
             },
-            icon = R.drawable.ic_settings_about_log_foreground
+            icon = R.drawable.ic_settings_about_log
         )
     },
 )

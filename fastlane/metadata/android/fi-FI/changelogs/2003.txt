@@ -1,0 +1,11 @@
+* Muokattava toiminnallinen näppäinasettelu
+* Säädä hieman symboleja ja lisää symbolien asetteluja
+* Perustuki alt-, ctrl-, fn- ja metanäppäimille
+* laajentaa työkaluriviä (pitkä painallustoiminto, valinnainen pitkän painalluksen kiinnitys, automaattinen näyttö/piilota, parempi leikepöydän työkalupalkki, ...)
+* Lisää sarkainnäppäin
+* Lisää caps lock -ilmaisin
+* Lisää asetteluja joillekin kielille
+* Lisää työkalupalkin näppäimiä näppäimistön näppäimiksi
+* mahdollistaa kaikkien värien mukauttamisen
+* Paahtoleipäilmoitus tekstiä kopioitaessa
+* Viankorjauksia ja muita parannuksia, katso täydelliset julkaisutiedot

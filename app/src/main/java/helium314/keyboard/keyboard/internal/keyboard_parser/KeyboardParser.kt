@@ -332,15 +332,3 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
     }
 
 }
-
-const val LAYOUT_SYMBOLS = "symbols"
-const val LAYOUT_SYMBOLS_SHIFTED = "symbols_shifted"
-const val LAYOUT_SYMBOLS_ARABIC = "symbols_arabic"
-const val LAYOUT_NUMPAD = "numpad"
-const val LAYOUT_NUMPAD_LANDSCAPE = "numpad_landscape"
-const val LAYOUT_NUMBER = "number"
-const val LAYOUT_PHONE = "phone"
-const val LAYOUT_PHONE_SYMBOLS = "phone_symbols"
-const val LAYOUT_NUMBER_ROW = "number_row"
-const val LAYOUT_EMOJI_BOTTOM_ROW = "emoji_bottom_row"
-const val LAYOUT_CLIPBOARD_BOTTOM_ROW = "clip_bottom_row"

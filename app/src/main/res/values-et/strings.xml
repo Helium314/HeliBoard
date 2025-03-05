@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">Otsi nimesid kontaktidest</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Õigekirjakontroll kasutab teie kontaktisikute loendi sissekandeid"</string>
+    <string name="use_contacts_dict">Otsi nimesid kontaktidest</string>
     <string name="vibrate_on_keypress">"Vibreeri klahvivajutusel"</string>
     <string name="sound_on_keypress">"Heli klahvivajutusel"</string>
     <string name="popup_on_keypress">"Klahvivajutusel kuva hüpik"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Keelevahetuse nupp"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">Süsteemi väärtus</string>
-    <string name="use_contacts_dict">"Soovita kontakti nimesid"</string>
     <string name="use_contacts_dict_summary">"Kasuta soovitusteks ja parandusteks nimesid kontaktiloendist"</string>
     <string name="use_personalized_dicts">"Isikupärast. soovitused"</string>
     <string name="use_double_space_period">"Punkt tühikuklahviga"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automaatne suurtähtede kasutamine"</string>
     <string name="auto_cap_summary">"Iga lause esimese sõna kirjutamine suure algustähega"</string>
     <string name="edit_personal_dictionary">"Isiklik sõnastik"</string>
-    <string name="configure_dictionaries_title">"Pistiksõnaraamatud"</string>
     <string name="main_dictionary">"Peamine sõnaraamat"</string>
     <string name="prefs_show_suggestions">"Kuva korrigeerimise soovitused"</string>
     <string name="prefs_show_suggestions_summary">"Kuva sisestamise ajal sõnasoovitusi"</string>
@@ -80,14 +77,14 @@
     <string name="button_default">"Vaikeväärtus"</string>
     <string name="setup_welcome_title">"Tere tulemast rakendusse <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"joonistusega sisestamisega"</string>
-    <string name="setup_start_action">"Alustamine"</string>
+    <string name="setup_start_action">Alusta siit</string>
     <string name="setup_next_action">"Järgmine toiming"</string>
     <string name="setup_steps_title">"Rakenduse <xliff:g id="APPLICATION_NAME">%s</xliff:g> seadistamine"</string>
     <string name="setup_step1_title">Võta <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> kasutusele</string>
-    <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ rakendus lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
+    <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME">%s</xliff:g> on sinu nutiseadme keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
     <string name="setup_step1_action">"Luba seadetes"</string>
-    <string name="setup_step2_title">Võta <xliff:g id="APPLICATION_NAME">%s</xliff:g> rakendus kõikjal kasutusele</string>
+    <string name="setup_step2_title">Võta <xliff:g id="APPLICATION_NAME">%s</xliff:g> kõikjal kasutusele</string>
     <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“.</string>
     <string name="setup_step2_action">"Vaheta sisestusmeetodeid"</string>
     <string name="setup_step3_title">"Õnnitleme. Kõik on valmis!"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Kuva rakenduse ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Rakenduse ikooni kuvamine käivitajas"</string>
     <string name="dictionary_settings_title">"Pistiksõnastikud"</string>
-    <string name="dictionary_settings_summary">"Sõnastike seaded"</string>
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
-    <string name="cannot_connect_to_dict_service">"Probleem sõnastikuga ühendumisel"</string>
     <string name="no_dictionaries_available">"Sõnastikke pole"</string>
     <string name="last_update">"Viimati värskendatud"</string>
-    <string name="main_dict_description">"Peamine sõnastik"</string>
     <string name="settings">"Seaded"</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">"Versioon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -144,7 +138,7 @@
     <string name="prefs_keyboard_height_scale">Klahvistiku kõrguse proportsioonid</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Pika vajutusega tühikuklahvile avaneb sisestusmeetodite valiku menüü</string>
     <string name="dictionary_file_wrong_script">Viga: märgistik ei ühildu selle klahvistikuga</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Serbia (ladina) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="number_row">Numbririda</string>
     <string name="gesture_floating_preview_static">Ujuv eelvaade</string>
     <string name="gesture_floating_preview_static_summary">Viipamisel kuvatakse soovitatud sõna klahvistiku kohal</string>
@@ -266,7 +260,6 @@
     <string name="remove_redundant_popups_summary">Ära käivita hüpikvalikuid, mis on juba olemas klaviatuuri tavapaigutuses</string>
     <string name="internal_dictionary_summary">Sisemine põhisõnastik</string>
     <string name="add_new_dictionary_title">Lisa sõnastik failist</string>
-    <string name="add_new_dictionary_ask_locale">Mis keelele lisame „1$s“/„%2$s“ sõnastiku?</string>
     <string name="user_dict_settings_add_weight_value">Kaal:</string>
     <string name="customize_currencies">Kohanda valuutasid</string>
     <string name="dictionary_settings_category">Sõnastikud</string>
@@ -289,13 +282,12 @@
     <string name="dictionary_link_text">siit</string>
     <string name="dictionary_load_error">Viga sõnastikufaili laadimisel</string>
     <string name="no_dictionary_dont_show_again_button">Ära näita enam uuesti</string>
-    <string name="button_add_to_language">Lisa lokaati: %s</string>
-    <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „1$s“? \n \nPraegune sõnastik: \n„%2$s“ \n \nUus sõnastik: \n„%3$s“</string>
+    <string name="replace_dictionary_message">Kas kindlasti soovid asendada enda lisatud sõnastiku „%1$s“? \n \nPraegune sõnastik: \n„%2$s“ \n \nUus sõnastik: \n„%3$s“</string>
     <string name="dictionary_file_error">Viga: valitud fail pole korrektne sõnastikufail</string>
     <string name="dictionary_file_wrong_locale">Valitud fail on %1$s jaoks, aga me eeldasime %2$s. Ikkagi kasutame %2$s jaoks?</string>
     <string name="replace_dictionary">Asenda sõnastik</string>
     <string name="remove_dictionary_message">Kas kindlasti tahad eemaldada enda lisatud sõnastiku „%s“?</string>
-    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;\n\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
+    <string name="no_dictionary_message">"Ilma sõnastikuta sisaldavad soovitused vaid neid sõnu, mida oled varem sisestanud.&lt;br&gt;\n        Sa saad laadida sõnastikke %1$s või kontrolli, kas „%2$s“ sõnastiku saad siit otse alla laadida %3$s."</string>
     <string name="available_dictionary_experimental">%s (katseline)</string>
     <string name="icon_style">Ikooni stiil</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Numbririda</string>
@@ -306,7 +298,6 @@
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitagi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="hidden_features_title">Peidetud funktsionaalsuse kirjeldus</string>
     <string name="hidden_features_text">seadme turvatud andmekogu</string>
-    <string name="customize_functional_key_layouts">Kohanda funktsiooniklahvide paigutust</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktsiooniklahvid (sümbolid)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="auto_show_toolbar">Näita tööriistariba automaatselt</string>
@@ -336,14 +327,11 @@
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Tume</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Must</string>
     <string name="edit_layout">Kalvistiku paigutuse muutmiseks klõpsi</string>
-    <string name="customize_symbols_number_layouts">Kohanda sümbolite ja numbrite paigutust</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Täiendavad sümbolid</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Sinu määratud (öövaade)</string>
     <string name="all_colors">Näita kõiki värve</string>
     <string name="load_will_overwrite">Uue välimuse laadimine asendab praeguse</string>
-    <string name="select_user_colors">Kohanda värve</string>
-    <string name="select_user_colors_night">Kohanda värve (öövaade)</string>
     <string name="auto_user_color">Vali värv automaatselt</string>
     <string name="main_colors">Näita vaid põhivärve</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolaadipruun</string>
@@ -447,4 +435,35 @@
     <string name="settings_screen_toolbar">Tööriistariba</string>
     <string name="label_bin" tools:keep="@string/label_bin">Prügikast</string>
     <string name="customize_icons_reset_message">Kas kindlasti soovid lähtestada kõik sinu seadistatud ikoonid?</string>
+    <string name="vibrate_in_dnd_mode">Vibreeri rahulikus režiimis</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
+    <string name="prefs_key_emoji_max_sdk">Ära arvesta emojide versiooni Androidis</string>
+    <string name="subtype_dru">Dargi (Urahhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urahhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">Paranda lühendid automaatselt</string>
+    <string name="auto_correct_shortcuts_summary">Selle valikuga luuakse lühendist või sõnaosast terve sõna</string>
+    <string name="customize_background_image_landscape">Vali taustapilt (rõhtvormingus)</string>
+    <string name="summary_customize_background_image_landscape">Kui see valik pole sisselülitatud, siis kasutatakse püstvormingus taustapilti</string>
+    <string name="customize_toolbar_key_code_reset_message">Kas tõesti eemaldame kõik sinu loodud klahvide koodid?</string>
+    <string name="custom_font">Vali oma kirjatüübi fail</string>
+    <string name="prefs_bottom_padding_scale_landscape">Alumiste veeriste mõõtkava (rõhtvaates)</string>
+    <string name="prefs_font_scale">Klahvistiku kirjatüüpide mõõtkava</string>
+    <string name="prefs_emoji_font_scale">Emojide vaate kirjatüüpide mõõtkava</string>
+    <string name="prefs_side_padding_scale">Külgmiste veeriste mõõtkava</string>
+    <string name="prefs_side_padding_scale_landscape">Külgmiste veeriste mõõtkava (rõhtvaates)</string>
+    <string name="number_row_hints">Näita numbrireas vihjeid</string>
+    <string name="prefs_language_swipe_distance">Vaheta keele viipamiskaugust</string>
+    <string name="split_spacer_scale_landscape">Jagatud poolte vahemaa (rõhtvaates)</string>
+    <string name="split" tools:keep="@string/split">Poolitatud klahvistik</string>
+    <string name="enable_split_keyboard_landscape">Kasuta kaheks jaotatud klahvistikku (rõhtvaates)</string>
+    <string name="delete_confirmation">Kas kindlasti kustutame „%s“?</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktsiooniklahvid (suurel ekraanil)</string>
+    <string name="name_invalid">Vigane nimi</string>
+    <string name="settings_screen_secondary_layouts">Teisesed paigutused</string>
+    <string name="locales_with_dict">Sõnastikega keeled</string>
+    <string name="layout_in_use">Hoiatus: klahvistiku paigutus on hetkel kasutusel</string>
+    <string name="get_layouts_message">Uusi klahvistike paigutusi võid leida ja jagada %s.</string>
+    <string name="discussion_section_link">kogukonna vestlustes</string>
+    <string name="get_colors_message">Uusi värve võid leida ja jagada %s.</string>
+    <string name="custom_subtype">Sinu loodud alamtüüp</string>
 </resources>

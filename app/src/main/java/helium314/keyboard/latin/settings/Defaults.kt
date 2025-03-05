@@ -62,7 +62,7 @@ object Defaults {
     var PREF_POPUP_ON = true
     const val PREF_AUTO_CORRECTION = true
     const val PREF_MORE_AUTO_CORRECTION = false
-    const val PREF_AUTO_CORRECTION_CONFIDENCE = "0"
+    const val PREF_AUTO_CORRECT_THRESHOLD = 0.185f
     const val PREF_AUTOCORRECT_SHORTCUTS = true
     const val PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = false
     const val PREF_SHOW_SUGGESTIONS = true
@@ -128,7 +128,6 @@ object Defaults {
     const val PREF_LANGUAGE_SWIPE_DISTANCE = 5
     const val PREF_ENABLE_CLIPBOARD_HISTORY = true
     const val PREF_CLIPBOARD_HISTORY_RETENTION_TIME = 10 // minutes
-    const val PREF_SECONDARY_LOCALES = ""
     const val PREF_ADD_TO_PERSONAL_DICTIONARY = false
     @JvmField
     val PREF_NAVBAR_COLOR = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q

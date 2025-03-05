@@ -108,6 +108,7 @@ fun createAppearanceSettings(context: Context) = listOf(
                 if (prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT) == KeyboardTheme.THEME_HOLO_WHITE)
                     prefs.edit().remove(Settings.PREF_THEME_COLORS_NIGHT).apply()
             }
+            KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
         }
     },
     Setting(context, Settings.PREF_ICON_STYLE, R.string.icon_style) { setting ->
@@ -117,7 +118,10 @@ fun createAppearanceSettings(context: Context) = listOf(
             setting,
             items,
             Defaults.PREF_ICON_STYLE
-        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+        ) {
+            KeyboardIconsSet.needsReload = true // only relevant for Settings.PREF_CUSTOM_ICON_NAMES
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+        }
     },
     Setting(context, Settings.PREF_CUSTOM_ICON_NAMES, R.string.customize_icons) { setting ->
         var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -126,11 +130,8 @@ fun createAppearanceSettings(context: Context) = listOf(
             onClick = { showDialog = true }
         )
         if (showDialog) {
-/*            if (keyboardNeedsReload) {
-                KeyboardSwitcher.getInstance().forceUpdateKeyboardTheme(LocalContext.current)
-                keyboardNeedsReload = false
-            }
-*/            CustomizeIconsDialog(setting.key) { showDialog = false }
+            KeyboardIconsSet.instance.loadIcons(LocalContext.current)
+            CustomizeIconsDialog(setting.key) { showDialog = false }
         }
     },
     Setting(context, Settings.PREF_THEME_COLORS, R.string.theme_colors) { setting ->

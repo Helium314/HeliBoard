@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"ਸੰਪਰਕ ਨਾਮ ਤਲਾਸ਼ੋ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"ਸਪੈੱਲ ਚੈਕਰ ਤੁਹਾਡੀ ਸੰਪਰਕ ਸੂਚੀ ਵਿੱਚੋਂ ਐਂਟਰੀਆਂ ਵਰਤਦਾ ਹੈ"</string>
+    <string name="use_contacts_dict">"ਸੰਪਰਕ ਨਾਮ ਤਲਾਸ਼ੋ"</string>
     <string name="vibrate_on_keypress">"ਕੁੰਜੀ ਦਬਾਉਣ ’ਤੇ ਥਰਥਰਾਹਟ ਕਰੋ"</string>
     <string name="sound_on_keypress">"ਕੁੰਜੀ ਦਬਾਉਣ \'ਤੇ ਧੁਨ ਵਜਾਓ"</string>
     <string name="popup_on_keypress">"ਕੁੰਜੀ ਦਬਾਉਣ ’ਤੇ ਪੌਪਅੱਪ ਕਰੋ"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"ਭਾਸ਼ਾ ਸਵਿੱਚ ਕੁੰਜੀ"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"ਸਿਸਟਮ ਪੂਰਵ-ਨਿਰਧਾਰਤ"</string>
-    <string name="use_contacts_dict">"ਸੰਪਰਕ ਨਾਵਾਂ ਦਾ ਸੁਝਾਅ ਦਿਓ"</string>
     <string name="use_contacts_dict_summary">"ਸੁਝਾਵਾਂ ਅਤੇ ਸੋਧਾਂ ਲਈ ਸੰਪਰਕਾਂ ਵਿੱਚੋਂ ਨਾਮ ਵਰਤੋ"</string>
     <string name="use_personalized_dicts">"ਨਿੱਜੀ ਬਣਾਏ ਸੁਝਾਅ"</string>
     <string name="use_double_space_period">"ਡਬਲ-ਸਪੇਸ ਡੰਡੀ"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"ਆਟੋ-ਕੈਪਿਟਲਾਈਜ਼ੇਸ਼ਨ"</string>
     <string name="auto_cap_summary">"ਹਰੇਕ ਵਾਕ ਦਾ ਪਹਿਲਾ ਅੱਖਰ ਵੱਡਾ ਕਰੋ"</string>
     <string name="edit_personal_dictionary">"ਨਿੱਜੀ ਸ਼ਬਦਕੋਸ਼"</string>
-    <string name="configure_dictionaries_title">"ਐਡ-ਆਨ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="main_dictionary">"ਮੁੱਖ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="prefs_show_suggestions">"ਸੁਧਾਈ ਸੁਝਾਅ ਦਿਖਾਓ"</string>
     <string name="prefs_show_suggestions_summary">"ਟਾਈਪਿੰਗ ਕਰਦੇ ਸਮੇਂ ਸੁਝਾਏ ਗਏ ਸ਼ਬਦ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"ਐਪ ਪ੍ਰਤੀਕ ਦਿਖਾਓ"</string>
     <string name="show_setup_wizard_icon_summary">"ਲਾਂਚਰ ਵਿੱਚ ਐਪਲੀਕੇਸ਼ਨ ਪ੍ਰਤੀਕ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
     <string name="dictionary_settings_title">"ਐਡ-ਆਨ ਸ਼ਬਦਕੋਸ਼"</string>
-    <string name="dictionary_settings_summary">"ਸ਼ਬਦਕੋਸ਼ਾਂ ਦੀਆਂ ਸੈਟਿੰਗਾਂ"</string>
     <string name="dictionary_available">"ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ"</string>
-    <string name="cannot_connect_to_dict_service">"ਸ਼ਬਦਕੋਸ਼ ਸੇਵਾ ਕਨੈਕਟ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ"</string>
     <string name="no_dictionaries_available">"ਕੋਈ ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ ਨਹੀਂ"</string>
     <string name="last_update">"ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ"</string>
-    <string name="main_dict_description">"ਮੁੱਖ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>
     <string name="delete">"ਮਿਟਾਓ"</string>
     <string name="version_text">"ਰੂਪ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

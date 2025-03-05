@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Kişi adlarını denetle"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Yazım denetleyici, kişi listesi girişlerini kullanır</string>
+    <string name="use_contacts_dict">"Kişi adlarını denetle"</string>
     <string name="vibrate_on_keypress">"Tuşa basıldığında titret"</string>
     <string name="sound_on_keypress">"Tuşa basıldığında ses çıkar"</string>
     <string name="popup_on_keypress">Tuşa basıldığında açılır pencere aç</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Dil değiştirme tuşu"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Sistem varsayılanı"</string>
-    <string name="use_contacts_dict">Kişi adları öner</string>
     <string name="use_contacts_dict_summary">"Öneri ve düzeltmeler için Kişiler\'deki adları kullan"</string>
     <string name="use_personalized_dicts">"Kişisel öneriler"</string>
     <string name="use_double_space_period">"Çift boşlukla nokta ekle"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Otomatik büyük harf yap"</string>
     <string name="auto_cap_summary">"Her cümlenin ilk harfini büyük harf yapar"</string>
     <string name="edit_personal_dictionary">"Kişisel sözlük"</string>
-    <string name="configure_dictionaries_title">"Ek sözlükler"</string>
     <string name="main_dictionary">"Ana sözlük"</string>
     <string name="prefs_show_suggestions">"Düzeltme önerilerini göster"</string>
     <string name="prefs_show_suggestions_summary">"Yazarken, önerilen kelimeleri görüntüle"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Uygulama simgesini göster"</string>
     <string name="show_setup_wizard_icon_summary">"Uygulama simgesini başlatıcıda gösterir"</string>
     <string name="dictionary_settings_title">"Ek sözlükler"</string>
-    <string name="dictionary_settings_summary">"Sözlükler için ayarlar"</string>
     <string name="dictionary_available">"Sözlük mevcut"</string>
-    <string name="cannot_connect_to_dict_service">"Sözlük hizmetine bağlantı sorunu"</string>
     <string name="no_dictionaries_available">"Kullanılabilir sözlük yok"</string>
     <string name="last_update">"Son güncelleme tarihi"</string>
-    <string name="main_dict_description">"Ana sözlük"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">Sürüm <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -201,7 +195,6 @@
     <string name="clipboard" tools:keep="@string/clipboard">Pano</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Panoyu temizle</string>
     <string name="title_layout_name_select">Düzen adını ayarla</string>
-    <string name="customize_functional_key_layouts">İşlevsel tuş düzenlerini özelleştir</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">İşlevsel tuşlar (Semboller)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">İşlevsel tuşlar (Daha fazla sembol)</string>
@@ -244,7 +237,6 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Kullanıcı tanımlı</string>
     <string name="select_color_spacebar_background">Boşluk çubuğu arka planı</string>
     <string name="select_color_spacebar_text">Boşluk çubuğu metni</string>
-    <string name="select_user_colors_night">Renkleri ayarla (gece)</string>
     <string name="select_color_gesture">Hareketli giriş</string>
     <string name="replace_dictionary_message">Kullanıcı tarafından eklenen \"%1$s\" sözlüğü değiştirilsin mi?
 \n
@@ -267,10 +259,8 @@
     <string name="clipboard_toolbar_keys">Pano araç çubuğu tuşlarını seç</string>
     <string name="show_popup_hints_summary">Bir tuşa uzun süre basmak ek işlevleri tetikliyorsa ipuçlarını göster</string>
     <string name="button_title_add_custom_layout">Özel düzen ekle</string>
-    <string name="customize_symbols_number_layouts">Sembolleri ve sayı düzenlerini özelleştirme</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Semboller</string>
     <string name="button_select_language">Dil seç</string>
-    <string name="button_add_to_language">%s ekle</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Genişletilmiş)</string>
     <string name="message_add_custom_layout">Uyumlu formatta bir dosya seç. Formatlarla ilgili bilgi %s mevcuttur.</string>
     <string name="button_load_custom">Dosyayı yükle</string>
@@ -345,7 +335,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pembe</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Kum</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Kullanıcı tanımlı (gece)</string>
-    <string name="select_user_colors">Renkleri ayarla</string>
     <string name="auto_user_color">Rengi otomatik olarak seç</string>
     <string name="load_will_overwrite">Yükleme mevcut temanın üzerine yazılacak</string>
     <string name="dialog_close">Kapat</string>
@@ -359,7 +348,6 @@
     <string name="hint_source">İpucu kaynağını seç</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
-    <string name="add_new_dictionary_ask_locale">%2$s için \"%1$s\" sözlüğü hangi dile eklensin?</string>
     <string name="replace_dictionary">Sözlüğü değiştir</string>
     <string name="version">Sürüm</string>
     <string name="about_github_link">GitHub\'da görüntüle</string>

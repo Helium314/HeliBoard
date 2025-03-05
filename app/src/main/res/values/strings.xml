@@ -11,11 +11,7 @@
     <!-- Title for IME settings screen. The app name should not be translated. -->
     <string name="ime_settings">HeliBoard Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
-    <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
-    <string name="use_contacts_for_spellchecking_option_title">Look up contact names</string>
-    <!-- Description for the spell checker option to turn on/off contact names lookup. [CHAR LIMIT=65] -->
-    <string name="use_contacts_for_spellchecking_option_summary">Spell checker uses entries from your contact list</string>
+    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string> <!-- todo: was used in top bar, but spell checker settings now don't have one -->
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
     <!-- Option to provide vibrate/haptic feedback on keypress even in do not disturb mode -->
@@ -24,63 +20,63 @@
     <string name="sound_on_keypress">Sound on keypress</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
-    <!-- Settings screen title for preferences [CHAR LIMIT=33]-->
+    <!-- Settings screen title for preferences-->
     <string name="settings_screen_preferences">Preferences</string>
-    <!-- Settings screen title for gesture typing preferences [CHAR_LIMIT=33] -->
+    <!-- Settings screen title for gesture typing preferences -->
     <string name="settings_screen_gesture">Gesture Typing</string>
-    <!-- Settings screen title for text correction options [CHAR_LIMIT=33] -->
+    <!-- Settings screen title for text correction options -->
     <string name="settings_screen_correction">Text correction</string>
-    <!-- Settings screen title for advanced settings [CHAR LIMIT=33] -->
+    <!-- Settings screen title for advanced settings -->
     <string name="settings_screen_advanced">Advanced</string>
-    <!-- Settings screen title for keyboard theme settings [CHAR LIMIT=33] -->
+    <!-- Settings screen title for keyboard theme settings -->
     <string name="settings_screen_theme">Theme</string>
-    <!-- Settings category title for Preference/Input settings [CHAR LIMIT=33] -->
+    <!-- Settings category title for Preference/Input settings -->
     <string name="settings_category_input">Input</string>
-    <!-- Settings category title for Preference/Additional keys settings [CHAR LIMIT=33] -->
+    <!-- Settings category title for Preference/Additional keys settings -->
     <string name="settings_category_additional_keys">Additional keys</string>
-    <!-- Settings category title for Preference/Additional keys settings [CHAR LIMIT=33] -->
+    <!-- Settings category title for Preference/Additional keys settings -->
     <string name="settings_category_clipboard_history">Clipboard history</string>
-    <!-- Settings category title for Text correction/Corrections [CHAR LIMIT=33] -->
+    <!-- Settings category title for Text correction/Corrections -->
     <string name="settings_category_correction">Corrections</string>
-    <!-- Settings category title for Text correction/Suggestions [CHAR LIMIT=33] -->
+    <!-- Settings category title for Text correction/Suggestions -->
     <string name="settings_category_suggestions">Suggestions</string>
-    <!-- Settings category title for Advanced/Experimental [CHAR LIMIT=33] -->
+    <!-- Settings category title for Advanced/Experimental -->
     <string name="settings_category_experimental">Experimental</string>
-    <!-- Settings category title for Appearance & Layout/Misc [CHAR LIMIT=33] -->
+    <!-- Settings category title for Appearance & Layout/Misc -->
     <string name="settings_category_miscellaneous">Miscellaneous</string>
-    <!--  Option for enabling or disabling the split keyboard layout in portrait mode. [CHAR LIMIT=65]-->
+    <!--  Option for enabling or disabling the split keyboard layout in portrait mode.-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
-    <!--  Option for enabling or disabling the split keyboard layout in landscape mode. [CHAR LIMIT=65]-->
+    <!--  Option for enabling or disabling the split keyboard layout in landscape mode.-->
     <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
     <!--  Option for setting distance for split keyboard in landscape mode -->
     <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
-    <!-- Option name for including other IMEs in the language key switch list [CHAR LIMIT=30] -->
+    <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
-    <!-- Option name for switching language / subtype only [CHAR LIMIT=30] -->
+    <!-- Option name for switching language / subtype only -->
     <string name="switch_language">Switch Language</string>
-    <!-- Option name for switching language / subtype and input method [CHAR LIMIT=30] -->
+    <!-- Option name for switching language / subtype and input method -->
     <string name="language_switch_key_switch_both">Switch both</string>
-    <!-- Option to show language switch key [CHAR LIMIT=30] -->
+    <!-- Option to show language switch key -->
     <string name="show_language_switch_key">Language switch key</string>
     <!-- Option for setting whether language switch key should switch internal layouts only, or also to other keyboards -->
     <string name="language_switch_key_behavior">Language switch key behavior</string>
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
-    <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
+    <!-- Units abbreviation for the duration (milliseconds) -->
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
-    <!-- Units abbreviation for the duration (minutes) [CHAR LIMIT=10] -->
+    <!-- Units abbreviation for the duration (minutes) -->
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
-    <!-- The text that represents the current settings value is the system default [CHAR LIMIT=25] -->
+    <!-- The text that represents the current settings value is the system default -->
     <string name="settings_system_default">System default</string>
-    <!-- The text that represents an unlimited delay [CHAR LIMIT=25] -->
+    <!-- The text that represents an unlimited delay -->
     <string name="settings_no_limit">No limit</string>
-    <!-- Option name for enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=25] -->
-    <string name="use_contacts_dict">Suggest Contact names</string>
-    <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=65] -->
+    <!-- Option name for enabling or disabling the use of names of people in Contacts for suggestion and correction -->
+    <string name="use_contacts_dict">Look up contact names</string>
+    <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction -->
     <string name="use_contacts_dict_summary">Use names from Contacts for suggestions and corrections</string>
-    <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
+    <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
     <!-- Dialog message informing that dictionaries will be deleted on changing the setting -->
     <string name="disable_personalized_dicts_message">Warning: Disabling this setting will clear learned data</string>
@@ -88,18 +84,16 @@
     <string name="add_to_personal_dictionary">Add words to personal dictionary</string>
     <!-- Description for option to add learned words to system-wide user dictionary -->
     <string name="add_to_personal_dictionary_summary">Use device personal dictionary to store learned words</string>
-    <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
+    <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space -->
     <string name="use_double_space_period">Double-space period</string>
-    <!-- Description for option enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=65] -->
+    <!-- Description for option enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space -->
     <string name="use_double_space_period_summary">Double tap on spacebar inserts a period followed by a space</string>
     <!-- Option to enable auto capitalization of sentences -->
     <string name="auto_cap">Auto-capitalization</string>
     <!-- Description for option to enable auto capitalization of sentences -->
     <string name="auto_cap_summary">Capitalize the first word of each sentence</string>
-    <!-- Option to edit personal dictionary. [CHAR_LIMIT=30]-->
+    <!-- Option to edit personal dictionary.-->
     <string name="edit_personal_dictionary">Personal dictionary</string>
-    <!-- Option to configure dictionaries -->
-    <string name="configure_dictionaries_title">Add-on dictionaries</string>
     <!-- Name of the main dictionary, as opposed to auxiliary dictionaries (medical/entertainment/sports...) -->
     <string name="main_dictionary">Main dictionary</string>
     <!-- Option to enable showing suggestions -->
@@ -110,31 +104,31 @@
     <string name="prefs_always_show_suggestions">Always show suggestions</string>
     <!-- Description for override app flag to not show suggestions -->
     <string name="prefs_always_show_suggestions_summary">Ignore other apps’ request to disable suggestions (may cause issues)</string>
-    <!-- Option to block potentially offensive words to be shown [CHAR_LIMIT=30] -->
+    <!-- Option to block potentially offensive words to be shown -->
     <string name="prefs_block_potentially_offensive_title">Block offensive words</string>
-    <!-- Summary for option to block potentially offensive words to be shown [CHAR_LIMIT=80 (two lines) or 40 (fits on one line, preferable)] -->
+    <!-- Summary for option to block potentially offensive words to be shown -->
     <string name="prefs_block_potentially_offensive_summary">Do not suggest potentially offensive words</string>
-    <!-- Option to enable auto correction [CHAR LIMIT=20] -->
+    <!-- Option to enable auto correction -->
     <string name="autocorrect">Auto-correction</string>
-    <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
+    <!-- Description for auto correction -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
     <!-- Option to enable auto correction for many fields that do not request auto correction -->
     <string name="more_autocorrect">More auto-correction</string>
     <!-- Description for more_autocorrect -->
     <string name="more_autocorrect_summary">Auto-correct even when not explicitly requested by the input field</string>
-    <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
+    <!-- Option to change the confidence level of the auto correction -->
     <string name="auto_correction_confidence">Auto-correction confidence</string>
     <!-- Option to enable auto correction for shortcuts (will correct shortcut to the actual word) -->
     <string name="auto_correct_shortcuts">Auto-correct shortcuts</string>
     <!-- Description for auto_correct_shortcuts -->
     <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
-    <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
+    <!-- Option to disable auto correction. -->
     <string name="auto_correction_threshold_mode_off">Off</string>
-    <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
+    <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->
     <string name="auto_correction_threshold_mode_modest">Modest</string>
-    <!-- Option to suggest auto correction suggestions aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
+    <!-- Option to suggest auto correction suggestions aggressively. Auto-corrects to a word which has even large edit distance from typed word. -->
     <string name="auto_correction_threshold_mode_aggressive">Aggressive</string>
-    <!-- Option to suggest auto correction suggestions very aggressively. Auto-corrects to a word which has even large edit distance from typed word. [CHAR LIMIT=20] -->
+    <!-- Option to suggest auto correction suggestions very aggressively. Auto-corrects to a word which has even large edit distance from typed word. -->
     <string name="auto_correction_threshold_mode_very_aggressive">Very aggressive</string>
     <!-- Option to show the text to be entered as the middle middle suggestion -->
     <string name="center_suggestion_text_to_enter">Always use middle suggestion</string>
@@ -148,29 +142,29 @@
     <string name="suggest_clipboard_content">Suggest clipboard content</string>
     <!-- Description for the "suggest clipboard content" option. This makes the primary clipboard content visible in the suggestion strip view. -->
     <string name="suggest_clipboard_content_summary">Show recently copied clipboard content as a suggestion</string>
-    <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture input. The user can input a word by tracing the letters of a word without releasing the finger from the screen.-->
     <string name="gesture_input">Enable gesture typing</string>
-    <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen. [CHAR LIMIT=65]-->
+    <!-- Description for "gesture_input" option. The user can input a word by tracing the letters of a word without releasing the finger from the screen.-->
     <string name="gesture_input_summary">Input a word by sliding through the letters</string>
-    <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture trail preview. The user can see a trail of the gesture during gesture input.-->
     <string name="gesture_preview_trail">Show gesture trail</string>
-    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture floating text preview. The user can see a suggested word floating above the keyboard during a gesture input.-->
     <string name="gesture_floating_preview_static">Floating preview</string>
-    <!-- Description for "gesture_floating_preview_static" option. The user can see a suggested word floating above the keyboard during a gesture input. [CHAR LIMIT=65]-->
+    <!-- Description for "gesture_floating_preview_static" option. The user can see a suggested word floating above the keyboard during a gesture input.-->
     <string name="gesture_floating_preview_static_summary">See the suggested word while gesturing</string>
-    <!-- Option to enable gesture dynamic floating preview. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable gesture dynamic floating preview. The user can see a suggested word floating above the moving finger during a gesture input.-->
     <string name="gesture_floating_preview_text">Dynamic floating preview</string>
-    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating above the moving finger during a gesture input. [CHAR LIMIT=65]-->
+    <!-- Description for "gesture_floating_preview_text" option. The user can see a suggested word floating above the moving finger during a gesture input.-->
     <string name="gesture_floating_preview_dynamic_summary">Move the preview during a gesture</string>
-    <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=30]-->
+    <!-- Option to enable space aware gesture input. The user can input multiple words by gliding through the space key during a gesture input.-->
     <string name="gesture_space_aware">Phrase gesture</string>
-    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input. [CHAR LIMIT=65]-->
+    <!-- Description for "gesture_space_aware" option. The user can input multiple words by gliding through the space key during a gesture input.-->
     <string name="gesture_space_aware_summary">Input spaces during gestures by gliding to the space key</string>
-    <!-- Title of the setting to adjust the fast-typing gesture cooldown [CHAR LIMIT=35]-->
+    <!-- Title of the setting to adjust the fast-typing gesture cooldown-->
     <string name="gesture_fast_typing_cooldown">Rapid typing cooldown</string>
-    <!-- The text that represents no cooldown [CHAR LIMIT=25]-->
+    <!-- The text that represents no cooldown-->
     <string name="gesture_fast_typing_cooldown_instant">Always start instantly</string>
-    <!-- Title of the setting to adjust the gesture trail fadeout duration [CHAR LIMIT=35]-->
+    <!-- Title of the setting to adjust the gesture trail fadeout duration-->
     <string name="gesture_trail_fadeout_duration">Gesture trail lifespan</string>
     <!-- Preferences item for enabling clipboard history -->
     <string name="enable_clipboard_history">Enable clipboard history</string>
@@ -334,74 +328,66 @@
     <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Title of the setting for adding / removing custom font file -->
     <string name="custom_font">Set custom font from file</string>
-    <!-- Description for English (UK) keyboard subtype [CHAR LIMIT=25]
-         (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT. -->
+    <!-- Description for English (UK) keyboard subtype
+         (UK) should be an abbreviation of United Kingdom. -->
     <string name="subtype_en_GB">English (UK)</string>
-    <!-- Description for English (US) keyboard subtype [CHAR LIMIT=25]
-         (US) should be an abbreviation of United States to fit in the CHAR LIMIT. -->
+    <!-- Description for English (US) keyboard subtype
+         (US) should be an abbreviation of United States. -->
     <string name="subtype_en_US">English (US)</string>
-    <!-- Description for Spanish (US) keyboard subtype [CHAR LIMIT=25]
-         (US) should be an abbreviation of United States to fit in the CHAR LIMIT. -->
+    <!-- Description for Spanish (US) keyboard subtype
+         (US) should be an abbreviation of United States. -->
     <string name="subtype_es_US">Spanish (US)</string>
-    <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype [CHAR LIMIT=25] -->
+    <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype -->
     <string name="subtype_hi_Latn">Hinglish</string>
     <!-- Description for Mansi (https://en.wikipedia.org/wiki/Mansi_languages) keyboard subtype -->
     <string name="subtype_mns">Mansi</string>
-    <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype [CHAR LIMIT=25] -->
+    <!-- Description for Kaitag (https://en.wikipedia.org/wiki/Kaitag_language) keyboard subtype -->
     <string name="subtype_xdq">Kaitag</string>
-    <!-- Description for Serbian (Latin) keyboard subtype [CHAR LIMIT=25]
-         (Latin) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for Serbian (Latin) keyboard subtype -->
     <string name="subtype_sr_Latn">Serbian (Latin)</string>
-    <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
-         (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
+    <!-- Description for English (UK) keyboard subtype with explicit keyboard layout
+         (UK) should be an abbreviation of United Kingdom.
          This should be identical to subtype_en_GB aside from the trailing (%s). -->
     <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
-         (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
+    <!-- Description for English (US) keyboard subtype with explicit keyboard layout
+         (US) should be an abbreviation of United States.
          This should be identical to subtype_en_US aside from the trailing (%s). -->
     <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
-         (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
+    <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout
+         (US) should be an abbreviation of United States.
          This should be identical to subtype_es_US aside from the trailing (%s). -->
     <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+    <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype [CHAR LIMIT=25]
-         (Extended) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
-    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
+    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
-         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->      
+    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout
+         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
     <string name="subtype_with_layout_sr_Latn" tools:keep="@string/subtype_with_layout_sr_Latn">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
-         (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype -->
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
+    <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
-    <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
+    <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <!-- Description for Bengali (Baishakhi) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25] -->
+    <!-- Description for Bengali (Baishakhi) keyboard subtype with explicit keyboard layout -->
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
-    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
-         (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype -->
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
-    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype [CHAR LIMIT=25]
-         (Phonetic) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype -->
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype [CHAR LIMIT=25]
-         (Sebeolsik 390) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype -->
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype [CHAR LIMIT=25]
-         (Sebeolsik Final) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype -->
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
-    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype [CHAR LIMIT=25]
-         (Student) can be an abbreviation to fit in the CHAR LIMIT. -->
+    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype -->
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
@@ -411,7 +397,7 @@ Cyrillic, Arabic, Hebrew or other scripts. This keyboard offers no suggestions, 
 be a QWERTY, or AZERTY, or any other disposition that only offers Latin characters, so
 you wouldn't be able to type, say, Arabic on it. Please translate it in a way that "alphabet"
 would be understood to mean specifically the Latin alphabet, rather than any other
-alphabet. [CHAR LIMIT=29] -->
+alphabet. -->
     <string name="subtype_no_language">No language (Alphabet)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -422,7 +408,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_qwerty">Alphabet (QWERTY)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -433,7 +419,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTZ
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -444,7 +430,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the AZERTY
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_azerty" tools:keep="@string/subtype_no_language_azerty">Alphabet (AZERTY)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -455,7 +441,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Dvorak
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Alphabet (Dvorak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -466,7 +452,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Colemak
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_colemak" tools:keep="@string/subtype_no_language_colemak">Alphabet (Colemak)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -478,7 +464,7 @@ keyboard that is meant for them to be able to enter Latin characters as opposed 
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY PC
 disposition that offers additional keys, but smaller keys compared to other common dispositions for
-mobile devices. [CHAR LIMIT=25] -->
+mobile devices. -->
     <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -489,7 +475,7 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Workman
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alphabet (Workman)</string>
     <!-- This string is displayed in the description for a keyboard type. It refers specifically to
 the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
@@ -500,20 +486,20 @@ this keyboard, so users of other scripts should understand when they read this t
 keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
 are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
 language among those that use the Latin alphabet. This keyboard is laid out in the Bépo
-disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alphabet (Bépo)</string>
     <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
-    <!-- Description for Emoji keyboard subtype [CHAR LIMIT=25] -->
+    <!-- Description for Emoji keyboard subtype -->
     <string name="subtype_emoji">Emoji</string>
-    <!-- Title of the button to add custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the button to add custom style entry in the settings dialog. Preferably 10 characters or less. -->
     <string name="add">Add</string>
-    <!-- Title of the button to remove a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the button to remove a custom style entry in the settings dialog. Preferably 10 characters or less. -->
     <string name="remove">Remove</string>
-    <!-- Title of the button to save a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the button to save a custom style entry in the settings dialog. Preferably 10 characters or less. -->
     <string name="save">Save</string>
-    <!-- Title of the button to load a custom style entry in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the button to load a custom style entry in the settings dialog. Preferably 10 characters or less. -->
     <string name="load">Load</string>
-    <!-- Title of the spinner for choosing a language of custom style in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the spinner for choosing a language of custom style in the settings dialog. Preferably 10 characters or less. -->
     <string name="subtype_locale">Language</string>
     <!-- Title of the section for choosing a keyboard layout language settings dialog -->
     <string name="keyboard_layout_set">Layout</string>
@@ -521,18 +507,18 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="button_title_add_custom_layout">Add custom layout</string>
     <!-- Message text for adding a custom layout -->
     <string name="message_add_custom_layout">Select a file in a compatible format. Information about the formats is available %s.</string>
-    <!-- Button text for loading a custom layout, image or theme file -->
+    <!-- Button text for loading a custom layout, image or theme file. Preferably 10 characters or less. -->
     <string name="button_load_custom">Load file</string>
-    <!-- Button text for saving a theme file -->
+    <!-- Button text for saving a theme file. Preferably 10 characters or less. -->
     <string name="button_save_file">Save to file</string>
     <!-- Button text for copying text to clipboard -->
     <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
     <!-- Button text for copying an existing layout -->
-    <string name="button_copy_existing_layout">Copy existing layout</string>
+    <string name="button_copy_existing_layout">Copy existing layout</string> <!-- todo: use it or remove it -->
     <!-- Title text for choosing a layout name -->
-    <string name="title_layout_name_select">Set layout name</string>
+    <string name="title_layout_name_select">Set layout name</string> <!-- todo: use it or remove it -->
     <!-- Message when deleting a layout -->
     <string name="delete_layout">Really delete custom layout %s?</string>
     <!-- Message when layout to be deleted is in use -->
@@ -541,10 +527,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="layout_error">Layout error: %s</string>
     <!-- Text hint for editing layout -->
     <string name="edit_layout">Tap to edit raw layout</string>
-    <!-- Title for customizing symbols or number layouts -->
-    <string name="customize_symbols_number_layouts">Customize symbols and number layouts</string>
-    <!-- Title for customizing functional key layouts -->
-    <string name="customize_functional_key_layouts">Customize functional key layouts</string>
     <!-- Settings screen title for secondary layouts (functional keys, symbols, numpad, ...) -->
     <string name="settings_screen_secondary_layouts">Secondary layouts</string>
     <!-- Name for functional keys layout -->
@@ -601,78 +583,66 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="day_or_night_day">Day</string>
     <!-- Button for selecting night -->
     <string name="day_or_night_night">Night</string>
-    <!-- Title of the setting for keypress vibration duration [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress vibration duration -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
-    <!-- Title of the setting for keypress sound volume [CHAR LIMIT=35] -->
+    <!-- Title of the setting for keypress sound volume -->
     <string name="prefs_keypress_sound_volume_settings">Keypress sound volume</string>
-    <!-- Title of the setting for key long press delay [CHAR LIMIT=35] -->
+    <!-- Title of the setting for key long press delay -->
     <string name="prefs_key_longpress_timeout_settings">Key long press delay</string>
-    <!-- Title of the setting for overriding Android SDK level for showing emojis [CHAR LIMIT=35] -->
+    <!-- Title of the setting for overriding Android SDK level for showing emojis -->
     <string name="prefs_key_emoji_max_sdk">Override Emoji version</string>
-    <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=35] -->
+    <!-- Title of the setting for enabling Emoji palette triggered by the Alt key on physical keyboards -->
     <string name="prefs_enable_emoji_alt_physical_key">Emoji for physical keyboard</string>
-    <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards [CHAR LIMIT=64] -->
+    <!-- Description of the settings for enabling Emoji palette triggered by the Alt key on physical keyboards -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
-    <!-- Title of the button to revert to the default value of the device in the settings dialog [CHAR LIMIT=15] -->
+    <!-- Title of the button to revert to the default value of the device in the settings dialog. Preferably 10 characters or less. -->
     <string name="button_default">Default</string>
-    <!-- Title of the setup wizard welcome screen. [CHAR LIMT=40] -->
+    <!-- Title of the setup wizard welcome screen. -->
     <string name="setup_welcome_title">"Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. [CHAR_LIMIT=64] -->
+    <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. -->
     <string name="setup_welcome_additional_description">with Gesture Typing</string>
-    <!-- The label of the button that starts the setup wizard. [CHAR_LIMIT=64] -->
+    <!-- The label of the button that starts the setup wizard. -->
     <string name="setup_start_action">Get started</string>
-    <!-- The label of the button that navigates the user to the next step of the setup wizard. [CHAR_LIMIT=64] -->
-    <string name="setup_next_action">Next step</string>
-    <!-- Title of the setup wizard. [CHAR LIMT=40] -->
+    <!-- The label of the button that navigates the user to the next step of the setup wizard. -->
+    <string name="setup_next_action">Next step</string> <!-- todo: use it or remove it -->
+    <!-- Title of the setup wizard. -->
     <string name="setup_steps_title">"Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Ordinal number of the 1st step in the setup wizard. [CHAR LIMIT=5] -->
-    <string name="setup_step1_bullet" translatable="false">1</string>
-    <!-- Title of the 1st step in the setup wizard. [CHAR LIMIT=64] -->
+    <!-- Title of the 1st step in the setup wizard. -->
     <string name="setup_step1_title">"Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 1st step in the setup wizard. [CHAR LIMIT=120] -->
+    <!-- Detailed instruction of the 1st step in the setup wizard. -->
     <string name="setup_step1_instruction">"Please check \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
-    <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>
-    <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
+    <!-- Detailed instruction of the already finished 1st step in the setup wizard. -->
+    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>  <!-- todo: use it or remove it -->
+    <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. -->
     <string name="setup_step1_action">Enable in Settings</string>
-    <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
-    <string name="setup_step2_bullet" translatable="false">2</string>
-    <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
+    <!-- Title of the 2nd step in the setup wizard. -->
     <string name="setup_step2_title">"Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 2nd step in the setup wizard. [CHAR LIMIT=120] -->
+    <!-- Detailed instruction of the 2nd step in the setup wizard. -->
     <string name="setup_step2_instruction">"Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method."</string>
-    <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. [CHAR_LIMIT=64] -->
+    <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. -->
     <string name="setup_step2_action">Switch input methods</string>
-    <!-- Ordinal number of the 3rd step in the setup wizard. [CHAR LIMIT=5] -->
-    <string name="setup_step3_bullet" translatable="false">3</string>
-    <!-- Title of the 3rd step in the setup wizard. [CHAR LIMIT=64] -->
+    <!-- Title of the 3rd step in the setup wizard. -->
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
-    <!-- Detailed instruction of the 3rd step in the setup wizard. [CHAR LIMIT=120] -->
+    <!-- Detailed instruction of the 3rd step in the setup wizard. -->
     <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
-    <!-- The label of the button that triggers the settings screen for the keyboard. [CHAR_LIMIT=64] -->
+    <!-- The label of the button that triggers the settings screen for the keyboard. -->
     <string name="setup_step3_action">Configure the keyboard</string>
-    <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
+    <!-- The label of the button that finishes the setup wizard. -->
     <string name="setup_finish_action">Finished</string>
-    <!-- Option to show setup wizard icon. [CHAR LIMIT=30]-->
+    <!-- Option to show setup wizard icon. Legacy setting only displayed for Android 9 and older. -->
     <string name="show_setup_wizard_icon">Show app icon</string>
-    <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
+    <!-- Description for the option to show setup wizard application icon of this IME in the launcher. -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
     <!-- Title and summary of the dictionary settings screen -->
-    <string name="dictionary_settings_title">Add-on dictionaries</string>
-    <!-- Title for the prompt dialog which informs the user that a dictionary is available for the current language and asks to decide whether to download it over 3g -->
-    <string name="dictionary_settings_summary">Settings for dictionaries</string>
+    <string name="dictionary_settings_title">Add-on dictionaries</string> <!-- todo: name and description should change -->
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
     <!-- Summary text for built-in dictionary -->
     <string name="internal_dictionary_summary">Internal main dictionary</string>
     <!-- Title for the adding new user dictionary dialog -->
     <string name="add_new_dictionary_title">"Add dictionary from file"</string>
-    <!-- Message when opening a dictionary file, showing type and dictionary language, prompting to choose a language to add it to -->
-    <string name="add_new_dictionary_ask_locale">"To which language should the dictionary \"%1$s\" for %2$s be added?"</string>
     <!-- Button in dialog for choosing a locale -->
     <string name="button_select_language">"Select language"</string>
-    <!-- Button in dialog for adding dictionary to specific locale -->
-    <string name="button_add_to_language">"Add to %s"</string>
     <!-- Message for user dictionary replacement dialog -->
     <string name="replace_dictionary_message">"Really replace user-added dictionary \"%1$s\"?\n
 Current dictionary:
@@ -699,69 +669,65 @@ New dictionary:
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
     <!-- Text shown when dictionary file is not for the selected locale -->
-    <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string>
+    <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string> <!-- todo: use it or remove it -->
     <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
     <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
     <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
-    <string name="dictionary_file_wrong_locale_ok">"Still use"</string>
+    <string name="dictionary_file_wrong_locale_ok">"Still use"</string> <!-- todo: use it or remove it -->
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
     <string name="dictionary_available">Dictionary available</string>
-    <!-- Message to display in the dictionaries setting screen when some error prevented us to list installed dictionaries [CHAR LIMIT=20] -->
-    <string name="cannot_connect_to_dict_service">Problem connecting to dictionary service</string>
-    <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available [CHAR LIMIT=20]-->
+    <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available-->
     <string name="no_dictionaries_available">No dictionaries available</string>
-    <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. [CHAR LIMIT=45] -->
+    <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. -->
     <string name="last_update">Last updated</string>
-    <!-- String to explain this dictionary is the main dictionary for this language [CHAR_LIMIT=30] -->
-    <string name="main_dict_description">Main dictionary</string>
-    <!-- Action to delete (a file) [CHAR_LIMIT=15] -->
+    <!-- Action to delete (a file) -->
     <string name="delete">Delete</string>
-    <!-- Version text [CHAR LIMIT=30]-->
+    <!-- Version text-->
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_menu_title">Add</string>
-    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. [CHAR LIMIT=25] -->
+    <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
-    <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). [CHAR LIMIT=20] -->
+    <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->
     <string name="user_dict_settings_add_shortcut_option_name">Shortcut:</string>
     <!-- User dictionary settings. Label to put before the weight field -->
     <string name="user_dict_settings_add_weight_value">Weight:</string>
-    <!-- User dictionary settings. Label to put before the language field. [CHAR LIMIT=20] -->
+    <!-- User dictionary settings. Label to put before the language field. -->
     <string name="user_dict_settings_add_locale_option_name">Language:</string>
-    <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. [CHAR LIMIT=35] -->
+    <!-- User dictionary settings. Hint for the text field to type the word to add to the user dictionary. -->
     <string name="user_dict_settings_add_word_hint">Type a word</string>
-    <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. [CHAR LIMIT=35] -->
+    <!-- User dictionary settings. Hint for the text field to type the optional shortcut to add to the user dictionary. -->
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
-    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary  [CHAR LIMIT=200] -->
+    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.</string>
     <!-- User dictionary settings. The list item to choose to insert a word into the user dictionary for all languages -->
     <string name="user_dict_settings_all_languages">For all languages</string>
-    <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one [CHAR LIMIT=30] -->
+    <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one -->
     <string name="user_dict_settings_more_languages">More languages…</string>
-    <!-- User dictionary settings. Index of the user dictionary [CHAR LIMIT=30]
+    <!-- User dictionary settings. Index of the user dictionary
          This resource is copied from packages/apps/Settings/res/values/strings.xml -->
     <string name="user_dict_fast_scroll_alphabet">\u0020ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <!-- Message in user dictionary dialog -->
     <string name="user_dict_word_already_present">This word is already present in the %s user dictionary. Please type another one.</string>
     <!-- User dictionary settings. Text button to add a word -->
     <string name="user_dict_add_word_button">Add a word</string>
-    <!-- Option for choosing theme style [CHAR LIMIT=33] -->
+    <!-- Option for choosing theme style -->
     <string name="theme_style">Style</string>
     <!-- Option for choosing icon style (same options as theme_style) -->
     <string name="icon_style">Icon style</string>
     <!-- Style name for Rounded style -->
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Rounded</string>
-    <!-- Option for choosing colors [CHAR LIMIT=33] -->
+    <!-- Option for choosing colors -->
     <string name="theme_colors">Colors</string>
-    <!-- Option for choosing colors for night mode [CHAR LIMIT=33] -->
+    <!-- Option for choosing colors for night mode -->
     <string name="theme_colors_night">Colors (night)</string>
-    <!-- Option for choosing whether we use a theme that provides borders to keys [CHAR LIMIT=33] -->
+    <!-- Option for choosing whether we use a theme that provides borders to keys -->
     <string name="key_borders">Key borders</string>
-    <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
+    <!-- Option for choosing auto day/night theme switch -->
     <string name="day_night_mode">Auto day/night mode</string>
     <!-- Description for "day_night_mode" option. -->
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
@@ -803,10 +769,6 @@ New dictionary:
     <string name="theme_name_user" tools:keep="@string/theme_name_user">User-Defined</string>
     <!-- Theme name for user-defined theme night mode theme -->
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">User-Defined (night)</string>
-    <!-- Option for selecting custom theme colors -->
-    <string name="select_user_colors">Adjust colors</string>
-    <!-- Option for selecting custom theme colors for night mode only -->
-    <string name="select_user_colors_night">Adjust colors (night)</string>
     <!-- Text when determining color automatically -->
     <string name="auto_user_color">Choose color automatically</string>
     <!-- Menu item for showing fewer colors -->
@@ -816,13 +778,13 @@ New dictionary:
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
     <!-- Warning message displayed when loading theme colors -->
-    <string name="load_will_overwrite">Loading will overwrite the current theme</string>
+    <string name="load_will_overwrite">Loading will overwrite the current theme</string> <!-- todo: use it or remove it -->
     <!-- Warning message displayed when showing all colors -->
     <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
     <!-- Hint for text field just to show keyboard (in color settings) -->
-    <string name="hint_show_keyboard">Click for preview</string>
+    <string name="hint_show_keyboard">Click for preview</string> <!-- todo: use it or remove it -->
     <!-- Description for selection of user-defined colors. -->
-    <string name="select_user_colors_summary">Select colors for text and backgrounds</string>
+    <string name="select_user_colors_summary">Select colors for text and backgrounds</string> <!-- todo: use it or remove it -->
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
@@ -849,7 +811,7 @@ New dictionary:
     <string name="get_layouts_message">"You can find and share layouts in the %s."</string>
     <!-- Text to be used in get_colors_message and get_layouts_message -->
     <string name="discussion_section_link">"discussion section"</string>
-    <!-- Settings screen title for about [CHAR LIMIT=33]-->
+    <!-- Settings screen title for about-->
     <string name="settings_screen_about">About</string>
     <!-- version for about screen-->
     <string name="version">Version</string>
@@ -861,10 +823,10 @@ New dictionary:
     <string name="license">Open-source license</string>
     <!-- license link for about screen-->
     <string name="gnu_gpl">GNU General Public License v3.0</string>
-    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
+    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable. Preferably 10 characters or less. -->
     <string name="dialog_close">Close</string>
     <!-- Preference for selecting system locales -->
-    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string>
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> <!-- todo: use it (again) or remove it -->
     <!-- Hint for users to tap the languages for settings -->
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->
@@ -879,7 +841,7 @@ New dictionary:
     <string name="hidden_features_summary">Show features that may go unnoticed</string>
     <!-- Title of the link to the web page inserted into messages -->
     <string name="hidden_features_text">device protected storage</string>
-    <!-- Hidden features text -->
+    <!-- Hidden features text (might get removed in the future) -->
     <string name="hidden_features_message">► Long-pressing pinned toolbar keys results in additional functionality: &lt;br&gt;
 \n\t• clipboard &amp;#65515; paste &lt;br&gt;
 \n\t• move left/right &amp;#65515; word left/right &lt;br&gt;
@@ -917,21 +879,21 @@ New dictionary:
 \n► When using multilingual typing, space bar will show an confidence value used for determining the currently used language. &lt;br&gt; &lt;br&gt;
 \n► Suggestions will have some tiny numbers on top showing some internal score and source dictionary (can be disabled).</string>
     <string name="use_personalized_dicts_summary">Learn from your communications and typed data to improve suggestions</string>
-    <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs GO action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_go_key">Go</string>
-    <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs NEXT action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_next_key">Next</string>
-    <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs PREVIOUS action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_previous_key">Prev</string>
-    <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs DONE action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_done_key">Done</string>
-    <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs SEND action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_send_key">Send</string>
-    <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for soft enter key when it performs SEARCH action.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_search_key">Search</string>
-    <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7] -->
+    <!-- Label for "Pause" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_pause_key" tools:keep="@string/label_pause_key">Pause</string>
-    <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable.  [CHAR LIMIT=7]-->
+    <!-- Label for "Wait" key of phone number keyboard.  Must be short to fit on key. 5 chars or less is preferable. -->
     <string name="label_wait_key" tools:keep="@string/label_wait_key">Wait</string>
     <!-- Label for enter key, currently used only for showing the icon name -->
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>

@@ -44,6 +44,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.decodeBase36
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.appendLink
@@ -172,6 +173,10 @@ fun ColorThemePickerDialog(
 private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<String>, targetScreen: String, prefKey: String) {
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     val prefs = LocalContext.current.prefs()
+    val defaultName = KeyboardTheme.getUnusedThemeName(stringResource(R.string.theme_name_user), prefs)
+    val textEmpty = textValue.text.isEmpty()
+    val currentName = if (textEmpty) defaultName else textValue.text
+    val label: @Composable (() -> Unit)? = if (textEmpty) { { Text(defaultName) } } else null
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(start = 10.dp)
@@ -181,12 +186,14 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
             value = textValue,
             onValueChange = { textValue = it },
             modifier = Modifier.weight(1f),
-            singleLine = true
+            singleLine = true,
+            label = label
         )
-        EditButton(textValue.text.isNotEmpty() && textValue.text !in userColors) {
+        EditButton(currentName.isNotBlank() && currentName !in userColors) {
             onDismissRequest()
-            prefs.edit().putString(prefKey, textValue.text).apply()
-            SettingsDestination.navigateTo(targetScreen)
+            prefs.edit().putString(prefKey, currentName).apply()
+            KeyboardTheme.writeUserMoreColors(prefs, currentName, Defaults.PREF_USER_MORE_COLORS) // write sth so theme is stored
+            SettingsDestination.navigateTo(targetScreen + currentName)
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     }

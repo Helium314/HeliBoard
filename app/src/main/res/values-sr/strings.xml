@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Потражи имена контаката"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Контрола правописа користи уносе са листе контаката</string>
+    <string name="use_contacts_dict">"Потражи имена контаката"</string>
     <string name="vibrate_on_keypress">"Вибрирај на притисак тастера"</string>
     <string name="sound_on_keypress">"Звук на притисак тастера"</string>
     <string name="popup_on_keypress">"Искачући прозор приликом притиска тастера"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Тастер за пребацивање језика"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс</string>
     <string name="settings_system_default">"Подразумевано"</string>
-    <string name="use_contacts_dict">"Предложи имена контаката"</string>
     <string name="use_contacts_dict_summary">"Користи имена из Контаката за предлоге и исправке"</string>
     <string name="use_personalized_dicts">"Персонализовани предлози"</string>
     <string name="use_double_space_period">Дупли размак тачка</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Аутоматски унос великих слова"</string>
     <string name="auto_cap_summary">"Писање великог слова на почетку сваке реченице"</string>
     <string name="edit_personal_dictionary">"Лични речник"</string>
-    <string name="configure_dictionaries_title">"Помоћни речници"</string>
     <string name="main_dictionary">"Главни речник"</string>
     <string name="prefs_show_suggestions">"Прикажи предлоге за исправку"</string>
     <string name="prefs_show_suggestions_summary">"Приказивање предложених речи током уноса текста"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Прикажи икону апликације"</string>
     <string name="show_setup_wizard_icon_summary">"Икона апликације се приказује у покретачу"</string>
     <string name="dictionary_settings_title">"Помоћни речници"</string>
-    <string name="dictionary_settings_summary">"Подешавања за речнике"</string>
     <string name="dictionary_available">"Речник је доступан"</string>
-    <string name="cannot_connect_to_dict_service">"Проблем при повезивању с услугом речника"</string>
     <string name="no_dictionaries_available">"Нема доступних речника"</string>
     <string name="last_update">"Последње ажурирање"</string>
-    <string name="main_dict_description">"Главни речник"</string>
     <string name="settings">"Подешавања"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

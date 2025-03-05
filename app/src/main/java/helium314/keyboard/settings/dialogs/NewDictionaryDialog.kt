@@ -28,6 +28,8 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.settings.DropDownField
+import helium314.keyboard.settings.WithSmallTitle
 import java.io.File
 import java.util.Locale
 
@@ -68,14 +70,18 @@ fun NewDictionaryDialog(
                 val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
                 ctx.sendBroadcast(newDictBroadcast)
             },
+            confirmButtonText = stringResource(if (dictFile.exists()) R.string.replace_dictionary else android.R.string.ok),
+            title = { Text(stringResource(R.string.add_new_dictionary_title)) },
             content = {
                 Column {
-                    Text(info)
-                    DropDownField(
-                        selectedItem = locale,
-                        onSelected = { locale = it },
-                        items = locales
-                    ) { Text(it.localizedDisplayName(ctx)) }
+                    Text(info, Modifier.padding(bottom = 10.dp))
+                    WithSmallTitle(stringResource(R.string.button_select_language)) {
+                        DropDownField(
+                            selectedItem = locale,
+                            onSelected = { locale = it },
+                            items = locales
+                        ) { Text(it.localizedDisplayName(ctx)) }
+                    }
                     if (locale.script() != dictLocale.script()) {
                         // whatever, still allow it if the user wants
                         HorizontalDivider()

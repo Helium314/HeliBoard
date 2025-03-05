@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"सम्पर्क नामहरू हेर्नुहोस्"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"तपाईँको सम्पर्क सूचीबाट हिज्जे परीक्षकले प्रविष्टिहरूको प्रयोग गर्छ"</string>
+    <string name="use_contacts_dict">"सम्पर्क नामहरू हेर्नुहोस्"</string>
     <string name="vibrate_on_keypress">"कुञ्जी थिच्दा भाइब्रेट"</string>
     <string name="sound_on_keypress">"कुञ्जी थिच्दा आवाज"</string>
     <string name="popup_on_keypress">"कुञ्जी दबाउँदा पपअप"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"भाषा स्विच कुञ्जी"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> मिलिसेकेन्ड"</string>
     <string name="settings_system_default">"पूर्वनिर्धारित प्रणाली"</string>
-    <string name="use_contacts_dict">"सम्पर्क नामहरू सुझाव गर्नुहोस्"</string>
     <string name="use_contacts_dict_summary">"सुझाव र सुधारका लागि सम्पर्कबाट नामहरू प्रयोग गर्नुहोस्"</string>
     <string name="use_personalized_dicts">"निजीकृत सुझावहरू"</string>
     <string name="use_double_space_period">"डबल-स्पेस पूर्णविराम"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"स्वतः क्यापिटलाइजेसन"</string>
     <string name="auto_cap_summary">"प्रत्येक वाक्यको पहिलो शब्द क्यापिटल गर्नुहोस्"</string>
     <string name="edit_personal_dictionary">"व्यक्तिगत शब्दकोश"</string>
-    <string name="configure_dictionaries_title">"एड-अन शब्दकोश"</string>
     <string name="main_dictionary">"मुख्य शब्दकोश"</string>
     <string name="prefs_show_suggestions">"सुधार सुझावहरू देखाउने"</string>
     <string name="prefs_show_suggestions_summary">"टाइप गर्ने बेलामा सुझाव शब्दहरू देखाउनुहोस्"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"अनुप्रयोग आइकन देखाउनुहोस्"</string>
     <string name="show_setup_wizard_icon_summary">"लन्चरमा अनुप्रयोग आइकन देखाउनुहोस्"</string>
     <string name="dictionary_settings_title">"एड-अन शब्दकोश"</string>
-    <string name="dictionary_settings_summary">"शब्दकोशहरूका लागि सेटिङहरू"</string>
     <string name="dictionary_available">"उपलब्ध शब्दकोश"</string>
-    <string name="cannot_connect_to_dict_service">"शब्दकोश सेवासँग जोड्न समस्या"</string>
     <string name="no_dictionaries_available">"शब्दकोशहरू उपलब्ध छैनन्"</string>
     <string name="last_update">"पछिल्लो अद्यावधिक"</string>
-    <string name="main_dict_description">"मुख्य शब्दकोश"</string>
     <string name="settings">"सेटिङहरू"</string>
     <string name="delete">"मेट्नुहोस्"</string>
     <string name="version_text">"संस्करण <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

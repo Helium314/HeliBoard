@@ -1,0 +1,11 @@
+* permet personalitzar dissenys tecles funcio
+* ajustar símbols i més dissenys de símbols
+* afe. opcions a barra eines per auto mostrar/amagar
+* afe. notificació en copiar
+* separar comportament de tecla d'idioma
+* afe. emergents de tecles de comes a nombres i telefon
+* fixació de premuda llarga a barra eines opcional
+* moure config. de barra eines a secció separada
+* afe. tecla de pestanya
+* entendre ctrl, barra d'eines i altres etiquetes de tecles a disposicions
+* correccions i millores menors

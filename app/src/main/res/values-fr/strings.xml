@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Rechercher les noms de contacts"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Le correcteur orthographique utilise les noms des contacts</string>
+    <string name="use_contacts_dict">"Rechercher les noms de contacts"</string>
     <string name="vibrate_on_keypress">"Vibrer à chaque touche"</string>
     <string name="sound_on_keypress">"Émettre un son à chaque touche"</string>
     <string name="popup_on_keypress">"Agrandir les caractères"</string>
@@ -22,7 +21,6 @@
     <string name="show_language_switch_key">"Touche de sélection de langue"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Paramètres par défaut"</string>
-    <string name="use_contacts_dict">"Suggestion des contacts"</string>
     <string name="use_contacts_dict_summary">Utilise les noms de contacts pour les suggestions et les corrections</string>
     <string name="use_personalized_dicts">"Suggestions personnalisées"</string>
     <string name="disable_personalized_dicts_message">Attention : la désactivation de ce paramètre effacera les données apprises.</string>
@@ -33,7 +31,6 @@
     <string name="auto_cap">"Majuscules automatique"</string>
     <string name="auto_cap_summary">"Majuscule au premier mot de chaque phrase"</string>
     <string name="edit_personal_dictionary">"Dictionnaire personnel"</string>
-    <string name="configure_dictionaries_title">"Dictionnaires complémentaires"</string>
     <string name="main_dictionary">"Dictionnaire principal"</string>
     <string name="prefs_show_suggestions">"Suggestions de correction"</string>
     <string name="prefs_show_suggestions_summary">"Affiche les mots suggérés lors de la saisie"</string>
@@ -120,13 +117,10 @@
     <string name="show_setup_wizard_icon">"Afficher l\'icône de l\'application"</string>
     <string name="show_setup_wizard_icon_summary">"Affiche l\'icône de l\'application dans le lanceur"</string>
     <string name="dictionary_settings_title">"Dictionnaires complémentaires"</string>
-    <string name="dictionary_settings_summary">"Paramètres des dictionnaires"</string>
     <string name="dictionary_settings_category">Dictionnaires</string>
     <string name="internal_dictionary_summary">Dictionnaires intégrés</string>
     <string name="add_new_dictionary_title">"Ajouter dictionnaire"</string>
-    <string name="add_new_dictionary_ask_locale">"À quelle langue faut-il ajouter le dictionnaire \"%1$s\" pour %2$s ?"</string>
     <string name="button_select_language">"Sélectionner la langue"</string>
-    <string name="button_add_to_language">"Ajouter à %s"</string>
     <string name="replace_dictionary_message">"Remplacer le dictionnaire utilisateur \"%1$s\"?\n
 Dictionnaire actuel:
 %2$s\n
@@ -145,10 +139,8 @@ Nouveau dictionnaire:
     <string name="dictionary_file_wrong_locale_ok">"Utiliser quand même"</string>
     <string name="dictionary_load_error">"Erreur de chargement du fichier dictionnaire"</string>
     <string name="dictionary_available">"Dictionnaire disponible"</string>
-    <string name="cannot_connect_to_dict_service">Problème de connexion au service de dictionnaire</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
     <string name="last_update">"Dernière mise à jour"</string>
-    <string name="main_dict_description">"Dictionnaire principal"</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
     <string name="user_dict_settings_add_menu_title">"Ajouter"</string>
@@ -246,8 +238,6 @@ Nouveau dictionnaire:
     <string name="theme_name_violette">Violette</string>
     <string name="theme_name_user">Personnalisé</string>
     <string name="theme_name_user_night">Personnalisé (mode nuit)</string>
-    <string name="select_user_colors">Personnaliser le thème</string>
-    <string name="select_user_colors_night">Personnaliser le thème (mode nuit)</string>
     <string name="auto_user_color">Choix automatique de la couleur</string>
     <string name="main_colors">Afficher les couleurs principales</string>
     <string name="all_colors">Afficher toutes les couleurs</string>
@@ -359,7 +349,6 @@ Nouveau dictionnaire:
     <string name="layout_phone" tools:keep="@string/layout_phone">Pavé téléphonique</string>
     <string name="space_swipe_move_cursor_entry">Déplacer le curseur</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="customize_symbols_number_layouts">Personnaliser la disposition des symboles et des pavés numériques</string>
     <string name="action_none">Aucun</string>
     <string name="show_horizontal_space_swipe">Balayage horizontal de la barre d\'espace</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Pavé numérique (paysage)</string>
@@ -386,7 +375,6 @@ Nouveau dictionnaire:
     <string name="all_colors_warning">Ce paramètre expose toutes les couleurs utilisées en interne. La liste des couleurs peut être modifiée à tout moment. La couleur par défaut est aléatoire et les noms ne seront pas traduits.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Touches fonctionnelles</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Touches fonctionnelles (Plus de symboles)</string>
-    <string name="customize_functional_key_layouts">Personnaliser la disposition des touches fonctionnelles</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Touches fonctionnelles (Symboles)</string>
     <string name="quick_pin_toolbar_keys">Épingler les touches de la barre d\'outils lors d\'un appui-long</string>
     <string name="settings_screen_toolbar">Barre d\'outils</string>
@@ -452,4 +440,26 @@ Nouveau dictionnaire:
     <string name="customize_icons">Personnaliser les icônes</string>
     <string name="customize_icons_reset_message">Voulez-vous vraiment réinitialiser toutes les icônes personnalisées ?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Corbeille</string>
+    <string name="vibrate_in_dnd_mode">Vibrer en mode Ne pas déranger</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonétique)</string>
+    <string name="prefs_key_emoji_max_sdk">Remplacer la version des Emojis</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">Correction automatique des raccourcis</string>
+    <string name="auto_correct_shortcuts_summary">Lorsque les raccourcis sont activés, ils peuvent être étendus par correction automatique</string>
+    <string name="custom_font">Définir une police personnalisée à partir d\'un fichier</string>
+    <string name="summary_customize_background_image_landscape">Si non défini, l\'image portrait sera utilisée</string>
+    <string name="customize_background_image_landscape">Définir l\'image d\'arrière-plan (paysage)</string>
+    <string name="customize_toolbar_key_code_reset_message">Effacer tous les codes clés personnalisés ?</string>
+    <string name="prefs_bottom_padding_scale_landscape">Hauteur du remplissage inférieur (paysage)</string>
+    <string name="prefs_font_scale">Échelle de police du clavier</string>
+    <string name="prefs_emoji_font_scale">Échelle de police de la vue Emoji</string>
+    <string name="prefs_side_padding_scale_landscape">Espacement latéral (paysage)</string>
+    <string name="prefs_side_padding_scale">Espacement latéral</string>
+    <string name="number_row_hints">Afficher les symboles sur la rangée numérique</string>
+    <string name="prefs_language_swipe_distance">Distance de balayage pour changer de langue</string>
+    <string name="enable_split_keyboard_landscape">Activer le clavier divisé (paysage)</string>
+    <string name="split_spacer_scale_landscape">Distance de séparation (paysage)</string>
+    <string name="split" tools:keep="@string/split">Clavier divisé</string>
+    <string name="delete_confirmation">Voulez-vous vraiment supprimer %s ?</string>
 </resources>

@@ -99,11 +99,11 @@ def check_changelog():
     filenames.sort()
     changelog_version = filenames[-1].replace(".txt", "")
     version = ""
-    with open("app/build.gradle") as f:
+    with open("app/build.gradle.kts") as f:
         for line in f:
             line = line.lstrip()
             if line.startswith("versionCode"):
-                version = line.split(" ")[1].rstrip()
+                version = line.split(" ")[2].rstrip()
                 break
     if changelog_version == version:
         print("changelog for", version, "exists")

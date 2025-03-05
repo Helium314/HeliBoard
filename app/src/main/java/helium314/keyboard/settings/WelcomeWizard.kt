@@ -36,6 +36,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -44,7 +45,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -75,15 +78,29 @@ fun WelcomeWizard(
             }
     }
     val useWideLayout = height < 500 && width > height
+    val stepBackgroundColor = Color(ContextCompat.getColor(ctx, R.color.setup_step_background))
+    val textColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_action))
+    val textColorDim = textColor.copy(alpha = 0.5f)
+    val titleColor = Color(ContextCompat.getColor(ctx, R.color.setup_text_title))
     val appName = stringResource(ctx.applicationInfo.labelRes)
     @Composable fun bigText() {
         val resource = if (step == 0) R.string.setup_welcome_title else R.string.setup_steps_title
-        Text(
-            stringResource(resource, appName),
-            style = MaterialTheme.typography.displayMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 36.dp)
-        )
+        Column(Modifier.padding(bottom = 36.dp)) {
+            Text(
+                stringResource(resource, appName),
+                style = MaterialTheme.typography.displayMedium,
+                textAlign = TextAlign.Center,
+                color = titleColor,
+            )
+            if (JniUtils.sHaveGestureLib)
+                Text(
+                    stringResource(R.string.setup_welcome_additional_description),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.End,
+                    color = titleColor,
+                    modifier = Modifier.fillMaxWidth()
+                )
+        }
     }
     @Composable fun steps() {
         if (step == 0)
@@ -91,7 +108,7 @@ fun WelcomeWizard(
                 Image(painterResource(R.drawable.setup_welcome_image), null)
                 Row(Modifier.clickable { step = 1 }
                     .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                    .background(color = MaterialTheme.colorScheme.primary)
+                    //.background(color = MaterialTheme.colorScheme.primary)
                 ) {
                     Spacer(Modifier.weight(1f))
                     Text(
@@ -135,40 +152,40 @@ fun WelcomeWizard(
                     action = close
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("1", color = if (step == 1) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary)
-                    Text("2", color = if (step == 2) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary)
-                    Text("3", color = if (step == 3) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary)
+                    Text("1", color = if (step == 1) titleColor else textColorDim)
+                    Text("2", color = if (step == 2) titleColor else textColorDim)
+                    Text("3", color = if (step == 3) titleColor else textColorDim)
                 }
                 Column(Modifier
-                    .background(color = MaterialTheme.colorScheme.primary)
-                    .padding(8.dp)
+                    .background(color = stepBackgroundColor)
+                    .padding(16.dp)
                 ) {
                     Text(title)
-                    Text(instruction, style = MaterialTheme.typography.bodyLarge.merge(color = MaterialTheme.colorScheme.onPrimary))
+                    Text(instruction, style = MaterialTheme.typography.bodyLarge.merge(color = textColor))
                 }
                 Spacer(Modifier.height(4.dp))
                 Row(
                     Modifier.clickable { action() }
-                        .background(color = MaterialTheme.colorScheme.primary)
-                        .padding(8.dp),
+                        .background(color = stepBackgroundColor)
+                        .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(icon, null, Modifier.padding(end = 6.dp).size(32.dp), tint = MaterialTheme.colorScheme.onPrimary)
+                    Icon(icon, null, Modifier.padding(end = 6.dp).size(32.dp), tint = textColor)
                     Text(actionText, Modifier.weight(1f))
                 }
                 if (step == 3) {
                     Spacer(Modifier.height(4.dp))
                     Row(
                         Modifier.clickable { finish() }
-                            .background(color = MaterialTheme.colorScheme.primary)
-                            .padding(8.dp),
+                            .background(color = stepBackgroundColor)
+                            .padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             painterResource(R.drawable.ic_setup_check),
                             null,
                             Modifier.padding(end = 6.dp).size(32.dp),
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = textColor
                         )
                         Text(stringResource(R.string.setup_finish_action), Modifier.weight(1f))
                     }
@@ -177,8 +194,8 @@ fun WelcomeWizard(
     }
     Surface {
         CompositionLocalProvider(
-            LocalContentColor provides MaterialTheme.colorScheme.primary,
-            LocalTextStyle provides MaterialTheme.typography.titleLarge.merge(color = MaterialTheme.colorScheme.onPrimary),
+            LocalContentColor provides textColor,
+            LocalTextStyle provides MaterialTheme.typography.titleLarge.merge(color = textColor),
         ) {
             Box(
                 modifier = Modifier.fillMaxSize().padding(32.dp),

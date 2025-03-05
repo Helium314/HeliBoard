@@ -2,6 +2,12 @@
 package helium314.keyboard.settings.dialogs
 
 import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,7 +28,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,10 +42,13 @@ import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.createDictionaryTextAnnotated
 import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.settings.ExpandButton
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dictionaryFilePicker
+import helium314.keyboard.settings.preferences.PreferenceCategory
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
+import java.io.File
 import java.util.Locale
 
 @Composable
@@ -45,6 +58,8 @@ fun DictionaryDialog(
 ) {
     val ctx = LocalContext.current
     val (dictionaries, hasInternal) = getUserAndInternalDictionaries(ctx, locale)
+    val mainDict = dictionaries.firstOrNull { it.name == Dictionary.TYPE_MAIN + "_" + DictionaryInfoUtils.USER_DICTIONARY_SUFFIX }
+    val addonDicts = dictionaries.filterNot { it == mainDict }
     val picker = dictionaryFilePicker(locale)
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -56,33 +71,15 @@ fun DictionaryDialog(
             val state = rememberScrollState()
             Column(Modifier.verticalScroll(state)) {
                 if (hasInternal) {
-                    val color = if (dictionaries.none { it.startsWith(Dictionary.TYPE_MAIN + ":") }) MaterialTheme.colorScheme.onSurface
+                    val color = if (mainDict == null) MaterialTheme.colorScheme.onSurface
                     else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f) // for disabled look
                     Text(stringResource(R.string.internal_dictionary_summary), color = color, modifier = Modifier.fillMaxWidth())
                 }
-                dictionaries.forEach {
-                    val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(it)
-                    val type = header?.mIdString?.substringBefore(":")
-                    var showDeleteDialog by remember { mutableStateOf(false) }
-                    if (header != null) {
-                        HorizontalDivider()
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-                        ) {
-                            Column {
-                                Text(header.info(LocalContext.current.resources.configuration.locale()), style = MaterialTheme.typography.bodyMedium)
-                            }
-                            DeleteButton { showDeleteDialog = true }
-                        }
-                    }
-                    if (showDeleteDialog)
-                        ConfirmationDialog(
-                            onDismissRequest = { showDeleteDialog = false },
-                            onConfirmed = { it.delete() },
-                            content = { Text(stringResource(R.string.remove_dictionary_message, type ?: ""))}
-                        )
+                if (mainDict != null)
+                    DictionaryDetails(mainDict)
+                if (addonDicts.isNotEmpty()) {
+                    PreferenceCategory(stringResource(R.string.dictionary_settings_title))
+                    addonDicts.forEach { DictionaryDetails(it) }
                 }
                 val dictString = createDictionaryTextAnnotated(locale)
                 if (dictString.isNotEmpty()) {
@@ -99,6 +96,39 @@ fun DictionaryDialog(
             picker.launch(intent)
         }
     )
+}
+
+@Composable
+private fun DictionaryDetails(dict: File) {
+    val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dict) ?: return
+    val type = header.mIdString.substringBefore(":")
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var showDetails by remember { mutableStateOf(false) }
+    val title = if (type != DictionaryInfoUtils.DEFAULT_MAIN_DICT) type
+        else stringResource(R.string.main_dictionary)
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+        DeleteButton { showDeleteDialog = true }
+        ExpandButton { showDetails = !showDetails }
+    }
+    AnimatedVisibility(showDetails, enter = fadeIn(), exit = fadeOut()) { // default animation looks better, but makes the dialog flash
+        Text(
+            header.info(LocalContext.current.resources.configuration.locale()),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 10.dp)
+        )
+    }
+    if (showDeleteDialog)
+        ConfirmationDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            confirmButtonText = stringResource(R.string.remove),
+            onConfirmed = { dict.delete() },
+            content = { Text(stringResource(R.string.remove_dictionary_message, type))}
+        )
 }
 
 @Preview

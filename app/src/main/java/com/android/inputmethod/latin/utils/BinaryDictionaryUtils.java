@@ -94,6 +94,7 @@ public final class BinaryDictionaryUtils {
                 valueArray);
     }
 
+    /** normalized score is >= 0, with 0 being a bad match, ~0.1 ok for autocorrect, and ~1.5 a very good match */
     public static float calcNormalizedScore(final String before, final String after,
             final int score) {
         return calcNormalizedScoreNative(StringUtils.toCodePointArray(before),

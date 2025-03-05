@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Контакт аттарын іздеу"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Емлені тексеру құралы контактілер тізімінің жазбаларын пайдаланады"</string>
+    <string name="use_contacts_dict">"Контакт аттарын іздеу"</string>
     <string name="vibrate_on_keypress">"Пернені басқан кездегі діріл"</string>
     <string name="sound_on_keypress">"Пернені басу кезіндегі дыбыс"</string>
     <string name="popup_on_keypress">"Басылған пернені үлкейтіп көрсету"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Тілді ауыстыру пернесі"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>мс"</string>
     <string name="settings_system_default">"Жүйенің әдепкі мәні"</string>
-    <string name="use_contacts_dict">"Контакт аттарын ұсыну"</string>
     <string name="use_contacts_dict_summary">"Ұсыныстар мен түзетулер үшін контакт аттарын пайдалану"</string>
     <string name="use_personalized_dicts">"Жекелендірілген ұсыныстар"</string>
     <string name="use_double_space_period">"Нүкте мен бос орын қою"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Автоматты бас әріпке ауыстыру"</string>
     <string name="auto_cap_summary">"Әрбір сөйлемнің бірінші әріпін бас әріпке түрлендіру"</string>
     <string name="edit_personal_dictionary">"Жеке сөздік"</string>
-    <string name="configure_dictionaries_title">"Қосымша сөздіктер"</string>
     <string name="main_dictionary">"Негізгі сөздік"</string>
     <string name="prefs_show_suggestions">"Түзету ұсыныстарын көрсету"</string>
     <string name="prefs_show_suggestions_summary">"Теру кезінде ұсынылған сөздерді көрсету"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Қолданба белгішесін көрсету"</string>
     <string name="show_setup_wizard_icon_summary">"Іске қосу құралында қолданба белгішесін көрсету"</string>
     <string name="dictionary_settings_title">"Қосымша сөздіктер"</string>
-    <string name="dictionary_settings_summary">"Сөздіктер параметрлері"</string>
     <string name="dictionary_available">"Сөздік қолжетімді"</string>
-    <string name="cannot_connect_to_dict_service">"Сөздік қызметіне қосылу мәселесі"</string>
     <string name="no_dictionaries_available">"Сөздіктер қолжетімсіз"</string>
     <string name="last_update">"Соңғы жаңартылған"</string>
-    <string name="main_dict_description">"Негізгі сөздік"</string>
     <string name="settings">"Параметрлер"</string>
     <string name="delete">"Жою"</string>
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> нұсқасы"</string>

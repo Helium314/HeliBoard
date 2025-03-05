@@ -1,0 +1,4 @@
+* lisää emoji-työkalupalkkinäppäin, kirjoittaja @codokie (#845, #837)
+* parannuksia kopioituihin kirjeisiin (#225 ja ehkä muita)
+* Vältä kursorin sijoittamista emojien sisään (#859)
+* Pienet korjaukset äskettäin lisättyihin ominaisuuksiin
