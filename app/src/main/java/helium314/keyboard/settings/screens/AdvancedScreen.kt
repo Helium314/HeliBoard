@@ -96,8 +96,8 @@ fun createAdvancedSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
-            default = Defaults.PREF_KEY_LONGPRESS_TIMEOUT,
-            range = 100f..700f,
+            default = Settings.readDefaultKeyLongpressTimeout(),
+            range = 100f..1500f,
             description = { stringResource(R.string.abbreviation_unit_milliseconds, it.toString()) }
         )
     },
