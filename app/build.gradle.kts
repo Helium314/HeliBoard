@@ -13,7 +13,7 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 34
-        versionCode = 2310
+        versionCode = 2311
         versionName = "2.3+dev9"
         ndk {
             abiFilters.clear()
