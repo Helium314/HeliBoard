@@ -44,7 +44,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
-    val tlds = getLocaleTlds(locale) // todo: USE IT
+    val tlds = getLocaleTlds(locale)
 
     init {
         readStream(dataStream, false, true)
@@ -91,8 +91,8 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
 
     fun addDefaultTlds(locale: Locale) {
         if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
-            tlds.add(".eu")
-        tlds.addAll(defaultTlds.splitOnWhitespace())
+            tlds.add(0, ".eu")
+        tlds.addAll(0, defaultTlds.splitOnWhitespace())
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
@@ -226,9 +226,9 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
-private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
+private fun getLocaleTlds(locale: Locale): ArrayList<String> {
     val ccLower = locale.country.lowercase()
-    val tlds = LinkedHashSet<String>()
+    val tlds = arrayListOf<String>()
     if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
         return tlds
     specialCountryTlds.forEach {

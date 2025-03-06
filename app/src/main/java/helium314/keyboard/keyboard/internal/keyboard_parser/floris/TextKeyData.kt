@@ -482,8 +482,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
         KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
 //        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
-        // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
-        KeyLabel.COM -> ".com"
+        KeyLabel.COM -> params.mLocaleKeyboardInfos.tlds.first()
         KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
         KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
         KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
@@ -546,12 +545,12 @@ sealed interface KeyData : AbstractKeyData {
 
     private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
-        if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
+        if (groupId == GROUP_PERIOD) return getPeriodPopups(params)
         if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)
         if (groupId == GROUP_NO_DEFAULT_POPUP) return null
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
-            KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))
+            KeyLabel.PERIOD -> getPeriodPopups(params)
             KeyLabel.ACTION -> getActionKeyPopupKeys(params)
             KeyLabel.SHIFT -> {
                 if (params.mId.isAlphabetKeyboard) SimplePopups(
@@ -561,13 +560,24 @@ sealed interface KeyData : AbstractKeyData {
                     )
                 ) else null // why the alphabet popup keys actually?
             }
-            KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+            KeyLabel.COM -> SimplePopups(
+                listOf(Key.POPUP_KEYS_HAS_LABELS).plus(params.mLocaleKeyboardInfos.tlds.drop(1))
+            )
+
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
             // only add currency popups if there are none defined on the key
             KeyLabel.CURRENCY -> if (popup.isEmpty()) SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second) else null
             else -> null
         }
     }
+
+    private fun getPeriodPopups(params: KeyboardParams): SimplePopups =
+        SimplePopups(
+            if (Settings.getInstance().current.mShowTldPopupKeys
+                && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL)
+            ) params.mLocaleKeyboardInfos.tlds
+            else getPunctuationPopupKeys(params)
+        )
 }
 
 /**
