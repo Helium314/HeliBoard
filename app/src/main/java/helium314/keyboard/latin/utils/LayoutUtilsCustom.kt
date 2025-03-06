@@ -138,7 +138,7 @@ object LayoutUtilsCustom {
     fun isCustomLayout(layoutName: String) = layoutName.startsWith(CUSTOM_LAYOUT_PREFIX)
 
     fun getLayoutFile(layoutName: String, layoutType: LayoutType, context: Context): File {
-        val file = File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder + layoutName)
+        val file = File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder + File.separator + layoutName)
         file.parentFile?.mkdirs()
         return file
     }
