@@ -79,8 +79,8 @@
     <string name="setup_welcome_additional_description">"በጣት ምልክት መተየብ"</string>
     <string name="setup_start_action">"ጀምር"</string>
     <string name="setup_next_action">"ቀጣይ ደረጃ"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ን በማዋቀር ላይ"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ን ያንቁ"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ን በማዋቀር ላይ\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ን ያንቁ\"</string>
     <string name="setup_step1_instruction">እባክዎ <xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን በእርስዎ የቋንቋ እና ግቤት ቅንብሮች ውስጥ መኖሩን ያረጋግጡት። ይሄ እሱ በመሣሪያዎ ላይ እንዲሄድ ይፈቅድለታል።\"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> አስቀድሞ በእርስዎ ቋንቋ እና ግቤት ቅንብሮች ውስጥ ነቅቷል፣ ስለዚህ ይህ ደረጃ ተከናውኗል። ወደ ቀጣዩ እንሂድ!"</string>
     <string name="setup_step1_action">"በቅንብሮች ውስጥ ያንቁ"</string>

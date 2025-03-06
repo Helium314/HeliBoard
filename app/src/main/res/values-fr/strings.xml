@@ -104,7 +104,7 @@
     <string name="setup_next_action">"Étape suivante"</string>
     <string name="setup_steps_title">Configurer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Activer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Sous « Langues et saisie », veuillez cocher <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> pour autoriser son exécution sur votre appareil.</string>
+    <string name="setup_step1_instruction">Veuillez vérifier que <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est activé dans vos paramètres de langue et de saisie. Cela autorisera son fonctionnement sur votre appareil.</string>
     <string name="setup_step1_finished_instruction">L’application <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est déjà activée dans vos paramètres « Langues et saisie ». Passez à l’étape suivante !</string>
     <string name="setup_step1_action">"Activer le clavier dans les paramètres"</string>
     <string name="setup_step2_title">Basculer vers <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
@@ -293,42 +293,7 @@ Nouveau dictionnaire:
     <string name="hidden_features_title">Description des fonctionnalités cachées</string>
     <string name="hidden_features_summary">Montre les caractéristiques qui peuvent passer inaperçues</string>
     <string name="hidden_features_text">stockage protégé de l\'appareil</string>
-    <string name="hidden_features_message">► L\'appui long sur les touches de la barre d\'outils permet d\'obtenir des fonctionnalités supplémentaires : &lt;br&gt;
-\n\t• presse-papier &amp;#65515; coller &lt;br&gt;
-\n\t• déplacer vers la gauche/droite &amp;#65515; mot de gauche/droite &lt;br&gt;
-\n\t• déplacer vers le haut/bas &amp;#65515; page précédente/suivante &lt;br&gt;
-\n\t• mot de gauche/droite &amp;#65515; début/fin de ligne &lt;br&gt;
-\n\t• page précédente/suivante &amp;#65515; début/fin de page &lt;br&gt;
-\n\t• copier &amp;#65515; couper &lt;br&gt;
-\n\t• sélectionner mot &amp;#8596; tout sélectionner &lt;br&gt;
-\n\t• annuler &amp;#8596; restaurer &lt;br&gt; &lt;br&gt;
-\n► Un appui long sur les touches de la barre d\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt;
-\n► Appuyez longuement sur la virgule pour accéder à l\'affichage du presse-papiers, des emojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt;
-\n\t• L\'affichage des emojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt;
-\n\t• Pour certaines dispositions, ce n\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est `q` pour la disposition Dvorak &lt;br&gt; &lt;br&gt;
-\n► Lorsque le mode incognito est activé, aucun mot n\'est appris et aucun emojis n\'est ajouté à la catégorie récent. &lt;br&gt; &lt;br&gt;
-\n► Appuyez sur l\'icône incognito pour ouvrir la barre d\'outils. &lt;br&gt; &lt;br&gt;
-\n► Saisie par glissement des touches : passez de la touche majuscule à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt;
-\n\t• Fonctionne également avec la touche `?123` qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées &lt;br&gt; &lt;br&gt;
-\n► Maintenez la touche majuscule ou symbole enfoncée, appuyez sur une ou plusieurs touches, puis relâchez la touche majuscule ou symbole pour revenir au clavier précédent. &lt;br&gt; &lt;br&gt;
-\n► Un appui long sur une suggestion dans la bande de suggestions permet d\'afficher d\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt;
-\n► Balayez vers le haut à partir d\'une suggestion pour ouvrir d\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt;
-\n► Appuyez longuement sur une entrée dans l\'historique du presse-papiers pour l\'épingler (elle reste dans le presse-papiers jusqu\'à ce que vous la désépingliez). &lt;br&gt; &lt;br&gt;
-\n► Glissez vers la gauche dans l\'affichage du presse-papiers pour supprimer une entrée (sauf lorsqu\'elle est épinglée). &lt;br&gt; &lt;br&gt;
-\n► Sélectionnez un texte et appuyez sur la touche majuscule pour passer des majuscules aux minuscules. &lt;br&gt; &lt;br&gt;
-\n► Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt;
-\n\t• Ne fonctionne qu\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt;
-\n► Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : &lt;br&gt;
-\n\t• À partir d\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\'emplacement par défaut car l\'application utilise le %s. Cela est nécessaire pour que les paramètres puissent être lus avant que l\'appareil ne soit déverrouillé, par exemple au démarrage ; &lt;br&gt;
-\n\t• Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; mais cela peut dépendre de l\'appareil et de la version d\'Android. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Mode debug / APK de debogage&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Un appui-long sur une suggestion montre la source du dictionnaire. &lt;br&gt; &lt;br&gt;
-\n► Lorsque vous utilisez l\'APK de débogage, vous trouverez les paramètres de débogage dans les préférences avancées, bien qu\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt;
-\n\t• Pour un APK en version release, vous devez taper plusieurs fois sur la version dans &lt;i&gt;À propos&lt;/i&gt;, puis vous trouverez les paramètres de débogage dans les &lt;i&gt;Paramètres avancés&lt;/i&gt;. &lt;br&gt;
-\n\t• Lorsque l\'option &lt;i&gt;Show suggestion infos&lt;/i&gt; est activée, les suggestions sont accompagnées de petits chiffres indiquant un score interne et le dictionnaire source. &lt;br&gt; &lt;br&gt;
-\n► Lorsque l\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt;
-\n► Lors de la saisie multilingue, la barre d\'espace affiche une valeur de fiabilité utilisée pour déterminer la langue en cours d\'utilisation. &lt;br&gt; &lt;br&gt;
-\n► Les suggestions seront accompagnées de petits chiffres indiquant un score interne et la source du dictionnaire (peut être désactivé).</string>
+    <string name="hidden_features_message">► Un appui long sur les touches de la barre d\\\'outils permet d\\\'obtenir des fonctionnalités supplémentaires : &lt;br&gt; \n\t• presse-papier &amp;#65515; coller &lt;br&gt; \n\t• déplacer vers la gauche/droite &amp;#65515; mot de gauche/droite &lt;br&gt; \n\t• déplacer vers le haut/bas &amp;#65515; page précédente/suivante &lt;br&gt; \n\t• mot de gauche/droite &amp;#65515; début/fin de ligne &lt;br&gt; \n\t• page précédente/suivante &amp;#65515; début/fin de page &lt;br&gt; \n\t• copier &amp;#65515; couper &lt;br&gt; \n\t• sélectionner mot &amp;#8596; tout sélectionner &lt;br&gt; \n\t• annuler &amp;#8596; restaurer &lt;br&gt; &lt;br&gt; \n► Un appui long sur les touches de la barre d\\\'outils permet de les épingler à la bande de suggestions. &lt;br&gt; &lt;br&gt; \n► Appuyez longuement sur la virgule pour accéder à l\\\'affichage du presse-papiers, des émojis, au mode à une main, aux paramètres ou au changement de langue : &lt;br&gt; \n\t• L\\\'affichage des émojis et le changement de langue disparaîtront si les touches correspondantes sont affichées ; &lt;br&gt; \n\t• Pour certaines dispositions, ce n\\\'est pas sur la touche virgule mais sur la touche à la même position (par exemple, c\'est \\\'q\\\' pour la disposition Dvorak &lt;br&gt; &lt;br&gt; \n► Lorsque le mode incognito est activé, aucun mot n\\\'est appris et aucun émojis n\\\'est ajouté à la catégorie récent. &lt;br&gt; &lt;br&gt; \n► Appuyez sur l\\\'icône incognito pour ouvrir la barre d\\\'outils. &lt;br&gt; &lt;br&gt; \n► Saisie par glissement des touches : passez de la touche majuscule à une autre touche pour taper un seul caractère en majuscule : &lt;br&gt; \n\t• Fonctionne également avec la touche \\\'?123\\\' qui permet de taper un seul symbole à partir du clavier des symboles, ainsi que pour les touches associées &lt;br&gt; &lt;br&gt; \n► Maintenez la touche majuscule ou symbole enfoncée, appuyez sur une ou plusieurs touches, puis relâchez la touche majuscule ou symbole pour revenir au clavier précédent. &lt;br&gt; &lt;br&gt; \n► Un appui long sur une suggestion dans la bande de suggestions permet d\\\'afficher d\\\'autres suggestions et un bouton de suppression qui permet de supprimer cette suggestion. &lt;br&gt; &lt;br&gt; \n► Balayez vers le haut à partir d\\\'une suggestion pour ouvrir d\\\'autres suggestions, puis relâchez la pression sur la suggestion pour la sélectionner. &lt;br&gt; &lt;br&gt; \n► Appuyez longuement sur une entrée dans l\\\'historique du presse-papiers pour l\\\'épingler (elle reste dans le presse-papiers jusqu\\\'à ce que vous la désépingliez). &lt;br&gt; &lt;br&gt; \n► Glissez vers la gauche dans l\\\'affichage du presse-papiers pour supprimer une entrée (sauf lorsqu\\\'elle est épinglée). &lt;br&gt; &lt;br&gt; \n► Sélectionnez un texte et appuyez sur la touche majuscule pour passer des majuscules aux minuscules. &lt;br&gt; &lt;br&gt; \n► Vous pouvez ajouter des dictionnaires en les ouvrant dans un explorateur de fichiers : &lt;br&gt; \n\t• Ne fonctionne qu\\\'avec &lt;i&gt;content-uris&lt;/i&gt; et non avec &lt;i&gt;file-uris&lt;/i&gt;, ce qui signifie que cela peut ne pas fonctionner avec certains explorateurs de fichiers. &lt;br&gt; &lt;br&gt; \n► Pour les utilisateurs effectuant des sauvegardes manuelles avec un accès root : &lt;br&gt; \n\t• À partir d\\\'Android 7, le fichier de préférences partagées ne se trouve pas dans l\\\'emplacement par défaut car l\\\'application utilise le %s. Cela est nécessaire pour que les paramètres puissent être lus avant que l\\\'appareil ne soit déverrouillé, par exemple au démarrage ; &lt;br&gt; \n\t• Le fichier se trouve dans &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; mais cela peut dépendre de l\\\'appareil et de la version d\\\'Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Mode debug / APK de debogage&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Un appui-long sur une suggestion montre la source du dictionnaire. &lt;br&gt; &lt;br&gt; \n► Lorsque vous utilisez l\\\'APK de débogage, vous trouverez les paramètres de débogage dans les préférences avancées, bien qu\\\'ils ne soient pas très utiles, sauf pour transférer les dictionnaires dans le journal de débogage. &lt;br&gt; \n\t• Pour un APK en version release, vous devez taper plusieurs fois sur la version dans &lt;i&gt;À propos&lt;/i&gt;, puis vous trouverez les paramètres de débogage dans les &lt;i&gt;Paramètres avancés&lt;/i&gt;. &lt;br&gt; \n\t• Lorsque l\'option &lt;i&gt;Show suggestion infos&lt;/i&gt; est activée, les suggestions sont accompagnées de petits chiffres indiquant un score interne et le dictionnaire source. &lt;br&gt; &lt;br&gt; \n► Lorsque l\\\'application se bloque, un message vous demande où vous souhaitez enregistrer les journaux d\\\'incidents lorsque vous ouvrez les paramètres. &lt;br&gt; &lt;br&gt; \n► Lors de la saisie multilingue, la barre d\\\'espace affiche une valeur de fiabilité utilisée pour déterminer la langue en cours d\'utilisation. &lt;br&gt; &lt;br&gt; \n► Les suggestions seront accompagnées de petits chiffres indiquant un score interne et la source du dictionnaire (peut être désactivé).</string>
     <string name="use_personalized_dicts_summary">"Améliore les suggestions en fonction des messages et des données saisies"</string>
     <string name="label_go_key">"Accès"</string>
     <string name="label_next_key">"Suiv."</string>
@@ -462,4 +427,14 @@ Nouveau dictionnaire:
     <string name="split_spacer_scale_landscape">Distance de séparation (paysage)</string>
     <string name="split" tools:keep="@string/split">Clavier divisé</string>
     <string name="delete_confirmation">Voulez-vous vraiment supprimer %s ?</string>
+    <string name="name_invalid">Nom invalide</string>
+    <string name="custom_subtype">Sous-type personnalisé</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="settings_screen_secondary_layouts">Dispositions secondaires</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Touches fonctionnelles (grand écran)</string>
+    <string name="locales_with_dict">Langues avec dictionnaires</string>
+    <string name="layout_in_use">Avertissement : cette mise en page est actuellement utilisée</string>
+    <string name="get_colors_message">Vous pouvez trouver et partager des couleurs dans le %s.</string>
+    <string name="get_layouts_message">Vous pouvez trouver et partager des dispositions dans le %s.</string>
+    <string name="discussion_section_link">Section de discussion</string>
 </resources>

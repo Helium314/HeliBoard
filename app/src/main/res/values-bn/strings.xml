@@ -133,16 +133,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">ভৌত কিবোর্ডের জন্য ইমোজি</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">ভৌত Alt বোতামে ইমোজি প্যালেট প্রদর্শন</string>
     <string name="button_default">ডিফল্ট</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> এ স্বাগত"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> এ স্বাগত\"</string>
     <string name="setup_welcome_additional_description">অঙ্গুলিহেলন টাইপিংয়ের সাথে</string>
     <string name="setup_start_action">শুরু করা যাক</string>
     <string name="setup_next_action">পরবর্তী পদক্ষেপ</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> সন্নিবেশিত হচ্ছে"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> সক্ষম করুন"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> সন্নিবেশিত হচ্ছে\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> সক্ষম করুন\"</string>
     <string name="setup_step1_instruction">"ভাষা ও ইনপুট সেটিংসে \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" সক্রিয় করুন। ফলে এটি আপনার ডিভাইসে চলার অনুমোদন পাবে।"</string>
     <string name="setup_step1_finished_instruction">"আপনার ভাষা ও ইনপুট সেটিংসে ইতোমধ্যে <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> সক্ষম করা হয়েছে; তাই এই পদক্ষেপটি সমাপ্ত হয়েছে। পরবর্তীটিতে যান!"</string>
     <string name="setup_step1_action">সেটিংসে সক্ষম করুন</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> এ পরিবর্তন করুন"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> এ পরিবর্তন করুন\"</string>
     <string name="setup_step2_instruction">এখন সক্রিয় লিখন-ইনপুট পদ্ধতি হিসেবে \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" বেছে নিন।\"</string>
     <string name="setup_step2_action">ইনপুট পদ্ধতি পরিবর্তন</string>
     <string name="setup_step3_title">"অভিনন্দন, আপনি পুরোপুরি প্রস্তুত!"</string>

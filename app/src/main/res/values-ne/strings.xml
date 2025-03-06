@@ -84,7 +84,7 @@
     <string name="setup_step1_instruction">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
     <string name="setup_step1_finished_instruction">"तपाईँको भाषा र इनपुट सम्बन्धी सेटिङहरूमा <xliff:g id="APPLICATION_NAME">%s</xliff:g> लाई पहिले नै सक्रिय गरिएको छ, त्यसैले यो चरण सम्पन्न भइसकेको छ। अर्को चरणमा जानुहोस्!"</string>
     <string name="setup_step1_action">"सेटिङहरूमा सक्षम पार्नुहोस्"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>मा स्विच गर्नुहोस्"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>मा स्विच गर्नुहोस्\"</string>
     <string name="setup_step2_instruction">"त्यसपछि, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
     <string name="setup_step2_action">"इनपुट विधि स्विच गर्नुहोस्"</string>
     <string name="setup_step3_title">"बधाई छ, तपाईँले सेट पुरा गर्नुभयो!"</string>

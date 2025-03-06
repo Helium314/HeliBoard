@@ -466,4 +466,5 @@
     <string name="discussion_section_link">раздел за обсъждане</string>
     <string name="get_colors_message">Можете да намирате и споделяте цветове в %s.</string>
     <string name="custom_subtype">Персонализиран подтип</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Бенгалски">%s</xliff:g> (Байсахи)</string>
 </resources>

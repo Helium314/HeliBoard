@@ -466,4 +466,5 @@
     <string name="discussion_section_link">kogukonna vestlustes</string>
     <string name="get_colors_message">Uusi värve võid leida ja jagada %s.</string>
     <string name="custom_subtype">Sinu loodud alamtüüp</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
 </resources>

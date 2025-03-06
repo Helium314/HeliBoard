@@ -123,7 +123,7 @@
     <string name="subtype_no_language_colemak">Alfabeto (Colemak)</string>
     <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
-    <string name="setup_welcome_title">Bem-vindo ao<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bem-vindo ao <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Mostrar a paleta de emojis ao tocar na tecla Alt física</string>
     <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Por favor, ative o \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.\"</string>

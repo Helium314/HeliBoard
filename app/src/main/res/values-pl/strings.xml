@@ -474,4 +474,6 @@
     <string name="get_colors_message">Motywy możesz znaleźć i udostępnić w %s .</string>
     <string name="get_layouts_message">Układy możesz znaleźć i udostępnić w %s .</string>
     <string name="discussion_section_link">sekcji dyskusji</string>
+    <string name="custom_subtype">Własny podtyp</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Baishakhi)</string>
 </resources>

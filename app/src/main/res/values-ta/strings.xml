@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"தொடர்பு பெயர்களை ஆய்வுசெய்"</string>
     <string name="vibrate_on_keypress">"விசையழுத்தின்போது அதிர்வுரு"</string>
     <string name="sound_on_keypress">"விசையழுத்தத்தின்போது ஒலியெழுப்பு"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"கைமுறை விசைப்பலகைக்கான ஈமோஜி"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ஈமோஜி பலகத்தைக் காட்டும் கைமுறை Alt விசை"</string>
     <string name="button_default">"இயல்புநிலை"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> பயன்பாட்டிற்கு வரவேற்கிறோம்"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> பயன்பாட்டிற்கு வரவேற்கிறோம்\"</string>
     <string name="setup_welcome_additional_description">"ஸ்வைப் உள்ளீடு மூலம்"</string>
     <string name="setup_start_action">"தொடங்குக"</string>
     <string name="setup_next_action">"அடுத்த கட்டம்"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை அமைக்கிறது"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை இயக்கவும்"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை அமைக்கிறது\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை இயக்கவும்\"</string>
     <string name="setup_step1_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ஆப்ஸைத் தேர்வு செய்யவும். இதனால், சாதனத்தில் ஆப்ஸை இயக்கலாம்."</string>
     <string name="setup_step1_finished_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் <xliff:g id="APPLICATION_NAME">%s</xliff:g> ஏற்கனவே இயக்கப்பட்டுள்ளதால் இப்படிமுறை முடிந்தது. அடுத்த படிமுறைக்குச் செல்லவும்!"</string>
     <string name="setup_step1_action">"அமைப்புகளில் இயக்கு"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> க்கு மாறவும்"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> க்கு மாறவும்\"</string>
     <string name="setup_step2_instruction">"அடுத்து, உங்கள் செயலில் உள்ள உரை உள்ளீட்டு முறையாக \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" பயன்பாட்டைத் தேர்ந்தெடுக்கவும்."</string>
     <string name="setup_step2_action">"உள்ளீட்டு முறைகளை மாற்றவும்"</string>
     <string name="setup_step3_title">"வாழ்த்துகள், தயாராகிவிட்டீர்கள்!"</string>

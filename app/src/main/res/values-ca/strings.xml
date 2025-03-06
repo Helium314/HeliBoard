@@ -75,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">Emojis amb el teclat físic</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Amb la tecla Alt del teclat físic es mostra la paleta d\'emojis</string>
     <string name="button_default">"Predeterminat"</string>
-    <string name="setup_welcome_title">Us donem la benvinguda a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Us donem la benvinguda a <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">amb escriptura gestual</string>
     <string name="setup_start_action">"Comença"</string>
     <string name="setup_next_action">"Pas següent"</string>
-    <string name="setup_steps_title">S\'està configurant<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Habilita<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
+    <string name="setup_step1_title">Habilitar <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
     <string name="setup_step1_instruction">Comproveu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.\"</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idiomes i entrada, així que ja s\'ha acabat aquest pas. Cap al següent!\"</string>
     <string name="setup_step1_action">Habilita a la configuració</string>
-    <string name="setup_step2_title">Canvia a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_title">Canviar a <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
     <string name="setup_step2_instruction">A continuació, seleccioneu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" com a mètode d\'entrada de text actiu.\"</string>
     <string name="setup_step2_action">Canvia els mètodes d\'entrada</string>
     <string name="setup_step3_title">"Enhorabona, ja has acabat!"</string>
@@ -423,4 +423,11 @@
     <string name="settings_screen_secondary_layouts">Disposicions secundàries</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tecles de funció (pantalla gran)</string>
     <string name="name_invalid">Nom no vàlid</string>
+    <string name="custom_subtype">Subtipus personalitzat</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengalí">%s</xliff:g> (Baishakhi)</string>
+    <string name="layout_in_use">Avís: la disposició s\'està utilitzant actualment</string>
+    <string name="locales_with_dict">Idiomes amb diccionaris</string>
+    <string name="get_colors_message">Podeu trobar i compartir colors a %s.</string>
+    <string name="get_layouts_message">Podeu trobar i compartir disposicions a %s.</string>
+    <string name="discussion_section_link">secció de discussió</string>
 </resources>

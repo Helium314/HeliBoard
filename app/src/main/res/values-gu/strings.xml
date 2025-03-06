@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"સંપર્ક નામ શોધો"</string>
     <string name="vibrate_on_keypress">"કીપ્રેસ પર વાઇબ્રેટ કરો"</string>
     <string name="sound_on_keypress">"કીપ્રેસ પર ધ્વનિ"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ભૌતિક કીબોર્ડ માટે ઇમોજી"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ભૌતિક Alt કી ઇમોજી પેલેટ દર્શાવે છે"</string>
     <string name="button_default">"ડિફોલ્ટ"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે\"</string>
     <string name="setup_welcome_additional_description">"સાંકેતિક ટાઇપિંગ દ્વારા"</string>
     <string name="setup_start_action">"પ્રારંભ કરો"</string>
     <string name="setup_next_action">"આગલું પગલું"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો\"</string>
     <string name="setup_step1_instruction">"કૃપા કરીને \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> એ તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં પહેલાથી જ સક્ષમ કરેલું છે, તેથી આ પગલું પૂર્ણ થયું. હવે આગલા પર!"</string>
     <string name="setup_step1_action">"સેટિંગ્સમાં સક્ષમ કરો"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો\"</string>
     <string name="setup_step2_instruction">"આગલું, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
     <string name="setup_step2_action">"ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
     <string name="setup_step3_title">"અભિનંદન, તમે બધું સેટ કર્યું છે!"</string>

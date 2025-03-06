@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"සබඳතා නම් විමසන්න"</string>
     <string name="vibrate_on_keypress">"යතුර ඔබන විට කම්පනය"</string>
     <string name="sound_on_keypress">"යතුරු එබිම මත හඬ"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"භෞතික යතුරුපුවරුව සඳහා ඉමොජි"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"භෞතික Alt යතුර ඉමොජි පෙන්වයි"</string>
     <string name="button_default">"සුපුරුදු"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත සාදරයෙන් පිළිගනිමු"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත සාදරයෙන් පිළිගනිමු\"</string>
     <string name="setup_welcome_additional_description">"ඉංගිත ටයිප් කිරීම් සමග"</string>
     <string name="setup_start_action">"අරඹන්න"</string>
     <string name="setup_next_action">"ඊළඟ පියවර"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> සැකසෙමින් පවතී"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> සබල කරන්න"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සැකසෙමින් පවතී\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සබල කරන්න\"</string>
     <string name="setup_step1_instruction">"කරණාකර ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" පරීක්ෂා කරන්න. මෙය ඔබගේ උපාංගය මත එයට ධාවනය වීමට අනුමැතිය දෙනු ඇත."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> දැනටමත් ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ සබල කර ඇත, එම නිසා මෙම පියවර නිමයි. ඊළඟ එක වෙතට!"</string>
     <string name="setup_step1_action">"සැකසීම් තුළ සබල කරන්න"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත මාරුවන්න"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත මාරුවන්න\"</string>
     <string name="setup_step2_instruction">"ඊළඟට, ඔබගේ සක්‍රිය පෙළ-ආදාන ක්‍රමය ලෙස \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" තෝරන්න."</string>
     <string name="setup_step2_action">"ආදාන ක්‍රම මාරු කරන්න"</string>
     <string name="setup_step3_title">"සුබපැතුම්, ඔබ සියල්ල පිහිටුවා ඇත!"</string>

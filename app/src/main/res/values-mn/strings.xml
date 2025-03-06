@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"Харилцагчийн нэр хайх"</string>
     <string name="vibrate_on_keypress">"Товч дарахад чичрэх"</string>
     <string name="sound_on_keypress">"Товч дарахад дуу гаргах"</string>
@@ -80,12 +79,12 @@
     <string name="setup_welcome_additional_description">"Зангаагаар бичихээр"</string>
     <string name="setup_start_action">"Эхлэх"</string>
     <string name="setup_next_action">"Дараагийн алхам"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх\"</string>
     <string name="setup_step1_instruction">"Хэл, оролтын тохиргоо хэсгээс \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г сонгоно уу. Ингэснээр үүнийг таны төхөөрөмжид ажиллах зөвшөөрлийг өгөх болно."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г Хэл, оролтын тохиргоонд аль хэдийн идэвхжүүлснээр энэ алхам дууслаа. Дараагийн алхмыг хийцгээе!"</string>
     <string name="setup_step1_action">"Тохиргоо дотроос идэвхжүүлэх"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих\"</string>
     <string name="setup_step2_instruction">"Дараа нь \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г өөрийн идэвхтэй текст-оруулах аргаар сонгоно уу."</string>
     <string name="setup_step2_action">"Оруулах аргыг солих"</string>
     <string name="setup_step3_title">"Баяр хүргэе, та бүгдийг нь тохируулчихлаа!"</string>

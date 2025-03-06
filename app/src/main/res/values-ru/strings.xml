@@ -81,16 +81,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
     <string name="button_default">По умолчанию</string>
-    <string name="setup_welcome_title">Добро пожаловать в<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
     <string name="setup_next_action">Далее</string>
-    <string name="setup_steps_title">Настроить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Включить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.\"</string>
     <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!\"</string>
     <string name="setup_step1_action">Включить в настройках</string>
-    <string name="setup_step2_title">Переключитесь на<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.\"</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
