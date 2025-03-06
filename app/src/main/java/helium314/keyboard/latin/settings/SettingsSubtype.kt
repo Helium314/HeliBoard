@@ -30,7 +30,11 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
     fun toAdditionalSubtype(): InputMethodSubtype? {
         val asciiCapable = locale.script() == ScriptUtils.SCRIPT_LATIN
         val subtype = SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValues, asciiCapable, true)
-        if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT
+
+        // todo: this is returns null for all non-latin layouts
+        //  either fix it, or remove the check
+        //  if removed, removing a layout will result in fallback qwerty even for non-ascii, but this is better than the current alternative
+/*        if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT
             && mainLayoutName()?.endsWith("+") != true // "+" layouts and custom layouts are always "unknown"
             && !LayoutUtilsCustom.isCustomLayout(mainLayoutName() ?: SubtypeLocaleUtils.QWERTY)
         ) {
@@ -38,7 +42,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
             // layout has been removed.
             Log.w(SettingsSubtype::class.simpleName, "unknown additional subtype $this")
             return null
-        }
+        }*/
         return subtype
     }
 
