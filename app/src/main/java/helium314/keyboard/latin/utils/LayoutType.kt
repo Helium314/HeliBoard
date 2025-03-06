@@ -22,7 +22,7 @@ enum class LayoutType {
             return map
         }
 
-        val LayoutType.folder get() = "layouts${File.separator}${name.lowercase()}${File.separator}"
+        val LayoutType.folder get() = "layouts${File.separator}${name.lowercase()}"
 
         val LayoutType.displayNameId get() = when (this) {
             MAIN -> R.string.subtype_no_language
