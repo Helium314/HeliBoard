@@ -9,33 +9,35 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import java.math.BigInteger
 import java.util.Locale
 
-fun loopOverCodePoints(text: CharSequence, loop: (cp: Int) -> Boolean) {
+fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     val s = text.toString()
     var offset = 0
     while (offset < s.length) {
         val cp = s.codePointAt(offset)
-        if (loop(cp)) return
-        offset += Character.charCount(cp)
+        val charCount = Character.charCount(cp)
+        if (loop(cp, charCount)) return
+        offset += charCount
     }
 }
 
-fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int) -> Boolean) {
+fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     val s = text.toString()
     var offset = s.length
     while (offset > 0) {
         val cp = s.codePointBefore(offset)
-        if (loop(cp)) return
-        offset -= Character.charCount(cp)
+        val charCount = Character.charCount(cp)
+        if (loop(cp, charCount)) return
+        offset -= charCount
     }
 }
 
 fun nonWordCodePointAndNoSpaceBeforeCursor(text: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     var space = false
     var nonWordCodePoint = false
-    loopOverCodePointsBackwards(text) {
-        if (!space && Character.isWhitespace(it)) space = true
+    loopOverCodePointsBackwards(text) { cp, charCount ->
+        if (!space && Character.isWhitespace(cp)) space = true
         // treat double quote like a word codepoint for the purpose of this function (not great, maybe clarify name, or extend list of chars?)
-        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it) && it != '"'.code) {
+        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(cp) && cp != '"'.code) {
             nonWordCodePoint = true
         }
         space && nonWordCodePoint // stop if both are found
@@ -45,9 +47,9 @@ fun nonWordCodePointAndNoSpaceBeforeCursor(text: CharSequence, spacingAndPunctua
 
 fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
     var letter = false
-    loopOverCodePointsBackwards(text) {
-        if (Character.isWhitespace(it)) true
-        else if (Character.isLetter(it)) {
+    loopOverCodePointsBackwards(text) { cp, charCount ->
+        if (Character.isWhitespace(cp)) true
+        else if (Character.isLetter(cp)) {
             letter = true
             true
         }

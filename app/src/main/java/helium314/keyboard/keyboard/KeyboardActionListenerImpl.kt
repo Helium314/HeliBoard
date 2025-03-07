@@ -113,15 +113,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         if (steps > 0) {
-            val text = inputLogic.mConnection.getSelectedText(0) ?: return steps
-            loopOverCodePoints(text) {
-                actualSteps += Character.charCount(it)
+            val text = inputLogic.mConnection.getSelectedText(0)
+            if (text == null) actualSteps = steps
+            else loopOverCodePoints(text) { cp, charCount ->
+                actualSteps += charCount
                 actualSteps >= steps
             }
         } else {
-            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
-            loopOverCodePointsBackwards(text) {
-                actualSteps -= Character.charCount(it)
+            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0)
+            if (text == null) actualSteps = steps
+            else loopOverCodePointsBackwards(text) { cp, charCount ->
+                actualSteps -= charCount
                 actualSteps <= steps
             }
         }
@@ -217,12 +219,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private fun positiveMoveSteps(text: CharSequence, steps: Int): Int {
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
-        loopOverCodePoints(text) {
-            if (StringUtils.mightBeEmoji(it)) {
+        loopOverCodePoints(text) { cp, charCount ->
+            if (StringUtils.mightBeEmoji(cp)) {
                 actualSteps = 0
                 true
             }
-            actualSteps += Character.charCount(it)
+            actualSteps += charCount
             actualSteps >= steps
         }
         return min(actualSteps, text.length)
@@ -231,12 +233,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private fun negativeMoveSteps(text: CharSequence, steps: Int): Int {
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
-        loopOverCodePointsBackwards(text) {
-            if (StringUtils.mightBeEmoji(it)) {
+        loopOverCodePointsBackwards(text) { cp, charCount ->
+            if (StringUtils.mightBeEmoji(cp)) {
                 actualSteps = 0
                 true
             }
-            actualSteps -= Character.charCount(it)
+            actualSteps -= charCount
             actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
