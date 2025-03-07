@@ -117,14 +117,14 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             if (text == null) actualSteps = steps
             else loopOverCodePoints(text) { cp, charCount ->
                 actualSteps += charCount
-                actualSteps >= steps
+                if (actualSteps >= steps) return actualSteps
             }
         } else {
             val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0)
             if (text == null) actualSteps = steps
             else loopOverCodePointsBackwards(text) { cp, charCount ->
                 actualSteps -= charCount
-                actualSteps <= steps
+                if (actualSteps <= steps) return actualSteps
             }
         }
         return actualSteps
@@ -220,12 +220,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePoints(text) { cp, charCount ->
-            if (StringUtils.mightBeEmoji(cp)) {
-                actualSteps = 0
-                true
-            }
+            if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps += charCount
-            actualSteps >= steps
+            if (actualSteps >= steps) return min(actualSteps, text.length)
         }
         return min(actualSteps, text.length)
     }
@@ -234,12 +231,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         loopOverCodePointsBackwards(text) { cp, charCount ->
-            if (StringUtils.mightBeEmoji(cp)) {
-                actualSteps = 0
-                true
-            }
+            if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps -= charCount
-            actualSteps <= steps
+            if (actualSteps <= steps) return -min(-actualSteps, text.length)
         }
         return -min(-actualSteps, text.length)
     }

@@ -9,24 +9,24 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import java.math.BigInteger
 import java.util.Locale
 
-fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
+inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Unit) {
     val s = text.toString()
     var offset = 0
     while (offset < s.length) {
         val cp = s.codePointAt(offset)
         val charCount = Character.charCount(cp)
-        if (loop(cp, charCount)) return
+        loop(cp, charCount)
         offset += charCount
     }
 }
 
-fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
+inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Unit) {
     val s = text.toString()
     var offset = s.length
     while (offset > 0) {
         val cp = s.codePointBefore(offset)
         val charCount = Character.charCount(cp)
-        if (loop(cp, charCount)) return
+        loop(cp, charCount)
         offset -= charCount
     }
 }
@@ -34,28 +34,23 @@ fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: I
 fun nonWordCodePointAndNoSpaceBeforeCursor(text: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     var space = false
     var nonWordCodePoint = false
-    loopOverCodePointsBackwards(text) { cp, charCount ->
+    loopOverCodePointsBackwards(text) { cp, _ ->
         if (!space && Character.isWhitespace(cp)) space = true
-        // treat double quote like a word codepoint for the purpose of this function (not great, maybe clarify name, or extend list of chars?)
+        // treat double quote like a word codepoint for this function (not great, maybe clarify name or extend list of chars?)
         if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(cp) && cp != '"'.code) {
             nonWordCodePoint = true
         }
-        space && nonWordCodePoint // stop if both are found
+        if (space && nonWordCodePoint) return false // stop if both are found
     }
-    return nonWordCodePoint && !space // return true if an non-word codepoint and no space was found
+    return nonWordCodePoint // return true if a non-word codepoint and no space was found
 }
 
 fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
-    var letter = false
-    loopOverCodePointsBackwards(text) { cp, charCount ->
-        if (Character.isWhitespace(cp)) true
-        else if (Character.isLetter(cp)) {
-            letter = true
-            true
-        }
-        else false
+    loopOverCodePointsBackwards(text) { cp, _ ->
+        if (Character.isWhitespace(cp)) return false
+        else if (Character.isLetter(cp)) return true
     }
-    return letter
+    return false
 }
 
 /** get the complete emoji at end of [text], considering that emojis can be joined with ZWJ resulting in different emojis */
