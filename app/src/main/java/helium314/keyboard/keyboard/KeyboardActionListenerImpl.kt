@@ -117,16 +117,14 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         var actualSteps = 0
         // corrected steps to avoid splitting chars belonging to the same codepoint
         if (steps > 0) {
-            val text = connection.getSelectedText(0)
-            if (text == null) actualSteps = steps
-            else loopOverCodePoints(text) { cp, charCount ->
+            val text = connection.getSelectedText(0) ?: return steps
+            loopOverCodePoints(text) { cp, charCount ->
                 actualSteps += charCount
                 if (actualSteps >= steps) return actualSteps
             }
         } else {
-            val text = connection.getTextBeforeCursor(-steps * 4, 0)
-            if (text == null) actualSteps = steps
-            else loopOverCodePointsBackwards(text) { cp, charCount ->
+            val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
+            loopOverCodePointsBackwards(text) { cp, charCount ->
                 actualSteps -= charCount
                 if (actualSteps <= steps) return actualSteps
             }
