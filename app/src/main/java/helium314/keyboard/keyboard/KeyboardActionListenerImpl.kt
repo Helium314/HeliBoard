@@ -74,8 +74,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         keyboardSwitcher.onFinishSlidingInput(latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
 
     override fun onCustomRequest(requestCode: Int): Boolean {
-        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)
+        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
             return latinIME.showInputPickerDialog()
+        }
         return false
     }
 
@@ -153,16 +154,15 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val current = RichInputMethodManager.getInstance().currentSubtype.rawSubtype
         var wantedIndex = subtypes.indexOf(current) + if (steps > 0) 1 else -1
         wantedIndex %= subtypes.size
-        if (wantedIndex < 0)
-            wantedIndex += subtypes.size
+        if (wantedIndex < 0) wantedIndex += subtypes.size
         val newSubtype = subtypes[wantedIndex]
 
         // do not switch if we would switch to the initial subtype after cycling all other subtypes
-        if (initialSubtype == null)
-            initialSubtype = current
+        if (initialSubtype == null) initialSubtype = current
         if (initialSubtype == newSubtype) {
-            if ((subtypeSwitchCount > 0 && steps > 0) || ((subtypeSwitchCount < 0 && steps < 0)))
+            if (subtypeSwitchCount > 0 && steps > 0 || subtypeSwitchCount < 0 && steps < 0) {
                 return true
+            }
         }
         if (steps > 0) subtypeSwitchCount++ else subtypeSwitchCount--
 
