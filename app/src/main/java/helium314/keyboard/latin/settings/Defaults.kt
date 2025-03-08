@@ -110,6 +110,7 @@ object Defaults {
     const val PREF_GESTURE_TRAIL_FADEOUT_DURATION = 800
     const val PREF_SHOW_SETUP_WIZARD_ICON = true
     const val PREF_USE_CONTACTS = false
+    const val PREF_USE_APPS = false
     const val PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = false
     const val PREF_ONE_HANDED_MODE = false
     @SuppressLint("RtlHardcoded")

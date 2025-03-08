@@ -103,6 +103,7 @@ public class SettingsValues {
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
+    public final boolean mUseAppsDictionary;
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
@@ -251,6 +252,7 @@ public class SettingsValues {
         mPopupKeyLabelSources = SubtypeUtilsKt.getPopupKeyLabelSources(selectedSubtype, prefs);
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, Defaults.PREF_ADD_TO_PERSONAL_DICTIONARY);
         mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
+        mUseAppsDictionary = prefs.getBoolean(Settings.PREF_USE_APPS, Defaults.PREF_USE_APPS);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, Defaults.PREF_NAVBAR_COLOR);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, Defaults.PREF_NARROW_KEY_GAPS);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
@@ -334,11 +336,12 @@ public class SettingsValues {
         return mDisplayOrientation == configuration.orientation;
     }
 
-    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
+    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context ctx) {
         final boolean setting = prefs.getBoolean(Settings.PREF_USE_CONTACTS, Defaults.PREF_USE_CONTACTS);
         if (!setting) return false;
-        if (PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS))
+        if (PermissionsUtil.checkAllPermissionsGranted(ctx, Manifest.permission.READ_CONTACTS)) {
             return true;
+        }
         // disable if permission not granted
         prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, false).apply();
         return false;
