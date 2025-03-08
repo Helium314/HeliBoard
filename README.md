@@ -100,8 +100,6 @@ __Planned features and improvements:__
 * Add and enable emoji dictionaries by default (if available for language)
 * Clearer / more intuitive arrangement of settings
   * Maybe hide some less used settings by default (similar to color customization)
-* Make use of the `.com` key in URL fields (currently only available for tablets)
-  * With language-dependent TLDs
 * [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 __What will _not_ be added:__

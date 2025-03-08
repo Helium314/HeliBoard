@@ -249,6 +249,10 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the setting to set popup key order -->
     <string name="popup_order">Select popup key order</string>
+    <!-- Title of the setting to show TLD popup keys -->
+    <string name="show_tld_popup_keys">Show TLD popup keys</string>
+    <!-- Description of the setting to show TLD popup keys -->
+    <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Language</string>
