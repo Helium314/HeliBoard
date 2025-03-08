@@ -24,6 +24,7 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.InputTypeUtils
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
@@ -574,6 +575,7 @@ sealed interface KeyData : AbstractKeyData {
     private fun getPeriodPopups(params: KeyboardParams): SimplePopups =
         SimplePopups(
             if (Settings.getInstance().current.mShowTldPopupKeys
+                && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
                 && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL)
             ) params.mLocaleKeyboardInfos.tlds
             else getPunctuationPopupKeys(params)

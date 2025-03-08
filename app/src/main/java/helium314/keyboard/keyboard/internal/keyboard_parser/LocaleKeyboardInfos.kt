@@ -89,12 +89,6 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         }
     }
 
-    fun addDefaultTlds(locale: Locale) {
-        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
-            tlds.add(0, ".eu")
-        tlds.addAll(0, defaultTlds.splitOnWhitespace())
-    }
-
     /** Pair(extraKeysLeft, extraKeysRight) */
     fun getTabletExtraKeys(elementId: Int): Pair<List<KeyData>, List<KeyData>> {
         val flags = Key.LABEL_FLAGS_FONT_DEFAULT
@@ -205,7 +199,6 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context), true)
     }
-    lkt.addDefaultTlds(params.mId.locale)
     when (popupKeysSetting) {
         POPUP_KEYS_MAIN -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"), false)
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
@@ -226,17 +219,25 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
         }
     }
 
-private fun getLocaleTlds(locale: Locale): ArrayList<String> {
+private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
+    val tlds = getDefaultTlds(locale)
     val ccLower = locale.country.lowercase()
-    val tlds = arrayListOf<String>()
     if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
         return tlds
     specialCountryTlds.forEach {
         if (ccLower != it.first) return@forEach
         tlds.addAll(it.second.splitOnWhitespace())
-        return tlds
+        return@getLocaleTlds tlds
     }
     tlds.add(".$ccLower")
+    return tlds
+}
+
+private fun getDefaultTlds(locale: Locale): LinkedHashSet<String> {
+    val tlds = linkedSetOf<String>()
+    tlds.addAll(defaultTlds.splitOnWhitespace())
+    if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+        tlds.add(".eu")
     return tlds
 }
 
