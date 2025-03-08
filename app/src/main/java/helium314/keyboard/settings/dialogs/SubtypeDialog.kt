@@ -125,8 +125,8 @@ fun SubtypeDialog(
         onConfirmed = { onConfirmed(currentSubtype) },
         neutralButtonText = if (initialSubtype.isAdditionalSubtype(prefs)) stringResource(R.string.delete) else null,
         onNeutral = {
-            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
-            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
+            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype())
+            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype())
             onDismissRequest()
         },
         title = {

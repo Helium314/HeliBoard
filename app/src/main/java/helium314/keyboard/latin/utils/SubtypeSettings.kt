@@ -74,10 +74,8 @@ object SubtypeSettings {
 
     fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
         val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()
-        if (selectedSubtype.isAdditionalSubtype(prefs)) {
-            val selectedAdditionalSubtype = selectedSubtype.toAdditionalSubtype()
-            if (selectedAdditionalSubtype != null) return selectedAdditionalSubtype
-        }
+        if (selectedSubtype.isAdditionalSubtype(prefs))
+            return selectedSubtype.toAdditionalSubtype()
         // no additional subtype, must be a resource subtype
 
         val subtype = enabledSubtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
@@ -224,11 +222,8 @@ object SubtypeSettings {
             .split(Separators.SETS).filter { it.isNotEmpty() }.map { it.toSettingsSubtype() }
         for (settingsSubtype in settingsSubtypes) {
             if (settingsSubtype.isAdditionalSubtype(prefs)) {
-                val additionalSubtype = settingsSubtype.toAdditionalSubtype()
-                if (additionalSubtype != null) {
-                    enabledSubtypes.add(additionalSubtype)
-                    continue
-                }
+                enabledSubtypes.add(settingsSubtype.toAdditionalSubtype())
+                continue
             }
             val subtypesForLocale = resourceSubtypesByLocale[settingsSubtype.locale]
             if (subtypesForLocale == null) {

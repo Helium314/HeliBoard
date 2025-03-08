@@ -72,12 +72,12 @@ object SubtypeUtilsAdditional {
             } + to.toPref()
         prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new.joinToString(Separators.SETS)).apply()
 
-        val fromSubtype = from.toAdditionalSubtype() // will be null if we edit a resource subtype
-        val toSubtype = to.toAdditionalSubtype() // should never be null
-        if (isSelected && toSubtype != null) {
+        val fromSubtype = from.toAdditionalSubtype()
+        val toSubtype = to.toAdditionalSubtype()
+        if (isSelected) {
             SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
         }
-        if (fromSubtype != null && isEnabled && toSubtype != null) {
+        if (isEnabled) {
             SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
             SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
         }
@@ -88,7 +88,7 @@ object SubtypeUtilsAdditional {
     fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {
         if (prefSubtypes.isEmpty())
             return emptyList()
-        return prefSubtypes.split(Separators.SETS).mapNotNull { it.toSettingsSubtype().toAdditionalSubtype() }
+        return prefSubtypes.split(Separators.SETS).map { it.toSettingsSubtype().toAdditionalSubtype() }
     }
 
     fun createPrefSubtypes(subtypes: Collection<InputMethodSubtype>): String {
