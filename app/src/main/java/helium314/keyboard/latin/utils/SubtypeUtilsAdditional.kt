@@ -74,6 +74,12 @@ object SubtypeUtilsAdditional {
 
         val fromSubtype = from.toAdditionalSubtype()
         val toSubtype = to.toAdditionalSubtype()
+        if (SubtypeSettings.getResourceSubtypesForLocale(to.locale).any { it.toSettingsSubtype() == to }) {
+            // all settings changed to default -> make additional subtype disappear as magically as it was added
+            // if we don't do this, enabling the base subtype will result in the additional subtype being enabled,
+            // as both have the same settingsSubtype
+            removeAdditionalSubtype(context, toSubtype)
+        }
         if (isSelected) {
             SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
         }
@@ -81,21 +87,18 @@ object SubtypeUtilsAdditional {
             SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
             SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
         }
-        if (!isEnabled && !isSelected)
-            SubtypeSettings.reloadEnabledSubtypes(context)
+        // reloading is often unnecessary, but fast enough to not care about calling it only when necessary
+        SubtypeSettings.reloadEnabledSubtypes(context)
     }
 
-    fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {
-        if (prefSubtypes.isEmpty())
-            return emptyList()
-        return prefSubtypes.split(Separators.SETS).map { it.toSettingsSubtype().toAdditionalSubtype() }
-    }
+    fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> =
+        prefSubtypes.split(Separators.SETS).mapNotNull {
+            if (it.isEmpty()) null
+            else it.toSettingsSubtype().toAdditionalSubtype()
+        }
 
-    fun createPrefSubtypes(subtypes: Collection<InputMethodSubtype>): String {
-        if (subtypes.isEmpty())
-            return ""
-        return subtypes.joinToString(Separators.SETS) { it.toSettingsSubtype().toPref() }
-    }
+    fun createPrefSubtypes(subtypes: Collection<InputMethodSubtype>): String =
+        subtypes.joinToString(Separators.SETS) { it.toSettingsSubtype().toPref() }
 
     private fun getNameResId(locale: Locale, mainLayoutName: String): Int {
         val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)

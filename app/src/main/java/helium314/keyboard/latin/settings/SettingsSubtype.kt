@@ -38,7 +38,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
         val newList = extraValues.split(",")
             .filterNot { it.isBlank() || it.startsWith("$extraValueKey=") || it == extraValueKey }
         val newValue = if (extraValue == null) extraValueKey else "$extraValueKey=$extraValue"
-        val newValues = (newList + newValue).joinToString(",")
+        val newValues = (newList + newValue).sorted().joinToString(",")
         return copy(extraValues = newValues)
     }
 
