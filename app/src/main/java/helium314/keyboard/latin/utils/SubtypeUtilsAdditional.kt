@@ -81,6 +81,8 @@ object SubtypeUtilsAdditional {
             SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
             SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
         }
+        if (!isEnabled && !isSelected)
+            SubtypeSettings.reloadEnabledSubtypes(context)
     }
 
     fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {
