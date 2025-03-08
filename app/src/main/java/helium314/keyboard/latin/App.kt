@@ -161,7 +161,7 @@ fun checkVersionUpgrade(context: Context) {
                 split[1] = newName
                 split.joinToString(":")
             }
-            Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
+            prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, newSubtypeStrings.joinToString(";")).apply()
         }
         // rename other custom layouts
         LayoutUtilsCustom.onLayoutFileChanged()
@@ -630,7 +630,7 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
             val localeString = it.substringBefore(":")
             additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
         }
-        Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
+        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, additionalSubtypes.joinToString(";")).apply()
     }
     // move pinned clips to credential protected storage if device is not locked (should never happen)
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return

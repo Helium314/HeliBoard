@@ -53,10 +53,11 @@ object SubtypeUtilsAdditional {
         val prefs = context.prefs()
         SubtypeSettings.removeEnabledSubtype(context, subtype)
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        val oldAdditionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString)
-        val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
-        val newAdditionalSubtypesString = createPrefSubtypes(newAdditionalSubtypes)
-        Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+        val oldAdditionalSubtypes = SubtypeSettings.createSettingsSubtypes(oldAdditionalSubtypesString)
+        val settingsSubtype = subtype.toSettingsSubtype()
+        val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != settingsSubtype }
+        val newAdditionalSubtypesString = SubtypeSettings.createPrefSubtypes(newAdditionalSubtypes)
+        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, newAdditionalSubtypesString).apply()
     }
 
     // updates additional subtypes, enabled subtypes, and selected subtype
@@ -96,9 +97,6 @@ object SubtypeUtilsAdditional {
             if (it.isEmpty()) null
             else it.toSettingsSubtype().toAdditionalSubtype()
         }
-
-    fun createPrefSubtypes(subtypes: Collection<InputMethodSubtype>): String =
-        subtypes.joinToString(Separators.SETS) { it.toSettingsSubtype().toPref() }
 
     private fun getNameResId(locale: Locale, mainLayoutName: String): Int {
         val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)
