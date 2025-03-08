@@ -393,7 +393,7 @@ private fun MainLayoutRow(
         if (showLayoutEditDialog != null) {
             val layoutName = showLayoutEditDialog!!.first
             val startContent = showLayoutEditDialog?.second
-                ?: if (layoutName in appLayouts) LayoutUtils.getContent(LayoutType.MAIN, layoutName, ctx)
+                ?: if (layoutName in appLayouts) LayoutUtils.getContentWithPlus(layoutName, currentSubtype.locale, ctx)
                 else null
             LayoutEditDialog(
                 onDismissRequest = { showLayoutEditDialog = null },
