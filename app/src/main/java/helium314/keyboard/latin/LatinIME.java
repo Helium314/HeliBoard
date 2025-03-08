@@ -153,6 +153,12 @@ public class LatinIME extends InputMethodService implements
     @Nullable
     private Context mDisplayContext;
 
+    // When HintLocales causes a subtype override, we store
+    // the overridden subtype here in order to restore it when
+    // we switch to another input context that has no HintLocales.
+    @Nullable
+    private InputMethodSubtype mOverriddenByHintLocale;
+
     // Object for reacting to adding/removing a dictionary pack.
     private final BroadcastReceiver mDictionaryPackInstallReceiver =
             new DictionaryPackInstallBroadcastReceiver(this);
@@ -858,6 +864,13 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
+
+        if (mOverriddenByHintLocale != oldSubtype) {
+            // Clear tracking the subtype that is overridden by a HintLocale
+            // when subtypes are changed in any way other than the initial automatic change.
+            mOverriddenByHintLocale = null;
+        }
+
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
         mRichImm.onSubtypeChanged(subtype);
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
@@ -877,6 +890,10 @@ public class LatinIME extends InputMethodService implements
 
         final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
         if (hintLocales == null) {
+            if (mOverriddenByHintLocale != null) {
+                mHandler.postSwitchLanguage(mOverriddenByHintLocale);
+                mOverriddenByHintLocale = null;
+            }
             return;
         }
         // Try switching to a subtype matching the hint language.
@@ -888,6 +905,10 @@ public class LatinIME extends InputMethodService implements
             if (newSubtype == null) continue;
             if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
                 return; // no need to switch, we already use the correct locale
+
+            if (mOverriddenByHintLocale == null) {
+                mOverriddenByHintLocale = mRichImm.getCurrentSubtype().getRawSubtype();
+            }
             mHandler.postSwitchLanguage(newSubtype);
             break;
         }
