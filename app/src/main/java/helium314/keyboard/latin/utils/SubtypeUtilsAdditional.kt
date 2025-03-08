@@ -67,28 +67,29 @@ object SubtypeUtilsAdditional {
         val isSelected = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype() == from
         val isEnabled = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
             .any { it.toSettingsSubtype() == from }
-        val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-            .split(Separators.SETS).mapNotNullTo(sortedSetOf()) {
-                if (it == from.toPref()) null else it
-            } + to.toPref()
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new.joinToString(Separators.SETS)).apply()
-
-        val fromSubtype = from.toAdditionalSubtype()
-        val toSubtype = to.toAdditionalSubtype()
-        if (SubtypeSettings.getResourceSubtypesForLocale(to.locale).any { it.toSettingsSubtype() == to }) {
-            // all settings changed to default -> make additional subtype disappear as magically as it was added
-            // if we don't do this, enabling the base subtype will result in the additional subtype being enabled,
-            // as both have the same settingsSubtype
-            removeAdditionalSubtype(context, toSubtype)
+        val additionalSubtypes = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!)
+            .toMutableList()
+        additionalSubtypes.remove(from)
+        if (SubtypeSettings.getResourceSubtypesForLocale(to.locale).none { it.toSettingsSubtype() == to }) {
+            // We only add the "to" subtype if it's not equal to a resource subtype.
+            // This means we make additional subtype disappear as magically as it was added if all settings are default.
+            // If we don't do this, enabling the base subtype will result in the additional subtype being enabled,
+            // as both have the same settingsSubtype.
+            additionalSubtypes.add(to)
         }
+        val editor = prefs.edit()
+        editor.putString(Settings.PREF_ADDITIONAL_SUBTYPES, SubtypeSettings.createPrefSubtypes(additionalSubtypes))
         if (isSelected) {
-            SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
+            editor.putString(Settings.PREF_SELECTED_SUBTYPE, to.toPref())
         }
         if (isEnabled) {
-            SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
-            SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
+            val enabled = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+                .toMutableList()
+            enabled.remove(from)
+            enabled.add(to)
+            editor.putString(Settings.PREF_ENABLED_SUBTYPES, SubtypeSettings.createPrefSubtypes(enabled))
         }
-        // reloading is often unnecessary, but fast enough to not care about calling it only when necessary
+        editor.apply()
         SubtypeSettings.reloadEnabledSubtypes(context)
     }
 
