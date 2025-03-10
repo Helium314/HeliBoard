@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"پیدا کردن نام مخاطبین"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"غلط‌گیر املا از ورودی‌های فهرست مخاطبین شما استفاده می‌کند"</string>
+    <string name="use_contacts_dict">"پیدا کردن نام مخاطبین"</string>
     <string name="vibrate_on_keypress">"لرزش با فشار کلید"</string>
     <string name="sound_on_keypress">"صدا با فشار کلید"</string>
     <string name="popup_on_keypress">"بازشدن با فشار کلید"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"کلید تغییر زبان"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> میلی‌ثانیه"</string>
     <string name="settings_system_default">"پیش‌فرض سیستم"</string>
-    <string name="use_contacts_dict">"پیشنهاد نام‌های مخاطب"</string>
     <string name="use_contacts_dict_summary">برای پیشنهاد و تصحیح از نام مخاطبین استفاده شود</string>
     <string name="use_personalized_dicts">"پیشنهادات شخصی شده"</string>
     <string name="use_double_space_period">"نقطه با دو فاصله"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"بزرگ‌کردن خودکار حروف"</string>
     <string name="auto_cap_summary">"بزرگ‌نویسی کلمه اول هر جمله"</string>
     <string name="edit_personal_dictionary">"واژه‌نامه شخصی"</string>
-    <string name="configure_dictionaries_title">"واژه‌نامه‌های برافزا"</string>
     <string name="main_dictionary">"واژه‌نامه اصلی"</string>
     <string name="prefs_show_suggestions">"نمایش پیشنهادات تصحیح"</string>
     <string name="prefs_show_suggestions_summary">"نمایش واژه‌های پیشنهادی در حین تایپ"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"نمایش نماد برنامه"</string>
     <string name="show_setup_wizard_icon_summary">"نمایش نماد برنامه در راه‌انداز"</string>
     <string name="dictionary_settings_title">"واژه‌نامه‌های برافزا"</string>
-    <string name="dictionary_settings_summary">"تنظیمات برای فرهنگ‌ لغت‌ها"</string>
     <string name="dictionary_available">"واژه‌نامه موجود است"</string>
-    <string name="cannot_connect_to_dict_service">"مشکل اتصال به سرویس واژه‌نامه"</string>
     <string name="no_dictionaries_available">"هیچ فرهنگ لغتی موجود نیست"</string>
     <string name="last_update">"آخرین به‌روزرسانی"</string>
-    <string name="main_dict_description">"واژه‌نامه اصلی"</string>
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">نسخه <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

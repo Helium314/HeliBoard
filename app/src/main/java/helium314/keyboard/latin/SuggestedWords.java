@@ -346,7 +346,7 @@ public class SuggestedWords {
 
         public boolean isAppropriateForAutoCorrection() {
             return (mKindAndFlags & KIND_FLAG_APPROPRIATE_FOR_AUTO_CORRECTION) != 0
-                    || (isKindOf(KIND_SHORTCUT) && Settings.getInstance().getCurrent().mAutoCorrectShortcuts);
+                    || (isKindOf(KIND_SHORTCUT) && Settings.getValues().mAutoCorrectShortcuts);
         }
 
         public void setDebugString(final String str) {

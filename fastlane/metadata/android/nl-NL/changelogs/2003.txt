@@ -1,5 +1,5 @@
 * Aanpasbare lay-out van de functionele toetsen
-* Symbolen en meer symboollay-outs enigszins aanpassen
+* Symbolen en meer symboollay-outs enigszins aangepast
 * basisondersteuning voor alt, ctrl, fn, meta-toetsen
 * uitbreiding werkbalk (functie voor lang indrukken, optioneel lang indrukken, automatisch weergeven/verbergen, verbeterde werkbalk voor klembord, ...)
 * tab-toets toegevoegd

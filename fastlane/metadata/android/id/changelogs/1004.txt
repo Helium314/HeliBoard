@@ -1,0 +1,7 @@
+- perbarui tata letak Sirilik Serbia oleh @markokocic (#704, #705)
+- perbarui tata letak Estonia oleh @tenextractor (#693)
+- perbaiki entri duplikat dalam riwayat clipboard oleh @codokie (#616, #680)
+- tambahkan entri teks saja ke riwayat clipboard oleh @codokie (#711)
+- gambar yang lebih baik dalam metadata oleh @RHJihan (#713)
+- atur warna ikon dengan benar dalam dialog pemilihan bilah alat oleh @codokie (#715, #716)
+- perbaikan lainnya (#684, #723, dan lainnya)

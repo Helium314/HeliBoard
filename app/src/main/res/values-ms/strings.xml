@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Cari nama kenalan"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Penyemak ejaan menggunakan entri daripada senarai kenalan anda"</string>
+    <string name="use_contacts_dict">"Cari nama kenalan"</string>
     <string name="vibrate_on_keypress">"Getar pada tekanan kekunci"</string>
     <string name="sound_on_keypress">"Bunyi pada tekanan kekunci"</string>
     <string name="popup_on_keypress">"Pop timbul pada tekanan kunci"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Kekunci tukar bahasa"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"Tetapan asal sistem"</string>
-    <string name="use_contacts_dict">"Cadangkan nama Kenalan"</string>
     <string name="use_contacts_dict_summary">"Menggunakan nama daripada Kenalan untuk cadangan dan pembetulan"</string>
     <string name="use_personalized_dicts">"Cadangan diperibadikan"</string>
     <string name="use_double_space_period">"Titik ruang berganda"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Autopenghurufbesaran"</string>
     <string name="auto_cap_summary">"Besarkan perkataan pertama setiap ayat"</string>
     <string name="edit_personal_dictionary">"Kamus peribadi"</string>
-    <string name="configure_dictionaries_title">"Kamus tambahan"</string>
     <string name="main_dictionary">"Kamus utama"</string>
     <string name="prefs_show_suggestions">"Tunjukkan cadangan pembetulan"</string>
     <string name="prefs_show_suggestions_summary">"Paparkan cadangan perkataan semasa menaip"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Tunjukkan ikon apl"</string>
     <string name="show_setup_wizard_icon_summary">"Paparkan ikon apl dalam pelancar"</string>
     <string name="dictionary_settings_title">"Kamus tambahan"</string>
-    <string name="dictionary_settings_summary">"Tetapan untuk kamus"</string>
     <string name="dictionary_available">"Kamus tersedia"</string>
-    <string name="cannot_connect_to_dict_service">"Masalah menyambung kepada perkhidmatan kamus"</string>
     <string name="no_dictionaries_available">"Tiada kamus tersedia"</string>
     <string name="last_update">"Kali terakhir dikemas kini"</string>
-    <string name="main_dict_description">"Kamus utama"</string>
     <string name="settings">"Tetapan"</string>
     <string name="delete">"Padam"</string>
     <string name="version_text">"Versi <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

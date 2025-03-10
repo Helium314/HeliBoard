@@ -33,13 +33,13 @@ public final class LanguageOnSpacebarUtils {
     }
 
     public static int getLanguageOnSpacebarFormatType(@NonNull final RichInputMethodSubtype subtype) {
-        if (!Settings.getInstance().getCurrent().mSpaceBarText.isEmpty())
+        if (!Settings.getValues().mSpaceBarText.isEmpty())
             return FORMAT_TYPE_FULL_LOCALE;
         if (subtype.isNoLanguage()) {
             return FORMAT_TYPE_FULL_LOCALE;
         }
         // Only this subtype is enabled and equals to the system locale.
-        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage && Settings.getInstance().getCurrent().mSecondaryLocales.isEmpty()) {
+        if (sEnabledSubtypes.size() < 2 && sIsSystemLanguageSameAsInputLanguage && Settings.getValues().mSecondaryLocales.isEmpty()) {
             return FORMAT_TYPE_NONE;
         }
         final Locale locale = subtype.getLocale();

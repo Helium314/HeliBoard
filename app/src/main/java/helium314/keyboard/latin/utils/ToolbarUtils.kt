@@ -49,9 +49,9 @@ fun setToolbarButtonsActivatedStateOnPrefChange(buttonsGroup: ViewGroup, key: St
 private fun setToolbarButtonActivatedState(button: ImageButton) {
     button.isActivated = when (button.tag) {
         INCOGNITO -> button.context.prefs().getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
-        ONE_HANDED -> Settings.getInstance().current.mOneHandedModeEnabled
-        SPLIT -> Settings.getInstance().current.mIsSplitKeyboardEnabled
-        AUTOCORRECT -> Settings.getInstance().current.mAutoCorrectionEnabledPerUserSettings
+        ONE_HANDED -> Settings.getValues().mOneHandedModeEnabled
+        SPLIT -> Settings.getValues().mIsSplitKeyboardEnabled
+        AUTOCORRECT -> Settings.getValues().mAutoCorrectionEnabledPerUserSettings
         else -> true
     }
 }

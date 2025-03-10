@@ -10,23 +10,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.DictionaryDumpBroadcastReceiver
 import helium314.keyboard.latin.DictionaryFacilitator
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.DebugSettings
-import helium314.keyboard.latin.settings.DebugSettingsFragment
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.PreferenceCategory
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun DebugScreen(
@@ -41,7 +40,7 @@ fun DebugScreen(
         DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH,
         DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW,
         R.string.prefs_dump_dynamic_dicts
-    ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + it }
+    ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { DebugSettings.PREF_KEY_DUMP_DICT_PREFIX + it }
     SearchSettingsScreen(
         onClickBack = {
             if (needsRestart) {
@@ -86,7 +85,7 @@ private fun createDebugSettings(context: Context) = listOf(
         }
     },
     Setting(context, DebugSettings.PREF_SHOW_SUGGESTION_INFOS, R.string.prefs_show_suggestion_infos) {
-        SwitchPreference(it, Defaults.PREF_SHOW_SUGGESTION_INFOS) { keyboardNeedsReload = true }
+        SwitchPreference(it, Defaults.PREF_SHOW_SUGGESTION_INFOS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, DebugSettings.PREF_FORCE_NON_DISTINCT_MULTITOUCH, R.string.prefs_force_non_distinct_multitouch) {
         SwitchPreference(it, Defaults.PREF_FORCE_NON_DISTINCT_MULTITOUCH) { needsRestart = true }
@@ -95,7 +94,7 @@ private fun createDebugSettings(context: Context) = listOf(
         SwitchPreference(def, Defaults.PREF_SLIDING_KEY_INPUT_PREVIEW)
     },
 ) + DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.map { type ->
-    Setting(context, DebugSettingsFragment.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {
+    Setting(context, DebugSettings.PREF_KEY_DUMP_DICT_PREFIX + type, R.string.button_default) {
         val ctx = LocalContext.current
         Preference(
             name = "Dump $type dictionary",
@@ -111,8 +110,8 @@ private fun createDebugSettings(context: Context) = listOf(
 @Preview
 @Composable
 private fun Preview() {
-    SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
         Surface {
             DebugScreen { }
         }

@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // taken from StreetComplete
 @Composable
@@ -53,7 +55,7 @@ fun <T: Any> ListPickerDialog(
         checkOk = { selected != null },
         modifier = modifier,
         title = title,
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -100,12 +102,14 @@ fun <T: Any> ListPickerDialog(
 @Composable
 private fun PreviewListPickerDialog() {
     val items = remember { (0..<5).toList() }
-    ListPickerDialog(
-        onDismissRequest = {},
-        items = items,
-        onItemSelected = {},
-        title = { Text("Select something") },
-        selectedItem = 2,
-        getItemName = { "Item $it" },
-    )
+    Theme(previewDark) {
+        ListPickerDialog(
+            onDismissRequest = {},
+            items = items,
+            onItemSelected = {},
+            title = { Text("Select something") },
+            selectedItem = 2,
+            getItemName = { "Item $it" },
+        )
+    }
 }

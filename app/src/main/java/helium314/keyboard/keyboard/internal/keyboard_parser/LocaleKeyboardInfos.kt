@@ -229,7 +229,7 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
 private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
     val ccLower = locale.country.lowercase()
     val tlds = LinkedHashSet<String>()
-    if (ccLower.isEmpty() || ccLower == "zz")
+    if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
         return tlds
     specialCountryTlds.forEach {
         if (ccLower != it.first) return@forEach

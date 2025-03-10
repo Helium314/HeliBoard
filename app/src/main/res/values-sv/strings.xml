@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">Slå upp kontaktnamn</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Stavningskontrollen använder poster från din kontaktlista</string>
+    <string name="use_contacts_dict">Slå upp kontaktnamn</string>
     <string name="vibrate_on_keypress">"Vibrera vid tangenttryck"</string>
     <string name="sound_on_keypress">"Ljud vid tangenttryck"</string>
     <string name="popup_on_keypress">"Popup vid tangenttryck"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">Språkbytestangent</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <string name="settings_system_default">"Standardinställning"</string>
-    <string name="use_contacts_dict">"Föreslå kontaktnamn"</string>
     <string name="use_contacts_dict_summary">"Använd namn från Kontakter för förslag och korrigeringar"</string>
     <string name="use_personalized_dicts">"Anpassade förslag"</string>
     <string name="use_double_space_period">Dubbelt blanksteg-punkt</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automatiska versaler"</string>
     <string name="auto_cap_summary">"Inled varje mening med stor bokstav"</string>
     <string name="edit_personal_dictionary">"Personlig ordlista"</string>
-    <string name="configure_dictionaries_title">"Tilläggsordlistor"</string>
     <string name="main_dictionary">"Huvudordlistan"</string>
     <string name="prefs_show_suggestions">"Visa rättningsförslag"</string>
     <string name="prefs_show_suggestions_summary">"Visar ordförslag när du skriver"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Visa appikon"</string>
     <string name="show_setup_wizard_icon_summary">"Visa appikonen i startprogrammet"</string>
     <string name="dictionary_settings_title">"Tilläggsordlistor"</string>
-    <string name="dictionary_settings_summary">"Inställningar för ordlistor"</string>
     <string name="dictionary_available">Ordlista tillgänglig</string>
-    <string name="cannot_connect_to_dict_service">"Problem med att ansluta till ordlistetjänsten"</string>
     <string name="no_dictionaries_available">Inga ordlistor tillgängliga</string>
     <string name="last_update">"Informationen uppdaterades senast"</string>
-    <string name="main_dict_description">"Huvudordlista"</string>
     <string name="settings">"Inställningar"</string>
     <string name="delete">"Ta bort"</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -167,7 +161,6 @@
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Vänta"</string>
     <string name="language_and_layouts_title">Språk &amp; layouter</string>
-    <string name="customize_symbols_number_layouts">Anpassa symboler och nummerlayouter</string>
     <string name="customize_background_image">Ställ in bakgrundsbild</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboler</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabiska)</string>
@@ -233,8 +226,6 @@
     <string name="split_spacer_scale">Delningsavstånd</string>
     <string name="main_colors">Visa endast huvudfärger</string>
     <string name="theme_navbar">Färga navigeringsfält</string>
-    <string name="select_user_colors">Anpassa färger</string>
-    <string name="select_user_colors_night">Anpassa färger (natt)</string>
     <string name="internal_dictionary_summary">Intern huvudordlista</string>
     <string name="popup_order">Välj ordning på popup-tangenter</string>
     <string name="hint_source">Välj tipskälla</string>

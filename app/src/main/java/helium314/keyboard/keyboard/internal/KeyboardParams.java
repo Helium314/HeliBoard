@@ -82,7 +82,7 @@ public class KeyboardParams {
     @NonNull
     public final KeyboardIconsSet mIconsSet = KeyboardIconsSet.Companion.getInstance();
     @NonNull // todo: not good, this only works because params are currently always created for the active subtype
-    public final List<Locale> mSecondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
+    public final List<Locale> mSecondaryLocales = Settings.getValues().mSecondaryLocales;
     public final ArrayList<String> mPopupKeyTypes = new ArrayList<>();
     public final ArrayList<String> mPopupKeyLabelSources = new ArrayList<>();
 
@@ -224,13 +224,13 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
             mBottomPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
-                    * Settings.getInstance().getCurrent().mBottomPaddingScale);
+                    * Settings.getValues().mBottomPaddingScale);
             mLeftPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardLeftPadding, width, width, 0)
-                    * Settings.getInstance().getCurrent().mSidePaddingScale);
+                    * Settings.getValues().mSidePaddingScale);
             mRightPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardRightPadding, width, width, 0)
-                    * Settings.getInstance().getCurrent().mSidePaddingScale);
+                    * Settings.getValues().mSidePaddingScale);
 
             mBaseWidth = mOccupiedWidth - mLeftPadding - mRightPadding;
             final float defaultKeyWidthFactor = context.getResources().getInteger(R.integer.config_screen_metrics) > 2 ? 0.9f : 1f;
@@ -240,7 +240,7 @@ public class KeyboardParams {
             mDefaultAbsoluteKeyWidth = (int) (mDefaultKeyWidth * mBaseWidth);
             mAbsolutePopupKeyWidth = (int) (alphaSymbolKeyWidth * mBaseWidth);
 
-            if (Settings.getInstance().getCurrent().mNarrowKeyGaps) {
+            if (Settings.getValues().mNarrowKeyGaps) {
                 mRelativeHorizontalGap = keyboardAttr.getFraction(
                         R.styleable.Keyboard_horizontalGapNarrow, 1, 1, 0);
                 mRelativeVerticalGap = keyboardAttr.getFraction(

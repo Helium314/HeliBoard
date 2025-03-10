@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,27 +12,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMBER
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_NUMPAD_LANDSCAPE
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_PHONE_SYMBOLS
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_ARABIC
-import helium314.keyboard.keyboard.internal.keyboard_parser.LAYOUT_SYMBOLS_SHIFTED
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.settings.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
+import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.protectedPrefs
@@ -43,11 +31,14 @@ import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.filePicker
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileInputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -67,12 +58,10 @@ fun BackupRestorePreference(setting: Setting) {
         "custom_background_image.*".toRegex(),
         "custom_font".toRegex(),
     ) }
-    val backupLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val backupLauncher = filePicker { uri ->
         // zip all files matching the backup patterns
         // essentially this is the typed words information, and user-added dictionaries
-        val filesDir = ctx.filesDir ?: return@rememberLauncherForActivityResult
+        val filesDir = ctx.filesDir ?: return@filePicker
         val filesPath = filesDir.path + File.separator
         val files = mutableListOf<File>()
         filesDir.walk().forEach { file ->
@@ -125,9 +114,7 @@ fun BackupRestorePreference(setting: Setting) {
         }
         wait.await()
     }
-    val restoreLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val restoreLauncher = filePicker { uri ->
         val wait = CountDownLatch(1)
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute {
             try {
@@ -177,21 +164,19 @@ fun BackupRestorePreference(setting: Setting) {
         wait.await()
         checkVersionUpgrade(ctx)
         Settings.getInstance().startListener()
-        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        SubtypeSettings.updateAdditionalSubtypes(SubtypeUtilsAdditional.createAdditionalSubtypes(additionalSubtypes))
         SubtypeSettings.reloadEnabledSubtypes(ctx)
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()
         (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
-        keyboardNeedsReload = true
+        KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
     Preference(name = setting.title, onClick = { showDialog = true })
     if (showDialog) {
         ConfirmationDialog(
             onDismissRequest = { showDialog = false },
             title = { Text(stringResource(R.string.backup_restore_title)) },
-            text = { Text(stringResource(R.string.backup_restore_message)) },
+            content = { Text(stringResource(R.string.backup_restore_message)) },
             confirmButtonText = stringResource(R.string.button_backup),
             neutralButtonText = stringResource(R.string.button_restore),
             onNeutral = {
@@ -202,12 +187,13 @@ fun BackupRestorePreference(setting: Setting) {
                 restoreLauncher.launch(intent)
             },
             onConfirmed = {
+                val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_backup.zip"
+                            .replace(" ", "_") + "_backup_$currentDate.zip"
                     )
                     .setType("application/zip")
                 backupLauncher.launch(intent)
@@ -270,7 +256,7 @@ private fun readJsonLinesToSettings(list: List<String>, prefs: SharedPreferences
 // todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name
 private fun upgradeFileNames(originalName: String): String {
     return when {
-        originalName.endsWith(USER_DICTIONARY_SUFFIX) -> {
+        originalName.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) -> {
             // replace directory after switch to language tag
             val dirName = originalName.substringAfter(File.separator).substringBefore(File.separator)
             originalName.replace(dirName, dirName.constructLocale().toLanguageTag())
@@ -283,7 +269,7 @@ private fun upgradeFileNames(originalName: String): String {
         originalName.startsWith("layouts") -> {
             // replace file name after switch to language tag, but only if it's not a layout
             val localeString = originalName.substringAfter(".").substringBefore(".")
-            if (localeString in listOf(LAYOUT_SYMBOLS, LAYOUT_SYMBOLS_SHIFTED, LAYOUT_SYMBOLS_ARABIC, LAYOUT_NUMBER, LAYOUT_NUMPAD, LAYOUT_NUMPAD_LANDSCAPE, LAYOUT_PHONE, LAYOUT_PHONE_SYMBOLS))
+            if (localeString in listOf("symbols", "symbols_shifted", "symbols_arabic", "number", "numpad", "numpad_landscape", "phone", "phone_symbols"))
                 return originalName // it's a layout!
             val locale = localeString.constructLocale()
             if (locale.toLanguageTag() != "und")

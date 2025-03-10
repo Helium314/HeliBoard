@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Харилцагчийн нэр хайх"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Алдаа шалгагч нь таны харилцагчдын жагсаалтаас ашиглана"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"Харилцагчийн нэр хайх"</string>
     <string name="vibrate_on_keypress">"Товч дарахад чичрэх"</string>
     <string name="sound_on_keypress">"Товч дарахад дуу гаргах"</string>
     <string name="popup_on_keypress">"Товч дарахад попап гарна"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"Хэл солих товч"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>мс"</string>
     <string name="settings_system_default">"Системийн өгөгдмөл"</string>
-    <string name="use_contacts_dict">"Харилцагчдын нэрс санал болгох"</string>
     <string name="use_contacts_dict_summary">"Санал болгох, залруулахда Харилцагчдын нэрсээс ашиглах"</string>
     <string name="use_personalized_dicts">"Хувийн тохиргоотой зөвлөмжүүд"</string>
     <string name="use_double_space_period">"Давхар зайтай цэг"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"Автоматаар томруулах"</string>
     <string name="auto_cap_summary">"Өгүүлбэр бүрийн эхний үгийн эхний үсгийг томруулах"</string>
     <string name="edit_personal_dictionary">"Хувийн толь бичиг"</string>
-    <string name="configure_dictionaries_title">"Нэмэлт толь бичгүүд"</string>
     <string name="main_dictionary">"Үндсэн толь бичиг"</string>
     <string name="prefs_show_suggestions">"Залруулах санал болголтуудыг харуулах"</string>
     <string name="prefs_show_suggestions_summary">"Бичих явцад санал болгосон үгсийг харуулах"</string>
@@ -83,12 +79,12 @@
     <string name="setup_welcome_additional_description">"Зангаагаар бичихээр"</string>
     <string name="setup_start_action">"Эхлэх"</string>
     <string name="setup_next_action">"Дараагийн алхам"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх\"</string>
     <string name="setup_step1_instruction">"Хэл, оролтын тохиргоо хэсгээс \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г сонгоно уу. Ингэснээр үүнийг таны төхөөрөмжид ажиллах зөвшөөрлийг өгөх болно."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г Хэл, оролтын тохиргоонд аль хэдийн идэвхжүүлснээр энэ алхам дууслаа. Дараагийн алхмыг хийцгээе!"</string>
     <string name="setup_step1_action">"Тохиргоо дотроос идэвхжүүлэх"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих\"</string>
     <string name="setup_step2_instruction">"Дараа нь \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г өөрийн идэвхтэй текст-оруулах аргаар сонгоно уу."</string>
     <string name="setup_step2_action">"Оруулах аргыг солих"</string>
     <string name="setup_step3_title">"Баяр хүргэе, та бүгдийг нь тохируулчихлаа!"</string>
@@ -97,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Апп дүрсийг харуулах"</string>
     <string name="show_setup_wizard_icon_summary">"Эхлүүлэгч дээр аппликейшний дүрсийг харуулах"</string>
     <string name="dictionary_settings_title">"Нэмэлт толь бичгүүд"</string>
-    <string name="dictionary_settings_summary">"Толь бичгийн тохиргоо"</string>
     <string name="dictionary_available">"Толь бичиг байна"</string>
-    <string name="cannot_connect_to_dict_service">"Толь бичгийн үйлчилгээнд холбогдоход алдаа гарлаа"</string>
     <string name="no_dictionaries_available">"Толь бичиг байхгүй"</string>
     <string name="last_update">"Сүүлд шинэчлэгдсэн"</string>
-    <string name="main_dict_description">"Үндсэн толь бичиг"</string>
     <string name="settings">"Тохиргоо"</string>
     <string name="delete">"Устгах"</string>
     <string name="version_text">"Хувилбар <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

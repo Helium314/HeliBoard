@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Rechercher noms contacts"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Correcteur orthographique utilise entrées de liste de contacts."</string>
+    <string name="use_contacts_dict">"Rechercher noms contacts"</string>
     <string name="vibrate_on_keypress">"Vibrer à chaque touche"</string>
     <string name="sound_on_keypress">"Son à chaque touche"</string>
     <string name="popup_on_keypress">"Agrandir les caractères"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Touche de sélection de langue"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Paramètres par défaut"</string>
-    <string name="use_contacts_dict">"Proposer noms de contacts"</string>
     <string name="use_contacts_dict_summary">"Utiliser des noms de contacts pour les suggestions et corrections"</string>
     <string name="use_personalized_dicts">"Suggestions personnalisées"</string>
     <string name="use_double_space_period">"Point et espace"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Majuscules automatiques"</string>
     <string name="auto_cap_summary">"Majuscule au premier mot de chaque phrase"</string>
     <string name="edit_personal_dictionary">"Dictionnaire personnel"</string>
-    <string name="configure_dictionaries_title">"Dictionnaires complémentaires"</string>
     <string name="main_dictionary">"Dictionnaire principal"</string>
     <string name="prefs_show_suggestions">"Suggestions de correction"</string>
     <string name="prefs_show_suggestions_summary">"Afficher les suggestions de terme lors de la saisie"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Afficher icône application"</string>
     <string name="show_setup_wizard_icon_summary">"Afficher l\'icône de l\'application dans le lanceur"</string>
     <string name="dictionary_settings_title">"Dictionnaires complémentaires"</string>
-    <string name="dictionary_settings_summary">"Paramètres des dictionnaires"</string>
     <string name="dictionary_available">"Dictionnaire disponible"</string>
-    <string name="cannot_connect_to_dict_service">"Pas de service dico."</string>
     <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
     <string name="last_update">"Dernière mise à jour"</string>
-    <string name="main_dict_description">"Dictionnaire principal"</string>
     <string name="settings">"Paramètres"</string>
     <string name="delete">"Supprimer"</string>
     <string name="version_text">"Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

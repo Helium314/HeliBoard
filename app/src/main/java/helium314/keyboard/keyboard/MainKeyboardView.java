@@ -166,8 +166,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mBackgroundDimAlphaPaint.setAlpha(backgroundDimAlpha);
         mLanguageOnSpacebarTextRatio = mainKeyboardViewAttr.getFraction(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f)
-                * Settings.getInstance().getCurrent().mFontSizeMultiplier;
-        final Colors colors = Settings.getInstance().getCurrent().mColors;
+                * Settings.getValues().mFontSizeMultiplier;
+        final Colors colors = Settings.getValues().mColors;
         mLanguageOnSpacebarTextColor = colors.get(ColorType.SPACE_BAR_TEXT);
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
@@ -193,7 +193,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mConfigShowPopupKeysKeyboardAtTouchedPoint = mainKeyboardViewAttr.getBoolean(
                 R.styleable.MainKeyboardView_showPopupKeysKeyboardAtTouchedPoint, false);
 
-        final int gestureTrailFadeoutDuration = Settings.getInstance().getCurrent().mGestureTrailFadeoutDuration;
+        final int gestureTrailFadeoutDuration = Settings.getValues().mGestureTrailFadeoutDuration;
         mGestureFloatingPreviewTextLingerTimeout = gestureTrailFadeoutDuration / 4;
 
         mGestureFloatingTextDrawingPreview = new GestureFloatingTextDrawingPreview(mainKeyboardViewAttr);
@@ -734,7 +734,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             final RichInputMethodSubtype subtype, final int width) {
         // Choose appropriate language name to fit into the width.
 
-        final List<Locale> secondaryLocales = Settings.getInstance().getCurrent().mSecondaryLocales;
+        final List<Locale> secondaryLocales = Settings.getValues().mSecondaryLocales;
         // avoid showing same language twice
         final List<Locale> secondaryLocalesToUse = withoutDuplicateLanguages(secondaryLocales, subtype.getLocale().getLanguage());
         if (secondaryLocalesToUse.size() > 0) {
@@ -802,7 +802,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         paint.setTextAlign(Align.CENTER);
         paint.setTypeface(mTypeface == null ? Typeface.DEFAULT : mTypeface);
         paint.setTextSize(mLanguageOnSpacebarTextSize);
-        final String customText = Settings.getInstance().getCurrent().mSpaceBarText;
+        final String customText = Settings.getValues().mSpaceBarText;
         final String spaceText;
         if (!customText.isEmpty()) {
             spaceText = customText;

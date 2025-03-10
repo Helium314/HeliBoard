@@ -13,8 +13,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 34
-        versionCode = 2308
-        versionName = "2.3+dev7"
+        versionCode = 3000
+        versionName = "3.0-alpha1"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -58,8 +58,6 @@ android {
             path = File("src/main/jni/Android.mk")
         }
     }
-
-
     ndkVersion = "26.2.11394342"
 
     packagingOptions {
@@ -100,7 +98,6 @@ dependencies {
     // androidx
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.preference:preference:1.2.1")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.autofill:autofill:1.1.0")
 
@@ -108,17 +105,14 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     // compose
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
-    implementation(platform("androidx.compose:compose-bom:2024.10.01"))
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    implementation(platform("androidx.compose:compose-bom:2025.02.00"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.navigation:navigation-compose:2.8.5")
-    implementation("sh.calvin.reorderable:reorderable:2.4.2") // for easier re-ordering
+    implementation("androidx.navigation:navigation-compose:2.8.8")
+    implementation("sh.calvin.reorderable:reorderable:2.4.3") // for easier re-ordering
     implementation("com.github.skydoves:colorpicker-compose:1.1.2") // for user-defined colors
-
-    // color picker for user-defined colors
-    implementation("com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0")
 
     // test
     testImplementation(kotlin("test"))

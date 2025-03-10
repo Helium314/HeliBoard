@@ -38,6 +38,7 @@ import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SuggestionResults;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -153,7 +154,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     }
                     // localeString for this app is always empty, get it from settings if possible
                     // and we're sure this app is used
-                    if (SubtypeSettings.INSTANCE.getInitialized() && "dummy".equals(currentInputMethodSubtype.getExtraValue())) {
+                    if ("dummy".equals(currentInputMethodSubtype.getExtraValue())) {
                         final SharedPreferences prefs = KtxKt.prefs(mService);
                         return SubtypeSettings.INSTANCE.getSelectedSubtype(prefs).getLocale();
                     }
@@ -394,7 +395,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             return new Result(null /* gatheredSuggestions */,
                     false /* hasRecommendedSuggestions */);
         }
-        final ArrayList<String> suggestions = new ArrayList<>();
+        final LinkedHashSet<String> suggestionsSet = new LinkedHashSet<>();
         for (final SuggestedWordInfo suggestedWordInfo : suggestionResults) {
             final String suggestion;
             if (StringUtils.CAPITALIZE_ALL == capitalizeType) {
@@ -405,15 +406,15 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             } else {
                 suggestion = suggestedWordInfo.mWord;
             }
-            suggestions.add(suggestion);
+            suggestionsSet.add(suggestion);
         }
-        StringUtils.removeDupes(suggestions);
+        final ArrayList<String> suggestions = new ArrayList<>(suggestionsSet);
         // This returns a String[], while toArray() returns an Object[] which cannot be cast
         // into a String[].
         final List<String> gatheredSuggestionsList =
                 suggestions.subList(0, Math.min(suggestions.size(), suggestionsLimit));
         final String[] gatheredSuggestions =
-                gatheredSuggestionsList.toArray(new String[gatheredSuggestionsList.size()]);
+                gatheredSuggestionsList.toArray(new String[0]);
 
         final int bestScore = suggestionResults.first().mScore;
         final String bestSuggestion = suggestions.get(0);

@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.util.TypedValueCompat;
 
 import helium314.keyboard.compat.ConfigurationCompatKt;
+import helium314.keyboard.keyboard.KeyboardTheme;
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfosKt;
 import helium314.keyboard.latin.InputAttributes;
 import helium314.keyboard.latin.R;
@@ -27,12 +28,10 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.permissions.PermissionsUtil;
 import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.JniUtils;
-import helium314.keyboard.latin.utils.Log;
-import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.SubtypeUtilsKt;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,13 +41,7 @@ import java.util.Locale;
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
-    private static final String TAG = SettingsValues.class.getSimpleName();
-    // "floatMaxValue" and "floatNegativeInfinity" are special marker strings for
-    // Float.NEGATIVE_INFINITE and Float.MAX_VALUE. Currently used for auto-correction settings.
-    private static final String FLOAT_MAX_VALUE_MARKER_STRING = "floatMaxValue";
-    private static final String FLOAT_NEGATIVE_INFINITY_MARKER_STRING = "floatNegativeInfinity";
     public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
-    public static final float AUTO_CORRECTION_DISABLED_THRESHOLD = Float.MAX_VALUE;
 
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
@@ -156,6 +149,7 @@ public class SettingsValues {
                           @NonNull final InputAttributes inputAttributes) {
         mLocale = ConfigurationCompatKt.locale(res.getConfiguration());
         mDisplayOrientation = res.getConfiguration().orientation;
+        final InputMethodSubtype selectedSubtype = SubtypeSettings.INSTANCE.getSelectedSubtype(prefs);
 
         // Store the input attributes
         mInputAttributes = inputAttributes;
@@ -174,7 +168,7 @@ public class SettingsValues {
         mLanguageSwitchKeyToOtherSubtypes = languagePref.equals("internal") || languagePref.equals("both");
         mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, Defaults.PREF_SHOW_LANGUAGE_SWITCH_KEY);
         mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, Defaults.PREF_SHOW_NUMBER_ROW);
-        mLocalizedNumberRow = prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, Defaults.PREF_LOCALIZED_NUMBER_ROW);
+        mLocalizedNumberRow = SubtypeUtilsKt.getHasLocalizedNumberRow(selectedSubtype, prefs);
         mShowNumberRowHints = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW_HINTS, Defaults.PREF_SHOW_NUMBER_ROW_HINTS);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, Defaults.PREF_SHOW_POPUP_HINTS);
@@ -192,8 +186,8 @@ public class SettingsValues {
                 && (mUrlDetectionEnabled || !InputTypeUtils.isUriOrEmailType(mInputAttributes.mInputType));
         mCenterSuggestionTextToEnter = prefs.getBoolean(Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER, Defaults.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER);
         mAutoCorrectionThreshold = mAutoCorrectEnabled
-                ? readAutoCorrectionThreshold(res, prefs)
-                : AUTO_CORRECTION_DISABLED_THRESHOLD;
+                ? prefs.getFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
+                : Float.MAX_VALUE;
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, Defaults.PREF_AUTOCORRECT_SHORTCUTS);
@@ -247,19 +241,14 @@ public class SettingsValues {
             mOneHandedModeScale = 1 - (1 - baseScale) * extraScale;
         } else
             mOneHandedModeScale = 1f;
-        final InputMethodSubtype selectedSubtype = SubtypeSettings.INSTANCE.getSelectedSubtype(prefs);
-        mSecondaryLocales = Settings.getSecondaryLocales(prefs, mLocale);
+        mSecondaryLocales = SubtypeUtilsKt.getSecondaryLocales(selectedSubtype.getExtraValue());
         mShowMorePopupKeys = selectedSubtype.isAsciiCapable()
-                ? prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
+                ? SubtypeUtilsKt.getMoreKeys(selectedSubtype, prefs)
                 : LocaleKeyboardInfosKt.POPUP_KEYS_NORMAL;
-        mColors = Settings.getColorsForCurrentTheme(context, prefs);
+        mColors = KeyboardTheme.getColorsForCurrentTheme(context);
 
-        // read locale-specific popup key settings, fall back to global settings
-        final String popupKeyTypesDefault = prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, Defaults.PREF_POPUP_KEYS_ORDER);
-        mPopupKeyTypes = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyTypesDefault);
-        final String popupKeyLabelDefault = prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, Defaults.PREF_POPUP_KEYS_LABELS_ORDER);
-        mPopupKeyLabelSources = PopupKeysUtilsKt.getEnabledPopupKeys(prefs, Settings.PREF_POPUP_KEYS_LABELS_ORDER + "_" + mLocale.toLanguageTag(), popupKeyLabelDefault);
-
+        mPopupKeyTypes = SubtypeUtilsKt.getPopupKeyTypes(selectedSubtype, prefs);
+        mPopupKeyLabelSources = SubtypeUtilsKt.getPopupKeyLabelSources(selectedSubtype, prefs);
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, Defaults.PREF_ADD_TO_PERSONAL_DICTIONARY);
         mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, Defaults.PREF_NAVBAR_COLOR);
@@ -343,39 +332,6 @@ public class SettingsValues {
 
     public boolean hasSameOrientation(final Configuration configuration) {
         return mDisplayOrientation == configuration.orientation;
-    }
-
-    // todo: way too complicated
-    private static float readAutoCorrectionThreshold(final Resources res,
-                                                     final SharedPreferences prefs) {
-        final String currentAutoCorrectionSetting = Settings.readAutoCorrectConfidence(prefs, res);
-        final String[] autoCorrectionThresholdValues = res.getStringArray(
-                R.array.auto_correction_threshold_values);
-        // When autoCorrectionThreshold is greater than 1.0, it's like auto correction is off.
-        final float autoCorrectionThreshold;
-        try {
-            final int arrayIndex = Integer.parseInt(currentAutoCorrectionSetting);
-            if (arrayIndex >= 0 && arrayIndex < autoCorrectionThresholdValues.length) {
-                final String val = autoCorrectionThresholdValues[arrayIndex];
-                if (FLOAT_MAX_VALUE_MARKER_STRING.equals(val)) {
-                    autoCorrectionThreshold = Float.MAX_VALUE;
-                } else if (FLOAT_NEGATIVE_INFINITY_MARKER_STRING.equals(val)) {
-                    autoCorrectionThreshold = Float.NEGATIVE_INFINITY;
-                } else {
-                    autoCorrectionThreshold = Float.parseFloat(val);
-                }
-            } else {
-                autoCorrectionThreshold = Float.MAX_VALUE;
-            }
-        } catch (final NumberFormatException e) {
-            // Whenever the threshold settings are correct, never come here.
-            Log.w(TAG, "Cannot load auto correction threshold setting."
-                    + " currentAutoCorrectionSetting: " + currentAutoCorrectionSetting
-                    + ", autoCorrectionThresholdValues: "
-                    + Arrays.toString(autoCorrectionThresholdValues), e);
-            return Float.MAX_VALUE;
-        }
-        return autoCorrectionThreshold;
     }
 
     private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {

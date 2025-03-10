@@ -1,11 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
-import android.app.Activity
-import android.content.Intent
-import android.provider.OpenableColumns
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -38,21 +32,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.layoutFilePicker
+import helium314.keyboard.settings.layoutIntent
+import helium314.keyboard.settings.previewDark
 
-// modified copy of ColorPickerDialog, later check whether stuff can be re-used
 @Composable
 fun LayoutPickerDialog(
     onDismissRequest: () -> Unit,
@@ -67,7 +68,6 @@ fun LayoutPickerDialog(
 
     val currentLayout = Settings.readDefaultLayoutName(layoutType, prefs)
     val internalLayouts = LayoutUtils.getAvailableLayouts(layoutType, ctx)
-    // todo: getCustomLayoutFiles does not work nicely for main layout, but currently this dialog is not used for them
     val customLayouts = LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).map { it.name }.sorted()
     val layouts = internalLayouts + customLayouts + ""
 
@@ -78,22 +78,8 @@ fun LayoutPickerDialog(
     }
     var errorDialog by rememberSaveable { mutableStateOf(false) }
     var newLayoutDialog: Pair<String, String?>? by rememberSaveable { mutableStateOf(null) }
-    val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
-        val cr = ctx.getActivity()?.contentResolver ?: return@rememberLauncherForActivityResult
-        val name = cr.query(uri, null, null, null, null)?.use { c ->
-            if (!c.moveToFirst()) return@use null
-            val index = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            if (index < 0) null
-            else c.getString(index)
-        }
-        cr.openInputStream(uri)?.use {
-            val content = it.reader().readText()
-            errorDialog = !LayoutUtilsCustom.checkLayout(content, ctx)
-            if (!errorDialog)
-                newLayoutDialog = (name ?: layoutType.default) to content
-        }
+    val picker = layoutFilePicker { content, name ->
+        newLayoutDialog = (name ?: layoutType.default) to content
     }
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
@@ -101,32 +87,22 @@ fun LayoutPickerDialog(
         onConfirmed = { },
         confirmButtonText = null,
         neutralButtonText = stringResource(R.string.button_load_custom),
-        onNeutral = {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-                .putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/octet-stream", "application/json"))
-                .setType("*/*")
-            loadFilePicker.launch(intent) },
+        onNeutral = { picker.launch(layoutIntent) },
         title = { Text(setting.title) },
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
                 LazyColumn(state = state) {
                     items(layouts) { item ->
                         if (item == "") {
-                            AddLayoutRow({ newLayoutDialog = it to "" }, customLayouts)
+                            AddLayoutRow({ newLayoutDialog = it to "" }, layoutType, customLayouts)
                         } else {
                             LayoutItemRow(
                                 onDismissRequest = onDismissRequest,
                                 onClickEdit = { newLayoutDialog = it },
                                 onDelete = { deletedLayout ->
-                                    if (item == deletedLayout) {
-                                        prefs.edit().remove(Settings.PREF_LAYOUT_PREFIX + layoutType.name).apply()
-                                        keyboardNeedsReload = true
-                                    }
-                                    LayoutUtilsCustom.getLayoutFiles(layoutType, ctx).firstOrNull { it.name == deletedLayout }?.delete()
-                                    LayoutUtilsCustom.onLayoutFileChanged()
+                                    LayoutUtilsCustom.deleteLayout(deletedLayout, layoutType, ctx)
                                 },
                                 layoutType = layoutType,
                                 layoutName = item,
@@ -153,7 +129,7 @@ fun LayoutPickerDialog(
 }
 
 @Composable
-private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<String>) {
+private fun AddLayoutRow(onNewLayout: (String) -> Unit, layoutType: LayoutType, userLayouts: Collection<String>) {
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -166,10 +142,9 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, userLayouts: Collection<
             modifier = Modifier.weight(1f),
             singleLine = true
         )
-        IconButton(
-            enabled = textValue.text.isNotEmpty() && LayoutUtilsCustom.getSecondaryLayoutName(textValue.text) !in userLayouts,
-            onClick = { onNewLayout(textValue.text) }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        EditButton(textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts) {
+            onNewLayout(textValue.text)
+        }
     }
 }
 
@@ -192,7 +167,7 @@ private fun LayoutItemRow(
             .clickable {
                 onDismissRequest()
                 Settings.writeDefaultLayoutName(layoutName, layoutType, prefs)
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
             .padding(start = 6.dp)
             .heightIn(min = 40.dp)
@@ -202,7 +177,7 @@ private fun LayoutItemRow(
             onClick = {
                 onDismissRequest()
                 Settings.writeDefaultLayoutName(layoutName, layoutType, prefs)
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
         Text(
@@ -213,32 +188,36 @@ private fun LayoutItemRow(
         )
         if (isCustom) {
             var showDeleteDialog by remember { mutableStateOf(false) }
-            IconButton(
-                onClick = { showDeleteDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), null) }
-            if (showDeleteDialog)
+            DeleteButton { showDeleteDialog = true }
+            if (showDeleteDialog) {
+                val inUse = SubtypeSettings.getAdditionalSubtypes().any { st ->
+                    val map = LayoutType.getLayoutMap(st.getExtraValueOf(ExtraValue.KEYBOARD_LAYOUT_SET))
+                    map[layoutType] == layoutName
+                }
                 ConfirmationDialog(
                     onDismissRequest = { showDeleteDialog = false },
-                    text = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
+                    title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(layoutName))) },
+                    content = { if (inUse) Text(stringResource(R.string.layout_in_use)) },
                     confirmButtonText = stringResource(R.string.delete),
                     onConfirmed = {
                         showDeleteDialog = false
                         onDelete(layoutName)
                     }
                 )
+            }
         }
-        IconButton(
-            onClick = { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        EditButton { onClickEdit(layoutName to (if (isCustom) null else LayoutUtils.getContent(layoutType, layoutName, ctx))) }
     }
 }
 
 @Preview
 @Composable
 private fun Preview() {
-    LayoutPickerDialog(
-        onDismissRequest = {},
-        setting = Setting(LocalContext.current, "", R.string.settings) {},
-        layoutType = LayoutType.SYMBOLS
-    )
+    Theme(previewDark) {
+        LayoutPickerDialog(
+            onDismissRequest = {},
+            setting = Setting(LocalContext.current, "", R.string.settings) {},
+            layoutType = LayoutType.SYMBOLS
+        )
+    }
 }

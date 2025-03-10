@@ -4,7 +4,6 @@ package helium314.keyboard.settings.screens
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,14 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MAIN
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MORE
@@ -33,6 +30,7 @@ import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.preferences.ListPreference
 import helium314.keyboard.settings.SettingsWithoutKey
@@ -45,9 +43,9 @@ import helium314.keyboard.settings.preferences.SliderPreference
 import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.TextInputDialog
-import helium314.keyboard.settings.keyboardNeedsReload
 import helium314.keyboard.settings.preferences.BackupRestorePreference
 import helium314.keyboard.settings.preferences.LoadGestureLibPreference
+import helium314.keyboard.settings.previewDark
 
 @Composable
 fun AdvancedSettingsScreen(
@@ -92,7 +90,7 @@ fun createAdvancedSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_ALWAYS_INCOGNITO_MODE,
         R.string.incognito, R.string.prefs_force_incognito_mode_summary)
     {
-        SwitchPreference(it, Defaults.PREF_ALWAYS_INCOGNITO_MODE)
+        SwitchPreference(it, Defaults.PREF_ALWAYS_INCOGNITO_MODE) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_KEY_LONGPRESS_TIMEOUT, R.string.prefs_key_longpress_timeout_settings) { setting ->
         SliderPreference(
@@ -184,7 +182,7 @@ fun createAdvancedSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_MORE_POPUP_KEYS, R.string.show_popup_keys_title) {
         val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL).map { setting ->
-            setting to stringResource(morePopupKeysResId(setting))
+            stringResource(morePopupKeysResId(setting)) to setting
         }
         ListPreference(it, items, Defaults.PREF_MORE_POPUP_KEYS) { KeyboardLayoutSet.onSystemLocaleChanged() }
     },
@@ -195,13 +193,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         Preference(
             name = it.title,
             onClick = { SettingsDestination.navigateTo(SettingsDestination.Debug) }
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_arrow_left),
-                modifier = Modifier.scale(-1f, 1f),
-                contentDescription = null
-            )
-        }
+        ) { NextScreenIcon() }
     },
     Setting(context, Settings.PREF_EMOJI_MAX_SDK, R.string.prefs_key_emoji_max_sdk) { setting ->
         SliderPreference(
@@ -229,7 +221,7 @@ fun createAdvancedSettings(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onValueChanged =  { keyboardNeedsReload = true }
+            onValueChanged =  { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
         )
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {
@@ -244,7 +236,7 @@ fun createAdvancedSettings(context: Context) = listOf(
 @Composable
 private fun Preview() {
     SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             AdvancedSettingsScreen { }
         }

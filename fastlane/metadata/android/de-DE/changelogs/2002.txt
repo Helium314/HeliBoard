@@ -1,0 +1,4 @@
+*Emoji-Symbolleisten-Taste hinzugefügt, von @codokie (#845, #837)
+*Verbesserungen in Bezug auf doppelte Buchstaben (#225 und vielleicht andere)
+* Positionierung des Cursors innerhalb von Emojis vermeiden (#859)
+* kleinere Korrekturen für kürzlich hinzugefügte Funktionen

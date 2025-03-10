@@ -315,10 +315,13 @@ sealed interface KeyData : AbstractKeyData {
                 return "${newLabel.substringBefore("|")}|${StringUtils.newSingleCodePointString(code)}"
             }
             return "$newLabel|${StringUtils.newSingleCodePointString(code)}"
-
         }
         if (code in KeyCode.Spec.CURRENCY) {
             return getCurrencyLabel(params)
+        }
+        if (code == KeyCode.MULTIPLE_CODE_POINTS && this is MultiTextKeyData) {
+            val outputText = String(codePoints, 0, codePoints.size)
+            return "${newLabel}|$outputText"
         }
         return if (newLabel.endsWith("|")) "$newLabel!code/${processCode()}" // for toolbar keys
         else "$newLabel|!code/${processCode()}"

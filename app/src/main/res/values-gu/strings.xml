@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"સંપર્ક નામ શોધો"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"જોડણી-પરીક્ષક તમારી સંપર્ક સૂચિમાંથી એન્ટ્રીઝનો ઉપયોગ કરે છે"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"સંપર્ક નામ શોધો"</string>
     <string name="vibrate_on_keypress">"કીપ્રેસ પર વાઇબ્રેટ કરો"</string>
     <string name="sound_on_keypress">"કીપ્રેસ પર ધ્વનિ"</string>
     <string name="popup_on_keypress">"કીપ્રેસ પર પોપઅપ"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"ભાષા સ્વિચ કી"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"સિસ્ટમ ડિફોલ્ટ"</string>
-    <string name="use_contacts_dict">"સંપર્ક નામ સૂચવો"</string>
     <string name="use_contacts_dict_summary">"સૂચનો અને સુધારાઓ માટે સંપર્કોમાંથી નામોનો ઉપયોગ કરો"</string>
     <string name="use_personalized_dicts">"વ્યક્તિગત સૂચનો"</string>
     <string name="use_double_space_period">"ડબલ-સ્પેસ પીરિયડ"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"સ્વતઃ-કેપિટલાઇઝેશન"</string>
     <string name="auto_cap_summary">"દરેક વાક્યનો પ્રથમ શબ્દ કેપિટલ કરો"</string>
     <string name="edit_personal_dictionary">"વ્યક્તિગત શબ્દકોશ"</string>
-    <string name="configure_dictionaries_title">"એડ-ઓન શબ્દકોશ"</string>
     <string name="main_dictionary">"મુખ્ય શબ્દકોશ"</string>
     <string name="prefs_show_suggestions">"સુધારણા સૂચનો બતાવો"</string>
     <string name="prefs_show_suggestions_summary">"લખતી વખતે સૂચિત શબ્દો પ્રદર્શિત કરો"</string>
@@ -79,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ભૌતિક કીબોર્ડ માટે ઇમોજી"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ભૌતિક Alt કી ઇમોજી પેલેટ દર્શાવે છે"</string>
     <string name="button_default">"ડિફોલ્ટ"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે\"</string>
     <string name="setup_welcome_additional_description">"સાંકેતિક ટાઇપિંગ દ્વારા"</string>
     <string name="setup_start_action">"પ્રારંભ કરો"</string>
     <string name="setup_next_action">"આગલું પગલું"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો\"</string>
     <string name="setup_step1_instruction">"કૃપા કરીને \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> એ તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં પહેલાથી જ સક્ષમ કરેલું છે, તેથી આ પગલું પૂર્ણ થયું. હવે આગલા પર!"</string>
     <string name="setup_step1_action">"સેટિંગ્સમાં સક્ષમ કરો"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો\"</string>
     <string name="setup_step2_instruction">"આગલું, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
     <string name="setup_step2_action">"ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
     <string name="setup_step3_title">"અભિનંદન, તમે બધું સેટ કર્યું છે!"</string>
@@ -97,12 +93,9 @@
     <string name="show_setup_wizard_icon">"ઍપ્લિકેશન આયકન બતાવો"</string>
     <string name="show_setup_wizard_icon_summary">"લોંચરમાં ઍપ્લિકેશન આયકન પ્રદર્શિત કરો"</string>
     <string name="dictionary_settings_title">"એડ-ઓન શબ્દકોશ"</string>
-    <string name="dictionary_settings_summary">"શબ્દકોશો માટેની સેટિંગ્સ"</string>
     <string name="dictionary_available">"શબ્દકોશ ઉપલબ્ધ છે"</string>
-    <string name="cannot_connect_to_dict_service">"શબ્દકોશ સેવા સાથે કનેક્ટ થવામાં સમસ્યા"</string>
     <string name="no_dictionaries_available">"કોઈ શબ્દકોશ ઉપલબ્ધ નથી"</string>
     <string name="last_update">"છેલ્લે અપડેટ કર્યું"</string>
-    <string name="main_dict_description">"મુખ્ય શબ્દકોશ"</string>
     <string name="settings">"સેટિંગ્સ"</string>
     <string name="delete">"કાઢી નાખો"</string>
     <string name="version_text">"સંસ્કરણ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"සබඳතා නම් විමසන්න"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"අක්ෂර වින්‍යාස පරික්ෂකය ඔබගේ සබඳතා ලැයිස්තුව වෙතින් ඇතුළත් කිරීම් භාවිතා කරයි"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"සබඳතා නම් විමසන්න"</string>
     <string name="vibrate_on_keypress">"යතුර ඔබන විට කම්පනය"</string>
     <string name="sound_on_keypress">"යතුරු එබිම මත හඬ"</string>
     <string name="popup_on_keypress">"යතුරු එබීම මත උත්පතනය"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"භාෂා මාරු යතුර"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"පද්ධති සුපුරුදු"</string>
-    <string name="use_contacts_dict">"සබඳතා නම් යෝජනා කරන්න"</string>
     <string name="use_contacts_dict_summary">"යෝජනා සහ නිවැරදි කිරීම් සඳහා සබඳතා වෙතින් නම් භාවිතා කරන්න"</string>
     <string name="use_personalized_dicts">"පෞද්ගලීකරණය කළ යෝජනා"</string>
     <string name="use_double_space_period">"දෙවරක්-ඉඩ නැවතීමේ ලකුණ"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"ස්වයං-ලොකු අකුරු කරණය"</string>
     <string name="auto_cap_summary">"එක් එක් වාක්‍යයේ පළමු වචනය ලොකු අකුරු කරන්න"</string>
     <string name="edit_personal_dictionary">"පුද්ගලික ශබ්ද කෝෂය"</string>
-    <string name="configure_dictionaries_title">"ඈඳුම් ශබ්දකෝෂ"</string>
     <string name="main_dictionary">"ප්‍රධාන ශබ්ද කෝෂය"</string>
     <string name="prefs_show_suggestions">"නිවැරදි කිරීම් යෝජනා පෙන්වන්න"</string>
     <string name="prefs_show_suggestions_summary">"ටයිප් කරන අතරතුර යෝජිත වචන දර්ශනය කරන්න"</string>
@@ -79,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"භෞතික යතුරුපුවරුව සඳහා ඉමොජි"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"භෞතික Alt යතුර ඉමොජි පෙන්වයි"</string>
     <string name="button_default">"සුපුරුදු"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත සාදරයෙන් පිළිගනිමු"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත සාදරයෙන් පිළිගනිමු\"</string>
     <string name="setup_welcome_additional_description">"ඉංගිත ටයිප් කිරීම් සමග"</string>
     <string name="setup_start_action">"අරඹන්න"</string>
     <string name="setup_next_action">"ඊළඟ පියවර"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> සැකසෙමින් පවතී"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> සබල කරන්න"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සැකසෙමින් පවතී\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සබල කරන්න\"</string>
     <string name="setup_step1_instruction">"කරණාකර ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" පරීක්ෂා කරන්න. මෙය ඔබගේ උපාංගය මත එයට ධාවනය වීමට අනුමැතිය දෙනු ඇත."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> දැනටමත් ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ සබල කර ඇත, එම නිසා මෙම පියවර නිමයි. ඊළඟ එක වෙතට!"</string>
     <string name="setup_step1_action">"සැකසීම් තුළ සබල කරන්න"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත මාරුවන්න"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත මාරුවන්න\"</string>
     <string name="setup_step2_instruction">"ඊළඟට, ඔබගේ සක්‍රිය පෙළ-ආදාන ක්‍රමය ලෙස \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" තෝරන්න."</string>
     <string name="setup_step2_action">"ආදාන ක්‍රම මාරු කරන්න"</string>
     <string name="setup_step3_title">"සුබපැතුම්, ඔබ සියල්ල පිහිටුවා ඇත!"</string>
@@ -97,12 +93,9 @@
     <string name="show_setup_wizard_icon">"යෙදුම් නිරූපකය පෙන්වන්න"</string>
     <string name="show_setup_wizard_icon_summary">"දියත්කරනය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න"</string>
     <string name="dictionary_settings_title">"ඈඳුම් ශබ්ද කෝෂ"</string>
-    <string name="dictionary_settings_summary">"ශබ්ද කෝෂ සඳහා සැකසීම්"</string>
     <string name="dictionary_available">"ශබ්දකෝෂය ලබාගත හැක"</string>
-    <string name="cannot_connect_to_dict_service">"ශබ්දකෝෂ සේවාව වෙත සම්බන්ධ වීමට ගැටලුවක්ද"</string>
     <string name="no_dictionaries_available">"ශබ්ද කෝෂ ලබාගත නොහැක"</string>
     <string name="last_update">"අවසන් වරට යාවත්කාලීන කළේ"</string>
-    <string name="main_dict_description">"ප්‍රධාන ශබ්ද කෝෂය"</string>
     <string name="settings">"සැකසීම්"</string>
     <string name="delete">"මකන්න"</string>
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> අනුවාදය"</string>

@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Шукаць імёны кантактаў"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Модуль праверкі правапісу выкарыстоўвае запісы са спісу кантактаў"</string>
+    <string name="use_contacts_dict">"Шукаць імёны кантактаў"</string>
     <string name="vibrate_on_keypress">"Вібрацыя пры націску клавіш"</string>
     <string name="sound_on_keypress">"Гук пры націску"</string>
     <string name="popup_on_keypress">"Па націску на клавішы ўсплывае акно"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">Клавіша змены мовы</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">"Стандартныя сістэмныя"</string>
-    <string name="use_contacts_dict">"Падказваць імёны кантактаў"</string>
     <string name="use_contacts_dict_summary">Падказваць выпраўленні на аснове імёнаў са спісу кантактаў</string>
     <string name="use_personalized_dicts">"Персанальныя прапановы"</string>
     <string name="use_double_space_period">"Падвойны iнтэрвал"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Аўтаматычна рабіць літары вялікімі"</string>
     <string name="auto_cap_summary">"Пісаць з загалоўнай літары першае слова ў кожным сказе"</string>
     <string name="edit_personal_dictionary">"Асабісты слоўнік"</string>
-    <string name="configure_dictionaries_title">"Дадатковыя слоўнікі"</string>
     <string name="main_dictionary">"Асноўны слоўнік"</string>
     <string name="prefs_show_suggestions">"Паказваць прапановы выпраўлення"</string>
     <string name="prefs_show_suggestions_summary">"Паказваць прапанаваныя словы падчас набору тэксту"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Паказаць значок прыкладання"</string>
     <string name="show_setup_wizard_icon_summary">Паказаць значок праграмы ў панэлi запуску</string>
     <string name="dictionary_settings_title">"Дадатковыя слоўнікі"</string>
-    <string name="dictionary_settings_summary">"Налады для слоўнікаў"</string>
     <string name="dictionary_available">"Даступны слоўнік"</string>
-    <string name="cannot_connect_to_dict_service">"Праблема падключэння да слоўніка"</string>
     <string name="no_dictionaries_available">"Слоўнікаў няма"</string>
     <string name="last_update">"Апошняе абнаўленне"</string>
-    <string name="main_dict_description">"Асноўны слоўнік"</string>
     <string name="settings">"Налады"</string>
     <string name="delete">"Выдаліць"</string>
     <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -152,8 +146,6 @@
     <string name="theme_name_black">Чорная</string>
     <string name="theme_name_user">Карыстацкая</string>
     <string name="theme_name_user_night">Карыстацкая (цёмная тэма)</string>
-    <string name="select_user_colors">Настройка колераў тэмы</string>
-    <string name="select_user_colors_night">Настройка колераў тэмы (цёмная тэма)</string>
     <string name="auto_user_color">Аўтаматычны выбар колеру</string>
     <string name="hint_show_keyboard">Націсніце для прадпрагляду</string>
     <string name="select_user_colors_summary">Абярыце колеру для тэксту і фону</string>
@@ -259,7 +251,6 @@
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальская">%s</xliff:g> (Прабгат)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Карэйская">%s</xliff:g> (Себяольсік 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Карэйская">%s</xliff:g> (Себяольсік фінальная)</string>
-    <string name="add_new_dictionary_ask_locale">Да якой мовы трэба дадаць слоўнік «%1$s» для %2$s?</string>
     <string name="remove_dictionary_message">Выдаліць карыстальніцкі слоўнік «%s»?</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Шэраг з лічбамі</string>
     <string name="popup_order">Выберыце парадак ўсплывальных клавіш</string>
@@ -273,7 +264,6 @@
     <string name="delete_layout">Сапраўды выдаліць карыстацкую раскладку %s?</string>
     <string name="dictionary_load_error">Памылка загрузкі файла слоўніка</string>
     <string name="subtype_xdq">кайтагскі</string>
-    <string name="customize_symbols_number_layouts">Настройка размяшчэння знакаў і лікаў</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Сімвалы</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Сімвалы (арабскія)</string>
     <string name="show_vertical_space_swipe">Вертыкальны свайп па прабелу</string>
@@ -295,7 +285,6 @@
     <string name="day_or_night_day">Дзень</string>
     <string name="day_or_night_night">Ноч</string>
     <string name="button_select_language">Абярыце мову</string>
-    <string name="button_add_to_language">Дадаць ў %s</string>
     <string name="replace_dictionary">Замяніць слоўнік</string>
     <string name="no_dictionary_dont_show_again_button">Больш не паказваць</string>
     <string name="available_dictionary_experimental">%s (эксперыментальны)</string>
@@ -357,7 +346,6 @@
     <string name="subtype_mns">Мансійская</string>
     <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Мансійская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Паказаць больш колераў</string>
-    <string name="customize_functional_key_layouts">Змяніць раскладку функцыянальных клавіш</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Функцыянальныя клавішы</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функцыянальныя клавішы (Сімвалы)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функцыянальныя клавішы (Дадатковыя сімвалы)</string>

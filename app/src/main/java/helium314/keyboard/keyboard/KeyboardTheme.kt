@@ -21,11 +21,12 @@ import helium314.keyboard.latin.common.DefaultColors
 import helium314.keyboard.latin.common.DynamicColors
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.brightenOrDarken
 import helium314.keyboard.latin.utils.isBrightColor
 import helium314.keyboard.latin.utils.isGoodContrast
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.SettingsActivity
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
@@ -128,7 +129,20 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         }
 
         @JvmStatic
-        fun getThemeColors(themeName: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
+        fun getColorsForCurrentTheme(context: Context): Colors {
+            val prefs = context.prefs()
+            val isNight = SettingsActivity.forceNight
+                ?: (ResourceUtils.isNight(context.resources) && prefs.getBoolean(Settings.PREF_THEME_DAY_NIGHT, Defaults.PREF_THEME_DAY_NIGHT))
+            val themeName = SettingsActivity.forceTheme ?: if (isNight)
+                prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)
+            else
+                prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)
+            val themeStyle = prefs.getString(Settings.PREF_THEME_STYLE, Defaults.PREF_THEME_STYLE)
+
+            return getThemeColors(themeName!!, themeStyle!!, context, prefs, isNight)
+        }
+
+        private fun getThemeColors(themeName: String, themeStyle: String, context: Context, prefs: SharedPreferences, isNight: Boolean): Colors {
             val hasBorders = prefs.getBoolean(Settings.PREF_THEME_KEY_BORDERS, Defaults.PREF_THEME_KEY_BORDERS)
             val backgroundImage = Settings.readUserBackgroundImage(context, isNight)
             return when (themeName) {
@@ -136,6 +150,18 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) DynamicColors(context, themeStyle, hasBorders, backgroundImage)
                     else getThemeColors(THEME_LIGHT, themeStyle, context, prefs, isNight)
                 }
+                THEME_LIGHT -> DefaultColors(
+                    themeStyle,
+                    hasBorders,
+                    ContextCompat.getColor(context, R.color.gesture_trail_color_lxx_light),
+                    ContextCompat.getColor(context, R.color.keyboard_background_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_functional_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_background_normal_lxx_light_border),
+                    ContextCompat.getColor(context, R.color.key_text_color_lxx_light),
+                    ContextCompat.getColor(context, R.color.key_hint_letter_color_lxx_light),
+                    keyboardBackground = backgroundImage
+                )
                 THEME_DARK -> DefaultColors(
                     themeStyle,
                     hasBorders,
@@ -316,16 +342,16 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                         DefaultColors(
                             themeStyle,
                             hasBorders,
-                            determineUserColor(colors, context, COLOR_ACCENT, false),
-                            determineUserColor(colors, context, COLOR_BACKGROUND, false),
-                            determineUserColor(colors, context, COLOR_KEYS, false),
-                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, false),
-                            determineUserColor(colors, context, COLOR_SPACEBAR, false),
-                            determineUserColor(colors, context, COLOR_TEXT, false),
-                            determineUserColor(colors, context, COLOR_HINT_TEXT, false),
-                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, false),
-                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, false),
-                            determineUserColor(colors, context, COLOR_GESTURE, false),
+                            determineUserColor(colors, context, COLOR_ACCENT, isNight),
+                            determineUserColor(colors, context, COLOR_BACKGROUND, isNight),
+                            determineUserColor(colors, context, COLOR_KEYS, isNight),
+                            determineUserColor(colors, context, COLOR_FUNCTIONAL_KEYS, isNight),
+                            determineUserColor(colors, context, COLOR_SPACEBAR, isNight),
+                            determineUserColor(colors, context, COLOR_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_HINT_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_SUGGESTION_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_SPACEBAR_TEXT, isNight),
+                            determineUserColor(colors, context, COLOR_GESTURE, isNight),
                             backgroundImage,
                         )
                     }
@@ -337,7 +363,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             val key = Settings.PREF_USER_COLORS_PREFIX + themeName
             val value = Json.encodeToString(colors.filter { it.color != null || it.auto == false })
             prefs.edit().putString(key, value).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserColors(prefs: SharedPreferences, themeName: String): List<ColorSetting> {
@@ -348,7 +374,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun writeUserMoreColors(prefs: SharedPreferences, themeName: String, value: Int) {
             val key = Settings.PREF_USER_MORE_COLORS_PREFIX + themeName
             prefs.edit().putInt(key, value).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserMoreColors(prefs: SharedPreferences, themeName: String): Int {
@@ -359,7 +385,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         fun writeUserAllColors(prefs: SharedPreferences, themeName: String, colorMap: EnumMap<ColorType, Int>) {
             val key = Settings.PREF_USER_ALL_COLORS_PREFIX + themeName
             prefs.edit().putString(key, colorMap.map { "${it.key},${it.value}" }.joinToString(";")).apply()
-            keyboardNeedsReload = true
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
 
         fun readUserAllColors(prefs: SharedPreferences, themeName: String): EnumMap<ColorType, Int> {
@@ -369,7 +395,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             colorsString.split(";").forEach {
                 val ct = try {
                     ColorType.valueOf(it.substringBefore(",").uppercase())
-                } catch (_: Exception) { // todo: which one?
+                } catch (_: IllegalArgumentException) {
                     return@forEach
                 }
                 val i = it.substringAfter(",").toIntOrNull() ?: return@forEach

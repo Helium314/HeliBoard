@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Bilatu kontaktu-izenak"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Ortografia-zuzentzaileak kontaktuak erabiltzen ditu"</string>
+    <string name="use_contacts_dict">"Bilatu kontaktu-izenak"</string>
     <string name="vibrate_on_keypress">"Egin dar-dar sakatzean"</string>
     <string name="sound_on_keypress">"Soinua teklak sakatzean"</string>
     <string name="popup_on_keypress">Handitu tekla sakatzean</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Hizkuntza aldatzeko tekla"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">Sistemak lehenetsitakoa</string>
-    <string name="use_contacts_dict">"Iradoki kontaktu-izenak"</string>
     <string name="use_contacts_dict_summary">Erabili kontaktuen izenak iradokizunak eta zuzenketak egiteko</string>
     <string name="use_personalized_dicts">"Iradokizun pertsonalizatuak"</string>
     <string name="use_double_space_period">Zuriunearen sakatze bikoitzaren tartea</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Maiuskula automatikoak"</string>
     <string name="auto_cap_summary">"Ezarri esaldi bakoitzaren lehenengo hizkia maiuskulaz"</string>
     <string name="edit_personal_dictionary">"Hiztegi pertsonala"</string>
-    <string name="configure_dictionaries_title">"Hiztegi gehigarriak"</string>
     <string name="main_dictionary">"Hiztegi nagusia"</string>
     <string name="prefs_show_suggestions">"Erakutsi zuzenketa-iradokizunak"</string>
     <string name="prefs_show_suggestions_summary">"Bistaratu iradokitako hitzak idatzi bitartean"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Erakutsi aplikazioaren ikonoa"</string>
     <string name="show_setup_wizard_icon_summary">Bistaratu aplikazioaren ikonoa panelean</string>
     <string name="dictionary_settings_title">"Hiztegi gehigarriak"</string>
-    <string name="dictionary_settings_summary">"Hiztegien ezarpenak"</string>
     <string name="dictionary_available">"Hiztegia erabilgarri"</string>
-    <string name="cannot_connect_to_dict_service">"Arazoa gertatu da hiztegi-zerbitzuarekin konektatzean"</string>
     <string name="no_dictionaries_available">"Ez dago hiztegirik erabilgarri"</string>
     <string name="last_update">"Azken eguneratzea"</string>
-    <string name="main_dict_description">"Hiztegi nagusia"</string>
     <string name="settings">"Ezarpenak"</string>
     <string name="delete">"Ezabatu"</string>
     <string name="version_text"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> bertsioa</string>
@@ -261,7 +255,6 @@
     <string name="title_layout_name_select">Ezarri diseinuaren izena</string>
     <string name="delete_layout">Benetan ezabatu %s diseinu pertsonalizatua?</string>
     <string name="edit_layout">Sakatu diseinu gordina editatzeko</string>
-    <string name="customize_symbols_number_layouts">Pertsonalizatu ikurrak eta zenbaki-diseinuak</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Ikurrak (Arabiarrak)</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">ikur gehiago</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefonoa</string>
@@ -302,8 +295,6 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Hondarra</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Erabiltzaileak definituta</string>
-    <string name="select_user_colors">Doitu koloreak</string>
-    <string name="select_user_colors_night">Doitu koloreak (gauekoa)</string>
     <string name="auto_user_color">Aukeratu kolorea automatikoki</string>
     <string name="main_colors">Erakutsi kolore nagusiak soilik</string>
     <string name="all_colors">Erakutsi kolore guztiak</string>
@@ -334,9 +325,7 @@
     <string name="dictionary_settings_category">Hiztegiak</string>
     <string name="internal_dictionary_summary">Barneko hiztegi nagusia</string>
     <string name="add_new_dictionary_title">Gehitu hiztegia fitxategitik</string>
-    <string name="add_new_dictionary_ask_locale">Zein hizkuntzari gehitu behar zaio %2$s-ren \"%1$s\" hiztegia?</string>
     <string name="button_select_language">Hautatu hizkuntza</string>
-    <string name="button_add_to_language">Gehitu %s-ri</string>
     <string name="replace_dictionary_message">Erabiltzaileak gehitutako \"%1$s\" hiztegia benetan ordezkatu?
 \n
 \nUneko hiztegia:
@@ -353,7 +342,6 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funtzio-teklak</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funtzio-teklak (ikur gehiago)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funtzio-teklak (ikurrak)</string>
-    <string name="customize_functional_key_layouts">Pertsonalizatu funtzio-teklen diseinua</string>
     <string name="pinned_toolbar_keys">Hautatu ainguratu beharreko tresna-barrako teklak</string>
     <string name="quick_pin_toolbar_keys">Ainguratu tresna-barrako tekla luze sakatzean</string>
     <string name="auto_hide_toolbar">Ezkutatu automatikoki tresna-barra</string>

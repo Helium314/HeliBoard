@@ -1,0 +1,8 @@
+* parandasime katkise funktsiooniklahvide paigutuse tahvelarvutites
+* kuvame keelevahetajat, kui on seadistatud üle ühe keele
+* valiku „kõik värvid“ vaikimisi värvid on nüüd halli asemel juhuslikud
+* viibete viivitus on kirjutamisel kohandatav, autoriks @devycarol
+* valuutanupud on kohandatavad
+* vähendasime pika puudutuse kestust „shift -> caps lock“ valimisel, autoriks @devycarol
+* laiemad ülaskripti hüpikaknad numbri- ja sümbolireas, autoriks @b02860de585071a2
+* pisiparandused ja täiendused

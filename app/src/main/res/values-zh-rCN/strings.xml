@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"查找联系人姓名"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">拼写检查使用联系人列表中的条目</string>
+    <string name="use_contacts_dict">"查找联系人姓名"</string>
     <string name="vibrate_on_keypress">"按键振动"</string>
     <string name="sound_on_keypress">"按键音效"</string>
     <string name="popup_on_keypress">按键弹出字符</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"语言切换键"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> 毫秒</string>
     <string name="settings_system_default">"系统默认值"</string>
-    <string name="use_contacts_dict">建议联系人姓名</string>
     <string name="use_contacts_dict_summary">使用联系人中的姓名提供建议和更正</string>
     <string name="use_personalized_dicts">"个性化建议"</string>
     <string name="use_double_space_period">双击空格插入句号</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"自动大写"</string>
     <string name="auto_cap_summary">句首单词大写</string>
     <string name="edit_personal_dictionary">个人词典</string>
-    <string name="configure_dictionaries_title">附加词典</string>
     <string name="main_dictionary">主词典</string>
     <string name="prefs_show_suggestions">"显示更正建议"</string>
     <string name="prefs_show_suggestions_summary">输入时显示建议单词</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"显示应用图标"</string>
     <string name="show_setup_wizard_icon_summary">"在启动器中显示应用图标"</string>
     <string name="dictionary_settings_title">附加词典</string>
-    <string name="dictionary_settings_summary">词典设置</string>
     <string name="dictionary_available">词典可供下载</string>
-    <string name="cannot_connect_to_dict_service">连接到词典服务时出现问题</string>
     <string name="no_dictionaries_available">没有可供下载的词典</string>
     <string name="last_update">最后更新时间</string>
-    <string name="main_dict_description">主词典</string>
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -171,20 +165,17 @@
     <string name="gesture_fast_typing_cooldown_instant">始终立即开始</string>
     <string name="gesture_trail_fadeout_duration">滑行输入轨迹寿命</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="韩语">%s</xliff:g> (Sebeolsik Final)</string>
-    <string name="add_new_dictionary_ask_locale">%2$s 的词典 %1$s 应添加到哪种语言？</string>
     <string name="dictionary_file_error">错误：所选文件不是有效的词典文件</string>
     <string name="theme_style">风格</string>
     <string name="theme_navbar">彩色导航栏</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">浅色</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙滩</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫罗兰</string>
-    <string name="select_user_colors">调整色彩</string>
     <string name="load_will_overwrite">加载将覆盖当前主题</string>
     <string name="settings_screen_toolbar">工具栏</string>
     <string name="customize_currencies">自定义货币</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">黑色</string>
     <string name="customize_currencies_detail">设置主要货币符号和最多 6 个次要货币符号，用空格隔开</string>
-    <string name="select_user_colors_night">调整色彩（夜间）</string>
     <string name="select_color_spacebar_text">空格键文本</string>
     <string name="select_color_spacebar_background">空格键背景</string>
     <string name="about_github_link">在 GitHub 查看</string>
@@ -208,7 +199,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">数字行</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">语言</string>
     <string name="down" tools:keep="@string/down">下</string>
-    <string name="button_add_to_language">添加到 %s</string>
     <string name="select_color_suggestion">建议条文本</string>
     <string name="split_spacer_scale">分离距离</string>
     <string name="language_switch_key_switch_both">切换两者</string>
@@ -242,20 +232,20 @@
     <string name="dictionary_file_wrong_locale">所选文件用于 %1$s，但需要 %2$s。是否仍将其用于 %2$s？</string>
     <string name="dictionary_file_wrong_script">错误：脚本与此键盘不兼容</string>
     <string name="dictionary_file_wrong_locale_ok">仍使用</string>
-    <string name="theme_colors">颜色</string>
-    <string name="theme_colors_night">颜色（夜间）</string>
+    <string name="theme_colors">配色</string>
+    <string name="theme_colors_night">配色（夜间）</string>
     <string name="close_history" tools:keep="@string/close_history">关闭剪贴板历史</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="韩语">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="卡纳达语">%s</xliff:g>（扩展）</string>
     <string name="dictionary_settings_category">词典</string>
-    <string name="replace_dictionary_message">是否确定要替换用户添加的词典 %1$s？\n \n当前词典： \n%2$s \n \n新词典： \n%3$s</string>
+    <string name="replace_dictionary_message">是否确定要替换用户添加的词典“%1$s”？\n \n当前词典： \n%2$s \n \n新词典： \n%3$s</string>
     <string name="replace_dictionary">替换词典</string>
-    <string name="remove_dictionary_message">是否确定要移除用户添加的词典 %s？</string>
+    <string name="remove_dictionary_message">是否确定要移除用户添加的词典“%s”？</string>
     <string name="add_dictionary">选择要添加的词典。可以下载 .dict 格式的词典 %s。</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">全息白</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更暗</string>
-    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">动态色彩</string>
+    <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">动态配色</string>
     <string name="save_log">保存日志</string>
     <string name="license">开源许可证</string>
     <string name="gnu_gpl">GNU 通用公共许可证 v3.0</string>
@@ -273,7 +263,7 @@
     <string name="emoji" tools:keep="@string/emoji">表情符号</string>
     <string name="show_popup_hints">显示功能提示</string>
     <string name="prefs_long_press_symbol_for_numpad">长按数字键盘符号键</string>
-    <string name="prefs_bottom_padding_scale">底部填充比例</string>
+    <string name="prefs_bottom_padding_scale">底部边距比例</string>
     <string name="message_add_custom_layout">选择兼容格式的文件。有关格式的信息可用 %s。</string>
     <string name="word_right" tools:keep="@string/word_right">单词右</string>
     <string name="page_up" tools:keep="@string/page_up">向上翻页</string>
@@ -323,7 +313,6 @@
     <string name="button_save_file">保存到文件</string>
     <string name="title_layout_name_select">设置布局名称</string>
     <string name="delete_layout">确定要删除自定义布局 %s？</string>
-    <string name="customize_symbols_number_layouts">自定义符号和数字布局</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">符号（阿拉伯语）</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">用户自定义</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">用户自定义（夜间）</string>
@@ -338,7 +327,7 @@
     <string name="copy_to_clipboard">复制到剪贴板</string>
     <string name="button_copy_existing_layout">复制现有布局</string>
     <string name="button_select_language">选择语言</string>
-    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n\n        您可以下载词典 %1$s，或检查是否可以直接下载 %2$s 的词典 %3$s。"</string>
+    <string name="no_dictionary_message">"没有词典，您只能得到之前输入的文本的建议。&lt;br&gt;\n\n        您可以下载词典 %1$s，或检查是否可以直接下载“%2$s”的词典 %3$s。"</string>
     <string name="user_dict_add_word_button">添加一个单词</string>
     <string name="remove_redundant_popups_summary">移除基础布局上已存在的弹出键</string>
     <string name="remove_redundant_popups">移除多余弹出</string>
@@ -360,7 +349,6 @@
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">电话符号</string>
     <string name="layout_number" tools:keep="@string/layout_number">数字</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">数字键盘</string>
-    <string name="customize_functional_key_layouts">自定义功能键布局</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">功能键</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">功能键（符号）</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">功能键（更多符号）</string>
@@ -386,42 +374,7 @@
     <string name="var_toolbar_direction">可变工具栏方向</string>
     <string name="var_toolbar_direction_summary">选择从右到左的键盘子类型时反转方向</string>
     <string name="auto_hide_toolbar">自动隐藏工具栏</string>
-    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;
-\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;
-\n\t• 向左/向右移动 &amp;#65515; 单词向左/向右 &lt;br&gt;
-\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;
-\n\t• 单词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;
-\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;
-\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;
-\n\t• 选择单词 &amp;#8596; 全选 &lt;br&gt;
-\n\t• 撤销 &amp;#8596; 恢复 &lt;br&gt; &lt;br&gt;
-\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;
-\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;
-\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;
-\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于 Dvorak 布局是“q”）。&lt;br&gt; &lt;br&gt;
-\n► 启用隐身模式后，将不会学习任何单词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;
-\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;
-\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;
-\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;
-\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;
-\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;
-\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;
-\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;
-\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;
-\n► 选择文本并按 Shift 键在大写、小写和大写单词之间切换。&lt;br&gt; &lt;br&gt;
-\n► 您可以通过在文件资源管理器中打开词典来添加词典：&lt;br&gt;
-\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;
-\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;
-\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;
-\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► 长按建议显示源词典。&lt;br&gt; &lt;br&gt;
-\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将词典转储到日志中外，其用处有限。&lt;br&gt;
-\n\t• 对于发布 APK，您需要多次点击&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;
-\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源词典。&lt;br&gt; &lt;br&gt;
-\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;
-\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;
-\n► 建议顶部会有一些小数字，显示一些内部分数和源词典（可以禁用）。</string>
+    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;\n\t• 向左/向右移动 &amp;#65515; 单词向左/向右 &lt;br&gt;\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;\n\t• 单词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;\n\t• 选择单词 &amp;#8596; 全选 &lt;br&gt;\n\t• 撤销 &amp;#8596; 恢复 &lt;br&gt; &lt;br&gt;\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于德沃夏克布局是“q”）。&lt;br&gt; &lt;br&gt;\n► 启用隐身模式后，将不会学习任何单词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;\n► 选择文本并按 Shift 键在大写、小写和大写单词之间切换。&lt;br&gt; &lt;br&gt;\n► 您可以通过在文件资源管理器中打开词典来添加词典：&lt;br&gt;\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► 长按建议显示源词典。&lt;br&gt; &lt;br&gt;\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将词典转储到日志中外，其用处有限。&lt;br&gt;\n\t• 对于发布 APK，您需要多次点击&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源词典。&lt;br&gt; &lt;br&gt;\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;\n► 建议顶部会有一些小数字，显示一些内部分数和源词典（可以禁用）。</string>
     <string name="icon_style">图标风格</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">数字行</string>
     <string name="prefs_space_bar_text">空格键上的自定义文本</string>
@@ -448,4 +401,36 @@
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Space（数字布局）</string>
     <string name="label_bin" tools:keep="@string/label_bin">删除</string>
     <string name="customize_icons_reset_message">确定重置所有自定义图标？</string>
+    <string name="vibrate_in_dnd_mode">在勿扰模式时振动</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>（注音）</string>
+    <string name="prefs_key_emoji_max_sdk">覆盖表情符号版本</string>
+    <string name="subtype_dru">达尔格瓦语 (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">自动更正快捷方式</string>
+    <string name="custom_font">从文件设置自定义字体</string>
+    <string name="summary_customize_background_image_landscape">如果未设置，将使用纵向图片</string>
+    <string name="customize_toolbar_key_code_reset_message">确定清除所有自定义按键代码？</string>
+    <string name="auto_correct_shortcuts_summary">启用后，快捷方式可能会通过自动更正扩展</string>
+    <string name="customize_background_image_landscape">设置背景图片（横屏）</string>
+    <string name="prefs_font_scale">键盘字体比例</string>
+    <string name="prefs_emoji_font_scale">表情符号视图字体比例</string>
+    <string name="prefs_bottom_padding_scale_landscape">底部边距比例（横屏）</string>
+    <string name="prefs_side_padding_scale_landscape">侧边距比例（横屏）</string>
+    <string name="prefs_side_padding_scale">侧边距比例</string>
+    <string name="number_row_hints">在数字行显示提示</string>
+    <string name="prefs_language_swipe_distance">切换语言滑动距离</string>
+    <string name="split_spacer_scale_landscape">分离距离（横屏）</string>
+    <string name="split" tools:keep="@string/split">分离式键盘</string>
+    <string name="enable_split_keyboard_landscape">启用分离式键盘（横屏）</string>
+    <string name="delete_confirmation">确定删除 %s？</string>
+    <string name="settings_screen_secondary_layouts">次要布局</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">功能键（大屏幕）</string>
+    <string name="name_invalid">无效的名称</string>
+    <string name="locales_with_dict">有词典的语言</string>
+    <string name="layout_in_use">警告：布局当前正在使用中</string>
+    <string name="discussion_section_link">讨论部分</string>
+    <string name="get_layouts_message">您可以在 %s 中查找和分享布局。</string>
+    <string name="get_colors_message">您可以在 %s 中查找和分享颜色。</string>
+    <string name="custom_subtype">自定义子类型</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
 </resources>

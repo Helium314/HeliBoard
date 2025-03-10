@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"រក​មើល​ឈ្មោះ​ទំនាក់ទំនង"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"កម្មវិធី​ពិនិត្យ​អក្ខរាវិរុទ្ធ​ប្រើ​ធាតុ​ពី​​ក្នុង​បញ្ជី​ទំនាក់ទំនង​របស់​អ្នក"</string>
+    <string name="use_contacts_dict">"រក​មើល​ឈ្មោះ​ទំនាក់ទំនង"</string>
     <string name="vibrate_on_keypress">"ញ័រ​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="sound_on_keypress">"សំឡេង​នៅ​ពេល​ចុច​គ្រាប់ចុច"</string>
     <string name="popup_on_keypress">"លេច​ឡើង​នៅ​​ពេល​ចុច​គ្រាប់​ចុច"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"គ្រាប់​ចុច​ប្ដូរ​​ភាសា"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> មិល្លី​វិនាទី"</string>
     <string name="settings_system_default">"លំនាំ​ដើម​​​ប្រព័ន្ធ"</string>
-    <string name="use_contacts_dict">"ស្នើ​ឈ្មោះ​ទំនាក់ទំនង"</string>
     <string name="use_contacts_dict_summary">"ប្រើ​ឈ្មោះ​ពី​ទំនាក់ទំនង​សម្រាប់​ការ​​ស្នើ និង​​​កែ"</string>
     <string name="use_personalized_dicts">"ការ​ស្នើ​ផ្ទាល់​ខ្លួន"</string>
     <string name="use_double_space_period">"រយៈ​ពេល​ចុច​ដកឃ្លា​ពីរដង"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"ការ​សរសេរ​ជា​អក្សរ​ធំ​​ស្វ័យប្រវត្តិ​"</string>
     <string name="auto_cap_summary">"សរសេរ​ពាក្យ​ដំបូង​​​ជា​អក្សរ​ធំ​​នៃ​ប្រយោគ​នីមួយ​ៗ"</string>
     <string name="edit_personal_dictionary">"វចនានុក្រម​ផ្ទាល់ខ្លួន"</string>
-    <string name="configure_dictionaries_title">"ផ្នែក​បន្ថែម​វចនានុក្រម"</string>
     <string name="main_dictionary">"វចនានុក្រម​ចម្បង"</string>
     <string name="prefs_show_suggestions">"បង្ហាញ​ការ​ស្នើ​​កែ"</string>
     <string name="prefs_show_suggestions_summary">"បង្ហាញ​ពាក្យ​​បាន​​ផ្ដល់​​ស្នើ​​ខណៈ​ពេល​​​វាយ​បញ្ចូល"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"បង្ហាញ​រូប​កម្មវិធី"</string>
     <string name="show_setup_wizard_icon_summary">"បង្ហាញ​រូប​កម្មវិធី​នៅ​ក្នុង​កម្ម​​វិធី​ចាប់ផ្ដើម"</string>
     <string name="dictionary_settings_title">"ផ្នែក​បន្ថែម​វចនានុក្រម​​"</string>
-    <string name="dictionary_settings_summary">"ការ​កំណត់​សម្រាប់​វចនានុក្រម"</string>
     <string name="dictionary_available">"វចនានុក្រម​​​អាច​ប្រើ​បាន"</string>
-    <string name="cannot_connect_to_dict_service">"មាន​បញ្ហា​ក្នុង​ការ​​ភ្ជាប់​ទៅ​​សេវា​កម្ម​វចនានុក្រម"</string>
     <string name="no_dictionaries_available">"គ្មាន​វចនានុក្រម"</string>
     <string name="last_update">"បាន​ធ្វើ​បច្ចុប្បន្នភាព​ចុងក្រោយ"</string>
-    <string name="main_dict_description">"វចនានុក្រម​ចម្បង"</string>
     <string name="settings">"ការ​កំណត់"</string>
     <string name="delete">"លុប"</string>
     <string name="version_text">"កំណែ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

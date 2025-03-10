@@ -1,0 +1,8 @@
+* arreglar disposició de tecles funcionals trencades
+* només mostra tecla de canvi d'idioma quan cal
+* fer aleatoris els colors predeterminats per a "tots els colors" en comptes de grisos
+* permet personalitzar retard d'inici a gestos durant escriptura, per @devycarol
+* permet personalitzar tecles divisa
+* reduir temps premuda llarga per majs. -> bloq. majs. de @devycarol
+* estendre finestres emergents de superíndex a fila numèrica i símbols, per @b02860de585071a2
+* correccions i millores menors

@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"رابطوں میں سے نام ڈھونڈیں"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"سپیل چیکر آپ کی رابطہ فہرست سے اندراجات کا استعمال کرتا ہے"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"رابطوں میں سے نام ڈھونڈیں"</string>
     <string name="vibrate_on_keypress">"کلید دبانے پر وائبریٹ کریں"</string>
     <string name="sound_on_keypress">"کلید دبانے پر آواز"</string>
     <string name="popup_on_keypress">"کلید دبانے پر پاپ اپ"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"زبان سوئچ کرنے کی کلید"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ملی سیکنڈ"</string>
     <string name="settings_system_default">"سسٹم ڈیفالٹ"</string>
-    <string name="use_contacts_dict">"رابطہ ناموں کی تجویز کریں"</string>
     <string name="use_contacts_dict_summary">"تجاویز اور اصلاحات کیلئے رابطوں سے ناموں کی تجویز کریں"</string>
     <string name="use_personalized_dicts">"ذاتی نوعیت کی تجاویز"</string>
     <string name="use_double_space_period">"ڈبل اسپیس پیریڈ"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"بڑے حروف میں خودکار تبدیلی"</string>
     <string name="auto_cap_summary">"ہر جملے کا پہلا لفظ بڑے حروف میں لکھیں"</string>
     <string name="edit_personal_dictionary">"ذاتی لغت"</string>
-    <string name="configure_dictionaries_title">"اضافی لغات"</string>
     <string name="main_dictionary">"مرکزی لغت"</string>
     <string name="prefs_show_suggestions">"اصلاح کی تجاویز دکھائیں"</string>
     <string name="prefs_show_suggestions_summary">"ٹائپ کرتے وقت تجویز کردہ الفاظ ڈسپلے کریں"</string>
@@ -79,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"‏فزیکل کی بورڈ کیلئے Emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏فزیکل Alt کی کے ذریعے emoji پیلٹ نظر آتا ہے"</string>
     <string name="button_default">"ڈیفالٹ"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید\"</string>
     <string name="setup_welcome_additional_description">"اشارہ ٹائپنگ کے ساتھ"</string>
     <string name="setup_start_action">"شروع کریں"</string>
     <string name="setup_next_action">"اگلا مرحلہ"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں\"</string>
     <string name="setup_step1_instruction">"براہ کرم \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنی زبانوں اور ان پٹ ترتیبات میں چیک کریں۔ اس سے اس کو آپ کے آلہ پر چلنے کی اجازت مل جائے گی۔"</string>
     <string name="setup_step1_finished_instruction">"‏<xliff:g id="APPLICATION_NAME">%s</xliff:g> پہلے ہی آپ کی زبانوں ‎اور‎ ان پٹ ترتیبات میں فعال ہے، لہذا یہ مرحلہ مکمل ہو گیا ہے۔ اگلے پر چلتے ہیں!"</string>
     <string name="setup_step1_action">"ترتیبات میں فعال کریں"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں\"</string>
     <string name="setup_step2_instruction">"آگے، \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنے فعال متنی اندراج کے طریقہ کے بطور منتخب کریں۔"</string>
     <string name="setup_step2_action">"اندراج کے طریقے سوئچ کریں"</string>
     <string name="setup_step3_title">"مبارک ہو، آپ بالکل تیار ہیں!"</string>
@@ -97,12 +93,9 @@
     <string name="show_setup_wizard_icon">"ایپ آئیکن دکھائیں"</string>
     <string name="show_setup_wizard_icon_summary">"لانچر میں ایپلیکیشن آئیکن کو ڈسپلے کریں"</string>
     <string name="dictionary_settings_title">"اضافی لغات"</string>
-    <string name="dictionary_settings_summary">"لغات کیلئے ترتیبات"</string>
     <string name="dictionary_available">"لغت دستیاب ہے"</string>
-    <string name="cannot_connect_to_dict_service">"لغت سروس سے مربوط ہونے میں مسئلہ"</string>
     <string name="no_dictionaries_available">"کوئی لغت دستیاب نہیں"</string>
     <string name="last_update">"آخری بار اپ ڈیٹ کردہ"</string>
-    <string name="main_dict_description">"مرکزی لغت"</string>
     <string name="settings">"ترتیبات"</string>
     <string name="delete">"حذف کریں"</string>
     <string name="version_text">"ورژن <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

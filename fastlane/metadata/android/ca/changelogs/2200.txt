@@ -1,0 +1,11 @@
+* afe. desar/exportar temes personals
+* repetir fletxes de teclat
+* més tecles barra eines de cursor (pàg. dalt/baix/inici/final, paraula esquerra/dreta)
+* afe. tecla enganxar
+* millor lliscament de tecles
+* afe. configuració lliscament espacial per canviar teclat numèric
+* afe. suggeriment porta-retalls al text copiat
+* desseleccionar text en prémer de nou tecles de selecció
+* afinar alguns colors a config. Android 12+
+* ajustar tecles emergents depenent d'idioma
+* correccions i millores menors

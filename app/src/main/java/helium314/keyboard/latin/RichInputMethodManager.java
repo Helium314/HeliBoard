@@ -171,7 +171,7 @@ public class RichInputMethodManager {
             if (imi == getInputMethodOfThisIme()) {
                 // allowsImplicitlySelectedSubtypes means system should choose if nothing is enabled,
                 // use it to fall back to system locales or en_US to avoid returning an empty list
-                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(KtxKt.prefs(sInstance.mContext), allowsImplicitlySelectedSubtypes);
+                result = SubtypeSettings.INSTANCE.getEnabledSubtypes(allowsImplicitlySelectedSubtypes);
             } else {
                 result = mImm.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes);
             }
@@ -319,7 +319,6 @@ public class RichInputMethodManager {
 
         // search for first secondary language & script match
         final int count = subtypes.size();
-        final SharedPreferences prefs = KtxKt.prefs(mContext);
         final String language = locale.getLanguage();
         final String script = ScriptUtils.script(locale);
         for (int i = 0; i < count; ++i) {
@@ -328,7 +327,7 @@ public class RichInputMethodManager {
             if (!ScriptUtils.script(subtypeLocale).equals(script))
                 continue; // need compatible script
             bestMatch = subtype;
-            final List<Locale> secondaryLocales = Settings.getSecondaryLocales(prefs, subtypeLocale);
+            final List<Locale> secondaryLocales = SubtypeUtilsKt.getSecondaryLocales(subtype.getExtraValue());
             for (final Locale secondaryLocale : secondaryLocales) {
                 if (secondaryLocale.getLanguage().equals(language)) {
                     return bestMatch;
@@ -362,9 +361,9 @@ public class RichInputMethodManager {
 
     public static boolean canSwitchLanguage() {
         if (!isInitialized()) return false;
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
+        if (Settings.getValues().mLanguageSwitchKeyToOtherSubtypes && getInstance().hasMultipleEnabledSubtypesInThisIme(false))
             return true;
-        if (Settings.getInstance().getCurrent().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
+        if (Settings.getValues().mLanguageSwitchKeyToOtherImes && getInstance().mImm.getEnabledInputMethodList().size() > 1)
             return true;
         return false;
     }

@@ -39,9 +39,12 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.util.TypedValueCompat
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.customIconNames
+import helium314.keyboard.latin.settings.customIconNames
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.GetIcon
 import kotlinx.serialization.json.Json
 
@@ -78,7 +81,7 @@ fun CustomizeIconsDialog(
         neutralButtonText = if (prefs.contains(prefKey)) stringResource(R.string.button_default) else null,
         onNeutral = { showDeletePrefConfirmDialog = true },
         title = { Text(stringResource(R.string.customize_icons)) },
-        text = {
+        content = {
             LazyColumn(state = state) {
                 items(iconsAndNames, key = { it.second }) { (iconName, displayName) ->
                     Row(
@@ -132,7 +135,7 @@ fun CustomizeIconsDialog(
                 reloadItem(iconName)
             },
             title = { Text(showIconDialog!!.second) },
-            text = {
+            content = {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(minSize = 64.dp),
                     state = gridState
@@ -170,7 +173,7 @@ fun CustomizeIconsDialog(
                 prefs.edit().remove(prefKey).apply()
                 KeyboardIconsSet.instance.loadIcons(ctx)
             },
-            text = { Text(stringResource(R.string.customize_icons_reset_message)) }
+            content = { Text(stringResource(R.string.customize_icons_reset_message)) }
         )
     }
 }
@@ -178,9 +181,11 @@ fun CustomizeIconsDialog(
 @Preview
 @Composable
 private fun Preview() {
-    KeyboardIconsSet.instance.loadIcons(LocalContext.current)
-    CustomizeIconsDialog(
-        prefKey = "",
-        onDismissRequest = { },
-    )
+    initPreview(LocalContext.current)
+    Theme(previewDark) {
+        CustomizeIconsDialog(
+            prefKey = "",
+            onDismissRequest = { },
+        )
+    }
 }

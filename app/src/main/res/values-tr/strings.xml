@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Kişi adlarını denetle"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Yazım denetleyici, kişi listesi girişlerini kullanır</string>
+    <string name="use_contacts_dict">"Kişi adlarını denetle"</string>
     <string name="vibrate_on_keypress">"Tuşa basıldığında titret"</string>
     <string name="sound_on_keypress">"Tuşa basıldığında ses çıkar"</string>
     <string name="popup_on_keypress">Tuşa basıldığında açılır pencere aç</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Dil değiştirme tuşu"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Sistem varsayılanı"</string>
-    <string name="use_contacts_dict">Kişi adları öner</string>
     <string name="use_contacts_dict_summary">"Öneri ve düzeltmeler için Kişiler\'deki adları kullan"</string>
     <string name="use_personalized_dicts">"Kişisel öneriler"</string>
     <string name="use_double_space_period">"Çift boşlukla nokta ekle"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Otomatik büyük harf yap"</string>
     <string name="auto_cap_summary">"Her cümlenin ilk harfini büyük harf yapar"</string>
     <string name="edit_personal_dictionary">"Kişisel sözlük"</string>
-    <string name="configure_dictionaries_title">"Ek sözlükler"</string>
     <string name="main_dictionary">"Ana sözlük"</string>
     <string name="prefs_show_suggestions">"Düzeltme önerilerini göster"</string>
     <string name="prefs_show_suggestions_summary">"Yazarken, önerilen kelimeleri görüntüle"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Uygulama simgesini göster"</string>
     <string name="show_setup_wizard_icon_summary">"Uygulama simgesini başlatıcıda gösterir"</string>
     <string name="dictionary_settings_title">"Ek sözlükler"</string>
-    <string name="dictionary_settings_summary">"Sözlükler için ayarlar"</string>
     <string name="dictionary_available">"Sözlük mevcut"</string>
-    <string name="cannot_connect_to_dict_service">"Sözlük hizmetine bağlantı sorunu"</string>
     <string name="no_dictionaries_available">"Kullanılabilir sözlük yok"</string>
     <string name="last_update">"Son güncelleme tarihi"</string>
-    <string name="main_dict_description">"Ana sözlük"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">Sürüm <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -201,7 +195,6 @@
     <string name="clipboard" tools:keep="@string/clipboard">Pano</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Panoyu temizle</string>
     <string name="title_layout_name_select">Düzen adını ayarla</string>
-    <string name="customize_functional_key_layouts">İşlevsel tuş düzenlerini özelleştir</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">İşlevsel tuşlar (Semboller)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">İşlevsel tuşlar (Daha fazla sembol)</string>
@@ -244,7 +237,6 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Kullanıcı tanımlı</string>
     <string name="select_color_spacebar_background">Boşluk çubuğu arka planı</string>
     <string name="select_color_spacebar_text">Boşluk çubuğu metni</string>
-    <string name="select_user_colors_night">Renkleri ayarla (gece)</string>
     <string name="select_color_gesture">Hareketli giriş</string>
     <string name="replace_dictionary_message">Kullanıcı tarafından eklenen \"%1$s\" sözlüğü değiştirilsin mi?
 \n
@@ -267,10 +259,8 @@
     <string name="clipboard_toolbar_keys">Pano araç çubuğu tuşlarını seç</string>
     <string name="show_popup_hints_summary">Bir tuşa uzun süre basmak ek işlevleri tetikliyorsa ipuçlarını göster</string>
     <string name="button_title_add_custom_layout">Özel düzen ekle</string>
-    <string name="customize_symbols_number_layouts">Sembolleri ve sayı düzenlerini özelleştirme</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Semboller</string>
     <string name="button_select_language">Dil seç</string>
-    <string name="button_add_to_language">%s ekle</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Genişletilmiş)</string>
     <string name="message_add_custom_layout">Uyumlu formatta bir dosya seç. Formatlarla ilgili bilgi %s mevcuttur.</string>
     <string name="button_load_custom">Dosyayı yükle</string>
@@ -292,42 +282,7 @@
     <string name="select_user_colors_summary">Metin ve arka planlar için renkleri seç</string>
     <string name="select_color_accent">Vurgu</string>
     <string name="hidden_features_title">Gizli özelliklerin açıklaması</string>
-    <string name="hidden_features_message">► Sabitlenmiş araç çubuğu tuşlarına uzun basmak ek işlevsellik sağlar: &lt;br&gt;
-\n\t• panoya kopyala &amp;#65515; yapıştır &lt;br&gt;
-\n\t• sola/sağa hareket et &amp;#65515; kelime sola/sağa &lt;br&gt;
-\n\t• yukarı/aşağı hareket et &amp;#65515; sayfa yukarı/aşağı &lt;br&gt;
-\n\t• kelime sola/sağa &amp;#65515; satır başı/sonu &lt;br&gt;
-\n\t• sayfa yukarı/aşağı &amp;#65515; sayfa başı/sonu &lt;br&gt;
-\n\t• kopyala &amp;#65515; kes &lt;br&gt;
-\n\t• kelime seç &amp;#8596; tümünü seç &lt;br&gt;
-\n\t• geri al &amp;#8596; yinele &lt;br&gt; &lt;br&gt;
-\n► Öneri şeridi araç çubuğundaki tuşlara uzun basmak, onları öneri şeridine sabitler. &lt;br&gt; &lt;br&gt;
-\n► Virgül tuşuna uzun basarak Pano Görünümü, Emoji Görünümü, Tek El Modu, Ayarlar veya Dil Değiştir\'e erişebilirsin: &lt;br&gt;
-\n\t• Emoji Görünümü ve Dil Değiştir, ilgili tuşu etkinleştirdiysen kaybolur; &lt;br&gt;
-\n\t• Bazı düzenler için bu, Virgül tuşu değil, aynı konumdaki başka bir tuş olabilir (örneğin, Dvorak düzeninde bu tuş \'q\'dur). &lt;br&gt; &lt;br&gt;
-\n► Gizli mod etkinleştirildiğinde, hiçbir kelime öğrenilmeyecek ve son eklenen emojilere yeni bir emoji eklenmeyecektir. &lt;br&gt; &lt;br&gt;
-\n► Gizli mod simgesine basarak araç çubuğuna erişebilirsin. &lt;br&gt; &lt;br&gt;
-\n► Kaydırmalı tuş girişi: Shift tuşundan başka bir tuşa kaydırarak tek bir büyük harf yazabilirsin: &lt;br&gt;
-\n\t• Bu, ayrıca \'123\' tuşu için semboller klavyesinden tek bir sembol yazmak ve ilgili tuşlar için de çalışır. &lt;br&gt; &lt;br&gt;
-\n► Shift veya sembol tuşunu basılı tut, bir veya daha fazla tuşa bas ve ardından önceki klavyeye dönmek için Shift veya sembol tuşunu bırak. &lt;br&gt; &lt;br&gt;
-\n► Öneri şeridindeki bir öneriye uzun basarak daha fazla öneriyi ve bu öneriyi kaldırmak için bir silme düğmesini gösterir. &lt;br&gt; &lt;br&gt;
-\n► Bir öneriye yukarı kaydırarak daha fazla öneriyi aç ve seçmek için öneri üzerinde bırak. &lt;br&gt; &lt;br&gt;
-\n► Pano geçmişindeki bir girdiye uzun basarak onu sabitleyebilirsin (sabitlediğin sürece panoda kalır). &lt;br&gt; &lt;br&gt;
-\n► Pano görünümünde bir girdiyi kaldırmak için sola kaydır (sabitlediğin sürece hariç). &lt;br&gt; &lt;br&gt;
-\n► Metni seç ve büyük/küçük harflerini değiştirmek için Shift tuşuna bas. &lt;br&gt; &lt;br&gt;
-\n► Sözlükleri bir dosya gezgini ile açarak ekleyebilirsin: &lt;br&gt;
-\n\t• Bu yalnızca &lt;i&gt;content-uris&lt;/i&gt; ile çalışır, &lt;i&gt;file-uris&lt;/i&gt; ile çalışmaz, yani bazı dosya gezginlerinde çalışmayabilir. &lt;br&gt; &lt;br&gt;
-\n► Kök erişimiyle manuel yedekleme yapan kullanıcılar için: &lt;br&gt;
-\n\t• Android 7\'den başlayarak, paylaşılan tercih dosyası varsayılan konumda değildir, çünkü uygulama %s kullanmaktadır. Bu, cihaz kilitlenmeden önce, örneğin açılışta, ayarların okunabilmesi için gereklidir; &lt;br&gt;
-\n\t• Dosya /data/user_de/0/package_id/shared_prefs/ konumunda bulunur, ancak bu cihaz ve Android sürümüne bağlı olarak değişebilir. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Hata ayıklama modu / hata ayıklama APK\'sı&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Bir öneriye uzun basarak kaynak sözlüğü göster. &lt;br&gt; &lt;br&gt;
-\n► Hata ayıklama APK\'sı kullanırken, Gelişmiş Tercihler içinde Hata Ayıklama Ayarlarını bulabilirsin, ancak bu yalnızca sözlükleri günlüğe dökmek için sınırlı fayda sağlar. &lt;br&gt;
-\n\t• Yayın APK\'sı için, &lt;i&gt;Hakkında&lt;/i&gt; kısmındaki sürüme birkaç kez dokunman gerekir, ardından Gelişmiş Tercihler içinde hata ayıklama ayarlarını bulabilirsin. &lt;br&gt;
-\n\t• &lt;i&gt;Öneri bilgilerini göster&lt;/i&gt; etkinleştirildiğinde, önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır. &lt;br&gt; &lt;br&gt;
-\n► Bir uygulama çökmesi durumunda, Ayarları açtığında çökme günlüklerini isteyip istemediğin sorulacaktır. &lt;br&gt; &lt;br&gt;
-\n► Çok dilli yazım kullanırken, boşluk tuşu şu anda kullanılan dili belirlemek için kullanılan bir güven değerini gösterir. &lt;br&gt; &lt;br&gt;
-\n► Önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır (devre dışı bırakılabilir).</string>
+    <string name="hidden_features_message">► Sabitlenmiş araç çubuğu tuşlarına uzun basmak ek işlevsellik sağlar: &lt;br&gt; \n\t• panoya kopyala &amp;#65515; yapıştır &lt;br&gt; \n\t• sola/sağa hareket et &amp;#65515; kelime sola/sağa &lt;br&gt; \n\t• yukarı/aşağı hareket et &amp;#65515; sayfa yukarı/aşağı &lt;br&gt; \n\t• kelime sola/sağa &amp;#65515; satır başı/sonu &lt;br&gt; \n\t• sayfa yukarı/aşağı &amp;#65515; sayfa başı/sonu &lt;br&gt; \n\t• kopyala &amp;#65515; kes &lt;br&gt; \n\t• kelime seç &amp;#8596; tümünü seç &lt;br&gt; \n\t• geri al &amp;#8596; yinele &lt;br&gt; &lt;br&gt; \n► Öneri şeridi araç çubuğundaki tuşlara uzun basmak, onları öneri şeridine sabitler. &lt;br&gt; &lt;br&gt; \n► Virgül tuşuna uzun basarak Pano Görünümü, Emoji Görünümü, Tek El Modu, Ayarlar veya Dil Değiştir\'e erişebilirsin: &lt;br&gt; \n\t• Emoji Görünümü ve Dil Değiştir, ilgili tuşu etkinleştirdiysen kaybolur; &lt;br&gt; \n\t• Bazı düzenler için bu, Virgül tuşu değil, aynı konumdaki başka bir tuş olabilir (örneğin, Dvorak düzeninde bu tuş \'q\'dur). &lt;br&gt; &lt;br&gt; \n► Gizli mod etkinleştirildiğinde, hiçbir kelime öğrenilmeyecek ve son eklenen emojilere yeni bir emoji eklenmeyecektir. &lt;br&gt; &lt;br&gt; \n► Gizli mod simgesine basarak araç çubuğuna erişebilirsin. &lt;br&gt; &lt;br&gt; \n► Kaydırmalı tuş girişi: Shift tuşundan başka bir tuşa kaydırarak tek bir büyük harf yazabilirsin: &lt;br&gt; \n\t• Bu, ayrıca \'123\' tuşu için semboller klavyesinden tek bir sembol yazmak ve ilgili tuşlar için de çalışır. &lt;br&gt; &lt;br&gt; \n► Shift veya sembol tuşunu basılı tut, bir veya daha fazla tuşa bas ve ardından önceki klavyeye dönmek için Shift veya sembol tuşunu bırak. &lt;br&gt; &lt;br&gt; \n► Öneri şeridindeki bir öneriye uzun basarak daha fazla öneriyi ve bu öneriyi kaldırmak için bir silme düğmesini gösterir. &lt;br&gt; &lt;br&gt; \n► Bir öneriye yukarı kaydırarak daha fazla öneriyi aç ve seçmek için öneri üzerinde bırak. &lt;br&gt; &lt;br&gt; \n► Pano geçmişindeki bir girdiye uzun basarak onu sabitleyebilirsin (sabitlediğin sürece panoda kalır). &lt;br&gt; &lt;br&gt; \n► Pano görünümünde bir girdiyi kaldırmak için sola kaydır (sabitlediğin sürece hariç). &lt;br&gt; &lt;br&gt; \n► Metni seç ve büyük/küçük harflerini değiştirmek için Shift tuşuna bas. &lt;br&gt; &lt;br&gt; \n► Sözlükleri bir dosya gezgini ile açarak ekleyebilirsin: &lt;br&gt; \n\t• Bu yalnızca &lt;i&gt;content-uris&lt;/i&gt; ile çalışır, &lt;i&gt;file-uris&lt;/i&gt; ile çalışmaz, yani bazı dosya gezginlerinde çalışmayabilir. &lt;br&gt; &lt;br&gt; \n► Kök erişimiyle manuel yedekleme yapan kullanıcılar için: &lt;br&gt; \n\t• Android 7\'den başlayarak, paylaşılan tercih dosyası varsayılan konumda değildir, çünkü uygulama %s kullanmaktadır. Bu, cihaz kilitlenmeden önce, örneğin açılışta, ayarların okunabilmesi için gereklidir; &lt;br&gt; \n\t• Dosya /data/user_de/0/package_id/shared_prefs/ konumunda bulunur, ancak bu cihaz ve Android sürümüne bağlı olarak değişebilir. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Hata ayıklama modu / hata ayıklama APK\'sı&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Bir öneriye uzun basarak kaynak sözlüğü göster. &lt;br&gt; &lt;br&gt; \n► Hata ayıklama APK\'sı kullanırken, Gelişmiş Tercihler içinde Hata Ayıklama Ayarlarını bulabilirsin, ancak bu yalnızca sözlükleri günlüğe dökmek için sınırlı fayda sağlar. &lt;br&gt; \n\t• Yayın APK\'sı için, &lt;i&gt;Hakkında&lt;/i&gt; kısmındaki sürüme birkaç kez dokunman gerekir, ardından Gelişmiş Tercihler içinde hata ayıklama ayarlarını bulabilirsin. &lt;br&gt; \n\t• &lt;i&gt;Öneri bilgilerini göster&lt;/i&gt; etkinleştirildiğinde, önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır. &lt;br&gt; &lt;br&gt; \n► Bir uygulama çökmesi durumunda, Ayarları açtığında çökme günlüklerini isteyip istemediğin sorulacaktır. &lt;br&gt; &lt;br&gt; \n► Çok dilli yazım kullanırken, boşluk tuşu şu anda kullanılan dili belirlemek için kullanılan bir güven değerini gösterir. &lt;br&gt; &lt;br&gt; \n► Önerilerin üzerinde bazı iç puan ve kaynak sözlük gösteren küçük sayılar olacaktır (devre dışı bırakılabilir).</string>
     <string name="show_vertical_space_swipe">Dikey boşluk çubuğu kaydırma hareketi</string>
     <string name="action_none">Yok</string>
     <string name="space_swipe_move_cursor_entry">İmleci taşı</string>
@@ -345,7 +300,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Pembe</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Kum</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Kullanıcı tanımlı (gece)</string>
-    <string name="select_user_colors">Renkleri ayarla</string>
     <string name="auto_user_color">Rengi otomatik olarak seç</string>
     <string name="load_will_overwrite">Yükleme mevcut temanın üzerine yazılacak</string>
     <string name="dialog_close">Kapat</string>
@@ -359,7 +313,6 @@
     <string name="hint_source">İpucu kaynağını seç</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
-    <string name="add_new_dictionary_ask_locale">%2$s için \"%1$s\" sözlüğü hangi dile eklensin?</string>
     <string name="replace_dictionary">Sözlüğü değiştir</string>
     <string name="version">Sürüm</string>
     <string name="about_github_link">GitHub\'da görüntüle</string>

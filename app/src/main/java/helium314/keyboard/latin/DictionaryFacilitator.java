@@ -57,13 +57,6 @@ public interface DictionaryFacilitator {
      */
     boolean isForLocale(final Locale locale);
 
-    /**
-     * Returns whether this facilitator is exactly for this account.
-     *
-     * @param account the account to test against.
-     */
-    boolean isForAccount(@Nullable final String account);
-
     interface DictionaryInitializationListener {
         void onUpdateMainDictionaryAvailability(boolean isMainDictionaryAvailable);
     }
@@ -91,9 +84,12 @@ public interface DictionaryFacilitator {
     // useful for multilingual typing
     Locale getCurrentLocale();
 
-    boolean usesContacts();
-
-    boolean usesPersonalization();
+    boolean usesSameSettings(
+            @NonNull final List<Locale> locales,
+            final boolean contacts,
+            final boolean personalization,
+            @Nullable final String account
+    );
 
     String getAccount();
 

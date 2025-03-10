@@ -6,8 +6,7 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Korištenje imena kontakata"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Provjera pravopisa koristi upise s vaše liste kontakata"</string>
+    <string name="use_contacts_dict">"Korištenje imena kontakata"</string>
     <string name="vibrate_on_keypress">"Vibracija pri pritisku na tipku"</string>
     <string name="sound_on_keypress">"Zvuk pri pritisku tipke"</string>
     <string name="popup_on_keypress">"Iskačuči prozor pri pritisku na tipku"</string>
@@ -21,7 +20,6 @@
     <string name="show_language_switch_key">"Tipka za zamjenu jezika"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
     <string name="settings_system_default">"Sistemski zadano"</string>
-    <string name="use_contacts_dict">"Predloži imena kontakata"</string>
     <string name="use_contacts_dict_summary">"Za prijedloge i ispravke koristi imena iz Kontakata"</string>
     <string name="use_personalized_dicts">"Prilagođeni prijedlozi"</string>
     <string name="use_double_space_period">"Dvostruki razmak daje tačku"</string>
@@ -29,7 +27,6 @@
     <string name="auto_cap">"Automatsko veliko slovo"</string>
     <string name="auto_cap_summary">"Piši velikim slovom prvu riječ svake rečenice."</string>
     <string name="edit_personal_dictionary">"Lični rječnik"</string>
-    <string name="configure_dictionaries_title">"Dodatni rječnici"</string>
     <string name="main_dictionary">"Glavni rječnik"</string>
     <string name="prefs_show_suggestions">"Prikaži prijedloge za ispravak"</string>
     <string name="prefs_show_suggestions_summary">"Prikaži predložene riječi prilikom kucanja"</string>
@@ -98,12 +95,9 @@
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije na pokretaču"</string>
     <string name="dictionary_settings_title">"Dodatni rječnici"</string>
-    <string name="dictionary_settings_summary">"Postavke za rječnik"</string>
     <string name="dictionary_available">"Rječnik je dostupan"</string>
-    <string name="cannot_connect_to_dict_service">"Problem prilikom povezivanja na uslugu rječnika"</string>
     <string name="no_dictionaries_available">"Nema dostupnih rječnika"</string>
     <string name="last_update">"Posljednji put ažurirano"</string>
-    <string name="main_dict_description">"Glavni rječnik"</string>
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Verzija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

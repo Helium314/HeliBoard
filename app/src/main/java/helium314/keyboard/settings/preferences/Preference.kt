@@ -29,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 
 // partially taken from StreetComplete / SCEE
 
@@ -105,61 +107,63 @@ fun Preference(
 @Preview
 @Composable
 private fun PreferencePreview() {
-    Surface {
-        Column {
-            PreferenceCategory("Preference Category")
-            Preference(
-                name = "Preference",
-                onClick = {},
-            )
-            Preference(
-                name = "Preference with icon",
-                onClick = {},
-                icon = R.drawable.ic_settings_about_foreground
-            )
-            SliderPreference(
-                name = "SliderPreference",
-                key = "",
-                default = 1,
-                description = { it.toString() },
-                range = -5f..5f
-            )
-            Preference(
-                name = "Preference with icon and description",
-                description = "some text",
-                onClick = {},
-                icon = R.drawable.ic_settings_about_foreground
-            )
-            Preference(
-                name = "Preference with switch",
-                onClick = {}
-            ) {
-                Switch(checked = true, onCheckedChange = {})
-            }
-            SwitchPreference(
-                name = "SwitchPreference",
-                key = "none",
-                default = true
-            )
-            Preference(
-                name = "Preference",
-                onClick = {},
-                description = "A long description which may actually be several lines long, so it should wrap."
-            ) {
-                Icon(painterResource(R.drawable.ic_arrow_left), null)
-            }
-            Preference(
-                name = "Long preference name that wraps",
-                onClick = {},
-            ) {
-                Text("Long preference value")
-            }
-            Preference(
-                name = "Long preference name 2",
-                onClick = {},
-                description = "hello I am description"
-            ) {
-                Text("Long preference value")
+    Theme(previewDark) {
+        Surface {
+            Column {
+                PreferenceCategory("Preference Category")
+                Preference(
+                    name = "Preference",
+                    onClick = {},
+                )
+                Preference(
+                    name = "Preference with icon",
+                    onClick = {},
+                    icon = R.drawable.ic_settings_about
+                )
+                SliderPreference(
+                    name = "SliderPreference",
+                    key = "",
+                    default = 1,
+                    description = { it.toString() },
+                    range = -5f..5f
+                )
+                Preference(
+                    name = "Preference with icon and description",
+                    description = "some text",
+                    onClick = {},
+                    icon = R.drawable.ic_settings_about
+                )
+                Preference(
+                    name = "Preference with switch",
+                    onClick = {}
+                ) {
+                    Switch(checked = true, onCheckedChange = {})
+                }
+                SwitchPreference(
+                    name = "SwitchPreference",
+                    key = "none",
+                    default = true
+                )
+                Preference(
+                    name = "Preference",
+                    onClick = {},
+                    description = "A long description which may actually be several lines long, so it should wrap."
+                ) {
+                    Icon(painterResource(R.drawable.ic_arrow_left), null)
+                }
+                Preference(
+                    name = "Long preference name that wraps",
+                    onClick = {},
+                ) {
+                    Text("Long preference value")
+                }
+                Preference(
+                    name = "Long preference name 2",
+                    onClick = {},
+                    description = "hello I am description"
+                ) {
+                    Text("Long preference value")
+                }
             }
         }
     }

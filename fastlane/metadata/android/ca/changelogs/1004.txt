@@ -1,0 +1,7 @@
+- actualitzar disseny ciríl·lic serbi per @markokocic (#704, #705)
+- actualitzar disseny d'Estònia per @tenextractor (#693)
+- arreglar entrades duplicades a l'historial del porta-retalls per @codokie (#616, #680)
+- només afegeix entrades de text a l'historial del porta-retalls per @codokie (#711)
+- millors imatges a les metadades de @RHJihan (#713)
+- establir correctament el color d'icones al diàleg de selecció de la barra d'eines per @codokie (#715, #716)
+- altres correccions (#684, #723 i més)

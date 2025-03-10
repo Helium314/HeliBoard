@@ -1,0 +1,11 @@
+* anpassbare Funktionstastenbelegung
+* leicht anpassbare Symbole und weitere Symbol-Layouts
+* Grundlegende Unterstützung für alt, ctrl, fn, meta-Tasten
+* Erweiterung der Symbolleiste (Funktion für langes Drücken, optionales Anheften bei langem Drücken, automatisches Ein- und Ausblenden, bessere Symbolleiste für die Zwischenablage, ...)
+* Tabulator-Taste hinzugefügt
+* Anzeige für Feststelltaste hinzugefügt
+* Layouts für einige Sprachen hinzugefügt
+* Tasten der Symbolleiste als Tastaturtasten hinzugefügt
+* Ermöglicht das Anpassen aller Farben
+* Toast-Benachrichtigung beim Kopieren von Text
+*Fehlerbehebungen und weitere Verbesserungen, siehe vollständige Versionshinweise

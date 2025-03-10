@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
-    <string name="use_contacts_for_spellchecking_option_title">"Vyhledat kontakty"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">Kontrola pravopisu používá záznamy z vašeho seznamu kontaktů</string>
+    <string name="use_contacts_dict">"Vyhledat kontakty"</string>
     <string name="vibrate_on_keypress">"Při stisku klávesy vibrovat"</string>
     <string name="sound_on_keypress">"Zvuk při stisku klávesy"</string>
     <string name="popup_on_keypress">"Detail znaku při stisku klávesy"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Klávesa přepínání jazyka"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Výchozí nastavení"</string>
-    <string name="use_contacts_dict">"Navrhovat jména kontaktů"</string>
     <string name="use_contacts_dict_summary">Použít jména ze seznamu kontaktů k návrhům a opravám</string>
     <string name="use_personalized_dicts">"Personalizované návrhy"</string>
     <string name="use_double_space_period">"Tečka dvojitým mezerníkem"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Velká písmena automaticky"</string>
     <string name="auto_cap_summary">"Kapitalizovat první slovo každé věty"</string>
     <string name="edit_personal_dictionary">"Vlastní slovník"</string>
-    <string name="configure_dictionaries_title">"Doplňkové slovníky"</string>
     <string name="main_dictionary">"Hlavní slovník"</string>
     <string name="prefs_show_suggestions">"Zobrazit návrhy oprav"</string>
     <string name="prefs_show_suggestions_summary">"Zobrazovat navržená slova během psaní"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Zobrazit ikonu aplikace"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazí ikonu aplikace ve spouštěči"</string>
     <string name="dictionary_settings_title">"Doplňkové slovníky"</string>
-    <string name="dictionary_settings_summary">"Nastavení slovníků"</string>
     <string name="dictionary_available">"Slovník k dispozici"</string>
-    <string name="cannot_connect_to_dict_service">"Chyba přip. k slovníku"</string>
     <string name="no_dictionaries_available">"Žádné slovníky"</string>
     <string name="last_update">"Poslední aktualizace"</string>
-    <string name="main_dict_description">"Hlavní slovník"</string>
     <string name="settings">"Nastavení"</string>
     <string name="delete">"Smazat"</string>
     <string name="version_text">"Verze <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
@@ -207,7 +201,6 @@
     <string name="button_title_add_custom_layout">Přidat vlastní rozvržení</string>
     <string name="setup_step3_action">Konfigurace klávesnice</string>
     <string name="button_select_language">Výběr jazyka</string>
-    <string name="button_add_to_language">Přidat do %s</string>
     <string name="theme_colors_night">Barvy (noční)</string>
     <string name="theme_colors">Barvy</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Černý</string>
@@ -243,7 +236,6 @@
     <string name="add_new_dictionary_title">Přidat slovník ze souboru</string>
     <string name="dictionary_settings_category">Slovníky</string>
     <string name="internal_dictionary_summary">Interní hlavní slovník</string>
-    <string name="add_new_dictionary_ask_locale">Do kterého jazyka má být přidán slovník „%1$s“ pro %2$s?</string>
     <string name="user_dict_word_already_present">Toto slovo se již nachází v uživatelském slovníku %s. Zadejte prosím jiné.</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Lesní</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Oceánový</string>
@@ -253,7 +245,6 @@
     <string name="space_swipe_move_cursor_entry">Přesun kurzoru</string>
     <string name="show_vertical_space_swipe">Svislé gesto přejetí mezerníku</string>
     <string name="prefs_always_show_suggestions_summary">Ignorovat požadavek jiných aplikací na zakázání návrhů (může způsobit problémy)</string>
-    <string name="customize_symbols_number_layouts">Přizpůsobit symboly a rozvržení čísel</string>
     <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
     <string name="dictionary_link_text">zde</string>
     <string name="add_dictionary">Vybrat slovník, který chcete přidat. Slovníky ve formátu .dict lze stáhnout %s.</string>
@@ -334,8 +325,6 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Fialový</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Uživatelsky definovaný</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Uživatelsky definovaný (noční)</string>
-    <string name="select_user_colors">Upravit barvy</string>
-    <string name="select_user_colors_night">Upravit barvy (noční)</string>
     <string name="auto_user_color">Vybrat barvu automaticky</string>
     <string name="main_colors">Zobrazit pouze hlavní barvy</string>
     <string name="all_colors">Zobrazit všechny barvy</string>

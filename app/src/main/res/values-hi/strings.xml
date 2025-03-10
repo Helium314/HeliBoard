@@ -3,10 +3,8 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"संपर्कों को सर्च करें"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"स्पेलिंग जाँचने वाली सेवा आपकी संपर्क सूची के संपर्कों इस्तेमाल करता है"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"संपर्कों को सर्च करें"</string>
     <string name="vibrate_on_keypress">"बटन दबाने पर कंपन (वाइब्रेशन) करे"</string>
     <string name="sound_on_keypress">"बटन दबाने पर आवाज़"</string>
     <string name="popup_on_keypress">"बटन दबाने पर पॉपअप दिखाएं"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"भाषा स्विच कुंजी"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> मिलीसेकंड"</string>
     <string name="settings_system_default">"सिस्टम डिफ़ॉल्ट"</string>
-    <string name="use_contacts_dict">"संपर्क नाम सुझाएं"</string>
     <string name="use_contacts_dict_summary">"सुझाव और सुधार के लिए संपर्क से नामों का उपयोग करें"</string>
     <string name="use_personalized_dicts">"मनमुताबिक सुझाव"</string>
     <string name="use_double_space_period">"दोहरे स्पेस वाला पीरियड"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"अपने-आप अक्षर बड़े करना"</string>
     <string name="auto_cap_summary">"प्रत्येक वाक्य के पहले शब्द को बड़ा लिखें"</string>
     <string name="edit_personal_dictionary">"निजी शब्दकोश"</string>
-    <string name="configure_dictionaries_title">"एड-ऑन शब्दकोश"</string>
     <string name="main_dictionary">"मुख्‍य डिक्‍शनरी"</string>
     <string name="prefs_show_suggestions">"सुधार सुझाव दिखाएं"</string>
     <string name="prefs_show_suggestions_summary">"लिखते समय सुझाए गए शब्‍द दिखाएं"</string>
@@ -79,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"कीबोर्ड के लिए स्माइलीज़"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"भौतिक Alt कुंजी इमोजी पैलेट दिखाती है"</string>
     <string name="button_default">"सामान्य"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> में आपका स्वागत है"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> में आपका स्वागत है\"</string>
     <string name="setup_welcome_additional_description">"जेस्चर टाइपिंग के साथ"</string>
     <string name="setup_start_action">"आरंभ करें"</string>
     <string name="setup_next_action">"अगला चरण"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट करना"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> को चालू करें"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट करना\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> को चालू करें\"</string>
     <string name="setup_step1_instruction">"कृपया अपनी भाषा और इनपुट सेटिंग में \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को सही का निशान लगाकर चुनें. इससे उसे आपके डिवाइस पर चलने की अनुमति मिल जाएगी."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> आपकी भाषा और इनपुट सेटिंग में पहले से सक्षम है, इसलिए यह चरण पूरा हो गया है. अगले चरण पर जाएं!"</string>
     <string name="setup_step1_action">"सेटिंग में चालू करें"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> पर स्विच करें"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> पर स्विच करें\"</string>
     <string name="setup_step2_instruction">"इसके बाद, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को अपने सक्रिय पाठ-इनपुट के तरीके के तौर पर चुनें."</string>
     <string name="setup_step2_action">"इनपुट पद्धतियां स्विच करें"</string>
     <string name="setup_step3_title">"बधाई हो, आप बिल्कुल तैयार हैं!"</string>
@@ -97,12 +93,9 @@
     <string name="show_setup_wizard_icon">"ऐप्लिकेशन का आइकॉन दिखाएं"</string>
     <string name="show_setup_wizard_icon_summary">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
     <string name="dictionary_settings_title">"अन्य शब्दकोष"</string>
-    <string name="dictionary_settings_summary">"डिक्‍शनरी की सेटिंग"</string>
     <string name="dictionary_available">"शब्दकोश उपलब्‍ध"</string>
-    <string name="cannot_connect_to_dict_service">"शब्दकोश सेवा से कनेक्ट करने में समस्या"</string>
     <string name="no_dictionaries_available">"डिक्‍शनरी अनुपलब्‍ध"</string>
     <string name="last_update">"आख़री बार अपडेट किया गया"</string>
-    <string name="main_dict_description">"मुख्‍य डिक्‍शनरी"</string>
     <string name="settings">"सेटिंग"</string>
     <string name="delete">"मिटाएं"</string>
     <string name="version_text">"वर्शन <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

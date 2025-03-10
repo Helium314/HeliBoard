@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Побарај имиња на контакти"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Проверувачот на правопис користи записи од листата со контакти"</string>
+    <string name="use_contacts_dict">"Побарај имиња на контакти"</string>
     <string name="vibrate_on_keypress">"Вибрирање при притисок на копче"</string>
     <string name="sound_on_keypress">"Звук на притискање копче"</string>
     <string name="popup_on_keypress">"Појавен прозорец на притискање копче"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Копче за промена на јазик"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Стандардно за системот"</string>
-    <string name="use_contacts_dict">"Предложи имиња на контакт"</string>
     <string name="use_contacts_dict_summary">"Употреби имиња од Контакти за предлози и корекции"</string>
     <string name="use_personalized_dicts">"Персонализирани предлози"</string>
     <string name="use_double_space_period">"Точка со два простора"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Автоматска голема буква"</string>
     <string name="auto_cap_summary">"Прави првиот збор од секоја реченица да почнува со голема буква"</string>
     <string name="edit_personal_dictionary">"Личен речник"</string>
-    <string name="configure_dictionaries_title">"Додатоци за речници"</string>
     <string name="main_dictionary">"Главен речник"</string>
     <string name="prefs_show_suggestions">"Покажи предлози за корекција"</string>
     <string name="prefs_show_suggestions_summary">"Прикажи предложени зборови додека пишувам"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Покажи икона на апликација"</string>
     <string name="show_setup_wizard_icon_summary">"Прикажи икона на апликација во стартувачот"</string>
     <string name="dictionary_settings_title">"Додатоци за речници"</string>
-    <string name="dictionary_settings_summary">"Поставки за речници"</string>
     <string name="dictionary_available">"Речникот е достапен"</string>
-    <string name="cannot_connect_to_dict_service">"Проблем при поврзувањето со услугата речник"</string>
     <string name="no_dictionaries_available">"Нема достапен речник"</string>
     <string name="last_update">"Последен пат ажурирано"</string>
-    <string name="main_dict_description">"Главен речник"</string>
     <string name="settings">"Поставки"</string>
     <string name="delete">"Избриши"</string>
     <string name="version_text">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

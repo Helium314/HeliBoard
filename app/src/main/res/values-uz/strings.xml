@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Kontaktlar ichidan qidirish"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Imloni tekshirishda kontaktlar ro‘yxatiga murojaat qilish"</string>
+    <string name="use_contacts_dict">"Kontaktlar ichidan qidirish"</string>
     <string name="vibrate_on_keypress">"Tugma bosilganda tebranish"</string>
     <string name="sound_on_keypress">"Tugmalar tovushi"</string>
     <string name="popup_on_keypress">"Tugma bosilganda qalqib chiqish"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Tilni almashtirish tugmasi"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Tizim standarti"</string>
-    <string name="use_contacts_dict">"Ismlarni taklif qilish"</string>
     <string name="use_contacts_dict_summary">"Kontaktlar ro‘yxatidagi ismlar asosida tuzatmalarni taklif qilish"</string>
     <string name="use_personalized_dicts">"Takliflarni moslashtirish"</string>
     <string name="use_double_space_period">"Nuqtani avtomatik qo‘yish"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Avtomatik bosh harf"</string>
     <string name="auto_cap_summary">"Har bir gapning birinchi so‘zini bosh harf bilan boshlash"</string>
     <string name="edit_personal_dictionary">"Shaxsiy lug‘at"</string>
-    <string name="configure_dictionaries_title">"Qo‘shimcha lug‘atlar"</string>
     <string name="main_dictionary">"Asosiy lug‘at"</string>
     <string name="prefs_show_suggestions">"Tuzatma variantlari"</string>
     <string name="prefs_show_suggestions_summary">"Matn kiritishda so‘z variantlarini taklif qilish"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Ilova ikonkasini chiqarish"</string>
     <string name="show_setup_wizard_icon_summary">"Launcherga ilova ikonkasini chiqarish"</string>
     <string name="dictionary_settings_title">"Qo‘shimcha lug‘atlar"</string>
-    <string name="dictionary_settings_summary">"Lug‘atlar uchun sozlamalar"</string>
     <string name="dictionary_available">"Lug‘at mavjud"</string>
-    <string name="cannot_connect_to_dict_service">"Ulanib bo‘lmadi"</string>
     <string name="no_dictionaries_available">"Lug‘at mavjud emas"</string>
     <string name="last_update">"So‘nggi marta yangilandi"</string>
-    <string name="main_dict_description">"Asosiy lug‘at"</string>
     <string name="settings">"Sozlamalar"</string>
     <string name="delete">"O‘chirish"</string>
     <string name="version_text"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> versiya</string>

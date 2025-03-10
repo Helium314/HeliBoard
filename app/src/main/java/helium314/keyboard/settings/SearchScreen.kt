@@ -6,14 +6,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -103,7 +98,7 @@ fun SearchSettingsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <T: Any> SearchScreen(
+fun <T: Any?> SearchScreen(
     onClickBack: () -> Unit,
     title: @Composable () -> Unit,
     filteredItems: (String) -> List<T>,
@@ -113,8 +108,7 @@ fun <T: Any> SearchScreen(
 ) {
     var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue()) }
     Column(Modifier.fillMaxSize()) {
-        // todo: saving is good on orientation change, but bad on pressing back...
-        var showSearch by rememberSaveable { mutableStateOf(false) }
+        var showSearch by remember { mutableStateOf(false) }
 
         fun setShowSearch(value: Boolean) {
             showSearch = value
@@ -137,20 +131,20 @@ fun <T: Any> SearchScreen(
                             else onClickBack()
                         }) {
                             Icon(
-                                painterResource(R.drawable.baseline_arrow_back_24),
+                                painterResource(R.drawable.ic_arrow_back),
                                 stringResource(R.string.spoken_description_action_previous)
                             )
                         }
                     },
                     actions = {
                         IconButton(onClick = { setShowSearch(!showSearch) })
-                        { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) }
+                        { SearchIcon() }
                         if (menu != null)
                             Box {
                                 var showMenu by remember { mutableStateOf(false) }
                                 IconButton(
                                     onClick = { showMenu = true }
-                                ) { Icon(painterResource(R.drawable.ic_arrow_left,), "menu", Modifier.rotate(-90f)) }
+                                ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
                                 DropdownMenu(
                                     expanded = showMenu,
                                     onDismissRequest = { showMenu = false }
@@ -182,12 +176,15 @@ fun <T: Any> SearchScreen(
         CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
             if (searchText.text.isBlank() && content != null) {
                 Column(
-                    Modifier
-                        .windowInsetsPadding(
-                            WindowInsets.safeDrawing.only(
-                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
-                            )
-                        )
+                    // todo: how and where to best deal with insets?
+                    //  here? manifest android:windowSoftInputMode="adjustResize"?
+                    //  other?
+//                    Modifier
+//                        .windowInsetsPadding(
+//                            WindowInsets.safeDrawing.only(
+//                                WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+//                            )
+//                        )
                 ) {
                     content()
                 }
@@ -224,11 +221,11 @@ fun ExpandableSearchField(
             value = search,
             onValueChange = onSearchChange,
             modifier = modifier.focusRequester(focusRequester),
-            leadingIcon = { Icon(painterResource(R.drawable.sym_keyboard_search_lxx), stringResource(R.string.label_search_key)) },
+            leadingIcon = { SearchIcon() },
             trailingIcon = { IconButton(onClick = {
                 if (search.text.isBlank()) onDismiss()
                 else onSearchChange(TextFieldValue())
-            }) { Icon(painterResource(R.drawable.ic_close), stringResource(android.R.string.cancel)) } },
+            }) { CloseIcon(android.R.string.cancel) } },
             singleLine = true,
             colors = colors
         )

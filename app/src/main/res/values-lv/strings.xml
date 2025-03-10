@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Meklēt kontaktp. vārdus"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Pareizrakst. pārbaudītājs lieto ierakstus no kontaktp. saraksta."</string>
+    <string name="use_contacts_dict">"Meklēt kontaktp. vārdus"</string>
     <string name="vibrate_on_keypress">"Vibrēt, nospiežot taustiņu"</string>
     <string name="sound_on_keypress">"Skaņa, nospiežot taustiņu"</string>
     <string name="popup_on_keypress">"Parādās, nospiežot taustiņu"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Valodas pārslēgšanas taustiņš"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Sistēmas noklusējums"</string>
-    <string name="use_contacts_dict">"Ieteikt kontaktp. vārdus"</string>
     <string name="use_contacts_dict_summary">"Izmantot kontaktpersonu vārdus kā ieteikumus un labojumus"</string>
     <string name="use_personalized_dicts">"Personalizēti ieteikumi"</string>
     <string name="use_double_space_period">"Dubultpiesk. = punkts"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Automātiska lielo burtu lietošana"</string>
     <string name="auto_cap_summary">"Katra teikuma pirmo vārdu rakstīt ar lielo burtu."</string>
     <string name="edit_personal_dictionary">"Personiskā vārdnīca"</string>
-    <string name="configure_dictionaries_title">"Papildināmas vārdnīcas"</string>
     <string name="main_dictionary">"Galvenā vārdnīca"</string>
     <string name="prefs_show_suggestions">"Rādīt labojumu ieteikumus"</string>
     <string name="prefs_show_suggestions_summary">"Ievades laikā attēlot ieteiktos vārdus"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Rādīt lietotnes ikonu"</string>
     <string name="show_setup_wizard_icon_summary">"Rādīt palaidēja ekrānā lietojumprogrammas ikonu"</string>
     <string name="dictionary_settings_title">"Papildināmas vārdnīcas"</string>
-    <string name="dictionary_settings_summary">"Vārdnīcu iestatījumi"</string>
     <string name="dictionary_available">"Vārdnīca ir pieejama"</string>
-    <string name="cannot_connect_to_dict_service">"Nevar savien. ar vārdnīcas pakalp."</string>
     <string name="no_dictionaries_available">"Vārdn. nav pieejamas"</string>
     <string name="last_update">"Pēdējo reizi atjaunināts"</string>
-    <string name="main_dict_description">"Galvenā vārdnīca"</string>
     <string name="settings">"Iestatījumi"</string>
     <string name="delete">"Dzēst"</string>
     <string name="version_text">"Versija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

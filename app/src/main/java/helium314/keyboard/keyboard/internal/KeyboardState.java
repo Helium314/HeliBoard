@@ -784,7 +784,7 @@ public final class KeyboardState {
         case SWITCH_STATE_SYMBOL:
             // Switch back to alpha keyboard mode if user types one or more non-space/enter
             // characters followed by a space/enter.
-            if (isSpaceOrEnter(code) && Settings.getInstance().getCurrent().mAlphaAfterSymbolAndSpace) {
+            if (isSpaceOrEnter(code) && Settings.getValues().mAlphaAfterSymbolAndSpace) {
                 toggleAlphabetAndSymbols(autoCapsFlags, recapitalizeMode);
                 mPrevSymbolsKeyboardWasShifted = false;
             }
@@ -801,7 +801,7 @@ public final class KeyboardState {
         } else if (code == KeyCode.CLIPBOARD) {
             // Note: Printing clipboard content is handled in
             // {@link InputLogic#handleFunctionalEvent(Event,InputTransaction,int,LatinIME.UIHandler)}.
-            if (Settings.getInstance().getCurrent().mClipboardHistoryEnabled) {
+            if (Settings.getValues().mClipboardHistoryEnabled) {
                 setClipboardKeyboard();
             }
         } else if (code == KeyCode.NUMPAD) {
@@ -809,7 +809,7 @@ public final class KeyboardState {
         } else if (code == KeyCode.SYMBOL) {
             setSymbolsKeyboard();
         } else if (code == KeyCode.TOGGLE_ONE_HANDED_MODE) {
-            setOneHandedModeEnabled(!Settings.getInstance().getCurrent().mOneHandedModeEnabled);
+            setOneHandedModeEnabled(!Settings.getValues().mOneHandedModeEnabled);
         } else if (code == KeyCode.SWITCH_ONE_HANDED_MODE) {
             switchOneHandedMode();
         }

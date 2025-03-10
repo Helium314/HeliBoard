@@ -49,6 +49,7 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.ScriptUtils;
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
@@ -78,6 +79,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private int mCurrentUiMode;
     private int mCurrentOrientation;
     private int mCurrentDpi;
+    private boolean mThemeNeedsReload;
 
     @SuppressLint("StaticFieldLeak") // this is a keyboard, we want to keep it alive in background
     private static final KeyboardSwitcher sInstance = new KeyboardSwitcher();
@@ -112,21 +114,17 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
     }
 
-    public void forceUpdateKeyboardTheme(@NonNull Context displayContext) {
-        Settings settings = Settings.getInstance();
-        settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
-        mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
-    }
-
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context, final KeyboardTheme keyboardTheme) {
         final Resources res = context.getResources();
-        if (mThemeContext == null
+        if (mThemeNeedsReload
+                || mThemeContext == null
                 || !keyboardTheme.equals(mKeyboardTheme)
                 || mCurrentDpi != res.getDisplayMetrics().densityDpi
                 || mCurrentOrientation != res.getConfiguration().orientation
                 || (mCurrentUiMode & Configuration.UI_MODE_NIGHT_MASK) != (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 || !mThemeContext.getResources().equals(res)
-                || Settings.getInstance().getCurrent().mColors.haveColorsChanged(context)) {
+                || Settings.getValues().mColors.haveColorsChanged(context)) {
+            mThemeNeedsReload = false;
             mKeyboardTheme = keyboardTheme;
             mThemeContext = new ContextThemeWrapper(context, keyboardTheme.mStyleId);
             mCurrentUiMode = res.getConfiguration().uiMode;
@@ -160,7 +158,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
                 final InputMethodSubtype qwerty = SubtypeUtilsAdditional.INSTANCE
-                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), "qwerty", true);
+                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), SubtypeLocaleUtils.QWERTY, true);
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                         .setSubtype(RichInputMethodSubtype.Companion.get(qwerty))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
@@ -192,7 +190,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     private void setKeyboard(final int keyboardId, @NonNull final KeyboardSwitchState toggleState) {
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
-        final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
+        final SettingsValues currentSettingsValues = Settings.getValues();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
         // TODO: pass this object to setKeyboard instead of getting the current values.
         final MainKeyboardView keyboardView = mKeyboardView;
@@ -518,7 +516,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
     public void reloadKeyboard() {
         if (mCurrentInputView != null)
-            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getInstance().getCurrent(),
+            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
                     mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
 
@@ -657,6 +655,8 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             prefs.unregisterOnSharedPreferenceChangeListener(mSuggestionStripView);
         if (mClipboardHistoryView != null)
             prefs.unregisterOnSharedPreferenceChangeListener(mClipboardHistoryView);
+        if (mThemeNeedsReload) // necessary in some cases (e.g. theme switch) when mThemeNeedsReload is set before first keyboard load
+            Settings.getInstance().loadSettings(displayContext, Settings.getValues().mLocale, Settings.getValues().mInputAttributes);
 
         updateKeyboardThemeAndContextThemeWrapper(displayContext, KeyboardTheme.getKeyboardTheme(displayContext));
         mCurrentInputView = (InputView)LayoutInflater.from(mThemeContext).inflate(R.layout.input_view, null);
@@ -717,5 +717,22 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     // used for debug
     public String getLocaleAndConfidenceInfo() {
         return mLatinIME.getLocaleAndConfidenceInfo();
+    }
+
+    /** Marks the theme as outdated. The theme will be reloaded next time the keyboard is shown.
+     *  If the keyboard is currently showing, theme will be reloaded immediately. */
+    public void setThemeNeedsReload() {
+        mThemeNeedsReload = true;
+        if (mLatinIME == null || !mLatinIME.isInputViewShown())
+            return; // will be reloaded right before showing IME
+
+        // Hide and show IME, showing will trigger the reload.
+        // Reloading while IME is shown is glitchy, and hiding / showing is so fast the user shouldn't notice.
+        mLatinIME.hideWindow();
+        try {
+            mLatinIME.showWindow(true);
+        } catch (IllegalStateException e) {
+            // in tests isInputViewShown returns true, but showWindow throws "IllegalStateException: Window token is not set yet."
+        }
     }
 }

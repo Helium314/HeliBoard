@@ -23,23 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class DictionaryCollection extends Dictionary {
     private final String TAG = DictionaryCollection.class.getSimpleName();
-    protected final CopyOnWriteArrayList<Dictionary> mDictionaries;
-
-    public DictionaryCollection(final String dictType, final Locale locale) {
-        super(dictType, locale);
-        mDictionaries = new CopyOnWriteArrayList<>();
-    }
-
-    public DictionaryCollection(final String dictType, final Locale locale,
-            final Dictionary... dictionaries) {
-        super(dictType, locale);
-        if (null == dictionaries) {
-            mDictionaries = new CopyOnWriteArrayList<>();
-        } else {
-            mDictionaries = new CopyOnWriteArrayList<>(dictionaries);
-            mDictionaries.removeAll(Collections.singleton(null));
-        }
-    }
+    private final CopyOnWriteArrayList<Dictionary> mDictionaries;
 
     public DictionaryCollection(final String dictType, final Locale locale,
             final Collection<Dictionary> dictionaries) {

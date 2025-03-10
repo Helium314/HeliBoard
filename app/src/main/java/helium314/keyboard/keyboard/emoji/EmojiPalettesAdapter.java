@@ -48,7 +48,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     }
 
     public void addRecentKey(final Key key) {
-        if (Settings.getInstance().getCurrent().mIncognitoModeEnabled) {
+        if (Settings.getValues().mIncognitoModeEnabled) {
             // We do not want to log recent keys while being in incognito
             return;
         }

@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Kërko emra kontakti"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Kontrolluesi drejtshkrimor përdor fjalë të futura nga kontaktet e tua"</string>
+    <string name="use_contacts_dict">"Kërko emra kontakti"</string>
     <string name="vibrate_on_keypress">"Lësho dridhje kur shtyp tastin"</string>
     <string name="sound_on_keypress">"Lësho tingull kur shtyp tastin"</string>
     <string name="popup_on_keypress">"Zmadhim germe kur shtyp"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Tasti i ndryshimit të gjuhës"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> milisek."</string>
     <string name="settings_system_default">"Parazgjedhja e sistemit"</string>
-    <string name="use_contacts_dict">"Sugjero emra te \"Kontaktet\""</string>
     <string name="use_contacts_dict_summary">"Përdor emra nga \"Kontaktet\" për sugjerime dhe korrigjime"</string>
     <string name="use_personalized_dicts">"Sugjerime të personalizuara"</string>
     <string name="use_double_space_period">"Pikë me hapësirë të dyfishtë"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Kapitalizim automatik"</string>
     <string name="auto_cap_summary">"Kapitalizo fjalën e parë të çdo fjalie"</string>
     <string name="edit_personal_dictionary">"Fjalor personal"</string>
-    <string name="configure_dictionaries_title">"Fjalorët shtesë"</string>
     <string name="main_dictionary">"Fjalori kryesor"</string>
     <string name="prefs_show_suggestions">"Shfaq sugjerimet e korrigjimit"</string>
     <string name="prefs_show_suggestions_summary">"Shfaq fjalë sugjeruese kur shkruan"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Shfaq ikonën e aplikacionit"</string>
     <string name="show_setup_wizard_icon_summary">"Shfaq ikonën e aplikacionit në mekanizimin e nisjes"</string>
     <string name="dictionary_settings_title">"Fjalorë shtesë"</string>
-    <string name="dictionary_settings_summary">"Cilësimet për fjalorët"</string>
     <string name="dictionary_available">"Fjalor i përdorshëm"</string>
-    <string name="cannot_connect_to_dict_service">"Problem në lidhjen me shërbimin e fjalorit"</string>
     <string name="no_dictionaries_available">"Nuk mund të përdoret asnjë fjalor"</string>
     <string name="last_update">"Përditësimi i fundit"</string>
-    <string name="main_dict_description">"Fjalori kryesor"</string>
     <string name="settings">"Cilësimet"</string>
     <string name="delete">"Fshi"</string>
     <string name="version_text">"Versioni <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

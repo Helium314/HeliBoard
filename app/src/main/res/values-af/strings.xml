@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Soek kontakname op"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Speltoetser gebruik inskrywings uit jou kontaklys"</string>
+    <string name="use_contacts_dict">"Soek kontakname op"</string>
     <string name="vibrate_on_keypress">"Vibreer met sleuteldruk"</string>
     <string name="sound_on_keypress">"Klank met sleuteldruk"</string>
     <string name="popup_on_keypress">"Opspring met sleuteldruk"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Taal-wisselsleutel"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <string name="settings_system_default">"Stelsel se verstek"</string>
-    <string name="use_contacts_dict">"Stel kontakname voor"</string>
     <string name="use_contacts_dict_summary">"Gebruik name van kontakte vir voorstelle en korreksies"</string>
     <string name="use_personalized_dicts">"Gepersonaliseerde voorstelle"</string>
     <string name="use_double_space_period">"Dubbelspasie-punt"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Outohoofletters"</string>
     <string name="auto_cap_summary">"Die eerste woord van elke sin moet met \'n hoofletter begin"</string>
     <string name="edit_personal_dictionary">"Persoonlike woordeboek"</string>
-    <string name="configure_dictionaries_title">"Voeg woordeboeke by"</string>
     <string name="main_dictionary">"Hoofwoordeboek"</string>
     <string name="prefs_show_suggestions">"Wys voorstelle vir korrigering"</string>
     <string name="prefs_show_suggestions_summary">"Wys voorgestelde woorde terwyl jy tik"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Wys program-ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Wys program-ikoon in die lanseerpoort"</string>
     <string name="dictionary_settings_title">"Voeg woordeboeke by"</string>
-    <string name="dictionary_settings_summary">"Instellings vir woordeboeke"</string>
     <string name="dictionary_available">"Woordeboek beskikbaar"</string>
-    <string name="cannot_connect_to_dict_service">"Kan nie aan woordeboekdiens koppel nie"</string>
     <string name="no_dictionaries_available">"Geen woordeboeke beskikbaar nie"</string>
     <string name="last_update">"Laas opgedateer"</string>
-    <string name="main_dict_description">"Hoofwoordeboek"</string>
     <string name="settings">"Instellings"</string>
     <string name="delete">"Vee uit"</string>
     <string name="version_text">Weergawe <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

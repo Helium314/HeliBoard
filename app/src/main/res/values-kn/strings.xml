@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಹುಡುಕಿ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"ಕಾಗುಣಿತ ಪರೀಕ್ಷಕವು ನಿಮ್ಮ ಸಂಪರ್ಕ ಪಟ್ಟಿಯ ಮಾಹಿತಿಯನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತದೆ"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="use_contacts_dict">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಹುಡುಕಿ"</string>
     <string name="vibrate_on_keypress">"ಕೀಪ್ರೆಸ್‌ನ ವೈಬ್ರೇಟ್"</string>
     <string name="sound_on_keypress">"ಕೀಪ್ರೆಸ್ ಶಬ್ದ"</string>
     <string name="popup_on_keypress">"ಕೀಪ್ರೆಸ್‌ನಲ್ಲಿ ಪಾಪ್ಅಪ್"</string>
@@ -20,7 +18,6 @@
     <string name="show_language_switch_key">"ಭಾಷೆ ಬದಲಾವಣೆ ಕೀ"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ಮಿ.ಸೆ."</string>
     <string name="settings_system_default">"ಸಿಸ್ಟಂ ಡಿಫಾಲ್ಟ್"</string>
-    <string name="use_contacts_dict">"ಸಂಪರ್ಕ ಹೆಸರುಗಳನ್ನು ಸೂಚಿಸು"</string>
     <string name="use_contacts_dict_summary">"ಸಲಹೆಗಳು ಮತ್ತು ತಿದ್ದುಪಡಿಗಳಿಗಾಗಿ ಸಂಪರ್ಕಗಳಲ್ಲಿನ ಹೆಸರುಗಳನ್ನು ಬಳಸಿ"</string>
     <string name="use_personalized_dicts">"ವೈಯುಕ್ತೀಕರಿಸಿದ ಸಲಹೆಗಳು"</string>
     <string name="use_double_space_period">"ಡಬಲ್-ಸ್ಪೇಸ್ ವಿರಾಮ"</string>
@@ -28,7 +25,6 @@
     <string name="auto_cap">"ಸ್ವಯಂ-ದೊಡ್ಡಕ್ಷರ"</string>
     <string name="auto_cap_summary">"ಪ್ರತಿ ವಾಕ್ಯದ ಮೊದಲ ಅಕ್ಷರವನ್ನು ದೊಡ್ಡಕ್ಷರಗೊಳಿಸು"</string>
     <string name="edit_personal_dictionary">"ವೈಯಕ್ತಿಕ ನಿಘಂಟು"</string>
-    <string name="configure_dictionaries_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
     <string name="main_dictionary">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
     <string name="prefs_show_suggestions">"ತಿದ್ದುಪಡಿ ಸಲಹೆಗಳನ್ನು ತೋರಿಸು"</string>
     <string name="prefs_show_suggestions_summary">"ಟೈಪ್ ಮಾಡುವಾಗ ಸಲಹೆ ನೀಡಿದ ಪದಗಳನ್ನು ಪ್ರದರ್ಶಿಸು"</string>
@@ -80,16 +76,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ಭೌತಿಕ ಕೀಬೋರ್ಡ್‌ಗೆ ಎಮೋಜಿ"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ಭೌತಿಕ Alt ಕೀ ಎಮೋಜಿ ಪ್ಯಾಲೆಟ್ ತೋರಿಸುತ್ತದೆ"</string>
     <string name="button_default">"ಡಿಫಾಲ್ಟ್"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಸುಸ್ವಾಗತ"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಸುಸ್ವಾಗತ\"</string>
     <string name="setup_welcome_additional_description">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್‌ನೊಂದಿಗೆ"</string>
     <string name="setup_start_action">"ಪ್ರಾರಂಭ"</string>
     <string name="setup_next_action">"ಮುಂದಿನ ಹಂತ"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಸಕ್ರಿಯಗೊಳಿಸಿ\"</string>
     <string name="setup_step1_instruction">"ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ದಯವಿಟ್ಟು \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಪರಿಶೀಲಿಸಿ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅದನ್ನು ರನ್ ಮಾಡಲು ಅದು ಅನುಮತಿ ನೀಡುತ್ತದೆ."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಈಗಾಗಲೇ ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ, ಹೀಗಾಗಿ ಈ ಹಂತ ಮುಗಿದಿದೆ. ಮುಂದಿನದಕ್ಕೆ ತೆರಳಿ!"</string>
     <string name="setup_step1_action">"ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಬದಲಾಯಿಸಿ"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಬದಲಾಯಿಸಿ\"</string>
     <string name="setup_step2_instruction">"ಮುಂದೆ, ನಿಮ್ಮ ಸಕ್ರಿಯ ಪಠ್ಯ-ಇನ್‌ಪುಟ್ ವಿಧಾನವಾಗಿ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."</string>
     <string name="setup_step2_action">"ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಬದಲಾಯಿಸು"</string>
     <string name="setup_step3_title">"ಅಭಿನಂದನೆಗಳು, ನೀವೀಗ ಎಲ್ಲವನ್ನೂ ಹೊಂದಿಸಿರುವಿರಿ!"</string>
@@ -98,12 +94,9 @@
     <string name="show_setup_wizard_icon">"ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ತೋರಿಸು"</string>
     <string name="show_setup_wizard_icon_summary">"ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು"</string>
     <string name="dictionary_settings_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
-    <string name="dictionary_settings_summary">"ನಿಘಂಟುಗಳಿಗಾಗಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="dictionary_available">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
-    <string name="cannot_connect_to_dict_service">"ನಿಘಂಟು ಸೇವೆಗೆ ಸಂಪರ್ಕಗೊಳಿಸುವಾಗ ಸಮಸ್ಯೆ"</string>
     <string name="no_dictionaries_available">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
     <string name="last_update">"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿರುವುದು"</string>
-    <string name="main_dict_description">"ಮುಖ್ಯ ನಿಘಂಟು"</string>
     <string name="settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="delete">"ಅಳಿಸಿ"</string>
     <string name="version_text">"ಆವೃತ್ತಿ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

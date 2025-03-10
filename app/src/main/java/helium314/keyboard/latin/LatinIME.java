@@ -70,7 +70,6 @@ import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.define.ProductionFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
-import helium314.keyboard.latin.permissions.PermissionsManager;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
@@ -89,7 +88,6 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
-import helium314.keyboard.settings.SettingsActivityKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -110,8 +108,7 @@ import androidx.core.content.ContextCompat;
  */
 public class LatinIME extends InputMethodService implements
         SuggestionStripView.Listener, SuggestionStripViewAccessor,
-        DictionaryFacilitator.DictionaryInitializationListener,
-        PermissionsManager.PermissionsResultCallback {
+        DictionaryFacilitator.DictionaryInitializationListener {
     static final String TAG = LatinIME.class.getSimpleName();
     private static final boolean TRACE = false;
 
@@ -570,11 +567,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onCreate() {
-        Settings.init(this);
-        DebugFlags.init(this);
-        SubtypeSettings.INSTANCE.init(this);
         KeyboardIconsSet.Companion.getInstance().loadIcons(this);
-        RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
         AudioAndHapticFeedbackManager.init(this);
         AccessibilityUtils.init(this);
@@ -669,11 +662,15 @@ public class LatinIME extends InputMethodService implements
         } else {
             subtypeLocale = subtypeSwitcherLocale;
         }
-        if (mDictionaryFacilitator.isForLocale(subtypeLocale)
-                && mDictionaryFacilitator.isForAccount(mSettings.getCurrent().mAccount)
-                && mDictionaryFacilitator.usesContacts() == mSettings.getCurrent().mUseContactsDictionary
-                && mDictionaryFacilitator.usesPersonalization() == mSettings.getCurrent().mUsePersonalizedDicts
-        ) {
+        final ArrayList<Locale> locales = new ArrayList<>();
+        locales.add(subtypeLocale);
+        locales.addAll(mSettings.getCurrent().mSecondaryLocales);
+        if (mDictionaryFacilitator.usesSameSettings(
+                locales,
+                mSettings.getCurrent().mUseContactsDictionary,
+                mSettings.getCurrent().mUsePersonalizedDicts,
+                mSettings.getCurrent().mAccount
+        )) {
             return;
         }
         resetDictionaryFacilitator(subtypeLocale);
@@ -899,8 +896,6 @@ public class LatinIME extends InputMethodService implements
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
 
-        reloadIfNecessary();
-
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
         // also wouldn't be consuming gesture data.
@@ -954,7 +949,7 @@ public class LatinIME extends InputMethodService implements
         final boolean isDifferentTextField = !restarting || inputTypeChanged;
 
         StatsUtils.onStartInputView(editorInfo.inputType,
-                Settings.getInstance().getCurrent().mDisplayOrientation,
+                Settings.getValues().mDisplayOrientation,
                 !isDifferentTextField);
 
         // The EditorInfo might have a flag that affects fullscreen mode.
@@ -1380,11 +1375,6 @@ public class LatinIME extends InputMethodService implements
                     Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE);
         }
         return keyboard.getCoordinates(codePoints);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(boolean allGranted) {
-        setNeutralSuggestionStrip();
     }
 
     public void displaySettingsDialog() {
@@ -1973,15 +1963,6 @@ public class LatinIME extends InputMethodService implements
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
                     KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
             // deallocateMemory always called on hiding, and should not be called when showing
-        }
-    }
-
-    private void reloadIfNecessary() {
-        // better do the reload when showing the keyboard next time, and not on settings change
-        if (SettingsActivityKt.keyboardNeedsReload) {
-            KeyboardLayoutSet.onKeyboardThemeChanged();
-            mKeyboardSwitcher.forceUpdateKeyboardTheme(mDisplayContext);
-            SettingsActivityKt.keyboardNeedsReload = false;
         }
     }
 }

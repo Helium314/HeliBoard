@@ -88,8 +88,6 @@ public class Keyboard {
 
     @NonNull
     private final ProximityInfo mProximityInfo;
-    @NonNull
-    private final KeyboardLayout mKeyboardLayout;
 
     private final boolean mProximityCharsCorrectionEnabled;
 
@@ -117,8 +115,6 @@ public class Keyboard {
                 mOccupiedWidth, mOccupiedHeight, mMostCommonKeyWidth, mMostCommonKeyHeight,
                 mSortedKeys, params.mTouchPositionCorrection);
         mProximityCharsCorrectionEnabled = params.mProximityCharsCorrectionEnabled;
-        mKeyboardLayout = KeyboardLayout.newKeyboardLayout(mSortedKeys, mMostCommonKeyWidth,
-                mMostCommonKeyHeight, mOccupiedWidth, mOccupiedHeight);
     }
 
     protected Keyboard(@NonNull final Keyboard keyboard) {
@@ -143,7 +139,6 @@ public class Keyboard {
 
         mProximityInfo = keyboard.mProximityInfo;
         mProximityCharsCorrectionEnabled = keyboard.mProximityCharsCorrectionEnabled;
-        mKeyboardLayout = keyboard.mKeyboardLayout;
     }
 
     public boolean hasProximityCharsCorrection(final int code) {
@@ -161,11 +156,6 @@ public class Keyboard {
     @NonNull
     public ProximityInfo getProximityInfo() {
         return mProximityInfo;
-    }
-
-    @NonNull
-    public KeyboardLayout getKeyboardLayout() {
-        return mKeyboardLayout;
     }
 
     /**

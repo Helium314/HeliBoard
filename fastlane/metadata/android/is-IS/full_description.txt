@@ -1,0 +1,30 @@
+HeliBoard er lyklaborð sem verndar persónuleg gögn, byggt á AOSP / OpenBoard.
+Notar ekki heimildir fyrir internet og er þannig 100% ónettengt.
+
+Eiginleikar:
+<ul>
+  <li>Bættu við orðasöfnum fyrir tillögur og stafsetningaryfirferð</li>
+  <ul>
+    <li>útbúðu þín eigin orðasöfn eða náðu í þau  <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hér</a>, eða í <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">tilrauna</a>-hlutanum okkar (gæði gætu verið af ýmsum toga)</li>
+    <li>viðbótar-orðasöfn með emoji-tjáningartáknum eða vísindatáknum er hægt að nota við tillögur (svipað "emoji leit")</li>
+    <li>athugaðu að fyrir Kóreskar lyklaborðsframsetningar, munu tillögur einungis virka með því að nota <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">þetta orðasafn</a>, þar sem verkfærin í orðasafnageymslunni okkar ná ekki að útbúa önnur orðasöfn sem virka</li>
+  </ul>
+  <li>Sérsníddu lyklaborðsþemu (stíl, liti og bakgrunnsmynd)</li>
+  <ul>
+    <li>getur fylgt dags-/nætur stillingum kerfisins á Android 10+ (og á sumum útgáfum Android 9)</li>
+    <li>getur fylgt breytilegum litum á Android 12+</li>
+  </ul>
+  <li>Sérsníddu <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">framsetningar</a> lyklaborðsins (einungis tiltækt þegar <i>nota tungumál kerfis</i> hefur verið gert óvirkt)</li>
+  <li>Sérsníddu sérstakar framsetningar, eins og tákn, tölur eða framsetningu aðgerðalykla</li>
+  <li>Fjöltyngdur innsláttur</li>
+  <li>Glide-innsláttur (<i>einungis með lokuðu séreignar-aðgerðasafni</i> ☹️)</li>
+  <ul>
+    <li>aðgerðasafnið fylgir ekki með hugbúnaðnum, því miður er ekkert samhæft aðgerðasafn tiltækt með opnum grunnkóða</li>
+    <li>hægt er að nálgast það úr GApps-pökkum ("<i>swypelibs</i>") eða sækja það <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">hér</a> (smelltu á skrána og síðan á "raw" eða litla niðurhalshnappinn)</li>
+  </ul>
+  <li>Klippispjaldsferill</li>
+  <li>Einnar-handar hamur</li>
+  <li>Skipt lyklaborð (aðeins í boði ef skjárinn er nógu stór)</li>
+  <li>Talnaborð</li>
+  <li>Taktu öryggisafrit og endurheimtu stillingarnar þínar eða lærð orð eða gögn vinnsluferils</li>
+</ul>

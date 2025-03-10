@@ -6,15 +6,6 @@
 -->
 
 <resources>
-    <!-- By default, the centered suggestion will not show the word that should be entered -->
-    <bool name="config_center_suggestion_text_to_enter">false</bool>
-    <bool name="config_block_potentially_offensive">true</bool>
-    <!-- Default value for next word prediction: after entering a word and a space only, should we
-         look at input history to suggest a hopefully helpful suggestions for the next word? -->
-    <bool name="config_default_next_word_prediction">true</bool>
-
-    <!-- Maximum time for a clipboard history entry to be kept, in minutes. -->
-    <integer name="config_clipboard_history_retention_time">10</integer>
 
     <integer name="config_delay_in_milliseconds_to_update_shift_state">100</integer>
     <integer name="config_double_space_period_timeout">1100</integer>
@@ -27,13 +18,6 @@
     <!-- Suppress showing key preview duration after batch input in millisecond -->
     <integer name="config_suppress_key_preview_after_batch_input_duration">100</integer>
 
-    <bool name="config_default_vibration_enabled">false</bool>
-    <integer name="config_max_vibration_duration">100</integer>
-
-    <integer name="config_default_longpress_key_timeout">300</integer>
-    <integer name="config_max_longpress_timeout">700</integer>
-    <integer name="config_min_longpress_timeout">100</integer>
-    <integer name="config_longpress_timeout_step">10</integer>
     <integer name="config_accessibility_long_press_key_timeout">3000</integer>
     <integer name="config_max_popup_keys_column">5</integer>
 
@@ -49,9 +33,6 @@
     <dimen name="config_language_on_spacebar_horizontal_margin">3dp</dimen>
 
     <integer name="config_gesture_trail_fadeout_start_delay">100</integer>
-    <integer name="config_gesture_trail_fadeout_duration_default">800</integer>
-    <integer name="config_gesture_trail_fadeout_duration_max">1900</integer>
-    <integer name="config_gesture_trail_fadeout_duration_step">50</integer>
     <integer name="config_gesture_trail_update_interval">20</integer>
     <!-- Static threshold for gesture after fast typing (msec) -->
     <integer name="config_gesture_static_time_threshold_after_fast_typing">500</integer>
@@ -96,9 +77,6 @@
     <dimen name="config_more_suggestions_bottom_gap">6dp</dimen>
     <dimen name="config_more_suggestions_modal_tolerance">32.0dp</dimen>
     <fraction name="config_more_suggestions_info_ratio">18%</fraction>
-
-    <!-- Common clipboard suggestion configuration. -->
-    <bool name="config_default_suggest_clipboard_content">true</bool>
 
     <!-- Common gesture trail parameters -->
     <!-- Minimum distance between gesture trail sampling points. -->

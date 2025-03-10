@@ -5,7 +5,8 @@ modified
 SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -20,7 +21,9 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             android:supportsRtl="true"
             android:allowBackup="true"
             android:defaultToDeviceProtectedStorage="true"
-            android:directBootAware="true">
+            android:directBootAware="true"
+            tools:remove="android:appComponentFactory"
+            tools:targetApi="p">
 
         <!-- Services -->
         <service android:name="LatinIME"
@@ -46,41 +49,14 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </service>
 
         <!-- Activities -->
-        <activity android:name=".setup.SetupActivity"
+        <activity android:name="helium314.keyboard.settings.SettingsActivity"
                 android:theme="@style/platformActivityTheme"
                 android:icon="@mipmap/ic_launcher"
-                android:launchMode="singleTask"
-                android:noHistory="true"
+                android:windowSoftInputMode="adjustResize"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".permissions.PermissionsActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="false"
-            android:taskAffinity="" >
-        </activity>
-
-        <activity android:name=".setup.SetupWizardActivity"
-                android:theme="@style/platformActivityTheme"
-                android:clearTaskOnLaunch="true"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="helium314.keyboard.settings.SettingsActivity"
-                android:theme="@style/platformActivityTheme"
-                android:windowSoftInputMode="adjustResize"
-                android:label="@string/ime_settings"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
             <!-- intent filter for opening .dict files -->
             <intent-filter>

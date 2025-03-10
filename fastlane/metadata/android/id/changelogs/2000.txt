@@ -1,0 +1,10 @@
+* menambahkan dukungan dasar untuk tombol pengubah
+* menambahkan fungsi tekan lama ke lebih banyak tombol bilah alat
+* dan lebih banyak tombol bilah alat riwayat clipboard
+* membuat bilah alat riwayat clipboard dapat disesuaikan
+* memungkinkan penyesuaian semua warna
+* menambahkan pengaturan untuk selalu menampilkan kata yang akan dimasukkan sebagai saran tengah
+* menambahkan indikator caps lock
+* menambahkan tata letak Piedmontese, Mari Timur, Mansi, yang diperluas untuk Kannada dan Hungaria
+* memperbaiki teks yang terpotong dalam popup pratinjau tombol pada beberapa perangkat
+* perbaikan dan penyempurnaan lebih lanjut, lihat catatan rilis

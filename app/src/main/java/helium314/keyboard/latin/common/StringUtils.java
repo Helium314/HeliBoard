@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.utils.ScriptUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -21,9 +20,6 @@ public final class StringUtils {
     public static final int CAPITALIZE_NONE = 0;  // No caps, or mixed case
     public static final int CAPITALIZE_FIRST = 1; // First only
     public static final int CAPITALIZE_ALL = 2;   // All caps
-
-    @NonNull
-    private static final String EMPTY_STRING = "";
 
     private static final char CHAR_LINE_FEED = 0X000A;
     private static final char CHAR_VERTICAL_TAB = 0X000B;
@@ -50,61 +46,6 @@ public final class StringUtils {
         return (str == null || str.length() == 0);
     }
 
-    // Taken from android.text.TextUtils to cut the dependency to the Android framework.
-
-    /**
-     * Returns a string containing the tokens joined by delimiters.
-     *
-     * @param delimiter the delimiter
-     * @param tokens    an array objects to be joined. Strings will be formed from
-     *                  the objects by calling object.toString().
-     */
-    @NonNull
-    public static String join(@NonNull final CharSequence delimiter,
-                              @NonNull final Iterable<?> tokens) {
-        final StringBuilder sb = new StringBuilder();
-        boolean firstTime = true;
-        for (final Object token : tokens) {
-            if (firstTime) {
-                firstTime = false;
-            } else {
-                sb.append(delimiter);
-            }
-            sb.append(token);
-        }
-        return sb.toString();
-    }
-
-    // Taken from android.text.TextUtils to cut the dependency to the Android framework.
-
-    /**
-     * Returns true if a and b are equal, including if they are both null.
-     * <p><i>Note: In platform versions 1.1 and earlier, this method only worked well if
-     * both the arguments were instances of String.</i></p>
-     *
-     * @param a first CharSequence to check
-     * @param b second CharSequence to check
-     * @return true if a and b are equal
-     */
-    public static boolean equals(@Nullable final CharSequence a, @Nullable final CharSequence b) {
-        if (a == b) {
-            return true;
-        }
-        final int length;
-        if (a != null && b != null && (length = a.length()) == b.length()) {
-            if (a instanceof String && b instanceof String) {
-                return a.equals(b);
-            }
-            for (int i = 0; i < length; i++) {
-                if (a.charAt(i) != b.charAt(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
     public static int codePointCount(@Nullable final CharSequence text) {
         if (isEmpty(text)) {
             return 0;
@@ -121,33 +62,6 @@ public final class StringUtils {
         }
         // For surrogate pair
         return new String(Character.toChars(codePoint));
-    }
-
-    /**
-     * Remove duplicates from an array of strings.
-     * <p>
-     * This method will always keep the first occurrence of all strings at their position
-     * in the array, removing the subsequent ones.
-     */
-    public static void removeDupes(@NonNull final ArrayList<String> suggestions) {
-        if (suggestions.size() < 2) {
-            return;
-        }
-        int i = 1;
-        // Don't cache suggestions.size(), since we may be removing items
-        while (i < suggestions.size()) {
-            final String cur = suggestions.get(i);
-            // Compare each suggestion with each previous suggestion
-            for (int j = 0; j < i; j++) {
-                final String previous = suggestions.get(j);
-                if (equals(cur, previous)) {
-                    suggestions.remove(i);
-                    i--;
-                    break;
-                }
-            }
-            i++;
-        }
     }
 
     @NonNull

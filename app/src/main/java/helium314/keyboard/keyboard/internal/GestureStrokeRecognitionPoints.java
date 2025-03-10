@@ -105,7 +105,7 @@ public final class GestureStrokeRecognitionPoints {
     public void addDownEventPoint(final int x, final int y, final int elapsedTimeSinceFirstDown,
             final int elapsedTimeSinceLastTyping) {
         reset();
-        if (elapsedTimeSinceLastTyping < Settings.getInstance().getCurrent().mGestureFastTypingCooldown) {
+        if (elapsedTimeSinceLastTyping < Settings.getValues().mGestureFastTypingCooldown) {
             mAfterFastTyping = true;
         }
         if (DEBUG) {

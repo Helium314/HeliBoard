@@ -1,12 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,29 +20,32 @@ import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.filePicker
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
+@SuppressLint("ApplySharedPref")
 @Composable
 fun LoadGestureLibPreference(setting: Setting) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val ctx = LocalContext.current
     val prefs = ctx.protectedPrefs()
     val abi = Build.SUPPORTED_ABIS[0]
-    val libFile = File(ctx.filesDir.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
+    val libFile = File(ctx.filesDir?.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
     fun renameToLibFileAndRestart(file: File, checksum: String) {
+        libFile.setWritable(true)
         libFile.delete()
-        // store checksum in default preferences (soo JniUtils)
+        // store checksum in default preferences (see JniUtils)
         prefs.edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
-        file.renameTo(libFile)
+        file.copyTo(libFile)
+        libFile.setReadOnly()
+        file.delete()
         Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
     var tempFilePath: String? by rememberSaveable { mutableStateOf(null) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
+    val launcher = filePicker { uri ->
         val tmpfile = File(ctx.filesDir.absolutePath + File.separator + "tmplib")
         try {
             val otherTemporaryFile = File(ctx.filesDir.absolutePath + File.separator + "tmpfile")
@@ -63,11 +63,6 @@ fun LoadGestureLibPreference(setting: Setting) {
                 renameToLibFileAndRestart(tmpfile, checksum)
             } else {
                 tempFilePath = tmpfile.absolutePath
-                AlertDialog.Builder(ctx)
-                    .setMessage(ctx.getString(R.string.checksum_mismatch_message, abi))
-                    .setPositiveButton(android.R.string.ok) { _, _ -> renameToLibFileAndRestart(tmpfile, checksum) }
-                    .setNegativeButton(android.R.string.cancel) { _, _ -> tmpfile.delete() }
-                    .show()
             }
         } catch (e: IOException) {
             tmpfile.delete()
@@ -88,8 +83,9 @@ fun LoadGestureLibPreference(setting: Setting) {
                     .setType("application/octet-stream")
                 launcher.launch(intent)
             },
+            confirmButtonText = stringResource(R.string.load_gesture_library_button_load),
             title = { Text(stringResource(R.string.load_gesture_library)) },
-            text = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
+            content = { Text(stringResource(R.string.load_gesture_library_message, abi)) },
             neutralButtonText = if (libFile.exists()) stringResource(R.string.load_gesture_library_button_delete) else null,
             onNeutral = {
                 libFile.delete()
@@ -104,7 +100,7 @@ fun LoadGestureLibPreference(setting: Setting) {
                 File(tempFilePath!!).delete()
                 tempFilePath = null
             },
-            text = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
+            content = { Text(stringResource(R.string.checksum_mismatch_message, abi)) },
             onConfirmed = {
                 val tempFile = File(tempFilePath!!)
                 renameToLibFileAndRestart(tempFile, ChecksumCalculator.checksum(tempFile.inputStream()) ?: "")

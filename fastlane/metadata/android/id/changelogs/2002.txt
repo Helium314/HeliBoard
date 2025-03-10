@@ -1,0 +1,4 @@
+* menambahkan tombol bilah alat emoji, oleh @codokie (#845, #837)
+* perbaikan terkait huruf yang digandakan (#225 dan mungkin lainnya)
+* menghindari penempatan kursor di dalam emoji (#859)
+* perbaikan kecil untuk fitur yang baru ditambahkan

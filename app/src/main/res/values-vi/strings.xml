@@ -5,8 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Tra cứu tên liên hệ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Trình kiểm tra chính tả sử dụng các mục nhập từ danh bạ của bạn"</string>
+    <string name="use_contacts_dict">"Tra cứu tên liên hệ"</string>
     <string name="vibrate_on_keypress">"Rung khi nhấn phím"</string>
     <string name="sound_on_keypress">"Phát âm thanh khi nhấn phím"</string>
     <string name="popup_on_keypress">"Phông chữ lớn hơn bật lên khi nhấn phím"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Phím chuyển đổi ngôn ngữ"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> mili giây"</string>
     <string name="settings_system_default">"Theo mặc định của hệ thống"</string>
-    <string name="use_contacts_dict">"Đề xuất tên liên hệ"</string>
     <string name="use_contacts_dict_summary">"Sử dụng tên từ Danh bạ cho các đề xuất và chỉnh sửa"</string>
     <string name="use_personalized_dicts">"Đề xuất được cá nhân hóa"</string>
     <string name="use_double_space_period">"Thêm dấu chấm khi nhấn hai phím cách"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Tự động viết hoa"</string>
     <string name="auto_cap_summary">"Viết hoa chữ đầu tiên của mỗi câu"</string>
     <string name="edit_personal_dictionary">"Từ điển cá nhân"</string>
-    <string name="configure_dictionaries_title">"Thêm từ điển"</string>
     <string name="main_dictionary">"Từ điển chính"</string>
     <string name="prefs_show_suggestions">"Hiển thị gợi ý sửa"</string>
     <string name="prefs_show_suggestions_summary">"Hiển thị từ được đề xuất khi nhập"</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Hiển thị biểu tượng ứng dụng"</string>
     <string name="show_setup_wizard_icon_summary">"Hiển thị biểu tượng ứng dụng trong trình chạy"</string>
     <string name="dictionary_settings_title">"Từ điển bổ sung"</string>
-    <string name="dictionary_settings_summary">"Cài đặt cho từ điển"</string>
     <string name="dictionary_available">"Từ điển có sẵn"</string>
-    <string name="cannot_connect_to_dict_service">"Lỗi kết nối DV từ điển"</string>
     <string name="no_dictionaries_available">"Không có từ điển nào"</string>
     <string name="last_update">"Cập nhật lần cuối"</string>
-    <string name="main_dict_description">"Từ điển chính"</string>
     <string name="settings">"Cài đặt"</string>
     <string name="delete">"Xóa"</string>
     <string name="version_text">"Phiên bản <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

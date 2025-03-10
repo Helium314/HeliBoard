@@ -3,9 +3,8 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Procurar nomes de contac."</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"O corretor ortográfico utiliza entradas da sua lista de contactos"</string>
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="use_contacts_dict">"Procurar nomes de contac."</string>
     <string name="vibrate_on_keypress">"Vibrar ao primir as teclas"</string>
     <string name="sound_on_keypress">"Som ao premir as teclas"</string>
     <string name="popup_on_keypress">"Mostrar popup ao premir tecla"</string>
@@ -20,7 +19,6 @@
     <string name="show_language_switch_key">"Tecla alterar idioma"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predef. do sistema"</string>
-    <string name="use_contacts_dict">"Sugerir nomes de Contactos"</string>
     <string name="use_contacts_dict_summary">"Utilizar nomes dos Contactos para sugestões e correções"</string>
     <string name="use_personalized_dicts">"Sugestões personalizadas"</string>
     <string name="use_double_space_period">"Ponto de espaço duplo"</string>
@@ -28,7 +26,6 @@
     <string name="auto_cap">"Letras maiúsculas automáticas"</string>
     <string name="auto_cap_summary">"Maiúscula no início da frase"</string>
     <string name="edit_personal_dictionary">"Dicionário pessoal"</string>
-    <string name="configure_dictionaries_title">"Dicionários extras"</string>
     <string name="main_dictionary">"Dicionário principal"</string>
     <string name="prefs_show_suggestions">"Mostrar sugestões de correcção"</string>
     <string name="prefs_show_suggestions_summary">"Apresentar sugestões de palavras ao escrever"</string>
@@ -89,7 +86,7 @@
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado em Idiomas e definições de entrada, pelo que este passo está concluído. Vamos avançar para a próxima!\"</string>
     <string name="setup_step1_action">Ativar nas definições</string>
     <string name="setup_step2_title">Alternar para<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">De seguida, selecione <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> como método de introdução.</string>
+    <string name="setup_step2_instruction">De seguida, selecione <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de introdução ativo.\"</string>
     <string name="setup_step2_action">Alternar métodos de introdução</string>
     <string name="setup_step3_title">Parabéns, configuração terminada!</string>
     <string name="setup_step3_instruction">Agora, já pode utilizar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para escrever nas suas aplicações.</string>
@@ -97,12 +94,9 @@
     <string name="show_setup_wizard_icon">"Mostrar ícone da aplicação"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone da aplicação no iniciador"</string>
     <string name="dictionary_settings_title">"Dicionários suplementares"</string>
-    <string name="dictionary_settings_summary">"Definições dos dicionários"</string>
     <string name="dictionary_available">"Dicionário disponível"</string>
-    <string name="cannot_connect_to_dict_service">"Problema ao ligar ao serviço de dicionário"</string>
     <string name="no_dictionaries_available">"Nenhum dicionário"</string>
     <string name="last_update">"Última atualização"</string>
-    <string name="main_dict_description">"Dicionário principal"</string>
     <string name="settings">"Definições"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -203,4 +197,33 @@
     <string name="more_autocorrect_summary">Correção automática mesmo quando não é explicitamente solicitada pelo campo de entrada</string>
     <string name="gesture_trail_fadeout_duration">Tempo de vida do rasto do gesto</string>
     <string name="checksum_mismatch_message">Ficheiro de biblioteca desconhecido. Tem a certeza de que o obteve de uma fonte fiável e que é para \'%s\'?</string>
+    <string name="vibrate_in_dnd_mode">Vibrar no modo Não Incomodar</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonético)</string>
+    <string name="prefs_key_emoji_max_sdk">Substituir a versão de Emoji</string>
+    <string name="subtype_dru">Dargínico (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="auto_correct_shortcuts">Atalhos de correção automática</string>
+    <string name="auto_correct_shortcuts_summary">Quando ativado, os atalhos podem ser expandidos pela correção automática</string>
+    <string name="customize_background_image_landscape">Definir imagem de fundo (paisagem)</string>
+    <string name="custom_font">Definir tipo de letra personalizado a partir de um ficheiro</string>
+    <string name="summary_customize_background_image_landscape">Se não for definido, será utilizada a imagem de retrato</string>
+    <string name="customize_toolbar_key_code_reset_message">Limpar realmente todos os códigos de teclas personalizados?</string>
+    <string name="number_row_hints">Mostrar dicas na linha dos números</string>
+    <string name="prefs_language_swipe_distance">Mudar a distância de deslizamento do idioma</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Linha de números</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Disposição</string>
+    <string name="show_popup_keys_more">Adicionar variantes comuns</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
+    <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Língua (prioridade)</string>
+    <string name="emoji" tools:keep="@string/emoji">Emoji</string>
+    <string name="show_popup_keys_all">Adicionar todas as variantes disponíveis</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
+    <string name="up" tools:keep="@string/up">Cima</string>
+    <string name="down" tools:keep="@string/down">Baixo</string>
+    <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Limpar a área de transferência</string>
+    <string name="select_word" tools:keep="@string/select_word">Selecionar palavra</string>
+    <string name="left" tools:keep="@string/left">Esquerda</string>
+    <string name="right" tools:keep="@string/right">Direita</string>
+    <string name="locales_with_dict">Idiomas com dicionários</string>
+    <string name="clipboard" tools:keep="@string/clipboard">Área de transferência</string>
 </resources>

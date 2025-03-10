@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"Hľadať mená kontaktov"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"Kontrola pravopisu používa záznamy z vášho zoznamu kontaktov"</string>
+    <string name="use_contacts_dict">"Hľadať mená kontaktov"</string>
     <string name="vibrate_on_keypress">"Pri stlačení klávesu vibrovať"</string>
     <string name="sound_on_keypress">"Zvuk pri stlačení klávesu"</string>
     <string name="popup_on_keypress">"Detail znaku pri stlačení"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"Kľúč na prepínanie jazyka"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
     <string name="settings_system_default">"Predvolené"</string>
-    <string name="use_contacts_dict">"Navrhovať mená kontaktov"</string>
     <string name="use_contacts_dict_summary">"Používať mená z kontaktov na návrhy a opravy"</string>
     <string name="use_personalized_dicts">"Prispôsobené návrhy"</string>
     <string name="use_double_space_period">"Bodka dvojitým medzerníkom"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"Veľké písmená automaticky"</string>
     <string name="auto_cap_summary">"Písanie prvého slova v každej vete veľkým písmenom"</string>
     <string name="edit_personal_dictionary">"Osobný slovník"</string>
-    <string name="configure_dictionaries_title">"Doplnkové slovníky"</string>
     <string name="main_dictionary">"Hlavný slovník"</string>
     <string name="prefs_show_suggestions">"Zobrazovať návrhy opráv"</string>
     <string name="prefs_show_suggestions_summary">"Zobrazovať navrhované slová počas písania"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"Zobraziť ikonu aplikácie"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazenie ikony aplikácie v spúšťači"</string>
     <string name="dictionary_settings_title">"Doplnkové slovníky"</string>
-    <string name="dictionary_settings_summary">"Nastavenia pre slovníky"</string>
     <string name="dictionary_available">"K dispozícii je slovník"</string>
-    <string name="cannot_connect_to_dict_service">"Probl. s prip. k sl."</string>
     <string name="no_dictionaries_available">"Slovníky sú nedostupné"</string>
     <string name="last_update">"Posledná aktualizácia"</string>
-    <string name="main_dict_description">"Hlavný slovník"</string>
     <string name="settings">"Nastavenia"</string>
     <string name="delete">"Odstrániť"</string>
     <string name="version_text">"Verzia <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>

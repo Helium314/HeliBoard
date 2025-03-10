@@ -4,8 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="use_contacts_for_spellchecking_option_title">"കോണ്ടാക്റ്റ് പേരുകൾ തിരയൂ"</string>
-    <string name="use_contacts_for_spellchecking_option_summary">"നിങ്ങളുടെ കോൺടാക്‌റ്റ് ലിസ്‌റ്റിൽ നിന്നുള്ള എൻട്രികൾ സ്പെൽചെക്കർ ഉപയോഗിക്കുന്നു"</string>
+    <string name="use_contacts_dict">"കോണ്ടാക്റ്റ് പേരുകൾ തിരയൂ"</string>
     <string name="vibrate_on_keypress">"കീ അമർത്തുമ്പോൾ വൈബ്രേറ്റുചെയ്യുക"</string>
     <string name="sound_on_keypress">"കീ അമർത്തുമ്പോൾ ശബ്‌ദം"</string>
     <string name="popup_on_keypress">"കീ അമർത്തുമ്പോൾ പോപ്പപ്പ്"</string>
@@ -19,7 +18,6 @@
     <string name="show_language_switch_key">"ഭാഷ മാറൽ കീ"</string>
     <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>മി.സെ"</string>
     <string name="settings_system_default">"സ്ഥിരമായ സിസ്റ്റം"</string>
-    <string name="use_contacts_dict">"കോൺടാക്‌റ്റ് പേര് നിർദ്ദേശിക്കൂ"</string>
     <string name="use_contacts_dict_summary">നിർദ്ദേശങ്ങൾക്കും തിരുത്തലുകൾക്കുമായി കോൺടാക്‌റ്റുകളിൽ നിന്നുള്ള പേരുകൾ ഉപയോഗിക്കുക</string>
     <string name="use_personalized_dicts">"വ്യക്തിഗത നിർദ്ദേശങ്ങൾ"</string>
     <string name="use_double_space_period">"ഡബിൾ സ്പേസ് പീരിഡ്"</string>
@@ -27,7 +25,6 @@
     <string name="auto_cap">"സ്വയം വലിയക്ഷരമാക്കുക"</string>
     <string name="auto_cap_summary">"ഓരോ വാക്യത്തിന്റെയും ആദ്യ പദം വലിയക്ഷരമാക്കുക"</string>
     <string name="edit_personal_dictionary">"വ്യക്തിഗത നിഘണ്ടു"</string>
-    <string name="configure_dictionaries_title">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
     <string name="main_dictionary">"പ്രധാന നിഘണ്ടു"</string>
     <string name="prefs_show_suggestions">"തിരുത്തലുകൾ കാണിക്കുക"</string>
     <string name="prefs_show_suggestions_summary">"ടൈപ്പുചെയ്യുമ്പോൾ നിർദ്ദേശിച്ച വാക്കുകൾ പ്രദർശിപ്പിക്കുക"</string>
@@ -96,12 +93,9 @@
     <string name="show_setup_wizard_icon">"അപ്ലിക്കേഷൻ ഐക്കൺ കാണിക്കുക"</string>
     <string name="show_setup_wizard_icon_summary">"ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക"</string>
     <string name="dictionary_settings_title">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
-    <string name="dictionary_settings_summary">"നിഘണ്ടുക്കൾക്കായുള്ള ക്രമീകരണങ്ങൾ"</string>
     <string name="dictionary_available">"നിഘണ്ടു ലഭ്യമാണ്"</string>
-    <string name="cannot_connect_to_dict_service">"നിഘണ്ടു സേവനത്തിൽ കണക്റ്റുചെയ്യുന്നതിൽ പ്രശ്‌നം"</string>
     <string name="no_dictionaries_available">"നിഘണ്ടുക്കളൊന്നും ലഭ്യമല്ല"</string>
     <string name="last_update">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
-    <string name="main_dict_description">"പ്രധാന നിഘണ്ടു"</string>
     <string name="settings">"ക്രമീകരണം"</string>
     <string name="delete">"ഇല്ലാതാക്കുക"</string>
     <string name="version_text">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>

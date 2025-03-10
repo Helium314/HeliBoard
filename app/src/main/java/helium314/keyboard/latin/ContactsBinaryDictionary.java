@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
 import helium314.keyboard.latin.utils.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.inputmethod.latin.BinaryDictionary;
@@ -49,7 +50,7 @@ public class ContactsBinaryDictionary extends ExpandableBinaryDictionary
         reloadDictionaryIfRequired();
     }
 
-    public static ContactsBinaryDictionary getDictionary(final Context context, final Locale locale,
+    public static ContactsBinaryDictionary getDictionary(final Context context, @NonNull final Locale locale,
             final File dictFile, final String dictNamePrefix, @Nullable final String account) {
         return new ContactsBinaryDictionary(context, locale, dictFile, dictNamePrefix + NAME);
     }

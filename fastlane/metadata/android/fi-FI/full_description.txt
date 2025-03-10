@@ -1,0 +1,30 @@
+HeliBoard on yksityisyyttä kunnioittava avoimen lähdekoodin näppäimistö, joka perustuu AOSP / OpenBoardiin.
+Ei käytä Internet-lupaa, joten on kokonaan ei-verkkotilassa.
+
+Ominaisuudet:
+<ul>
+ <li>Lisää sanakirjoja ehdotuksia ja oikeinkirjoituksen tarkistusta varten</li>
+ <ul>
+ <li>rakenna omasi tai hanki ne <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">täältä</a> tai <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">kokeellinen toukokuu</a> -osiossa (laatu voi vaihdella)</li>
+ <li>hymiöiden tai tieteellisten symbolien lisäsanakirjoja voidaan käyttää ehdotusten antamiseen (samanlainen kuin "emojihaku")</li>
+ <li>huomaa, että korean asetteluissa ehdotukset toimivat vain käyttämällä <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">tätä sanakirjaa</a>. Sanakirjan työskentelytyökalut</a> eivät ole käytettävissä.</li>
+ </ul>
+ <li>Muokkaa näppäimistöteemoja (tyyli, värit ja taustakuva)</li>
+ <ul>
+ <li>voi seurata järjestelmän päivä/yö-asetuksia Android 10+ -versiossa (ja joissakin Android 9:n versioissa)</li>
+ <li>voi seurata dynaamisia värejä Android 12+:lle</li>
+ </ul>
+ <li>Muokkaa näppäimistön <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">asetteluja</a> (käytettävissä vain, kun <i>käytä järjestelmäkieliä</i>)</li>
+ <li>Muokkaa erikoisasetteluja, kuten symboleja, numeroita tai toiminnallisten näppäinten asettelua.</li>
+ <li>Monikielinen kirjoittaminen</li>
+ <li>Liukukirjoitus (<i>vain suljetun lähdekoodin kirjastossa</i> ☹️)</li>
+ <ul>
+ <li>kirjasto ei sisälly sovellukseen, koska saatavilla ei ole yhteensopivaa avoimen lähdekoodin kirjastoa</li>
+ <li>voidaan purkaa GApps-paketeista ("<i>swypelibs</i>") tai ladata <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">täällä</a> (napsauta tiedostoa ja sitten "raw" tai pieni latauspainike)</li>
+ </ul>
+ <li>Leikepöydän historia</li>
+ <li>Yhden käden tila</li>
+ <li>Jaettu näppäimistö (käytettävissä vain, jos näyttö on riittävän suuri)</li>
+ <li>Numeronäppäimistö</li>
+ <li>Varmuuskopioi ja palauta asetuksesi ja opitut sana-/historiatiedot</li>
+</ul>

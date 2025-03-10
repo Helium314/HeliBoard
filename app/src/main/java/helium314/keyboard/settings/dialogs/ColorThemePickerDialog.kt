@@ -1,13 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
-import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -30,30 +26,41 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.ColorSetting
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.decodeBase36
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.appendLink
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.DeleteButton
+import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsDestination
-import helium314.keyboard.settings.keyboardNeedsReload
+import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.filePicker
+import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.SaveThoseColors
+import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.util.EnumMap
@@ -102,7 +109,7 @@ fun ColorThemePickerDialog(
         neutralButtonText = stringResource(R.string.load),
         onNeutral = { showLoadDialog = true },
         title = { Text(setting.title) },
-        text = {
+        content = {
             CompositionLocalProvider(
                 LocalTextStyle provides MaterialTheme.typography.bodyLarge
             ) {
@@ -119,18 +126,27 @@ fun ColorThemePickerDialog(
         },
     )
     var errorDialog by remember { mutableStateOf(false) }
-    val loadFilePicker = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+    val scope = rememberCoroutineScope()
+    val loadFilePicker = filePicker { uri ->
         ctx.getActivity()?.contentResolver?.openInputStream(uri)?.use {
-            errorDialog = !loadColorString(it.reader().readText(), prefs)
-            if (!errorDialog)
-                onDismissRequest() // todo: for some reason the list doesn't update after importing a file, only from clipboard
+            val text = it.reader().readText()
+            // theme not added when done without coroutine (maybe prefs listener is not yet registered?)
+            scope.launch { errorDialog = !loadColorString(text, prefs) }
         }
     }
     if (showLoadDialog) {
         ConfirmationDialog(
             onDismissRequest = { showLoadDialog = false },
+            title = { Text(stringResource(R.string.load)) },
+            content = {
+                val text = stringResource(R.string.get_colors_message)
+                val annotated = buildAnnotatedString {
+                    append(text.substringBefore("%s"))
+                    appendLink(stringResource(R.string.discussion_section_link), Links.CUSTOM_COLORS)
+                    append(text.substringAfter("%s"))
+                }
+                Text(annotated)
+            },
             onConfirmed = {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
@@ -157,6 +173,10 @@ fun ColorThemePickerDialog(
 private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<String>, targetScreen: String, prefKey: String) {
     var textValue by remember { mutableStateOf(TextFieldValue()) }
     val prefs = LocalContext.current.prefs()
+    val defaultName = KeyboardTheme.getUnusedThemeName(stringResource(R.string.theme_name_user), prefs)
+    val textEmpty = textValue.text.isEmpty()
+    val currentName = if (textEmpty) defaultName else textValue.text
+    val label: @Composable (() -> Unit)? = if (textEmpty) { { Text(defaultName) } } else null
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(start = 10.dp)
@@ -166,17 +186,16 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
             value = textValue,
             onValueChange = { textValue = it },
             modifier = Modifier.weight(1f),
-            singleLine = true
+            singleLine = true,
+            label = label
         )
-        IconButton(
-            enabled = textValue.text.isNotEmpty() && textValue.text !in userColors,
-            onClick = {
-                onDismissRequest()
-                prefs.edit().putString(prefKey, textValue.text).apply()
-                SettingsDestination.navigateTo(targetScreen)
-                keyboardNeedsReload = true
-            }
-        ) { Icon(painterResource(R.drawable.ic_edit), null) }
+        EditButton(currentName.isNotBlank() && currentName !in userColors) {
+            onDismissRequest()
+            prefs.edit().putString(prefKey, currentName).apply()
+            KeyboardTheme.writeUserMoreColors(prefs, currentName, Defaults.PREF_USER_MORE_COLORS) // write sth so theme is stored
+            SettingsDestination.navigateTo(targetScreen + currentName)
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+        }
     }
 }
 
@@ -191,7 +210,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             .clickable {
                 onDismissRequest()
                 prefs.edit().putString(prefKey, item).apply()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
             .padding(start = 6.dp)
             .heightIn(min = 40.dp)
@@ -201,7 +220,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
             onClick = {
                 onDismissRequest()
                 prefs.edit().putString(prefKey, item).apply()
-                keyboardNeedsReload = true
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
             }
         )
         Text(
@@ -211,22 +230,15 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
         )
         if (isUser) {
             var showDialog by remember { mutableStateOf(false) }
-            IconButton(
-                onClick = { showDialog = true }
-            ) { Icon(painterResource(R.drawable.ic_bin), null) }
-            IconButton(
-                onClick = {
-                    onDismissRequest()
-                    // todo: maybe no need to set it as default when using the navigation specials
-                    prefs.edit().putString(prefKey, item).apply()
-                    SettingsDestination.navigateTo(targetScreen)
-                    keyboardNeedsReload = true
-                }
-            ) { Icon(painterResource(R.drawable.ic_edit), null) }
+            DeleteButton { showDialog = true }
+            EditButton {
+                onDismissRequest()
+                SettingsDestination.navigateTo(targetScreen + item)
+            }
             if (showDialog)
                 ConfirmationDialog(
                     onDismissRequest = { showDialog = false },
-                    text = { Text(stringResource(R.string.delete_confirmation, item)) },
+                    content = { Text(stringResource(R.string.delete_confirmation, item)) },
                     onConfirmed = {
                         showDialog = false
                         prefs.edit().remove(Settings.PREF_USER_COLORS_PREFIX + item)
@@ -234,7 +246,7 @@ private fun ColorItemRow(onDismissRequest: () -> Unit, item: String, isSelected:
                             .remove(Settings.PREF_USER_MORE_COLORS_PREFIX + item).apply()
                         if (isSelected)
                             prefs.edit().remove(prefKey).apply()
-                        keyboardNeedsReload = true
+                        KeyboardSwitcher.getInstance().setThemeNeedsReload()
                     }
                 )
         }
@@ -274,10 +286,12 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
 @Preview
 @Composable
 private fun Preview() {
-    ColorThemePickerDialog(
-        onDismissRequest = {},
-        setting = Setting(LocalContext.current, "", R.string.settings) {},
-        default = "dark",
-        isNight = true
-    )
+    Theme(previewDark) {
+        ColorThemePickerDialog(
+            onDismissRequest = {},
+            setting = Setting(LocalContext.current, "", R.string.settings) {},
+            default = "dark",
+            isNight = true
+        )
+    }
 }

@@ -59,7 +59,7 @@ class ClipboardAdapter(
                 setOnLongClickListener(this@ViewHolder)
                 setBackgroundResource(itemBackgroundId)
             }
-            Settings.getInstance().current.mColors.setBackground(view, ColorType.KEY_BACKGROUND)
+            Settings.getValues().mColors.setBackground(view, ColorType.KEY_BACKGROUND)
             pinnedIconView = view.findViewById<ImageView>(R.id.clipboard_entry_pinned_icon).apply {
                 visibility = View.GONE
                 setImageResource(pinnedIconResId)
@@ -70,7 +70,7 @@ class ClipboardAdapter(
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize)
             }
             clipboardLayoutParams.setItemProperties(view)
-            val colors = Settings.getInstance().current.mColors
+            val colors = Settings.getValues().mColors
             colors.setColor(pinnedIconView, ColorType.CLIPBOARD_PIN)
         }
 

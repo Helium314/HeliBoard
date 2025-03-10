@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.utils.Log
@@ -37,8 +38,11 @@ import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 @Composable
 fun AboutScreen(
@@ -83,7 +87,7 @@ fun createAboutSettings(context: Context) = listOf(
                 prefs.edit().putBoolean(DebugSettings.PREF_SHOW_DEBUG_SETTINGS, true).apply()
                 Toast.makeText(ctx, R.string.prefs_debug_settings_enabled, Toast.LENGTH_LONG).show()
             },
-            icon = R.drawable.ic_settings_about_foreground
+            icon = R.drawable.ic_settings_about
         )
     },
     Setting(context, SettingsWithoutKey.LICENSE, R.string.license, R.string.gnu_gpl) {
@@ -93,11 +97,11 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard/blob/main/LICENSE-GPL-3".toUri()
+                intent.data = Links.LICENSE.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_settings_about_license_foreground
+            icon = R.drawable.ic_settings_about_license
         )
     },
     Setting(context, SettingsWithoutKey.HIDDEN_FEATURES, R.string.hidden_features_title, R.string.hidden_features_summary) {
@@ -121,7 +125,7 @@ fun createAboutSettings(context: Context) = listOf(
                 builder.show()
                 (builder.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
             },
-            icon = R.drawable.ic_settings_about_hidden_features_foreground
+            icon = R.drawable.ic_settings_about_hidden_features
         )
     },
     Setting(context, SettingsWithoutKey.GITHUB, R.string.about_github_link) {
@@ -131,11 +135,11 @@ fun createAboutSettings(context: Context) = listOf(
             description = it.description,
             onClick = {
                 val intent = Intent()
-                intent.data = "https://github.com/Helium314/HeliBoard".toUri()
+                intent.data = Links.GITHUB.toUri()
                 intent.action = Intent.ACTION_VIEW
                 ctx.startActivity(intent)
             },
-            icon = R.drawable.ic_settings_about_github_foreground
+            icon = R.drawable.ic_settings_about_github
         )
     },
     Setting(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { setting ->
@@ -154,17 +158,18 @@ fun createAboutSettings(context: Context) = listOf(
             name = setting.title,
             description = setting.description,
             onClick = {
+                val date = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().time)
                 val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
                     .addCategory(Intent.CATEGORY_OPENABLE)
                     .putExtra(
                         Intent.EXTRA_TITLE,
                         ctx.getString(R.string.english_ime_name)
-                            .replace(" ", "_") + "_log_${System.currentTimeMillis()}.txt"
+                            .replace(" ", "_") + "_log_$date.txt"
                     )
                     .setType("text/plain")
                 launcher.launch(intent)
             },
-            icon = R.drawable.ic_settings_about_log_foreground
+            icon = R.drawable.ic_settings_about_log
         )
     },
 )
@@ -173,7 +178,7 @@ fun createAboutSettings(context: Context) = listOf(
 @Composable
 private fun Preview() {
     SettingsActivity.settingsContainer = SettingsContainer(LocalContext.current)
-    Theme(true) {
+    Theme(previewDark) {
         Surface {
             AboutScreen {  }
         }
