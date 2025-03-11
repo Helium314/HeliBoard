@@ -9,7 +9,6 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
-import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LABEL_DEFAULT
 import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
@@ -74,9 +73,9 @@ object Defaults {
     const val PREF_LANGUAGE_SWITCH_KEY = "internal"
     const val PREF_SHOW_EMOJI_KEY = false
     const val PREF_VARIABLE_TOOLBAR_DIRECTION = true
-    const val PREF_ADDITIONAL_SUBTYPES = "de${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=qwerty${Separators.SETS}" +
-            "fr${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=qwertz${Separators.SETS}" +
-            "hu${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=qwerty"
+    const val PREF_ADDITIONAL_SUBTYPES = "de${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty${Separators.SETS}" +
+            "fr${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwertz${Separators.SETS}" +
+            "hu${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty"
     const val PREF_ENABLE_SPLIT_KEYBOARD = false
     const val PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = false
     const val PREF_SPLIT_SPACER_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
@@ -152,8 +151,6 @@ object Defaults {
     const val PREF_EMOJI_RECENT_KEYS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0
     const val PREF_PINNED_CLIPS = ""
-    @JvmField
-    val PREF_LIBRARY_CHECKSUM: String = JniUtils.expectedDefaultChecksum()
     const val PREF_SHOW_DEBUG_SETTINGS = false
     val PREF_DEBUG_MODE = BuildConfig.DEBUG
     const val PREF_SHOW_SUGGESTION_INFOS = false

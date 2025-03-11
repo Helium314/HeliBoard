@@ -125,8 +125,8 @@ fun SubtypeDialog(
         onConfirmed = { onConfirmed(currentSubtype) },
         neutralButtonText = if (initialSubtype.isAdditionalSubtype(prefs)) stringResource(R.string.delete) else null,
         onNeutral = {
-            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
-            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
+            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype())
+            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype())
             onDismissRequest()
         },
         title = {
@@ -393,7 +393,7 @@ private fun MainLayoutRow(
         if (showLayoutEditDialog != null) {
             val layoutName = showLayoutEditDialog!!.first
             val startContent = showLayoutEditDialog?.second
-                ?: if (layoutName in appLayouts) LayoutUtils.getContent(LayoutType.MAIN, layoutName, ctx)
+                ?: if (layoutName in appLayouts) LayoutUtils.getContentWithPlus(layoutName, currentSubtype.locale, ctx)
                 else null
             LayoutEditDialog(
                 onDismissRequest = { showLayoutEditDialog = null },

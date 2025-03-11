@@ -312,10 +312,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
     }
 
-    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
-        prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
-    }
-
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
         return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
