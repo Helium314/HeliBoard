@@ -60,6 +60,7 @@ fun getFullEmojiAtEnd(text: CharSequence): String {
     while (offset > 0) {
         val codepoint = s.codePointBefore(offset)
         // stop if codepoint can't be emoji
+        if (!mightBeEmoji(codepoint)) return text.substring(offset)
         offset -= Character.charCount(codepoint)
         if (offset > 0 && s[offset - 1].code == KeyCode.ZWJ) {
             // todo: this appends ZWJ in weird cases like text, ZWJ, emoji
