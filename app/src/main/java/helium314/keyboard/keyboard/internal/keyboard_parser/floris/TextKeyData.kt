@@ -526,10 +526,11 @@ sealed interface KeyData : AbstractKeyData {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
             KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT
-            // essentially this only changes the appearance of the armenian period key in holo theme
+            // essentially the first term only changes the appearance of the armenian period key in holo theme
             KeyLabel.PERIOD -> (Key.LABEL_FLAGS_HAS_POPUP_HINT and
-                                    if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0) or
-                                Key.LABEL_FLAGS_PRESERVE_CASE
+                    if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0) or
+                    (if (shouldShowTldPopups(params)) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL) or
+                    Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
                         Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
@@ -576,12 +577,14 @@ sealed interface KeyData : AbstractKeyData {
 
     private fun getPeriodPopups(params: KeyboardParams): SimplePopups =
         SimplePopups(
-            if (Settings.getInstance().current.mShowTldPopupKeys
-                && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
-                && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL)
-            ) params.mLocaleKeyboardInfos.tlds
+            if (shouldShowTldPopups(params)) params.mLocaleKeyboardInfos.tlds
             else getPunctuationPopupKeys(params)
         )
+
+    private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
+        (Settings.getInstance().current.mShowTldPopupKeys
+                && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
+                && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 }
 
 /**
