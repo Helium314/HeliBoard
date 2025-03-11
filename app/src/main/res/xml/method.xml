@@ -24,6 +24,7 @@
     bn_IN: Bengali (India)/Baishakhi
     ca: Catalan/qwerty+
     cs: Czech/qwertz
+    ckb: Central Kurdish/central_kurdish
     cv: Chuvash/chuvash
     da: Danish/qwerty+
     dru: Dargwa (Urakhi)/dargwa_urakhi
@@ -296,6 +297,15 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwertz,AsciiCapable,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="true"
     />
+        <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0xf40a175b"
+        android:imeSubtypeLocale="ckb"
+        android:languageTag="ckb"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:central_kurdish|SYMBOLS:symbols_arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="false"
+        />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0xdf43fc1d"
