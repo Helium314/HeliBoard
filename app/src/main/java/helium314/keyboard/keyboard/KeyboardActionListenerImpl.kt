@@ -120,13 +120,13 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             val text = connection.getSelectedText(0) ?: return steps
             loopOverCodePoints(text) { cp, charCount ->
                 actualSteps += charCount
-                if (actualSteps >= steps) return actualSteps
+                actualSteps >= steps
             }
         } else {
             val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
             loopOverCodePointsBackwards(text) { cp, charCount ->
                 actualSteps -= charCount
-                if (actualSteps <= steps) return actualSteps
+                actualSteps <= steps
             }
         }
         return actualSteps
@@ -223,7 +223,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         loopOverCodePoints(text) { cp, charCount ->
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps += charCount
-            if (actualSteps >= steps) return min(actualSteps, text.length)
+            actualSteps >= steps
         }
         return min(actualSteps, text.length)
     }
@@ -234,7 +234,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         loopOverCodePointsBackwards(text) { cp, charCount ->
             if (StringUtils.mightBeEmoji(cp)) return 0
             actualSteps -= charCount
-            if (actualSteps <= steps) return -min(-actualSteps, text.length)
+            actualSteps <= steps
         }
         return -min(-actualSteps, text.length)
     }

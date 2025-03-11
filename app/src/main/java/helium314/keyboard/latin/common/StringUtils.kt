@@ -9,24 +9,24 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import java.math.BigInteger
 import java.util.Locale
 
-inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Unit) {
+inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     val s = text.toString()
     var offset = 0
     while (offset < s.length) {
         val cp = s.codePointAt(offset)
         val charCount = Character.charCount(cp)
-        loop(cp, charCount)
+        if (loop(cp, charCount)) return
         offset += charCount
     }
 }
 
-inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Unit) {
+inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     val s = text.toString()
     var offset = s.length
     while (offset > 0) {
         val cp = s.codePointBefore(offset)
         val charCount = Character.charCount(cp)
-        loop(cp, charCount)
+        if (loop(cp, charCount)) return
         offset -= charCount
     }
 }
@@ -40,7 +40,7 @@ fun nonWordCodePointAndNoSpaceBeforeCursor(text: CharSequence, spacingAndPunctua
         if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(cp) && cp != '"'.code) {
             nonWordCodePoint = true
         }
-        if (space && nonWordCodePoint) return false // stop if both are found
+        space && nonWordCodePoint // stop if both are found
     }
     return nonWordCodePoint // return true if a non-word codepoint and no space was found
 }
@@ -49,6 +49,7 @@ fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
     loopOverCodePointsBackwards(text) { cp, _ ->
         if (Character.isWhitespace(cp)) return false
         else if (Character.isLetter(cp)) return true
+        false // continue
     }
     return false
 }
