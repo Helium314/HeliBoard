@@ -289,8 +289,9 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public boolean usesSameSettings(@NonNull final List<Locale> locales, final boolean contacts,
-            final boolean personalization, @Nullable final String account) {
-        final boolean first = usesContacts() == contacts && usesPersonalization() == personalization
+            final boolean apps, final boolean personalization, @Nullable final String account) {
+        final boolean first = usesContacts() == contacts && usesApps() == apps
+                && usesPersonalization() == personalization
                 && TextUtils.equals(mDictionaryGroups.get(0).mAccount, account)
                 && locales.size() == mDictionaryGroups.size();
         if (!first) return false;
