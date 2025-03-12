@@ -53,12 +53,11 @@ public abstract class Dictionary {
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
     public static final String TYPE_USER_HISTORY = "history";
-    @NonNull
     public final String mDictType;
     // The locale for this dictionary. May be null if unknown (phony dictionary for example).
     public final Locale mLocale;
 
-    public Dictionary(@NonNull final String dictType, final Locale locale) {
+    public Dictionary(final String dictType, final Locale locale) {
         mDictType = dictType;
         mLocale = locale;
     }
