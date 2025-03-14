@@ -232,7 +232,7 @@ fun checkVersionUpgrade(context: Context) {
             KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
         }
         if (prefs.contains("theme_dark_color_all_colors")) {
-            val allColorsNight = readAllColorsMap(false)
+            val allColorsNight = readAllColorsMap(true)
             prefs.edit().remove("theme_dark_color_all_colors").apply()
             KeyboardTheme.writeUserAllColors(prefs, themeNameNight, allColorsNight)
         }
