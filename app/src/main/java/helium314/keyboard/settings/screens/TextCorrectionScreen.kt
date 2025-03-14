@@ -68,6 +68,7 @@ fun TextCorrectionScreen(
         Settings.PREF_BIGRAM_PREDICTIONS,
         Settings.PREF_SUGGEST_CLIPBOARD_CONTENT,
         Settings.PREF_USE_CONTACTS,
+        Settings.PREF_USE_APPS,
         if (prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, Defaults.PREF_KEY_USE_PERSONALIZED_DICTS))
             Settings.PREF_ADD_TO_PERSONAL_DICTIONARY else null
     )
@@ -194,6 +195,11 @@ fun createCorrectionSettings(context: Context) = listOf(
                 } else true
             }
         )
+    },
+    Setting(context, Settings.PREF_USE_APPS,
+        R.string.use_apps_dict, R.string.use_apps_dict_summary
+    ) { setting ->
+        SwitchPreference(setting, Defaults.PREF_USE_APPS)
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary
