@@ -36,4 +36,4 @@ question: ؟
 ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ ٠
 
 [tlds]
-krd com iq
+iq krd
