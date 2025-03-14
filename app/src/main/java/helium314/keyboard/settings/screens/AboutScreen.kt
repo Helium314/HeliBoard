@@ -69,7 +69,7 @@ fun createAboutSettings(context: Context) = listOf(
             name = it.title,
             description = it.description,
             onClick = { },
-            icon = R.drawable.ic_launcher_foreground // use the bitmap trick here if we really want the colored icon
+            icon = R.mipmap.ic_launcher_round
         )
     },
     Setting(context, SettingsWithoutKey.VERSION, R.string.version) {
