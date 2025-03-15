@@ -66,6 +66,7 @@ fun AdvancedSettingsScreen(
         Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY,
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Settings.PREF_SHOW_SETUP_WIZARD_ICON else null,
         Settings.PREF_ABC_AFTER_SYMBOL_SPACE,
+        Settings.PREF_ABC_AFTER_NUMPAD_SPACE,
         Settings.PREF_ABC_AFTER_EMOJI,
         Settings.PREF_ABC_AFTER_CLIP,
         Settings.PREF_CUSTOM_CURRENCY_KEY,
@@ -153,6 +154,11 @@ fun createAdvancedSettings(context: Context) = listOf(
         R.string.switch_keyboard_after, R.string.after_symbol_and_space)
     {
         SwitchPreference(it, Defaults.PREF_ABC_AFTER_SYMBOL_SPACE)
+    },
+    Setting(context, Settings.PREF_ABC_AFTER_NUMPAD_SPACE,
+        R.string.switch_keyboard_after, R.string.after_numpad_and_space)
+    {
+        SwitchPreference(it, Defaults.PREF_ABC_AFTER_NUMPAD_SPACE)
     },
     Setting(context, Settings.PREF_ABC_AFTER_EMOJI, R.string.switch_keyboard_after, R.string.after_emoji) {
         SwitchPreference(it, Defaults.PREF_ABC_AFTER_EMOJI)
