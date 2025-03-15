@@ -162,7 +162,7 @@ object ScriptUtils {
             return SCRIPT_LATIN
         }
         return when (language) {
-            "ar", "ur", "fa" -> SCRIPT_ARABIC
+            "ar", "ckb", "ur", "fa" -> SCRIPT_ARABIC
             "hy" -> SCRIPT_ARMENIAN
             "bn" -> SCRIPT_BENGALI
             "sr", "mk", "ru", "uk", "mn", "be", "kk", "ky", "bg", "xdq", "cv", "mhr", "mns", "dru" -> SCRIPT_CYRILLIC
