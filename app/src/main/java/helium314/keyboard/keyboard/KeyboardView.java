@@ -610,7 +610,7 @@ public class KeyboardView extends View {
     }
 
     private void setKeyIconColor(Key key, Drawable icon, Keyboard keyboard) {
-        if (key.isAccentColored()) {
+        if (key.hasActionKeyBackground()) {
             mColors.setColor(icon, ColorType.ACTION_KEY_ICON);
         } else if (key.isShift() && keyboard != null) {
             if (keyboard.mId.mElementId == KeyboardId.ELEMENT_ALPHABET_MANUAL_SHIFTED
