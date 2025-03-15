@@ -288,7 +288,7 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwerty+,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />
-        <subtype android:icon="@drawable/ic_ime_switcher"
+    <subtype android:icon="@drawable/ic_ime_switcher"
         android:label="@string/subtype_generic"
         android:subtypeId="0xf40a175b"
         android:imeSubtypeLocale="ckb"
@@ -296,7 +296,7 @@
         android:imeSubtypeMode="keyboard"
         android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:central_kurdish|SYMBOLS:symbols_arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
         android:isAsciiCapable="false"
-        />
+    />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x2d3d2ed0"
