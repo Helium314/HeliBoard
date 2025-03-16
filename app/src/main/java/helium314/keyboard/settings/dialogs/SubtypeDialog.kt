@@ -151,14 +151,14 @@ fun SubtypeDialog(
                 }
                 Row {
                     TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.popup_order), style = MaterialTheme.typography.bodyLarge) }
+                    { Text(stringResource(R.string.popup_order)) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
                         setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
                     }
                 }
                 Row {
                     TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.hint_source), style = MaterialTheme.typography.bodyLarge) }
+                    { Text(stringResource(R.string.hint_source)) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
                         setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
                     }
