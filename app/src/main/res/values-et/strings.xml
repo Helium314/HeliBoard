@@ -467,4 +467,6 @@
     <string name="get_colors_message">Uusi värve võid leida ja jagada %s.</string>
     <string name="custom_subtype">Sinu loodud alamtüüp</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Näita tippdomeenide hüpikklahve</string>
+    <string name="show_tld_popup_keys_summary">Võrgu- ja e-posti aadresside kirjutamisel asenda punktuatsiooni hüpikaknad tipptaseme domeenide omadega</string>
 </resources>

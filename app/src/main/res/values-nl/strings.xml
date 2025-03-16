@@ -476,4 +476,6 @@
     <string name="get_layouts_message">Je kunt lay-outs zoeken en delen in de %s.</string>
     <string name="discussion_section_link">discussiesectie</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">TLD-opties weergeven</string>
+    <string name="show_tld_popup_keys_summary">Vervang pop-ups met interpunctie door topleveldomeinen bij het typen van URL\'s en e-mailadressen</string>
 </resources>

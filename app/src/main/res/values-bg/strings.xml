@@ -467,4 +467,6 @@
     <string name="get_colors_message">Можете да намирате и споделяте цветове в %s.</string>
     <string name="custom_subtype">Персонализиран подтип</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Бенгалски">%s</xliff:g> (Байсахи)</string>
+    <string name="show_tld_popup_keys">Показване на TLD изскачащи клавиши</string>
+    <string name="show_tld_popup_keys_summary">Заместване на изскачащите прозорци с клавиши за период с домейни от първо ниво при въвеждане на URL и имейл адреси</string>
 </resources>

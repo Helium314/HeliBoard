@@ -439,4 +439,6 @@
     <string name="discussion_section_link">seção de discussão</string>
     <string name="custom_subtype">Subtipo customizado</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Mostrar teclas de TLD</string>
+    <string name="show_tld_popup_keys_summary">Substituir os pop-ups da tecla de ponto com domínios de topo ao digitar URLs e endereços de e-mail</string>
 </resources>

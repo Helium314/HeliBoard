@@ -433,4 +433,6 @@
     <string name="get_colors_message">您可以在 %s 中查找和分享颜色。</string>
     <string name="custom_subtype">自定义子类型</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys_summary">输入 URL 和电子邮件地址时，用顶级域替换句点键弹出</string>
+    <string name="show_tld_popup_keys">显示顶级域弹出键</string>
 </resources>

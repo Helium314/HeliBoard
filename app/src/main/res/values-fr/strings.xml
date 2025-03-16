@@ -437,4 +437,6 @@ Nouveau dictionnaire:
     <string name="get_colors_message">Vous pouvez trouver et partager des couleurs dans le %s.</string>
     <string name="get_layouts_message">Vous pouvez trouver et partager des dispositions dans le %s.</string>
     <string name="discussion_section_link">Section de discussion</string>
+    <string name="show_tld_popup_keys">Afficher les suggestions de domaines (TLD)</string>
+    <string name="show_tld_popup_keys_summary">Remplacer les suggestions de la touche point par des extensions de domaine (TLD) lors de la saisie d’URL ou d’adresses e-mail</string>
 </resources>
