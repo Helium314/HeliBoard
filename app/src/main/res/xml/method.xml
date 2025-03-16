@@ -23,6 +23,7 @@
     bn_IN: Bengali (India)/bengali_inscript
     bn_IN: Bengali (India)/Baishakhi
     ca: Catalan/qwerty+
+    ckb: Central Kurdish/central_kurdish
     cs: Czech/qwertz
     cv: Chuvash/chuvash
     da: Danish/qwerty+
@@ -288,6 +289,15 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:qwerty+,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
+    />
+    <subtype android:icon="@drawable/ic_ime_switcher"
+        android:label="@string/subtype_generic"
+        android:subtypeId="0xf40a175b"
+        android:imeSubtypeLocale="ckb"
+        android:languageTag="ckb"
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:central_kurdish|SYMBOLS:symbols_arabic,NoShiftKey,SupportTouchPositionCorrection,EmojiCapable"
+        android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
