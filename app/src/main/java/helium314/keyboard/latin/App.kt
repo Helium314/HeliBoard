@@ -530,18 +530,21 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
         }
     }
-   if (oldVersion <= 2310) {
-    listOf(
-        Settings.PREF_ENABLED_SUBTYPES,
-        Settings.PREF_SELECTED_SUBTYPE,
-        Settings.PREF_ADDITIONAL_SUBTYPES
-    ).forEach { key ->
-        val value = prefs.getString(key, "")!!
-        if ("bengali," in value) {
-            prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
-        }
+    if (oldVersion <= 2310) {
+        listOf(
+            Settings.PREF_ENABLED_SUBTYPES,
+            Settings.PREF_SELECTED_SUBTYPE,
+            Settings.PREF_ADDITIONAL_SUBTYPES
+        ).forEach { key ->
+            val value = prefs.getString(key, "")!!
+            if ("bengali," in value) {
+                prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+            }
+       }
     }
-}
+    if (oldVersion <= 3001 && prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME) <= 0) {
+        prefs.edit().putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, 121).apply()
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

@@ -156,10 +156,10 @@ fun createPreferencesSettings(context: Context) = listOf(
             key = setting.key,
             default = Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
             description = {
-                if (it < 0) stringResource(R.string.settings_no_limit)
+                if (it > 120) stringResource(R.string.settings_no_limit)
                 else stringResource(R.string.abbreviation_unit_minutes, it.toString())
             },
-            range = -1f..120f,
+            range = 1f..121f,
         )
     },
     Setting(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { setting ->
