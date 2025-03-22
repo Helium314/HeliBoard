@@ -563,6 +563,8 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Name for number row layout -->
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
+    <!-- Name for number row basic layout -->
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Number row (basic)</string>
     <!-- Name for bottom row layout in emoji view -->
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji bottom row</string>
     <!-- Name for bottom row layout in clipboard view -->
