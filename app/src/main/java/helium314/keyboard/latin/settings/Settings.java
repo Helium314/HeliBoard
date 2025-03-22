@@ -131,6 +131,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_POPUP_KEYS_LABELS_ORDER = "popup_keys_labels_order";
     public static final String PREF_SHOW_POPUP_HINTS = "show_popup_hints";
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
+    public static final String PREF_SHOW_TLD_POPUP_KEYS = "show_tld_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
@@ -154,6 +155,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ABC_AFTER_EMOJI = "abc_after_emoji";
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
+    public static final String PREF_ABC_AFTER_NUMPAD_SPACE = "abc_after_numpad_space";
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
 
@@ -310,10 +312,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAlwaysIncognitoMode() {
         final boolean oldValue = mPrefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE);
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
-    }
-
-    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
-        prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

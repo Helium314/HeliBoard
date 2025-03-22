@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"संपर्क नावे शोधा"</string>
     <string name="vibrate_on_keypress">"की दाबताना व्हायब्रेट"</string>
     <string name="sound_on_keypress">"की दाबताना आवाज"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"वास्तविक कीबोर्डसाठी इमोजी"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"वास्तविक Alt की इमोजी पॅलेट दर्शविते"</string>
     <string name="button_default">"डीफॉल्ट"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> वर स्वागत आहे"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> वर स्वागत आहे\"</string>
     <string name="setup_welcome_additional_description">"जेश्चर टायपिंग करून"</string>
     <string name="setup_start_action">"सुरू करा"</string>
     <string name="setup_next_action">"पुढील चरण"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट अप करत आहे"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> सुरू करा"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट अप करत आहे\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> सुरू करा\"</string>
     <string name="setup_step1_instruction">"कृपया आपल्या भाषांमध्ये आणि इनपुट सेटिंग्जमध्ये \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" तपासा. आपल्या डिव्हाइसवर चालण्यासाठी त्यास हे अधिकृत करेल."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> आपल्या भाषांमध्ये आणि इनपुट सेटिंग्जमध्ये आधीपासून सक्षम केला आहे, त्यामुळे हे चरण पूर्ण झाले आहे. पुढील चरणावर!"</string>
     <string name="setup_step1_action">"सेटिंग्जमध्ये सुरू करा"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> वर स्विच करा"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> वर स्विच करा\"</string>
     <string name="setup_step2_instruction">"पुढे, तुमची सक्रिय मजकूर-इनपुट पद्धत म्हणून \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" निवडा."</string>
     <string name="setup_step2_action">"इनपुट पद्धती स्विच करा"</string>
     <string name="setup_step3_title">"अभिनंदन, आता तुम्ही तयार आहात!"</string>

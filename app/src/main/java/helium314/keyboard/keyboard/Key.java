@@ -24,6 +24,7 @@ import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.PopupKeysUtilsKt;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import kotlin.collections.ArraysKt;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -919,7 +920,7 @@ public class Key implements Comparable<Key> {
             @NonNull final Drawable spacebarBackground,
             @NonNull final Drawable actionKeyBackground) {
         final Drawable background;
-        if (isAccentColored()) {
+        if (hasActionKeyBackground()) {
             background = actionKeyBackground;
         } else if (hasFunctionalBackground()) {
             background = functionalKeyBackground;
@@ -933,17 +934,10 @@ public class Key implements Comparable<Key> {
         return background;
     }
 
-    public final boolean isAccentColored() {
-        if (hasActionKeyBackground()) return true;
-        final String iconName = getIconName();
-        if (iconName == null) return false;
-        // todo: other way of identifying the color?
-        //  this should be done differently, as users can set any icon now
-        //  how is the background drawable selected? can we use the same way?
-        return iconName.equals(KeyboardIconsSet.NAME_NEXT_KEY)
-                || iconName.equals(KeyboardIconsSet.NAME_PREVIOUS_KEY)
-                || iconName.equals("clipboard_action_key")
-                || iconName.equals("emoji_action_key");
+    public final boolean hasActionKeyPopups() {
+        if (!hasActionKeyBackground()) return false;
+        // only use the special action key popups for action colored keys, and only for icon popups
+        return ArraysKt.none(getPopupKeys(), (key) -> key.mIconName == null);
     }
 
     public boolean hasFunctionalBackground() {

@@ -75,7 +75,7 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para o teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"A tecla Alt física mostra a paleta de emoji"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Ben vida a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Ben vida a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura por xestos"</string>
     <string name="setup_start_action">"Comezar"</string>
     <string name="setup_next_action">"Seguinte paso"</string>
@@ -433,4 +433,5 @@
     <string name="locales_with_dict">Idiomas con dicionarios</string>
     <string name="discussion_section_link">zona de conversa</string>
     <string name="get_layouts_message">Podes atopar e compartir disposicións na %s.</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
 </resources>

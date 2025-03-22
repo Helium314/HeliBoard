@@ -161,7 +161,7 @@ fun checkVersionUpgrade(context: Context) {
                 split[1] = newName
                 split.joinToString(":")
             }
-            Settings.writePrefAdditionalSubtypes(prefs, newSubtypeStrings.joinToString(";"))
+            prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, newSubtypeStrings.joinToString(";")).apply()
         }
         // rename other custom layouts
         LayoutUtilsCustom.onLayoutFileChanged()
@@ -232,7 +232,7 @@ fun checkVersionUpgrade(context: Context) {
             KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
         }
         if (prefs.contains("theme_dark_color_all_colors")) {
-            val allColorsNight = readAllColorsMap(false)
+            val allColorsNight = readAllColorsMap(true)
             prefs.edit().remove("theme_dark_color_all_colors").apply()
             KeyboardTheme.writeUserAllColors(prefs, themeNameNight, allColorsNight)
         }
@@ -530,6 +530,18 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
         }
     }
+   if (oldVersion <= 2310) {
+    listOf(
+        Settings.PREF_ENABLED_SUBTYPES,
+        Settings.PREF_SELECTED_SUBTYPE,
+        Settings.PREF_ADDITIONAL_SUBTYPES
+    ).forEach { key ->
+        val value = prefs.getString(key, "")!!
+        if ("bengali," in value) {
+            prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+        }
+    }
+}
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
@@ -618,7 +630,7 @@ private fun upgradesWhenComingFromOldAppName(context: Context) {
             val localeString = it.substringBefore(":")
             additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
         }
-        Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.joinToString(";"))
+        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, additionalSubtypes.joinToString(";")).apply()
     }
     // move pinned clips to credential protected storage if device is not locked (should never happen)
     if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return

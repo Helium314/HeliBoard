@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"رابطوں میں سے نام ڈھونڈیں"</string>
     <string name="vibrate_on_keypress">"کلید دبانے پر وائبریٹ کریں"</string>
     <string name="sound_on_keypress">"کلید دبانے پر آواز"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"‏فزیکل کی بورڈ کیلئے Emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏فزیکل Alt کی کے ذریعے emoji پیلٹ نظر آتا ہے"</string>
     <string name="button_default">"ڈیفالٹ"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید\"</string>
     <string name="setup_welcome_additional_description">"اشارہ ٹائپنگ کے ساتھ"</string>
     <string name="setup_start_action">"شروع کریں"</string>
     <string name="setup_next_action">"اگلا مرحلہ"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں\"</string>
     <string name="setup_step1_instruction">"براہ کرم \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنی زبانوں اور ان پٹ ترتیبات میں چیک کریں۔ اس سے اس کو آپ کے آلہ پر چلنے کی اجازت مل جائے گی۔"</string>
     <string name="setup_step1_finished_instruction">"‏<xliff:g id="APPLICATION_NAME">%s</xliff:g> پہلے ہی آپ کی زبانوں ‎اور‎ ان پٹ ترتیبات میں فعال ہے، لہذا یہ مرحلہ مکمل ہو گیا ہے۔ اگلے پر چلتے ہیں!"</string>
     <string name="setup_step1_action">"ترتیبات میں فعال کریں"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں\"</string>
     <string name="setup_step2_instruction">"آگے، \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنے فعال متنی اندراج کے طریقہ کے بطور منتخب کریں۔"</string>
     <string name="setup_step2_action">"اندراج کے طریقے سوئچ کریں"</string>
     <string name="setup_step3_title">"مبارک ہو، آپ بالکل تیار ہیں!"</string>

@@ -1,11 +1,11 @@
-* lisasime võimaluse salvestada ja eksportida kohandatud välimusi
-* muutsime klahvistiku suunaklahvid kortratavaks
-* lisasime tööriistaribale täiendavad kursori klahvid (leht üles/alla(/algusesse/lõppu, sõna vasakule/paremale)
-* lisasime klahvi kopeeritu asetamiseks
-* parandasime klahviga viipamist
-* lisasime tühikuklahviga viipamise, mis lülitab numbriklahvistiku sissse/välja
-* lisasime lõikelauale soovituse viimati kopeeritud tekstiga
+* võimalus salvestada ja eksportida kohandatud välimusi
+* klahvistiku suunaklahvid on korratavad
+* kursori lisaklahvid tööriistaribal (leht ↑/↓(/algusesse/lõppu, sõna ←/→)
+* klahv kopeeritu asetamiseks
+* parem klahviga viipamine
+* tühikuklahviga viipamine, mis lülitab numbristiku sisse/välja
+* lõikelauasoovitus viimati kopeeritud tekstiga
 * valikuklahvide uus vajutus eemaldab tekstivaliku
-* kohandasime seadistustes näidatavaid värve Android 12+ puhul
-* kohendasime keelekohaseid hüpikklahve
-* pisiparandused ja kohendused
+* silusime seadistustes värve Android 12+
+* silusime keelekohaseid hüpikklahve
+* pisiparandused, kohendused

@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"Kontakt adlarına baxın"</string>
     <string name="vibrate_on_keypress">"Vibrasiyalı klikləmə"</string>
     <string name="sound_on_keypress">"Klikləmə səsi"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Fiziki klaviatura üçün emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fiziki ALt düyməsi emoji palletini göstərir"</string>
     <string name="button_default">"Defolt"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> təbiqinə xoş gəlmisiniz"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> təbiqinə xoş gəlmisiniz\"</string>
     <string name="setup_welcome_additional_description">"Jest Yazısı ilə"</string>
     <string name="setup_start_action">"Başlayın"</string>
     <string name="setup_next_action">"Növbəti addım"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> quraşdırılır"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqini aktivləşdir"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> quraşdırılır\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqini aktivləşdir\"</string>
     <string name="setup_step1_instruction">"Lütfən, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" tətbiqini Dillər və daxiletmə ayarlarında yoxlayın. Bununla tətbiqin cihazınızda işləməsinə icazə veriləcək."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> artıq Dillər və daxiletmə ayarlarında aktivləşdirildi, beləliklə da bu mərhələ tamamlandı. İndi isə növbəti mərhələyə keçin!"</string>
     <string name="setup_step1_action">"Parametrlərdə aktivləşdir"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqinə keçin"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqinə keçin\"</string>
     <string name="setup_step2_instruction">"Sonra, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" tətbiqini aktiv mətn-daxiletmə metodu olaraq seçin."</string>
     <string name="setup_step2_action">"Daxil metodlarına keç"</string>
     <string name="setup_step3_title">"Təbrik edirik, tam hazırsınız!"</string>

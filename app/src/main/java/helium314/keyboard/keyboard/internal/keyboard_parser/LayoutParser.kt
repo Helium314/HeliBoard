@@ -59,8 +59,7 @@ object LayoutParser {
 
     /** Parse simple layouts, defined only as rows of (normal) keys with popup keys. */
     fun parseSimpleString(layoutText: String): List<List<KeyData>> {
-        val rowStrings = layoutText.replace("\r\n", "\n").split("\\n\\s*\\n".toRegex()).filter { it.isNotBlank() }
-        return rowStrings.map { row ->
+        return LayoutUtils.getSimpleRowStrings(layoutText).map { row ->
             row.split("\n").mapNotNull { parseKey(it) }
         }
     }

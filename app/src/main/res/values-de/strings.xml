@@ -432,4 +432,7 @@
     <string name="delete_confirmation">%s wirklich löschen?</string>
     <string name="name_invalid">Ungültiger Name</string>
     <string name="custom_subtype">Benutzerdefinierter Subtyp</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengalisch">%s</xliff:g> (Baisakhi)</string>
+    <string name="show_tld_popup_keys">Zeige TLD-Popup-Tasten</string>
+    <string name="show_tld_popup_keys_summary">Ersetze Punkt-Tastenpopups mit Top-Level-Domains wenn URLs und Mailadressen eingegeben werden</string>
 </resources>

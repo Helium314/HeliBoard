@@ -81,16 +81,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
     <string name="button_default">По умолчанию</string>
-    <string name="setup_welcome_title">Добро пожаловать в<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
     <string name="setup_next_action">Далее</string>
-    <string name="setup_steps_title">Настроить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Включить<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.\"</string>
     <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!\"</string>
     <string name="setup_step1_action">Включить в настройках</string>
-    <string name="setup_step2_title">Переключитесь на<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.\"</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
@@ -285,7 +285,7 @@
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
-    <string name="remove_dictionary_message">Удалить пользовательский словарь \"%s\"?</string>
+    <string name="remove_dictionary_message">Удалить пользовательский словарь «%s»?</string>
     <string name="file_read_error">Не получается прочитать файл</string>
     <string name="dictionary_link_text">здесь</string>
     <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
@@ -307,7 +307,7 @@
     <string name="dictionary_file_wrong_locale_ok">Всё ещё используется</string>
     <string name="dictionary_file_wrong_locale">Выбранный файл предназначен для %1$s, но ожидался %2$s. Всё ещё используете его для %2$s?</string>
     <string name="dictionary_file_error">Ошибка: выбранный файл не является корректным словарем</string>
-    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для \"%2$s\" напрямую %3$s."</string>
+    <string name="no_dictionary_message">"Без словаря вы будете получать предложения только для введенного ранее текста.&lt;br&gt;\n        Вы можете загрузить словари %1$s или проверить, можно ли загрузить словарь для «%2$s» напрямую %3$s."</string>
     <string name="available_dictionary_experimental">%s (экспериментальный)</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Символы</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Символы (арабские)</string>
@@ -425,7 +425,7 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (нажат)</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
-    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Голосовой ввод отключен</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Голосовой ввод отключён</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Показать / скрыть панель инструментов</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Соединитель нулевой ширины</string>
     <string name="customize_toolbar_key_codes">Настроить коды клавиш панели инструментов</string>
@@ -435,8 +435,8 @@
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Разъединитель нулевой ширины</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
     <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
-    <string name="label_bin" tools:keep="@string/label_bin">Bin</string>
-    <string name="vibrate_in_dnd_mode">Вибрировать в режиме Не беспокоить</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Корзина</string>
+    <string name="vibrate_in_dnd_mode">Вибрация в режиме «Не беспокоить»</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Фонетика)</string>
     <string name="auto_correct_shortcuts">Автокоррекция сочетаний клавиш</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>

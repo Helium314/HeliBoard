@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"အဆက်အသွယ်အမည်များကို ရှာ"</string>
     <string name="vibrate_on_keypress">"ခလုတ်နှိပ်သည်နှင့် တုံခါစေပါ"</string>
     <string name="sound_on_keypress">"ခလုတ်နှိပ်လျှင် အသံမြည်"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ခလုတ်ရှိ ကီးဘုတ်အတွက် အီမိုဂျိ"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"အီမိုဂျီ ဘုတ်ပြားပြသော Alt ခလုတ်"</string>
     <string name="button_default">"ပုံသေ"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> မှကြိုဆိုပါသည်"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> မှကြိုဆိုပါသည်\"</string>
     <string name="setup_welcome_additional_description">"အမူယာ ရိုက်ခြင်းဖြင့်"</string>
     <string name="setup_start_action">"စတင်ပါတော့"</string>
     <string name="setup_next_action">"နောက်တစ်ဆင့်"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> တပ်ဆင်ရန်"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ဖွင့်ရန်"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> တပ်ဆင်ရန်\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ဖွင့်ရန်\"</string>
     <string name="setup_step1_instruction">"\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ကို ဘာသာစကားနှင့် စာရိုက်စနစ်တွင် စစ်ပါ။ ဤသို့ဖြင့် သင့်စက်ပစ္စည်းပေါ်တွင် ၎င်းကိုဖွင့်ရန်အတည်ပြုပေးပါလိမ့်မည်။"</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ကို သင့်ဘာသာစကားနှင့် စာရိုက်စနစ်ဆက်တင်များတွင် ဖွင့်ထားပြီးဖြစ်၍ ဤအဆင့်ပြီးပါပြီ။ နောက်တစ်ခုသို့ သွားပါ။"</string>
     <string name="setup_step1_action">"ဆက်တင်များတွင် ဖွင့်ရန်"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> သို့ပြောင်းမည်"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> သို့ပြောင်းမည်\"</string>
     <string name="setup_step2_instruction">"ရှေ့၊ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" အားသင်၏ ပွင့်နေသည့်ထည့်သွင်းမှု နည်းလမ်းအဖြစ်ရွေးပါ။"</string>
     <string name="setup_step2_action">"စာရိုက်သွင်းမှုနည်းလမ်း ပြောင်းရန်"</string>
     <string name="setup_step3_title">"ဝမ်းသာပါသည်၊ သင်အားလုံးသတ်မှတ်ပြီးပါပြီ!"</string>

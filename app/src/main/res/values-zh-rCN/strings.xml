@@ -374,42 +374,7 @@
     <string name="var_toolbar_direction">可变工具栏方向</string>
     <string name="var_toolbar_direction_summary">选择从右到左的键盘子类型时反转方向</string>
     <string name="auto_hide_toolbar">自动隐藏工具栏</string>
-    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;
-\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;
-\n\t• 向左/向右移动 &amp;#65515; 单词向左/向右 &lt;br&gt;
-\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;
-\n\t• 单词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;
-\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;
-\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;
-\n\t• 选择单词 &amp;#8596; 全选 &lt;br&gt;
-\n\t• 撤销 &amp;#8596; 恢复 &lt;br&gt; &lt;br&gt;
-\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;
-\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;
-\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;
-\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于 Dvorak 布局是“q”）。&lt;br&gt; &lt;br&gt;
-\n► 启用隐身模式后，将不会学习任何单词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;
-\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;
-\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;
-\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;
-\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;
-\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;
-\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;
-\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;
-\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;
-\n► 选择文本并按 Shift 键在大写、小写和大写单词之间切换。&lt;br&gt; &lt;br&gt;
-\n► 您可以通过在文件资源管理器中打开词典来添加词典：&lt;br&gt;
-\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;
-\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;
-\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;
-\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► 长按建议显示源词典。&lt;br&gt; &lt;br&gt;
-\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将词典转储到日志中外，其用处有限。&lt;br&gt;
-\n\t• 对于发布 APK，您需要多次点击&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;
-\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源词典。&lt;br&gt; &lt;br&gt;
-\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;
-\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;
-\n► 建议顶部会有一些小数字，显示一些内部分数和源词典（可以禁用）。</string>
+    <string name="hidden_features_message">► 长按固定的工具栏键会产生其他功能：&lt;br&gt;\n\t• 剪贴板 &amp;#65515; 粘贴 &lt;br&gt;\n\t• 向左/向右移动 &amp;#65515; 单词向左/向右 &lt;br&gt;\n\t• 向上/向下移动 &amp;#65515; 向上/向下翻页 &lt;br&gt;\n\t• 单词向左/向右 &amp;#65515; 行起点/终点 &lt;br&gt;\n\t• 向上/向下翻页 &amp;#65515; 页面开始/结束 &lt;br&gt;\n\t• 复制 &amp;#65515; 剪切 &lt;br&gt;\n\t• 选择单词 &amp;#8596; 全选 &lt;br&gt;\n\t• 撤销 &amp;#8596; 恢复 &lt;br&gt; &lt;br&gt;\n► 长按建议条工具栏中的键将它们固定到建议条上。 &lt;br&gt; &lt;br&gt;\n► 长按逗号键可访问剪贴板视图、表情符号视图、单手模式、设置或切换语言：&lt;br&gt;\n\t• 如果启用了相应的键，表情符号视图和语言切换将消失；&lt;br&gt;\n\t• 对于某些布局，它不是逗号键，而是同一位置的键（例如，对于德沃夏克布局是“q”）。&lt;br&gt; &lt;br&gt;\n► 启用隐身模式后，将不会学习任何单词，也不会在最近的表情中添加任何表情符号。&lt;br&gt; &lt;br&gt;\n► 按隐身图标访问工具栏。&lt;br&gt; &lt;br&gt;\n► 滑动键输入：从 Shift 键滑动到另一个键，输入单个大写键：&lt;br&gt;\n\t• 这也适用于“?123”键从符号键盘输入单个符号，以及相关键。&lt;br&gt; &lt;br&gt;\n► 按住 Shift 或符号键，按一个或多个键，然后松开 Shift 或符号键以返回上一个键盘。&lt;br&gt; &lt;br&gt;\n► 长按建议栏中的建议可显示更多建议，长按删除按钮可移除此建议。&lt;br&gt; &lt;br&gt;\n► 从建议向上滑动以打开更多建议，然后松开建议以选择它。&lt;br&gt; &lt;br&gt;\n► 长按剪贴板历史中的条目将其固定（将其保留在剪贴板中，直到取消固定）。&lt;br&gt; &lt;br&gt;\n► 在剪贴板视图中向左滑动以移除条目（被固定时除外）&lt;br&gt; &lt;br&gt;\n► 选择文本并按 Shift 键在大写、小写和大写单词之间切换。&lt;br&gt; &lt;br&gt;\n► 您可以通过在文件资源管理器中打开词典来添加词典：&lt;br&gt;\n\t• 这只适用于&lt;i&gt;内容 URI&lt;/i&gt;，不适用于&lt;i&gt;文件 URI&lt;/i&gt;，这意味着它可能不适用于某些文件浏览器。&lt;br&gt; &lt;br&gt;\n► 对于使用 Root 权限进行手动备份的用户：&lt;br&gt;\n\t• 从 Android 7 开始，共享首选项文件不在默认位置，因为应用正在使用 %s。这是必要的，这样可以在设备解锁之前读取设置，例如在启动时；&lt;br&gt;\n\t• 该文件位于 /data/user_de/0/package_id/shared_prefs/ 中，但这可能取决于设备和 Android 版本。&lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;调试模式/调试 APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► 长按建议显示源词典。&lt;br&gt; &lt;br&gt;\n► 使用调试 APK 时，您可以在高级首选项中找到调试设置，但除了将词典转储到日志中外，其用处有限。&lt;br&gt;\n\t• 对于发布 APK，您需要多次点击&lt;i&gt;关于&lt;/i&gt;中的版本，然后您可以在&lt;i&gt;高级首选项&lt;/i&gt;找到调试设置。&lt;br&gt;\n\t• 当启用&lt;i&gt;显示建议信息&lt;/i&gt;时，建议顶部会有一些小数字，显示一些内部分数和源词典。&lt;br&gt; &lt;br&gt;\n► 如果应用崩溃，打开“设置”时，系统会提示您是否需要崩溃日志。&lt;br&gt; &lt;br&gt;\n► 使用多语言输入时，空格键将显示用于确定当前使用的语言的置信度值。&lt;br&gt; &lt;br&gt;\n► 建议顶部会有一些小数字，显示一些内部分数和源词典（可以禁用）。</string>
     <string name="icon_style">图标风格</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">数字行</string>
     <string name="prefs_space_bar_text">空格键上的自定义文本</string>
@@ -466,4 +431,8 @@
     <string name="discussion_section_link">讨论部分</string>
     <string name="get_layouts_message">您可以在 %s 中查找和分享布局。</string>
     <string name="get_colors_message">您可以在 %s 中查找和分享颜色。</string>
+    <string name="custom_subtype">自定义子类型</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys_summary">输入 URL 和电子邮件地址时，用顶级域替换句点键弹出</string>
+    <string name="show_tld_popup_keys">显示顶级域弹出键</string>
 </resources>

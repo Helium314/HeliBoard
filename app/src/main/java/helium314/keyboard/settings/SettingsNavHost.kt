@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.provider.Settings
+import android.provider.Settings.Global
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,6 +46,10 @@ fun SettingsNavHost(
     val dir = if (LocalLayoutDirection.current == LayoutDirection.Ltr) 1 else -1
     val target = SettingsDestination.navTarget.collectAsState()
 
+    // duration does not change when system setting changes, but that's rare enough to not care
+    val duration = (250 * Settings.System.getFloat(LocalContext.current.contentResolver, Global.TRANSITION_ANIMATION_SCALE, 1f)).toInt()
+    val animation = tween<IntOffset>(durationMillis = duration)
+
     fun goBack() {
         if (!navController.popBackStack()) onClickBack()
     }
@@ -48,10 +57,10 @@ fun SettingsNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination ?: SettingsDestination.Settings,
-        enterTransition = { slideInHorizontally(initialOffsetX = { +it * dir }) },
-        exitTransition = { slideOutHorizontally(targetOffsetX = { -it * dir }) },
-        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it * dir }) },
-        popExitTransition = { slideOutHorizontally(targetOffsetX = { +it * dir }) }
+        enterTransition = { slideInHorizontally(initialOffsetX = { +it * dir }, animationSpec = animation) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { -it * dir }, animationSpec = animation) },
+        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it * dir }, animationSpec = animation) },
+        popExitTransition = { slideOutHorizontally(targetOffsetX = { +it * dir }, animationSpec = animation) }
     ) {
         composable(SettingsDestination.Settings) {
             MainSettingsScreen(

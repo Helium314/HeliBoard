@@ -5,12 +5,11 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="platformActivityTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="platformActivityTheme" parent="@android:style/Theme.Material.NoActionBar">
     <!-- Some items are duplicated from the original platform-theme file to ensure that the
          "android/system_accent_*" or "android/system_neutral_*" colors are used. -->
 
         <item name="android:colorAccent">@color/accent</item>
-        <item name="colorAccent">@color/accent</item>
 
         <item name="android:statusBarColor">@color/action_bar_color</item>
         <item name="android:navigationBarColor">@color/setup_background</item>
@@ -19,7 +18,6 @@
         <item name="android:windowBackground">@color/setup_background</item>
 
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
 
         <item name="android:buttonCornerRadius">50dp</item>
 
@@ -27,11 +25,9 @@
         <item name="android:itemBackground">@color/drop_down_menu_background</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+    <style name="AlertDialogTheme" parent="@android:style/Theme.Material.Dialog.Alert">
         <item name="android:colorBackgroundFloating">@color/dialog_background</item>
-        <item name="colorBackgroundFloating">@color/dialog_background</item>
         <item name="android:dialogCornerRadius">28dp</item>
-        <item name="dialogCornerRadius">28dp</item>
     </style>
 
 </resources>

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.IconOrImage
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.previewDark
 
@@ -69,7 +70,7 @@ fun Preference(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null)
-            Icon(painterResource(icon), name, modifier = Modifier.size(36.dp))
+            IconOrImage(icon, name, 36f)
         Column(modifier = Modifier.weight(1f)) {
             Text(text = name, style = MaterialTheme.typography.bodyLarge)
             if (description != null) {

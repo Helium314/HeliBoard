@@ -370,5 +370,64 @@
     <string name="space_swipe_toggle_numpad_entry">Пераключыць лічбавую клавіятуру</string>
     <string name="show_popup_keys_main">Дадаць самыя распаўсюджаныя варыянты (па змаўчанні)</string>
     <string name="remove_redundant_popups">Выдаліць лішнія ўсплывальныя вокны</string>
-    <string name="remove_redundant_popups_summary">Прыбраць усплывальныя клавішы, якія прысутнічаюць у базавай раскладцы</string>
+    <string name="remove_redundant_popups_summary">Прыбраць усплывальныя клавішы, якія ўжо прысутнічаюць у базавай раскладцы</string>
+    <string name="gesture_floating_preview_static">Плаваючы прадпрагляд</string>
+    <string name="gesture_floating_preview_static_summary">Бачыць прапанаванае слова падчас набору жэстамі</string>
+    <string name="split" tools:keep="@string/split">Раздзельная клавіятура</string>
+    <string name="vibrate_in_dnd_mode">Вібрацыя ў рэжыме «Не турбаваць»</string>
+    <string name="enable_split_keyboard_landscape">Уключыць падзеленую клавіятуру (альбомная)</string>
+    <string name="split_spacer_scale_landscape">Адлегласць падзелу (альбомная)</string>
+    <string name="gesture_floating_preview_dynamic_summary">Перамяшчаць прадпрагляд падчас набору жэстамі</string>
+    <string name="gesture_trail_fadeout_duration">Час жыцця следа жэста</string>
+    <string name="auto_correct_shortcuts">Аўтакарэкцыя спалучэнняў клавіш</string>
+    <string name="auto_correct_shortcuts_summary">Калі ўключана, спалучэнні клавіш могуць быць пашыраны з дапамогай аўтакарэкцыі</string>
+    <string name="prefs_bottom_padding_scale_landscape">Маштаб ніжняга водступу (альбомная)</string>
+    <string name="prefs_side_padding_scale">Маштаб бакавога водступу</string>
+    <string name="number_row_hints">Паказваць падказкі ў шэрагу з лічбамі</string>
+    <string name="locales_with_dict">Мовы са слоўнікамі</string>
+    <string name="custom_subtype">Карыстацкі падтып</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Радок эмодзі ўнізе</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Радок буфера абмену ўнізе</string>
+    <string name="layout_in_use">Папярэджанне: раскладка ў дадзены момант выкарыстоўваецца</string>
+    <string name="customize_icons">Наладзіць значкі</string>
+    <string name="customize_icons_reset_message">Сапраўды скінуць усе настроеныя значкі?</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Шэраг з лічбамі</string>
+    <string name="customize_background_image_landscape">Усталяваць фонавы малюнак (альбомная)</string>
+    <string name="prefs_key_emoji_max_sdk">Перавызначыць версію эмодзі</string>
+    <string name="subtype_dru">Даргінскі (Урахі)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Урахінскі (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="key_code">Код клавішы</string>
+    <string name="delete_confirmation">Сапраўды выдаліць %s?</string>
+    <string name="custom_font">Усталяваць карыстацкі шрыфт з файла</string>
+    <string name="summary_customize_background_image_landscape">Калі не ўстаноўлена, будзе выкарыстоўвацца партрэтны малюнак</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Раз\'яднальнік нулявой шырыні</string>
+    <string name="customize_toolbar_key_code_reset_message">Вы сапраўды хочаце выдаліць усе настроеныя коды клавіш?</string>
+    <string name="settings_screen_secondary_layouts">Дадатковыя раскладкі</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Функцыянальныя клавішы (вялікі экран)</string>
+    <string name="icon_style">Стыль значкоў</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Злучальнік нулявой шырыні</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Сметніца</string>
+    <string name="name_invalid">Недапушчальнае імя</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Выдаліць</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Увод</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Табуляцыя</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (націснута)</string>
+    <string name="prefs_font_scale">Маштаб шрыфта клавіятуры</string>
+    <string name="prefs_emoji_font_scale">Маштаб шрыфта адлюстравання эмодзі</string>
+    <string name="prefs_side_padding_scale_landscape">Маштаб бакавога водступу (альбомная)</string>
+    <string name="long_press_code">Код доўгага націску</string>
+    <string name="prefs_language_swipe_distance">Адлегласць змахвання для пераключэння мовы</string>
+    <string name="customize_toolbar_key_codes">Наладзіць коды клавіш панэлі інструментаў</string>
+    <string name="prefs_space_bar_text">Карыстацкі тэкст на клавішы прабела</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Прабел (раскладка лічбаў)</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Пераключыць бок рэжыму адной рукой</string>
+    <string name="get_colors_message">Знайсці і падзяліцца колерамі ў %s.</string>
+    <string name="get_layouts_message">Знайсці і падзяліцца раскладкамі ў %s.</string>
+    <string name="discussion_section_link">абмеркавання</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Завяршыць рэжым адной рукой</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Змяніць памер у рэжыме адной рукой</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Галасавы ўвод адключаны</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Паказаць / схаваць панэль інструментаў</string>
 </resources>

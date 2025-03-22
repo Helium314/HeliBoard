@@ -3,8 +3,7 @@
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="use_contacts_dict">"పరిచయ పేర్లను వెతకండి"</string>
     <string name="vibrate_on_keypress">"కీని నొక్కినప్పుడు వైబ్రేట్"</string>
     <string name="sound_on_keypress">"కీని నొక్కినప్పుడు ధ్వని"</string>
@@ -76,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"భౌతిక కీబోర్డ్ కోసం ఎమోజి"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"భౌతిక Alt కీ ఎమోజి ఫలకాన్ని చూపుతుంది"</string>
     <string name="button_default">"డిఫాల్ట్"</string>
-    <string name="setup_welcome_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>కు స్వాగతం"</string>
+    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>కు స్వాగతం\"</string>
     <string name="setup_welcome_additional_description">"సంజ్ఞ టైపింగ్‌తో"</string>
     <string name="setup_start_action">"ప్రారంభించండి"</string>
     <string name="setup_next_action">"తర్వాత దశ"</string>
-    <string name="setup_steps_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ని సెటప్ చేయడం"</string>
-    <string name="setup_step1_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>ని ప్రారంభించండి"</string>
+    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ని సెటప్ చేయడం\"</string>
+    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ని ప్రారంభించండి\"</string>
     <string name="setup_step1_instruction">"దయచేసి మీ భాషలు &amp; ఇన్‌పుట్ సెట్టింగ్‌ల్లో \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" తనిఖీ చేయండి. ఇది మీ పరికరంలో అమలు కావడానికి దీన్ని ప్రామాణీకరిస్తుంది."</string>
     <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ఇప్పటికే మీ భాషలు &amp; ఇన్‌పుట్ సెట్టింగ్‌ల్లో ప్రారంభించబడింది, కనుక ఈ దశ పూర్తయింది. తర్వాత దశకు వెళ్లండి!"</string>
     <string name="setup_step1_action">"సెట్టింగ్‌ల్లో ప్రారంభించండి"</string>
-    <string name="setup_step2_title">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>కు మారండి"</string>
+    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>కు మారండి\"</string>
     <string name="setup_step2_instruction">"తర్వాత, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"ని మీ సక్రియ వచన-ఇన్‌పుట్ పద్ధతిగా ఎంచుకోండి."</string>
     <string name="setup_step2_action">"ఇన్‌పుట్ పద్ధతులను మార్చు"</string>
     <string name="setup_step3_title">"అభినందనలు, మీరు అంతా పూర్తి చేసారు!"</string>
