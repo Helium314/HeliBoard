@@ -61,7 +61,7 @@ class ClipboardHistoryManager(
             val content = clipItem.coerceToText(latinIME)
             if (TextUtils.isEmpty(content)) return
 
-            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content.toString() == content.toString() }
+            val duplicateEntryIndex = historyEntries.indexOfFirst { it.content == content.toString() }
             if (duplicateEntryIndex != -1) {
                 val existingEntry = historyEntries[duplicateEntryIndex]
                 if (existingEntry.timeStamp == timeStamp) return // nothing to change (may occur frequently starting with API 30)
@@ -74,9 +74,9 @@ class ClipboardHistoryManager(
                 onHistoryChangeListener?.onClipboardHistoryEntryMoved(duplicateEntryIndex, newIndex)
                 return
             }
-            if (historyEntries.any { it.content.toString() == content.toString() }) return
+            if (historyEntries.any { it.content == content.toString() }) return
 
-            val entry = ClipboardHistoryEntry(timeStamp, content)
+            val entry = ClipboardHistoryEntry(timeStamp, content.toString())
             historyEntries.add(entry)
             sortHistoryEntries()
             val at = historyEntries.indexOf(entry)
