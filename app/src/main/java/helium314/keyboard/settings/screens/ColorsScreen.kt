@@ -58,6 +58,7 @@ import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.dialogs.ColorPickerDialog
 import helium314.keyboard.settings.previewDark
 import kotlinx.serialization.Serializable
@@ -137,6 +138,7 @@ fun ColorsScreen(
 //                supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) } // todo: this is cutting off bottom half of the actual text...
                 trailingIcon = { if (!nameValid) CloseIcon(R.string.name_invalid) },
                 singleLine = true,
+                textStyle = contentTextDirectionStyle,
             )
         },
         menu = listOf(

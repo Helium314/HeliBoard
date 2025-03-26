@@ -227,7 +227,8 @@ fun ExpandableSearchField(
                 else onSearchChange(TextFieldValue())
             }) { CloseIcon(android.R.string.cancel) } },
             singleLine = true,
-            colors = colors
+            colors = colors,
+            textStyle = contentTextDirectionStyle
         )
     }
 }
