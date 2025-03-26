@@ -64,7 +64,7 @@ fun Preference(
             .fillMaxWidth()
             .clickable { onClick() }
             .heightIn(min = 44.dp)
-            .padding(12.dp),
+            .padding(vertical = 10.dp, horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
