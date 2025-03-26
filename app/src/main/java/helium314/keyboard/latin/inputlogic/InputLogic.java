@@ -949,7 +949,9 @@ public final class InputLogic {
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
         if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
-                && !settingsValues.isWordConnector(codePoint)) {
+                && !settingsValues.isWordConnector(codePoint)
+                && !settingsValues.isUsuallyFollowedBySpace(codePoint) // only relevant in rare cases
+        ) {
             if (isComposingWord) {
                 // Sanity check
                 throw new RuntimeException("Should not be composing here");
