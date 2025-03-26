@@ -474,6 +474,10 @@ public final class WordComposer {
         return mIsBatchMode;
     }
 
+    public void unsetBatchMode() {
+        mIsBatchMode = false;
+    }
+
     public void setRejectedBatchModeSuggestion(final String rejectedSuggestion) {
         mRejectedBatchModeSuggestion = rejectedSuggestion;
     }

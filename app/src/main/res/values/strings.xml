@@ -38,6 +38,8 @@
     <string name="settings_category_clipboard_history">Clipboard history</string>
     <!-- Settings category title for Text correction/Corrections -->
     <string name="settings_category_correction">Corrections</string>
+    <!-- Settings category title for Text correction/Space -->
+    <string name="settings_category_space">Space</string>
     <!-- Settings category title for Text correction/Suggestions -->
     <string name="settings_category_suggestions">Suggestions</string>
     <!-- Settings category title for Advanced/Experimental -->
@@ -209,10 +211,20 @@
     <string name="load_gesture_library_button_load">Load library</string>
     <!-- Button text for deleting gesture library -->
     <string name="load_gesture_library_button_delete">Delete library</string>
-    <!-- Preferences item for enabling inserting more spaces key -->
+    <!-- Preferences item for inserting space after punctuation -->
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
-    <!-- Description for "insert_more_spaces" option. -->
+    <!-- Description for "autospace_after_punctuation" setting -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
+    <!-- Preferences item for inserting space after manualle picking a suggestion -->
+    <string name="autospace_after_suggestion">Autospace after picking a suggestion</string>
+    <!-- Preferences item for inserting space before entering a word using gesture typing -->
+    <string name="autospace_before_gesture_typing">Autospace before gesture typing a word</string>
+    <!-- Preferences item for inserting space after entering a word using gesture typing -->
+    <string name="autospace_after_gesture_typing">Autospace after gesture typing a word</string>
+    <!-- Preferences item for avoiding automatic space insertion by pressing shift -->
+    <string name="shift_removes_autospace">No autospace when pressing shift</string>
+    <!-- Description for "autospace_after_punctuation" setting -->
+    <string name="shift_removes_autospace_summary">Shift removes pending autospace</string>
     <!-- Preferences item for showing popup keys in long-press popup -->
     <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->

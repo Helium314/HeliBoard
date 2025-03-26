@@ -92,6 +92,10 @@ object Defaults {
     const val PREF_SPACE_VERTICAL_SWIPE = "none"
     const val PREF_DELETE_SWIPE = true
     const val PREF_AUTOSPACE_AFTER_PUNCTUATION = false
+    const val PREF_AUTOSPACE_AFTER_SUGGESTION = true
+    const val PREF_AUTOSPACE_AFTER_GESTURE_TYPING = true
+    const val PREF_AUTOSPACE_BEFORE_GESTURE_TYPING = true
+    const val PREF_SHIFT_REMOVES_AUTOSPACE = false
     const val PREF_ALWAYS_INCOGNITO_MODE = false
     const val PREF_BIGRAM_PREDICTIONS = true
     const val PREF_SUGGEST_CLIPBOARD_CONTENT = true
