@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "helium314.keyboard"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 3002
         versionName = "3.0-alpha2"
         ndk {
@@ -96,8 +96,8 @@ android {
 
 dependencies {
     // androidx
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.autofill:autofill:1.1.0")
 
     // kotlin
