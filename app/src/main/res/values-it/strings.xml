@@ -104,7 +104,7 @@
     <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
     <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
-    <string name="user_dict_settings_add_shortcut_hint">"Scorciatoia facoltativa"</string>
+    <string name="user_dict_settings_add_shortcut_hint">Scorciatoia (opzionale)</string>
     <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
     <string name="user_dict_settings_empty_text">Il dizionario utente è vuoto. Premi \'Aggiungi\' (+) per aggiungere manualmente una parola.</string>
     <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
@@ -439,4 +439,10 @@
     <string name="discussion_section_link">discussione dedicata</string>
     <string name="get_layouts_message">Scopri nuovi layout o condividi quelli che hai creato nella %s.</string>
     <string name="get_colors_message">Scopri nuove combinazioni di colori o condividi le tue nella %s.</string>
+    <string name="show_tld_popup_keys">Mostra popup con TLD</string>
+    <string name="show_tld_popup_keys_summary">Sostituisce il popup standard del tasto . (punto) con desinenze TLD internazionali durante la digitazione di URL e email</string>
+    <string name="after_numpad_and_space">Dopo uno spazio o la pressione di ⏎ (invio) dal tastierino numerico</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Non forzare i suggerimenti in tutti i campi di testo</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">I campi di testo Web (specie all\'interno dei browser) sono una causa ricorrente di problemi con i suggerimenti sempre attivi</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Barra dei numeri (base)</string>
 </resources>

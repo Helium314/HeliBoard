@@ -439,4 +439,8 @@ Nouveau dictionnaire:
     <string name="discussion_section_link">Section de discussion</string>
     <string name="show_tld_popup_keys">Afficher les suggestions de domaines (TLD)</string>
     <string name="show_tld_popup_keys_summary">Remplacer les suggestions de la touche point par des extensions de domaine (TLD) lors de la saisie d’URL ou d’adresses e-mail</string>
+    <string name="after_numpad_and_space">Appuyer sur Entrée ou sur la barre d\'espace après d\'autres touches du pavé numérique</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Les champs d\'édition Web (principalement présents dans les navigateurs) sont une cause très courante de problèmes avec le paramètre « Toujours afficher les suggestions »</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rangée numérique (standard)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ne pas forcer l\'affichage des suggestions pour les champs de saisie web</string>
 </resources>

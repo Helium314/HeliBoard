@@ -450,7 +450,7 @@
     <string name="prefs_key_emoji_max_sdk">Переопределить версию эмодзи</string>
     <string name="summary_customize_background_image_landscape">Если не установлено, будет использоваться портретное изображение</string>
     <string name="customize_background_image_landscape">Установить фоновое изображение (ландшафт)</string>
-    <string name="number_row_hints">Показывать подсказки в ряде с цифрами</string>
+    <string name="number_row_hints">Показывать подсказки в ряду с цифрами</string>
     <string name="prefs_language_swipe_distance">Расстояние смахивания для переключения языка</string>
     <string name="split_spacer_scale_landscape">Расстояние разделения (ландшафт)</string>
     <string name="enable_split_keyboard_landscape">Включить разделение клавиатуры (ландшафт)</string>
@@ -466,4 +466,10 @@
     <string name="get_layouts_message">Найти и поделиться раскладками в %s.</string>
     <string name="discussion_section_link">обсуждения</string>
     <string name="name_invalid">Недопустимое имя</string>
+    <string name="show_tld_popup_keys">Показать всплывающие клавиши TLD</string>
+    <string name="show_tld_popup_keys_summary">При вводе URL и адресов электронной почты отображать домены верхнего уровня вместо всплывающих меню клавиши точки</string>
+    <string name="after_numpad_and_space">Нажатие Enter или пробела после других клавиш на цифровой клавиатуре</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Поля ввода на веб-страницах (в основном в браузерах) часто вызывают проблемы с настройкой постоянного отображения подсказок</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Ряд с цифрами (основной)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Не всегда показывать подсказки для полей ввода на веб-страницах</string>
 </resources>

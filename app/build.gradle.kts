@@ -14,7 +14,7 @@ android {
         minSdk = 21
         targetSdk = 35
         versionCode = 3002
-        versionName = "3.0-alpha2"
+        versionName = "3.0-alpha3"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -58,7 +58,7 @@ android {
             path = File("src/main/jni/Android.mk")
         }
     }
-    ndkVersion = "26.2.11394342"
+    ndkVersion = "28.0.13004108"
 
     packagingOptions {
         jniLibs {

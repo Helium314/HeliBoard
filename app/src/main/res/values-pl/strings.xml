@@ -478,4 +478,6 @@
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Baishakhi)</string>
     <string name="show_tld_popup_keys">Pokaż wyskakujące okienka TLD</string>
     <string name="show_tld_popup_keys_summary">Zastąp wyskakujące okienka klawisza kropki domenami najwyższego poziomu podczas wpisywania adresów URL i adresów e-mail</string>
+    <string name="after_numpad_and_space">Naciśnięciu enter lub spacji po innych klawiszach w klawiaturze numerycznej</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rząd numeryczny (podstawowy)</string>
 </resources>

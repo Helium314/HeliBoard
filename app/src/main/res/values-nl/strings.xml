@@ -478,4 +478,8 @@
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
     <string name="show_tld_popup_keys">TLD-opties weergeven</string>
     <string name="show_tld_popup_keys_summary">Vervang pop-ups met interpunctie door topleveldomeinen bij het typen van URL\'s en e-mailadressen</string>
+    <string name="after_numpad_and_space">Druk op enter of spatie na andere toetsen in het numpad</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Cijferregel (basis)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Suggesties voor webbewerkingsvelden niet altijd weergeven</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Webbewerkingsvelden (meestal te vinden in browsers) zijn een veel voorkomende oorzaak van problemen met de instelling Altijd suggesties weergeven</string>
 </resources>

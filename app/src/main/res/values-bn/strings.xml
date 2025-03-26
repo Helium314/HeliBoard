@@ -433,4 +433,8 @@
     <string name="custom_subtype">নিজস্বীকৃত সাবটাইপ</string>
     <string name="show_tld_popup_keys">টিএলডি পপআপ বোতাম প্রদর্শন</string>
     <string name="show_tld_popup_keys_summary">ইউআরএল ও ইমেইল ঠিকানা লেখার জন্য দাঁড়ি বোতাম টপ লেভেল ডোমেইন দ্বারা প্রতিস্থাপন</string>
+    <string name="after_numpad_and_space">নম্বর প্যাডে অন্য বোতামের পরে এন্টার বা স্পেস চাপ</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">নম্বর সারি (প্রাথমিক)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">ওয়েব সম্পাদনা ফিল্ডে সর্বদা পরামর্শ প্রদর্শন করবে না</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">ওয়েব সম্পাদনা ফিল্ড (প্রধানত ব্রাউজারে উপলভ্য) সর্বদা পরামর্শ প্রদর্শন সেটিংসে সমস্যার একটি সাধারণ কারণ</string>
 </resources>

@@ -247,10 +247,10 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">الرموز(العربية)</string>
     <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
-    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة ارقام</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة الأرقام</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة رقمية (أفقي)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة الأرقام (أفقي)</string>
     <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
     <string name="dictionary_file_error">خطأ: الملف المحدد ليس ملف قاموس صالح</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">اسود</string>
@@ -476,4 +476,5 @@
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
     <string name="show_tld_popup_keys">أظهِر مفاتيح TLD المنبثقة</string>
     <string name="show_tld_popup_keys_summary">استبدل مفتاح الفترة المنبثقة مع مجالات المستوى الأعلى عند كتابة عناوين URL وعناوين البريد الإلكتروني</string>
+    <string name="after_numpad_and_space">الضغط على إدخال أو مساحة بعد مفاتيح أخرى في لوحة الأرقام</string>
 </resources>
