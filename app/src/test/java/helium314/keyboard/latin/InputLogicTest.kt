@@ -639,13 +639,20 @@ class InputLogicTest {
 
     @Test fun `revert autocorrect on delete`() {
         reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
         chainInput("hullo")
         getAutocorrectedWithSpaceAfter("hello", "hullo")
+        assertEquals("hello ", text)
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("hullo", text)
 
-        // todo: now we want some way to disable revert on backspace, either per setting or something else
-        //  need to avoid getting into the mLastComposedWord.canRevertCommit() part of handleBackspaceEvent
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, false) }
+        chainInput("hullo")
+        getAutocorrectedWithSpaceAfter("hello", "hullo")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello", text)
     }
 
     @Test fun `remove glide typing word on delete`() {
@@ -803,7 +810,7 @@ class InputLogicTest {
         val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
         val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, null, 0, 0)
         val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, 0, 0)
-        latinIME.mInputLogic.setSuggestedWords(sw)
+        latinIME.mInputLogic.setSuggestedWords(sw) // this prepares for autocorrect
         input(' ')
         checkConnectionConsistency()
     }
