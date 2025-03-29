@@ -36,7 +36,7 @@ android {
             isJniDebuggable = false
         }
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
         }
