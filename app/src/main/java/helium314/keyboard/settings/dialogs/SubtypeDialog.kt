@@ -145,7 +145,7 @@ fun SubtypeDialog(
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
                                     it.localizedDisplayName(ctx)
                                 }.ifEmpty { stringResource(R.string.action_none) }
-                            Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
+                            Text(text, Modifier.fillMaxWidth())
                         }
                     }
                 }
