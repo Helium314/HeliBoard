@@ -430,6 +430,8 @@ public class KeyboardView extends View {
                     paint.setColor(mColors.get(ColorType.ACTION_KEY_ICON));
                 else if (this instanceof EmojiPageKeyboardView)
                     paint.setColor(mColors.get(ColorType.EMOJI_KEY_TEXT));
+                else if (this instanceof PopupKeysKeyboardView)
+                    paint.setColor(mColors.get(ColorType.POPUP_KEY_TEXT));
                 else
                     paint.setColor(key.selectTextColor(params));
                 // Set a drop shadow for the text if the shadow radius is positive value.
