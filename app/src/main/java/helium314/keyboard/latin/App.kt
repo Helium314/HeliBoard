@@ -545,6 +545,14 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion <= 3001 && prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME) <= 0) {
         prefs.edit().putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, 121).apply()
     }
+    if (oldVersion <= 3002) {
+        prefs.all.filterKeys { it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) }.forEach {
+            val oldValue = prefs.getString(it.key, "")!!
+            if ("KEY_PREVIEW" !in oldValue) return@forEach
+            val newValue = oldValue.replace("KEY_PREVIEW", "KEY_PREVIEW_BACKGROUND")
+            prefs.edit().putString(it.key, newValue).apply()
+        }
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

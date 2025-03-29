@@ -129,7 +129,7 @@ public final class KeyVisualAttributes {
         // when? -> hasShiftedLetterHint and isShiftedLetterActivated -> both are label flags
         mShiftedLetterHintActivatedColor = keyAttr.getColor(
                 R.styleable.Keyboard_Key_keyShiftedLetterHintActivatedColor, 0);
-        mPreviewTextColor = colors.get(ColorType.KEY_TEXT);
+        mPreviewTextColor = colors.get(ColorType.KEY_PREVIEW_TEXT);
 
         mHintLabelVerticalAdjustment = ResourceUtils.getFraction(keyAttr,
                 R.styleable.Keyboard_Key_keyHintLabelVerticalAdjustment, 0.0f);
