@@ -196,6 +196,8 @@
     <string name="button_backup">Backup</string>
     <!-- restore button -->
     <string name="button_restore">Restore</string>
+    <!-- Preferences item for format for timestamp keycode -->
+    <string name="timestamp_format_title">Format for timestamp key</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Clarification which locales are available for multilingual typing -->

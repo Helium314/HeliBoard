@@ -21,6 +21,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.checkTimestampFormat
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.prefs
@@ -39,6 +40,7 @@ import helium314.keyboard.settings.dialogs.TextInputDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.BackgroundImagePref
 import helium314.keyboard.settings.preferences.CustomFontPreference
+import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
 
 @Composable
@@ -263,26 +265,8 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    Setting(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) { setting ->
-        var showDialog by rememberSaveable { mutableStateOf(false) }
-        val prefs = LocalContext.current.prefs()
-        Preference(
-            name = setting.title,
-            onClick = { showDialog = true },
-            description = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT)?.takeIf { it.isNotEmpty() }
-        )
-        if (showDialog) {
-            TextInputDialog(
-                onDismissRequest = { showDialog = false },
-                onConfirmed = {
-                    prefs.edit().putString(setting.key, it).apply()
-                    KeyboardSwitcher.getInstance().setThemeNeedsReload()
-                },
-                initialText = prefs.getString(setting.key, Defaults.PREF_SPACE_BAR_TEXT) ?: "",
-                title = { Text(setting.title) },
-                checkTextValid = { true }
-            )
-        }
+    Setting(context, Settings.PREF_SPACE_BAR_TEXT, R.string.prefs_space_bar_text) {
+        TextInputPreference(it, Defaults.PREF_SPACE_BAR_TEXT)
     },
     Setting(context, SettingsWithoutKey.CUSTOM_FONT, R.string.custom_font) {
         CustomFontPreference(it)

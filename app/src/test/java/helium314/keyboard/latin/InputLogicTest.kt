@@ -23,6 +23,7 @@ import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.getTimestamp
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -664,6 +665,13 @@ class InputLogicTest {
 
         // todo: now we want some way to disable delete-all on backspace, either per setting or something else
         //  need to avoid getting into the mWordComposer.isBatchMode() part of handleBackspaceEvent
+    }
+
+    @Test fun timestamp() {
+        reset()
+        chainInput("hello")
+        functionalKeyPress(KeyCode.TIMESTAMP)
+        assertEquals("hello" + getTimestamp(latinIME), text)
     }
 
     // ------- helper functions ---------
