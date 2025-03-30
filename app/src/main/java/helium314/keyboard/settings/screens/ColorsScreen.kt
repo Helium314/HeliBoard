@@ -71,6 +71,14 @@ fun ColorsScreen(
     onClickBack: () -> Unit
 ) {
     val ctx = LocalContext.current
+    val prefs = ctx.prefs()
+    val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
+    if ((b?.value ?: 0) < 0)
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+
+    val themeName = theme ?: if (isNight) prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)!!
+        else prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)!!
+    var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
 
     // is there really no better way of only setting forceOpposite while the screen is shown (and not paused)?
     // lifecycle stuff is weird, there is no pause and similar when activity is paused
@@ -83,21 +91,14 @@ fun ColorsScreen(
     val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
     LaunchedEffect(lifecycleState) {
         if (lifecycleState == Lifecycle.State.RESUMED) {
-            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(theme, isNight)
+            (ctx.getActivity() as? SettingsActivity)?.setForceTheme(newThemeName.text, isNight)
         }
     }
 
-    val prefs = ctx.prefs()
-    val b = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
-    if ((b?.value ?: 0) < 0)
-        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-
-    val themeName = theme ?: if (isNight) prefs.getString(Settings.PREF_THEME_COLORS_NIGHT, Defaults.PREF_THEME_COLORS_NIGHT)!!
-        else prefs.getString(Settings.PREF_THEME_COLORS, Defaults.PREF_THEME_COLORS)!!
-    val moreColors = KeyboardTheme.readUserMoreColors(prefs, themeName)
-    val userColors = KeyboardTheme.readUserColors(prefs, themeName)
+    val moreColors = KeyboardTheme.readUserMoreColors(prefs, newThemeName.text)
+    val userColors = KeyboardTheme.readUserColors(prefs, newThemeName.text)
     val shownColors = if (moreColors == 2) {
-        val allColors = KeyboardTheme.readUserAllColors(prefs, themeName)
+        val allColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text)
         ColorType.entries.map {
             ColorSetting(it.name, null, allColors[it] ?: it.default())
         }
@@ -114,12 +115,11 @@ fun ColorsScreen(
     fun ColorSetting.displayColor() = if (auto == true) KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
         else color ?: KeyboardTheme.determineUserColor(userColors, ctx, name, isNight)
 
-    var newThemeName by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue(themeName)) }
     var chosenColorString: String by rememberSaveable { mutableStateOf("") }
     val chosenColor = runCatching { Json.decodeFromString<ColorSetting?>(chosenColorString) }.getOrNull()
-    val saveLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
-        val uri = it.data?.data ?: return@rememberLauncherForActivityResult
+    val saveLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        val uri = result.data?.data ?: return@rememberLauncherForActivityResult
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.writer()?.use { it.write(getColorString(prefs, newThemeName.text)) }
     }
     SearchScreen(
@@ -130,8 +130,10 @@ fun ColorsScreen(
                 value = nameField,
                 onValueChange = {
                     nameValid = KeyboardTheme.renameUserColors(newThemeName.text, it.text, prefs)
-                    if (nameValid)
+                    if (nameValid) {
                         newThemeName = it
+                        SettingsActivity.forceTheme = newThemeName.text
+                    }
                     nameField = it
                 },
                 isError = !nameValid,
@@ -195,11 +197,11 @@ fun ColorsScreen(
                             }
                     }
                     if (colorSetting.auto != null)
-                        Switch(colorSetting.auto, onCheckedChange = {
-                            val oldUserColors = KeyboardTheme.readUserColors(prefs, themeName)
-                            val newUserColors = (oldUserColors + ColorSetting(colorSetting.name, it, colorSetting.color))
+                        Switch(colorSetting.auto, onCheckedChange = { checked ->
+                            val oldUserColors = KeyboardTheme.readUserColors(prefs, newThemeName.text)
+                            val newUserColors = (oldUserColors + ColorSetting(colorSetting.name, checked, colorSetting.color))
                                 .reversed().distinctBy { it.displayName }
-                            KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
+                            KeyboardTheme.writeUserColors(prefs, newThemeName.text, newUserColors)
                         })
                 }
         }
@@ -209,16 +211,16 @@ fun ColorsScreen(
             onDismissRequest = { chosenColorString = "" },
             initialColor = chosenColor.displayColor(),
             title = chosenColor.displayName,
-        ) {
+        ) { color ->
             if (moreColors == 2) {
-                val oldColors = KeyboardTheme.readUserAllColors(prefs, themeName)
-                oldColors[ColorType.valueOf(chosenColor.name)] = it
-                KeyboardTheme.writeUserAllColors(prefs, themeName, oldColors)
+                val oldColors = KeyboardTheme.readUserAllColors(prefs, newThemeName.text)
+                oldColors[ColorType.valueOf(chosenColor.name)] = color
+                KeyboardTheme.writeUserAllColors(prefs, newThemeName.text, oldColors)
             } else {
-                val oldUserColors = KeyboardTheme.readUserColors(prefs, themeName)
-                val newUserColors = (oldUserColors + ColorSetting(chosenColor.name, false, it))
+                val oldUserColors = KeyboardTheme.readUserColors(prefs, newThemeName.text)
+                val newUserColors = (oldUserColors + ColorSetting(chosenColor.name, false, color))
                     .reversed().distinctBy { it.displayName }
-                KeyboardTheme.writeUserColors(prefs, themeName, newUserColors)
+                KeyboardTheme.writeUserColors(prefs, newThemeName.text, newUserColors)
             }
         }
     }
