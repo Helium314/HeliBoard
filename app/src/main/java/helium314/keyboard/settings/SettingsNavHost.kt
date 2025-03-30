@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
@@ -29,6 +30,7 @@ import helium314.keyboard.settings.screens.PersonalDictionariesScreen
 import helium314.keyboard.settings.screens.PersonalDictionaryScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.SecondaryLayoutScreen
+import helium314.keyboard.settings.screens.SubtypeScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
 import kotlinx.coroutines.CoroutineScope
@@ -126,6 +128,9 @@ fun SettingsNavHost(
         composable(SettingsDestination.ColorsNight + "{theme}") {
             ColorsScreen(isNight = true, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
+        composable(SettingsDestination.Subtype + "{subtype}") {
+            SubtypeScreen(initialSubtype = it.arguments?.getString("subtype")!!.toSettingsSubtype(), onClickBack = ::goBack)
+        }
     }
     if (target.value != SettingsDestination.Settings/* && target.value != navController.currentBackStackEntry?.destination?.route*/)
         navController.navigate(route = target.value)
@@ -146,6 +151,7 @@ object SettingsDestination {
     const val PersonalDictionaries = "personal_dictionaries"
     const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"
+    const val Subtype = "subtype/"
     const val Layouts = "layouts"
     const val Dictionaries = "dictionaries"
     val navTarget = MutableStateFlow(Settings)

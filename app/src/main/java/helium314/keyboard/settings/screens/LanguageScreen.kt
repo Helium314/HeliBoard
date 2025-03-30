@@ -18,7 +18,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,15 +38,14 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.MissingDictionaryDialog
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.SettingsDestination
 import helium314.keyboard.settings.Theme
-import helium314.keyboard.settings.dialogs.SubtypeDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import java.util.Locale
@@ -57,12 +55,11 @@ fun LanguageScreen(
     onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    var sortedSubtypes by remember { mutableStateOf(getSortedSubtypes(ctx)) }
+    val sortedSubtypes by remember { mutableStateOf(getSortedSubtypes(ctx)) }
     val prefs = ctx.prefs()
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    var selectedSubtype: String? by rememberSaveable { mutableStateOf(null) }
     val enabledSubtypes = SubtypeSettings.getEnabledSubtypes()
     SearchScreen(
         onClickBack = onClickBack,
@@ -87,7 +84,9 @@ fun LanguageScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { selectedSubtype = item.toSettingsSubtype().toPref() }
+                    .clickable {
+                        SettingsDestination.navigateTo(SettingsDestination.Subtype + item.toSettingsSubtype().toPref())
+                    }
                     .padding(vertical = 6.dp, horizontal = 16.dp)
             ) {
                 var showNoDictDialog by remember { mutableStateOf(false) }
@@ -119,19 +118,6 @@ fun LanguageScreen(
             }
         }
     )
-    if (selectedSubtype != null) {
-        val oldSubtype = selectedSubtype!!.toSettingsSubtype()
-        SubtypeDialog(
-            onDismissRequest = {
-                selectedSubtype = null
-                sortedSubtypes = getSortedSubtypes(ctx)
-            },
-            onConfirmed = {
-                SubtypeUtilsAdditional.changeAdditionalSubtype(oldSubtype, it, ctx)
-            },
-            initialSubtype = oldSubtype
-        )
-    }
 }
 
 private fun dictsAvailable(locale: Locale, context: Context): Boolean {
