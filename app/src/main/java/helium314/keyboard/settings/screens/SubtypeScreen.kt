@@ -1,12 +1,12 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -61,6 +61,7 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.appendLink
+import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
@@ -85,11 +86,6 @@ import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.previewDark
 import java.util.Locale
 
-// todo:
-//  dropdowns are weird
-//   at very least too wide and too high
-//   also too wide left (anchor should be icon)
-//  title shows only the layout name
 @Composable
 fun SubtypeScreen(
     initialSubtype: SettingsSubtype,
@@ -140,10 +136,7 @@ fun SubtypeScreen(
             SubtypeSettings.removeEnabledSubtype(ctx, currentSubtype.toAdditionalSubtype())
             onClickBack()
         } },
-        title = {
-            val mainLayout = currentSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
-            Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(mainLayout, currentSubtype.locale))
-        },
+        title = { Text(currentSubtype.toAdditionalSubtype().displayName(ctx)) },
         itemContent = { },
         filteredItems = { emptyList<String>() }
     ) {
@@ -228,11 +221,12 @@ fun SubtypeScreen(
                         var showLayoutEditDialog by remember { mutableStateOf(false) }
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(displayName, Modifier.padding(end = 8.dp))
+                            Text(displayName)
                             if (LayoutUtilsCustom.isCustomLayout(it))
-                                Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = true })
+                                IconButton({ showLayoutEditDialog = true }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
                         }
                         if (showLayoutEditDialog)
                             LayoutEditDialog(
@@ -376,18 +370,18 @@ private fun MainLayoutRow(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.widthIn(min = 200.dp).fillMaxWidth()
             ) {
                 Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = it to null })
-                    if (it in customLayouts && currentSubtype.mainLayoutName() != it) // don't allow current main layout // todo: this was initialSubtype, maybe needs adjustment now
-                        Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete), Modifier.clickable { showLayoutDeleteDialog = true })
+                    IconButton({ showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
+                    if (it in customLayouts)
+                        IconButton({ showLayoutDeleteDialog = true }) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
                 }
             }
             if (showLayoutDeleteDialog) {
                 val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }
-                    .any { it.toSettingsSubtype() != currentSubtype } // todo: this was initialSubtype, maybe needs adjustment now
+                    .any { it.toSettingsSubtype() != currentSubtype }
                 ConfirmationDialog(
                     onDismissRequest = { showLayoutDeleteDialog = false },
                     confirmButtonText = stringResource(R.string.delete),
@@ -453,7 +447,6 @@ private fun MainLayoutRow(
 
 private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): List<Locale> =
     getDictionaryLocales(context).filter { it != mainLocale && it.script() == mainLocale.script() }
-
 
 @Preview
 @Composable
