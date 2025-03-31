@@ -53,6 +53,7 @@ import java.util.zip.ZipOutputStream
 class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private val prefs by lazy { this.prefs() }
     val prefChanged = MutableStateFlow(0) // simple counter, as the only relevant information is that something changed
+    fun prefChanged() = prefChanged.value++
     private val dictUriFlow = MutableStateFlow<Uri?>(null)
     private val cachedDictionaryFile by lazy { File(this.cacheDir.path + File.separator + "temp_dict") }
     private val crashReportFiles = MutableStateFlow<List<File>>(emptyList())
@@ -236,6 +237,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {
-        prefChanged.value++
+        prefChanged()
     }
 }

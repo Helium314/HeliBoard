@@ -168,7 +168,7 @@ fun BackupRestorePreference(setting: Setting) {
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()
-        (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 210 // for settings reload
+        (ctx.getActivity() as? SettingsActivity)?.prefChanged()
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
     Preference(name = setting.title, onClick = { showDialog = true })

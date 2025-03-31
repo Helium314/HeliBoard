@@ -391,7 +391,7 @@ private fun MainLayoutRow(
                         if (it == currentSubtype.mainLayoutName())
                             setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
                         LayoutUtilsCustom.deleteLayout(it, LayoutType.MAIN, ctx)
-                        (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 1234
+                        (ctx.getActivity() as? SettingsActivity)?.prefChanged()
                     }
                 )
             }

@@ -77,7 +77,7 @@ fun LayoutEditDialog(
             LayoutUtilsCustom.getLayoutFile(newLayoutName, layoutType, ctx).writeText(it)
             LayoutUtilsCustom.onLayoutFileChanged()
             onEdited(newLayoutName)
-            (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 555
+            (ctx.getActivity() as? SettingsActivity)?.prefChanged()
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         },
         confirmButtonText = stringResource(R.string.save),
