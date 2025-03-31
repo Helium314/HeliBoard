@@ -124,6 +124,10 @@ object SubtypeSettings {
 
     fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()
 
+    /**
+     * Update subtypes that contain the layout. If new name is null (layout deleted) and the
+     * subtype is now identical to a resource subtype, remove the subtype from additional subtypes.
+     */
     fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
         listOf(
@@ -131,10 +135,19 @@ object SubtypeSettings {
             Settings.PREF_ENABLED_SUBTYPES to Defaults.PREF_ENABLED_SUBTYPES,
             Settings.PREF_SELECTED_SUBTYPE to Defaults.PREF_SELECTED_SUBTYPE
         ).forEach { (key, default) ->
-            val new = prefs.getString(key, default)!!.split(Separators.SETS).mapTo(mutableSetOf()) {
+            val new = prefs.getString(key, default)!!.split(Separators.SETS).mapNotNullTo(mutableSetOf()) {
                 val subtype = it.toSettingsSubtype()
                 if (subtype.layoutName(type) == from) {
-                    if (to == null) subtype.withoutLayout(type).toPref()
+                    if (to == null) {
+                        val defaultLayout = if (type !== LayoutType.MAIN) null
+                            // if we just delete a main layout, we may end up with something like Hindi (QWERTY)
+                            // so better replace it with a default layout for that locale
+                            else resourceSubtypesByLocale[subtype.locale]?.first()?.mainLayoutName()
+                        val newSubtype = if (defaultLayout == null) subtype.withoutLayout(type)
+                            else subtype.withLayout(type, defaultLayout)
+                        if (newSubtype.isSameAsDefault() && key == Settings.PREF_ADDITIONAL_SUBTYPES) null
+                        else subtype.withoutLayout(type).toPref()
+                    }
                     else subtype.withLayout(type, to).toPref()
                 }
                 else subtype.toPref()

@@ -14,11 +14,13 @@ import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.locale
 import java.util.Locale
 
 // some kind of intermediate between the string stored in preferences and an InputMethodSubtype
+// todo: consider using a hashMap or sortedMap instead of a string if we run into comparison issues once again
 data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
     fun toPref() = locale.toLanguageTag() + Separators.SET + extraValues
@@ -69,6 +71,8 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
     fun isAdditionalSubtype(prefs: SharedPreferences) =
         prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
             .split(Separators.SETS).contains(toPref())
+
+    fun isSameAsDefault() = SubtypeSettings.getResourceSubtypesForLocale(locale).any { it.toSettingsSubtype() == this.toPref().toSettingsSubtype() }
 
     companion object {
         fun String.toSettingsSubtype(): SettingsSubtype =

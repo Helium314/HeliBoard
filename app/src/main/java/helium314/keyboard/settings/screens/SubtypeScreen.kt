@@ -388,8 +388,13 @@ private fun MainLayoutRow(
                     title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(it))) },
                     content = { if (others) Text(stringResource(R.string.layout_in_use)) },
                     onConfirmed = {
-                        if (it == currentSubtype.mainLayoutName())
-                            setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
+                        if (it == currentSubtype.mainLayoutName()) {
+                            // similar to what is done in SubtypeSettings.onRenameLayout
+                            val defaultLayout = SubtypeSettings.getResourceSubtypesForLocale(currentSubtype.locale).firstOrNull()?.mainLayoutName()
+                            val newSubtype = if (defaultLayout == null) currentSubtype.withoutLayout(LayoutType.MAIN)
+                                else currentSubtype.withLayout(LayoutType.MAIN, defaultLayout)
+                            setCurrentSubtype(newSubtype)
+                        }
                         LayoutUtilsCustom.deleteLayout(it, LayoutType.MAIN, ctx)
                         (ctx.getActivity() as? SettingsActivity)?.prefChanged()
                     }

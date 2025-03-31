@@ -70,7 +70,7 @@ object SubtypeUtilsAdditional {
         val additionalSubtypes = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!)
             .toMutableList()
         additionalSubtypes.remove(from)
-        if (SubtypeSettings.getResourceSubtypesForLocale(to.locale).none { it.toSettingsSubtype() == to }) {
+        if (!to.isSameAsDefault()) {
             // We only add the "to" subtype if it's not equal to a resource subtype.
             // This means we make additional subtype disappear as magically as it was added if all settings are default.
             // If we don't do this, enabling the base subtype will result in the additional subtype being enabled,
