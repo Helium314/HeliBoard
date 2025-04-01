@@ -9,11 +9,13 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import java.math.BigInteger
 import java.util.Locale
 
+fun CharSequence.codePointAt(offset: Int) = Character.codePointAt(this, offset)
+fun CharSequence.codePointBefore(offset: Int) = Character.codePointBefore(this, offset)
+
 inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
-    val s = text.toString()
     var offset = 0
-    while (offset < s.length) {
-        val cp = s.codePointAt(offset)
+    while (offset < text.length) {
+        val cp = text.codePointAt(offset)
         val charCount = Character.charCount(cp)
         if (loop(cp, charCount)) return
         offset += charCount
@@ -21,10 +23,9 @@ inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int
 }
 
 inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
-    val s = text.toString()
-    var offset = s.length
+    var offset = text.length
     while (offset > 0) {
-        val cp = s.codePointBefore(offset)
+        val cp = text.codePointBefore(offset)
         val charCount = Character.charCount(cp)
         if (loop(cp, charCount)) return
         offset -= charCount
