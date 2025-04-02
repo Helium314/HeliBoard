@@ -7,6 +7,7 @@
 package helium314.keyboard.latin;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -100,7 +101,6 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -523,11 +523,80 @@ public class LatinIME extends InputMethodService implements
     }
 
     final class SubtypeState {
+        // When HintLocales causes a subtype override, we store
+        // the overridden subtype here in order to restore it when
+        // we switch to another input context that has no HintLocales.
+        private InputMethodSubtype mOverriddenByLocale;
+
         private InputMethodSubtype mLastActiveSubtype;
         private boolean mCurrentSubtypeHasBeenUsed = true; // starting with true avoids immediate switch
 
         public void setCurrentSubtypeHasBeenUsed() {
             mCurrentSubtypeHasBeenUsed = true;
+        }
+
+        // TextFields can provide locale/language hints that the IME should use via 'hintLocales'.
+        // If a matching subtype is found, we temporarily switch to that subtype until
+        // we return to a context that does not provide any hints, or until the user
+        // explicitly changes the language/subtype in use.
+        public InputMethodSubtype getSubtypeForLocales(final RichInputMethodManager richImm, final Iterable<Locale> locales) {
+            final InputMethodSubtype overriddenByLocale = mOverriddenByLocale;
+            if (locales == null) {
+                if (overriddenByLocale != null) {
+                    // no locales provided, so switch back to
+                    // whatever subtype was used last time.
+                    mOverriddenByLocale = null;
+
+                    return overriddenByLocale;
+                }
+
+                return null;
+            }
+
+            final InputMethodSubtype currentSubtype = richImm.getCurrentSubtype().getRawSubtype();
+            final Locale currentSubtypeLocale = richImm.getCurrentSubtypeLocale();
+            final int minimumMatchLevel = 3; // LocaleUtils.LOCALE_LANGUAGE_MATCH_COUNTRY_DIFFER;
+
+            // Try finding a subtype matching the hint language.
+            for (final Locale hintLocale : locales) {
+                if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, currentSubtypeLocale) >= minimumMatchLevel
+                        || CollectionsKt.any(mSettings.getCurrent().mSecondaryLocales,
+                            (secLocale) -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= minimumMatchLevel)) {
+                    // current locales are already a good match, and we want to avoid unnecessary layout switches.
+                    return null;
+                }
+
+                final InputMethodSubtype subtypeForHintLocale = richImm.findSubtypeForHintLocale(hintLocale);
+                if (subtypeForHintLocale == null) {
+                    continue;
+                }
+
+                if (subtypeForHintLocale.equals(currentSubtype)) {
+                    // no need to switch, we already use the correct locale.
+                    return null;
+                }
+
+                if (overriddenByLocale == null) {
+                    // auto-switching based on hint locale, so store
+                    // whatever subtype was in use so we can switch back
+                    // to it later when there are no hint locales.
+                    mOverriddenByLocale = currentSubtype;
+                }
+
+                return subtypeForHintLocale;
+            }
+
+            return null;
+        }
+
+        public void onSubtypeChanged(final InputMethodSubtype oldSubtype,
+                                     final InputMethodSubtype newSubtype) {
+            if (oldSubtype != mOverriddenByLocale) {
+                // Whenever the subtype is changed, clear tracking
+                // the subtype that is overridden by a HintLocale as
+                // we no longer have a subtype to automatically switch back to.
+                mOverriddenByLocale = null;
+            }
         }
 
         public void switchSubtype(final RichInputMethodManager richImm) {
@@ -858,6 +927,8 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         InputMethodSubtype oldSubtype = mRichImm.getCurrentSubtype().getRawSubtype();
+
+        mSubtypeState.onSubtypeChanged(oldSubtype, subtype);
         StatsUtils.onSubtypeChanged(oldSubtype, subtype);
         mRichImm.onSubtypeChanged(subtype);
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
@@ -876,20 +947,10 @@ public class LatinIME extends InputMethodService implements
         super.onStartInput(editorInfo, restarting);
 
         final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
-        if (hintLocales == null) {
-            return;
-        }
-        // Try switching to a subtype matching the hint language.
-        for (final Locale hintLocale : hintLocales) {
-            if (LocaleUtils.INSTANCE.getMatchLevel(hintLocale, mRichImm.getCurrentSubtypeLocale()) >= 3
-                    || CollectionsKt.any(mSettings.getCurrent().mSecondaryLocales, (secLocale) -> LocaleUtils.INSTANCE.getMatchLevel(hintLocale, secLocale) >= 3))
-                return; // current locales are already a good match, and we want to avoid unnecessary layout switches
-            final InputMethodSubtype newSubtype = mRichImm.findSubtypeForHintLocale(hintLocale);
-            if (newSubtype == null) continue;
-            if (newSubtype.equals(mRichImm.getCurrentSubtype().getRawSubtype()))
-                return; // no need to switch, we already use the correct locale
-            mHandler.postSwitchLanguage(newSubtype);
-            break;
+        final InputMethodSubtype subtypeForLocales = mSubtypeState.getSubtypeForLocales(mRichImm, hintLocales);
+        if (subtypeForLocales != null) {
+            // found a better subtype using hint locales that we should switch to.
+            mHandler.postSwitchLanguage(subtypeForLocales);
         }
     }
 

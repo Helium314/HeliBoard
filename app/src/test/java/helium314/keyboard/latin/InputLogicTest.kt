@@ -23,6 +23,7 @@ import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.inputlogic.SpaceState
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ScriptUtils
+import helium314.keyboard.latin.utils.getTimestamp
 import helium314.keyboard.latin.utils.prefs
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -203,13 +204,7 @@ class InputLogicTest {
         assertEquals("example.net", composingText)
     }
 
-    // fails because
-    //  period is not handled with handleSeparatorEvent in this case
-    //  pickSuggestion sets phantom space state
-    //  insertAutomaticSpaceIfOptionsAndTextAllow allows the space
-    // todo: fix it either in some of those functions, or by finally improving URL detection in a reasonable (and performant) way
     @Test fun noAutospaceInUrlFieldWhenPickingSuggestion() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
         reset()
         setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI)
         chainInput("exam")
@@ -262,6 +257,7 @@ class InputLogicTest {
         reset()
         latinIME.prefs().edit { putBoolean(Settings.PREF_URL_DETECTION, true) }
         latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, true) }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_SHIFT_REMOVES_AUTOSPACE, true) }
         input("bla")
         input('.')
         functionalKeyPress(KeyCode.SHIFT) // should remove the phantom space (in addition to normal effect)
@@ -644,13 +640,20 @@ class InputLogicTest {
 
     @Test fun `revert autocorrect on delete`() {
         reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
         chainInput("hullo")
         getAutocorrectedWithSpaceAfter("hello", "hullo")
+        assertEquals("hello ", text)
         functionalKeyPress(KeyCode.DELETE)
         assertEquals("hullo", text)
 
-        // todo: now we want some way to disable revert on backspace, either per setting or something else
-        //  need to avoid getting into the mLastComposedWord.canRevertCommit() part of handleBackspaceEvent
+        reset()
+        setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT)
+        latinIME.prefs().edit { putBoolean(Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, false) }
+        chainInput("hullo")
+        getAutocorrectedWithSpaceAfter("hello", "hullo")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello", text)
     }
 
     @Test fun `remove glide typing word on delete`() {
@@ -662,6 +665,13 @@ class InputLogicTest {
 
         // todo: now we want some way to disable delete-all on backspace, either per setting or something else
         //  need to avoid getting into the mWordComposer.isBatchMode() part of handleBackspaceEvent
+    }
+
+    @Test fun timestamp() {
+        reset()
+        chainInput("hello")
+        functionalKeyPress(KeyCode.TIMESTAMP)
+        assertEquals("hello" + getTimestamp(latinIME), text)
     }
 
     // ------- helper functions ---------
@@ -808,7 +818,7 @@ class InputLogicTest {
         val info = SuggestedWordInfo(suggestion, "", 0, 0, null, 0, 0)
         val typedInfo = SuggestedWordInfo(typedWord, "", 0, 0, null, 0, 0)
         val sw = SuggestedWords(ArrayList(listOf(typedInfo, info)), null, typedInfo, false, true, false, 0, 0)
-        latinIME.mInputLogic.setSuggestedWords(sw)
+        latinIME.mInputLogic.setSuggestedWords(sw) // this prepares for autocorrect
         input(' ')
         checkConnectionConsistency()
     }

@@ -80,6 +80,7 @@ public final class KeyboardState {
     private static final int SWITCH_STATE_SYMBOL_BEGIN = 1;
     private static final int SWITCH_STATE_SYMBOL = 2;
     private static final int SWITCH_STATE_NUMPAD = 3;
+    private static final int SWITCH_STATE_NUMPAD_BEGIN = 9;
     private static final int SWITCH_STATE_MOMENTARY_ALPHA_AND_SYMBOL = 4;
     private static final int SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE = 5;
     private static final int SWITCH_STATE_MOMENTARY_ALPHA_SHIFT = 6;
@@ -403,7 +404,7 @@ public final class KeyboardState {
         mMode = MODE_NUMPAD;
         mRecapitalizeMode = RecapitalizeStatus.NOT_A_RECAPITALIZE_MODE;
         mSwitchActions.setNumpadKeyboard();
-        mSwitchState = withSliding ? SWITCH_STATE_MOMENTARY_TO_NUMPAD : SWITCH_STATE_NUMPAD;
+        mSwitchState = withSliding ? SWITCH_STATE_MOMENTARY_TO_NUMPAD : SWITCH_STATE_NUMPAD_BEGIN;
     }
 
     public void toggleNumpad(final boolean withSliding, final int autoCapsFlags, final int recapitalizeMode,
@@ -789,6 +790,17 @@ public final class KeyboardState {
                 mPrevSymbolsKeyboardWasShifted = false;
             }
             break;
+        case SWITCH_STATE_NUMPAD:
+            // Switch back to alpha keyboard mode if user types one or more non-space/enter
+            // characters followed by a space/enter.
+            if (isSpaceOrEnter(code) && Settings.getValues().mAlphaAfterNumpadAndSpace) {
+                toggleNumpad(false, autoCapsFlags, recapitalizeMode, true, false);
+            }
+            break;
+        case SWITCH_STATE_NUMPAD_BEGIN:
+            if (!isSpaceOrEnter(code))
+                mSwitchState = SWITCH_STATE_NUMPAD;
+            break;
         }
 
         // If the code is a letter, update keyboard shift state.
@@ -833,6 +845,7 @@ public final class KeyboardState {
             case SWITCH_STATE_MOMENTARY_SYMBOL_AND_MORE -> "MOMENTARY-SYMBOL-MORE";
             case SWITCH_STATE_MOMENTARY_ALPHA_SHIFT -> "MOMENTARY-ALPHA_SHIFT";
             case SWITCH_STATE_NUMPAD -> "NUMPAD";
+            case SWITCH_STATE_NUMPAD_BEGIN -> "NUMPAD-BEGIN";
             case SWITCH_STATE_MOMENTARY_TO_NUMPAD -> "MOMENTARY-TO-NUMPAD";
             case SWITCH_STATE_MOMENTARY_FROM_NUMPAD -> "MOMENTARY-FROM-NUMPAD";
             default -> null;

@@ -432,4 +432,11 @@
     <string name="delete_confirmation">%s wirklich löschen?</string>
     <string name="name_invalid">Ungültiger Name</string>
     <string name="custom_subtype">Benutzerdefinierter Subtyp</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengalisch">%s</xliff:g> (Baisakhi)</string>
+    <string name="show_tld_popup_keys">Zeige TLD-Popup-Tasten</string>
+    <string name="show_tld_popup_keys_summary">Ersetze Punkt-Tastenpopups mit Top-Level-Domains wenn URLs und Mailadressen eingegeben werden</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Nicht immer Vorschläge für Web-Editierfelder anzeigen</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zahlenreihe (Basis)</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web-Eingabefelder (meist in Browsern) sind eine häufige Ursache für Probleme mit der Einstellung \"Immer Vorschläge anzeigen\"</string>
+    <string name="after_numpad_and_space">Drücken der Eingabetaste oder der Leertaste nach anderen Tasten im Ziffernblock</string>
 </resources>

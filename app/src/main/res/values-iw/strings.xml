@@ -208,7 +208,7 @@
     <string name="toolbar_keys">בחירת כפתורי סרגל הכלים</string>
     <string name="prefs_narrow_key_gaps">מרווחי קלידים צרים</string>
     <string name="localized_number_row">תרגום number row</string>
-    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת המספרים</string>
+    <string name="popup_keys_number" tools:keep="@string/popup_keys_number">שורת מספרים</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">שפה</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">שפה (עדיפות)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">פריסה</string>
@@ -439,4 +439,10 @@
     <string name="get_colors_message">באפשרותך למצוא ולשתף צבעים ב %s.</string>
     <string name="get_layouts_message">באפשרותך למצוא ולשתף פריסות ב %s.</string>
     <string name="discussion_section_link">מקטע הדיונים</string>
+    <string name="show_tld_popup_keys">הצגת חלון צץ של סיומות אינטרנט</string>
+    <string name="show_tld_popup_keys_summary">החלפת חלון צץ של מקש נקודה ברשימת סיומות אינטרנט נפוצות בעת הקלדת כתובות אינטרנט ודוא\"ל</string>
+    <string name="after_numpad_and_space">לאחר לחיצת Enter או רווח לאחר מקשים אחרים במקלדת המספרים</string>
+    <string name="prefs_always_show_suggestions_except_web_text">לא תמיד להציג הצעות לשדות עריכה ב-Web</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">שדות עריכה ב-Web (בדר\"כ יוצגו בדפדפן) הם גורם נפוץ מאד לבעיות בהגדרה \'הצגת הצעות תמיד\'</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">שורת המספרים (פריסת בסיס)</string>
 </resources>

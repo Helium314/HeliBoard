@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "helium314.keyboard"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 3000
-        versionName = "3.0-alpha1"
+        targetSdk = 35
+        versionCode = 3003
+        versionName = "3.0-alpha3"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -58,7 +58,7 @@ android {
             path = File("src/main/jni/Android.mk")
         }
     }
-    ndkVersion = "26.2.11394342"
+    ndkVersion = "28.0.13004108"
 
     packagingOptions {
         jniLibs {
@@ -96,9 +96,8 @@ android {
 
 dependencies {
     // androidx
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.autofill:autofill:1.1.0")
 
     // kotlin
@@ -118,7 +117,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.15.2")
-    testImplementation("org.robolectric:robolectric:4.12.1")
+    testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("androidx.test:runner:1.6.2")
     testImplementation("androidx.test:core:1.6.1")
 }

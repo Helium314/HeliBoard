@@ -29,6 +29,7 @@ import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.settings.CloseIcon
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Job
@@ -92,6 +93,7 @@ fun LayoutEditDialog(
                     isError = !nameValid,
                     supportingText = { if (!nameValid) Text(stringResource(R.string.name_invalid)) },
                     trailingIcon = { if (!nameValid) CloseIcon(R.string.name_invalid) },
+                    textStyle = contentTextDirectionStyle,
                 )
         },
         checkTextValid = { text ->

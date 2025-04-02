@@ -38,6 +38,8 @@
     <string name="settings_category_clipboard_history">Clipboard history</string>
     <!-- Settings category title for Text correction/Corrections -->
     <string name="settings_category_correction">Corrections</string>
+    <!-- Settings category title for Text correction/Space -->
+    <string name="settings_category_space">Space</string>
     <!-- Settings category title for Text correction/Suggestions -->
     <string name="settings_category_suggestions">Suggestions</string>
     <!-- Settings category title for Advanced/Experimental -->
@@ -104,6 +106,10 @@
     <string name="prefs_always_show_suggestions">Always show suggestions</string>
     <!-- Description for override app flag to not show suggestions -->
     <string name="prefs_always_show_suggestions_summary">Ignore other apps’ request to disable suggestions (may cause issues)</string>
+    <!-- Option to not override the above flags for InputType.WEB_EDIT_TEXT -->
+    <string name="prefs_always_show_suggestions_except_web_text">Don’t always show suggestions for web edit fields</string>
+    <!-- Description for prefs_always_show_suggestions_except_web_text -->
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web edit fields (mostly found in browsers) are a very common cause for issues with the always show suggestions setting</string>
     <!-- Option to block potentially offensive words to be shown -->
     <string name="prefs_block_potentially_offensive_title">Block offensive words</string>
     <!-- Summary for option to block potentially offensive words to be shown -->
@@ -122,6 +128,8 @@
     <string name="auto_correct_shortcuts">Auto-correct shortcuts</string>
     <!-- Description for auto_correct_shortcuts -->
     <string name="auto_correct_shortcuts_summary">When enabled shortcuts might be expanded by autocorrect</string>
+    <!-- Option to undo auto correction with backspace -->
+    <string name="backspace_reverts_autocorrect">Backspace reverts autocorrect</string>
     <!-- Option to disable auto correction. -->
     <string name="auto_correction_threshold_mode_off">Off</string>
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. -->
@@ -188,6 +196,8 @@
     <string name="button_backup">Backup</string>
     <!-- restore button -->
     <string name="button_restore">Restore</string>
+    <!-- Preferences item for format for timestamp keycode -->
+    <string name="timestamp_format_title">Format for timestamp key</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
     <!-- Clarification which locales are available for multilingual typing -->
@@ -205,10 +215,20 @@
     <string name="load_gesture_library_button_load">Load library</string>
     <!-- Button text for deleting gesture library -->
     <string name="load_gesture_library_button_delete">Delete library</string>
-    <!-- Preferences item for enabling inserting more spaces key -->
+    <!-- Preferences item for inserting space after punctuation -->
     <string name="autospace_after_punctuation">Autospace after punctuation</string>
-    <!-- Description for "insert_more_spaces" option. -->
+    <!-- Description for "autospace_after_punctuation" setting -->
     <string name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
+    <!-- Preferences item for inserting space after manualle picking a suggestion -->
+    <string name="autospace_after_suggestion">Autospace after picking a suggestion</string>
+    <!-- Preferences item for inserting space before entering a word using gesture typing -->
+    <string name="autospace_before_gesture_typing">Autospace before gesture typing a word</string>
+    <!-- Preferences item for inserting space after entering a word using gesture typing -->
+    <string name="autospace_after_gesture_typing">Autospace after gesture typing a word</string>
+    <!-- Preferences item for avoiding automatic space insertion by pressing shift -->
+    <string name="shift_removes_autospace">No autospace when pressing shift</string>
+    <!-- Description for "autospace_after_punctuation" setting -->
+    <string name="shift_removes_autospace_summary">Shift removes pending autospace</string>
     <!-- Preferences item for showing popup keys in long-press popup -->
     <string name="show_popup_keys_title">Show more letters with diacritics in popup</string>
     <!-- Option for showing only letters defined in the current language file in long-press popup -->
@@ -249,6 +269,10 @@
     <string name="hint_source">Select hint source</string>
     <!-- Title of the setting to set popup key order -->
     <string name="popup_order">Select popup key order</string>
+    <!-- Title of the setting to show TLD popup keys -->
+    <string name="show_tld_popup_keys">Show TLD popup keys</string>
+    <!-- Description of the setting to show TLD popup keys -->
+    <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Language</string>
@@ -555,6 +579,8 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (landscape)</string>
     <!-- Name for number row layout -->
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
+    <!-- Name for number row basic layout -->
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Number row (basic)</string>
     <!-- Name for bottom row layout in emoji view -->
     <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji bottom row</string>
     <!-- Name for bottom row layout in clipboard view -->
@@ -577,6 +603,8 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="after_clip">Selecting clipboard history entry</string>
     <!-- Switch to main keyboard after entering a symbol in symbols layout and then pressing space or enter -->
     <string name="after_symbol_and_space">Pressing enter or space after other keys in symbols view</string>
+    <!-- Switch to main keyboard after entering something in numpad layout and then pressing space or enter -->
+    <string name="after_numpad_and_space">Pressing enter or space after other keys in numpad</string>
     <!-- Message for selecting day or night background image -->
     <string name="day_or_night_image">Set image for day or night mode?</string>
     <!-- Button for selecting day -->

@@ -9,7 +9,6 @@ import helium314.keyboard.keyboard.KeyboardTheme
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
-import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LABEL_DEFAULT
 import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
@@ -64,9 +63,11 @@ object Defaults {
     const val PREF_MORE_AUTO_CORRECTION = false
     const val PREF_AUTO_CORRECT_THRESHOLD = 0.185f
     const val PREF_AUTOCORRECT_SHORTCUTS = true
+    const val PREF_BACKSPACE_REVERTS_AUTOCORRECT = true
     const val PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = false
     const val PREF_SHOW_SUGGESTIONS = true
     const val PREF_ALWAYS_SHOW_SUGGESTIONS = false
+    const val PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT = true
     const val PREF_KEY_USE_PERSONALIZED_DICTS = true
     const val PREF_KEY_USE_DOUBLE_SPACE_PERIOD = true
     const val PREF_BLOCK_POTENTIALLY_OFFENSIVE = true
@@ -92,6 +93,10 @@ object Defaults {
     const val PREF_SPACE_VERTICAL_SWIPE = "none"
     const val PREF_DELETE_SWIPE = true
     const val PREF_AUTOSPACE_AFTER_PUNCTUATION = false
+    const val PREF_AUTOSPACE_AFTER_SUGGESTION = true
+    const val PREF_AUTOSPACE_AFTER_GESTURE_TYPING = true
+    const val PREF_AUTOSPACE_BEFORE_GESTURE_TYPING = true
+    const val PREF_SHIFT_REMOVES_AUTOSPACE = false
     const val PREF_ALWAYS_INCOGNITO_MODE = false
     const val PREF_BIGRAM_PREDICTIONS = true
     const val PREF_SUGGEST_CLIPBOARD_CONTENT = true
@@ -123,6 +128,7 @@ object Defaults {
     const val PREF_POPUP_KEYS_ORDER = POPUP_KEYS_ORDER_DEFAULT
     const val PREF_POPUP_KEYS_LABELS_ORDER = POPUP_KEYS_LABEL_DEFAULT
     const val PREF_SHOW_POPUP_HINTS = false
+    const val PREF_SHOW_TLD_POPUP_KEYS = true
     const val PREF_MORE_POPUP_KEYS = "main"
     const val PREF_SPACE_TO_CHANGE_LANG = true
     const val PREF_LANGUAGE_SWIPE_DISTANCE = 5
@@ -145,15 +151,15 @@ object Defaults {
     const val PREF_ABC_AFTER_EMOJI = false
     const val PREF_ABC_AFTER_CLIP = false
     const val PREF_ABC_AFTER_SYMBOL_SPACE = true
+    const val PREF_ABC_AFTER_NUMPAD_SPACE = false
     const val PREF_REMOVE_REDUNDANT_POPUPS = false
     const val PREF_SPACE_BAR_TEXT = ""
+    const val PREF_TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
     @JvmField
     val PREF_EMOJI_MAX_SDK = Build.VERSION.SDK_INT
     const val PREF_EMOJI_RECENT_KEYS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0
     const val PREF_PINNED_CLIPS = ""
-    @JvmField
-    val PREF_LIBRARY_CHECKSUM: String = JniUtils.expectedDefaultChecksum()
     const val PREF_SHOW_DEBUG_SETTINGS = false
     val PREF_DEBUG_MODE = BuildConfig.DEBUG
     const val PREF_SHOW_SUGGESTION_INFOS = false

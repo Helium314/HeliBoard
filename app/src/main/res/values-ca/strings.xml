@@ -430,4 +430,10 @@
     <string name="get_colors_message">Podeu trobar i compartir colors a %s.</string>
     <string name="get_layouts_message">Podeu trobar i compartir disposicions a %s.</string>
     <string name="discussion_section_link">secció de discussió</string>
+    <string name="show_tld_popup_keys_summary">Substituir les finestres emergents de la tecla punt per dominis de primer nivell en escriure URLs i adreces de correu electrònic</string>
+    <string name="show_tld_popup_keys">Mostra tecles emergents de TLD</string>
+    <string name="after_numpad_and_space">Prement Intro o espai després d\'altres tecles del teclat numèric</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Els camps d\'edició web (sobretot que es troben als navegadors) són una causa molt freqüent de problemes amb la configuració Mostrar sempre suggeriments</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de nombres (bàsic)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">No mostrar sempre suggeriments per als camps d\'edició web</string>
 </resources>

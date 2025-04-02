@@ -89,7 +89,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _symbol_alpha_: toggle alpha / symbol keyboard
   * _numpad_: toggle numpad layout
   * _emoji_: switch to emoji view
-  * _com_: display common TLDs (.com and similar, currently not localized)
+  * _com_: display common TLDs (.com and similar, localized)
   * _language_switch_: language switch key
   * _action_: the action (enter) key
   * _delete_: delete key
@@ -103,7 +103,7 @@ Usually the label is what is displayed on the key. However, there are some speci
 * In case a label clashes with text you want to add, put a `\` in front of the text you want, e.g. `\space` will write the label `space` instead of adding a space bar.
   * Note that you need to escape the `\` in json files by adding a second `\`.
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
-You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
+You can also specify special key codes like `a|!code/key_action_previous` or `abc|!code/-10043`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
   * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 

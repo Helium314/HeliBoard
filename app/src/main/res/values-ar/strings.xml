@@ -75,16 +75,16 @@
     <string name="prefs_enable_emoji_alt_physical_key">"الرموز التعبيرية للوحة مفاتيح فعلية"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏مفتاح Alt الفعلي يعرض لوحة الرموز التعبيرية"</string>
     <string name="button_default">"التلقائية"</string>
-    <string name="setup_welcome_title">مرحبًا بكم في<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
+    <string name="setup_welcome_title">مرحبًا بكم في <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">مع الكتابة بالإيماءة</string>
     <string name="setup_start_action">"بدء الاستخدام"</string>
     <string name="setup_next_action">"الخطوة التالية"</string>
-    <string name="setup_steps_title">قيد الإعداد<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
-    <string name="setup_step1_title">مكِّن<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
+    <string name="setup_steps_title">قيد الإعداد <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
+    <string name="setup_step1_title">مكِّن <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_step1_instruction">يرجى التحقق من \\<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g>\" في إعدادات الإدخال واللغات. سيؤدي ذلك إلى تمكين لوحة المفاتيح على جهازك.\"</string>
     <string name="setup_step1_finished_instruction">&lt;xliff:g id=\"APPLICATION_NAME\" مثال=\"لوحة مفاتيح أندرويد\"&gt;%s&lt;/xliff:g&gt; ممكّن بالفعل في إعدادات اللغات &amp;amp؛ إعدادات الإدخال، لذا فقد تم الانتهاء من هذه الخطوة. إلى الخطوة التالية!\"</string>
     <string name="setup_step1_action">"تفعيل في الإعدادات"</string>
-    <string name="setup_step2_title">قم بالتبديل إلى<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
+    <string name="setup_step2_title">بدّل إلى <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_step2_instruction">بعد ذلك، اختر \\&lt;&lt;xliff:g id=\"APPLICATION_NAME\" مثال=\"لوحة مفاتيح أندرويد\"&gt;%s&lt;/xliff:g&gt;” كطريقة إدخال النص النشط.“</string>
     <string name="setup_step2_action">"تبديل أساليب الإدخال"</string>
     <string name="setup_step3_title">تهانينا ، لقد انتهيت من الإعداد!</string>
@@ -247,10 +247,10 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">الرموز</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">الرموز(العربية)</string>
     <string name="layout_number" tools:keep="@string/layout_number">ارقام</string>
-    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة ارقام</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">لوحة الأرقام</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">الهاتف</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">رموز الهاتف</string>
-    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة رقمية (أفقي)</string>
+    <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">لوحة الأرقام (أفقي)</string>
     <string name="remove_dictionary_message">هل تريد حقًا إزالة القاموس الذي أضافه المستخدم \"%s\"؟</string>
     <string name="dictionary_file_error">خطأ: الملف المحدد ليس ملف قاموس صالح</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">اسود</string>
@@ -472,4 +472,9 @@
     <string name="locales_with_dict">اللغات مع القواميس</string>
     <string name="get_layouts_message">يمكنك العثور على المخططات ومشاركتها في %s.</string>
     <string name="discussion_section_link">قسم المناقشة</string>
+    <string name="custom_subtype">نوع فرعي مخصّص</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">أظهِر مفاتيح TLD المنبثقة</string>
+    <string name="show_tld_popup_keys_summary">استبدل مفتاح الفترة المنبثقة مع مجالات المستوى الأعلى عند كتابة عناوين URL وعناوين البريد الإلكتروني</string>
+    <string name="after_numpad_and_space">الضغط على إدخال أو مساحة بعد مفاتيح أخرى في لوحة الأرقام</string>
 </resources>

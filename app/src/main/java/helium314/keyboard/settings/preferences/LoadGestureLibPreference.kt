@@ -35,10 +35,13 @@ fun LoadGestureLibPreference(setting: Setting) {
     val abi = Build.SUPPORTED_ABIS[0]
     val libFile = File(ctx.filesDir?.absolutePath + File.separator + JniUtils.JNI_LIB_IMPORT_FILE_NAME)
     fun renameToLibFileAndRestart(file: File, checksum: String) {
+        libFile.setWritable(true)
         libFile.delete()
-        // store checksum in default preferences (soo JniUtils)
+        // store checksum in default preferences (see JniUtils)
         prefs.edit().putString(Settings.PREF_LIBRARY_CHECKSUM, checksum).commit()
-        file.renameTo(libFile)
+        file.copyTo(libFile)
+        libFile.setReadOnly()
+        file.delete()
         Runtime.getRuntime().exit(0) // exit will restart the app, so library will be loaded
     }
     var tempFilePath: String? by rememberSaveable { mutableStateOf(null) }

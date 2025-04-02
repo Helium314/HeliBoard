@@ -167,6 +167,7 @@ object KeyCode {
     const val BACK =                      -10040
     const val SELECT_LEFT =               -10041
     const val SELECT_RIGHT =              -10042
+    const val TIMESTAMP =                 -10043
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -182,7 +183,8 @@ object KeyCode {
         SYMBOL_ALPHA, TOGGLE_ONE_HANDED_MODE, SWITCH_ONE_HANDED_MODE, SPLIT_LAYOUT, SHIFT_ENTER,
         ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
         PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
-        MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK
+        MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
+        TIMESTAMP
         -> this
 
         // conversion
@@ -194,8 +196,12 @@ object KeyCode {
         else -> throw IllegalStateException("key code $this not yet supported")
     }
 
-    // todo: three are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
-    /** convert a keyCode / codePoint to a KeyEvent.KEYCODE_<xxx>, fallback to KeyEvent.KEYCODE_UNKNOWN */
+    // todo: there are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
+    /**
+     *  Convert a keyCode / codePoint to a KeyEvent.KEYCODE_<xxx>.
+     *  Fallback to KeyEvent.KEYCODE_UNKNOWN.
+     *  To be uses for fake hardware key press.
+     *  */
     fun Int.toKeyEventCode(): Int = if (this > 0)
         when (this.toChar().uppercaseChar()) {
             '/' -> KeyEvent.KEYCODE_SLASH

@@ -467,4 +467,10 @@
     <string name="get_colors_message">Можете да намирате и споделяте цветове в %s.</string>
     <string name="custom_subtype">Персонализиран подтип</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Бенгалски">%s</xliff:g> (Байсахи)</string>
+    <string name="show_tld_popup_keys">Показване на TLD изскачащи клавиши</string>
+    <string name="show_tld_popup_keys_summary">Заместване на изскачащите прозорци с клавиши за период с домейни от първо ниво при въвеждане на URL и имейл адреси</string>
+    <string name="after_numpad_and_space">Натискане на въвеждане или интервал след други клавиши в цифровата клавиатура</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Не винаги показвай предложения за полета за уеб редактиране</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Полетата за уеб редактиране (най-вече в браузърите) са много честа причина за проблеми с настройката за винаги показване на предложения</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Числов ред (основен)</string>
 </resources>

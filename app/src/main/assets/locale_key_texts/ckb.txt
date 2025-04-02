@@ -1,0 +1,39 @@
+[popup_keys]
+ق ٯ
+و وو
+ە ة ﻪ ـہ
+ر ڕ ڒ ࢪ
+ت ط
+ی ي ې ۍ
+ێ ؽ
+ئ ء ﺋ
+ۆ ؤ ۏ ۊ ۋ ۉ ۇ
+پ ث
+ا أ إ آ ٱ
+س ص
+ش ض
+د ۮ ڌ ﮆ
+ف ڤ ڡ
+ھ ھ
+ژ ━|ـ
+ل ڵ 
+ک ك ڪ
+گ غ
+ز ظ
+ع ؏
+ب ى 
+punctuation !autoColumnOrder!8 \؟ ! ، ٫ ؍ : ؛ ; : | - @ _ # * ٪ & ^
+« „ “ ”
+» ‚ ‘ ’ ‹ ›
+
+[labels]
+alphabet: ئ‌پ‌گ
+symbol: ٣٢١؟
+comma: ،
+question: ؟
+
+[number_row]
+١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ ٠
+
+[tlds]
+iq krd

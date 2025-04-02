@@ -320,7 +320,7 @@
     <string name="switch_keyboard_after">切换到主键盘后…</string>
     <string name="after_emoji">在表情符号视图中选择表情符号</string>
     <string name="after_clip">选择剪贴板历史条目</string>
-    <string name="after_symbol_and_space">在符号视图中按回车键或空格键</string>
+    <string name="after_symbol_and_space">在符号视图输入内容后按回车键或空格键</string>
     <string name="add_new_dictionary_title">从文件添加词典</string>
     <string name="quick_pin_toolbar_keys_summary">这将禁用未固定工具栏键的其他长按操作</string>
     <string name="show_popup_keys_main">添加非常常见的变体（默认）</string>
@@ -433,4 +433,10 @@
     <string name="get_colors_message">您可以在 %s 中查找和分享颜色。</string>
     <string name="custom_subtype">自定义子类型</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys_summary">输入 URL 和电子邮件地址时，用顶级域替换句点键弹出</string>
+    <string name="show_tld_popup_keys">显示顶级域弹出键</string>
+    <string name="after_numpad_and_space">在数字键盘输入内容后按回车键或空格键</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">数字行（基本）</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web 编辑字段（主要存在于浏览器中）是导致“始终显示建议”设置出现问题的一个非常常见的原因</string>
+    <string name="prefs_always_show_suggestions_except_web_text">不要总是显示对 Web 编辑字段的建议</string>
 </resources>

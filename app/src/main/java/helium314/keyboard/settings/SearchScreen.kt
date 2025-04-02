@@ -103,6 +103,7 @@ fun <T: Any?> SearchScreen(
     title: @Composable () -> Unit,
     filteredItems: (String) -> List<T>,
     itemContent: @Composable (T) -> Unit,
+    icon: @Composable (() -> Unit)? = null,
     menu: List<Pair<String, () -> Unit>>? = null,
     content: @Composable (ColumnScope.() -> Unit)? = null,
 ) {
@@ -137,8 +138,10 @@ fun <T: Any?> SearchScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = { setShowSearch(!showSearch) })
-                        { SearchIcon() }
+                        if (icon == null)
+                            IconButton(onClick = { setShowSearch(!showSearch) }) { SearchIcon() }
+                        else
+                            icon()
                         if (menu != null)
                             Box {
                                 var showMenu by remember { mutableStateOf(false) }
@@ -227,7 +230,8 @@ fun ExpandableSearchField(
                 else onSearchChange(TextFieldValue())
             }) { CloseIcon(android.R.string.cancel) } },
             singleLine = true,
-            colors = colors
+            colors = colors,
+            textStyle = contentTextDirectionStyle
         )
     }
 }

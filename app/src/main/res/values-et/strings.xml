@@ -467,4 +467,10 @@
     <string name="get_colors_message">Uusi värve võid leida ja jagada %s.</string>
     <string name="custom_subtype">Sinu loodud alamtüüp</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Näita tippdomeenide hüpikklahve</string>
+    <string name="show_tld_popup_keys_summary">Võrgu- ja e-posti aadresside kirjutamisel asenda punktuatsiooni hüpikaknad tipptaseme domeenide omadega</string>
+    <string name="after_numpad_and_space">Vajutades numbriklahvistikus peale muud sisestust tühiku- või sisestusklahvi</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Numbririda (lihtne)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ära alati näita sisestuse soovitusi täites veebivormide välju</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Kui alati näitad sisestuse soovitusi veebivormide väljadel (nii nagu sa neid veebibrauseris näed), siis võib sellest tekkida probleeme</string>
 </resources>

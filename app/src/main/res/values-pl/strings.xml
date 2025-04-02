@@ -94,7 +94,7 @@
     <string name="show_setup_wizard_icon">"Pokaż ikonę aplikacji"</string>
     <string name="show_setup_wizard_icon_summary">"Wyświetlaj ikonę aplikacji w programie uruchamiającym"</string>
     <string name="dictionary_settings_title">"Słowniki dodatkowe"</string>
-    <string name="dictionary_available">"Słownik dostępny"</string>
+    <string name="dictionary_available">Dostępny słownik</string>
     <string name="no_dictionaries_available">"Brak słowników"</string>
     <string name="last_update">"Ostatnia aktualizacja"</string>
     <string name="settings">"Ustawienia"</string>
@@ -174,13 +174,13 @@
     <string name="restore_error">Błąd podczas przywracania kopii zapasowej: %s</string>
     <string name="theme_colors">Kolory</string>
     <string name="select_color_functional_key_background">Tło klawiszy funkcyjnych</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Koreański">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="koreański">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="add_to_personal_dictionary_summary">Używaj słownika osobistego do przechowywania nauczonych słów</string>
     <string name="user_dict_word_already_present">To słowo znajduje się już w słowniku: %s. Wpisz inne.</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Zaokrąglony</string>
     <string name="button_backup">Kopia</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Czarne</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Koreański">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="koreański">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Czekoladowe</string>
     <string name="remove_dictionary_message">Na pewno usunąć słownik \"%s\" dodany przez użytkownika?</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pochmurne</string>
@@ -195,7 +195,7 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Różowe</string>
     <string name="language_and_layouts_title">Języki i układy</string>
     <string name="file_read_error">Nie można odczytać pliku</string>
-    <string name="dictionary_link_text">stąd</string>
+    <string name="dictionary_link_text">tutaj</string>
     <string name="dictionary_file_error">Błąd: wybrany plik nie jest prawidłowym plikiem słownika</string>
     <string name="hidden_features_text">chronionej pamięci urządzenia</string>
     <string name="theme_navbar">Koloruj pasek nawigacyjny</string>
@@ -360,7 +360,7 @@
     <string name="show_vertical_space_swipe">Spacja - przesuwanie pionowe</string>
     <string name="show_horizontal_space_swipe">Spacja - przesuwanie poziome</string>
     <string name="space_swipe_move_cursor_entry">Przesuń kursor</string>
-    <string name="action_none">Brak przesuwania</string>
+    <string name="action_none">Brak</string>
     <string name="var_toolbar_direction_summary">Odwróć kierunek po wybraniu układu klawiatury od prawej do lewej</string>
     <string name="var_toolbar_direction">Zmienny kierunek paska narzędzi</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Probhat)</string>
@@ -392,7 +392,7 @@
     <string name="emoji" tools:keep="@string/emoji">Emotikony</string>
     <string name="customize_currencies_detail">Ustaw główny i do 6 drugorzędnych symboli waluty, oddzielonych spacją</string>
     <string name="customize_currencies">Dostosuj waluty</string>
-    <string name="load">Załaduj</string>
+    <string name="load">Dodaj</string>
     <string name="copy_to_clipboard">Skopiuj do schowka</string>
     <string name="load_will_overwrite">Ładowanie spowoduje zastąpienie bieżącego motywu</string>
     <string name="button_save_file">Zapisz do pliku</string>
@@ -471,9 +471,13 @@
     <string name="name_invalid">Nieprawidłowa nazwa</string>
     <string name="locales_with_dict">Języki ze słownikami</string>
     <string name="layout_in_use">Ostrzeżenie: ten układ jest aktualnie używany</string>
-    <string name="get_colors_message">Motywy możesz znaleźć i udostępnić w %s .</string>
-    <string name="get_layouts_message">Układy możesz znaleźć i udostępnić w %s .</string>
+    <string name="get_colors_message">Motywy możesz znaleźć i udostępnić w %s.</string>
+    <string name="get_layouts_message">Układy możesz znaleźć i udostępnić w %s.</string>
     <string name="discussion_section_link">sekcji dyskusji</string>
-    <string name="custom_subtype">Własny podtyp</string>
+    <string name="custom_subtype">Własny układ</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="bengalski">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Pokaż wyskakujące okienka TLD</string>
+    <string name="show_tld_popup_keys_summary">Zastąp wyskakujące okienka klawisza kropki domenami najwyższego poziomu podczas wpisywania adresów URL i adresów e-mail</string>
+    <string name="after_numpad_and_space">Naciśnięciu enter lub spacji po innych klawiszach w klawiaturze numerycznej</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rząd numeryczny (podstawowy)</string>
 </resources>

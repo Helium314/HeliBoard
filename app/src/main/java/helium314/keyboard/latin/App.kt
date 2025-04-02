@@ -232,7 +232,7 @@ fun checkVersionUpgrade(context: Context) {
             KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
         }
         if (prefs.contains("theme_dark_color_all_colors")) {
-            val allColorsNight = readAllColorsMap(false)
+            val allColorsNight = readAllColorsMap(true)
             prefs.edit().remove("theme_dark_color_all_colors").apply()
             KeyboardTheme.writeUserAllColors(prefs, themeNameNight, allColorsNight)
         }
@@ -530,18 +530,29 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
         }
     }
-   if (oldVersion <= 2310) {
-    listOf(
-        Settings.PREF_ENABLED_SUBTYPES,
-        Settings.PREF_SELECTED_SUBTYPE,
-        Settings.PREF_ADDITIONAL_SUBTYPES
-    ).forEach { key ->
-        val value = prefs.getString(key, "")!!
-        if ("bengali," in value) {
-            prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+    if (oldVersion <= 2310) {
+        listOf(
+            Settings.PREF_ENABLED_SUBTYPES,
+            Settings.PREF_SELECTED_SUBTYPE,
+            Settings.PREF_ADDITIONAL_SUBTYPES
+        ).forEach { key ->
+            val value = prefs.getString(key, "")!!
+            if ("bengali," in value) {
+                prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+            }
+       }
+    }
+    if (oldVersion <= 3001 && prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME) <= 0) {
+        prefs.edit().putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, 121).apply()
+    }
+    if (oldVersion <= 3002) {
+        prefs.all.filterKeys { it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) }.forEach {
+            val oldValue = prefs.getString(it.key, "")!!
+            if ("KEY_PREVIEW" !in oldValue) return@forEach
+            val newValue = oldValue.replace("KEY_PREVIEW", "KEY_PREVIEW_BACKGROUND")
+            prefs.edit().putString(it.key, newValue).apply()
         }
     }
-}
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

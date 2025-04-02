@@ -68,11 +68,9 @@ public final class PopupKeySpec {
     }
 
     @NonNull
-    public Key buildKey(final int x, final int y, final int labelFlags,
-            @NonNull final KeyboardParams params) {
-        return new Key(mLabel, mIconName, mCode, mOutputText, null /* hintLabel */, labelFlags,
-                Key.BACKGROUND_TYPE_NORMAL, x, y, params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight,
-                params.mHorizontalGap, params.mVerticalGap);
+    public Key buildKey(final int x, final int y, final int labelFlags, final int background, @NonNull final KeyboardParams params) {
+        return new Key(mLabel, mIconName, mCode, mOutputText, null, labelFlags, background, x, y,
+                params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
     }
 
     @Override

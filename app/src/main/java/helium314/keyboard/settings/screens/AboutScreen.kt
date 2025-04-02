@@ -2,6 +2,7 @@
 package helium314.keyboard.settings.screens
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.text.method.LinkMovementMethod
@@ -10,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -69,7 +69,7 @@ fun createAboutSettings(context: Context) = listOf(
             name = it.title,
             description = it.description,
             onClick = { },
-            icon = R.drawable.ic_launcher_foreground // use the bitmap trick here if we really want the colored icon
+            icon = R.mipmap.ic_launcher_round
         )
     },
     Setting(context, SettingsWithoutKey.VERSION, R.string.version) {

@@ -439,4 +439,10 @@
     <string name="discussion_section_link">seção de discussão</string>
     <string name="custom_subtype">Subtipo customizado</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="show_tld_popup_keys">Mostrar teclas de TLD</string>
+    <string name="show_tld_popup_keys_summary">Substituir os pop-ups da tecla de ponto com domínios de topo ao digitar URLs e endereços de e-mail</string>
+    <string name="after_numpad_and_space">Pressionando enter ou espaço após outras teclas no teclado de números</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Linha de números (básica)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sugestões para campos de edição da web sempre</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Campos de edição da web (encontrados normalmente em navegadores) são uma causa comum de problemas com a configuração de sempre mostrar sugestões</string>
 </resources>

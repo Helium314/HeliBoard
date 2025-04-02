@@ -15,8 +15,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-
-import androidx.appcompat.widget.AppCompatTextView;
+import android.widget.TextView;
 
 import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.latin.R;
@@ -25,10 +24,9 @@ import helium314.keyboard.latin.settings.Settings;
 
 import java.util.HashSet;
 
-/**
- * The pop up key preview view.
- */
-public class KeyPreviewView extends AppCompatTextView {
+/** The pop up key preview view. */
+// Android Studio complains about TextView, but we're not using tint or auto-size that should be the relevant differences
+public class KeyPreviewView extends TextView {
     public static final int POSITION_MIDDLE = 0;
     public static final int POSITION_LEFT = 1;
     public static final int POSITION_RIGHT = 2;

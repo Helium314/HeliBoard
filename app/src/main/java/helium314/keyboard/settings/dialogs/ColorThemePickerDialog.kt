@@ -60,6 +60,7 @@ import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.filePicker
 import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.SaveThoseColors
+import helium314.keyboard.settings.contentTextDirectionStyle
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -187,7 +188,8 @@ private fun AddColorRow(onDismissRequest: () -> Unit, userColors: Collection<Str
             onValueChange = { textValue = it },
             modifier = Modifier.weight(1f),
             singleLine = true,
-            label = label
+            label = label,
+            textStyle = contentTextDirectionStyle,
         )
         EditButton(currentName.isNotBlank() && currentName !in userColors) {
             onDismissRequest()
