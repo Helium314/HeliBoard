@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<resources>
+    <string name="english_ime_name" translatable="false">HeliBoard debugNoMinify</string>
+    <string name="spell_checker_service_name" translatable="false">HeliBoard debugNoMinify Spell Checker</string>
+    <string name="ime_settings" translatable="false">HeliBoard debugNoMinify Settings</string>
+</resources>

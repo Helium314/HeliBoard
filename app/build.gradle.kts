@@ -36,13 +36,20 @@ android {
             isJniDebuggable = false
         }
         debug {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
         }
         create("runTests") { // build variant for running tests on CI that skips tests known to fail
             isMinifyEnabled = true
             isJniDebuggable = false
+        }
+        create("debugNoMinify") {
+            isDebuggable = true
+            isMinifyEnabled = false
+            isJniDebuggable = false
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".debugNoMinify"
         }
         base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
     }
