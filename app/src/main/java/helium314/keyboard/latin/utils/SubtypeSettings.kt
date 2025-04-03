@@ -130,12 +130,14 @@ object SubtypeSettings {
      */
     fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
+        val editor = prefs.edit() // calling apply for each separate setting would result in an invalid intermediate state
         listOf(
             Settings.PREF_ADDITIONAL_SUBTYPES to Defaults.PREF_ADDITIONAL_SUBTYPES,
             Settings.PREF_ENABLED_SUBTYPES to Defaults.PREF_ENABLED_SUBTYPES,
             Settings.PREF_SELECTED_SUBTYPE to Defaults.PREF_SELECTED_SUBTYPE
         ).forEach { (key, default) ->
             val new = prefs.getString(key, default)!!.split(Separators.SETS).mapNotNullTo(mutableSetOf()) {
+                if (it.isEmpty()) return@mapNotNullTo null
                 val subtype = it.toSettingsSubtype()
                 if (subtype.layoutName(type) == from) {
                     if (to == null) {
@@ -146,7 +148,7 @@ object SubtypeSettings {
                         val newSubtype = if (defaultLayout == null) subtype.withoutLayout(type)
                             else subtype.withLayout(type, defaultLayout)
                         if (newSubtype.isSameAsDefault() && key == Settings.PREF_ADDITIONAL_SUBTYPES) null
-                        else subtype.withoutLayout(type).toPref()
+                        else newSubtype.toPref()
                     }
                     else subtype.withLayout(type, to).toPref()
                 }
@@ -154,6 +156,7 @@ object SubtypeSettings {
             }.joinToString(Separators.SETS)
             prefs.edit().putString(key, new).apply()
         }
+        editor.apply()
         if (Settings.readDefaultLayoutName(type, prefs) == from)
             Settings.writeDefaultLayoutName(to, type, prefs)
         reloadEnabledSubtypes(context)
