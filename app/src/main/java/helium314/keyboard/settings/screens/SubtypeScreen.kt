@@ -412,10 +412,11 @@ private fun MainLayoutRow(
                 initialLayoutName = layoutName,
                 startContent = startContent,
                 locale = currentSubtype.locale,
-                // only can edit name for new custom layout
-                isNameValid = if (layoutName in customLayouts) null else ({ it !in customLayouts }),
+                isNameValid = { it !in customLayouts },
                 onEdited = {
-                    if (layoutName !in customLayouts)
+                    if (layoutName !in customLayouts // edited a built-in layout, set new one as current
+                        || layoutName != it && layoutName == currentSubtype.mainLayoutName() // layout name for current subtype changed
+                        )
                         setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, it))
                 }
             )
