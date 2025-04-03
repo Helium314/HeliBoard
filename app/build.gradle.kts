@@ -49,7 +49,7 @@ android {
             isMinifyEnabled = false
             isJniDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
-            applicationIdSuffix = ".debugNoMinify"
+            applicationIdSuffix = ".debug"
         }
         base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
     }
