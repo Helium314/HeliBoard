@@ -133,4 +133,17 @@ public final class ResourceUtils {
     public static boolean isNight(final Resources res) {
         return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
+
+    public static int getBottomPaddingAdjustment(Context context) {
+      if (Build.VERSION.SDK_INT < 35) {
+        return 0;
+      }
+
+      WindowManager wm = context.getSystemService(WindowManager.class);
+      WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
+      WindowInsets windowInsets = windowMetrics.getWindowInsets();
+      int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
+      Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
+      return insets.bottom;
+    }
 }

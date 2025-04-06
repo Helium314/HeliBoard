@@ -5,7 +5,7 @@
  */
 package helium314.keyboard.keyboard.emoji
 
-import android.content.res.Resources
+import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +14,14 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 
-internal class EmojiLayoutParams(res: Resources) {
+internal class EmojiLayoutParams(ctx: Context) {
     private val emojiListBottomMargin: Int
     val emojiKeyboardHeight: Int
     private val emojiCategoryPageIdViewHeight: Int
     val bottomRowKeyboardHeight: Int
 
     init {
+        val res = ctx.resources
         val sv = Settings.getValues()
         val defaultKeyboardHeight = ResourceUtils.getKeyboardHeight(res, sv)
 
@@ -32,7 +33,8 @@ internal class EmojiLayoutParams(res: Resources) {
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
         }
         val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
+            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale
+                + ResourceUtils.getBottomPaddingAdjustment(ctx)).toInt()
         val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
             defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
