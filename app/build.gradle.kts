@@ -36,6 +36,8 @@ android {
             isJniDebuggable = false
         }
         debug {
+            // "normal" debug has minify for smaller APK to fit the GitHub 25 MB limit when zipped
+            // and for better performance in case users want to install a debug APK
             isMinifyEnabled = true
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
@@ -44,7 +46,7 @@ android {
             isMinifyEnabled = true
             isJniDebuggable = false
         }
-        create("debugNoMinify") {
+        create("debugNoMinify") { // for faster builds in IDE
             isDebuggable = true
             isMinifyEnabled = false
             isJniDebuggable = false
