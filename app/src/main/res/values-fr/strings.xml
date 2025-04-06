@@ -443,4 +443,12 @@ Nouveau dictionnaire:
     <string name="prefs_always_show_suggestions_except_web_text_summary">Les champs d\'édition Web (principalement présents dans les navigateurs) sont une cause très courante de problèmes avec le paramètre « Toujours afficher les suggestions »</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rangée numérique (standard)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ne pas forcer l\'affichage des suggestions pour les champs de saisie web</string>
+    <string name="settings_category_space">Espace</string>
+    <string name="autospace_before_gesture_typing">Espace automatique avant de saisir un mot par geste</string>
+    <string name="autospace_after_gesture_typing">Espace automatique après la saisie gestuelle d\'un mot</string>
+    <string name="shift_removes_autospace_summary">Shift supprime l\'espace automatique en attente</string>
+    <string name="autospace_after_suggestion">Espace automatique après avoir sélectionné une suggestion</string>
+    <string name="backspace_reverts_autocorrect">La touche Retour arrière annule la correction automatique</string>
+    <string name="shift_removes_autospace">Pas d\'espace automatique lors de l\'appui sur Maj</string>
+    <string name="timestamp_format_title">Format de la clé d\'horodatage</string>
 </resources>

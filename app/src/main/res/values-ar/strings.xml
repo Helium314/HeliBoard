@@ -425,7 +425,7 @@
     <string name="label_tab_key" tools:keep="@string/label_tab_key">تبويب</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">حذف</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">تحويل</string>
-    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">تحويل(معكوس)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">تحويل (تحول)</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">حرف كبير</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">إنهاء وضع اليد الواحدة</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">تحجيم وضع اليد الواحدة</string>
@@ -477,4 +477,15 @@
     <string name="show_tld_popup_keys">أظهِر مفاتيح TLD المنبثقة</string>
     <string name="show_tld_popup_keys_summary">استبدل مفتاح الفترة المنبثقة مع مجالات المستوى الأعلى عند كتابة عناوين URL وعناوين البريد الإلكتروني</string>
     <string name="after_numpad_and_space">الضغط على إدخال أو مساحة بعد مفاتيح أخرى في لوحة الأرقام</string>
+    <string name="prefs_always_show_suggestions_except_web_text">لا تعرض دائمًا اقتراحات لحقول تحرير الويب</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">صف الرقم (أساسي)</string>
+    <string name="settings_category_space">المسافة</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">تعتبر حقول تحرير الويب (الموجودة في غالب المتصفحات) سببًا شائعًا جدًا للمشكلات المتعلقة بإعداد اقتراحات العرض دائمًا</string>
+    <string name="autospace_before_gesture_typing">مسافة تلقائية قبل إيماءة كتابة كلمة</string>
+    <string name="autospace_after_gesture_typing">مسافة تلقائية بعد إيماءة كتابة كلمة</string>
+    <string name="shift_removes_autospace_summary">يقوم التحويل بإزالة المسافة تلقائية المعلقة</string>
+    <string name="autospace_after_suggestion">مسافة تلقائية بعد اختيار اقتراح</string>
+    <string name="backspace_reverts_autocorrect">يعود المسافة الخلفية إلى التصحيح التلقائي</string>
+    <string name="shift_removes_autospace">لا مسافة تلقائية عند الضغط على تحويل</string>
+    <string name="timestamp_format_title">تنسيق لمفتاح الطابع الزمني</string>
 </resources>

@@ -1,20 +1,7 @@
-* nová ikona od @FabianOvrWrt s přispěním @the-eclectic-dyslexic (#517, #592)
-* více přizpůsobitelný trackpad s mezerníkem a přepínačem jazyků od @arcarum (#486)
-* přidání % do rozložení symbolů pro posun (#568, #428)
-* zlepšení chování, když je klávesa přepínače jazyka nastavena na přepínání jazyka i klávesnice
-* při přidávání slovníku zobrazit odkazy na existující slovníky
-* přidat rozložení Kaitag od @alkaitagi (#519)
-* přidat rozložení Probhat od @fahimscirex (#489)
-* volitelné obrácení pořadí panelu nástrojů pro jazyky RTL od @codokie (#557, #574)
-* umožnit přizpůsobení speciálních rozvržení (numpad, telefon, ...)
-* stále experimentální, protože základní rozvržení se mohou změnit
-* aktualizován spellchecker.xml tak, aby zahrnoval lokality, kde jsou k dispozici slovníky, ale nejsou součástí aplikace
-* aktualizace překladů (děkujeme všem překladatelům!)
-* aktualizace ndk podle @Syphyr (#560)
-* aktualizace kódu automatického doplňování inline od @arcarum (#595)
-* oprava problému s dialogovým oknem s klíčem na panelu nástrojů (#505)
-* oprava problému s tureckým rozložením (#508)
-* oprava špatných stavů přepínačů při otáčení na obrazovce přizpůsobení barev (#563)
-* oprava problému s nenačítáním posledních emotikonů (#527)
-* oprava problému s nezobrazováním čísel v některých polích (#585)
-* některé drobné opravy
+* new icon by @FabianOvrWrt with contributions from @the-eclectic-dyslexic (#517, #592)
+* more customizable space bar trackpad and language switch by @arcarum (#486)
+* add % to shift symbols layout (#568, #428)
+* improve behavior when language switch key is set to switch both language and keyboard
+* show links to existing dictionaries when adding a dictionary
+* add Kaitag layout by @alkaitagi (#519)
+* add Probhat layout by @fahimscirex (#489)

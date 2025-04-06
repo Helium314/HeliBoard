@@ -436,4 +436,12 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">Els camps d\'edició web (sobretot que es troben als navegadors) són una causa molt freqüent de problemes amb la configuració Mostrar sempre suggeriments</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de nombres (bàsic)</string>
     <string name="prefs_always_show_suggestions_except_web_text">No mostrar sempre suggeriments per als camps d\'edició web</string>
+    <string name="settings_category_space">Espai</string>
+    <string name="autospace_before_gesture_typing">Espai automàtic abans d\'escriure una paraula amb gest</string>
+    <string name="shift_removes_autospace">Cap espai automàtic en prémer la majúscula</string>
+    <string name="autospace_after_gesture_typing">Espai automàtic després d\'escriure una paraula amb gest</string>
+    <string name="shift_removes_autospace_summary">Shift elimina l\'espai automàtic pendent</string>
+    <string name="backspace_reverts_autocorrect">Retrocès reverteix l\'auto-correcció</string>
+    <string name="autospace_after_suggestion">Espai automàtic després de triar suggeriment</string>
+    <string name="timestamp_format_title">Format de la clau de marca de temps</string>
 </resources>

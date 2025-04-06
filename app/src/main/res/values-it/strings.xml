@@ -304,7 +304,7 @@
     <string name="dictionary_file_wrong_locale">Il dizionario è stato creato per la lingua %1$s, ma lo stai aggiungendo a %2$s. Confermi?</string>
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
-    <string name="text_tap_languages">Lingua: tap → impostazioni</string>
+    <string name="text_tap_languages">Tocca una lingua → Impostazioni</string>
     <string name="save_log">Salva log</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
     <string name="internal_dictionary_summary">Dizionario interno principale</string>
@@ -445,4 +445,12 @@
     <string name="prefs_always_show_suggestions_except_web_text">Non forzare i suggerimenti in tutti i campi di testo</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">I campi di testo Web (specie all\'interno dei browser) sono una causa ricorrente di problemi con i suggerimenti sempre attivi</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Barra dei numeri (base)</string>
+    <string name="settings_category_space">Spazio</string>
+    <string name="shift_removes_autospace_summary">Nessuno spazio finale con ⇧ (maiuscolo) attivo</string>
+    <string name="autospace_after_suggestion">Spazio automatico dopo la scelta di una parola suggerita</string>
+    <string name="autospace_after_gesture_typing">Spazio automatico dopo una parola aggiunta con l\'inserimento gestuale</string>
+    <string name="shift_removes_autospace">Nessuno spazio automatico con ⇧ (maiuscolo) attivo</string>
+    <string name="backspace_reverts_autocorrect">Usa Backspace per annullare l\'autocorrezione</string>
+    <string name="autospace_before_gesture_typing">Spazio automatico prima di una parola aggiunta con l\'inserimento gestuale</string>
+    <string name="timestamp_format_title">Formato per il tasto data/ora</string>
 </resources>

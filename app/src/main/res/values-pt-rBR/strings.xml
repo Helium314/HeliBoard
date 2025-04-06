@@ -445,4 +445,12 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Linha de números (básica)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sugestões para campos de edição da web sempre</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Campos de edição da web (encontrados normalmente em navegadores) são uma causa comum de problemas com a configuração de sempre mostrar sugestões</string>
+    <string name="settings_category_space">Espaço</string>
+    <string name="autospace_after_suggestion">Espaço automático após escolher uma sugestão</string>
+    <string name="autospace_after_gesture_typing">Espaço automática após digitar uma palavra com gestos</string>
+    <string name="shift_removes_autospace">Sem espaço automático ao pressionar shift</string>
+    <string name="shift_removes_autospace_summary">O shift remove o espaço automático pendente</string>
+    <string name="backspace_reverts_autocorrect">O backspace reverte a autocorreção</string>
+    <string name="autospace_before_gesture_typing">Espaço automático antes de digitar uma palavra com gestos</string>
+    <string name="timestamp_format_title">Formato da tecla de horário</string>
 </resources>

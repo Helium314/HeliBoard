@@ -293,10 +293,10 @@
     <string name="dictionary_load_error">Ошибка загрузки файла словаря</string>
     <string name="layout_symbols_shifted">Больше символов</string>
     <string name="down" tools:keep="@string/down">Вниз</string>
-    <string name="full_left" tools:keep="@string/full_left">В левый конец</string>
+    <string name="full_left" tools:keep="@string/full_left">Полностью влево</string>
     <string name="left" tools:keep="@string/left">Влево</string>
     <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
-    <string name="full_right" tools:keep="@string/full_right">В правый конец</string>
+    <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
     <string name="title_layout_name_select">Задать имя раскладки</string>
     <string name="button_load_custom">Загрузить файл</string>
@@ -472,4 +472,12 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">Поля ввода на веб-страницах (в основном в браузерах) часто вызывают проблемы с настройкой постоянного отображения подсказок</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Ряд с цифрами (основной)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Не всегда показывать подсказки для полей ввода на веб-страницах</string>
+    <string name="settings_category_space">Пробел</string>
+    <string name="autospace_after_suggestion">Автопробел после ручного выбора предложения</string>
+    <string name="autospace_after_gesture_typing">Автопробел после набора слова жестами</string>
+    <string name="shift_removes_autospace">Автопробел отключается при нажатии Shift</string>
+    <string name="shift_removes_autospace_summary">Нажатие Shift убирает запланированный автопробел</string>
+    <string name="autospace_before_gesture_typing">Автопробел перед набором слова жестами</string>
+    <string name="backspace_reverts_autocorrect">Нажатие Backspace отменяет автокоррекцию</string>
+    <string name="timestamp_format_title">Формат ключа временной метки</string>
 </resources>
