@@ -861,17 +861,17 @@ class InputLogicTest {
     private fun handleMessages() {
         while (messages.isNotEmpty()) {
             latinIME.mHandler.handleMessage(messages.first())
-            messages.removeFirst()
+            messages.removeAt(0)
         }
         while (delayedMessages.isNotEmpty()) {
             val msg = delayedMessages.first()
             if (msg.what != 2) // MSG_UPDATE_SUGGESTION_STRIP, we want to ignore it because it's irrelevant and has a 500 ms timeout
                 latinIME.mHandler.handleMessage(delayedMessages.first())
-            delayedMessages.removeFirst()
+            delayedMessages.removeAt(0)
             // delayed messages may post further messages, handle before next delayed message
             while (messages.isNotEmpty()) {
                 latinIME.mHandler.handleMessage(messages.first())
-                messages.removeFirst()
+                messages.removeAt(0)
             }
         }
         assertEquals(0, messages.size)
