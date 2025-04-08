@@ -140,7 +140,7 @@ public final class ResourceUtils {
       }
 
       WindowManager wm = context.getSystemService(WindowManager.class);
-      WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
+      WindowMetrics windowMetrics = wm.getMaximumWindowMetrics();
       WindowInsets windowInsets = windowMetrics.getWindowInsets();
       int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
       Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
