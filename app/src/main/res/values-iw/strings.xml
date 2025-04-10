@@ -445,4 +445,12 @@
     <string name="prefs_always_show_suggestions_except_web_text">לא תמיד להציג הצעות לשדות עריכה ב-Web</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">שדות עריכה ב-Web (בדר\"כ יוצגו בדפדפן) הם גורם נפוץ מאד לבעיות בהגדרה \'הצגת הצעות תמיד\'</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">שורת המספרים (פריסת בסיס)</string>
+    <string name="settings_category_space">רווח</string>
+    <string name="autospace_after_suggestion">הוספת רווח אוטומטית אחרי בחירת הצעה</string>
+    <string name="autospace_before_gesture_typing">הוספת רווח אוטומטית לפני הקלדת מילה במחווה</string>
+    <string name="autospace_after_gesture_typing">הוספת רווח אוטומטית לאחר הקלדת מילה במחווה</string>
+    <string name="backspace_reverts_autocorrect">ביטול הצעת התיקון האוטומטי במחיקה לאחור</string>
+    <string name="shift_removes_autospace">ללא רווח אוטומטי בעת לחיצת Shift</string>
+    <string name="shift_removes_autospace_summary">Shift מבטל את הרווח האוטומטי המיועד</string>
+    <string name="timestamp_format_title">פורמט למקש חתימת הזמן</string>
 </resources>

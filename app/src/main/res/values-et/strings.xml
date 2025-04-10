@@ -473,4 +473,12 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Numbririda (lihtne)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ära alati näita sisestuse soovitusi täites veebivormide välju</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Kui alati näitad sisestuse soovitusi veebivormide väljadel (nii nagu sa neid veebibrauseris näed), siis võib sellest tekkida probleeme</string>
+    <string name="settings_category_space">Tühik</string>
+    <string name="backspace_reverts_autocorrect">Tagasivõtuklahv muudab autokorrektsiooni tagasi</string>
+    <string name="autospace_after_suggestion">Automaatne tühik peale soovituse valimist</string>
+    <string name="autospace_before_gesture_typing">Automaatne tühik enne viipamisega sõna kirjutamist</string>
+    <string name="shift_removes_autospace">Automaatse tühiku keelamine shift-klahviga</string>
+    <string name="shift_removes_autospace_summary">Shift-klahvi vajutus välistab lisatava automaatse tühiku</string>
+    <string name="autospace_after_gesture_typing">Automaatne tühik peale viipamisega sõna kirjutamist</string>
+    <string name="timestamp_format_title">Ajatempli klahvi vorming</string>
 </resources>

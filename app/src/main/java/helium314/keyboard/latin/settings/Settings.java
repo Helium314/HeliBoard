@@ -361,7 +361,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
@@ -370,7 +370,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeScale(final Float scale) {
         mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), scale).apply();
     }
 
     public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
@@ -379,7 +379,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {

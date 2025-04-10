@@ -78,7 +78,7 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
                     if (abs(changePercent) < 1) return@setOnTouchListener true
                     x = motionEvent.rawX
-                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT)
+                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)

@@ -439,4 +439,12 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">数字行（基本）</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Web 编辑字段（主要存在于浏览器中）是导致“始终显示建议”设置出现问题的一个非常常见的原因</string>
     <string name="prefs_always_show_suggestions_except_web_text">不要总是显示对 Web 编辑字段的建议</string>
+    <string name="settings_category_space">空格</string>
+    <string name="autospace_before_gesture_typing">手势输入单词前自动插入空格</string>
+    <string name="autospace_after_gesture_typing">手势输入单词后自动插入空格</string>
+    <string name="shift_removes_autospace">按下 Shift 键不自动插入空格</string>
+    <string name="shift_removes_autospace_summary">按 Shift 键移除待插入的自动空格</string>
+    <string name="backspace_reverts_autocorrect">退格键恢复自动更正</string>
+    <string name="autospace_after_suggestion">选择建议后自动插入空格</string>
+    <string name="timestamp_format_title">时间戳键的格式</string>
 </resources>

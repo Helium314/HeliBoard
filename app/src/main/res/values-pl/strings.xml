@@ -480,4 +480,14 @@
     <string name="show_tld_popup_keys_summary">Zastąp wyskakujące okienka klawisza kropki domenami najwyższego poziomu podczas wpisywania adresów URL i adresów e-mail</string>
     <string name="after_numpad_and_space">Naciśnięciu enter lub spacji po innych klawiszach w klawiaturze numerycznej</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rząd numeryczny (podstawowy)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Nie zawsze pokazuj sugestie dla pól edycji w sieci</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Pola edycji w sieci (zwykle znajdujące się w przeglądarkach) są bardzo częstą przyczyną problemów z ustawieniem \"zawsze pokazuj sugestie\"</string>
+    <string name="settings_category_space">Spacja</string>
+    <string name="autospace_after_suggestion">Automatyczna spacja po wybraniu sugestii</string>
+    <string name="autospace_after_gesture_typing">Automatyczna spacja po wpisaniu słowa gestem</string>
+    <string name="shift_removes_autospace">Brak automatycznej spacji po wciśnięciu shift</string>
+    <string name="shift_removes_autospace_summary">Shift usuwa automatyczną spację</string>
+    <string name="backspace_reverts_autocorrect">Backspace cofa autokorektę</string>
+    <string name="autospace_before_gesture_typing">Automatyczna spacja przed wpisaniem słowa gestem</string>
+    <string name="timestamp_format_title">Format klawisza znacznika czasu</string>
 </resources>

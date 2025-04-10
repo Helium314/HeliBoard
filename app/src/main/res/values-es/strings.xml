@@ -75,12 +75,12 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La tecla Alt física muestra la lista de emojis"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Bienvenido a<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bienvenido a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Empezar"</string>
     <string name="setup_next_action">"Siguiente paso"</string>
-    <string name="setup_steps_title">Configurando<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Activar<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_step1_title">Activar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Por favor, compruebe \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.\"</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ya está habilitado en sus idiomas &amp; configuración de entrada, por lo que este paso está hecho. ¡En el siguiente!</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
@@ -423,4 +423,34 @@
     <string name="prefs_emoji_font_scale">Tamaño de fuente de la vista Emoji</string>
     <string name="prefs_side_padding_scale_landscape">Escala de relleno lateral (apaisado)</string>
     <string name="prefs_side_padding_scale">Escala de relleno lateral</string>
+    <string name="custom_subtype">Subtipo personalizado</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Los campos de edición web (que se encuentran sobre todo en los navegadores) son una causa muy común de problemas con la configuración de mostrar siempre sugerencias</string>
+    <string name="prefs_always_show_suggestions_except_web_text">No mostrar siempre las sugerencias para los campos de edición web</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de números (básica)</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="name_invalid">Nombre inválido</string>
+    <string name="split_spacer_scale_landscape">Distancia de dividido (paisaje)</string>
+    <string name="enable_split_keyboard_landscape">Habilitar teclado dividido (paisaje)</string>
+    <string name="settings_category_space">Espacio</string>
+    <string name="backspace_reverts_autocorrect">Retroceso revierte la autocorrección</string>
+    <string name="show_tld_popup_keys">Mostrar teclas emergentes TLD</string>
+    <string name="autospace_after_suggestion">Auto espacio después de utilizar una sugerencia</string>
+    <string name="autospace_after_gesture_typing">Auto espacio después de escribir una palabra gestualmente</string>
+    <string name="shift_removes_autospace">No auto espacio cuando se presiona shift</string>
+    <string name="shift_removes_autospace_summary">Shift elimina el autoespacio pendiente</string>
+    <string name="discussion_section_link">sección de discusión</string>
+    <string name="autospace_before_gesture_typing">Auto espacio antes de escribir gestualmente una palabra</string>
+    <string name="show_tld_popup_keys_summary">Sustituir las ventanas emergentes por dominios de nivel superior al escribir URL y direcciones de correo electrónico</string>
+    <string name="timestamp_format_title">Formato de la fecha y hora</string>
+    <string name="after_numpad_and_space">Pulsar intro o espacio después de otras teclas en el teclado numérico</string>
+    <string name="delete_confirmation">¿Borrar %s realmente?</string>
+    <string name="settings_screen_secondary_layouts">Diseños secundarios</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Teclas funcionales (pantalla grande)</string>
+    <string name="number_row_hints">Mostrar pistas en la fila de números</string>
+    <string name="prefs_language_swipe_distance">Distancia de deslizamiento para cambiar de idioma</string>
+    <string name="locales_with_dict">Idiomas con diccionarios</string>
+    <string name="split" tools:keep="@string/split">Teclado dividido</string>
+    <string name="layout_in_use">Advertencia: el diseño está en uso actualmente</string>
+    <string name="get_colors_message">Puedes encontrar y compartir colores en %s.</string>
+    <string name="get_layouts_message">Puedes encontrar y compartir diseños en %s.</string>
 </resources>

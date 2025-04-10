@@ -1,0 +1,11 @@
+* customizable functional key layout
+* slightly adjust symbols and more symbols layouts
+* basic support for alt, ctrl, fn, meta keys
+* extend toolbar (long-press functionality, optional long-press pinning, auto-show/hide, better clipboard toolbar, ...)
+* add tab key
+* add caps lock indicator
+* add layouts for some languages
+* add toolbar keys as keyboard keys
+* allow customizing all colors
+* toast notification when copying text
+* bug fixes and further improvements, see full release notes

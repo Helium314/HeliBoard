@@ -482,4 +482,12 @@
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Cijferregel (basis)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Suggesties voor webbewerkingsvelden niet altijd weergeven</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Webbewerkingsvelden (meestal te vinden in browsers) zijn een veel voorkomende oorzaak van problemen met de instelling Altijd suggesties weergeven</string>
+    <string name="settings_category_space">Spatie</string>
+    <string name="autospace_after_suggestion">Autom. spatie na keuze van suggestie</string>
+    <string name="autospace_before_gesture_typing">Autom. spatie voor typen van woord met gebaren</string>
+    <string name="autospace_after_gesture_typing">Autom. spatie na typen van woord met gebaren</string>
+    <string name="shift_removes_autospace">Geen autom. spatie bij indrukken van shift</string>
+    <string name="shift_removes_autospace_summary">Shift verwijdert autom. spatie in afwachting</string>
+    <string name="backspace_reverts_autocorrect">Backspace draait autocorrectie terug</string>
+    <string name="timestamp_format_title">Formaat voor tijdstempeltoetd</string>
 </resources>
