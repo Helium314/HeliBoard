@@ -8,14 +8,9 @@ package helium314.keyboard.keyboard.internal;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Insets;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
 
-import android.view.WindowInsets;
-import android.view.WindowManager;
-import android.view.WindowMetrics;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -229,16 +224,8 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
             mBottomPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
-                    * Settings.getValues().mBottomPaddingScale);
-
-            if (Build.VERSION.SDK_INT >= 35) {
-                WindowManager wm = context.getSystemService(WindowManager.class);
-                WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
-                WindowInsets windowInsets = windowMetrics.getWindowInsets();
-                int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
-                Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
-                mBottomPadding += insets.bottom;
-            }
+                    * Settings.getValues().mBottomPaddingScale)
+                    + ResourceUtils.getBottomPaddingAdjustment(context);
 
             mLeftPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardLeftPadding, width, width, 0)

@@ -16,6 +16,7 @@ import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.StringUtils;
+import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.TypefaceUtils;
 
 public final class PopupKeysKeyboard extends Keyboard {
@@ -65,7 +66,7 @@ public final class PopupKeysKeyboard extends Keyboard {
         public void setParameters(final int numKeys, final int numColumn, final int keyWidth,
                 final int rowHeight, final int coordXInParent, final int parentKeyboardWidth,
                 final boolean isPopupKeysFixedColumn, final boolean isPopupKeysFixedOrder,
-                final int dividerWidth) {
+                final int dividerWidth, Context context) {
             mIsPopupKeysFixedOrder = isPopupKeysFixedOrder;
             if (parentKeyboardWidth / keyWidth < Math.min(numKeys, numColumn)) {
                 throw new IllegalArgumentException("Keyboard is too small to hold popup keys: "
@@ -120,7 +121,7 @@ public final class PopupKeysKeyboard extends Keyboard {
             mBaseWidth = mOccupiedWidth = mNumColumns * mColumnWidth - mDividerWidth;
             // Need to subtract the bottom row's gutter only.
             mBaseHeight = mOccupiedHeight = mNumRows * mDefaultAbsoluteRowHeight - mVerticalGap
-                    + mTopPadding + mBottomPadding;
+                    + mTopPadding + mBottomPadding - ResourceUtils.getBottomPaddingAdjustment(context);
         }
 
         private int getFixedOrderTopRowAdjustment() {
@@ -305,7 +306,7 @@ public final class PopupKeysKeyboard extends Keyboard {
                     : (spaceForKeys > 0 ? spaceForKeys : defaultColumns); // in last case setParameters will throw an exception
             mParams.setParameters(popupKeys.length, finalNumColumns, keyWidth,
                     rowHeight, key.getX() + key.getWidth() / 2, keyboard.mId.mWidth,
-                    key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth);
+                    key.isPopupKeysFixedColumn(), key.isPopupKeysFixedOrder(), dividerWidth, context);
         }
 
         private static int getMaxKeyWidth(final Key parentKey, final int minKeyWidth,
