@@ -6,6 +6,9 @@
 
 package helium314.keyboard.latin.utils;
 
+import java.util.function.BiFunction;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -19,6 +22,7 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.WindowMetrics;
 
+import androidx.annotation.RequiresApi;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.settings.SettingsValues;
 
@@ -135,15 +139,45 @@ public final class ResourceUtils {
     }
 
     public static int getBottomPaddingAdjustment(Context context) {
-      if (Build.VERSION.SDK_INT < 35) {
-        return 0;
-      }
+        if (Build.VERSION.SDK_INT < 35) {
+            return 0;
+        }
 
-      WindowManager wm = context.getSystemService(WindowManager.class);
-      WindowMetrics windowMetrics = wm.getMaximumWindowMetrics();
-      WindowInsets windowInsets = windowMetrics.getWindowInsets();
-      int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
-      Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
-      return insets.bottom;
+        WindowManager wm = context.getSystemService(WindowManager.class);
+        logInsets(wm.getMaximumWindowMetrics(), "max-metrics");
+        logInsets(wm.getCurrentWindowMetrics(), "current-metrics");
+
+        WindowMetrics windowMetrics = wm.getMaximumWindowMetrics();
+        WindowInsets windowInsets = windowMetrics.getWindowInsets();
+        int insetTypes = WindowInsets.Type.navigationBars();
+        Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
+        return insets.bottom + insets.top;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private static void logInsets(WindowMetrics metrics, String metricsType) {
+        logInsets(metrics, metricsType, WindowInsets::getInsets, "insets");
+        logInsets(metrics, metricsType, WindowInsets::getInsetsIgnoringVisibility, "insetsIgnoringVisibility");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private static void logInsets(WindowMetrics metrics, String metricsType,
+                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
+        logInsets(metrics, metricsType, WindowInsets.Type.navigationBars(),"navigationBars",
+                  insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.systemBars(), "systemBars", insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.statusBars(), "statusBars", insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.displayCutout(),"displayCutout",
+                  insetsGetter, visibility);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    @SuppressLint("DefaultLocale")
+    private static void logInsets(WindowMetrics metrics, String metricsType, int insetTypes, String insetsType,
+                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
+        WindowInsets windowInsets = metrics.getWindowInsets();
+        Insets insets = insetsGetter.apply(windowInsets, insetTypes);
+        Log.i("insets", String.format("%s, %s, %s, bottom %d, top %d", metricsType, insetsType, visibility,
+                                      insets.bottom, insets.top));
     }
 }
