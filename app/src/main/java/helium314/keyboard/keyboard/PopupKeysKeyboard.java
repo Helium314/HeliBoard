@@ -121,7 +121,7 @@ public final class PopupKeysKeyboard extends Keyboard {
             mBaseWidth = mOccupiedWidth = mNumColumns * mColumnWidth - mDividerWidth;
             // Need to subtract the bottom row's gutter only.
             mBaseHeight = mOccupiedHeight = mNumRows * mDefaultAbsoluteRowHeight - mVerticalGap
-                    + mTopPadding + mBottomPadding - ResourceUtils.getBottomPaddingAdjustment(context);
+                    + mTopPadding + mBottomPadding;
         }
 
         private int getFixedOrderTopRowAdjustment() {

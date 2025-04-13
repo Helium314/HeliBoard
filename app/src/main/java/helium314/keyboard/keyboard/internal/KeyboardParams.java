@@ -224,9 +224,7 @@ public class KeyboardParams {
                     R.styleable.Keyboard_keyboardTopPadding, height, height, 0);
             mBottomPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardBottomPadding, height, height, 0)
-                    * Settings.getValues().mBottomPaddingScale)
-                    + ResourceUtils.getBottomPaddingAdjustment(context);
-
+                    * Settings.getValues().mBottomPaddingScale);
             mLeftPadding = (int) (keyboardAttr.getFraction(
                     R.styleable.Keyboard_keyboardLeftPadding, width, width, 0)
                     * Settings.getValues().mSidePaddingScale);

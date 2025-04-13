@@ -33,8 +33,7 @@ internal class EmojiLayoutParams(ctx: Context) {
                 defaultKeyboardHeight, defaultKeyboardHeight).toInt()
         }
         val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale
-                + ResourceUtils.getBottomPaddingAdjustment(ctx)).toInt()
+            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
         val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
             defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
