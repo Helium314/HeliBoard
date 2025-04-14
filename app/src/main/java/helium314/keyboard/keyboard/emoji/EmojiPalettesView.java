@@ -105,6 +105,7 @@ public final class EmojiPalettesView extends LinearLayout
                 R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
         emojiPalettesViewAttr.recycle();
         mEmojiLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        setFitsSystemWindows(true);
     }
 
     @Override
