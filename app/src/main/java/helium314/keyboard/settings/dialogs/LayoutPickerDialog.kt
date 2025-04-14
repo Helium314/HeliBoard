@@ -204,6 +204,7 @@ private fun LayoutItemRow(
                     onConfirmed = {
                         showDeleteDialog = false
                         onDelete(layoutName)
+                        (ctx.getActivity() as? SettingsActivity)?.prefChanged()
                     }
                 )
             }
