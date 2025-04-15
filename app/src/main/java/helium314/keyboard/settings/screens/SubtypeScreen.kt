@@ -13,6 +13,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -140,163 +141,191 @@ fun SubtypeScreen(
         itemContent = { },
         filteredItems = { emptyList<String>() }
     ) {
-        Column(
-            modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
-            if (availableLocalesForScript.size > 1) {
-                WithSmallTitle(stringResource(R.string.secondary_locale)) {
-                    TextButton(onClick = { showSecondaryLocaleDialog = true }) {
-                        val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
-                            it.localizedDisplayName(ctx)
-                        }.ifEmpty { stringResource(R.string.action_none) }
-                        Text(text, Modifier.fillMaxWidth())
-                    }
-                }
-            }
-            Row {
-                TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
-                { Text(stringResource(R.string.popup_order)) }
-                DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
-                    setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
-                }
-            }
-            Row {
-                TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
-                { Text(stringResource(R.string.hint_source)) }
-                DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
-                    setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
-                }
-            }
-            if (currentSubtype.locale.script() == ScriptUtils.SCRIPT_LATIN) {
-                WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
-                    val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-                    val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
-                    Row {
-                        TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
-                        { Text(stringResource(morePopupKeysResId(value))) }
-                        DefaultButton(explicitValue == null) {
-                            setCurrentSubtype(currentSubtype.without(ExtraValue.MORE_POPUPS))
+        Scaffold { innerPadding ->
+            Column(
+                modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp)
+                    .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding())),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
+                if (availableLocalesForScript.size > 1) {
+                    WithSmallTitle(stringResource(R.string.secondary_locale)) {
+                        TextButton(onClick = { showSecondaryLocaleDialog = true }) {
+                            val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
+                                it.localizedDisplayName(ctx)
+                            }.ifEmpty { stringResource(R.string.action_none) }
+                            Text(text, Modifier.fillMaxWidth())
                         }
                     }
                 }
-            }
-            if (hasLocalizedNumberRow(currentSubtype.locale, ctx)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
-                    Text(stringResource(R.string.localized_number_row), Modifier.weight(1f))
-                    Switch(
-                        checked = checked ?: prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, Defaults.PREF_LOCALIZED_NUMBER_ROW),
-                        onCheckedChange = {
-                            setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
-                        }
-                    )
-                    DefaultButton(checked == null) {
-                        setCurrentSubtype(currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW))
+                Row {
+                    TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
+                    { Text(stringResource(R.string.popup_order)) }
+                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
+                        setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
                     }
                 }
-            }
-            HorizontalDivider()
-            Text(stringResource(R.string.settings_screen_secondary_layouts), style = MaterialTheme.typography.titleMedium)
-            LayoutType.entries.forEach { type ->
-                if (type == LayoutType.MAIN) return@forEach
-                WithSmallTitle(stringResource(type.displayNameId)) {
-                    val explicitLayout = currentSubtype.layoutName(type)
-                    val layout = explicitLayout ?: Settings.readDefaultLayoutName(type, prefs)
-                    val defaultLayouts = LayoutUtils.getAvailableLayouts(type, ctx)
-                    val customLayouts = LayoutUtilsCustom.getLayoutFiles(type, ctx).map { it.name }
-                    DropDownField(
-                        items = defaultLayouts + customLayouts,
-                        selectedItem = layout,
-                        onSelected = {
-                            setCurrentSubtype(currentSubtype.withLayout(type, it))
-                        },
-                        extraButton = { DefaultButton(explicitLayout == null) {
-                            setCurrentSubtype(currentSubtype.withoutLayout(type))
-                        } },
-                    ) {
-                        val displayName = if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
-                        else it.getStringResourceOrName("layout_", ctx)
-                        var showLayoutEditDialog by remember { mutableStateOf(false) }
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
+                Row {
+                    TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
+                    { Text(stringResource(R.string.hint_source)) }
+                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
+                        setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
+                    }
+                }
+                if (currentSubtype.locale.script() == ScriptUtils.SCRIPT_LATIN) {
+                    WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
+                        val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
+                        val value = explicitValue ?: prefs.getString(
+                            Settings.PREF_MORE_POPUP_KEYS,
+                            Defaults.PREF_MORE_POPUP_KEYS
+                        )!!
+                        Row {
+                            TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
+                            { Text(stringResource(morePopupKeysResId(value))) }
+                            DefaultButton(explicitValue == null) {
+                                setCurrentSubtype(currentSubtype.without(ExtraValue.MORE_POPUPS))
+                            }
+                        }
+                    }
+                }
+                if (hasLocalizedNumberRow(currentSubtype.locale, ctx)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
+                        Text(stringResource(R.string.localized_number_row), Modifier.weight(1f))
+                        Switch(
+                            checked = checked ?: prefs.getBoolean(
+                                Settings.PREF_LOCALIZED_NUMBER_ROW,
+                                Defaults.PREF_LOCALIZED_NUMBER_ROW
+                            ),
+                            onCheckedChange = {
+                                setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
+                            }
+                        )
+                        DefaultButton(checked == null) {
+                            setCurrentSubtype(currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW))
+                        }
+                    }
+                }
+                HorizontalDivider()
+                Text(
+                    stringResource(R.string.settings_screen_secondary_layouts),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                LayoutType.entries.forEach { type ->
+                    if (type == LayoutType.MAIN) return@forEach
+                    WithSmallTitle(stringResource(type.displayNameId)) {
+                        val explicitLayout = currentSubtype.layoutName(type)
+                        val layout = explicitLayout ?: Settings.readDefaultLayoutName(type, prefs)
+                        val defaultLayouts = LayoutUtils.getAvailableLayouts(type, ctx)
+                        val customLayouts = LayoutUtilsCustom.getLayoutFiles(type, ctx).map { it.name }
+                        DropDownField(
+                            items = defaultLayouts + customLayouts,
+                            selectedItem = layout,
+                            onSelected = {
+                                setCurrentSubtype(currentSubtype.withLayout(type, it))
+                            },
+                            extraButton = {
+                                DefaultButton(explicitLayout == null) {
+                                    setCurrentSubtype(currentSubtype.withoutLayout(type))
+                                }
+                            },
                         ) {
-                            Text(displayName)
-                            if (LayoutUtilsCustom.isCustomLayout(it))
-                                IconButton({ showLayoutEditDialog = true }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
+                            val displayName =
+                                if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
+                                else it.getStringResourceOrName("layout_", ctx)
+                            var showLayoutEditDialog by remember { mutableStateOf(false) }
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(displayName)
+                                if (LayoutUtilsCustom.isCustomLayout(it))
+                                    IconButton({
+                                        showLayoutEditDialog = true
+                                    }) {
+                                        Icon(
+                                            painterResource(R.drawable.ic_edit),
+                                            stringResource(R.string.edit_layout)
+                                        )
+                                    }
+                            }
+                            if (showLayoutEditDialog)
+                                LayoutEditDialog(
+                                    onDismissRequest = { showLayoutEditDialog = false },
+                                    layoutType = type,
+                                    initialLayoutName = it,
+                                    isNameValid = null
+                                )
                         }
-                        if (showLayoutEditDialog)
-                            LayoutEditDialog(
-                                onDismissRequest = { showLayoutEditDialog = false },
-                                layoutType = type,
-                                initialLayoutName = it,
-                                isNameValid = null
-                            )
                     }
                 }
             }
         }
-    }
-    if (showSecondaryLocaleDialog)
-        MultiListPickerDialog(
-            onDismissRequest = { showSecondaryLocaleDialog = false },
-            onConfirmed = { locales ->
-                val newValue = locales.joinToString(Separators.KV) { it.toLanguageTag() }
-                setCurrentSubtype(
-                    if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
-                    else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
-                )
-            },
-            title = { Text(stringResource(R.string.locales_with_dict)) },
-            items = availableLocalesForScript,
-            initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
-                ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
-            getItemName = { it.localizedDisplayName(ctx) }
-        )
-    if (showKeyOrderDialog) {
-        val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
-        PopupOrderDialog(
-            onDismissRequest = { showKeyOrderDialog = false },
-            initialValue = setting ?: prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, Defaults.PREF_POPUP_KEYS_ORDER)!!,
-            title = stringResource(R.string.popup_order),
-            showDefault = setting != null,
-            onConfirmed = {
-                setCurrentSubtype(
-                    if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
-                    else currentSubtype.with(ExtraValue.POPUP_ORDER, it)
-                )
-            }
-        )
-    }
-    if (showHintOrderDialog) {
-        val setting = currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER)
-        PopupOrderDialog(
-            onDismissRequest = { showHintOrderDialog = false },
-            initialValue = setting ?: prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, Defaults.PREF_POPUP_KEYS_LABELS_ORDER)!!,
-            title = stringResource(R.string.hint_source),
-            showDefault = setting != null,
-            onConfirmed = {
-                setCurrentSubtype(
-                    if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
-                    else currentSubtype.with(ExtraValue.HINT_ORDER, it)
-                )
-            }
-        )
-    }
-    if (showMorePopupsDialog) {
-        val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL)
-        val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-        val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
-        ListPickerDialog(
-            onDismissRequest = { showMorePopupsDialog = false },
-            items = items,
-            getItemName = { stringResource(morePopupKeysResId(it)) },
-            selectedItem = value,
-            onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
-        )
+        if (showSecondaryLocaleDialog)
+            MultiListPickerDialog(
+                onDismissRequest = { showSecondaryLocaleDialog = false },
+                onConfirmed = { locales ->
+                    val newValue = locales.joinToString(Separators.KV) { it.toLanguageTag() }
+                    setCurrentSubtype(
+                        if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
+                        else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
+                    )
+                },
+                title = { Text(stringResource(R.string.locales_with_dict)) },
+                items = availableLocalesForScript,
+                initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
+                    ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
+                getItemName = { it.localizedDisplayName(ctx) }
+            )
+        if (showKeyOrderDialog) {
+            val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
+            PopupOrderDialog(
+                onDismissRequest = { showKeyOrderDialog = false },
+                initialValue = setting ?: prefs.getString(
+                    Settings.PREF_POPUP_KEYS_ORDER,
+                    Defaults.PREF_POPUP_KEYS_ORDER
+                )!!,
+                title = stringResource(R.string.popup_order),
+                showDefault = setting != null,
+                onConfirmed = {
+                    setCurrentSubtype(
+                        if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
+                        else currentSubtype.with(ExtraValue.POPUP_ORDER, it)
+                    )
+                }
+            )
+        }
+        if (showHintOrderDialog) {
+            val setting = currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER)
+            PopupOrderDialog(
+                onDismissRequest = { showHintOrderDialog = false },
+                initialValue = setting ?: prefs.getString(
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER,
+                    Defaults.PREF_POPUP_KEYS_LABELS_ORDER
+                )!!,
+                title = stringResource(R.string.hint_source),
+                showDefault = setting != null,
+                onConfirmed = {
+                    setCurrentSubtype(
+                        if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
+                        else currentSubtype.with(ExtraValue.HINT_ORDER, it)
+                    )
+                }
+            )
+        }
+        if (showMorePopupsDialog) {
+            val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL)
+            val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
+            val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
+            ListPickerDialog(
+                onDismissRequest = { showMorePopupsDialog = false },
+                items = items,
+                getItemName = { stringResource(morePopupKeysResId(it)) },
+                selectedItem = value,
+                onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
+            )
+        }
     }
 }
 
