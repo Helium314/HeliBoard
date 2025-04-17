@@ -37,10 +37,9 @@ class ClipboardLayoutParams(ctx: Context) {
                 defaultKeyboardWidth, defaultKeyboardWidth).toInt()
         }
         val bottomPadding = (res.getFraction(R.fraction.config_keyboard_bottom_padding_holo,
-            defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
-
+                defaultKeyboardHeight, defaultKeyboardHeight) * sv.mBottomPaddingScale).toInt()
         val topPadding = res.getFraction(R.fraction.config_keyboard_top_padding_holo,
-            defaultKeyboardHeight, defaultKeyboardHeight).toInt()
+                defaultKeyboardHeight, defaultKeyboardHeight).toInt()
 
         val rowCount = KeyboardParams.DEFAULT_KEYBOARD_ROWS + if (sv.mShowsNumberRow) 1 else 0
         bottomRowKeyboardHeight = (defaultKeyboardHeight - bottomPadding - topPadding) / rowCount - keyVerticalGap / 2
