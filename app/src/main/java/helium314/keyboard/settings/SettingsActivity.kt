@@ -13,6 +13,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
@@ -20,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import helium314.keyboard.compat.locale
@@ -98,9 +101,11 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                                 || !UncachedInputMethodManagerUtils.isThisImeEnabled(this, imm)
                     ) }
                     if (spellchecker)
-                        Column { // lazy way of implementing spell checker settings
-                            settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
-                            settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
+                        Scaffold { innerPadding ->
+                            Column(Modifier.padding(innerPadding)) { // lazy way of implementing spell checker settings
+                                settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
+                                settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
+                            }
                         }
                     else
                         SettingsNavHost(onClickBack = { this.finish() })
