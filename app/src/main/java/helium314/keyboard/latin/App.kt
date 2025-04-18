@@ -23,6 +23,7 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -51,6 +52,14 @@ class App : Application() {
         checkVersionUpgrade(this)
         app = this
         Defaults.initDynamicDefaults(this)
+
+        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+        @Suppress("DEPRECATION")
+        Log.i(
+            "startup", "Starting ${applicationInfo.processName} version ${packageInfo.versionName} (${
+                packageInfo.versionCode
+            }) on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})"
+        )
     }
 
     companion object {
