@@ -188,7 +188,7 @@ object LocaleUtils {
     fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
-        if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq" || locale.language=="dru") {
+        if (locale.script() != locale.language.constructLocale().script() || locale.language == "mns" || locale.language == "xdq" || locale.language=="dru" || locale.language=="st" || locale.language=="dag") {
             val resId = resources.getIdentifier(
                 "subtype_${languageTag.replace("-", "_")}",
                 "string",
