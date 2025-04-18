@@ -847,6 +847,8 @@ New dictionary:
     <string name="about_github_link">View on GitHub</string>
     <!-- preference title for saving the log to a file -->
     <string name="save_log">Save log</string>
+    <!-- preference title for saving the log to a file -->
+    <string name="save_logcat">Save log using logcat (experimental)</string>
     <!-- license for about screen-->
     <string name="license">Open-source license</string>
     <!-- license link for about screen-->
