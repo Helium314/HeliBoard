@@ -71,6 +71,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         getEnabledClipboardToolbarKeys(context.prefs())
             .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         keyboardAttr.recycle()
+        fitsSystemWindows = true
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
