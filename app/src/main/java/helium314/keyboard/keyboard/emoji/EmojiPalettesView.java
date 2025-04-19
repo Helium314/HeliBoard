@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import helium314.keyboard.keyboard.Key;
@@ -78,6 +81,7 @@ public final class EmojiPalettesView extends LinearLayout
     private final EmojiCategory mEmojiCategory;
 
     private ImageView mCurrentTab = null;
+    private GestureDetector _gestureDetector;
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.emojiPalettesViewStyle);
@@ -205,6 +209,24 @@ public final class EmojiPalettesView extends LinearLayout
         setCurrentCategoryAndPageId(mEmojiCategory.getCurrentCategoryId(), mEmojiCategory.getCurrentCategoryPageId(), true);
 
         mEmojiCategoryPageIndicatorView.setColors(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED), mColors.get(ColorType.STRIP_BACKGROUND));
+
+        _gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+              if (Math.abs(velocityX) < Math.abs(velocityY)) {
+                  return false;
+              }
+
+              if (velocityX > 0) {
+                  setCurrentCategoryAndPageId(mEmojiCategory.getPreviousCategoryId(), 0, false);
+              } else {
+                  setCurrentCategoryAndPageId(mEmojiCategory.getNextCategoryId(), 0, false);
+              }
+
+              return true;
+            }
+        });
+
         initialized = true;
     }
 
@@ -255,6 +277,15 @@ public final class EmojiPalettesView extends LinearLayout
         mKeyboardActionListener.onReleaseKey(code, false);
         if (Settings.getValues().mAlphaAfterEmojiInEmojiView)
             mKeyboardActionListener.onCodeInput(KeyCode.ALPHA, NOT_A_COORDINATE, NOT_A_COORDINATE, false);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (_gestureDetector.onTouchEvent(ev)) {
+            return true;
+        }
+
+        return super.onInterceptTouchEvent(ev);
     }
 
     public void setHardwareAcceleratedDrawingEnabled(final boolean enabled) {
