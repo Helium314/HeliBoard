@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -177,6 +179,7 @@ fun PersonalDictionaryScreen(
         text = { Text(stringResource(R.string.user_dict_add_word_button)) },
         icon = { Icon(painter = painterResource(R.drawable.ic_edit), stringResource(R.string.user_dict_add_word_button)) },
         modifier = Modifier.wrapContentSize(Alignment.BottomEnd).padding(all = 12.dp)
+            .then(Modifier.systemBarsPadding().imePadding())
     )
 }
 
