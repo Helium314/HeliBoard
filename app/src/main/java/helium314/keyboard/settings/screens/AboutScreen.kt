@@ -150,9 +150,12 @@ fun createAboutSettings(context: Context) = listOf(
     saveLog(
         context,
         SettingsWithoutKey.SAVE_LOGCAT,
-        R.string.save_logcat,
-        Runtime.getRuntime().exec("logcat -d -b all").inputStream::copyTo
-    )
+        R.string.save_logcat
+    ) {
+        val inputStream = Runtime.getRuntime().exec("logcat -d -b all").inputStream
+        inputStream.copyTo(it)
+        inputStream.close()
+    }
 )
 
 private fun saveLog(context: Context, key: String, titleId: Int, writer: (OutputStream) -> Unit) =
@@ -163,7 +166,9 @@ private fun saveLog(context: Context, key: String, titleId: Int, writer: (Output
             if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
-                ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use(writer)
+                val outputStream = ctx.getActivity()?.contentResolver?.openOutputStream(uri)
+                outputStream?.use(writer)
+                outputStream?.close()
             }
         }
         Preference(
