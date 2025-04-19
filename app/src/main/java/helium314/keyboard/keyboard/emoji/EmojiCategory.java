@@ -261,6 +261,24 @@ final class EmojiCategory {
         return 0;
     }
 
+    public int getNextCategoryId() {
+        var tabId = getTabIdFromCategoryId(mCurrentCategoryId);
+        if (tabId < mShownCategories.size() - 1) {
+            return mShownCategories.get(tabId + 1).mCategoryId;
+        }
+
+        return mCurrentCategoryId;
+    }
+
+    public int getPreviousCategoryId() {
+        var tabId = getTabIdFromCategoryId(mCurrentCategoryId);
+        if (tabId > 0) {
+            return mShownCategories.get(tabId - 1).mCategoryId;
+        }
+
+        return mCurrentCategoryId;
+    }
+
     // Returns the view pager's page position for the categoryId
     public int getPagerPageIdFromCategoryAndPageId(final int categoryId, final int categoryPageId) {
         int sum = 0;
