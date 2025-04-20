@@ -12,6 +12,7 @@ import android.view.WindowInsets.Type
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.ime
@@ -152,6 +153,8 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
             }
             intent = null
         }
+
+        enableEdgeToEdge()
     }
 
     override fun onStart() {
