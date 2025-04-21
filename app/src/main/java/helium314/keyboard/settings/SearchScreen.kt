@@ -6,11 +6,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.union
@@ -64,7 +65,9 @@ fun SearchSettingsScreen(
         content = {
             if (content != null) content()
             else {
-                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+                Scaffold(
+                    contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)) { innerPadding ->
                     Column(
                         Modifier.verticalScroll(rememberScrollState()).then(Modifier.padding(innerPadding))
                     ) {
@@ -205,7 +208,9 @@ fun <T: Any?> SearchScreen(
                 }
             } else {
                 val items = filteredItems(searchText.text)
-                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+                Scaffold(
+                    contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)) { innerPadding ->
                     LazyColumn(contentPadding = innerPadding) {
                         items(items) {
                             itemContent(it)

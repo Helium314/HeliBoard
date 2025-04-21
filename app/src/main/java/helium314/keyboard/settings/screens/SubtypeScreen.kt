@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.union
@@ -145,7 +147,9 @@ fun SubtypeScreen(
         itemContent = { },
         filteredItems = { emptyList<String>() }
     ) {
-        Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+        Scaffold(
+            contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)
+                .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)) { innerPadding ->
             Column(
                 modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp)
                     .then(Modifier.padding(innerPadding)),
