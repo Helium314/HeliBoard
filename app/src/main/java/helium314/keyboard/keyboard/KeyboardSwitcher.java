@@ -515,9 +515,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void reloadKeyboard() {
-        if (mCurrentInputView != null)
-            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
-                    mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        if (mCurrentInputView == null)
+            return;
+        mEmojiPalettesView.clearKeyboardCache();
+        loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
+                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
 
     /**
