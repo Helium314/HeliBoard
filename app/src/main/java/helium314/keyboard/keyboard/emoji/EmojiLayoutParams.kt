@@ -8,7 +8,7 @@ package helium314.keyboard.keyboard.emoji
 import android.content.res.Resources
 import android.view.View
 import android.widget.LinearLayout
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Settings
@@ -47,7 +47,7 @@ internal class EmojiLayoutParams(res: Resources) {
         emojiKeyboardHeight = emojiListHeight - emojiCategoryPageIdViewHeight - emojiListBottomMargin
     }
 
-    fun setEmojiListProperties(vp: RecyclerView) {
+    fun setEmojiListProperties(vp: ViewPager2) {
         val lp = vp.layoutParams as LinearLayout.LayoutParams
         lp.height = emojiKeyboardHeight
         lp.bottomMargin = emojiListBottomMargin
