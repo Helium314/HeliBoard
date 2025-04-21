@@ -266,7 +266,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
         return euro
     if (locale.language.matches("ca|eu|lb|mt".toRegex()))
         return euro
-    if (locale.language.matches("fa|iw|ko|lo|mn|ne|si|th|uk|vi|km".toRegex()))
+    if (locale.language.matches("ak|dag|ee|fa|gaa|ha|ig|iw|lo|ko|km|mn|ne|si|th|uk|vi|yo".toRegex()))
         return genericCurrencyKey(getCurrency(locale))
     if (locale.language == "hy")
         return dram
@@ -292,17 +292,24 @@ private fun getCurrency(locale: Locale): String {
     if (locale.country == "BD") return "৳"
     if (locale.country == "LK") return "රු"
     return when (locale.language) {
+        "ak" -> "¢"
+        "dag" -> "¢"
+        "ee" -> "¢"
         "fa" -> "﷼"
+        "gaa" -> "¢"
+        "ha" -> "₦"
+        "ig" -> "₦"
         "iw" -> "₪"
-        "ko" -> "￦"
         "lo" -> "₭"
+        "km" -> "៛"
+        "ko" -> "￦"
         "mn" -> "₮"
         "ne" -> "रु."
         "si" -> "රු"
         "th" -> "฿"
         "uk" -> "₴"
         "vi" -> "₫"
-        "km" -> "៛"
+        "yo" -> "₦"
         else -> "$"
     }
 }
