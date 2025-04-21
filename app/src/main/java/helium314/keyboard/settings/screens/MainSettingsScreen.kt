@@ -50,8 +50,7 @@ fun MainSettingsScreen(
         val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
         Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
             Column(
-                Modifier.verticalScroll(rememberScrollState())
-                    .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+                Modifier.verticalScroll(rememberScrollState()).then(Modifier.padding(innerPadding))
             ) {
                 Preference(
                     name = stringResource(R.string.language_and_layouts_title),

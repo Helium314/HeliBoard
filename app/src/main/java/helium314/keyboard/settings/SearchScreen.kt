@@ -66,8 +66,7 @@ fun SearchSettingsScreen(
             else {
                 Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
                     Column(
-                        Modifier.verticalScroll(rememberScrollState())
-                            .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+                        Modifier.verticalScroll(rememberScrollState()).then(Modifier.padding(innerPadding))
                     ) {
                         settings.forEach {
                             if (it is Int) {
@@ -207,7 +206,7 @@ fun <T: Any?> SearchScreen(
             } else {
                 val items = filteredItems(searchText.text)
                 Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
-                    LazyColumn(contentPadding = PaddingValues.Absolute(bottom = innerPadding.calculateBottomPadding())) {
+                    LazyColumn(contentPadding = innerPadding) {
                         items(items) {
                             itemContent(it)
                         }

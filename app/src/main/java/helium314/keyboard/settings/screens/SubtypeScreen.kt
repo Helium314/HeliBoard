@@ -148,7 +148,7 @@ fun SubtypeScreen(
         Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
             Column(
                 modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp)
-                    .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding())),
+                    .then(Modifier.padding(innerPadding)),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
