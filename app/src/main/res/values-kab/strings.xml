@@ -112,4 +112,15 @@
     <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Agemmay alatini (QWERTZ)</string>
     <string name="down" tools:keep="@string/down">Adda</string>
     <string name="last_update">Lqem aneggaru</string>
+    <string name="load">Sali</string>
+    <string name="settings_category_experimental">Armitan</string>
+    <string name="label_wait_key" tools:keep="@string/label_wait_key">Ṛǧu</string>
+    <string name="settings_category_space">Tallunt</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Ijdi</string>
+    <string name="subtype_mns">Mansi</string>
+    <string name="theme_style">Aɣanib</string>
+    <string name="settings_screen_toolbar">Afeggag n ifecka</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ubrik</string>
+    <string name="subtype_xdq">Kaitag</string>
+    <string name="dictionary_settings_title">Imawalen nniḍen</string>
 </resources>

@@ -447,4 +447,6 @@
     <string name="backspace_reverts_autocorrect">退格键恢复自动更正</string>
     <string name="autospace_after_suggestion">选择建议后自动插入空格</string>
     <string name="timestamp_format_title">时间戳键的格式</string>
+    <string name="subtype_st">索托语</string>
+    <string name="subtype_dag">达巴尼语</string>
 </resources>

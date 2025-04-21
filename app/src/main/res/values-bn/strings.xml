@@ -445,4 +445,6 @@
     <string name="autospace_after_suggestion">পরামর্শ বাছাইয়ের পরে স্বয়ংক্রিয় স্পেস</string>
     <string name="shift_removes_autospace_summary">শিফট অনিষ্পাদিত স্বয়ংক্রিয় স্পেস অপসারণ করবে</string>
     <string name="timestamp_format_title">টাইমস্ট্যাম্প বোতামের ফরম্যাট</string>
+    <string name="subtype_st">সেসুতু</string>
+    <string name="subtype_dag">ডাগবানি</string>
 </resources>

@@ -13,8 +13,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 35
-        versionCode = 3004
-        versionName = "3.0-beta1"
+        versionCode = 3005
+        versionName = "3.0-beta2"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -43,7 +43,7 @@ android {
             applicationIdSuffix = ".debug"
         }
         create("runTests") { // build variant for running tests on CI that skips tests known to fail
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isJniDebuggable = false
         }
         create("debugNoMinify") { // for faster builds in IDE
@@ -69,7 +69,7 @@ android {
     }
     ndkVersion = "28.0.13004108"
 
-    packagingOptions {
+    packaging {
         jniLibs {
             // shrinks APK by 3 MB, zipped size unchanged
             useLegacyPackaging = true

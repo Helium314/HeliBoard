@@ -465,7 +465,7 @@
     <string name="enable_split_keyboard_landscape">Włącz podzieloną klawiaturę (poziomo)</string>
     <string name="split_spacer_scale_landscape">Szerokość podziału (poziomo)</string>
     <string name="split" tools:keep="@string/split">Podziel klawiaturę</string>
-    <string name="delete_confirmation">Na pewno usunąć %s ?</string>
+    <string name="delete_confirmation">Na pewno usunąć %s?</string>
     <string name="settings_screen_secondary_layouts">Inne układy</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Klawisze funkcyjne (tablet)</string>
     <string name="name_invalid">Nieprawidłowa nazwa</string>
