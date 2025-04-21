@@ -6,6 +6,9 @@
 
 package helium314.keyboard.latin;
 
+import java.util.function.BiFunction;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Insets;
 import android.graphics.Rect;
@@ -18,6 +21,7 @@ import android.view.WindowManager;
 import android.view.WindowMetrics;
 import android.widget.FrameLayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewKt;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
@@ -26,6 +30,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
+import helium314.keyboard.latin.utils.Log;
 import kotlin.Unit;
 
 
@@ -114,11 +119,14 @@ public final class InputView extends FrameLayout {
         Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
 
         if (Build.VERSION.SDK_INT >= 30) {
-            getLocationOnScreen(LOCATION);
             WindowManager wm = getContext().getSystemService(WindowManager.class);
             WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
-            if (LOCATION[1] + getHeight() == windowMetrics.getBounds().height()) {
+
+            if (Build.VERSION.SDK_INT >= 35 || isEdgeToEdge(windowMetrics)) {
                 // Edge-to-edge mode
+                logInsets(wm.getMaximumWindowMetrics(), "max-metrics");
+                logInsets(wm.getCurrentWindowMetrics(), "current-metrics");
+
                 WindowInsets windowInsets = windowMetrics.getWindowInsets();
                 int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
                 Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
@@ -131,6 +139,42 @@ public final class InputView extends FrameLayout {
         }
 
         return null;
+    }
+
+    @SuppressLint("DefaultLocale")
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private boolean isEdgeToEdge(WindowMetrics windowMetrics) {
+        getLocationOnScreen(LOCATION);
+        Log.i("insets", String.format("Keyboard bottom: %d, screen height: %d.", LOCATION[1] + getHeight(),
+                                      windowMetrics.getBounds().height()));
+        return LOCATION[1] + getHeight() == windowMetrics.getBounds().height();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private static void logInsets(WindowMetrics metrics, String metricsType) {
+        logInsets(metrics, metricsType, WindowInsets::getInsets, "insets");
+        logInsets(metrics, metricsType, WindowInsets::getInsetsIgnoringVisibility, "insetsIgnoringVisibility");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private static void logInsets(WindowMetrics metrics, String metricsType,
+                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
+        logInsets(metrics, metricsType, WindowInsets.Type.navigationBars(),"navigationBars",
+                  insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.systemBars(), "systemBars", insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.statusBars(), "statusBars", insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.displayCutout(),"displayCutout",
+                  insetsGetter, visibility);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    @SuppressLint("DefaultLocale")
+    private static void logInsets(WindowMetrics metrics, String metricsType, int insetTypes, String insetsType,
+                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
+        WindowInsets windowInsets = metrics.getWindowInsets();
+        Insets insets = insetsGetter.apply(windowInsets, insetTypes);
+        Log.i("insets", String.format("%s, %s, %s, bottom %d, top %d", metricsType, insetsType, visibility,
+                                      insets.bottom, insets.top));
     }
 
     /**
