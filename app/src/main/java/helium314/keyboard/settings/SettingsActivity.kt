@@ -79,16 +79,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         setSystemBarIconColor()
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        // with this the layout edit dialog is not covered by the keyboard
-        //  alternative of Modifier.imePadding() and properties = DialogProperties(decorFitsSystemWindows = false) has other weird side effects
-        ViewCompat.setOnApplyWindowInsetsListener(window.decorView.rootView) { _, insets ->
-            @Suppress("DEPRECATION")
-            bottomInsets.value = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                    insets.getInsets(Type.ime()).bottom
-                else insets.systemWindowInsetBottom
-            insets
-        }
-
         settingsContainer = SettingsContainer(this)
 
         val spellchecker = intent?.getBooleanExtra("spellchecker", false) ?: false
