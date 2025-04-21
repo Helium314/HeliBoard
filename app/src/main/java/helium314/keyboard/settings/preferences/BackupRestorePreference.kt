@@ -52,7 +52,7 @@ fun BackupRestorePreference(setting: Setting) {
     var error: String? by rememberSaveable { mutableStateOf(null) }
     val backupFilePatterns by lazy { listOf(
         "blacklists/.*\\.txt".toRegex(),
-        "layouts/${LayoutUtilsCustom.CUSTOM_LAYOUT_PREFIX}+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
+        "layouts/.*${LayoutUtilsCustom.CUSTOM_LAYOUT_PREFIX}+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
         "dicts/.*/.*user\\.dict".toRegex(),
         "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
