@@ -143,6 +143,20 @@ object LayoutUtilsCustom {
         return file
     }
 
+    /** @return whether a layout has no file and was removed from [layouts] */
+    fun removeMissingLayouts(layouts: EnumMap<LayoutType, String>, context: Context): Boolean {
+        var removed = false
+        LayoutType.entries.forEach { type ->
+            val name = layouts[type] ?: return@forEach
+            if (!isCustomLayout(name) || getLayoutFiles(type, context).any { it.name == name })
+                return@forEach
+            // no file for custom layout
+            layouts.remove(type)
+            removed = true
+        }
+        return removed
+    }
+
     // this goes into prefs and file names, so do not change!
     const val CUSTOM_LAYOUT_PREFIX = "custom."
     private const val TAG = "LayoutUtilsCustom"

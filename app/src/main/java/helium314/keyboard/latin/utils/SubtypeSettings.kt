@@ -13,12 +13,14 @@ import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants.Separators
+import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.LocaleUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import java.util.Locale
 
@@ -164,10 +166,11 @@ object SubtypeSettings {
 
     fun reloadEnabledSubtypes(context: Context) {
         enabledSubtypes.clear()
-        removeInvalidCustomSubtypes(context)
+        removeMissingCustomLayouts(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
-        RichInputMethodManager.getInstance().refreshSubtypeCaches()
+        if (RichInputMethodManager.isInitialized())
+            RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 
     fun createSettingsSubtypes(prefSubtypes: String): List<SettingsSubtype> =
@@ -187,7 +190,7 @@ object SubtypeSettings {
         reloadSystemLocales(context)
 
         loadResourceSubtypes(context.resources)
-        removeInvalidCustomSubtypes(context)
+        removeMissingCustomLayouts(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
     }
@@ -215,22 +218,27 @@ object SubtypeSettings {
         }
     }
 
-    // remove custom subtypes without a layout file
-    private fun removeInvalidCustomSubtypes(context: Context) {
+    // remove layouts without a layout file from custom subtypes
+    // should not be necessary, but better fall back to default instead of crashing when encountering a bug
+    private fun removeMissingCustomLayouts(context: Context) {
         val prefs = context.prefs()
-        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(Separators.SETS)
-        val customLayoutFiles by lazy { LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).map { it.name } }
-        val subtypesToRemove = mutableListOf<String>()
-        additionalSubtypes.forEach {
-            val name = it.toSettingsSubtype().mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
-            if (!LayoutUtilsCustom.isCustomLayout(name)) return@forEach
-            if (name !in customLayoutFiles)
-                subtypesToRemove.add(it)
+        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+            .split(Separators.SETS).map { it.toSettingsSubtype() }
+        additionalSubtypes.forEach { subtype ->
+            val layouts = LayoutType.getLayoutMap(subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "")
+            if (LayoutUtilsCustom.removeMissingLayouts(layouts, context)) {
+                // layout file is missing -> adjust the subtype to use the modified layout map
+                val newSubtype = if (layouts.isEmpty()) subtype.without(KEYBOARD_LAYOUT_SET)
+                    else subtype.with(KEYBOARD_LAYOUT_SET, layouts.toExtraValue())
+                SubtypeUtilsAdditional.changeAdditionalSubtype(subtype, newSubtype, context)
+                val message = "removing custom layouts without file from subtype $subtype"
+                if (DebugFlags.DEBUG_ENABLED)
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                Log.w(TAG, message)
+                // we return here, because changeAdditionalSubtype calls reloadEnabledSubtypes, which calls this method
+                return
+            }
         }
-        if (subtypesToRemove.isEmpty()) return
-        Log.w(TAG, "removing custom subtypes without main layout files: $subtypesToRemove")
-        // todo: now we have a qwerty fallback anyway, consider removing this method (makes bugs more obvious to users)
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(Separators.SETS)).apply()
     }
 
     private fun loadAdditionalSubtypes(prefs: SharedPreferences) {
