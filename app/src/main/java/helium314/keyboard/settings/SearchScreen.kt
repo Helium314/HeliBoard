@@ -6,9 +6,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -20,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -58,36 +64,41 @@ fun SearchSettingsScreen(
         content = {
             if (content != null) content()
             else {
-                Column(Modifier.verticalScroll(rememberScrollState())) {
-                    settings.forEach {
-                        if (it is Int) {
-                            PreferenceCategory(stringResource(it))
-                        } else {
-                            // this only animates appearing prefs
-                            // a solution would be using a list(visible to key)
-                            AnimatedVisibility(visible = it != null) {
-                                if (it != null)
-                                    SettingsActivity.settingsContainer[it]?.Preference()
+                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+                    Column(
+                        Modifier.verticalScroll(rememberScrollState())
+                            .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+                    ) {
+                        settings.forEach {
+                            if (it is Int) {
+                                PreferenceCategory(stringResource(it))
+                            } else {
+                                // this only animates appearing prefs
+                                // a solution would be using a list(visible to key)
+                                AnimatedVisibility(visible = it != null) {
+                                    if (it != null)
+                                        SettingsActivity.settingsContainer[it]?.Preference()
+                                }
                             }
                         }
                     }
+                    // lazyColumn has janky scroll for a while (not sure why compose gets smoother after a while)
+                    // maybe related to unnecessary recompositions? but even for just displaying text it's there
+                    // didn't manage to improve things with @Immutable list wrapper and other lazy list hints
+                    // so for now: just use "normal" Column
+                    //  even though it takes up to ~50% longer to load it's much better UX
+                    //  and the missing appear animations could be added
+    //                LazyColumn {
+    //                    items(prefs.filterNotNull(), key = { it }) {
+    //                        Box(Modifier.animateItem()) {
+    //                            if (it is Int)
+    //                                PreferenceCategory(stringResource(it))
+    //                            else
+    //                                SettingsActivity.settingsContainer[it]!!.Preference()
+    //                        }
+    //                    }
+    //                }
                 }
-                // lazyColumn has janky scroll for a while (not sure why compose gets smoother after a while)
-                // maybe related to unnecessary recompositions? but even for just displaying text it's there
-                // didn't manage to improve things with @Immutable list wrapper and other lazy list hints
-                // so for now: just use "normal" Column
-                //  even though it takes up to ~50% longer to load it's much better UX
-                //  and the missing appear animations could be added
-//                LazyColumn {
-//                    items(prefs.filterNotNull(), key = { it }) {
-//                        Box(Modifier.animateItem()) {
-//                            if (it is Int)
-//                                PreferenceCategory(stringResource(it))
-//                            else
-//                                SettingsActivity.settingsContainer[it]!!.Preference()
-//                        }
-//                    }
-//                }
             }
         },
         filteredItems = { SettingsActivity.settingsContainer.filter(it) },
@@ -195,9 +206,11 @@ fun <T: Any?> SearchScreen(
                 }
             } else {
                 val items = filteredItems(searchText.text)
-                LazyColumn {
-                    items(items) {
-                        itemContent(it)
+                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+                    LazyColumn(contentPadding = PaddingValues.Absolute(bottom = innerPadding.calculateBottomPadding())) {
+                        items(items) {
+                            itemContent(it)
+                        }
                     }
                 }
             }
