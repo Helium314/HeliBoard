@@ -142,7 +142,7 @@ public final class InputView extends FrameLayout {
     }
 
     @SuppressLint("DefaultLocale")
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = 30)
     private boolean isEdgeToEdge(WindowMetrics windowMetrics) {
         getLocationOnScreen(LOCATION);
         Log.i("insets", String.format("Keyboard bottom: %d, screen height: %d.", LOCATION[1] + getHeight(),
@@ -150,13 +150,13 @@ public final class InputView extends FrameLayout {
         return LOCATION[1] + getHeight() == windowMetrics.getBounds().height();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = 30)
     private static void logInsets(WindowMetrics metrics, String metricsType) {
         logInsets(metrics, metricsType, WindowInsets::getInsets, "insets");
         logInsets(metrics, metricsType, WindowInsets::getInsetsIgnoringVisibility, "insetsIgnoringVisibility");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = 30)
     private static void logInsets(WindowMetrics metrics, String metricsType,
                                   BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
         logInsets(metrics, metricsType, WindowInsets.Type.navigationBars(),"navigationBars",
@@ -165,9 +165,20 @@ public final class InputView extends FrameLayout {
         logInsets(metrics, metricsType, WindowInsets.Type.statusBars(), "statusBars", insetsGetter, visibility);
         logInsets(metrics, metricsType, WindowInsets.Type.displayCutout(),"displayCutout",
                   insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.systemGestures(),"systemGestures",
+                  insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.mandatorySystemGestures(), "mandatorySystemGestures",
+                  insetsGetter, visibility);
+        logInsets(metrics, metricsType, WindowInsets.Type.tappableElement(),"tappableElement",
+                  insetsGetter, visibility);
+
+        if (Build.VERSION.SDK_INT >= 34) {
+            logInsets(metrics, metricsType, WindowInsets.Type.systemOverlays(), "systemOverlays",
+                      insetsGetter, visibility);
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
+    @RequiresApi(api = 30)
     @SuppressLint("DefaultLocale")
     private static void logInsets(WindowMetrics metrics, String metricsType, int insetTypes, String insetsType,
                                   BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
