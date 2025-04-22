@@ -6,14 +6,13 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -64,10 +63,12 @@ fun SearchSettingsScreen(
         content = {
             if (content != null) content()
             else {
-                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
+                Scaffold(
+                    contentWindowInsets = WindowInsets.safeDrawing
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+                ) { innerPadding ->
                     Column(
-                        Modifier.verticalScroll(rememberScrollState())
-                            .then(Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+                        Modifier.verticalScroll(rememberScrollState()).then(Modifier.padding(innerPadding))
                     ) {
                         settings.forEach {
                             if (it is Int) {
@@ -206,8 +207,11 @@ fun <T: Any?> SearchScreen(
                 }
             } else {
                 val items = filteredItems(searchText.text)
-                Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.ime)) { innerPadding ->
-                    LazyColumn(contentPadding = PaddingValues.Absolute(bottom = innerPadding.calculateBottomPadding())) {
+                Scaffold(
+                    contentWindowInsets = WindowInsets.safeDrawing
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+                ) { innerPadding ->
+                    LazyColumn(contentPadding = innerPadding) {
                         items(items) {
                             itemContent(it)
                         }
