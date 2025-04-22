@@ -128,7 +128,8 @@ public final class InputView extends FrameLayout {
                 logInsets(wm.getCurrentWindowMetrics(), "current-metrics");
 
                 WindowInsets windowInsets = windowMetrics.getWindowInsets();
-                int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout();
+                int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout()
+                                | WindowInsets.Type.systemGestures();
                 Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
 
                 // Can't set padding on this view, since it results in an overlap with window above the keyboard.
