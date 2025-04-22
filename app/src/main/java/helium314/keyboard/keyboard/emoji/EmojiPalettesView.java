@@ -58,8 +58,80 @@ import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
  */
 public final class EmojiPalettesView extends LinearLayout
         implements View.OnClickListener, OnKeyEventListener {
+    private class PagerAdapter extends RecyclerView.Adapter {
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            var view = LayoutInflater.from(parent.getContext()).inflate(R.layout.emoji_category_view, parent, false);
+            var emojiRecyclerView = getRecyclerView(view);
+            emojiRecyclerView.setAdapter(mEmojiPalettesAdapter);
+
+            emojiRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    // Ignore this message. Only want the actual page selected.
+                }
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    updateState(recyclerView);
+                }
+            });
+
+            emojiRecyclerView.setPersistentDrawingCache(PERSISTENT_NO_CACHE);
+            emojiRecyclerView.scrollToPosition(mEmojiCategory.getCurrentCategoryPageId());
+            return new RecyclerView.ViewHolder(view) {
+            };
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        }
+
+        @Override
+        public int getItemCount() {
+            return mEmojiCategory.getShownCategories().size();
+        }
+
+        @Override
+        public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+            if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
+                            || holder.getBindingAdapterPosition() == mPager.getCurrentItem() // tab
+            ) {
+                setCurrentCategoryAndPageId(mEmojiCategory.getShownCategories().get(
+                                holder.getBindingAdapterPosition()).mCategoryId, 0, false);
+                updateState(getRecyclerView(holder.itemView));
+            }
+        }
+
+        private static RecyclerView getRecyclerView(View view) {
+            return view.findViewById(R.id.emoji_keyboard_list);
+        }
+
+        private void updateState(@NonNull RecyclerView recyclerView) {
+            mEmojiPalettesAdapter.onPageScrolled();
+
+            final int offset = recyclerView.computeVerticalScrollOffset();
+            final int extent = recyclerView.computeVerticalScrollExtent();
+            final int range = recyclerView.computeVerticalScrollRange();
+            final float percentage = offset / (float) (range - extent);
+
+            final int currentCategorySize = mEmojiCategory.getCurrentCategoryPageCount();
+            final int a = (int) (percentage * currentCategorySize);
+            final float b = percentage * currentCategorySize - a;
+            mEmojiCategoryPageIndicatorView.setCategoryPageId(currentCategorySize, a, b);
+
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            final int firstCompleteVisibleBoard = layoutManager.findFirstCompletelyVisibleItemPosition();
+            final int firstVisibleBoard = layoutManager.findFirstVisibleItemPosition();
+            mEmojiCategory.setCurrentCategoryPageId(
+                    firstCompleteVisibleBoard > 0 ? firstCompleteVisibleBoard : firstVisibleBoard);
+        }
+    }
+
     private boolean initialized = false;
-    // keep the indicator in case emoji view is changed to tabs / viewpager
+    // keep the indicator in case we decide to restore it
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
     private final int mCategoryIndicatorBackgroundResId;
@@ -160,78 +232,7 @@ public final class EmojiPalettesView extends LinearLayout
         mEmojiPalettesAdapter = new EmojiPalettesAdapter(mEmojiCategory, this);
 
         mPager = findViewById(R.id.emoji_pager);
-        mPager.setAdapter(new RecyclerView.Adapter() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                var view = LayoutInflater.from(parent.getContext()).inflate(R.layout.emoji_category_view, parent, false);
-                var emojiRecyclerView = getRecyclerView(view);
-                emojiRecyclerView.setAdapter(mEmojiPalettesAdapter);
-
-                emojiRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                        // Ignore this message. Only want the actual page selected.
-                    }
-
-                    @Override
-                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                        updateState(recyclerView);
-                    }
-                });
-
-                emojiRecyclerView.setPersistentDrawingCache(PERSISTENT_NO_CACHE);
-                emojiRecyclerView.scrollToPosition(mEmojiCategory.getCurrentCategoryPageId());
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            }
-
-            @Override
-            public int getItemCount() {
-                return mEmojiCategory.getShownCategories().size();
-            }
-
-            @Override
-            public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-                if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
-                                || holder.getBindingAdapterPosition() == mPager.getCurrentItem() // tab
-                ) {
-                    setCurrentCategoryAndPageId(mEmojiCategory.getShownCategories().get(
-                                    holder.getBindingAdapterPosition()).mCategoryId, 0, false);
-                    updateState(getRecyclerView(holder.itemView));
-                }
-            }
-
-            private static RecyclerView getRecyclerView(View view) {
-                return view.findViewById(R.id.emoji_keyboard_list);
-            }
-
-            private void updateState(@NonNull RecyclerView recyclerView) {
-                mEmojiPalettesAdapter.onPageScrolled();
-
-                final int offset = recyclerView.computeVerticalScrollOffset();
-                final int extent = recyclerView.computeVerticalScrollExtent();
-                final int range = recyclerView.computeVerticalScrollRange();
-                final float percentage = offset / (float) (range - extent);
-
-                final int currentCategorySize = mEmojiCategory.getCurrentCategoryPageCount();
-                final int a = (int) (percentage * currentCategorySize);
-                final float b = percentage * currentCategorySize - a;
-                mEmojiCategoryPageIndicatorView.setCategoryPageId(currentCategorySize, a, b);
-
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                final int firstCompleteVisibleBoard = layoutManager.findFirstCompletelyVisibleItemPosition();
-                final int firstVisibleBoard = layoutManager.findFirstVisibleItemPosition();
-                mEmojiCategory.setCurrentCategoryPageId(
-                        firstCompleteVisibleBoard > 0 ? firstCompleteVisibleBoard : firstVisibleBoard);
-            }
-        });
-
+        mPager.setAdapter(new PagerAdapter());
         mEmojiLayoutParams.setEmojiListProperties(mPager);
         mEmojiCategoryPageIndicatorView = findViewById(R.id.emoji_category_page_id_view);
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
