@@ -8,6 +8,9 @@ import java.util.Date
  * Logger that does the android logging, but also allows reading the log in the app.
  * It's only a little slower than the android logger, but since both are used we end up at
  * half performance (still fast enough to not be noticeable, unless spamming thousands of log lines)
+ *
+ * Note: this class is currently a pass-through to Android logging only.
+ * Todo: restore this functionality or remove the class.
  */
 object Log {
     @JvmStatic
@@ -71,11 +74,13 @@ object Log {
     }
 
     private fun log(line: LogLine) {
+/*
         synchronized(logLines) {
             if (logLines.size > 12000) // clear oldest entries if list gets too long
                 logLines.subList(0, 2000).clear()
             logLines.add(line)
         }
+*/
     }
 
     private val logLines: MutableList<LogLine> = ArrayList(2000)

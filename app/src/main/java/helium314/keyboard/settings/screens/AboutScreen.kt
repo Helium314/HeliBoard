@@ -56,7 +56,6 @@ fun AboutScreen(
         SettingsWithoutKey.HIDDEN_FEATURES,
         SettingsWithoutKey.GITHUB,
         SettingsWithoutKey.SAVE_LOG,
-        SettingsWithoutKey.SAVE_LOGCAT
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -144,14 +143,7 @@ fun createAboutSettings(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_github
         )
     },
-    saveLog(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { os ->
-        os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
-    },
-    saveLog(
-        context,
-        SettingsWithoutKey.SAVE_LOGCAT,
-        R.string.save_logcat
-    ) {
+    saveLog(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) {
         val inputStream = Runtime.getRuntime().exec("logcat -d -b all").inputStream
         inputStream.copyTo(it)
         inputStream.close()
