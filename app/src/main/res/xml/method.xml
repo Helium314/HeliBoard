@@ -55,7 +55,6 @@
     gl_ES: Galician (Spain)/qwerty+
     gu: Gujarati/gujarati
     ha: Hausa/hausa # This is a preliminary keyboard layout.
-	hc: Hcesar/hcesar
     hi: Hindi/hindi
     hi: Hindi/hindi_compact
     hi: Hindi/hindi_phonetic
@@ -555,15 +554,6 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:hausa,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
     />	 
-   <subtype android:icon="@drawable/ic_ime_switcher"
-            android:label="@string/subtype_generic"
-            android:subtypeId="0x1ec2c969"
-            android:imeSubtypeLocale="hc"
-            android:languageTag="pt"
-            android:imeSubtypeMode="keyboard"
-            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:hc,AsciiCapable,EmojiCapable"
-            android:isAsciiCapable="true"
-	/>
         <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x39753b7f"
