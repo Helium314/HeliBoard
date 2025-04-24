@@ -16,9 +16,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,10 +30,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
+import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
@@ -63,6 +70,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
     private val crashReportFiles = MutableStateFlow<List<File>>(emptyList())
     private var paused = true
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Settings.getValues() == null) {
@@ -94,6 +102,18 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                     if (spellchecker)
                         Scaffold(contentWindowInsets = WindowInsets.safeDrawing) { innerPadding ->
                             Column(Modifier.padding(innerPadding)) { // lazy way of implementing spell checker settings
+                                TopAppBar(
+                                    title = { Text(stringResource(R.string.android_spell_checker_settings)) },
+                                    windowInsets = WindowInsets(0),
+                                    navigationIcon = {
+                                        IconButton(onClick = { this@SettingsActivity.finish() }) {
+                                            Icon(
+                                                painterResource(R.drawable.ic_arrow_back),
+                                                stringResource(R.string.spoken_description_action_previous)
+                                            )
+                                        }
+                                    },
+                                )
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
                                 settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                             }
