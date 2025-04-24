@@ -12,56 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import helium314.keyboard.keyboard.Key;
 import helium314.keyboard.keyboard.Keyboard;
-import helium314.keyboard.keyboard.KeyboardView;
 import helium314.keyboard.latin.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import helium314.keyboard.latin.settings.Settings;
 
 final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapter.ViewHolder>{
     private static final String TAG = EmojiPalettesAdapter.class.getSimpleName();
     private static final boolean DEBUG_PAGER = false;
 
+    private final int mCategoryId;
     private final OnKeyEventListener mListener;
-    private final DynamicGridKeyboard mRecentsKeyboard;
     private final SparseArray<EmojiPageKeyboardView> mActiveKeyboardViews = new SparseArray<>();
     private final EmojiCategory mEmojiCategory;
     private int mActivePosition = 0;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory,
-            final OnKeyEventListener listener) {
+    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener) {
         mEmojiCategory = emojiCategory;
+        mCategoryId = categoryId;
         mListener = listener;
-        mRecentsKeyboard = mEmojiCategory.getKeyboard(EmojiCategory.ID_RECENTS, 0);
-    }
-
-    public void flushPendingRecentKeys() {
-        mRecentsKeyboard.flushPendingRecentKeys();
-        final KeyboardView recentKeyboardView =
-                mActiveKeyboardViews.get(mEmojiCategory.getRecentTabId());
-        if (recentKeyboardView != null) {
-            recentKeyboardView.invalidateAllKeys();
-        }
-    }
-
-    public void addRecentKey(final Key key) {
-        if (Settings.getValues().mIncognitoModeEnabled) {
-            // We do not want to log recent keys while being in incognito
-            return;
-        }
-        if (mEmojiCategory.isInRecentTab()) {
-            mRecentsKeyboard.addPendingKey(key);
-            return;
-        }
-        mRecentsKeyboard.addKeyFirst(key);
-        final KeyboardView recentKeyboardView =
-                mActiveKeyboardViews.get(mEmojiCategory.getRecentTabId());
-        if (recentKeyboardView != null) {
-            recentKeyboardView.invalidateAllKeys();
-        }
     }
 
     public void onPageScrolled() {
@@ -177,7 +147,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
             mActiveKeyboardViews.remove(position);
         }
         final Keyboard keyboard =
-                mEmojiCategory.getKeyboardFromAdapterPosition(position);
+                mEmojiCategory.getKeyboardFromAdapterPosition(mCategoryId, position);
         holder.getKeyboardView().setKeyboard(keyboard);
         holder.getKeyboardView().setOnKeyEventListener(mListener);
         //parent.addView(keyboardView);
@@ -196,7 +166,7 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
 
     @Override
     public int getItemCount() {
-        return mEmojiCategory.getCurrentCategoryPageCount();
+        return mEmojiCategory.getCategoryPageCount(mCategoryId);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

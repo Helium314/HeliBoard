@@ -285,11 +285,11 @@ final class EmojiCategory {
     }
 
     // Returns a keyboard from the recycler view's adapter position.
-    public DynamicGridKeyboard getKeyboardFromAdapterPosition(final int position) {
-        if (position >= 0 && position < getCurrentCategoryPageCount()) {
-            return getKeyboard(mCurrentCategoryId, position);
+    public DynamicGridKeyboard getKeyboardFromAdapterPosition(int categoryId, final int position) {
+        if (position >= 0 && position < getCategoryPageCount(categoryId)) {
+            return getKeyboard(categoryId, position);
         }
-        Log.w(TAG, "invalid position for categoryId : " + mCurrentCategoryId);
+        Log.w(TAG, "invalid position for categoryId : " + categoryId);
         return null;
     }
 
