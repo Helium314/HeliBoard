@@ -122,7 +122,11 @@ public final class EmojiPalettesView extends LinearLayout
 
         @Override
         public void onViewAttachedToWindow(PagerViewHolder holder) {
-          if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
+            if (holder.mCategoryId == EmojiCategory.ID_RECENTS) {
+                getRecyclerView(holder.itemView).getAdapter().notifyDataSetChanged();
+            }
+
+            if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
                             || holder.getBindingAdapterPosition() == mPager.getCurrentItem() // tab
             ) {
                 setCurrentCategoryId((int) getItemId(holder.getBindingAdapterPosition()), false);
@@ -137,7 +141,6 @@ public final class EmojiPalettesView extends LinearLayout
                 // category because we don't want to move the recent emojis around while the user
                 // is in the recents category.
                 mRecentsKeyboard.flushPendingRecentKeys();
-                getRecyclerView(holder.itemView).getAdapter().notifyDataSetChanged();
             }
         }
 
