@@ -101,7 +101,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                     ) }
                     if (spellchecker)
                         Scaffold(contentWindowInsets = WindowInsets.safeDrawing) { innerPadding ->
-                            Column(Modifier.padding(innerPadding)) { // lazy way of implementing spell checker settings
+                            Column(Modifier.padding(innerPadding)) {
                                 TopAppBar(
                                     title = { Text(stringResource(R.string.android_spell_checker_settings)) },
                                     windowInsets = WindowInsets(0),
