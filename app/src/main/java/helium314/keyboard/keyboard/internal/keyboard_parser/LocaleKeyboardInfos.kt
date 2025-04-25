@@ -264,7 +264,7 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
         return euro
     if (locale.toString().matches(euroLocales))
         return euro
-    if (locale.language.matches("ca|eu|lb|mt".toRegex()))
+    if (locale.language.matches("ca|eu|lb|mt|pms".toRegex()))
         return euro
     if (locale.language.matches("ak|dag|ee|fa|gaa|ha|ig|iw|lo|ko|km|mn|ne|si|th|uk|vi|yo".toRegex()))
         return genericCurrencyKey(getCurrency(locale))
