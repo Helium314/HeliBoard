@@ -31,16 +31,17 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.SearchSettingsScreen
+import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.SettingsWithoutKey
-import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.preferences.Preference
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -54,7 +55,7 @@ fun AboutScreen(
         SettingsWithoutKey.LICENSE,
         SettingsWithoutKey.HIDDEN_FEATURES,
         SettingsWithoutKey.GITHUB,
-        SettingsWithoutKey.SAVE_LOG
+        SettingsWithoutKey.SAVE_LOG,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -142,16 +143,24 @@ fun createAboutSettings(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_github
         )
     },
-    Setting(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { setting ->
+    saveLog(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) {
+        val inputStream = Runtime.getRuntime().exec("logcat -d -b all").inputStream
+        inputStream.copyTo(it)
+        inputStream.close()
+    }
+)
+
+private fun saveLog(context: Context, key: String, titleId: Int, writer: (OutputStream) -> Unit) =
+    Setting(context, key, titleId) { setting ->
         val ctx = LocalContext.current
         val scope = rememberCoroutineScope()
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
-                ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-                    os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
-                }
+                val outputStream = ctx.getActivity()?.contentResolver?.openOutputStream(uri)
+                outputStream?.use(writer)
+                outputStream?.close()
             }
         }
         Preference(
@@ -171,8 +180,7 @@ fun createAboutSettings(context: Context) = listOf(
             },
             icon = R.drawable.ic_settings_about_log
         )
-    },
-)
+    }
 
 @Preview
 @Composable
