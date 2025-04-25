@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
@@ -41,7 +39,6 @@ import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ExecutorUtils
-import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
 import helium314.keyboard.latin.utils.prefs
@@ -80,7 +77,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
         if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
             crashReportFiles.value = findCrashReports()
-        setSystemBarIconColor()
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         settingsContainer = SettingsContainer(this)
@@ -118,34 +114,34 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                                 settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                             }
                         }
-                    else
+                    else {
                         SettingsNavHost(onClickBack = { this.finish() })
+                        if (showWelcomeWizard) {
+                            WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
+                        } else if (crashReports.isNotEmpty()) {
+                            ConfirmationDialog(
+                                cancelButtonText = "ignore",
+                                onDismissRequest = { crashReportFiles.value = emptyList() },
+                                neutralButtonText = "delete",
+                                onNeutral = { crashReports.forEach { it.delete() }; crashReportFiles.value = emptyList() },
+                                confirmButtonText = "get",
+                                onConfirmed = {
+                                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                    intent.addCategory(Intent.CATEGORY_OPENABLE)
+                                    intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
+                                    intent.setType("application/zip")
+                                    crashFilePicker.launch(intent)
+                                },
+                                content = { Text("Crash report files found") },
+                            )
+                        }
+                    }
                     if (dictUri != null) {
                         NewDictionaryDialog(
                             onDismissRequest = { dictUriFlow.value = null },
                             cachedFile = cachedDictionaryFile,
                             mainLocale = null
                         )
-                    }
-                    if (!showWelcomeWizard && !spellchecker && crashReports.isNotEmpty()) {
-                        ConfirmationDialog(
-                            cancelButtonText = "ignore",
-                            onDismissRequest = { crashReportFiles.value = emptyList() },
-                            neutralButtonText = "delete",
-                            onNeutral = { crashReports.forEach { it.delete() }; crashReportFiles.value = emptyList() },
-                            confirmButtonText = "get",
-                            onConfirmed = {
-                                val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-                                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                                intent.putExtra(Intent.EXTRA_TITLE, "crash_reports.zip")
-                                intent.setType("application/zip")
-                                crashFilePicker.launch(intent)
-                            },
-                            content = { Text("Crash report files found") },
-                        )
-                    }
-                    if (!spellchecker && showWelcomeWizard) {
-                        WelcomeWizard(close = { showWelcomeWizard = false }, finish = this::finish)
                     }
                 }
             }
@@ -224,23 +220,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         }
     }
 
-    // deprecated but works... ideally it would be done automatically like it worked before switching to compose
-    private fun setSystemBarIconColor() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
-        val view = window.decorView
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (ResourceUtils.isNight(resources))
-                view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
-            else
-                view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        } else {
-            if (ResourceUtils.isNight(resources))
-                view.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-            else
-                view.systemUiVisibility = view.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
-    }
-
     companion object {
         // public write so compose previews can show the screens
         // having it in a companion object is not ideal as it will stay in memory even after settings are closed
@@ -249,9 +228,6 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
 
         var forceNight: Boolean? = null
         var forceTheme: String? = null
-
-        // weird inset forwarding because otherwise layout dialog sometimes doesn't care about keyboard showing
-        var bottomInsets = MutableStateFlow(0)
     }
 
     override fun onSharedPreferenceChanged(prefereces: SharedPreferences?, key: String?) {
