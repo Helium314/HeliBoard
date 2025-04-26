@@ -164,6 +164,7 @@ fun BackupRestorePreference(setting: Setting) {
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()
+        LayoutUtilsCustom.removeMissingLayouts(ctx)
         (ctx.getActivity() as? SettingsActivity)?.prefChanged()
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }

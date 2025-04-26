@@ -51,6 +51,7 @@ class App : Application() {
         checkVersionUpgrade(this)
         app = this
         Defaults.initDynamicDefaults(this)
+        LayoutUtilsCustom.removeMissingLayouts(this) // only after version upgrade
 
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         @Suppress("DEPRECATION")
