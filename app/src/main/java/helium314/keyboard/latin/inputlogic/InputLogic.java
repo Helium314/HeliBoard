@@ -6,6 +6,9 @@
 
 package helium314.keyboard.latin.inputlogic;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -1560,7 +1563,7 @@ public final class InputLogic {
         }
         final int selectionStart = mConnection.getExpectedSelectionStart();
         final int selectionEnd = mConnection.getExpectedSelectionEnd();
-        final int numCharsSelected = selectionEnd - selectionStart;
+        final int numCharsSelected = abs(selectionEnd - selectionStart);
         if (numCharsSelected > Constants.MAX_CHARACTERS_FOR_RECAPITALIZATION) {
             // We bail out if we have too many characters for performance reasons. We don't want
             // to suck possibly multiple-megabyte data.
@@ -1580,11 +1583,11 @@ public final class InputLogic {
         }
         mConnection.finishComposingText();
         mRecapitalizeStatus.rotate();
-        mConnection.setSelection(selectionEnd, selectionEnd);
+        final int visibleEnd = max(selectionStart, selectionEnd);
+        mConnection.setSelection(visibleEnd, visibleEnd);
         mConnection.deleteTextBeforeCursor(numCharsSelected);
         mConnection.commitText(mRecapitalizeStatus.getRecapitalizedString(), 0);
-        mConnection.setSelection(mRecapitalizeStatus.getNewCursorStart(),
-                mRecapitalizeStatus.getNewCursorEnd());
+        mConnection.setSelection(selectionStart, selectionEnd);
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
