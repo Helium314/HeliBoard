@@ -453,4 +453,6 @@
     <string name="backspace_reverts_autocorrect">Usa Backspace per annullare l\'autocorrezione</string>
     <string name="autospace_before_gesture_typing">Spazio automatico prima di una parola aggiunta con l\'inserimento gestuale</string>
     <string name="timestamp_format_title">Formato per il tasto data/ora</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
 </resources>

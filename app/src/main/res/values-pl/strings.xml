@@ -490,4 +490,6 @@
     <string name="backspace_reverts_autocorrect">Backspace cofa autokorektę</string>
     <string name="autospace_before_gesture_typing">Automatyczna spacja przed wpisaniem słowa gestem</string>
     <string name="timestamp_format_title">Format klawisza znacznika czasu</string>
+    <string name="subtype_dag">dagbani</string>
+    <string name="subtype_st">sesotho</string>
 </resources>
