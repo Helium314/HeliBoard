@@ -146,7 +146,7 @@ fun SubtypeScreen(
         filteredItems = { emptyList<String>() }
     ) {
         Scaffold(
-            contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+            contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
         ) { innerPadding ->
             Column(
                 modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp)
