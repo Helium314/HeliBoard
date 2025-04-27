@@ -32,6 +32,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             KeyCode.ALT -> KeyEvent.META_ALT_ON
             KeyCode.FN -> KeyEvent.META_FUNCTION_ON
             KeyCode.META -> KeyEvent.META_META_ON
+            KeyCode.SHIFT -> KeyEvent.META_SHIFT_ON
             else -> return
         }
         metaState = if (remove) metaState and metaCode.inv()
@@ -213,6 +214,20 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             }
         }
 
+        //NOTE: Delete swipe moves the selStart back before end, should I change to move start instead to be aligned?
+        //TODO: when holding to set/unset capslock it will act like shift is held. isn't calling releaseKey() thus adjustMetaState(shift, true)
+        //TODO: moving after selection always happens from right, should be from left when swiping back, right when swiping forward.
+        //TODO: stop recapitalisation from happening every time.
+        //TODO: gets broken by the manual fallback movement over emoji and when swiping to the end/start because move_steps=0.
+        //TODO: when selEND is left and selStart is at end of text, then move selEND right it deselects and other way too.
+        //      Maybe get text after cursor is reading from start.
+        //DONE: recapitalisation will be broken when performing on a backwards selection. !DONE
+
+        val anchor = inputLogic.mConnection.expectedSelectionStart
+        val newPosition = inputLogic.mConnection.expectedSelectionEnd + moveSteps
+
+        val isShiftPressed = metaState and KeyEvent.META_SHIFT_ON != 0
+
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
         // issues:
         //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
@@ -225,14 +240,20 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (variation != 0 && inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement when moving through long words
-            val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-            inputLogic.mConnection.setSelection(newPosition, newPosition)
+            if(isShiftPressed) {
+                inputLogic.mConnection.setSelection(anchor, newPosition)
+            } else {
+                inputLogic.mConnection.setSelection(newPosition, newPosition)
+            }
             return true
         }
 
         inputLogic.finishInput()
-        val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-        inputLogic.mConnection.setSelection(newPosition, newPosition)
+        if(isShiftPressed) {
+            inputLogic.mConnection.setSelection(anchor, newPosition)
+        } else {
+            inputLogic.mConnection.setSelection(newPosition, newPosition)
+        }
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true
     }
