@@ -440,19 +440,28 @@ public final class InputLogic {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
         final Event processedEvent;
-        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)
-                // only use the Hangul chain if codepoint may actually be Hangul
-                // todo: this whole hangul-related logic should probably be somewhere else
-                // need to use hangul combiner for whitespace, because otherwise the current word
-                // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-                // similar for functional keys (codePoint -1)
-                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()) || event.getMCodePoint() == -1)) {
-            mWordComposer.setHangul(true);
-            final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
-            // todo: here hangul combiner does already consume the event, and appends typed codepoint
-            //  to the current word instead of considering the cursor position
-            //  position is actually not visible to the combiner, how to fix?
-            processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)) {
+            // only use the Hangul chain if codepoint may actually be Hangul
+            // todo: this whole hangul-related logic should probably be somewhere else
+            // need to use hangul combiner for functional keys (codePoint -1), because otherwise the current word
+            // seems to get deleted / replaced by space during mConnection.endBatchEdit()
+            if (event.getMCodePoint() >= 0x1100 || event.getMCodePoint() == -1) {
+                mWordComposer.setHangul(true);
+                final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+                // todo: here hangul combiner does already consume the event, and appends typed codepoint
+                //  to the current word instead of considering the cursor position
+                //  position is actually not visible to the combiner, how to fix?
+                processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+            } else {
+                mWordComposer.setHangul(false);
+                final boolean wasComposingWord = mWordComposer.isComposingWord();
+                processedEvent = mWordComposer.processEvent(event);
+                // workaround for space and some other separators deleting / replacing the word
+                if (wasComposingWord && !mWordComposer.isComposingWord()) {
+                    mWordComposer.resetInvalidCursorPosition();
+                    mConnection.finishComposingText();
+                }
+            }
         } else {
             mWordComposer.setHangul(false);
             processedEvent = mWordComposer.processEvent(event);
