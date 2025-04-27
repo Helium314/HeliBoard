@@ -1948,6 +1948,10 @@ public final class InputLogic {
         return mRecapitalizeStatus.getCurrentMode();
     }
 
+    public void stopRecapitalization() {
+        mRecapitalizeStatus.disable();
+    }
+
     /**
      * @return the editor info for the current editor
      */

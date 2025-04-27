@@ -12,6 +12,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.WordComposer
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
@@ -281,18 +282,21 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         //NOTE: Delete swipe moves the selStart back before end, should I change to move start instead to be aligned?
         //TODO: when holding to set/unset capslock it will act like shift is held. isn't calling releaseKey() thus adjustMetaState(shift, true)
-        //TODO: moving after selection always happens from right, should be from left when swiping back, right when swiping forward.
-        //TODO: stop recapitalisation from happening every time.
         //TODO: gets broken by the manual fallback movement over emoji and when swiping to the end/start because move_steps=0.
         //TODO: when selEND is left and selStart is at end of text, then move selEND right it deselects and other way too.
         //      Maybe get text after cursor is reading from start.
+        //TODO: reenable recapitalisation after shift is released so it can be used when swipe selecting.
+        //DONE: stop recapitalisation from happening every time.
         //DONE: recapitalisation will be broken when performing on a backwards selection. !DONE
+        //DONE: when end is before start, backspace does not work.
+        //DONE: moving after selection always happens from right, should be from left when swiping back, right when swiping forward.
 
         val anchor = connection.expectedSelectionStart
         val newPosition = connection.expectedSelectionEnd + moveSteps
 
         val isShiftPressed = metaState and KeyEvent.META_SHIFT_ON != 0
 
+        inputLogic.stopRecapitalization(); // Gets re-enabled elsewhere after selecting manually.
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
         // issues:
         //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
