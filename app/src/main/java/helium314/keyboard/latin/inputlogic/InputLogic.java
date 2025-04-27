@@ -1274,10 +1274,10 @@ public final class InputLogic {
                             Constants.EVENT_BACKSPACE);
                     hasUnlearnedWordBeingDeleted = true;
                 }
-                final int numCharsDeleted = mConnection.getExpectedSelectionEnd()
-                        - mConnection.getExpectedSelectionStart();
-                mConnection.setSelection(mConnection.getExpectedSelectionEnd(),
-                        mConnection.getExpectedSelectionEnd());
+                final int numCharsDeleted = abs(mConnection.getExpectedSelectionEnd()
+                        - mConnection.getExpectedSelectionStart());
+                final int visibleEnd = max(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd());
+                mConnection.setSelection(visibleEnd, visibleEnd);
                 mConnection.deleteTextBeforeCursor(numCharsDeleted);
                 StatsUtils.onBackspaceSelectedText(numCharsDeleted);
             } else {
