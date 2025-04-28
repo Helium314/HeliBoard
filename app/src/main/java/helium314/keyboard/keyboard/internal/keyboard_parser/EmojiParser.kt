@@ -5,6 +5,7 @@ import android.content.Context
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.KeyboardId
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
@@ -14,7 +15,7 @@ import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import kotlin.math.sqrt
 
-class EmojiParser(private val params: KeyboardParams, private val context: Context, private val maxSdk: Int) {
+class EmojiParser(private val params: KeyboardParams, private val context: Context) {
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
         val emojiFileName = when (params.mId.mElementId) {
@@ -41,17 +42,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         return parseLines(emojiLines)
     }
 
-    // todo: move to a central place, and use for emoji filtering in DictionaryFacilitatorImpl.getSuggestions
-    private val unsupportedEmojis = mutableSetOf<String>()
-
     private fun parseLines(lines: List<String>): ArrayList<ArrayList<KeyParams>> {
-        context.assets.open("emoji/minApi.txt").reader().readLines().forEach {
-            val s = it.split(" ")
-            val minApi = s.first().toInt()
-            if (minApi > maxSdk)
-                unsupportedEmojis.addAll(s.drop(1))
-        }
-
         val row = ArrayList<KeyParams>(lines.size)
         var currentX = params.mLeftPadding.toFloat()
         val currentY = params.mTopPadding.toFloat() // no need to ever change, assignment to rows into rows is done in DynamicGridKeyboard
@@ -81,13 +72,13 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     private fun parseEmojiKeyNew(line: String): KeyParams? {
         if (!line.contains(" ") || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
             // single emoji without popups, or emoticons (there is one that contains space...)
-            return if (line in unsupportedEmojis) null
+            return if (!SupportedEmojis.isSupported(line)) null
             else KeyParams(line, line.getCode(), null, null, Key.LABEL_FLAGS_FONT_NORMAL, params)
         }
         val split = line.split(" ")
         val label = split.first()
-        if (label in unsupportedEmojis) return null
-        val popupKeysSpec = split.drop(1).filterNot { it in unsupportedEmojis }
+        if (!SupportedEmojis.isSupported(label)) return null
+        val popupKeysSpec = split.drop(1).filter { SupportedEmojis.isSupported(it) }
             .takeIf { it.isNotEmpty() }?.joinToString(",")
         return KeyParams(
             label,

@@ -6,6 +6,7 @@ import android.content.Context
 import androidx.core.content.edit
 import helium314.keyboard.keyboard.ColorSetting
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode.checkAndConvertCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants.Separators
@@ -52,6 +53,7 @@ class App : Application() {
         app = this
         Defaults.initDynamicDefaults(this)
         LayoutUtilsCustom.removeMissingLayouts(this) // only after version upgrade
+        SupportedEmojis.load(this)
 
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         @Suppress("DEPRECATION")
