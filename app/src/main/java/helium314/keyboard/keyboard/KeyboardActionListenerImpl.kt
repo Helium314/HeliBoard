@@ -3,16 +3,18 @@ package helium314.keyboard.keyboard
 import android.text.InputType
 import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.KeyCharacterMap
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.event.Event
 import helium314.keyboard.event.HangulEventDecoder
 import helium314.keyboard.event.HardwareEventDecoder
 import helium314.keyboard.event.HardwareKeyboardEventDecoder
+import android.os.SystemClock
+import android.text.InputType
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.EmojiAltPhysicalKeyDetector
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.RichInputMethodManager
-import helium314.keyboard.latin.WordComposer
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.StringUtils
@@ -251,8 +253,46 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         return true
     }
 
+    //TODO: Should this be in inputLogic instead?
+    fun sendShiftedMovement(keyCode: Int) {
+        val now = SystemClock.uptimeMillis()
+        // Send SHIFT down
+        inputLogic.mConnection.sendKeyEvent(
+            KeyEvent(
+                now,
+                now,
+                KeyEvent.ACTION_DOWN,
+                KeyEvent.KEYCODE_SHIFT_LEFT,
+                0,
+                0,
+                KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0,
+                KeyEvent.FLAG_SOFT_KEYBOARD or KeyEvent.FLAG_KEEP_TOUCH_MODE
+            )
+        )
+        // Send Arrow down + up
+        inputLogic.sendDownUpKeyEvent(keyCode)
+        // Send SHIFT up
+        inputLogic.mConnection.sendKeyEvent(
+            KeyEvent(
+                now,
+                now,
+                KeyEvent.ACTION_UP,
+                KeyEvent.KEYCODE_SHIFT_LEFT,
+                0,
+                0,
+                KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0,
+                KeyEvent.FLAG_SOFT_KEYBOARD or KeyEvent.FLAG_KEEP_TOUCH_MODE
+            )
+        )
+    }
+
     private fun onMoveCursorHorizontally(rawSteps: Int): Boolean {
         if (rawSteps == 0) return false
+
+        val isShiftPressed = metaState and KeyEvent.META_SHIFT_ON != 0
+
         // for RTL languages we want to invert pointer movement
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
@@ -262,9 +302,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
+                inputLogic.mConnection.beginBatchEdit()
                 repeat(-steps) {
-                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+//                    onCodeInput(KeyCode.ARROW_LEFT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    if (isShiftPressed) {
+                        sendShiftedMovement(KeyEvent.KEYCODE_DPAD_LEFT)
+//                        inputLogic.sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_LEFT, metaState) // why does this not work!
+                    } else {
+                        inputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_LEFT)
+                    }
                 }
+                inputLogic.mConnection.endBatchEdit()
                 return true
             }
         } else {
@@ -273,9 +321,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
+                inputLogic.mConnection.beginBatchEdit()
                 repeat(steps) {
-                    onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    //onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                    if (isShiftPressed) {
+                        sendShiftedMovement(KeyEvent.KEYCODE_DPAD_RIGHT)
+                        //inputLogic.sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, metaState)
+                    } else {
+                        inputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_DPAD_RIGHT)
+                    }
                 }
+                inputLogic.mConnection.endBatchEdit()
                 return true
             }
         }
@@ -293,8 +349,6 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
         val anchor = connection.expectedSelectionStart
         val newPosition = connection.expectedSelectionEnd + moveSteps
-
-        val isShiftPressed = metaState and KeyEvent.META_SHIFT_ON != 0
 
         inputLogic.stopRecapitalization(); // Gets re-enabled elsewhere after selecting manually.
         // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
