@@ -31,17 +31,16 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SpannableStringUtils
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.SettingsContainer
 import helium314.keyboard.settings.SettingsWithoutKey
-import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.preferences.Preference
+import helium314.keyboard.settings.SearchSettingsScreen
+import helium314.keyboard.settings.SettingsActivity
+import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.previewDark
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -143,24 +142,20 @@ fun createAboutSettings(context: Context) = listOf(
             icon = R.drawable.ic_settings_about_github
         )
     },
-    saveLog(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) {
-        val inputStream = Runtime.getRuntime().exec("logcat -d -b all").inputStream
-        inputStream.copyTo(it)
-        inputStream.close()
-    }
-)
-
-private fun saveLog(context: Context, key: String, titleId: Int, writer: (OutputStream) -> Unit) =
-    Setting(context, key, titleId) { setting ->
+    Setting(context, SettingsWithoutKey.SAVE_LOG, R.string.save_log) { setting ->
         val ctx = LocalContext.current
         val scope = rememberCoroutineScope()
         val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
-                val outputStream = ctx.getActivity()?.contentResolver?.openOutputStream(uri)
-                outputStream?.use(writer)
-                outputStream?.close()
+                ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
+                    os.writer().use {
+                        val logcat = Runtime.getRuntime().exec("logcat -d -b all *:W").inputStream.use { it.reader().readText() }
+                        val internal = Log.getLog().joinToString("\n")
+                        it.write(logcat + "\n\n" + internal)
+                    }
+                }
             }
         }
         Preference(
@@ -180,7 +175,8 @@ private fun saveLog(context: Context, key: String, titleId: Int, writer: (Output
             },
             icon = R.drawable.ic_settings_about_log
         )
-    }
+    },
+)
 
 @Preview
 @Composable
