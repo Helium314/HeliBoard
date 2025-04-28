@@ -254,7 +254,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     }
 
     //TODO: Should this be in inputLogic instead?
-    fun sendShiftedMovement(keyCode: Int) {
+    private fun sendShiftedMovement(keyCode: Int) {
         val now = SystemClock.uptimeMillis()
         // Send SHIFT down
         inputLogic.mConnection.sendKeyEvent(
