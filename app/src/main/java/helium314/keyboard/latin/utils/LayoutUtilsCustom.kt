@@ -2,6 +2,7 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
+import android.widget.Toast
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardLayoutSet
@@ -10,9 +11,14 @@ import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.LayoutParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_NORMAL
 import helium314.keyboard.keyboard.internal.keyboard_parser.addLocaleKeyTextsToParams
+import helium314.keyboard.latin.common.Constants.Separators
+import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.decodeBase36
 import helium314.keyboard.latin.common.encodeBase36
+import helium314.keyboard.latin.define.DebugFlags
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import kotlinx.serialization.SerializationException
@@ -124,7 +130,6 @@ object LayoutUtilsCustom {
             layoutName
         }
 
-
     /** @return layoutName for given [displayName]. If [layoutType ]is MAIN, non-null [locale] must be supplied */
     fun getLayoutName(displayName: String, layoutType: LayoutType, locale: Locale? = null): String {
         if (layoutType != LayoutType.MAIN)
@@ -141,6 +146,37 @@ object LayoutUtilsCustom {
         val file = File(DeviceProtectedUtils.getFilesDir(context), layoutType.folder + File.separator + layoutName)
         file.parentFile?.mkdirs()
         return file
+    }
+
+    // remove layouts without a layout file from custom subtypes and settings
+    // should not be necessary, but better fall back to default instead of crashing when encountering a bug
+    fun removeMissingLayouts(context: Context) {
+        val prefs = context.prefs()
+        fun remove(type: LayoutType, name: String) {
+            val message = "removing custom layout ${getDisplayName(name)} / $name without file"
+            if (DebugFlags.DEBUG_ENABLED)
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            Log.w(TAG, message)
+            SubtypeSettings.onRenameLayout(type, name, null, context)
+        }
+        LayoutType.entries.forEach { type ->
+            val name = Settings.readDefaultLayoutName(type, prefs)
+            if (!isCustomLayout(name) || getLayoutFiles(type, context).any { it.name.startsWith(name) })
+                return@forEach
+            remove(type, name)
+        }
+        prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
+            .split(Separators.SETS).forEach outer@{
+                val subtype = it.toSettingsSubtype()
+                LayoutType.getLayoutMap(subtype.getExtraValueOf(KEYBOARD_LAYOUT_SET) ?: "").forEach { (type, name) ->
+                    if (!isCustomLayout(name) || getLayoutFiles(type, context).any { it.name.startsWith(name) })
+                        return@forEach
+                    remove(type, name)
+                    // recursive call: additional subtypes must have changed, so we repeat until nothing needs to be deleted
+                    removeMissingLayouts(context)
+                    return
+                }
+            }
     }
 
     // this goes into prefs and file names, so do not change!

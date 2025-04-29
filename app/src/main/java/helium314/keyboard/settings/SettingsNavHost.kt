@@ -1,16 +1,22 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings
 
+import android.provider.Settings
+import android.provider.Settings.Global
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
+import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
@@ -24,6 +30,7 @@ import helium314.keyboard.settings.screens.PersonalDictionariesScreen
 import helium314.keyboard.settings.screens.PersonalDictionaryScreen
 import helium314.keyboard.settings.screens.PreferencesScreen
 import helium314.keyboard.settings.screens.SecondaryLayoutScreen
+import helium314.keyboard.settings.screens.SubtypeScreen
 import helium314.keyboard.settings.screens.TextCorrectionScreen
 import helium314.keyboard.settings.screens.ToolbarScreen
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +48,10 @@ fun SettingsNavHost(
     val dir = if (LocalLayoutDirection.current == LayoutDirection.Ltr) 1 else -1
     val target = SettingsDestination.navTarget.collectAsState()
 
+    // duration does not change when system setting changes, but that's rare enough to not care
+    val duration = (250 * Settings.System.getFloat(LocalContext.current.contentResolver, Global.TRANSITION_ANIMATION_SCALE, 1f)).toInt()
+    val animation = tween<IntOffset>(durationMillis = duration)
+
     fun goBack() {
         if (!navController.popBackStack()) onClickBack()
     }
@@ -48,10 +59,10 @@ fun SettingsNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination ?: SettingsDestination.Settings,
-        enterTransition = { slideInHorizontally(initialOffsetX = { +it * dir }) },
-        exitTransition = { slideOutHorizontally(targetOffsetX = { -it * dir }) },
-        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it * dir }) },
-        popExitTransition = { slideOutHorizontally(targetOffsetX = { +it * dir }) }
+        enterTransition = { slideInHorizontally(initialOffsetX = { +it * dir }, animationSpec = animation) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { -it * dir }, animationSpec = animation) },
+        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it * dir }, animationSpec = animation) },
+        popExitTransition = { slideOutHorizontally(targetOffsetX = { +it * dir }, animationSpec = animation) }
     ) {
         composable(SettingsDestination.Settings) {
             MainSettingsScreen(
@@ -117,6 +128,9 @@ fun SettingsNavHost(
         composable(SettingsDestination.ColorsNight + "{theme}") {
             ColorsScreen(isNight = true, theme = it.arguments?.getString("theme"), onClickBack = ::goBack)
         }
+        composable(SettingsDestination.Subtype + "{subtype}") {
+            SubtypeScreen(initialSubtype = it.arguments?.getString("subtype")!!.toSettingsSubtype(), onClickBack = ::goBack)
+        }
     }
     if (target.value != SettingsDestination.Settings/* && target.value != navController.currentBackStackEntry?.destination?.route*/)
         navController.navigate(route = target.value)
@@ -137,6 +151,7 @@ object SettingsDestination {
     const val PersonalDictionaries = "personal_dictionaries"
     const val PersonalDictionary = "personal_dictionary/"
     const val Languages = "languages"
+    const val Subtype = "subtype/"
     const val Layouts = "layouts"
     const val Dictionaries = "dictionaries"
     val navTarget = MutableStateFlow(Settings)

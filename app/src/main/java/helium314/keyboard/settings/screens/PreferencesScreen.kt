@@ -46,6 +46,7 @@ fun PreferencesScreen(
             Settings.PREF_POPUP_KEYS_LABELS_ORDER else null,
         Settings.PREF_POPUP_KEYS_ORDER,
         Settings.PREF_SHOW_POPUP_HINTS,
+        Settings.PREF_SHOW_TLD_POPUP_KEYS,
         Settings.PREF_POPUP_ON,
         if (AudioAndHapticFeedbackManager.getInstance().hasVibrator())
             Settings.PREF_VIBRATE_ON else null,
@@ -88,6 +89,12 @@ fun createPreferencesSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_POPUP_KEYS_ORDER, R.string.popup_order) {
         ReorderSwitchPreference(it, Defaults.PREF_POPUP_KEYS_ORDER)
+    },
+    Setting(
+        context, Settings.PREF_SHOW_TLD_POPUP_KEYS, R.string.show_tld_popup_keys,
+        R.string.show_tld_popup_keys_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SHOW_TLD_POPUP_KEYS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_SHOW_POPUP_HINTS, R.string.show_popup_hints, R.string.show_popup_hints_summary) {
         SwitchPreference(it, Defaults.PREF_SHOW_POPUP_HINTS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
@@ -149,10 +156,10 @@ fun createPreferencesSettings(context: Context) = listOf(
             key = setting.key,
             default = Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
             description = {
-                if (it < 0) stringResource(R.string.settings_no_limit)
+                if (it > 120) stringResource(R.string.settings_no_limit)
                 else stringResource(R.string.abbreviation_unit_minutes, it.toString())
             },
-            range = -1f..120f,
+            range = 1f..121f,
         )
     },
     Setting(context, Settings.PREF_VIBRATION_DURATION_SETTINGS, R.string.prefs_keypress_vibration_duration_settings) { setting ->
@@ -165,7 +172,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 else stringResource(R.string.abbreviation_unit_milliseconds, it.toString())
             },
             range = -1f..100f,
-            onValueChanged = { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) }
+            onValueChanged = { it?.let { AudioAndHapticFeedbackManager.getInstance().vibrate(it.toLong()) } }
         )
     },
     Setting(context, Settings.PREF_KEYPRESS_SOUND_VOLUME, R.string.prefs_keypress_sound_volume_settings) { setting ->
@@ -179,7 +186,7 @@ fun createPreferencesSettings(context: Context) = listOf(
                 else (it * 100).toInt().toString()
             },
             range = -0.01f..1f,
-            onValueChanged = { audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, it) }
+            onValueChanged = { it?.let { audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD, it) } }
         )
     },
 )

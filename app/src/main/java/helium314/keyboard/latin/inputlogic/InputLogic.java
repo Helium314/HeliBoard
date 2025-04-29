@@ -54,6 +54,7 @@ import helium314.keyboard.latin.utils.RecapitalizeStatus;
 import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.TextRange;
+import helium314.keyboard.latin.utils.TimestampKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -323,7 +324,8 @@ public final class InputLogic {
         // Don't allow cancellation of manual pick
         mLastComposedWord.deactivate();
         // Space state must be updated before calling updateShiftState
-        mSpaceState = SpaceState.PHANTOM;
+        if (settingsValues.mAutospaceAfterSuggestion)
+            mSpaceState = SpaceState.PHANTOM;
         inputTransaction.requireShiftUpdate(InputTransaction.SHIFT_UPDATE_NOW);
 
         // If we're not showing the "Touch again to save", then update the suggestion strip.
@@ -438,19 +440,28 @@ public final class InputLogic {
         mWordBeingCorrectedByCursor = null;
         mJustRevertedACommit = false;
         final Event processedEvent;
-        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)
-                // only use the Hangul chain if codepoint may actually be Hangul
-                // todo: this whole hangul-related logic should probably be somewhere else
-                // need to use hangul combiner for whitespace, because otherwise the current word
-                // seems to get deleted / replaced by space during mConnection.endBatchEdit()
-                // similar for functional keys (codePoint -1)
-                && (event.getMCodePoint() >= 0x1100 || Character.isWhitespace(event.getMCodePoint()) || event.getMCodePoint() == -1)) {
-            mWordComposer.setHangul(true);
-            final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
-            // todo: here hangul combiner does already consume the event, and appends typed codepoint
-            //  to the current word instead of considering the cursor position
-            //  position is actually not visible to the combiner, how to fix?
-            processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+        if (currentKeyboardScript.equals(ScriptUtils.SCRIPT_HANGUL)) {
+            // only use the Hangul chain if codepoint may actually be Hangul
+            // todo: this whole hangul-related logic should probably be somewhere else
+            // need to use hangul combiner for functional keys (codePoint -1), because otherwise the current word
+            // seems to get deleted / replaced by space during mConnection.endBatchEdit()
+            if (event.getMCodePoint() >= 0x1100 || event.getMCodePoint() == -1) {
+                mWordComposer.setHangul(true);
+                final Event hangulDecodedEvent = HangulEventDecoder.decodeSoftwareKeyEvent(event);
+                // todo: here hangul combiner does already consume the event, and appends typed codepoint
+                //  to the current word instead of considering the cursor position
+                //  position is actually not visible to the combiner, how to fix?
+                processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+            } else {
+                mWordComposer.setHangul(false);
+                final boolean wasComposingWord = mWordComposer.isComposingWord();
+                processedEvent = mWordComposer.processEvent(event);
+                // workaround for space and some other separators deleting / replacing the word
+                if (wasComposingWord && !mWordComposer.isComposingWord()) {
+                    mWordComposer.resetInvalidCursorPosition();
+                    mConnection.finishComposingText();
+                }
+            }
         } else {
             mWordComposer.setHangul(false);
             processedEvent = mWordComposer.processEvent(event);
@@ -546,7 +557,8 @@ public final class InputLogic {
                 || settingsValues.isUsuallyFollowedBySpace(codePointBeforeCursor)) {
             final boolean autoShiftHasBeenOverriden = keyboardSwitcher.getKeyboardShiftMode() !=
                     getCurrentAutoCapsState(settingsValues);
-            mSpaceState = SpaceState.PHANTOM;
+            if (settingsValues.mAutospaceBeforeGestureTyping)
+                mSpaceState = SpaceState.PHANTOM;
             if (!autoShiftHasBeenOverriden) {
                 // When we change the space state, we need to update the shift state of the
                 // keyboard unless it has been overridden manually. This is happening for example
@@ -686,10 +698,7 @@ public final class InputLogic {
                 if (mSuggestedWords.isPrediction()) {
                     inputTransaction.setRequiresUpdateSuggestions();
                 }
-                // undo phantom space if it's because after punctuation
-                // users who want to start a sentence with a lowercase letter may not like it
-                if (mSpaceState == SpaceState.PHANTOM
-                        && inputTransaction.getMSettingsValues().isUsuallyFollowedBySpace(mConnection.getCodePointBeforeCursor()))
+                if (mSpaceState == SpaceState.PHANTOM && inputTransaction.getMSettingsValues().mShiftRemovesAutospace)
                     mSpaceState = SpaceState.NONE;
                 break;
             case KeyCode.SETTINGS:
@@ -775,6 +784,9 @@ public final class InputLogic {
                 break;
             case KeyCode.SPLIT_LAYOUT:
                 KeyboardSwitcher.getInstance().toggleSplitKeyboardMode();
+                break;
+            case KeyCode.TIMESTAMP:
+                mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
             case KeyCode.VOICE_INPUT:
                 // switching to shortcut IME, shift state, keyboard,... is handled by LatinIME,
@@ -930,6 +942,7 @@ public final class InputLogic {
         // handleNonSpecialCharacterEvent which has the same name as other handle* methods but is
         // not the same.
         boolean isComposingWord = mWordComposer.isComposingWord();
+        mWordComposer.unsetBatchMode(); // relevant in case we continue a batch word with normal typing
 
         // if we continue directly after a sometimesWordConnector, restart suggestions for the whole word
         // (only with URL detection and suggestions enabled)
@@ -949,7 +962,9 @@ public final class InputLogic {
         // TODO: remove isWordConnector() and use isUsuallyFollowedBySpace() instead.
         // See onStartBatchInput() to see how to do it.
         if (SpaceState.PHANTOM == inputTransaction.getMSpaceState()
-                && !settingsValues.isWordConnector(codePoint)) {
+                && !settingsValues.isWordConnector(codePoint)
+                && !settingsValues.isUsuallyFollowedBySpace(codePoint) // only relevant in rare cases
+        ) {
             if (isComposingWord) {
                 // Sanity check
                 throw new RuntimeException("Should not be composing here");
@@ -1127,7 +1142,7 @@ public final class InputLogic {
                 // A double quote behaves like it's usually followed by space if we're inside
                 // a double quote.
                 if (wasComposingWord
-                        && settingsValues.mAutospaceAfterPunctuationEnabled
+                        && settingsValues.mAutospaceAfterPunctuation
                         && (settingsValues.isUsuallyFollowedBySpace(codePoint) || isInsideDoubleQuoteOrAfterDigit)) {
                     mSpaceState = SpaceState.PHANTOM;
                 }
@@ -1196,7 +1211,7 @@ public final class InputLogic {
             }
             inputTransaction.setRequiresUpdateSuggestions();
         } else {
-            if (mLastComposedWord.canRevertCommit()) {
+            if (mLastComposedWord.canRevertCommit() && inputTransaction.getMSettingsValues().mBackspaceRevertsAutocorrect) {
                 final String lastComposedWord = mLastComposedWord.mTypedWord;
                 revertCommit(inputTransaction);
                 StatsUtils.onRevertAutoCorrect();
@@ -2168,6 +2183,7 @@ public final class InputLogic {
                 && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())
         ) {
             mConnection.commitCodePoint(Constants.CODE_SPACE);
+            // todo: why not remove phantom space state?
         }
     }
 
@@ -2202,12 +2218,14 @@ public final class InputLogic {
         mConnection.beginBatchEdit();
         if (SpaceState.PHANTOM == mSpaceState) {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
+            mSpaceState = SpaceState.NONE;
         }
         mWordComposer.setBatchInputWord(batchInputText);
         setComposingTextInternal(batchInputText, 1);
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
-        mSpaceState = SpaceState.PHANTOM;
+        if (settingsValues.mAutospaceAfterGestureTyping)
+            mSpaceState = SpaceState.PHANTOM;
         keyboardSwitcher.requestUpdatingShiftState(getCurrentAutoCapsState(settingsValues), getCurrentRecapitalizeState());
     }
 

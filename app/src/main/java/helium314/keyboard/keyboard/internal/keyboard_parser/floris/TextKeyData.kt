@@ -24,6 +24,7 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.InputTypeUtils
+import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
@@ -482,8 +483,7 @@ sealed interface KeyData : AbstractKeyData {
         KeyLabel.DELETE -> "!icon/delete_key|!code/key_delete"
         KeyLabel.SHIFT -> "${getShiftLabel(params)}|!code/key_shift"
 //        KeyLabel.EMOJI -> "!icon/emoji_normal_key|!code/key_emoji"
-        // todo (later): label and popupKeys for .com should be in localeKeyTexts, handled similar to currency key
-        KeyLabel.COM -> ".com"
+        KeyLabel.COM -> params.mLocaleKeyboardInfos.tlds.first()
         KeyLabel.LANGUAGE_SWITCH -> "!icon/language_switch_key|!code/key_language_switch"
         KeyLabel.ZWNJ -> "!icon/zwnj_key|\u200C"
         KeyLabel.CURRENCY -> params.mLocaleKeyboardInfos.currencyKey.first
@@ -526,8 +526,10 @@ sealed interface KeyData : AbstractKeyData {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
             KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT
-            // essentially this only changes the appearance of the armenian period key in holo theme
-            KeyLabel.PERIOD -> Key.LABEL_FLAGS_HAS_POPUP_HINT and if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0
+            // essentially the first term only changes the appearance of the armenian period key in holo theme
+            KeyLabel.PERIOD -> (Key.LABEL_FLAGS_HAS_POPUP_HINT and
+                    if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0) or
+                    Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
                         Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
@@ -546,12 +548,12 @@ sealed interface KeyData : AbstractKeyData {
 
     private fun getAdditionalPopupKeys(params: KeyboardParams): PopupSet<AbstractKeyData>? {
         if (groupId == GROUP_COMMA) return SimplePopups(getCommaPopupKeys(params))
-        if (groupId == GROUP_PERIOD) return SimplePopups(getPunctuationPopupKeys(params))
+        if (groupId == GROUP_PERIOD) return getPeriodPopups(params)
         if (groupId == GROUP_ENTER) return getActionKeyPopupKeys(params)
         if (groupId == GROUP_NO_DEFAULT_POPUP) return null
         return when (label) {
             KeyLabel.COMMA -> SimplePopups(getCommaPopupKeys(params))
-            KeyLabel.PERIOD -> SimplePopups(getPunctuationPopupKeys(params))
+            KeyLabel.PERIOD -> getPeriodPopups(params)
             KeyLabel.ACTION -> getActionKeyPopupKeys(params)
             KeyLabel.SHIFT -> {
                 if (params.mId.isAlphabetKeyboard) SimplePopups(
@@ -561,13 +563,27 @@ sealed interface KeyData : AbstractKeyData {
                     )
                 ) else null // why the alphabet popup keys actually?
             }
-            KeyLabel.COM -> SimplePopups(listOf(Key.POPUP_KEYS_HAS_LABELS, ".net", ".org", ".gov", ".edu"))
+            KeyLabel.COM -> SimplePopups(
+                listOf(Key.POPUP_KEYS_HAS_LABELS).plus(params.mLocaleKeyboardInfos.tlds.drop(1))
+            )
+
             KeyLabel.ZWNJ -> SimplePopups(listOf("!icon/zwj_key|\u200D"))
             // only add currency popups if there are none defined on the key
             KeyLabel.CURRENCY -> if (popup.isEmpty()) SimplePopups(params.mLocaleKeyboardInfos.currencyKey.second) else null
             else -> null
         }
     }
+
+    private fun getPeriodPopups(params: KeyboardParams): SimplePopups =
+        SimplePopups(
+            if (shouldShowTldPopups(params)) params.mLocaleKeyboardInfos.tlds
+            else getPunctuationPopupKeys(params)
+        )
+
+    private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
+        (Settings.getInstance().current.mShowTldPopupKeys
+                && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
+                && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 }
 
 /**

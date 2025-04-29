@@ -328,12 +328,13 @@ public final class PopupKeysKeyboard extends Keyboard {
             final PopupKeysKeyboardParams params = mParams;
             final int popupKeyFlags = mParentKey.getPopupKeyLabelFlags();
             final PopupKeySpec[] popupKeys = mParentKey.getPopupKeys();
+            final int background = mParentKey.hasActionKeyPopups() ? Key.BACKGROUND_TYPE_ACTION : Key.BACKGROUND_TYPE_NORMAL;
             for (int n = 0; n < popupKeys.length; n++) {
                 final PopupKeySpec popupKeySpec = popupKeys[n];
                 final int row = n / params.mNumColumns;
                 final int x = params.getX(n, row);
                 final int y = params.getY(row);
-                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, params);
+                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, background, params);
                 params.markAsEdgeKey(key, row);
                 params.onAddKey(key);
 

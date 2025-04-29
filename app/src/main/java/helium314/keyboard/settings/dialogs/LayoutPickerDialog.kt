@@ -50,6 +50,7 @@ import helium314.keyboard.settings.EditButton
 import helium314.keyboard.settings.Setting
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.previewDark
@@ -140,7 +141,8 @@ private fun AddLayoutRow(onNewLayout: (String) -> Unit, layoutType: LayoutType, 
             value = textValue,
             onValueChange = { textValue = it },
             modifier = Modifier.weight(1f),
-            singleLine = true
+            singleLine = true,
+            textStyle = contentTextDirectionStyle,
         )
         EditButton(textValue.text.isNotEmpty() && LayoutUtilsCustom.getLayoutName(textValue.text, layoutType) !in userLayouts) {
             onNewLayout(textValue.text)
@@ -202,6 +204,7 @@ private fun LayoutItemRow(
                     onConfirmed = {
                         showDeleteDialog = false
                         onDelete(layoutName)
+                        (ctx.getActivity() as? SettingsActivity)?.prefChanged()
                     }
                 )
             }

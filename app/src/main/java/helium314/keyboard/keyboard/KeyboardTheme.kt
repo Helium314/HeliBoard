@@ -405,14 +405,7 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
         }
 
         fun getUnusedThemeName(initialName: String, prefs: SharedPreferences): String {
-            val existingNames = prefs.all.keys.mapNotNull {
-                when {
-                    it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
-                    it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
-                    it.startsWith(Settings.PREF_USER_MORE_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_MORE_COLORS_PREFIX)
-                    else -> null
-                }
-            }.toSortedSet()
+            val existingNames = getExistingThemeNames(prefs)
             if (initialName !in existingNames) return initialName
             var i = 1
             while ("$initialName$i" in existingNames)
@@ -420,11 +413,8 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
             return "$initialName$i"
         }
 
-        // returns false if not renamed due to invalid name or collision
-        fun renameUserColors(from: String, to: String, prefs: SharedPreferences): Boolean {
-            if (to.isBlank()) return false // don't want that
-            if (to == from) return true // nothing to do
-            val existingNames = prefs.all.keys.mapNotNull {
+        private fun getExistingThemeNames(prefs: SharedPreferences) =
+            prefs.all.keys.mapNotNull {
                 when {
                     it.startsWith(Settings.PREF_USER_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_COLORS_PREFIX)
                     it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) -> it.substringAfter(Settings.PREF_USER_ALL_COLORS_PREFIX)
@@ -432,6 +422,12 @@ private constructor(val themeId: Int, @JvmField val mStyleId: Int) {
                     else -> null
                 }
             }.toSortedSet()
+
+        // returns false if not renamed due to invalid name or collision
+        fun renameUserColors(from: String, to: String, prefs: SharedPreferences): Boolean {
+            if (to.isBlank()) return false // don't want that
+            if (to == from) return true // nothing to do
+            val existingNames = getExistingThemeNames(prefs)
             if (to in existingNames) return false
             // all good, now rename
             prefs.edit {

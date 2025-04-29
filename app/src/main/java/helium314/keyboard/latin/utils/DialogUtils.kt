@@ -1,7 +1,7 @@
 package helium314.keyboard.latin.utils
 
 import android.content.Context
-import androidx.appcompat.view.ContextThemeWrapper
+import android.view.ContextThemeWrapper
 import helium314.keyboard.latin.R
 
 // todo: ideally the custom InputMethodPicker would be removed / replaced with compose dialog, then this can be removed

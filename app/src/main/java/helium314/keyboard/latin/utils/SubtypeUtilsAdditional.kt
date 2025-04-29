@@ -9,9 +9,13 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults
+import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
+import helium314.keyboard.latin.utils.ScriptUtils.script
+import java.util.EnumMap
 import java.util.Locale
 
 object SubtypeUtilsAdditional {
@@ -46,8 +50,17 @@ object SubtypeUtilsAdditional {
     fun createDummyAdditionalSubtype(locale: Locale, mainLayoutName: String) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", false, false)
 
+    // only used in tests
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
+
+    /** creates a subtype with every layout being the default for its type */
+    fun createDefaultSubtype(locale: Locale): InputMethodSubtype {
+        val layouts = LayoutType.entries.associateWithTo(LayoutType.getLayoutMap(null)) { it.default }
+        SubtypeSettings.getResourceSubtypesForLocale(locale).firstOrNull()?.mainLayoutName()?.let { layouts[LayoutType.MAIN] = it }
+        val extra = ExtraValue.KEYBOARD_LAYOUT_SET + "=" + layouts.toExtraValue()
+        return createAdditionalSubtype(locale, extra, locale.script() == ScriptUtils.SCRIPT_LATIN, true)
+    }
 
     fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
         val prefs = context.prefs()
@@ -70,7 +83,7 @@ object SubtypeUtilsAdditional {
         val additionalSubtypes = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!)
             .toMutableList()
         additionalSubtypes.remove(from)
-        if (SubtypeSettings.getResourceSubtypesForLocale(to.locale).none { it.toSettingsSubtype() == to }) {
+        if (!to.isSameAsDefault()) {
             // We only add the "to" subtype if it's not equal to a resource subtype.
             // This means we make additional subtype disappear as magically as it was added if all settings are default.
             // If we don't do this, enabling the base subtype will result in the additional subtype being enabled,

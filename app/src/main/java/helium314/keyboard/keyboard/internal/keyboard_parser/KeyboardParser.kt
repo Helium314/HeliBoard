@@ -237,7 +237,7 @@ class KeyboardParser(private val params: KeyboardParams, private val context: Co
                 { it.label == KeyLabel.PERIOD || it.groupId == KeyData.GROUP_PERIOD},
                 { baseKeys.last()[1].copy(newGroupId = 2, newType = baseKeys.last()[1].type ?: it.type) }
             )
-            baseKeys.removeLast()
+            baseKeys.removeAt(baseKeys.lastIndex)
         }
         // add zwnj key next to space if necessary
         val spaceIndex = functionalKeysBottom.indexOfFirst { it.label == KeyLabel.SPACE && it.width <= 0 } // width could be 0 or -1

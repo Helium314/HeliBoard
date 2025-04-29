@@ -14,7 +14,6 @@ Does not use internet permission, and thus is 100% offline.
    * [Translations](#translations)
    * [To Community Creation](#to-community)
    * [Code Contribution](CONTRIBUTING.md)
-- [To-do](#to-do)
 - [License](#license)
 - [Credits](#credits)
 
@@ -41,7 +40,7 @@ Does not use internet permission, and thus is 100% offline.
   </ul>
   <li>Clipboard history</li>
   <li>One-handed mode</li>
-  <li>Split keyboard (only available if the screen is large enough)</li>
+  <li>Split keyboard</li>
   <li>Number pad</li>
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
@@ -87,26 +86,6 @@ You can share your themes, layouts and dictionaries with other people:
 
 ## Code Contribution
 See [Contribution Guidelines](CONTRIBUTING.md)
-
-# To-do
-__Planned features and improvements:__
-* Improve support for modifier keys (_alt_, _ctrl_, _meta_ and _fn_), some ideas:
-  * keep modifier keys on with long press
-  * keep modifier keys on until the next key press
-  * use sliding input
-* Less complicated addition of new keyboard languages (e.g. #519)
-* Additional and customizable key swipe functionality
-  * Some functionality will not be possible when using glide typing
-* Add and enable emoji dictionaries by default (if available for language)
-* Clearer / more intuitive arrangement of settings
-  * Maybe hide some less used settings by default (similar to color customization)
-* Make use of the `.com` key in URL fields (currently only available for tablets)
-  * With language-dependent TLDs
-* [Bug fixes](https://github.com/Helium314/HeliBoard/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-
-__What will _not_ be added:__
-* Dictionaries for more languages (you can still download them)
-* Anything that requires additional permissions, unless there is a _very_ good reason
 
 # License
 

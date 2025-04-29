@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.DialogProperties
 import helium314.keyboard.settings.Theme
+import helium314.keyboard.settings.contentTextDirectionStyle
 import helium314.keyboard.settings.previewDark
 
 // mostly taken from StreetComplete / SCEE
@@ -76,7 +77,8 @@ fun TextInputDialog(
                     .focusRequester(focusRequester),
                 label = textInputLabel,
                 keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-                singleLine = singleLine
+                singleLine = singleLine,
+                textStyle = contentTextDirectionStyle,
             )
         },
         properties = properties,

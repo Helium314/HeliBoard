@@ -1,0 +1,4 @@
+* add emoji toolbar key, by @codokie (#845, #837)
+* improvements regarding duplicated letters (#225 and maybe others)
+* avoid positioning cursor inside emojis (#859)
+* minor fixes for recently added features

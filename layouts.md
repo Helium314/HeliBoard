@@ -89,7 +89,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _symbol_alpha_: toggle alpha / symbol keyboard
   * _numpad_: toggle numpad layout
   * _emoji_: switch to emoji view
-  * _com_: display common TLDs (.com and similar, currently not localized)
+  * _com_: display common TLDs (.com and similar, localized)
   * _language_switch_: language switch key
   * _action_: the action (enter) key
   * _delete_: delete key
@@ -103,7 +103,7 @@ Usually the label is what is displayed on the key. However, there are some speci
 * In case a label clashes with text you want to add, put a `\` in front of the text you want, e.g. `\space` will write the label `space` instead of adding a space bar.
   * Note that you need to escape the `\` in json files by adding a second `\`.
 * If you want different key label and input text, set the label to [label]|[text], e.g. `aa|bb` will show `aa`, but pressing the key will input `bb`.
-You can also specify special key codes like `a|!code/key_action_previous`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
+You can also specify special key codes like `a|!code/key_action_previous` or `abc|!code/-10043`, but it's cleaner to use a json layout and specify the code explicitly. Note that when specifying a code in the label, and a code in a json layout, the code in the label will be ignored.
 * It's also possible to specify an icon, like `!icon/previous_key|!code/key_action_previous`.
   * You can find available icon names in [KeyboardIconsSet](/app/src/main/java/helium314/keyboard/keyboard/internal/KeyboardIconsSet.kt). You can also use toolbar key icons using the uppercase name of the [toolbar key](/app/src/main/java/helium314/keyboard/latin/utils/ToolbarUtils.kt#L109), e.g. `!icon/redo`
 
@@ -125,7 +125,7 @@ You can also specify special key codes like `a|!code/key_action_previous`, but i
   * `[number_row]` may contain a custom number row (1-9 and 0 separated by space). You should also add the language to `numberRowLocales` in [`PreferencesSettingsFragment`](app/src/main/java/helium314/keyboard/latin/settings/PreferencesSettingsFragment.java) so the user can opt into having a localized number row.
   * `[extra_keys]` are typically keys shown in the default layout of the language. This is currently only used for latin layouts to avoid duplicating layouts for just adding few keys on the right side. The layout name need to end with `+`, but the `+` is removed when looking up the actual layout.
 * If you add a new language for which Android does not have a display name, it will be displayed using the language tag
-  * Avoiding this currently is more complicated than necessary: add the language tag to [LocaleUtils.getLocaleDisplayNameInSystemLocale](/app/src/main/java/helium314/keyboard/latin/common/LocaleUtils.kt#L181) to have an exception, and add a string named `subtype_<langage tag, but with _ instead of ->` to [`strings.xml`](/app/src/main/res/values/strings.xml). Further you may need to add a `subtype_in_root_locale_<language tag>` to [donottranslate.xml](/app/src/main/res/values/donottranslate.xml), and add the language tag to `subtype_locale_exception_keys` and `subtype_locale_displayed_in_root_locale`.
+  * Avoiding this currently is more complicated than necessary: add the language to [LocaleUtils.doesNotHaveAndroidName](/app/src/main/java/helium314/keyboard/latin/common/LocaleUtils.kt#L210) to have an exception, and add a string named `subtype_<langage tag, but with _ instead of ->` to [`strings.xml`](/app/src/main/res/values/strings.xml). In case you still have it not displayed properly, you may need to add a `subtype_in_root_locale_<language tag>` to [donottranslate.xml](/app/src/main/res/values/donottranslate.xml), and add the language tag to `subtype_locale_exception_keys` and `subtype_locale_displayed_in_root_locale`.
 * If a newly added language does not use latin script, please update the default scripts method `Locale.script` in [ScriptUtils](app/src/main/java/helium314/keyboard/latin/utils/ScriptUtils.kt)
 
 ## Functional key layouts

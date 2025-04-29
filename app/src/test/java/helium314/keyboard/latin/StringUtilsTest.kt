@@ -1,12 +1,23 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
+import androidx.test.core.app.ApplicationProvider
+import helium314.keyboard.ShadowInputMethodManager2
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.getFullEmojiAtEnd
+import helium314.keyboard.latin.common.nonWordCodePointAndNoSpaceBeforeCursor
+import helium314.keyboard.latin.settings.SpacingAndPunctuations
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 // todo: actually this test could/should be significantly expanded...
+@RunWith(RobolectricTestRunner::class)
+@Config(shadows = [
+    ShadowInputMethodManager2::class,
+])
 class StringUtilsTest {
     @Test fun `not inside double quotes without quotes`() {
         assert(!StringUtils.isInsideDoubleQuoteOrAfterDigit("hello yes"))
@@ -39,6 +50,14 @@ class StringUtilsTest {
 
     @Test fun `inside double quotes after opening another quote with closing quote followed by comma`() {
         assert(StringUtils.isInsideDoubleQuoteOrAfterDigit("hello \"yes\", \"h"))
+    }
+
+    @Test fun `non-word codepoints and no space`() {
+        val sp = SpacingAndPunctuations(ApplicationProvider.getApplicationContext<App>().resources, false)
+        assert(!nonWordCodePointAndNoSpaceBeforeCursor("this is", sp))
+        assert(!nonWordCodePointAndNoSpaceBeforeCursor("this ", sp))
+        assert(!nonWordCodePointAndNoSpaceBeforeCursor("th.is ", sp))
+        assert(nonWordCodePointAndNoSpaceBeforeCursor("th.is", sp))
     }
 
     @Test fun detectEmojisAtEnd() {

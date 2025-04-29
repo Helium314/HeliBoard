@@ -434,4 +434,16 @@
     <string name="discussion_section_link">zona de conversa</string>
     <string name="get_layouts_message">Podes atopar e compartir disposicións na %s.</string>
     <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="custom_subtype">Subtipo personalizado</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Non mostrar sempre suxestións para os campos texto nas webs</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Os campos de texto nas webs (principalmente no navegador) son causa frecuente de problemas coas suxestións automáticas</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de números (básica)</string>
+    <string name="show_tld_popup_keys_summary">Substitúe na emerxente da tecla do punto con dominios de alto nivel ao escribir URL e enderezos de correo</string>
+    <string name="show_tld_popup_keys">Mostrar teclas emerxentes TLD</string>
+    <string name="after_numpad_and_space">Ao premer enter ou espazo após escribir no teclado numérico</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">caracter separador ancho cero</string>
+    <string name="delete_confirmation">Eliminar %s?</string>
+    <string name="customize_toolbar_key_code_reset_message">Tes certeza de querer limpar todos os códigos personalizados?</string>
+    <string name="name_invalid">Nome non válido</string>
+    <string name="prefs_language_swipe_distance">Distancia de desprazamento cambio de idioma</string>
 </resources>

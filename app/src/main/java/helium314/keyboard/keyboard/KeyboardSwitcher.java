@@ -157,10 +157,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         } catch (KeyboardLayoutSetException e) {
             Log.e(TAG, "loading keyboard failed: " + e.mKeyboardId, e.getCause());
             try {
-                final InputMethodSubtype qwerty = SubtypeUtilsAdditional.INSTANCE
-                        .createEmojiCapableAdditionalSubtype(mRichImm.getCurrentSubtypeLocale(), SubtypeLocaleUtils.QWERTY, true);
+                final InputMethodSubtype defaults = SubtypeUtilsAdditional.INSTANCE.createDefaultSubtype(mRichImm.getCurrentSubtypeLocale());
                 mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
-                        .setSubtype(RichInputMethodSubtype.Companion.get(qwerty))
+                        .setSubtype(RichInputMethodSubtype.Companion.get(defaults))
                         .setVoiceInputKeyEnabled(settingsValues.mShowsVoiceInputKey)
                         .setNumberRowEnabled(settingsValues.mShowsNumberRow)
                         .setLanguageSwitchKeyEnabled(settingsValues.isLanguageSwitchKeyEnabled())
@@ -169,9 +168,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
                         .setOneHandedModeEnabled(oneHandedModeEnabled)
                         .build();
                 mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, oneHandedModeEnabled);
-                showToast("error loading the keyboard, falling back to qwerty", false);
+                showToast("error loading the keyboard, falling back to defaults", false);
             } catch (KeyboardLayoutSetException e2) {
-                Log.e(TAG, "even fallback to qwerty failed: " + e2.mKeyboardId, e2.getCause());
+                Log.e(TAG, "even fallback to defaults failed: " + e2.mKeyboardId, e2.getCause());
             }
         }
     }
@@ -515,9 +514,11 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public void reloadKeyboard() {
-        if (mCurrentInputView != null)
-            loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
-                    mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
+        if (mCurrentInputView == null)
+            return;
+        mEmojiPalettesView.clearKeyboardCache();
+        loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
+                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
     }
 
     /**

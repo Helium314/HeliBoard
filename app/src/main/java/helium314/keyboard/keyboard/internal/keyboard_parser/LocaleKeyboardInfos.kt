@@ -44,7 +44,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
         "mns" -> Key.LABEL_FLAGS_FOLLOW_KEY_LETTER_RATIO
         else -> 0
     }
-    val tlds = getLocaleTlds(locale) // todo: USE IT
+    val tlds = getLocaleTlds(locale)
 
     init {
         readStream(dataStream, false, true)
@@ -87,12 +87,6 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                 }
             }
         }
-    }
-
-    fun addDefaultTlds(locale: Locale) {
-        if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
-            tlds.add(".eu")
-        tlds.addAll(defaultTlds.splitOnWhitespace())
     }
 
     /** Pair(extraKeysLeft, extraKeysRight) */
@@ -205,7 +199,6 @@ private fun createLocaleKeyTexts(context: Context, params: KeyboardParams, popup
         if (locale == params.mId.locale) return@forEach
         lkt.addFile(getStreamForLocale(locale, context), true)
     }
-    lkt.addDefaultTlds(params.mId.locale)
     when (popupKeysSetting) {
         POPUP_KEYS_MAIN -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_main.txt"), false)
         POPUP_KEYS_MORE -> lkt.addFile(context.assets.open("$LOCALE_TEXTS_FOLDER/more_popups_more.txt"), false)
@@ -227,16 +220,24 @@ private fun getStreamForLocale(locale: Locale, context: Context) =
     }
 
 private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
+    val tlds = getDefaultTlds(locale)
     val ccLower = locale.country.lowercase()
-    val tlds = LinkedHashSet<String>()
     if (ccLower.isEmpty() || locale.language == SubtypeLocaleUtils.NO_LANGUAGE)
         return tlds
     specialCountryTlds.forEach {
         if (ccLower != it.first) return@forEach
         tlds.addAll(it.second.splitOnWhitespace())
-        return tlds
+        return@getLocaleTlds tlds
     }
     tlds.add(".$ccLower")
+    return tlds
+}
+
+private fun getDefaultTlds(locale: Locale): LinkedHashSet<String> {
+    val tlds = linkedSetOf<String>()
+    tlds.addAll(defaultTlds.splitOnWhitespace())
+    if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
+        tlds.add(".eu")
     return tlds
 }
 
@@ -263,9 +264,9 @@ private fun getCurrencyKey(locale: Locale): Pair<String, List<String>> {
         return euro
     if (locale.toString().matches(euroLocales))
         return euro
-    if (locale.language.matches("ca|eu|lb|mt".toRegex()))
+    if (locale.language.matches("ca|eu|lb|mt|pms".toRegex()))
         return euro
-    if (locale.language.matches("fa|iw|ko|lo|mn|ne|si|th|uk|vi|km".toRegex()))
+    if (locale.language.matches("ak|dag|ee|fa|gaa|ha|ig|iw|lo|ko|km|mn|ne|si|th|uk|vi|yo".toRegex()))
         return genericCurrencyKey(getCurrency(locale))
     if (locale.language == "hy")
         return dram
@@ -291,17 +292,24 @@ private fun getCurrency(locale: Locale): String {
     if (locale.country == "BD") return "৳"
     if (locale.country == "LK") return "රු"
     return when (locale.language) {
+        "ak" -> "¢"
+        "dag" -> "¢"
+        "ee" -> "¢"
         "fa" -> "﷼"
+        "gaa" -> "¢"
+        "ha" -> "₦"
+        "ig" -> "₦"
         "iw" -> "₪"
-        "ko" -> "￦"
         "lo" -> "₭"
+        "km" -> "៛"
+        "ko" -> "￦"
         "mn" -> "₮"
         "ne" -> "रु."
         "si" -> "රු"
         "th" -> "฿"
         "uk" -> "₴"
         "vi" -> "₫"
-        "km" -> "៛"
+        "yo" -> "₦"
         else -> "$"
     }
 }

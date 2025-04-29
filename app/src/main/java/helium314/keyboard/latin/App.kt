@@ -23,6 +23,7 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.folder
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils.SCRIPT_LATIN
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeSettings
@@ -33,7 +34,6 @@ import helium314.keyboard.latin.utils.getResourceSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
-import helium314.keyboard.latin.utils.protectedPrefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
 import helium314.keyboard.settings.screens.colorPrefsAndResIds
@@ -51,6 +51,15 @@ class App : Application() {
         checkVersionUpgrade(this)
         app = this
         Defaults.initDynamicDefaults(this)
+        LayoutUtilsCustom.removeMissingLayouts(this) // only after version upgrade
+
+        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+        @Suppress("DEPRECATION")
+        Log.i(
+            "startup", "Starting ${applicationInfo.processName} version ${packageInfo.versionName} (${
+                packageInfo.versionCode
+            }) on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})"
+        )
     }
 
     companion object {
@@ -82,8 +91,6 @@ fun checkVersionUpgrade(context: Context) {
                 file.delete()
         }
     }
-    if (oldVersion == 0) // new install or restoring settings from old app name
-        upgradesWhenComingFromOldAppName(context)
     if (oldVersion <= 1000) { // upgrade old custom layouts name
         val oldShiftSymbolsFile = getCustomLayoutFile("custom.shift_symbols", context)
         if (oldShiftSymbolsFile.exists()) {
@@ -232,7 +239,7 @@ fun checkVersionUpgrade(context: Context) {
             KeyboardTheme.writeUserMoreColors(prefs, themeNameNight, moreColorsNight)
         }
         if (prefs.contains("theme_dark_color_all_colors")) {
-            val allColorsNight = readAllColorsMap(false)
+            val allColorsNight = readAllColorsMap(true)
             prefs.edit().remove("theme_dark_color_all_colors").apply()
             KeyboardTheme.writeUserAllColors(prefs, themeNameNight, allColorsNight)
         }
@@ -530,115 +537,30 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().remove("auto_correction_confidence").putFloat(Settings.PREF_AUTO_CORRECT_THRESHOLD, value).apply()
         }
     }
-   if (oldVersion <= 2310) {
-    listOf(
-        Settings.PREF_ENABLED_SUBTYPES,
-        Settings.PREF_SELECTED_SUBTYPE,
-        Settings.PREF_ADDITIONAL_SUBTYPES
-    ).forEach { key ->
-        val value = prefs.getString(key, "")!!
-        if ("bengali," in value) {
-            prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+    if (oldVersion <= 2310) {
+        listOf(
+            Settings.PREF_ENABLED_SUBTYPES,
+            Settings.PREF_SELECTED_SUBTYPE,
+            Settings.PREF_ADDITIONAL_SUBTYPES
+        ).forEach { key ->
+            val value = prefs.getString(key, "")!!
+            if ("bengali," in value) {
+                prefs.edit().putString(key, value.replace("bengali,", "bengali_inscript,")).apply()
+            }
+       }
+    }
+    if (oldVersion <= 3001 && prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME) <= 0) {
+        prefs.edit().putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, 121).apply()
+    }
+    if (oldVersion <= 3002) {
+        prefs.all.filterKeys { it.startsWith(Settings.PREF_USER_ALL_COLORS_PREFIX) }.forEach {
+            val oldValue = prefs.getString(it.key, "")!!
+            if ("KEY_PREVIEW" !in oldValue) return@forEach
+            val newValue = oldValue.replace("KEY_PREVIEW", "KEY_PREVIEW_BACKGROUND")
+            prefs.edit().putString(it.key, newValue).apply()
         }
     }
-}
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
-}
-
-// todo (later): remove it when most users probably have upgraded
-private fun upgradesWhenComingFromOldAppName(context: Context) {
-    // move layout files
-    try {
-        File(context.filesDir, "layouts").listFiles()?.forEach {
-            it.copyTo(getCustomLayoutFile(it.name, context), true)
-            it.delete()
-        }
-    } catch (_: Exception) {}
-    // move background images
-    try {
-        val bgDay = File(context.filesDir, "custom_background_image")
-        if (bgDay.isFile) {
-            bgDay.copyTo(Settings.getCustomBackgroundFile(context, false, false), true)
-            bgDay.delete()
-        }
-        val bgNight = File(context.filesDir, "custom_background_image_night")
-        if (bgNight.isFile) {
-            bgNight.copyTo(Settings.getCustomBackgroundFile(context, true, false), true)
-            bgNight.delete()
-        }
-    } catch (_: Exception) {}
-    // upgrade prefs
-    val prefs = context.prefs()
-    if (prefs.all.containsKey("theme_variant")) {
-        prefs.edit().putString(Settings.PREF_THEME_COLORS, prefs.getString("theme_variant", "")).apply()
-        prefs.edit().remove("theme_variant").apply()
-    }
-    if (prefs.all.containsKey("theme_variant_night")) {
-        prefs.edit().putString(Settings.PREF_THEME_COLORS_NIGHT, prefs.getString("theme_variant_night", "")).apply()
-        prefs.edit().remove("theme_variant_night").apply()
-    }
-    prefs.all.toMap().forEach {
-        if (it.key.startsWith("pref_key_") && it.key != "pref_key_longpress_timeout") {
-            var remove = true
-            when (val value = it.value) {
-                is Boolean -> prefs.edit().putBoolean(it.key.substringAfter("pref_key_"), value).apply()
-                is Int -> prefs.edit().putInt(it.key.substringAfter("pref_key_"), value).apply()
-                is Long -> prefs.edit().putLong(it.key.substringAfter("pref_key_"), value).apply()
-                is String -> prefs.edit().putString(it.key.substringAfter("pref_key_"), value).apply()
-                is Float -> prefs.edit().putFloat(it.key.substringAfter("pref_key_"), value).apply()
-                else -> remove = false
-            }
-            if (remove)
-                prefs.edit().remove(it.key).apply()
-        } else if (it.key.startsWith("pref_")) {
-            var remove = true
-            when (val value = it.value) {
-                is Boolean -> prefs.edit().putBoolean(it.key.substringAfter("pref_"), value).apply()
-                is Int -> prefs.edit().putInt(it.key.substringAfter("pref_"), value).apply()
-                is Long -> prefs.edit().putLong(it.key.substringAfter("pref_"), value).apply()
-                is String -> prefs.edit().putString(it.key.substringAfter("pref_"), value).apply()
-                is Float -> prefs.edit().putFloat(it.key.substringAfter("pref_"), value).apply()
-                else -> remove = false
-            }
-            if (remove)
-                prefs.edit().remove(it.key).apply()
-        }
-    }
-    // change more_keys to popup_keys
-    if (prefs.contains("more_keys_order")) {
-        prefs.edit().putString(Settings.PREF_POPUP_KEYS_ORDER, prefs.getString("more_keys_order", "")?.replace("more_", "popup_")).apply()
-        prefs.edit().remove("more_keys_order").apply()
-    }
-    if (prefs.contains("more_keys_labels_order")) {
-        prefs.edit().putString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, prefs.getString("more_keys_labels_order", "")?.replace("more_", "popup_")).apply()
-        prefs.edit().remove("more_keys_labels_order").apply()
-    }
-    if (prefs.contains("more_more_keys")) {
-        prefs.edit().putString(Settings.PREF_MORE_POPUP_KEYS, prefs.getString("more_more_keys", "")).apply()
-        prefs.edit().remove("more_more_keys").apply()
-    }
-    if (prefs.contains("spellcheck_use_contacts")) {
-        prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, prefs.getBoolean("spellcheck_use_contacts", false)).apply()
-        prefs.edit().remove("spellcheck_use_contacts").apply()
-    }
-    // upgrade additional subtype locale strings
-    if (prefs.contains(Settings.PREF_ADDITIONAL_SUBTYPES)) {
-        val additionalSubtypes = mutableListOf<String>()
-        prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, "")!!.split(";").forEach {
-            val localeString = it.substringBefore(":")
-            additionalSubtypes.add(it.replace(localeString, localeString.constructLocale().toLanguageTag()))
-        }
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, additionalSubtypes.joinToString(";")).apply()
-    }
-    // move pinned clips to credential protected storage if device is not locked (should never happen)
-    if (!prefs.contains(Settings.PREF_PINNED_CLIPS)) return
-    try {
-        val defaultProtectedPrefs = context.protectedPrefs()
-        defaultProtectedPrefs.edit { putString(Settings.PREF_PINNED_CLIPS, prefs.getString(Settings.PREF_PINNED_CLIPS, "")) }
-        prefs.edit { remove(Settings.PREF_PINNED_CLIPS) }
-    } catch (_: IllegalStateException) {
-        // SharedPreferences in credential encrypted storage are not available until after user is unlocked
-    }
 }
