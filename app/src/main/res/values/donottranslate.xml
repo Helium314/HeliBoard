@@ -43,6 +43,7 @@
         <item>qwertz</item>
         <item>azerty</item>
         <item>dvorak</item>
+        <item>hcesar</item>		
         <item>halmak</item>
         <item>colemak</item>
         <item>colemak_dh</item>
@@ -57,6 +58,7 @@
         <item>AZERTY</item>
         <item>Dvorak</item>
         <item>Halmak</item>
+        <item>Hcesar</item>
         <item>Colemak</item>
         <item>Colemak Mod-DH</item>
         <item>Workman</item>
