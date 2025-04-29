@@ -122,10 +122,6 @@ public final class EmojiPalettesView extends LinearLayout
 
         @Override
         public void onViewAttachedToWindow(PagerViewHolder holder) {
-            if (holder.mCategoryId == EmojiCategory.ID_RECENTS) {
-                getRecyclerView(holder.itemView).getAdapter().notifyDataSetChanged();
-            }
-
             if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
                             || holder.getBindingAdapterPosition() == mPager.getCurrentItem() // tab
             ) {
@@ -141,6 +137,7 @@ public final class EmojiPalettesView extends LinearLayout
                 // category because we don't want to move the recent emojis around while the user
                 // is in the recents category.
                 mRecentsKeyboard.flushPendingRecentKeys();
+                getRecyclerView(holder.itemView).getAdapter().notifyDataSetChanged();
             }
         }
 
@@ -364,6 +361,7 @@ public final class EmojiPalettesView extends LinearLayout
             return;
         }
         mRecentsKeyboard.addKeyFirst(key);
+        mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
     }
 
     private void setupBottomRowKeyboard(final EditorInfo editorInfo, final KeyboardActionListener keyboardActionListener) {
@@ -403,6 +401,7 @@ public final class EmojiPalettesView extends LinearLayout
     public void stopEmojiPalettes() {
         if (!initialized) return;
         mRecentsKeyboard.flushPendingRecentKeys();
+        clearKeyboardCache();
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
@@ -440,6 +439,11 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     public void clearKeyboardCache() {
+        if (!initialized) {
+            return;
+        }
+
         mEmojiCategory.clearKeyboardCache();
+        mPager.getAdapter().notifyDataSetChanged();
     }
 }
