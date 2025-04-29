@@ -766,6 +766,15 @@
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean,SupportTouchPositionCorrection,EmojiCapable"
             android:isAsciiCapable="false"
     />
+	<subtype android:icon="@drawable/ic_ime_switcher"
+            android:label="@string/subtype_generic_phonetic"
+            android:subtypeId="0x3f5a9c12"
+            android:imeSubtypeLocale="ko"
+            android:languageTag="ko"
+            android:imeSubtypeMode="keyboard"
+            android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:korean_phonetic,SupportTouchPositionCorrection,EmojiCapable"
+            android:isAsciiCapable="false"
+    />
     <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic_sebeolsik_390"
             android:subtypeId="0xb0bbe261"
