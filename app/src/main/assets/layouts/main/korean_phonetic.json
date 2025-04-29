@@ -2,12 +2,12 @@
   [
     { "label": "\u3147" },
     { "label": "\u3161" },
-	{ "$": "shift_state_selector",
+    { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3156" },
       "default": { "label": "\u3154", "popup": { "main": { "label": "\u3156" } } }
-    },	
-	{ "label": "\u3139" },
-    { "label": "\u314c" },		
+    },
+    { "label": "\u3139" },
+    { "label": "\u314c" },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3152" },
       "default": { "label": "\u3150", "popup": { "main": { "label": "\u3152" } } }
@@ -22,12 +22,12 @@
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3146" },
       "default": { "label": "\u3145", "popup": { "main": { "label": "\u3146" } } }
-    },	
+    },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3138" },
       "default": { "label": "\u3137", "popup": { "main": { "label": "\u3138" } } }
-    },	
-    { "label": "\u3151" },	
+    },
+    { "label": "\u3151" },
     { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3132" },
       "default": { "label": "\u3131", "popup": { "main": { "label": "\u3132" } } }
@@ -45,7 +45,7 @@
     { "label": "\u3160" },
     { "label": "\u314a" },
     { "label": "\u3153" },
- { "$": "shift_state_selector",
+    { "$": "shift_state_selector",
       "manualOrLocked": { "label": "\u3143" },
       "default": { "label": "\u3142", "popup": { "main": { "label": "\u3143" } } }
     },
