@@ -1,0 +1,11 @@
+* allow customizing functional key layouts
+* slightly adjust symbols and more symbols layouts
+* add options to auto-show/hide toolbar
+* add toast notification when copying text
+* separate language switch key behavior from enablement
+* add comma key popups for number and phone layouts
+* make long-press pinning in toolbar optional
+* move toolbar settings to a separate section
+* add tab key
+* understand ctrl, toolbar and other key labels in layouts
+* minor fixes and improvements

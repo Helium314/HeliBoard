@@ -1,5 +1,6 @@
 package helium314.keyboard.keyboard
 
+import android.text.InputType
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -211,13 +212,24 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 return true
             }
         }
-        if (inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
+
+        // the shortcut below causes issues due to horrible handling of text fields by Firefox and forks
+        // issues:
+        //  * setSelection "will cause the editor to call onUpdateSelection", see: https://developer.android.com/reference/android/view/inputmethod/InputConnection#setSelection(int,%20int)
+        //     but Firefox is simply not doing this within the same word... WTF?
+        //     https://github.com/Helium314/HeliBoard/issues/1139#issuecomment-2588169384
+        //  * inputType is NOT if variant InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT (variant appears to always be 0)
+        //     so we can't even only do it for browsers (identifying by app name will break for forks)
+        // best "solution" is not doing this for InputType variation 0 but this applies to the majority of text fields...
+        val variation = InputType.TYPE_MASK_VARIATION and Settings.getValues().mInputAttributes.mInputType
+        if (variation != 0 && inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
-            // this is a noticeable performance improvement
+            // this is a noticeable performance improvement when moving through long words
             val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
             inputLogic.mConnection.setSelection(newPosition, newPosition)
             return true
         }
+
         inputLogic.finishInput()
         val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
         inputLogic.mConnection.setSelection(newPosition, newPosition)

@@ -176,7 +176,7 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
             val relativeWidthSumNew = row.sumOf { it.mWidth }
             val widthFactor = relativeWidthSum / relativeWidthSumNew
             // re-calculate absolute sizes and positions
-            var currentX = 0f
+            var currentX = mParams.mLeftPadding.toFloat()
             row.forEach {
                 it.mWidth *= widthFactor
                 it.setAbsoluteDimensions(currentX, y)

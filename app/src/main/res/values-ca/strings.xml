@@ -430,4 +430,20 @@
     <string name="get_colors_message">Podeu trobar i compartir colors a %s.</string>
     <string name="get_layouts_message">Podeu trobar i compartir disposicions a %s.</string>
     <string name="discussion_section_link">secció de discussió</string>
+    <string name="show_tld_popup_keys_summary">Substituir les finestres emergents de la tecla punt per dominis de primer nivell en escriure URLs i adreces de correu electrònic</string>
+    <string name="show_tld_popup_keys">Mostra tecles emergents de TLD</string>
+    <string name="after_numpad_and_space">Prement Intro o espai després d\'altres tecles del teclat numèric</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Els camps d\'edició web (sobretot que es troben als navegadors) són una causa molt freqüent de problemes amb la configuració Mostrar sempre suggeriments</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de nombres (bàsic)</string>
+    <string name="prefs_always_show_suggestions_except_web_text">No mostrar sempre suggeriments per als camps d\'edició web</string>
+    <string name="settings_category_space">Espai</string>
+    <string name="autospace_before_gesture_typing">Espai automàtic abans d\'escriure una paraula amb gest</string>
+    <string name="shift_removes_autospace">Cap espai automàtic en prémer la majúscula</string>
+    <string name="autospace_after_gesture_typing">Espai automàtic després d\'escriure una paraula amb gest</string>
+    <string name="shift_removes_autospace_summary">Shift elimina l\'espai automàtic pendent</string>
+    <string name="backspace_reverts_autocorrect">Retrocès reverteix l\'auto-correcció</string>
+    <string name="autospace_after_suggestion">Espai automàtic després de triar suggeriment</string>
+    <string name="timestamp_format_title">Format de la clau de marca de temps</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
 </resources>

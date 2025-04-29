@@ -13,7 +13,6 @@ import android.text.TextUtils;
 
 import helium314.keyboard.latin.App;
 import helium314.keyboard.latin.BuildConfig;
-import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.Settings;
 
 import java.io.File;
@@ -63,7 +62,7 @@ public final class JniUtils {
                     // we want the default preferences, because storing the checksum in device protected storage is discouraged
                     // see https://developer.android.com/reference/android/content/Context#createDeviceProtectedStorageContext()
                     // if device is locked, this will throw an IllegalStateException
-                    wantedChecksum = KtxKt.protectedPrefs(app).getString(Settings.PREF_LIBRARY_CHECKSUM, Defaults.PREF_LIBRARY_CHECKSUM);
+                    wantedChecksum = KtxKt.protectedPrefs(app).getString(Settings.PREF_LIBRARY_CHECKSUM, expectedDefaultChecksum());
                 }
                 final FileInputStream libStream = new FileInputStream(userSuppliedLibrary);
                 final String checksum = ChecksumCalculator.INSTANCE.checksum(libStream);

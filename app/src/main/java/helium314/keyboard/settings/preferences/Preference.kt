@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.settings.IconOrImage
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.previewDark
 
@@ -64,12 +64,12 @@ fun Preference(
             .fillMaxWidth()
             .clickable { onClick() }
             .heightIn(min = 44.dp)
-            .padding(12.dp),
+            .padding(vertical = 10.dp, horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null)
-            Icon(painterResource(icon), name, modifier = Modifier.size(36.dp))
+            IconOrImage(icon, name, 32f)
         Column(modifier = Modifier.weight(1f)) {
             Text(text = name, style = MaterialTheme.typography.bodyLarge)
             if (description != null) {

@@ -105,6 +105,7 @@ fun BackgroundImagePref(setting: Setting, isLandscape: Boolean) {
                 getFile().delete()
                 Settings.clearCachedBackgroundImages()
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
+                showSelectionDialog = false
             }
         )
     }

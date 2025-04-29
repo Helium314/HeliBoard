@@ -71,9 +71,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_MORE_AUTO_CORRECTION = "more_auto_correction";
     public static final String PREF_AUTO_CORRECT_THRESHOLD = "auto_correct_threshold";
     public static final String PREF_AUTOCORRECT_SHORTCUTS = "autocorrect_shortcuts";
+    public static final String PREF_BACKSPACE_REVERTS_AUTOCORRECT = "backspace_reverts_autocorrect";
     public static final String PREF_CENTER_SUGGESTION_TEXT_TO_ENTER = "center_suggestion_text_to_enter";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
     public static final String PREF_ALWAYS_SHOW_SUGGESTIONS = "always_show_suggestions";
+    public static final String PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT = "always_show_suggestions_except_web_text";
     public static final String PREF_KEY_USE_PERSONALIZED_DICTS = "use_personalized_dicts";
     public static final String PREF_KEY_USE_DOUBLE_SPACE_PERIOD = "use_double_space_period";
     public static final String PREF_BLOCK_POTENTIALLY_OFFENSIVE = "block_potentially_offensive";
@@ -97,6 +99,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_VERTICAL_SWIPE = "vertical_space_swipe";
     public static final String PREF_DELETE_SWIPE = "delete_swipe";
     public static final String PREF_AUTOSPACE_AFTER_PUNCTUATION = "autospace_after_punctuation";
+    public static final String PREF_AUTOSPACE_AFTER_SUGGESTION = "autospace_after_suggestion";
+    public static final String PREF_AUTOSPACE_AFTER_GESTURE_TYPING = "autospace_after_gesture_typing";
+   public static final String PREF_AUTOSPACE_BEFORE_GESTURE_TYPING = "autospace_before_gesture_typing";
+    public static final String PREF_SHIFT_REMOVES_AUTOSPACE = "shift_removes_autospace";
     public static final String PREF_ALWAYS_INCOGNITO_MODE = "always_incognito_mode";
     public static final String PREF_BIGRAM_PREDICTIONS = "next_word_prediction";
     public static final String PREF_SUGGEST_CLIPBOARD_CONTENT = "suggest_clipboard_content";
@@ -132,6 +138,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_POPUP_KEYS_LABELS_ORDER = "popup_keys_labels_order";
     public static final String PREF_SHOW_POPUP_HINTS = "show_popup_hints";
     public static final String PREF_MORE_POPUP_KEYS = "more_popup_keys";
+    public static final String PREF_SHOW_TLD_POPUP_KEYS = "show_tld_popup_keys";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
     public static final String PREF_LANGUAGE_SWIPE_DISTANCE = "language_swipe_distance";
@@ -155,8 +162,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ABC_AFTER_EMOJI = "abc_after_emoji";
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
+    public static final String PREF_ABC_AFTER_NUMPAD_SPACE = "abc_after_numpad_space";
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
+    public static final String PREF_TIMESTAMP_FORMAT = "timestamp_format";
 
     // Emoji
     public static final String PREF_EMOJI_MAX_SDK = "emoji_max_sdk";
@@ -313,10 +322,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
     }
 
-    public static void writePrefAdditionalSubtypes(final SharedPreferences prefs, final String prefSubtypes) {
-        prefs.edit().putString(PREF_ADDITIONAL_SUBTYPES, prefSubtypes).apply();
-    }
-
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {
         return switch (prefs.getString(PREF_SPACE_HORIZONTAL_SWIPE, Defaults.PREF_SPACE_HORIZONTAL_SWIPE)) {
             case "move_cursor" -> KeyboardActionListener.SWIPE_MOVE_CURSOR;
@@ -357,7 +362,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
         mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), enabled).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), enabled).apply();
     }
 
     public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
@@ -366,7 +371,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeScale(final Float scale) {
         mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), scale).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), scale).apply();
     }
 
     public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
@@ -375,7 +380,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void writeOneHandedModeGravity(final int gravity) {
         mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_PORTRAIT), gravity).apply();
+                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {

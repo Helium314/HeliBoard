@@ -2,6 +2,7 @@
 package helium314.keyboard.settings.screens
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.text.method.LinkMovementMethod
@@ -10,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -54,7 +54,7 @@ fun AboutScreen(
         SettingsWithoutKey.LICENSE,
         SettingsWithoutKey.HIDDEN_FEATURES,
         SettingsWithoutKey.GITHUB,
-        SettingsWithoutKey.SAVE_LOG
+        SettingsWithoutKey.SAVE_LOG,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -69,7 +69,7 @@ fun createAboutSettings(context: Context) = listOf(
             name = it.title,
             description = it.description,
             onClick = { },
-            icon = R.drawable.ic_launcher_foreground // use the bitmap trick here if we really want the colored icon
+            icon = R.mipmap.ic_launcher_round
         )
     },
     Setting(context, SettingsWithoutKey.VERSION, R.string.version) {
@@ -150,7 +150,11 @@ fun createAboutSettings(context: Context) = listOf(
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
                 ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-                    os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
+                    os.writer().use {
+                        val logcat = Runtime.getRuntime().exec("logcat -d -b all *:W").inputStream.use { it.reader().readText() }
+                        val internal = Log.getLog().joinToString("\n")
+                        it.write(logcat + "\n\n" + internal)
+                    }
                 }
             }
         }

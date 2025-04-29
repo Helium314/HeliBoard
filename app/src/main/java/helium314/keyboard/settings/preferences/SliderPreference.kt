@@ -26,7 +26,8 @@ fun <T: Number> SliderPreference(
     default: T,
     range: ClosedFloatingPointRange<Float>,
     stepSize: Int? = null,
-    onValueChanged: (Float) -> Unit = { },
+    onValueChanged: (Float?) -> Unit = { },
+    onConfirmed: (T) -> Unit = { },
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
@@ -48,8 +49,13 @@ fun <T: Number> SliderPreference(
         SliderDialog(
             onDismissRequest = { showDialog = false },
             onDone = {
-                if (default is Int) prefs.edit().putInt(key, it.toInt()).apply()
-                else prefs.edit().putFloat(key, it).apply()
+                if (default is Int) {
+                    prefs.edit().putInt(key, it.toInt()).apply()
+                    onConfirmed(it.toInt() as T)
+                } else {
+                    prefs.edit().putFloat(key, it).apply()
+                    onConfirmed(it as T)
+                }
             },
             initialValue = initialValue.toFloat(),
             range = range,
@@ -59,7 +65,7 @@ fun <T: Number> SliderPreference(
             },
             onValueChanged = onValueChanged,
             showDefault = true,
-            onDefault = { prefs.edit().remove(key).apply() },
+            onDefault = { prefs.edit().remove(key).apply(); onConfirmed(default) },
             intermediateSteps = stepSize?.let {
                 // this is not nice, but slider wants it like this...
                 ((range.endInclusive - range.start) / it - 1).toInt()

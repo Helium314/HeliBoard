@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -65,6 +66,7 @@ public class SettingsValues {
     public final boolean mShowNumberRowHints;
     public final boolean mShowsHints;
     public final boolean mShowsPopupHints;
+    public final boolean mShowTldPopupKeys;
     public final boolean mSpaceForLangChange;
     public final boolean mShowsEmojiKey;
     public final boolean mVarToolbarDirection;
@@ -75,7 +77,11 @@ public class SettingsValues {
     public final int mSpaceSwipeVertical;
     public final int mLanguageSwipeDistance;
     public final boolean mDeleteSwipeEnabled;
-    public final boolean mAutospaceAfterPunctuationEnabled;
+    public final boolean mAutospaceAfterPunctuation;
+    public final boolean mAutospaceAfterSuggestion;
+    public final boolean mAutospaceAfterGestureTyping;
+    public final boolean mAutospaceBeforeGestureTyping;
+    public final boolean mShiftRemovesAutospace;
     public final boolean mClipboardHistoryEnabled;
     public final long mClipboardHistoryRetentionTime;
     public final boolean mOneHandedModeEnabled;
@@ -114,6 +120,7 @@ public class SettingsValues {
     public final boolean mAlphaAfterEmojiInEmojiView;
     public final boolean mAlphaAfterClipHistoryEntry;
     public final boolean mAlphaAfterSymbolAndSpace;
+    public final boolean mAlphaAfterNumpadAndSpace;
     public final boolean mRemoveRedundantPopups;
     public final String mSpaceBarText;
     public final float mFontSizeMultiplier;
@@ -129,6 +136,7 @@ public class SettingsValues {
     public final boolean mAutoCorrectionEnabledPerUserSettings;
     public final boolean mAutoCorrectEnabled;
     public final float mAutoCorrectionThreshold;
+    public final boolean mBackspaceRevertsAutocorrect;
     public final int mScoreLimitForAutocorrect;
     public final boolean mAutoCorrectShortcuts;
     private final boolean mSuggestionsEnabledPerUserSettings;
@@ -173,6 +181,7 @@ public class SettingsValues {
         mShowNumberRowHints = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW_HINTS, Defaults.PREF_SHOW_NUMBER_ROW_HINTS);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS);
         mShowsPopupHints = prefs.getBoolean(Settings.PREF_SHOW_POPUP_HINTS, Defaults.PREF_SHOW_POPUP_HINTS);
+        mShowTldPopupKeys = prefs.getBoolean(Settings.PREF_SHOW_TLD_POPUP_KEYS, Defaults.PREF_SHOW_TLD_POPUP_KEYS);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, Defaults.PREF_SPACE_TO_CHANGE_LANG);
         mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, Defaults.PREF_SHOW_EMOJI_KEY);
         mVarToolbarDirection = prefs.getBoolean(Settings.PREF_VARIABLE_TOOLBAR_DIRECTION, Defaults.PREF_VARIABLE_TOOLBAR_DIRECTION);
@@ -192,6 +201,7 @@ public class SettingsValues {
         mScoreLimitForAutocorrect = (mAutoCorrectionThreshold < 0) ? 600000 // very aggressive
                 : (mAutoCorrectionThreshold < 0.07 ? 800000 : 950000); // aggressive or modest
         mAutoCorrectShortcuts = prefs.getBoolean(Settings.PREF_AUTOCORRECT_SHORTCUTS, Defaults.PREF_AUTOCORRECT_SHORTCUTS);
+        mBackspaceRevertsAutocorrect = prefs.getBoolean(Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT);
         mBigramPredictionEnabled = prefs.getBoolean(Settings.PREF_BIGRAM_PREDICTIONS, Defaults.PREF_BIGRAM_PREDICTIONS);
         mSuggestClipboardContent = prefs.getBoolean(Settings.PREF_SUGGEST_CLIPBOARD_CONTENT, Defaults.PREF_SUGGEST_CLIPBOARD_CONTENT);
         mDoubleSpacePeriodTimeout = 1100; // ms
@@ -219,7 +229,10 @@ public class SettingsValues {
         mGestureFastTypingCooldown = prefs.getInt(Settings.PREF_GESTURE_FAST_TYPING_COOLDOWN, Defaults.PREF_GESTURE_FAST_TYPING_COOLDOWN);
         mGestureTrailFadeoutDuration = prefs.getInt(Settings.PREF_GESTURE_TRAIL_FADEOUT_DURATION, Defaults.PREF_GESTURE_TRAIL_FADEOUT_DURATION);
         mAccount = null; // remove? or can it be useful somewhere?
-        mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS);
+        mOverrideShowingSuggestions = mInputAttributes.mMayOverrideShowingSuggestions
+                && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS)
+                && ((inputAttributes.mInputType & InputType.TYPE_MASK_VARIATION) != InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
+                  || !prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT));
         final boolean suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS);
         mSuggestionsEnabledPerUserSettings = (mInputAttributes.mShouldShowSuggestions && suggestionsEnabled)
                 || mOverrideShowingSuggestions;
@@ -230,7 +243,11 @@ public class SettingsValues {
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
         mLanguageSwipeDistance = prefs.getInt(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, Defaults.PREF_LANGUAGE_SWIPE_DISTANCE);
         mDeleteSwipeEnabled = prefs.getBoolean(Settings.PREF_DELETE_SWIPE, Defaults.PREF_DELETE_SWIPE);
-        mAutospaceAfterPunctuationEnabled = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, Defaults.PREF_AUTOSPACE_AFTER_PUNCTUATION);
+        mAutospaceAfterPunctuation = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION, Defaults.PREF_AUTOSPACE_AFTER_PUNCTUATION);
+        mAutospaceAfterSuggestion = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_SUGGESTION, Defaults.PREF_AUTOSPACE_AFTER_SUGGESTION);
+        mAutospaceAfterGestureTyping = prefs.getBoolean(Settings.PREF_AUTOSPACE_AFTER_GESTURE_TYPING, Defaults.PREF_AUTOSPACE_AFTER_GESTURE_TYPING);
+        mAutospaceBeforeGestureTyping = prefs.getBoolean(Settings.PREF_AUTOSPACE_BEFORE_GESTURE_TYPING, Defaults.PREF_AUTOSPACE_BEFORE_GESTURE_TYPING);
+        mShiftRemovesAutospace = prefs.getBoolean(Settings.PREF_SHIFT_REMOVES_AUTOSPACE, Defaults.PREF_SHIFT_REMOVES_AUTOSPACE);
         mClipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY);
         mClipboardHistoryRetentionTime = prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME);
 
@@ -268,6 +285,7 @@ public class SettingsValues {
         mAlphaAfterEmojiInEmojiView = prefs.getBoolean(Settings.PREF_ABC_AFTER_EMOJI, Defaults.PREF_ABC_AFTER_EMOJI);
         mAlphaAfterClipHistoryEntry = prefs.getBoolean(Settings.PREF_ABC_AFTER_CLIP, Defaults.PREF_ABC_AFTER_CLIP);
         mAlphaAfterSymbolAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_SYMBOL_SPACE, Defaults.PREF_ABC_AFTER_SYMBOL_SPACE);
+        mAlphaAfterNumpadAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_NUMPAD_SPACE, Defaults.PREF_ABC_AFTER_NUMPAD_SPACE);
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, Defaults.PREF_REMOVE_REDUNDANT_POPUPS);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, Defaults.PREF_SPACE_BAR_TEXT);
         mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK);

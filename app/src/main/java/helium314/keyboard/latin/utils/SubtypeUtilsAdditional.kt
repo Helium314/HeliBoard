@@ -9,9 +9,13 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults
+import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
+import helium314.keyboard.latin.utils.ScriptUtils.script
+import java.util.EnumMap
 import java.util.Locale
 
 object SubtypeUtilsAdditional {
@@ -46,17 +50,27 @@ object SubtypeUtilsAdditional {
     fun createDummyAdditionalSubtype(locale: Locale, mainLayoutName: String) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", false, false)
 
+    // only used in tests
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
+
+    /** creates a subtype with every layout being the default for its type */
+    fun createDefaultSubtype(locale: Locale): InputMethodSubtype {
+        val layouts = LayoutType.entries.associateWithTo(LayoutType.getLayoutMap(null)) { it.default }
+        SubtypeSettings.getResourceSubtypesForLocale(locale).firstOrNull()?.mainLayoutName()?.let { layouts[LayoutType.MAIN] = it }
+        val extra = ExtraValue.KEYBOARD_LAYOUT_SET + "=" + layouts.toExtraValue()
+        return createAdditionalSubtype(locale, extra, locale.script() == ScriptUtils.SCRIPT_LATIN, true)
+    }
 
     fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
         val prefs = context.prefs()
         SubtypeSettings.removeEnabledSubtype(context, subtype)
         val oldAdditionalSubtypesString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-        val oldAdditionalSubtypes = createAdditionalSubtypes(oldAdditionalSubtypesString)
-        val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != subtype }
-        val newAdditionalSubtypesString = createPrefSubtypes(newAdditionalSubtypes)
-        Settings.writePrefAdditionalSubtypes(prefs, newAdditionalSubtypesString)
+        val oldAdditionalSubtypes = SubtypeSettings.createSettingsSubtypes(oldAdditionalSubtypesString)
+        val settingsSubtype = subtype.toSettingsSubtype()
+        val newAdditionalSubtypes = oldAdditionalSubtypes.filter { it != settingsSubtype }
+        val newAdditionalSubtypesString = SubtypeSettings.createPrefSubtypes(newAdditionalSubtypes)
+        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, newAdditionalSubtypesString).apply()
     }
 
     // updates additional subtypes, enabled subtypes, and selected subtype
@@ -66,34 +80,37 @@ object SubtypeUtilsAdditional {
         val isSelected = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype() == from
         val isEnabled = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!.split(Separators.SETS)
             .any { it.toSettingsSubtype() == from }
-        val new = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
-            .split(Separators.SETS).mapNotNullTo(sortedSetOf()) {
-                if (it == from.toPref()) null else it
-            } + to.toPref()
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, new.joinToString(Separators.SETS)).apply()
-
-        val fromSubtype = from.toAdditionalSubtype() // will be null if we edit a resource subtype
-        val toSubtype = to.toAdditionalSubtype() // should never be null
-        if (isSelected && toSubtype != null) {
-            SubtypeSettings.setSelectedSubtype(prefs, toSubtype)
+        val additionalSubtypes = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!)
+            .toMutableList()
+        additionalSubtypes.remove(from)
+        if (!to.isSameAsDefault()) {
+            // We only add the "to" subtype if it's not equal to a resource subtype.
+            // This means we make additional subtype disappear as magically as it was added if all settings are default.
+            // If we don't do this, enabling the base subtype will result in the additional subtype being enabled,
+            // as both have the same settingsSubtype.
+            additionalSubtypes.add(to)
         }
-        if (fromSubtype != null && isEnabled && toSubtype != null) {
-            SubtypeSettings.removeEnabledSubtype(context, fromSubtype)
-            SubtypeSettings.addEnabledSubtype(prefs, toSubtype)
+        val editor = prefs.edit()
+        editor.putString(Settings.PREF_ADDITIONAL_SUBTYPES, SubtypeSettings.createPrefSubtypes(additionalSubtypes))
+        if (isSelected) {
+            editor.putString(Settings.PREF_SELECTED_SUBTYPE, to.toPref())
         }
+        if (isEnabled) {
+            val enabled = SubtypeSettings.createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+                .toMutableList()
+            enabled.remove(from)
+            enabled.add(to)
+            editor.putString(Settings.PREF_ENABLED_SUBTYPES, SubtypeSettings.createPrefSubtypes(enabled))
+        }
+        editor.apply()
+        SubtypeSettings.reloadEnabledSubtypes(context)
     }
 
-    fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> {
-        if (prefSubtypes.isEmpty())
-            return emptyList()
-        return prefSubtypes.split(Separators.SETS).mapNotNull { it.toSettingsSubtype().toAdditionalSubtype() }
-    }
-
-    fun createPrefSubtypes(subtypes: Collection<InputMethodSubtype>): String {
-        if (subtypes.isEmpty())
-            return ""
-        return subtypes.joinToString(Separators.SETS) { it.toSettingsSubtype().toPref() }
-    }
+    fun createAdditionalSubtypes(prefSubtypes: String): List<InputMethodSubtype> =
+        prefSubtypes.split(Separators.SETS).mapNotNull {
+            if (it.isEmpty()) null
+            else it.toSettingsSubtype().toAdditionalSubtype()
+        }
 
     private fun getNameResId(locale: Locale, mainLayoutName: String): Int {
         val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)

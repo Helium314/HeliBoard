@@ -52,9 +52,8 @@ object SubtypeSettings {
 
     fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
         val subtype = newSubtype.toSettingsSubtype()
-        val subtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-            .split(Separators.SETS).filter { it.isNotBlank() }.map { it.toSettingsSubtype() } + subtype
-        val newString = subtypes.map { it.toPref() }.toSortedSet().joinToString(Separators.SETS)
+        val subtypes = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!) + subtype
+        val newString = createPrefSubtypes(subtypes)
         prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
         if (newSubtype !in enabledSubtypes) {
@@ -74,10 +73,8 @@ object SubtypeSettings {
 
     fun getSelectedSubtype(prefs: SharedPreferences): InputMethodSubtype {
         val selectedSubtype = prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()
-        if (selectedSubtype.isAdditionalSubtype(prefs)) {
-            val selectedAdditionalSubtype = selectedSubtype.toAdditionalSubtype()
-            if (selectedAdditionalSubtype != null) return selectedAdditionalSubtype
-        }
+        if (selectedSubtype.isAdditionalSubtype(prefs))
+            return selectedSubtype.toAdditionalSubtype()
         // no additional subtype, must be a resource subtype
 
         val subtype = enabledSubtypes.firstOrNull { it.toSettingsSubtype() == selectedSubtype }
@@ -127,23 +124,39 @@ object SubtypeSettings {
 
     fun getAvailableSubtypeLocales(): List<Locale> = resourceSubtypesByLocale.keys.toList()
 
+    /**
+     * Update subtypes that contain the layout. If new name is null (layout deleted) and the
+     * subtype is now identical to a resource subtype, remove the subtype from additional subtypes.
+     */
     fun onRenameLayout(type: LayoutType, from: String, to: String?, context: Context) {
         val prefs = context.prefs()
+        val editor = prefs.edit() // calling apply for each separate setting would result in an invalid intermediate state
         listOf(
             Settings.PREF_ADDITIONAL_SUBTYPES to Defaults.PREF_ADDITIONAL_SUBTYPES,
             Settings.PREF_ENABLED_SUBTYPES to Defaults.PREF_ENABLED_SUBTYPES,
             Settings.PREF_SELECTED_SUBTYPE to Defaults.PREF_SELECTED_SUBTYPE
         ).forEach { (key, default) ->
-            val new = prefs.getString(key, default)!!.split(Separators.SETS).mapTo(mutableSetOf()) {
+            val new = prefs.getString(key, default)!!.split(Separators.SETS).mapNotNullTo(mutableSetOf()) {
+                if (it.isEmpty()) return@mapNotNullTo null
                 val subtype = it.toSettingsSubtype()
                 if (subtype.layoutName(type) == from) {
-                    if (to == null) subtype.withoutLayout(type).toPref()
+                    if (to == null) {
+                        val defaultLayout = if (type !== LayoutType.MAIN) null
+                            // if we just delete a main layout, we may end up with something like Hindi (QWERTY)
+                            // so better replace it with a default layout for that locale
+                            else resourceSubtypesByLocale[subtype.locale]?.first()?.mainLayoutName()
+                        val newSubtype = if (defaultLayout == null) subtype.withoutLayout(type)
+                            else subtype.withLayout(type, defaultLayout)
+                        if (newSubtype.isSameAsDefault() && key == Settings.PREF_ADDITIONAL_SUBTYPES) null
+                        else newSubtype.toPref()
+                    }
                     else subtype.withLayout(type, to).toPref()
                 }
                 else subtype.toPref()
             }.joinToString(Separators.SETS)
-            prefs.edit().putString(key, new).apply()
+            editor.putString(key, new)
         }
+        editor.apply()
         if (Settings.readDefaultLayoutName(type, prefs) == from)
             Settings.writeDefaultLayoutName(to, type, prefs)
         reloadEnabledSubtypes(context)
@@ -151,11 +164,20 @@ object SubtypeSettings {
 
     fun reloadEnabledSubtypes(context: Context) {
         enabledSubtypes.clear()
-        removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
-        RichInputMethodManager.getInstance().refreshSubtypeCaches()
+        if (RichInputMethodManager.isInitialized())
+            RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
+
+    fun createSettingsSubtypes(prefSubtypes: String): List<SettingsSubtype> =
+        prefSubtypes.split(Separators.SETS).mapNotNull {
+            if (it.isEmpty()) null
+            else it.toSettingsSubtype()
+        }
+
+    fun createPrefSubtypes(subtypes: Collection<SettingsSubtype>): String =
+        subtypes.map { it.toPref() }.toSortedSet().joinToString(Separators.SETS)
 
     fun init(context: Context) {
         SubtypeLocaleUtils.init(context) // necessary to get the correct getKeyboardLayoutSetName
@@ -165,7 +187,6 @@ object SubtypeSettings {
         reloadSystemLocales(context)
 
         loadResourceSubtypes(context.resources)
-        removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
     }
@@ -193,23 +214,6 @@ object SubtypeSettings {
         }
     }
 
-    // remove custom subtypes without a layout file
-    private fun removeInvalidCustomSubtypes(context: Context) {
-        val prefs = context.prefs()
-        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(Separators.SETS)
-        val customLayoutFiles by lazy { LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).map { it.name } }
-        val subtypesToRemove = mutableListOf<String>()
-        additionalSubtypes.forEach {
-            val name = it.toSettingsSubtype().mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
-            if (!LayoutUtilsCustom.isCustomLayout(name)) return@forEach
-            if (name !in customLayoutFiles)
-                subtypesToRemove.add(it)
-        }
-        if (subtypesToRemove.isEmpty()) return
-        Log.w(TAG, "removing custom subtypes without main layout files: $subtypesToRemove")
-        Settings.writePrefAdditionalSubtypes(prefs, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(Separators.SETS))
-    }
-
     private fun loadAdditionalSubtypes(prefs: SharedPreferences) {
         additionalSubtypes.clear()
         val additionalSubtypeString = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
@@ -220,15 +224,11 @@ object SubtypeSettings {
     // requires loadResourceSubtypes to be called before
     private fun loadEnabledSubtypes(context: Context) {
         val prefs = context.prefs()
-        val settingsSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-            .split(Separators.SETS).filter { it.isNotEmpty() }.map { it.toSettingsSubtype() }
+        val settingsSubtypes = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
         for (settingsSubtype in settingsSubtypes) {
             if (settingsSubtype.isAdditionalSubtype(prefs)) {
-                val additionalSubtype = settingsSubtype.toAdditionalSubtype()
-                if (additionalSubtype != null) {
-                    enabledSubtypes.add(additionalSubtype)
-                    continue
-                }
+                enabledSubtypes.add(settingsSubtype.toAdditionalSubtype())
+                continue
             }
             val subtypesForLocale = resourceSubtypesByLocale[settingsSubtype.locale]
             if (subtypesForLocale == null) {
@@ -258,12 +258,11 @@ object SubtypeSettings {
 
     /** @return whether pref was changed */
     private fun removeEnabledSubtype(prefs: SharedPreferences, subtype: SettingsSubtype): Boolean {
-        val oldSubtypes = prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!
-            .split(Separators.SETS).filter { it.isNotEmpty() }.map { it.toSettingsSubtype() }
+        val oldSubtypes = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
         val newSubtypes = oldSubtypes - subtype
         if (oldSubtypes == newSubtypes)
             return false // already removed
-        prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newSubtypes.joinToString(Separators.SETS) { it.toPref() }) }
+        prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, createPrefSubtypes(newSubtypes)) }
         if (subtype == prefs.getString(Settings.PREF_SELECTED_SUBTYPE, Defaults.PREF_SELECTED_SUBTYPE)!!.toSettingsSubtype()) {
             // switch subtype if the currently used one has been disabled
             try {

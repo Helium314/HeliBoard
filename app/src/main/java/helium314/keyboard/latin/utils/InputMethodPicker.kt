@@ -2,6 +2,7 @@
 
 package helium314.keyboard.latin.utils
 
+import android.app.AlertDialog
 import android.os.IBinder
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,7 +11,6 @@ import android.text.style.RelativeSizeSpan
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
-import androidx.appcompat.app.AlertDialog
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager

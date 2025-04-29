@@ -11,39 +11,25 @@ import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
-import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
-import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.locale
 import java.util.Locale
 
 // some kind of intermediate between the string stored in preferences and an InputMethodSubtype
+// todo: consider using a hashMap or sortedMap instead of a string if we run into comparison issues once again
 data class SettingsSubtype(val locale: Locale, val extraValues: String) {
 
     fun toPref() = locale.toLanguageTag() + Separators.SET + extraValues
 
     /** Creates an additional subtype from the SettingsSubtype.
      *  Resulting InputMethodSubtypes are equal if SettingsSubtypes are equal */
-    fun toAdditionalSubtype(): InputMethodSubtype? {
+    fun toAdditionalSubtype(): InputMethodSubtype {
         val asciiCapable = locale.script() == ScriptUtils.SCRIPT_LATIN
-        val subtype = SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValues, asciiCapable, true)
-
-        // todo: this is returns null for all non-latin layouts
-        //  either fix it, or remove the check
-        //  if removed, removing a layout will result in fallback qwerty even for non-ascii, but this is better than the current alternative
-/*        if (subtype.nameResId == SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT
-            && mainLayoutName()?.endsWith("+") != true // "+" layouts and custom layouts are always "unknown"
-            && !LayoutUtilsCustom.isCustomLayout(mainLayoutName() ?: SubtypeLocaleUtils.QWERTY)
-        ) {
-            // Skip unknown keyboard layout subtype. This may happen when predefined keyboard
-            // layout has been removed.
-            Log.w(SettingsSubtype::class.simpleName, "unknown additional subtype $this")
-            return null
-        }*/
-        return subtype
+        return SubtypeUtilsAdditional.createAdditionalSubtype(locale, extraValues, asciiCapable, true)
     }
 
     fun mainLayoutName() = LayoutType.getMainLayoutFromExtraValue(extraValues)
@@ -54,7 +40,7 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
         val newList = extraValues.split(",")
             .filterNot { it.isBlank() || it.startsWith("$extraValueKey=") || it == extraValueKey }
         val newValue = if (extraValue == null) extraValueKey else "$extraValueKey=$extraValue"
-        val newValues = (newList + newValue).joinToString(",")
+        val newValues = (newList + newValue).sorted().joinToString(",")
         return copy(extraValues = newValues)
     }
 
@@ -85,6 +71,8 @@ data class SettingsSubtype(val locale: Locale, val extraValues: String) {
     fun isAdditionalSubtype(prefs: SharedPreferences) =
         prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!
             .split(Separators.SETS).contains(toPref())
+
+    fun isSameAsDefault() = SubtypeSettings.getResourceSubtypesForLocale(locale).any { it.toSettingsSubtype() == this.toPref().toSettingsSubtype() }
 
     companion object {
         fun String.toSettingsSubtype(): SettingsSubtype =

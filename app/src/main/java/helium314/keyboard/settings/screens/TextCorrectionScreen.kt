@@ -22,6 +22,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
@@ -49,6 +50,7 @@ fun TextCorrectionScreen(
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val autocorrectEnabled = prefs.getBoolean(Settings.PREF_AUTO_CORRECTION, Defaults.PREF_AUTO_CORRECTION)
     val suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS)
+    val gestureEnabled = JniUtils.sHaveGestureLib && prefs.getBoolean(Settings.PREF_GESTURE_INPUT, Defaults.PREF_GESTURE_INPUT)
     val items = listOf(
         SettingsWithoutKey.EDIT_PERSONAL_DICTIONARY,
         R.string.settings_category_correction,
@@ -57,12 +59,20 @@ fun TextCorrectionScreen(
         if (autocorrectEnabled) Settings.PREF_MORE_AUTO_CORRECTION else null,
         if (autocorrectEnabled) Settings.PREF_AUTOCORRECT_SHORTCUTS else null,
         if (autocorrectEnabled) Settings.PREF_AUTO_CORRECT_THRESHOLD else null,
+        if (autocorrectEnabled) Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT else null,
         Settings.PREF_AUTO_CAP,
+        R.string.settings_category_space,
         Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD,
         Settings.PREF_AUTOSPACE_AFTER_PUNCTUATION,
+        Settings.PREF_AUTOSPACE_AFTER_SUGGESTION,
+        if (gestureEnabled) Settings.PREF_AUTOSPACE_BEFORE_GESTURE_TYPING else null,
+        if (gestureEnabled) Settings.PREF_AUTOSPACE_AFTER_GESTURE_TYPING else null,
+        Settings.PREF_SHIFT_REMOVES_AUTOSPACE,
         R.string.settings_category_suggestions,
         Settings.PREF_SHOW_SUGGESTIONS,
         if (suggestionsEnabled) Settings.PREF_ALWAYS_SHOW_SUGGESTIONS else null,
+        if (suggestionsEnabled && prefs.getBoolean(Settings.PREF_ALWAYS_SHOW_SUGGESTIONS, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS))
+            Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT else null,
         if (suggestionsEnabled) Settings.PREF_CENTER_SUGGESTION_TEXT_TO_ENTER else null,
         Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         Settings.PREF_BIGRAM_PREDICTIONS,
@@ -115,6 +125,9 @@ fun createCorrectionSettings(context: Context) = listOf(
         // todo: consider making it a slider, and maybe somehow adjust range so we can show %
         ListPreference(it, items, Defaults.PREF_AUTO_CORRECT_THRESHOLD)
     },
+    Setting(context, Settings.PREF_BACKSPACE_REVERTS_AUTOCORRECT, R.string.backspace_reverts_autocorrect) {
+        SwitchPreference(it, Defaults.PREF_BACKSPACE_REVERTS_AUTOCORRECT)
+    },
     Setting(context, Settings.PREF_AUTO_CAP,
         R.string.auto_cap, R.string.auto_cap_summary
     ) {
@@ -130,6 +143,18 @@ fun createCorrectionSettings(context: Context) = listOf(
     ) {
         SwitchPreference(it, Defaults.PREF_AUTOSPACE_AFTER_PUNCTUATION)
     },
+    Setting(context, Settings.PREF_AUTOSPACE_AFTER_SUGGESTION, R.string.autospace_after_suggestion) {
+        SwitchPreference(it, Defaults.PREF_AUTOSPACE_AFTER_SUGGESTION)
+    },
+    Setting(context, Settings.PREF_AUTOSPACE_AFTER_GESTURE_TYPING, R.string.autospace_after_gesture_typing) {
+        SwitchPreference(it, Defaults.PREF_AUTOSPACE_AFTER_GESTURE_TYPING)
+    },
+    Setting(context, Settings.PREF_AUTOSPACE_BEFORE_GESTURE_TYPING, R.string.autospace_before_gesture_typing) {
+        SwitchPreference(it, Defaults.PREF_AUTOSPACE_BEFORE_GESTURE_TYPING)
+    },
+    Setting(context, Settings.PREF_SHIFT_REMOVES_AUTOSPACE, R.string.shift_removes_autospace, R.string.shift_removes_autospace_summary) {
+        SwitchPreference(it, Defaults.PREF_SHIFT_REMOVES_AUTOSPACE)
+    },
     Setting(context, Settings.PREF_SHOW_SUGGESTIONS,
         R.string.prefs_show_suggestions, R.string.prefs_show_suggestions_summary
     ) {
@@ -139,6 +164,11 @@ fun createCorrectionSettings(context: Context) = listOf(
         R.string.prefs_always_show_suggestions, R.string.prefs_always_show_suggestions_summary
     ) {
         SwitchPreference(it, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS)
+    },
+    Setting(context, Settings.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT,
+        R.string.prefs_always_show_suggestions_except_web_text, R.string.prefs_always_show_suggestions_except_web_text_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_ALWAYS_SHOW_SUGGESTIONS_EXCEPT_WEB_TEXT)
     },
     Setting(context, Settings.PREF_KEY_USE_PERSONALIZED_DICTS,
         R.string.use_personalized_dicts, R.string.use_personalized_dicts_summary

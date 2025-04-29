@@ -48,7 +48,7 @@
     <string name="subtype_en_GB">"Angličtina (Velká Británie)"</string>
     <string name="subtype_en_US">"Angličtina (USA)"</string>
     <string name="subtype_es_US">"Španělština (USA)"</string>
-    <string name="subtype_hi_Latn">hinglish</string>
+    <string name="subtype_hi_Latn">Hinglish</string>
     <string name="subtype_sr_Latn">srbština (Latinka)</string>
     <string name="subtype_with_layout_en_GB">"Angličtina (Velká Británie) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_with_layout_en_US">"Angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
@@ -82,14 +82,14 @@
     <string name="setup_next_action">"Další krok"</string>
     <string name="setup_steps_title">"Nastavení aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Zapnutí aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">Zaškrtněte aplikaci<xliff:g id="APPLICATION_NAME">%s</xliff:g> v nastavení Jazyky a zadávání, povolíte tak její spuštění.\"</string>
-    <string name="setup_step1_finished_instruction">Aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g> je již v nastavení Jazyky a zadávání zapnuta, tento krok je tedy již proveden. Pokračujte dalším!</string>
+    <string name="setup_step1_instruction">Zaškrtněte aplikaci \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" v nastavení Jazyky a zadávání. Tím povolíte její spuštění ve vašem zařízení.\"</string>
+    <string name="setup_step1_finished_instruction">Aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g> je již v nastavení Jazyky a zadávání zapnuta, tento krok je tedy již proveden. Pokračujte dalším!\"</string>
     <string name="setup_step1_action">"Aktivovat v nastavení"</string>
     <string name="setup_step2_title">"Přepnutí na aplikaci <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Poté vyberte jako aktivní metodu zadávání textu možnost<xliff:g id="APPLICATION_NAME">%s</xliff:g>.\"</string>
+    <string name="setup_step2_instruction">Poté vyberte jako aktivní metodu zadávání textu možnost \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\".\"</string>
     <string name="setup_step2_action">"Přepnout metody zadávání"</string>
     <string name="setup_step3_title">Gratulujeme, vše je připraveno!</string>
-    <string name="setup_step3_instruction">"Nyní můžete ve všech svých oblíbených aplikacích psát pomocí aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">Nyní můžete ve všech svých oblíbených aplikacích psát pomocí aplikace <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
     <string name="setup_finish_action">"Hotovo"</string>
     <string name="show_setup_wizard_icon">"Zobrazit ikonu aplikace"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazí ikonu aplikace ve spouštěči"</string>
@@ -117,7 +117,7 @@
     <string name="select_input_method">"Vybrat metodu zadávání"</string>
     <string name="settings_category_experimental">Experimentální</string>
     <string name="settings_category_miscellaneous">Různé</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTY">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min.</string>
     <string name="settings_no_limit">Bez limitu</string>
     <string name="enable_clipboard_history">Povolit historii schránky</string>
     <string name="clipboard_history_retention_time">Doba zachování historie</string>
@@ -139,7 +139,7 @@
     <string name="day_night_mode_summary">Vzhled podle systémového nastavení</string>
     <string name="ime_settings">Nastavení HeliBoard</string>
     <string name="settings_category_suggestions">Návrhy</string>
-    <string name="show_emoji_key">Emoji klávesa</string>
+    <string name="show_emoji_key">Klávesa pro emodži</string>
     <string name="subtype_no_language_workman">Abeceda (Workman)</string>
     <string name="enable_clipboard_history_summary">Pokud vypnuto, tlačítko schránky vloží obsah schránky, pokud nějaký existuje</string>
     <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
@@ -177,7 +177,7 @@
     <string name="load_gesture_library_button_load">Načíst knihovnu</string>
     <string name="load_gesture_library_button_delete">Odstranit knihovnu</string>
     <string name="show_popup_keys_title">Zobrazit další písmena s diakritikou ve vyskakovacím okně</string>
-    <string name="show_popup_keys_normal">Zobrazit varianty definované v jazycích klávesnice (výchozí)</string>
+    <string name="show_popup_keys_normal">Zobrazit varianty definované v jazycích klávesnice</string>
     <string name="show_popup_keys_more">Přidat společné varianty</string>
     <string name="show_popup_keys_all">Přidat všechny dostupné varianty</string>
     <string name="url_detection_title">Detekce URL</string>
@@ -218,7 +218,7 @@
     <string name="subtype_xdq">Kaitag</string>
     <string name="close_history" tools:keep="@string/close_history">Zavřít historii schránky</string>
     <string name="clipboard_toolbar_keys">Výběr kláves panelu nástrojů schránky</string>
-    <string name="prefs_bottom_padding_scale">Měřítko dolní výplně</string>
+    <string name="prefs_bottom_padding_scale">Měřítko dolního odsazení</string>
     <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="button_copy_existing_layout">Zkopírovat stávající rozložení</string>
     <string name="title_layout_name_select">Nastavit název rozvržení</string>
@@ -245,7 +245,7 @@
     <string name="space_swipe_move_cursor_entry">Přesun kurzoru</string>
     <string name="show_vertical_space_swipe">Svislé gesto přejetí mezerníku</string>
     <string name="prefs_always_show_suggestions_summary">Ignorovat požadavek jiných aplikací na zakázání návrhů (může způsobit problémy)</string>
-    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
+    <string name="no_dictionary_message">"Bez slovníku se zobrazí pouze návrhy textu, který jste zadali dříve.&lt;br&gt;\n        Můžete si stáhnout slovníky %1$s nebo zkontrolovat, zda lze slovník pro „%2$s“ stáhnout přímo %3$s."</string>
     <string name="dictionary_link_text">zde</string>
     <string name="add_dictionary">Vybrat slovník, který chcete přidat. Slovníky ve formátu .dict lze stáhnout %s.</string>
     <string name="available_dictionary_experimental">%s (experimentální)</string>
@@ -308,12 +308,12 @@
 \nVarování: načítání externího kódu může představovat bezpečnostní riziko. Používejte pouze knihovnu ze zdroje, kterému důvěřujete.</string>
     <string name="hidden_features_title">Popis skrytých funkcí</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannadština">%s</xliff:g> (Rozšířené)</string>
-    <string name="hidden_features_message">► Dlouhým stisknutím klávesy schránky (volitelná v pruhu návrhů) vložíte obsah systémové schránky. &lt;br&gt; &lt;br&gt; ► Dlouhé stisknutí kláves na panelu nástrojů pruhu návrhů je připne na pruh návrhů. &lt;br&gt; &lt;br&gt; ► Dlouhým stisknutím klávesy čárka otevřete zobrazení schránky, zobrazení emodži, režim jedné ruky, nastavení nebo přepnutí jazyka: &lt;br&gt; • Zobrazení emodži a přepínání jazyků zmizí, pokud máte odpovídající klávesu povoleno; &lt;br&gt; • U některých rozvržení to není klávesa Comma, ale klávesa na stejné pozici (např. je to \'q\' pro rozvržení Dvorak). &lt;br&gt; &lt;br&gt; ► Když je povolen režim inkognito, nebudou se učit žádná slova a nebudou přidány žádné emotikony. &lt;br&gt; &lt;br&gt; ► Stisknutím ikony inkognito otevřete panel nástrojů. &lt;br&gt; &lt;br&gt; ► Zadávání pomocí posuvné klávesy: Přejetím z Shift na jinou klávesu zadejte jednu klávesu velkých písmen: &lt;br&gt; • Toto funguje také pro klávesu „?123“ pro psaní jediného symbolu z klávesnice se symboly a pro související klíče. &lt;br&gt; &lt;br&gt; ► Dlouhým stisknutím návrhu v pruhu návrhů zobrazíte další návrhy a stisknutím tlačítka Smazat tento návrh odstraníte. &lt;br&gt; &lt;br&gt; ► Přejetím prstem nahoru z návrhu otevřete další návrhy a uvolněním návrh jej vyberte. &lt;br&gt; &lt;br&gt; ► Dlouhým stisknutím položky v historii schránky ji připnete (uchovávejte ji ve schránce, dokud ji neuvolníte). &lt;br&gt; &lt;br&gt; ► Slovníky můžete přidávat tak, že je otevřete v průzkumníku souborů: &lt;br&gt; • Toto funguje pouze s &lt;i&gt;content-uris&lt;/i&gt; a nikoli s &lt;i&gt;file-uris&lt;/i&gt; , což znamená, že nemusí fungovat s některými průzkumníky souborů. &lt;br&gt; &lt;br&gt; &lt;i&gt;Režim ladění / ladění APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; • Dlouhým stisknutím návrhu zobrazíte zdrojový slovník.&lt;br&gt; &lt;br&gt; • Při použití ladícího souboru APK můžete najděte Nastavení ladění v Pokročilých předvolbách, i když užitečnost je omezená s výjimkou ukládání slovníků do protokolu. &lt;br&gt; &lt;br&gt; • V případě pádu aplikace budete při otevření Nastavení dotázáni, zda chcete protokoly o selhání. &lt;br&gt; &lt;br&gt; • Při použití vícejazyčného psaní bude mezerník zobrazovat hodnotu spolehlivosti používanou k určení aktuálně používaného jazyka. &lt;br&gt; &lt;br&gt; • Návrhy budou mít navrchu malá čísla zobrazující nějaké interní skóre a zdrojový slovník (lze vypnout). &lt;br&gt; &lt;br&gt; ► Pro uživatele, kteří provádějí ruční zálohování s přístupem root: Počínaje Androidem 7 není soubor sdílených předvoleb ve výchozím umístění, protože aplikace používá %s. &lt;br&gt; To je nezbytné, aby bylo možné načíst nastavení před odemknutím zařízení, např. při startu. &lt;br&gt; Soubor se nachází v /data/user_de/0/package_id/shared_prefs/, i když to může záviset na zařízení a verzi Androidu.</string>
+    <string name="hidden_features_message">► Dlouhý stisk kláves na připnuté liště nástrojů vyvolá další funkce: &lt;br&gt; \n\t• schránka &amp;#65515; vložit &lt;br&gt; \n\t• pohyb doleva/doprava &amp;#65515; slovo doleva/doprava &lt;br&gt; \n\t• pohyb nahoru/dolů &amp;#65515; stránka nahoru/dolů &lt;br&gt; \n\t• slovo doleva/doprava &amp;#65515; začátek/konec řádku &lt;br&gt; \n\t• stránka nahoru/dolů &amp;#65515; začátek/konec stránky &lt;br&gt; \n\t• kopírovat &amp;#65515; vystřihnout &lt;br&gt; \n\t• vybrat slovo &amp;#8596; vybrat vše &lt;br&gt; \n\t• zrušit &amp;#8596; opakovat &lt;br&gt; &lt;br&gt; \n► Dlouhý stisk kláves v liště s návrhy je připne. &lt;br&gt; &lt;br&gt; \n► Dlouhý stisk klávesy čárky pro přístup k zobrazení schránky, zobrazení emodži, režimu pro jedno ruce, nastavení nebo přepnutí jazyka: &lt;br&gt; \n\t• Zobrazení emodži a přepnutí jazyka zmizí, pokud máte odpovídající klávesu povolenou; &lt;br&gt; \n\t• U některých rozložení to není klávesa čárky, ale klávesa na stejné pozici (např. u Dvorak rozložení je to klávesa \'q\'). &lt;br&gt; &lt;br&gt; \n► Při zapnutém inkognito režimu se nebudou učit žádná slova a žádná emodži nebudou přidána do historie. &lt;br&gt; &lt;br&gt; \n► Stiskněte ikonu inkognito pro přístup k liště nástrojů. &lt;br&gt; &lt;br&gt; \n► Posuvný vstup klávesy: Přejeďte od klávesy Shift na jinou klávesu pro napsání jednoho velkého písmene: &lt;br&gt; \n\t• Toto také funguje pro klávesu \'?123\' pro napsání jednoho symbolu z klávesnice symbolů a pro související klávesy. &lt;br&gt; &lt;br&gt; \n► Držte klávesu Shift nebo symbolu, stiskněte jednu nebo více kláves a pak uvolněte Shift nebo symbolovou klávesu pro návrat na předchozí klávesnici. &lt;br&gt; &lt;br&gt; \n► Dlouhý stisk návrhu v liště návrhů pro zobrazení více návrhů a tlačítko pro smazání tohoto návrhu. &lt;br&gt; &lt;br&gt; \n► Přejeďte prstem nahoru z návrhu pro otevření více návrhů a uvolněte prst na návrhu pro jeho výběr. &lt;br&gt; &lt;br&gt; \n► Dlouhý stisk položky v historii schránky pro její připnutí (udržení v schránce, dokud ji neodpinete). &lt;br&gt; &lt;br&gt; \n► Přejeďte prstem doleva ve zobrazení schránky pro odstranění položky (kromě případů, kdy je připnuta). &lt;br&gt; &lt;br&gt; \n► Vyberte text a stiskněte Shift pro přepínání mezi velkými písmeny, malými písmeny a velkými prvními písmeny slov. &lt;br&gt; &lt;br&gt; \n► Můžete přidat slovníky otevřením v průzkumníku souborů: &lt;br&gt; \n\t• Toto funguje pouze s &lt;i&gt;content-uris&lt;/i&gt;, nikoliv s &lt;i&gt;file-uris&lt;/i&gt;, což znamená, že to nemusí fungovat u některých průzkumníků souborů. &lt;br&gt; &lt;br&gt; \n► Pro uživatele provádějící manuální zálohy s root přístupem: &lt;br&gt; \n\t• Začínaje Androidem 7, soubor sdílených preferencí není na výchozím místě, protože aplikace používá %s. To je nutné, aby nastavení mohla být přečtena před odemknutím zařízení, např. při spuštění; &lt;br&gt; \n\t• Soubor se nachází v /data/user_de/0/package_id/shared_prefs/, i když to může záviset na zařízení a verzi Androidu. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Režim ladění / ladící APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Dlouhý stisk návrhu pro zobrazení zdrojového slovníku. &lt;br&gt; &lt;br&gt; \n► Při používání ladícího APK najdete Nastavení ladění v pokročilých preferencích, i když jejich užitečnost je omezená, kromě dumpování slovníků do logu. &lt;br&gt; \n\t• Pro vydané APK je nutné několikrát stisknout verzi v &lt;i&gt;O aplikaci&lt;/i&gt;, poté najdete nastavení ladění v &lt;i&gt;Pokročilých preferencích&lt;/i&gt;. &lt;br&gt; \n\t• Při povolení &lt;i&gt;Zobrazit informace o návrzích&lt;/i&gt; budou návrhy mít malá čísla nahoře ukazující interní skóre a zdrojový slovník. &lt;br&gt; &lt;br&gt; \n► Při pádu aplikace budete vyzváni, zda chcete získat záznamy o pádu, když otevřete Nastavení. &lt;br&gt; &lt;br&gt; \n► Při používání vícejazyčného psaní bude klávesa mezerníku zobrazovat hodnotu důvěry, která se používá k určení aktuálně používaného jazyka. &lt;br&gt; &lt;br&gt; \n► Návrhy budou mít malá čísla nahoře ukazující interní skóre a zdrojový slovník (může být vypnuto).</string>
     <string name="file_read_error">Nelze přečíst soubor</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Další symboly</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefonní symboly</string>
-    <string name="replace_dictionary_message">Opravdu nahradit uživatelem přidaný slovník „%1$s“? \n \nAktuální slovník: \n%2$s \n \nNový slovník: \n%3$s</string>
+    <string name="replace_dictionary_message">Opravdu chcete nahradit uživatelem přidaný slovník „%1$s“?\n\nAktuální slovník:\n%2$s\n\nNový slovník:\n%3$s</string>
     <string name="replace_dictionary">Nahradit slovník</string>
     <string name="remove_dictionary_message">Opravdu odstranit slovník „%s“ přidaný uživatelem?</string>
     <string name="license">Open-source licence</string>
@@ -330,4 +330,123 @@
     <string name="all_colors">Zobrazit všechny barvy</string>
     <string name="hint_show_keyboard">Klikněte pro náhled</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Ruština">%s</xliff:g> (Student)</string>
+    <string name="language_switch_key_behavior">Chování klávesy pro přepínání jazyků</string>
+    <string name="vibrate_in_dnd_mode">Vibrace v režimu nerušit</string>
+    <string name="settings_category_space">Mezerník</string>
+    <string name="split_spacer_scale_landscape">Vzdálenost rozdělení (na šířku)</string>
+    <string name="enable_split_keyboard_landscape">Povolit rozdělenou klávesnici (na šířku)</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Webová pole pro úpravu (nacházejí se převážně v prohlížečích) jsou velmi častou příčinou problémů s nastavením zobrazování návrhů</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Nezobrazovat návrhy pro webová pole pro úpravu</string>
+    <string name="page_start" tools:keep="@string/page_start">Začátek stránky</string>
+    <string name="page_end" tools:keep="@string/page_end">Konec stránky</string>
+    <string name="page_up" tools:keep="@string/page_up">Stránka nahoru</string>
+    <string name="page_down" tools:keep="@string/page_down">Stránka dolů</string>
+    <string name="split" tools:keep="@string/split">Rozdělená klávesnice</string>
+    <string name="backspace_reverts_autocorrect">Backspace vrátí automatickou opravu</string>
+    <string name="gesture_floating_preview_static">Plovoucí náhled</string>
+    <string name="gesture_floating_preview_static_summary">Zobrazit navržené slovo během gest</string>
+    <string name="gesture_floating_preview_dynamic_summary">Přesunout náhled během gesta</string>
+    <string name="gesture_fast_typing_cooldown_instant">Vždy okamžitě začít</string>
+    <string name="show_tld_popup_keys_summary">Nahradit vyskakovací okno tečky doménami nejvyšší úrovně při zadávání adres URL a e-mailových adres</string>
+    <string name="autospace_after_suggestion">Automatická mezera pov výběru návrhu</string>
+    <string name="autospace_after_gesture_typing">Automatická mezera po napsání slova gestem</string>
+    <string name="shift_removes_autospace">Zakázat automatickou mezeru po stisku Shiftu</string>
+    <string name="shift_removes_autospace_summary">Shift odstraní čekající automatickou mezeru</string>
+    <string name="show_tld_popup_keys">Zobrazit vyskakovací klávesy domén</string>
+    <string name="timestamp_format_title">Formát pro klíč časové značky</string>
+    <string name="auto_correct_shortcuts">Automaticky opravovat zkratky</string>
+    <string name="auto_correct_shortcuts_summary">Pokud je povoleno, mohou být zkratky rozbaleny automatickým opravením</string>
+    <string name="gesture_fast_typing_cooldown">Zpomalení rychlého psaní</string>
+    <string name="gesture_trail_fadeout_duration">Doba do zmizení stopy gesta</string>
+    <string name="autospace_before_gesture_typing">Automatická mezera před napsáním slova gestem</string>
+    <string name="suggest_clipboard_content">Navrhovat obsah schránky</string>
+    <string name="suggest_clipboard_content_summary">Zobrazit nedávno zkopírovaný obsah jako návrh</string>
+    <string name="word_left" tools:keep="@string/word_left">Slovo doleva</string>
+    <string name="word_right" tools:keep="@string/word_right">Slovo doprava</string>
+    <string name="show_popup_keys_main">Přidat velmi běžné varianty (výchozí)</string>
+    <string name="number_row_hints">Zobrazit nápovědy na číselném řádku</string>
+    <string name="locales_with_dict">Jazyky se slovníky</string>
+    <string name="button_save_file">Uložit do souboru</string>
+    <string name="quick_pin_toolbar_keys">Připnout klávesu do panelu nástrojů při dlouhém podržení</string>
+    <string name="customize_currencies_detail">Nastavit hlavní a až 6 dalších symbolů měny, oddělených mezerami</string>
+    <string name="name_invalid">Neplatný název</string>
+    <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Dolní řádek schránky</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Dolní řádek emodži</string>
+    <string name="after_numpad_and_space">Stisknutí klávesy Enter nebo mezerníku po ostatních klávesách v numerické klávesnici</string>
+    <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Mezerník (číselné rozložení)</string>
+    <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Změnit velikost režimu jedné ruky</string>
+    <string name="customize_icons_reset_message">Opravdu chcete resetovat všechny přizpůsobené ikony?</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Číselný řádek (základní)</string>
+    <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (stisknutý)</string>
+    <string name="toast_msg_clipboard_copy">Obsah zkopírován</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Ukončit režim jedné ruky</string>
+    <string name="prefs_space_bar_text">Vlastní text na mezerníku</string>
+    <string name="more_colors">Zobrazit další barvy</string>
+    <string name="load">Načíst</string>
+    <string name="emoji" tools:keep="@string/emoji">Emodži</string>
+    <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Hlasový vstup zakázán</string>
+    <string name="customize_currencies">Přizpůsobit měny</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (fonetická)</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="copy_to_clipboard">Zkopírovat do schránky</string>
+    <string name="prefs_key_emoji_max_sdk">Přepsat verzi emodži</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps Lock</string>
+    <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Zobrazit / skrýt panel nástrojů</string>
+    <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nespojovač s nulovou šířkou</string>
+    <string name="space_swipe_toggle_numpad_entry">Přepnout numerickou klávesnici</string>
+    <string name="customize_toolbar_key_codes">Přizpůsobit kódy kláves v panelu nástrojů</string>
+    <string name="auto_show_toolbar">Automaticky zobrazit panel nástrojů</string>
+    <string name="auto_show_toolbar_summary">Zobrazit panel nástrojů, když je spuštěn vstup nebo vybrán text</string>
+    <string name="auto_hide_toolbar">Automaticky skrýt panel nástrojů</string>
+    <string name="auto_hide_toolbar_summary">Skrýt panel nástrojů, když jsou dostupné návrhy</string>
+    <string name="customize_icons">Přizpůsobit ikony</string>
+    <string name="custom_subtype">Vlastní podtyp</string>
+    <string name="layout_in_use">Varování: rozložení se aktuálně používá</string>
+    <string name="delete_confirmation">Opravdu chcete odstranit %s?</string>
+    <string name="custom_font">Nastavit vlastní písmo ze souboru</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="customize_background_image_landscape">Nastavit obrázek na pozadí (na šířku)</string>
+    <string name="summary_customize_background_image_landscape">Pokud není nastaven, bude použit obrázek na výšku</string>
+    <string name="load_will_overwrite">Načtením přepíšete aktuální motiv</string>
+    <string name="settings_screen_toolbar">Panel nástrojů</string>
+    <string name="long_press_code">Kód dlouhého stisknutí</string>
+    <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Přepnout stranu režimu jedné ruky</string>
+    <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Spojovač s nulovou šířkou</string>
+    <string name="after_emoji">Výběr emodži v zobrazení emodži</string>
+    <string name="remove_redundant_popups">Odstranit přebytečné vyskakovací klávesy</string>
+    <string name="customize_toolbar_key_code_reset_message">Opravdu chcete vymazat všechny přizpůsobené kódy kláves?</string>
+    <string name="settings_screen_secondary_layouts">Sekundární rozložení</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funkční klávesy (velká obrazovka)</string>
+    <string name="layout_number_row" tools:keep="@string/layout_number_row">Číselný řádek</string>
+    <string name="switch_keyboard_after">Přepnout na hlavní klávesnici po…</string>
+    <string name="after_clip">Výběr záznamu v historii schránky</string>
+    <string name="after_symbol_and_space">Stisknutí klávesy Enter nebo mezerníku v zobrazení znaků</string>
+    <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je náhodná a názvy se nepřekládají.</string>
+    <string name="subtype_mns">Mansijština</string>
+    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansijština (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkční klávesy</string>
+    <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkční klávesy (znaky)</string>
+    <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkční klávesy (další znaky)</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="icon_style">Styl ikon</string>
+    <string name="prefs_bottom_padding_scale_landscape">Měřítko dolního odsazení (na šířku)</string>
+    <string name="prefs_font_scale">Měřítko písma klávesnice</string>
+    <string name="prefs_emoji_font_scale">Měřítko písma v zobrazení emodži</string>
+    <string name="prefs_side_padding_scale_landscape">Měřítko postranního odsazení (na šířku)</string>
+    <string name="prefs_side_padding_scale">Měřítko postranního odsazení</string>
+    <string name="label_bin" tools:keep="@string/label_bin">Koš</string>
+    <string name="key_code">Kód klávesy</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="prefs_language_swipe_distance">Přepnout vzdálenost přejetí jazyka</string>
+    <string name="pinned_toolbar_keys">Vyberte připnuté klávesy v panelu nástrojů</string>
+    <string name="quick_pin_toolbar_keys_summary">Toto zakáže další akce dlouhého stisknutí pro klávesy panelu nástrojů, které nejsou připnuty</string>
+    <string name="remove_redundant_popups_summary">Zakázat vyskakovací klávesy, které se již nacházejí v základním rozložení klávesnice</string>
+    <string name="get_colors_message">Barvy můžete najít a sdílet v %s.</string>
+    <string name="discussion_section_link">sekci diskuze</string>
+    <string name="get_layouts_message">Rozložení můžete najít a sdílet v %s.</string>
+    <string name="subtype_st">Sesothština</string>
+    <string name="subtype_dag">Dagbani</string>
 </resources>

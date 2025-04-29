@@ -1,19 +1,24 @@
-// SPDX-License-Identifier: GPL-3.0-only
-package helium314.keyboard.settings.dialogs
+package helium314.keyboard.settings.screens
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -61,6 +66,7 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.appendLink
+import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
@@ -68,22 +74,27 @@ import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.DefaultButton
+import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.DropDownField
+import helium314.keyboard.settings.SearchScreen
 import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.WithSmallTitle
+import helium314.keyboard.settings.dialogs.ConfirmationDialog
+import helium314.keyboard.settings.dialogs.LayoutEditDialog
+import helium314.keyboard.settings.dialogs.ListPickerDialog
+import helium314.keyboard.settings.dialogs.MultiListPickerDialog
+import helium314.keyboard.settings.dialogs.ReorderDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.layoutFilePicker
 import helium314.keyboard.settings.layoutIntent
 import helium314.keyboard.settings.previewDark
-import helium314.keyboard.settings.screens.GetIcon
 import java.util.Locale
 
 @Composable
-fun SubtypeDialog(
-    onDismissRequest: () -> Unit,
+fun SubtypeScreen(
     initialSubtype: SettingsSubtype,
-    onConfirmed: (SettingsSubtype) -> Unit,
+    onClickBack: () -> Unit,
 ) {
     val ctx = LocalContext.current
     val prefs = ctx.prefs()
@@ -92,7 +103,10 @@ fun SubtypeDialog(
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     var currentSubtypeString by rememberSaveable { mutableStateOf(initialSubtype.toPref()) }
     val currentSubtype = currentSubtypeString.toSettingsSubtype()
-    fun setCurrentSubtype(subtype: SettingsSubtype) { currentSubtypeString = subtype.toPref() }
+    fun setCurrentSubtype(subtype: SettingsSubtype) {
+        SubtypeUtilsAdditional.changeAdditionalSubtype(currentSubtype, subtype, ctx)
+        currentSubtypeString = subtype.toPref()
+    }
     LaunchedEffect(currentSubtypeString) {
         if (ScriptUtils.scriptSupportsUppercase(currentSubtype.locale)) return@LaunchedEffect
         // update the noShiftKey extra value
@@ -120,45 +134,46 @@ fun SubtypeDialog(
     var showMorePopupsDialog by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
     val customMainLayouts = LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, ctx, currentSubtype.locale).map { it.name }
-    ThreeButtonAlertDialog(
-        onDismissRequest = onDismissRequest,
-        onConfirmed = { onConfirmed(currentSubtype) },
-        neutralButtonText = if (initialSubtype.isAdditionalSubtype(prefs)) stringResource(R.string.delete) else null,
-        onNeutral = {
-            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
-            SubtypeSettings.removeEnabledSubtype(ctx, initialSubtype.toAdditionalSubtype()!!)
-            onDismissRequest()
-        },
-        title = {
-            val mainLayout = initialSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
-            Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(mainLayout, initialSubtype.locale))
-        },
-        content = {
+    SearchScreen(
+        onClickBack = onClickBack,
+        icon = { if (currentSubtype.isAdditionalSubtype(prefs)) DeleteButton {
+            SubtypeUtilsAdditional.removeAdditionalSubtype(ctx, currentSubtype.toAdditionalSubtype())
+            SubtypeSettings.removeEnabledSubtype(ctx, currentSubtype.toAdditionalSubtype())
+            onClickBack()
+        } },
+        title = { Text(currentSubtype.toAdditionalSubtype().displayName(ctx)) },
+        itemContent = { },
+        filteredItems = { emptyList<String>() }
+    ) {
+        Scaffold(
+            contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
+        ) { innerPadding ->
             Column(
-                modifier = Modifier.verticalScroll(scrollState),
+                modifier = Modifier.verticalScroll(scrollState).padding(horizontal = 12.dp)
+                    .then(Modifier.padding(innerPadding)),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                MainLayoutRow(initialSubtype, currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
+                MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
                 if (availableLocalesForScript.size > 1) {
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
-                                    it.localizedDisplayName(ctx)
-                                }.ifEmpty { stringResource(R.string.action_none) }
-                            Text(text, Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodyLarge)
+                                it.localizedDisplayName(ctx)
+                            }.ifEmpty { stringResource(R.string.action_none) }
+                            Text(text, Modifier.fillMaxWidth())
                         }
                     }
                 }
                 Row {
                     TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.popup_order), style = MaterialTheme.typography.bodyLarge) }
+                    { Text(stringResource(R.string.popup_order)) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
                         setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
                     }
                 }
                 Row {
                     TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.hint_source), style = MaterialTheme.typography.bodyLarge) }
+                    { Text(stringResource(R.string.hint_source)) }
                     DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
                         setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
                     }
@@ -166,7 +181,10 @@ fun SubtypeDialog(
                 if (currentSubtype.locale.script() == ScriptUtils.SCRIPT_LATIN) {
                     WithSmallTitle(stringResource(R.string.show_popup_keys_title)) {
                         val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-                        val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)!!
+                        val value = explicitValue ?: prefs.getString(
+                            Settings.PREF_MORE_POPUP_KEYS,
+                            Defaults.PREF_MORE_POPUP_KEYS
+                        )!!
                         Row {
                             TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
                             { Text(stringResource(morePopupKeysResId(value))) }
@@ -181,7 +199,10 @@ fun SubtypeDialog(
                         val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
                         Text(stringResource(R.string.localized_number_row), Modifier.weight(1f))
                         Switch(
-                            checked = checked ?: prefs.getBoolean(Settings.PREF_LOCALIZED_NUMBER_ROW, Defaults.PREF_LOCALIZED_NUMBER_ROW),
+                            checked = checked ?: prefs.getBoolean(
+                                Settings.PREF_LOCALIZED_NUMBER_ROW,
+                                Defaults.PREF_LOCALIZED_NUMBER_ROW
+                            ),
                             onCheckedChange = {
                                 setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
                             }
@@ -192,7 +213,10 @@ fun SubtypeDialog(
                     }
                 }
                 HorizontalDivider()
-                Text(stringResource(R.string.settings_screen_secondary_layouts), style = MaterialTheme.typography.titleMedium)
+                Text(
+                    stringResource(R.string.settings_screen_secondary_layouts),
+                    style = MaterialTheme.typography.titleMedium
+                )
                 LayoutType.entries.forEach { type ->
                     if (type == LayoutType.MAIN) return@forEach
                     WithSmallTitle(stringResource(type.displayNameId)) {
@@ -206,20 +230,31 @@ fun SubtypeDialog(
                             onSelected = {
                                 setCurrentSubtype(currentSubtype.withLayout(type, it))
                             },
-                            extraButton = { DefaultButton(explicitLayout == null) {
-                                setCurrentSubtype(currentSubtype.withoutLayout(type))
-                            } },
+                            extraButton = {
+                                DefaultButton(explicitLayout == null) {
+                                    setCurrentSubtype(currentSubtype.withoutLayout(type))
+                                }
+                            },
                         ) {
-                            val displayName = if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
-                            else it.getStringResourceOrName("layout_", ctx)
+                            val displayName =
+                                if (LayoutUtilsCustom.isCustomLayout(it)) LayoutUtilsCustom.getDisplayName(it)
+                                else it.getStringResourceOrName("layout_", ctx)
                             var showLayoutEditDialog by remember { mutableStateOf(false) }
                             Row(
                                 horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(displayName, Modifier.padding(end = 8.dp))
+                                Text(displayName)
                                 if (LayoutUtilsCustom.isCustomLayout(it))
-                                    Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = true })
+                                    IconButton({
+                                        showLayoutEditDialog = true
+                                    }) {
+                                        Icon(
+                                            painterResource(R.drawable.ic_edit),
+                                            stringResource(R.string.edit_layout)
+                                        )
+                                    }
                             }
                             if (showLayoutEditDialog)
                                 LayoutEditDialog(
@@ -233,66 +268,73 @@ fun SubtypeDialog(
                 }
             }
         }
-    )
-    if (showSecondaryLocaleDialog)
-        MultiListPickerDialog(
-            onDismissRequest = { showSecondaryLocaleDialog = false },
-            onConfirmed = { locales ->
-                val newValue = locales.joinToString(Separators.KV) { it.toLanguageTag() }
-                setCurrentSubtype(
-                    if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
-                    else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
-                )
-            },
-            title = { Text(stringResource(R.string.locales_with_dict)) },
-            items = availableLocalesForScript,
-            initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
-                ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
-            getItemName = { it.localizedDisplayName(ctx) }
-        )
-    if (showKeyOrderDialog) {
-        val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
-        PopupOrderDialog(
-            onDismissRequest = { showKeyOrderDialog = false },
-            initialValue = setting ?: prefs.getString(Settings.PREF_POPUP_KEYS_ORDER, Defaults.PREF_POPUP_KEYS_ORDER)!!,
-            title = stringResource(R.string.popup_order),
-            showDefault = setting != null,
-            onConfirmed = {
-                setCurrentSubtype(
-                    if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
-                    else currentSubtype.with(ExtraValue.POPUP_ORDER, it)
-                )
-            }
-        )
-    }
-    if (showHintOrderDialog) {
-        val setting = currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER)
-        PopupOrderDialog(
-            onDismissRequest = { showHintOrderDialog = false },
-            initialValue = setting ?: prefs.getString(Settings.PREF_POPUP_KEYS_LABELS_ORDER, Defaults.PREF_POPUP_KEYS_LABELS_ORDER)!!,
-            title = stringResource(R.string.hint_source),
-            showDefault = setting != null,
-            onConfirmed = {
-                setCurrentSubtype(
-                    if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
-                    else currentSubtype.with(ExtraValue.HINT_ORDER, it)
-                )
-            }
-        )
-    }
-    if (showMorePopupsDialog) {
-        val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL)
-        val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
-        val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
-        ListPickerDialog(
-            onDismissRequest = { showMorePopupsDialog = false },
-            items = items,
-            getItemName = { stringResource(morePopupKeysResId(it)) },
-            selectedItem = value,
-            onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
-        )
+        if (showSecondaryLocaleDialog)
+            MultiListPickerDialog(
+                onDismissRequest = { showSecondaryLocaleDialog = false },
+                onConfirmed = { locales ->
+                    val newValue = locales.joinToString(Separators.KV) { it.toLanguageTag() }
+                    setCurrentSubtype(
+                        if (newValue.isEmpty()) currentSubtype.without(ExtraValue.SECONDARY_LOCALES)
+                        else currentSubtype.with(ExtraValue.SECONDARY_LOCALES, newValue)
+                    )
+                },
+                title = { Text(stringResource(R.string.locales_with_dict)) },
+                items = availableLocalesForScript,
+                initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
+                    ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
+                getItemName = { it.localizedDisplayName(ctx) }
+            )
+        if (showKeyOrderDialog) {
+            val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
+            PopupOrderDialog(
+                onDismissRequest = { showKeyOrderDialog = false },
+                initialValue = setting ?: prefs.getString(
+                    Settings.PREF_POPUP_KEYS_ORDER,
+                    Defaults.PREF_POPUP_KEYS_ORDER
+                )!!,
+                title = stringResource(R.string.popup_order),
+                showDefault = setting != null,
+                onConfirmed = {
+                    setCurrentSubtype(
+                        if (it == null) currentSubtype.without(ExtraValue.POPUP_ORDER)
+                        else currentSubtype.with(ExtraValue.POPUP_ORDER, it)
+                    )
+                }
+            )
+        }
+        if (showHintOrderDialog) {
+            val setting = currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER)
+            PopupOrderDialog(
+                onDismissRequest = { showHintOrderDialog = false },
+                initialValue = setting ?: prefs.getString(
+                    Settings.PREF_POPUP_KEYS_LABELS_ORDER,
+                    Defaults.PREF_POPUP_KEYS_LABELS_ORDER
+                )!!,
+                title = stringResource(R.string.hint_source),
+                showDefault = setting != null,
+                onConfirmed = {
+                    setCurrentSubtype(
+                        if (it == null) currentSubtype.without(ExtraValue.HINT_ORDER)
+                        else currentSubtype.with(ExtraValue.HINT_ORDER, it)
+                    )
+                }
+            )
+        }
+        if (showMorePopupsDialog) {
+            val items = listOf(POPUP_KEYS_NORMAL, POPUP_KEYS_MAIN, POPUP_KEYS_MORE, POPUP_KEYS_ALL)
+            val explicitValue = currentSubtype.getExtraValueOf(ExtraValue.MORE_POPUPS)
+            val value = explicitValue ?: prefs.getString(Settings.PREF_MORE_POPUP_KEYS, Defaults.PREF_MORE_POPUP_KEYS)
+            ListPickerDialog(
+                onDismissRequest = { showMorePopupsDialog = false },
+                items = items,
+                getItemName = { stringResource(morePopupKeysResId(it)) },
+                selectedItem = value,
+                onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
+            )
+        }
     }
 }
+
 
 // from ReorderSwitchPreference
 @Composable
@@ -336,7 +378,6 @@ private fun PopupOrderDialog(
 
 @Composable
 private fun MainLayoutRow(
-    initialSubtype: SettingsSubtype,
     currentSubtype: SettingsSubtype,
     customLayouts: List<String>,
     setCurrentSubtype: (SettingsSubtype) -> Unit,
@@ -364,28 +405,33 @@ private fun MainLayoutRow(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.widthIn(min = 200.dp).fillMaxWidth()
             ) {
                 Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout), Modifier.clickable { showLayoutEditDialog = it to null })
-                    if (it in customLayouts && initialSubtype.mainLayoutName() != it) // don't allow current main layout
-                        Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete), Modifier.clickable { showLayoutDeleteDialog = true })
+                    IconButton({ showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
+                    if (it in customLayouts)
+                        IconButton({ showLayoutDeleteDialog = true }) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
                 }
             }
             if (showLayoutDeleteDialog) {
                 val others = SubtypeSettings.getAdditionalSubtypes().filter { st -> st.mainLayoutName() == it }
-                    .any { it.toSettingsSubtype() != initialSubtype }
+                    .any { it.toSettingsSubtype() != currentSubtype }
                 ConfirmationDialog(
                     onDismissRequest = { showLayoutDeleteDialog = false },
                     confirmButtonText = stringResource(R.string.delete),
                     title = { Text(stringResource(R.string.delete_layout, LayoutUtilsCustom.getDisplayName(it))) },
                     content = { if (others) Text(stringResource(R.string.layout_in_use)) },
                     onConfirmed = {
-                        if (it == currentSubtype.mainLayoutName())
-                            setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
+                        if (it == currentSubtype.mainLayoutName()) {
+                            // similar to what is done in SubtypeSettings.onRenameLayout
+                            val defaultLayout = SubtypeSettings.getResourceSubtypesForLocale(currentSubtype.locale).firstOrNull()?.mainLayoutName()
+                            val newSubtype = if (defaultLayout == null) currentSubtype.withoutLayout(LayoutType.MAIN)
+                                else currentSubtype.withLayout(LayoutType.MAIN, defaultLayout)
+                            setCurrentSubtype(newSubtype)
+                        }
                         LayoutUtilsCustom.deleteLayout(it, LayoutType.MAIN, ctx)
-                        (ctx.getActivity() as? SettingsActivity)?.prefChanged?.value = 1234
+                        (ctx.getActivity() as? SettingsActivity)?.prefChanged()
                     }
                 )
             }
@@ -393,7 +439,7 @@ private fun MainLayoutRow(
         if (showLayoutEditDialog != null) {
             val layoutName = showLayoutEditDialog!!.first
             val startContent = showLayoutEditDialog?.second
-                ?: if (layoutName in appLayouts) LayoutUtils.getContent(LayoutType.MAIN, layoutName, ctx)
+                ?: if (layoutName in appLayouts) LayoutUtils.getContentWithPlus(layoutName, currentSubtype.locale, ctx)
                 else null
             LayoutEditDialog(
                 onDismissRequest = { showLayoutEditDialog = null },
@@ -401,10 +447,11 @@ private fun MainLayoutRow(
                 initialLayoutName = layoutName,
                 startContent = startContent,
                 locale = currentSubtype.locale,
-                // only can edit name for new custom layout
-                isNameValid = if (layoutName in customLayouts) null else ({ it !in customLayouts }),
+                isNameValid = { it !in customLayouts },
                 onEdited = {
-                    if (layoutName !in customLayouts)
+                    if (layoutName !in customLayouts // edited a built-in layout, set new one as current
+                        || layoutName != it && layoutName == currentSubtype.mainLayoutName() // layout name for current subtype changed
+                        )
                         setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, it))
                 }
             )
@@ -447,6 +494,8 @@ private fun getAvailableSecondaryLocales(context: Context, mainLocale: Locale): 
 private fun Preview() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
-        SubtypeDialog({}, SettingsSubtype(Locale.ENGLISH, "")) { }
+        Surface {
+            SubtypeScreen(SettingsSubtype(Locale.ENGLISH, "")) { }
+        }
     }
 }

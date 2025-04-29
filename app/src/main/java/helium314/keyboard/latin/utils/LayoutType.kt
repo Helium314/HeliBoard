@@ -13,9 +13,9 @@ enum class LayoutType {
     companion object {
         fun EnumMap<LayoutType, String>.toExtraValue() = map { it.key.name + Separators.KV + it.value }.joinToString(Separators.ENTRY)
 
-        fun getLayoutMap(string: String): EnumMap<LayoutType, String> {
+        fun getLayoutMap(string: String?): EnumMap<LayoutType, String> {
             val map = EnumMap<LayoutType, String>(LayoutType::class.java)
-            string.split(Separators.ENTRY).forEach {
+            string?.split(Separators.ENTRY)?.forEach {
                 val s = it.split(Separators.KV)
                 runCatching { map[LayoutType.valueOf(s[0])] = s[1] }
             }
