@@ -553,7 +553,7 @@
             android:imeSubtypeMode="keyboard"
             android:imeSubtypeExtraValue="KeyboardLayoutSet=MAIN:hausa,AsciiCapable,EmojiCapable"
             android:isAsciiCapable="true"
-    />	 
+    />
         <subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
             android:subtypeId="0x39753b7f"
@@ -768,7 +768,7 @@
     />
 	<subtype android:icon="@drawable/ic_ime_switcher"
             android:label="@string/subtype_generic"
-            android:subtypeId="0x456d04f2"
+            android:subtypeId="0x3f5a9c12"
             android:imeSubtypeLocale="ko"
             android:languageTag="ko"
             android:imeSubtypeMode="keyboard"
