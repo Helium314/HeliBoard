@@ -168,7 +168,7 @@ object ScriptUtils {
             "sr", "mk", "ru", "uk", "mn", "be", "kk", "ky", "bg", "xdq", "cv", "mhr", "mns", "dru" -> SCRIPT_CYRILLIC
             "ka" -> SCRIPT_GEORGIAN
             "el" -> SCRIPT_GREEK
-            "iw" -> SCRIPT_HEBREW
+            "iw", "he" -> SCRIPT_HEBREW
             "km" -> SCRIPT_KHMER
             "lo" -> SCRIPT_LAO
             "ml" -> SCRIPT_MALAYALAM
