@@ -64,7 +64,7 @@ fun ThreeButtonAlertDialog(
                     bottom = if (reducePadding) 2.dp else 6.dp
                 )) {
                     title?.let {
-                        CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleLarge) {
+                        CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.titleMedium) {
                             Box(Modifier.padding(PaddingValues(bottom = if (reducePadding) 4.dp else 16.dp))) {
                                 title()
                             }
