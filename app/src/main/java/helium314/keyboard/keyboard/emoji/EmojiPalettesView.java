@@ -136,7 +136,7 @@ public final class EmojiPalettesView extends LinearLayout
                 // Needs to save pending updates for recent keys when we get out of the recents
                 // category because we don't want to move the recent emojis around while the user
                 // is in the recents category.
-                mRecentsKeyboard.flushPendingRecentKeys();
+                getRecentsKeyboard().flushPendingRecentKeys();
                 getRecyclerView(holder.itemView).getAdapter().notifyDataSetChanged();
             }
         }
@@ -189,7 +189,6 @@ public final class EmojiPalettesView extends LinearLayout
 
     private final EmojiCategory mEmojiCategory;
     private ViewPager2 mPager;
-    private DynamicGridKeyboard mRecentsKeyboard;
 
     public EmojiPalettesView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.emojiPalettesViewStyle);
@@ -256,7 +255,6 @@ public final class EmojiPalettesView extends LinearLayout
     public void initialize() { // needs to be delayed for access to EmojiTabStrip, which is not a child of this view
         if (initialized) return;
         mEmojiCategory.initialize();
-        mRecentsKeyboard = mEmojiCategory.getKeyboard(EmojiCategory.ID_RECENTS, 0);
         mTabStrip = (LinearLayout) KeyboardSwitcher.getInstance().getEmojiTabStrip();
         for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
             addTab(mTabStrip, properties.mCategoryId);
@@ -357,10 +355,10 @@ public final class EmojiPalettesView extends LinearLayout
             return;
         }
         if (mEmojiCategory.isInRecentTab()) {
-            mRecentsKeyboard.addPendingKey(key);
+            getRecentsKeyboard().addPendingKey(key);
             return;
         }
-        mRecentsKeyboard.addKeyFirst(key);
+        getRecentsKeyboard().addKeyFirst(key);
         mPager.getAdapter().notifyItemChanged(mEmojiCategory.getRecentTabId());
     }
 
@@ -400,8 +398,12 @@ public final class EmojiPalettesView extends LinearLayout
 
     public void stopEmojiPalettes() {
         if (!initialized) return;
-        mRecentsKeyboard.flushPendingRecentKeys();
+        getRecentsKeyboard().flushPendingRecentKeys();
         clearKeyboardCache();
+    }
+
+    private DynamicGridKeyboard getRecentsKeyboard() {
+        return mEmojiCategory.getKeyboard(EmojiCategory.ID_RECENTS, 0);
     }
 
     public void setKeyboardActionListener(final KeyboardActionListener listener) {
