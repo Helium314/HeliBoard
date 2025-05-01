@@ -76,6 +76,21 @@ public final class InputView extends FrameLayout {
     }
 
     @Override
+    public WindowInsets onApplyWindowInsets(WindowInsets windowInsets) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            int gestures = windowInsets.getInsets(WindowInsets.Type.systemGestures()).bottom;
+            int bars = windowInsets.getInsets(WindowInsets.Type.systemBars()).bottom;
+            Log.i("insets", "onApplyWindowInsets, system bars bottom: "+bars+", gestures bottom: "+gestures);
+
+            // Can't set padding on this view, since it results in an overlap with window above the keyboard.
+            mMainKeyboardView.setPadding(0, 0, 0, bars);
+            findViewById(R.id.emoji_palettes_view).setPadding(0, 0, 0, bars);
+            findViewById(R.id.clipboard_history_view).setPadding(0, 0, 0, bars);
+        }
+        return super.onApplyWindowInsets(windowInsets);
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(final MotionEvent me) {
         final Rect rect = mInputViewRect;
         getGlobalVisibleRect(rect);
@@ -117,8 +132,7 @@ public final class InputView extends FrameLayout {
 
     private Unit onNextLayout(View v) {
         Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
-
-        if (Build.VERSION.SDK_INT >= 30) {
+/*        if (Build.VERSION.SDK_INT >= 30) {
             WindowManager wm = getContext().getSystemService(WindowManager.class);
             WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
 
@@ -138,7 +152,7 @@ public final class InputView extends FrameLayout {
                 findViewById(R.id.clipboard_history_view).setPadding(0, 0, 0, insets.bottom);
             }
         }
-
+*/
         return null;
     }
 
@@ -152,7 +166,7 @@ public final class InputView extends FrameLayout {
     }
 
     @RequiresApi(api = 30)
-    private static void logInsets(WindowMetrics metrics, String metricsType) {
+    public static void logInsets(WindowMetrics metrics, String metricsType) {
         logInsets(metrics, metricsType, WindowInsets::getInsets, "insets");
         logInsets(metrics, metricsType, WindowInsets::getInsetsIgnoringVisibility, "insetsIgnoringVisibility");
     }
