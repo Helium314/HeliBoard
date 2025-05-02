@@ -6,22 +6,13 @@
 
 package helium314.keyboard.latin;
 
-import java.util.function.BiFunction;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Insets;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowManager;
-import android.view.WindowMetrics;
 import android.widget.FrameLayout;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.view.ViewKt;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
@@ -30,13 +21,10 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.suggestions.PopupSuggestionsView;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
-import helium314.keyboard.latin.utils.Log;
 import kotlin.Unit;
 
 
 public final class InputView extends FrameLayout {
-    private static final int[] LOCATION = new int[2];
-
     private final Rect mInputViewRect = new Rect();
     private MainKeyboardView mMainKeyboardView;
     private KeyboardTopPaddingForwarder mKeyboardTopPaddingForwarder;
@@ -118,75 +106,9 @@ public final class InputView extends FrameLayout {
     private Unit onNextLayout(View v) {
         Settings.getValues().mColors.setBackground(findViewById(R.id.main_keyboard_frame), ColorType.MAIN_BACKGROUND);
 
-        if (Build.VERSION.SDK_INT >= 30) {
-            WindowManager wm = getContext().getSystemService(WindowManager.class);
-            WindowMetrics windowMetrics = wm.getCurrentWindowMetrics();
-
-            if (Build.VERSION.SDK_INT >= 35 || isEdgeToEdge(windowMetrics)) {
-                // Edge-to-edge mode
-                logInsets(wm.getMaximumWindowMetrics(), "max-metrics");
-                logInsets(wm.getCurrentWindowMetrics(), "current-metrics");
-
-                WindowInsets windowInsets = windowMetrics.getWindowInsets();
-                int insetTypes = WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout()
-                                | WindowInsets.Type.systemGestures();
-                Insets insets = windowInsets.getInsetsIgnoringVisibility(insetTypes);
-
-                // Can't set padding on this view, since it results in an overlap with window above the keyboard.
-                mMainKeyboardView.setPadding(0, 0, 0, insets.bottom);
-                findViewById(R.id.emoji_palettes_view).setPadding(0, 0, 0, insets.bottom);
-                findViewById(R.id.clipboard_history_view).setPadding(0, 0, 0, insets.bottom);
-            }
-        }
-
+        // Work around inset application being unreliable
+        requestApplyInsets();
         return null;
-    }
-
-    @SuppressLint("DefaultLocale")
-    @RequiresApi(api = 30)
-    private boolean isEdgeToEdge(WindowMetrics windowMetrics) {
-        getLocationOnScreen(LOCATION);
-        Log.i("insets", String.format("Keyboard bottom: %d, screen height: %d.", LOCATION[1] + getHeight(),
-                                      windowMetrics.getBounds().height()));
-        return LOCATION[1] + getHeight() == windowMetrics.getBounds().height();
-    }
-
-    @RequiresApi(api = 30)
-    private static void logInsets(WindowMetrics metrics, String metricsType) {
-        logInsets(metrics, metricsType, WindowInsets::getInsets, "insets");
-        logInsets(metrics, metricsType, WindowInsets::getInsetsIgnoringVisibility, "insetsIgnoringVisibility");
-    }
-
-    @RequiresApi(api = 30)
-    private static void logInsets(WindowMetrics metrics, String metricsType,
-                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
-        logInsets(metrics, metricsType, WindowInsets.Type.navigationBars(),"navigationBars",
-                  insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.systemBars(), "systemBars", insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.statusBars(), "statusBars", insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.displayCutout(),"displayCutout",
-                  insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.systemGestures(),"systemGestures",
-                  insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.mandatorySystemGestures(), "mandatorySystemGestures",
-                  insetsGetter, visibility);
-        logInsets(metrics, metricsType, WindowInsets.Type.tappableElement(),"tappableElement",
-                  insetsGetter, visibility);
-
-        if (Build.VERSION.SDK_INT >= 34) {
-            logInsets(metrics, metricsType, WindowInsets.Type.systemOverlays(), "systemOverlays",
-                      insetsGetter, visibility);
-        }
-    }
-
-    @RequiresApi(api = 30)
-    @SuppressLint("DefaultLocale")
-    private static void logInsets(WindowMetrics metrics, String metricsType, int insetTypes, String insetsType,
-                                  BiFunction<WindowInsets, Integer, Insets> insetsGetter, String visibility) {
-        WindowInsets windowInsets = metrics.getWindowInsets();
-        Insets insets = insetsGetter.apply(windowInsets, insetTypes);
-        Log.i("insets", String.format("%s, %s, %s, bottom %d, top %d", metricsType, insetsType, visibility,
-                                      insets.bottom, insets.top));
     }
 
     /**

@@ -148,6 +148,7 @@ public class KeyboardView extends View {
 
         mPaint.setAntiAlias(true);
         mTypeface = Settings.getInstance().getCustomTypeface();
+        setFitsSystemWindows(true);
     }
 
     @Nullable
