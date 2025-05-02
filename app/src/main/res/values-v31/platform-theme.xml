@@ -26,6 +26,11 @@
     </style>
 
     <style name="AlertDialogTheme" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:background">@color/action_bar_color</item>
+        <item name="android:textColor">@color/foreground</item>
+        <item name="android:textColorAlertDialogListItem">@color/foreground</item>
+        <item name="android:colorForeground">@color/foreground</item>
         <item name="android:colorBackgroundFloating">@color/dialog_background</item>
         <item name="android:dialogCornerRadius">28dp</item>
     </style>
