@@ -15,11 +15,10 @@
     android:background="@android:color/transparent"
     style="?attr/emojiPalettesViewStyle"
 >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/emoji_keyboard_list"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/emoji_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content" />
     <helium314.keyboard.keyboard.emoji.EmojiCategoryPageIndicatorView
         android:id="@+id/emoji_category_page_id_view"
         android:layout_width="match_parent"
