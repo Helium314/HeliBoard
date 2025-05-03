@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2008 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
     <string name="use_contacts_dict">"查詢聯絡人姓名"</string>
     <string name="vibrate_on_keypress">"按鍵時震動"</string>
     <string name="sound_on_keypress">"按鍵聲音"</string>
@@ -89,7 +88,7 @@
     <string name="setup_step2_instruction">"接著，請選取「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」做為目前使用的文字輸入法。"</string>
     <string name="setup_step2_action">"切換輸入法"</string>
     <string name="setup_step3_title">"恭喜，你已完成設定！"</string>
-    <string name="setup_step3_instruction">"現在，你可以在自己喜愛的所有應用程式中使用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」輸入文字。"</string>
+    <string name="setup_step3_instruction">現在您可以在所有您喜歡的應用程式中使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 輸入。</string>
     <string name="setup_finish_action">"完成"</string>
     <string name="show_setup_wizard_icon">"顯示應用程式圖示"</string>
     <string name="show_setup_wizard_icon_summary">"在啟動器中顯示應用程式圖示"</string>
@@ -124,4 +123,58 @@
     <string name="label_search_key">"搜尋"</string>
     <string name="label_pause_key">"暫停"</string>
     <string name="label_wait_key">"等待"</string>
+    <string name="theme_style">樣式</string>
+    <string name="dictionary_settings_category">字典</string>
+    <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫羅蘭</string>
+    <string name="settings_screen_appearance">外觀</string>
+    <string name="ime_settings">HeliBoard 設定</string>
+    <string name="settings_category_suggestions">建議</string>
+    <string name="settings_category_experimental">實驗功能</string>
+    <string name="settings_category_miscellaneous">雜項</string>
+    <string name="button_restore">還原</string>
+    <string name="layout_symbols" tools:keep="@string/layout_symbols">符號</string>
+    <string name="layout_numpad" tools:keep="@string/layout_numpad">數字鍵盤</string>
+    <string name="load">載入</string>
+    <string name="button_backup">備份</string>
+    <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">版面</string>
+    <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">符號</string>
+    <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
+    <string name="settings_category_input">輸入</string>
+    <string name="settings_category_correction">更正</string>
+    <string name="up" tools:keep="@string/up">上</string>
+    <string name="emoji" tools:keep="@string/emoji">表情符號</string>
+    <string name="theme_colors">顏色</string>
+    <string name="layout_phone" tools:keep="@string/layout_phone">電話</string>
+    <string name="action_none">無</string>
+    <string name="layout_number" tools:keep="@string/layout_number">數字</string>
+    <string name="day_or_night_day">日</string>
+    <string name="day_or_night_night">夜</string>
+    <string name="version">版本</string>
+    <string name="theme_name_light" tools:keep="@string/theme_name_light">淺色</string>
+    <string name="theme_name_dark" tools:keep="@string/theme_name_dark">深色</string>
+    <string name="theme_name_darker" tools:keep="@string/theme_name_darker">更深色</string>
+    <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">巧克力色</string>
+    <string name="theme_name_forest" tools:keep="@string/theme_name_forest">森林</string>
+    <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">海洋</string>
+    <string name="theme_name_pink" tools:keep="@string/theme_name_pink">粉紅色</string>
+    <string name="theme_name_user" tools:keep="@string/theme_name_user">使用者定義</string>
+    <string name="theme_name_brown" tools:keep="@string/theme_name_brown">棕色</string>
+    <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">多雲</string>
+    <string name="theme_name_black" tools:keep="@string/theme_name_black">黑色</string>
+    <string name="dialog_close">關閉</string>
+    <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">圓角</string>
+    <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">靛藍色</string>
+    <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
+    <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
+    <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">語言</string>
+    <string name="left" tools:keep="@string/left">左</string>
+    <string name="right" tools:keep="@string/right">右</string>
+    <string name="down" tools:keep="@string/down">下</string>
+    <string name="clipboard" tools:keep="@string/clipboard">剪貼簿</string>
+    <string name="user_dict_settings_add_weight_value">權重：</string>
+    <string name="dictionary_link_text">此處</string>
+    <string name="settings_screen_about">關於</string>
+    <string name="settings_screen_toolbar">工具列</string>
+    <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
 </resources>
