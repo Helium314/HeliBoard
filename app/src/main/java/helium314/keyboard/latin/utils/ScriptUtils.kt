@@ -184,4 +184,12 @@ object ScriptUtils {
             else -> SCRIPT_LATIN // use as fallback
         }
     }
+
+    @JvmStatic
+    fun isScriptRtl(script: String): Boolean {
+        return when (script) {
+            SCRIPT_ARABIC, SCRIPT_HEBREW -> true
+            else -> false
+        }
+    }
 }
