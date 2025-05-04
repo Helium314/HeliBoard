@@ -193,7 +193,7 @@ public class KeyboardView extends View {
         invalidateAllKeys();
         requestLayout();
         mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
-                ? Settings.getValues().mFontSizeMultiplierEmoji
+                ? 1
                 : Settings.getValues().mFontSizeMultiplier;
     }
 
