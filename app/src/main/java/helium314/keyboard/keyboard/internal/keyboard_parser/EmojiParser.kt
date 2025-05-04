@@ -44,11 +44,11 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         // this is a bit long, but ensures that emoji size stays the same, independent of these settings
         // we also ignore side padding for key width, and prefer fewer keys per row over narrower keys
         val defaultKeyWidth = ResourceUtils.getDefaultKeyboardWidth(context)  * params.mDefaultKeyWidth
-        val keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale)
+        val keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale) * Settings.getValues().mFontSizeMultiplierEmoji
         val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
         val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
         val emojiKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false) * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
-        val keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getValues().mKeyboardHeightScale // still apply height scale to key
+        val keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getValues().mKeyboardHeightScale * Settings.getValues().mFontSizeMultiplierEmoji // still apply height scale to key
 
         emojiArray.forEachIndexed { i, codeArraySpec ->
             val keyParams = parseEmojiKey(codeArraySpec, popupEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
