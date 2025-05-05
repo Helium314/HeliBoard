@@ -44,7 +44,6 @@
         <item>azerty</item>
         <item>dvorak</item>
         <item>halmak</item>
-        <item>hcesar</item>	
         <item>colemak</item>
         <item>colemak_dh</item>
         <item>workman</item>
@@ -58,7 +57,6 @@
         <item>AZERTY</item>
         <item>Dvorak</item>
         <item>Halmak</item>
-        <item>Hcesar</item>
         <item>Colemak</item>
         <item>Colemak Mod-DH</item>
         <item>Workman</item>
@@ -94,9 +92,6 @@
     <!-- Description for Hebrew 2 subtype. -->
     <string name="subtype_hebrew_1452_2" translatable="false">%s (1452-2)</string>
 	
-    <!-- Description for Hcesar subtype. -->
-    <string name="subtype_hcesar" translatable="false">%s (Hcesar)</string>
-
     <!-- App slogan-->
     <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
 
