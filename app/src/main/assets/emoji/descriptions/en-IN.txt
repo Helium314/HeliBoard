@@ -1,0 +1,2 @@
+description=Emoji descriptions,locale=en-IN,date=1746301609
+🫑=bell pepper

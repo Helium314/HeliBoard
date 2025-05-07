@@ -45,14 +45,16 @@ public final class PopupKeySpec {
 
     public PopupKeySpec(@NonNull final String popupKeySpec, boolean needsToUpperCase,
                         @NonNull final Locale locale) {
+        this(popupKeySpec, needsToUpperCase, locale, getCode(popupKeySpec, needsToUpperCase, locale), null);
+    }
+
+    public PopupKeySpec(@NonNull final String popupKeySpec, boolean needsToUpperCase,
+                        @NonNull final Locale locale, int code, @Nullable String parentLabel) {
         if (popupKeySpec.isEmpty()) {
             throw new KeySpecParser.KeySpecParserError("Empty popup key spec");
         }
         final String label = KeySpecParser.getLabel(popupKeySpec);
         mLabel = needsToUpperCase ? StringUtils.toTitleCaseOfKeyLabel(label, locale) : label;
-        final int codeInSpec = KeySpecParser.getCode(popupKeySpec);
-        final int code = needsToUpperCase ? StringUtils.toTitleCaseOfKeyCode(codeInSpec, locale)
-                : codeInSpec;
         if (code == KeyCode.NOT_SPECIFIED) {
             // Some letter, for example German Eszett (U+00DF: "ß"), has multiple characters
             // upper case representation ("SS").
@@ -60,7 +62,7 @@ public final class PopupKeySpec {
             mOutputText = mLabel;
         } else {
             mCode = code;
-            final String outputText = KeySpecParser.getOutputText(popupKeySpec, code);
+            final String outputText = KeySpecParser.getOutputText(parentLabel != null? parentLabel : popupKeySpec, code);
             mOutputText = needsToUpperCase
                     ? StringUtils.toTitleCaseOfKeyLabel(outputText, locale) : outputText;
         }
@@ -68,9 +70,12 @@ public final class PopupKeySpec {
     }
 
     @NonNull
-    public Key buildKey(final int x, final int y, final int labelFlags, final int background, @NonNull final KeyboardParams params) {
-        return new Key(mLabel, mIconName, mCode, mOutputText, null, labelFlags, background, x, y,
-                params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
+    public Key buildKey(final int x, final int y, final int labelFlags, final int background,
+                        @NonNull final KeyboardParams params, PopupKeySpec[] popupKeys, String hintLabel,
+                        String parentLabel) {
+        return new Key(mLabel, mIconName, mCode, mOutputText, hintLabel, labelFlags, background, x, y,
+                       params.mDefaultAbsoluteKeyWidth, params.mDefaultAbsoluteRowHeight, params.mHorizontalGap,
+                       params.mVerticalGap, popupKeys);
     }
 
     @Override
@@ -217,6 +222,11 @@ public final class PopupKeySpec {
 
     @NonNull
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
+    private static int getCode(@NonNull String popupKeySpec, boolean needsToUpperCase, @NonNull Locale locale) {
+        final int codeInSpec = KeySpecParser.getCode(popupKeySpec);
+        return needsToUpperCase? StringUtils.toTitleCaseOfKeyCode(codeInSpec, locale) : codeInSpec;
+    }
 
     @NonNull
     public static String[] filterOutEmptyString(@Nullable final String[] array) {

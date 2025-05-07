@@ -8,12 +8,15 @@ import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
+import java.io.FileNotFoundException
 import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context, private val maxSdk: Int) {
+    private val MAX_POPUP_LENGTH = 25
 
     fun parse(): ArrayList<ArrayList<KeyParams>> {
         val emojiArrayId = when (params.mId.mElementId) {
@@ -44,14 +47,15 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         // this is a bit long, but ensures that emoji size stays the same, independent of these settings
         // we also ignore side padding for key width, and prefer fewer keys per row over narrower keys
         val defaultKeyWidth = ResourceUtils.getDefaultKeyboardWidth(context)  * params.mDefaultKeyWidth
-        val keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale)
+        val keyWidth = defaultKeyWidth * sqrt(Settings.getValues().mKeyboardHeightScale) * Settings.getValues().mFontSizeMultiplierEmoji
         val defaultKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false)
         val defaultBottomPadding = context.resources.getFraction(R.fraction.config_keyboard_bottom_padding_holo, defaultKeyboardHeight, defaultKeyboardHeight)
         val emojiKeyboardHeight = ResourceUtils.getDefaultKeyboardHeight(context.resources, false) * 0.75f + params.mVerticalGap - defaultBottomPadding - context.resources.getDimensionPixelSize(R.dimen.config_emoji_category_page_id_height)
         val keyHeight = emojiKeyboardHeight * params.mDefaultRowHeight * Settings.getValues().mKeyboardHeightScale // still apply height scale to key
-
+        val locale = RichInputMethodManager.getInstance().currentSubtype.locale
+        val descriptions = getDescriptions(locale.language).plus(getDescriptions(locale.toLanguageTag()))
         emojiArray.forEachIndexed { i, codeArraySpec ->
-            val keyParams = parseEmojiKey(codeArraySpec, popupEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }) ?: return@forEachIndexed
+            val keyParams = parseEmojiKey(codeArraySpec, popupEmojisArray?.get(i)?.takeIf { it.isNotEmpty() }, descriptions) ?: return@forEachIndexed
             keyParams.xPos = currentX
             keyParams.yPos = currentY
             keyParams.mAbsoluteWidth = keyWidth
@@ -60,6 +64,18 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             row.add(keyParams)
         }
         return arrayListOf(row)
+    }
+
+    private fun getDescriptions(locale: String): Map<String, String> {
+        try {
+            val maxPopupLength = (MAX_POPUP_LENGTH / Settings.getValues().mFontSizeMultiplierEmoji).toInt()
+            return context.assets.open("emoji/descriptions/$locale.txt")
+                .reader().readLines().drop(1).map { it.split('=') }.associateBy(
+                    { it[0] },
+                    { if (it[1].length < maxPopupLength) it[1] else it[1].take(maxPopupLength - 1) + "…" })
+        } catch (_: FileNotFoundException) {
+            return emptyMap()
+        }
     }
 
     private fun getLabelAndCode(spec: String): Pair<String, Int>? {
@@ -78,7 +94,7 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         return labelBuilder.toString() to KeyCode.MULTIPLE_CODE_POINTS
     }
 
-    private fun parseEmojiKey(spec: String, popupKeysString: String? = null): KeyParams? {
+    private fun parseEmojiKey(spec: String, popupKeysString: String? = null, descriptions: Map<String, String>): KeyParams? {
         val (label, code) = getLabelAndCode(spec) ?: return null
         val sb = StringBuilder()
         popupKeysString?.split(";")?.let { popupKeys ->
@@ -90,11 +106,11 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
         val popupKeysSpec = if (sb.isNotEmpty()) {
             sb.deleteCharAt(sb.length - 1)
             sb.toString()
-        } else null
+        } else descriptions[label]
         return KeyParams(
             label,
             code,
-            if (popupKeysSpec != null) EMOJI_HINT_LABEL else null,
+            if (sb.isNotEmpty()) EMOJI_EXPAND_HINT_LABEL else if (popupKeysSpec != null) EMOJI_INFO_HINT_LABEL else null,
             popupKeysSpec,
             Key.LABEL_FLAGS_FONT_NORMAL,
             params
@@ -102,4 +118,5 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     }
 }
 
-const val EMOJI_HINT_LABEL = "◥"
+const val EMOJI_EXPAND_HINT_LABEL = "◥"
+const val EMOJI_INFO_HINT_LABEL = "?"
