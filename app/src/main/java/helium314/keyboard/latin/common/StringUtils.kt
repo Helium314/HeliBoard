@@ -9,64 +9,62 @@ import helium314.keyboard.latin.settings.SpacingAndPunctuations
 import java.math.BigInteger
 import java.util.Locale
 
-fun loopOverCodePoints(s: CharSequence, run: (Int) -> Boolean) {
-    val text = if (s is String) s else s.toString()
+fun CharSequence.codePointAt(offset: Int) = Character.codePointAt(this, offset)
+fun CharSequence.codePointBefore(offset: Int) = Character.codePointBefore(this, offset)
+
+inline fun loopOverCodePoints(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     var offset = 0
     while (offset < text.length) {
-        val codepoint = text.codePointAt(offset)
-        if (run(codepoint)) return
-        offset += Character.charCount(codepoint)
+        val cp = text.codePointAt(offset)
+        val charCount = Character.charCount(cp)
+        if (loop(cp, charCount)) return
+        offset += charCount
     }
 }
 
-fun loopOverCodePointsBackwards(s: CharSequence, run: (Int) -> Boolean) {
-    val text = if (s is String) s else s.toString()
+inline fun loopOverCodePointsBackwards(text: CharSequence, loop: (cp: Int, charCount: Int) -> Boolean) {
     var offset = text.length
     while (offset > 0) {
-        val codepoint = text.codePointBefore(offset)
-        if (run(codepoint)) return
-        offset -= Character.charCount(codepoint)
+        val cp = text.codePointBefore(offset)
+        val charCount = Character.charCount(cp)
+        if (loop(cp, charCount)) return
+        offset -= charCount
     }
 }
 
-fun nonWordCodePointAndNoSpaceBeforeCursor(s: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
+fun nonWordCodePointAndNoSpaceBeforeCursor(text: CharSequence, spacingAndPunctuations: SpacingAndPunctuations): Boolean {
     var space = false
     var nonWordCodePoint = false
-    loopOverCodePointsBackwards(s) {
-        if (!space && Character.isWhitespace(it))
-            space = true
-        // treat double quote like a word codepoint for the purpose of this function (not great, maybe clarify name, or extend list of chars?)
-        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(it) && it != '"'.code)
+    loopOverCodePointsBackwards(text) { cp, _ ->
+        if (!space && Character.isWhitespace(cp)) space = true
+        // treat double quote like a word codepoint for this function (not great, maybe clarify name or extend list of chars?)
+        if (!nonWordCodePoint && !spacingAndPunctuations.isWordCodePoint(cp) && cp != '"'.code) {
             nonWordCodePoint = true
+        }
         space && nonWordCodePoint // stop if both are found
     }
-    return nonWordCodePoint && !space // return true if an non-word codepoint and no space was found
+    return nonWordCodePoint && !space // return true if a non-word codepoint and no space was found
 }
 
-fun hasLetterBeforeLastSpaceBeforeCursor(s: CharSequence): Boolean {
-    var letter = false
-    loopOverCodePointsBackwards(s) {
-        if (Character.isWhitespace(it)) true
-        else if (Character.isLetter(it)) {
-            letter = true
-            true
-        }
-        else false
+fun hasLetterBeforeLastSpaceBeforeCursor(text: CharSequence): Boolean {
+    loopOverCodePointsBackwards(text) { cp, _ ->
+        if (Character.isWhitespace(cp)) return false
+        else if (Character.isLetter(cp)) return true
+        false // continue
     }
-    return letter
+    return false
 }
 
-/** get the complete emoji at end of [s], considering that emojis can be joined with ZWJ resulting in different emojis */
-fun getFullEmojiAtEnd(s: CharSequence): String {
-    val text = if (s is String) s else s.toString()
-    var offset = text.length
+/** get the complete emoji at end of [text], considering that emojis can be joined with ZWJ resulting in different emojis */
+fun getFullEmojiAtEnd(text: CharSequence): String {
+    val s = text.toString()
+    var offset = s.length
     while (offset > 0) {
-        val codepoint = text.codePointBefore(offset)
+        val codepoint = s.codePointBefore(offset)
         // stop if codepoint can't be emoji
-        if (!mightBeEmoji(codepoint))
-            return text.substring(offset)
+        if (!mightBeEmoji(codepoint)) return text.substring(offset)
         offset -= Character.charCount(codepoint)
-        if (offset > 0 && text[offset - 1].code == KeyCode.ZWJ) {
+        if (offset > 0 && s[offset - 1].code == KeyCode.ZWJ) {
             // todo: this appends ZWJ in weird cases like text, ZWJ, emoji
             //  and detects single ZWJ as emoji (at least irrelevant for current use of getFullEmojiAtEnd)
             offset -= 1
@@ -76,19 +74,17 @@ fun getFullEmojiAtEnd(s: CharSequence): String {
         if (codepoint in 0x1F3FB..0x1F3FF) {
             // Skin tones are not added with ZWJ, but just appended. This is not nice as they can be emojis on their own,
             // but that's how it is done. Assume that an emoji before the skin tone will get merged (usually correct in practice)
-            val codepointBefore = text.codePointBefore(offset)
+            val codepointBefore = s.codePointBefore(offset)
             if (isEmoji(codepointBefore)) {
                 offset -= Character.charCount(codepointBefore)
                 continue
             }
         }
         // check the whole text after offset
-        val textToCheck = text.substring(offset)
-        if (isEmoji(textToCheck)) {
-            return textToCheck
-        }
+        val textToCheck = s.substring(offset)
+        if (isEmoji(textToCheck)) return textToCheck
     }
-    return text.substring(offset)
+    return s.substring(offset)
 }
 
 /** split the string on the first of consecutive space only, further consecutive spaces are added to the next split */
@@ -110,8 +106,7 @@ fun String.splitOnFirstSpacesOnly(): List<String> {
             sb.append(c)
         }
     }
-    if (sb.isNotBlank())
-        out.add(sb.toString())
+    if (sb.isNotBlank()) out.add(sb.toString())
     return out
 }
 
@@ -120,8 +115,7 @@ fun CharSequence.isValidNumber(): Boolean {
 }
 
 fun String.decapitalize(locale: Locale): String {
-    if (isEmpty() || !this[0].isUpperCase())
-        return this
+    if (isEmpty() || !this[0].isUpperCase()) return this
     return replaceFirstChar { it.lowercase(locale) }
 }
 
@@ -136,7 +130,7 @@ fun containsValueWhenSplit(string: String?, value: String, split: String): Boole
 
 fun isEmoji(c: Int): Boolean = mightBeEmoji(c) && isEmoji(newSingleCodePointString(c))
 
-fun isEmoji(s: CharSequence): Boolean = mightBeEmoji(s) && s.matches(emoRegex)
+fun isEmoji(text: CharSequence): Boolean = mightBeEmoji(text) && text.matches(emoRegex)
 
 fun String.splitOnWhitespace() = split(whitespaceSplitRegex)
 
