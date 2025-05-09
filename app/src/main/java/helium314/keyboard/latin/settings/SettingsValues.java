@@ -124,6 +124,7 @@ public class SettingsValues {
     public final String mSpaceBarText;
     public final float mFontSizeMultiplier;
     public final float mFontSizeMultiplierEmoji;
+    public final boolean mEmojiKeyFit;
 
     // From the input box
     @NonNull
@@ -289,6 +290,7 @@ public class SettingsValues {
         mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK);
         mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, Defaults.PREF_FONT_SCALE);
         mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE);
+        mEmojiKeyFit = prefs.getBoolean(Settings.PREF_EMOJI_KEY_FIT, Defaults.PREF_EMOJI_KEY_FIT);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {

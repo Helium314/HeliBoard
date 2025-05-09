@@ -84,6 +84,7 @@ fun AppearanceScreen(
         SettingsWithoutKey.CUSTOM_FONT,
         Settings.PREF_FONT_SCALE,
         Settings.PREF_EMOJI_FONT_SCALE,
+        Settings.PREF_EMOJI_KEY_FIT,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -288,6 +289,9 @@ fun createAppearanceSettings(context: Context) = listOf(
             range = 0.5f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
+    Setting(context, Settings.PREF_EMOJI_KEY_FIT, R.string.prefs_emoji_key_fit) {
+        SwitchPreference(it, Defaults.PREF_EMOJI_KEY_FIT) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
 )
 
