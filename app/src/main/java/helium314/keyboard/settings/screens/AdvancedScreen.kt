@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.keyboard.KeyboardActionListener
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_ALL
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MAIN
 import helium314.keyboard.keyboard.internal.keyboard_parser.POPUP_KEYS_MORE
@@ -208,6 +209,7 @@ fun createAdvancedSettings(context: Context) = listOf(
         ) { NextScreenIcon() }
     },
     Setting(context, Settings.PREF_EMOJI_MAX_SDK, R.string.prefs_key_emoji_max_sdk) { setting ->
+        val ctx = LocalContext.current
         SliderPreference(
             name = setting.title,
             key = setting.key,
@@ -233,7 +235,10 @@ fun createAdvancedSettings(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onConfirmed = { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+            onConfirmed = {
+                SupportedEmojis.load(ctx)
+                KeyboardSwitcher.getInstance().setThemeNeedsReload()
+            }
         )
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {

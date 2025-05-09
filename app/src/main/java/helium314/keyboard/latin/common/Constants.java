@@ -197,6 +197,8 @@ public final class Constants {
     public static final int CODE_GRAVE_ACCENT = '`';
     public static final int CODE_CIRCUMFLEX_ACCENT = '^';
     public static final int CODE_TILDE = '~';
+    public static final int RECENTS_TEMPLATE_KEY_CODE_0 = 0x30;
+    public static final int RECENTS_TEMPLATE_KEY_CODE_1 = 0x31;
 
     public static final String REGEXP_PERIOD = "\\.";
     public static final String STRING_SPACE = " ";
