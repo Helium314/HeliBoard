@@ -452,6 +452,8 @@ public final class InputLogic {
                 //  to the current word instead of considering the cursor position
                 //  position is actually not visible to the combiner, how to fix?
                 processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+                if (event.getMKeyCode() == KeyCode.DELETE)
+                    mWordComposer.resetInvalidCursorPosition();
             } else {
                 mWordComposer.setHangul(false);
                 final boolean wasComposingWord = mWordComposer.isComposingWord();
