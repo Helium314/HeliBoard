@@ -261,20 +261,6 @@ final class EmojiCategory {
         return 0;
     }
 
-    // Returns the view pager's page position for the categoryId
-    public int getPagerPageIdFromCategoryAndPageId(final int categoryId, final int categoryPageId) {
-        int sum = 0;
-        for (int i = 0; i < mShownCategories.size(); ++i) {
-            final CategoryProperties props = mShownCategories.get(i);
-            if (props.mCategoryId == categoryId) {
-                return sum + categoryPageId;
-            }
-            sum += props.getPageCount();
-        }
-        Log.w(TAG, "categoryId not found: " + categoryId);
-        return 0;
-    }
-
     public int getRecentTabId() {
         return getTabIdFromCategoryId(EmojiCategory.ID_RECENTS);
     }

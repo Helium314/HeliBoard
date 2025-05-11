@@ -399,7 +399,6 @@ public final class EmojiPalettesView extends LinearLayout
     public void stopEmojiPalettes() {
         if (!initialized) return;
         getRecentsKeyboard().flushPendingRecentKeys();
-        clearKeyboardCache();
     }
 
     private DynamicGridKeyboard getRecentsKeyboard() {
