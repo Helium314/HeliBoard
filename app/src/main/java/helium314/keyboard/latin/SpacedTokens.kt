@@ -6,7 +6,7 @@ package helium314.keyboard.latin
  * Tokenizes strings by groupings of non-space characters, making them iterable. Note that letters,
  * punctuations, etc. are all treated the same by this construct.
  */
-class LatinTokens(phrase: String) : Iterable<String> {
+class SpacedTokens(phrase: String) : Iterable<String> {
     private val mPhrase = phrase
     private val mLength = phrase.length
     private val mStartPos = phrase.indexOfFirst { !Character.isWhitespace(it) }

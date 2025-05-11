@@ -60,7 +60,7 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
         NgramContext ngramContext = NgramContext.getEmptyPrevWordsContext(
                 BinaryDictionary.MAX_PREV_WORD_COUNT_FOR_N_GRAM);
         // TODO: Better tokenization for non-Latin writing systems
-        for (final String word : new LatinTokens(appLabel)) {
+        for (final String word : new SpacedTokens(appLabel)) {
             if (DEBUG_DUMP) {
                 Log.d(TAG, "addName word = " + word);
             }
