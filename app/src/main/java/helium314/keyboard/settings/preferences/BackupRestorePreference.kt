@@ -16,10 +16,8 @@ import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
-import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
-import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
 import helium314.keyboard.latin.utils.Log
@@ -51,10 +49,10 @@ fun BackupRestorePreference(setting: Setting) {
     val prefs = ctx.prefs()
     var error: String? by rememberSaveable { mutableStateOf(null) }
     val backupFilePatterns by lazy { listOf(
-        "blacklists/.*\\.txt".toRegex(),
-        "layouts/${LayoutUtilsCustom.CUSTOM_LAYOUT_PREFIX}+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
-        "dicts/.*/.*user\\.dict".toRegex(),
-        "UserHistoryDictionary.*/UserHistoryDictionary.*\\.(body|header)".toRegex(),
+        "blacklists${File.separator}.*\\.txt".toRegex(),
+        "layouts${File.separator}.*${LayoutUtilsCustom.CUSTOM_LAYOUT_PREFIX}+\\..{0,4}".toRegex(), // can't expect a period at the end, as this would break restoring older backups
+        "dicts${File.separator}.*${File.separator}.*user\\.dict".toRegex(),
+        "UserHistoryDictionary.*${File.separator}UserHistoryDictionary.*\\.(body|header)".toRegex(),
         "custom_background_image.*".toRegex(),
         "custom_font".toRegex(),
     ) }
@@ -131,13 +129,11 @@ fun BackupRestorePreference(setting: Setting) {
                             if (entry.name.startsWith("unprotected${File.separator}")) {
                                 val adjustedName = entry.name.substringAfter("unprotected${File.separator}")
                                 if (backupFilePatterns.any { adjustedName.matches(it) }) {
-                                    val targetFileName = upgradeFileNames(adjustedName)
-                                    val file = File(deviceProtectedFilesDir, targetFileName)
+                                    val file = File(deviceProtectedFilesDir, adjustedName)
                                     FileUtils.copyStreamToNewFile(zip, file)
                                 }
                             } else if (backupFilePatterns.any { entry!!.name.matches(it) }) {
-                                val targetFileName = upgradeFileNames(entry.name)
-                                val file = File(filesDir, targetFileName)
+                                val file = File(filesDir, entry.name)
                                 FileUtils.copyStreamToNewFile(zip, file)
                             } else if (entry.name == PREFS_FILE_NAME) {
                                 val prefLines = String(zip.readBytes()).split("\n")
@@ -168,6 +164,7 @@ fun BackupRestorePreference(setting: Setting) {
         val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
         ctx.getActivity()?.sendBroadcast(newDictBroadcast)
         LayoutUtilsCustom.onLayoutFileChanged()
+        LayoutUtilsCustom.removeMissingLayouts(ctx)
         (ctx.getActivity() as? SettingsActivity)?.prefChanged()
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
@@ -250,39 +247,6 @@ private fun readJsonLinesToSettings(list: List<String>, prefs: SharedPreferences
         return true
     } catch (e: Exception) {
         return false
-    }
-}
-
-// todo (later): remove this when new package name has been in use for long enough, this is only for migrating from old openboard name
-private fun upgradeFileNames(originalName: String): String {
-    return when {
-        originalName.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) -> {
-            // replace directory after switch to language tag
-            val dirName = originalName.substringAfter(File.separator).substringBefore(File.separator)
-            originalName.replace(dirName, dirName.constructLocale().toLanguageTag())
-        }
-        originalName.startsWith("blacklists") -> {
-            // replace file name after switch to language tag
-            val fileName = originalName.substringAfter("blacklists${File.separator}").substringBefore(".txt")
-            originalName.replace(fileName, fileName.constructLocale().toLanguageTag())
-        }
-        originalName.startsWith("layouts") -> {
-            // replace file name after switch to language tag, but only if it's not a layout
-            val localeString = originalName.substringAfter(".").substringBefore(".")
-            if (localeString in listOf("symbols", "symbols_shifted", "symbols_arabic", "number", "numpad", "numpad_landscape", "phone", "phone_symbols"))
-                return originalName // it's a layout!
-            val locale = localeString.constructLocale()
-            if (locale.toLanguageTag() != "und")
-                originalName.replace(localeString, locale.toLanguageTag())
-            else
-                originalName // no valid locale -> must be symbols layout, don't change
-        }
-        originalName.startsWith("UserHistoryDictionary") -> {
-            val localeString = originalName.substringAfter(".").substringBefore(".")
-            val locale = localeString.constructLocale()
-            originalName.replace(localeString, locale.toLanguageTag())
-        }
-        else -> originalName
     }
 }
 

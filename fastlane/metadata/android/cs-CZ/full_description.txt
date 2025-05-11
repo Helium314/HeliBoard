@@ -1,0 +1,30 @@
+HeliBoard je open-source klávesnice zaměřená na soukromí, založená na AOSP / OpenBoard.
+Nepoužívá internet, a je tedy 100% offline.
+
+Funkce:
+<ul>
+  <li>Přidávejte slovníky pro návrhy a kontrolu pravopisu</li>
+  <ul>
+    <li>vytvořte si vlastní, nebo si je stáhněte <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">zde</a>, nebo v <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimentální</a> sekci (kvalita se může lišit)</li>
+    <li>další slovníky pro emotikony nebo vědecké symboly lze použít k poskytování návrhů (podobně jako „vyhledávání emoji“)</li>
+    <li>upozorňujeme, že pro korejské rozložení fungují návrhy pouze s <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">tímto slovníkem</a>, nástroje v repozitáři se slovníky nedokážou vytvořit funkční slovníky</li>
+  </ul>
+  <li>Přizpůsobte si vzhled klávesnice (styl, barvy a obrázek na pozadí)</li>
+  <ul>
+    <li>dokáže se přizpůsobit dennímu/nočnímu nastavení v Androidu 10+ (a na některých verzích Androidu 9)</li>
+    <li>dokáže se přizpůsobit dynamickým barvám v Androidu 12+</li>
+  </ul>
+  <li>Přizpůsobte si <a href="https://github.com/Helium314/HeliBoard/blob/main/layouts.md">rozložení</a> klávesnice (dostupné pouze při vypnuté volbě <i>používat systémové jazyky</i>)</li>
+  <li>Přizpůsobte si speciální rozložení, jako jsou symboly, čísla nebo rozložení funkčních kláves</li>
+  <li>Vícejazyčné psaní</li>
+  <li>Psaní jedním tahem (<i>pouze s proprietární knihovnou</i> ☹️)</li>
+  <ul>
+    <li>knihovna není součástí aplikace, protože není dostupná žádná kompatibilní open source verze</li>
+    <li>lze ji extrahovat z balíků GApps („<i>swypelibs</i>“) nebo stáhnout <a href="https://github.com/erkserkserks/openboard/tree/46fdf2b550035ca69299ce312fa158e7ade36967/app/src/main/jniLibs">zde</a> (klikněte na soubor a pak na „raw“ nebo malé tlačítko pro stažení)</li>
+  </ul>
+  <li>Historie schránky</li>
+  <li>Režim ovládání jednou rukou</li>
+  <li>Rozdělená klávesnice (dostupná pouze pokud je obrazovka dostatečně velká)</li>
+  <li>Numerická klávesnice</li>
+  <li>Záloha a obnova nastavení a naučených slov / historie</li>
+</ul>

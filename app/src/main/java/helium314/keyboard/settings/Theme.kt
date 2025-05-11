@@ -12,9 +12,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.DeviceFontFamilyName
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import helium314.keyboard.latin.R
 
@@ -36,20 +33,9 @@ fun Theme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography(
-            headlineMedium = material3.headlineMedium.copy(fontWeight = FontWeight.Bold),
-            headlineSmall = material3.headlineSmall.copy(fontWeight = FontWeight.Bold),
-            titleLarge = material3.titleLarge.copy(
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily(Font(DeviceFontFamilyName("sans-serif-condensed"), FontWeight.Bold))
-            ),
-            titleMedium = material3.titleMedium.copy(
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily(Font(DeviceFontFamilyName("sans-serif-condensed"), FontWeight.Bold))
-            ),
-            titleSmall = material3.titleSmall.copy(
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily(Font(DeviceFontFamilyName("sans-serif-condensed"), FontWeight.Bold))
-            )
+            titleLarge = material3.titleLarge.copy(fontWeight = FontWeight.Bold),
+            titleMedium = material3.titleMedium.copy(fontWeight = FontWeight.Bold),
+            titleSmall = material3.titleSmall.copy(fontWeight = FontWeight.Bold)
         ),
         //shapes = Shapes(),
         content = content

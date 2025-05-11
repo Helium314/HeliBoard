@@ -444,4 +444,6 @@
     <string name="backspace_reverts_autocorrect">Retrocès reverteix l\'auto-correcció</string>
     <string name="autospace_after_suggestion">Espai automàtic després de triar suggeriment</string>
     <string name="timestamp_format_title">Format de la clau de marca de temps</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
 </resources>

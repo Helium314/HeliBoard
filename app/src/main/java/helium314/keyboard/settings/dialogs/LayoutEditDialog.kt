@@ -2,11 +2,14 @@
 package helium314.keyboard.settings.dialogs
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -14,7 +17,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +52,6 @@ fun LayoutEditDialog(
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val startIsCustom = LayoutUtilsCustom.isCustomLayout(initialLayoutName)
-    val bottomInsets by SettingsActivity.bottomInsets.collectAsState()
     var displayNameValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(
             if (startIsCustom) LayoutUtilsCustom.getDisplayName(initialLayoutName)
@@ -110,10 +111,8 @@ fun LayoutEditDialog(
             }
             valid && nameValid // don't allow saving with invalid name, but inform user about issues with layout content
         },
-        // this looks weird when the text field is not covered by the keyboard (long dialog)
-        // but better than not seeing the bottom part of the field...
-        modifier = Modifier.padding(bottom = with(LocalDensity.current)
-            { (bottomInsets / 2 + 36).toDp() }), // why is the /2 necessary?
+        // why is exclude(WindowInsets.systemBars) necessary?
+        modifier = Modifier.windowInsetsPadding(WindowInsets.ime.exclude(WindowInsets.systemBars)),
         reducePadding = true,
     )
 }

@@ -488,4 +488,6 @@
     <string name="backspace_reverts_autocorrect">يعود المسافة الخلفية إلى التصحيح التلقائي</string>
     <string name="shift_removes_autospace">لا مسافة تلقائية عند الضغط على تحويل</string>
     <string name="timestamp_format_title">تنسيق لمفتاح الطابع الزمني</string>
+    <string name="subtype_dag">دغبانية</string>
+    <string name="subtype_st">السوتية</string>
 </resources>

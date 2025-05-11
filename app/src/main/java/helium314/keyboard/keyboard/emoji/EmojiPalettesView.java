@@ -216,6 +216,7 @@ public final class EmojiPalettesView extends LinearLayout
         mCategoryPageIndicatorColor = emojiPalettesViewAttr.getColor( // todo: remove this and related attr
                 R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
         emojiPalettesViewAttr.recycle();
+        setFitsSystemWindows(true);
     }
 
     @Override

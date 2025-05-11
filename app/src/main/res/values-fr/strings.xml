@@ -451,4 +451,6 @@ Nouveau dictionnaire:
     <string name="backspace_reverts_autocorrect">La touche Retour arrière annule la correction automatique</string>
     <string name="shift_removes_autospace">Pas d\'espace automatique lors de l\'appui sur Maj</string>
     <string name="timestamp_format_title">Format de la clé d\'horodatage</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
 </resources>

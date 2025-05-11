@@ -152,6 +152,24 @@ class InputLogicTest {
         assertEquals(4, cursor)
     }
 
+    // see issue 1447
+    @Test fun separatorAfterHangul() {
+        reset()
+        currentScript = ScriptUtils.SCRIPT_HANGUL
+        chainInput("ㅛ.")
+        assertEquals("ㅛ.", text)
+    }
+
+    // see issue 1551 (debug only)
+    @Test fun deleteHangul() {
+        reset()
+        currentScript = ScriptUtils.SCRIPT_HANGUL
+        setText("ㅛㅛ ")
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE)
+        functionalKeyPress(KeyCode.DELETE)
+    }
+
     @Test fun separatorUnselectsWord() {
         reset()
         setText("hello")

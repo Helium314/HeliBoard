@@ -1,0 +1,11 @@
+* lay-outs toevoegen: Arabisch Hija'i, Hebreeuws 1452-2, Hindi Fonetisch, Dargwa (Urakhi), Baishakhi, Koerdisch
+* Update enkele lay-outs
+* Ondersteuning voor het combineren van accenten
+* Gesplitste toetsenbordwerkbalktoets
+* voeg .com pop-ups toe
+* Toestaan instellen van aangepast lettertype
+* Instelling voor lettertypeschaal toevoegen
+* automatische taalomschakeling verbeteren
+* Revisie instellingen
+* Voeg instellingen toe voor meer afstemming van toetsenbordopvulling, automatische spatie, autocorrectie, cijferrij
+* Meer functies en fixes

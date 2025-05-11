@@ -1,0 +1,7 @@
+- mise à jour de la disposition de clavier cyrillique serbe par @markokocic (#704, #705)
+- mise à jour de la disposition de clavier estonienne par @tenextractor (#693)
+- correction des entrées dupliquées dans l'historique du presse-papier par @codokie (#616, #680)
+- ajouter uniquement les entrées de texte dans l'historique du presse-papier par @codokie (#711)
+- meilleures images dans les métadatas par @RHJihan (#713)
+- réglage correct de la couleur des icônes dans la fenêtre de sélection de la barre d'outils par @codokie (#715, #716)
+- autres corrections (#684, #723 and more)

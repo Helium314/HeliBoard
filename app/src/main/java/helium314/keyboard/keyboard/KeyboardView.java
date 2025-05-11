@@ -148,6 +148,7 @@ public class KeyboardView extends View {
 
         mPaint.setAntiAlias(true);
         mTypeface = Settings.getInstance().getCustomTypeface();
+        setFitsSystemWindows(true);
     }
 
     @Nullable
@@ -192,7 +193,8 @@ public class KeyboardView extends View {
         invalidateAllKeys();
         requestLayout();
         mFontSizeMultiplier = mKeyboard.mId.isEmojiKeyboard()
-                ? Settings.getValues().mFontSizeMultiplierEmoji
+                // In the case of EmojiKeyFit, the size of emojis is taken care of by the size of the keys
+                ? (Settings.getValues().mEmojiKeyFit? 1 : Settings.getValues().mFontSizeMultiplierEmoji)
                 : Settings.getValues().mFontSizeMultiplier;
     }
 

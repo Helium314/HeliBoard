@@ -481,4 +481,6 @@
     <string name="backspace_reverts_autocorrect">Обратен интервал връща автоматичното коригиране</string>
     <string name="shift_removes_autospace_summary">Shift премахва чакащия автоматичен интервал</string>
     <string name="timestamp_format_title">Формат на клавиша за времево клеймо</string>
+    <string name="subtype_st">Сото</string>
+    <string name="subtype_dag">Дагбани</string>
 </resources>

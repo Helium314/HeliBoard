@@ -529,7 +529,6 @@ sealed interface KeyData : AbstractKeyData {
             // essentially the first term only changes the appearance of the armenian period key in holo theme
             KeyLabel.PERIOD -> (Key.LABEL_FLAGS_HAS_POPUP_HINT and
                     if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0) or
-                    (if (shouldShowTldPopups(params)) 0 else Key.LABEL_FLAGS_DISABLE_HINT_LABEL) or
                     Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or

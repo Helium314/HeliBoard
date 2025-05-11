@@ -14,37 +14,37 @@
     <string name="settings_screen_correction">"Исправление текста"</string>
     <string name="settings_screen_advanced">Дополнительные</string>
     <string name="settings_screen_theme">"Тема"</string>
-    <string name="enable_split_keyboard">"Включить разделённую клавиатуру"</string>
+    <string name="enable_split_keyboard">Включить разделение клавиатуры</string>
     <string name="language_switch_key_switch_input_method">Смена методов ввода</string>
     <string name="show_language_switch_key">"Клавиша смены языка"</string>
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
     <string name="settings_system_default">"По умолчанию"</string>
-    <string name="use_contacts_dict_summary">"Подсказывать исправления на основе имен из списка контактов"</string>
+    <string name="use_contacts_dict_summary">Использовать имена из Контактов для предложений и исправлений</string>
     <string name="use_personalized_dicts">"Пользовательские словари"</string>
     <string name="use_double_space_period">"Точки автоматически"</string>
-    <string name="use_double_space_period_summary">Вводить точку с пробелом двойным нажатием пробела</string>
+    <string name="use_double_space_period_summary">Двойное нажатие на клавишу пробела вставляет точку и пробел</string>
     <string name="auto_cap">"Заглавные автоматически"</string>
-    <string name="auto_cap_summary">"Писать первое слово предложения с прописной буквы"</string>
+    <string name="auto_cap_summary">Автоматически ставить заглавную букву в начале предложений</string>
     <string name="edit_personal_dictionary">"Личный словарь"</string>
     <string name="main_dictionary">"Основной словарь"</string>
-    <string name="prefs_show_suggestions">"Варианты исправлений"</string>
+    <string name="prefs_show_suggestions">Показывать варианты исправлений</string>
     <string name="prefs_show_suggestions_summary">"Предлагать варианты слов во время ввода"</string>
-    <string name="prefs_block_potentially_offensive_title">"Блокировка нецензурных слов"</string>
+    <string name="prefs_block_potentially_offensive_title">Блокировать нецензурные слова</string>
     <string name="prefs_block_potentially_offensive_summary">"Не предлагать слова, которые могут быть сочтены оскорбительными"</string>
     <string name="autocorrect">"Автоисправление"</string>
     <string name="auto_correction_summary">"Автоматическое исправление опечаток при вводе знака препинания или пробела"</string>
     <string name="auto_correction_threshold_mode_off">Откл.</string>
     <string name="auto_correction_threshold_mode_modest">"Умеренное"</string>
-    <string name="auto_correction_threshold_mode_aggressive">"Активно"</string>
-    <string name="auto_correction_threshold_mode_very_aggressive">"Очень активно"</string>
-    <string name="bigram_prediction">"Подсказывать слова"</string>
-    <string name="bigram_prediction_summary">"Предлагать подсказки на основе предыдущего слова"</string>
+    <string name="auto_correction_threshold_mode_aggressive">Активное</string>
+    <string name="auto_correction_threshold_mode_very_aggressive">Агрессивное</string>
+    <string name="bigram_prediction">Предлагать следующее слово</string>
+    <string name="bigram_prediction_summary">Учитывать предыдущее слово при формировании предложений</string>
     <string name="gesture_input">"Включить функцию"</string>
-    <string name="gesture_input_summary">"Вводите слова, не отрывая пальца от клавиатуры"</string>
+    <string name="gesture_input_summary">Набирайте текст, проводя по буквам и не отрывая палец от экрана</string>
     <string name="gesture_preview_trail">Рисовать линию</string>
     <string name="gesture_floating_preview_text">Показывать подсказки</string>
     <string name="gesture_space_aware">Непрерывный ввод фраз</string>
-    <string name="gesture_space_aware_summary">Проводите по клавише пробела после каждого слова</string>
+    <string name="gesture_space_aware_summary">Умный пробел при жестах: вводите несколько слов, проводя пальцем через пробел</string>
     <string name="subtype_en_GB">Английский (Великобритания)</string>
     <string name="subtype_en_US">Английский (США)</string>
     <string name="subtype_es_US">Испанский (США)</string>
@@ -77,7 +77,7 @@
     <string name="keyboard_layout_set">Раскладка</string>
     <string name="prefs_keypress_vibration_duration_settings">Вибросигнал при нажатии клавиш</string>
     <string name="prefs_keypress_sound_volume_settings">Звук при нажатии клавиш</string>
-    <string name="prefs_key_longpress_timeout_settings">Долгое нажатие</string>
+    <string name="prefs_key_longpress_timeout_settings">Длительность долгого нажатия</string>
     <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
     <string name="button_default">По умолчанию</string>
@@ -99,7 +99,7 @@
     <string name="show_setup_wizard_icon">Показывать значок приложения</string>
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
     <string name="dictionary_settings_title">Дополнительные словари</string>
-    <string name="dictionary_available">Доступен словарь</string>
+    <string name="dictionary_available">Доступный словарь</string>
     <string name="no_dictionaries_available">Словарей нет</string>
     <string name="last_update">Последнее обновление</string>
     <string name="settings">Настройки</string>
@@ -118,26 +118,26 @@
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
     <string name="number_row">Ряд с цифрами</string>
     <string name="number_row_summary">Всегда показывать ряд с цифрами</string>
-    <string name="show_hints">"Показывать спецсимволы"</string>
-    <string name="show_hints_summary">Показывать спецсимволы на клавишах</string>
+    <string name="show_hints">Показывать дополнительные символы</string>
+    <string name="show_hints_summary">Показывать дополнительные символы для ввода долгим нажатием</string>
     <string name="prefs_narrow_key_gaps">Увеличенные клавиши</string>
     <string name="prefs_keyboard_height_scale">Масштабирование по высоте</string>
     <string name="url_detection_title">Обнаружение URL-адреса</string>
-    <string name="url_detection_summary">Попытаться обнаружить URL-адреса и подобные им строки, как одно слово</string>
+    <string name="url_detection_summary">Попытаться обнаружить URL-адреса и схожие конструкции как единое целое</string>
     <string name="delete_swipe">Удаление жестом</string>
-    <string name="delete_swipe_summary">Проведите пальцем от клавиши удаления, чтобы выделить и удалить большие фрагменты текста одновременно</string>
+    <string name="delete_swipe_summary">Проведите пальцем от клавиши удаления, чтобы выделить и сразу удалить большие фрагменты текста</string>
     <string name="backup_restore_title">Резервное копирование и восстановление</string>
-    <string name="backup_restore_message">Сохраните или загрузите из файла. Внимание: восстановление перезапишет существующие данные</string>
+    <string name="backup_restore_message">Сохранение в файл или загрузка из него. Внимание: восстановление перезапишет текущие данные</string>
     <string name="backup_error">Ошибка резервного копирования: %s</string>
     <string name="restore_error">Ошибка восстановления из резервной копии: %s</string>
-    <string name="button_backup">Резервное копирование</string>
-    <string name="button_restore">Восстановление</string>
+    <string name="button_backup">Сохранить</string>
+    <string name="button_restore">Загрузить</string>
     <string name="secondary_locale">Многоязычный набор текста</string>
     <string name="load_gesture_library">Загрузить библиотеку ввода жестами</string>
     <string name="load_gesture_library_summary">Предоставьте встроенную библиотеку для включения ввода жестами</string>
     <string name="more_keys_strip_description">Больше клавиш</string>
     <string name="incognito">Включить режим инкогнито</string>
-    <string name="prefs_force_incognito_mode_summary">Отключить запоминание слов</string>
+    <string name="prefs_force_incognito_mode_summary">Отключить запоминание новых слов</string>
     <string name="show_emoji_key">Клавиша эмодзи</string>
     <string name="settings_category_clipboard_history">История буфера обмена</string>
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
@@ -158,8 +158,8 @@
     <string name="theme_colors_night">Цвета темы (тёмная тема)</string>
     <string name="day_night_mode_summary">Внешний вид будет следовать настройкам системы</string>
     <string name="autospace_after_punctuation_summary">Автоматически добавлять пробел после знаков препинания при вводе нового слова</string>
-    <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена будет вставлять содержимое буфера обмена, если таковое имеется</string>
-    <string name="autospace_after_punctuation">Автоматическая подстановка пробела после точки</string>
+    <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
+    <string name="autospace_after_punctuation">Автоматически добавлять пробел после знаков препинания</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
     <string name="subtype_no_language_colemak_dh">Латиница (Colemak Mod-DH)</string>
     <string name="settings_category_experimental">Экспериментальные</string>
@@ -195,13 +195,13 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Закрыть</string>
     <string name="use_system_language_to_select_input_method_subtypes">Языки системы</string>
-    <string name="text_tap_languages">Нажмите на язык, чтобы открыть настройки</string>
+    <string name="text_tap_languages">Нажмите на язык для настроек</string>
     <string name="select_input_method">"Выберите метод ввода"</string>
     <string name="hidden_features_title">Описание скрытых функций</string>
     <string name="hidden_features_summary">Показать функции, которые могут остаться незамеченными</string>
     <string name="undo">"Отменить"</string>
     <string name="redo">"Повторить"</string>
-    <string name="use_personalized_dicts_summary">"Устройство будет запоминать то, что вы вводите чаще всего"</string>
+    <string name="use_personalized_dicts_summary">Анализировать переписку и введённый текст для улучшения предложений</string>
     <string name="label_go_key">"ОК"</string>
     <string name="label_next_key">"Далее"</string>
     <string name="label_previous_key">"Назад"</string>
@@ -250,9 +250,9 @@
     <string name="hint_source">Выберите источник подсказки</string>
     <string name="button_select_language">Выберите язык</string>
     <string name="day_or_night_image">Установить изображение для дневного или ночного режима?</string>
-    <string name="toolbar_keys">Выбор клавиш панели инструментов</string>
+    <string name="toolbar_keys">Выбрать клавиши панели инструментов</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
-    <string name="show_popup_hints_summary">Показывать подсказки, если длительное нажатие клавиши запускает дополнительные функции</string>
+    <string name="show_popup_hints_summary">Отображать подсказки, если долгое нажатие клавиши запускает дополнительную функцию</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Песок</string>
     <string name="select_word" tools:keep="@string/select_word">Выберите слово</string>
     <string name="all_colors">Показывать все цвета</string>
@@ -266,7 +266,7 @@
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Виолетта</string>
     <string name="localized_number_row">Локализация ряда с цифрами</string>
     <string name="show_popup_keys_all">Добавить все доступные варианты</string>
-    <string name="more_autocorrect">Больше автокоррекции</string>
+    <string name="more_autocorrect">Больше автоисправлений</string>
     <string name="split_spacer_scale">Расстояние разделения</string>
     <string name="prefs_always_show_suggestions_summary">Игнорировать запросы других приложений об отключении предложений (может вызвать проблемы)</string>
     <string name="switch_language">Смена языка</string>
@@ -277,18 +277,18 @@
     <string name="load_gesture_library_button_load">Загрузить библиотеку</string>
     <string name="prefs_bottom_padding_scale">Высота нижнего отступа</string>
     <string name="select_color_gesture">Ввод жестами</string>
-    <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками при удержании</string>
+    <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками в всплывающем окне</string>
     <string name="one_handed" tools:keep="@string/one_handed">Режим одной руки</string>
     <string name="save_log">Сохранить журнал</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Раскладка</string>
-    <string name="more_autocorrect_summary">Автокоррекция, даже если это явно не запрошено в поле ввода</string>
+    <string name="more_autocorrect_summary">Автоматически исправлять даже если поле ввода не требует этого</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo Белая</string>
     <string name="language_switch_key_switch_both">Смена обоих</string>
     <string name="up" tools:keep="@string/up">Вверх</string>
     <string name="remove_dictionary_message">Удалить пользовательский словарь «%s»?</string>
     <string name="file_read_error">Не получается прочитать файл</string>
     <string name="dictionary_link_text">здесь</string>
-    <string name="add_dictionary">Выберите для добавления словаря. Словари в формате .dict можно скачать %s.</string>
+    <string name="add_dictionary">Выберите словарь для добавления. Словари в формате .dict можно загрузить %s.</string>
     <string name="right" tools:keep="@string/right">Вправо</string>
     <string name="dictionary_load_error">Ошибка загрузки файла словаря</string>
     <string name="layout_symbols_shifted">Больше символов</string>
@@ -316,42 +316,7 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Числовая клавиатура (ландшафт)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
-    <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции:&lt;br&gt;
-\n\t• буфер обмена &amp;#65515; вставить &lt;br&gt;
-\n\t• сдвинуть курсор влево/вправо &amp;#65515; перейти на слово влево/вправо &lt;br&gt;
-\n\t• сдвинуть курсор вверх/вниз &amp;#65515; перейти на страницу вверх/вниз &lt;br&gt;
-\n\t• слово левее/правее &amp;#65515; перейти к началу/концу строки &lt;br&gt;
-\n\t• страница вверх/вниз &amp;#65515; перейти к началу/концу страниц&lt;br&gt;
-\n\t• копировать &amp;#65515; вырезать &lt;br&gt;
-\n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt;
-\n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt;
-\n► Долгое нажатие на клавиши в панели инструментов полосы подсказок - закрепляет их в полосе подсказок. &lt;br&gt; &lt;br&gt;
-\n► Долгое нажатие на клавишу запятой - открывает Вид буфера обмена, Вид эмодзи, Режим одной руки, Настройки или Сменить язык: &lt;br&gt;
-\n\t• Вид эмодзи и Смена языка будут недоступны, если соответствующая клавиша уже включена; &lt;br&gt;
-\n\t• Для некоторых раскладок клавиатуры это не клавиша запятой, а клавиша, находящаяся в том же положении (например, это клавиша \"q\" для раскладки Dvorak). &lt;br&gt; &lt;br&gt;
-\n► Когда включен режим инкогнито, никакие слова не будут сохранены, и эмодзи не будут добавлены в список использованных. &lt;br&gt; &lt;br&gt;
-\n► Нажмите на иконку Инкогнито, чтобы получить доступ к панели инструментов.&lt;br&gt; &lt;br&gt;
-\n► Скользящий ввод клавиш: Проведите пальцем от клавиши Shift к другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt;
-\n\t• Это также работает для клавиши \\\'?123\\\' чтобы ввести один символ из клавиатуры символов и для связанных с ней клавиш. &lt;br&gt; &lt;br&gt;
-\n► Удерживайте клавишу Shift или клавишу символа, нажмите одну или несколько клавиш и затем отпустите клавишу Shift или клавишу символа, чтобы переключиться обратно на предыдущую клавиатуру. &lt;br&gt; &lt;br&gt;
-\n► Долгое нажатие на подсказку в полосе подсказок показывает ещё больше подсказок и клавишу удаления для удаления этой подсказки. &lt;br&gt; &lt;br&gt;
-\n► Проведите пальцем вверх от подсказки, чтобы показать больше подсказок и отпустите на нужной, чтобы выбрать её. &lt;br&gt; &lt;br&gt;
-\n► Долгое нажатие на запись в истории буфера обмена закрепляет её (сохраняет в буфере обмена до тех пор, пока вы не отмените закрепление). &lt;br&gt; &lt;br&gt;
-\n► Проведите пальцем влево в просмотре буфера обмена, чтобы удалить запись (кроме случаев, когда она закреплена). &lt;br&gt; &lt;br&gt;
-\n► Выделите текст и нажмите клавишу Shift, чтобы переключаться между прописными, строчными буквами и капитализацией слов. &lt;br&gt; &lt;br&gt;
-\n► Вы можете добавить словари, открыв их в файловом менеджере: &lt;br&gt;
-\n\t• Это работает только с &lt;i&gt;content-uris&lt;/i&gt; и не работает с &lt;i&gt;file-uris&lt;/i&gt;, поэтому это может не работать с некоторыми файловыми менеджерами. &lt;br&gt; &lt;br&gt;
-\n► Для пользователей, создающих резервные копии вручную с правами суперпользователя (root): &lt;br&gt;
-\n\t• Начиная с Android 7, файл общих настроек находится в другом месте, поскольку приложение использует %s. Это необходимо, чтобы настройки можно было прочитать до разблокировки устройства, например, при запуске; &lt;br&gt;
-\n\t• Файл находится в /data/user_de/0/package_id/shared_prefs/, хотя это может зависеть от устройства и версии Android. &lt;br&gt; &lt;br&gt;
-\n&lt;i&gt;&lt;b&gt;Режим отладки / отладочная версия APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;
-\n► Долгое нажатие на подсказку показывает исходный словарь. &lt;br&gt; &lt;br&gt;
-\n► Когда используется отладочная версия APK, можно найти в Настройки отладки в разделе Расширенные настройки, хотя их полезность ограничена, за исключением выгрузки словарей в журнал. &lt;br&gt;
-\n\t• Для релизной версии APK необходимо несколько раз нажать на версию в разделе &lt;i&gt;О программе&lt;/i&gt;, затем можно найти настройки отладки в разделе &lt;i&gt;Расширенные настройки&lt;/i&gt;. &lt;br&gt;
-\n\t• Когда включена опция &lt;i&gt;Показать информацию о подсказках&lt;/i&gt;, подсказки будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь. &lt;br&gt; &lt;br&gt;
-\n► В случае аварийного завершения работы приложения, вам будет предложено, получить журналы ошибок, когда вы откроете раздел Настройки. &lt;br&gt; &lt;br&gt;
-\n► Когда используется многоязычный ввод, клавиша пробела будет показывать значение достоверности, которое используется для определения текущего используемого языка. &lt;br&gt; &lt;br&gt;
-\n► Подсказки будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь (это можно отключить).</string>
+    <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции:&lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• сдвинуть курсор влево/вправо &amp;#65515; перейти на слово влево/вправо &lt;br&gt; \n\t• сдвинуть курсор вверх/вниз &amp;#65515; перейти на страницу вверх/вниз &lt;br&gt; \n\t• слово левее/правее &amp;#65515; перейти к началу/концу строки &lt;br&gt; \n\t• страница вверх/вниз &amp;#65515; перейти к началу/концу страниц&lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов полосы предложений - закрепляет их в полосе предложений. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавишу запятой - открывает Вид буфера обмена, Вид эмодзи, Режим одной руки, Настройки или Сменить язык: &lt;br&gt; \n\t• Вид эмодзи и Смена языка будут недоступны, если соответствующая клавиша уже включена; &lt;br&gt; \n\t• Для некоторых раскладок клавиатуры это не клавиша запятой, а клавиша, находящаяся в том же положении (например, это клавиша \"q\" для раскладки Dvorak). &lt;br&gt; &lt;br&gt; \n► Когда включен режим инкогнито, никакие слова не будут сохранены, и эмодзи не будут добавлены в список использованных. &lt;br&gt; &lt;br&gt; \n► Нажмите на иконку Инкогнито, чтобы получить доступ к панели инструментов.&lt;br&gt; &lt;br&gt; \n► Скользящий ввод клавиш: Проведите пальцем от клавиши Shift к другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Также это работает для клавиши \\\'?123\\\', чтобы ввести один символ из клавиатуры символов и для связанных с ней клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу Shift или клавишу символа, нажмите одну или несколько клавиш и затем отпустите клавишу Shift или клавишу символа, чтобы переключиться обратно на предыдущую клавиатуру. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на предложение в полосе предложений показывает ещё больше предложений и клавишу удаления для удаления этого предложения. &lt;br&gt; &lt;br&gt; \n► Проведите пальцем вверх от предложения, чтобы показать больше предложений и отпустите на нужном, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на запись в истории буфера обмена закрепляет её (сохраняет в буфере обмена до тех пор, пока вы не отмените закрепление). &lt;br&gt; &lt;br&gt; \n► Проведите пальцем влево в просмотре буфера обмена, чтобы удалить запись (кроме случаев, когда она закреплена). &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажмите клавишу Shift, чтобы переключаться между прописными, строчными буквами и капитализацией слов. &lt;br&gt; &lt;br&gt; \n► Вы можете добавить словари, открыв их в файловом менеджере: &lt;br&gt; \n\t• Это работает только с &lt;i&gt;content-uris&lt;/i&gt; и не работает с &lt;i&gt;file-uris&lt;/i&gt;, поэтому это может не работать с некоторыми файловыми менеджерами. &lt;br&gt; &lt;br&gt; \n► Для пользователей, создающих резервные копии вручную с правами суперпользователя (root): &lt;br&gt; \n\t• Начиная с Android 7, файл общих настроек находится в другом месте, поскольку приложение использует %s. Это необходимо, чтобы настройки можно было прочитать до разблокировки устройства, например, при запуске; &lt;br&gt; \n\t• Файл находится в /data/user_de/0/package_id/shared_prefs/, хотя это может зависеть от устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / отладочная версия APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку показывает исходный словарь. &lt;br&gt; &lt;br&gt; \n► Когда используется отладочная версия APK, можно найти в Настройки отладки в разделе Расширенные настройки, хотя их полезность ограничена, за исключением выгрузки словарей в журнал. &lt;br&gt; \n\t• Для релизной версии APK необходимо несколько раз нажать на версию в разделе &lt;i&gt;О программе&lt;/i&gt;, затем можно найти настройки отладки в разделе &lt;i&gt;Расширенные настройки&lt;/i&gt;. &lt;br&gt; \n\t• Когда включена опция &lt;i&gt;Показать информацию о подсказках&lt;/i&gt;, подсказки будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь. &lt;br&gt; &lt;br&gt; \n► В случае аварийного завершения работы приложения, вам будет предложено, получить журналы ошибок, когда вы откроете раздел Настройки. &lt;br&gt; &lt;br&gt; \n► Когда используется многоязычный ввод, клавиша пробела будет показывать значение достоверности, которое используется для определения текущего используемого языка. &lt;br&gt; &lt;br&gt; \n► Предложения будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь (это можно отключить).</string>
     <string name="var_toolbar_direction_summary">Обратное направление, если выбран подтип клавиатуры с письмом справа налево</string>
     <string name="var_toolbar_direction">Переменное направление панели инструментов</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальский">%s</xliff:g> (Пробхат)</string>
@@ -359,21 +324,21 @@
     <string name="show_vertical_space_swipe">Вертикальный свайп по пробелу</string>
     <string name="action_none">Бездействие</string>
     <string name="space_swipe_move_cursor_entry">Перемещение курсора</string>
-    <string name="prefs_long_press_symbol_for_numpad">Длительное нажатие клавиши символов для цифровой клавиатуры</string>
+    <string name="prefs_long_press_symbol_for_numpad">Долгое нажатие клавиши символов для цифровой клавиатуры</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Русский">%s</xliff:g> (Студенческая)</string>
     <string name="cut" tools:keep="@string/cut">Вырезать</string>
-    <string name="language_switch_key_behavior">Поведение клавиши смены языка</string>
+    <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
     <string name="pinned_toolbar_keys">Выбрать закреплённые клавиши панели инструментов</string>
-    <string name="quick_pin_toolbar_keys_summary">Это отключит остальные функции клавиш панели инструментов при длительном нажатии</string>
-    <string name="quick_pin_toolbar_keys">Закреплять клавиши панели инструментов при длительном нажатии</string>
+    <string name="quick_pin_toolbar_keys_summary">При этом отключатся остальные функции долгого нажатия для незакреплённых кнопок панели</string>
+    <string name="quick_pin_toolbar_keys">Закреплять клавиши панели инструментов при долгом нажатии</string>
     <string name="toast_msg_clipboard_copy">Контент скопирован</string>
     <string name="auto_show_toolbar">Показывать панель инструментов автоматически</string>
     <string name="auto_hide_toolbar">Скрывать панель инструментов автоматически</string>
     <string name="center_suggestion_text_to_enter">Всегда использовать среднее предложение</string>
-    <string name="center_suggestion_text_to_enter_summary">При нажатии точки или пунктуации будет использовано среднее предложение</string>
+    <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет использовано среднее предложение</string>
     <string name="close_history" tools:keep="@string/close_history">Закрыть буфер обмена</string>
-    <string name="clipboard_toolbar_keys">Выбрать клавиши панели инструментов буфера обмена</string>
+    <string name="clipboard_toolbar_keys">Выбрать клавиши панели буфера обмена</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Расширенная)</string>
     <string name="auto_hide_toolbar_summary">Скрывать панель инструментов при появлении предложений</string>
     <string name="settings_screen_toolbar">Панель инструментов</string>
@@ -385,8 +350,8 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Функциональные клавиши (Символы)</string>
     <string name="gesture_fast_typing_cooldown_instant">Всегда начинать немедленно</string>
     <string name="gesture_fast_typing_cooldown">Время восстановления быстрой печати</string>
-    <string name="customize_currencies">Кастомизировать валюты</string>
-    <string name="customize_currencies_detail">Установить главные и до 6 дополнительных символа валют, разделённых пробелом</string>
+    <string name="customize_currencies">Настройка валют</string>
+    <string name="customize_currencies_detail">Укажите основные и до 6 доп. символов валют через пробел</string>
     <string name="load">Загрузить</string>
     <string name="button_save_file">Сохранить в файл</string>
     <string name="copy_to_clipboard">Скопировать в буфер обмена</string>
@@ -401,14 +366,14 @@
     <string name="suggest_clipboard_content_summary">Показать недавно скопированное содержимое буфера обмена в качестве предложения</string>
     <string name="space_swipe_toggle_numpad_entry">Переключить цифровую клавиатуру</string>
     <string name="switch_keyboard_after">Вернуться к основной клавиатуре после…</string>
-    <string name="after_emoji">Выбор эмодзи в режиме просмотра</string>
-    <string name="after_clip">Выбор записи из истории буфера обмена</string>
-    <string name="after_symbol_and_space">Нажатие Enter или пробела после других клавиш в режиме символов</string>
+    <string name="after_emoji">Выбора эмодзи в режиме просмотра</string>
+    <string name="after_clip">Выбора записи из истории буфера обмена</string>
+    <string name="after_symbol_and_space">Нажатия Enter или пробела после других клавиш в режиме символов</string>
     <string name="show_popup_keys_main">Добавить самые распространённые варианты (по умолчанию)</string>
     <string name="remove_redundant_popups">Удалить лишние всплывающие окна</string>
     <string name="remove_redundant_popups_summary">Убрать всплывающие клавиши, присутствующие в базовой раскладке</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Ряд с цифрами</string>
-    <string name="gesture_floating_preview_static_summary">Видеть предложенное слово во время набора жестами</string>
+    <string name="gesture_floating_preview_static_summary">Показывать предложенное слово во время набора жестами</string>
     <string name="gesture_trail_fadeout_duration">Время жизни следа жеста</string>
     <string name="prefs_space_bar_text">Пользовательский текст на клавише пробела</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Строка буфера обмена внизу</string>
@@ -430,22 +395,22 @@
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Соединитель нулевой ширины</string>
     <string name="customize_toolbar_key_codes">Настроить коды клавиш панели инструментов</string>
     <string name="key_code">Код клавиши</string>
-    <string name="long_press_code">Код длинного нажатия</string>
+    <string name="long_press_code">Код долгого нажатия</string>
     <string name="customize_icons">Настроить иконки</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Разъединитель нулевой ширины</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Выход из режима работы одной рукой</string>
     <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Корзина</string>
-    <string name="vibrate_in_dnd_mode">Вибрация в режиме «Не беспокоить»</string>
+    <string name="vibrate_in_dnd_mode">Вибрация в режиме Не беспокоить</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Фонетика)</string>
-    <string name="auto_correct_shortcuts">Автокоррекция сочетаний клавиш</string>
+    <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>
     <string name="prefs_bottom_padding_scale_landscape">Масштаб нижнего отступа (ландшафт)</string>
     <string name="prefs_font_scale">Масштаб шрифта клавиатуры</string>
     <string name="prefs_emoji_font_scale">Масштаб шрифта отображения эмодзи</string>
     <string name="prefs_side_padding_scale">Масштаб бокового отступа</string>
     <string name="prefs_side_padding_scale_landscape">Масштаб бокового отступа (ландшафт)</string>
-    <string name="auto_correct_shortcuts_summary">Если включено, сочетания клавиш могут быть расширены с помощью автокоррекции</string>
+    <string name="auto_correct_shortcuts_summary">Если включено, автоисправление превратит сокращения в полные слова</string>
     <string name="customize_toolbar_key_code_reset_message">Вы действительно хотите удалить все настроенные коды клавиш?</string>
     <string name="prefs_key_emoji_max_sdk">Переопределить версию эмодзи</string>
     <string name="summary_customize_background_image_landscape">Если не установлено, будет использоваться портретное изображение</string>
@@ -467,8 +432,8 @@
     <string name="discussion_section_link">обсуждения</string>
     <string name="name_invalid">Недопустимое имя</string>
     <string name="show_tld_popup_keys">Показать всплывающие клавиши TLD</string>
-    <string name="show_tld_popup_keys_summary">При вводе URL и адресов электронной почты отображать домены верхнего уровня вместо всплывающих меню клавиши точки</string>
-    <string name="after_numpad_and_space">Нажатие Enter или пробела после других клавиш на цифровой клавиатуре</string>
+    <string name="show_tld_popup_keys_summary">При вводе URL и адресов электронной почты заменить всплывающие подсказки клавиши точки на подсказки с доменами верхнего уровня</string>
+    <string name="after_numpad_and_space">Нажатия Enter или пробела после других клавиш на цифровой клавиатуре</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Поля ввода на веб-страницах (в основном в браузерах) часто вызывают проблемы с настройкой постоянного отображения подсказок</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Ряд с цифрами (основной)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Не всегда показывать подсказки для полей ввода на веб-страницах</string>
@@ -478,6 +443,8 @@
     <string name="shift_removes_autospace">Автопробел отключается при нажатии Shift</string>
     <string name="shift_removes_autospace_summary">Нажатие Shift убирает запланированный автопробел</string>
     <string name="autospace_before_gesture_typing">Автопробел перед набором слова жестами</string>
-    <string name="backspace_reverts_autocorrect">Нажатие Backspace отменяет автокоррекцию</string>
+    <string name="backspace_reverts_autocorrect">Нажатие Backspace отменяет автоисправление</string>
     <string name="timestamp_format_title">Формат ключа временной метки</string>
+    <string name="subtype_dag">Дагбани</string>
+    <string name="subtype_st">Сесото</string>
 </resources>

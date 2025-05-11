@@ -71,7 +71,7 @@
     <string name="keyboard_layout_set">"Layout"</string>
     <string name="prefs_keypress_vibration_duration_settings">Durata vibrazione tasti</string>
     <string name="prefs_keypress_sound_volume_settings">Volume del suono dei tasti</string>
-    <string name="prefs_key_longpress_timeout_settings">Pressione lunga per input secondario</string>
+    <string name="prefs_key_longpress_timeout_settings">Durata della pressione lunga dei tasti</string>
     <string name="prefs_enable_emoji_alt_physical_key">Tasto fisico per passare alle emoji</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Il tasto ALT di una tastiera collegata apre il pannello emoji</string>
     <string name="button_default">"Predefinito"</string>
@@ -79,13 +79,13 @@
     <string name="setup_welcome_additional_description">con digitazione gestuale</string>
     <string name="setup_start_action">"Inizia"</string>
     <string name="setup_next_action">"Passaggio successivo"</string>
-    <string name="setup_steps_title">Configurazione di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_steps_title">Configura <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Scegli <xliff:g id="APPLICATION_NAME">%s</xliff:g> nelle impostazioni \'Lingua e immissione\' per autorizzare l\'app.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.\"</string>
     <string name="setup_step1_action">Attiva nelle impostazioni</string>
     <string name="setup_step2_title">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Infine, attiva \\<xliff:g id="APPLICATION_NAME">%s</xliff:g> come metodo di immissione di testo.</string>
+    <string name="setup_step2_instruction">Infine, attiva <xliff:g id="APPLICATION_NAME">%s</xliff:g> come metodo di immissione di testo.</string>
     <string name="setup_step2_action">"Cambia metodo di immissione"</string>
     <string name="setup_step3_title">Tutto pronto!</string>
     <string name="setup_step3_instruction">Puoi usare <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> per digitare in qualsiasi app.</string>
@@ -304,7 +304,7 @@
     <string name="dictionary_file_wrong_locale">Il dizionario è stato creato per la lingua %1$s, ma lo stai aggiungendo a %2$s. Confermi?</string>
     <string name="dialog_close">Chiudi</string>
     <string name="select_color_gesture">Traccia dell\'input gestuale</string>
-    <string name="text_tap_languages">Tocca una lingua → Impostazioni</string>
+    <string name="text_tap_languages">Tocca la lingua per impostazioni</string>
     <string name="save_log">Salva log</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo bianco</string>
     <string name="internal_dictionary_summary">Dizionario interno principale</string>
@@ -329,7 +329,7 @@
     <string name="cut" tools:keep="@string/cut">Taglia</string>
     <string name="var_toolbar_direction_summary">Inverte la direzione quando la tastiera è di tipo destra-sinistra</string>
     <string name="var_toolbar_direction">Direzione della barra degli strumenti</string>
-    <string name="select_color_accent">Colore accento</string>
+    <string name="select_color_accent">Colore di risalto</string>
     <string name="hidden_features_message">► La pressione prolungata dei tasti fissati sulla barra degli strumenti attiva delle funzionalità aggiuntive: &lt;br&gt;\n\t• Appunti &amp;#65515; Incolla&lt;br&gt; \n\t• Cursore a sinistra/destra &amp;#65515; Parola a sinistra/destra&lt;br&gt; \n\t• Cursore su/giù &amp;#65515; Pagina su/giù&lt;br&gt; \n\t• Parola a sinistra/destra &amp;#65515; Inizio/fine riga&lt;br&gt; \n\t• Pagina su/giù &amp;#65515; Inizio/fine documento&lt;br&gt; \n\t• Copia &amp;#65515; Taglia&lt;br&gt; \n\t• Seleziona parola &amp;#8596; Seleziona tutto&lt;br&gt; \n\t• Annulla &amp;#8596; Ripeti&lt;br&gt;&lt;br&gt; \n► La pressione prolungata dei tasti nella barra dei suggerimenti li blocca sulla barra. &lt;br&gt; &lt;br&gt;\n► Con la pressione prolungata del tasto virgola si accede alle funzionalità appunti, emoji, modalità a una mano, impostazioni e cambio lingua: &lt;br&gt;\n\t• Le funzionalità emoji e cambio lingua non saranno visibili se il tasto corrispondente è abilitato. &lt;br&gt; \n\t• Per alcuni layout non è il tasto virgola, ma quello presente nella stessa posizione (ad es. \"q\" per il layout Dvorak). &lt;br&gt; &lt;br&gt; \n► Quando è abilitata la modalità incognito, l\'apprendimento delle parole è sospeso e le emoji recenti non sono memorizzate. &lt;br&gt; &lt;br&gt;\n► In modalità incognito, si accede alla barra degli strumenti toccando l\'icona \"Incognito\". &lt;br&gt; &lt;br&gt;\n► Scorrimento da \"Maiuscolo\": lo scorrimento dal tasto \"Maiuscolo\" a una lettera permette di digitare in maiuscolo solo il carattere scelto. &lt;br&gt; &lt;br&gt;\n► È possibile tenere premuto il tasto \"Maiuscolo\" o \"Simboli\", digitare uno o più caratteri e rilasciare per tornare alla tastiera precedente. &lt;br&gt; &lt;br&gt;\n► La pressione lunga su un suggerimento mostra altri suggerimenti, più un tasto \"Elimina\" per rimuovere il suggerimento stesso. &lt;br&gt; &lt;br&gt;\n► È possibile scorrere verso l\'alto da un suggerimento per aprire altri suggerimenti e rilasciare su un suggerimento per selezionarlo. &lt;br&gt; &lt;br&gt;\n► È possibile toccare a lungo una voce della cronologia appunti per fissarla (rimane negli appunti finché non viene rilasciata nello stesso modo). &lt;br&gt; &lt;br&gt;\n► È possibile eliminare facilmente una voce della cronologia appunti trascinandola verso sinistra fuori dallo schermo (tranne quando è fissata). &lt;br&gt; &lt;br&gt;\n► Premendo il tasto \"Maiuscolo\" dopo aver selezionato un testo, è possibile renderlo tutto in maiuscolo, tutto in minuscolo oppure con le iniziali maiuscole. &lt;br&gt; &lt;br&gt;\n► È possibile aggiungere dizionari aprendoli da un qualsiasi gestore file. &lt;br&gt;\n\t• Supporta solo &lt;i&gt;content-uri&lt;/i&gt;, non &lt;i&gt;file-uri&lt;/i&gt;: potrebbe non funzionare con alcuni gestori di file.&lt;br&gt;&lt;br&gt; \n► Per gli utenti che eseguono manualmente il backup con accesso root: &lt;br&gt;\n\t• Su Android 7 e versioni successive, il file delle preferenze non si trova nella cartella predefinita, perché l\'app usa lo %s al fine di permettere il caricamento delle impostazioni prima dello sblocco del dispositivo (per es. all\'avvio del sistema). &lt;br&gt;\n\t• Il file si trova invece nella cartella &lt;i&gt;/data/user_de/0/package_id/shared_prefs/&lt;/i&gt; (potrebbe variare in base al dispositivo e alla versione di Android). &lt;br&gt;&lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modalità debug / APK di debug&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;br&gt; \n► È possibile premere a lungo un suggerimento per mostrare il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► Quando si utilizza un APK di debug, è possibile trovare le impostazioni di debug nella sezione \"Avanzate\". Non sono particolarmente utili, se non per scaricare i dizionari nel log. &lt;br&gt;\n\t• Nella versione normale (release) dell\'app, è possibile accedervi solo dopo aver toccato più volte la versione dell\'app nella sezione \"Informazioni\". &lt;br&gt;\n\t• Quando si abilita \"Mostra informazioni sui suggerimenti\", sopra ai suggerimenti appariranno alcuni indicatori numerici che mostrano un determinato punteggio interno e il dizionario di origine. &lt;br&gt; &lt;br&gt;\n► In caso di arresto anomalo dell\'app, verrà chiesto se si desidera ottenere i log dell\'arresto anomalo al successivo accesso alle impostazioni. &lt;br&gt; &lt;br&gt;\n► Se è attiva la digitazione multilingue, la barra spaziatrice mostrerà il valore di affidabilità usato per determinare la lingua corrente. &lt;br&gt; &lt;br&gt;\n► Per nascondere gli indicatori numerici accanto ai suggerimenti, disabilitare \"Mostra informazioni sui suggerimenti\".</string>
     <string name="pinned_toolbar_keys">Scegli i tasti permanenti (visibili anche con la barra degli strumenti nascosta)</string>
     <string name="quick_pin_toolbar_keys">Fissa i tasti alla barra degli strumenti con una pressione lunga</string>
@@ -365,7 +365,7 @@
     <string name="page_start" tools:keep="@string/page_start">Inizio documento</string>
     <string name="page_end" tools:keep="@string/page_end">Fine documento</string>
     <string name="suggest_clipboard_content">Suggerisci il testo copiato</string>
-    <string name="suggest_clipboard_content_summary">Propone l\'ultimo testo copiato come \'pill\' nella barra dei suggerimenti</string>
+    <string name="suggest_clipboard_content_summary">Propone l\'ultimo testo copiato nella barra dei suggerimenti</string>
     <string name="copy_to_clipboard">Copia negli appunti</string>
     <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
     <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
@@ -409,7 +409,7 @@
     <string name="label_bin" tools:keep="@string/label_bin">Elimina parola dal dizionario utente</string>
     <string name="vibrate_in_dnd_mode">Vibrazione attiva in modalità \'Non disturbare\'</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonetico)</string>
-    <string name="prefs_key_emoji_max_sdk">Forza la versione di emoji</string>
+    <string name="prefs_key_emoji_max_sdk">Forza la versione delle emoji</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="enable_split_keyboard_landscape">Tastiera divisa (orizzontale)</string>
@@ -446,11 +446,13 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">I campi di testo Web (specie all\'interno dei browser) sono una causa ricorrente di problemi con i suggerimenti sempre attivi</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Barra dei numeri (base)</string>
     <string name="settings_category_space">Spazio</string>
-    <string name="shift_removes_autospace_summary">Nessuno spazio finale con ⇧ (maiuscolo) attivo</string>
+    <string name="shift_removes_autospace_summary">Nessuno spazio automatico alla pressione di ⇧ (maiuscolo) dopo un gesto</string>
     <string name="autospace_after_suggestion">Spazio automatico dopo la scelta di una parola suggerita</string>
     <string name="autospace_after_gesture_typing">Spazio automatico dopo una parola aggiunta con l\'inserimento gestuale</string>
-    <string name="shift_removes_autospace">Nessuno spazio automatico con ⇧ (maiuscolo) attivo</string>
+    <string name="shift_removes_autospace">Spazio automatico disattivato dopo Maiuscolo</string>
     <string name="backspace_reverts_autocorrect">Usa Backspace per annullare l\'autocorrezione</string>
     <string name="autospace_before_gesture_typing">Spazio automatico prima di una parola aggiunta con l\'inserimento gestuale</string>
     <string name="timestamp_format_title">Formato per il tasto data/ora</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
 </resources>

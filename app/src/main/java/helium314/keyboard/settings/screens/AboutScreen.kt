@@ -54,7 +54,7 @@ fun AboutScreen(
         SettingsWithoutKey.LICENSE,
         SettingsWithoutKey.HIDDEN_FEATURES,
         SettingsWithoutKey.GITHUB,
-        SettingsWithoutKey.SAVE_LOG
+        SettingsWithoutKey.SAVE_LOG,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -150,7 +150,11 @@ fun createAboutSettings(context: Context) = listOf(
             val uri = result.data?.data ?: return@rememberLauncherForActivityResult
             scope.launch(Dispatchers.IO) {
                 ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
-                    os.bufferedWriter().use { it.write(Log.getLog().joinToString("\n")) }
+                    os.writer().use {
+                        val logcat = Runtime.getRuntime().exec("logcat -d -b all *:W").inputStream.use { it.reader().readText() }
+                        val internal = Log.getLog().joinToString("\n")
+                        it.write(logcat + "\n\n" + internal)
+                    }
                 }
             }
         }

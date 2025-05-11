@@ -233,7 +233,7 @@ fun createAdvancedSettings(context: Context) = listOf(
                     else -> "version unknown"
                 }
             },
-            onValueChanged =  { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+            onConfirmed = { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
         )
     },
     Setting(context, Settings.PREF_URL_DETECTION, R.string.url_detection_title, R.string.url_detection_summary) {

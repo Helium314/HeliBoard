@@ -154,7 +154,7 @@ object SubtypeSettings {
                 }
                 else subtype.toPref()
             }.joinToString(Separators.SETS)
-            prefs.edit().putString(key, new).apply()
+            editor.putString(key, new)
         }
         editor.apply()
         if (Settings.readDefaultLayoutName(type, prefs) == from)
@@ -164,10 +164,10 @@ object SubtypeSettings {
 
     fun reloadEnabledSubtypes(context: Context) {
         enabledSubtypes.clear()
-        removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
-        RichInputMethodManager.getInstance().refreshSubtypeCaches()
+        if (RichInputMethodManager.isInitialized())
+            RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 
     fun createSettingsSubtypes(prefSubtypes: String): List<SettingsSubtype> =
@@ -187,7 +187,6 @@ object SubtypeSettings {
         reloadSystemLocales(context)
 
         loadResourceSubtypes(context.resources)
-        removeInvalidCustomSubtypes(context)
         loadAdditionalSubtypes(context.prefs())
         loadEnabledSubtypes(context)
     }
@@ -213,24 +212,6 @@ object SubtypeSettings {
         getResourceSubtypes(resources).forEach {
             resourceSubtypesByLocale.getOrPut(it.locale()) { ArrayList(2) }.add(it)
         }
-    }
-
-    // remove custom subtypes without a layout file
-    private fun removeInvalidCustomSubtypes(context: Context) {
-        val prefs = context.prefs()
-        val additionalSubtypes = prefs.getString(Settings.PREF_ADDITIONAL_SUBTYPES, Defaults.PREF_ADDITIONAL_SUBTYPES)!!.split(Separators.SETS)
-        val customLayoutFiles by lazy { LayoutUtilsCustom.getLayoutFiles(LayoutType.MAIN, context).map { it.name } }
-        val subtypesToRemove = mutableListOf<String>()
-        additionalSubtypes.forEach {
-            val name = it.toSettingsSubtype().mainLayoutName() ?: SubtypeLocaleUtils.QWERTY
-            if (!LayoutUtilsCustom.isCustomLayout(name)) return@forEach
-            if (name !in customLayoutFiles)
-                subtypesToRemove.add(it)
-        }
-        if (subtypesToRemove.isEmpty()) return
-        Log.w(TAG, "removing custom subtypes without main layout files: $subtypesToRemove")
-        // todo: now we have a qwerty fallback anyway, consider removing this method (makes bugs more obvious to users)
-        prefs.edit().putString(Settings.PREF_ADDITIONAL_SUBTYPES, additionalSubtypes.filterNot { it in subtypesToRemove }.joinToString(Separators.SETS)).apply()
     }
 
     private fun loadAdditionalSubtypes(prefs: SharedPreferences) {

@@ -9,9 +9,13 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.settings.Defaults
+import helium314.keyboard.latin.settings.Defaults.default
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.utils.LayoutType.Companion.toExtraValue
+import helium314.keyboard.latin.utils.ScriptUtils.script
+import java.util.EnumMap
 import java.util.Locale
 
 object SubtypeUtilsAdditional {
@@ -46,8 +50,17 @@ object SubtypeUtilsAdditional {
     fun createDummyAdditionalSubtype(locale: Locale, mainLayoutName: String) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", false, false)
 
+    // only used in tests
     fun createEmojiCapableAdditionalSubtype(locale: Locale, mainLayoutName: String, asciiCapable: Boolean) =
         createAdditionalSubtype(locale, "${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN${Separators.KV}$mainLayoutName", asciiCapable, true)
+
+    /** creates a subtype with every layout being the default for its type */
+    fun createDefaultSubtype(locale: Locale): InputMethodSubtype {
+        val layouts = LayoutType.entries.associateWithTo(LayoutType.getLayoutMap(null)) { it.default }
+        SubtypeSettings.getResourceSubtypesForLocale(locale).firstOrNull()?.mainLayoutName()?.let { layouts[LayoutType.MAIN] = it }
+        val extra = ExtraValue.KEYBOARD_LAYOUT_SET + "=" + layouts.toExtraValue()
+        return createAdditionalSubtype(locale, extra, locale.script() == ScriptUtils.SCRIPT_LATIN, true)
+    }
 
     fun removeAdditionalSubtype(context: Context, subtype: InputMethodSubtype) {
         val prefs = context.prefs()

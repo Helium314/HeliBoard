@@ -481,4 +481,6 @@
     <string name="shift_removes_autospace_summary">Shift-klahvi vajutus välistab lisatava automaatse tühiku</string>
     <string name="autospace_after_gesture_typing">Automaatne tühik peale viipamisega sõna kirjutamist</string>
     <string name="timestamp_format_title">Ajatempli klahvi vorming</string>
+    <string name="subtype_dag">dagbani</string>
+    <string name="subtype_st">sotho</string>
 </resources>
