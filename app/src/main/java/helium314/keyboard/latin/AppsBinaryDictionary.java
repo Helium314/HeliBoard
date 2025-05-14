@@ -19,8 +19,8 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
     private static final String TAG = AppsBinaryDictionary.class.getSimpleName();
     private static final String NAME = "apps";
 
-    private static final int FREQUENCY_FOR_APPS = 40;
-    private static final int FREQUENCY_FOR_APPS_BIGRAM = 90;
+    private static final int FREQUENCY_FOR_APPS = 100;
+    private static final int FREQUENCY_FOR_APPS_BIGRAM = 200;
 
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_DUMP = false;
