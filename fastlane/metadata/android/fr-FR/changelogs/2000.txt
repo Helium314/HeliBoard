@@ -1,0 +1,10 @@
+* ajout d'une aide de base pour les modifier keys
+* ajout de fonctions d'appuis longs à plus de touches de la barre d'outils
+* et plus de touches de la barre d'outils pour l'historique du presse-papier
+* rendre la barre d'outils de l'historique du presse-papier personnalisable
+* autoriser la customisation de toutes les couleurs
+* ajout d'un paramètre pour toujours afficher le mot qui doit être entré en tant que suggestion du milieu
+* ajout d'un indicateur de touche majuscule enfoncée
+* ajout des dispositions de clavier piémontais, mari de l'est et mansi pour le kannada et l'hongrois
+* Correction du texte coupé dans la popup de prévisualisation sur certains appareils
+* corrections et améliorations plus lointaines, voir notes de publication

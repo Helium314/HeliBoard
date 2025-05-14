@@ -25,6 +25,7 @@ import helium314.keyboard.latin.utils.ScriptUtils;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeUtilsKt;
+import kotlin.collections.CollectionsKt;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -148,13 +149,15 @@ public class RichInputMethodManager {
             if (mCachedThisImeInfo != null) {
                 return mCachedThisImeInfo;
             }
-            for (final InputMethodInfo imi : mImm.getInputMethodList()) {
+            final var inputMethods = mImm.getInputMethodList();
+            for (final InputMethodInfo imi : inputMethods) {
                 if (imi.getPackageName().equals(mImePackageName)) {
                     mCachedThisImeInfo = imi;
                     return imi;
                 }
             }
-            throw new RuntimeException("Input method id for " + mImePackageName + " not found.");
+            throw new RuntimeException("Input method id for " + mImePackageName + " not found, only found" +
+                    CollectionsKt.map(inputMethods, InputMethodInfo::getPackageName));
         }
 
         public synchronized List<InputMethodSubtype> getEnabledInputMethodSubtypeList(

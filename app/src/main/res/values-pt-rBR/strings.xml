@@ -7,8 +7,8 @@
     <string name="ime_settings">Configurações do HeliBoard</string>
     <string name="vibrate_on_keypress">Vibrar ao tocar nas teclas</string>
     <string name="sound_on_keypress">Som ao tocar nas teclas</string>
-    <string name="settings_screen_gesture">Digitação por Gestos</string>
-    <string name="settings_screen_correction">Correção de Texto</string>
+    <string name="settings_screen_gesture">Digitação por gestos</string>
+    <string name="settings_screen_correction">Correção de texto</string>
     <string name="settings_screen_advanced">Avançado</string>
     <string name="settings_screen_theme">Tema</string>
     <string name="settings_category_input">Entrada</string>
@@ -48,11 +48,11 @@
     <string name="prefs_keyboard_height_scale">Escala da altura do teclado</string>
     <string name="number_row_summary">Sempre mostrar a linha de números</string>
     <string name="subtype_en_GB">Inglês (Reino Unido)</string>
-    <string name="subtype_en_US">Inglês (EUA)</string>
-    <string name="subtype_es_US">Espanhol (EUA)</string>
-    <string name="subtype_hi_Latn">Hindi-Inglês</string>
+    <string name="subtype_en_US">Inglês (Estados Unidos)</string>
+    <string name="subtype_es_US">Espanhol (Estados Unidos)</string>
+    <string name="subtype_hi_Latn">Hinglês</string>
     <string name="subtype_sr_Latn">Sérvio (Latino)</string>
-    <string name="subtype_with_layout_es_US">Espanhol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Espanhol (Estados Unidos) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_with_layout_sr_Latn">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_generic_traditional">Nepali (Nepal) <xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_with_layout_bn_BD">Bengali (Bangladesh) <xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
@@ -90,8 +90,8 @@
     <string name="user_dict_settings_more_languages">Mais idiomas…</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="key_borders">Bordas nas teclas</string>
-    <string name="spell_checker_service_name">Corretor Ortográfico do HeliBoard</string>
-    <string name="android_spell_checker_settings">Configurações do corretor ortográfico do HeliBoard</string>
+    <string name="spell_checker_service_name">Verificador ortográfico do HeliBoard</string>
+    <string name="android_spell_checker_settings">Configurações do verificador ortográfico do HeliBoard</string>
     <string name="use_contacts_dict">Buscar por nomes de contatos</string>
     <string name="popup_on_keypress">Mostrar pop-up ao tocar em teclas</string>
     <string name="settings_screen_preferences">Preferências</string>
@@ -100,7 +100,7 @@
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
     <string name="settings_no_limit">Sem limite</string>
-    <string name="settings_system_default">Padrão do Sistema</string>
+    <string name="settings_system_default">Padrão do sistema</string>
     <string name="edit_personal_dictionary">Dicionário pessoal</string>
     <string name="main_dictionary">Dicionário principal</string>
     <string name="prefs_show_suggestions">Mostrar sugestões de correção</string>
@@ -112,11 +112,11 @@
     <string name="clipboard_history_retention_time">Tempo de retenção do histórico</string>
     <string name="number_row">Linha de números</string>
     <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_hi_Latn">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_en_US">Inglês (Estados Unidos) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
+    <string name="subtype_with_layout_hi_Latn">Hinglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_no_language">Nenhum idioma (Alfabeto)</string>
     <string name="subtype_no_language_qwerty">Alfabeto (QWERTY)</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas configurações de \'Idiomas e Entrada\'. Esta etapa já está concluída. Vamos avançar para a próxima!\"</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas configurações de \'Idiomas e Entrada\'. Esta etapa já está concluída. Vamos avançar para a próxima!</string>
     <string name="subtype_no_language_qwertz">Alfabeto (QWERTZ)</string>
     <string name="subtype_no_language_azerty">Alfabeto (AZERTY)</string>
     <string name="subtype_no_language_dvorak">Alfabeto (Dvorak)</string>
@@ -126,12 +126,12 @@
     <string name="setup_welcome_title">Bem-vindo ao <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Mostrar a paleta de emojis ao tocar na tecla Alt física</string>
     <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Por favor, ative o \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.\"</string>
+    <string name="setup_step1_instruction">Por favor, ative o \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.</string>
     <string name="setup_finish_action">Concluído</string>
     <string name="show_setup_wizard_icon_summary">Mostrar o ícone do app na launcher</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Em seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como o seu método de entrada ativo.\"</string>
+    <string name="setup_step2_instruction">Em seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como o seu método de entrada ativo.</string>
     <string name="setup_step3_instruction">Agora, você pode usar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar nos seus apps favoritos.</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
@@ -207,7 +207,7 @@
     <string name="use_personalized_dicts_summary">Aprender de suas comunicações e dados digitados para melhorar sugestões</string>
     <string name="version">Versão</string>
     <string name="prefs_always_show_suggestions">Sempre mostrar sugestões</string>
-    <string name="disable_personalized_dicts_message">Aviso: Desativar esta opção limpará dados aprendidos</string>
+    <string name="disable_personalized_dicts_message">Alerta: Desativar esta opção limpará dados aprendidos</string>
     <string name="prefs_always_show_suggestions_summary">Ignorar a solicitação de outros apps de desativar as sugestões (pode causar problemas)</string>
     <string name="delete_layout">Deseja realmente excluir o layout customizado %s?</string>
     <string name="customize_background_image">Definir imagem de fundo</string>
@@ -453,4 +453,7 @@
     <string name="backspace_reverts_autocorrect">O backspace reverte a autocorreção</string>
     <string name="autospace_before_gesture_typing">Espaço automático antes de digitar uma palavra com gestos</string>
     <string name="timestamp_format_title">Formato da tecla de horário</string>
+    <string name="subtype_dag">Dagani</string>
+    <string name="subtype_st">Sesoto</string>
+    <string name="prefs_emoji_key_fit">Redimensionar tamanho da tecla de emoji com o tamanho da fonte</string>
 </resources>

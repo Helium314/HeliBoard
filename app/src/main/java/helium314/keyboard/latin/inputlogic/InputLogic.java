@@ -452,6 +452,8 @@ public final class InputLogic {
                 //  to the current word instead of considering the cursor position
                 //  position is actually not visible to the combiner, how to fix?
                 processedEvent = mWordComposer.processEvent(hangulDecodedEvent);
+                if (event.getMKeyCode() == KeyCode.DELETE)
+                    mWordComposer.resetInvalidCursorPosition();
             } else {
                 mWordComposer.setHangul(false);
                 final boolean wasComposingWord = mWordComposer.isComposingWord();
@@ -765,16 +767,35 @@ public final class InputLogic {
                 }
                 break;
             case KeyCode.WORD_LEFT:
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
+                                     KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCode.WORD_RIGHT:
-                sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
+                sendDownUpKeyEventWithMetaState(ScriptUtils.isScriptRtl(currentKeyboardScript)?
+                                     KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_CTRL_ON);
                 break;
             case KeyCode.MOVE_START_OF_PAGE:
+                final int selectionEnd = mConnection.getExpectedSelectionEnd();
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_HOME, KeyEvent.META_CTRL_ON);
+                if (mConnection.getExpectedSelectionStart() > 0 && mConnection.getExpectedSelectionEnd() == selectionEnd) {
+                    // unchanged, and we're not at the top -> try a different method (necessary for compose fields)
+                    mConnection.setSelection(0, 0);
+                }
                 break;
             case KeyCode.MOVE_END_OF_PAGE:
+                final int selectionStart = mConnection.getExpectedSelectionEnd();
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_MOVE_END, KeyEvent.META_CTRL_ON);
+                if (mConnection.getExpectedSelectionStart() == selectionStart) {
+                    // unchanged, try fallback e.g. for compose fields that don't care about ctrl + end
+                    // we just move to a very large index, and hope the field is prepared to deal with this
+                    // getting the actual length of the text for setting the correct position can be tricky for some apps...
+                    try {
+                        mConnection.setSelection(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                    } catch (Exception e) {
+                        // better catch potential errors and just do nothing in this case
+                        Log.i(TAG, "error when trying to move cursor to last position: " + e);
+                    }
+                }
                 break;
             case KeyCode.UNDO:
                 sendDownUpKeyEventWithMetaState(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);

@@ -89,6 +89,7 @@ object Defaults {
     const val PREF_SIDE_PADDING_SCALE_LANDSCAPE = 0f
     const val PREF_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
+    const val PREF_EMOJI_KEY_FIT = true
     const val PREF_SPACE_HORIZONTAL_SWIPE = "move_cursor"
     const val PREF_SPACE_VERTICAL_SWIPE = "none"
     const val PREF_DELETE_SWIPE = true
@@ -156,7 +157,6 @@ object Defaults {
     const val PREF_REMOVE_REDUNDANT_POPUPS = false
     const val PREF_SPACE_BAR_TEXT = ""
     const val PREF_TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    @JvmField
     val PREF_EMOJI_MAX_SDK = Build.VERSION.SDK_INT
     const val PREF_EMOJI_RECENT_KEYS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0

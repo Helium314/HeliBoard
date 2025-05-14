@@ -14,8 +14,11 @@ import helium314.keyboard.latin.common.loopOverCodePointsBackwards
 import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import kotlin.math.abs
+import kotlin.math.min
 
 class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inputLogic: InputLogic) : KeyboardActionListener {
+
+    private val connection = inputLogic.mConnection
 
     private val keyboardSwitcher = KeyboardSwitcher.getInstance()
     private val settings = Settings.getInstance()
@@ -71,8 +74,9 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         keyboardSwitcher.onFinishSlidingInput(latinIME.currentAutoCapsState, latinIME.currentRecapitalizeState)
 
     override fun onCustomRequest(requestCode: Int): Boolean {
-        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)
+        if (requestCode == Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER) {
             return latinIME.showInputPickerDialog()
+        }
         return false
     }
 
@@ -102,30 +106,34 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     override fun onMoveDeletePointer(steps: Int) {
         inputLogic.finishInput()
-        val end = inputLogic.mConnection.expectedSelectionEnd
-        var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
+        val end = connection.expectedSelectionEnd
+        val actualSteps = actualSteps(steps)
+        val start = connection.expectedSelectionStart + actualSteps
+        if (start > end) return
+        connection.setSelection(start, end)
+    }
+
+    private fun actualSteps(steps: Int): Int {
+        var actualSteps = 0
+        // corrected steps to avoid splitting chars belonging to the same codepoint
         if (steps > 0) {
-            val text = inputLogic.mConnection.getSelectedText(0)
-            if (text == null) actualSteps = steps
-            else loopOverCodePoints(text) {
-                actualSteps += Character.charCount(it)
+            val text = connection.getSelectedText(0) ?: return steps
+            loopOverCodePoints(text) { cp, charCount ->
+                actualSteps += charCount
                 actualSteps >= steps
             }
         } else {
-            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0)
-            if (text == null) actualSteps = steps
-            else loopOverCodePointsBackwards(text) {
-                actualSteps -= Character.charCount(it)
+            val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return steps
+            loopOverCodePointsBackwards(text) { cp, charCount ->
+                actualSteps -= charCount
                 actualSteps <= steps
             }
         }
-        val start = inputLogic.mConnection.expectedSelectionStart + actualSteps
-        if (start > end) return
-        inputLogic.mConnection.setSelection(start, end)
+        return actualSteps
     }
 
     override fun onUpWithDeletePointerActive() {
-        if (!inputLogic.mConnection.hasSelection()) return
+        if (!connection.hasSelection()) return
         inputLogic.finishInput()
         onCodeInput(KeyCode.DELETE, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
@@ -144,16 +152,17 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val current = RichInputMethodManager.getInstance().currentSubtype.rawSubtype
         var wantedIndex = subtypes.indexOf(current) + if (steps > 0) 1 else -1
         wantedIndex %= subtypes.size
-        if (wantedIndex < 0)
+        if (wantedIndex < 0) {
             wantedIndex += subtypes.size
+        }
         val newSubtype = subtypes[wantedIndex]
 
         // do not switch if we would switch to the initial subtype after cycling all other subtypes
-        if (initialSubtype == null)
-            initialSubtype = current
+        if (initialSubtype == null) initialSubtype = current
         if (initialSubtype == newSubtype) {
-            if ((subtypeSwitchCount > 0 && steps > 0) || ((subtypeSwitchCount < 0 && steps < 0)))
+            if ((subtypeSwitchCount > 0 && steps > 0) || (subtypeSwitchCount < 0 && steps < 0)) {
                 return true
+            }
         }
         if (steps > 0) subtypeSwitchCount++ else subtypeSwitchCount--
 
@@ -174,17 +183,8 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         val steps = if (RichInputMethodManager.getInstance().currentSubtype.isRtlSubtype) -rawSteps else rawSteps
         val moveSteps: Int
         if (steps < 0) {
-            var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
-            val text = inputLogic.mConnection.getTextBeforeCursor(-steps * 4, 0) ?: return false
-            loopOverCodePointsBackwards(text) {
-                if (StringUtils.mightBeEmoji(it)) {
-                    actualSteps = 0
-                    return@loopOverCodePointsBackwards true
-                }
-                actualSteps -= Character.charCount(it)
-                actualSteps <= steps
-            }
-            moveSteps = -text.length.coerceAtMost(abs(actualSteps))
+            val text = connection.getTextBeforeCursor(-steps * 4, 0) ?: return false
+            moveSteps = negativeMoveSteps(text, steps)
             if (moveSteps == 0) {
                 // some apps don't return any text via input connection, and the cursor can't be moved
                 // we fall back to virtually pressing the left/right key one or more times instead
@@ -194,18 +194,11 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 return true
             }
         } else {
-            var actualSteps = 0 // corrected steps to avoid splitting chars belonging to the same codepoint
-            val text = inputLogic.mConnection.getTextAfterCursor(steps * 4, 0) ?: return false
-            loopOverCodePoints(text) {
-                if (StringUtils.mightBeEmoji(it)) {
-                    actualSteps = 0
-                    return@loopOverCodePoints true
-                }
-                actualSteps += Character.charCount(it)
-                actualSteps >= steps
-            }
-            moveSteps = text.length.coerceAtMost(actualSteps)
+            val text = connection.getTextAfterCursor(steps * 4, 0) ?: return false
+            moveSteps = positiveMoveSteps(text, steps)
             if (moveSteps == 0) {
+                // some apps don't return any text via input connection, and the cursor can't be moved
+                // we fall back to virtually pressing the left/right key one or more times instead
                 repeat(steps) {
                     onCodeInput(KeyCode.ARROW_RIGHT, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 }
@@ -225,16 +218,37 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         if (variation != 0 && inputLogic.moveCursorByAndReturnIfInsideComposingWord(moveSteps)) {
             // no need to finish input and restart suggestions if we're still in the word
             // this is a noticeable performance improvement when moving through long words
-            val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-            inputLogic.mConnection.setSelection(newPosition, newPosition)
+            val newPosition = connection.expectedSelectionStart + moveSteps
+            connection.setSelection(newPosition, newPosition)
             return true
         }
 
         inputLogic.finishInput()
-        val newPosition = inputLogic.mConnection.expectedSelectionStart + moveSteps
-        inputLogic.mConnection.setSelection(newPosition, newPosition)
+        val newPosition = connection.expectedSelectionStart + moveSteps
+        connection.setSelection(newPosition, newPosition)
         inputLogic.restartSuggestionsOnWordTouchedByCursor(settings.current, keyboardSwitcher.currentKeyboardScript)
         return true
     }
 
+    private fun positiveMoveSteps(text: CharSequence, steps: Int): Int {
+        var actualSteps = 0
+        // corrected steps to avoid splitting chars belonging to the same codepoint
+        loopOverCodePoints(text) { cp, charCount ->
+            if (StringUtils.mightBeEmoji(cp)) return 0
+            actualSteps += charCount
+            actualSteps >= steps
+        }
+        return min(actualSteps, text.length)
+    }
+
+    private fun negativeMoveSteps(text: CharSequence, steps: Int): Int {
+        var actualSteps = 0
+        // corrected steps to avoid splitting chars belonging to the same codepoint
+        loopOverCodePointsBackwards(text) { cp, charCount ->
+            if (StringUtils.mightBeEmoji(cp)) return 0
+            actualSteps -= charCount
+            actualSteps <= steps
+        }
+        return -min(-actualSteps, text.length)
+    }
 }

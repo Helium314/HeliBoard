@@ -168,7 +168,7 @@ object ScriptUtils {
             "sr", "mk", "ru", "uk", "mn", "be", "kk", "ky", "bg", "xdq", "cv", "mhr", "mns", "dru" -> SCRIPT_CYRILLIC
             "ka" -> SCRIPT_GEORGIAN
             "el" -> SCRIPT_GREEK
-            "iw" -> SCRIPT_HEBREW
+            "iw", "he" -> SCRIPT_HEBREW
             "km" -> SCRIPT_KHMER
             "lo" -> SCRIPT_LAO
             "ml" -> SCRIPT_MALAYALAM
@@ -182,6 +182,14 @@ object ScriptUtils {
             "kn" -> SCRIPT_KANNADA
             "gu" -> SCRIPT_GUJARATI
             else -> SCRIPT_LATIN // use as fallback
+        }
+    }
+
+    @JvmStatic
+    fun isScriptRtl(script: String): Boolean {
+        return when (script) {
+            SCRIPT_ARABIC, SCRIPT_HEBREW -> true
+            else -> false
         }
     }
 }
