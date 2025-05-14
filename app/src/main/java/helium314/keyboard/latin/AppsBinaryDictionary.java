@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.utils.Log;
+import helium314.keyboard.latin.utils.SpacedTokens;
 
 public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
     private static final String TAG = AppsBinaryDictionary.class.getSimpleName();
