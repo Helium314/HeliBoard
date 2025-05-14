@@ -19,5 +19,7 @@ data class EmojiSpec(val codes: IntArray, val unicodeVer: Float, val name: Strin
         return codes contentEquals other.codes
     }
 
+    val text get() = codes.joinToString("") { Character.toString(it) }
+
     override fun hashCode() = codes.contentHashCode()
 }
