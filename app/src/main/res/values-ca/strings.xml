@@ -446,4 +446,5 @@
     <string name="timestamp_format_title">Format de la clau de marca de temps</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Escala la mida de la tecla emoji amb la de la font</string>
 </resources>

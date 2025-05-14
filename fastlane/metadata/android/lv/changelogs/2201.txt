@@ -1,0 +1,2 @@
+* pievienoti žestu rakstīšanas vizuālie iestatījumi, autors @devycarol (#944)
+* atjauninātas dažas ikonas, autors @BlackyHawky (#977)

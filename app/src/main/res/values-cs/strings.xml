@@ -449,4 +449,5 @@
     <string name="get_layouts_message">Rozložení můžete najít a sdílet v %s.</string>
     <string name="subtype_st">Sesothština</string>
     <string name="subtype_dag">Dagbani</string>
+    <string name="prefs_emoji_key_fit">Škálovat velikost kláves emodži velikostí s velikostí písma</string>
 </resources>

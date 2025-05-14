@@ -8,7 +8,7 @@
     <string name="vibrate_on_keypress">"Vibrēt, nospiežot taustiņu"</string>
     <string name="sound_on_keypress">"Skaņa, nospiežot taustiņu"</string>
     <string name="popup_on_keypress">"Parādās, nospiežot taustiņu"</string>
-    <string name="settings_screen_preferences">"Preferences"</string>
+    <string name="settings_screen_preferences">Iestatījumi</string>
     <string name="settings_screen_gesture">"Ievadīt ar žestiem"</string>
     <string name="settings_screen_correction">"Teksta korekcija"</string>
     <string name="settings_screen_advanced">"Papildu"</string>
@@ -21,9 +21,9 @@
     <string name="use_contacts_dict_summary">"Izmantot kontaktpersonu vārdus kā ieteikumus un labojumus"</string>
     <string name="use_personalized_dicts">"Personalizēti ieteikumi"</string>
     <string name="use_double_space_period">"Dubultpiesk. = punkts"</string>
-    <string name="use_double_space_period_summary">"Divreiz pieskaroties atst. taustiņam, ievada punktu un atstarpi."</string>
+    <string name="use_double_space_period_summary">Divreiz piesitot atstarpes taustiņu, ievada punktu un atstarpi pēc tā</string>
     <string name="auto_cap">"Automātiska lielo burtu lietošana"</string>
-    <string name="auto_cap_summary">"Katra teikuma pirmo vārdu rakstīt ar lielo burtu."</string>
+    <string name="auto_cap_summary">Automātiski sākt rakstīt teikumu ar lielo burtu</string>
     <string name="edit_personal_dictionary">"Personiskā vārdnīca"</string>
     <string name="main_dictionary">"Galvenā vārdnīca"</string>
     <string name="prefs_show_suggestions">"Rādīt labojumu ieteikumus"</string>
@@ -123,4 +123,14 @@
     <string name="label_search_key">"Meklēt"</string>
     <string name="label_pause_key">"Pauze"</string>
     <string name="label_wait_key">"Gaidīt"</string>
+    <string name="spell_checker_service_name">HeliBoard pareizrakstības pārbaudītājs</string>
+    <string name="ime_settings">HeliBoard iestatījumi</string>
+    <string name="android_spell_checker_settings">HeliBoard pareizrakstības pārbaudītāja iestatījumi</string>
+    <string name="settings_category_suggestions">Ieteikumi</string>
+    <string name="settings_category_input">Ievade</string>
+    <string name="settings_category_additional_keys">Papildus taustiņi</string>
+    <string name="settings_category_clipboard_history">Starpliktuves vēsture</string>
+    <string name="settings_category_correction">Labojumi</string>
+    <string name="settings_category_space">Atstarpe</string>
+    <string name="vibrate_in_dnd_mode">Vibrēt \"Netraucēt\" režīmā</string>
 </resources>
