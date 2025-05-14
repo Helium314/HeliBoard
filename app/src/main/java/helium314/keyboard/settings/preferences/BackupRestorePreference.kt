@@ -3,6 +3,8 @@ package helium314.keyboard.settings.preferences
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Looper
+import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -151,6 +153,9 @@ fun BackupRestorePreference(setting: Setting) {
                         }
                     }
                 }
+
+                Looper.prepare()
+                Toast.makeText(ctx, ctx.getString(R.string.backup_restored), Toast.LENGTH_LONG).show()
             } catch (t: Throwable) {
                 error = "r" + t.message
                 Log.w("AdvancedScreen", "error during restore", t)
