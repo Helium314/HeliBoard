@@ -19,6 +19,9 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
     private static final String TAG = AppsBinaryDictionary.class.getSimpleName();
     private static final String NAME = "apps";
 
+    private static final int FREQUENCY_FOR_APPS = 40;
+    private static final int FREQUENCY_FOR_APPS_BIGRAM = 90;
+
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_DUMP = false;
 
@@ -72,7 +75,7 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
                     Log.d(TAG, "addName " + appLabel + ", " + word + ", "  + ngramContext);
                 }
                 runGCIfRequiredLocked(true /* mindsBlockByGC */);
-                addUnigramLocked(word, AppsDictionaryConstantsKt.FREQUENCY_FOR_APPS,
+                addUnigramLocked(word, FREQUENCY_FOR_APPS,
                         null /* shortcut */, 0 /* shortcutFreq */, false /* isNotAWord */,
                         false /* isPossiblyOffensive */,
                         BinaryDictionary.NOT_A_VALID_TIMESTAMP);
@@ -80,7 +83,7 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
                     runGCIfRequiredLocked(true /* mindsBlockByGC */);
                     addNgramEntryLocked(ngramContext,
                             word,
-                            AppsDictionaryConstantsKt.FREQUENCY_FOR_APPS_BIGRAM,
+                            FREQUENCY_FOR_APPS_BIGRAM,
                             BinaryDictionary.NOT_A_VALID_TIMESTAMP);
                 }
                 ngramContext = ngramContext.getNextNgramContext(
