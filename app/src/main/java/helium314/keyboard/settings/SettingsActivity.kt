@@ -112,6 +112,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                                     },
                                 )
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
+                                settingsContainer[Settings.PREF_USE_APPS]!!.Preference()
                                 settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                             }
                         }
