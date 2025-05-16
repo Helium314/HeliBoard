@@ -78,13 +78,13 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     private fun parseEmojiKeyNew(line: String): KeyParams? {
         if (!line.contains(" ") || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
             // single emoji without popups, or emoticons (there is one that contains space...)
-            return if (!SupportedEmojis.isSupported(line)) null
+            return if (SupportedEmojis.isUnsupported(line)) null
             else KeyParams(line, line.getCode(), null, null, Key.LABEL_FLAGS_FONT_NORMAL, params)
         }
         val split = line.split(" ")
         val label = split.first()
-        if (!SupportedEmojis.isSupported(label)) return null
-        val popupKeysSpec = split.drop(1).filter { SupportedEmojis.isSupported(it) }
+        if (SupportedEmojis.isUnsupported(label)) return null
+        val popupKeysSpec = split.drop(1).filterNot { SupportedEmojis.isUnsupported(it) }
             .takeIf { it.isNotEmpty() }?.joinToString(",")
         return KeyParams(
             label,

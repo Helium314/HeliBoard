@@ -22,5 +22,5 @@ object SupportedEmojis {
         Log.i("test", "have ${unsupportedEmojis.size}, longest emoji: ${unsupportedEmojis.maxOfOrNull { it.length }}")
     }
 
-    fun isSupported(emoji: String) = emoji !in unsupportedEmojis
+    fun isUnsupported(emoji: String) = emoji in unsupportedEmojis
 }
