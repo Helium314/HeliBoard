@@ -34,7 +34,7 @@ If the layout has exactly 2 keys in the bottom row, these keys will replace comm
   * `text_key`: normal key, default
   * `auto_text_key`: used in FlorisBoard for a key that changes text case when shift is enabled, HeliBoard does that anyway unless disabled with a _labelFlag_
   * `multi_text_key`: key with an array of code points, e.g. `{ "$": "multi_text_key", "codePoints": [2509, 2480], "label": "্র" }`
-  * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/dvorak.json) for an example:
+  * there are also selector classes, which allow to change keys conditionally, see the [dvorak layout](https://github.com/Helium314/HeliBoard/blob/main/app/src/main/assets/layouts/main/dvorak.json) for an example:
     * `case_selector`: keys for `lower` and `upper` (both mandatory), similar to `shift_state_selector`
     * `shift_state_selector`: keys for `unshifted`, `shifted`, `shiftedManual`, `shiftedAutomatic`, `capsLock`, `manualOrLocked`, `default` (all optional)
     * `variation_selector`: keys for input types `datetime`, `time`, `date`, `password`, `normal`, `uri`, `email`, `default` (all optional)
