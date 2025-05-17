@@ -406,6 +406,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, Defaults.PREF_BOTTOM_PADDING_SCALE);
     }
 
+    // needs to be aligned with MultiSliderPreference of that base key, see AppearanceScreen (also add to other relevant settings)
     public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
         if (landscape)
             return prefs.getFloat(PREF_SIDE_PADDING_SCALE_LANDSCAPE, Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE);

@@ -37,6 +37,7 @@ import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.BackgroundImagePref
 import helium314.keyboard.settings.preferences.CustomFontPreference
+import helium314.keyboard.settings.preferences.MultiSliderPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
 
@@ -84,6 +85,7 @@ fun AppearanceScreen(
         Settings.PREF_EMOJI_KEY_FIT,
         if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK) >= 24)
             Settings.PREF_EMOJI_SKIN_TONE else null,
+        "testsetting"
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -303,6 +305,11 @@ fun createAppearanceSettings(context: Context) = listOf(
         )
         ListPreference(setting, items, Defaults.PREF_EMOJI_SKIN_TONE) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
+    Setting(context, "testsetting", R.string.settings_no_limit) {
+        MultiSliderPreference(
+            "name", "testsetting", listOf("landscape", "unfolded", "split"), 1f, 0.5f..3f, {"$it"}
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    }
 )
 
 @Preview
