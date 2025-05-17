@@ -6,13 +6,12 @@
 
 package helium314.keyboard.keyboard.emoji;
 
-import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt.EMOJI_EXPAND_HINT_LABEL;
+import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt.EMOJI_HINT_LABEL;
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import helium314.keyboard.latin.common.Constants;
-import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.utils.Log;
 
@@ -156,14 +155,13 @@ final class DynamicGridKeyboard extends Keyboard {
             // When a key is added to recents keyboard, we don't want to keep its popup keys
             // neither its hint label. Also, we make sure its background type is matching our keyboard
             // if key comes from another keyboard (ie. a {@link PopupKeysKeyboard}).
-            final boolean dropPopupKeys = mIsRecents && ! usedKey.hasInfoOnlyPopups();
+            final boolean dropPopupKeys = mIsRecents;
             // Check if hint was a more emoji indicator and prevent its copy if popup keys aren't copied
-            final boolean dropHintLabel = dropPopupKeys && EMOJI_EXPAND_HINT_LABEL.equals(usedKey.getHintLabel());
+            final boolean dropHintLabel = dropPopupKeys && EMOJI_HINT_LABEL.equals(usedKey.getHintLabel());
             final GridKey key = new GridKey(usedKey,
                     dropPopupKeys ? null : usedKey.getPopupKeys(),
                     dropHintLabel ? null : usedKey.getHintLabel(),
-                    mIsRecents ? Key.BACKGROUND_TYPE_EMPTY : usedKey.getBackgroundType(),
-                    mGridKeys.isEmpty()? usedKey.getWidth() : mGridKeys.getFirst().getWidth());
+                    mIsRecents ? Key.BACKGROUND_TYPE_EMPTY : usedKey.getBackgroundType());
             while (mGridKeys.remove(key)) {
                 // Remove duplicate keys.
             }
@@ -294,10 +292,8 @@ final class DynamicGridKeyboard extends Keyboard {
         private int mCurrentY;
 
         public GridKey(@NonNull final Key originalKey, @Nullable final PopupKeySpec[] popupKeys,
-                       @Nullable final String labelHint, final int backgroundType, int width) {
-            super(originalKey, originalKey.getOutputText() != null? originalKey.getOutputText()
-                  : StringUtils.getStringFromNullTerminatedCodePointArray(new int[]{originalKey.getCode()}),
-                  popupKeys, labelHint, backgroundType, width);
+             @Nullable final String labelHint, final int backgroundType) {
+            super(originalKey, popupKeys, labelHint, backgroundType);
         }
 
         public void updateCoordinates(final int x0, final int y0, final int x1, final int y1) {

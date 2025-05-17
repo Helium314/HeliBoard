@@ -17,7 +17,6 @@ import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.KeyboardParams;
 import helium314.keyboard.keyboard.internal.PopupKeySpec;
-import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.PopupSet;
 import helium314.keyboard.latin.common.Constants;
@@ -125,7 +124,6 @@ public class Key implements Comparable<Key> {
     private static final int POPUP_KEYS_FLAGS_HAS_LABELS = 0x40000000;
     private static final int POPUP_KEYS_FLAGS_NEEDS_DIVIDERS = 0x20000000;
     private static final int POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY = 0x10000000;
-    private static final int POPUP_KEYS_INFO_ONLY = 0x80000000;
     // TODO: Rename these specifiers to !autoOrder! and !fixedOrder! respectively.
     public static final String POPUP_KEYS_AUTO_COLUMN_ORDER = "!autoColumnOrder!";
     public static final String POPUP_KEYS_FIXED_COLUMN_ORDER = "!fixedColumnOrder!";
@@ -199,8 +197,7 @@ public class Key implements Comparable<Key> {
     public Key(@Nullable final String label, @Nullable final String iconName, final int code,
             @Nullable final String outputText, @Nullable final String hintLabel,
             final int labelFlags, final int backgroundType, final int x, final int y,
-            final int width, final int height, final int horizontalGap, final int verticalGap,
-            PopupKeySpec[] popupKeys) {
+            final int width, final int height, final int horizontalGap, final int verticalGap) {
         mWidth = width - horizontalGap;
         mHeight = height - verticalGap;
         mHorizontalGap = horizontalGap;
@@ -210,8 +207,8 @@ public class Key implements Comparable<Key> {
         mBackgroundType = backgroundType;
         // TODO: Pass keyActionFlags as an argument.
         mActionFlags = ACTION_FLAGS_NO_KEY_PREVIEW;
-        mPopupKeys = popupKeys;
-        mPopupKeysColumnAndFlags = popupKeys != null? POPUP_KEYS_INFO_ONLY | POPUP_KEYS_COLUMN_NUMBER_MASK : 0;
+        mPopupKeys = null;
+        mPopupKeysColumnAndFlags = 0;
         mLabel = label;
         mCode = code;
         mEnabled = (code != KeyCode.NOT_SPECIFIED);
@@ -231,21 +228,19 @@ public class Key implements Comparable<Key> {
      * Copy constructor for DynamicGridKeyboard.GridKey.
      *
      * @param key the original key.
-     * @param label label to show
      * @param popupKeys the popup keys that should be assigned to this key.
      * @param labelHint the label hint that should be assigned to this key.
      * @param backgroundType the background type that should be assigned to this key.
-     * @param width width for the key
      */
-    protected Key(@NonNull final Key key, String label, @Nullable final PopupKeySpec[] popupKeys,
-                  @Nullable final String labelHint, final int backgroundType, int width) {
+    protected Key(@NonNull final Key key, @Nullable final PopupKeySpec[] popupKeys,
+                @Nullable final String labelHint, final int backgroundType) {
         // Final attributes.
         mCode = key.mCode;
-        mLabel = label;
+        mLabel = key.mLabel;
         mHintLabel = labelHint;
         mLabelFlags = key.mLabelFlags;
         mIconName = key.mIconName;
-        mWidth = width;
+        mWidth = key.mWidth;
         mHeight = key.mHeight;
         mHorizontalGap = key.mHorizontalGap;
         mVerticalGap = key.mVerticalGap;
@@ -712,10 +707,6 @@ public class Key implements Comparable<Key> {
         return (mPopupKeysColumnAndFlags & POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY) != 0;
     }
 
-    public boolean hasInfoOnlyPopups() {
-        return (mPopupKeysColumnAndFlags & POPUP_KEYS_INFO_ONLY) != 0;
-    }
-
     @Nullable
     public final String getOutputText() {
         final OptionalAttributes attrs = mOptionalAttributes;
@@ -972,8 +963,8 @@ public class Key implements Comparable<Key> {
         protected Spacer(final KeyboardParams params, final int x, final int y, final int width,
                 final int height) {
             super(null, null, KeyCode.NOT_SPECIFIED, null,
-                  null, 0, BACKGROUND_TYPE_EMPTY, x, y, width,
-                  height, params.mHorizontalGap, params.mVerticalGap, null);
+                    null, 0, BACKGROUND_TYPE_EMPTY, x, y, width,
+                    height, params.mHorizontalGap, params.mVerticalGap);
         }
     }
 
@@ -1221,9 +1212,7 @@ public class Key implements Comparable<Key> {
 
             if (popupKeySpecs != null) {
                 String[] popupKeys = PopupKeySpec.splitKeySpecs(popupKeySpecs);
-                var popupsInfoOnly = hintLabel.equals(EmojiParserKt.EMOJI_INFO_HINT_LABEL);
-                mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys) |
-                                (popupsInfoOnly? POPUP_KEYS_INFO_ONLY : 0);
+                mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
 
                 popupKeys = PopupKeySpec.insertAdditionalPopupKeys(popupKeys, null);
                 int actionFlags = 0;
@@ -1231,11 +1220,7 @@ public class Key implements Comparable<Key> {
                     actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
                     mPopupKeys = new PopupKeySpec[popupKeys.length];
                     for (int i = 0; i < popupKeys.length; i++) {
-                      if (popupsInfoOnly) {
-                        mPopupKeys[i] = new PopupKeySpec(popupKeys[i], false, Locale.getDefault(), code, label);
-                      } else {
                         mPopupKeys[i] = new PopupKeySpec(popupKeys[i], false, Locale.getDefault());
-                      }
                     }
                 } else {
                     mPopupKeys = null;

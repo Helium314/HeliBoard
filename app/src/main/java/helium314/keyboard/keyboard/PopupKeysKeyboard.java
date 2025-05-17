@@ -316,8 +316,7 @@ public final class PopupKeysKeyboard extends Keyboard {
                 // If the label is single letter, minKeyWidth is enough to hold the label.
                 if (label != null && StringUtils.codePointCount(label) > 1) {
                     maxWidth = Math.max(maxWidth,
-                            // Work around too big a width calculated
-                            (int)(TypefaceUtils.getStringWidth(label, paint) * 0.8 + padding));
+                            (int)(TypefaceUtils.getStringWidth(label, paint) + padding));
                 }
             }
             return maxWidth;
@@ -335,10 +334,7 @@ public final class PopupKeysKeyboard extends Keyboard {
                 final int row = n / params.mNumColumns;
                 final int x = params.getX(n, row);
                 final int y = params.getY(row);
-                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, background, params,
-                                                      mParentKey.hasInfoOnlyPopups()? mParentKey.getPopupKeys() : null,
-                                                      mParentKey.hasInfoOnlyPopups()? mParentKey.getHintLabel() : null,
-                                                      mParentKey.hasInfoOnlyPopups()? mParentKey.getLabel() : null);
+                final Key key = popupKeySpec.buildKey(x, y, popupKeyFlags, background, params);
                 params.markAsEdgeKey(key, row);
                 params.onAddKey(key);
 

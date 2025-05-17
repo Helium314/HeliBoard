@@ -1764,8 +1764,7 @@ public class LatinIME extends InputMethodService implements
         loadSettings();
         if (mKeyboardSwitcher.getMainKeyboardView() != null) {
             // Reload keyboard because the current language has been changed.
-            mKeyboardSwitcher.loadKeyboard(getCurrentInputEditorInfo(), mSettings.getCurrent(),
-                    getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+            mKeyboardSwitcher.reloadKeyboard();
         }
     }
 

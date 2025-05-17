@@ -232,9 +232,9 @@ public final class MoreSuggestions extends Keyboard {
         public MoreSuggestionKey(final String word, final String info, final int index,
                 final MoreSuggestionsParam params) {
             super(word, null, KeyCode.MULTIPLE_CODE_POINTS,
-                  word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
-                  params.getX(index), params.getY(index), params.getWidth(index),
-                  params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap, null);
+                    word, info, 0, Key.BACKGROUND_TYPE_NORMAL,
+                    params.getX(index), params.getY(index), params.getWidth(index),
+                    params.mDefaultAbsoluteRowHeight, params.mHorizontalGap, params.mVerticalGap);
             mSuggestedWordIndex = index;
         }
     }
