@@ -90,7 +90,7 @@ public final class JniUtils {
                 System.loadLibrary(JNI_LIB_NAME_GOOGLE);
                 sHaveGestureLib = true;
             } catch (UnsatisfiedLinkError ul) {
-                Log.w(TAG, "Could not load system glide typing library " + JNI_LIB_NAME_GOOGLE, ul);
+                Log.w(TAG, "Could not load system glide typing library " + JNI_LIB_NAME_GOOGLE + ": " + ul.getMessage());
             }
         }
         if (!sHaveGestureLib) {

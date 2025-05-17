@@ -446,4 +446,15 @@
     <string name="customize_toolbar_key_code_reset_message">Tes certeza de querer limpar todos os códigos personalizados?</string>
     <string name="name_invalid">Nome non válido</string>
     <string name="prefs_language_swipe_distance">Distancia de desprazamento cambio de idioma</string>
+    <string name="settings_category_space">Espazo</string>
+    <string name="autospace_after_gesture_typing">Espazo automatico despois do xesto escribindo palabra</string>
+    <string name="shift_removes_autospace">Non autoespazo ao premer maiúscula</string>
+    <string name="shift_removes_autospace_summary">Maiúscula quita o espazo automatico pendente</string>
+    <string name="timestamp_format_title">Formato para a tecla de marca temporal</string>
+    <string name="autospace_after_suggestion">Espazo automatico despois de elexir suxestión</string>
+    <string name="autospace_before_gesture_typing">Espazo automatico antes do xesto escribindo palabra</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Escalar tamaño da tecla emoji ao tamaño da letra</string>
+    <string name="backspace_reverts_autocorrect">Retroceso reverte a autocorrección</string>
 </resources>

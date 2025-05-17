@@ -453,4 +453,7 @@
     <string name="shift_removes_autospace">ללא רווח אוטומטי בעת לחיצת Shift</string>
     <string name="shift_removes_autospace_summary">Shift מבטל את הרווח האוטומטי המיועד</string>
     <string name="timestamp_format_title">פורמט למקש חתימת הזמן</string>
+    <string name="subtype_dag">דאגבני</string>
+    <string name="subtype_st">ססוטו</string>
+    <string name="prefs_emoji_key_fit">התאמת גודל מקש האמוג\'י לגודל הגופן</string>
 </resources>

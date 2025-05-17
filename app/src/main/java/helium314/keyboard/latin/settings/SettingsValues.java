@@ -109,6 +109,7 @@ public class SettingsValues {
     public final int mScreenMetrics;
     public final boolean mAddToPersonalDictionary;
     public final boolean mUseContactsDictionary;
+    public final boolean mUseAppsDictionary;
     public final boolean mCustomNavBarColor;
     public final float mKeyboardHeightScale;
     public final boolean mUrlDetectionEnabled;
@@ -124,6 +125,7 @@ public class SettingsValues {
     public final String mSpaceBarText;
     public final float mFontSizeMultiplier;
     public final float mFontSizeMultiplierEmoji;
+    public final boolean mEmojiKeyFit;
 
     // From the input box
     @NonNull
@@ -144,7 +146,6 @@ public class SettingsValues {
     public final SettingsValuesForSuggestion mSettingsValuesForSuggestion;
     public final boolean mIncognitoModeEnabled;
     public final boolean mLongPressSymbolsForNumpad;
-    public final int mEmojiMaxSdk;
 
     // User-defined colors
     public final Colors mColors;
@@ -268,6 +269,7 @@ public class SettingsValues {
         mPopupKeyLabelSources = SubtypeUtilsKt.getPopupKeyLabelSources(selectedSubtype, prefs);
         mAddToPersonalDictionary = prefs.getBoolean(Settings.PREF_ADD_TO_PERSONAL_DICTIONARY, Defaults.PREF_ADD_TO_PERSONAL_DICTIONARY);
         mUseContactsDictionary = SettingsValues.readUseContactsEnabled(prefs, context);
+        mUseAppsDictionary = prefs.getBoolean(Settings.PREF_USE_APPS, Defaults.PREF_USE_APPS);
         mCustomNavBarColor = prefs.getBoolean(Settings.PREF_NAVBAR_COLOR, Defaults.PREF_NAVBAR_COLOR);
         mNarrowKeyGaps = prefs.getBoolean(Settings.PREF_NARROW_KEY_GAPS, Defaults.PREF_NARROW_KEY_GAPS);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(
@@ -286,9 +288,9 @@ public class SettingsValues {
         mAlphaAfterNumpadAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_NUMPAD_SPACE, Defaults.PREF_ABC_AFTER_NUMPAD_SPACE);
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, Defaults.PREF_REMOVE_REDUNDANT_POPUPS);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, Defaults.PREF_SPACE_BAR_TEXT);
-        mEmojiMaxSdk = prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK);
         mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, Defaults.PREF_FONT_SCALE);
         mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE);
+        mEmojiKeyFit = prefs.getBoolean(Settings.PREF_EMOJI_KEY_FIT, Defaults.PREF_EMOJI_KEY_FIT);
     }
 
     public boolean isApplicationSpecifiedCompletionsOn() {
@@ -352,11 +354,12 @@ public class SettingsValues {
         return mDisplayOrientation == configuration.orientation;
     }
 
-    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context context) {
+    private static boolean readUseContactsEnabled(final SharedPreferences prefs, final Context ctx) {
         final boolean setting = prefs.getBoolean(Settings.PREF_USE_CONTACTS, Defaults.PREF_USE_CONTACTS);
         if (!setting) return false;
-        if (PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS))
+        if (PermissionsUtil.checkAllPermissionsGranted(ctx, Manifest.permission.READ_CONTACTS)) {
             return true;
+        }
         // disable if permission not granted
         prefs.edit().putBoolean(Settings.PREF_USE_CONTACTS, false).apply();
         return false;

@@ -1,0 +1,11 @@
+* Afeg. dissenys: àrab Hija'i, hebreu 1452-2, fonètica hindi, Dargwa (Urakhi), Baishakhi, kurd
+* Actu. dissenys
+* Suport per combinar accents
+* Tecla dividida de la barra d'eines del teclat
+* Afeg. finestres emergents .com
+* Permet configurar lletra personalitzada
+* Afeg. la configuració d'escala de lletra
+* Millorar el canvi automàtic d'idioma
+* Revisada configuració
+* Afeg. paràmetres per ajustar més el farciment del teclat, l'espai automàtic, la correcció automàtica, la fila de nombres
+* Més…

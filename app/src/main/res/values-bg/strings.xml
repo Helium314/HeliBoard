@@ -483,4 +483,5 @@
     <string name="timestamp_format_title">Формат на клавиша за времево клеймо</string>
     <string name="subtype_st">Сото</string>
     <string name="subtype_dag">Дагбани</string>
+    <string name="prefs_emoji_key_fit">Мащабиране на размера на клавишите за емотикони с размера на шрифта</string>
 </resources>

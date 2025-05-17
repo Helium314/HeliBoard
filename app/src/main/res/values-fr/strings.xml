@@ -453,4 +453,5 @@ Nouveau dictionnaire:
     <string name="timestamp_format_title">Format de la clé d\'horodatage</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Ajuster la taille des touches emoji à la taille de la police</string>
 </resources>

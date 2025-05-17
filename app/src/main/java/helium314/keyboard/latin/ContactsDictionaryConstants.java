@@ -20,8 +20,8 @@ public class ContactsDictionaryConstants {
     /**
      * Frequency for contacts information into the dictionary
      */
-    public static final int FREQUENCY_FOR_CONTACTS = 40;
-    public static final int FREQUENCY_FOR_CONTACTS_BIGRAM = 90;
+    public static final int FREQUENCY_FOR_CONTACTS = 100; // much increased from original frequency because contacts were barely suggested
+    public static final int FREQUENCY_FOR_CONTACTS_BIGRAM = 200; // todo: seems broken, how to actually get bigrams?
 
     /**
      *  Do not attempt to query contacts if there are more than this many entries.

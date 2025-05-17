@@ -272,7 +272,8 @@ private fun loadColorString(colorString: String, prefs: SharedPreferences): Bool
                 try {
                     allColors[ColorType.valueOf(it.key)] = it.value
                 } catch (_: IllegalArgumentException) {
-                    themeName = decodeBase36(it.key)
+                    if (it.value == 0) // hacky way of storing theme name: put it in a key with value 0
+                        runCatching { decodeBase36(it.key) }.getOrNull()?.let { themeName = it }
                 }
             }
             themeName = KeyboardTheme.getUnusedThemeName(themeName, prefs)

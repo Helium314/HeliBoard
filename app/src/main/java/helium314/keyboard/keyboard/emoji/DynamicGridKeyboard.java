@@ -11,6 +11,7 @@ import static helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParserKt
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.StringUtils;
 import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.utils.Log;
@@ -35,8 +36,6 @@ import java.util.List;
  */
 final class DynamicGridKeyboard extends Keyboard {
     private static final String TAG = DynamicGridKeyboard.class.getSimpleName();
-    private static final int TEMPLATE_KEY_CODE_0 = 0x30;
-    private static final int TEMPLATE_KEY_CODE_1 = 0x31;
     private final Object mLock = new Object();
 
     private final SharedPreferences mPrefs;
@@ -61,8 +60,8 @@ final class DynamicGridKeyboard extends Keyboard {
         mBaseWidth = width - paddingWidth;
         mOccupiedWidth = width;
         final float spacerWidth = Settings.getValues().mSplitKeyboardSpacerRelativeWidth * mBaseWidth;
-        final Key key0 = getTemplateKey(TEMPLATE_KEY_CODE_0);
-        final Key key1 = getTemplateKey(TEMPLATE_KEY_CODE_1);
+        final Key key0 = getTemplateKey(Constants.RECENTS_TEMPLATE_KEY_CODE_0);
+        final Key key1 = getTemplateKey(Constants.RECENTS_TEMPLATE_KEY_CODE_1);
         final int horizontalGap = Math.abs(key1.getX() - key0.getX()) - key0.getWidth();
         final float widthScale = determineWidthScale(key0.getWidth() + horizontalGap);
         mHorizontalGap = (int) (horizontalGap * widthScale);
@@ -215,7 +214,7 @@ final class DynamicGridKeyboard extends Keyboard {
         }
 
         // fall back to creating the key
-        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, code, null);
+        return new Key(getTemplateKey(Constants.RECENTS_TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, code, null);
     }
 
     private Key getKeyByOutputText(final Collection<DynamicGridKeyboard> keyboards,
@@ -229,7 +228,7 @@ final class DynamicGridKeyboard extends Keyboard {
         }
 
         // fall back to creating the key
-        return new Key(getTemplateKey(TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, 0, outputText);
+        return new Key(getTemplateKey(Constants.RECENTS_TEMPLATE_KEY_CODE_0), null, null, Key.BACKGROUND_TYPE_EMPTY, 0, outputText);
     }
 
     public void loadRecentKeys(final Collection<DynamicGridKeyboard> keyboards) {

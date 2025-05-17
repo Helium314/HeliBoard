@@ -483,4 +483,5 @@
     <string name="timestamp_format_title">Ajatempli klahvi vorming</string>
     <string name="subtype_dag">dagbani</string>
     <string name="subtype_st">sotho</string>
+    <string name="prefs_emoji_key_fit">Kohenda emoji klahvi suurust tavateksti klahvide suuruste järgi</string>
 </resources>

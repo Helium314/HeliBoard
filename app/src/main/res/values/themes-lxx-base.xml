@@ -54,8 +54,6 @@
         name="EmojiPalettesView.LXX_Base"
         parent="MainKeyboardView.LXX_Base"
         >
-        <item name="categoryIndicatorEnabled">false</item>
-        <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_light</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_base</item>
         <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx</item>
         <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx</item>

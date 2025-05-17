@@ -11,6 +11,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.splitOnFirstSpacesOnly
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.SpacedTokens
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import java.io.InputStream
 import java.util.Locale
@@ -83,7 +84,7 @@ class LocaleKeyboardInfos(dataStream: InputStream?, locale: Locale) {
                     READER_MODE_EXTRA_KEYS -> if (!onlyPopupKeys) addExtraKey(line.split(colonSpaceRegex, 2))
                     READER_MODE_LABELS -> if (!onlyPopupKeys) addLabel(line.split(colonSpaceRegex, 2))
                     READER_MODE_NUMBER_ROW -> localizedNumberKeys = line.splitOnWhitespace()
-                    READER_MODE_TLD -> line.splitOnWhitespace().forEach { tlds.add(".$it") }
+                    READER_MODE_TLD -> SpacedTokens(line).forEach { tlds.add(".$it") }
                 }
             }
         }
@@ -226,7 +227,7 @@ private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
         return tlds
     specialCountryTlds.forEach {
         if (ccLower != it.first) return@forEach
-        tlds.addAll(it.second.splitOnWhitespace())
+        tlds.addAll(SpacedTokens(it.second))
         return@getLocaleTlds tlds
     }
     tlds.add(".$ccLower")
@@ -235,7 +236,7 @@ private fun getLocaleTlds(locale: Locale): LinkedHashSet<String> {
 
 private fun getDefaultTlds(locale: Locale): LinkedHashSet<String> {
     val tlds = linkedSetOf<String>()
-    tlds.addAll(defaultTlds.splitOnWhitespace())
+    tlds.addAll(SpacedTokens(defaultTlds))
     if ((locale.language != "en" && euroLocales.matches(locale.language)) || euroCountries.matches(locale.country))
         tlds.add(".eu")
     return tlds
