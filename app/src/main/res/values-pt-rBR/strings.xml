@@ -126,12 +126,12 @@
     <string name="setup_welcome_title">Bem-vindo ao <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Mostrar a paleta de emojis ao tocar na tecla Alt física</string>
     <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Por favor, ative o \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.</string>
+    <string name="setup_step1_instruction">Por favor, ative o \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" em \'Idiomas e Entrada\' nas configurações. Isso permitirá que ele seja usado no seu dispositivo.</string>
     <string name="setup_finish_action">Concluído</string>
     <string name="show_setup_wizard_icon_summary">Mostrar o ícone do app na launcher</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Em seguida, selecione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como o seu método de entrada ativo.</string>
+    <string name="setup_step2_instruction">Em seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como o seu método de entrada ativo.</string>
     <string name="setup_step3_instruction">Agora, você pode usar o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> para digitar nos seus apps favoritos.</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
