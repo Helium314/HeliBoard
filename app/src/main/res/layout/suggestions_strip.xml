@@ -24,6 +24,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="0"
             android:layout_marginStart="4dp"
+            android:scaleType="centerCrop"
             style="?attr/suggestionWordStyle"
             android:contentDescription="@string/more_keys_strip_description" />
         <HorizontalScrollView

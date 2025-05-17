@@ -216,8 +216,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         colors.setColor(mToolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY);
         mToolbarExpandKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
         mToolbarExpandKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
-        mToolbarExpandKey.getLayoutParams().height *= 0.82; // shrink the whole key a little (drawable not affected)
-        mToolbarExpandKey.getLayoutParams().width *= 0.82;
 
         for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
             final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
