@@ -156,10 +156,6 @@
     </declare-styleable>
 
     <declare-styleable name="EmojiPalettesView">
-        <attr name="categoryIndicatorEnabled" format="boolean" />
-        <attr name="categoryIndicatorDrawable" format="reference" />
-        <attr name="categoryIndicatorBackground" format="reference" />
-        <attr name="categoryPageIndicatorColor" format="color" />
         <attr name="categoryPageIndicatorBackground" format="color" />
         <attr name="iconEmojiRecentsTab" format="reference" />
         <attr name="iconEmojiCategory1Tab" format="reference" />

@@ -174,7 +174,7 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     private boolean initialized = false;
-    // keep the indicator in case we decide to restore it
+    // keep the indicator in case emoji view is changed to tabs / viewpager
     private final boolean mCategoryIndicatorEnabled;
     private final int mCategoryIndicatorDrawableResId;
     private final int mCategoryIndicatorBackgroundResId;
@@ -207,14 +207,6 @@ public final class EmojiPalettesView extends LinearLayout
         final TypedArray emojiPalettesViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.EmojiPalettesView, defStyle, R.style.EmojiPalettesView);
         mEmojiCategory = new EmojiCategory(context, layoutSet, emojiPalettesViewAttr);
-        mCategoryIndicatorEnabled = emojiPalettesViewAttr.getBoolean(
-                R.styleable.EmojiPalettesView_categoryIndicatorEnabled, false);
-        mCategoryIndicatorDrawableResId = emojiPalettesViewAttr.getResourceId(
-                R.styleable.EmojiPalettesView_categoryIndicatorDrawable, 0);
-        mCategoryIndicatorBackgroundResId = emojiPalettesViewAttr.getResourceId(
-                R.styleable.EmojiPalettesView_categoryIndicatorBackground, 0);
-        mCategoryPageIndicatorColor = emojiPalettesViewAttr.getColor( // todo: remove this and related attr
-                R.styleable.EmojiPalettesView_categoryPageIndicatorColor, 0);
         emojiPalettesViewAttr.recycle();
         setFitsSystemWindows(true);
     }
@@ -232,13 +224,6 @@ public final class EmojiPalettesView extends LinearLayout
         setMeasuredDimension(width, height);
     }
 
-    // todo (maybe): bring back the holo indicator thing?
-    //  just some 2 dp high strip
-    //  would probably need a vertical linear layout
-    //  better not, would complicate stuff again
-    //  when decided to definitely not bring it back:
-    //   remove mCategoryIndicatorEnabled, mCategoryIndicatorDrawableResId, mCategoryIndicatorBackgroundResId
-    //   and the attrs categoryIndicatorDrawable, categoryIndicatorEnabled, categoryIndicatorBackground (and the connected drawables)
     private void addTab(final LinearLayout host, final int categoryId) {
         final ImageView iconView = new ImageView(getContext());
         mColors.setBackground(iconView, ColorType.STRIP_BACKGROUND);
@@ -260,18 +245,6 @@ public final class EmojiPalettesView extends LinearLayout
         for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
             addTab(mTabStrip, properties.mCategoryId);
         }
-//        mTabStrip.setOnTabChangedListener(this);  // now onClickListener
-/*        final TabWidget tabWidget = mTabStrip.getTabWidget();
-        tabWidget.setStripEnabled(mCategoryIndicatorEnabled);
-        if (mCategoryIndicatorEnabled) {
-            // On TabWidget's strip, what looks like an indicator is actually a background.
-            // And what looks like a background are actually left and right drawables.
-            tabWidget.setBackgroundResource(mCategoryIndicatorDrawableResId);
-            tabWidget.setLeftStripDrawable(mCategoryIndicatorBackgroundResId);
-            tabWidget.setRightStripDrawable(mCategoryIndicatorBackgroundResId);
-            tabWidget.setBackgroundColor(mColors.get(ColorType.EMOJI_CATEGORY_SELECTED));
-        }
-*/
 
         mPager = findViewById(R.id.emoji_pager);
         mPager.setAdapter(new PagerAdapter());

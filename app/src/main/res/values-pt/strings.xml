@@ -161,4 +161,5 @@
     <string name="label_search_key">"Pesquisar"</string>
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Esp."</string>
+    <string name="prefs_emoji_key_fit">Escalar tamanho da tecla emoji com o do tipo de letra</string>
 </resources>

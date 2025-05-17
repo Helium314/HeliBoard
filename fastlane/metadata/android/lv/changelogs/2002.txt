@@ -1,0 +1,4 @@
+* pievienots emocijzīmju rīkjoslas taustiņš, autors @codokie (#845, #837)
+* uzlabojumi, kas saistīti ar dublētiem burtiem (#225 un, iespējams, citi)
+* izvairās novietot kursoru emocijzīmju iekšpusē (#859)
+* nelieli labojumi nesen pievienotajām funkcijām

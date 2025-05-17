@@ -116,6 +116,7 @@ object Defaults {
     const val PREF_GESTURE_TRAIL_FADEOUT_DURATION = 800
     const val PREF_SHOW_SETUP_WIZARD_ICON = true
     const val PREF_USE_CONTACTS = false
+    const val PREF_USE_APPS = false
     const val PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = false
     const val PREF_ONE_HANDED_MODE = false
     @SuppressLint("RtlHardcoded")
@@ -156,7 +157,6 @@ object Defaults {
     const val PREF_REMOVE_REDUNDANT_POPUPS = false
     const val PREF_SPACE_BAR_TEXT = ""
     const val PREF_TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    @JvmField
     val PREF_EMOJI_MAX_SDK = Build.VERSION.SDK_INT
     const val PREF_EMOJI_RECENT_KEYS = ""
     const val PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID = 0

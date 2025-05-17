@@ -3,6 +3,8 @@ package helium314.keyboard.settings.preferences
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Looper
+import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
 import helium314.keyboard.keyboard.KeyboardSwitcher
+import helium314.keyboard.keyboard.emoji.SupportedEmojis
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.checkVersionUpgrade
 import helium314.keyboard.latin.common.FileUtils
@@ -150,6 +153,9 @@ fun BackupRestorePreference(setting: Setting) {
                         }
                     }
                 }
+
+                Looper.prepare()
+                Toast.makeText(ctx, ctx.getString(R.string.backup_restored), Toast.LENGTH_LONG).show()
             } catch (t: Throwable) {
                 error = "r" + t.message
                 Log.w("AdvancedScreen", "error during restore", t)
@@ -166,6 +172,7 @@ fun BackupRestorePreference(setting: Setting) {
         LayoutUtilsCustom.onLayoutFileChanged()
         LayoutUtilsCustom.removeMissingLayouts(ctx)
         (ctx.getActivity() as? SettingsActivity)?.prefChanged()
+        SupportedEmojis.load(ctx)
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
     Preference(name = setting.title, onClick = { showDialog = true })

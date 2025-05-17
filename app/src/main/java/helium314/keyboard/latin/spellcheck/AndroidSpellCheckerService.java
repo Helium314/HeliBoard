@@ -83,6 +83,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
         final SharedPreferences prefs = KtxKt.prefs(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(prefs, Settings.PREF_USE_CONTACTS);
+        onSharedPreferenceChanged(prefs, Settings.PREF_USE_APPS);
         final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
         mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
     }
@@ -93,13 +94,19 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key) {
-        if (Settings.PREF_USE_CONTACTS.equals(key)) {
+        if (key != null) switch (key) {
+        case Settings.PREF_USE_CONTACTS -> {
             final boolean useContactsDictionary = prefs.getBoolean(Settings.PREF_USE_CONTACTS, Defaults.PREF_USE_CONTACTS);
             mDictionaryFacilitatorCache.setUseContactsDictionary(useContactsDictionary);
-        } else if (Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE.equals(key)) {
+        }
+        case Settings.PREF_USE_APPS -> {
+            final boolean useAppsDictionary = prefs.getBoolean(Settings.PREF_USE_APPS, Defaults.PREF_USE_APPS);
+            mDictionaryFacilitatorCache.setUseAppsDictionary(useAppsDictionary);
+        }
+        case Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE -> {
             final boolean blockOffensive = prefs.getBoolean(Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE, Defaults.PREF_BLOCK_POTENTIALLY_OFFENSIVE);
             mSettingsValuesForSuggestion = new SettingsValuesForSuggestion(blockOffensive, false);
-        }
+        }}
     }
 
     @Override

@@ -449,4 +449,5 @@
     <string name="subtype_st">Sesotho</string>
     <string name="backspace_reverts_autocorrect">Rücktaste macht Autokorrektur rückgängig</string>
     <string name="autospace_after_suggestion">Automatische Leerzeichen nach Auswählen eines Vorschlags</string>
+    <string name="prefs_emoji_key_fit">Skaliere den Emoji-Knopf mit der Schriftgröße</string>
 </resources>
