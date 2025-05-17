@@ -16,7 +16,7 @@ class SpacedTokens(phrase: String) : Iterable<String> {
         private var startPos = mStartPos
 
         override fun hasNext(): Boolean {
-            return startPos < mLength
+            return startPos < mLength && startPos != -1
         }
 
         override fun next(): String {
