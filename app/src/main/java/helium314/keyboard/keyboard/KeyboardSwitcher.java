@@ -479,7 +479,6 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardViewWrapper.getOneHandedModeEnabled() == enabled) {
             return;
         }
-        mEmojiPalettesView.clearKeyboardCache();
         final Settings settings = Settings.getInstance();
         mKeyboardViewWrapper.setOneHandedModeEnabled(enabled);
         mKeyboardViewWrapper.setOneHandedGravity(settings.getCurrent().mOneHandedModeGravity);
@@ -637,11 +636,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
             mKeyboardView.cancelAllOngoingEvents();
             mKeyboardView.deallocateMemory();
         }
-        if (mEmojiPalettesView != null) {
-            mEmojiPalettesView.clearKeyboardCache();
-        }
         if (mClipboardHistoryView != null) {
             mClipboardHistoryView.stopClipboardHistory();
+        }
+    }
+
+    public void trimMemory() {
+        if (mEmojiPalettesView != null) {
+            mEmojiPalettesView.clearKeyboardCache();
         }
     }
 

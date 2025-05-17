@@ -174,11 +174,6 @@ public final class EmojiPalettesView extends LinearLayout
     }
 
     private boolean initialized = false;
-    // keep the indicator in case emoji view is changed to tabs / viewpager
-    private final boolean mCategoryIndicatorEnabled;
-    private final int mCategoryIndicatorDrawableResId;
-    private final int mCategoryIndicatorBackgroundResId;
-    private final int mCategoryPageIndicatorColor;
     private final Colors mColors;
     private final EmojiLayoutParams mEmojiLayoutParams;
 
