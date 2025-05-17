@@ -127,20 +127,35 @@ public interface PopupKeysPanel {
      */
     int translateY(int y);
 
+    default View getContainerView() {
+        return (View) ((View) this).getParent();
+    }
+
     /**
      * Show this {@link PopupKeysPanel} in the parent view.
      *
      * @param parentView the {@link ViewGroup} that hosts this {@link PopupKeysPanel}.
      */
-    void showInParent(ViewGroup parentView);
+    default void showInParent(ViewGroup parentView) {
+        removeFromParent();
+        parentView.addView(getContainerView());
+    }
 
     /**
      * Remove this {@link PopupKeysPanel} from the parent view.
      */
-    void removeFromParent();
+    default void removeFromParent() {
+        final View containerView = getContainerView();
+        final ViewGroup currentParent = (ViewGroup)containerView.getParent();
+        if (currentParent != null) {
+            currentParent.removeView(containerView);
+        }
+    }
 
     /**
      * Return whether the panel is currently being shown.
      */
-    boolean isShowingInParent();
+    default boolean isShowingInParent() {
+        return getContainerView().getParent() != null;
+    }
 }
