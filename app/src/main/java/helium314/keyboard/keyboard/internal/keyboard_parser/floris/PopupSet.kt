@@ -49,6 +49,6 @@ open class PopupSet<T : AbstractKeyData>(
 }
 
 class SimplePopups(val popupKeys: Collection<String>?) :  PopupSet<AbstractKeyData>() {
-    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys
+    override fun getPopupKeyLabels(params: KeyboardParams) = popupKeys?.map { KeyData.processLabel(it, params) }
     override fun isEmpty(): Boolean = popupKeys.isNullOrEmpty()
 }
