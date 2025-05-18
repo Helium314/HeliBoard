@@ -390,7 +390,7 @@ sealed interface KeyData : AbstractKeyData {
             newCode = processCode()
             newLabel = processLabel(params)
         }
-        val newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
+        var newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
 
         val background = when (type) {
@@ -402,6 +402,9 @@ sealed interface KeyData : AbstractKeyData {
             KeyType.LOCK -> getShiftBackground(params)
             null -> getDefaultBackground(params)
         }
+        if (background == Key.BACKGROUND_TYPE_FUNCTIONAL
+            || background == Key.BACKGROUND_TYPE_STICKY_ON || background == Key.BACKGROUND_TYPE_STICKY_OFF)
+            newLabelFlags = newLabelFlags or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
 
         return if (newCode == KeyCode.UNSPECIFIED || newCode == KeyCode.MULTIPLE_CODE_POINTS) {
             // code will be determined from label if possible (i.e. label is single code point)
@@ -524,19 +527,18 @@ sealed interface KeyData : AbstractKeyData {
     // todo (later): add explanations / reasoning, often this is just taken from conversion from OpenBoard / AOSP layouts
     private fun getAdditionalLabelFlags(params: KeyboardParams): Int {
         return when (label) {
-            KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR
+            KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.COMMA -> Key.LABEL_FLAGS_HAS_POPUP_HINT
             // essentially the first term only changes the appearance of the armenian period key in holo theme
             KeyLabel.PERIOD -> (Key.LABEL_FLAGS_HAS_POPUP_HINT and
                     if (params.mId.isAlphabetKeyboard) params.mLocaleKeyboardInfos.labelFlags else 0) or
                     Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ACTION -> {
-                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or
-                        Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR or
+                Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or
                         Key.LABEL_FLAGS_HAS_POPUP_HINT or KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             }
             KeyLabel.SPACE -> if (params.mId.isNumberLayout) Key.LABEL_FLAGS_ALIGN_ICON_TO_BOTTOM else 0
-            KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE or if (!params.mId.isAlphabetKeyboard) Key.LABEL_FLAGS_FOLLOW_FUNCTIONAL_TEXT_COLOR else 0
+            KeyLabel.SHIFT -> Key.LABEL_FLAGS_PRESERVE_CASE
             toolbarKeyStrings[ToolbarKey.EMOJI] -> KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
             KeyLabel.COM -> Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FONT_NORMAL or Key.LABEL_FLAGS_HAS_POPUP_HINT or Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.ZWNJ -> Key.LABEL_FLAGS_HAS_POPUP_HINT
