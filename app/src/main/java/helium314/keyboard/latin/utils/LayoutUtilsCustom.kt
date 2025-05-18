@@ -36,11 +36,13 @@ object LayoutUtilsCustom {
         params.mPopupKeyTypes.add(POPUP_KEYS_LAYOUT)
         addLocaleKeyTextsToParams(context, params, POPUP_KEYS_NORMAL)
         try {
-            val keys = LayoutParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
-            return checkKeys(keys)
+            if (layoutContent.trimStart().startsWith("[") || layoutContent.trimStart().startsWith("//")) {
+                val keys = LayoutParser.parseJsonString(layoutContent).map { row -> row.mapNotNull { it.compute(params)?.toKeyParams(params) } }
+                return checkKeys(keys)
+            }
         } catch (e: SerializationException) {
             Log.w(TAG, "json parsing error", e)
-            if (layoutContent.trimStart().startsWith("[") && layoutContent.trimEnd().endsWith("]") && layoutContent.contains("},"))
+            if (layoutContent.trimEnd().endsWith("]") && layoutContent.contains("},"))
                 return false // we're sure enough it's a json
         } catch (e: Exception) {
             Log.w(TAG, "json layout parsed, but considered invalid", e)
