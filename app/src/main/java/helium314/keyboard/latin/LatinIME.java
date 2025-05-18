@@ -2022,8 +2022,10 @@ public class LatinIME extends InputMethodService implements
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         switch (level) {
-            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
-                    KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE -> {
+                KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+                mKeyboardSwitcher.trimMemory();
+            }
             // deallocateMemory always called on hiding, and should not be called when showing
         }
     }

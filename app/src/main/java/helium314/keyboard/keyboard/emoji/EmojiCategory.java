@@ -261,20 +261,6 @@ final class EmojiCategory {
         return 0;
     }
 
-    // Returns the view pager's page position for the categoryId
-    public int getPagerPageIdFromCategoryAndPageId(final int categoryId, final int categoryPageId) {
-        int sum = 0;
-        for (int i = 0; i < mShownCategories.size(); ++i) {
-            final CategoryProperties props = mShownCategories.get(i);
-            if (props.mCategoryId == categoryId) {
-                return sum + categoryPageId;
-            }
-            sum += props.getPageCount();
-        }
-        Log.w(TAG, "categoryId not found: " + categoryId);
-        return 0;
-    }
-
     public int getRecentTabId() {
         return getTabIdFromCategoryId(EmojiCategory.ID_RECENTS);
     }
@@ -285,11 +271,11 @@ final class EmojiCategory {
     }
 
     // Returns a keyboard from the recycler view's adapter position.
-    public DynamicGridKeyboard getKeyboardFromAdapterPosition(final int position) {
-        if (position >= 0 && position < getCurrentCategoryPageCount()) {
-            return getKeyboard(mCurrentCategoryId, position);
+    public DynamicGridKeyboard getKeyboardFromAdapterPosition(int categoryId, final int position) {
+        if (position >= 0 && position < getCategoryPageCount(categoryId)) {
+            return getKeyboard(categoryId, position);
         }
-        Log.w(TAG, "invalid position for categoryId : " + mCurrentCategoryId);
+        Log.w(TAG, "invalid position for categoryId : " + categoryId);
         return null;
     }
 
