@@ -168,6 +168,12 @@ object KeyCode {
     const val SELECT_LEFT =               -10041
     const val SELECT_RIGHT =              -10042
     const val TIMESTAMP =                 -10043
+    const val CTRL_LEFT =                 -10044
+    const val CTRL_RIGHT =                -10045
+    const val ALT_LEFT =                  -10046
+    const val ALT_RIGHT =                 -10047
+    const val META_LEFT =                 -10048
+    const val META_RIGHT =                -10049
 
     /** to make sure a FlorisBoard code works when reading a JSON layout */
     fun Int.checkAndConvertCode(): Int = if (this > 0) this else when (this) {
@@ -184,7 +190,7 @@ object KeyCode {
         ACTION_NEXT, ACTION_PREVIOUS, NOT_SPECIFIED, CLIPBOARD_COPY_ALL, WORD_LEFT, WORD_RIGHT, PAGE_UP,
         PAGE_DOWN, META, TAB, ESCAPE, INSERT, SLEEP, MEDIA_PLAY, MEDIA_PAUSE, MEDIA_PLAY_PAUSE, MEDIA_NEXT,
         MEDIA_PREVIOUS, VOL_UP, VOL_DOWN, MUTE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, BACK,
-        TIMESTAMP
+        TIMESTAMP, CTRL_LEFT, CTRL_RIGHT, ALT_LEFT, ALT_RIGHT, META_LEFT, META_RIGHT
         -> this
 
         // conversion

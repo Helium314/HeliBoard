@@ -32,9 +32,15 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
     private fun adjustMetaState(code: Int, remove: Boolean) {
         val metaCode = when (code) {
             KeyCode.CTRL -> KeyEvent.META_CTRL_ON
+            KeyCode.CTRL_LEFT -> KeyEvent.META_CTRL_LEFT_ON
+            KeyCode.CTRL_RIGHT -> KeyEvent.META_CTRL_RIGHT_ON
             KeyCode.ALT -> KeyEvent.META_ALT_ON
+            KeyCode.ALT_LEFT -> KeyEvent.META_ALT_LEFT_ON
+            KeyCode.ALT_RIGHT -> KeyEvent.META_ALT_RIGHT_ON
             KeyCode.FN -> KeyEvent.META_FUNCTION_ON
             KeyCode.META -> KeyEvent.META_META_ON
+            KeyCode.META_LEFT -> KeyEvent.META_META_LEFT_ON
+            KeyCode.META_RIGHT -> KeyEvent.META_META_RIGHT_ON
             else -> return
         }
         metaState = if (remove) metaState and metaCode.inv()
