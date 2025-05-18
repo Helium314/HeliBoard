@@ -307,6 +307,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.CURRENCY5 -> params.mLocaleKeyboardInfos.currencyKey.second[4]
             KeyLabel.CTRL, KeyLabel.ALT, KeyLabel.FN, KeyLabel.META , KeyLabel.ESCAPE -> label.uppercase(Locale.US)
             KeyLabel.TAB -> "!icon/tab_key|!code/${KeyCode.TAB}"
+            KeyLabel.TIMESTAMP -> "⌚|!code/${KeyCode.TIMESTAMP}"
             else -> {
                 if (label in toolbarKeyStrings.values) {
                     "!icon/$label|!code/${getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))}"
@@ -516,6 +517,7 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.META -> KeyCode.META
             KeyLabel.TAB -> KeyCode.TAB
             KeyLabel.ESCAPE -> KeyCode.ESCAPE
+            KeyLabel.TIMESTAMP -> KeyCode.TIMESTAMP
             else -> {
                 if (label in toolbarKeyStrings.values) {
                     getCodeForToolbarKey(ToolbarKey.valueOf(label.uppercase(Locale.US)))
