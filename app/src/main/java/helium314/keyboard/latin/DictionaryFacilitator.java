@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Interface that facilitates interaction with different kinds of dictionaries. Provides APIs to
- * instantiate and select the correct dictionaries (based on language or account), update entries
+ * instantiate and select the correct dictionaries (based on language and settings), update entries
  * and fetch suggestions. Currently AndroidSpellCheckerService and LatinIME both use
  * DictionaryFacilitator as a client for interacting with dictionaries.
  */
@@ -90,11 +90,8 @@ public interface DictionaryFacilitator {
             @NonNull final List<Locale> locales,
             final boolean contacts,
             final boolean apps,
-            final boolean personalization,
-            @Nullable final String account
+            final boolean personalization
     );
-
-    String getAccount();
 
     void resetDictionaries(
             final Context context,
@@ -103,7 +100,6 @@ public interface DictionaryFacilitator {
             final boolean useAppsDict,
             final boolean usePersonalizedDicts,
             final boolean forceReloadMainDictionary,
-            @Nullable final String account,
             final String dictNamePrefix,
             @Nullable final DictionaryInitializationListener listener);
 

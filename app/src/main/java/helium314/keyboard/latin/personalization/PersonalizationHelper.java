@@ -10,7 +10,6 @@ import android.content.Context;
 import helium314.keyboard.latin.utils.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import helium314.keyboard.latin.common.FileUtils;
 
@@ -31,12 +30,8 @@ public class PersonalizationHelper {
             sLangUserHistoryDictCache = new ConcurrentHashMap<>();
 
     @NonNull
-    public static UserHistoryDictionary getUserHistoryDictionary(
-            final Context context, final Locale locale, @Nullable final String accountName) {
+    public static UserHistoryDictionary getUserHistoryDictionary(final Context context, final Locale locale) {
         String lookupStr = locale.toString();
-        if (accountName != null) {
-            lookupStr += "." + accountName;
-        }
         synchronized (sLangUserHistoryDictCache) {
             if (sLangUserHistoryDictCache.containsKey(lookupStr)) {
                 final SoftReference<UserHistoryDictionary> ref =
@@ -50,8 +45,7 @@ public class PersonalizationHelper {
                     return dict;
                 }
             }
-            final UserHistoryDictionary dict = new UserHistoryDictionary(
-                    context, locale, accountName);
+            final UserHistoryDictionary dict = new UserHistoryDictionary(context, locale);
             sLangUserHistoryDictCache.put(lookupStr, new SoftReference<>(dict));
             return dict;
         }

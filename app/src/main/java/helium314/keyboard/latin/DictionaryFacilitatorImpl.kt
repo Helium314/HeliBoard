@@ -45,7 +45,7 @@ import kotlin.concurrent.Volatile
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
- * to instantiate and select the correct dictionaries (based on language or account),
+ * to instantiate and select the correct dictionaries (based on language and settings),
  * update entries and fetch suggestions.
  *
  *
@@ -110,18 +110,11 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         return currentlyPreferredDictionaryGroup.locale
     }
 
-    override fun getAccount(): String? {
-        return null
-    }
-
-    override fun usesSameSettings(
-        locales: List<Locale>, contacts: Boolean, apps: Boolean, personalization: Boolean, account: String?
-    ): Boolean {
+    override fun usesSameSettings(locales: List<Locale>, contacts: Boolean, apps: Boolean, personalization: Boolean): Boolean {
         val dictGroup = dictionaryGroups[0] // settings are the same for all groups
-        return contacts == dictGroup.hasDict(Dictionary.TYPE_CONTACTS, account)
-                && apps == dictGroup.hasDict(Dictionary.TYPE_APPS, account)
-                && personalization == dictGroup.hasDict(Dictionary.TYPE_USER_HISTORY, account)
-                && account == dictGroup.account
+        return contacts == dictGroup.hasDict(Dictionary.TYPE_CONTACTS)
+                && apps == dictGroup.hasDict(Dictionary.TYPE_APPS)
+                && personalization == dictGroup.hasDict(Dictionary.TYPE_USER_HISTORY)
                 && locales.size == dictionaryGroups.size
                 && locales.none { findDictionaryGroupWithLocale(dictionaryGroups, it) == null }
     }
@@ -135,7 +128,6 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         useAppsDict: Boolean,
         usePersonalizedDicts: Boolean,
         forceReloadMainDictionary: Boolean,
-        account: String?,
         dictNamePrefix: String,
         listener: DictionaryInitializationListener?
     ) {
@@ -191,7 +183,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val existingDictsToCleanup = HashMap<Locale, MutableList<String>>()
         for (dictGroup in dictionaryGroups) {
             existingDictsToCleanup[dictGroup.locale] = DictionaryFacilitator.ALL_DICTIONARY_TYPES
-                .filterTo(mutableListOf()) { dictGroup.hasDict(it, account) }
+                .filterTo(mutableListOf()) { dictGroup.hasDict(it) }
         }
 
         // create new dictionary groups and remove dictionaries to re-use from existingDictsToCleanup
@@ -204,7 +196,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             // create new or re-use already loaded main dict
             val mainDict: Dictionary?
             if (forceReload || oldDictGroupForLocale == null
-                || !oldDictGroupForLocale.hasDict(Dictionary.TYPE_MAIN, account)
+                || !oldDictGroupForLocale.hasDict(Dictionary.TYPE_MAIN)
             ) {
                 mainDict = null // null main dicts will be loaded later in asyncReloadUninitializedMainDictionaries
             } else {
@@ -217,10 +209,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             for (subDictType in newSubDictTypes) {
                 val subDict: ExpandableBinaryDictionary
                 if (forceReload || oldDictGroupForLocale == null
-                    || !oldDictGroupForLocale.hasDict(subDictType, account)
+                    || !oldDictGroupForLocale.hasDict(subDictType)
                 ) {
                     // Create a new dictionary.
-                    subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix, account) ?: continue
+                    subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix) ?: continue
                 } else {
                     // Reuse the existing dictionary.
                     subDict = oldDictGroupForLocale.getSubDict(subDictType) ?: continue
@@ -228,7 +220,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 }
                 subDicts[subDictType] = subDict
             }
-            val newDictGroup = DictionaryGroup(locale, mainDict, account, subDicts, context)
+            val newDictGroup = DictionaryGroup(locale, mainDict, subDicts, context)
             newDictionaryGroups.add(newDictGroup)
         }
         return newDictionaryGroups to existingDictsToCleanup
@@ -305,7 +297,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val sv = Settings.getValues()
         if (sv.mAddToPersonalDictionary // require the opt-in
             && sv.mAutoCorrectEnabled == sv.mAutoCorrectionEnabledPerUserSettings // don't add if user wants autocorrect but input field does not, see https://github.com/Helium314/HeliBoard/issues/427#issuecomment-1905438000
-            && dictionaryGroups[0].hasDict(Dictionary.TYPE_USER_HISTORY, dictionaryGroups[0].account) // require personalized suggestions
+            && dictionaryGroups[0].hasDict(Dictionary.TYPE_USER_HISTORY) // require personalized suggestions
             && !wasAutoCapitalized // we can't be 100% sure about what the user intended to type, so better don't add it
             && words.size == 1 // only single words
         ) {
@@ -602,15 +594,15 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // HACK: This threshold is being used when adding a capitalized entry in the User History dictionary.
         private const val CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT = 140
 
-        private fun getSubDict(dictType: String, context: Context, locale: Locale, dictFile: File?,
-                               dictNamePrefix: String, account: String?
+        private fun getSubDict(
+            dictType: String, context: Context, locale: Locale, dictFile: File?, dictNamePrefix: String
         ): ExpandableBinaryDictionary? {
             try {
                 return when (dictType) {
-                    Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account)
-                    Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account)
-                    Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account)
-                    Dictionary.TYPE_APPS -> AppsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix, account)
+                    Dictionary.TYPE_USER_HISTORY -> UserHistoryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
+                    Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
+                    Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
+                    Dictionary.TYPE_APPS -> AppsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
                     else -> throw IllegalArgumentException("unknown dictionary type $dictType")
                 }
             } catch (e: SecurityException) {
@@ -649,7 +641,6 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 private class DictionaryGroup(
     val locale: Locale = Locale(""),
     private var mainDict: Dictionary? = null,
-    val account: String? = null, // todo: not used, simply remove
     subDicts: Map<String, ExpandableBinaryDictionary> = emptyMap(),
     context: Context? = null
 ) {
@@ -798,15 +789,9 @@ private class DictionaryGroup(
         return subDicts[dictType]
     }
 
-    fun hasDict(dictType: String, forAccount: String?): Boolean {
+    fun hasDict(dictType: String): Boolean {
         if (dictType == Dictionary.TYPE_MAIN) {
             return mainDict != null
-        }
-        if (dictType == Dictionary.TYPE_USER_HISTORY && forAccount != account) {
-            // If the dictionary type is user history, & if the account doesn't match,
-            // return immediately. If the account matches, continue looking it up in the
-            // sub dictionary map.
-            return false
         }
         return subDicts.containsKey(dictType)
     }
