@@ -631,8 +631,7 @@ public class KeyboardView extends View {
         } else if (key.getBackgroundType() != Key.BACKGROUND_TYPE_NORMAL) {
             mColors.setColor(icon, ColorType.KEY_ICON);
         } else if (this instanceof PopupKeysKeyboardView) {
-            // set color filter for long press comma key, should not trigger anywhere else
-            mColors.setColor(icon, ColorType.KEY_ICON);
+            mColors.setColor(icon, ColorType.POPUP_KEY_ICON);
         } else if (key.getCode() == Constants.CODE_SPACE || key.getCode() == KeyCode.ZWNJ) {
             // set color of default number pad space bar icon for Holo style, or for zero-width non-joiner (zwnj) on some layouts like nepal
             mColors.setColor(icon, ColorType.KEY_ICON);
