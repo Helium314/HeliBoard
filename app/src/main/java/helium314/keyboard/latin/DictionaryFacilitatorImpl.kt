@@ -61,9 +61,12 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
     private val mLock = Any()
 
-    // library does not deal well with ngram history for auto-capitalized words, so we adjust the ngram
-    // context to store next word suggestions for such cases
-    // todo: this looks awful, find a better solution / workaround
+    // The library does not deal well with ngram history for auto-capitalized words, so we adjust
+    // the ngram context to store next word suggestions for such cases.
+    // todo: this is awful, find a better solution / workaround
+    //  or remove completely? not sure if it's actually an improvement
+    //  should be fixed in the library, but that's not feasible with current user-provides-library approach
+    //  added in 12cbd43bda7d0f0cd73925e9cf836de751c32ed0 / https://github.com/Helium314/HeliBoard/issues/135
     private var tryChangingWords = false
     private var changeFrom = ""
     private var changeTo = ""
@@ -340,7 +343,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val mainFreq = dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.getFrequency(word) ?: Dictionary.NOT_A_PROBABILITY
         if (mainFreq == 0 && blockPotentiallyOffensive)
             return
-        if (tryChangingWords) // todo: ew...
+        if (tryChangingWords)
             tryChangingWords = ngramContext.changeWordIfAfterBeginningOfSentence(changeFrom, changeTo)
 
         val wordToUse: String
