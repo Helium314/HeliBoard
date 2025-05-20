@@ -58,9 +58,6 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     @Volatile
     private var mLatchForWaitingLoadingMainDictionaries = CountDownLatch(0)
 
-    // To synchronize assigning mDictionaryGroup to ensure closing dictionaries.
-    private val mLock = Any()
-
     // The library does not deal well with ngram history for auto-capitalized words, so we adjust
     // the ngram context to store next word suggestions for such cases.
     // todo: this is awful, find a better solution / workaround
@@ -159,7 +156,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
         // Replace Dictionaries.
         val oldDictionaryGroups: List<DictionaryGroup>
-        synchronized(mLock) {
+        synchronized(this) {
             oldDictionaryGroups = dictionaryGroups
             dictionaryGroups = newDictionaryGroups
             if (hasAtLeastOneUninitializedMainDictionary()) {
@@ -252,7 +249,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
                 else dictionaryGroup to createMainDictionary(context, it)
             }
-            synchronized(mLock) {
+            synchronized(this) {
                 dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
                     dictGroup.setMainDict(mainDict)
                 }
@@ -265,7 +262,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
     override fun closeDictionaries() {
         val dictionaryGroupsToClose: List<DictionaryGroup>
-        synchronized(mLock) {
+        synchronized(this) {
             dictionaryGroupsToClose = dictionaryGroups
             dictionaryGroups = listOf(DictionaryGroup())
         }
