@@ -132,6 +132,9 @@ sealed interface KeyData : AbstractKeyData {
                 keys.add("!icon/start_onehanded_mode_key|!code/key_toggle_onehanded")
             if (!params.mId.mDeviceLocked)
                 keys.add("!icon/settings_key|!code/key_settings")
+            if (shouldShowTldPopups(params)) {
+                keys.add(",")
+            }
             return keys
         }
 
@@ -314,6 +317,11 @@ sealed interface KeyData : AbstractKeyData {
                 } else label
             }
         }
+
+        private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
+            (Settings.getInstance().current.mShowTldPopupKeys
+                    && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
+                    && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 
         // could make arrays right away, but they need to be copied anyway as popupKeys arrays are modified when creating KeyParams
         private const val POPUP_EYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
@@ -583,11 +591,6 @@ sealed interface KeyData : AbstractKeyData {
             if (shouldShowTldPopups(params)) params.mLocaleKeyboardInfos.tlds
             else getPunctuationPopupKeys(params)
         )
-
-    private fun shouldShowTldPopups(params: KeyboardParams): Boolean =
-        (Settings.getInstance().current.mShowTldPopupKeys
-                && params.mId.mSubtype.layouts[LayoutType.FUNCTIONAL] != "functional_keys_tablet"
-                && params.mId.mMode in setOf(KeyboardId.MODE_URL, KeyboardId.MODE_EMAIL))
 }
 
 /**
