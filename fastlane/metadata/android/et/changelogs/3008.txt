@@ -1,0 +1,11 @@
+* uued klahvipaigustused: araabia hija'i, heebrea 1452-2, hindi foneetiline, dargi (Urahhi), baišaki, kurdi
+* mõnede klahvipaigustuste täiendused
+* aktsentide kombineerimise tugi
+* nupp klahvistiku poolitamiseks
+* lisandusid .com hüpikaknad
+* oma kirjatüübi valikuvõimalus
+* kirjatüübi skaleerimise võimalus
+* improve automatic language switching
+* seadistuste kohendus
+* lisaseadistused klahvide vaheruumi, tühikute lisamise, autokorrektsiooni ja ridade arvu jaoks
+* pisitäiendused ja parandused

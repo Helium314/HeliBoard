@@ -447,4 +447,5 @@
     <string name="timestamp_format_title">Формат ключа временной метки</string>
     <string name="subtype_dag">Дагбани</string>
     <string name="subtype_st">Сесото</string>
+    <string name="prefs_emoji_key_fit">Масштабировать размер клавиш эмодзи вместе с размером шрифта</string>
 </resources>

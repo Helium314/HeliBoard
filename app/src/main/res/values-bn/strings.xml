@@ -447,4 +447,5 @@
     <string name="timestamp_format_title">টাইমস্ট্যাম্পের ফরম্যাট</string>
     <string name="subtype_st">সেসুতু</string>
     <string name="subtype_dag">ডাগবানি</string>
+    <string name="prefs_emoji_key_fit">ফন্টের আকারের সাথে ইমোজি বোতামের আকারের সমন্বয়</string>
 </resources>

@@ -737,6 +737,7 @@ public class LatinIME extends InputMethodService implements
         if (mDictionaryFacilitator.usesSameSettings(
                 locales,
                 mSettings.getCurrent().mUseContactsDictionary,
+                mSettings.getCurrent().mUseAppsDictionary,
                 mSettings.getCurrent().mUsePersonalizedDicts,
                 mSettings.getCurrent().mAccount
         )) {
@@ -755,8 +756,8 @@ public class LatinIME extends InputMethodService implements
     private void resetDictionaryFacilitator(@NonNull final Locale locale) {
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this, locale,
-                settingsValues.mUseContactsDictionary, settingsValues.mUsePersonalizedDicts,
-                false, settingsValues.mAccount, "", this);
+                settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
+                settingsValues.mUsePersonalizedDicts, false, settingsValues.mAccount, "", this);
         mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
     }
 
@@ -767,7 +768,7 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues settingsValues = mSettings.getCurrent();
         mDictionaryFacilitator.resetDictionaries(this /* context */,
                 mDictionaryFacilitator.getMainLocale(), settingsValues.mUseContactsDictionary,
-                settingsValues.mUsePersonalizedDicts,
+                settingsValues.mUseAppsDictionary, settingsValues.mUsePersonalizedDicts,
                 true /* forceReloadMainDictionary */,
                 settingsValues.mAccount, "" /* dictNamePrefix */,
                 this /* DictionaryInitializationListener */);
@@ -2021,8 +2022,10 @@ public class LatinIME extends InputMethodService implements
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         switch (level) {
-            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE ->
-                    KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+            case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE -> {
+                KeyboardLayoutSet.onSystemLocaleChanged(); // clears caches, nothing else
+                mKeyboardSwitcher.trimMemory();
+            }
             // deallocateMemory always called on hiding, and should not be called when showing
         }
     }

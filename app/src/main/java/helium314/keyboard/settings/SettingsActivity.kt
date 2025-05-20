@@ -38,6 +38,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.FileUtils
 import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.ExecutorUtils
 import helium314.keyboard.latin.utils.UncachedInputMethodManagerUtils
 import helium314.keyboard.latin.utils.cleanUnusedMainDicts
@@ -111,6 +112,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
                                     },
                                 )
                                 settingsContainer[Settings.PREF_USE_CONTACTS]!!.Preference()
+                                settingsContainer[Settings.PREF_USE_APPS]!!.Preference()
                                 settingsContainer[Settings.PREF_BLOCK_POTENTIALLY_OFFENSIVE]!!.Preference()
                             }
                         }
@@ -191,8 +193,9 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
 
     private fun findCrashReports(): List<File> {
         // find crash report files
-        val dir: File = getExternalFilesDir(null) ?: return emptyList()
-        val allFiles = dir.listFiles() ?: return emptyList()
+        val dir = getExternalFilesDir(null)
+        val unprotectedDir = DeviceProtectedUtils.getFilesDir(this)
+        val allFiles = dir?.listFiles()?.toList().orEmpty() + unprotectedDir?.listFiles().orEmpty()
         return allFiles.filter { it.name.startsWith("crash_report") }
     }
 

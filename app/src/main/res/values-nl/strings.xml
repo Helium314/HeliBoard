@@ -492,4 +492,5 @@
     <string name="timestamp_format_title">Formaat voor tijdstempeltoetd</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Emoji-toetsgrootte schalen met lettergrootte</string>
 </resources>

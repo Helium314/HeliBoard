@@ -68,10 +68,6 @@
         name="EmojiPalettesView.HoloBase"
         parent="MainKeyboardView.HoloBase"
     >
-        <item name="categoryIndicatorEnabled">true</item>
-        <item name="categoryIndicatorDrawable">@drawable/emoji_category_tab_selected_holo_white</item>
-        <item name="categoryIndicatorBackground">@drawable/emoji_category_tab_unselected_holo_dark</item>
-        <item name="categoryPageIndicatorColor">@color/highlight_color_holo_white</item>
         <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_holo</item>
         <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents</item>
         <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion</item>

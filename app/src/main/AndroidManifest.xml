@@ -102,5 +102,11 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <!--<action android:name="android.view.InputMethod" />-->
             <action android:name="*" />
         </intent>
+
+        <!-- To detect names of installed apps -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
     </queries>
 </manifest>

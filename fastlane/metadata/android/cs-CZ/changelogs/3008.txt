@@ -1,0 +1,11 @@
+* přidána rozvržení: arabština hidžá'í, hebrejština 1452-2, fonetické hindu, dargwa (urakhi), baishakhi, kurdština
+* aktualizace některých rozvržení
+* podpora kombinování přízvuků
+* klávesa pro rozdělení klávesnice
+* přidána nabídka .com
+* možnost nastavení vlastního písma
+* přidáno nastavení měřítka písma
+* zlepšeno automatické přepínání jazyků
+* přepracována nastavení
+* přidána nastavení pro lepší nastavení odsazení, automatické mezery, automatické opravy, číselné řady
+* další funkce a opravy

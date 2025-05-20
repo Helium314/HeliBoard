@@ -449,4 +449,5 @@
     <string name="timestamp_format_title">时间戳键的格式</string>
     <string name="subtype_st">索托语</string>
     <string name="subtype_dag">达巴尼语</string>
+    <string name="prefs_emoji_key_fit">根据字体大小缩放表情符号键大小</string>
 </resources>
