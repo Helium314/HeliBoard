@@ -25,6 +25,7 @@ import java.util.Locale
  * @param locale the locale for which to create the dictionary
  * @return an initialized instance of DictionaryCollection
  */
+// todo: this needs updating, and then we can expose the weight for custom dictionaries (useful for addons like emoji dict)
 fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection {
     val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, context)
     val dictList = LinkedList<Dictionary>()
@@ -36,7 +37,7 @@ fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection
     // add extracted dicts to list (after userDicts, to skip extracted dicts of same type)
     extractedDicts.forEach { checkAndAddDictionaryToListIfNotExisting(it, dictList, locale) }
     if (dictList.any { it.mDictType == Dictionary.TYPE_MAIN })
-        return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList)
+        return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList, FloatArray(dictList.size) { 1f })
 
     // no main dict found -> check assets
     val assetsDicts = DictionaryInfoUtils.getAssetsDictionaryList(context)
@@ -57,7 +58,7 @@ fun createMainDictionary(context: Context, locale: Locale): DictionaryCollection
     // If the list is empty, that means we should not use any dictionary (for example, the user
     // explicitly disabled the main dictionary), so the following is okay. dictList is never
     // null, but if for some reason it is, DictionaryCollection handles it gracefully.
-    return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList)
+    return DictionaryCollection(Dictionary.TYPE_MAIN, locale, dictList, FloatArray(dictList.size) { 1f })
 }
 
 /**
