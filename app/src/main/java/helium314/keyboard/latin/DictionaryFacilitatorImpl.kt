@@ -239,7 +239,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     return@mapNotNull null // This should never happen
                 }
                 if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                else dictionaryGroup to createMainDictionary(context, it)
+                else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
             }
             synchronized(this) {
                 dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->

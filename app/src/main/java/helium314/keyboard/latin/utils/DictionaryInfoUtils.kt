@@ -8,6 +8,8 @@ package helium314.keyboard.latin.utils
 import android.content.Context
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
+import helium314.keyboard.latin.common.FileUtils
+import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.loopOverCodePoints
 import helium314.keyboard.latin.define.DecoderSpecificConstants
 import helium314.keyboard.latin.makedict.DictionaryHeader
@@ -60,6 +62,8 @@ object DictionaryInfoUtils {
         return sb.toString()
     }
 
+    // we cache the extracted dictionaries in filesDir, because actual cache might be cleared at
+    // any time, and we can't permanently check whether the dictionary still exists
     fun getWordListCacheDirectory(context: Context): String = context.filesDir.toString() + File.separator + "dicts"
 
     /** Reverse escaping done by replaceFileNameDangerousCharacters. */
@@ -83,11 +87,12 @@ object DictionaryInfoUtils {
     }
 
     /** Helper method to the list of cache directories, one for each distinct locale. */
-    fun getCachedDirectoryList(context: Context) = File(getWordListCacheDirectory(context)).listFiles().orEmpty()
+    fun getCacheDirectories(context: Context) = File(getWordListCacheDirectory(context)).listFiles().orEmpty()
 
     /** Find out the cache directory associated with a specific locale. */
-    fun getAndCreateCacheDirectoryForLocale(locale: Locale, context: Context): String {
-        val absoluteDirectoryName = getCacheDirectoryForLocale(locale, context)
+    fun getCacheDirectoryForLocale(locale: Locale, context: Context): String {
+        val relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag())
+        val absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator + relativeDirectoryName
         val directory = File(absoluteDirectoryName)
         if (!directory.exists() && !directory.mkdirs()) {
             Log.e(TAG, "Could not create the directory for locale $locale")
@@ -95,13 +100,8 @@ object DictionaryInfoUtils {
         return absoluteDirectoryName
     }
 
-    fun getCacheDirectoryForLocale(locale: Locale, context: Context): String {
-        val relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag())
-        return getWordListCacheDirectory(context) + File.separator + relativeDirectoryName
-    }
-
     fun getCachedDictsForLocale(locale: Locale, context: Context) =
-        File(getAndCreateCacheDirectoryForLocale(locale, context)).listFiles().orEmpty()
+        File(getCacheDirectoryForLocale(locale, context)).listFiles().orEmpty()
 
     fun getDictionaryFileHeaderOrNull(file: File, offset: Long, length: Long): DictionaryHeader? {
         return try {
@@ -129,11 +129,19 @@ object DictionaryInfoUtils {
      * Assumes file name main_[locale].dict
      * Returns the locale, or null if file name does not match the pattern
      */
-    fun extractLocaleFromAssetsDictionaryFile(dictionaryFileName: String): String? {
-        if (dictionaryFileName.startsWith(MAIN_DICT_PREFIX) && dictionaryFileName.endsWith(".dict")) {
-            return dictionaryFileName.substring(MAIN_DICT_PREFIX.length, dictionaryFileName.lastIndexOf('.'))
-        }
-        return null
+    fun extractLocaleFromAssetsDictionaryFile(dictionaryFileName: String): Locale {
+        if (dictionaryFileName.contains('_') && !dictionaryFileName.contains('.'))
+            throw IllegalStateException("invalid asset dictionary name $dictionaryFileName")
+        return dictionaryFileName.substringAfter("_").substringBefore(".").constructLocale()
+    }
+
+    fun extractAssetsDictionary(dictionaryFileName: String, locale: Locale, context: Context): File {
+        val targetFile = File(getCacheDirectoryForLocale(locale, context), "$dictionaryFileName.dict")
+        FileUtils.copyStreamToNewFile(
+            context.assets.open(ASSETS_DICTIONARY_FOLDER + File.separator + dictionaryFileName),
+            targetFile
+        )
+        return targetFile
     }
 
     fun getAssetsDictionaryList(context: Context): Array<String>? = try {

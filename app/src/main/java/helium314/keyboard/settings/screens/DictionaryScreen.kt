@@ -55,7 +55,7 @@ fun DictionaryScreen(
 ) {
     val ctx = LocalContext.current
     val enabledLanguages = SubtypeSettings.getEnabledSubtypes(true).map { it.locale().language }
-    val cachedDictFolders = DictionaryInfoUtils.getCachedDirectoryList(ctx).orEmpty().map { it.name }
+    val cachedDictFolders = DictionaryInfoUtils.getCacheDirectories(ctx).orEmpty().map { it.name }
     val comparer = compareBy<Locale>({ it.language !in enabledLanguages }, { it.toLanguageTag() !in cachedDictFolders}, { it.displayName })
     val dictionaryLocales = getDictionaryLocales(ctx).sortedWith(comparer).toMutableList()
     dictionaryLocales.add(0, Locale(SubtypeLocaleUtils.NO_LANGUAGE))
@@ -155,7 +155,7 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
         return userDicts to true
     val internalDicts = DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
     val best = LocaleUtils.getBestMatch(locale, internalDicts.toList()) {
-        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale() ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)
     }
     return userDicts to (best != null)
 }
