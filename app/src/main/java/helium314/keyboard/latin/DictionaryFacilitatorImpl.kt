@@ -212,7 +212,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     || !oldDictGroupForLocale.hasDict(subDictType)
                 ) {
                     // Create a new dictionary.
-                    subDict = getSubDict(subDictType, context, locale, null, dictNamePrefix) ?: continue
+                    subDict = createSubDict(subDictType, context, locale, null, dictNamePrefix) ?: continue
                 } else {
                     // Reuse the existing dictionary.
                     subDict = oldDictGroupForLocale.getSubDict(subDictType) ?: continue
@@ -556,14 +556,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         }
     }
 
-    // todo: remove return value, not used
-    override fun clearUserHistoryDictionary(context: Context): Boolean {
+    override fun clearUserHistoryDictionary(context: Context) {
         for (dictionaryGroup in dictionaryGroups) {
-            val dictionary = dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY)
-                ?: return false
-            dictionary.clear()
+            dictionaryGroup.getSubDict(Dictionary.TYPE_USER_HISTORY)?.clear()
         }
-        return true
     }
 
     override fun localesAndConfidences(): String? {
@@ -581,12 +577,11 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
     }
 
     override fun getDictionaryStats(context: Context): List<DictionaryStats> =
-        DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.mapNotNull {
-            dictionaryGroups[0].getSubDict(it)?.dictionaryStats
+        DictionaryFacilitator.DYNAMIC_DICTIONARY_TYPES.flatMap { dictType ->
+            dictionaryGroups.mapNotNull { it.getSubDict(dictType)?.dictionaryStats }
         }
 
-    // todo: remove from interface?
-    override fun dump(context: Context) = ""
+    override fun dump(context: Context) = getDictionaryStats(context).joinToString("\n")
 
     companion object {
         private val TAG = DictionaryFacilitatorImpl::class.java.simpleName
@@ -594,7 +589,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         // HACK: This threshold is being used when adding a capitalized entry in the User History dictionary.
         private const val CAPITALIZED_FORM_MAX_PROBABILITY_FOR_INSERT = 140
 
-        private fun getSubDict(
+        private fun createSubDict(
             dictType: String, context: Context, locale: Locale, dictFile: File?, dictNamePrefix: String
         ): ExpandableBinaryDictionary? {
             try {

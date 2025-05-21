@@ -42,14 +42,10 @@ public interface DictionaryFacilitator {
             Dictionary.TYPE_USER_HISTORY,
             Dictionary.TYPE_USER};
 
-    /**
-     * The facilitator will put words into the cache whenever it decodes them.
-     */
+    /** The facilitator will put words into the cache whenever it decodes them. */
     void setValidSpellingWordReadCache(final LruCache<String, Boolean> cache);
 
-    /**
-     * The facilitator will get words from the cache whenever it needs to check their spelling.
-     */
+    /** The facilitator will get words from the cache whenever it needs to check their spelling. */
     void setValidSpellingWordWriteCache(final LruCache<String, Boolean> cache);
 
     /**
@@ -79,12 +75,14 @@ public interface DictionaryFacilitator {
      */
     void onFinishInput(Context context);
 
+    /** whether a dictionary is set */
     boolean isActive();
 
+    /** the locale provided in resetDictionaries */
     @NonNull Locale getMainLocale();
 
-    // useful for multilingual typing
-    Locale getCurrentLocale();
+    /** the most "trusted" locale, differs from getMainLocale only if multilingual typing is used */
+    @NonNull Locale getCurrentLocale();
 
     boolean usesSameSettings(
             @NonNull final List<Locale> locales,
@@ -93,6 +91,7 @@ public interface DictionaryFacilitator {
             final boolean personalization
     );
 
+    /** switches to newLocale, gets secondary locales from current settings, and sets secondary dictionaries */
     void resetDictionaries(
             final Context context,
             final Locale newLocale,
@@ -103,30 +102,37 @@ public interface DictionaryFacilitator {
             final String dictNamePrefix,
             @Nullable final DictionaryInitializationListener listener);
 
+    /** removes the word from all editable dictionaries, and adds it to a blacklist in case it's in a read-only dictionary */
     void removeWord(String word);
 
     void closeDictionaries();
 
-    // The main dictionaries are loaded asynchronously. Don't cache the return value
-    // of these methods.
+    /** main dictionaries are loaded asynchronously after resetDictionaries */
     boolean hasAtLeastOneInitializedMainDictionary();
 
+    /** main dictionaries are loaded asynchronously after resetDictionaries */
     boolean hasAtLeastOneUninitializedMainDictionary();
 
+    /** main dictionaries are loaded asynchronously after resetDictionaries */
     void waitForLoadingMainDictionaries(final long timeout, final TimeUnit unit)
             throws InterruptedException;
 
+    /** adds the word to user history dictionary, calls adjustConfindences, and might add it to personal dictionary if the setting is enabled */
     void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
             @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive);
 
+    /** adjust confidences for multilingual typing */
     void adjustConfidences(final String word, final boolean wasAutoCapitalized);
 
+    /** a string with all used locales and their current confidences, null if multilingual typing is not used */
+    @Nullable String localesAndConfidences();
+
+    /** completely removes the word from user history (currently not if event is a backspace event) */
     void unlearnFromUserHistory(final String word,
             @NonNull final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType);
 
-    // TODO: Revise the way to fusion suggestion results.
     @NonNull SuggestionResults getSuggestionResults(final ComposedData composedData,
             final NgramContext ngramContext, @NonNull final Keyboard keyboard,
             final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
@@ -136,11 +142,9 @@ public interface DictionaryFacilitator {
 
     boolean isValidSuggestionWord(final String word);
 
-    boolean clearUserHistoryDictionary(final Context context);
+    void clearUserHistoryDictionary(final Context context);
 
     String dump(final Context context);
-
-    String localesAndConfidences();
 
     void dumpDictionaryForDebug(final String dictName);
 
