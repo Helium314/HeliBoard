@@ -528,6 +528,17 @@ are used to. This keyboard does not provide a dictionary, and it is not tied to 
 language among those that use the Latin alphabet. This keyboard is laid out in the Bépo
 disposition rather than other common dispositions for Latin languages. -->
     <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alphabet (Bépo)</string>
+    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
+the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
+When the device is configured to use a language using a script other than the Latin alphabet, the
+user still needs a keyboard that can input Latin characters for passwords or login names for
+example, and a way to switch to this Latin alphabet keyboard. This string is the description for
+this keyboard, so users of other scripts should understand when they read this that it represents a
+keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
+are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
+language among those that use the Latin alphabet. This keyboard is laid out in the Ergo-L
+disposition rather than other common dispositions for Latin languages. [CHAR LIMIT=25] -->
+    <string name="subtype_no_language_ergol" tools:keep="@string/subtype_no_language_ergol">Alphabet (Ergo-L)</string>
     <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
     <!-- Description for Emoji keyboard subtype -->
     <string name="subtype_emoji">Emoji</string>
