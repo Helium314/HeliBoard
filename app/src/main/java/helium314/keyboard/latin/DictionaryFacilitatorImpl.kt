@@ -718,7 +718,7 @@ private class DictionaryGroup(
     // words cannot be (permanently) removed from some dictionaries, so we use a blacklist for "removing" words
     private val blacklistFile = context?.let {
         File(it.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
-            .also { it.mkdirs() }
+            .also { it.parentFile?.mkdirs() }
     }
 
     private val blacklist = hashSetOf<String>().apply {
@@ -741,6 +741,7 @@ private class DictionaryGroup(
         scope.launch {
             synchronized(this) {
                 try {
+                    if (blacklistFile.isDirectory) blacklistFile.delete()
                     blacklistFile.appendText("$word\n")
                 } catch (e: IOException) {
                     Log.e(TAG, "Exception while trying to add word \"$word\" to blacklist ${blacklistFile.name}", e)
