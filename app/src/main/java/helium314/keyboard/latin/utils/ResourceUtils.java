@@ -55,6 +55,15 @@ public final class ResourceUtils {
         return windowBounds.width() - insets.left - insets.right;
     }
 
+    public static int getEffectiveKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
+        final int keyboardHeight = getKeyboardHeight(res, settingsValues);
+        if (settingsValues.mToolbarMode == ToolbarMode.HIDDEN) {
+            // Small adjustment to match the height of the main keyboard which has a hidden strip container.
+            return keyboardHeight - (int) res.getDimension(R.dimen.config_suggestions_strip_height);
+        }
+        return keyboardHeight;
+    }
+
     public static int getKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
         final int defaultKeyboardHeight = getDefaultKeyboardHeight(res, settingsValues.mShowsNumberRow);
         // mKeyboardHeightScale Ranges from [.5,1.5], from xml/prefs_screen_appearance.xml

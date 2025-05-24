@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,29 +29,46 @@ import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.settings.Setting
-import helium314.keyboard.settings.preferences.Preference
-import helium314.keyboard.settings.preferences.ReorderSwitchPreference
+import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.ToolbarMode
+import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.getStringResourceOrName
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.SearchSettingsScreen
-import helium314.keyboard.settings.preferences.SwitchPreference
+import helium314.keyboard.settings.Setting
+import helium314.keyboard.settings.SettingsActivity
 import helium314.keyboard.settings.Theme
 import helium314.keyboard.settings.dialogs.ToolbarKeysCustomizer
 import helium314.keyboard.settings.initPreview
+import helium314.keyboard.settings.preferences.ListPreference
+import helium314.keyboard.settings.preferences.Preference
+import helium314.keyboard.settings.preferences.ReorderSwitchPreference
+import helium314.keyboard.settings.preferences.SwitchPreference
 import helium314.keyboard.settings.previewDark
 
 @Composable
 fun ToolbarScreen(
     onClickBack: () -> Unit,
 ) {
+    val prefs = LocalContext.current.prefs()
+    val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
+    if ((b?.value ?: 0) < 0)
+        Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
+    val toolbarMode = Settings.readToolbarMode(prefs)
     val items = listOf(
-        Settings.PREF_TOOLBAR_KEYS,
-        Settings.PREF_PINNED_TOOLBAR_KEYS,
-        Settings.PREF_CLIPBOARD_TOOLBAR_KEYS,
-        Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES,
-        Settings.PREF_QUICK_PIN_TOOLBAR_KEYS,
-        Settings.PREF_AUTO_SHOW_TOOLBAR,
-        Settings.PREF_AUTO_HIDE_TOOLBAR,
-        Settings.PREF_VARIABLE_TOOLBAR_DIRECTION
+        Settings.PREF_TOOLBAR_MODE,
+        if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS))
+            Settings.PREF_TOOLBAR_KEYS else null,
+        if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.SUGGESTION_STRIP))
+            Settings.PREF_PINNED_TOOLBAR_KEYS else null,
+        if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS))
+            Settings.PREF_CLIPBOARD_TOOLBAR_KEYS else null,
+        if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS))
+            Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES else null,
+        if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_QUICK_PIN_TOOLBAR_KEYS else null,
+        if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_SHOW_TOOLBAR else null,
+        if (toolbarMode == ToolbarMode.EXPANDABLE) Settings.PREF_AUTO_HIDE_TOOLBAR else null,
+        if (toolbarMode != ToolbarMode.HIDDEN) Settings.PREF_VARIABLE_TOOLBAR_DIRECTION else null,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -60,6 +78,18 @@ fun ToolbarScreen(
 }
 
 fun createToolbarSettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_TOOLBAR_MODE, R.string.toolbar_mode) { setting ->
+        val ctx = LocalContext.current
+        val items =
+            ToolbarMode.entries.map { it.name.lowercase().getStringResourceOrName("toolbar_mode_", ctx) to it.name }
+        ListPreference(
+            setting,
+            items,
+            Defaults.PREF_TOOLBAR_MODE
+        ) {
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+        }
+    },
     Setting(context, Settings.PREF_TOOLBAR_KEYS, R.string.toolbar_keys) {
         ReorderSwitchPreference(it, Defaults.PREF_TOOLBAR_KEYS)
     },

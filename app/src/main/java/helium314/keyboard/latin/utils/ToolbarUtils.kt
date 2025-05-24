@@ -115,6 +115,10 @@ enum class ToolbarKey {
     PAGE_UP, PAGE_DOWN, FULL_LEFT, FULL_RIGHT, PAGE_START, PAGE_END
 }
 
+enum class ToolbarMode {
+    EXPANDABLE, TOOLBAR_KEYS, SUGGESTION_STRIP, HIDDEN,
+}
+
 val toolbarKeyStrings = entries.associateWithTo(EnumMap(ToolbarKey::class.java)) { it.toString().lowercase(Locale.US) }
 
 val defaultToolbarPref by lazy {
