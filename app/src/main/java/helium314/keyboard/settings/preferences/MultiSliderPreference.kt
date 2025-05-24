@@ -46,7 +46,7 @@ fun MultiSliderPreference(
     name: String,
     baseKey: String,
     dimensions: List<String>,
-    default: Float,
+    defaults: Array<Float>,
     range:  ClosedFloatingPointRange<Float>,
     description: (Float) -> String,
     onDone: () -> Unit
@@ -63,7 +63,7 @@ fun MultiSliderPreference(
             title = { Text(name) },
             baseKey = baseKey,
             onDone = onDone,
-            defaultValue = default,
+            defaultValues = defaults,
             range = range,
             dimensions = dimensions,
             positionString = description
@@ -77,7 +77,7 @@ private fun MultiSliderDialog(
     title: @Composable () -> Unit,
     baseKey: String,
     onDone: () -> Unit,
-    defaultValue: Float,
+    defaultValues: Array<Float>,
     range: ClosedFloatingPointRange<Float>,
     dimensions: List<String>,
     modifier: Modifier = Modifier,
@@ -114,10 +114,10 @@ private fun MultiSliderDialog(
                     }
                     variants.forEachIndexed { i, variant ->
                         val key = keys[i]
-                        var sliderPosition by remember { mutableFloatStateOf(prefs.getFloat(key, defaultValue)) }
+                        var sliderPosition by remember { mutableFloatStateOf(prefs.getFloat(key, defaultValues[i])) }
                         if (!done.contains(variant))
                             done[variant] = {
-                                if (sliderPosition == defaultValue)
+                                if (sliderPosition == defaultValues[i])
                                     prefs.edit().remove(key).apply()
                                 else
                                     prefs.edit().putFloat(key, sliderPosition).apply()
@@ -136,7 +136,7 @@ private fun MultiSliderDialog(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(positionString(sliderPosition))
-                                    TextButton({ sliderPosition = defaultValue }) { Text(stringResource(R.string.button_default)) }
+                                    TextButton({ sliderPosition = defaultValues[i] }) { Text(stringResource(R.string.button_default)) }
                                 }
                                 Spacer(Modifier.height(6.dp))
                             }
@@ -185,7 +185,7 @@ private fun Preview() {
             onDismissRequest = { },
             onDone = { },
             positionString = { "${it.toInt()}%"},
-            defaultValue = 100f,
+            defaultValues = Array(8) { 100f - it % 2 * 50f },
             range = 0f..500f,
             title = { Text("bottom padding scale") },
             dimensions = listOf("landscape", "unfolded", "split"),

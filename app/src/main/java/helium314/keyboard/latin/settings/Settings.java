@@ -91,9 +91,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
     public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
-    public static final String PREF_SIDE_PADDING_SCALE = "side_padding_scale";
-    public static final String PREF_SIDE_PADDING_SCALE_PREFIX = "side_padding_scale2";
-    public static final String PREF_SIDE_PADDING_SCALE_LANDSCAPE = "side_padding_scale_landscape";
+    public static final String PREF_SIDE_PADDING_SCALE_PREFIX = "side_padding_scale";
     public static final String PREF_FONT_SCALE = "font_scale";
     public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
     public static final String PREF_EMOJI_KEY_FIT = "emoji_key_fit";
@@ -409,11 +407,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     // needs to be aligned with MultiSliderPreference of that base key, see AppearanceScreen (also add to other relevant settings)
     public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        // todo: we must have different defaults because bottom padding needs it!
-        return prefs.getFloat(PREF_SIDE_PADDING_SCALE_PREFIX + "_" + landscape, Defaults.PREF_SIDE_PADDING_SCALE);
-//        if (landscape)
-//            return prefs.getFloat(PREF_SIDE_PADDING_SCALE_LANDSCAPE, Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE);
-//        return prefs.getFloat(PREF_SIDE_PADDING_SCALE, Defaults.PREF_SIDE_PADDING_SCALE);
+        final float defaultValue = Defaults.INSTANCE.getPREF_SIDE_PADDING_SCALE()[SettingsKt.settingIndex(landscape)];
+        return prefs.getFloat(PREF_SIDE_PADDING_SCALE_PREFIX + "_" + landscape, defaultValue);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
