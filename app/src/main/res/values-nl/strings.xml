@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">Gesplitst toetsenbord</string>
     <string name="language_switch_key_switch_input_method">Andere invoermethode</string>
     <string name="show_language_switch_key">Taalkeuzetoets</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <string name="settings_system_default">"Systeemstandaard"</string>
     <string name="use_contacts_dict_summary">Gebruik namen uit Contacten voor suggesties en correcties</string>
     <string name="use_personalized_dicts">"Gepersonaliseerde suggesties"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hindi-Engels"</string>
     <string name="subtype_sr_Latn">"Servisch (Latijns)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
+    <string name="subtype_generic_traditional">%s (Traditional)</string>
+    <string name="subtype_generic_compact">%s (Compact)</string>
     <string name="subtype_no_language">"Geen taal"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Toevoegen"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji voor fysiek toetsenbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Emoji-palet weergeven bij fysieke Alt-toets</string>
     <string name="button_default">"Standaard"</string>
-    <string name="setup_welcome_title">Welkom bij <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Welkom bij %s</string>
     <string name="setup_welcome_additional_description">met Typen met gebaren</string>
     <string name="setup_start_action">"Aan de slag"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
-    <string name="setup_step1_instruction">Selecteer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
+    <string name="setup_steps_title">%s instellen</string>
+    <string name="setup_step1_title">%s inschakelen</string>
+    <string name="setup_step1_instruction">Selecteer %s in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
-    <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Selecteer vervolgens <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve methode voor tekstinvoer.</string>
+    <string name="setup_step2_title">Overschakelen naar %s</string>
+    <string name="setup_step2_instruction">Selecteer vervolgens %s als actieve methode voor tekstinvoer.</string>
     <string name="setup_step2_action">"Schakelen tussen invoermethoden"</string>
     <string name="setup_step3_title">Gefeliciteerd, je kunt nu aan de slag!</string>
-    <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met %s.</string>
     <string name="setup_finish_action">"Voltooid"</string>
     <string name="show_setup_wizard_icon">"App-pictogram weergeven"</string>
     <string name="show_setup_wizard_icon_summary">"App-pictogram weergeven in het opstartprogramma"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Laatst bijgewerkt"</string>
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
-    <string name="version_text">Versie <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Versie %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Toevoegen aan woordenboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Sneltoets:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
@@ -116,7 +116,7 @@
     <string name="show_emoji_key">Emojitoets</string>
     <string name="settings_category_correction">Correcties</string>
     <string name="settings_category_suggestions">Suggesties</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Druk lang op de spatietoets voor het selectiemenu van de invoermethode</string>
     <string name="auto_correction_confidence">Betrouwbaarheid autocorrectie</string>
     <string name="enable_clipboard_history_summary">Indien uitgeschakeld, plakt de klembord-toets de inhoud van het klembord</string>
@@ -124,7 +124,7 @@
     <string name="prefs_force_incognito_mode_summary">Het leren van nieuwe woorden uitschakelen</string>
     <string name="show_hints_summary">Hints bij lang indrukken weergeven</string>
     <string name="prefs_keyboard_height_scale">Toetsenbordhoogte schaal</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Invoermethode schakelen met spatietoets</string>
     <string name="key_borders">Toetsranden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
@@ -208,7 +208,7 @@
     <string name="dictionary_file_wrong_script">Fout: script niet compatibel met dit toetsenbord</string>
     <string name="user_dict_settings_add_weight_value">Gewicht:</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Bewolkt</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
+    <string name="subtype_generic_extended">%s (Extended)</string>
     <string name="button_select_language">Taal kiezen</string>
     <string name="user_dict_word_already_present">Dit woord is al aanwezig in het gebruikerswoordenboek van %s. Typ er nog een.</string>
     <string name="user_dict_add_word_button">Woord toevoegen</string>
@@ -237,7 +237,7 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numpad</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numpad (liggend)</string>
     <string name="cut" tools:keep="@string/Cut">Knippen</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="internal_dictionary_summary">Intern hoofdwoordenboek</string>
     <string name="settings_screen_about">Over</string>
     <string name="version">Versie</string>
@@ -248,9 +248,9 @@
     <string name="dictionary_file_error">Fout: Geselecteerd bestand is geen geldig woordenboekbestand</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefoonsymbolen</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
     <string name="button_title_add_custom_layout">Aangepaste lay-out toevoegen</string>
     <string name="message_add_custom_layout">Selecteer een bestand in een compatibel formaat. Informatie over de formaten is beschikbaar %s.</string>
     <string name="button_copy_existing_layout">Bestaande lay-out kopiëren</string>
@@ -422,7 +422,7 @@
     <string name="customize_icons_reset_message">Alle aangepaste pictogrammen herstellen?</string>
     <string name="vibrate_in_dnd_mode">Trillen in de niet storen-modus</string>
     <string name="prefs_key_emoji_max_sdk">Emoji-versie overschrijven</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="auto_correct_shortcuts">Sneltoetsen autom. corrigeren</string>
     <string name="auto_correct_shortcuts_summary">Indien ingeschakeld, kunnen sneltoetsen worden uitgebreid met autocorrectie</string>
@@ -450,7 +450,7 @@
     <string name="custom_subtype">Aangepast subtype</string>
     <string name="get_layouts_message">Je kunt lay-outs zoeken en delen in de %s.</string>
     <string name="discussion_section_link">discussiesectie</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="show_tld_popup_keys">TLD-opties weergeven</string>
     <string name="show_tld_popup_keys_summary">Vervang pop-ups met interpunctie door topleveldomeinen bij het typen van URL\'s en e-mailadressen</string>
     <string name="after_numpad_and_space">Druk op enter of spatie na andere toetsen in het numpad</string>

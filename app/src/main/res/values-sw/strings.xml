@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Washa muundo wa kibodi inayogawanyika"</string>
     <string name="language_switch_key_switch_input_method">"Badilisha hadi kwa mbinu zingine za ingizo"</string>
     <string name="show_language_switch_key">"Kitufe cha kubadilisha lugha"</string>
-    <string name="abbreviation_unit_milliseconds">"Milisekunde <xliff:g id="MILLISECONDS">%s</xliff:g>"</string>
+    <string name="abbreviation_unit_milliseconds">"Milisekunde %s"</string>
     <string name="settings_system_default">"Chaguomsingi la mfumo"</string>
     <string name="use_contacts_dict_summary">"Tumia majina kutoka kwa Anwani kama mapendekezo na marekebisho"</string>
     <string name="use_personalized_dicts">"Mapendekezo yaliyobadilishwa kukufaa"</string>
@@ -50,8 +50,8 @@
     <string name="subtype_es_US">"Kihispania (Marekani)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Kiserbia (Kilatino)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (cha Jadi)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Thabiti)"</string>
+    <string name="subtype_generic_traditional">"%s (cha Jadi)"</string>
+    <string name="subtype_generic_compact">"%s (Thabiti)"</string>
     <string name="subtype_no_language">"Hakuna lugha"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ongeza"</string>
@@ -65,18 +65,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji za kibodi halisi"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Kitufe halisi cha Alt huonyesha kibao cha emoji"</string>
     <string name="button_default">"Chaguomsingi"</string>
-    <string name="setup_welcome_title">"Karibu kwenye <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Karibu kwenye %s"</string>
     <string name="setup_welcome_additional_description">"kwa Kuandika kwa ishara"</string>
     <string name="setup_start_action">"Anza kutumia"</string>
-    <string name="setup_steps_title">"Inasanidi <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Washa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Tafadhali angalia \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" katika mipangilio yako ya Lugha na mbinu ya kuingiza data. Hatua hii itairuhusu kutumika kwenye kifaa chako."</string>
+    <string name="setup_steps_title">"Inasanidi %s"</string>
+    <string name="setup_step1_title">"Washa %s"</string>
+    <string name="setup_step1_instruction">"Tafadhali angalia \"%s\" katika mipangilio yako ya Lugha na mbinu ya kuingiza data. Hatua hii itairuhusu kutumika kwenye kifaa chako."</string>
     <string name="setup_step1_action">"Washa katika Mipangilio"</string>
-    <string name="setup_step2_title">"Badilisha kwenda <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Kisha, chagua \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" kama mbinu yako inayotumika ya kuingiza data ya maandishi."</string>
+    <string name="setup_step2_title">"Badilisha kwenda %s"</string>
+    <string name="setup_step2_instruction">"Kisha, chagua \"%s\" kama mbinu yako inayotumika ya kuingiza data ya maandishi."</string>
     <string name="setup_step2_action">"Badilisha mbinu za kuingiza data"</string>
     <string name="setup_step3_title">"Hongera, uko tayari!"</string>
-    <string name="setup_step3_instruction">"Sasa unaweza kuchapa programu zako zote uzipendazo ukitumia <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Sasa unaweza kuchapa programu zako zote uzipendazo ukitumia %s."</string>
     <string name="setup_finish_action">"Imemaliza"</string>
     <string name="show_setup_wizard_icon">"Onyesha aikoni ya programu"</string>
     <string name="show_setup_wizard_icon_summary">"Onyesha aikoni ya programu kwenye kifungua programu"</string>
@@ -85,7 +85,7 @@
     <string name="last_update">"Ilibadilishwa mwisho"</string>
     <string name="settings">"Mipangilio"</string>
     <string name="delete">"Futa"</string>
-    <string name="version_text">"Toleo la <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Toleo la %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Ongeza kwenye kamusi"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Njia ya mkato:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lugha:"</string>

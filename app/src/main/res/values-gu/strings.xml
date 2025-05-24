@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"વિભાજિત કીબોર્ડ સક્ષમ કરો"</string>
     <string name="language_switch_key_switch_input_method">"અન્ય ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
     <string name="show_language_switch_key">"ભાષા સ્વિચ કી"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"સિસ્ટમ ડિફોલ્ટ"</string>
     <string name="use_contacts_dict_summary">"સૂચનો અને સુધારાઓ માટે સંપર્કોમાંથી નામોનો ઉપયોગ કરો"</string>
     <string name="use_personalized_dicts">"વ્યક્તિગત સૂચનો"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"સ્પેનિશ (US)"</string>
     <string name="subtype_hi_Latn">"હિંગ્લિશ"</string>
     <string name="subtype_sr_Latn">"સર્બિયન (લેટિન)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (પરંપરાગત)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (કોમ્પેક્ટ)"</string>
+    <string name="subtype_generic_traditional">"%s (પરંપરાગત)"</string>
+    <string name="subtype_generic_compact">"%s (કોમ્પેક્ટ)"</string>
     <string name="subtype_no_language">"ભાષા નથી"</string>
     <string name="subtype_emoji">"ઇમોજી"</string>
     <string name="add">"ઉમેરો"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ભૌતિક કીબોર્ડ માટે ઇમોજી"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ભૌતિક Alt કી ઇમોજી પેલેટ દર્શાવે છે"</string>
     <string name="button_default">"ડિફોલ્ટ"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વાગત છે\"</string>
+    <string name="setup_welcome_title">%s પર સ્વાગત છે\"</string>
     <string name="setup_welcome_additional_description">"સાંકેતિક ટાઇપિંગ દ્વારા"</string>
     <string name="setup_start_action">"પ્રારંભ કરો"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સેટ કરી રહ્યું છે\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> સક્ષમ કરો\"</string>
-    <string name="setup_step1_instruction">"કૃપા કરીને \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
+    <string name="setup_steps_title">%s સેટ કરી રહ્યું છે\"</string>
+    <string name="setup_step1_title">%s સક્ષમ કરો\"</string>
+    <string name="setup_step1_instruction">"કૃપા કરીને \"%s\" ને તમારી ભાષાઓ અને ઇનપુટ સેટિંગ્સમાં તપાસો. આ તેને તમારા ઉપકરણ પર ચાલવા માટે અધિકૃત કરશે."</string>
     <string name="setup_step1_action">"સેટિંગ્સમાં સક્ષમ કરો"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> પર સ્વિચ કરો\"</string>
-    <string name="setup_step2_instruction">"આગલું, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
+    <string name="setup_step2_title">%s પર સ્વિચ કરો\"</string>
+    <string name="setup_step2_instruction">"આગલું, \"%s\" ને તમારા સક્રિય ટેક્સ્ટ-ઇનપુટ પદ્ધતિ તરીકે પસંદ કરો."</string>
     <string name="setup_step2_action">"ઇનપુટ પદ્ધતિઓ પર સ્વિચ કરો"</string>
     <string name="setup_step3_title">"અભિનંદન, તમે બધું સેટ કર્યું છે!"</string>
-    <string name="setup_step3_instruction">"હવે તમે તમારી મનપસંદ એપ્લિકેશન્સમાં <xliff:g id="APPLICATION_NAME">%s</xliff:g> થી ટાઇપ કરી શકો છો."</string>
+    <string name="setup_step3_instruction">"હવે તમે તમારી મનપસંદ એપ્લિકેશન્સમાં %s થી ટાઇપ કરી શકો છો."</string>
     <string name="setup_finish_action">"સમાપ્ત થયું"</string>
     <string name="show_setup_wizard_icon">"ઍપ્લિકેશન આયકન બતાવો"</string>
     <string name="show_setup_wizard_icon_summary">"લોંચરમાં ઍપ્લિકેશન આયકન પ્રદર્શિત કરો"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"છેલ્લે અપડેટ કર્યું"</string>
     <string name="settings">"સેટિંગ્સ"</string>
     <string name="delete">"કાઢી નાખો"</string>
-    <string name="version_text">"સંસ્કરણ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"સંસ્કરણ %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"શબ્દકોષમાં ઉમેરો"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"શોર્ટકટ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ભાષા:"</string>

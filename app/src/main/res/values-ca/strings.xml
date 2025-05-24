@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">Activa el teclat dividit</string>
     <string name="language_switch_key_switch_input_method">"Altres mètodes d\'introducció"</string>
     <string name="show_language_switch_key">"Tecla de canvi d\'idioma"</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <string name="settings_system_default">"Predeterminat"</string>
     <string name="use_contacts_dict_summary">"Utilitza els noms de contactes per fer suggeriments i correccions"</string>
     <string name="use_personalized_dicts">"Suggeriments personalitzats"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Espanyol (EUA)"</string>
     <string name="subtype_hi_Latn">Hinglish</string>
     <string name="subtype_sr_Latn">"Serbi (llatí)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacte)</string>
+    <string name="subtype_generic_traditional">%s (Tradicional)</string>
+    <string name="subtype_generic_compact">%s (Compacte)</string>
     <string name="subtype_no_language">Cap idioma</string>
     <string name="subtype_emoji">Emojis</string>
     <string name="add">"Afegeix"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">Emojis amb el teclat físic</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Amb la tecla Alt del teclat físic es mostra la paleta d\'emojis</string>
     <string name="button_default">"Predeterminat"</string>
-    <string name="setup_welcome_title">Us donem la benvinguda a <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
+    <string name="setup_welcome_title">Us donem la benvinguda a %s</string>
     <string name="setup_welcome_additional_description">amb escriptura gestual</string>
     <string name="setup_start_action">"Comença"</string>
-    <string name="setup_steps_title">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
-    <string name="setup_step1_title">Habilitar <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Comproveu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.</string>
+    <string name="setup_steps_title">S\'està configurant %s</string>
+    <string name="setup_step1_title">Habilitar %s</string>
+    <string name="setup_step1_instruction">Comproveu «%s» a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.</string>
     <string name="setup_step1_action">Habilita a la configuració</string>
-    <string name="setup_step2_title">Canviar a <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
-    <string name="setup_step2_instruction">A continuació, seleccioneu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» com a mètode d\'entrada de text actiu.</string>
+    <string name="setup_step2_title">Canviar a %s</string>
+    <string name="setup_step2_instruction">A continuació, seleccioneu «%s» com a mètode d\'entrada de text actiu.</string>
     <string name="setup_step2_action">Canvia els mètodes d\'entrada</string>
     <string name="setup_step3_title">"Enhorabona, ja has acabat!"</string>
-    <string name="setup_step3_instruction">Ara ja podeu escriure en totes les vostres aplicacions preferides amb <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Ara ja podeu escriure en totes les vostres aplicacions preferides amb %s.</string>
     <string name="setup_finish_action">"Finalitzat"</string>
     <string name="show_setup_wizard_icon">"Mostra la icona de l\'aplicació"</string>
     <string name="show_setup_wizard_icon_summary">"Mostra la icona de l\'aplicació al menú d\'aplicacions"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Última actualització"</string>
     <string name="settings">"Configuració"</string>
     <string name="delete">"Suprimeix"</string>
-    <string name="version_text">Versió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Versió %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Afegeix al diccionari"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Drecera:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
@@ -100,7 +100,7 @@
     <string name="clipboard_history_retention_time">Temps de manteniment a l\'historial</string>
     <string name="delete_swipe_summary">Llisqueu damunt de la tecla d\'esborrar per seleccionar i treure grans parts de text d\'un sol cop</string>
     <string name="incognito">Força el mode d\'incògnit</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="spell_checker_service_name">Corrector ortogràfic de l\'HeliBoard</string>
     <string name="android_spell_checker_settings">Configuració del corrector ortogràfic de l\'HeliBoard</string>
     <string name="delete_swipe">Esborra amb lliscament</string>
@@ -125,7 +125,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantenint premuda la barra espaiadora s\'obrirà el menú de selecció del mètode d\'entrada</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Canvia el mètode d\'entrada amb la barra espaiadora</string>
     <string name="show_hints_summary">Mostra consells quan es mantingui premuda una tecla</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="prefs_keyboard_height_scale">Escala de l\'alçada del teclat</string>
     <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema</string>
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
@@ -215,9 +215,9 @@
     <string name="right" tools:keep="@string/right">Dreta</string>
     <string name="language_and_layouts_title">Idiomes i disposicions</string>
     <string name="subtype_xdq">Kaytak</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Estès)</string>
+    <string name="subtype_generic_extended">%s (Estès)</string>
     <string name="button_load_custom">Carrega fitxer</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonètic)</string>
+    <string name="subtype_generic_phonetic">%s (Fonètic)</string>
     <string name="button_title_add_custom_layout">Afegeix una disposició personalitzada</string>
     <string name="copy_to_clipboard">Copia al porta-retalls</string>
     <string name="button_copy_existing_layout">Copia la disposició existent</string>
@@ -268,10 +268,10 @@
     <string name="day_or_night_image">Establir la imatge per al mode dia o nocturn?</string>
     <string name="day_or_night_day">Dia</string>
     <string name="day_or_night_night">Nit</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="show_popup_hints">Mostra consells funcionals</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="switch_keyboard_after">Canvia al teclat principal després de…</string>
     <string name="after_clip">Seleccionar l\'entrada de l\'historial del porta-retalls</string>
     <string name="after_emoji">Seleccionar emoji a la visualització d\'emojis</string>
@@ -283,7 +283,7 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tecles funcionals (Símbols)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tecles funcionals (Més símbols)</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudiant)</string>
+    <string name="subtype_generic_student">%s (Estudiant)</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau Gris</string>
     <string name="dialog_close">Tancar</string>
     <string name="gnu_gpl">Llicència pública general GNU v3.0</string>
@@ -399,7 +399,7 @@
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tecles de funció (pantalla gran)</string>
     <string name="name_invalid">Nom no vàlid</string>
     <string name="custom_subtype">Subtipus personalitzat</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengalí">%s</xliff:g> (Baishakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="layout_in_use">Avís: la disposició s\'està utilitzant actualment</string>
     <string name="locales_with_dict">Idiomes amb diccionaris</string>
     <string name="get_colors_message">Podeu trobar i compartir colors a %s.</string>

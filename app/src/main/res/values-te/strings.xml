@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"విభజన కీబోర్డ్‌ను ప్రారంభించు"</string>
     <string name="language_switch_key_switch_input_method">"ఇతర ఇన్‌పుట్ పద్ధతులకు మారండి"</string>
     <string name="show_language_switch_key">"భాష మార్పు కీ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>మిసె"</string>
+    <string name="abbreviation_unit_milliseconds">"%sమిసె"</string>
     <string name="settings_system_default">"సిస్టమ్ డిఫాల్ట్"</string>
     <string name="use_contacts_dict_summary">"సూచనలు మరియు సవరణల కోసం పరిచయాల నుండి పేర్లను ఉపయోగించు"</string>
     <string name="use_personalized_dicts">"వ్యక్తిగతీకరించబడిన సూచనలు"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"స్పానిష్ (యుఎస్)"</string>
     <string name="subtype_hi_Latn">"హింగ్లీష్"</string>
     <string name="subtype_sr_Latn">"సెర్బియన్ (లాటిన్)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (సాంప్రదాయకం)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (కాంపాక్ట్)"</string>
+    <string name="subtype_generic_traditional">"%s (సాంప్రదాయకం)"</string>
+    <string name="subtype_generic_compact">"%s (కాంపాక్ట్)"</string>
     <string name="subtype_no_language">"భాష లేదు"</string>
     <string name="subtype_emoji">"ఎమోజి"</string>
     <string name="add">"జోడించండి"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"భౌతిక కీబోర్డ్ కోసం ఎమోజి"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"భౌతిక Alt కీ ఎమోజి ఫలకాన్ని చూపుతుంది"</string>
     <string name="button_default">"డిఫాల్ట్"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>కు స్వాగతం\"</string>
+    <string name="setup_welcome_title">%sకు స్వాగతం\"</string>
     <string name="setup_welcome_additional_description">"సంజ్ఞ టైపింగ్‌తో"</string>
     <string name="setup_start_action">"ప్రారంభించండి"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ని సెటప్ చేయడం\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ని ప్రారంభించండి\"</string>
-    <string name="setup_step1_instruction">"దయచేసి మీ భాషలు &amp; ఇన్‌పుట్ సెట్టింగ్‌ల్లో \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" తనిఖీ చేయండి. ఇది మీ పరికరంలో అమలు కావడానికి దీన్ని ప్రామాణీకరిస్తుంది."</string>
+    <string name="setup_steps_title">%sని సెటప్ చేయడం\"</string>
+    <string name="setup_step1_title">%sని ప్రారంభించండి\"</string>
+    <string name="setup_step1_instruction">"దయచేసి మీ భాషలు &amp; ఇన్‌పుట్ సెట్టింగ్‌ల్లో \"%s\" తనిఖీ చేయండి. ఇది మీ పరికరంలో అమలు కావడానికి దీన్ని ప్రామాణీకరిస్తుంది."</string>
     <string name="setup_step1_action">"సెట్టింగ్‌ల్లో ప్రారంభించండి"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>కు మారండి\"</string>
-    <string name="setup_step2_instruction">"తర్వాత, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"ని మీ సక్రియ వచన-ఇన్‌పుట్ పద్ధతిగా ఎంచుకోండి."</string>
+    <string name="setup_step2_title">%sకు మారండి\"</string>
+    <string name="setup_step2_instruction">"తర్వాత, \"%s\"ని మీ సక్రియ వచన-ఇన్‌పుట్ పద్ధతిగా ఎంచుకోండి."</string>
     <string name="setup_step2_action">"ఇన్‌పుట్ పద్ధతులను మార్చు"</string>
     <string name="setup_step3_title">"అభినందనలు, మీరు అంతా పూర్తి చేసారు!"</string>
-    <string name="setup_step3_instruction">"ఇప్పుడు మీరు <xliff:g id="APPLICATION_NAME">%s</xliff:g>తో మీకు ఇష్టమైన అన్ని అనువర్తనాల్లో టైప్ చేయవచ్చు."</string>
+    <string name="setup_step3_instruction">"ఇప్పుడు మీరు %sతో మీకు ఇష్టమైన అన్ని అనువర్తనాల్లో టైప్ చేయవచ్చు."</string>
     <string name="setup_finish_action">"పూర్తయింది"</string>
     <string name="show_setup_wizard_icon">"యాప్‌ చిహ్నాన్ని చూపు"</string>
     <string name="show_setup_wizard_icon_summary">"లాంచర్‌లో యాప్‌ చిహ్నాన్ని ప్రదర్శించు"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"చివరిగా నవీకరించబడినది"</string>
     <string name="settings">"సెట్టింగ్‌లు"</string>
     <string name="delete">"తొలగించు"</string>
-    <string name="version_text">"వెర్షన్ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"వెర్షన్ %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"నిఘంటువుకి జోడించు"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"షార్ట్‌కట్:"</string>
     <string name="user_dict_settings_add_locale_option_name">"భాష:"</string>

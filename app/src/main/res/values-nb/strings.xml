@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Aktivér delt tastatur"</string>
     <string name="language_switch_key_switch_input_method">"Bytt inndatametode"</string>
     <string name="show_language_switch_key">Knapp for språkskifte</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Systemstandard"</string>
     <string name="use_contacts_dict_summary">"Bruk navn fra Kontakter til forslag og korrigeringer"</string>
     <string name="use_personalized_dicts">"Spesialtilpassede forslag"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"spansk (USA)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbisk (latin)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradisjonelt)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
+    <string name="subtype_generic_traditional">"%s (tradisjonelt)"</string>
+    <string name="subtype_generic_compact">"%s (kompakt)"</string>
     <string name="subtype_no_language">"Ingen språk"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Legg til"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji for fysisk tastatur"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fysisk Alt-tast som viser emojiutvalget"</string>
     <string name="button_default">"Standard"</string>
-    <string name="setup_welcome_title">"Velkommen til <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Velkommen til %s"</string>
     <string name="setup_welcome_additional_description">"med Ordføring"</string>
     <string name="setup_start_action">"Startveiledning"</string>
-    <string name="setup_steps_title">Sett opp <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
-    <string name="setup_step1_title">Skru på <xliff:g id="APPLICATION_NAME">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Sjekk «<xliff:g id="APPLICATION_NAME">%s</xliff:g>» i Språk og inndata-innstillingene dine. Dette tillater programmet å kjøre på enheten.</string>
+    <string name="setup_steps_title">Sett opp %s</string>
+    <string name="setup_step1_title">Skru på %s</string>
+    <string name="setup_step1_instruction">Sjekk «%s» i Språk og inndata-innstillingene dine. Dette tillater programmet å kjøre på enheten.</string>
     <string name="setup_step1_action">Skru på i programinnstillingene</string>
-    <string name="setup_step2_title">"Bytt til <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Deretter velger du «<xliff:g id="APPLICATION_NAME">%s</xliff:g>» som aktiv inndatametode for tekst.</string>
+    <string name="setup_step2_title">"Bytt til %s"</string>
+    <string name="setup_step2_instruction">Deretter velger du «%s» som aktiv inndatametode for tekst.</string>
     <string name="setup_step2_action">"Bytt inndatametode"</string>
     <string name="setup_step3_title">"Gratulerer, du er klar!"</string>
-    <string name="setup_step3_instruction">"Nå kan du skrive inn alle favorittappene dine med <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Nå kan du skrive inn alle favorittappene dine med %s."</string>
     <string name="setup_finish_action">"Ferdig"</string>
     <string name="show_setup_wizard_icon">"Vis app-ikonet"</string>
     <string name="show_setup_wizard_icon_summary">"Vis app-ikonet i appoversikten"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Sist oppdatert"</string>
     <string name="settings">"Innstillinger"</string>
     <string name="delete">"Slett"</string>
-    <string name="version_text">"Versjon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Versjon %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Legg til i ordlisten"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Snarvei:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
@@ -229,9 +229,9 @@
     <string name="prefs_narrow_key_gaps">Smal tastemellomrom</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="toolbar_keys">Velg verktøylinjetaster</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengalsk">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="about_github_link">Se på GitHub</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Koreansk">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="button_load_custom">Last inn fil</string>
     <string name="button_copy_existing_layout">Kopier eksisterende oppsett</string>
     <string name="layout_error">Oppsettsfeil: %s</string>
@@ -292,18 +292,18 @@
     <string name="delete_layout">Virkelig slette tilpasset oppsett %s?</string>
     <string name="edit_layout">Trykk for å redigere råoppsett</string>
     <string name="show_popup_keys_title">Vis flere bokstaver med diakritiske tegn i sprettoppvinduet</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="button_title_add_custom_layout">Legg til tilpasset oppsett</string>
     <string name="message_add_custom_layout">Legg til fil med kompatibelt format. Informasjon om kompatible format %s.</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
     <string name="save_log">Lagre logg</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Koreansk">%s</xliff:g> (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="no_dictionary_message">Uten ordbok vil du kun få forslag til tekst som du tidligere har skrevet.&lt;br&gt;
 \n........Du kan laste ned ordbøker %1$s, eller sjekke om ordbok for \"%2$s\" kan lastes ned direkte %3$s.</string>
     <string name="user_dict_word_already_present">Dette ordet finnes allerede i %s brukerordbok. Vennligst skriv et annet.</string>
     <string name="prefs_bottom_padding_scale">Nederste polstringsskala</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengalsk">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="select_color_accent">Fargepreg</string>
     <string name="hidden_features_message">► Et langt trykk på utklippstavlen (den valgfrie i forslagsstripen) limer inn innholdet i systemets utklippstavle. &lt;br&gt; &lt;br&gt; ► Et langt trykk på tastene på verktøylinjen for forslagsstripen fester dem til forslagsstripen. &lt;br&gt; &lt;br&gt; ► Trykk lenge på komma-tasten for å få tilgang til utklippstavlevisning, emojivisning, enhåndsmodus, innstillinger eller språkbytte: &lt;br&gt; \t• Emoji View og språkbytteknappen forsvinner hvis du har den tilsvarende nøkkelen aktivert; &lt;br&gt; \t• For noen oppsett er det ikke kommatasten, men tasten i samme posisjon (f.eks. er det \"q\" for Dvorak-oppsettet). &lt;br&gt; &lt;br&gt; ► Når inkognitomodus er aktivert, vil ingen ord læres, og ingen emojier blir lagt til i \"nylige\". &lt;br&gt; &lt;br&gt; ► Trykk på inkognitoikonet for å få tilgang til verktøylinjen. &lt;br&gt; &lt;br&gt; ► Skyvetastinntasting: Sveip fra skift til en annen tast for å skrive inn en enkelt stor bokstav: &lt;br&gt; \t• Dette fungerer også for \'?123\'-tasten for å skrive inn et enkelt symbol fra symboltastaturet, og for relaterte taster. &lt;br&gt; &lt;br&gt; ► Trykk lenge på et forslag i forslagsstripen for å vise flere forslag, og sletteknappen for å fjerne dette forslaget. &lt;br&gt; &lt;br&gt; ► Sveip opp fra et forslag for å åpne flere forslag, og slipp forslaget for å velge det. &lt;br&gt; &lt;br&gt; ► Trykk lenge på en oppføring i utklippstavleloggen for å feste den (behold den i utklippstavlen til du løsner den). &lt;br&gt; &lt;br&gt; ► Du kan legge til ordbøker ved å åpne dem i en filutforsker: &lt;br&gt; \t• Dette fungerer bare med &lt;i&gt;content-uris&lt;/i&gt; og ikke med &lt;i&gt;file-uris&lt;/i&gt;, noe som betyr at det kanskje ikke fungerer med enkelte filutforskere. &lt;br&gt; &lt;br&gt; &lt;i&gt;Feilsøkingsmodus / feilsøk APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Trykk lenge på et forslag for å vise kildeordboken.&lt;br&gt; &lt;br&gt; \t• Når du bruker debug APK, kan du finne feilsøkingsinnstillinger i de avanserte innstillingene, selv om nytten er begrenset bortsett fra å dumpe ordbøker i loggen. &lt;br&gt; &lt;br&gt; \t• Ved et programkrasj vil du bli spurt om du vil ha krasjloggene når du åpner Innstillinger. &lt;br&gt; &lt;br&gt; \t• Når du bruker flerspråklig skriving, vil mellomromstasten vise en konfidensverdi som brukes til å bestemme språket som brukes for øyeblikket. &lt;br&gt; &lt;br&gt; \t• \"Forslag\" vil ha noen små tall på toppen som viser noe internt partitur og kildeordbok (kan deaktiveres). &lt;br&gt; &lt;br&gt; ► For brukere som tar manuelle sikkerhetskopier med rottilgang: Fra og med Android 7 er ikke den delte preferansefilen på standardplasseringen, fordi appen bruker %s. &lt;br&gt; Dette er nødvendig for at innstillingene kan leses før enheten låses opp, f.eks. ved oppstart. &lt;br&gt; Filen ligger i /data/user_de/0/package_id/shared_prefs/, men dette kan avhenge av enheten og Android-versjonen.</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russisk">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
 </resources>

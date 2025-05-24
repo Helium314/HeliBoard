@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Ikkiga ajratiladigan klaviaturani yoqish"</string>
     <string name="language_switch_key_switch_input_method">"Boshqa usullarga o‘tish"</string>
     <string name="show_language_switch_key">"Tilni almashtirish tugmasi"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Tizim standarti"</string>
     <string name="use_contacts_dict_summary">"Kontaktlar ro‘yxatidagi ismlar asosida tuzatmalarni taklif qilish"</string>
     <string name="use_personalized_dicts">"Takliflarni moslashtirish"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Ispan (AQSH)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serb (Lotin)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (An’anaviy)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>(Ixcham)</string>
+    <string name="subtype_generic_traditional">%s (An’anaviy)</string>
+    <string name="subtype_generic_compact">%s(Ixcham)</string>
     <string name="subtype_no_language">"Til aniqlanmadi"</string>
     <string name="subtype_emoji">"Kulgichlar"</string>
     <string name="add">"Qo‘shish"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Tashqi klaviatura uchun kulgichlar"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Jismoniy klaviaturadagi Alt tugmasi emojilarni ochadi"</string>
     <string name="button_default">"Standart"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasiga xush kelibsiz!</string>
+    <string name="setup_welcome_title">%s ilovasiga xush kelibsiz!</string>
     <string name="setup_welcome_additional_description">"qo‘l uzmasdan yozish"</string>
     <string name="setup_start_action">"Boshladik"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sozlanmoqda</string>
-    <string name="setup_step1_title">Yoqish <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Matn kiritishda foydalanish uchun “Tillar va matn kiritish” sozlamalarida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” bandiga belgi qo‘ying.</string>
+    <string name="setup_steps_title">%s sozlanmoqda</string>
+    <string name="setup_step1_title">Yoqish %s</string>
+    <string name="setup_step1_instruction">Matn kiritishda foydalanish uchun “Tillar va matn kiritish” sozlamalarida “%s” bandiga belgi qo‘ying.</string>
     <string name="setup_step1_action">"Sozlamalardan yoqish"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ga o‘zgartirish</string>
-    <string name="setup_step2_instruction">Endi, joriy matn kiritish usuli sifatida “<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” ilovasini tanlang.</string>
+    <string name="setup_step2_title">%s ga o‘zgartirish</string>
+    <string name="setup_step2_instruction">Endi, joriy matn kiritish usuli sifatida “%s” ilovasini tanlang.</string>
     <string name="setup_step2_action">"Matn kiritish usulini o‘zgartirish"</string>
     <string name="setup_step3_title">"Tabriklaymiz, hammasi tayyor!"</string>
-    <string name="setup_step3_instruction">Endi, matn kiritish uchun <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ilovasidan foydalanishingiz mumkin.</string>
+    <string name="setup_step3_instruction">Endi, matn kiritish uchun %s ilovasidan foydalanishingiz mumkin.</string>
     <string name="setup_finish_action">"Tugallandi"</string>
     <string name="show_setup_wizard_icon">"Ilova ikonkasini chiqarish"</string>
     <string name="show_setup_wizard_icon_summary">"Launcherga ilova ikonkasini chiqarish"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"So‘nggi marta yangilandi"</string>
     <string name="settings">"Sozlamalar"</string>
     <string name="delete">"O‘chirish"</string>
-    <string name="version_text"><xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g> versiya</string>
+    <string name="version_text">%1$s versiya</string>
     <string name="user_dict_settings_add_dialog_title">"Lug‘atga kiritish"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Qisqartma:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Til:"</string>
@@ -98,7 +98,7 @@
     <string name="show_emoji_key">Emoji kaliti</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Tizimdagi mavjud tillar"</string>
     <string name="select_input_method">"Matn kiritish usulini tanlang"</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes">%smin.</string>
     <string name="settings_no_limit">Cheklanmagan</string>
     <string name="enable_clipboard_history">Bufer tarixini yoqish</string>
     <string name="enable_clipboard_history_summary">Agar o\'chirilgan bo\'lsa, vaqtinchalik bufer tugmasi mavjud bo\'lsa, almashish buferidagi kontentni joylashtiradi</string>
@@ -122,7 +122,7 @@
     <string name="autospace_after_punctuation_summary">Yangi so\'zni kiritishda tinish belgilaridan keyin avtomatik ravishda bo\'sh joy qo\'yish</string>
     <string name="incognito">Majburiy inkognito rejimi</string>
     <string name="autospace_after_punctuation">Tinish belgilaridan keyin avtomatik bo\'shliq qo‘yish</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="settings_category_input">Kiritish</string>
     <string name="settings_category_additional_keys">Qo\'shimcha kalitlar</string>
     <string name="ime_settings">HeliBoard Sozlamalari</string>

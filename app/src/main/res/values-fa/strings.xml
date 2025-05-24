@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"فعال کردن دونیم‌کردن صفحه‌کلید"</string>
     <string name="language_switch_key_switch_input_method">"تغییر به دیگر روش‌های ورودی"</string>
     <string name="show_language_switch_key">"کلید تغییر زبان"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> میلی‌ثانیه"</string>
+    <string name="abbreviation_unit_milliseconds">"%s میلی‌ثانیه"</string>
     <string name="settings_system_default">"پیش‌فرض سیستم"</string>
     <string name="use_contacts_dict_summary">برای پیشنهاد و تصحیح از نام مخاطبین استفاده شود</string>
     <string name="use_personalized_dicts">"پیشنهادات شخصی شده"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"اسپانیایی (امریکا)"</string>
     <string name="subtype_hi_Latn">"هندی انگلیسی"</string>
     <string name="subtype_sr_Latn">"صربی (لاتین)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (سنتی)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (فشرده)</string>
+    <string name="subtype_generic_traditional">%s (سنتی)</string>
+    <string name="subtype_generic_compact">%s (فشرده)</string>
     <string name="subtype_no_language">"بدون زبان"</string>
     <string name="subtype_emoji">"اموجی"</string>
     <string name="add">"افزودن"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"اموجی برای صفحه‌کلید فیزیکی"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏کلید Alt صفحه‌کلید فیزیکی، پالت اموجی را نشان می‌دهد"</string>
     <string name="button_default">"پیش‌فرض"</string>
-    <string name="setup_welcome_title">به <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> خوش آمدید</string>
+    <string name="setup_welcome_title">به %s خوش آمدید</string>
     <string name="setup_welcome_additional_description">"با ورودی اشاره‌ای"</string>
     <string name="setup_start_action">"شروع به کار"</string>
-    <string name="setup_steps_title">راه‌اندازی <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">فعال‌سازی <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">لطفاً «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» را در تنظیمات «زبان‌ها و ورودی» علامت بزنید. این کار مجوز اجرا در دستگاه است.</string>
+    <string name="setup_steps_title">راه‌اندازی %s</string>
+    <string name="setup_step1_title">فعال‌سازی %s</string>
+    <string name="setup_step1_instruction">لطفاً «%s» را در تنظیمات «زبان‌ها و ورودی» علامت بزنید. این کار مجوز اجرا در دستگاه است.</string>
     <string name="setup_step1_action">"فعال‌سازی در تنظیمات"</string>
-    <string name="setup_step2_title">به <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> تعویض کنید</string>
-    <string name="setup_step2_instruction">در مرحله بعد، «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» را به عنوان روش ورودی نوشتار فعال خود انتخاب کنید.</string>
+    <string name="setup_step2_title">به %s تعویض کنید</string>
+    <string name="setup_step2_instruction">در مرحله بعد، «%s» را به عنوان روش ورودی نوشتار فعال خود انتخاب کنید.</string>
     <string name="setup_step2_action">"تغییر روش‌های ورودی"</string>
     <string name="setup_step3_title">"تبریک می‌گوییم، اکنون کاملاً آماده هستید!"</string>
-    <string name="setup_step3_instruction">اکنون می‌توانید در همه برنامه‌های دلخواه خود با <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> تایپ کنید.</string>
+    <string name="setup_step3_instruction">اکنون می‌توانید در همه برنامه‌های دلخواه خود با %s تایپ کنید.</string>
     <string name="setup_finish_action">"تمام شد"</string>
     <string name="show_setup_wizard_icon">"نمایش نماد برنامه"</string>
     <string name="show_setup_wizard_icon_summary">"نمایش نماد برنامه در راه‌انداز"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"آخرین به‌روزرسانی"</string>
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
-    <string name="version_text">نسخه <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">نسخه %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"افزودن به واژه‌نامه"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"میان‌بر:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
@@ -114,7 +114,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">با فشار طولانی کلید فاصله، منوی انتخاب روش ورودی را باز می کند</string>
     <string name="day_night_mode_summary">ظاهر از تنظیمات سیستم پیروی می‌کند</string>
     <string name="enable_clipboard_history_summary">اگر غیرفعال باشد، کلید کلیپ بورد، محتوای خود را در صورت وجود جایگذاری می‌کند</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>دقیقه.</string>
+    <string name="abbreviation_unit_minutes">%sدقیقه.</string>
     <string name="number_row">ردیف اعداد</string>
     <string name="number_row_summary">همیشه ردیف اعداد نشان داده شود</string>
     <string name="prefs_long_press_keyboard_to_change_lang">روش ورودی را با کلید فاصله تغییر دهید</string>
@@ -127,7 +127,7 @@
     <string name="prefs_keyboard_height_scale">مقیاس ارتفاع صفحه کلید</string>
     <string name="show_hints">نمایش اشاره کلید‌ها</string>
     <string name="show_hints_summary">نمایش اشاره لمس طولانی</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (حروف)</string>
+    <string name="subtype_akkhor_bn_BD">%s (حروف)</string>
     <string name="key_borders">حاشیه کلید</string>
     <string name="day_night_mode">حالت روز/شب خودکار</string>
     <string name="undo">"لغو"</string>

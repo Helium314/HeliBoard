@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Bölünmüş klavyeyi etkinleştir"</string>
     <string name="language_switch_key_switch_input_method">"Diğer giriş yöntemine geç"</string>
     <string name="show_language_switch_key">"Dil değiştirme tuşu"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Sistem varsayılanı"</string>
     <string name="use_contacts_dict_summary">"Öneri ve düzeltmeler için Kişiler\'deki adları kullan"</string>
     <string name="use_personalized_dicts">"Kişisel öneriler"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"İspanyolca (ABD)"</string>
     <string name="subtype_hi_Latn">"Hingilizce"</string>
     <string name="subtype_sr_Latn">"Sırpça (Latin alfabesi)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Geleneksel)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
+    <string name="subtype_generic_traditional">%s (Geleneksel)</string>
+    <string name="subtype_generic_compact">%s (Kompakt)</string>
     <string name="subtype_no_language">"Dil yok"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ekle"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Fiziksel klavye için emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fiziksel Alt tuşu, emoji paletini gösterir"</string>
     <string name="button_default">"Varsayılan"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasına hoş geldiniz</string>
+    <string name="setup_welcome_title">%s uygulamasına hoş geldiniz</string>
     <string name="setup_welcome_additional_description">"Hareketle Yazmayı içerir"</string>
     <string name="setup_start_action">"Başlayın"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasını kurma</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasını etkinleştirin</string>
-    <string name="setup_step1_instruction">Lütfen \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" uygulamasını Dil ve giriş ayarlarınızda işaretleyin. Bu, uygulamaya cihazınızda çalışma yetkisi verecektir.</string>
+    <string name="setup_steps_title">%s uygulamasını kurma</string>
+    <string name="setup_step1_title">%s uygulamasını etkinleştirin</string>
+    <string name="setup_step1_instruction">Lütfen \"%s\" uygulamasını Dil ve giriş ayarlarınızda işaretleyin. Bu, uygulamaya cihazınızda çalışma yetkisi verecektir.</string>
     <string name="setup_step1_action">"Ayarlarda etkinleştir"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasına geçin</string>
-    <string name="setup_step2_instruction">Sonra, \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" uygulamasını etkin metin giriş yönteminiz olarak seçin.</string>
+    <string name="setup_step2_title">%s uygulamasına geçin</string>
+    <string name="setup_step2_instruction">Sonra, \"%s\" uygulamasını etkin metin giriş yönteminiz olarak seçin.</string>
     <string name="setup_step2_action">"Giriş yöntemini değiştir"</string>
     <string name="setup_step3_title">Tebrikler, artık hazırsın!</string>
-    <string name="setup_step3_instruction">Artık <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ile tüm favori uygulamalarınızda yazabilirsiniz.</string>
+    <string name="setup_step3_instruction">Artık %s ile tüm favori uygulamalarınızda yazabilirsiniz.</string>
     <string name="setup_finish_action">"Tamamlandı"</string>
     <string name="show_setup_wizard_icon">"Uygulama simgesini göster"</string>
     <string name="show_setup_wizard_icon_summary">"Uygulama simgesini başlatıcıda gösterir"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Son güncelleme tarihi"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
-    <string name="version_text">Sürüm <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Sürüm %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Sözlüğe ekle"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kısayol:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Dil:"</string>
@@ -109,7 +109,7 @@
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>
     <string name="spell_checker_service_name">HeliBoard yazım denetleyicisi</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>dak.</string>
+    <string name="abbreviation_unit_minutes">%sdak.</string>
     <string name="settings_category_suggestions">Öneriler</string>
     <string name="show_emoji_key">Emoji tuşu</string>
     <string name="enable_clipboard_history">Pano geçmişini etkinleştir</string>
@@ -120,7 +120,7 @@
     <string name="show_hints">Tuş ipuçlarını göster</string>
     <string name="show_hints_summary">Uzun basma ipuçlarını göster</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Boşluk tuşuyla giriş yöntemini değiştir</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="delete_swipe_summary">Bir kerede metnin daha büyük bölümlerini seçmek ve silmek için silme tuşundan hızlıca kaydırın</string>
     <string name="day_night_mode_summary">Görünüm sistem ayarlarını takip edecektir</string>
     <string name="ime_settings">HeliBoard ayarları</string>
@@ -241,7 +241,7 @@
     <string name="button_title_add_custom_layout">Özel düzen ekle</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Semboller</string>
     <string name="button_select_language">Dil seç</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Genişletilmiş)</string>
+    <string name="subtype_generic_extended">%s (Genişletilmiş)</string>
     <string name="message_add_custom_layout">Uyumlu formatta bir dosya seç. Formatlarla ilgili bilgi %s mevcuttur.</string>
     <string name="button_load_custom">Dosyayı yükle</string>
     <string name="copy_to_clipboard">Panoya kopyala</string>
@@ -309,7 +309,7 @@
     <string name="file_read_error">Dosya okunamıyor</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Açık</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Yuvarlatılmış</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="left" tools:keep="@string/left">Sol</string>
     <string name="page_up" tools:keep="@string/page_up">Sayfa yukarı</string>
     <string name="word_left" tools:keep="@string/word_left">Kelime sola</string>
@@ -323,8 +323,8 @@
     <string name="show_popup_hints">İşlevsel ipuçlarını göster</string>
     <string name="pinned_toolbar_keys">Sabitlenmiş araç çubuğu tuşlarını seç</string>
     <string name="quick_pin_toolbar_keys">Uzun basıldığında araç çubuğu tuşunu sabitle</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="theme_style">Stil</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Koyu</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Okyanus</string>
@@ -338,7 +338,7 @@
     <string name="settings_screen_toolbar">Araç çubuğu</string>
     <string name="remove_redundant_popups">Gereksiz açılır pencereleri kaldır</string>
     <string name="space_swipe_toggle_numpad_entry">Sayısal tuş takımını aç kapa</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Öğrenci)</string>
+    <string name="subtype_generic_student">%s (Öğrenci)</string>
     <string name="button_copy_existing_layout">Mevcut düzeni kopyala</string>
     <string name="add_dictionary">Eklemek için bir sözlük seç .dict biçimindeki sözlükler %s indirilebilir.</string>
     <string name="dictionary_file_error">Hata: Seçilen dosya geçerli bir sözlük dosyası değil</string>

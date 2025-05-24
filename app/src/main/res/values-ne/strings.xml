@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"विभाजित कुञ्जीपाटी सक्षम गर्नुहोस्"</string>
     <string name="language_switch_key_switch_input_method">"अन्य इनपुट विधिमा स्विच गर्नुहोस्"</string>
     <string name="show_language_switch_key">"भाषा स्विच कुञ्जी"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> मिलिसेकेन्ड"</string>
+    <string name="abbreviation_unit_milliseconds">"%s मिलिसेकेन्ड"</string>
     <string name="settings_system_default">"पूर्वनिर्धारित प्रणाली"</string>
     <string name="use_contacts_dict_summary">"सुझाव र सुधारका लागि सम्पर्कबाट नामहरू प्रयोग गर्नुहोस्"</string>
     <string name="use_personalized_dicts">"निजीकृत सुझावहरू"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"स्पेनिस (युएस्)"</string>
     <string name="subtype_hi_Latn">"हिङ्लिस"</string>
     <string name="subtype_sr_Latn">"सर्बियाई (ल्याटिन)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (परम्परागत)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संकुचित)"</string>
+    <string name="subtype_generic_traditional">"%s (परम्परागत)"</string>
+    <string name="subtype_generic_compact">"%s (संकुचित)"</string>
     <string name="subtype_no_language">"कुनै भाषा होइन"</string>
     <string name="subtype_emoji">"इमोजी"</string>
     <string name="add">"थप्नुहोस्"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"भौतिक किबोर्डको लागि इमोजी"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"भौतिक Alt कुञ्जीले इमोजी प्यालेट देखाउँछ"</string>
     <string name="button_default">"पूर्वनिर्धारित"</string>
-    <string name="setup_welcome_title">"तपाईँलाई स्वागत छ<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"तपाईँलाई स्वागत छ%s"</string>
     <string name="setup_welcome_additional_description">"इशारा टाइप गर्नेसँग"</string>
     <string name="setup_start_action">"सुरु गरौं"</string>
-    <string name="setup_steps_title">"स्थापना गर्दै <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"सक्षम पार्नुहोस् <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
+    <string name="setup_steps_title">"स्थापना गर्दै %s"</string>
+    <string name="setup_step1_title">"सक्षम पार्नुहोस् %s"</string>
+    <string name="setup_step1_instruction">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"%s\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
     <string name="setup_step1_action">"सेटिङहरूमा सक्षम पार्नुहोस्"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>मा स्विच गर्नुहोस्\"</string>
-    <string name="setup_step2_instruction">"त्यसपछि, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
+    <string name="setup_step2_title">%sमा स्विच गर्नुहोस्\"</string>
+    <string name="setup_step2_instruction">"त्यसपछि, \"%s\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
     <string name="setup_step2_action">"इनपुट विधि स्विच गर्नुहोस्"</string>
     <string name="setup_step3_title">"बधाई छ, तपाईँले सेट पुरा गर्नुभयो!"</string>
-    <string name="setup_step3_instruction">"अब तपाईं <xliff:g id="APPLICATION_NAME">%s</xliff:g>का साथ तपाईंका सम्पूर्ण मन पर्ने अनुप्रयोगहरू टाइप गर्न सक्नुहुन्छ।"</string>
+    <string name="setup_step3_instruction">"अब तपाईं %sका साथ तपाईंका सम्पूर्ण मन पर्ने अनुप्रयोगहरू टाइप गर्न सक्नुहुन्छ।"</string>
     <string name="setup_finish_action">"समाप्त भयो"</string>
     <string name="show_setup_wizard_icon">"अनुप्रयोग आइकन देखाउनुहोस्"</string>
     <string name="show_setup_wizard_icon_summary">"लन्चरमा अनुप्रयोग आइकन देखाउनुहोस्"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"पछिल्लो अद्यावधिक"</string>
     <string name="settings">"सेटिङहरू"</string>
     <string name="delete">"मेट्नुहोस्"</string>
-    <string name="version_text">"संस्करण <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"संस्करण %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"शब्दकोशमा थप्नुहोस्"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"सर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>

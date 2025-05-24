@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"الگ ہونے والا کی بورڈ فعال کریں"</string>
     <string name="language_switch_key_switch_input_method">"دیگر اندراج طریقوں پر سوئچ کریں"</string>
     <string name="show_language_switch_key">"زبان سوئچ کرنے کی کلید"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ملی سیکنڈ"</string>
+    <string name="abbreviation_unit_milliseconds">"%sملی سیکنڈ"</string>
     <string name="settings_system_default">"سسٹم ڈیفالٹ"</string>
     <string name="use_contacts_dict_summary">"تجاویز اور اصلاحات کیلئے رابطوں سے ناموں کی تجویز کریں"</string>
     <string name="use_personalized_dicts">"ذاتی نوعیت کی تجاویز"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"ہسپانوی (امریکہ)"</string>
     <string name="subtype_hi_Latn">"ہنگلش"</string>
     <string name="subtype_sr_Latn">"سربیائی (لاطینی)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (روایتی)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (کمپیکٹ)"</string>
+    <string name="subtype_generic_traditional">"%s (روایتی)"</string>
+    <string name="subtype_generic_compact">"%s (کمپیکٹ)"</string>
     <string name="subtype_no_language">"کوئی زبان نہیں"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"شامل کریں"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"‏فزیکل کی بورڈ کیلئے Emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏فزیکل Alt کی کے ذریعے emoji پیلٹ نظر آتا ہے"</string>
     <string name="button_default">"ڈیفالٹ"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید\"</string>
+    <string name="setup_welcome_title">%s میں خوش آمدید\"</string>
     <string name="setup_welcome_additional_description">"اشارہ ٹائپنگ کے ساتھ"</string>
     <string name="setup_start_action">"شروع کریں"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں\"</string>
-    <string name="setup_step1_instruction">"براہ کرم \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنی زبانوں اور ان پٹ ترتیبات میں چیک کریں۔ اس سے اس کو آپ کے آلہ پر چلنے کی اجازت مل جائے گی۔"</string>
+    <string name="setup_steps_title">%s ترتیب دینا\"</string>
+    <string name="setup_step1_title">%s کو فعال کریں\"</string>
+    <string name="setup_step1_instruction">"براہ کرم \"%s\" کو اپنی زبانوں اور ان پٹ ترتیبات میں چیک کریں۔ اس سے اس کو آپ کے آلہ پر چلنے کی اجازت مل جائے گی۔"</string>
     <string name="setup_step1_action">"ترتیبات میں فعال کریں"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں\"</string>
-    <string name="setup_step2_instruction">"آگے، \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنے فعال متنی اندراج کے طریقہ کے بطور منتخب کریں۔"</string>
+    <string name="setup_step2_title">%s پر سوئچ کریں\"</string>
+    <string name="setup_step2_instruction">"آگے، \"%s\" کو اپنے فعال متنی اندراج کے طریقہ کے بطور منتخب کریں۔"</string>
     <string name="setup_step2_action">"اندراج کے طریقے سوئچ کریں"</string>
     <string name="setup_step3_title">"مبارک ہو، آپ بالکل تیار ہیں!"</string>
-    <string name="setup_step3_instruction">"اب آپ <xliff:g id="APPLICATION_NAME">%s</xliff:g> کے ساتھ اپنی سبھی پسندیدہ ایپس میں ٹائپ کر سکتے ہیں۔"</string>
+    <string name="setup_step3_instruction">"اب آپ %s کے ساتھ اپنی سبھی پسندیدہ ایپس میں ٹائپ کر سکتے ہیں۔"</string>
     <string name="setup_finish_action">"مکمل ہو گیا"</string>
     <string name="show_setup_wizard_icon">"ایپ آئیکن دکھائیں"</string>
     <string name="show_setup_wizard_icon_summary">"لانچر میں ایپلیکیشن آئیکن کو ڈسپلے کریں"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"آخری بار اپ ڈیٹ کردہ"</string>
     <string name="settings">"ترتیبات"</string>
     <string name="delete">"حذف کریں"</string>
-    <string name="version_text">"ورژن <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"ورژن %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"لغت میں شامل کریں"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"شارٹ کٹ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>

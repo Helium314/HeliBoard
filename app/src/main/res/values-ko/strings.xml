@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"분할 키보드 사용"</string>
     <string name="language_switch_key_switch_input_method">"다른 입력 방법으로 전환"</string>
     <string name="show_language_switch_key">"언어 전환 키"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"시스템 기본값"</string>
     <string name="use_contacts_dict_summary">"추천 및 수정에 주소록의 이름 사용"</string>
     <string name="use_personalized_dicts">"맞춤 추천 검색어"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"스페인어(미국)"</string>
     <string name="subtype_hi_Latn">"인도 영어"</string>
     <string name="subtype_sr_Latn">"세르비아어(라틴 문자)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (번체)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (소형)</string>
+    <string name="subtype_generic_traditional">%s (번체)</string>
+    <string name="subtype_generic_compact">%s (소형)</string>
     <string name="subtype_no_language">"언어 없음"</string>
     <string name="subtype_emoji">"이모티콘"</string>
     <string name="add">"추가"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"물리적 키보드용 그림 이모티콘"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"물리적 Alt 키로 그림 이모티콘 팔레트 표시"</string>
     <string name="button_default">"기본값"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>에 오신 것을 환영합니다</string>
+    <string name="setup_welcome_title">%s에 오신 것을 환영합니다</string>
     <string name="setup_welcome_additional_description">"제스처 타이핑 사용"</string>
     <string name="setup_start_action">"시작하기"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 설정</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 사용 설정</string>
-    <string name="setup_step1_instruction">&amp; 입력 설정에서 \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" 를 확인해주세요. 이것은 이 기기에서 작동하기 위해 인증합니다.</string>
+    <string name="setup_steps_title">%s 설정</string>
+    <string name="setup_step1_title">%s 사용 설정</string>
+    <string name="setup_step1_instruction">&amp; 입력 설정에서 \"%s\" 를 확인해주세요. 이것은 이 기기에서 작동하기 위해 인증합니다.</string>
     <string name="setup_step1_action">"\'설정\'에서 사용 설정"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>(으)로 전환</string>
-    <string name="setup_step2_instruction">그리고, 텍스트 입력 방법으로 \'<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\'을(를) 선택합니다.</string>
+    <string name="setup_step2_title">%s(으)로 전환</string>
+    <string name="setup_step2_instruction">그리고, 텍스트 입력 방법으로 \'%s\'을(를) 선택합니다.</string>
     <string name="setup_step2_action">"입력 방법 전환"</string>
     <string name="setup_step3_title">모든 설정이 완료되었습니다!</string>
-    <string name="setup_step3_instruction">이제 즐겨찾는 앱을 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>과 함께 입력할 수 있습니다.</string>
+    <string name="setup_step3_instruction">이제 즐겨찾는 앱을 %s과 함께 입력할 수 있습니다.</string>
     <string name="setup_finish_action">"완료됨"</string>
     <string name="show_setup_wizard_icon">"앱 아이콘 표시"</string>
     <string name="show_setup_wizard_icon_summary">"런처에 애플리케이션 아이콘 표시"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"최종 업데이트"</string>
     <string name="settings">"설정"</string>
     <string name="delete">"삭제"</string>
-    <string name="version_text">버전 <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">버전 %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"사전에 추가"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"단축키:"</string>
     <string name="user_dict_settings_add_locale_option_name">"언어:"</string>
@@ -105,7 +105,7 @@
     <string name="auto_correction_confidence">자동 교정 정확도</string>
     <string name="settings_category_suggestions">추천</string>
     <string name="settings_category_experimental">실험적 기능</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>분.</string>
+    <string name="abbreviation_unit_minutes">%s분.</string>
     <string name="enable_clipboard_history">클립보드 기록 활성화</string>
     <string name="delete_swipe">스와이프 삭제</string>
     <string name="show_emoji_key">이모지 키</string>
@@ -130,7 +130,7 @@
     <string name="day_night_mode_summary">시스템 설정에 따른 모양</string>
     <string name="delete_swipe_summary">한번에 많은 글자들을 선택하고 제거하기 위해서는 삭제 키를 스와이프하기</string>
     <string name="key_borders">키의 경계</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (벵골어)</string>
+    <string name="subtype_akkhor_bn_BD">%s (벵골어)</string>
     <string name="undo">"실행취소"</string>
     <string name="redo">"다시 실행"</string>
     <string name="use_personalized_dicts_summary">"사용자의 대화 내용과 입력한 데이터를 통해 단어 추천의 정확도를 개선합니다."</string>

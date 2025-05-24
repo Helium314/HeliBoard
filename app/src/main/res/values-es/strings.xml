@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Habilitar teclado dividido"</string>
     <string name="language_switch_key_switch_input_method">"Otros métodos de introducción"</string>
     <string name="show_language_switch_key">"Tecla para cambiar de idioma"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Predeterminado"</string>
     <string name="use_contacts_dict_summary">Utilizar nombres de contactos para sugerencias y correcciones</string>
     <string name="use_personalized_dicts">"Sugerencias personalizadas"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Español (EE.UU.)"</string>
     <string name="subtype_hi_Latn">inglés indio</string>
     <string name="subtype_sr_Latn">"Serbio (latino)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
+    <string name="subtype_generic_traditional">%s (Tradicional)</string>
+    <string name="subtype_generic_compact">%s (Compacto)</string>
     <string name="subtype_no_language">"Ningún idioma"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Añadir"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emojis para teclado físico"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La tecla Alt física muestra la lista de emojis"</string>
     <string name="button_default">"Predeterminado"</string>
-    <string name="setup_welcome_title">Bienvenido a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Bienvenido a %s</string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Empezar"</string>
-    <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Activar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Por favor, compruebe \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.\"</string>
+    <string name="setup_steps_title">Configurando %s</string>
+    <string name="setup_step1_title">Activar %s</string>
+    <string name="setup_step1_instruction">Por favor, compruebe \"%s\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.\"</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
-    <string name="setup_step2_title">Cambiar a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">A continuación, seleccione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como su método de entrada de texto activo.\"</string>
+    <string name="setup_step2_title">Cambiar a %s</string>
+    <string name="setup_step2_instruction">A continuación, seleccione \\%s\" como su método de entrada de texto activo.\"</string>
     <string name="setup_step2_action">Cambiar métodos de entrada</string>
     <string name="setup_step3_title">"¡Enhorabuena, has terminado!"</string>
-    <string name="setup_step3_instruction">Ahora puedes escribir en todas tus aplicaciones favoritas con <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Ahora puedes escribir en todas tus aplicaciones favoritas con %s.</string>
     <string name="setup_finish_action">"Listo"</string>
     <string name="show_setup_wizard_icon">"Mostrar icono de aplicación"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar icono de aplicación en menú de aplicaciones"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Última actualización"</string>
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
-    <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Versión %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Añadir al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
@@ -123,8 +123,8 @@
     <string name="settings_no_limit">Sin límite</string>
     <string name="enable_clipboard_history">Habilitar el historial del portapapeles</string>
     <string name="clipboard_history_retention_time">Tiempo a mantener guardado el historial</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="enable_clipboard_history_summary">Si está deshabilitada, la tecla del portapapeles pegará el contenido del portapapeles, si lo hay</string>
     <string name="autospace_after_punctuation">Espacio automático después del punto</string>
     <string name="autospace_after_punctuation_summary">Insertar un espacio automático después del punto cuando se escriba una nueva palabra</string>
@@ -286,8 +286,8 @@
     <string name="show_popup_hints">Mostar indicaciones funcionales</string>
     <string name="show_popup_hints_summary">Mostar indicaciones si pulsar una tecla prolongadamente activa funcionalidad adicional</string>
     <string name="var_toolbar_direction_summary">Invertir dirección cuando un subtipo de teclado Derecha-a-Izquierda está seleccionado</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Estudiante)</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
+    <string name="subtype_generic_student">%s (Estudiante)</string>
+    <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido por el usuario</string>
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Rosa</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Arena</string>
@@ -310,9 +310,9 @@
     <string name="auto_hide_toolbar_summary">Ocultar barra de herramientas cuando hay sugerencias disponibles</string>
     <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="select_color_suggestion">Texto de la tira de sugerencias</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Bengalí)</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_probhat_bn_BD">%s (Bengalí)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Azúl grisáceo</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Chocolate</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Nuboso</string>
@@ -384,7 +384,7 @@
     <string name="label_bin" tools:keep="@string/label_bin">Papelera</string>
     <string name="customize_icons_reset_message">¿Realmente restablecer todos los íconos personalizados?</string>
     <string name="vibrate_in_dnd_mode">Vibrar en el modo No molestar</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonético)</string>
+    <string name="subtype_generic_phonetic">%s (Fonético)</string>
     <string name="prefs_key_emoji_max_sdk">Sustituir versión de Emoji</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="auto_correct_shortcuts_summary">Si se activa, los accesos directos pueden expandirse con la autocorrección</string>
@@ -402,7 +402,7 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">Los campos de edición web (que se encuentran sobre todo en los navegadores) son una causa muy común de problemas con la configuración de mostrar siempre sugerencias</string>
     <string name="prefs_always_show_suggestions_except_web_text">No mostrar siempre las sugerencias para los campos de edición web</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Fila de números (básica)</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="name_invalid">Nombre inválido</string>
     <string name="split_spacer_scale_landscape">Distancia de dividido (paisaje)</string>
     <string name="enable_split_keyboard_landscape">Habilitar teclado dividido (paisaje)</string>

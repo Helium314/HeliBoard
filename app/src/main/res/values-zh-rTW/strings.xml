@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"啟用分離式鍵盤"</string>
     <string name="language_switch_key_switch_input_method">"切換到其他輸入法"</string>
     <string name="show_language_switch_key">"語言切換鍵"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> 毫秒"</string>
+    <string name="abbreviation_unit_milliseconds">"%s 毫秒"</string>
     <string name="settings_system_default">"系統預設"</string>
     <string name="use_contacts_dict_summary">"根據「聯絡人」名稱提供建議與修正"</string>
     <string name="use_personalized_dicts">"個人化建議"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"西班牙文 (美國)"</string>
     <string name="subtype_hi_Latn">"印度英文"</string>
     <string name="subtype_sr_Latn">"塞爾維亞文 (拉丁文)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (傳統)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (精簡)"</string>
+    <string name="subtype_generic_traditional">"%s (傳統)"</string>
+    <string name="subtype_generic_compact">"%s (精簡)"</string>
     <string name="subtype_no_language">"無語言"</string>
     <string name="subtype_emoji">"表情符號"</string>
     <string name="add">"新增"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"透過實體鍵盤啟用表情符號"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"按下實體 Alt 鍵即顯示表情符號面板"</string>
     <string name="button_default">"預設"</string>
-    <string name="setup_welcome_title">"歡迎使用 <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"歡迎使用 %s"</string>
     <string name="setup_welcome_additional_description">"含滑行輸入功能"</string>
     <string name="setup_start_action">"開始設定"</string>
-    <string name="setup_steps_title">"正在設定「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step1_title">"啟用「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step1_instruction">"請在 [語言與輸入設定] 中勾選 [<xliff:g id="APPLICATION_NAME">%s</xliff:g>]，授權該應用程式在你的裝置上執行。"</string>
+    <string name="setup_steps_title">"正在設定「%s」"</string>
+    <string name="setup_step1_title">"啟用「%s」"</string>
+    <string name="setup_step1_instruction">"請在 [語言與輸入設定] 中勾選 [%s]，授權該應用程式在你的裝置上執行。"</string>
     <string name="setup_step1_action">"在設定中啟用"</string>
-    <string name="setup_step2_title">"切換至「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」"</string>
-    <string name="setup_step2_instruction">"接著，請選取「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」做為目前使用的文字輸入法。"</string>
+    <string name="setup_step2_title">"切換至「%s」"</string>
+    <string name="setup_step2_instruction">"接著，請選取「%s」做為目前使用的文字輸入法。"</string>
     <string name="setup_step2_action">"切換輸入法"</string>
     <string name="setup_step3_title">"恭喜，你已完成設定！"</string>
-    <string name="setup_step3_instruction">現在您可以在所有您喜歡的應用程式中使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 輸入。</string>
+    <string name="setup_step3_instruction">現在您可以在所有您喜歡的應用程式中使用 %s 輸入。</string>
     <string name="setup_finish_action">"完成"</string>
     <string name="show_setup_wizard_icon">"顯示應用程式圖示"</string>
     <string name="show_setup_wizard_icon_summary">"在啟動器中顯示應用程式圖示"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"上次更新時間："</string>
     <string name="settings">"設定"</string>
     <string name="delete">"刪除"</string>
-    <string name="version_text">"版本 <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"版本 %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"加入字典"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快速鍵："</string>
     <string name="user_dict_settings_add_locale_option_name">"語言："</string>

@@ -66,9 +66,9 @@
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Units abbreviation for the duration (milliseconds) -->
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <!-- Units abbreviation for the duration (minutes) -->
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <!-- The text that represents the current settings value is the system default -->
     <string name="settings_system_default">System default</string>
     <!-- The text that represents an unlimited delay -->
@@ -385,28 +385,28 @@
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
     <!-- Description for a generic language / layout combination. %1$s is the language, %2$s is the layout -->
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
+    <string name="subtype_generic_extended">%s (Extended)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype -->
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
-    <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <!-- Description for Bengali (Baishakhi) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
-    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype -->
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
-    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype -->
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype -->
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype -->
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
-    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype -->
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_traditional">%s (Traditional)</string>
+    <!-- Description for "LANGUAGE_NAME" (Akkhor) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <!-- Description for "LANGUAGE_NAME" (Probhat) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <!-- Description for "LANGUAGE_NAME" (Baishakhi) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_compact">%s (Compact)</string>
+    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_student">%s (Student)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
 language, hence "No language". -->
@@ -521,30 +521,30 @@ language, hence "No language". -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
     <!-- Title of the button to revert to the default value of the device in the settings dialog. Preferably 10 characters or less. -->
     <string name="button_default">Default</string>
-    <!-- Title of the setup wizard welcome screen. -->
-    <string name="setup_welcome_title">"Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <!-- Title of the setup wizard welcome screen. %s is the application name. -->
+    <string name="setup_welcome_title">"Welcome to %s"</string>
     <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. -->
     <string name="setup_welcome_additional_description">with Gesture Typing</string>
     <!-- The label of the button that starts the setup wizard. -->
     <string name="setup_start_action">Get started</string>
-    <!-- Title of the setup wizard. -->
-    <string name="setup_steps_title">"Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Title of the 1st step in the setup wizard. -->
-    <string name="setup_step1_title">"Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 1st step in the setup wizard. -->
-    <string name="setup_step1_instruction">"Please check \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
+    <!-- Title of the setup wizard. %s is the application name. -->
+    <string name="setup_steps_title">"Setting up %s"</string>
+    <!-- Title of the 1st step in the setup wizard. %s is the application name. -->
+    <string name="setup_step1_title">"Enable %s"</string>
+    <!-- Detailed instruction of the 1st step in the setup wizard. %s is the application name. -->
+    <string name="setup_step1_instruction">"Please check \"%s\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
     <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. -->
     <string name="setup_step1_action">Enable in Settings</string>
-    <!-- Title of the 2nd step in the setup wizard. -->
-    <string name="setup_step2_title">"Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 2nd step in the setup wizard. -->
-    <string name="setup_step2_instruction">"Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method."</string>
+    <!-- Title of the 2nd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step2_title">"Switch to %s"</string>
+    <!-- Detailed instruction of the 2nd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step2_instruction">"Next, select \"%s\" as your active text-input method."</string>
     <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. -->
     <string name="setup_step2_action">Switch input methods</string>
     <!-- Title of the 3rd step in the setup wizard. -->
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
-    <!-- Detailed instruction of the 3rd step in the setup wizard. -->
-    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <!-- Detailed instruction of the 3rd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step3_instruction">Now you can type in all your favorite apps with %s.</string>
     <!-- The label of the button that triggers the settings screen for the keyboard. -->
     <string name="setup_step3_action">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. -->
@@ -602,8 +602,8 @@ New dictionary:
     <string name="last_update">Last updated</string>
     <!-- Action to delete (a file) -->
     <string name="delete">Delete</string>
-    <!-- Version text-->
-    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <!-- Text for application version -->
+    <string name="version_text">Version %s</string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->

@@ -18,7 +18,7 @@
     <string name="enable_split_keyboard">"Omogući podijeljenu tastaturu"</string>
     <string name="language_switch_key_switch_input_method">"Prebacite na druge načine unosa"</string>
     <string name="show_language_switch_key">"Tipka za zamjenu jezika"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"Sistemski zadano"</string>
     <string name="use_contacts_dict_summary">"Za prijedloge i ispravke koristi imena iz Kontakata"</string>
     <string name="use_personalized_dicts">"Prilagođeni prijedlozi"</string>
@@ -51,8 +51,8 @@
     <string name="subtype_es_US">"španski (SAD)"</string>
     <string name="subtype_hi_Latn">"Hindu engleski"</string>
     <string name="subtype_sr_Latn">"Srpski (latinica)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionalan)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktan)"</string>
+    <string name="subtype_generic_traditional">"%s (tradicionalan)"</string>
+    <string name="subtype_generic_compact">"%s (kompaktan)"</string>
     <string name="subtype_no_language">"Nema jezika"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Dodaj"</string>
@@ -66,18 +66,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji za fizičku tastaturu"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Tipka Alt na fizičkoj tastaturi aktivira paletu za emoji"</string>
     <string name="button_default">"Zadano"</string>
-    <string name="setup_welcome_title">"Dobro došli u aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Dobro došli u aplikaciju %s"</string>
     <string name="setup_welcome_additional_description">"s Pisanjem pokretima"</string>
     <string name="setup_start_action">"Započnite"</string>
-    <string name="setup_steps_title">"Postavljanje aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Omogući aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Označite aplikaciju \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" u postavkama odjeljka Jezici i unos. Na taj način ćete joj dozvoliti da se pokrene na vašem uređaju."</string>
+    <string name="setup_steps_title">"Postavljanje aplikacije %s"</string>
+    <string name="setup_step1_title">"Omogući aplikaciju %s"</string>
+    <string name="setup_step1_instruction">"Označite aplikaciju \"%s\" u postavkama odjeljka Jezici i unos. Na taj način ćete joj dozvoliti da se pokrene na vašem uređaju."</string>
     <string name="setup_step1_action">"Omogući u Postavkama"</string>
-    <string name="setup_step2_title">"Prebacite se na aplikaciju <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Zatim odaberite aplikaciju \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" kao vaš aktivni način unosa teksta."</string>
+    <string name="setup_step2_title">"Prebacite se na aplikaciju %s"</string>
+    <string name="setup_step2_instruction">"Zatim odaberite aplikaciju \"%s\" kao vaš aktivni način unosa teksta."</string>
     <string name="setup_step2_action">"Zamijeni načine unosa"</string>
     <string name="setup_step3_title">"Odlično, sve je spremno!"</string>
-    <string name="setup_step3_instruction">"Sada možete upisivati u svim omiljenim aplikacijama pomoću aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Sada možete upisivati u svim omiljenim aplikacijama pomoću aplikacije %s."</string>
     <string name="setup_finish_action">"Završeno"</string>
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije na pokretaču"</string>
@@ -86,7 +86,7 @@
     <string name="last_update">"Posljednji put ažurirano"</string>
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
-    <string name="version_text">"Verzija <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Verzija %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Dodaj u rječnik"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Prečica:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>

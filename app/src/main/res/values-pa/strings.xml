@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"ਸਪਲਿਟ ਕੀ-ਬੋਰਡ ਨੂੰ ਚਾਲੂ ਕਰੋ"</string>
     <string name="language_switch_key_switch_input_method">"ਹੋਰਾਂ ਇਨਪੁੱਟ ਵਿਧੀਆਂ ਤੇ ਸਵਿੱਚ ਕਰੋ"</string>
     <string name="show_language_switch_key">"ਭਾਸ਼ਾ ਸਵਿੱਚ ਕੁੰਜੀ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"ਸਿਸਟਮ ਪੂਰਵ-ਨਿਰਧਾਰਤ"</string>
     <string name="use_contacts_dict_summary">"ਸੁਝਾਵਾਂ ਅਤੇ ਸੋਧਾਂ ਲਈ ਸੰਪਰਕਾਂ ਵਿੱਚੋਂ ਨਾਮ ਵਰਤੋ"</string>
     <string name="use_personalized_dicts">"ਨਿੱਜੀ ਬਣਾਏ ਸੁਝਾਅ"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"ਸਪੇਨੀ (ਅਮਰੀਕਾ)"</string>
     <string name="subtype_hi_Latn">"ਹਿੰਗਲਿੰਸ਼"</string>
     <string name="subtype_sr_Latn">"ਸਰਬੀਅਨ (ਲਾਤੀਨੀ)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ਪਰੰਪਰਿਕ)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ਸੰਖਿਪਤ)"</string>
+    <string name="subtype_generic_traditional">"%s (ਪਰੰਪਰਿਕ)"</string>
+    <string name="subtype_generic_compact">"%s (ਸੰਖਿਪਤ)"</string>
     <string name="subtype_no_language">"ਕੋਈ ਭਾਸ਼ਾ ਨਹੀਂ"</string>
     <string name="subtype_emoji">"ਇਮੋਜੀ"</string>
     <string name="add">"ਸ਼ਾਮਲ ਕਰੋ"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ਭੌਤਿਕ ਕੀ-ਬੋਰਡ ਲਈ ਇਮੋਜੀ"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ਭੌਤਿਕ Alt ਕੁੰਜੀ ਇਮੋਜੀ ਪੈਲੇਟ ਦਿਖਾਉਂਦੀ ਹੈ"</string>
     <string name="button_default">"ਪੂਰਵ-ਨਿਰਧਾਰਤ"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਤੇ ਸੁਆਗਤ ਹੈ\"</string>
+    <string name="setup_welcome_title">%s ਤੇ ਸੁਆਗਤ ਹੈ\"</string>
     <string name="setup_welcome_additional_description">"ਸੰਕੇਤ ਟਾਈਪਿੰਗ ਨਾਲ"</string>
     <string name="setup_start_action">"ਸ਼ੁਰੂਆਤ ਕਰੋ"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਸੈਟ ਅਪ ਕਰ ਰਿਹਾ ਹੈ\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ\"</string>
-    <string name="setup_step1_instruction">"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਇਨਪੁੱਟ ਸੈਟਿੰਗਾਂ ਵਿੱਚ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" \'ਤੇ ਸਹੀ ਦਾ ਨਿਸ਼ਾਨ ਲਗਾਓ। ਇਹ ਉਸ ਨੂੰ ਤੁਹਾਡੇ ਡੀਵਾਈਸ \'ਤੇ ਚੱਲਣ ਲਈ ਅਧਿਕਾਰਿਤ ਕਰੇਗਾ।"</string>
+    <string name="setup_steps_title">%s ਸੈਟ ਅਪ ਕਰ ਰਿਹਾ ਹੈ\"</string>
+    <string name="setup_step1_title">%s ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ\"</string>
+    <string name="setup_step1_instruction">"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਇਨਪੁੱਟ ਸੈਟਿੰਗਾਂ ਵਿੱਚ \"%s\" \'ਤੇ ਸਹੀ ਦਾ ਨਿਸ਼ਾਨ ਲਗਾਓ। ਇਹ ਉਸ ਨੂੰ ਤੁਹਾਡੇ ਡੀਵਾਈਸ \'ਤੇ ਚੱਲਣ ਲਈ ਅਧਿਕਾਰਿਤ ਕਰੇਗਾ।"</string>
     <string name="setup_step1_action">"ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕਰੋ"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> \'ਤੇ ਸਵਿੱਚ ਕਰੋ\"</string>
-    <string name="setup_step2_instruction">"ਫਿਰ, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ਨੂੰ ਆਪਣੀ ਕਿਰਿਆਸ਼ੀਲ ਲਿਖਤ-ਇਨਪੁੱਟ ਵਿਧੀ ਦੇ ਤੌਰ ਤੇ ਚੁਣੋ।"</string>
+    <string name="setup_step2_title">%s \'ਤੇ ਸਵਿੱਚ ਕਰੋ\"</string>
+    <string name="setup_step2_instruction">"ਫਿਰ, \"%s\" ਨੂੰ ਆਪਣੀ ਕਿਰਿਆਸ਼ੀਲ ਲਿਖਤ-ਇਨਪੁੱਟ ਵਿਧੀ ਦੇ ਤੌਰ ਤੇ ਚੁਣੋ।"</string>
     <string name="setup_step2_action">"ਇਨਪੁੱਟ ਵਿਧੀਆਂ ਸਵਿੱਚ ਕਰੋ"</string>
     <string name="setup_step3_title">"ਵਧਾਈ ਹੋਵੇ, ਤੁਸੀਂ ਸਾਰਾ ਸੈਟ ਕਰ ਲਿਆ ਹੈ!"</string>
-    <string name="setup_step3_instruction">"ਹੁਣ ਤੁਸੀਂ <xliff:g id="APPLICATION_NAME">%s</xliff:g> ਨਾਲ ਆਪਣੇ ਸਾਰੇ ਮਨਪਸੰਦ ਐਪਸ ਨੂੰ ਟਾਈਪ ਕਰ ਸਕਦੇ ਹੋ।"</string>
+    <string name="setup_step3_instruction">"ਹੁਣ ਤੁਸੀਂ %s ਨਾਲ ਆਪਣੇ ਸਾਰੇ ਮਨਪਸੰਦ ਐਪਸ ਨੂੰ ਟਾਈਪ ਕਰ ਸਕਦੇ ਹੋ।"</string>
     <string name="setup_finish_action">"ਪੂਰਾ ਹੋਇਆ"</string>
     <string name="show_setup_wizard_icon">"ਐਪ ਪ੍ਰਤੀਕ ਦਿਖਾਓ"</string>
     <string name="show_setup_wizard_icon_summary">"ਲਾਂਚਰ ਵਿੱਚ ਐਪਲੀਕੇਸ਼ਨ ਪ੍ਰਤੀਕ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ"</string>
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>
     <string name="delete">"ਮਿਟਾਓ"</string>
-    <string name="version_text">"ਰੂਪ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"ਰੂਪ %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"ਸ਼ਬਦਕੋਸ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ਸ਼ਾਰਟਕੱਟ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ਭਾਸ਼ਾ:"</string>

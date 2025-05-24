@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"സ്‌പ്‌ലിറ്റ് കീബോർഡ് പ്രവർത്തനക്ഷമമാക്കുക"</string>
     <string name="language_switch_key_switch_input_method">"മറ്റു ടൈപ്പുചെയ്യൽ രീതികളിലേക്ക് മാറുക"</string>
     <string name="show_language_switch_key">"ഭാഷ മാറൽ കീ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>മി.സെ"</string>
+    <string name="abbreviation_unit_milliseconds">"%sമി.സെ"</string>
     <string name="settings_system_default">"സ്ഥിരമായ സിസ്റ്റം"</string>
     <string name="use_contacts_dict_summary">നിർദ്ദേശങ്ങൾക്കും തിരുത്തലുകൾക്കുമായി കോൺടാക്‌റ്റുകളിൽ നിന്നുള്ള പേരുകൾ ഉപയോഗിക്കുക</string>
     <string name="use_personalized_dicts">"വ്യക്തിഗത നിർദ്ദേശങ്ങൾ"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"സ്‌പാനിഷ് (യുഎസ്)"</string>
     <string name="subtype_hi_Latn">"ഹിംഗ്ലീഷ്"</string>
     <string name="subtype_sr_Latn">"സെർബിയൻ (ലാറ്റിൻ)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (പരമ്പരാഗതം)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (കോം‌പാക്‌ട്)</string>
+    <string name="subtype_generic_traditional">%s (പരമ്പരാഗതം)</string>
+    <string name="subtype_generic_compact">%s (കോം‌പാക്‌ട്)</string>
     <string name="subtype_no_language">"ഭാഷയില്ല"</string>
     <string name="subtype_emoji">"ഇമോജി"</string>
     <string name="add">"ചേര്‍ക്കുക"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"പ്രത്യക്ഷ കീബോഡിനുള്ള ഇമോജി"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"പ്രത്യക്ഷ Alt കീ ഇമോജി പാലറ്റിനെ കാണിക്കുന്നു"</string>
     <string name="button_default">"സ്ഥിരമായത്"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് സ്വാഗതം</string>
+    <string name="setup_welcome_title">%s എന്നതിലേക്ക് സ്വാഗതം</string>
     <string name="setup_welcome_additional_description">"വിരൽചലിത ടൈപ്പിംഗിനൊപ്പം"</string>
     <string name="setup_start_action">"ആരംഭിക്കുക"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> സജ്ജമാക്കുന്നു</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കുക</string>
-    <string name="setup_step1_instruction">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ചെക്കുചെയ്യുക. ചെക്കുചെയ്യുന്നത് ഉപകരണത്തിൽ പ്രവർത്തിക്കാൻ ഇതിന് അംഗീകാരം നൽകും.</string>
+    <string name="setup_steps_title">%s സജ്ജമാക്കുന്നു</string>
+    <string name="setup_step1_title">%s പ്രവർത്തനക്ഷമമാക്കുക</string>
+    <string name="setup_step1_instruction">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ \"%s\" ചെക്കുചെയ്യുക. ചെക്കുചെയ്യുന്നത് ഉപകരണത്തിൽ പ്രവർത്തിക്കാൻ ഇതിന് അംഗീകാരം നൽകും.</string>
     <string name="setup_step1_action">"ക്രമീകരണങ്ങളിൽ പ്രവർത്തനക്ഷമമാകുക"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് മാറുക</string>
-    <string name="setup_step2_instruction">അടുത്തത്, \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" എന്നതിനെ നിങ്ങളുടെ സജീവ വാചക-ടൈപ്പുചെയ്യൽ രീതിയായി തിരഞ്ഞെടുക്കുക.</string>
+    <string name="setup_step2_title">%s എന്നതിലേക്ക് മാറുക</string>
+    <string name="setup_step2_instruction">അടുത്തത്, \"%s\" എന്നതിനെ നിങ്ങളുടെ സജീവ വാചക-ടൈപ്പുചെയ്യൽ രീതിയായി തിരഞ്ഞെടുക്കുക.</string>
     <string name="setup_step2_action">"ടൈപ്പുചെയ്യൽ രീതികൾ മാറുക"</string>
     <string name="setup_step3_title">"അഭിനന്ദനങ്ങൾ, നിങ്ങൾ എല്ലാം പൂർത്തിയാക്കി!"</string>
-    <string name="setup_step3_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ഉപയോഗിച്ച് നിങ്ങളുടെ പ്രിയപ്പെട്ട എല്ലാ അപ്ലിക്കേഷനുകളിലും ഇപ്പോൾ ടൈപ്പുചെയ്യാനാകും.</string>
+    <string name="setup_step3_instruction">%s ഉപയോഗിച്ച് നിങ്ങളുടെ പ്രിയപ്പെട്ട എല്ലാ അപ്ലിക്കേഷനുകളിലും ഇപ്പോൾ ടൈപ്പുചെയ്യാനാകും.</string>
     <string name="setup_finish_action">"പൂർത്തിയായി"</string>
     <string name="show_setup_wizard_icon">"അപ്ലിക്കേഷൻ ഐക്കൺ കാണിക്കുക"</string>
     <string name="show_setup_wizard_icon_summary">"ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="settings">"ക്രമീകരണം"</string>
     <string name="delete">"ഇല്ലാതാക്കുക"</string>
-    <string name="version_text">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">വേർഷൻ %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"കുറുക്കുവഴി:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ഭാഷ:"</string>
@@ -118,12 +118,12 @@
     <string name="day_night_mode_summary">രൂപഭാവം സിസ്റ്റം ക്രമീകരണങ്ങൾ പിന്തുടരും</string>
     <string name="key_borders">കീ അതിരുകൾ</string>
     <string name="day_night_mode">ഓട്ടോ പകൽ/രാത്രി മോഡ്</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>മിനിറ്റ് .</string>
+    <string name="abbreviation_unit_minutes">%sമിനിറ്റ് .</string>
     <string name="autospace_after_punctuation_summary">വിരാമചിഹ്നത്തിന് ശേഷം ഒരു പുതിയ വാക്ക് ടൈപ്പുചെയ്യുമ്പോൾ സ്വയം സ്പേസ് ചേർക്കുക</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">സ്പേസ് കീ ദീർഘനേരം അമർത്തുന്നത് ഇൻപുട്ട് രീതി തിരഞ്ഞെടുക്കൽ മെനു പ്രദർശിപ്പിക്കും</string>
     <string name="prefs_keyboard_height_scale">കീബോർഡ് ഉയരം സ്കെയിൽ</string>
     <string name="autospace_after_punctuation">വിരാമചിഹ്നത്തിനു ശേഷമുള്ള ഓട്ടോസ്പേസ്</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (അഖോർ )</string>
+    <string name="subtype_akkhor_bn_BD">%s (അഖോർ )</string>
     <string name="settings_category_experimental">പരീക്ഷണാത്മകം</string>
     <string name="settings_category_input">ഇൻപുട്ട്</string>
     <string name="settings_category_additional_keys">അധിക കീകൾ</string>

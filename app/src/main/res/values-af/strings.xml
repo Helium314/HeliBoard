@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Aktiveer verdeelde sleutelbord"</string>
     <string name="language_switch_key_switch_input_method">"Skakel oor na die ander invoermetodes"</string>
     <string name="show_language_switch_key">"Taal-wisselsleutel"</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
+    <string name="abbreviation_unit_milliseconds">%sms</string>
     <string name="settings_system_default">"Stelsel se verstek"</string>
     <string name="use_contacts_dict_summary">"Gebruik name van kontakte vir voorstelle en korreksies"</string>
     <string name="use_personalized_dicts">"Gepersonaliseerde voorstelle"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serwies (Latyns)"</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisioneel)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompak)</string>
+    <string name="subtype_generic_traditional">%s (Tradisioneel)</string>
+    <string name="subtype_generic_compact">%s (Kompak)</string>
     <string name="subtype_no_language">"Geen taal nie"</string>
     <string name="subtype_emoji">"Emosiekone"</string>
     <string name="add">"Voeg by"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emosiekone vir fisieke sleutelbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fisieke Alt-sleutel wys die emosiekoon-palet"</string>
     <string name="button_default">"Verstek"</string>
-    <string name="setup_welcome_title">Welkom by <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
+    <string name="setup_welcome_title">Welkom by %s</string>
     <string name="setup_welcome_additional_description">"met Gebaar-tik"</string>
     <string name="setup_start_action">"Kom aan die gang"</string>
-    <string name="setup_steps_title">Stel <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g> op</string>
-    <string name="setup_step1_title">Aktiveer <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Gaan asseblief \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" in jou Tale- en invoer-instellings na. Dit sal dit magtig om op jou toestel te werk.</string>
+    <string name="setup_steps_title">Stel %s op</string>
+    <string name="setup_step1_title">Aktiveer %s</string>
+    <string name="setup_step1_instruction">Gaan asseblief \"%s\" in jou Tale- en invoer-instellings na. Dit sal dit magtig om op jou toestel te werk.</string>
     <string name="setup_step1_action">"Aktiveer in instellings"</string>
-    <string name="setup_step2_title">Skakel oor na <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Volgende, kies \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" as jou aktiewe teks-invoermetode.</string>
+    <string name="setup_step2_title">Skakel oor na %s</string>
+    <string name="setup_step2_instruction">Volgende, kies \"%s\" as jou aktiewe teks-invoermetode.</string>
     <string name="setup_step2_action">"Wissel invoermetodes"</string>
     <string name="setup_step3_title">"Veels geluk, jy\'s gereed!"</string>
-    <string name="setup_step3_instruction">Nou kan jy in al jou gunsteling-programme tik met <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Nou kan jy in al jou gunsteling-programme tik met %s.</string>
     <string name="setup_finish_action">"Klaar"</string>
     <string name="show_setup_wizard_icon">"Wys program-ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Wys program-ikoon in die lanseerpoort"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Laas opgedateer"</string>
     <string name="settings">"Instellings"</string>
     <string name="delete">"Vee uit"</string>
-    <string name="version_text">Weergawe <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Weergawe %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Voeg by woordeboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kortpad:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
@@ -98,7 +98,7 @@
     <string name="settings_category_suggestions">Voorstelle</string>
     <string name="settings_category_experimental">Eksperimenteel</string>
     <string name="settings_category_miscellaneous">Allerlei</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes">%smin.</string>
     <string name="settings_no_limit">Geen beperking</string>
     <string name="enable_clipboard_history">Aktiveer knipbord geskiedenis</string>
     <string name="enable_clipboard_history_summary">Indien gedeaktiveerd, sal knipbord sleutel plak as dit inhoud het</string>
@@ -115,7 +115,7 @@
     <string name="delete_swipe">Skrap met vee</string>
     <string name="show_emoji_key">Emoji sleutel</string>
     <string name="delete_swipe_summary">Doen \'n vee van die skrap sleutel om \'n groter seleksie van teks eenmaal te skrap</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="incognito">Dwing incognito-modus</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiveer die leer van nuwe woorde</string>
     <string name="more_keys_strip_description">Meer sleutels</string>

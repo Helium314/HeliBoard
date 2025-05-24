@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Ota jaettu näppäimistö käyttöön"</string>
     <string name="language_switch_key_switch_input_method">"Käytä toista syöttötapaa"</string>
     <string name="show_language_switch_key">"Kielenvaihtonäppäin"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Järjestelmän oletusarvo"</string>
     <string name="use_contacts_dict_summary">Käytä yhteystietojen nimiä ehdotuksissa ja korjauksissa</string>
     <string name="use_personalized_dicts">"Personoidut ehdotukset"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"espanja (Yhdysvallat)"</string>
     <string name="subtype_hi_Latn">"Hindienglanti"</string>
     <string name="subtype_sr_Latn">"serbialainen (latinal.)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (perinteinen)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tiivis)"</string>
+    <string name="subtype_generic_traditional">"%s (perinteinen)"</string>
+    <string name="subtype_generic_compact">"%s (tiivis)"</string>
     <string name="subtype_no_language">"Ei kieltä"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Lisää"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Hymiö fyysisellä näppäimistöllä"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Fyysinen Alt-näppäin näyttää emoji-paletin</string>
     <string name="button_default">"Oletusarvot"</string>
-    <string name="setup_welcome_title">"Tervetuloa käyttämään sovellusta <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Tervetuloa käyttämään sovellusta %s"</string>
     <string name="setup_welcome_additional_description">"ja piirtokirjoitus"</string>
     <string name="setup_start_action">"Aloita"</string>
-    <string name="setup_steps_title">"Sovelluksen <xliff:g id="APPLICATION_NAME">%s</xliff:g> asetukset"</string>
-    <string name="setup_step1_title">"Ota <xliff:g id="APPLICATION_NAME">%s</xliff:g> käyttöön"</string>
-    <string name="setup_step1_instruction">Valitse<xliff:g id="APPLICATION_NAME">%s</xliff:g> Kielet ja syöttötapa ‑asetuksissa. Se antaa sovellukselle luvan toimia laitteellasi.\"</string>
+    <string name="setup_steps_title">"Sovelluksen %s asetukset"</string>
+    <string name="setup_step1_title">"Ota %s käyttöön"</string>
+    <string name="setup_step1_instruction">Valitse%s Kielet ja syöttötapa ‑asetuksissa. Se antaa sovellukselle luvan toimia laitteellasi.\"</string>
     <string name="setup_step1_action">"Ota käyttöön asetuksissa"</string>
-    <string name="setup_step2_title">"Siirry sovellukseen <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Valitse<xliff:g id="APPLICATION_NAME">%s</xliff:g> käytössä olevaksi tekstinsyöttötavaksi.\"</string>
+    <string name="setup_step2_title">"Siirry sovellukseen %s"</string>
+    <string name="setup_step2_instruction">Valitse%s käytössä olevaksi tekstinsyöttötavaksi.\"</string>
     <string name="setup_step2_action">"Vaihda syöttötapaa"</string>
     <string name="setup_step3_title">"Onneksi olkoon, valmista tuli!"</string>
-    <string name="setup_step3_instruction">Nyt voit kirjoittaa kaikki suosikkisovelluksesi <xliff:g id="APPLICATION_NAME" example="Android-näppäimistö">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Nyt voit kirjoittaa kaikki suosikkisovelluksesi %s.</string>
     <string name="setup_finish_action">"Valmis"</string>
     <string name="show_setup_wizard_icon">"Näytä sovelluskuvake"</string>
     <string name="show_setup_wizard_icon_summary">Näytä sovelluskuvake käynnistysohjelmassa</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Päivitetty viimeksi"</string>
     <string name="settings">"Asetukset"</string>
     <string name="delete">"Poista"</string>
-    <string name="version_text">"Versio <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Versio %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Lisää sanakirjaan"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pikanäppäin:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Kieli:"</string>
@@ -140,7 +140,7 @@
     <string name="key_borders">Näppäinreunat</string>
     <string name="day_night_mode">Automaattinen päivä-/yötila</string>
     <string name="language_switch_key_behavior">Kielen vaihtonäppäimen toiminta</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="add_to_personal_dictionary">Lisää sanat henkilökohtaiseen sanakirjaan</string>
     <string name="prefs_always_show_suggestions">Näytä ehdotukset aina</string>
     <string name="more_autocorrect">Enemmän autom. korjausta</string>

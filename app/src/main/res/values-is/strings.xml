@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Virkja skipt lyklaborð"</string>
     <string name="language_switch_key_switch_input_method">"Skipta um innsláttaraðferð"</string>
     <string name="show_language_switch_key">"Lykill til að breyta tungumáli"</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> msek</string>
+    <string name="abbreviation_unit_milliseconds">%s msek</string>
     <string name="settings_system_default">Sjálfgefið í kerfi</string>
     <string name="use_contacts_dict_summary">"Nota nöfn úr tengiliðum fyrir tillögur og leiðréttingar"</string>
     <string name="use_personalized_dicts">"Persónulegar tillögur"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"Spænskt (US)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbneskt (latneskt)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (hefðbundið)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (lítið)"</string>
+    <string name="subtype_generic_traditional">"%s (hefðbundið)"</string>
+    <string name="subtype_generic_compact">"%s (lítið)"</string>
     <string name="subtype_no_language">"Ekkert tungumál"</string>
     <string name="subtype_emoji">Tjáningartákn</string>
     <string name="add">"Bæta við"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">Tjáningartákn fyrir vélbúnaðarlyklaborð</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Alt-lykillinn á lyklaborðinu birtir töflu yfir tjáningartákn</string>
     <string name="button_default">"Sjálfgefið"</string>
-    <string name="setup_welcome_title">"Velkomin(n) í <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Velkomin(n) í %s"</string>
     <string name="setup_welcome_additional_description">"með bendingainnslætti"</string>
     <string name="setup_start_action">"Hefjast handa"</string>
-    <string name="setup_steps_title">"Uppsetning <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Virkjaðu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">Merktu við <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ í stillingum tungumálsins þíns og innsláttar. Þetta veitir því heimild til að keyra í tækinu.\"</string>
+    <string name="setup_steps_title">"Uppsetning %s"</string>
+    <string name="setup_step1_title">"Virkjaðu %s"</string>
+    <string name="setup_step1_instruction">Merktu við %s“ í stillingum tungumálsins þíns og innsláttar. Þetta veitir því heimild til að keyra í tækinu.\"</string>
     <string name="setup_step1_action">"Virkja í stillingum"</string>
-    <string name="setup_step2_title">"Skiptu yfir í <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Næst skaltu velja <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ sem virka innsláttaraðferð fyrir texta.\"</string>
+    <string name="setup_step2_title">"Skiptu yfir í %s"</string>
+    <string name="setup_step2_instruction">Næst skaltu velja %s“ sem virka innsláttaraðferð fyrir texta.\"</string>
     <string name="setup_step2_action">"Skipta um innsláttaraðferð"</string>
     <string name="setup_step3_title">"Til hamingju, allt er klárt!"</string>
-    <string name="setup_step3_instruction">Nú geturðu notað<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> til að skrifa í öllum uppáhaldsforritunum þínum.</string>
+    <string name="setup_step3_instruction">Nú geturðu notað%s til að skrifa í öllum uppáhaldsforritunum þínum.</string>
     <string name="setup_finish_action">"Lokið"</string>
     <string name="show_setup_wizard_icon">"Sýna forritstákn"</string>
     <string name="show_setup_wizard_icon_summary">"Sýna forritstákn í ræsiforritinu"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Síðast uppfært"</string>
     <string name="settings">"Stillingar"</string>
     <string name="delete">"Eyða"</string>
-    <string name="version_text">"Útgáfa <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Útgáfa %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">Bæta við orðasafni</string>
     <string name="user_dict_settings_add_shortcut_option_name">Stytting:</string>
     <string name="user_dict_settings_add_locale_option_name">"Tungumál:"</string>
@@ -157,10 +157,10 @@
     <string name="page_up" tools:keep="@string/page_up">Síða upp</string>
     <string name="page_down" tools:keep="@string/page_down">Síða niður</string>
     <string name="close_history" tools:keep="@string/close_history">Loka klippispjaldsferli</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (viðaukið)</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_generic_extended">%s (viðaukið)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="day_or_night_night">Nótt</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (hljóðfræðitákn)</string>
+    <string name="subtype_generic_phonetic">%s (hljóðfræðitákn)</string>
     <string name="load">Hlaða</string>
     <string name="button_save_file">Vista í skrá</string>
     <string name="copy_to_clipboard">Afrita á klippispjald</string>
@@ -180,9 +180,9 @@
     <string name="file_read_error">Get ekki lesið skrá</string>
     <string name="button_load_custom">Hlaða inn skrá</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="customize_background_image_landscape">Setja bakgrunnsmynd (lárétt)</string>
     <string name="setup_step3_action">Stilla lyklaborðið</string>
     <string name="available_dictionary_experimental">%s (á tilraunastigi)</string>
@@ -210,7 +210,7 @@
     <string name="prefs_space_bar_text">Sérsniðinn texti á bilslá</string>
     <string name="auto_show_toolbar">Birta verkfærastiku sjálfvirkt</string>
     <string name="key_borders">Jaðrar lykla</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> mín</string>
+    <string name="abbreviation_unit_minutes">%s mín</string>
     <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
     <string name="settings_no_limit">Engin takmörk</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dekkra</string>
@@ -304,7 +304,7 @@
     <string name="customize_toolbar_key_codes">Sérsníða lyklakóða verkfærastiku</string>
     <string name="auto_hide_toolbar">Fela verkfærastiku sjálfvirkt</string>
     <string name="clipboard_history_retention_time">Tími sem á að geyma breytingaferil</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (námsmanna)</string>
+    <string name="subtype_generic_student">%s (námsmanna)</string>
     <string name="autospace_after_punctuation">Sjálfvirkt bil á eftir greinamerkjum</string>
     <string name="custom_font">Velja sérsniðið letur úr skrá</string>
     <string name="hint_source">Veldu uppruna ábendinga</string>

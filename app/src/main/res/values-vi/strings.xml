@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Bật chia bàn phím"</string>
     <string name="language_switch_key_switch_input_method">"Phương thức nhập khác"</string>
     <string name="show_language_switch_key">"Phím chuyển đổi ngôn ngữ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> mili giây"</string>
+    <string name="abbreviation_unit_milliseconds">"%s mili giây"</string>
     <string name="settings_system_default">"Theo mặc định của hệ thống"</string>
     <string name="use_contacts_dict_summary">"Sử dụng tên từ Danh bạ cho các đề xuất và chỉnh sửa"</string>
     <string name="use_personalized_dicts">"Đề xuất được cá nhân hóa"</string>
@@ -50,8 +50,8 @@
     <string name="subtype_es_US">"Tiếng Tây Ban Nha (Mỹ)"</string>
     <string name="subtype_hi_Latn">"Tiếng Anh-Hindi"</string>
     <string name="subtype_sr_Latn">"Tiếng Serbia (La tinh)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Truyền thống)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Viết tắt)"</string>
+    <string name="subtype_generic_traditional">"%s (Truyền thống)"</string>
+    <string name="subtype_generic_compact">"%s (Viết tắt)"</string>
     <string name="subtype_no_language">"Không ngôn ngữ nào"</string>
     <string name="subtype_emoji">"Biểu tượng cảm xúc"</string>
     <string name="add">"Thêm"</string>
@@ -65,18 +65,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Biểu tượng cảm xúc cho bàn phím vật lý"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Phím Alt thực hiển thị bảng biểu tượng cảm xúc"</string>
     <string name="button_default">"Mặc định"</string>
-    <string name="setup_welcome_title">"Chào mừng bạn đến với <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Chào mừng bạn đến với %s"</string>
     <string name="setup_welcome_additional_description">"với Nhập bằng cử chỉ"</string>
     <string name="setup_start_action">"Bắt đầu"</string>
-    <string name="setup_steps_title">"Thiết lập <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Bật <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Hãy chọn \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" trong cài đặt Ngôn ngữ và phương thức nhập. Thao tác này sẽ cho phép ứng dụng chạy trên thiết bị của bạn."</string>
+    <string name="setup_steps_title">"Thiết lập %s"</string>
+    <string name="setup_step1_title">"Bật %s"</string>
+    <string name="setup_step1_instruction">"Hãy chọn \"%s\" trong cài đặt Ngôn ngữ và phương thức nhập. Thao tác này sẽ cho phép ứng dụng chạy trên thiết bị của bạn."</string>
     <string name="setup_step1_action">"Bật trong Cài đặt"</string>
-    <string name="setup_step2_title">"Chuyển sang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Tiếp theo, chọn \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" làm phương thức nhập văn bản hoạt động của bạn."</string>
+    <string name="setup_step2_title">"Chuyển sang %s"</string>
+    <string name="setup_step2_instruction">"Tiếp theo, chọn \"%s\" làm phương thức nhập văn bản hoạt động của bạn."</string>
     <string name="setup_step2_action">"Chuyển phương thức nhập"</string>
     <string name="setup_step3_title">"Xin chúc mừng, bạn đã cài đặt xong!"</string>
-    <string name="setup_step3_instruction">"Bây giờ bạn có thể nhập vào tất cả ứng dụng yêu thích của mình với <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Bây giờ bạn có thể nhập vào tất cả ứng dụng yêu thích của mình với %s."</string>
     <string name="setup_finish_action">"Đã xong"</string>
     <string name="show_setup_wizard_icon">"Hiển thị biểu tượng ứng dụng"</string>
     <string name="show_setup_wizard_icon_summary">"Hiển thị biểu tượng ứng dụng trong trình chạy"</string>
@@ -85,7 +85,7 @@
     <string name="last_update">"Cập nhật lần cuối"</string>
     <string name="settings">"Cài đặt"</string>
     <string name="delete">"Xóa"</string>
-    <string name="version_text">"Phiên bản <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Phiên bản %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Thêm vào từ điển"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Phím tắt:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Ngôn ngữ:"</string>

@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">הפעלת מקלדת מפוצלת</string>
     <string name="language_switch_key_switch_input_method">"עבור לשיטות קלט אחרות"</string>
     <string name="show_language_switch_key">"מתג החלפת שפה"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> אלפ\' שניה"</string>
+    <string name="abbreviation_unit_milliseconds">"%s אלפ\' שניה"</string>
     <string name="settings_system_default">"ברירת מחדל של המערכת"</string>
     <string name="use_contacts_dict_summary">השתמש בשמות מרשימת אנשי הקשר עבור הצעות ותיקונים</string>
     <string name="use_personalized_dicts">"הצעות מותאמות אישית"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"ספרדית (ארצות הברית)"</string>
     <string name="subtype_hi_Latn">"אנגלית הודית"</string>
     <string name="subtype_sr_Latn">"סרבית (באותיות לטיניות)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (מסורתית)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (קומפקטית)"</string>
+    <string name="subtype_generic_traditional">"%s (מסורתית)"</string>
+    <string name="subtype_generic_compact">"%s (קומפקטית)"</string>
     <string name="subtype_no_language">"ללא שפה"</string>
     <string name="subtype_emoji">"אמוג\'י"</string>
     <string name="add">"הוסף"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"אמוג\'י בשביל מקלדת פיזית"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"‏מקש Alt הפיזי מציג את לוח סמלי האמוג\'י"</string>
     <string name="button_default">"ברירת מחדל"</string>
-    <string name="setup_welcome_title">"ברוכים הבאים אל <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"ברוכים הבאים אל %s"</string>
     <string name="setup_welcome_additional_description">"עם הקלדה רציפה"</string>
     <string name="setup_start_action">"תחילת העבודה"</string>
-    <string name="setup_steps_title">"הגדרת <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"הפעל את <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"סמן את \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" בהגדרות השפה והקלט שלך. פעולה זו תאפשר לה לפעול במכשיר."</string>
+    <string name="setup_steps_title">"הגדרת %s"</string>
+    <string name="setup_step1_title">"הפעל את %s"</string>
+    <string name="setup_step1_instruction">"סמן את \"%s\" בהגדרות השפה והקלט שלך. פעולה זו תאפשר לה לפעול במכשיר."</string>
     <string name="setup_step1_action">"הפעל בהגדרות"</string>
-    <string name="setup_step2_title">"עבור אל <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">בשלב הבא, יש לבחור ב-\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" כשיטת ההזנה הפעילה להזנת מלל.</string>
+    <string name="setup_step2_title">"עבור אל %s"</string>
+    <string name="setup_step2_instruction">בשלב הבא, יש לבחור ב-\"%s\" כשיטת ההזנה הפעילה להזנת מלל.</string>
     <string name="setup_step2_action">החלפת שיטת הזנה</string>
     <string name="setup_step3_title">"ברכותינו, הכל מוכן!"</string>
-    <string name="setup_step3_instruction">"כעת תוכל להקליד בכל האפליקציות המועדפות עליך באמצעות <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"כעת תוכל להקליד בכל האפליקציות המועדפות עליך באמצעות %s."</string>
     <string name="setup_finish_action">"סיום"</string>
     <string name="show_setup_wizard_icon">"הצג את סמל האפליקציה"</string>
     <string name="show_setup_wizard_icon_summary">"הצג את סמל האפליקציה במפעיל"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"עודכן לאחרונה"</string>
     <string name="settings">"הגדרות"</string>
     <string name="delete">"מחק"</string>
-    <string name="version_text">"גרסה <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"גרסה %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">הוספה למילון</string>
     <string name="user_dict_settings_add_shortcut_option_name">"קיצור דרך:"</string>
     <string name="user_dict_settings_add_locale_option_name">"שפה:"</string>
@@ -95,7 +95,7 @@
     <string name="user_dict_settings_more_languages">"עוד שפות…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
     <string name="settings_no_limit">ללא גבול</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="דקות">%s</xliff:g>min</string>
+    <string name="abbreviation_unit_minutes">%smin</string>
     <string name="enable_clipboard_history">הפעל את היסטוריית הלוח</string>
     <string name="enable_clipboard_history_summary">אם מושבת, לוח מקשים ידביק את תוכן הלוח אם קיים</string>
     <string name="clipboard_history_retention_time">שמירת זמן היסטוריה</string>
@@ -110,7 +110,7 @@
     <string name="android_spell_checker_settings">הגדרות בודק האיות של HeliBoard</string>
     <string name="prefs_long_press_keyboard_to_change_lang">שינוי שיטת ההזנה על-ידי מקש רווח</string>
     <string name="show_emoji_key">מקש אמוג\'י</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (תווים)</string>
+    <string name="subtype_akkhor_bn_BD">%s (תווים)</string>
     <string name="spell_checker_service_name">בודק האיות של HeliBoard</string>
     <string name="settings_category_clipboard_history">היסטוריית הלוח</string>
     <string name="autospace_after_punctuation">רווח אוטומטי לאחר סימני פיסוק</string>
@@ -351,12 +351,12 @@
     <string name="gesture_floating_preview_static_summary">הצגת המילה המוצעת תוך כדי מחווה</string>
     <string name="gesture_trail_fadeout_duration">משך הצגת עקבת נתיב המחווה</string>
     <string name="gesture_floating_preview_dynamic_summary">תזוזת התצוגה המקדימה תוך כדי מחווה</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="קאנדה">%s</xliff:g> (Extended)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="קוריאנית">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_generic_extended">%s (Extended)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="hidden_features_message">◄ לחיצה ממושכת על כפתורי סרגל הכלים מאפשרת פונקציונליות נוספת: &lt;br&gt; \n\t• לוח &amp;#65515; הדבקה &lt;br&gt; \n\t• תזוזה שמאלה/ימינה &amp;#65515; מילה שמאלה/ימינה &lt;br&gt; \n\t• תזוזה למעלה/למטה &amp;#65515; דף למעלה/למטה &lt;br&gt; \n\t• מילה שמאלה/ימינה &amp;#65515; תחילת שורה/סוף שורה &lt;br&gt; \n\t• דף למעלה/למטה &amp;#65515; תחילת דף/סוף דף &lt;br&gt; \n\t• העתקה &amp;#65515; גזירה &lt;br&gt; \n\t• בחירת מילה &amp;#8596; בחירת הכל &lt;br&gt; \n\t• ביטול &amp;#8596; ביצוע בשנית &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על כפתורים בסרגל ההצעות של סרגל הכלים נועצת אותם בסרגל ההצעות. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על מקש פסיק לגישה לתצוגת הלוח, תצוגת אימוג\'ים, מצב עבודה ביד אחת, הגדרות, או מעבר שפה: &lt;br&gt; \n\t• תצוגת אימוג\'ים ומעבר שפה לא יוצגו אם הכפתורים המתאימים כבר מוצגים; &lt;br&gt; \n\t• בחלק מהפריסות האפשרות איננה במקש הפסיק, אלא במקש המוצג באותו מקום (לדוגמה, בפריסת Dvorak התו \'q\'). &lt;br&gt; &lt;br&gt; \n◄ כאשר מצב פרטיות מופעל, לא יילמדו כלל מילים, ולא יתווספו אימוג\'ים ל\'בשימוש לאחרונה\'. &lt;br&gt; &lt;br&gt; \n◄ ליחצו על סמל הפרטיות לגישה לסרגל הכלים. &lt;br&gt; &lt;br&gt; \n◄ הקלדה בהחלקה: החליקו מ-shift למקש אחר כדי להקיש אות גדולה יחידה: &lt;br&gt; \n\t• זה עובד באופן דומה גם למקש \'?123\' להקלדת סימן יחיד מלוח הסמלים, ולמקשים קשורים. &lt;br&gt; &lt;br&gt; \n◄ ליחצו על shift או על מקש הסמלים, ליחצו על מקש אחד או יותר, ואז הרפו מ-shift או ממקש הסמלים לחזרה למקלדת הקודמת. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על הצעה בסרגל ההצעות להצגת הצעות נוספות, ומקש מחיקה להסרת הצעה זו. &lt;br&gt; &lt;br&gt; \n◄ החליקו למעלה מהצעה לפתיחת הצעות נוספות, והרפו על ההצעה הרצויה לבחירתה. &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על רשומה בהיסטוריית הלוח לנעיצתה (שמירתה בלוח עד לביטול הנעיצה). &lt;br&gt; &lt;br&gt; \n◄ החלקה שמאלה על רשומה בתצוגת הלוח להסרתה מהלוח (אם היא לא נעוצה) &lt;br&gt; &lt;br&gt; \n◄ בחירת מלל ולחיצה על shift למעבר בין אותיות גדולות, אותיות קטנות ורישיות מילים גדולות. &lt;br&gt; &lt;br&gt; \n◄ ניתן להוסיף מילונים ע\"י פתיחתם באמצעות יישום סייר קבצים: &lt;br&gt; \n\t• פועל רק עם &lt;i&gt;content-uris&lt;/i&gt; ולא עם &lt;i&gt;file-uris&lt;/i&gt;, ז\"א שזה עלול שלא לעבוד בחלק מיישומי סייר קבצים. &lt;br&gt; &lt;br&gt; \n◄ משתמשים המבצעים גיבויים ידניים עם הרשאת גישה root: &lt;br&gt; \n\t• החל באנדרואיד 7, קובץ ההעדפות המשותף איננו בנתיב ברירת המחדל, כיוון שהיישום עושה שימוש ב %s. הדבר נחוץ כדי שההגדרות יהיו קריאות לפני שהמכשיר נפתח, לדוגמה: בהפעלה; &lt;br&gt; \n\t• הקובץ ממוקם בנתיב /data/user_de/0/package_id/shared_prefs/ אך זה עשוי להשתנות בתלות בגירסאות המכשיר ומערכת אנדרואיד. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Debug mode / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n◄ לחיצה ממושכת על הצעה להצגת מילון המקור. &lt;br&gt; &lt;br&gt; \n◄ בשימוש ב-debug APK, באפשרותך למצוא את הגדרות ה-Debug Settings בהעדפות המתקדמות,אך השימושיות מוגבלת למעט dumping של מילונים ליומן (log). &lt;br&gt; \n\t• עבור APK רשמי, עליך ללחוץ על הגירסה &lt;i&gt;About&lt;/i&gt; מספר פעמים, ואז ניתן למצוא אתהגדרות ה-debug ב-&lt;i&gt;העדפות מתקדמות&lt;/i&gt;. &lt;br&gt; \n\t• כאשר מופעלת &lt;i&gt;הצגת מידע על הצעות&lt;/i&gt;, יוצגו מספרים זעירים בסמוך להצעות המייצגים דירוג פנימי ומילון מקור. &lt;br&gt; &lt;br&gt; \n◄ במקרה של קריסת יישום, תוצג לך שאלה האם ברצונך ביומני הקריסה בפתיחת ההגדרות. &lt;br&gt; &lt;br&gt; \n◄ בעת שימוש בהקלדה מרובת שפות, מקש הרווח יציג מדד אמון המשמש לברירת השפה שבשימוש כעת. &lt;br&gt; &lt;br&gt; \n◄ בסמוך להצעות יוצגו מספרים זעירים המייצגים דירוג פנימי ומילון מקור (התצוגה ניתנת להשבתה).</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="בנגלית">%s</xliff:g> (Probhat)</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="קוריאנית">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="רוסית">%s</xliff:g> (Student)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
     <string name="icon_style">סגנון הסמלים</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">שורת המספרים</string>
     <string name="prefs_space_bar_text">מלל מותאם על מקש הרווח</string>
@@ -383,7 +383,7 @@
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">תו בלתי-מחבר ברוחב אפס</string>
     <string name="customize_icons_reset_message">האם באמת ברצונך למחוק את כל הסמלים המותאמים?</string>
     <string name="vibrate_in_dnd_mode">רטט במצב נא לא להפריע</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="הינדי">%s</xliff:g> (פונטי)</string>
+    <string name="subtype_generic_phonetic">%s (פונטי)</string>
     <string name="prefs_key_emoji_max_sdk">עקיפת גירסת אמוג\'י</string>
     <string name="customize_toolbar_key_code_reset_message">האם למחוק את כל קודי המקשים המותאמים?</string>
     <string name="auto_correct_shortcuts">קיצורי דרך של תיקון שגיאות אוטומטי</string>
@@ -403,7 +403,7 @@
     <string name="split" tools:keep="@string/split">מקלדת מפוצלת</string>
     <string name="name_invalid">השם אינו תקף</string>
     <string name="custom_subtype">תת-סוג מותאם</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="בנגאלי">%s</xliff:g> (באישאקי)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (באישאקי)</string>
     <string name="layout_in_use">התרעה: הפריסה בשימוש כעת</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">מקשים פונקציונליים (מסך גדול)</string>
     <string name="subtype_dru">דרגווה (אוראקי)</string>

@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"I-enable ang split keyboard"</string>
     <string name="language_switch_key_switch_input_method">"Lipat iba paraan ng input"</string>
     <string name="show_language_switch_key">"Key ng panlipat ng wika"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"Default ng system"</string>
     <string name="use_contacts_dict_summary">"Gamitin ang pangalan mula sa Contact para sa mungkahi/pagtatama."</string>
     <string name="use_personalized_dicts">"Personalized na mungkahi"</string>
@@ -50,8 +50,8 @@
     <string name="subtype_es_US">"Spanish (US)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbian (Latin)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
+    <string name="subtype_generic_traditional">"%s (Traditional)"</string>
+    <string name="subtype_generic_compact">"%s (Compact)"</string>
     <string name="subtype_no_language">"Walang wika"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Idagdag"</string>
@@ -65,18 +65,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji para sa pisikal na keyboard"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Ipinapakita ng pisikal na Alt key ang emoji palette"</string>
     <string name="button_default">"Default"</string>
-    <string name="setup_welcome_title">"Maligayang pagdating sa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Maligayang pagdating sa %s"</string>
     <string name="setup_welcome_additional_description">"gamit ang Gesture na Pagta-type"</string>
     <string name="setup_start_action">"Magsimula"</string>
-    <string name="setup_steps_title">"Sine-set up ang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Paganahin ang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Pakitingnan ang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" sa iyong Mga setting ng wika at input. Papahintulutan nitong gumana ito sa iyong device."</string>
+    <string name="setup_steps_title">"Sine-set up ang %s"</string>
+    <string name="setup_step1_title">"Paganahin ang %s"</string>
+    <string name="setup_step1_instruction">"Pakitingnan ang \"%s\" sa iyong Mga setting ng wika at input. Papahintulutan nitong gumana ito sa iyong device."</string>
     <string name="setup_step1_action">"I-enable sa Mga Setting"</string>
-    <string name="setup_step2_title">"Lumipat sa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Susunod, piliin ang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" bilang iyong aktibong pamamaraan ng pag-input ng teksto."</string>
+    <string name="setup_step2_title">"Lumipat sa %s"</string>
+    <string name="setup_step2_instruction">"Susunod, piliin ang \"%s\" bilang iyong aktibong pamamaraan ng pag-input ng teksto."</string>
     <string name="setup_step2_action">"Magpalit ng pamamaraan ng pag-input"</string>
     <string name="setup_step3_title">"Binabati kita, handa ka na!"</string>
-    <string name="setup_step3_instruction">"Ngayon, mata-type mo na ang lahat ng paborito mong apps gamit ang <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Ngayon, mata-type mo na ang lahat ng paborito mong apps gamit ang %s."</string>
     <string name="setup_finish_action">"Tapos na"</string>
     <string name="show_setup_wizard_icon">"Ipakita ang icon ng app"</string>
     <string name="show_setup_wizard_icon_summary">"Ipakita ang icon ng application sa launcher"</string>
@@ -85,7 +85,7 @@
     <string name="last_update">"Huling na-update"</string>
     <string name="settings">"Mga Setting"</string>
     <string name="delete">"I-delete"</string>
-    <string name="version_text">"Bersyon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Bersyon %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Idagdag sa diksyunaryo"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Shortcut:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Wika:"</string>

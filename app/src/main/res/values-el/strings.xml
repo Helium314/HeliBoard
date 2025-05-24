@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Ενεργοποίηση διαχωρισμού πληκτρολογίου"</string>
     <string name="language_switch_key_switch_input_method">"Άλλη μέθοδος εισόδου"</string>
     <string name="show_language_switch_key">"Πλήκτρο εναλλαγής γλώσσας"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>χλστ. δ."</string>
+    <string name="abbreviation_unit_milliseconds">"%sχλστ. δ."</string>
     <string name="settings_system_default">"Προεπιλογή"</string>
     <string name="use_contacts_dict_summary">"Χρησιμοποιήστε ονόματα από τις Επαφές για προτάσεις και διορθ."</string>
     <string name="use_personalized_dicts">"Εξατομικευμένες προτάσεις"</string>
@@ -50,8 +50,8 @@
     <string name="subtype_es_US">"Ισπανικά (ΗΠΑ)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Σερβικά (Λατινικά)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Παραδοσιακά)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Συμπαγές)"</string>
+    <string name="subtype_generic_traditional">"%s (Παραδοσιακά)"</string>
+    <string name="subtype_generic_compact">"%s (Συμπαγές)"</string>
     <string name="subtype_no_language">"Καμία γλώσσα"</string>
     <string name="subtype_emoji">"Emoticon"</string>
     <string name="add">"Προσθήκη"</string>
@@ -65,18 +65,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji για φυσικό πληκτρολόγιο"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Το φυσικό πλήκτρο Alt εμφανίζει την παλέτα emoji"</string>
     <string name="button_default">"Προεπιλογή"</string>
-    <string name="setup_welcome_title">"Καλώς ορίσατε στο <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Καλώς ορίσατε στο %s"</string>
     <string name="setup_welcome_additional_description">"με Πληκτρολόγηση με κίνηση"</string>
     <string name="setup_start_action">"Έναρξη"</string>
-    <string name="setup_steps_title">"Ρύθμιση της εφαρμογής <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Ενεργοποιήστε την εφαρμογή <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Επιλέξτε \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" στις Ρυθμίσεις γλώσσας και εισαγωγής, για να το εξουσιοδοτήσετε να εκτελείται στη συσκευή σας."</string>
+    <string name="setup_steps_title">"Ρύθμιση της εφαρμογής %s"</string>
+    <string name="setup_step1_title">"Ενεργοποιήστε την εφαρμογή %s"</string>
+    <string name="setup_step1_instruction">"Επιλέξτε \"%s\" στις Ρυθμίσεις γλώσσας και εισαγωγής, για να το εξουσιοδοτήσετε να εκτελείται στη συσκευή σας."</string>
     <string name="setup_step1_action">"Ενεργοποίηση στις Ρυθμίσεις"</string>
-    <string name="setup_step2_title">"Μετάβαση στην εφαρμογή <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Στη συνέχεια, επιλέξτε \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ως την ενεργή μέθοδο εισαγωγής κειμένου."</string>
+    <string name="setup_step2_title">"Μετάβαση στην εφαρμογή %s"</string>
+    <string name="setup_step2_instruction">"Στη συνέχεια, επιλέξτε \"%s\" ως την ενεργή μέθοδο εισαγωγής κειμένου."</string>
     <string name="setup_step2_action">"Εναλλαγή μεθόδων εισαγωγής"</string>
     <string name="setup_step3_title">"Συγχαρητήρια, είστε έτοιμοι!"</string>
-    <string name="setup_step3_instruction">"Πλέον μπορείτε να πληκτρολογήσετε όλες τις αγαπημένες σας εφαρμογές με το <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Πλέον μπορείτε να πληκτρολογήσετε όλες τις αγαπημένες σας εφαρμογές με το %s."</string>
     <string name="setup_finish_action">"Ολοκληρώθηκε"</string>
     <string name="show_setup_wizard_icon">"Εμφάνιση εικονιδίου εφαρμογής"</string>
     <string name="show_setup_wizard_icon_summary">"Εμφάνιση εικονιδίου εφαρμογής στο πρόγραμμα εκκίνησης"</string>
@@ -85,7 +85,7 @@
     <string name="last_update">"Τελευταία ενημέρωση"</string>
     <string name="settings">"Ρυθμίσεις"</string>
     <string name="delete">"Διαγραφή"</string>
-    <string name="version_text">"Έκδοση <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
+    <string name="version_text">"Έκδοση %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Προσθήκη στο λεξικό"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Συντόμευση:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Γλώσσα:"</string>
@@ -111,7 +111,7 @@
     <string name="android_spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου HeliBoard</string>
     <string name="settings_category_clipboard_history">Ιστορικό πρόχειρου</string>
     <string name="settings_category_miscellaneous">Διάφορα</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes">%smin.</string>
     <string name="enable_clipboard_history_summary">Εάν είναι απενεργοποιημένο, το πλήκτρο του προχείρου θα επικολλήσει το περιεχόμενο του προχείρου εάν υπάρχει</string>
     <string name="key_borders">Περίγραμμα πλήκτρου</string>
     <string name="day_night_mode">Αυτόματη λειτουργία ημέρας/νύχτας</string>
@@ -120,7 +120,7 @@
     <string name="number_row">Αριθμητική σειρά</string>
     <string name="number_row_summary">Να εμφανίζεται πάντα η αριθμητική σειρά</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Αλλάξτε τη μέθοδο εισαγωγής με το πλήκτρο διαστήματος</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθεί τις ρυθμίσεις του συστήματος</string>
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
     <string name="ime_settings">Ρυθμίσεις HeliBoard</string>

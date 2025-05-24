@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Klaviaturanı ayırmağa icazə verin"</string>
     <string name="language_switch_key_switch_input_method">"Digər daxiletmə metodlarına keçin"</string>
     <string name="show_language_switch_key">"Dil keçidi düyməsi"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> millisaniyə"</string>
+    <string name="abbreviation_unit_milliseconds">"%s millisaniyə"</string>
     <string name="settings_system_default">"Sistem defoltu"</string>
     <string name="use_contacts_dict_summary">"Təklif və korreksiya üçün Kontaktlardakı adlardan istifadə edin"</string>
     <string name="use_personalized_dicts">"Fərdiləşmiş təkliflər"</string>
@@ -49,8 +49,8 @@
     <string name="subtype_es_US">"İspan (ABŞ)"</string>
     <string name="subtype_hi_Latn">"Hingilis"</string>
     <string name="subtype_sr_Latn">"Serb (Latın)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Ənənəvi)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompakt)"</string>
+    <string name="subtype_generic_traditional">"%s (Ənənəvi)"</string>
+    <string name="subtype_generic_compact">"%s (Kompakt)"</string>
     <string name="subtype_no_language">"Dil yoxdur"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Əlavə et"</string>
@@ -64,18 +64,18 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Fiziki klaviatura üçün emoji"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Fiziki ALt düyməsi emoji palletini göstərir"</string>
     <string name="button_default">"Defolt"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> təbiqinə xoş gəlmisiniz\"</string>
+    <string name="setup_welcome_title">%s təbiqinə xoş gəlmisiniz\"</string>
     <string name="setup_welcome_additional_description">"Jest Yazısı ilə"</string>
     <string name="setup_start_action">"Başlayın"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> quraşdırılır\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqini aktivləşdir\"</string>
-    <string name="setup_step1_instruction">"Lütfən, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" tətbiqini Dillər və daxiletmə ayarlarında yoxlayın. Bununla tətbiqin cihazınızda işləməsinə icazə veriləcək."</string>
+    <string name="setup_steps_title">%s quraşdırılır\"</string>
+    <string name="setup_step1_title">%s tətbiqini aktivləşdir\"</string>
+    <string name="setup_step1_instruction">"Lütfən, \"%s\" tətbiqini Dillər və daxiletmə ayarlarında yoxlayın. Bununla tətbiqin cihazınızda işləməsinə icazə veriləcək."</string>
     <string name="setup_step1_action">"Parametrlərdə aktivləşdir"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> tətbiqinə keçin\"</string>
-    <string name="setup_step2_instruction">"Sonra, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" tətbiqini aktiv mətn-daxiletmə metodu olaraq seçin."</string>
+    <string name="setup_step2_title">%s tətbiqinə keçin\"</string>
+    <string name="setup_step2_instruction">"Sonra, \"%s\" tətbiqini aktiv mətn-daxiletmə metodu olaraq seçin."</string>
     <string name="setup_step2_action">"Daxil metodlarına keç"</string>
     <string name="setup_step3_title">"Təbrik edirik, tam hazırsınız!"</string>
-    <string name="setup_step3_instruction">"İndi siz <xliff:g id="APPLICATION_NAME">%s</xliff:g> ilə bütün sevimli tətbiqlərinizdə yaza bilərsiniz."</string>
+    <string name="setup_step3_instruction">"İndi siz %s ilə bütün sevimli tətbiqlərinizdə yaza bilərsiniz."</string>
     <string name="setup_finish_action">"Sona çatdı"</string>
     <string name="show_setup_wizard_icon">"Tətbiq ikonasını göstər"</string>
     <string name="show_setup_wizard_icon_summary">"Başlatma panelində tətbiq ikonasını göstər"</string>
@@ -84,7 +84,7 @@
     <string name="last_update">"Son yeniləmə"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
-    <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> nömrəli versiya"</string>
+    <string name="version_text">"%1$s nömrəli versiya"</string>
     <string name="user_dict_settings_add_dialog_title">"Lüğətə əlavə edin"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Qısayol:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Dil:"</string>
