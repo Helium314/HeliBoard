@@ -55,7 +55,7 @@ fun DictionaryScreen(
 ) {
     val ctx = LocalContext.current
     val enabledLanguages = SubtypeSettings.getEnabledSubtypes(true).map { it.locale().language }
-    val cachedDictFolders = DictionaryInfoUtils.getCachedDirectoryList(ctx).orEmpty().map { it.name }
+    val cachedDictFolders = DictionaryInfoUtils.getCacheDirectories(ctx).map { it.name }
     val comparer = compareBy<Locale>({ it.language !in enabledLanguages }, { it.toLanguageTag() !in cachedDictFolders}, { it.displayName })
     val dictionaryLocales = getDictionaryLocales(ctx).sortedWith(comparer).toMutableList()
     dictionaryLocales.add(0, Locale(SubtypeLocaleUtils.NO_LANGUAGE))
@@ -69,7 +69,7 @@ fun DictionaryScreen(
             if (term.isBlank()) dictionaryLocales
             else dictionaryLocales.filter { loc ->
                     loc.language != SubtypeLocaleUtils.NO_LANGUAGE
-                            && loc.localizedDisplayName(ctx).replace("(", "")
+                            && loc.localizedDisplayName(ctx.resources).replace("(", "")
                                 .splitOnWhitespace().any { it.startsWith(term, true) }
                 }
         },
@@ -98,7 +98,7 @@ fun DictionaryScreen(
                     val types = dicts.mapTo(mutableListOf()) { it.name.substringBefore("_${DictionaryInfoUtils.USER_DICTIONARY_SUFFIX}") }
                     if (hasInternal && !types.contains(Dictionary.TYPE_MAIN))
                         types.add(0, stringResource(R.string.internal_dictionary_summary))
-                    Text(locale.localizedDisplayName(ctx))
+                    Text(locale.localizedDisplayName(ctx.resources))
                     Text(
                         types.joinToString(", "),
                         style = MaterialTheme.typography.bodyMedium,
@@ -155,7 +155,7 @@ fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<
         return userDicts to true
     val internalDicts = DictionaryInfoUtils.getAssetsDictionaryList(context) ?: return userDicts to false
     val best = LocaleUtils.getBestMatch(locale, internalDicts.toList()) {
-        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)?.constructLocale() ?: SubtypeLocaleUtils.NO_LANGUAGE.constructLocale()
+        DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(it)
     }
     return userDicts to (best != null)
 }

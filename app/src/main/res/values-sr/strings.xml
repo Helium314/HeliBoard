@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Омогући подељену тастатуру"</string>
     <string name="language_switch_key_switch_input_method">"Пребаци на друге методе уноса"</string>
     <string name="show_language_switch_key">"Тастер за пребацивање језика"</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс</string>
+    <string name="abbreviation_unit_milliseconds">%s мс</string>
     <string name="settings_system_default">"Подразумевано"</string>
     <string name="use_contacts_dict_summary">"Користи имена из Контаката за предлоге и исправке"</string>
     <string name="use_personalized_dicts">"Персонализовани предлози"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"шпански (САД)"</string>
     <string name="subtype_hi_Latn">"хенглески"</string>
     <string name="subtype_sr_Latn">"српски (латиница)"</string>
-    <string name="subtype_with_layout_en_GB">енглески (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">енглески (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">шпански (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">хенглески (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">српски (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (традиционални)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (компактна)</string>
-    <string name="subtype_no_language">"Нема језика (абецеда)"</string>
-    <string name="subtype_no_language_qwerty">"абецеда (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"абецеда (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"абецеда (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"абецеда (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"абецеда (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"абецеда (PC)"</string>
+    <string name="subtype_generic_traditional">%s (традиционални)</string>
+    <string name="subtype_generic_compact">%s (компактна)</string>
+    <string name="subtype_no_language">"Нема језика"</string>
     <string name="subtype_emoji">"Емотикони"</string>
     <string name="add">"Додај"</string>
     <string name="remove">"Уклони"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Емоџи за физичку тастатуру"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Физички тастер Alt показује палету емоџија"</string>
     <string name="button_default">"Подразумевано"</string>
-    <string name="setup_welcome_title">Добро дошли у <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Добро дошли у %s</string>
     <string name="setup_welcome_additional_description">"помоћу Куцања покретима"</string>
     <string name="setup_start_action">"Започнимо"</string>
-    <string name="setup_next_action">"Следећи корак"</string>
-    <string name="setup_steps_title">Подешавање апликације <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Омогућите апликацију <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Потврдите апликацију <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ у Подешавањима језика и уноса. Тако јој одобравате покретање на уређају.\"</string>
-    <string name="setup_step1_finished_instruction">"Апликација <xliff:g id="APPLICATION_NAME">%s</xliff:g> је већ омогућена у Подешавањима језика и уноса, па је овај корак готов. Пређимо на следећи!"</string>
+    <string name="setup_steps_title">Подешавање апликације %s</string>
+    <string name="setup_step1_title">Омогућите апликацију %s</string>
+    <string name="setup_step1_instruction">Потврдите апликацију %s“ у Подешавањима језика и уноса. Тако јој одобравате покретање на уређају.\"</string>
     <string name="setup_step1_action">"Омогући у Подешавањима"</string>
-    <string name="setup_step2_title">"Пребаците на <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Затим изаберите <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ као активни метод уноса текста.\"</string>
+    <string name="setup_step2_title">"Пребаците на %s"</string>
+    <string name="setup_step2_instruction">Затим изаберите %s“ као активни метод уноса текста.\"</string>
     <string name="setup_step2_action">"Пребаци методе уноса"</string>
     <string name="setup_step3_title">"Честитамо, све је спремно!"</string>
-    <string name="setup_step3_instruction">"Сада можете да куцате у свим омиљеним апликацијама помоћу <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Сада можете да куцате у свим омиљеним апликацијама помоћу %s."</string>
     <string name="setup_finish_action">"Завршено"</string>
     <string name="show_setup_wizard_icon">"Прикажи икону апликације"</string>
     <string name="show_setup_wizard_icon_summary">"Икона апликације се приказује у покретачу"</string>
-    <string name="dictionary_settings_title">"Помоћни речници"</string>
+    <string name="dictionary_category_title">"Помоћни речници"</string>
     <string name="dictionary_available">"Речник је доступан"</string>
-    <string name="no_dictionaries_available">"Нема доступних речника"</string>
     <string name="last_update">"Последње ажурирање"</string>
     <string name="settings">"Подешавања"</string>
     <string name="delete">"Избриши"</string>
-    <string name="version_text">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Додај"</string>
+    <string name="version_text">"Верзија %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Додавање у речник"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пречица:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Језик:"</string>
     <string name="user_dict_settings_add_word_hint">"Унесите реч"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Опционална пречица"</string>
     <string name="user_dict_settings_edit_dialog_title">"Измена речи"</string>
-    <string name="user_dict_settings_empty_text">"Немате ниједну реч у корисничком речнику. Да бисте додали реч, додирните дугме Додај (+)."</string>
     <string name="user_dict_settings_all_languages">"За све језике"</string>
     <string name="user_dict_settings_more_languages">"Још језика…"</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"</string>
@@ -132,14 +116,12 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Дуг притисак на тастер за размак ће приказати мени за избор метода уноса</string>
     <string name="day_night_mode">Аутоматски режим дан/ноћ</string>
     <string name="day_night_mode_summary">Изглед ће пратити подешавања система</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Акхор)</string>
-    <string name="subtype_no_language_colemak_dh">Абецеда (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Абецеда (Workman)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Акхор)</string>
     <string name="settings_no_limit">Без лимита</string>
     <string name="enable_clipboard_history">Омогући историју међуспремника</string>
     <string name="clipboard_history_retention_time">Време задржавања историје</string>
     <string name="prefs_keyboard_height_scale">Висина тастатуре</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>мин</string>
+    <string name="abbreviation_unit_minutes">%sмин</string>
     <string name="show_hints_summary">Прикажи савете за дуги притисак</string>
     <string name="delete_swipe">Уклањање превлачењем</string>
     <string name="show_emoji_key">Емоји кључ</string>

@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java
 fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodManager, windowToken: IBinder): AlertDialog {
@@ -26,7 +27,7 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
     var currentSubtypeIndex = 0
     enabledImis.forEach { imi ->
         val subtypes = if (imi != thisImi) richImm.getEnabledInputMethodSubtypeList(imi, true)
-            else richImm.getEnabledInputMethodSubtypeList(imi, true).sortedBy { it.displayName(latinIme).toString() }
+            else richImm.getEnabledInputMethodSubtypeList(imi, true).sortedBy { it.displayName() }
         if (subtypes.isEmpty()) {
             enabledSubtypes.add(imi to null)
         } else {
@@ -44,7 +45,7 @@ fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodMa
     for (imiAndSubtype in enabledSubtypes) {
         val (imi, subtype) = imiAndSubtype
 
-        val subtypeName = if (imi == thisImi) subtype?.displayName(latinIme)
+        val subtypeName = if (imi == thisImi) subtype?.displayName()
             else subtype?.getDisplayName(latinIme, imi.packageName, imi.serviceInfo.applicationInfo)
         val title = SpannableString(subtypeName?.ifBlank { imi.loadLabel(pm) } ?: imi.loadLabel(pm))
         val subtitle = SpannableString(if (subtype == null) "" else "\n${imi.loadLabel(pm)}")

@@ -22,7 +22,7 @@
     <string name="language_switch_key_switch_both">Ilipat ang pareho</string>
     <string name="show_language_switch_key">Key sa paglipat ng wika</string>
     <string name="show_emoji_key">Key ng emoji</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="settings_system_default">Default ng sistema</string>
     <string name="settings_no_limit">Walang limitasyon</string>
     <string name="disable_personalized_dicts_message">Babala: Ang pag-disable ng setting na ito ay iki-clear ang mga natutong data</string>
@@ -50,7 +50,7 @@
     <string name="android_spell_checker_settings">Mga Setting ng Spell Checker ng Heliboard</string>
     <string name="use_contacts_dict">Hanapin ang mga pangalan ng contact</string>
     <string name="settings_category_suggestions">Mga mungkahi</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <string name="use_contacts_dict_summary">Gamitin ang pangalan mula sa Mga Contact para sa mungkahi at pagtatama</string>
     <string name="add_to_personal_dictionary">Idagdag ang mga salita sa personal na diksyunaryo</string>
     <string name="use_double_space_period_summary">Naglalagay ng tuldok na may puwang ang pag-double tap sa spacebar</string>

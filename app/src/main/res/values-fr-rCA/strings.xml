@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Activer le clavier en deux parties"</string>
     <string name="language_switch_key_switch_input_method">"Autres modes de saisie"</string>
     <string name="show_language_switch_key">"Touche de sélection de langue"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Paramètres par défaut"</string>
     <string name="use_contacts_dict_summary">"Utiliser des noms de contacts pour les suggestions et corrections"</string>
     <string name="use_personalized_dicts">"Suggestions personnalisées"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"Espagnol (États-Unis)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbe (latin)"</string>
-    <string name="subtype_with_layout_en_GB">"anglais (Royaume-Uni) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"anglais (États-Unis) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"espagnol (États-Unis) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serbe (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditionnel)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (compact)"</string>
-    <string name="subtype_no_language">"Aucune langue (alphabet)"</string>
-    <string name="subtype_no_language_qwerty">"Alphabet latin (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alphabet latin (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alphabet latin (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alphabet latin (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alphabet latin (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alphabet latin (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (traditionnel)"</string>
+    <string name="subtype_generic_compact">"%s (compact)"</string>
+    <string name="subtype_no_language">"Aucune langue"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ajouter"</string>
     <string name="remove">"Supprimer"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji pour clavier physique"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La touche Alt affiche la palette d\'emoji"</string>
     <string name="button_default">"Par défaut"</string>
-    <string name="setup_welcome_title">"Bienvenue dans <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Bienvenue dans %s"</string>
     <string name="setup_welcome_additional_description">"avec la saisie gestuelle"</string>
     <string name="setup_start_action">"Commencer"</string>
-    <string name="setup_next_action">"Étape suivante"</string>
-    <string name="setup_steps_title">"Configurer <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Activer <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">Cochez «<xliff:g id="APPLICATION_NAME">%s</xliff:g> » dans le menu Langues et méthodes d\'entrée. Cela permettra à l\'application de fonctionner sur votre appareil.\"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> est déjà activée dans le menu Langues et méthodes d\'entrée. Excellent, passons à la prochaine étape!"</string>
+    <string name="setup_steps_title">"Configurer %s"</string>
+    <string name="setup_step1_title">"Activer %s"</string>
+    <string name="setup_step1_instruction">Cochez «%s » dans le menu Langues et méthodes d\'entrée. Cela permettra à l\'application de fonctionner sur votre appareil.\"</string>
     <string name="setup_step1_action">"Activer le clavier dans les paramètres"</string>
-    <string name="setup_step2_title">"Basculer vers <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Sélectionnez ensuite \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" comme mode de saisie actif."</string>
+    <string name="setup_step2_title">"Basculer vers %s"</string>
+    <string name="setup_step2_instruction">"Sélectionnez ensuite \"%s\" comme mode de saisie actif."</string>
     <string name="setup_step2_action">"Changer de mode de saisie"</string>
     <string name="setup_step3_title">"Félicitations, l\'opération est terminée"</string>
-    <string name="setup_step3_instruction">"Avec <xliff:g id="APPLICATION_NAME">%s</xliff:g>, vous pouvez saisir du texte dans toutes vos applications préférées."</string>
+    <string name="setup_step3_instruction">"Avec %s, vous pouvez saisir du texte dans toutes vos applications préférées."</string>
     <string name="setup_finish_action">"OK"</string>
     <string name="show_setup_wizard_icon">"Afficher icône application"</string>
     <string name="show_setup_wizard_icon_summary">"Afficher l\'icône de l\'application dans le lanceur"</string>
-    <string name="dictionary_settings_title">"Dictionnaires complémentaires"</string>
+    <string name="dictionary_category_title">"Dictionnaires complémentaires"</string>
     <string name="dictionary_available">"Dictionnaire disponible"</string>
-    <string name="no_dictionaries_available">"Aucun dictionnaire"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="settings">"Paramètres"</string>
     <string name="delete">"Supprimer"</string>
-    <string name="version_text">"Version <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Ajouter"</string>
+    <string name="version_text">"Version %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Ajouter au dictionnaire"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Raccourci :"</string>
     <string name="user_dict_settings_add_locale_option_name">"Langue :"</string>
     <string name="user_dict_settings_add_word_hint">"Entrez un mot"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Raccourci facultatif"</string>
     <string name="user_dict_settings_edit_dialog_title">"Modifier le mot"</string>
-    <string name="user_dict_settings_empty_text">"Votre dictionnaire personnel ne contient aucun mot. Pour ajouter un mot, touchez le bouton d\'ajout (+)."</string>
     <string name="user_dict_settings_all_languages">"Pour toutes les langues"</string>
     <string name="user_dict_settings_more_languages">"Plus de langues…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

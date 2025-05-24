@@ -25,7 +25,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val locales = HashSet<Locale>()
 
     // get cached dictionaries: extracted or user-added dictionaries
-    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach { directory ->
+    DictionaryInfoUtils.getCacheDirectories(context).forEach { directory ->
         if (!directory.isDirectory) return@forEach
         if (!hasAnythingOtherThanExtractedMainDictionary(directory)) return@forEach
         val locale = DictionaryInfoUtils.getWordListIdFromFileName(directory.name).constructLocale()
@@ -35,8 +35,7 @@ fun getDictionaryLocales(context: Context): MutableSet<Locale> {
     val assetsDictionaryList = DictionaryInfoUtils.getAssetsDictionaryList(context)
     if (assetsDictionaryList != null) {
         for (dictionary in assetsDictionaryList) {
-            val locale = DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary)?.constructLocale() ?: continue
-            locales.add(locale)
+            locales.add(DictionaryInfoUtils.extractLocaleFromAssetsDictionaryFile(dictionary))
         }
     }
     return locales
@@ -135,4 +134,4 @@ fun cleanUnusedMainDicts(context: Context) {
 }
 
 private fun hasAnythingOtherThanExtractedMainDictionary(dir: File) =
-    dir.listFiles()?.any { it.name != DictionaryInfoUtils.getExtractedMainDictFilename() } != false
+    dir.listFiles()?.any { it.name != DictionaryInfoUtils.MAIN_DICT_FILE_NAME } != false

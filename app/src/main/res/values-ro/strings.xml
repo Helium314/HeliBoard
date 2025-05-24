@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">Activează tastatura divizată</string>
     <string name="language_switch_key_switch_input_method">"Comut. alte metode de introd."</string>
     <string name="show_language_switch_key">"Tastă comutare limbi"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> msec."</string>
+    <string name="abbreviation_unit_milliseconds">"%s msec."</string>
     <string name="settings_system_default">"Valoare prestabilită"</string>
     <string name="use_contacts_dict_summary">Utilizează numele din Agendă pentru sugestii și corecții</string>
     <string name="use_personalized_dicts">"Sugestii personalizate"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"spaniolă (S.U.A.)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Sârbă (caractere latine)"</string>
-    <string name="subtype_with_layout_en_GB">"Engleză (Regatul Unit) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Engleză (S.U.A.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Spaniolă (S.U.A.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Sârbă (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradițională)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
-    <string name="subtype_no_language">"Nicio limbă (alfabet)"</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (tradițională)"</string>
+    <string name="subtype_generic_compact">"%s (Compact)"</string>
+    <string name="subtype_no_language">"Nicio limbă"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">Adaugă</string>
     <string name="remove">Elimină</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji pentru tastatura fizică"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Tasta fizică Alt afișează panoul de emoji"</string>
     <string name="button_default">"Prestabilit"</string>
-    <string name="setup_welcome_title">"Bun venit la <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Bun venit la %s"</string>
     <string name="setup_welcome_additional_description">"cu Tastarea gestuală"</string>
     <string name="setup_start_action">Începe</string>
-    <string name="setup_next_action">"Pasul următor"</string>
-    <string name="setup_steps_title">Se configurează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Activează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Bifează <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> în „Limbi și introducerea textului”. Astfel, o vei autoriza să ruleze pe dispozitiv.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> este activată deja în „Limbi și introducerea textului”, deci ai finalizat pasul. Treci la următorul!</string>
+    <string name="setup_steps_title">Se configurează %s</string>
+    <string name="setup_step1_title">Activează %s</string>
+    <string name="setup_step1_instruction">Bifează %s în „Limbi și introducerea textului”. Astfel, o vei autoriza să ruleze pe dispozitiv.</string>
     <string name="setup_step1_action">Activează în Setări</string>
-    <string name="setup_step2_title">Comută la <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Apoi, selectează \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ca metodă de introducere a textului.</string>
+    <string name="setup_step2_title">Comută la %s</string>
+    <string name="setup_step2_instruction">Apoi, selectează \"%s\" ca metodă de introducere a textului.</string>
     <string name="setup_step2_action">Comută între metodele de introducere a textului</string>
     <string name="setup_step3_title">Felicitări, ai finalizat!</string>
-    <string name="setup_step3_instruction">Acum, poți introduce text în toate aplicațiile preferate, utilizând <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Acum, poți introduce text în toate aplicațiile preferate, utilizând %s.</string>
     <string name="setup_finish_action">"Finalizat"</string>
     <string name="show_setup_wizard_icon">Afișează pictograma aplicației</string>
     <string name="show_setup_wizard_icon_summary">Afișează pictograma aplicației în lansator</string>
-    <string name="dictionary_settings_title">"Dicționare suplimentare"</string>
+    <string name="dictionary_category_title">"Dicționare suplimentare"</string>
     <string name="dictionary_available">"Dicționar disponibil"</string>
-    <string name="no_dictionaries_available">"Niciun dicționar"</string>
     <string name="last_update">"Data ultimei modificări"</string>
     <string name="settings">"Setări"</string>
     <string name="delete">Șterge</string>
-    <string name="version_text">Versiunea <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Adăugați"</string>
+    <string name="version_text">Versiunea %1$s</string>
     <string name="user_dict_settings_add_dialog_title">Adaugă în dicționar</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Comandă rapidă:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Limbă:"</string>
     <string name="user_dict_settings_add_word_hint">Introdu un cuvânt</string>
     <string name="user_dict_settings_add_shortcut_hint">"Comandă rapidă opțională"</string>
     <string name="user_dict_settings_edit_dialog_title">Editează cuvântul</string>
-    <string name="user_dict_settings_empty_text">Nu ai niciun cuvânt în dicționarul utilizatorului. Pentru a adăuga un cuvânt, atinge butonul Adaugă (+).</string>
     <string name="user_dict_settings_all_languages">"Pentru toate limbile"</string>
     <string name="user_dict_settings_more_languages">"Mai multe limbi…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ"</string>
@@ -133,7 +117,7 @@
     <string name="split_spacer_scale">Distanță divizare</string>
     <string name="language_switch_key_switch_both">Comută ambele</string>
     <string name="show_emoji_key">Tasta Emoji</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="settings_no_limit">Fără limită</string>
     <string name="add_to_personal_dictionary">Adaugă cuvinte în dicționarul personal</string>
     <string name="add_to_personal_dictionary_summary">Utilizează dicționarul personal al dispozitivului pentru a stoca cuvintele învățate</string>
@@ -204,12 +188,10 @@
     <string name="var_toolbar_direction_summary">Inversează direcția când este selectat un subtip de tastatură de la dreapta la stânga</string>
     <string name="var_toolbar_direction">Direcție variabilă a barei de instrumente</string>
     <string name="prefs_long_press_symbol_for_numpad">Apasă lung tasta simbol pentru tastatura numerică</string>
-    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="button_title_add_custom_layout">Adaugă un aspect personalizat</string>
     <string name="message_add_custom_layout">Selectează un fișier într-un format compatibil. Informațiile despre formate sunt disponibile %s.</string>
     <string name="button_load_custom">Încarcă fișierul</string>
     <string name="file_read_error">Nu se poate citi fișierul</string>
-    <string name="title_layout_name_select">Setează numele aspectului</string>
     <string name="edit_layout">Atinge pentru a edita aspectul brut</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Simboluri</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Simboluri (Arabă)</string>
@@ -234,7 +216,6 @@
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Noros</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Pădure</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigo</string>
-    <string name="hint_show_keyboard">Clic pentru previzualizare</string>
     <string name="select_user_colors_summary">Selectează culorile pentru text și fundal</string>
     <string name="select_color_background">Fundalul tastaturii</string>
     <string name="hidden_features_title">Descrierea caracteristicilor ascunse</string>
@@ -264,8 +245,6 @@
     <string name="layout_error">Eroare de aspect: %s</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violet</string>
     <string name="add_new_dictionary_title">Adaugă dicționar din fișier</string>
-    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="delete_layout">Ștergi cu adevărat aspectul personalizat %s?</string>
     <string name="no_dictionary_message">"Fără un dicționar, vei primi doar sugestii pentru textul pe care l-ai introdus anterior.&lt;br&gt;\n\n        Poți descărca dicționare %1$s sau poți verifica dacă un dicționar pentru „%2$s” poate fi descărcat direct %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Greutate:</string>
@@ -296,13 +275,12 @@
     <string name="prefs_bottom_padding_scale">Scala de umplere inferioară</string>
     <string name="full_left" tools:keep="@string/full_left">Stânga integral</string>
     <string name="full_right" tools:keep="@string/full_right">Dreapta integral</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="add_dictionary">Selectează un dicționar de adăugat. Dicționarele în format .dict pot fi descărcate %s.</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Întunecată</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="customize_background_image">Setează imaginea de fundal</string>
     <string name="day_or_night_image">Setezi imaginea pentru modul zi sau noapte?</string>
     <string name="day_or_night_day">Zi</string>
@@ -322,10 +300,9 @@
     <string name="show_vertical_space_swipe">Gest de glisare pe bara de spațiu verticală</string>
     <string name="action_none">Fără</string>
     <string name="space_swipe_move_cursor_entry">Mută cursorul</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_student">%s (Student)</string>
     <string name="gesture_fast_typing_cooldown_instant">Începe întotdeauna instantaneu</string>
     <string name="prefs_space_bar_text">Text personalizat pe bara de spațiu</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_show_toolbar">Afișare automată bară de instrumente</string>
     <string name="customize_currencies">Personalizează monedele</string>
     <string name="customize_currencies_detail">Setează simboluri valutare principale și până la 6 secundare, separate prin spațiu</string>
@@ -337,7 +314,7 @@
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul Clipboard de jos</string>
     <string name="auto_hide_toolbar">Ascundere automată a barei de instrumente</string>
     <string name="auto_hide_toolbar_summary">Ascunde bara de instrumente când sugestiile devin disponibile</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extins)</string>
+    <string name="subtype_generic_extended">%s (Extins)</string>
     <string name="copy_to_clipboard">Copiază în clipboard</string>
     <string name="load">Încarcă</string>
     <string name="button_save_file">Salvează în fișier</string>
@@ -351,9 +328,8 @@
     <string name="gesture_trail_fadeout_duration">Durata de viață a traseului gesturilor</string>
     <string name="pinned_toolbar_keys">Selectează tastele fixate din bara de instrumente</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Rând de numere</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonetic)</string>
+    <string name="subtype_generic_phonetic">%s (Fonetic)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="key_code">Cod tastă</string>
     <string name="long_press_code">Cod apăsare lungă</string>
     <string name="toast_msg_clipboard_copy">Conținut copiat</string>
@@ -361,7 +337,6 @@
     <string name="prefs_key_emoji_max_sdk">Suprascrie versiunea Emoji</string>
     <string name="gesture_floating_preview_static">Previzualizare plutitoare</string>
     <string name="icon_style">Stilul pictogramei</string>
-    <string name="load_will_overwrite">Încărcarea va suprascrie tema curentă</string>
     <string name="customize_toolbar_key_codes">Personalizează codurile tastelor din bara de instrumente</string>
     <string name="suggest_clipboard_content">Sugerează conținut din clipboard</string>
     <string name="suggest_clipboard_content_summary">Afișează conținutul clipboard copiat recent ca sugestie</string>
@@ -401,7 +376,7 @@
     <string name="customize_icons_reset_message">Resetezi cu adevărat toate pictogramele personalizate?</string>
     <string name="custom_subtype">Subtip personalizat</string>
     <string name="name_invalid">Nume greșit</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="locales_with_dict">Limbi cu dicționare</string>
     <string name="split" tools:keep="@string/split">Tastatură împărțită</string>
     <string name="layout_in_use">AVERTIZARE: Aspectul este utilizat în prezent</string>

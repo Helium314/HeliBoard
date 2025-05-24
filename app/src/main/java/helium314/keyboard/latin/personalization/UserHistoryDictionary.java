@@ -30,9 +30,8 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
     static final String NAME = UserHistoryDictionary.class.getSimpleName();
 
     // TODO: Make this constructor private
-    UserHistoryDictionary(final Context context, final Locale locale,
-            @Nullable final String account) {
-        super(context, getUserHistoryDictName(NAME, locale, null /* dictFile */, account), locale, Dictionary.TYPE_USER_HISTORY, null);
+    UserHistoryDictionary(final Context context, final Locale locale) {
+        super(context, getUserHistoryDictName(NAME, locale, null), locale, Dictionary.TYPE_USER_HISTORY, null);
         if (mLocale != null && mLocale.toString().length() > 1) {
             reloadDictionaryIfRequired();
         }
@@ -41,14 +40,13 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
     /**
      * @returns the name of the {@link UserHistoryDictionary}.
      */
-    static String getUserHistoryDictName(final String name, final Locale locale,
-            @Nullable final File dictFile, @Nullable final String account) {
+    static String getUserHistoryDictName(final String name, final Locale locale, @Nullable final File dictFile) {
         return getDictName(name, locale, dictFile);
     }
 
     public static UserHistoryDictionary getDictionary(final Context context, final Locale locale,
-            final File dictFile, final String dictNamePrefix, @Nullable final String account) {
-        return PersonalizationHelper.getUserHistoryDictionary(context, locale, account);
+            final File dictFile, final String dictNamePrefix) {
+        return PersonalizationHelper.getUserHistoryDictionary(context, locale);
     }
 
     /**

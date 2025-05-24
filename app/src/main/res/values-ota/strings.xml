@@ -49,7 +49,6 @@
     <string name="button_default">وارصاییلان</string>
     <string name="dictionary_settings_category">سوزلوكلر</string>
     <string name="delete">سیل</string>
-    <string name="user_dict_settings_add_menu_title">اكلە</string>
     <string name="user_dict_settings_add_weight_value">سیقلق:</string>
     <string name="user_dict_settings_add_locale_option_name">دیل:</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">یووارلادلمش</string>

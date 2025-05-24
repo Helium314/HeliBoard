@@ -32,6 +32,7 @@ import helium314.keyboard.settings.DropDownField
 import helium314.keyboard.settings.WithSmallTitle
 import java.io.File
 import java.util.Locale
+import androidx.compose.ui.platform.LocalConfiguration
 
 @Composable
 fun NewDictionaryDialog(
@@ -52,10 +53,10 @@ fun NewDictionaryDialog(
         val locales = SubtypeSettings.getAvailableSubtypeLocales()
             .filter { it.script() == dictLocale.script() || it.script() == mainLocale?.script() }
             .sortedWith(comparer)
-        val cacheDir = DictionaryInfoUtils.getAndCreateCacheDirectoryForLocale(locale, ctx)
+        val cacheDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, ctx)
         val dictFile = File(cacheDir, header.mIdString.substringBefore(":") + "_" + DictionaryInfoUtils.USER_DICTIONARY_SUFFIX)
         val type = header.mIdString.substringBefore(":")
-        val info = header.info(ctx.resources.configuration.locale())
+        val info = header.info(LocalConfiguration.current.locale())
         ThreeButtonAlertDialog(
             onDismissRequest = { onDismissRequest(); cachedFile.delete() },
             onConfirmed = {
@@ -64,7 +65,7 @@ fun NewDictionaryDialog(
                 cachedFile.renameTo(dictFile)
                 if (type == Dictionary.TYPE_MAIN) {
                     // replaced main dict, remove the one created from internal data
-                    val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.getExtractedMainDictFilename())
+                    val internalMainDictFile = File(cacheDir, DictionaryInfoUtils.MAIN_DICT_FILE_NAME)
                     internalMainDictFile.delete()
                 }
                 val newDictBroadcast = Intent(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION)
@@ -80,7 +81,7 @@ fun NewDictionaryDialog(
                             selectedItem = locale,
                             onSelected = { locale = it },
                             items = locales
-                        ) { Text(it.localizedDisplayName(ctx)) }
+                        ) { Text(it.localizedDisplayName(ctx.resources)) }
                     }
                     if (locale.script() != dictLocale.script()) {
                         // whatever, still allow it if the user wants
@@ -92,7 +93,7 @@ fun NewDictionaryDialog(
                         )
                     }
                     if (dictFile.exists()) {
-                        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(ctx.resources.configuration.locale())
+                        val oldInfo = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(dictFile, 0, dictFile.length())?.info(LocalConfiguration.current.locale())
                         HorizontalDivider()
                         Text(
                             stringResource(R.string.replace_dictionary_message, type, oldInfo ?: "(no info)", info),

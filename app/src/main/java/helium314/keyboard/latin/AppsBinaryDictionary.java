@@ -4,8 +4,6 @@ package helium314.keyboard.latin;
 
 import android.content.Context;
 
-import androidx.annotation.Nullable;
-
 import com.android.inputmethod.latin.BinaryDictionary;
 
 import java.io.File;
@@ -35,7 +33,7 @@ public class AppsBinaryDictionary extends ExpandableBinaryDictionary {
     }
 
     public static AppsBinaryDictionary getDictionary(final Context context, final Locale locale,
-            final File dictFile, final String dictNamePrefix, @Nullable final String account) {
+            final File dictFile, final String dictNamePrefix) {
         return new AppsBinaryDictionary(context, locale, dictFile, dictNamePrefix + NAME);
     }
 

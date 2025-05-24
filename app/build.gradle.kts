@@ -12,8 +12,8 @@ android {
         applicationId = "helium314.keyboard"
         minSdk = 21
         targetSdk = 35
-        versionCode = 3008
-        versionName = "3.0"
+        versionCode = 3100
+        versionName = "3.1-beta1"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
@@ -107,6 +107,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.autofill:autofill:1.1.0")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")

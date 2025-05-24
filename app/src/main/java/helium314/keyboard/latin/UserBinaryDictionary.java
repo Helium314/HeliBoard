@@ -82,8 +82,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
     }
 
     public static UserBinaryDictionary getDictionary(
-            final Context context, final Locale locale, final File dictFile,
-            final String dictNamePrefix, @Nullable final String account) {
+            final Context context, final Locale locale, final File dictFile, final String dictNamePrefix) {
         return new UserBinaryDictionary(context, locale, false, dictFile, dictNamePrefix + NAME);
     }
 

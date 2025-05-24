@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"स्प्लिट कीबोर्ड चालू करें"</string>
     <string name="language_switch_key_switch_input_method">"अन्‍य इनपुट पद्धतियों पर जाएं"</string>
     <string name="show_language_switch_key">"भाषा स्विच कुंजी"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> मिलीसेकंड"</string>
+    <string name="abbreviation_unit_milliseconds">"%s मिलीसेकंड"</string>
     <string name="settings_system_default">"सिस्टम डिफ़ॉल्ट"</string>
     <string name="use_contacts_dict_summary">"सुझाव और सुधार के लिए संपर्क से नामों का उपयोग करें"</string>
     <string name="use_personalized_dicts">"मनमुताबिक सुझाव"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"स्पेनिश (यूएस)"</string>
     <string name="subtype_hi_Latn">"हिंग्लिश"</string>
     <string name="subtype_sr_Latn">"सर्बियाई (लैटिन)"</string>
-    <string name="subtype_with_layout_en_GB">"अंग्रेज़ी (यूके) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"अंग्रेज़ी (यूएस) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"स्‍पेनिश (यूएस) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"हिंग्लिश (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"सर्बियाई (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (पारंपरिक)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संक्षिप्त)"</string>
-    <string name="subtype_no_language">"भाषा उपलब्ध नहीं है (लैटिन वर्णाक्षर)"</string>
-    <string name="subtype_no_language_qwerty">"वर्णाक्षर (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"वर्णाक्षर (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"वर्णाक्षर (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"वर्णाक्षर (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"वर्णाक्षर (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"वर्णाक्षर (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (पारंपरिक)"</string>
+    <string name="subtype_generic_compact">"%s (संक्षिप्त)"</string>
+    <string name="subtype_no_language">"भाषा उपलब्ध नहीं है"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"जोड़ें"</string>
     <string name="remove">"निकालें"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"कीबोर्ड के लिए स्माइलीज़"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"भौतिक Alt कुंजी इमोजी पैलेट दिखाती है"</string>
     <string name="button_default">"सामान्य"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> में आपका स्वागत है\"</string>
+    <string name="setup_welcome_title">%s में आपका स्वागत है\"</string>
     <string name="setup_welcome_additional_description">"जेस्चर टाइपिंग के साथ"</string>
     <string name="setup_start_action">"आरंभ करें"</string>
-    <string name="setup_next_action">"अगला चरण"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट करना\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> को चालू करें\"</string>
-    <string name="setup_step1_instruction">"कृपया अपनी भाषा और इनपुट सेटिंग में \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को सही का निशान लगाकर चुनें. इससे उसे आपके डिवाइस पर चलने की अनुमति मिल जाएगी."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> आपकी भाषा और इनपुट सेटिंग में पहले से सक्षम है, इसलिए यह चरण पूरा हो गया है. अगले चरण पर जाएं!"</string>
+    <string name="setup_steps_title">%s सेट करना\"</string>
+    <string name="setup_step1_title">%s को चालू करें\"</string>
+    <string name="setup_step1_instruction">"कृपया अपनी भाषा और इनपुट सेटिंग में \"%s\" को सही का निशान लगाकर चुनें. इससे उसे आपके डिवाइस पर चलने की अनुमति मिल जाएगी."</string>
     <string name="setup_step1_action">"सेटिंग में चालू करें"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> पर स्विच करें\"</string>
-    <string name="setup_step2_instruction">"इसके बाद, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को अपने सक्रिय पाठ-इनपुट के तरीके के तौर पर चुनें."</string>
+    <string name="setup_step2_title">%s पर स्विच करें\"</string>
+    <string name="setup_step2_instruction">"इसके बाद, \"%s\" को अपने सक्रिय पाठ-इनपुट के तरीके के तौर पर चुनें."</string>
     <string name="setup_step2_action">"इनपुट पद्धतियां स्विच करें"</string>
     <string name="setup_step3_title">"बधाई हो, आप बिल्कुल तैयार हैं!"</string>
-    <string name="setup_step3_instruction">"अब आप <xliff:g id="APPLICATION_NAME">%s</xliff:g> के साथ अपने सभी पसंदीदा ऐप्स  में लिख सकते हैं."</string>
+    <string name="setup_step3_instruction">"अब आप %s के साथ अपने सभी पसंदीदा ऐप्स  में लिख सकते हैं."</string>
     <string name="setup_finish_action">"खत्म"</string>
     <string name="show_setup_wizard_icon">"ऐप्लिकेशन का आइकॉन दिखाएं"</string>
     <string name="show_setup_wizard_icon_summary">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
-    <string name="dictionary_settings_title">"अन्य शब्दकोष"</string>
+    <string name="dictionary_category_title">"अन्य शब्दकोष"</string>
     <string name="dictionary_available">"शब्दकोश उपलब्‍ध"</string>
-    <string name="no_dictionaries_available">"डिक्‍शनरी अनुपलब्‍ध"</string>
     <string name="last_update">"आख़री बार अपडेट किया गया"</string>
     <string name="settings">"सेटिंग"</string>
     <string name="delete">"मिटाएं"</string>
-    <string name="version_text">"वर्शन <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"जोड़ें"</string>
+    <string name="version_text">"वर्शन %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"शब्दकोश में जोड़ें"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"शॉर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>
     <string name="user_dict_settings_add_word_hint">"कोई शब्द लिखें"</string>
     <string name="user_dict_settings_add_shortcut_hint">"वैकल्पिक शॉर्टकट"</string>
     <string name="user_dict_settings_edit_dialog_title">"शब्द बदलें"</string>
-    <string name="user_dict_settings_empty_text">"आपके पास उपयोगकर्ता डिक्शनरी में कोई भी शब्द नहीं है. कोई शब्द जोड़ने के लिए, जोड़ें (+) बटन छूएं."</string>
     <string name="user_dict_settings_all_languages">"सभी भाषाओं के लिए"</string>
     <string name="user_dict_settings_more_languages">"ज़्यादा भाषाएं…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

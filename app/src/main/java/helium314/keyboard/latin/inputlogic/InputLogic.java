@@ -815,8 +815,9 @@ public final class InputLogic {
                 // We need to switch to the shortcut IME. This is handled by LatinIME since the
                 // input logic has no business with IME switching.
             case KeyCode.CAPS_LOCK,  KeyCode.SYMBOL_ALPHA,  KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.EMOJI,
-                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE,
-                    KeyCode.CTRL, KeyCode.ALT, KeyCode.FN, KeyCode.META:
+                    KeyCode.TOGGLE_ONE_HANDED_MODE, KeyCode.SWITCH_ONE_HANDED_MODE, KeyCode.FN,
+                    KeyCode.CTRL, KeyCode.CTRL_LEFT, KeyCode.CTRL_RIGHT, KeyCode.ALT, KeyCode.ALT_LEFT, KeyCode.ALT_RIGHT,
+                    KeyCode.META, KeyCode.META_LEFT, KeyCode.META_RIGHT:
                 break;
             default:
                 if (event.getMMetaState() != 0) {

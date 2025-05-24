@@ -34,6 +34,7 @@ import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
 import helium314.keyboard.latin.utils.getResourceSubtypes
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.mainLayoutName
+import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.upgradeToolbarPrefs
 import helium314.keyboard.latin.utils.writeCustomKeyCodes
@@ -85,8 +86,7 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
     // clear extracted dictionaries, in case updated version contains newer ones
-    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
-        if (!it.isDirectory) return@forEach
+    DictionaryInfoUtils.getCacheDirectories(context).forEach {
         val files = it.listFiles() ?: return@forEach
         for (file in files) {
             if (!file.name.endsWith(USER_DICTIONARY_SUFFIX))
@@ -446,19 +446,19 @@ fun checkVersionUpgrade(context: Context) {
                 val mainLayoutName = oldSplit[1]
                 // we now need more information than just locale and main layout name, get it from existing subtypes
                 val filtered = additionalSubtypes.filter {
-                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutNameOrQwerty()) == mainLayoutName
                 }
                 if (filtered.isNotEmpty())
                     return@joinToString filtered.first().toSettingsSubtype().toPref()
                 // find best matching resource subtype
                 val goodMatch = resourceSubtypes.filter {
-                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                    it.locale().toLanguageTag() == languageTag && (it.mainLayoutNameOrQwerty()) == mainLayoutName
                 }
                 if (goodMatch.isNotEmpty())
                     return@joinToString goodMatch.first().toSettingsSubtype().toPref()
                 // not sure how we can get here, but better deal with it
                 val okMatch = resourceSubtypes.filter {
-                    it.locale().language == languageTag.constructLocale().language && (it.mainLayoutName() ?: "qwerty") == mainLayoutName
+                    it.locale().language == languageTag.constructLocale().language && (it.mainLayoutNameOrQwerty()) == mainLayoutName
                 }
                 if (okMatch.isNotEmpty())
                     okMatch.first().toSettingsSubtype().toPref()

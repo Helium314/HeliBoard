@@ -18,8 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.JniUtils
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.settings.NextScreenIcon
 import helium314.keyboard.settings.SearchSettingsScreen
 import helium314.keyboard.settings.Theme
@@ -41,7 +41,6 @@ fun MainSettingsScreen(
     onClickDictionaries: () -> Unit,
     onClickBack: () -> Unit,
 ) {
-    val ctx = LocalContext.current
     SearchSettingsScreen(
         onClickBack = onClickBack,
         title = stringResource(R.string.ime_settings),
@@ -54,7 +53,7 @@ fun MainSettingsScreen(
             ) {
                 Preference(
                     name = stringResource(R.string.language_and_layouts_title),
-                    description = enabledSubtypes.joinToString(", ") { it.displayName(ctx) },
+                    description = enabledSubtypes.joinToString(", ") { it.displayName() },
                     onClick = onClickLanguage,
                     icon = R.drawable.ic_settings_languages
                 ) { NextScreenIcon() }

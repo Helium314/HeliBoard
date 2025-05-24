@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"የተከፈለ ቁልፍ ሰሌዳ አንቃ"</string>
     <string name="language_switch_key_switch_input_method">"ወደ ሌሎች የግቤት ስልቶች ቀይር"</string>
     <string name="show_language_switch_key">"የቋንቋ መቀየሪያ ቁልፍ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ሚሊሰከንድ"</string>
+    <string name="abbreviation_unit_milliseconds">"%sሚሊሰከንድ"</string>
     <string name="settings_system_default">"የስርዓት ነባሪ"</string>
     <string name="use_contacts_dict_summary">"ከዕውቂያዎች ለጥቆማዎች እና ማስተካከያዎች ስሞች ተጠቀም"</string>
     <string name="use_personalized_dicts">"ግላዊ የጥቆማ አስተያየቶች"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"ስፓኒሽኛ (ዩኤስ)"</string>
     <string name="subtype_hi_Latn">"ሂንግሊሽ"</string>
     <string name="subtype_sr_Latn">"ሰርብያኛ (ላቲን)"</string>
-    <string name="subtype_with_layout_en_GB">"እንግሊዝኛ (ዩኬ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"እንግሊዝኛ (አሜሪካ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ስፓኒሽ (አሜሪካ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ሂንግሊሽ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"ሰርቢያኛ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ተለምዷዊ)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (እስግ)"</string>
-    <string name="subtype_no_language">"ምንም ቋንቋ (ፊደላት)"</string>
-    <string name="subtype_no_language_qwerty">"ፊደላት (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ፊደላት (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ፊደላት (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ፊደላት (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ፊደላት (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ፊደላት (ፒሲ)"</string>
+    <string name="subtype_generic_traditional">"%s (ተለምዷዊ)"</string>
+    <string name="subtype_generic_compact">"%s (እስግ)"</string>
+    <string name="subtype_no_language">"ምንም ቋንቋ"</string>
     <string name="subtype_emoji">"ኢሞጂ"</string>
     <string name="add">"አክል"</string>
     <string name="remove">"አስወግድ"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ስሜት ገላጭ ምስሎች ለአካላዊ ቁልፍ ሰሌዳ"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"አካላዊ Alt ቁልፍ የስሜት ገላጭ ቤተ-ስዕልን ያሳያል"</string>
     <string name="button_default">"ነባሪ"</string>
-    <string name="setup_welcome_title">"እንኳን ወደ <xliff:g id="APPLICATION_NAME">%s</xliff:g> በደህና መጡ"</string>
+    <string name="setup_welcome_title">"እንኳን ወደ %s በደህና መጡ"</string>
     <string name="setup_welcome_additional_description">"በጣት ምልክት መተየብ"</string>
     <string name="setup_start_action">"ጀምር"</string>
-    <string name="setup_next_action">"ቀጣይ ደረጃ"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ን በማዋቀር ላይ\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>ን ያንቁ\"</string>
-    <string name="setup_step1_instruction">እባክዎ <xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን በእርስዎ የቋንቋ እና ግቤት ቅንብሮች ውስጥ መኖሩን ያረጋግጡት። ይሄ እሱ በመሣሪያዎ ላይ እንዲሄድ ይፈቅድለታል።\"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> አስቀድሞ በእርስዎ ቋንቋ እና ግቤት ቅንብሮች ውስጥ ነቅቷል፣ ስለዚህ ይህ ደረጃ ተከናውኗል። ወደ ቀጣዩ እንሂድ!"</string>
+    <string name="setup_steps_title">%sን በማዋቀር ላይ\"</string>
+    <string name="setup_step1_title">%sን ያንቁ\"</string>
+    <string name="setup_step1_instruction">እባክዎ %s»ን በእርስዎ የቋንቋ እና ግቤት ቅንብሮች ውስጥ መኖሩን ያረጋግጡት። ይሄ እሱ በመሣሪያዎ ላይ እንዲሄድ ይፈቅድለታል።\"</string>
     <string name="setup_step1_action">"በቅንብሮች ውስጥ ያንቁ"</string>
-    <string name="setup_step2_title">"ወደ <xliff:g id="APPLICATION_NAME">%s</xliff:g> ይቀይሩ"</string>
-    <string name="setup_step2_instruction">በመቀጠል <xliff:g id="APPLICATION_NAME">%s</xliff:g>»ን እንደ የጽሑፍ ግቤት ስልትዎ ይምረጡት።\"</string>
+    <string name="setup_step2_title">"ወደ %s ይቀይሩ"</string>
+    <string name="setup_step2_instruction">በመቀጠል %s»ን እንደ የጽሑፍ ግቤት ስልትዎ ይምረጡት።\"</string>
     <string name="setup_step2_action">"የግቤት ስልቶችን ቀያይር"</string>
     <string name="setup_step3_title">"እንኳን ደስ አለዎት፣ በቃ ጨርሰዋል!"</string>
-    <string name="setup_step3_instruction">"አሁን በሁሉም ተወዳጅ መተግበሪያዎችዎ ላይ በ<xliff:g id="APPLICATION_NAME">%s</xliff:g> መተየብ ይችላሉ።"</string>
+    <string name="setup_step3_instruction">"አሁን በሁሉም ተወዳጅ መተግበሪያዎችዎ ላይ በ%s መተየብ ይችላሉ።"</string>
     <string name="setup_finish_action">"ጨርሷል"</string>
     <string name="show_setup_wizard_icon">"የመተግበሪያ አዶ አሳይ"</string>
     <string name="show_setup_wizard_icon_summary">"የመተግበሪያ አዶውን በማስጀመሪያው ውስጥ አሳይ"</string>
-    <string name="dictionary_settings_title">"ጭማሪ መዝገበ-ቃላት"</string>
+    <string name="dictionary_category_title">"ጭማሪ መዝገበ-ቃላት"</string>
     <string name="dictionary_available">"መዝገበ-ቃላት ይገኛል"</string>
-    <string name="no_dictionaries_available">"ምንም መዝገበ-ቃላት የሉም"</string>
     <string name="last_update">"ለመጨረሻ ጊዜ የተዘመነው"</string>
     <string name="settings">"ቅንብሮች"</string>
     <string name="delete">"ሰርዝ"</string>
-    <string name="version_text">"ሥሪት <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"አክል"</string>
+    <string name="version_text">"ሥሪት %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"ወደ መዝገበ-ቃላት አክል"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"አቋራጭ፦"</string>
     <string name="user_dict_settings_add_locale_option_name">"ቋንቋ፦"</string>
     <string name="user_dict_settings_add_word_hint">"አንድ ቃል ይተይቡ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"አማራጭ አቋራጭ"</string>
     <string name="user_dict_settings_edit_dialog_title">"ቃሉን አርትዕ"</string>
-    <string name="user_dict_settings_empty_text">"በተጠቃሚ መዝገበ-ቃላቱ ውስጥ ምንም ቃላት የለዎትም። አንድ ቃል ለማከል የአክል (+) አዝራሩን መታ ያድርጉ።"</string>
     <string name="user_dict_settings_all_languages">"ለሁሉም ቋንቋዎች"</string>
     <string name="user_dict_settings_more_languages">"ተጨማሪ ቋንቋዎች…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ሀለሐመሠረሰሸቀበቨተቸኀነኘአከኸወዐዘዠየደጀገጠጨጰጸፀፈፐ"</string>
