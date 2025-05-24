@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="尼泊尔语">%s</xliff:g>（传统）</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> （紧凑型）</string>
     <string name="subtype_no_language">无语言（字母表）</string>
-    <string name="subtype_no_language_qwerty">字母表（QWERTY）</string>
     <string name="subtype_emoji">"表情符号"</string>
     <string name="add">"添加"</string>
     <string name="remove">移除</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">欢迎使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">带有滑行输入</string>
     <string name="setup_start_action">"开始"</string>
-    <string name="setup_next_action">"下一步"</string>
     <string name="setup_steps_title">设置 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">启用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">请在“语言和输入法”设置中选中“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”，授权该应用在您的设备上运行。</string>
-    <string name="setup_step1_finished_instruction">您已在“语言和输入法”中启用了 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>，因此这一步骤已完成。继续下一步吧！</string>
     <string name="setup_step1_action">"在设置中启用"</string>
     <string name="setup_step2_title">切换到 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">接下来，请选择“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”作为您要使用的文本输入法。</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">完成了</string>
     <string name="show_setup_wizard_icon">"显示应用图标"</string>
     <string name="show_setup_wizard_icon_summary">"在启动器中显示应用图标"</string>
-    <string name="dictionary_settings_title">附加词典</string>
+    <string name="dictionary_category_title">附加词典</string>
     <string name="dictionary_available">词典可供下载</string>
-    <string name="no_dictionaries_available">没有可供下载的词典</string>
     <string name="last_update">最后更新时间</string>
     <string name="settings">"设置"</string>
     <string name="delete">"删除"</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"添加"</string>
     <string name="user_dict_settings_add_dialog_title">添加到词典</string>
     <string name="user_dict_settings_add_shortcut_option_name">"快捷键："</string>
     <string name="user_dict_settings_add_locale_option_name">"语言："</string>
     <string name="user_dict_settings_add_word_hint">输入单词</string>
     <string name="user_dict_settings_add_shortcut_hint">可选快捷键</string>
     <string name="user_dict_settings_edit_dialog_title">编辑单词</string>
-    <string name="user_dict_settings_empty_text">用户词典中没有任何单词。要添加单词，请点击添加（+）按钮。</string>
     <string name="user_dict_settings_all_languages">对于所有语言</string>
     <string name="user_dict_settings_more_languages">"更多语言…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -159,7 +153,6 @@
     <string name="theme_name_light" tools:keep="@string/theme_name_light">浅色</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">沙滩</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">紫罗兰</string>
-    <string name="load_will_overwrite">加载将覆盖当前主题</string>
     <string name="settings_screen_toolbar">工具栏</string>
     <string name="customize_currencies">自定义货币</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">黑色</string>
@@ -296,10 +289,8 @@
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">靛蓝</string>
     <string name="select_color_functional_key_background">功能键背景</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="孟加拉语">%s</xliff:g> (Probhat)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">凯塔格语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_xdq">凯塔格语</string>
     <string name="button_save_file">保存到文件</string>
-    <string name="title_layout_name_select">设置布局名称</string>
     <string name="delete_layout">确定要删除自定义布局 %s？</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">符号（阿拉伯语）</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">用户自定义</string>
@@ -319,11 +310,9 @@
     <string name="user_dict_add_word_button">添加一个单词</string>
     <string name="remove_redundant_popups_summary">移除基础布局上已存在的弹出键</string>
     <string name="remove_redundant_popups">移除多余弹出</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">曼西语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="俄语">%s</xliff:g> (Student)</string>
     <string name="subtype_mns">曼西语</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">符号</string>
-    <string name="hint_show_keyboard">点击预览</string>
     <string name="select_user_colors_summary">为文本和背景选择颜色</string>
     <string name="select_color_background">键盘背景</string>
     <string name="select_color_key">按键文本</string>
@@ -345,7 +334,6 @@
     <string name="gesture_floating_preview_dynamic_summary">在滑行输入过程中移动预览</string>
     <string name="gesture_fast_typing_cooldown">快速输入冷却</string>
     <string name="checksum_mismatch_message">未知库文件。是否确定是从可信来源获得并且是“%s”的？</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">字母表（Bépo）</string>
     <string name="text_tap_languages">点击语言以打开设置</string>
     <string name="hidden_features_title">隐藏功能的描述</string>
     <string name="auto_show_toolbar">自动显示工具栏</string>
@@ -393,7 +381,6 @@
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>（注音）</string>
     <string name="prefs_key_emoji_max_sdk">覆盖表情符号版本</string>
     <string name="subtype_dru">达尔格瓦语 (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_correct_shortcuts">自动更正快捷方式</string>
     <string name="custom_font">从文件设置自定义字体</string>
     <string name="summary_customize_background_image_landscape">如果未设置，将使用纵向图片</string>

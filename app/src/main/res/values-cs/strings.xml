@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradiční)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompaktní)"</string>
     <string name="subtype_no_language">standardní</string>
-    <string name="subtype_no_language_qwerty">"Latinka (QWERTY)"</string>
     <string name="subtype_emoji">"Emodži"</string>
     <string name="add">"Přidat"</string>
     <string name="remove">"Odebrat"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Vítá vás <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"s psaním gesty"</string>
     <string name="setup_start_action">"Začínáme"</string>
-    <string name="setup_next_action">"Další krok"</string>
     <string name="setup_steps_title">"Nastavení aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Zapnutí aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">Povolte aplikaci „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ v nastavení Jazyky a zadávání. Tím povolíte její spuštění ve vašem zařízení.</string>
-    <string name="setup_step1_finished_instruction">Aplikace <xliff:g id="APPLICATION_NAME">%s</xliff:g> je již v nastavení Jazyky a zadávání zapnuta, tento krok je tedy již proveden. Pokračujte dalším!</string>
     <string name="setup_step1_action">"Aktivovat v nastavení"</string>
     <string name="setup_step2_title">"Přepnutí na aplikaci <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">Poté vyberte jako aktivní metodu zadávání textu možnost „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“.</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Hotovo"</string>
     <string name="show_setup_wizard_icon">"Zobrazit ikonu aplikace"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazí ikonu aplikace ve spouštěči"</string>
-    <string name="dictionary_settings_title">"Doplňkové slovníky"</string>
+    <string name="dictionary_category_title">"Doplňkové slovníky"</string>
     <string name="dictionary_available">"Slovník k dispozici"</string>
-    <string name="no_dictionaries_available">"Žádné slovníky"</string>
     <string name="last_update">"Poslední aktualizace"</string>
     <string name="settings">"Nastavení"</string>
     <string name="delete">"Smazat"</string>
     <string name="version_text">"Verze <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Přidat"</string>
     <string name="user_dict_settings_add_dialog_title">"Přidat do slovníku"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Zkratka:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Napište slovo"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Volitelná zkratka"</string>
     <string name="user_dict_settings_edit_dialog_title">"Upravit slovo"</string>
-    <string name="user_dict_settings_empty_text">"V uživatelském slovníku nejsou žádná slova. Slovo můžete přidat klepnutím na tlačítko Přidat (+)."</string>
     <string name="user_dict_settings_all_languages">"Pro všechny jazyky"</string>
     <string name="user_dict_settings_more_languages">"Další jazyky…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČDEFGHChIJKLMNOPQRŘSŠTUVWXYZŽ"</string>
@@ -207,9 +201,7 @@
     <string name="close_history" tools:keep="@string/close_history">Zavřít historii schránky</string>
     <string name="clipboard_toolbar_keys">Výběr kláves panelu nástrojů schránky</string>
     <string name="prefs_bottom_padding_scale">Měřítko dolního odsazení</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="button_copy_existing_layout">Zkopírovat stávající rozložení</string>
-    <string name="title_layout_name_select">Nastavit název rozvržení</string>
     <string name="message_add_custom_layout">Vybrat soubor v kompatibilním formátu. Informace o formátech jsou k dispozici %s.</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboly</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboly (arabské)</string>
@@ -273,7 +265,6 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengálština">%s</xliff:g> (Akkhor)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korejština">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korejština">%s</xliff:g> (Sebeolsik Final)</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Abeceda (Bépo)</string>
     <string name="button_load_custom">Načíst soubor</string>
     <string name="user_dict_add_word_button">Přidat slovo</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Světlý</string>
@@ -316,7 +307,6 @@
     <string name="auto_user_color">Vybrat barvu automaticky</string>
     <string name="main_colors">Zobrazit pouze hlavní barvy</string>
     <string name="all_colors">Zobrazit všechny barvy</string>
-    <string name="hint_show_keyboard">Klikněte pro náhled</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Ruština">%s</xliff:g> (Student)</string>
     <string name="language_switch_key_behavior">Chování klávesy pro přepínání jazyků</string>
     <string name="vibrate_in_dnd_mode">Vibrace v režimu nerušit</string>
@@ -394,10 +384,8 @@
     <string name="layout_in_use">Varování: rozložení se aktuálně používá</string>
     <string name="delete_confirmation">Opravdu chcete odstranit %s?</string>
     <string name="custom_font">Nastavit vlastní písmo ze souboru</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="customize_background_image_landscape">Nastavit obrázek na pozadí (na šířku)</string>
     <string name="summary_customize_background_image_landscape">Pokud není nastaven, bude použit obrázek na výšku</string>
-    <string name="load_will_overwrite">Načtením přepíšete aktuální motiv</string>
     <string name="settings_screen_toolbar">Panel nástrojů</string>
     <string name="long_press_code">Kód dlouhého stisknutí</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Přepnout stranu režimu jedné ruky</string>
@@ -413,7 +401,6 @@
     <string name="after_symbol_and_space">Stisknutí klávesy Enter nebo mezerníku v zobrazení znaků</string>
     <string name="all_colors_warning">Toto nastavení odhalí všechny interně používané barvy. Seznam barev se může kdykoli změnit. Výchozí barva je náhodná a názvy se nepřekládají.</string>
     <string name="subtype_mns">Mansijština</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansijština (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkční klávesy</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkční klávesy (znaky)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkční klávesy (další znaky)</string>

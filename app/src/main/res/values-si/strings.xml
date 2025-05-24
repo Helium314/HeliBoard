@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (සාම්ප්‍රදායික)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (සංයුක්ත)"</string>
     <string name="subtype_no_language">"භාෂාවක් නැත"</string>
-    <string name="subtype_no_language_qwerty">"අකාරාදිය (QWERTY)"</string>
     <string name="subtype_emoji">"ඉමොජි"</string>
     <string name="add">"එක් කරන්න"</string>
     <string name="remove">"ඉවත් කරන්න"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත සාදරයෙන් පිළිගනිමු\"</string>
     <string name="setup_welcome_additional_description">"ඉංගිත ටයිප් කිරීම් සමග"</string>
     <string name="setup_start_action">"අරඹන්න"</string>
-    <string name="setup_next_action">"ඊළඟ පියවර"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සැකසෙමින් පවතී\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> සබල කරන්න\"</string>
     <string name="setup_step1_instruction">"කරණාකර ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" පරීක්ෂා කරන්න. මෙය ඔබගේ උපාංගය මත එයට ධාවනය වීමට අනුමැතිය දෙනු ඇත."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> දැනටමත් ඔබගේ භාෂාව සහ ආදාන සැකසීම් තුළ සබල කර ඇත, එම නිසා මෙම පියවර නිමයි. ඊළඟ එක වෙතට!"</string>
     <string name="setup_step1_action">"සැකසීම් තුළ සබල කරන්න"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> වෙත මාරුවන්න\"</string>
     <string name="setup_step2_instruction">"ඊළඟට, ඔබගේ සක්‍රිය පෙළ-ආදාන ක්‍රමය ලෙස \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" තෝරන්න."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"අවසන්"</string>
     <string name="show_setup_wizard_icon">"යෙදුම් නිරූපකය පෙන්වන්න"</string>
     <string name="show_setup_wizard_icon_summary">"දියත්කරනය තුළ යෙදුම් නිරූපකය දර්ශනය කරන්න"</string>
-    <string name="dictionary_settings_title">"ඈඳුම් ශබ්ද කෝෂ"</string>
+    <string name="dictionary_category_title">"ඈඳුම් ශබ්ද කෝෂ"</string>
     <string name="dictionary_available">"ශබ්දකෝෂය ලබාගත හැක"</string>
-    <string name="no_dictionaries_available">"ශබ්ද කෝෂ ලබාගත නොහැක"</string>
     <string name="last_update">"අවසන් වරට යාවත්කාලීන කළේ"</string>
     <string name="settings">"සැකසීම්"</string>
     <string name="delete">"මකන්න"</string>
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> අනුවාදය"</string>
-    <string name="user_dict_settings_add_menu_title">"එක් කරන්න"</string>
     <string name="user_dict_settings_add_dialog_title">"ශබ්ද කෝෂය වෙත එක් කරන්න"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"කෙටිමග:"</string>
     <string name="user_dict_settings_add_locale_option_name">"භාෂාව:"</string>
     <string name="user_dict_settings_add_word_hint">"වචනයක් ටයිප් කරන්න"</string>
     <string name="user_dict_settings_add_shortcut_hint">"විකල්පමය කෙටිමග"</string>
     <string name="user_dict_settings_edit_dialog_title">"වචනය සංස්කරණය කරන්න"</string>
-    <string name="user_dict_settings_empty_text">"ඔබට පරිශීලක ශබ්ද කෝෂය තුළ වචන කිසිවක් නැත. වචනයක් එක් කිරීමට, එක් කිරීමේ (+) බොත්තම තට්ටු කරන්න."</string>
     <string name="user_dict_settings_all_languages">"සියලු භාෂාවන් සඳහා"</string>
     <string name="user_dict_settings_more_languages">"තවත් භාෂා…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

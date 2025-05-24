@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditsiooniline)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktne)"</string>
     <string name="subtype_no_language">"Keel puudub"</string>
-    <string name="subtype_no_language_qwerty">"Tähestik (QWERTY)"</string>
     <string name="subtype_emoji">"Emotikon"</string>
     <string name="add">"Lisa"</string>
     <string name="remove">"Eemalda"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Tere tulemast rakendusse <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"joonistusega sisestamisega"</string>
     <string name="setup_start_action">Alusta siit</string>
-    <string name="setup_next_action">"Järgmine toiming"</string>
     <string name="setup_steps_title">"Rakenduse <xliff:g id="APPLICATION_NAME">%s</xliff:g> seadistamine"</string>
     <string name="setup_step1_title">Võta <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> kasutusele</string>
     <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
-    <string name="setup_step1_finished_instruction">xliff:g id=\"APPLICATION_NAME\" example=\"Android Keyboard\"&gt;%s&lt;/xliff:g&gt; on sinu nutiseadme keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
     <string name="setup_step1_action">"Luba seadetes"</string>
     <string name="setup_step2_title">Võta <xliff:g id="APPLICATION_NAME">%s</xliff:g> kõikjal kasutusele</string>
     <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Lõpetatud"</string>
     <string name="show_setup_wizard_icon">"Kuva rakenduse ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Rakenduse ikooni kuvamine käivitajas"</string>
-    <string name="dictionary_settings_title">"Pistiksõnastikud"</string>
+    <string name="dictionary_category_title">"Pistiksõnastikud"</string>
     <string name="dictionary_available">"Sõnastik on saadaval"</string>
-    <string name="no_dictionaries_available">"Sõnastikke pole"</string>
     <string name="last_update">"Viimati värskendatud"</string>
     <string name="settings">"Seaded"</string>
     <string name="delete">"Kustuta"</string>
     <string name="version_text">"Versioon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Lisa"</string>
     <string name="user_dict_settings_add_dialog_title">"Sõnaraamatusse lisamine"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Otsetee:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Keel:"</string>
     <string name="user_dict_settings_add_word_hint">"Sisestage sõna"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Valikuline otsetee"</string>
     <string name="user_dict_settings_edit_dialog_title">"Sõna muutmine"</string>
-    <string name="user_dict_settings_empty_text">"Kasutaja sõnaraamatus ei ole ühtki sõna. Sõna lisamiseks puudutage nuppu Lisa (+)."</string>
     <string name="user_dict_settings_all_languages">"Kõikides keeltes"</string>
     <string name="user_dict_settings_more_languages">"Rohkem keeli …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"</string>
@@ -117,7 +111,6 @@
     <string name="settings_category_clipboard_history">Lõikelaua ajalugu</string>
     <string name="settings_category_input">Sisend</string>
     <string name="settings_category_additional_keys">Lisaklahvid</string>
-    <string name="hint_show_keyboard">Eelvaateks klõpsi</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Vaheta sisestusmeetodit tühikuklahviga</string>
     <string name="setup_step3_action">Seadista klahvistikku</string>
     <string name="spell_checker_service_name">HeliBoardi õigekirjakontroll</string>
@@ -128,7 +121,6 @@
     <string name="prefs_keyboard_height_scale">Klahvistiku kõrguse proportsioonid</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Pika vajutusega tühikuklahvile avaneb sisestusmeetodite valiku menüü</string>
     <string name="dictionary_file_wrong_script">Viga: märgistik ei ühildu selle klahvistikuga</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="number_row">Numbririda</string>
     <string name="gesture_floating_preview_static">Ujuv eelvaade</string>
     <string name="gesture_floating_preview_static_summary">Viipamisel kuvatakse soovitatud sõna klahvistiku kohal</string>
@@ -227,7 +219,6 @@
     <string name="button_load_custom">Laadi fail</string>
     <string name="subtype_mns">Mansi</string>
     <string name="prefs_space_bar_text">Sinu tekst tühikuklahvil</string>
-    <string name="title_layout_name_select">Anna paigutusele nimi</string>
     <string name="clipboard_toolbar_keys">Vali lõikelaua nupud tööriistariba jaoks</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (laiendatud)</string>
     <string name="load">Laadi</string>
@@ -285,7 +276,6 @@
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Vene">%s</xliff:g> (Õpilaste)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funktsiooniklahvid</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsiku lõppvariant)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitagi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="hidden_features_title">Peidetud funktsionaalsuse kirjeldus</string>
     <string name="hidden_features_text">seadme turvatud andmekogu</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktsiooniklahvid (sümbolid)</string>
@@ -321,7 +311,6 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Sinu määratud</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Sinu määratud (öövaade)</string>
     <string name="all_colors">Näita kõiki värve</string>
-    <string name="load_will_overwrite">Uue välimuse laadimine asendab praeguse</string>
     <string name="auto_user_color">Vali värv automaatselt</string>
     <string name="main_colors">Näita vaid põhivärve</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Šokolaadipruun</string>
@@ -419,9 +408,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funktsiooniklahvid (täiendavad sümbolid)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korea">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Tähestik (Workman)</string>
-    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Tähestik (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Tähestik (Bépo)</string>
     <string name="settings_screen_toolbar">Tööriistariba</string>
     <string name="label_bin" tools:keep="@string/label_bin">Prügikast</string>
     <string name="customize_icons_reset_message">Kas kindlasti soovid lähtestada kõik sinu seadistatud ikoonid?</string>
@@ -429,7 +415,6 @@
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
     <string name="prefs_key_emoji_max_sdk">Ära arvesta emojide versiooni Androidis</string>
     <string name="subtype_dru">Dargi (Urahhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urahhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_correct_shortcuts">Paranda lühendid automaatselt</string>
     <string name="auto_correct_shortcuts_summary">Selle valikuga luuakse lühendist või sõnaosast terve sõna</string>
     <string name="customize_background_image_landscape">Vali taustapilt (rõhtvormingus)</string>

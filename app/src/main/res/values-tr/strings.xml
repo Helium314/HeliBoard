@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Geleneksel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
     <string name="subtype_no_language">"Dil yok"</string>
-    <string name="subtype_no_language_qwerty">"Alfabe (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ekle"</string>
     <string name="remove">"Kaldır"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasına hoş geldiniz</string>
     <string name="setup_welcome_additional_description">"Hareketle Yazmayı içerir"</string>
     <string name="setup_start_action">"Başlayın"</string>
-    <string name="setup_next_action">"Sonraki adım"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasını kurma</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasını etkinleştirin</string>
     <string name="setup_step1_instruction">Lütfen \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" uygulamasını Dil ve giriş ayarlarınızda işaretleyin. Bu, uygulamaya cihazınızda çalışma yetkisi verecektir.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>, Dil ve giriş ayarlarınızda önceden etkinleştirildiği için bu adım tamamlandı. Bir sonraki adıma ilerleyin!</string>
     <string name="setup_step1_action">"Ayarlarda etkinleştir"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> uygulamasına geçin</string>
     <string name="setup_step2_instruction">Sonra, \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" uygulamasını etkin metin giriş yönteminiz olarak seçin.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Tamamlandı"</string>
     <string name="show_setup_wizard_icon">"Uygulama simgesini göster"</string>
     <string name="show_setup_wizard_icon_summary">"Uygulama simgesini başlatıcıda gösterir"</string>
-    <string name="dictionary_settings_title">"Ek sözlükler"</string>
+    <string name="dictionary_category_title">"Ek sözlükler"</string>
     <string name="dictionary_available">"Sözlük mevcut"</string>
-    <string name="no_dictionaries_available">"Kullanılabilir sözlük yok"</string>
     <string name="last_update">"Son güncelleme tarihi"</string>
     <string name="settings">"Ayarlar"</string>
     <string name="delete">"Sil"</string>
     <string name="version_text">Sürüm <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Ekle"</string>
     <string name="user_dict_settings_add_dialog_title">"Sözlüğe ekle"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kısayol:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Dil:"</string>
     <string name="user_dict_settings_add_word_hint">Bir kelime yaz</string>
     <string name="user_dict_settings_add_shortcut_hint">"İsteğe bağlı kısayol"</string>
     <string name="user_dict_settings_edit_dialog_title">"Kelimeyi düzenle"</string>
-    <string name="user_dict_settings_empty_text">Kullanıcı sözlüğünde kelime yok. Kelime eklemek için Ekle (+) düğmesine dokun.</string>
     <string name="user_dict_settings_all_languages">"Tüm diller için"</string>
     <string name="user_dict_settings_more_languages">"Diğer diller…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZ"</string>
@@ -182,7 +176,6 @@
     <string name="toolbar_keys">Araç çubuğu tuşlarını seç</string>
     <string name="clipboard" tools:keep="@string/clipboard">Pano</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Panoyu temizle</string>
-    <string name="title_layout_name_select">Düzen adını ayarla</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">İşlevsel tuşlar (Semboller)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">İşlevsel tuşlar (Daha fazla sembol)</string>
@@ -204,7 +197,6 @@
     <string name="customize_currencies">Para birimlerini özelleştir</string>
     <string name="main_colors">Yalnızca ana renkleri göster</string>
     <string name="all_colors">Tüm renkleri göster</string>
-    <string name="hint_show_keyboard">Önizleme için tıkla</string>
     <string name="customize_currencies_detail">Ana ve en fazla 6 ikincil para birimi sembolünü boşlukla ayırarak ayarla</string>
     <string name="prefs_narrow_key_gaps">Anahtar boşluklarını daralt</string>
     <string name="prefs_long_press_symbol_for_numpad">Sayısal tuş takımı için sembol tuşuna uzun bas</string>
@@ -289,7 +281,6 @@
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Kum</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Kullanıcı tanımlı (gece)</string>
     <string name="auto_user_color">Rengi otomatik olarak seç</string>
-    <string name="load_will_overwrite">Yükleme mevcut temanın üzerine yazılacak</string>
     <string name="dialog_close">Kapat</string>
     <string name="text_tap_languages">Ayarları açmak için dile dokun</string>
     <string name="load_gesture_library">Hareketle yazma kitaplığını yükle</string>
@@ -299,7 +290,6 @@
 \nUyarı: Harici kodun yüklenmesi güvenlik riski oluşturabilir. Yalnızca güvenilir bir kaynaktan gelen kitaplığı kullan.</string>
     <string name="popup_order">Açılır tuş sırasını seç</string>
     <string name="hint_source">İpucu kaynağını seç</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="replace_dictionary">Sözlüğü değiştir</string>
     <string name="version">Sürüm</string>
@@ -333,7 +323,6 @@
     <string name="show_popup_hints">İşlevsel ipuçlarını göster</string>
     <string name="pinned_toolbar_keys">Sabitlenmiş araç çubuğu tuşlarını seç</string>
     <string name="quick_pin_toolbar_keys">Uzun basıldığında araç çubuğu tuşunu sabitle</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabe (Bépo)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="theme_style">Stil</string>
@@ -365,7 +354,6 @@
     <string name="subtype_mns">Mansi</string>
     <string name="url_detection_title">Bağlantı tespiti</string>
     <string name="prefs_always_show_suggestions_summary">Diğer uygulamaların önerileri devre dışı bırakma isteklerini göz ardı et (sorunlara neden olabilir)</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="settings_screen_appearance">Görünüm</string>
     <string name="backup_restore_message">Kaydet yada dosyadan yükle. Uyarı: geri yükleme mevcut verilerin üzerine yazacaktır</string>
     <string name="no_dictionary_message">"Sözlük olmadan yalnızca daha önce girdiğin metin için öneriler alırsın.&lt;br&gt;

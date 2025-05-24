@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Салттык)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Чакан)"</string>
     <string name="subtype_no_language">"Тил жок"</string>
-    <string name="subtype_no_language_qwerty">"Алфавит (QWERTY)"</string>
     <string name="subtype_emoji">"Эмодзи"</string>
     <string name="add">"Кошуу"</string>
     <string name="remove">"Алып салуу"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> кош келиңиз\"</string>
     <string name="setup_welcome_additional_description">"Жаңсап терүү менен"</string>
     <string name="setup_start_action">"Баштоо"</string>
-    <string name="setup_next_action">"Кийинки кадам"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> орнотулууда\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> иштетүү\"</string>
     <string name="setup_step1_instruction">"Тилдер жана киргизүү жөндөөлөрүнөн \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" колдонмосун караңыз. Ушуну менен аны түзмөгүңүздө иштете аласыз."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> мурунтан эле Тилдер жана киргизүү жөндөөлөрүндө иштетилгендиктен бул кадам аткарылды деп, кийинкисине өтө бериңиз!"</string>
     <string name="setup_step1_action">"Жөндөөлөрдөн иштетүү"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> которулуу\"</string>
     <string name="setup_step2_instruction">"Андан соң, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" жигердүү текст киргизүү ыкмасы катары коюңуз."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Аяктады"</string>
     <string name="show_setup_wizard_icon">"Колдонмонун сүрөтчөсүн көрсөтүү"</string>
     <string name="show_setup_wizard_icon_summary">"Колдонмонун сүрөтчөсү иштетүү тактасында көрүнөт"</string>
-    <string name="dictionary_settings_title">"Кошумча сөздүктөр"</string>
+    <string name="dictionary_category_title">"Кошумча сөздүктөр"</string>
     <string name="dictionary_available">"Сөздүк бар"</string>
-    <string name="no_dictionaries_available">"Сөздүктөр жок"</string>
     <string name="last_update">"Акыркы жолу жаңыртылган"</string>
     <string name="settings">"Жөндөөлөр"</string>
     <string name="delete">"Жок кылуу"</string>
     <string name="version_text">"Версиясы <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Кошуу"</string>
     <string name="user_dict_settings_add_dialog_title">"Сөздүккө кошуу"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Кыска жол:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Тил:"</string>
     <string name="user_dict_settings_add_word_hint">"Сөз териңиз"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Кошумча кыска жол"</string>
     <string name="user_dict_settings_edit_dialog_title">"Сөздү түзөтүү"</string>
-    <string name="user_dict_settings_empty_text">"Колдонуучу сөздүгүңүздө бир дагы сөз жок. Сөз кошуу үчүн кошуу (+) баскычын таптап коюңуз."</string>
     <string name="user_dict_settings_all_languages">"Бардык тилдер үчүн"</string>
     <string name="user_dict_settings_more_languages">"Дагы тилдер…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (سنتی)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (فشرده)</string>
     <string name="subtype_no_language">"بدون زبان"</string>
-    <string name="subtype_no_language_qwerty">"‏حروف الفبا (QWERTY)"</string>
     <string name="subtype_emoji">"اموجی"</string>
     <string name="add">"افزودن"</string>
     <string name="remove">"حذف"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">به <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> خوش آمدید</string>
     <string name="setup_welcome_additional_description">"با ورودی اشاره‌ای"</string>
     <string name="setup_start_action">"شروع به کار"</string>
-    <string name="setup_next_action">"مرحله بعد"</string>
     <string name="setup_steps_title">راه‌اندازی <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">فعال‌سازی <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">لطفاً «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» را در تنظیمات «زبان‌ها و ورودی» علامت بزنید. این کار مجوز اجرا در دستگاه است.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> از قبل در تنظیمات «زبان‌ها و ورودی» شما فعال شده است، بنابراین این مرحله تمام است. به مرحله بعد بروید!</string>
     <string name="setup_step1_action">"فعال‌سازی در تنظیمات"</string>
     <string name="setup_step2_title">به <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> تعویض کنید</string>
     <string name="setup_step2_instruction">در مرحله بعد، «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» را به عنوان روش ورودی نوشتار فعال خود انتخاب کنید.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"تمام شد"</string>
     <string name="show_setup_wizard_icon">"نمایش نماد برنامه"</string>
     <string name="show_setup_wizard_icon_summary">"نمایش نماد برنامه در راه‌انداز"</string>
-    <string name="dictionary_settings_title">"واژه‌نامه‌های برافزا"</string>
+    <string name="dictionary_category_title">"واژه‌نامه‌های برافزا"</string>
     <string name="dictionary_available">"واژه‌نامه موجود است"</string>
-    <string name="no_dictionaries_available">"هیچ فرهنگ لغتی موجود نیست"</string>
     <string name="last_update">"آخرین به‌روزرسانی"</string>
     <string name="settings">"تنظیمات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">نسخه <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"افرودن"</string>
     <string name="user_dict_settings_add_dialog_title">"افزودن به واژه‌نامه"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"میان‌بر:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
     <string name="user_dict_settings_add_word_hint">"کلمه‌ای تایپ کنید"</string>
     <string name="user_dict_settings_add_shortcut_hint">"میان‌بر اختیاری"</string>
     <string name="user_dict_settings_edit_dialog_title">"ویرایش کلمه"</string>
-    <string name="user_dict_settings_empty_text">"واژه‌ای در واژه‌نامه کاربر ندارید. برای افزودن واژه، روی دکمه افزودن (+) ضربه بزنید."</string>
     <string name="user_dict_settings_all_languages">"برای همه زبان‌ها"</string>
     <string name="user_dict_settings_more_languages">"زبان‌های بیشتر…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ရိုးရာ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ကျစ်လစ်သော)"</string>
     <string name="subtype_no_language">"ဘာသာစကားမရှိ"</string>
-    <string name="subtype_no_language_qwerty">"ဗျည်းအက္ခရာ (ကွာတီ)"</string>
     <string name="subtype_emoji">"အီမိုဂျီ"</string>
     <string name="add">"ထည့်ရန်"</string>
     <string name="remove">"ဖယ်ရှားပါ"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> မှကြိုဆိုပါသည်\"</string>
     <string name="setup_welcome_additional_description">"အမူယာ ရိုက်ခြင်းဖြင့်"</string>
     <string name="setup_start_action">"စတင်ပါတော့"</string>
-    <string name="setup_next_action">"နောက်တစ်ဆင့်"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> တပ်ဆင်ရန်\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ဖွင့်ရန်\"</string>
     <string name="setup_step1_instruction">"\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ကို ဘာသာစကားနှင့် စာရိုက်စနစ်တွင် စစ်ပါ။ ဤသို့ဖြင့် သင့်စက်ပစ္စည်းပေါ်တွင် ၎င်းကိုဖွင့်ရန်အတည်ပြုပေးပါလိမ့်မည်။"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ကို သင့်ဘာသာစကားနှင့် စာရိုက်စနစ်ဆက်တင်များတွင် ဖွင့်ထားပြီးဖြစ်၍ ဤအဆင့်ပြီးပါပြီ။ နောက်တစ်ခုသို့ သွားပါ။"</string>
     <string name="setup_step1_action">"ဆက်တင်များတွင် ဖွင့်ရန်"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> သို့ပြောင်းမည်\"</string>
     <string name="setup_step2_instruction">"ရှေ့၊ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" အားသင်၏ ပွင့်နေသည့်ထည့်သွင်းမှု နည်းလမ်းအဖြစ်ရွေးပါ။"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"ပြီးဆုံးသွားပြီ"</string>
     <string name="show_setup_wizard_icon">"အက်ပ်သင်္ကေတပြခြင်း"</string>
     <string name="show_setup_wizard_icon_summary">"launcher တွင် အပလီကေးရှင်း သင်္ကေတကိုပြရန်"</string>
-    <string name="dictionary_settings_title">"ပေါင်းထည့်ထားသည့် အဘိဓါန်များ"</string>
+    <string name="dictionary_category_title">"ပေါင်းထည့်ထားသည့် အဘိဓါန်များ"</string>
     <string name="dictionary_available">"အဘိဓါန်ရရှိနိုင်"</string>
-    <string name="no_dictionaries_available">"အဘိဓါန်မရှိ"</string>
     <string name="last_update">"နောက်ဆုံး အသစ်မွမ်းမံမှု"</string>
     <string name="settings">"ဆက်တင်များ"</string>
     <string name="delete">"ဖျက်ရန်"</string>
     <string name="version_text">"ဗားရှင်း <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"ထည့်ရန်"</string>
     <string name="user_dict_settings_add_dialog_title">"အဘိဓာန်ထဲ ထည့်ပါ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"အတိုကောက်:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ဘာသာစကား:"</string>
     <string name="user_dict_settings_add_word_hint">"စကားလုံးတစ်လုံး ရိုက်ပါ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ရွေးစရာအတိုကောက်"</string>
     <string name="user_dict_settings_edit_dialog_title">"စာလုံးကို ပြင်ဆင်မည်"</string>
-    <string name="user_dict_settings_empty_text">"အသုံးပြုသူ အဘိဓာန်တွင် မည်သည့်စကားလုံးမျှ မရှိပါ။ စကားလုံးကိုပေါင်းထည့်ရန် (+) ခလုတ် ကိုတို့ပါ။"</string>
     <string name="user_dict_settings_all_languages">"ဘာသာစကားအားလုံးအတွက်"</string>
     <string name="user_dict_settings_more_languages">"ဘာသာစကားပိုများများ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

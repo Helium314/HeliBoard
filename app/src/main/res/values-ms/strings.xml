@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradisional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Sarat)"</string>
     <string name="subtype_no_language">"Tiada bahasa"</string>
-    <string name="subtype_no_language_qwerty">"Abjad (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tambah"</string>
     <string name="remove">"Alih Keluar"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Selamat datang ke <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"dengan Taipan Gerak Isyarat"</string>
     <string name="setup_start_action">"Bermula"</string>
-    <string name="setup_next_action">"Langkah seterusnya"</string>
     <string name="setup_steps_title">"Menyediakan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Dayakan <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Sila tandai \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" dalam tetapan Bahasa &amp; input anda. Tindakan ini akan membenarkan apl itu dijalankan pada peranti anda."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> sudah didayakan dalam tetapan Bahasa &amp; input anda, jadi langkah ini telah selesai. Beralih ke langkah seterusnya!"</string>
     <string name="setup_step1_action">"Dayakan dalam Tetapan"</string>
     <string name="setup_step2_title">"Beralih ke <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"Seterusnya, pilih \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" sebagai kaedah input teks aktif anda."</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Selesai"</string>
     <string name="show_setup_wizard_icon">"Tunjukkan ikon apl"</string>
     <string name="show_setup_wizard_icon_summary">"Paparkan ikon apl dalam pelancar"</string>
-    <string name="dictionary_settings_title">"Kamus tambahan"</string>
+    <string name="dictionary_category_title">"Kamus tambahan"</string>
     <string name="dictionary_available">"Kamus tersedia"</string>
-    <string name="no_dictionaries_available">"Tiada kamus tersedia"</string>
     <string name="last_update">"Kali terakhir dikemas kini"</string>
     <string name="settings">"Tetapan"</string>
     <string name="delete">"Padam"</string>
     <string name="version_text">"Versi <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"tambah"</string>
     <string name="user_dict_settings_add_dialog_title">"Tambah ke kamus"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
     <string name="user_dict_settings_add_word_hint">"Taip perkataan"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Pintasan pilihan"</string>
     <string name="user_dict_settings_edit_dialog_title">"Edit perkataan"</string>
-    <string name="user_dict_settings_empty_text">"Anda tiada sebarang perkataan dalam kamus pengguna. Untuk menambahkan perkataan, ketik butang Tambah (+)."</string>
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Lebih banyak bahasa…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionalna)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktna)"</string>
     <string name="subtype_no_language">"Brez jezika"</string>
-    <string name="subtype_no_language_qwerty">"Latinica (QWERTY)"</string>
     <string name="subtype_emoji">"Emodžiji"</string>
     <string name="add">"Dodaj"</string>
     <string name="remove">"Odstrani"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Pozdravljeni v aplikaciji <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"s pisanjem s kretnjami"</string>
     <string name="setup_start_action">"Začnite"</string>
-    <string name="setup_next_action">"Naslednji korak"</string>
     <string name="setup_steps_title">"Nastavitev aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Omogočanje aplikacije <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">V nastavitvah »Jeziki in vnos« izberite aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>«. S tem ji omogočite izvajanje v napravi.\"</string>
-    <string name="setup_step1_finished_instruction">"Aplikacija <xliff:g id="APPLICATION_NAME">%s</xliff:g> je že omogočena v nastavitvah »Jeziki in vnos«, zato je to že opravljeno. Nadaljujte."</string>
     <string name="setup_step1_action">"Omogoči v nastavitvah"</string>
     <string name="setup_step2_title">"Preklop na aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">Nato izberite aplikacijo <xliff:g id="APPLICATION_NAME">%s</xliff:g>« kot aktivni način vnosa besedila.\"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Končano"</string>
     <string name="show_setup_wizard_icon">"Pokaži ikono aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikaz ikone aplikacije v zaganjalniku"</string>
-    <string name="dictionary_settings_title">"Dodatni slovarji"</string>
+    <string name="dictionary_category_title">"Dodatni slovarji"</string>
     <string name="dictionary_available">"Slovar je na voljo"</string>
-    <string name="no_dictionaries_available">"Ni slovarjev"</string>
     <string name="last_update">"Nazadnje posodobljeno"</string>
     <string name="settings">"Nastavitve"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">"Različica <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Dodaj"</string>
     <string name="user_dict_settings_add_dialog_title">"Dodaj v slovar"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Bližnjica:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Vnesite besedo"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Izbirna bližnjica"</string>
     <string name="user_dict_settings_edit_dialog_title">"Uredi besedo"</string>
-    <string name="user_dict_settings_empty_text">"V uporabniškem slovarju ni besed. Če želite dodati besedo, se dotaknite gumba za dodajanje (+)."</string>
     <string name="user_dict_settings_all_languages">"Za vse jezike"</string>
     <string name="user_dict_settings_more_languages">"Več jezikov …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

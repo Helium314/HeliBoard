@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradičná)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktná)"</string>
     <string name="subtype_no_language">"Žiadny jazyk"</string>
-    <string name="subtype_no_language_qwerty">"latinka (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Pridať"</string>
     <string name="remove">"Odstrániť"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Vitajte v aplikácii <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"s funkciou Písanie gestami"</string>
     <string name="setup_start_action">"Začať"</string>
-    <string name="setup_next_action">"Ďalší krok"</string>
     <string name="setup_steps_title">"Nastavenie aplikácie <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Povoľte aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">V nastaveniach Jazyky a vstup začiarknite políčko<xliff:g id="APPLICATION_NAME">%s</xliff:g>. Týmto aplikácii povolíte spustenie v zariadení.\"</string>
-    <string name="setup_step1_finished_instruction">"Aplikácia <xliff:g id="APPLICATION_NAME">%s</xliff:g> je už v nastaveniach Jazyky a vstup povolená. Prejdite na ďalší krok."</string>
     <string name="setup_step1_action">"Povoliť v Nastaveniach"</string>
     <string name="setup_step2_title">"Prepnite na aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
     <string name="setup_step2_instruction">Potom vyberte aplikáciu<xliff:g id="APPLICATION_NAME">%s</xliff:g> ako aktívnu metódu textového vstupu.\"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Hotovo"</string>
     <string name="show_setup_wizard_icon">"Zobraziť ikonu aplikácie"</string>
     <string name="show_setup_wizard_icon_summary">"Zobrazenie ikony aplikácie v spúšťači"</string>
-    <string name="dictionary_settings_title">"Doplnkové slovníky"</string>
+    <string name="dictionary_category_title">"Doplnkové slovníky"</string>
     <string name="dictionary_available">"K dispozícii je slovník"</string>
-    <string name="no_dictionaries_available">"Slovníky sú nedostupné"</string>
     <string name="last_update">"Posledná aktualizácia"</string>
     <string name="settings">"Nastavenia"</string>
     <string name="delete">"Odstrániť"</string>
     <string name="version_text">"Verzia <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Pridať"</string>
     <string name="user_dict_settings_add_dialog_title">"Pridať do slovníka"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Klávesová skratka"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jazyk:"</string>
     <string name="user_dict_settings_add_word_hint">"Zadajte slovo"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Voliteľná skratka"</string>
     <string name="user_dict_settings_edit_dialog_title">"Upraviť slovo"</string>
-    <string name="user_dict_settings_empty_text">"V používateľskom slovníku nie sú žiadne slová. Slovo pridáte klepnutím na tlačidlo Pridať (+)."</string>
     <string name="user_dict_settings_all_languages">"pre všetky jazyky"</string>
     <string name="user_dict_settings_more_languages">"Ďalšie jazyky…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Ringkas)</string>
     <string name="subtype_no_language">"Tidak ada bahasa"</string>
-    <string name="subtype_no_language_qwerty">"Abjad (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tambahkan"</string>
     <string name="remove">"Hapus"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Selamat datang di <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"dengan Ketikan Gestur"</string>
     <string name="setup_start_action">"Memulai"</string>
-    <string name="setup_next_action">"Langkah berikutnya"</string>
     <string name="setup_steps_title">Menyiapkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Aktifkan <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Harap periksa \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" di setelan Bahasa masukan Anda. Ini akan mengizinkannya untuk berjalan di perangkat Anda.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> sudah diaktifkan di pengaturan Bahasa masukan Anda, jadi langkah ini sudah selesai. Lanjut ke langkah berikutnya!</string>
     <string name="setup_step1_action">"Aktifkan dalam Setelan"</string>
     <string name="setup_step2_title">Beralih ke <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Selanjutnya, pilih \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" sebagai metode input teks aktif Anda.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Selesai"</string>
     <string name="show_setup_wizard_icon">"Tampilkan ikon aplikasi"</string>
     <string name="show_setup_wizard_icon_summary">"Menampillkan ikon aplikasi di peluncur"</string>
-    <string name="dictionary_settings_title">"Kamus pengaya"</string>
+    <string name="dictionary_category_title">"Kamus pengaya"</string>
     <string name="dictionary_available">"Kamus yang tersedia"</string>
-    <string name="no_dictionaries_available">"Tidak tersedia kamus"</string>
     <string name="last_update">"Terakhir diperbarui"</string>
     <string name="settings">"Setelan"</string>
     <string name="delete">"Hapus"</string>
     <string name="version_text">Versi <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Tambahkan"</string>
     <string name="user_dict_settings_add_dialog_title">"Tambahkan ke kamus"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Pintasan:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Bahasa:"</string>
     <string name="user_dict_settings_add_word_hint">"Ketik kata"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Pintasan opsional"</string>
     <string name="user_dict_settings_edit_dialog_title">"Edit kata"</string>
-    <string name="user_dict_settings_empty_text">Belum ada kata di dalam kamus pengguna Anda. Untuk menambahkan kata, ketuk tombol Tambahkan (+).</string>
     <string name="user_dict_settings_all_languages">"Untuk semua bahasa"</string>
     <string name="user_dict_settings_more_languages">"Bahasa lainnya…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -196,7 +190,6 @@
     <string name="button_load_custom">Muat file</string>
     <string name="file_read_error">File tidak terbaca</string>
     <string name="button_copy_existing_layout">Salin tata letak saat ini</string>
-    <string name="title_layout_name_select">Ubah nama tata letak</string>
     <string name="delete_layout">Yakin ingin menghapus tata letak kustom %s?</string>
     <string name="layout_error">Kesalahan tata letak: %s</string>
     <string name="edit_layout">Tekan untuk mengubah tata letak versi polos</string>
@@ -213,7 +206,6 @@
 \nPeringatan: memuat kode eksternal dapat menimbulkan resiko keamanan. Gunakan pustaka yang hanya Anda percaya.</string>
     <string name="url_detection_summary">Mencoba untuk mendeteksi URL dan sejenisnya sebagai kata tunggal</string>
     <string name="show_popup_hints">Tampilkan petunjuk fungsional</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="message_add_custom_layout">Pilih file dalam format yang kompatibel. Informasi tentang format tersedia %s.</string>
     <string name="switch_language">Ganti Bahasa</string>
     <string name="hint_source">Pilih sumber petunjuk</string>
@@ -282,7 +274,6 @@
     <string name="auto_user_color">Pilih warna secara otomatis</string>
     <string name="main_colors">Tampilkan warna utama saja</string>
     <string name="all_colors">Tampilkan semua warna</string>
-    <string name="hint_show_keyboard">Klik untuk melihat pratinjau</string>
     <string name="select_user_colors_summary">Pilih warna untuk teks dan latar belakang</string>
     <string name="select_color_background">Latar belakang papan ketik</string>
     <string name="select_color_key">Tombol teks</string>
@@ -311,13 +302,11 @@
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Ungu lembayung</string>
     <string name="gnu_gpl">Lisensi Publik Umum GPU v3.0</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="close_history" tools:keep="@string/close_history">Tutup riwayat papan klip</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="cut" tools:keep="@string/cut">Potong</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Tampilkan lebih banyak warna</string>
     <string name="gesture_fast_typing_cooldown">Pendinginan pengetikan cepat</string>
     <string name="gesture_fast_typing_cooldown_instant">Selalu mulai secara instan</string>
@@ -354,7 +343,6 @@
     <string name="prefs_key_emoji_max_sdk">Ganti versi Emoji</string>
     <string name="long_press_code">Kode tekan lama</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="key_code">Kode kunci</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Kunci huruf kapital</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Spasi (tata letak angka)</string>
@@ -367,7 +355,6 @@
     <string name="pinned_toolbar_keys">Pilih tombol bilah alat yang disematkan</string>
     <string name="page_up" tools:keep="@string/page_up">Halaman atas</string>
     <string name="word_right" tools:keep="@string/word_right">Kata yang tepat</string>
-    <string name="load_will_overwrite">Memuat akan menimpa tema saat ini</string>
     <string name="custom_font">Atur font khusus dari file</string>
     <string name="copy_to_clipboard">Salin ke papan klip</string>
     <string name="customize_background_image_landscape">Mengatur gambar latar belakang (lanskap)</string>

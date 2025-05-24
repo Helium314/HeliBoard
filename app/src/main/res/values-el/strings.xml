@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Παραδοσιακά)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Συμπαγές)"</string>
     <string name="subtype_no_language">"Καμία γλώσσα"</string>
-    <string name="subtype_no_language_qwerty">"Αλφάβητο (QWERTY)"</string>
     <string name="subtype_emoji">"Emoticon"</string>
     <string name="add">"Προσθήκη"</string>
     <string name="remove">"Κατάργηση"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Καλώς ορίσατε στο <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"με Πληκτρολόγηση με κίνηση"</string>
     <string name="setup_start_action">"Έναρξη"</string>
-    <string name="setup_next_action">"Επόμενο βήμα"</string>
     <string name="setup_steps_title">"Ρύθμιση της εφαρμογής <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Ενεργοποιήστε την εφαρμογή <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Επιλέξτε \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" στις Ρυθμίσεις γλώσσας και εισαγωγής, για να το εξουσιοδοτήσετε να εκτελείται στη συσκευή σας."</string>
-    <string name="setup_step1_finished_instruction">"Το <xliff:g id="APPLICATION_NAME">%s</xliff:g> είναι ήδη ενεργοποιημένο στις Ρυθμίσεις γλώσσας και εισαγωγής, συνεπώς το βήμα έχει ολοκληρωθεί. Πάμε στο επόμενο!"</string>
     <string name="setup_step1_action">"Ενεργοποίηση στις Ρυθμίσεις"</string>
     <string name="setup_step2_title">"Μετάβαση στην εφαρμογή <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"Στη συνέχεια, επιλέξτε \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ως την ενεργή μέθοδο εισαγωγής κειμένου."</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Ολοκληρώθηκε"</string>
     <string name="show_setup_wizard_icon">"Εμφάνιση εικονιδίου εφαρμογής"</string>
     <string name="show_setup_wizard_icon_summary">"Εμφάνιση εικονιδίου εφαρμογής στο πρόγραμμα εκκίνησης"</string>
-    <string name="dictionary_settings_title">"Πρόσθετα λεξικά"</string>
+    <string name="dictionary_category_title">"Πρόσθετα λεξικά"</string>
     <string name="dictionary_available">"Διαθέσιμο λεξικό"</string>
-    <string name="no_dictionaries_available">"Δεν υπάρχουν λεξικά"</string>
     <string name="last_update">"Τελευταία ενημέρωση"</string>
     <string name="settings">"Ρυθμίσεις"</string>
     <string name="delete">"Διαγραφή"</string>
     <string name="version_text">"Έκδοση <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Προσθήκη"</string>
     <string name="user_dict_settings_add_dialog_title">"Προσθήκη στο λεξικό"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Συντόμευση:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Γλώσσα:"</string>
     <string name="user_dict_settings_add_word_hint">"Πληκτρολογήστε μια λέξη"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Προαιρετική συντόμευση"</string>
     <string name="user_dict_settings_edit_dialog_title">"Επεξεργασία λέξης"</string>
-    <string name="user_dict_settings_empty_text">"Δεν υπάρχουν καταχωρισμένες λέξεις στο λεξικό χρήστη. Για να προσθέσετε μια λέξη, πατήστε το κουμπί Προσθήκης (+)."</string>
     <string name="user_dict_settings_all_languages">"Για όλες τις γλώσσες"</string>
     <string name="user_dict_settings_more_languages">"Περισσότερες γλώσσες…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

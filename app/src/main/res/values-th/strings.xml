@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ดั้งเดิม)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (แบบกะทัดรัด)"</string>
     <string name="subtype_no_language">"ไม่มีภาษา"</string>
-    <string name="subtype_no_language_qwerty">"ตัวอักษร (QWERTY)"</string>
     <string name="subtype_emoji">"อีโมจิ"</string>
     <string name="add">"เพิ่ม"</string>
     <string name="remove">"ลบ"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"ยินดีต้อนรับสู่ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"พร้อมการป้อนข้อมูลด้วยท่าทาง"</string>
     <string name="setup_start_action">"เริ่มต้นใช้งาน"</string>
-    <string name="setup_next_action">"ขั้นตอนถัดไป"</string>
     <string name="setup_steps_title">"การตั้งค่า <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"เปิดใช้งาน <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"โปรดตรวจสอบ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ในการตั้งค่าภาษาและการป้อนข้อมูลของคุณ ซึ่งจะอนุญาตให้แอปทำงานบนอุปกรณ์ของคุณ"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> เปิดใช้ในการตั้งค่าภาษาและการป้อนข้อมูลของคุณอยู่แล้ว ขั้นตอนนี้จึงเสร็จสิ้นแล้ว ไปยังขั้นตอนถัดไปเลย!"</string>
     <string name="setup_step1_action">"เปิดใช้งานในการตั้งค่า"</string>
     <string name="setup_step2_title">"สลับไปใช้ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"ถัดไป เลือก \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" เป็นวิธีการป้อนข้อความที่ใช้งานของคุณ"</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"เสร็จสิ้น"</string>
     <string name="show_setup_wizard_icon">"แสดงไอคอนแอป"</string>
     <string name="show_setup_wizard_icon_summary">"แสดงไอคอนแอปพลิเคชันในตัวเรียกใช้งาน"</string>
-    <string name="dictionary_settings_title">"พจนานุกรมส่วนเสริม"</string>
+    <string name="dictionary_category_title">"พจนานุกรมส่วนเสริม"</string>
     <string name="dictionary_available">"มีพจนานุกรมให้ใช้งาน"</string>
-    <string name="no_dictionaries_available">"ไม่มีพจนานุกรม"</string>
     <string name="last_update">"ปรับปรุงแก้ไขครั้งล่าสุด"</string>
     <string name="settings">"การตั้งค่า"</string>
     <string name="delete">"ลบ"</string>
     <string name="version_text">"เวอร์ชัน <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"เพิ่ม"</string>
     <string name="user_dict_settings_add_dialog_title">"เพิ่มในพจนานุกรม"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ทางลัด:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ภาษา:"</string>
     <string name="user_dict_settings_add_word_hint">"พิมพ์คำ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ทางลัดที่ไม่บังคับ"</string>
     <string name="user_dict_settings_edit_dialog_title">"แก้ไขคำ"</string>
-    <string name="user_dict_settings_empty_text">"คุณยังไม่มีคำในพจนานุกรมผู้ใช้ หากต้องการเพิ่มคำ ให้แตะปุ่มเพิ่ม (+)"</string>
     <string name="user_dict_settings_all_languages">"สำหรับทุกภาษา"</string>
     <string name="user_dict_settings_more_languages">"ภาษาเพิ่มเติม…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

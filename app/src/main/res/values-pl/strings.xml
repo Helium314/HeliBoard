@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="nepalski">%s</xliff:g> (tradycyjny)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="hinduski">%s</xliff:g> (kompaktowy)</string>
     <string name="subtype_no_language">standardowy</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emotikony"</string>
     <string name="add">"Dodaj"</string>
     <string name="remove">"Usuń"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">Witamy w aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"z pisaniem gestami"</string>
     <string name="setup_start_action">"Rozpocznij"</string>
-    <string name="setup_next_action">"Następny krok"</string>
     <string name="setup_steps_title">Konfigurowanie aplikacji <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Włącz aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Zaznacz aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> w ustawieniach Język i wprowadzanie tekstu. Umożliwi to jej uruchamianie na urządzeniu.</string>
-    <string name="setup_step1_finished_instruction">Aplikacja <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jest już włączona w ustawieniach Język i wprowadzanie tekstu. Przejdź do następnego kroku!</string>
     <string name="setup_step1_action">"Włącz w Ustawieniach"</string>
     <string name="setup_step2_title">Przełącz się na aplikację <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Następnie wybierz <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> jako aktywną metodę wprowadzania tekstu.</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">Zakończ</string>
     <string name="show_setup_wizard_icon">"Pokaż ikonę aplikacji"</string>
     <string name="show_setup_wizard_icon_summary">"Wyświetlaj ikonę aplikacji w programie uruchamiającym"</string>
-    <string name="dictionary_settings_title">"Słowniki dodatkowe"</string>
+    <string name="dictionary_category_title">"Słowniki dodatkowe"</string>
     <string name="dictionary_available">Dostępny słownik</string>
-    <string name="no_dictionaries_available">"Brak słowników"</string>
     <string name="last_update">"Ostatnia aktualizacja"</string>
     <string name="settings">"Ustawienia"</string>
     <string name="delete">"Usuń"</string>
     <string name="version_text">Wersja <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Dodaj"</string>
     <string name="user_dict_settings_add_dialog_title">"Dodaj do słownika"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Skrót:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Język:"</string>
     <string name="user_dict_settings_add_word_hint">"Wpisz słowo"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Opcjonalny skrót"</string>
     <string name="user_dict_settings_edit_dialog_title">"Edytuj słowo"</string>
-    <string name="user_dict_settings_empty_text">"Brak słów w słowniku użytkownika. Aby dodać słowo, kliknij przycisk Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages">"Dla wszystkich języków"</string>
     <string name="user_dict_settings_more_languages">"Więcej języków…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -240,7 +234,6 @@
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Jasne</string>
     <string name="user_dict_add_word_button">Dodaj słowo</string>
     <string name="select_color_suggestion">Tekst paska sugestii</string>
-    <string name="hint_show_keyboard">Dotknij, aby wyświetlić podgląd</string>
     <string name="show_popup_keys_normal">Pokaż warianty zdefiniowane w językach klawiatury</string>
     <string name="show_popup_keys_more">Pokaż popularne warianty</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Własne</string>
@@ -307,7 +300,6 @@
     <string name="split_spacer_scale">Szerokość podziału</string>
     <string name="user_dict_settings_add_weight_value">Wartość:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoruj prośby innych aplikacji o wyłączenie sugestii (może powodować problemy)</string>
-    <string name="title_layout_name_select">Nazwij układ</string>
     <string name="no_dictionary_message">Bez słownika będziesz otrzymywać jedynie sugestie dotyczące tekstu, który został wpisany wcześniej.&lt;br&gt;
 \nSłowniki możesz pobrać %1$s lub sprawdź, czy słownik \"%2$s\" można pobrać bezpośrednio %3$s.</string>
     <string name="switch_language">Zmień język</string>
@@ -339,7 +331,6 @@
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbole (arabski)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
     <string name="subtype_xdq">kaitag</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Klawiatura numeryczna</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Klawiatura numeryczna (poziomo)</string>
     <string name="layout_number" tools:keep="@string/layout_number">Liczby</string>
@@ -359,7 +350,6 @@
     <string name="close_history" tools:keep="@string/close_history">Zamknij schowek</string>
     <string name="clipboard_toolbar_keys">Wybierz klawisze paska narzędzi w schowku</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="kanadyjski">%s</xliff:g> (rozszerzony)</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">mansyjski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_mns">mansyjski</string>
     <string name="more_colors">Pokaż więcej kolorów</string>
     <string name="all_colors_warning">To ustawienie wyświetla wszystkie kolory używane wewnętrznie. Lista kolorów może w każdej chwili ulec zmianie. Domyślny kolor jest losowy, a nazwy nie zostaną przetłumaczone.</string>
@@ -381,7 +371,6 @@
     <string name="customize_currencies">Dostosuj waluty</string>
     <string name="load">Dodaj</string>
     <string name="copy_to_clipboard">Skopiuj do schowka</string>
-    <string name="load_will_overwrite">Ładowanie spowoduje zastąpienie bieżącego motywu</string>
     <string name="button_save_file">Zapisz do pliku</string>
     <string name="page_start" tools:keep="@string/page_start">Na początek strony</string>
     <string name="page_end" tools:keep="@string/page_end">Na koniec strony</string>
@@ -434,7 +423,6 @@
     <string name="vibrate_in_dnd_mode">Wibracje w trybie nie przeszkadzać</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (fonetyczny)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="prefs_key_emoji_max_sdk">Zastąp wersję emoji</string>
     <string name="auto_correct_shortcuts">Autokorekta skrótów</string>
     <string name="auto_correct_shortcuts_summary">Po włączeniu skróty mogą być rozwijane przez autokorektę</string>

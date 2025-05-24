@@ -50,10 +50,8 @@
     <string name="day_or_night_night">שאם</string>
     <string name="button_default">פישפֿרץֿ</string>
     <string name="setup_start_action">שרוע בה כאר</string>
-    <string name="setup_next_action">מרחלה בעד</string>
     <string name="setup_finish_action">תמאם שוד</string>
     <string name="dictionary_settings_category">לגֿאת</string>
-    <string name="user_dict_settings_add_menu_title">אפֿרודן</string>
     <string name="user_dict_settings_add_weight_value">וזן:‏</string>
     <string name="user_dict_settings_add_locale_option_name">זבאן:‏</string>
     <string name="label_go_key">רפֿתן</string>
@@ -62,7 +60,6 @@
     <string name="label_pause_key" tools:keep="@string/label_pause_key">מכת</string>
     <string name="label_wait_key" tools:keep="@string/label_wait_key">אנתטׄאר</string>
     <string name="auto_correction_threshold_mode_very_aggressive">בסיאר שדיד</string>
-    <string name="subtype_no_language_qwerty">חרוףֿ אלפֿבא (QWERTY)</string>
     <string name="redo" tools:keep="@string/redo">באזאנגׄאם</string>
     <string name="label_next_key">בעדי</string>
     <string name="label_previous_key">קבלי</string>

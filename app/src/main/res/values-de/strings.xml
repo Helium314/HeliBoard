@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditionell)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
     <string name="subtype_no_language">"Keine Sprache"</string>
-    <string name="subtype_no_language_qwerty">"Lat. Alphabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Hinzufügen"</string>
     <string name="remove">"Entfernen"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Willkommen bei <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">mit Gesten-Tippen</string>
     <string name="setup_start_action">"Jetzt starten"</string>
-    <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
     <string name="setup_step1_instruction">Bitte aktiviere <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" unter der Systemeinstellung „Sprachen und Eingabe“.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in Ihren Sprachen &amp; Eingabeeinstellungen aktiviert, so dass dieser Schritt abgeschlossen ist. Weiter zum nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
     <string name="setup_step2_instruction">Wähle als nächstes <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" als deine aktive Bildschirmtastatur.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Fertig"</string>
     <string name="show_setup_wizard_icon">"App-Symbol anzeigen"</string>
     <string name="show_setup_wizard_icon_summary">"App-Symbol in der Übersicht anzeigen"</string>
-    <string name="dictionary_settings_title">"Erweiterte Wörterbücher"</string>
+    <string name="dictionary_category_title">"Erweiterte Wörterbücher"</string>
     <string name="dictionary_available">"Wörterbuch verfügbar"</string>
-    <string name="no_dictionaries_available">Keine Wörterbücher verfügbar</string>
     <string name="last_update">"Zuletzt aktualisiert"</string>
     <string name="settings">"Einstellungen"</string>
     <string name="delete">"Löschen"</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Hinzufügen"</string>
     <string name="user_dict_settings_add_dialog_title">"Zum Wörterbuch hinzufügen"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Tastaturkürzel:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Sprache:"</string>
     <string name="user_dict_settings_add_word_hint">"Wort eingeben"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Optionales Tastaturkürzel"</string>
     <string name="user_dict_settings_edit_dialog_title">"Wort bearbeiten"</string>
-    <string name="user_dict_settings_empty_text">Es sind noch keine Wörter in deinem Wörterbuch vorhanden. Du kannst Wörter hinzufügen, indem du auf das „+“-Symbol tippst.</string>
     <string name="user_dict_settings_all_languages">"Für alle Sprachen"</string>
     <string name="user_dict_settings_more_languages">"Weitere Sprachen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -202,7 +196,6 @@
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Hell</string>
     <string name="user_dict_add_word_button">Wort hinzufügen</string>
     <string name="select_color_suggestion">Textfarbe Wortvorschlag</string>
-    <string name="hint_show_keyboard">Für Vorschau klicken</string>
     <string name="show_popup_keys_normal">In den Tastatursprachen definierte Varianten anzeigen</string>
     <string name="show_popup_keys_more">Gemeinsame Varianten hinzufügen</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Benutzerdefiniert</string>
@@ -263,7 +256,6 @@
     <string name="split_spacer_scale">Teilungsabstand</string>
     <string name="user_dict_settings_add_weight_value">Gewichtung:</string>
     <string name="prefs_always_show_suggestions_summary">Ignoriere Anfragen anderer Apps, Vorschläge zu deaktivieren (kann Probleme verursachen)</string>
-    <string name="title_layout_name_select">Layout-Name festlegen</string>
     <string name="switch_language">Sprache wechseln</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Zwischenablage löschen</string>
     <string name="day_or_night_night">Nacht</string>
@@ -299,7 +291,6 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Ziffernblock</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Ziffernblock (Querformat)</string>
     <string name="subtype_xdq">Kaitakisch</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitakisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="show_vertical_space_swipe">Vertikale Wischgeste der Leertaste</string>
     <string name="action_none">Nichts</string>
     <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
@@ -326,7 +317,6 @@
     <string name="quick_pin_toolbar_keys">Symbolleisten-Taste bei langem Drücken anheften</string>
     <string name="settings_screen_toolbar">Symbolleiste</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_mns">Mansi</string>
     <string name="more_colors">Mehr Farben anzeigen</string>
     <string name="all_colors_warning">Diese Einstellung legt alle intern verwendeten Farben offen. Die Liste der Farben kann sich jederzeit ändern. Die Standardfarbe ist zufällig und die Namen werden nicht übersetzt.</string>
@@ -340,7 +330,6 @@
     <string name="load">Laden</string>
     <string name="button_save_file">In Datei speichern</string>
     <string name="copy_to_clipboard">In Zwischenablage kopieren</string>
-    <string name="load_will_overwrite">Laden wird die aktuelle Darstellung überschreiben</string>
     <string name="page_end" tools:keep="@string/page_end">Seitenende</string>
     <string name="word_left" tools:keep="@string/word_left">Linkes Wort</string>
     <string name="word_right" tools:keep="@string/word_right">Rechtes Wort</string>
@@ -404,7 +393,6 @@
     <string name="locales_with_dict">Sprachen mit Wörterbüchern</string>
     <string name="get_colors_message">Du kannst Farben im %s finden und teilen.</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="settings_screen_secondary_layouts">Sekundäre Layouts</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionstasten (großer Bildschirm)</string>
     <string name="prefs_bottom_padding_scale_landscape">Randabstand unten (Querformat)</string>

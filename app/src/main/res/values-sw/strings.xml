@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (cha Jadi)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Thabiti)"</string>
     <string name="subtype_no_language">"Hakuna lugha"</string>
-    <string name="subtype_no_language_qwerty">"Alfabeti (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ongeza"</string>
     <string name="remove">"Ondoa"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Karibu kwenye <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"kwa Kuandika kwa ishara"</string>
     <string name="setup_start_action">"Anza kutumia"</string>
-    <string name="setup_next_action">"Hatua inayofuata"</string>
     <string name="setup_steps_title">"Inasanidi <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Washa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Tafadhali angalia \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" katika mipangilio yako ya Lugha na mbinu ya kuingiza data. Hatua hii itairuhusu kutumika kwenye kifaa chako."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> tayari imewashwa katika mipangilio yako ya Lugha na kuingiza data, kwa hivyo hatua hii imekamilika. Nenda kwenye hatua inayofuata!"</string>
     <string name="setup_step1_action">"Washa katika Mipangilio"</string>
     <string name="setup_step2_title">"Badilisha kwenda <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"Kisha, chagua \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" kama mbinu yako inayotumika ya kuingiza data ya maandishi."</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Imemaliza"</string>
     <string name="show_setup_wizard_icon">"Onyesha aikoni ya programu"</string>
     <string name="show_setup_wizard_icon_summary">"Onyesha aikoni ya programu kwenye kifungua programu"</string>
-    <string name="dictionary_settings_title">"Kamusi za nyongeza"</string>
+    <string name="dictionary_category_title">"Kamusi za nyongeza"</string>
     <string name="dictionary_available">"Kamusi inapatikana"</string>
-    <string name="no_dictionaries_available">"Hakuna kamusi inayopatikana"</string>
     <string name="last_update">"Ilibadilishwa mwisho"</string>
     <string name="settings">"Mipangilio"</string>
     <string name="delete">"Futa"</string>
     <string name="version_text">"Toleo la <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Ongeza"</string>
     <string name="user_dict_settings_add_dialog_title">"Ongeza kwenye kamusi"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Njia ya mkato:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lugha:"</string>
     <string name="user_dict_settings_add_word_hint">"Chapa neno"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Njia ya mkato ya hiari"</string>
     <string name="user_dict_settings_edit_dialog_title">"Badilisha neno"</string>
-    <string name="user_dict_settings_empty_text">"Huna maneno yoyote katika kamusi ya mtumiaji. Gusa kitufe cha Ongeza (+) ili kuongeza neno."</string>
     <string name="user_dict_settings_all_languages">"Ya lugha zote"</string>
     <string name="user_dict_settings_more_languages">"Lugha zingine…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

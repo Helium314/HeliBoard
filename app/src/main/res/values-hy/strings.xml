@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ավանդական)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (սեղմ)"</string>
     <string name="subtype_no_language">"Ոչ մի լեզվով"</string>
-    <string name="subtype_no_language_qwerty">"Այբուբեն (QWERTY)"</string>
     <string name="subtype_emoji">"Զմայլիկներ"</string>
     <string name="add">"Ավելացնել"</string>
     <string name="remove">"Հեռացնել"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Բարի գալուստ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"Ժեստային մուտքագրմամբ"</string>
     <string name="setup_start_action">"Սկսել"</string>
-    <string name="setup_next_action">"Հաջորդ քայլը"</string>
     <string name="setup_steps_title">"Տեղադրվում է <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ը"</string>
     <string name="setup_step1_title">"Միացնել <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ը"</string>
     <string name="setup_step1_instruction">Նշեք <xliff:g id="APPLICATION_NAME">%s</xliff:g>» հավելվածը Լեզուների և մուտքագրման կարգավորումներում՝ ձեր սարքում դրա աշխատանքը թույլ տալու համար:\"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-ն արդեն միացված է ձեր Լեզուների և մուտքագրման կարգավորումներում, այնպես որ այս քայլն արդեն կատարված է:Անցեք հաջորդին:"</string>
     <string name="setup_step1_action">"Միացնել կարգավորումներից"</string>
     <string name="setup_step2_title">"Փոխարկել <xliff:g id="APPLICATION_NAME">%s</xliff:g>-ին"</string>
     <string name="setup_step2_instruction">Հաջորդիվ, ընտրեք <xliff:g id="APPLICATION_NAME">%s</xliff:g>»-ը որպես ձեր ակտիվ տեքստային մուտքագրման եղանակ:\"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Ավարտված"</string>
     <string name="show_setup_wizard_icon">"Ցույց տալ հավելվածի պատկերակը"</string>
     <string name="show_setup_wizard_icon_summary">"Ցուցադրել հավելվածի պատկերակը գործարկիչում"</string>
-    <string name="dictionary_settings_title">"Հավելյալ բառարաններ"</string>
+    <string name="dictionary_category_title">"Հավելյալ բառարաններ"</string>
     <string name="dictionary_available">"Բառարանն առկա է"</string>
-    <string name="no_dictionaries_available">"Բառարաններ չկան"</string>
     <string name="last_update">"Վերջին անգամ թարմացվել է"</string>
     <string name="settings">"Կարգավորումներ"</string>
     <string name="delete">"Ջնջել"</string>
     <string name="version_text">"Տարբերակ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Ավելացնել"</string>
     <string name="user_dict_settings_add_dialog_title">"Ավելացնել բառարանում"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Դյուրանցումը՝"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lեզուն՝"</string>
     <string name="user_dict_settings_add_word_hint">"Մուտքագրեք բառը"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Ընտրովի դյուրանցում"</string>
     <string name="user_dict_settings_edit_dialog_title">"Խմբագրել բառը"</string>
-    <string name="user_dict_settings_empty_text">"Օգտատիրոջ բառարանում ոչ մի բառ չկա: Բառեր ավելացնելու համար հպեք Ավելացնել (+) կոճակին:"</string>
     <string name="user_dict_settings_all_languages">"Բոլոր լեզուներով"</string>
     <string name="user_dict_settings_more_languages">"Ավելի շատ լեզուներով…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՈՒՓՔԵւՕՖ"</string>

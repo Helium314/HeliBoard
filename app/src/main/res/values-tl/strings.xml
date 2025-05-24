@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
     <string name="subtype_no_language">"Walang wika"</string>
-    <string name="subtype_no_language_qwerty">"Alpabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Idagdag"</string>
     <string name="remove">"Alisin"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Maligayang pagdating sa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"gamit ang Gesture na Pagta-type"</string>
     <string name="setup_start_action">"Magsimula"</string>
-    <string name="setup_next_action">"Susunod na hakbang"</string>
     <string name="setup_steps_title">"Sine-set up ang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Paganahin ang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Pakitingnan ang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" sa iyong Mga setting ng wika at input. Papahintulutan nitong gumana ito sa iyong device."</string>
-    <string name="setup_step1_finished_instruction">"Naka-enable na ang <xliff:g id="APPLICATION_NAME">%s</xliff:g> sa iyong Mga setting ng wika at input, kaya tapos na ang hakbang na ito. Magpatuloy sa susunod!"</string>
     <string name="setup_step1_action">"I-enable sa Mga Setting"</string>
     <string name="setup_step2_title">"Lumipat sa <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"Susunod, piliin ang \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" bilang iyong aktibong pamamaraan ng pag-input ng teksto."</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Tapos na"</string>
     <string name="show_setup_wizard_icon">"Ipakita ang icon ng app"</string>
     <string name="show_setup_wizard_icon_summary">"Ipakita ang icon ng application sa launcher"</string>
-    <string name="dictionary_settings_title">"Mga add-on na diksyunaryo"</string>
+    <string name="dictionary_category_title">"Mga add-on na diksyunaryo"</string>
     <string name="dictionary_available">"Available ang diksyunaryo"</string>
-    <string name="no_dictionaries_available">"Walang mga diksyunaryo"</string>
     <string name="last_update">"Huling na-update"</string>
     <string name="settings">"Mga Setting"</string>
     <string name="delete">"I-delete"</string>
     <string name="version_text">"Bersyon <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Idagdag"</string>
     <string name="user_dict_settings_add_dialog_title">"Idagdag sa diksyunaryo"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Shortcut:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Wika:"</string>
     <string name="user_dict_settings_add_word_hint">"Mag-type ng salita"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Opsyonal na shortcut"</string>
     <string name="user_dict_settings_edit_dialog_title">"I-edit ang salita"</string>
-    <string name="user_dict_settings_empty_text">"Wala kang anumang salita sa diksyunaryo ng user. Para magdagdag ng salita, i-tap ang button na Magdagdag (+)."</string>
     <string name="user_dict_settings_all_languages">"Para sa lahat ng wika"</string>
     <string name="user_dict_settings_more_languages">"Higit pang mga wika…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

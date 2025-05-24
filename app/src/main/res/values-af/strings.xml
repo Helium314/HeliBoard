@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisioneel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompak)</string>
     <string name="subtype_no_language">"Geen taal nie"</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emosiekone"</string>
     <string name="add">"Voeg by"</string>
     <string name="remove">"Verwyder"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Welkom by <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"met Gebaar-tik"</string>
     <string name="setup_start_action">"Kom aan die gang"</string>
-    <string name="setup_next_action">"Volgende stap"</string>
     <string name="setup_steps_title">Stel <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g> op</string>
     <string name="setup_step1_title">Aktiveer <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
     <string name="setup_step1_instruction">Gaan asseblief \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" in jou Tale- en invoer-instellings na. Dit sal dit magtig om op jou toestel te werk.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g> is reeds in jou Tale- en invoer-instellings geaktiveer – dus is hierdie stap klaar. Doen die volgende een!</string>
     <string name="setup_step1_action">"Aktiveer in instellings"</string>
     <string name="setup_step2_title">Skakel oor na <xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g></string>
     <string name="setup_step2_instruction">Volgende, kies \"<xliff:g id="APPLICATION_NAME" example="Android Sleutelbord">%s</xliff:g>\" as jou aktiewe teks-invoermetode.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Klaar"</string>
     <string name="show_setup_wizard_icon">"Wys program-ikoon"</string>
     <string name="show_setup_wizard_icon_summary">"Wys program-ikoon in die lanseerpoort"</string>
-    <string name="dictionary_settings_title">"Voeg woordeboeke by"</string>
+    <string name="dictionary_category_title">"Voeg woordeboeke by"</string>
     <string name="dictionary_available">"Woordeboek beskikbaar"</string>
-    <string name="no_dictionaries_available">"Geen woordeboeke beskikbaar nie"</string>
     <string name="last_update">"Laas opgedateer"</string>
     <string name="settings">"Instellings"</string>
     <string name="delete">"Vee uit"</string>
     <string name="version_text">Weergawe <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Voeg by"</string>
     <string name="user_dict_settings_add_dialog_title">"Voeg by woordeboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Kortpad:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
     <string name="user_dict_settings_add_word_hint">"Tik \'n woord in"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Opsionele kortpad"</string>
     <string name="user_dict_settings_edit_dialog_title">"Redigeer woord"</string>
-    <string name="user_dict_settings_empty_text">"Jy het geen woorde in die gebruikerwoordeboek nie. Tik op die Voeg By-knoppie (+) om \'n woord by te voeg."</string>
     <string name="user_dict_settings_all_languages">"Vir alle tale"</string>
     <string name="user_dict_settings_more_languages">"Nog tale…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

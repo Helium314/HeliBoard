@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (التقليدية)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (مضغوط)</string>
     <string name="subtype_no_language">"بدون لغة"</string>
-    <string name="subtype_no_language_qwerty">"‏الأبجدية (QWERTY)"</string>
     <string name="subtype_emoji">"الرموز التعبيرية"</string>
     <string name="add">أضف</string>
     <string name="remove">"إزالة"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">مرحبًا بكم في <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">مع الكتابة بالإيماءة</string>
     <string name="setup_start_action">"بدء الاستخدام"</string>
-    <string name="setup_next_action">"الخطوة التالية"</string>
     <string name="setup_steps_title">قيد الإعداد <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_step1_title">مكِّن <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_step1_instruction">يُرجى التحقق من \"<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g>\" في إعدادات الإدخال واللغات. سيؤدي ذلك إلى تمكين لوحة المفاتيح على جهازك.</string>
-    <string name="setup_step1_finished_instruction">&lt;xliff:g id=\"APPLICATION_NAME\" مثال=\"لوحة مفاتيح أندرويد\"&gt;%s&lt;/xliff:g&gt; ممكّن بالفعل في إعدادات اللغات &amp;amp؛ إعدادات الإدخال، لذا فقد تم الانتهاء من هذه الخطوة. إلى الخطوة التالية!</string>
     <string name="setup_step1_action">"تفعيل في الإعدادات"</string>
     <string name="setup_step2_title">بدّل إلى <xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g></string>
     <string name="setup_step2_instruction">بعد ذلك، اختر \"<xliff:g id="APPLICATION_NAME" مثال="لوحة مفاتيح أندرويد">%s</xliff:g>” كطريقة إدخال النص النشط.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"إنهاء العملية"</string>
     <string name="show_setup_wizard_icon">اعرض رمز التطبيق</string>
     <string name="show_setup_wizard_icon_summary">اعرض رمز التطبيق في المشغل</string>
-    <string name="dictionary_settings_title">"القواميس الإضافية"</string>
+    <string name="dictionary_category_title">"القواميس الإضافية"</string>
     <string name="dictionary_available">"القاموس متاح"</string>
-    <string name="no_dictionaries_available">"لا تتوفر أي قواميس"</string>
     <string name="last_update">"تاريخ آخر تحديث"</string>
     <string name="settings">"إعدادات"</string>
     <string name="delete">"حذف"</string>
     <string name="version_text">الإصدار <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">أضف</string>
     <string name="user_dict_settings_add_dialog_title">أضف إلى القاموس</string>
     <string name="user_dict_settings_add_shortcut_option_name">"الاختصار:"</string>
     <string name="user_dict_settings_add_locale_option_name">"اللغة:"</string>
     <string name="user_dict_settings_add_word_hint">"اكتب كلمة"</string>
     <string name="user_dict_settings_add_shortcut_hint">"اختصار اختياري"</string>
     <string name="user_dict_settings_edit_dialog_title">"تعديل كلمة"</string>
-    <string name="user_dict_settings_empty_text">"ليس هناك أي كلمات في قاموس المستخدم. لإضافة كلمة، انقر على زر الإضافة (+)."</string>
     <string name="user_dict_settings_all_languages">"لجميع اللغات"</string>
     <string name="user_dict_settings_more_languages">"مزيد من اللغات…"</string>
     <string name="user_dict_fast_scroll_alphabet">" أ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي"</string>
@@ -167,7 +161,6 @@
     <string name="select_color_background">خلفية لوحة المفاتيح</string>
     <string name="select_color_key">نص الأزرار</string>
     <string name="auto_user_color">اختيار تلقائي للون</string>
-    <string name="hint_show_keyboard">انقر للمعانية</string>
     <string name="version">الإصدار</string>
     <string name="dialog_close">غلق</string>
     <string name="settings_screen_appearance">المظهر</string>
@@ -265,13 +258,11 @@
     <string name="full_left" tools:keep="@string/full_left">اليسار الكامل</string>
     <string name="full_right" tools:keep="@string/full_right">اليمين الكامل</string>
     <string name="show_popup_hints_summary">أظهِر تلميحات إذا كان الضغط لفترة طويلة على المفتاح يؤدي إلى تشغيل وظائف إضافية</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">كايتاج (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="day_or_night_image">تعيين الصورة لوضع النهار أو الليل؟</string>
     <string name="day_or_night_day">صباح</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="كورية">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="message_add_custom_layout">حدد ملفًا بتنسيق متوافق. المعلومات حول التنسيقات متاحة %s.</string>
     <string name="button_copy_existing_layout">انسخ التخطيط الموجود</string>
-    <string name="title_layout_name_select">تعيين اسم التخطيط</string>
     <string name="delete_layout">هل تريد حقًا حذف التخطيط المخصص %s؟</string>
     <string name="layout_error">خطأ في التخطيط: %s</string>
     <string name="edit_layout">انقر لتحرير التخطيط الأولي</string>
@@ -315,7 +306,6 @@
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="البنقالية">%s</xliff:g> (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="الكورية">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="popup_order">اختر ترتيب المفاتيح المنبثقه</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">الأبجدية (بيبو)</string>
     <string name="prefs_long_press_symbol_for_numpad">اضغط لفترة طويلة على مفتاح الرموز للوحة الرقمية</string>
     <string name="cut" tools:keep="@string/cut">قصّ</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (طالب)</string>
@@ -325,7 +315,6 @@
     <string name="clipboard_toolbar_keys">حدد مفاتيح شريط أدوات الحافظة</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="الكاندا">%s</xliff:g> (Extended)</string>
     <string name="subtype_mns">مانسي</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">مانسي (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">أظهِر المزيد من الالوان</string>
     <string name="all_colors_warning">يعرض هذا الإعداد كافة الألوان المستخدمة داخليًا. قد تتغير قائمة الألوان في أي وقت. اللون الافتراضي عشوائي، ولن تتم ترجمة الأسماء.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
@@ -349,7 +338,6 @@
     <string name="load">حمّل</string>
     <string name="button_save_file">احفظ إلى الملف</string>
     <string name="copy_to_clipboard">انسخ إلى الحافظة</string>
-    <string name="load_will_overwrite">سيؤدي التحميل إلى استبدال السمة الحالية</string>
     <string name="page_start" tools:keep="@string/page_start">بداية الصفحة</string>
     <string name="page_end" tools:keep="@string/page_end">نهاية الصفحة</string>
     <string name="word_left" tools:keep="@string/word_left">كلمة لليسار</string>
@@ -396,7 +384,6 @@
     <string name="subtype_dru">درغوة (أوراخي)</string>
     <string name="auto_correct_shortcuts">اختصار التصحيح التلقائي</string>
     <string name="auto_correct_shortcuts_summary">قد يتم توسيع الاختصارات عند تمكينها بواسطة التصحيح التلقائي</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">أوراخي (<xliff:g id="KEYBOARD_LAYOUT" مثال="QWERTY">%s</xliff:g>)</string>
     <string name="custom_font">تعيين خط مخصص من الملف</string>
     <string name="vibrate_in_dnd_mode">الاهتزاز في وضع عدم الازعاج</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" مثال="هندي">%s</xliff:g> (صوتي)</string>

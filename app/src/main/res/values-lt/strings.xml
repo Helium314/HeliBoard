@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicinė)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktiška)"</string>
     <string name="subtype_no_language">"Kalbos nėra"</string>
-    <string name="subtype_no_language_qwerty">"Abėcėlė (QWERTY)"</string>
     <string name="subtype_emoji">"Jaustukai"</string>
     <string name="add">"Pridėti"</string>
     <string name="remove">"Pašalinti"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Sveiki! Tai „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
     <string name="setup_welcome_additional_description">"naudojant įvestį gestais"</string>
     <string name="setup_start_action">"Pradėti"</string>
-    <string name="setup_next_action">"Kitas veiksmas"</string>
     <string name="setup_steps_title">"„<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ sąranka"</string>
     <string name="setup_step1_title">"Įgalinkite „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
     <string name="setup_step1_instruction">Skiltyje „Kalbos ir įvesties nustatymai“ žr. <xliff:g id="APPLICATION_NAME">%s</xliff:g>“. Programa bus įgalinta veikti įrenginyje.\"</string>
-    <string name="setup_step1_finished_instruction">"„<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ jau įgalinta jūsų „Kalbos ir įvesties nustatymuose“, todėl šis veiksmas yra atliktas. Galite pereiti prie kito!"</string>
     <string name="setup_step1_action">"Įgalinti nustatymuose"</string>
     <string name="setup_step2_title">"Perjungimas į „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“"</string>
     <string name="setup_step2_instruction">Toliau pasirinkite <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ kaip aktyvų teksto įvesties metodą.\"</string>
@@ -82,23 +79,20 @@
     <string name="setup_finish_action">"Baigta"</string>
     <string name="show_setup_wizard_icon">"Rodyti programos piktogramą"</string>
     <string name="show_setup_wizard_icon_summary">"Pateikti programos piktogramą paleidimo priemonėje"</string>
-    <string name="dictionary_settings_title">"Papildomi žodynai"</string>
+    <string name="dictionary_category_title">"Papildomi žodynai"</string>
     <string name="dictionary_available">"Galimas žodynas"</string>
-    <string name="no_dictionaries_available">"Nėra galimų žodynų"</string>
     <string name="last_update">"Paskutinį kartą atnaujinta"</string>
     <string name="settings">"Nustatymai"</string>
     <string name="delete">"Ištrinti"</string>
     <!-- syntax error in translation for should_download_over_metered_prompt (6737084685073734292) org.xmlpull.v1.XmlPullParserException: expected: /string read: b (position:END_TAG </b>@1:781 in     <string name="should_download_over_metered_prompt">"Pasiekiamas mobiliajame įrenginyje pasirinktos kalbos žodynas.&lt;br/&gt; Rekomenduojame &lt;b&gt;atsisiųsti&lt;/b&gt; <xliff:g id="LANGUAGE_NAME">%1$s</xliff:g> žodyną, kad pagerintumėte savo teksto vedimo įgūdžius.&lt;br/&gt; &lt;br/&gt; Jei naudojamas 3G ryšys, atsisiuntimas truks kelias minutes. Jei neturite &lt;b&gt;neribotų duomenų plano&lt;/b&gt;, gali būti taikomi mokesčiai.&lt;br/&gt; Jei nežinote, kokį duomenų planą naudojate, rekomenduojame prisijungti prie „Wi-Fi“ ryšio, kad atsisiuntimas būtų pradėtas automatiškai.&lt;br/&gt; &lt;br/&gt; Patarimas: žodynus galite atsisiųsti ir pridėti mobiliajame įrenginyje nuėję į meniu <b>Nustatymai</b> skiltį &lt;b&gt;Kalbos ir įvestis</b>."</string>
 )  -->
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> versija"</string>
-    <string name="user_dict_settings_add_menu_title">"Pridėti"</string>
     <string name="user_dict_settings_add_dialog_title">"Pridėti prie žodyno"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Spartusis klavišas:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Kalba:"</string>
     <string name="user_dict_settings_add_word_hint">"Įveskite žodį"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Pasirenkamasis spartusis klavišas"</string>
     <string name="user_dict_settings_edit_dialog_title">"Redaguoti žodį"</string>
-    <string name="user_dict_settings_empty_text">"Neturite jokių žodžių naudotojo žodyne. Kad pridėtumėte žodį, palieskite mygtuką „Pridėti“ (+)."</string>
     <string name="user_dict_settings_all_languages">"Visos kalbos"</string>
     <string name="user_dict_settings_more_languages">"Daugiau kalbų…"</string>
     <string name="user_dict_fast_scroll_alphabet">" AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="subtype_no_language">"Ningún idioma"</string>
-    <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Añadir"</string>
     <string name="remove">"Quitar"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Bienvenido a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Empezar"</string>
-    <string name="setup_next_action">"Siguiente paso"</string>
     <string name="setup_steps_title">Configurando <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Activar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Por favor, compruebe \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" en sus ajustes de entrada de Idiomas. Esto lo autorizará a ejecutarse en su dispositivo.\"</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ya está habilitado en sus idiomas &amp; configuración de entrada, por lo que este paso está hecho. ¡En el siguiente!</string>
     <string name="setup_step1_action">"Habilitar en Ajustes"</string>
     <string name="setup_step2_title">Cambiar a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">A continuación, seleccione \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como su método de entrada de texto activo.\"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Listo"</string>
     <string name="show_setup_wizard_icon">"Mostrar icono de aplicación"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar icono de aplicación en menú de aplicaciones"</string>
-    <string name="dictionary_settings_title">"Diccionarios complementarios"</string>
+    <string name="dictionary_category_title">"Diccionarios complementarios"</string>
     <string name="dictionary_available">"Diccionario disponible"</string>
-    <string name="no_dictionaries_available">"No hay diccionarios"</string>
     <string name="last_update">"Última actualización"</string>
     <string name="settings">"Ajustes"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">Versión <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Añadir"</string>
     <string name="user_dict_settings_add_dialog_title">"Añadir al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe una palabra"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Introducir"</string>
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
-    <string name="user_dict_settings_empty_text">"No tienes ninguna palabra en el diccionario del usuario. Toca el botón (+) para añadir una."</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages">"Más idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"</string>
@@ -193,7 +187,6 @@
     <string name="button_load_custom">Cargar archivo</string>
     <string name="file_read_error">Error al leer archivo</string>
     <string name="button_copy_existing_layout">Copiar diseño existente</string>
-    <string name="title_layout_name_select">Definir el nombre del diseño</string>
     <string name="delete_layout">¿Desea borrar el diseño personalizado %s?</string>
     <string name="dictionary_link_text">aquí</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
@@ -288,7 +281,6 @@
     <string name="day_or_night_day">Día</string>
     <string name="var_toolbar_direction">Dirección variable de la barra de herramientas</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="close_history" tools:keep="@string/close_history">Cerrar historial del portapapeles</string>
     <string name="clipboard_toolbar_keys">Seleccionar teclas de la barra de herramientas del portapapeles</string>
     <string name="show_popup_hints">Mostar indicaciones funcionales</string>
@@ -327,13 +319,10 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosque</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Océano</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabeto (Bépo)</string>
     <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se ingresa o selecciona texto</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="theme_name_user_night" tools:keep="@string/theme_name_user_night">Definido por el usuario (noche)</string>
     <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. El color por defecto es aleatorio y los nombres no serán traducidos.</string>
-    <string name="hint_show_keyboard">Toca para previsualizar</string>
     <string name="select_user_colors_summary">Seleccionar colores para el texto y fondos</string>
     <string name="select_color_key_hint">Texto del indicio de tecla</string>
     <string name="select_color_key_background">Fondo de tecla</string>
@@ -392,14 +381,12 @@
     <string name="long_press_code">Código de presión prolongada</string>
     <string name="customize_icons">Personalizar iconos</string>
     <string name="show_popup_keys_main">Añadir variantes muy comunes (defecto)</string>
-    <string name="load_will_overwrite">Cargar sobreescribirá el tema actual</string>
     <string name="label_bin" tools:keep="@string/label_bin">Papelera</string>
     <string name="customize_icons_reset_message">¿Realmente restablecer todos los íconos personalizados?</string>
     <string name="vibrate_in_dnd_mode">Vibrar en el modo No molestar</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonético)</string>
     <string name="prefs_key_emoji_max_sdk">Sustituir versión de Emoji</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_correct_shortcuts_summary">Si se activa, los accesos directos pueden expandirse con la autocorrección</string>
     <string name="auto_correct_shortcuts">Atajos de autocorrección</string>
     <string name="custom_font">Establecer una fuente personalizada desde un archivo</string>

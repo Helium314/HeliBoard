@@ -53,7 +53,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Truyền thống)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Viết tắt)"</string>
     <string name="subtype_no_language">"Không ngôn ngữ nào"</string>
-    <string name="subtype_no_language_qwerty">"Bảng chữ cái (QWERTY)"</string>
     <string name="subtype_emoji">"Biểu tượng cảm xúc"</string>
     <string name="add">"Thêm"</string>
     <string name="remove">"Xóa"</string>
@@ -69,11 +68,9 @@
     <string name="setup_welcome_title">"Chào mừng bạn đến với <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"với Nhập bằng cử chỉ"</string>
     <string name="setup_start_action">"Bắt đầu"</string>
-    <string name="setup_next_action">"Bước tiếp theo"</string>
     <string name="setup_steps_title">"Thiết lập <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Bật <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Hãy chọn \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" trong cài đặt Ngôn ngữ và phương thức nhập. Thao tác này sẽ cho phép ứng dụng chạy trên thiết bị của bạn."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> đã được bật trong cài đặt Ngôn ngữ và phương thức nhập, do đó bước này đã hoàn tất. Hãy chuyển sang bước tiếp theo!"</string>
     <string name="setup_step1_action">"Bật trong Cài đặt"</string>
     <string name="setup_step2_title">"Chuyển sang <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"Tiếp theo, chọn \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" làm phương thức nhập văn bản hoạt động của bạn."</string>
@@ -83,21 +80,18 @@
     <string name="setup_finish_action">"Đã xong"</string>
     <string name="show_setup_wizard_icon">"Hiển thị biểu tượng ứng dụng"</string>
     <string name="show_setup_wizard_icon_summary">"Hiển thị biểu tượng ứng dụng trong trình chạy"</string>
-    <string name="dictionary_settings_title">"Từ điển bổ sung"</string>
+    <string name="dictionary_category_title">"Từ điển bổ sung"</string>
     <string name="dictionary_available">"Từ điển có sẵn"</string>
-    <string name="no_dictionaries_available">"Không có từ điển nào"</string>
     <string name="last_update">"Cập nhật lần cuối"</string>
     <string name="settings">"Cài đặt"</string>
     <string name="delete">"Xóa"</string>
     <string name="version_text">"Phiên bản <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Thêm"</string>
     <string name="user_dict_settings_add_dialog_title">"Thêm vào từ điển"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Phím tắt:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Ngôn ngữ:"</string>
     <string name="user_dict_settings_add_word_hint">"Nhập từ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Phím tắt tùy chọn"</string>
     <string name="user_dict_settings_edit_dialog_title">"Chỉnh sửa từ"</string>
-    <string name="user_dict_settings_empty_text">"Bạn không có bất kỳ từ nào trong từ điển người dùng. Để thêm từ, hãy nhấn vào nút Thêm (+)."</string>
     <string name="user_dict_settings_all_languages">"Cho tất cả ngôn ngữ"</string>
     <string name="user_dict_settings_more_languages">"Ngôn ngữ khác…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

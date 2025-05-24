@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
     <string name="subtype_no_language">"Intet sprog"</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tilføj"</string>
     <string name="remove">"Fjern"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Velkommen til<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"med glidende indtastning"</string>
     <string name="setup_start_action">Kom i gang</string>
-    <string name="setup_next_action">"Næste trin"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> konfigureres</string>
     <string name="setup_step1_title">Aktivér<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Markér \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" i dine indstillinger for sprog og indtastning. Dermed får appen tilladelse til at køre på din enhed.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> er allerede aktiveret i dine indstillinger for sprog og indtastning, så dette trin er gennemført. Fortsæt til næste!</string>
     <string name="setup_step1_action">"Aktivér i Indstillinger"</string>
     <string name="setup_step2_title">Skift til<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Vælg derefter \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" som din aktive tekstinputmetode.\"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Afslut"</string>
     <string name="show_setup_wizard_icon">"Vis appikon"</string>
     <string name="show_setup_wizard_icon_summary">Vis applikationsikon i launcheren</string>
-    <string name="dictionary_settings_title">"Ekstra ordbøger"</string>
+    <string name="dictionary_category_title">"Ekstra ordbøger"</string>
     <string name="dictionary_available">Ordbog tilgængelig</string>
-    <string name="no_dictionaries_available">"Ingen tilg. ordbøger"</string>
     <string name="last_update">"Sidst opdateret"</string>
     <string name="settings">"Indstillinger"</string>
     <string name="delete">"Slet"</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Tilføj"</string>
     <string name="user_dict_settings_add_dialog_title">"Føj til ordbog"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Genvej:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Sprog:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv et ord"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Valgfri genvej"</string>
     <string name="user_dict_settings_edit_dialog_title">"Rediger ord"</string>
-    <string name="user_dict_settings_empty_text">Du har ingen ord i brugerordbogen. Tilføj et ord ved at trykke på knappen Tilføj (+).</string>
     <string name="user_dict_settings_all_languages">Til alle sprog</string>
     <string name="user_dict_settings_more_languages">"Flere sprog…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"</string>
@@ -233,7 +227,6 @@
     <string name="show_popup_keys_main">Tilføj meget almindelige varianter (standard)</string>
     <string name="url_detection_title">URL-registrering</string>
     <string name="url_detection_summary">Prøv at registrere URL\'er og lignende som et enkelt ord</string>
-    <string name="title_layout_name_select">Indstil layoutnavn</string>
     <string name="suggest_clipboard_content">Foreslå indhold fra udklipsholder</string>
     <string name="suggest_clipboard_content_summary">Vis nyligt kopieret udklipsholderindhold som forslag</string>
     <string name="backup_restore_message">Gem eller indlæs fra fil. Advarsel: Gendannelse overskriver eksisterende data</string>
@@ -284,10 +277,6 @@
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (udvidet)</string>
     <string name="switch_keyboard_after">Skift til hovedtastatur efter…</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="settings_screen_secondary_layouts">Sekundære layouts</string>
     <string name="no_dictionary_message">"Uden en ordbog får du kun forslag til tekst, du har indtastet før.&lt;br&gt;\n        Du kan hente ordbøger %1$s eller tjekke, om en ordbog for \"%2$s\" kan hentes direkte %3$s."</string>
     <string name="message_add_custom_layout">Vælg en fil i et kompatibelt format. Oplysninger om formaterne er tilgængelige %s.</string>
@@ -296,7 +285,6 @@
     <string name="toast_msg_clipboard_copy">Indhold kopieret</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Brugerdefineret</string>
     <string name="auto_show_toolbar">Auto-vis værktøjslinje</string>
-    <string name="hint_show_keyboard">Tryk for forhåndsvisning</string>
     <string name="dialog_close">Luk</string>
     <string name="settings_screen_appearance">Udseende</string>
     <string name="select_color_key">Tastetekst</string>
@@ -350,7 +338,6 @@
     <string name="auto_hide_toolbar">Auto-skjul værktøjslinje</string>
     <string name="auto_hide_toolbar_summary">Skjul værktøjslinjen, når forslag bliver tilgængelige</string>
     <string name="key_code">Tastekode</string>
-    <string name="load_will_overwrite">Indlæsning overskriver det nuværende tema</string>
     <string name="customize_toolbar_key_code_reset_message">Ryd alle tilpassede tastekoder?</string>
     <string name="name_invalid">Ugyldigt navn</string>
 </resources>

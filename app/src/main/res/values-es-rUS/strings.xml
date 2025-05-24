@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (compacto)"</string>
     <string name="subtype_no_language">"Ningún idioma"</string>
-    <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Agregar"</string>
     <string name="remove">"Eliminar"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Te damos la bienvenida a <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"con escritura gestual"</string>
     <string name="setup_start_action">"Comenzar"</string>
-    <string name="setup_next_action">"Siguiente paso"</string>
     <string name="setup_steps_title">"Configurando <xliff:g id="APPLICATION_NAME">%s</xliff:g>…"</string>
     <string name="setup_step1_title">"Habilitar <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"Marca \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" en Teclado e idioma para permitir que la app se ejecute en tu dispositivo."</string>
-    <string name="setup_step1_finished_instruction">"Debido a que la app de <xliff:g id="APPLICATION_NAME">%s</xliff:g> ya está habilitada en Teclado e idioma, pasaremos al siguiente paso."</string>
     <string name="setup_step1_action">"Habilitar en Configuración"</string>
     <string name="setup_step2_title">"Cambiar a <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step2_instruction">"A continuación, selecciona \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" como tu método de entrada de texto activo."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Listo"</string>
     <string name="show_setup_wizard_icon">"Mostrar ícono de aplicación"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícono de aplicación en el selector"</string>
-    <string name="dictionary_settings_title">"Diccionarios complementarios"</string>
+    <string name="dictionary_category_title">"Diccionarios complementarios"</string>
     <string name="dictionary_available">"Diccionario disponible"</string>
-    <string name="no_dictionaries_available">"No hay diccionarios."</string>
     <string name="last_update">"Última actualización"</string>
     <string name="settings">"Configuración"</string>
     <string name="delete">"Eliminar"</string>
     <string name="version_text">"Versión <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Agregar"</string>
     <string name="user_dict_settings_add_dialog_title">"Agregar al diccionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Acceso directo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Escribe una palabra"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Acceso directo opcional"</string>
     <string name="user_dict_settings_edit_dialog_title">"Editar palabra"</string>
-    <string name="user_dict_settings_empty_text">"El diccionario del usuario no contiene ninguna palabra. Para agregar una, presiona el botón Agregar (+)."</string>
     <string name="user_dict_settings_all_languages">"Todos los idiomas"</string>
     <string name="user_dict_settings_more_languages">"Más idiomas"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -226,13 +220,11 @@
     <string name="prefs_long_press_symbol_for_numpad">Pulsación larga de la tecla de símbolos para cambiar al teclado numérico</string>
     <string name="prefs_narrow_key_gaps">Reducir la distancia de las teclas</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabeto (Bépo)</string>
     <string name="button_title_add_custom_layout">Añadir diseño personalizado</string>
     <string name="button_load_custom">Cargar archivo</string>
     <string name="file_read_error">No se puede leer el archivo</string>
     <string name="message_add_custom_layout">Seleccione un archivo en un formato compatible. La información sobre los formatos está disponible %s.</string>
     <string name="button_copy_existing_layout">Copiar diseño existente</string>
-    <string name="title_layout_name_select">Establecer el nombre del diseño</string>
     <string name="delete_layout">¿Borrar realmente el diseño personalizado %s?</string>
     <string name="layout_error">Error de diseño: %s</string>
     <string name="edit_layout">Pulse para editar el diseño sin procesar</string>
@@ -276,7 +268,6 @@
     <string name="auto_user_color">Escoger colores automáticamente</string>
     <string name="main_colors">Mostrar sólo los colores principales</string>
     <string name="all_colors">Mostrar todos los colores</string>
-    <string name="hint_show_keyboard">Haga clic para ver la vista previa</string>
     <string name="select_user_colors_summary">Seleccionar colores para el texto y los fondos</string>
     <string name="select_color_background">Fondo del teclado</string>
     <string name="select_color_suggestion">Texto de la tira de sugerencias</string>
@@ -316,7 +307,6 @@
     <string name="prefs_always_show_suggestions_summary">Ignorar la petición de otras aplicaciones de desactivar las sugerencias (puede producir problemas)</string>
     <string name="show_popup_hints">Mostrar pistas de funciones</string>
     <string name="prefs_bottom_padding_scale">Escala del borde inferior</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="no_dictionary_message">"Sin diccionario, sólo obtendrá sugerencias para el texto que haya introducido anteriormente.&lt;br&gt;
 \n        Puede descargar los diccionarios %1$s, o comprobar si se puede descargar directamente un diccionario para \"%2$s\" %3$s."</string>
     <string name="hidden_features_message">► Pulsando prolongadamente la tecla del portapapeles (la opcional en la tira de sugerencias) se pega el contenido del portapapeles del sistema. &lt;br&gt; &lt;br&gt; ► Al pulsar prolongadamente las teclas de la barra de sugerencias, éstas se fijan a la barra de sugerencias. &lt;br&gt; &lt;br&gt; ► Pulse prolongadamente la tecla Coma para acceder a la vista del portapapeles, la vista de emoji, el modo de una mano, Ajustes o Cambiar idioma: &lt;br&gt; \t• La vista Emoji y el cambio de idioma desaparecerán si tienes activada la tecla correspondiente; &lt;br&gt; \t• Para algunas distribuciones no es la tecla Coma, sino la tecla en la misma posición (por ejemplo, es \'q\' para la distribución Dvorak). &lt;br&gt; &lt;br&gt; ► Cuando el modo incógnito está activado, no se aprende ninguna palabra ni se añaden emojis a los favoritos. &lt;br&gt; &lt;br&gt; ► Pulse el icono Incógnito para acceder a la barra de herramientas. &lt;br&gt; &lt;br&gt; ► Tecla deslizante: Desliza desde Mayúsculas a otra tecla para escribir una sola mayúscula: &lt;br&gt; \t• Esto también funciona con la tecla \'?123\' para escribir un solo símbolo del teclado de símbolos, y con las teclas relacionadas. &lt;br&gt; &lt;br&gt; ► Mantenga pulsada una sugerencia en la tira de sugerencias para mostrar más sugerencias, y el botón suprimir para eliminar esta sugerencia. &lt;br&gt; &lt;br&gt; ► Desliza el dedo hacia arriba desde una sugerencia para abrir más sugerencias y suéltalo para seleccionarla. &lt;br&gt; &lt;br&gt; ► Mantén pulsada una entrada del historial del portapapeles para anclarla (se mantendrá en el portapapeles hasta que la desancles). &lt;br&gt; &lt;br&gt; ► Puedes añadir diccionarios abriéndolos en un explorador de archivos: &lt;br&gt; \t• Esto sólo funciona con &lt;i&gt;content-uris&lt;/i&gt; y no con &lt;i&gt;file-uris&lt;/i&gt;, lo que significa que puede no funcionar con algunos exploradores de archivos. &lt;br&gt; &lt;br&gt; &lt;i&gt;Modo depuración / depurar APK&lt;/i&gt; &lt;br&gt; &lt;br&gt; \t• Pulsa prolongadamente una sugerencia para mostrar el diccionario de origen.&lt;br&gt; &lt;br&gt; \t• Cuando se utiliza el APK de depuración, se puede encontrar la Configuración de Depuración dentro de las Preferencias Avanzadas, aunque la utilidad es limitada excepto para volcar diccionarios en el registro. &lt;br&gt; &lt;br&gt; \t• En caso de que se bloquee una aplicación, se te preguntará si quieres los registros de bloqueo cuando abras la Configuración. &lt;br&gt; &lt;br&gt; \t• Al utilizar la escritura multilingüe, la barra espaciadora mostrará un indicador de confianza utilizado para determinar el idioma utilizado en ese momento. &lt;br&gt; &lt;br&gt; \t• Las sugerencias tendrán unos pequeños números en la parte superior mostrando alguna puntuación interna y el diccionario de fuentes (se puede desactivar). &lt;br&gt; &lt;br&gt; ► Para usuarios que realizan copias de seguridad manuales con acceso root: A partir de Android 7, el archivo de preferencias compartidas no está en la ubicación predeterminada, porque la aplicación está utilizando %s. &lt;br&gt; Esto es necesario para poder leer los ajustes antes de desbloquear el dispositivo, por ejemplo, en el arranque. &lt;br&gt; El archivo se encuentra en /data/user_de/0/package_id/shared_prefs/, aunque esto puede depender del dispositivo y de la versión de Android.</string>
@@ -326,7 +316,6 @@
     <string name="clipboard_toolbar_keys">Seleccionar teclas de la barra de herramientas del portapapeles</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extendido)</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="more_colors">Mostrar más colores</string>
     <string name="all_colors_warning">Esta configuración muestra todos los colores que se utilizan internamente. La lista de colores puede cambiar en cualquier momento. El color predeterminado es aleatorio, y los nombres no se traducirán.</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionales</string>
@@ -346,7 +335,6 @@
     <string name="gesture_fast_typing_cooldown">Enfriamiento de escritura rápida</string>
     <string name="gesture_fast_typing_cooldown_instant">Siempre iniciar instantáneamente</string>
     <string name="customize_currencies">Personalizar divisas</string>
-    <string name="load_will_overwrite">La carga sobrescribirá el tema actual</string>
     <string name="page_end" tools:keep="@string/page_end">Final de página</string>
     <string name="page_start" tools:keep="@string/page_start">Inicio de página</string>
     <string name="word_left" tools:keep="@string/word_left">Palabra izquierda</string>

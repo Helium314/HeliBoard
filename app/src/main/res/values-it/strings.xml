@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (tradizionale)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (compatto)</string>
     <string name="subtype_no_language">"Nessuna lingua"</string>
-    <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Aggiungi"</string>
     <string name="remove">"Rimuovi"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Benvenuto in <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">con digitazione gestuale</string>
     <string name="setup_start_action">"Inizia"</string>
-    <string name="setup_next_action">"Passaggio successivo"</string>
     <string name="setup_steps_title">Configura <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Attiva <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Scegli <xliff:g id="APPLICATION_NAME">%s</xliff:g> nelle impostazioni \'Lingua e immissione\' per autorizzare l\'app.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> è già attiva nelle impostazioni Lingua e immissione.\"</string>
     <string name="setup_step1_action">Attiva nelle impostazioni</string>
     <string name="setup_step2_title">Passa a <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Infine, attiva <xliff:g id="APPLICATION_NAME">%s</xliff:g> come metodo di immissione di testo.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">Fine</string>
     <string name="show_setup_wizard_icon">Mostra l\'icona dell\'app</string>
     <string name="show_setup_wizard_icon_summary">Mostra HeliBoard tra le app di Android</string>
-    <string name="dictionary_settings_title">Dizionari</string>
+    <string name="dictionary_category_title">Dizionari</string>
     <string name="dictionary_available">"Dizionario disponibile"</string>
-    <string name="no_dictionaries_available">"Nessun dizionario"</string>
     <string name="last_update">"Ultimo aggiornamento"</string>
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
     <string name="version_text">Versione <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Aggiungi"</string>
     <string name="user_dict_settings_add_dialog_title">"Aggiungi al dizionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
     <string name="user_dict_settings_add_word_hint">"Digita una parola"</string>
     <string name="user_dict_settings_add_shortcut_hint">Scorciatoia (opzionale)</string>
     <string name="user_dict_settings_edit_dialog_title">"Modifica parola"</string>
-    <string name="user_dict_settings_empty_text">Il dizionario utente è vuoto. Premi \'Aggiungi\' (+) per aggiungere manualmente una parola.</string>
     <string name="user_dict_settings_all_languages">"Per tutte le lingue"</string>
     <string name="user_dict_settings_more_languages">"Altre lingue…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -197,7 +191,6 @@
     <string name="more_autocorrect">Correzione automatica aggiuntiva</string>
     <string name="split_spacer_scale">Distanza tra le due parti</string>
     <string name="prefs_always_show_suggestions_summary">Ignora la richiesta di altre applicazioni di disabilitare i suggerimenti (potrebbe causare problemi)</string>
-    <string name="title_layout_name_select">Nome del layout</string>
     <string name="switch_language">Cambia lingua</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Svuota gli appunti</string>
     <string name="prefs_narrow_key_gaps">Riduci lo spazio tra i tasti</string>
@@ -253,7 +246,6 @@
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Chiaro</string>
     <string name="user_dict_add_word_button">Aggiungi una parola</string>
     <string name="select_color_suggestion">Testo dei suggerimenti</string>
-    <string name="hint_show_keyboard">Tocca per vedere l\'anteprima</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Personalizzato (tema chiaro)</string>
     <string name="replace_dictionary">Sostituisci dizionario</string>
     <string name="select_color_background">Sfondo della tastiera</string>
@@ -310,7 +302,6 @@
     <string name="action_none">Nessuno</string>
     <string name="show_horizontal_space_swipe">Scorrimento orizzontale sulla barra spaziatrice</string>
     <string name="space_swipe_move_cursor_entry">Sposta il cursore</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
     <string name="prefs_long_press_symbol_for_numpad">Pressione lunga sul tasto simboli per aprire il tastierino numerico</string>
     <string name="cut" tools:keep="@string/cut">Taglia</string>
@@ -327,7 +318,6 @@
     <string name="auto_show_toolbar">Mostra automaticamente la barra degli strumenti</string>
     <string name="quick_pin_toolbar_keys_summary">Le azioni alternative su pressione lunga saranno disponibili solo sui tasti già fissati</string>
     <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tasti funzione (Simboli)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tasti funzione (Altri simboli)</string>
     <string name="settings_screen_toolbar">Barra degli strumenti</string>
@@ -364,7 +354,6 @@
     <string name="space_swipe_toggle_numpad_entry">Passa al tastierino numerico</string>
     <string name="remove_redundant_popups">Rimuovi i tasti popup ripetuti</string>
     <string name="remove_redundant_popups_summary">Rimuovi i tasti popup già presenti nel layout base</string>
-    <string name="load_will_overwrite">Attenzione: l\'importazione sovrascriverà il tema attuale</string>
     <string name="gesture_floating_preview_static_summary">Mostra dinamicamente le parole suggerite durante l\'inserimento</string>
     <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
     <string name="gesture_floating_preview_static">Anteprima mobile dinamica</string>
@@ -398,7 +387,6 @@
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Fonetico)</string>
     <string name="prefs_key_emoji_max_sdk">Forza la versione delle emoji</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="enable_split_keyboard_landscape">Tastiera divisa (orizzontale)</string>
     <string name="split_spacer_scale_landscape">Distanza (orizzontale)</string>
     <string name="split" tools:keep="@string/split">Tastiera divisa</string>

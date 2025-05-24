@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="subtype_no_language">"Nenhum idioma"</string>
-    <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emojis"</string>
     <string name="add">"Adicionar"</string>
     <string name="remove">"Remover"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Bem-vindo ao <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"com entrada por gestos"</string>
     <string name="setup_start_action">"Começar"</string>
-    <string name="setup_next_action">"Próxima etapa"</string>
     <string name="setup_steps_title">A configurar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Ative o <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Assinale <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> na área \"Idioma e introdução\" das definições. Assim, já poderá executar a aplicação no dispositivo.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> já está ativado nas nas definições de idioma e introdução. Esta etapa está concluída. Vamos avançar para a próxima!</string>
     <string name="setup_step1_action">Ativar nas definições</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">De seguida, selecione \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" como método de introdução.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Concluído"</string>
     <string name="show_setup_wizard_icon">"Mostrar ícone do app"</string>
     <string name="show_setup_wizard_icon_summary">"Mostrar ícone do app no iniciador"</string>
-    <string name="dictionary_settings_title">"Dicionários complementares"</string>
+    <string name="dictionary_category_title">"Dicionários complementares"</string>
     <string name="dictionary_available">"Dicionário disponível"</string>
-    <string name="no_dictionaries_available">"Nenhum dicionário disponível"</string>
     <string name="last_update">"Última atualização"</string>
     <string name="settings">"Configurações"</string>
     <string name="delete">"Excluir"</string>
     <string name="version_text">Versão <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Adicionar"</string>
     <string name="user_dict_settings_add_dialog_title">"Adicionar ao dicionário"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Atalho:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
     <string name="user_dict_settings_add_word_hint">"Digite uma palavra"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Atalho opcional"</string>
     <string name="user_dict_settings_edit_dialog_title">"Editar palavra"</string>
-    <string name="user_dict_settings_empty_text">"Você não tem nenhuma palavra no dicionário do usuário. Para adicionar uma palavra, toque no botão de adição (+)."</string>
     <string name="user_dict_settings_all_languages">"Para todos os idiomas"</string>
     <string name="user_dict_settings_more_languages">"Mais idiomas…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

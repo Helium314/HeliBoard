@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ਪਰੰਪਰਿਕ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ਸੰਖਿਪਤ)"</string>
     <string name="subtype_no_language">"ਕੋਈ ਭਾਸ਼ਾ ਨਹੀਂ"</string>
-    <string name="subtype_no_language_qwerty">"ਵਰਨਮਾਲਾ (QWERTY)"</string>
     <string name="subtype_emoji">"ਇਮੋਜੀ"</string>
     <string name="add">"ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="remove">"ਹਟਾਓ"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਤੇ ਸੁਆਗਤ ਹੈ\"</string>
     <string name="setup_welcome_additional_description">"ਸੰਕੇਤ ਟਾਈਪਿੰਗ ਨਾਲ"</string>
     <string name="setup_start_action">"ਸ਼ੁਰੂਆਤ ਕਰੋ"</string>
-    <string name="setup_next_action">"ਅਗਲਾ ਸਟੈਪ"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਸੈਟ ਅਪ ਕਰ ਰਿਹਾ ਹੈ\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ\"</string>
     <string name="setup_step1_instruction">"ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਇਨਪੁੱਟ ਸੈਟਿੰਗਾਂ ਵਿੱਚ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" \'ਤੇ ਸਹੀ ਦਾ ਨਿਸ਼ਾਨ ਲਗਾਓ। ਇਹ ਉਸ ਨੂੰ ਤੁਹਾਡੇ ਡੀਵਾਈਸ \'ਤੇ ਚੱਲਣ ਲਈ ਅਧਿਕਾਰਿਤ ਕਰੇਗਾ।"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ਨੂੰ ਪਹਿਲਾਂ ਹੀ ਤੁਹਾਡੀਆਂ ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਇਨਪੁੱਟ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ, ਇਸ ਲਈ ਇਹ ਪੜਾਅ ਪੂਰਾ ਹੋ ਗਿਆ ਹੈ। ਅਗਲੇ ਪੜਾਅ \'ਤੇ ਜਾਓ!"</string>
     <string name="setup_step1_action">"ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕਰੋ"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> \'ਤੇ ਸਵਿੱਚ ਕਰੋ\"</string>
     <string name="setup_step2_instruction">"ਫਿਰ, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ਨੂੰ ਆਪਣੀ ਕਿਰਿਆਸ਼ੀਲ ਲਿਖਤ-ਇਨਪੁੱਟ ਵਿਧੀ ਦੇ ਤੌਰ ਤੇ ਚੁਣੋ।"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"ਪੂਰਾ ਹੋਇਆ"</string>
     <string name="show_setup_wizard_icon">"ਐਪ ਪ੍ਰਤੀਕ ਦਿਖਾਓ"</string>
     <string name="show_setup_wizard_icon_summary">"ਲਾਂਚਰ ਵਿੱਚ ਐਪਲੀਕੇਸ਼ਨ ਪ੍ਰਤੀਕ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ"</string>
-    <string name="dictionary_settings_title">"ਐਡ-ਆਨ ਸ਼ਬਦਕੋਸ਼"</string>
+    <string name="dictionary_category_title">"ਐਡ-ਆਨ ਸ਼ਬਦਕੋਸ਼"</string>
     <string name="dictionary_available">"ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ"</string>
-    <string name="no_dictionaries_available">"ਕੋਈ ਸ਼ਬਦਕੋਸ਼ ਉਪਲਬਧ ਨਹੀਂ"</string>
     <string name="last_update">"ਆਖਰੀ ਵਾਰ ਅੱਪਡੇਟ ਕੀਤਾ"</string>
     <string name="settings">"ਸੈਟਿੰਗਾਂ"</string>
     <string name="delete">"ਮਿਟਾਓ"</string>
     <string name="version_text">"ਰੂਪ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="user_dict_settings_add_dialog_title">"ਸ਼ਬਦਕੋਸ਼ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ਸ਼ਾਰਟਕੱਟ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ਭਾਸ਼ਾ:"</string>
     <string name="user_dict_settings_add_word_hint">"ਇੱਕ ਸ਼ਬਦ ਟਾਈਪ ਕਰੋ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ਵਿਕਲਪਕ ਸ਼ਾਰਟਕੱਟ"</string>
     <string name="user_dict_settings_edit_dialog_title">"ਸ਼ਬਦ ਦਾ ਸੰਪਾਦਨ ਕਰੋ"</string>
-    <string name="user_dict_settings_empty_text">"ਤੁਹਾਡੇ ਕੋਲ ਵਰਤੋਂਕਾਰ ਸ਼ਬਦਕੋਸ਼ ਵਿੱਚ ਕੋਈ ਸ਼ਬਦ ਨਹੀਂ ਹਨ। ਇੱਕ ਸ਼ਬਦ ਸ਼ਾਮਲ ਕਰਨ ਲਈ \'ਸ਼ਾਮਲ ਕਰੋ\' (+) ਬਟਨ \'ਤੇ ਟੈਪ ਕਰੋ।"</string>
     <string name="user_dict_settings_all_languages">"ਸਾਰੀਆਂ ਭਾਸ਼ਾਵਾਂ ਲਈ"</string>
     <string name="user_dict_settings_more_languages">"ਹੋਰ ਭਾਸ਼ਾਵਾਂ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (പരമ്പരാഗതം)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (കോം‌പാക്‌ട്)</string>
     <string name="subtype_no_language">"ഭാഷയില്ല"</string>
-    <string name="subtype_no_language_qwerty">"അക്ഷരമാല (QWERTY)"</string>
     <string name="subtype_emoji">"ഇമോജി"</string>
     <string name="add">"ചേര്‍ക്കുക"</string>
     <string name="remove">"നീക്കംചെയ്യുക"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് സ്വാഗതം</string>
     <string name="setup_welcome_additional_description">"വിരൽചലിത ടൈപ്പിംഗിനൊപ്പം"</string>
     <string name="setup_start_action">"ആരംഭിക്കുക"</string>
-    <string name="setup_next_action">"അടുത്ത ചുവട്"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> സജ്ജമാക്കുന്നു</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കുക</string>
     <string name="setup_step1_instruction">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" ചെക്കുചെയ്യുക. ചെക്കുചെയ്യുന്നത് ഉപകരണത്തിൽ പ്രവർത്തിക്കാൻ ഇതിന് അംഗീകാരം നൽകും.</string>
-    <string name="setup_step1_finished_instruction">ഭാഷയും ഇൻപുട്ടും ക്രമീകരണത്തിൽ ഇതിനകം തന്നെ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> പ്രവർത്തനക്ഷമമാക്കിയതിനാൽ ഈ ഘട്ടം പൂർത്തിയായി. അടുത്ത ഘട്ടത്തിലേക്ക് പോകുക!</string>
     <string name="setup_step1_action">"ക്രമീകരണങ്ങളിൽ പ്രവർത്തനക്ഷമമാകുക"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> എന്നതിലേക്ക് മാറുക</string>
     <string name="setup_step2_instruction">അടുത്തത്, \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" എന്നതിനെ നിങ്ങളുടെ സജീവ വാചക-ടൈപ്പുചെയ്യൽ രീതിയായി തിരഞ്ഞെടുക്കുക.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"പൂർത്തിയായി"</string>
     <string name="show_setup_wizard_icon">"അപ്ലിക്കേഷൻ ഐക്കൺ കാണിക്കുക"</string>
     <string name="show_setup_wizard_icon_summary">"ലോഞ്ചറിൽ അപ്ലിക്കേഷൻ ഐക്കൺ പ്രദർശിപ്പിക്കുക"</string>
-    <string name="dictionary_settings_title">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
+    <string name="dictionary_category_title">"ആഡ്-ഓൺ നിഘണ്ടുക്കൾ"</string>
     <string name="dictionary_available">"നിഘണ്ടു ലഭ്യമാണ്"</string>
-    <string name="no_dictionaries_available">"നിഘണ്ടുക്കളൊന്നും ലഭ്യമല്ല"</string>
     <string name="last_update">"അവസാനം അപ്ഡേറ്റുചെയ്തത്"</string>
     <string name="settings">"ക്രമീകരണം"</string>
     <string name="delete">"ഇല്ലാതാക്കുക"</string>
     <string name="version_text">വേർഷൻ <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"ചേര്‍ക്കുക"</string>
     <string name="user_dict_settings_add_dialog_title">"നിഘണ്ടുവിൽ ചേർക്കുക"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"കുറുക്കുവഴി:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ഭാഷ:"</string>
     <string name="user_dict_settings_add_word_hint">"ഒരു പദം ടൈപ്പുചെയ്യുക"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ഓപ്‌ഷണൽ കുറുക്കുവഴി"</string>
     <string name="user_dict_settings_edit_dialog_title">"പദം എഡിറ്റുചെയ്യുക"</string>
-    <string name="user_dict_settings_empty_text">"ഉപയോക്തൃ നിഘണ്ടുവിൽ നിങ്ങൾക്ക് പദങ്ങളൊന്നുമില്ല. ഒരു പദം ചേർക്കുന്നതിന്, ചേർക്കുക (+) ബട്ടൺ ടാപ്പ് ചെയ്യുക."</string>
     <string name="user_dict_settings_all_languages">"എല്ലാ ഭാഷകൾക്കുമായി"</string>
     <string name="user_dict_settings_more_languages">"കൂടുതൽ ഭാഷകൾ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

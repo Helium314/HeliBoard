@@ -55,7 +55,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальский">%s</xliff:g> (Традиционная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Компактная)</string>
     <string name="subtype_no_language">Стандартная</string>
-    <string name="subtype_no_language_qwerty">Латиница (QWERTY)</string>
     <string name="subtype_emoji">Эмодзи</string>
     <string name="add">Добавить</string>
     <string name="remove">Удалить</string>
@@ -71,11 +70,9 @@
     <string name="setup_welcome_title">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
-    <string name="setup_next_action">Далее</string>
     <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Убедитесь, что приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
-    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода, так что этот шаг выполнен. Переходим к следующему!</string>
     <string name="setup_step1_action">Включить в настройках</string>
     <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Теперь выберите \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.</string>
@@ -85,21 +82,18 @@
     <string name="setup_finish_action">Готово</string>
     <string name="show_setup_wizard_icon">Показывать значок приложения</string>
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
-    <string name="dictionary_settings_title">Дополнительные словари</string>
+    <string name="dictionary_category_title">Дополнительные словари</string>
     <string name="dictionary_available">Доступный словарь</string>
-    <string name="no_dictionaries_available">Словарей нет</string>
     <string name="last_update">Последнее обновление</string>
     <string name="settings">Настройки</string>
     <string name="delete">Удалить</string>
     <string name="version_text">Версия <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">Добавить</string>
     <string name="user_dict_settings_add_dialog_title">Добавление в словарь</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Быстрые клавиши:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Язык:"</string>
     <string name="user_dict_settings_add_word_hint">Введите слово</string>
     <string name="user_dict_settings_add_shortcut_hint">Ярлык для фразы (необязательно)</string>
     <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
-    <string name="user_dict_settings_empty_text">В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки Добавить (+).</string>
     <string name="user_dict_settings_all_languages">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другие языки…</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
@@ -163,7 +157,6 @@
     <string name="theme_name_user">Пользовательская</string>
     <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
-    <string name="hint_show_keyboard">Нажмите для предпросмотра</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
     <string name="select_color_background">Фон клавиатуры</string>
     <string name="select_color_key">Текст клавиш</string>
@@ -282,7 +275,6 @@
     <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
     <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
-    <string name="title_layout_name_select">Задать имя раскладки</string>
     <string name="button_load_custom">Загрузить файл</string>
     <string name="button_copy_existing_layout">Скопировать текущую раскладку</string>
     <string name="layout_error">Ошибка раскладки: %s</string>
@@ -339,7 +331,6 @@
     <string name="load">Загрузить</string>
     <string name="button_save_file">Сохранить в файл</string>
     <string name="copy_to_clipboard">Скопировать в буфер обмена</string>
-    <string name="load_will_overwrite">Загрузка перезапишет текущую тему</string>
     <string name="page_start" tools:keep="@string/page_start">Начало страницы</string>
     <string name="page_end" tools:keep="@string/page_end">Конец страницы</string>
     <string name="word_left" tools:keep="@string/word_left">Слово левее</string>

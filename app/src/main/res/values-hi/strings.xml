@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (पारंपरिक)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संक्षिप्त)"</string>
     <string name="subtype_no_language">"भाषा उपलब्ध नहीं है"</string>
-    <string name="subtype_no_language_qwerty">"वर्णाक्षर (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"जोड़ें"</string>
     <string name="remove">"निकालें"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> में आपका स्वागत है\"</string>
     <string name="setup_welcome_additional_description">"जेस्चर टाइपिंग के साथ"</string>
     <string name="setup_start_action">"आरंभ करें"</string>
-    <string name="setup_next_action">"अगला चरण"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> सेट करना\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> को चालू करें\"</string>
     <string name="setup_step1_instruction">"कृपया अपनी भाषा और इनपुट सेटिंग में \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को सही का निशान लगाकर चुनें. इससे उसे आपके डिवाइस पर चलने की अनुमति मिल जाएगी."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> आपकी भाषा और इनपुट सेटिंग में पहले से सक्षम है, इसलिए यह चरण पूरा हो गया है. अगले चरण पर जाएं!"</string>
     <string name="setup_step1_action">"सेटिंग में चालू करें"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> पर स्विच करें\"</string>
     <string name="setup_step2_instruction">"इसके बाद, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" को अपने सक्रिय पाठ-इनपुट के तरीके के तौर पर चुनें."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"खत्म"</string>
     <string name="show_setup_wizard_icon">"ऐप्लिकेशन का आइकॉन दिखाएं"</string>
     <string name="show_setup_wizard_icon_summary">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
-    <string name="dictionary_settings_title">"अन्य शब्दकोष"</string>
+    <string name="dictionary_category_title">"अन्य शब्दकोष"</string>
     <string name="dictionary_available">"शब्दकोश उपलब्‍ध"</string>
-    <string name="no_dictionaries_available">"डिक्‍शनरी अनुपलब्‍ध"</string>
     <string name="last_update">"आख़री बार अपडेट किया गया"</string>
     <string name="settings">"सेटिंग"</string>
     <string name="delete">"मिटाएं"</string>
     <string name="version_text">"वर्शन <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"जोड़ें"</string>
     <string name="user_dict_settings_add_dialog_title">"शब्दकोश में जोड़ें"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"शॉर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>
     <string name="user_dict_settings_add_word_hint">"कोई शब्द लिखें"</string>
     <string name="user_dict_settings_add_shortcut_hint">"वैकल्पिक शॉर्टकट"</string>
     <string name="user_dict_settings_edit_dialog_title">"शब्द बदलें"</string>
-    <string name="user_dict_settings_empty_text">"आपके पास उपयोगकर्ता डिक्शनरी में कोई भी शब्द नहीं है. कोई शब्द जोड़ने के लिए, जोड़ें (+) बटन छूएं."</string>
     <string name="user_dict_settings_all_languages">"सभी भाषाओं के लिए"</string>
     <string name="user_dict_settings_more_languages">"ज़्यादा भाषाएं…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

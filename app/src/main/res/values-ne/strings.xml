@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (परम्परागत)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संकुचित)"</string>
     <string name="subtype_no_language">"कुनै भाषा होइन"</string>
-    <string name="subtype_no_language_qwerty">"वर्णमाला (QWERTY)"</string>
     <string name="subtype_emoji">"इमोजी"</string>
     <string name="add">"थप्नुहोस्"</string>
     <string name="remove">"हटाउनुहोस्"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"तपाईँलाई स्वागत छ<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_welcome_additional_description">"इशारा टाइप गर्नेसँग"</string>
     <string name="setup_start_action">"सुरु गरौं"</string>
-    <string name="setup_next_action">"अर्को चरण"</string>
     <string name="setup_steps_title">"स्थापना गर्दै <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"सक्षम पार्नुहोस् <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_instruction">"कृपया आफ्नो भाषा र इनपुट सम्बन्धी सेटिङहरूमा \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" अनुप्रयोगलाई जाँच गर्नुहोस्। यस कारबाहीले अनुप्रयोगलाई तपाईँको यन्त्रमा सञ्चालन हुन आधिकार प्रदान गर्ने छ।"</string>
-    <string name="setup_step1_finished_instruction">"तपाईँको भाषा र इनपुट सम्बन्धी सेटिङहरूमा <xliff:g id="APPLICATION_NAME">%s</xliff:g> लाई पहिले नै सक्रिय गरिएको छ, त्यसैले यो चरण सम्पन्न भइसकेको छ। अर्को चरणमा जानुहोस्!"</string>
     <string name="setup_step1_action">"सेटिङहरूमा सक्षम पार्नुहोस्"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>मा स्विच गर्नुहोस्\"</string>
     <string name="setup_step2_instruction">"त्यसपछि, \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" लाई तपाईँको सक्रिय पाठ इनपुट विधिका रूपमा चयन गर्नुहोस्।"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"समाप्त भयो"</string>
     <string name="show_setup_wizard_icon">"अनुप्रयोग आइकन देखाउनुहोस्"</string>
     <string name="show_setup_wizard_icon_summary">"लन्चरमा अनुप्रयोग आइकन देखाउनुहोस्"</string>
-    <string name="dictionary_settings_title">"एड-अन शब्दकोश"</string>
+    <string name="dictionary_category_title">"एड-अन शब्दकोश"</string>
     <string name="dictionary_available">"उपलब्ध शब्दकोश"</string>
-    <string name="no_dictionaries_available">"शब्दकोशहरू उपलब्ध छैनन्"</string>
     <string name="last_update">"पछिल्लो अद्यावधिक"</string>
     <string name="settings">"सेटिङहरू"</string>
     <string name="delete">"मेट्नुहोस्"</string>
     <string name="version_text">"संस्करण <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"थप्नुहोस्"</string>
     <string name="user_dict_settings_add_dialog_title">"शब्दकोशमा थप्नुहोस्"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"सर्टकट:"</string>
     <string name="user_dict_settings_add_locale_option_name">"भाषा:"</string>
     <string name="user_dict_settings_add_word_hint">"एउटा शब्द टाइप गर्नुहोस्"</string>
     <string name="user_dict_settings_add_shortcut_hint">"वैकल्पिक सर्टकट"</string>
     <string name="user_dict_settings_edit_dialog_title">"शब्द सम्पादन गर्नुहोस्"</string>
-    <string name="user_dict_settings_empty_text">"तपाईँको प्रयोगकर्ता शब्दकोषमा कुनै पनि शब्दहरू छैनन्। शब्द थप्न थप्नुहोस् (+) बटनलाई ट्याप गर्नुहोस्।"</string>
     <string name="user_dict_settings_all_languages">"सबै भाषाहरूका लागि"</string>
     <string name="user_dict_settings_more_languages">"थप भाषाहरू…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

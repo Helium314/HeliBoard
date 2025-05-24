@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (روایتی)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (کمپیکٹ)"</string>
     <string name="subtype_no_language">"کوئی زبان نہیں"</string>
-    <string name="subtype_no_language_qwerty">"‏حروف تہجی (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"شامل کریں"</string>
     <string name="remove">"ہٹائیں"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> میں خوش آمدید\"</string>
     <string name="setup_welcome_additional_description">"اشارہ ٹائپنگ کے ساتھ"</string>
     <string name="setup_start_action">"شروع کریں"</string>
-    <string name="setup_next_action">"اگلا مرحلہ"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ترتیب دینا\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> کو فعال کریں\"</string>
     <string name="setup_step1_instruction">"براہ کرم \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنی زبانوں اور ان پٹ ترتیبات میں چیک کریں۔ اس سے اس کو آپ کے آلہ پر چلنے کی اجازت مل جائے گی۔"</string>
-    <string name="setup_step1_finished_instruction">"‏<xliff:g id="APPLICATION_NAME">%s</xliff:g> پہلے ہی آپ کی زبانوں ‎اور‎ ان پٹ ترتیبات میں فعال ہے، لہذا یہ مرحلہ مکمل ہو گیا ہے۔ اگلے پر چلتے ہیں!"</string>
     <string name="setup_step1_action">"ترتیبات میں فعال کریں"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> پر سوئچ کریں\"</string>
     <string name="setup_step2_instruction">"آگے، \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" کو اپنے فعال متنی اندراج کے طریقہ کے بطور منتخب کریں۔"</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"مکمل ہو گیا"</string>
     <string name="show_setup_wizard_icon">"ایپ آئیکن دکھائیں"</string>
     <string name="show_setup_wizard_icon_summary">"لانچر میں ایپلیکیشن آئیکن کو ڈسپلے کریں"</string>
-    <string name="dictionary_settings_title">"اضافی لغات"</string>
+    <string name="dictionary_category_title">"اضافی لغات"</string>
     <string name="dictionary_available">"لغت دستیاب ہے"</string>
-    <string name="no_dictionaries_available">"کوئی لغت دستیاب نہیں"</string>
     <string name="last_update">"آخری بار اپ ڈیٹ کردہ"</string>
     <string name="settings">"ترتیبات"</string>
     <string name="delete">"حذف کریں"</string>
     <string name="version_text">"ورژن <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"شامل کریں"</string>
     <string name="user_dict_settings_add_dialog_title">"لغت میں شامل کریں"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"شارٹ کٹ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"زبان:"</string>
     <string name="user_dict_settings_add_word_hint">"ایک لفظ ٹائپ کریں"</string>
     <string name="user_dict_settings_add_shortcut_hint">"اختیاری شارٹ کٹ"</string>
     <string name="user_dict_settings_edit_dialog_title">"لفظ میں ترمیم کریں"</string>
-    <string name="user_dict_settings_empty_text">"صارف لغت میں آپ کے پاس کوئی الفاظ نہيں ہیں۔ کوئی لفظ شامل کرنے کیلئے شامل کریں (+) بٹن تھپتھپائیں۔"</string>
     <string name="user_dict_settings_all_languages">"سبھی زبانوں کیلئے"</string>
     <string name="user_dict_settings_more_languages">"مزید زبانیں…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

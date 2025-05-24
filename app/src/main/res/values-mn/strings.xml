@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (уламжлалт)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Компакт)"</string>
     <string name="subtype_no_language">"Хэл байхгүй"</string>
-    <string name="subtype_no_language_qwerty">"Цагаан толгой (QWERTY)"</string>
     <string name="subtype_emoji">"Инээмсэглэл"</string>
     <string name="add">"Нэмэх"</string>
     <string name="remove">"Устгах"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">"Та <xliff:g id="APPLICATION_NAME">%s</xliff:g>-д тавтай морилно уу"</string>
     <string name="setup_welcome_additional_description">"Зангаагаар бичихээр"</string>
     <string name="setup_start_action">"Эхлэх"</string>
-    <string name="setup_next_action">"Дараагийн алхам"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г тохируулж байна\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>-г идэвхжүүлэх\"</string>
     <string name="setup_step1_instruction">"Хэл, оролтын тохиргоо хэсгээс \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г сонгоно уу. Ингэснээр үүнийг таны төхөөрөмжид ажиллах зөвшөөрлийг өгөх болно."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g>-г Хэл, оролтын тохиргоонд аль хэдийн идэвхжүүлснээр энэ алхам дууслаа. Дараагийн алхмыг хийцгээе!"</string>
     <string name="setup_step1_action">"Тохиргоо дотроос идэвхжүүлэх"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> рүү шилжих\"</string>
     <string name="setup_step2_instruction">"Дараа нь \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\"-г өөрийн идэвхтэй текст-оруулах аргаар сонгоно уу."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Дууссан"</string>
     <string name="show_setup_wizard_icon">"Апп дүрсийг харуулах"</string>
     <string name="show_setup_wizard_icon_summary">"Эхлүүлэгч дээр аппликейшний дүрсийг харуулах"</string>
-    <string name="dictionary_settings_title">"Нэмэлт толь бичгүүд"</string>
+    <string name="dictionary_category_title">"Нэмэлт толь бичгүүд"</string>
     <string name="dictionary_available">"Толь бичиг байна"</string>
-    <string name="no_dictionaries_available">"Толь бичиг байхгүй"</string>
     <string name="last_update">"Сүүлд шинэчлэгдсэн"</string>
     <string name="settings">"Тохиргоо"</string>
     <string name="delete">"Устгах"</string>
     <string name="version_text">"Хувилбар <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Нэмэх"</string>
     <string name="user_dict_settings_add_dialog_title">"Толь бичигт нэмэх"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Товчилбор:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Хэл:"</string>
     <string name="user_dict_settings_add_word_hint">"Үг оруулна уу"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Зайлшгүй биш товчилбор"</string>
     <string name="user_dict_settings_edit_dialog_title">"Үг засах"</string>
-    <string name="user_dict_settings_empty_text">"Таны хэрэглэгчийн толь бичигт ямар ч үг байхгүй байна. Үг нэмэхийн тулд Нэмэх (+) товчлуурыг дарна уу."</string>
     <string name="user_dict_settings_all_languages">"Бүх хэлэнд"</string>
     <string name="user_dict_settings_more_languages">"Өөр хэлүүд…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

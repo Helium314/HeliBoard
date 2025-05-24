@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language">"Geen taal"</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Toevoegen"</string>
     <string name="remove">"Verwijderen"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Welkom bij <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">met Typen met gebaren</string>
     <string name="setup_start_action">"Aan de slag"</string>
-    <string name="setup_next_action">"Volgende stap"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
     <string name="setup_step1_instruction">Selecteer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen &amp; invoer\', dus deze stap is voltooid. Op naar de volgende!</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
     <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Selecteer vervolgens <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve methode voor tekstinvoer.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Voltooid"</string>
     <string name="show_setup_wizard_icon">"App-pictogram weergeven"</string>
     <string name="show_setup_wizard_icon_summary">"App-pictogram weergeven in het opstartprogramma"</string>
-    <string name="dictionary_settings_title">Aanvullende woordenboeken</string>
+    <string name="dictionary_category_title">Aanvullende woordenboeken</string>
     <string name="dictionary_available">"Woordenboek beschikbaar"</string>
-    <string name="no_dictionaries_available">"Geen woordenboeken"</string>
     <string name="last_update">"Laatst bijgewerkt"</string>
     <string name="settings">"Instellingen"</string>
     <string name="delete">"Verwijderen"</string>
     <string name="version_text">Versie <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Toevoegen"</string>
     <string name="user_dict_settings_add_dialog_title">"Toevoegen aan woordenboek"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Sneltoets:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Taal:"</string>
     <string name="user_dict_settings_add_word_hint">"Typ een woord"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Optionele snelkoppeling"</string>
     <string name="user_dict_settings_edit_dialog_title">"Woord bewerken"</string>
-    <string name="user_dict_settings_empty_text">"Er staan geen woorden in het gebruikerswoordenboek. Tik op de knop Toevoegen (+) om een woord toe te voegen."</string>
     <string name="user_dict_settings_all_languages">"Voor alle talen"</string>
     <string name="user_dict_settings_more_languages">"Meer talen…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -198,7 +192,6 @@
     <string name="popup_order">Volgorde pop-up toets kiezen</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Cijferregel</string>
     <string name="prefs_bottom_padding_scale">Bodemafstand schaal</string>
-    <string name="title_layout_name_select">Naam van lay-out instellen</string>
     <string name="delete_layout">Aangepaste lay-out %s verwijderen?</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symbolen (Arabisch)</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Aangepast</string>
@@ -255,8 +248,6 @@
     <string name="dictionary_file_error">Fout: Geselecteerd bestand is geen geldig woordenboekbestand</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Telefoonsymbolen</string>
     <string name="subtype_mns">Mansi</string>
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
     <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
@@ -291,7 +282,6 @@
     <string name="more_colors">Meer kleuren tonen</string>
     <string name="all_colors">Alle kleuren tonen</string>
     <string name="all_colors_warning">Deze instelling toont alle kleuren bloot die intern worden gebruikt. De lijst met kleuren kan op elk moment veranderen. Er is een willekeurige standaardkleur en de namen worden niet vertaald.</string>
-    <string name="hint_show_keyboard">Klik voor een voorbeeld</string>
     <string name="select_color_background">Toetsenbord-achtergrond</string>
     <string name="select_color_key">Toetstekst</string>
     <string name="select_color_key_background">Toets-achtergrond</string>
@@ -320,7 +310,6 @@
 \nJe kunt woordenboeken %1$s downloaden, of een woordenboek voor \"%2$s\" %3$s direct downloaden.</string>
     <string name="show_popup_keys_normal">Varianten gedefinieerd in toetsenbordtalen weergeven</string>
     <string name="show_popup_hints">Functionele hints weergeven</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alfabet (Bépo)</string>
     <string name="dictionary_file_wrong_locale">Het geselecteerde bestand is voor %1$s, maar %2$s werd verwacht. Toch gebruiken voor %2$s?</string>
     <string name="restore_error">Fout bij terugzetten van de back-up: %s</string>
     <string name="add_dictionary">Selecteer een woordenboek om toe te voegen. Woordenboeken in .dict-indeling kunnen %s worden gedownload.</string>
@@ -384,7 +373,6 @@
     <string name="customize_currencies">Valuta aanpassen</string>
     <string name="button_save_file">Opslaan naar bestand</string>
     <string name="copy_to_clipboard">Kopiëren naar klembord</string>
-    <string name="load_will_overwrite">Laden zal het huidige thema overschrijven</string>
     <string name="load">Laden</string>
     <string name="page_end" tools:keep="@string/page_end">Pagina-einde</string>
     <string name="page_start" tools:keep="@string/page_start">Pagina-begin</string>
@@ -436,7 +424,6 @@
     <string name="prefs_key_emoji_max_sdk">Emoji-versie overschrijven</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_correct_shortcuts">Sneltoetsen autom. corrigeren</string>
     <string name="auto_correct_shortcuts_summary">Indien ingeschakeld, kunnen sneltoetsen worden uitgebreid met autocorrectie</string>
     <string name="custom_font">Aangepast lettertype instellen vanuit bestand</string>

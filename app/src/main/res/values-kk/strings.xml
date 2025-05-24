@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (дәстүрлі)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (шағын)"</string>
     <string name="subtype_no_language">"Тіл жоқ"</string>
-    <string name="subtype_no_language_qwerty">"Әліпби (QWERTY)"</string>
     <string name="subtype_emoji">"Эмодзи"</string>
     <string name="add">"Қосу"</string>
     <string name="remove">"Өшіру"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> қолданбасына қош келдіңіз\"</string>
     <string name="setup_welcome_additional_description">"Қимылмен теру арқылы"</string>
     <string name="setup_start_action">"Іске қосылды"</string>
-    <string name="setup_next_action">"Келесі қадам"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> орнату\"</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> қосу\"</string>
     <string name="setup_step1_instruction">"\"Тілдер және енгізу\" параметрлерінде <xliff:g id="APPLICATION_NAME">%s</xliff:g> қолданбасына құсбелгі қойыңыз. Сонда оны құрылғыңызда қолдануға рұқсат беріледі."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> қолданбасы \"Тілдер және енгізу\" параметрлерінде бұрыннан қосылған. Келесі қадамға өтіңіз!"</string>
     <string name="setup_step1_action">"Параметрлер ішінде қосу"</string>
     <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> қолданбасына ауыстыру\"</string>
     <string name="setup_step2_instruction">"Одан кейін \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" қолданбасын белсенді мәтінді енгізу әдісі ретінде таңдаңыз."</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Аяқталған"</string>
     <string name="show_setup_wizard_icon">"Қолданба белгішесін көрсету"</string>
     <string name="show_setup_wizard_icon_summary">"Іске қосу құралында қолданба белгішесін көрсету"</string>
-    <string name="dictionary_settings_title">"Қосымша сөздіктер"</string>
+    <string name="dictionary_category_title">"Қосымша сөздіктер"</string>
     <string name="dictionary_available">"Сөздік қолжетімді"</string>
-    <string name="no_dictionaries_available">"Сөздіктер қолжетімсіз"</string>
     <string name="last_update">"Соңғы жаңартылған"</string>
     <string name="settings">"Параметрлер"</string>
     <string name="delete">"Жою"</string>
     <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> нұсқасы"</string>
-    <string name="user_dict_settings_add_menu_title">"Қосу"</string>
     <string name="user_dict_settings_add_dialog_title">"Сөздікке қосу"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пернелер тіркесімі:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Тіл:"</string>
     <string name="user_dict_settings_add_word_hint">"Сөзді теріңіз"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Қосымша пернелер тіркесімі"</string>
     <string name="user_dict_settings_edit_dialog_title">"Сөзді өңдеу"</string>
-    <string name="user_dict_settings_empty_text">"Пайдаланушы сөздігінде сөздер жоқ. Сөзді қосу үшін \"Қосу\" (+) түймесін түртіңіз."</string>
     <string name="user_dict_settings_all_languages">"Барлық тілдер үшін"</string>
     <string name="user_dict_settings_more_languages">"Қосымша тілдер…"</string>
     <string name="user_dict_fast_scroll_alphabet">" АӘБВГҒДЕЁЖЗИЙКҚЛМНҢОӨПРСТУҰҮФХҺЦЧШЩЪЫІЬЭЮЯ"</string>

@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (ტრადიციული)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (კომპაქტური)</string>
     <string name="subtype_no_language">"ენის გარეშე"</string>
-    <string name="subtype_no_language_qwerty">"ლათ. ანბანი (QWERTY)"</string>
     <string name="subtype_emoji">"სიცილაკები"</string>
     <string name="add">"დამატება"</string>
     <string name="remove">"ამოშლა"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">მოგესალმებათ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"ჟესტებით წერით"</string>
     <string name="setup_start_action">"დაწყება"</string>
-    <string name="setup_next_action">"შემდეგი საფეხური"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ის მორგება</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ის ჩართვა</string>
     <string name="setup_step1_instruction">შეყვანის პარამეტრებში გადაამოწმეთ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>&amp;. ეს თქვენს მოწყობილობაზე გაშვების ავტორიზაციას მოგცემთ.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>&amp; თქვენი შეყვანის ენის პარამეტრებში უკვე ჩართულია. შემდეგ საფეხური!</string>
     <string name="setup_step1_action">"პარამეტრებში გააქტიურება"</string>
     <string name="setup_step2_title">გადაერთეთ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ზე</string>
     <string name="setup_step2_instruction">შემდეგ, აირჩიეთ „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ თქვენს აქტიურ შეყვანის მეთოდად.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"დასრულებული"</string>
     <string name="show_setup_wizard_icon">"აპის ხატულის ჩვენება"</string>
     <string name="show_setup_wizard_icon_summary">"აპის ხატულის ჩვენება გამშვებში"</string>
-    <string name="dictionary_settings_title">"დამატებითი ლექსიკონები"</string>
+    <string name="dictionary_category_title">"დამატებითი ლექსიკონები"</string>
     <string name="dictionary_available">"ხელმისაწვდომია ლექსიკონი"</string>
-    <string name="no_dictionaries_available">"ლექსიკონები მიუწვდომელია"</string>
     <string name="last_update">"ბოლო განახლება"</string>
     <string name="settings">"პარამეტრები"</string>
     <string name="delete">"წაშლა"</string>
     <string name="version_text">ვერსია <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"დამატება"</string>
     <string name="user_dict_settings_add_dialog_title">"ლექსიკონში დამატება"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"მალსახმობი:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ენა:"</string>
     <string name="user_dict_settings_add_word_hint">"შიყვანეთ სიტყვა"</string>
     <string name="user_dict_settings_add_shortcut_hint">"არასავალდებულო მალსა"</string>
     <string name="user_dict_settings_edit_dialog_title">"სიტყვის შესწორება"</string>
-    <string name="user_dict_settings_empty_text">"მომხმარებლის ლექსიკონში სიტყვები არ არის. სიტყვის დასამატებლად, შეეხეთ დამატების (+) ღილაკს."</string>
     <string name="user_dict_settings_all_languages">"ყველა ენისთვის"</string>
     <string name="user_dict_settings_more_languages">"სხვა ენები…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

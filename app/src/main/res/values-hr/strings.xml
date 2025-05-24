@@ -52,7 +52,6 @@
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionalno)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktno)</string>
     <string name="subtype_no_language">Neodređen jezik</string>
-    <string name="subtype_no_language_qwerty">Abeceda (QWERTY)</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Dodaj"</string>
     <string name="remove">"Ukloni"</string>
@@ -68,11 +67,9 @@
     <string name="setup_welcome_title">Dobro došli u <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_welcome_additional_description">"s Pisanjem kretnjama"</string>
     <string name="setup_start_action">"Počnite s radom"</string>
-    <string name="setup_next_action">"Sljedeći korak"</string>
     <string name="setup_steps_title">Postavljanje aplikacije <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Aktiviraj <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Označi „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” u postavkama jezika i unosa. Time se omogućuje izvođenje aplikacije na uređaju.</string>
-    <string name="setup_step1_finished_instruction">Aplikacija <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> je već aktivirana u postavkama jezika i unosa, stoga je taj korak gotov. Nastavi sa sljedećim korakom!</string>
     <string name="setup_step1_action">Aktiviraj u postavkama</string>
     <string name="setup_step2_title">Prijeđi na <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Zatim odaberi „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>” kao aktivan način unosa teksta.</string>
@@ -82,21 +79,18 @@
     <string name="setup_finish_action">"Završeno"</string>
     <string name="show_setup_wizard_icon">"Prikaži ikonu aplikacije"</string>
     <string name="show_setup_wizard_icon_summary">"Prikazivanje ikone aplikacije u pokretaču"</string>
-    <string name="dictionary_settings_title">"Rječnici kao dodaci"</string>
+    <string name="dictionary_category_title">"Rječnici kao dodaci"</string>
     <string name="dictionary_available">"Dostupan je rječnik"</string>
-    <string name="no_dictionaries_available">"Rječnici nedostupni"</string>
     <string name="last_update">"Zadnje ažuriranje"</string>
     <string name="settings">"Postavke"</string>
     <string name="delete">"Izbriši"</string>
     <string name="version_text">Verzija <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Dodavanje"</string>
     <string name="user_dict_settings_add_dialog_title">"Dodaj u rječnik"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Prečac:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Jezik:"</string>
     <string name="user_dict_settings_add_word_hint">"Upišite riječ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Neobavezni prečac"</string>
     <string name="user_dict_settings_edit_dialog_title">"Uređivanje riječi"</string>
-    <string name="user_dict_settings_empty_text">"Nemate nijednu riječ u korisničkom rječniku. Da biste dodali riječ, dodirnite gumb Dodaj (+)."</string>
     <string name="user_dict_settings_all_languages">"Za sve jezike"</string>
     <string name="user_dict_settings_more_languages">"Više jezika…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCČĆDDŽĐEFGHIJKLLJMNNJOPRSŠTUVZŽ"</string>
