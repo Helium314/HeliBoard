@@ -124,7 +124,7 @@ private fun MultiSliderDialog(
                             }
                         // default animations make the dialog flash (see also DictionaryDialog)
                         AnimatedVisibility(shown[i], exit = fadeOut(), enter = fadeIn()) {
-                            WithSmallTitle(variant) {
+                            WithSmallTitle(variant.ifEmpty { stringResource(R.string.button_default) }) {
                                 Slider(
                                     value = sliderPosition,
                                     onValueChange = { sliderPosition = it },
