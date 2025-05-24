@@ -1,6 +1,7 @@
 package helium314.keyboard.settings.preferences
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -137,7 +138,8 @@ private fun MultiSliderDialog(
                                 prefs.edit().putFloat(key, sliderPosition).apply()
                         }
                         //if (!shown[i]) return@forEachIndexed // animation needed, looks weird on dialog size change
-                        AnimatedVisibility(shown[i]) { // todo: this makes the dialog flash during the animation
+                        // default exit animation makes the dialog flash (see also DictionaryDialog)
+                        AnimatedVisibility(shown[i], exit = fadeOut()) {
                             WithSmallTitle(variant) {
                                 Slider(
                                     value = sliderPosition,
