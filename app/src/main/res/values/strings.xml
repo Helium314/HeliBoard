@@ -437,8 +437,8 @@ language, hence "No language". -->
     <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
-    <!-- Button text for copying an existing layout -->
-    <!--string name="button_copy_existing_layout">Copy existing layout</string> todo: use it or remove it -->
+    <!-- (currently not used) Button text for copying an existing layout -->
+    <string name="button_copy_existing_layout">Copy existing layout</string> <!-- todo: use it or remove it -->
     <!-- Message when deleting a layout -->
     <string name="delete_layout">Really delete custom layout %s?</string>
     <!-- Message when layout to be deleted is in use -->
@@ -588,12 +588,12 @@ New dictionary:
     <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
-    <!-- Text shown when dictionary file is not for the selected locale -->
-    <!--string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string> todo: use it or remove it -->
+    <!-- (currently not used) Text shown when dictionary file is not for the selected locale -->
+    <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string> <!-- todo: use it or remove it -->
     <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
     <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
-    <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
-    <!--string name="dictionary_file_wrong_locale_ok">"Still use"</string> todo: use it or remove it -->
+    <!-- (currently not used) Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
+    <string name="dictionary_file_wrong_locale_ok">"Still use"</string> <!-- todo: use it or remove it -->
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
@@ -693,8 +693,8 @@ New dictionary:
     <string name="all_colors">Show all colors</string>
     <!-- Warning message displayed when showing all colors -->
     <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
-    <!-- Description for selection of user-defined colors. -->
-    <!--string name="select_user_colors_summary">Select colors for text and backgrounds</string> todo: use it or remove it -->
+    <!-- (currently not used) Description for selection of user-defined colors. -->
+    <string name="select_user_colors_summary">Select colors for text and backgrounds</string> <!-- todo: use it or remove it -->
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
     <!-- Selection: key text color. -->
@@ -735,8 +735,8 @@ New dictionary:
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable. Preferably 10 characters or less. -->
     <string name="dialog_close">Close</string>
-    <!-- Preference for selecting system locales -->
-    <!--string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> todo: use it (again) or remove it -->
+    <!-- (currently not used) Preference for selecting system locales -->
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> <!--todo: use it (again) or remove it -->
     <!-- Hint for users to tap the languages for settings -->
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->

@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings_screen_preferences">מנטׄימאת ברגזידה</string>
     <string name="delete">חדֿףֿ</string>
-    <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">חרוףֿ אלפֿבא (QWERTZ)</string>
     <string name="auto_cap">בזרגכרדן כֿודכאר חרוףֿ</string>
     <string name="autocorrect">תצחיח כֿודכאר</string>
     <string name="ime_settings">מנטׄימאת HeliBoard‬‏</string>
