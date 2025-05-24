@@ -881,4 +881,6 @@ New dictionary:
     <string name="name_invalid">Invalid name</string>
     <!-- Description indicating a subtype in Locales & Layouts has customizations -->
     <string name="custom_subtype">Custom subtype</string>
+    <!-- Name for landscape orientation, used in various settings -->
+    <string name="landscape">Landscape</string>
 </resources>

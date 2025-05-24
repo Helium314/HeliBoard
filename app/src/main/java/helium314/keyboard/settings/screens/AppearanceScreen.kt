@@ -37,6 +37,7 @@ import helium314.keyboard.settings.dialogs.CustomizeIconsDialog
 import helium314.keyboard.settings.initPreview
 import helium314.keyboard.settings.preferences.BackgroundImagePref
 import helium314.keyboard.settings.preferences.CustomFontPreference
+import helium314.keyboard.settings.preferences.MultiSliderPreference
 import helium314.keyboard.settings.preferences.TextInputPreference
 import helium314.keyboard.settings.previewDark
 
@@ -75,8 +76,7 @@ fun AppearanceScreen(
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
-        Settings.PREF_SIDE_PADDING_SCALE,
-        Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
+        Settings.PREF_SIDE_PADDING_SCALE_PREFIX,
         Settings.PREF_SPACE_BAR_TEXT,
         SettingsWithoutKey.CUSTOM_FONT,
         Settings.PREF_FONT_SCALE,
@@ -247,20 +247,12 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    Setting(context, Settings.PREF_SIDE_PADDING_SCALE, R.string.prefs_side_padding_scale) { setting ->
-        SliderPreference(
+    Setting(context, Settings.PREF_SIDE_PADDING_SCALE_PREFIX, R.string.prefs_side_padding_scale) { setting ->
+        MultiSliderPreference(
             name = setting.title,
-            key = setting.key,
-            default = Defaults.PREF_SIDE_PADDING_SCALE,
-            range = 0f..3f,
-            description = { "${(100 * it).toInt()}%" }
-        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
-    },
-    Setting(context, Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE, R.string.prefs_side_padding_scale_landscape) { setting ->
-        SliderPreference(
-            name = setting.title,
-            key = setting.key,
-            default = Defaults.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
+            baseKey = setting.key,
+            dimensions = listOf(stringResource(R.string.landscape)),
+            defaults = Defaults.PREF_SIDE_PADDING_SCALE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }

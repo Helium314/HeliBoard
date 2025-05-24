@@ -562,6 +562,25 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().putString(it.key, newValue).apply()
         }
     }
+    if (oldVersion <= 3100) {
+        // todo: migrate to new style
+        //  also one-handed mode?
+        if (prefs.contains("side_padding_scale")) {
+
+        }
+        if (prefs.contains("side_padding_scale_landscape")) {
+
+        }
+        if (prefs.contains("bottom_padding_scale")) {
+
+        }
+        if (prefs.contains("bottom_padding_scale_landscape")) {
+
+        }
+        if (prefs.contains("height_scale")) {
+
+        }
+    }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
     prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }
