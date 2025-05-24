@@ -50,6 +50,7 @@ import helium314.keyboard.settings.previewDark
 import helium314.keyboard.settings.screens.getUserAndInternalDictionaries
 import java.io.File
 import java.util.Locale
+import androidx.compose.ui.platform.LocalConfiguration
 
 @Composable
 fun DictionaryDialog(
@@ -66,7 +67,7 @@ fun DictionaryDialog(
         onConfirmed = {},
         confirmButtonText = null,
         cancelButtonText = stringResource(R.string.dialog_close),
-        title = { Text(locale.localizedDisplayName(ctx)) },
+        title = { Text(locale.localizedDisplayName(ctx.resources)) },
         content = {
             val state = rememberScrollState()
             Column(Modifier.verticalScroll(state)) {
@@ -117,7 +118,7 @@ private fun DictionaryDetails(dict: File) {
     }
     AnimatedVisibility(showDetails, enter = fadeIn(), exit = fadeOut()) { // default animation looks better, but makes the dialog flash
         Text(
-            header.info(LocalContext.current.resources.configuration.locale()),
+            header.info(LocalConfiguration.current.locale()),
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(horizontal = 10.dp)
         )

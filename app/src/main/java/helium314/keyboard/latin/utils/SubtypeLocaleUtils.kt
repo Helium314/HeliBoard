@@ -12,7 +12,6 @@ import helium314.keyboard.compat.locale
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.common.LocaleUtils.getLocaleDisplayNameInLocale
 import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.utils.LayoutType.Companion.getMainLayoutFromExtraValue
@@ -157,7 +156,7 @@ object SubtypeLocaleUtils {
         val displayName = if (exceptionalNameResId != null) {
             runInLocale(resources, displayLocale) { res: Resources -> res.getString(exceptionalNameResId) }
         } else {
-            getLocaleDisplayNameInLocale(locale, resources, displayLocale)
+            locale.localizedDisplayName(resources, displayLocale)
         }
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale)
     }
@@ -233,10 +232,10 @@ object SubtypeLocaleUtils {
         if (LayoutUtilsCustom.isCustomLayout(layoutName)) LayoutUtilsCustom.getDisplayName(layoutName)
         else keyboardLayoutToDisplayName[layoutName]
 
-    fun InputMethodSubtype.displayName(context: Context): String {
+    fun InputMethodSubtype.displayName(): String {
         val layoutName = mainLayoutNameOrQwerty()
         if (LayoutUtilsCustom.isCustomLayout(layoutName))
-            return "${locale().localizedDisplayName(context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
+            return "${locale().localizedDisplayName(resources)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
         return getSubtypeDisplayNameInSystemLocale(this)
     }
 

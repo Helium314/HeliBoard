@@ -141,7 +141,7 @@ fun SubtypeScreen(
             SubtypeSettings.removeEnabledSubtype(ctx, currentSubtype.toAdditionalSubtype())
             onClickBack()
         } },
-        title = { Text(currentSubtype.toAdditionalSubtype().displayName(ctx)) },
+        title = { Text(currentSubtype.toAdditionalSubtype().displayName()) },
         itemContent = { },
         filteredItems = { emptyList<String>() }
     ) {
@@ -158,7 +158,7 @@ fun SubtypeScreen(
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
-                                it.localizedDisplayName(ctx)
+                                it.localizedDisplayName(ctx.resources)
                             }.ifEmpty { stringResource(R.string.action_none) }
                             Text(text, Modifier.fillMaxWidth())
                         }
@@ -282,7 +282,7 @@ fun SubtypeScreen(
                 items = availableLocalesForScript,
                 initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
                     ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
-                getItemName = { it.localizedDisplayName(ctx) }
+                getItemName = { it.localizedDisplayName(ctx.resources) }
             )
         if (showKeyOrderDialog) {
             val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)

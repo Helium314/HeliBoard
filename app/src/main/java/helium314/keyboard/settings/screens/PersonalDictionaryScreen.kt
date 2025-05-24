@@ -243,7 +243,7 @@ private fun getSpecificallySortedLocales(firstLocale: Locale?): List<Locale?> {
 }
 
 fun Locale?.getLocaleDisplayNameForUserDictSettings(context: Context) =
-    this?.localizedDisplayName(context) ?: context.resources.getString(R.string.user_dict_settings_all_languages)
+    this?.localizedDisplayName(context.resources) ?: context.resources.getString(R.string.user_dict_settings_all_languages)
 
 // weight is frequency but different name towards user
 private data class Word(val word: String, val shortcut: String?, val weight: Int?)

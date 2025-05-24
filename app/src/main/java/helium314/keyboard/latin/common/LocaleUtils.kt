@@ -8,10 +8,10 @@ package helium314.keyboard.latin.common
 import android.content.Context
 import android.content.res.Resources
 import helium314.keyboard.compat.locale
-import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.runInLocale
 import java.util.Locale
 
 /**
@@ -171,32 +171,34 @@ object LocaleUtils {
         }
     }
 
-    fun Locale.localizedDisplayName(context: Context) =
-        getLocaleDisplayNameInLocale(this, context.resources, context.resources.configuration.locale())
+    fun Locale.localizedDisplayName(resources: Resources, displayLocale: Locale? = null): String {
+        val languageTag = toLanguageTag()
+        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE)
+            return resources.getString(R.string.subtype_no_language) // todo: remove the (Alphabet)
 
-    @JvmStatic
-    fun getLocaleDisplayNameInLocale(locale: Locale, resources: Resources, displayLocale: Locale): String {
-        val languageTag = locale.toLanguageTag()
-        if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE) return resources.getString(R.string.subtype_no_language)
-        if (hasNonDefaultScript(locale) || doesNotHaveAndroidName(locale.language)) {
-            // supply our own name for the language instead of using name provided by the system
-            val resId = resources.getIdentifier(
-                "subtype_${languageTag.replace("-", "_")}",
-                "string",
-                BuildConfig.APPLICATION_ID // replaces context.packageName, see https://stackoverflow.com/a/24525379
-            )
-            if (resId != 0) return resources.getString(resId)
+        val overrideResId = when (languageTag) {
+            "en-US" -> R.string.subtype_en_US
+            "en-GB" -> R.string.subtype_en_GB
+            "es-US" -> R.string.subtype_es_US
+            "hi-Latn" -> R.string.subtype_hi_Latn
+            "sr-Latn" -> R.string.subtype_sr_Latn
+            "mns" -> R.string.subtype_mns
+            "xdq" -> R.string.subtype_xdq
+            "dru" -> R.string.subtype_xdq
+            "st" -> R.string.subtype_st
+            "dag" -> R.string.subtype_dag
+            else -> 0
         }
-        val localeDisplayName = locale.getDisplayName(displayLocale)
+        if (overrideResId != 0) {
+            return if (displayLocale == null) resources.getString(overrideResId)
+            else runInLocale(resources, displayLocale) { it.getString(overrideResId) }
+        }
+
+        val localeDisplayName = getDisplayName(displayLocale ?: resources.configuration.locale())
         return if (localeDisplayName == languageTag) {
-            locale.getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/Helium314/HeliBoard/pull/748
+            getDisplayName(Locale.US) // try fallback to English name, relevant e.g. fpr pms, see https://github.com/Helium314/HeliBoard/pull/748
         } else {
             localeDisplayName
         }
     }
-
-    private fun hasNonDefaultScript(locale: Locale) = locale.script() != locale.language.constructLocale().script()
-
-    private fun doesNotHaveAndroidName(language: String) =
-        language == "mns" || language == "xdq" || language=="dru" || language == "st" || language == "dag"
 }

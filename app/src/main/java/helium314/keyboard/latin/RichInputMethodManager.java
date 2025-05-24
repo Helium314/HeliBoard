@@ -92,9 +92,6 @@ public class RichInputMethodManager {
         mContext = context;
         mInputMethodInfoCache = new InputMethodInfoCache(mImm, context.getPackageName());
 
-        // Initialize subtype utils.
-        SubtypeLocaleUtils.init(context);
-
         // Initialize the current input method subtype and the shortcut IME.
         refreshSubtypeCaches();
     }
