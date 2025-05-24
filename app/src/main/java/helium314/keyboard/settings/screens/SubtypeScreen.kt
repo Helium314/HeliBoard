@@ -393,8 +393,12 @@ private fun MainLayoutRow(
         DropDownField(
             items = appLayouts + customLayouts,
             selectedItem = currentSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY,
-            onSelected = {
-                setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, it))
+            onSelected = { layout ->
+                // if the locale defaults to qwerty, use it as implicit default to avoid creating unnecessary additional subtypes
+                if (layout == SubtypeLocaleUtils.QWERTY
+                    && SubtypeSettings.getResourceSubtypesForLocale(currentSubtype.locale).any { it.mainLayoutName() == null })
+                    setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
+                else setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, layout))
             },
             extraButton = {
                 IconButton({ showAddLayoutDialog = true })
