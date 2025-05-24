@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serbia (ladina)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditsiooniline)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktne)"</string>
-    <string name="subtype_no_language">"Keel puudub (tähestik)"</string>
+    <string name="subtype_no_language">"Keel puudub"</string>
     <string name="subtype_no_language_qwerty">"Tähestik (QWERTY)"</string>
     <string name="subtype_emoji">"Emotikon"</string>
     <string name="add">"Lisa"</string>

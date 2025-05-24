@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"ဆားဘီယား (လက်တင်)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ရိုးရာ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ကျစ်လစ်သော)"</string>
-    <string name="subtype_no_language">"ဘာသာစကားမရှိ (ဗျည်းအက္ခရာ)"</string>
+    <string name="subtype_no_language">"ဘာသာစကားမရှိ"</string>
     <string name="subtype_no_language_qwerty">"ဗျည်းအက္ခရာ (ကွာတီ)"</string>
     <string name="subtype_emoji">"အီမိုဂျီ"</string>
     <string name="add">"ထည့်ရန်"</string>

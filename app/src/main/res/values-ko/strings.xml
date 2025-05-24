@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"세르비아어(라틴 문자)"</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (번체)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (소형)</string>
-    <string name="subtype_no_language">"언어 없음(알파벳)"</string>
+    <string name="subtype_no_language">"언어 없음"</string>
     <string name="subtype_no_language_qwerty">"알파벳(QWERTY)"</string>
     <string name="subtype_emoji">"이모티콘"</string>
     <string name="add">"추가"</string>

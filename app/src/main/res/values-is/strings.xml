@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serbneskt (latneskt)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (hefðbundið)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (lítið)"</string>
-    <string name="subtype_no_language">"Ekkert tungumál (stafróf)"</string>
+    <string name="subtype_no_language">"Ekkert tungumál"</string>
     <string name="subtype_no_language_qwerty">"Stafróf (QWERTY)"</string>
     <string name="subtype_emoji">Tjáningartákn</string>
     <string name="add">"Bæta við"</string>

@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Сръбска (латиница)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (традиционна клавиатура)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (компактна)"</string>
-    <string name="subtype_no_language">"Без език (латиница)"</string>
+    <string name="subtype_no_language">"Без език"</string>
     <string name="subtype_no_language_qwerty">"латиница (QWERTY)"</string>
     <string name="subtype_emoji">"Емотикони"</string>
     <string name="add">"Добавяне"</string>

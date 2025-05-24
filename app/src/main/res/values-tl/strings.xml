@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"Serbian (Latin)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
-    <string name="subtype_no_language">"Walang wika (Alpabeto)"</string>
+    <string name="subtype_no_language">"Walang wika"</string>
     <string name="subtype_no_language_qwerty">"Alpabeto (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Idagdag"</string>

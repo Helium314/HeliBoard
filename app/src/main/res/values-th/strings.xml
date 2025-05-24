@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"เซอร์เบีย (ละติน)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ดั้งเดิม)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (แบบกะทัดรัด)"</string>
-    <string name="subtype_no_language">"ไม่มีภาษา (ตัวอักษรละติน)"</string>
+    <string name="subtype_no_language">"ไม่มีภาษา"</string>
     <string name="subtype_no_language_qwerty">"ตัวอักษร (QWERTY)"</string>
     <string name="subtype_emoji">"อีโมจิ"</string>
     <string name="add">"เพิ่ม"</string>

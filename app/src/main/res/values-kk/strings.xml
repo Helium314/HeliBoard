@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Серб (латын жазуы)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (дәстүрлі)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (шағын)"</string>
-    <string name="subtype_no_language">"Тіл жоқ (әліпби)"</string>
+    <string name="subtype_no_language">"Тіл жоқ"</string>
     <string name="subtype_no_language_qwerty">"Әліпби (QWERTY)"</string>
     <string name="subtype_emoji">"Эмодзи"</string>
     <string name="add">"Қосу"</string>

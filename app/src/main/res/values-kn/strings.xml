@@ -52,7 +52,7 @@
     <string name="subtype_generic_extended">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ವಿಸ್ತರಿಸಲಾಗಿದೆ)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
-    <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ (ವರ್ಣಮಾಲೆ)"</string>
+    <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ"</string>
     <string name="subtype_no_language_qwerty">"ವರ್ಣಮಾಲೆ (QWERTY)"</string>
     <string name="subtype_emoji">"ಎಮೋಜಿ"</string>
     <string name="add">"ಸೇರಿಸು"</string>

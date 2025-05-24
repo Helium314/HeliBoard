@@ -105,7 +105,7 @@
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (সংক্ষিপ্ত)</string>
     <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (সেবালসিক ৩৯০)</string>
     <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (সেবালসিক চূড়ান্ত)</string>
-    <string name="subtype_no_language">ভাষাহীন (বর্ণমালা)</string>
+    <string name="subtype_no_language">ভাষাহীন</string>
     <string name="subtype_no_language_qwerty">বর্ণমালা (কোয়ার্টি)</string>
     <string name="subtype_emoji">ইমোজি</string>
     <string name="add">সংযুক্ত করুন</string>

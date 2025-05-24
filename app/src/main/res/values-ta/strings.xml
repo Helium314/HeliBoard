@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"செர்பியன் (லத்தீன்)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (பாரம்பரியமானது)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (வசதியான)"</string>
-    <string name="subtype_no_language">"மொழியில்லை (அகரவரிசை)"</string>
+    <string name="subtype_no_language">"மொழியில்லை"</string>
     <string name="subtype_no_language_qwerty">"அகரவரிசை (க்வெர்டி)"</string>
     <string name="subtype_emoji">"எமோஜி"</string>
     <string name="add">"சேர்"</string>

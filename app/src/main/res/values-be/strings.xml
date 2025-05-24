@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">сербская (Лацініца)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальская">%s</xliff:g> (Традыцыйная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хіндзі">%s</xliff:g> (Кампактная)</string>
-    <string name="subtype_no_language">стандартная (лацініца)</string>
+    <string name="subtype_no_language">стандартная</string>
     <string name="subtype_no_language_qwerty">"Лацініца (QWERTY)"</string>
     <string name="subtype_emoji">"Эмодзі"</string>
     <string name="add">"Дадаць"</string>

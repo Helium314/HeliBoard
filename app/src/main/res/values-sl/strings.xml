@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Srbščina (latinica)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionalna)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktna)"</string>
-    <string name="subtype_no_language">"Brez jezika (latinice)"</string>
+    <string name="subtype_no_language">"Brez jezika"</string>
     <string name="subtype_no_language_qwerty">"Latinica (QWERTY)"</string>
     <string name="subtype_emoji">"Emodžiji"</string>
     <string name="add">"Dodaj"</string>

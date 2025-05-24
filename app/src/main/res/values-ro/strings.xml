@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Sârbă (caractere latine)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradițională)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
-    <string name="subtype_no_language">"Nicio limbă (alfabet)"</string>
+    <string name="subtype_no_language">"Nicio limbă"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">Adaugă</string>

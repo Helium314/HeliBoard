@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"Σερβικά (Λατινικά)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Παραδοσιακά)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Συμπαγές)"</string>
-    <string name="subtype_no_language">"Καμία γλώσσα (Αλφάβητο)"</string>
+    <string name="subtype_no_language">"Καμία γλώσσα"</string>
     <string name="subtype_no_language_qwerty">"Αλφάβητο (QWERTY)"</string>
     <string name="subtype_emoji">"Emoticon"</string>
     <string name="add">"Προσθήκη"</string>

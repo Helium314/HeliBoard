@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"სერბული (ლათინური)"</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (ტრადიციული)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (კომპაქტური)</string>
-    <string name="subtype_no_language">"ენის გარეშე (ლათინური ანბანი)"</string>
+    <string name="subtype_no_language">"ენის გარეშე"</string>
     <string name="subtype_no_language_qwerty">"ლათ. ანბანი (QWERTY)"</string>
     <string name="subtype_emoji">"სიცილაკები"</string>
     <string name="add">"დამატება"</string>

@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"सर्बियन (लॅटिन)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (पारंपारिक)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संक्षिप्त)"</string>
-    <string name="subtype_no_language">"भाषा नाही (वर्णमाला)"</string>
+    <string name="subtype_no_language">"भाषा नाही"</string>
     <string name="subtype_no_language_qwerty">"वर्णमाला (QWERTY)"</string>
     <string name="subtype_emoji">"इमोजी"</string>
     <string name="add">"जोडा"</string>

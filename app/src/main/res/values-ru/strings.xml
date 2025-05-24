@@ -54,7 +54,7 @@
     <string name="subtype_sr_Latn">Сербский (латиница)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальский">%s</xliff:g> (Традиционная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Компактная)</string>
-    <string name="subtype_no_language">Стандартная (латиница)</string>
+    <string name="subtype_no_language">Стандартная</string>
     <string name="subtype_no_language_qwerty">Латиница (QWERTY)</string>
     <string name="subtype_emoji">Эмодзи</string>
     <string name="add">Добавить</string>

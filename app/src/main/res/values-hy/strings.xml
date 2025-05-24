@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Սերբերեն (Լատինական)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ավանդական)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (սեղմ)"</string>
-    <string name="subtype_no_language">"Ոչ մի լեզվով (Այբուբեն)"</string>
+    <string name="subtype_no_language">"Ոչ մի լեզվով"</string>
     <string name="subtype_no_language_qwerty">"Այբուբեն (QWERTY)"</string>
     <string name="subtype_emoji">"Զմայլիկներ"</string>
     <string name="add">"Ավելացնել"</string>

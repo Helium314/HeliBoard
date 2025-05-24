@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"Isi-Serbian (Latin)"</string>
     <string name="subtype_generic_traditional">"Isi-<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradition)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Okuqoqene ndawonye)"</string>
-    <string name="subtype_no_language">"Alikho ulimi (Alfabhethi)"</string>
+    <string name="subtype_no_language">"Alikho ulimi"</string>
     <string name="subtype_no_language_qwerty">"Alfabhethi (QWERTY)"</string>
     <string name="subtype_emoji">"I-Emoji"</string>
     <string name="add">"Engeza"</string>

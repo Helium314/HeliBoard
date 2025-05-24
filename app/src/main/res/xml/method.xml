@@ -1263,7 +1263,7 @@
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_no_language_qwerty"
+        android:label="@string/subtype_no_language"
         android:subtypeId="0xa239ebad"
         android:imeSubtypeLocale="zz"
         android:languageTag="zz"

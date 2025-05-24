@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serbų k. (lot. rašmenys)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicinė)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktiška)"</string>
-    <string name="subtype_no_language">"Kalbos nėra (abėcėlė)"</string>
+    <string name="subtype_no_language">"Kalbos nėra"</string>
     <string name="subtype_no_language_qwerty">"Abėcėlė (QWERTY)"</string>
     <string name="subtype_emoji">"Jaustukai"</string>
     <string name="add">"Pridėti"</string>

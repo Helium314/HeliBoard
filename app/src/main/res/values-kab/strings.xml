@@ -90,7 +90,7 @@
     <string name="secondary_locale">Asekcem agetlan</string>
     <string name="subtype_es_US">Taspenyulit (Iwunak Yeddukklen)</string>
     <string name="subtype_en_US">Taglizit (Iwunak Yeddukklen)</string>
-    <string name="subtype_no_language">War tutlayt (Agemmay)</string>
+    <string name="subtype_no_language">War tutlayt</string>
     <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Agemmay alatini (DVORAK)</string>
     <string name="user_dict_settings_add_dialog_title">Rnu ɣer umawal</string>
     <string name="more_colors">Sken ugar n yiniten</string>

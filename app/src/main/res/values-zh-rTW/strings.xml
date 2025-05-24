@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"塞爾維亞文 (拉丁文)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (傳統)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (精簡)"</string>
-    <string name="subtype_no_language">"無語言 (字母)"</string>
+    <string name="subtype_no_language">"無語言"</string>
     <string name="subtype_no_language_qwerty">"字母 (QWERTY)"</string>
     <string name="subtype_emoji">"表情符號"</string>
     <string name="add">"新增"</string>

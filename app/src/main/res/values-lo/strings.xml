@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"ເຊີ​ບຽນ (​ລາ​ຕິນ)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ດັ້ງ​ເດີມ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ກະ​ທັດ​ຮັດ)"</string>
-    <string name="subtype_no_language">"ບໍ່ມີພາສາ (ໂຕອັກສອນ)"</string>
+    <string name="subtype_no_language">"ບໍ່ມີພາສາ"</string>
     <string name="subtype_no_language_qwerty">"ໂຕອັກສອນ (QWERTY)"</string>
     <string name="subtype_emoji">"ອີໂມຈິ"</string>
     <string name="add">"ເພີ່ມ"</string>

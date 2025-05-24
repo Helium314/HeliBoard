@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serb (Latın)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Ənənəvi)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompakt)"</string>
-    <string name="subtype_no_language">"Dil yoxdur (Əlifba)"</string>
+    <string name="subtype_no_language">"Dil yoxdur"</string>
     <string name="subtype_no_language_qwerty">"Əlifba (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Əlavə et"</string>

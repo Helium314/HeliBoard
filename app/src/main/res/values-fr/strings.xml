@@ -61,7 +61,7 @@
     <string name="subtype_sr_Latn">"Serbe (latin)"</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditionnel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
-    <string name="subtype_no_language">"Aucune langue (latin)"</string>
+    <string name="subtype_no_language">"Aucune langue"</string>
     <string name="subtype_no_language_qwerty">"Alphabet latin (QWERTY)"</string>
     <string name="subtype_emoji">Émoji</string>
     <string name="add">"Ajouter"</string>

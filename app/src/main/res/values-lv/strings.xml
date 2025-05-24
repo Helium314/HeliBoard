@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serbu (latīņu)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionālā)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktā)"</string>
-    <string name="subtype_no_language">"Nav valodas (alfabēts)"</string>
+    <string name="subtype_no_language">"Nav valodas"</string>
     <string name="subtype_no_language_qwerty">"Alfabēts (QWERTY)"</string>
     <string name="subtype_emoji">"Japāņu emocijzīmes"</string>
     <string name="add">"Pievienot"</string>

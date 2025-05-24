@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"Bahasa Serbia (Latin)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradisional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Sarat)"</string>
-    <string name="subtype_no_language">"Tiada bahasa (Abjad)"</string>
+    <string name="subtype_no_language">"Tiada bahasa"</string>
     <string name="subtype_no_language_qwerty">"Abjad (QWERTY)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tambah"</string>

@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">"សើប (ឡាតាំង​)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (អក្សរ​ពេញ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (បង្រួម)"</string>
-    <string name="subtype_no_language">"គ្មាន​ភាសា (អក្សរ​ក្រម)"</string>
+    <string name="subtype_no_language">"គ្មាន​ភាសា"</string>
     <string name="subtype_no_language_qwerty">"តាម​លំដាប់​អក្សរក្រម (QWERTY)"</string>
     <string name="subtype_emoji">"សញ្ញា​អារម្មណ៍"</string>
     <string name="add">"បន្ថែម"</string>

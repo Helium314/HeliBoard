@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serbisk (latin)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradisjonelt)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
-    <string name="subtype_no_language">"Ingen språk (alfabet)"</string>
+    <string name="subtype_no_language">"Ingen språk"</string>
     <string name="subtype_no_language_qwerty">Alfabet (QWERTY)</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Legg til"</string>

@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"الصربية (اللاتينية)"</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (التقليدية)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (مضغوط)</string>
-    <string name="subtype_no_language">"بدون لغة (أبجدية)"</string>
+    <string name="subtype_no_language">"بدون لغة"</string>
     <string name="subtype_no_language_qwerty">"‏الأبجدية (QWERTY)"</string>
     <string name="subtype_emoji">"الرموز التعبيرية"</string>
     <string name="add">أضف</string>

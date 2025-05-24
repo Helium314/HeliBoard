@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Serwies (Latyns)"</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisioneel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompak)</string>
-    <string name="subtype_no_language">"Geen taal nie (alfabet)"</string>
+    <string name="subtype_no_language">"Geen taal nie"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emosiekone"</string>
     <string name="add">"Voeg by"</string>

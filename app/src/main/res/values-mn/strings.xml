@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"Серьби хэл (латин)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (уламжлалт)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Компакт)"</string>
-    <string name="subtype_no_language">"Хэл байхгүй (Цагаан толгой)"</string>
+    <string name="subtype_no_language">"Хэл байхгүй"</string>
     <string name="subtype_no_language_qwerty">"Цагаан толгой (QWERTY)"</string>
     <string name="subtype_emoji">"Инээмсэглэл"</string>
     <string name="add">"Нэмэх"</string>

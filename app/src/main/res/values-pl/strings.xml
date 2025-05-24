@@ -52,7 +52,7 @@
     <string name="subtype_sr_Latn">serbski (alfabet łaciński)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="nepalski">%s</xliff:g> (tradycyjny)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="hinduski">%s</xliff:g> (kompaktowy)</string>
-    <string name="subtype_no_language">standardowy (Alfabet)</string>
+    <string name="subtype_no_language">standardowy</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
     <string name="subtype_emoji">"Emotikony"</string>
     <string name="add">"Dodaj"</string>

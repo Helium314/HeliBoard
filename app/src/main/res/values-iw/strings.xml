@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"סרבית (באותיות לטיניות)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (מסורתית)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (קומפקטית)"</string>
-    <string name="subtype_no_language">"ללא שפה (אלף-בית)"</string>
+    <string name="subtype_no_language">"ללא שפה"</string>
     <string name="subtype_no_language_qwerty">"‏אלף-בית (QWERTY)"</string>
     <string name="subtype_emoji">"אמוג\'י"</string>
     <string name="add">"הוסף"</string>
