@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodSubtype
 import helium314.keyboard.latin.LatinIME
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.RichInputMethodManager
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 
 // similar to what showSubtypePicker does in https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/RichInputMethodManager.java
 fun createInputMethodPickerDialog(latinIme: LatinIME, richImm: RichInputMethodManager, windowToken: IBinder): AlertDialog {

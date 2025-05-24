@@ -1,6 +1,5 @@
 package helium314.keyboard.latin.utils
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
@@ -10,7 +9,6 @@ import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue.KEYBOARD_LAYOUT_SET
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
-import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.getExtraValueOf
@@ -64,15 +62,6 @@ fun getResourceSubtypes(resources: Resources): List<InputMethodSubtype> {
         eventType = xml.next()
     }
     return subtypes
-}
-
-/** Workaround for SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale ignoring custom layout names */
-// todo (later): this should be done properly and in SubtypeLocaleUtils
-fun InputMethodSubtype.displayName(context: Context): String {
-    val layoutName = mainLayoutNameOrQwerty()
-    if (LayoutUtilsCustom.isCustomLayout(layoutName))
-        return "${locale().localizedDisplayName(context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
-    return SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(this)
 }
 
 fun getHasLocalizedNumberRow(subtype: InputMethodSubtype, prefs: SharedPreferences): Boolean =

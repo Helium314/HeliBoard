@@ -13,10 +13,9 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants.Subtype.ExtraValue
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.LocaleUtils.getLocaleDisplayNameInLocale
+import helium314.keyboard.latin.common.LocaleUtils.localizedDisplayName
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.utils.LayoutType.Companion.getMainLayoutFromExtraValue
-import helium314.keyboard.latin.utils.LayoutUtilsCustom.getDisplayName
-import helium314.keyboard.latin.utils.LayoutUtilsCustom.isCustomLayout
 import java.util.Locale
 import kotlin.concurrent.Volatile
 
@@ -231,8 +230,15 @@ object SubtypeLocaleUtils {
     }
 
     fun getMainLayoutDisplayName(layoutName: String): String? =
-        if (isCustomLayout(layoutName)) getDisplayName(layoutName)
+        if (LayoutUtilsCustom.isCustomLayout(layoutName)) LayoutUtilsCustom.getDisplayName(layoutName)
         else keyboardLayoutToDisplayName[layoutName]
+
+    fun InputMethodSubtype.displayName(context: Context): String {
+        val layoutName = mainLayoutNameOrQwerty()
+        if (LayoutUtilsCustom.isCustomLayout(layoutName))
+            return "${locale().localizedDisplayName(context)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
+        return getSubtypeDisplayNameInSystemLocale(this)
+    }
 
     @JvmStatic
     fun getCombiningRulesExtraValue(subtype: InputMethodSubtype): String? = subtype.getExtraValueOf(ExtraValue.COMBINING_RULES)
