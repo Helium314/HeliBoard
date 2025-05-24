@@ -62,6 +62,7 @@ import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestions
 import helium314.keyboard.latin.utils.KtxKt;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.ToolbarKey;
+import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
 
 import java.util.ArrayList;
@@ -110,6 +111,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final SuggestionStripLayoutHelper mLayoutHelper;
     private final StripVisibilityGroup mStripVisibilityGroup;
     private boolean isExternalSuggestionVisible = false; // Required to disable the more suggestions if other suggestions are visible
+    private final ToolbarMode mToolbarMode;
 
     private static class StripVisibilityGroup {
         private final View mSuggestionStripView;
@@ -156,6 +158,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mPinnedKeys = findViewById(R.id.pinned_keys);
         mToolbar = findViewById(R.id.toolbar);
         mToolbarContainer = findViewById(R.id.toolbar_container);
+        mToolbarMode = Settings.getValues().mToolbarMode;
+
+        if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS) {
+            setToolbarVisibility(true);
+        } else if (mToolbarMode == ToolbarMode.SUGGESTION_STRIP){
+            setToolbarVisibility(false);
+        }
 
         final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
@@ -195,11 +204,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
-        for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(prefs)) {
-            final ImageButton button = createToolbarKey(context, iconsSet, key);
-            button.setLayoutParams(toolbarKeyLayoutParams);
-            setupKey(button, colors);
-            mToolbar.addView(button);
+        if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS || mToolbarMode == ToolbarMode.EXPANDABLE) {
+            for (final ToolbarKey key : ToolbarUtilsKt.getEnabledToolbarKeys(prefs)) {
+                final ImageButton button = createToolbarKey(context, iconsSet, key);
+                button.setLayoutParams(toolbarKeyLayoutParams);
+                setupKey(button, colors);
+                mToolbar.addView(button);
+            }
         }
 
         final int toolbarHeight = Math.min(mToolbarExpandKey.getLayoutParams().height, (int) getResources().getDimension(R.dimen.config_suggestions_strip_height));
@@ -211,23 +222,24 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mEnabledToolKeyBackground.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         mEnabledToolKeyBackground.setGradientRadius(mToolbarExpandKey.getLayoutParams().height / 2f); // nothing else has a usable height at this state
 
-        mToolbarExpandKey.setOnClickListener(this);
-        mToolbarExpandKey.setImageDrawable(Settings.getValues().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
         colors.setColor(mToolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY);
         mToolbarExpandKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
         mToolbarExpandKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
 
-        for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
-            final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
-            button.setLayoutParams(toolbarKeyLayoutParams);
-            setupKey(button, colors);
-            mPinnedKeys.addView(button);
-            final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
-            if (pinnedKeyInToolbar != null && Settings.getValues().mQuickPinToolbarKeys)
-                pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
+        if (!Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
+            for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
+                final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
+                button.setLayoutParams(toolbarKeyLayoutParams);
+                setupKey(button, colors);
+                mPinnedKeys.addView(button);
+                final View pinnedKeyInToolbar = mToolbar.findViewWithTag(pinnedKey);
+                if (pinnedKeyInToolbar != null && Settings.getValues().mQuickPinToolbarKeys)
+                    pinnedKeyInToolbar.setBackground(mEnabledToolKeyBackground);
+            }
         }
 
         colors.setBackground(this, ColorType.STRIP_BACKGROUND);
+        updateKeys();
     }
 
     @Override
@@ -244,7 +256,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
     }
 
-    private void updateKeys() {
+    public void updateKeys() {
         final SettingsValues currentSettingsValues = Settings.getValues();
         final View toolbarVoiceKey = mToolbar.findViewWithTag(ToolbarKey.VOICE);
         if (toolbarVoiceKey != null)
@@ -252,7 +264,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final View pinnedVoiceKey = mPinnedKeys.findViewWithTag(ToolbarKey.VOICE);
         if (pinnedVoiceKey != null)
             pinnedVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mToolbarExpandKey.setImageDrawable(currentSettingsValues.mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
+        final boolean toolbarIsExpandable = mToolbarMode == ToolbarMode.EXPANDABLE;
+        if (currentSettingsValues.mIncognitoModeEnabled) {
+            mToolbarExpandKey.setImageDrawable(mIncognitoIcon);
+            mToolbarExpandKey.setVisibility(VISIBLE);
+        } else {
+            mToolbarExpandKey.setImageDrawable(mToolbarArrowIcon);
+            mToolbarExpandKey.setVisibility(toolbarIsExpandable ? VISIBLE : GONE);
+        }
         mToolbarExpandKey.setScaleX((mToolbarContainer.getVisibility() != VISIBLE ? 1f : -1f) * mRtl);
 
         // hide pinned keys if device is locked, and avoid expanding toolbar
@@ -260,7 +279,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final boolean hideToolbarKeys = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
                 ? km.isDeviceLocked()
                 : km.isKeyguardLocked();
-        mToolbarExpandKey.setOnClickListener(hideToolbarKeys ? null : this);
+        mToolbarExpandKey.setOnClickListener(hideToolbarKeys || !toolbarIsExpandable ? null : this);
         mPinnedKeys.setVisibility(hideToolbarKeys ? GONE : mSuggestionsStrip.getVisibility());
         isExternalSuggestionVisible = false;
     }
@@ -276,10 +295,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStripVisibilityGroup.setLayoutDirection(layoutDirection);
     }
 
-    public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
+    public void setSuggestions(final SuggestedWords suggestedWords) {
         clear();
-        setRtl(isRtlLanguage);
-        updateKeys();
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
