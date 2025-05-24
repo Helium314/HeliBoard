@@ -69,7 +69,6 @@ fun MultiSliderPreference(
         )
 }
 
-
 // SliderDialog, but for multiple sliders with same range, each with a different setting and title
 @Composable
 private fun MultiSliderDialog(
@@ -83,22 +82,17 @@ private fun MultiSliderDialog(
     modifier: Modifier = Modifier,
     positionString: (Float) -> String,
 ) {
-    val variants = mutableListOf("")
-    val keys = mutableListOf(baseKey + "_" + List(dimensions.size) { false }.joinToString("_"))
-    dimensions.forEach { dimension ->
-        variants.toList().forEach { variant ->
-            variants.add("$variant / $dimension")
-            keys.add(baseKey + "_" + List(dimensions.size) { false }.joinToString("_")) // todo: use the correct keys
-        }
-    }
-    var shown by remember { mutableStateOf(List(variants.size) { true }) } // todo: store state in some setting?
+    val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
+    // todo: store state in some activeDimensions setting?
+    //  probably should be a name -> bool map (bad on translation change, but that's ok)
+    var shown by remember { mutableStateOf(List(variants.size) { true }) }
 
     val prefs = LocalContext.current.prefs()
-    var done by remember { mutableStateOf(listOf<() -> Unit>()) }
+    val done = remember { mutableMapOf<String, () -> Unit>() }
 
     ThreeButtonAlertDialog(
         onDismissRequest = onDismissRequest,
-        onConfirmed = { done.forEach { it.invoke() }; onDone() },
+        onConfirmed = { done.values.forEach { it.invoke() }; onDone() },
         modifier = modifier,
         title = title,
         content = {
@@ -109,35 +103,24 @@ private fun MultiSliderDialog(
                 Column(Modifier.verticalScroll(state)) {
                     dimensions.forEach { dimension ->
                         var checked by remember { mutableStateOf(shown[variants.indexOfFirst { SpacedTokens(it).contains(dimension) }]) }
-                        fun onCheckedChange(new: Boolean) {
+                        DimensionCheckbox(checked, dimension) {
                             shown = shown.mapIndexed { i, checked ->
-                                if (SpacedTokens(variants[i]).contains(dimension))
-                                    new
+                                if (SpacedTokens(variants[i]).contains(dimension)) it
                                 else checked
                             }
-                            checked = new
-                        }
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth().clickable { onCheckedChange(!checked) }
-                        ) {
-                            Checkbox(
-                                checked = checked,
-                                onCheckedChange = ::onCheckedChange
-                            )
-                            Text(dimension)
+                            checked = it
                         }
                     }
                     variants.forEachIndexed { i, variant ->
                         val key = keys[i]
                         var sliderPosition by remember { mutableFloatStateOf(prefs.getFloat(key, defaultValue)) }
-                        done += {
-                            if (sliderPosition == defaultValue)
-                                prefs.edit().remove(key).apply()
-                            else
-                                prefs.edit().putFloat(key, sliderPosition).apply()
-                        }
-                        //if (!shown[i]) return@forEachIndexed // animation needed, looks weird on dialog size change
+                        if (!done.contains(variant))
+                            done[variant] = {
+                                if (sliderPosition == defaultValue)
+                                    prefs.edit().remove(key).apply()
+                                else
+                                    prefs.edit().putFloat(key, sliderPosition).apply()
+                            }
                         // default exit animation makes the dialog flash (see also DictionaryDialog)
                         AnimatedVisibility(shown[i], exit = fadeOut()) {
                             WithSmallTitle(variant) {
@@ -162,6 +145,35 @@ private fun MultiSliderDialog(
             }
         },
     )
+}
+
+@Composable
+private fun DimensionCheckbox(checked: Boolean, dimension: String, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().clickable { onCheckedChange(!checked) }
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = { onCheckedChange(it) }
+        )
+        Text(dimension)
+    }
+}
+
+private fun createVariantsAndKeys(dimensions: List<String>, baseKey: String): Pair<List<String>, List<String>> {
+    val variants = mutableListOf("")
+    val keys = mutableListOf(baseKey + "_" + List(dimensions.size) { false }.joinToString("_"))
+    var i = 1
+    dimensions.forEach { dimension ->
+        variants.toList().forEach { variant ->
+            if (variant.isEmpty()) variants.add(dimension)
+            else variants.add("$variant / $dimension")
+            keys.add(baseKey + "_" + List(dimensions.size) { i.shr(it) % 2 == 1 }.joinToString("_"))
+            i++
+        }
+    }
+    return variants to keys
 }
 
 @Preview

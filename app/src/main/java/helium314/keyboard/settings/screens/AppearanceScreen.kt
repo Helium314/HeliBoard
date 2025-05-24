@@ -76,6 +76,7 @@ fun AppearanceScreen(
         Settings.PREF_KEYBOARD_HEIGHT_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE,
         Settings.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE,
+        Settings.PREF_SIDE_PADDING_SCALE_PREFIX,
         Settings.PREF_SIDE_PADDING_SCALE,
         Settings.PREF_SIDE_PADDING_SCALE_LANDSCAPE,
         Settings.PREF_SPACE_BAR_TEXT,
@@ -85,7 +86,6 @@ fun AppearanceScreen(
         Settings.PREF_EMOJI_KEY_FIT,
         if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK) >= 24)
             Settings.PREF_EMOJI_SKIN_TONE else null,
-        "testsetting"
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -249,6 +249,16 @@ fun createAppearanceSettings(context: Context) = listOf(
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
+    Setting(context, Settings.PREF_SIDE_PADDING_SCALE_PREFIX, R.string.prefs_side_padding_scale) { setting ->
+        MultiSliderPreference(
+            name = setting.title,
+            baseKey = setting.key,
+            dimensions = listOf("Landscape"),
+            default = Defaults.PREF_SIDE_PADDING_SCALE,
+            range = 0f..3f,
+            description = { "${(100 * it).toInt()}%" }
+        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
+    },
     Setting(context, Settings.PREF_SIDE_PADDING_SCALE, R.string.prefs_side_padding_scale) { setting ->
         SliderPreference(
             name = setting.title,
@@ -305,11 +315,6 @@ fun createAppearanceSettings(context: Context) = listOf(
         )
         ListPreference(setting, items, Defaults.PREF_EMOJI_SKIN_TONE) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
-    Setting(context, "testsetting", R.string.settings_no_limit) {
-        MultiSliderPreference(
-            "name", "testsetting", listOf("landscape", "unfolded", "split"), 1f, 0.5f..3f, {"$it"}
-        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
-    }
 )
 
 @Preview
