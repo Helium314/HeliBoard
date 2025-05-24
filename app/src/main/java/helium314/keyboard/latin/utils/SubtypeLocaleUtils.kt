@@ -124,7 +124,10 @@ object SubtypeLocaleUtils {
         return subtype.locale().toString() + "/" + subtype.mainLayoutNameOrQwerty()
     }
 
-    /** Subtype display name is <Locale> (<Layout>), defaults to system locale */
+    /**
+     *  Subtype display name is <Locale> when using the default layout, or <Locale> (<Layout>) otherwise
+     *  [displayLocale] defaults to system locale
+     */
     fun InputMethodSubtype.displayName(displayLocale: Locale? = null): String {
         if (displayLocale == null) resourceSubtypeDisplayNameCache[hashCode()]?.let { return it }
 
@@ -136,7 +139,9 @@ object SubtypeLocaleUtils {
                 LayoutUtilsCustom.getDisplayName(layoutName)
             )
         }
-        if (keyboardLayoutToDisplayName.containsKey(layoutName)) {
+        // if it's a default layout, we want to use the nameResId instead of explicitly showing the layout name
+        if (keyboardLayoutToDisplayName.containsKey(layoutName)
+            && SubtypeSettings.getResourceSubtypesForLocale(locale()).none { it.mainLayoutName() == layoutName }) {
             return resources.getString(
                 R.string.subtype_with_layout_generic,
                 locale().localizedDisplayName(resources, displayLocale),
