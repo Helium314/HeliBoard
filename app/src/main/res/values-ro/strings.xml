@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"spaniolă (S.U.A.)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Sârbă (caractere latine)"</string>
-    <string name="subtype_with_layout_en_GB">"Engleză (Regatul Unit) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Engleză (S.U.A.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Spaniolă (S.U.A.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Sârbă (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradițională)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
     <string name="subtype_no_language">"Nicio limbă (alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">Adaugă</string>
     <string name="remove">Elimină</string>

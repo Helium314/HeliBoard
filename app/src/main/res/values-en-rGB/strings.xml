@@ -50,21 +50,10 @@
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_xdq">"Kaitag"</string>
     <string name="subtype_sr_Latn">"Serbian (Latin)"</string>
-    <string name="subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language">"No language (Alphabet)"</string>
     <string name="subtype_no_language_qwerty">"Alphabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alphabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alphabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alphabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alphabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alphabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Add"</string>
     <string name="remove">"Remove"</string>
@@ -134,8 +123,6 @@
     <string name="day_night_mode">Auto day/night mode</string>
     <string name="key_borders">Key borders</string>
     <string name="settings_category_additional_keys">Additional keys</string>
-    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
     <string name="day_night_mode_summary">Appearance will follow system settings</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>

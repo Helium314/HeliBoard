@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"espanja (Yhdysvallat)"</string>
     <string name="subtype_hi_Latn">"Hindienglanti"</string>
     <string name="subtype_sr_Latn">"serbialainen (latinal.)"</string>
-    <string name="subtype_with_layout_en_GB">"englanti (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"englanti (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"espanja (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hindienglanti (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"serbialainen (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (perinteinen)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tiivis)"</string>
     <string name="subtype_no_language">"Ei kieltä (aakkoset)"</string>
     <string name="subtype_no_language_qwerty">"aakkoset (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Aakkoset (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Aakkoset (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Aakkoset (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Aakkoset (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Aakkoset (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Lisää"</string>
     <string name="remove">"Poista"</string>

@@ -49,21 +49,11 @@
     <string name="subtype_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
     <string name="subtype_hi_Latn">"ಹಿಂಗ್ಲಿಷ್"</string>
     <string name="subtype_sr_Latn">"ಸರ್ಬಿಯನ್ (ಲ್ಯಾಟಿನ್)"</string>
-    <string name="subtype_with_layout_en_GB">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ಇಂಗ್ಲಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ಹಿಂಗ್ಲಿಷ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_extended">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ವಿಸ್ತರಿಸಲಾಗಿದೆ)"</string>
-    <string name="subtype_with_layout_sr_Latn">"ಸರ್ಬಿಯನ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
     <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ (ವರ್ಣಮಾಲೆ)"</string>
     <string name="subtype_no_language_qwerty">"ವರ್ಣಮಾಲೆ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ವರ್ಣಮಾಲೆ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ವರ್ಣಮಾಲೆ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ವರ್ಣಮಾಲೆ (ಡ್ವೊರಕ್)"</string>
-    <string name="subtype_no_language_colemak">"ವರ್ಣಮಾಲೆ (ಕೋಲ್‌ಮ್ಯಾಕ್)"</string>
-    <string name="subtype_no_language_pcqwerty">"ವರ್ಣಮಾಲೆ (PC)"</string>
     <string name="subtype_emoji">"ಎಮೋಜಿ"</string>
     <string name="add">"ಸೇರಿಸು"</string>
     <string name="remove">"ತೆಗೆದುಹಾಕಿ"</string>

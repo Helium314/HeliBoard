@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spænskt (US)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbneskt (latneskt)"</string>
-    <string name="subtype_with_layout_en_GB">"Enskt (Bretland) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Enskt (Bandaríkin) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Spænskt (Bandaríkin) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serbneskt (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (hefðbundið)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (lítið)"</string>
     <string name="subtype_no_language">"Ekkert tungumál (stafróf)"</string>
     <string name="subtype_no_language_qwerty">"Stafróf (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Stafróf (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Stafróf (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Stafróf (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Stafróf (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Stafróf (tölva)"</string>
     <string name="subtype_emoji">Tjáningartákn</string>
     <string name="add">"Bæta við"</string>
     <string name="remove">"Fjarlægja"</string>

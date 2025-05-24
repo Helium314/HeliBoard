@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Tiếng Tây Ban Nha (Mỹ)"</string>
     <string name="subtype_hi_Latn">"Tiếng Anh-Hindi"</string>
     <string name="subtype_sr_Latn">"Tiếng Serbia (La tinh)"</string>
-    <string name="subtype_with_layout_en_GB">"Tiếng Anh (Anh) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Tiếng Anh (Mỹ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Tiếng Tây Ban Nha (Mỹ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Tiếng Anh-Hindi (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Tiếng Serbia (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Truyền thống)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Viết tắt)"</string>
     <string name="subtype_no_language">"Không ngôn ngữ nào (Bảng chữ cái)"</string>
     <string name="subtype_no_language_qwerty">"Bảng chữ cái (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Bảng chữ cái (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Bảng chữ cái (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Bảng chữ cái (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Bảng chữ cái (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Bảng chữ cái (PC)"</string>
     <string name="subtype_emoji">"Biểu tượng cảm xúc"</string>
     <string name="add">"Thêm"</string>
     <string name="remove">"Xóa"</string>

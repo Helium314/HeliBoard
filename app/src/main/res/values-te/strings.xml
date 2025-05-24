@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"స్పానిష్ (యుఎస్)"</string>
     <string name="subtype_hi_Latn">"హింగ్లీష్"</string>
     <string name="subtype_sr_Latn">"సెర్బియన్ (లాటిన్)"</string>
-    <string name="subtype_with_layout_en_GB">"ఆంగ్లం (యుకె) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ఆంగ్లం (యుఎస్) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"స్పానిష్ (యుఎస్) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"హింగ్లీష్ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"సెర్బియన్ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (సాంప్రదాయకం)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (కాంపాక్ట్)"</string>
     <string name="subtype_no_language">"భాష లేదు (ఆల్ఫాబెట్)"</string>
     <string name="subtype_no_language_qwerty">"ఆల్ఫాబెట్ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ఆల్ఫాబెట్ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ఆల్ఫాబెట్ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ఆల్ఫాబెట్ (డ్వోరక్)"</string>
-    <string name="subtype_no_language_colemak">"ఆల్ఫాబెట్ (కోల్‌మాక్)"</string>
-    <string name="subtype_no_language_pcqwerty">"ఆల్ఫాబెట్ (PC)"</string>
     <string name="subtype_emoji">"ఎమోజి"</string>
     <string name="add">"జోడించండి"</string>
     <string name="remove">"తీసివేయి"</string>

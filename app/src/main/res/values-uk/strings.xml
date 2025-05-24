@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Іспанська (США)"</string>
     <string name="subtype_hi_Latn">Гінґліш</string>
     <string name="subtype_sr_Latn">Сербська (латиниця)</string>
-    <string name="subtype_with_layout_en_GB">Англійська (Велика Британія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Англійська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Іспанська (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Гінґліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербська (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальська">%s</xliff:g> (Традиційна)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Гінді">%s</xliff:g> (Компактна)</string>
     <string name="subtype_no_language">Стандартна (латиниця)</string>
     <string name="subtype_no_language_qwerty">"Латиниця (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Латиниця (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Латиниця (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Латиниця (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Латиниця (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Латиниця (ПК)"</string>
     <string name="subtype_emoji">Емоджі</string>
     <string name="add">Додати</string>
     <string name="remove">Видалити</string>
@@ -169,7 +159,6 @@
     <string name="show_hints">Показувати підказки клавіш</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Змінювати метод введення клавішею пробіл</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Довге натискання клавіші пробіл виводить меню вибору способу введення</string>
-    <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="spell_checker_service_name">Перевірка правопису HeliBoard</string>
     <string name="prefs_narrow_key_gaps">Збільшені клавіші</string>
     <string name="delete_swipe">Видаляти ковзанням</string>
@@ -191,7 +180,6 @@
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
     <string name="key_borders">Контури клавіш</string>
     <string name="settings_category_additional_keys">Додаткові клавіші</string>
-    <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Конфіденційність автовиправлення</string>
     <string name="undo">Скасовувати</string>
     <string name="redo">"Повторити"</string>

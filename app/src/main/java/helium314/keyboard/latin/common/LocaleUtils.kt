@@ -174,7 +174,7 @@ object LocaleUtils {
     fun Locale.localizedDisplayName(resources: Resources, displayLocale: Locale? = null): String {
         val languageTag = toLanguageTag()
         if (languageTag == SubtypeLocaleUtils.NO_LANGUAGE)
-            return resources.getString(R.string.subtype_no_language) // todo: remove the (Alphabet)
+            return resources.getString(R.string.subtype_no_language)
 
         val overrideResId = when (languageTag) {
             "en-US" -> R.string.subtype_en_US

@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Ισπανικά (ΗΠΑ)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Σερβικά (Λατινικά)"</string>
-    <string name="subtype_with_layout_en_GB">"Αγγλικά (Ηνωμένο Βασίλειο) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Αγγλικά (ΗΠΑ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Ισπανικά (ΗΠΑ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Σερβικά (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Παραδοσιακά)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Συμπαγές)"</string>
     <string name="subtype_no_language">"Καμία γλώσσα (Αλφάβητο)"</string>
     <string name="subtype_no_language_qwerty">"Αλφάβητο (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Αλφάβητο (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Αλφάβητο (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Αλφάβητο (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Αλφάβητο (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Αλφάβητο (PC)"</string>
     <string name="subtype_emoji">"Emoticon"</string>
     <string name="add">"Προσθήκη"</string>
     <string name="remove">"Κατάργηση"</string>
@@ -137,8 +127,6 @@
     <string name="number_row_summary">Να εμφανίζεται πάντα η αριθμητική σειρά</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Αλλάξτε τη μέθοδο εισαγωγής με το πλήκτρο διαστήματος</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_no_language_colemak_dh">Αλφάβητο (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Αλφάβητο (Workman)</string>
     <string name="day_night_mode_summary">Η εμφάνιση θα ακολουθεί τις ρυθμίσεις του συστήματος</string>
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
     <string name="ime_settings">Ρυθμίσεις HeliBoard</string>

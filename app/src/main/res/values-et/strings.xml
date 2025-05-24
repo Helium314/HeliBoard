@@ -49,20 +49,10 @@
     <string name="subtype_es_US">Hispaania (USA)</string>
     <string name="subtype_hi_Latn">"Hindi-inglise"</string>
     <string name="subtype_sr_Latn">"Serbia (ladina)"</string>
-    <string name="subtype_with_layout_en_GB">"Inglise (Ühendk.) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Inglise (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Hispaania (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hindi-inglise (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serbia (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (traditsiooniline)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktne)"</string>
     <string name="subtype_no_language">"Keel puudub (tähestik)"</string>
     <string name="subtype_no_language_qwerty">"Tähestik (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Tähestik (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Tähestik (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Tähestik (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Tähestik (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Tähestik (PC)"</string>
     <string name="subtype_emoji">"Emotikon"</string>
     <string name="add">"Lisa"</string>
     <string name="remove">"Eemalda"</string>

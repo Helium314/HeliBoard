@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hindi-Engels"</string>
     <string name="subtype_sr_Latn">"Servisch (Latijns)"</string>
-    <string name="subtype_with_layout_en_GB">Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hindi-Engels (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Servisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language">"Geen taal (alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">Alfabet (PC)</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Toevoegen"</string>
     <string name="remove">"Verwijderen"</string>
@@ -142,8 +132,6 @@
     <string name="prefs_keyboard_height_scale">Toetsenbordhoogte schaal</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Invoermethode schakelen met spatietoets</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="key_borders">Toetsranden</string>
     <string name="autospace_after_punctuation_summary">Automatisch spatie invoegen na interpunctie en het typen van een nieuw woord</string>
     <string name="ime_settings">HeliBoard-instellingen</string>

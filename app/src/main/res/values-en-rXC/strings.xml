@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‎‏‏‏‏‏‎‎‎‏‎‎‎‏‎‎‎‏‎‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‎‏‎‎‎‎Spanish (US)‎‏‎‎‏‎"</string>
     <string name="subtype_hi_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‏‎‏‏‎‏‎‏‎‎‎‏‎‏‎‏‎‎‏‎‎‏‏‏‏‎‏‎‎‏‏‎‎‎‎‏‏‎‎‏‏‎‎‎‏‎‎‎‏‏‏‏‏‎Hinglish‎‏‎‎‏‎"</string>
     <string name="subtype_sr_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‎‎‎‏‏‎‏‎‎‎‎‎‎‏‎‏‏‏‏‏‎‎‎‎‏‏‎‎‎‎‎‎‎‎‏‎‏‏‏‎‎‎‎‏‎‏‎‎‏‏‏‎Serbian (Latin)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_en_GB">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‏‎‏‎‏‏‎‎‏‏‎‎‎‏‎‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‏‎‎‎‎‎‎‏‏‎‏‏‎‎‎‏‎‏‏‎‏‏‏‏‏‏‎‎‎‎‎English (UK) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_en_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‏‎‎‎‎‎‎‏‏‏‏‎‏‎‏‏‏‏‏‎‎‎‏‎‎‏‏‏‎‎‏‎‎‎‎‏‏‎‏‏‎‎‏‎‏‏‎‎‏‏‎‏‏‏‎‎English (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_es_US">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‎‏‏‎‎‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎‏‏‎‏‏‎‏‏‏‎‏‎‏‎‎‎‎‎‎‎‏‎‏‏‎‏‎‎Spanish (US) (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_hi_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‏‏‏‏‏‏‏‎‎‏‏‏‎‏‏‎‏‎‎‎‎‎‎‏‏‏‎‏‏‎‏‎‎‏‏‏‏‏‎‎‎‎‎‎‏‏‏‏‎‎‏‎‎‎Hinglish (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
-    <string name="subtype_with_layout_sr_Latn">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‎‏‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‏‎‎‎‎‎‎‎‎‏‎‎‎‎‎‎‏‎‏‏‏‏‎‏‏‏‎Serbian (‎‏‎‎‏‏‎<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>‎‏‎‎‏‏‏‎)‎‏‎‎‏‎"</string>
     <string name="subtype_generic_traditional">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‎‎‏‎‎‎‏‎‏‎‎‏‏‎‏‏‎‎‎‏‎‏‎‎‎‎‏‏‏‏‏‎‏‎‎‏‏‏‏‎‎‏‎‏‎‎‎‎‏‎‎‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Traditional)‎‏‎‎‏‎"</string>
     <string name="subtype_generic_compact">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‎‏‏‏‎‏‎‎‎‏‎‏‎‏‎‏‎‎‏‎‎‎‎‎‏‏‏‎‏‏‏‏‏‏‎‏‏‎‎‎‎‎‏‎‏‎‏‏‏‏‎‏‏‎‏‏‎‏‎‏‎‎‎‏‎‎‏‏‎<xliff:g id="LANGUAGE_NAME">%s</xliff:g>‎‏‎‎‏‏‏‎ (Compact)‎‏‎‎‏‎"</string>
     <string name="subtype_no_language">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‏‎‎‎‎‏‏‎‏‎‎‎‏‏‎‏‎‎‏‏‏‏‎‎‏‏‎‏‎‎‏‏‎‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎‎‏‏‏‎‎‏‏‏‎No language (Alphabet)‎‏‎‎‏‎"</string>
     <string name="subtype_no_language_qwerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‎‏‏‎‏‏‎‎‏‎‎‎‎‎‎‏‏‏‏‏‏‎‎‎‏‏‏‏‏‎‎‏‏‏‎‎‎‏‎‏‎‏‏‏‏‏‎‏‎‏‎‏‏‎‎‏‏‎‎‎Alphabet (QWERTY)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_qwertz">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‎‏‏‏‏‎‎‎‏‎‎‏‏‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‎‎‏‏‎‏‎‏‏‏‎‏‏‏‏‎‏‏‏‎‏‎‎‎‏‎‏‎‎‏‎‎‎‎Alphabet (QWERTZ)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_azerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‎‎‎‏‎‎‎‎‎‏‏‎‏‎‎‎‏‎‎‏‏‏‎‏‎‏‎‏‏‏‎‏‎‎‎‏‎‎‎‏‏‏‏‏‎‎‏‎‏‎‎‎‎‎‎‏‎‏‏‏‎Alphabet (AZERTY)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_dvorak">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‎‏‏‎‏‏‎‏‏‎‎‎‏‏‎‎‏‏‏‎‎‏‏‏‎‎‎‏‏‏‎‎‏‎‎‏‏‎‎‎‎‏‎‏‎‎‎‏‎‏‎‎‎‎‏‏‏‎‎Alphabet (Dvorak)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_colemak">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‎‎‎‏‎‎‎‎‎‎‏‎‏‎‏‎‏‏‎‏‎‎‎‏‏‎‏‏‎‏‎‏‏‎‎‏‏‏‏‏‎‎‎‏‎‏‏‏‎‏‎‎‏‎‎‏‏‏‏‏‎Alphabet (Colemak)‎‏‎‎‏‎"</string>
-    <string name="subtype_no_language_pcqwerty">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‎‏‎‏‎‎‏‎‏‎‎‎‎‎‏‏‏‏‏‎‏‏‏‎‎‎‎‏‎‏‎‏‎‏‏‏‎‎‏‏‎‎‎‎‎‎‏‏‎‎‏‎‎‏‏‎‏‎‎‏‎‎Alphabet (PC)‎‏‎‎‏‎"</string>
     <string name="subtype_emoji">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‏‎‎‏‏‏‏‏‎‏‏‎‏‏‎‎‎‎‏‎‏‎‎‏‎‏‎‏‏‏‏‏‎‏‎‎‎‎‎‎‎‎‎‎‏‏‏‎‏‏‏‎‏‏‏‏‎‎‏‏‎‎‎Emoji‎‏‎‎‏‎"</string>
     <string name="add">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏‎‏‎‏‎‏‏‏‏‎‎‎‏‏‏‏‎‏‎‎‎‎‎‏‎‎‎‎‎‏‏‎‏‏‎‎‎‎‎‎‏‎‎‎‎‎‏‎‎‏‏‎‏‏‏‏‏‎Add‎‏‎‎‏‎"</string>
     <string name="remove">"‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‎‏‏‎‏‎‏‏‏‏‏‏‏‏‏‎‏‏‏‏‏‎‎‎‎‏‎‏‎‏‏‏‎‏‎‏‏‎‏‎‏‎‎‏‎‏‏‎‎‎‏‏‎‎‎‏‏‎‏‏‏‏‎‎‎‏‏‏‏‏‎‏‎‎‏‏‎‎‎Remove‎‏‎‎‏‎"</string>

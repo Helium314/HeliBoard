@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"ஸ்பானிஷ் (யூஎஸ்)"</string>
     <string name="subtype_hi_Latn">"ஹிங்கிலிஷ்"</string>
     <string name="subtype_sr_Latn">"செர்பியன் (லத்தீன்)"</string>
-    <string name="subtype_with_layout_en_GB">"ஆங்கிலம் (யூகே) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ஆங்கிலம் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ஸ்பானிஷ் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ஹிங்கிலிஷ் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"செர்பியன் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (பாரம்பரியமானது)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (வசதியான)"</string>
     <string name="subtype_no_language">"மொழியில்லை (அகரவரிசை)"</string>
     <string name="subtype_no_language_qwerty">"அகரவரிசை (க்வெர்டி)"</string>
-    <string name="subtype_no_language_qwertz">"அகரவரிசை (க்வெர்ட்ச்)"</string>
-    <string name="subtype_no_language_azerty">"அகரவரிசை (எசெர்டி)"</string>
-    <string name="subtype_no_language_dvorak">"அகரவரிசை (ட்வொராக்)"</string>
-    <string name="subtype_no_language_colemak">"அகரவரிசை (கொல்மக்)"</string>
-    <string name="subtype_no_language_pcqwerty">"அகரவரிசை (பிசி)"</string>
     <string name="subtype_emoji">"எமோஜி"</string>
     <string name="add">"சேர்"</string>
     <string name="remove">"அகற்று"</string>

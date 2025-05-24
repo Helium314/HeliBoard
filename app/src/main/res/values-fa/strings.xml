@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"اسپانیایی (امریکا)"</string>
     <string name="subtype_hi_Latn">"هندی انگلیسی"</string>
     <string name="subtype_sr_Latn">"صربی (لاتین)"</string>
-    <string name="subtype_with_layout_en_GB">انگلیسی (بریتانیا) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">انگلیسی (امریکا) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">اسپانیایی (امریکا) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">هندی انگلیسی (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">صربی (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (سنتی)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (فشرده)</string>
     <string name="subtype_no_language">"بدون زبان (حروف الفبا)"</string>
     <string name="subtype_no_language_qwerty">"‏حروف الفبا (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"‏حروف الفبا (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"‏حروف الفبا (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"‏حروف الفبا (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"‏حروف الفبا (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"‏حروف الفبا (PC)"</string>
     <string name="subtype_emoji">"اموجی"</string>
     <string name="add">"افزودن"</string>
     <string name="remove">"حذف"</string>
@@ -128,8 +118,6 @@
     <string name="clipboard_history_retention_time">مدت زمان نگهداری تاریخچه</string>
     <string name="more_keys_strip_description">کلید‌های بیشتر</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">با فشار طولانی کلید فاصله، منوی انتخاب روش ورودی را باز می کند</string>
-    <string name="subtype_no_language_colemak_dh">حروف الفبا (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">حروف الفبا (Workman)</string>
     <string name="day_night_mode_summary">ظاهر از تنظیمات سیستم پیروی می‌کند</string>
     <string name="enable_clipboard_history_summary">اگر غیرفعال باشد، کلید کلیپ بورد، محتوای خود را در صورت وجود جایگذاری می‌کند</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>دقیقه.</string>

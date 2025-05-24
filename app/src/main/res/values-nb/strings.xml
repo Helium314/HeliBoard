@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"spansk (USA)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbisk (latin)"</string>
-    <string name="subtype_with_layout_en_GB">"Engelsk (Storbritannia) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Engelsk (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">Spansk (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serbisk (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradisjonelt)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakt)"</string>
     <string name="subtype_no_language">"Ingen språk (alfabet)"</string>
     <string name="subtype_no_language_qwerty">Alfabet (QWERTY)</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Legg til"</string>
     <string name="remove">"Fjern"</string>
@@ -115,10 +105,8 @@
     <string name="day_night_mode">Automatisk dag/nattmodus</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Langtrykke på mellomromstasten for inndatametode-valgmeny</string>
     <string name="ime_settings">HeliBoard-innstillinger</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="spell_checker_service_name">HeliBoard-stavekontroll</string>
     <string name="android_spell_checker_settings">Innstillinger for HeliBoard-stavekontroll</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="delete_swipe">Slettingsdragning</string>
     <string name="show_emoji_key">Emoji-tast</string>
     <string name="delete_swipe_summary">Utfør en dragning fra Delete-tasten for å velge og fjerne større deler av tekst samtidig</string>

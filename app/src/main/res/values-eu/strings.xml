@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Gaztelania (AEB)"</string>
     <string name="subtype_hi_Latn">"Hinglisha"</string>
     <string name="subtype_sr_Latn">"Serbiarra (latindarra)"</string>
-    <string name="subtype_with_layout_en_GB">Ingelesa (Erresuma Batua) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Ingelesa (Estatu Batuak) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Gaztelania (AEB) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglisha (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbiarra (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradizionala)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Trinkoa)</string>
     <string name="subtype_no_language">"Ez dago hizkuntzarik (alfabetoa)"</string>
     <string name="subtype_no_language_qwerty">Alfabetoa (QWERTY)</string>
-    <string name="subtype_no_language_qwertz">Alfabetoa (QWERTZ)</string>
-    <string name="subtype_no_language_azerty">Alfabetoa (AZERTY)</string>
-    <string name="subtype_no_language_dvorak">Alfabetoa (Dvorak)</string>
-    <string name="subtype_no_language_colemak">Alfabetoa (Colemak)</string>
-    <string name="subtype_no_language_pcqwerty">Alfabetoa (PC)</string>
     <string name="subtype_emoji">"Emojiak"</string>
     <string name="add">"Gehitu"</string>
     <string name="remove">"Kendu"</string>
@@ -144,8 +134,6 @@
     <string name="autospace_after_punctuation_summary">Sartu automatikoki zuriunea puntuazioen ondoren hitz berri bat idaztean</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Aldatu idazketa-metodoa zuriune teklarekin</string>
     <string name="prefs_keyboard_height_scale">Teklatuaren altuera eskala</string>
-    <string name="subtype_no_language_colemak_dh">Alfabetoa (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alfabetoa (Workman)</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Erabili sistemaren hizkuntzak"</string>
     <string name="select_input_method">"Aukeratu idazketa-metodoa"</string>
     <string name="undo">"Desegin"</string>

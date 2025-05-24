@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"ესპანური (აშშ)"</string>
     <string name="subtype_hi_Latn">"ჰინგლისური"</string>
     <string name="subtype_sr_Latn">"სერბული (ლათინური)"</string>
-    <string name="subtype_with_layout_en_GB">ინგლისური (UK) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_en_US">ინგლისური (აშშ) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">ესპანური (აშშ) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">ჰინგლისური (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">სერბული (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (ტრადიციული)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (კომპაქტური)</string>
     <string name="subtype_no_language">"ენის გარეშე (ლათინური ანბანი)"</string>
     <string name="subtype_no_language_qwerty">"ლათ. ანბანი (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ანბანი (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ანბანი (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ანბანი (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ანბანი (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ანბანი (PC)"</string>
     <string name="subtype_emoji">"სიცილაკები"</string>
     <string name="add">"დამატება"</string>
     <string name="remove">"ამოშლა"</string>
@@ -142,13 +132,11 @@
     <string name="settings_category_suggestions">მინიშნებები</string>
     <string name="settings_category_experimental">ექსპერიმენტალური</string>
     <string name="number_row_summary">რიცხვებიანი მწკრივის ყოველთვის ჩვენება</string>
-    <string name="subtype_no_language_workman">ანბანი (Workman)</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>წთ.</string>
     <string name="clipboard_history_retention_time">ისტორიის შენახვის დრო</string>
     <string name="more_keys_strip_description">მეტი ღილაკი</string>
     <string name="prefs_keyboard_height_scale">კლავიატურის სიმაღლის მასშტაბი</string>
     <string name="key_borders">ღილაკის კონტურები</string>
-    <string name="subtype_no_language_colemak_dh">ანბანი (Colemak Mod-DH)</string>
     <string name="day_night_mode">დღის/ღამის ავტ. არჩევანი</string>
     <string name="undo">"დაბრუნება"</string>
     <string name="redo">"გამეორება"</string>

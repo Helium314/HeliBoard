@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"สเปน (สหรัฐอเมริกา)"</string>
     <string name="subtype_hi_Latn">"ภาษาอังกฤษผสมกับฮินดู"</string>
     <string name="subtype_sr_Latn">"เซอร์เบีย (ละติน)"</string>
-    <string name="subtype_with_layout_en_GB">"อังกฤษ (สหราชอาณาจักร) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"อังกฤษ (สหรัฐอเมริกา) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"สเปน (สหรัฐอเมริกา) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ภาษาอังกฤษผสมกับฮินดู (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"เซอร์เบีย (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ดั้งเดิม)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (แบบกะทัดรัด)"</string>
     <string name="subtype_no_language">"ไม่มีภาษา (ตัวอักษรละติน)"</string>
     <string name="subtype_no_language_qwerty">"ตัวอักษร (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ตัวอักษร (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ตัวอักษร (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ตัวอักษร (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ตัวอักษร (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ตัวอักษร (PC)"</string>
     <string name="subtype_emoji">"อีโมจิ"</string>
     <string name="add">"เพิ่ม"</string>
     <string name="remove">"ลบ"</string>

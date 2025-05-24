@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Ispan (AQSH)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serb (Lotin)"</string>
-    <string name="subtype_with_layout_en_GB">Ingliz (Buyuk Britaniya) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Ingliz (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Ispan (AQSH) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (An’anaviy)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g>(Ixcham)</string>
     <string name="subtype_no_language">"Til aniqlanmadi (lotin)"</string>
     <string name="subtype_no_language_qwerty">"Lotin (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Lotin (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Lotin (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Lotin (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Lotin (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Lotin (shaxsiy kompyuter)"</string>
     <string name="subtype_emoji">"Kulgichlar"</string>
     <string name="add">"Qo‘shish"</string>
     <string name="remove">"Olib tashlash"</string>
@@ -139,8 +129,6 @@
     <string name="incognito">Majburiy inkognito rejimi</string>
     <string name="autospace_after_punctuation">Tinish belgilaridan keyin avtomatik bo\'shliq qo‘yish</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_no_language_colemak_dh">Alfavit (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alfavit (Workman)</string>
     <string name="settings_category_input">Kiritish</string>
     <string name="settings_category_additional_keys">Qo\'shimcha kalitlar</string>
     <string name="ime_settings">HeliBoard Sozlamalari</string>

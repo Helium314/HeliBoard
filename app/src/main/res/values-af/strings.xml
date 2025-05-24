@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serwies (Latyns)"</string>
-    <string name="subtype_with_layout_en_GB">Engels (VK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engels (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spaans (VS) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serwies (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisioneel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompak)</string>
     <string name="subtype_no_language">"Geen taal nie (alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">"Emosiekone"</string>
     <string name="add">"Voeg by"</string>
     <string name="remove">"Verwyder"</string>
@@ -138,8 +128,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Lang-druk van spasiebalk sal toevoer metode seleksie skerm wys</string>
     <string name="autospace_after_punctuation">Outo-spasie na leestekens</string>
     <string name="autospace_after_punctuation_summary">Plaas \'n spasie na \'n leesteken sodra \'n nuwe woord getik word</string>
-    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
-    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <string name="ime_settings">HeliBoard Instellings</string>
     <string name="settings_category_input">Invoer</string>
     <string name="settings_category_additional_keys">Bykomende Sleutels</string>

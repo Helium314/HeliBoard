@@ -70,7 +70,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
                 + "," + Constants.Subtype.ExtraValue.EMOJI_CAPABLE)
         private val DUMMY_NO_LANGUAGE_SUBTYPE = RichInputMethodSubtype(
             InputMethodSubtypeBuilder()
-                .setSubtypeNameResId(R.string.subtype_no_language_qwerty)
+                .setSubtypeNameResId(R.string.subtype_no_language)
                 .setSubtypeIconResId(R.drawable.ic_ime_switcher)
                 .setSubtypeLocale(SubtypeLocaleUtils.NO_LANGUAGE)
                 .setSubtypeMode(Constants.Subtype.KEYBOARD_MODE)

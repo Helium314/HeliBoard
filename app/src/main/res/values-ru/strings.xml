@@ -52,23 +52,10 @@
     <string name="subtype_mns">Мансийский</string>
     <string name="subtype_xdq">Кайтагский</string>
     <string name="subtype_sr_Latn">Сербский (латиница)</string>
-    <string name="subtype_with_layout_en_GB">Английский (Великобритания) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Английский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Испанский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_mns">Мансийский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_dru">Урахинский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq">Кайтагский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальский">%s</xliff:g> (Традиционная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Компактная)</string>
     <string name="subtype_no_language">Стандартная (латиница)</string>
     <string name="subtype_no_language_qwerty">Латиница (QWERTY)</string>
-    <string name="subtype_no_language_qwertz">Латиница (QWERTZ)</string>
-    <string name="subtype_no_language_azerty">Латиница (AZERTY)</string>
-    <string name="subtype_no_language_dvorak">Латиница (Dvorak)</string>
-    <string name="subtype_no_language_colemak">Латиница (Colemak)</string>
-    <string name="subtype_no_language_pcqwerty">Латиница (ПК)</string>
     <string name="subtype_emoji">Эмодзи</string>
     <string name="add">Добавить</string>
     <string name="remove">Удалить</string>
@@ -149,7 +136,6 @@
     <string name="clipboard_history_retention_time">Время хранения журнала буфера обмена</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальский">%s</xliff:g> (Акхор)</string>
     <string name="subtype_dru">Даргинский (Урахи)</string>
-    <string name="subtype_no_language_workman">Латиница (Workman)</string>
     <string name="key_borders">Контуры клавиш</string>
     <string name="day_night_mode">Использовать тему системы</string>
     <string name="theme_style">Стиль темы</string>
@@ -161,7 +147,6 @@
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
     <string name="autospace_after_punctuation">Автоматически добавлять пробел после знаков препинания</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
-    <string name="subtype_no_language_colemak_dh">Латиница (Colemak Mod-DH)</string>
     <string name="settings_category_experimental">Экспериментальные</string>
     <string name="settings_category_miscellaneous">Другие настройки (разное)</string>
     <string name="settings_category_correction">Исправления</string>
@@ -245,7 +230,6 @@
     <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
-    <string name="subtype_no_language_bepo">Алфавит (Бепо)</string>
     <string name="popup_order">Выберите порядок всплывающих клавиш</string>
     <string name="hint_source">Выберите источник подсказки</string>
     <string name="button_select_language">Выберите язык</string>

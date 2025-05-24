@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"İspanyolca (ABD)"</string>
     <string name="subtype_hi_Latn">"Hingilizce"</string>
     <string name="subtype_sr_Latn">"Sırpça (Latin alfabesi)"</string>
-    <string name="subtype_with_layout_en_GB">İngilizce (İngiltere) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">İngilizce (ABD) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">İspanyolca (ABD) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hingilizce (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Sırpça (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Geleneksel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
     <string name="subtype_no_language">"Dil yok (Alfabe)"</string>
     <string name="subtype_no_language_qwerty">"Alfabe (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabe (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabe (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabe (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabe (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabe (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ekle"</string>
     <string name="remove">"Kaldır"</string>
@@ -122,7 +112,6 @@
     <string name="android_spell_checker_settings">HeliBoard yazım denetleyicisi ayarları</string>
     <string name="prefs_keyboard_height_scale">Klavye yükseklik ölçeği</string>
     <string name="delete_swipe">Kadırarak silme</string>
-    <string name="subtype_no_language_workman">Alfabe (Workman)</string>
     <string name="key_borders">Tuş kenarlıkları</string>
     <string name="day_night_mode">Otomatik gündüz/gece modu</string>
     <string name="spell_checker_service_name">HeliBoard yazım denetleyicisi</string>
@@ -139,7 +128,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Boşluk tuşuyla giriş yöntemini değiştir</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="delete_swipe_summary">Bir kerede metnin daha büyük bölümlerini seçmek ve silmek için silme tuşundan hızlıca kaydırın</string>
-    <string name="subtype_no_language_colemak_dh">Alfabe (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">Görünüm sistem ayarlarını takip edecektir</string>
     <string name="ime_settings">HeliBoard ayarları</string>
     <string name="settings_category_input">Giriş</string>

@@ -49,20 +49,10 @@
     <string name="subtype_es_US">Spanyol (amerikai)</string>
     <string name="subtype_hi_Latn">"Hinglish (hindi-angol)"</string>
     <string name="subtype_sr_Latn">"Szerb (latin)"</string>
-    <string name="subtype_with_layout_en_GB">Angol (brit) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Angol (amerikai) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanyol (amerikai) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (hindi-angol, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">Szerb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepáli">%s</xliff:g> (Hagyományos)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
     <string name="subtype_no_language">"Nincs nyelv (ábécé)"</string>
     <string name="subtype_no_language_qwerty">"Ábécé (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Ábécé (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Ábécé (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Ábécé (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Ábécé (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Ábécé (PC)"</string>
     <string name="subtype_emoji">"Hangulatjel"</string>
     <string name="add">"Hozzáadás"</string>
     <string name="remove">"Eltávolítás"</string>
@@ -127,11 +117,9 @@
     <string name="prefs_keyboard_height_scale">Billentyűzet magassági skála</string>
     <string name="number_row_summary">Mindig mutassa a számsort</string>
     <string name="show_hints">Kulcsfontosságú tippek megjelenítése</string>
-    <string name="subtype_no_language_colemak_dh">Ábécé (Colemak Mod-DH)</string>
     <string name="show_hints_summary">Hosszan-lenyomott tippek megjelenítése</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">A szóköz billentyű hosszan történő megnyomásával a beviteli módszer kiválasztási menüje jelenik meg</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Beviteli mód megváltoztatása a szóközzel</string>
-    <string name="subtype_no_language_workman">Ábécé (Munkás)</string>
     <string name="day_night_mode">Automatikus nappali/éjszakai üzemmód</string>
     <string name="spell_checker_service_name">HeliBoard helyesírás-ellenőrző</string>
     <string name="delete_swipe">Csúsztató törlése</string>

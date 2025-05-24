@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"İspan (ABŞ)"</string>
     <string name="subtype_hi_Latn">"Hingilis"</string>
     <string name="subtype_sr_Latn">"Serb (Latın)"</string>
-    <string name="subtype_with_layout_en_GB">"İngilis (Britaniya) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"İngilis (Amerika) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"İspan (Amerika) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hingilis (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serb (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Ənənəvi)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompakt)"</string>
     <string name="subtype_no_language">"Dil yoxdur (Əlifba)"</string>
     <string name="subtype_no_language_qwerty">"Əlifba (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Əlifba (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Əlifba (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Əlifba (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Əlifba (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Əlifba (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Əlavə et"</string>
     <string name="remove">"Ləğv et"</string>

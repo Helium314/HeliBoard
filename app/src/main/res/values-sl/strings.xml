@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"španščina (ZDA)"</string>
     <string name="subtype_hi_Latn">"Hindujska angleščina"</string>
     <string name="subtype_sr_Latn">"Srbščina (latinica)"</string>
-    <string name="subtype_with_layout_en_GB">"angleščina (VB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"angleščina (ZDA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"španščina (ZDA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hindujska angleščina (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Srbščina (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionalna)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompaktna)"</string>
     <string name="subtype_no_language">"Brez jezika (latinice)"</string>
     <string name="subtype_no_language_qwerty">"Latinica (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Latinica (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Latinica (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Latinica (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Latinica (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Latinica (PC)"</string>
     <string name="subtype_emoji">"Emodžiji"</string>
     <string name="add">"Dodaj"</string>
     <string name="remove">"Odstrani"</string>

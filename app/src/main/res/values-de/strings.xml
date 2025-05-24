@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spanisch (USA)"</string>
     <string name="subtype_hi_Latn">Hinglisch</string>
     <string name="subtype_sr_Latn">"Serbisch (Lateinisch)"</string>
-    <string name="subtype_with_layout_en_GB">Englisch (GB) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Englisch (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanisch (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbisch (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditionell)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
     <string name="subtype_no_language">"Keine Sprache (lat. Alphabet)"</string>
     <string name="subtype_no_language_qwerty">"Lat. Alphabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Lat. Alphabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Lat. Alphabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Lat. Alphabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Lat. Alphabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Lat. Alphabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Hinzufügen"</string>
     <string name="remove">"Entfernen"</string>
@@ -146,8 +136,6 @@
     <string name="key_borders">Tastenränder</string>
     <string name="day_night_mode">Automatischer Tag-/Nachtmodus</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Bengali)</string>
-    <string name="subtype_no_language_workman">Lat. Alphabet (Workman)</string>
-    <string name="subtype_no_language_colemak_dh">Lat. Alphabet (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Vertrauen in die Autokorrektur</string>
     <string name="undo">Rückgängig</string>
     <string name="redo">"Wiederholen"</string>
@@ -225,7 +213,6 @@
     <string name="select_color_accent">Akzent</string>
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Zahlenzeile</string>
-    <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
     <string name="button_restore">Wiederherstellen</string>
     <string name="popup_order">Popup-Tastenreihenfolge wählen</string>
     <string name="version">Version</string>

@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"स्पेनिश (यूएस)"</string>
     <string name="subtype_hi_Latn">"हिंग्लिश"</string>
     <string name="subtype_sr_Latn">"सर्बियाई (लैटिन)"</string>
-    <string name="subtype_with_layout_en_GB">"अंग्रेज़ी (यूके) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"अंग्रेज़ी (यूएस) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"स्‍पेनिश (यूएस) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"हिंग्लिश (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"सर्बियाई (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (पारंपरिक)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (संक्षिप्त)"</string>
     <string name="subtype_no_language">"भाषा उपलब्ध नहीं है (लैटिन वर्णाक्षर)"</string>
     <string name="subtype_no_language_qwerty">"वर्णाक्षर (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"वर्णाक्षर (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"वर्णाक्षर (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"वर्णाक्षर (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"वर्णाक्षर (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"वर्णाक्षर (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"जोड़ें"</string>
     <string name="remove">"निकालें"</string>

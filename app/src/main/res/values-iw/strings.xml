@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"ספרדית (ארצות הברית)"</string>
     <string name="subtype_hi_Latn">"אנגלית הודית"</string>
     <string name="subtype_sr_Latn">"סרבית (באותיות לטיניות)"</string>
-    <string name="subtype_with_layout_en_GB">אנגלית (בריטניה)‏ <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">אנגלית (ארה\"ב) ‏<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">ספרדית (ארה\"ב) ‏<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">אנגלית הודית <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">סרבית ) <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (מסורתית)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (קומפקטית)"</string>
     <string name="subtype_no_language">"ללא שפה (אלף-בית)"</string>
     <string name="subtype_no_language_qwerty">"‏אלף-בית (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"‏אלף-בית (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"‏אלף-בית (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"‏אלף-בית (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"‏אלף-בית (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"‏אלף-בית (PC)"</string>
     <string name="subtype_emoji">"אמוג\'י"</string>
     <string name="add">"הוסף"</string>
     <string name="remove">"הסר"</string>
@@ -130,10 +120,8 @@
     <string name="spell_checker_service_name">בודק האיות של HeliBoard</string>
     <string name="settings_category_clipboard_history">היסטוריית הלוח</string>
     <string name="autospace_after_punctuation">רווח אוטומטי לאחר סימני פיסוק</string>
-    <string name="subtype_no_language_colemak_dh">אלפבית (Colemak Mod-DH)</string>
     <string name="day_night_mode_summary">המראה יעקוב אחר הגדרות המערכת</string>
     <string name="autospace_after_punctuation_summary">הוסף רווח אוטומטי לאחר סימני פיסוק בעת הקלדת מילה חדשה</string>
-    <string name="subtype_no_language_workman">אלפבית (עובד)</string>
     <string name="ime_settings">הגדרות HeliBoard</string>
     <string name="settings_category_input">קֶלֶט</string>
     <string name="settings_category_experimental">נסיוני</string>

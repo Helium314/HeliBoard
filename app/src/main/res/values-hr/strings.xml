@@ -49,20 +49,10 @@
     <string name="subtype_es_US">Španjolski (SAD)</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Srpski (latinica)"</string>
-    <string name="subtype_with_layout_en_GB">Engleski (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engleski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Španjolski (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Srpski (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionalno)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompaktno)</string>
     <string name="subtype_no_language">Neodređen jezik (abeceda)</string>
     <string name="subtype_no_language_qwerty">Abeceda (QWERTY)</string>
-    <string name="subtype_no_language_qwertz">Abeceda (QWERTZ)</string>
-    <string name="subtype_no_language_azerty">Abeceda (AZERTY)</string>
-    <string name="subtype_no_language_dvorak">Abeceda (Dvorak)</string>
-    <string name="subtype_no_language_colemak">Abeceda (Colemak)</string>
-    <string name="subtype_no_language_pcqwerty">Abeceda (PC)</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Dodaj"</string>
     <string name="remove">"Ukloni"</string>
@@ -113,9 +103,7 @@
     <string name="spell_checker_service_name">HeliBoard provjera pravopisa</string>
     <string name="android_spell_checker_settings">Postavke HeliBoard provjere pravopisa</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
     <string name="settings_category_suggestions">Prijedlozi</string>
-    <string name="subtype_no_language_workman">Abeceda (Workman)</string>
     <string name="settings_category_clipboard_history">Povijest međuspremnika</string>
     <string name="settings_category_miscellaneous">Razno</string>
     <string name="settings_category_correction">Ispravci</string>

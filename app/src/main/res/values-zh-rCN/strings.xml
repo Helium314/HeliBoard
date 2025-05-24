@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"西班牙语（美国）"</string>
     <string name="subtype_hi_Latn">"印地英语"</string>
     <string name="subtype_sr_Latn">"塞尔维亚语（拉丁语布局）"</string>
-    <string name="subtype_with_layout_en_GB">英语（英国）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">英语（美国）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">西班牙语（美国）(<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">印地英语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">塞尔维亚语 (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="尼泊尔语">%s</xliff:g>（传统）</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> （紧凑型）</string>
     <string name="subtype_no_language">无语言（字母表）</string>
     <string name="subtype_no_language_qwerty">字母表（QWERTY）</string>
-    <string name="subtype_no_language_qwertz">字母表（QWERTZ）</string>
-    <string name="subtype_no_language_azerty">字母表（AZERTY）</string>
-    <string name="subtype_no_language_dvorak">字母表（Dvorak）</string>
-    <string name="subtype_no_language_colemak">字母表（Colemak）</string>
-    <string name="subtype_no_language_pcqwerty">字母表（PC）</string>
     <string name="subtype_emoji">"表情符号"</string>
     <string name="add">"添加"</string>
     <string name="remove">移除</string>
@@ -132,7 +122,6 @@
     <string name="spell_checker_service_name">拼写检查</string>
     <string name="android_spell_checker_settings">拼写检查设置</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="孟加拉语">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_no_language_workman">字母表（Workman）</string>
     <string name="prefs_force_incognito_mode_summary">禁用新单词学习</string>
     <string name="more_keys_strip_description">更多键</string>
     <string name="number_row">数字行</string>
@@ -145,7 +134,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">长按空格键将提示输入法选择菜单</string>
     <string name="prefs_long_press_keyboard_to_change_lang">使用空格键更改输入法</string>
     <string name="prefs_keyboard_height_scale">键盘高度比例</string>
-    <string name="subtype_no_language_colemak_dh">字母表（Colemak Mod-DH）</string>
     <string name="auto_correction_confidence">自动更正置信度</string>
     <string name="use_system_language_to_select_input_method_subtypes">"使用系统语言"</string>
     <string name="select_input_method">"选择输入法"</string>

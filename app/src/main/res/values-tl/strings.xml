@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Spanish (US)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbian (Latin)"</string>
-    <string name="subtype_with_layout_en_GB">"English (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"English (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Traditional)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Compact)"</string>
     <string name="subtype_no_language">"Walang wika (Alpabeto)"</string>
     <string name="subtype_no_language_qwerty">"Alpabeto (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alpabeto (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alpabeto (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alpabeto (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alpabeto (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alpabeto (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Idagdag"</string>
     <string name="remove">"Alisin"</string>

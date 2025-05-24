@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Испанча (US)"</string>
     <string name="subtype_hi_Latn">"Хинглиш"</string>
     <string name="subtype_sr_Latn">"Сербче (Латын)"</string>
-    <string name="subtype_with_layout_en_GB">"Англисче (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Англисче (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Испанча (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Хинглиш (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Сербче (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Салттык)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Чакан)"</string>
     <string name="subtype_no_language">"Тил жок (Алфавит)"</string>
     <string name="subtype_no_language_qwerty">"Алфавит (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Алфавит (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Алфавит (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Алфавит (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Алфавит (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Алфавит (PC)"</string>
     <string name="subtype_emoji">"Эмодзи"</string>
     <string name="add">"Кошуу"</string>
     <string name="remove">"Алып салуу"</string>

@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spanyol (AS)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Serbia (Latin)"</string>
-    <string name="subtype_with_layout_en_GB">Inggris (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Inggris (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanyol (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbia (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradisional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Ringkas)</string>
     <string name="subtype_no_language">"Tidak ada bahasa (Abjad)"</string>
     <string name="subtype_no_language_qwerty">"Abjad (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Abjad (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Abjad (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Abjad (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Abjad (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Abjad (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tambahkan"</string>
     <string name="remove">"Hapus"</string>
@@ -120,7 +110,6 @@
     <string name="show_hints">Tampilkan petunjuk tombol</string>
     <string name="number_row_summary">Selalu tampilkan baris angka</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> mnt</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="spell_checker_service_name">Pemeriksa Ejaan HeliBoard</string>
     <string name="android_spell_checker_settings">Pengaturan Pemeriksa Ejaan HeliBoard</string>
     <string name="number_row">Baris angka</string>
@@ -138,7 +127,6 @@
     <string name="prefs_force_incognito_mode_summary">Nonaktifkan pembelajaran kata baru</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Menekan lama pada tombol spasi akan menampilkan menu pemilihan metode masukan</string>
     <string name="show_hints_summary">Tampilkan petunjuk tekan-lama</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="key_borders">Batas tombol</string>
     <string name="day_night_mode">Mode siang/malam otomatis</string>
     <string name="day_night_mode_summary">Tampilan mengikuti pengaturan sistem</string>

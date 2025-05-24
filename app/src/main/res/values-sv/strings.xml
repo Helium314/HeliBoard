@@ -49,20 +49,10 @@
     <string name="subtype_es_US">Spanska (USA)</string>
     <string name="subtype_hi_Latn">Hingelska</string>
     <string name="subtype_sr_Latn">"Serbiska (latinsk)"</string>
-    <string name="subtype_with_layout_en_GB">Engelska (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engelska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hingelska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbiska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionell)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
     <string name="subtype_no_language">"Inget språk (alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">Alfabet (pc)</string>
     <string name="subtype_emoji">Emoji</string>
     <string name="add">"Lägg till"</string>
     <string name="remove">"Ta bort"</string>
@@ -141,8 +131,6 @@
     <string name="more_keys_strip_description">Fler tangenter</string>
     <string name="prefs_keyboard_height_scale">Skala för tangentbordets höjd</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="key_borders">Kantlinjer runt tangenter</string>
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
     <string name="day_night_mode_summary">Utseendet kommer att följa systeminställningarna</string>

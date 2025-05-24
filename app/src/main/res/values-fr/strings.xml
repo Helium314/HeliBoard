@@ -59,20 +59,10 @@
     <string name="subtype_es_US">"Espagnol (États-Unis)"</string>
     <string name="subtype_hi_Latn">"Hindi/Anglais"</string>
     <string name="subtype_sr_Latn">"Serbe (latin)"</string>
-    <string name="subtype_with_layout_en_GB">Anglais (Royaume-Uni) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Anglais (États-Unis) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Espagnol (États-Unis) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hindi/Anglais (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbe (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditionnel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
     <string name="subtype_no_language">"Aucune langue (latin)"</string>
     <string name="subtype_no_language_qwerty">"Alphabet latin (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alphabet latin (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alphabet latin (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alphabet latin (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alphabet latin (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alphabet latin (PC)"</string>
     <string name="subtype_emoji">Émoji</string>
     <string name="add">"Ajouter"</string>
     <string name="remove">"Supprimer"</string>
@@ -265,8 +255,6 @@ Nouveau dictionnaire:
     <string name="key_borders">Bordures des touches</string>
     <string name="day_night_mode">Mode jour/nuit automatique</string>
     <string name="prefs_narrow_key_gaps">Réduire l\'espace entre les touches</string>
-    <string name="subtype_no_language_workman">Alphabet (Workman)</string>
-    <string name="subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
     <string name="show_emoji_key">Touche d\'accès aux émojis</string>
     <string name="settings_category_additional_keys">Touches supplémentaires</string>
     <string name="settings_category_clipboard_history">Historique du presse-papier</string>
@@ -303,7 +291,6 @@ Nouveau dictionnaire:
     <string name="label_search_key">Rechercher</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Attente"</string>
-    <string name="subtype_no_language_bepo">Alphabet (Bépo)</string>
     <string name="available_dictionary_experimental">%s (expérimental)</string>
     <string name="version">Version</string>
     <string name="file_read_error">Impossible de lire le fichier</string>

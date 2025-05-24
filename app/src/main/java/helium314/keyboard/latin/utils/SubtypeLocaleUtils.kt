@@ -29,17 +29,9 @@ object SubtypeLocaleUtils {
     // Keyboard layout to its display name map.
     private val keyboardLayoutToDisplayName = HashMap<String, String>()
 
-    // Keyboard layout to subtype name resource id map.
-    private val keyboardLayoutToNameIds = HashMap<String, Int>()
-
     // Exceptional locale whose name should be displayed in Locale.ROOT.
-    private val exceptionalLocaleDisplayedInRootLocale = HashMap<String, Int>()
+    private val exceptionalLocaleDisplayedInRootLocale = HashMap<String, String>()
 
-    // Exceptional locale to subtype name resource id map.
-    private val exceptionalLocaleToNameIds = HashMap<String, Int>()
-
-    // Exceptional locale to subtype name with layout resource id map.
-    private val exceptionalLocaleToWithLayoutNameIds = HashMap<String, Int>()
     private val resourceSubtypeDisplayNameCache = HashMap<Int, String>()
 
     // Note that this initialization method can be called multiple times.
@@ -54,7 +46,6 @@ object SubtypeLocaleUtils {
     }
 
     private fun initLocked(context: Context) {
-        val packageName = context.packageName
         resources = context.resources
 
         // todo: layout names are currently translatable in subtype_no_language_* but not the default names
@@ -65,54 +56,17 @@ object SubtypeLocaleUtils {
         for (i in predefinedLayouts.indices) {
             val layoutName = predefinedLayouts[i]
             keyboardLayoutToDisplayName[layoutName] = layoutDisplayNames[i]
-            val resourceName = SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX + layoutName
-            val resId = resources.getIdentifier(resourceName, null, packageName)
-            keyboardLayoutToNameIds[layoutName] = resId
-            // Register subtype name resource id of "No language" with key "zz_<layout>"
-            val noLanguageResName = SUBTYPE_NAME_RESOURCE_NO_LANGUAGE_PREFIX + layoutName
-            val noLanguageResId = resources.getIdentifier(noLanguageResName, null, packageName)
-            val key = getNoLanguageLayoutKey(layoutName)
-            keyboardLayoutToNameIds[key] = noLanguageResId
         }
 
-        // todo: do it using 2 arrays like predefined_layouts (and adjust information in layouts.md)
         val exceptionalLocaleInRootLocale = resources.getStringArray(R.array.subtype_locale_displayed_in_root_locale)
-        for (languageTag in exceptionalLocaleInRootLocale) {
-            val resourceName = SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + languageTag.replace('-', '_')
-            val resId = resources.getIdentifier(resourceName, null, packageName)
-            exceptionalLocaleDisplayedInRootLocale[languageTag] = resId
-        }
-
-        // todo: do it using 2 arrays like predefined_layouts (and adjust information in layouts.md)
-        //  and the _with_layout variants can be removed?
-        val exceptionalLocales = resources.getStringArray(R.array.subtype_locale_exception_keys)
-        for (languageTag in exceptionalLocales) {
-            val resourceName = SUBTYPE_NAME_RESOURCE_PREFIX + languageTag.replace('-', '_')
-            val resId = resources.getIdentifier(resourceName, null, packageName)
-            exceptionalLocaleToNameIds[languageTag] = resId
-            val resourceNameWithLayout = SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX + languageTag.replace('-', '_')
-            val resIdWithLayout = resources.getIdentifier(resourceNameWithLayout, null, packageName)
-            exceptionalLocaleToWithLayoutNameIds[languageTag] = resIdWithLayout
+        val exceptionalLocaleInRootLocaleDisplayNames = resources.getStringArray(R.array.subtype_locale_displayed_in_root_locale_display_names)
+        for (i in exceptionalLocaleInRootLocale.indices) {
+            exceptionalLocaleDisplayedInRootLocale[exceptionalLocaleInRootLocale[i]] = exceptionalLocaleInRootLocaleDisplayNames[i]
         }
     }
 
-    fun isExceptionalLocale(locale: Locale): Boolean {
-        return exceptionalLocaleToNameIds.containsKey(locale.toLanguageTag())
-    }
-
-    private fun getNoLanguageLayoutKey(keyboardLayoutName: String): String {
-        return NO_LANGUAGE + "_" + keyboardLayoutName
-    }
-
-    fun getSubtypeNameResId(locale: Locale, keyboardLayoutName: String): Int {
-        val languageTag = locale.toLanguageTag()
-        if (isExceptionalLocale(locale)) {
-            return exceptionalLocaleToWithLayoutNameIds[languageTag]!!
-        }
-        val key = if (languageTag == NO_LANGUAGE) getNoLanguageLayoutKey(keyboardLayoutName)
-            else keyboardLayoutName
-        return keyboardLayoutToNameIds[key] ?: UNKNOWN_KEYBOARD_LAYOUT
-    }
+    // see SubtypeUtilsAdditional.getAdditionalExtraValues, currently not needed
+    //fun isExceptionalLocale(locale: Locale) = exceptionalLocaleDisplayedInRootLocale.containsKey(locale.toLanguageTag())
 
     /** Usually the [locale], but Locale.ROOT for exceptionalLocaleDisplayedInRootLocale, and system locale for NO_LANGUAGE */
     private fun getDisplayLocaleOfSubtypeLocale(locale: Locale): Locale {
@@ -149,12 +103,8 @@ object SubtypeLocaleUtils {
             // "No language" subtype should be displayed in system locale.
             return resources.getString(R.string.subtype_no_language)
         }
-        val exceptionalNameResId = if (displayLocale == Locale.ROOT && exceptionalLocaleDisplayedInRootLocale.containsKey(languageTag))
-            exceptionalLocaleDisplayedInRootLocale[languageTag]
-        else
-            exceptionalLocaleToNameIds[languageTag]
-        val displayName = if (exceptionalNameResId != null) {
-            runInLocale(resources, displayLocale) { res: Resources -> res.getString(exceptionalNameResId) }
+        val displayName = if (displayLocale == Locale.ROOT && exceptionalLocaleDisplayedInRootLocale.containsKey(languageTag)) {
+            exceptionalLocaleDisplayedInRootLocale[languageTag]!!
         } else {
             locale.localizedDisplayName(resources, displayLocale)
         }
@@ -186,12 +136,18 @@ object SubtypeLocaleUtils {
                 LayoutUtilsCustom.getDisplayName(layoutName)
             )
         }
+        if (keyboardLayoutToDisplayName.containsKey(layoutName)) {
+            return resources.getString(
+                R.string.subtype_with_layout_generic,
+                locale().localizedDisplayName(resources, displayLocale),
+                keyboardLayoutToDisplayName[layoutName]
+            )
+        }
 
         val actualDisplayLocale = displayLocale ?: resources.configuration.locale()
-        // replacement for %s in nameResId
-        // this is usually the locale, but can also include a subtype name when subtype_generic is used
-        val replacementString = getExtraValueOf(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
-            ?: getSubtypeLocaleDisplayNameInternal(locale(), actualDisplayLocale)
+        // replacement for %s in nameResId, which now always is the locale
+        // not read from ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME any more
+        val replacementString = getSubtypeLocaleDisplayNameInternal(locale(), actualDisplayLocale)
 
         val name = runCatching {
             if (displayLocale == null) resources.getString(nameResId, replacementString)
@@ -226,10 +182,4 @@ object SubtypeLocaleUtils {
     const val QWERTY = "qwerty"
     const val EMOJI = "emoji"
     val UNKNOWN_KEYBOARD_LAYOUT  = R.string.subtype_generic
-
-    private const val SUBTYPE_NAME_RESOURCE_PREFIX = "string/subtype_"
-    private const val SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX = "string/subtype_generic_"
-    private const val SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX = "string/subtype_with_layout_"
-    private const val SUBTYPE_NAME_RESOURCE_NO_LANGUAGE_PREFIX = "string/subtype_no_language_"
-    private const val SUBTYPE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX = "string/subtype_in_root_locale_"
 }

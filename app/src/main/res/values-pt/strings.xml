@@ -49,20 +49,10 @@
     <string name="subtype_es_US">Espanhol (EUA)</string>
     <string name="subtype_hi_Latn">Hindi-Inglês</string>
     <string name="subtype_sr_Latn">"Sérvio (Latino)"</string>
-    <string name="subtype_with_layout_en_GB">Inglês (Reino Unido) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_en_US">Inglês (EUA) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_es_US">Espanhol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hindi-inglês <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_sr_Latn">Sérvio <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacto)</string>
     <string name="subtype_no_language">"Nenhum idioma (alfabeto)"</string>
     <string name="subtype_no_language_qwerty">"Alfabeto (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabeto (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabeto (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabeto (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabeto (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabeto (PC)"</string>
     <string name="subtype_emoji">"Emojis"</string>
     <string name="add">"Adicionar"</string>
     <string name="remove">"Remover"</string>
@@ -114,7 +104,6 @@
     <string name="android_spell_checker_settings">Definições de verificação ortográfica HeliBoard</string>
     <string name="number_row">Número de linha</string>
     <string name="number_row_summary">Mostrar sempre n.º de linha</string>
-    <string name="subtype_no_language_colemak_dh">Alfabeto (Colemak Mod-DH)</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
     <string name="incognito">Impor modo incógnito</string>
     <string name="show_emoji_key">Tecla de emoji</string>
@@ -133,7 +122,6 @@
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="key_borders">Limite das teclas</string>
     <string name="settings_category_additional_keys">Teclas adicionais</string>
-    <string name="subtype_no_language_workman">Alfabeto (Workman)</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Alterar método de introdução com a tecla Espaço</string>

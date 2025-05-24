@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"الإسبانية (الأميركية)"</string>
     <string name="subtype_hi_Latn">"هنجليزية"</string>
     <string name="subtype_sr_Latn">"الصربية (اللاتينية)"</string>
-    <string name="subtype_with_layout_en_GB">الإنجليزية (المملكة المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">الإنجليزية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">الإسبانية (الولايات المتحدة) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">الهنجليزية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">الصربية (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (التقليدية)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (مضغوط)</string>
     <string name="subtype_no_language">"بدون لغة (أبجدية)"</string>
     <string name="subtype_no_language_qwerty">"‏الأبجدية (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"‏الأبجدية (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"‏الأبجدية (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"‏الأبجدية (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"‏الأبجدية (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"‏الأبجدية (PC)"</string>
     <string name="subtype_emoji">"الرموز التعبيرية"</string>
     <string name="add">أضف</string>
     <string name="remove">"إزالة"</string>
@@ -146,8 +136,6 @@
     <string name="autospace_after_punctuation_summary">أدرج مسافةً تلقائيًا بعد علامة الترقيم عند كتابة كلمة جديدة</string>
     <string name="incognito">افرض وضع التخفي</string>
     <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
-    <string name="subtype_no_language_colemak_dh">الأبجدية (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">الأبجدية (Workman)</string>
     <string name="auto_correction_confidence">ثقة التصحيح التلقائي</string>
     <string name="undo">"تراجع"</string>
     <string name="redo">"إعادة"</string>

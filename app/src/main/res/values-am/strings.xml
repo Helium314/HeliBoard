@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"ስፓኒሽኛ (ዩኤስ)"</string>
     <string name="subtype_hi_Latn">"ሂንግሊሽ"</string>
     <string name="subtype_sr_Latn">"ሰርብያኛ (ላቲን)"</string>
-    <string name="subtype_with_layout_en_GB">"እንግሊዝኛ (ዩኬ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"እንግሊዝኛ (አሜሪካ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ስፓኒሽ (አሜሪካ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ሂንግሊሽ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"ሰርቢያኛ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ተለምዷዊ)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (እስግ)"</string>
     <string name="subtype_no_language">"ምንም ቋንቋ (ፊደላት)"</string>
     <string name="subtype_no_language_qwerty">"ፊደላት (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ፊደላት (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ፊደላት (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ፊደላት (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ፊደላት (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ፊደላት (ፒሲ)"</string>
     <string name="subtype_emoji">"ኢሞጂ"</string>
     <string name="add">"አክል"</string>
     <string name="remove">"አስወግድ"</string>

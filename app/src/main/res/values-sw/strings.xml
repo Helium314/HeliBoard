@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Kihispania (Marekani)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">"Kiserbia (Kilatino)"</string>
-    <string name="subtype_with_layout_en_GB">"Kiingereza (UK) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Kiingereza (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Kihispania (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Kiserbia (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (cha Jadi)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Thabiti)"</string>
     <string name="subtype_no_language">"Hakuna lugha (Alfabeti)"</string>
     <string name="subtype_no_language_qwerty">"Alfabeti (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabeti (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabeti (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabeti (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabeti (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabeti (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Ongeza"</string>
     <string name="remove">"Ondoa"</string>

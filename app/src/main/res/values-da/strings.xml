@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Spansk (USA)"</string>
     <string name="subtype_hi_Latn">"Hinglish"</string>
     <string name="subtype_sr_Latn">Serbisk (latin)</string>
-    <string name="subtype_with_layout_en_GB">Engelsk (Storbritannien) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engelsk (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spansk (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbisk (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionel)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
     <string name="subtype_no_language">"Intet sprog (Alfabet)"</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"Tilføj"</string>
     <string name="remove">"Fjern"</string>
@@ -118,7 +108,6 @@
     <string name="enable_clipboard_history">Aktivér udklipsholderhistorik</string>
     <string name="enable_clipboard_history_summary">Hvis deaktiveret, indsætter udklipsholdertasten eventuelt indhold af udklipsholderen</string>
     <string name="clipboard_history_retention_time">Opbevaringstid for historik</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="key_borders">Tastekanter</string>
     <string name="day_night_mode">Automatisk dag-/nattilstand</string>
     <string name="day_night_mode_summary">Udseende følger systemindstillinger</string>
@@ -135,7 +124,6 @@
     <string name="autospace_after_punctuation_summary">Indsæt automatisk mellemrum efter skilletegn, når du skriver et nyt ord</string>
     <string name="autospace_after_punctuation">Auto-mellemrum efter skilletegn</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="ime_settings">HeliBoard-indstillinger</string>
     <string name="settings_category_input">Input</string>
     <string name="settings_category_additional_keys">Yderligere taster</string>

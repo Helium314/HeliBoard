@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"I-Spanish (US)"</string>
     <string name="subtype_hi_Latn">"I-Hinglish"</string>
     <string name="subtype_sr_Latn">"Isi-Serbian (Latin)"</string>
-    <string name="subtype_with_layout_en_GB">"I-English (UK) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_en_US">"I-English (US) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_es_US">"Isi-Spanish (US) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_hi_Latn">"I-Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Isi-Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"Isi-<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradition)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Okuqoqene ndawonye)"</string>
     <string name="subtype_no_language">"Alikho ulimi (Alfabhethi)"</string>
     <string name="subtype_no_language_qwerty">"Alfabhethi (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabhethi (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabhethi (I-AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabhethi (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabhethi (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabhethi (PC)"</string>
     <string name="subtype_emoji">"I-Emoji"</string>
     <string name="add">"Engeza"</string>
     <string name="remove">"Khipha"</string>

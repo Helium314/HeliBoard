@@ -4,21 +4,7 @@
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Subtype locale display name exceptions.
-         For each exception, there should be related string resources for display name that may have
-         explicit keyboard layout. The string resource name must be "subtype_<locale>" or
-         "subtype_with_layout_<locale>. Please refer to strings.xml for these resources. -->
-    <string-array name="subtype_locale_exception_keys">
-        <item>en-US</item>
-        <item>en-GB</item>
-        <item>es-US</item>
-        <item>hi-Latn</item>
-        <item>mns</item>
-        <item>dru</item>
-        <item>xdq</item>
-        <item>sr-Latn</item>
-    </string-array>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Subtype locale whose name should be displayed in Locale.ROOT. -->
     <string-array name="subtype_locale_displayed_in_root_locale">
@@ -28,11 +14,14 @@
         <item>xdq</item>
         <item>sr-Latn</item>
     </string-array>
-    <string name="subtype_in_root_locale_hi_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_hi_Latn">Hinglish</string>
-    <string name="subtype_in_root_locale_mns" translatable="false" tools:keep="@string/subtype_in_root_locale_mns">Ма̄ньси</string>
-    <string name="subtype_in_root_locale_dru" translatable="false" tools:keep="@string/subtype_in_root_locale_dru">ХӀурухъла лугъат</string>
-    <string name="subtype_in_root_locale_xdq" translatable="false" tools:keep="@string/subtype_in_root_locale_xdq">Хайдаҡьан</string>
-    <string name="subtype_in_root_locale_sr_Latn" translatable="false" tools:keep="@string/subtype_in_root_locale_sr_Latn">Srpski</string>
+    <!-- Display names for language tags in subtype_locale_displayed_in_root_locale -->
+    <string-array name="subtype_locale_displayed_in_root_locale_display_names">
+        <item>Hinglish</item>
+        <item>Ма̄ньси</item>
+        <item>ХӀурухъла лугъат</item>
+        <item>Хайдаҡьан</item>
+        <item>Srpski</item>
+    </string-array>
 
     <!-- Generic subtype label -->
     <string name="subtype_generic" translatable="false">%s</string>
@@ -63,19 +52,6 @@
         <item>Bépo</item>
         <item>PC</item>
     </string-array>
-    <!-- Description for generic subtype that has predefined layout.
-         The string resource name must be "subtype_generic_<layout name>".
-         The string resource with "No language" also must be added to strings.xml and the resource
-         name must be "subtype_no_language_<layout name>" -->
-    <string name="subtype_generic_qwerty" translatable="false" tools:keep="@string/subtype_generic_qwerty">%s (QWERTY)</string>
-    <string name="subtype_generic_qwertz" translatable="false" tools:keep="@string/subtype_generic_qwertz">%s (QWERTZ)</string>
-    <string name="subtype_generic_azerty" translatable="false" tools:keep="@string/subtype_generic_azerty">%s (AZERTY)</string>
-    <string name="subtype_generic_dvorak" translatable="false" tools:keep="@string/subtype_generic_dvorak">%s (Dvorak)</string>
-    <string name="subtype_generic_colemak" translatable="false" tools:keep="@string/subtype_generic_colemak">%s (Colemak)</string>
-    <string name="subtype_generic_colemak_dh" translatable="false" tools:keep="@string/subtype_generic_colemak_dh">%s (Colemak Mod-DH)</string>
-    <string name="subtype_generic_workman" translatable="false" tools:keep="@string/subtype_generic_workman">%s (Workman)</string>
-    <string name="subtype_generic_bepo" translatable="false" tools:keep="@string/subtype_generic_bepo">%s (Bépo)</string>
-    <string name="subtype_generic_pcqwerty" translatable="false" tools:keep="@string/subtype_generic_pcqwerty">%s (PC)</string>
 
     <!-- Description for Bulgarian (BDS) subtype. -->
     <string name="subtype_bulgarian_bds" translatable="false">%s (BDS)</string>
@@ -92,6 +68,7 @@
     <!-- Description for Hebrew 2 subtype. -->
     <string name="subtype_hebrew_1452_2" translatable="false">%s (1452-2)</string>
 
+    <string name="english_ime_name" translatable="false">HeliBoard</string>
     <!-- App slogan-->
     <string name="app_slogan" translatable="false">100% FOSS keyboard, based on AOSP.</string>
 

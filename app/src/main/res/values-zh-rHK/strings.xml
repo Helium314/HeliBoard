@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"西班牙文 (美國)"</string>
     <string name="subtype_hi_Latn">"印度英文"</string>
     <string name="subtype_sr_Latn">"塞爾維亞文 (拉丁文)"</string>
-    <string name="subtype_with_layout_en_GB">"英文 (英國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"英文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"西班牙文 (美國) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"印度英文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"塞爾維亞文 (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (傳統)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (精簡版)"</string>
     <string name="subtype_no_language">"無語言 (字母)"</string>
     <string name="subtype_no_language_qwerty">"字母 (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"字母 (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"字母 (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"字母 (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"字母 (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"字母 (PC)"</string>
     <string name="subtype_emoji">"Emoji"</string>
     <string name="add">"新增"</string>
     <string name="remove">"移除"</string>

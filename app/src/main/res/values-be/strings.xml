@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Іспанская (ЗША)"</string>
     <string name="subtype_hi_Latn">хінгліш</string>
     <string name="subtype_sr_Latn">сербская (Лацініца)</string>
-    <string name="subtype_with_layout_en_GB">Англійская (Вялікабрытанія) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Англійская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Іспанская (ЗША) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хінгліш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербская (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальская">%s</xliff:g> (Традыцыйная)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хіндзі">%s</xliff:g> (Кампактная)</string>
     <string name="subtype_no_language">стандартная (лацініца)</string>
     <string name="subtype_no_language_qwerty">"Лацініца (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Лацініца (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Лацініца (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Лацініца (Дворак)"</string>
-    <string name="subtype_no_language_colemak">"Лацініца (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Лацініца (ПК)"</string>
     <string name="subtype_emoji">"Эмодзі"</string>
     <string name="add">"Дадаць"</string>
     <string name="remove">"Выдаліць"</string>
@@ -180,7 +170,6 @@
     <string name="show_hints_summary">Паказваць падказкі пры доўгім націску</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Змяніць метад ўводу з дапамогай клавішы прабел</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Доўгі націск клавішы прабел адкрые меню выбару метаду ўводу</string>
-    <string name="subtype_no_language_colemak_dh">Алфавіт (Colemak Mod-DH)</string>
     <string name="day_night_mode">Выкарыстоўваць тэму сістэмы</string>
     <string name="theme_style">Стыль тэмы</string>
     <string name="style_name_Rounded">Закруглены</string>
@@ -190,7 +179,6 @@
     <string name="delete_swipe_summary">Правядзіце пальцам ад клавішы выдалення, каб выбраць і выдаліць адразу большыя часткі тэксту</string>
     <string name="autospace_after_punctuation_summary">Аўтаматычна ўстаўляць прабел пасля знакаў прыпынку пры ўводзе новага слова</string>
     <string name="autospace_after_punctuation">Аўтапрабел пасля знакаў прыпынку</string>
-    <string name="subtype_no_language_workman">Алфавіт (Workman)</string>
     <string name="day_night_mode_summary">Знешні выгляд будзе адпавядаць наладам сістэмы</string>
     <string name="auto_correction_confidence">Канфідэнцыяльнасць аўтавыпраўлення</string>
     <string name="undo">"Адрабіць"</string>

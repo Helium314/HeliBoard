@@ -49,20 +49,10 @@
     <string name="subtype_es_US">"Espanyol (EUA)"</string>
     <string name="subtype_hi_Latn">Hinglish</string>
     <string name="subtype_sr_Latn">"Serbi (llatí)"</string>
-    <string name="subtype_with_layout_en_GB">Anglès (Regne Unit) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Anglès (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Espanyol (EUA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Tradicional)</string>
     <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compacte)</string>
     <string name="subtype_no_language">Cap idioma (alfabet)</string>
     <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabet (PC)"</string>
     <string name="subtype_emoji">Emojis</string>
     <string name="add">"Afegeix"</string>
     <string name="remove">"Elimina"</string>
@@ -143,9 +133,7 @@
     <string name="show_hints_summary">Mostra consells quan es mantingui premuda una tecla</string>
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
     <string name="prefs_keyboard_height_scale">Escala de l\'alçada del teclat</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
     <string name="day_night_mode_summary">L\'aspecte seguirà la configuració del sistema</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
     <string name="auto_correction_confidence">Confidència d\'autocorrecció</string>
     <string name="use_system_language_to_select_input_method_subtypes">"Utilitza els idiomes del sistema"</string>
     <string name="select_input_method">Selecciona un mètode d\'entrada</string>

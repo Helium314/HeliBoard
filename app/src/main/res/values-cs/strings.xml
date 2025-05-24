@@ -50,20 +50,10 @@
     <string name="subtype_es_US">"Španělština (USA)"</string>
     <string name="subtype_hi_Latn">Hinglish</string>
     <string name="subtype_sr_Latn">srbština (Latinka)</string>
-    <string name="subtype_with_layout_en_GB">"Angličtina (Velká Británie) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"Angličtina (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"Španělština (USA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">"Srbština (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
     <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradiční)"</string>
     <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Kompaktní)"</string>
     <string name="subtype_no_language">standardní (Latinka)</string>
     <string name="subtype_no_language_qwerty">"Latinka (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Latinka (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Latinka (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Latinka (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Latinka (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Latinka (PC)"</string>
     <string name="subtype_emoji">"Emodži"</string>
     <string name="add">"Přidat"</string>
     <string name="remove">"Odebrat"</string>
@@ -140,9 +130,7 @@
     <string name="ime_settings">Nastavení HeliBoard</string>
     <string name="settings_category_suggestions">Návrhy</string>
     <string name="show_emoji_key">Klávesa pro emodži</string>
-    <string name="subtype_no_language_workman">Abeceda (Workman)</string>
     <string name="enable_clipboard_history_summary">Pokud vypnuto, tlačítko schránky vloží obsah schránky, pokud nějaký existuje</string>
-    <string name="subtype_no_language_colemak_dh">Abeceda (Colemak Mod-DH)</string>
     <string name="autospace_after_punctuation">Automatická mezera po znaménkách</string>
     <string name="more_keys_strip_description">Více kláves</string>
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>
