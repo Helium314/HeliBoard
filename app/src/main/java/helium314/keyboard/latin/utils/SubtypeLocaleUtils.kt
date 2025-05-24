@@ -40,7 +40,7 @@ object SubtypeLocaleUtils {
 
     // Exceptional locale to subtype name with layout resource id map.
     private val exceptionalLocaleToWithLayoutNameIds = HashMap<String, Int>()
-    private val resourceSubtypeDisplayNames = HashMap<Int, String>()
+    private val resourceSubtypeDisplayNameCache = HashMap<Int, String>()
 
     // Note that this initialization method can be called multiple times.
     @JvmStatic
@@ -114,6 +114,7 @@ object SubtypeLocaleUtils {
         return keyboardLayoutToNameIds[key] ?: UNKNOWN_KEYBOARD_LAYOUT
     }
 
+    /** Usually the [locale], but Locale.ROOT for exceptionalLocaleDisplayedInRootLocale, and system locale for NO_LANGUAGE */
     private fun getDisplayLocaleOfSubtypeLocale(locale: Locale): Locale {
         val languageTag = locale.toLanguageTag()
         if (languageTag == NO_LANGUAGE)
@@ -123,16 +124,13 @@ object SubtypeLocaleUtils {
         return locale
     }
 
-    fun getSubtypeLocaleDisplayNameInSystemLocale(locale: Locale): String {
-        val displayLocale = resources.configuration.locale()
-        return getSubtypeLocaleDisplayNameInternal(locale, displayLocale)
-    }
-
+    /** Returns the full locale display name for use on space bar (considers exceptionalLocaleDisplayedInRootLocale) */
     fun getSubtypeLocaleDisplayName(locale: Locale): String {
         val displayLocale = getDisplayLocaleOfSubtypeLocale(locale)
         return getSubtypeLocaleDisplayNameInternal(locale, displayLocale)
     }
 
+    /** Returns the language display name for use on space bar (considers exceptionalLocaleDisplayedInRootLocale) */
     fun getSubtypeLanguageDisplayName(locale: Locale): String {
         val languageLocale = if (exceptionalLocaleDisplayedInRootLocale.containsKey(locale.toLanguageTag()))
             locale
@@ -141,15 +139,17 @@ object SubtypeLocaleUtils {
         return getSubtypeLocaleDisplayNameInternal(languageLocale, getDisplayLocaleOfSubtypeLocale(locale))
     }
 
+    /**
+     *  Display name of subtype [locale] in [displayLocale].
+     *  Considers exceptionalLocaleDisplayedInRootLocale and exceptionalLocaleToNameIds, defaults to Locale.localizedDisplayName.
+     */
     private fun getSubtypeLocaleDisplayNameInternal(locale: Locale, displayLocale: Locale): String {
         val languageTag = locale.toLanguageTag()
         if (languageTag == NO_LANGUAGE) {
             // "No language" subtype should be displayed in system locale.
             return resources.getString(R.string.subtype_no_language)
         }
-        val exceptionalNameResId = if (displayLocale == Locale.ROOT
-            && exceptionalLocaleDisplayedInRootLocale.containsKey(languageTag)
-        )
+        val exceptionalNameResId = if (displayLocale == Locale.ROOT && exceptionalLocaleDisplayedInRootLocale.containsKey(languageTag))
             exceptionalLocaleDisplayedInRootLocale[languageTag]
         else
             exceptionalLocaleToNameIds[languageTag]
@@ -161,51 +161,9 @@ object SubtypeLocaleUtils {
         return StringUtils.capitalizeFirstCodePoint(displayName, displayLocale)
     }
 
-    // InputMethodSubtype's display name in its locale.
-    //        isAdditionalSubtype (T=true, F=false)
-    // locale layout  |  display name
-    // ------ ------- - ----------------------
-    //  en_US qwerty  F  English (US)            exception
-    //  en_GB qwerty  F  English (UK)            exception
-    //  es_US spanish F  Español (EE.UU.)        exception
-    //  fr    azerty  F  Français
-    //  fr_CA qwerty  F  Français (Canada)
-    //  fr_CH swiss   F  Français (Suisse)
-    //  de    qwertz  F  Deutsch
-    //  de_CH swiss   T  Deutsch (Schweiz)
-    //  zz    qwerty  F  Alphabet (QWERTY)       in system locale
-    //  fr    qwertz  T  Français (QWERTZ)
-    //  de    qwerty  T  Deutsch (QWERTY)
-    //  en_US azerty  T  English (US) (AZERTY)   exception
-    //  zz    azerty  T  Alphabet (AZERTY)       in system locale
-    private fun getReplacementString(subtype: InputMethodSubtype, displayLocale: Locale): String =
-        subtype.getExtraValueOf(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
-            ?: getSubtypeLocaleDisplayNameInternal(subtype.locale(), displayLocale)
-
-    fun getDisplayNameInSystemLocale(mainLayoutName: String, locale: Locale): String {
-        getMainLayoutDisplayName(mainLayoutName)?.let { return it } // works for custom and latin layouts
-
-        // we have some locale-specific layout
-        for (subtype in SubtypeSettings.getResourceSubtypesForLocale(locale)) {
-            if (mainLayoutName == getMainLayoutFromExtraValue(subtype.extraValue))
-                return getSubtypeDisplayNameInSystemLocale(subtype)
-        }
-        return mainLayoutName // should never happen...
-    }
-
-    fun getSubtypeDisplayNameInSystemLocale(subtype: InputMethodSubtype): String {
-        resourceSubtypeDisplayNames[subtype.hashCode()]?.let { return it }
-
-        val displayName = getSubtypeDisplayNameInternal(subtype, resources.configuration.locale())
-        if (!subtype.containsExtraValueKey(ExtraValue.IS_ADDITIONAL_SUBTYPE)) {
-            resourceSubtypeDisplayNames[subtype.hashCode()] = displayName
-        }
-        return displayName
-    }
-
     @JvmStatic
-    fun clearDisplayNameCache() {
-        resourceSubtypeDisplayNames.clear()
+    fun clearSubtypeDisplayNameCache() {
+        resourceSubtypeDisplayNameCache.clear()
     }
 
     @JvmStatic
@@ -216,27 +174,48 @@ object SubtypeLocaleUtils {
         return subtype.locale().toString() + "/" + subtype.mainLayoutNameOrQwerty()
     }
 
-    private fun getSubtypeDisplayNameInternal(subtype: InputMethodSubtype, displayLocale: Locale): String {
-        val replacementString = getReplacementString(subtype, displayLocale)
-        return runInLocale(resources, displayLocale) { res: Resources ->
-            try {
-                StringUtils.capitalizeFirstCodePoint(res.getString(subtype.nameResId, replacementString), displayLocale)
-            } catch (e: Resources.NotFoundException) {
-                Log.w(TAG, ("Unknown subtype: mode=${subtype.mode} nameResId=${subtype.nameResId} locale=${subtype.locale()} extra=${subtype.extraValue}\n${DebugLogUtils.getStackTrace()}"))
-                ""
-            }
+    /** Subtype display name is <Locale> (<Layout>), defaults to system locale */
+    fun InputMethodSubtype.displayName(displayLocale: Locale? = null): String {
+        if (displayLocale == null) resourceSubtypeDisplayNameCache[hashCode()]?.let { return it }
+
+        val layoutName = mainLayoutName()
+        if (layoutName != null && LayoutUtilsCustom.isCustomLayout(layoutName)) {
+            return resources.getString(
+                R.string.subtype_with_layout_generic,
+                locale().localizedDisplayName(resources, displayLocale),
+                LayoutUtilsCustom.getDisplayName(layoutName)
+            )
         }
+
+        val actualDisplayLocale = displayLocale ?: resources.configuration.locale()
+        // replacement for %s in nameResId
+        // this is usually the locale, but can also include a subtype name when subtype_generic is used
+        val replacementString = getExtraValueOf(ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME)
+            ?: getSubtypeLocaleDisplayNameInternal(locale(), actualDisplayLocale)
+
+        val name = runCatching {
+            if (displayLocale == null) resources.getString(nameResId, replacementString)
+            else runInLocale(resources, displayLocale) { resources.getString(nameResId, replacementString) }
+        }.getOrNull() ?: locale().localizedDisplayName(resources, displayLocale)
+        val displayName = StringUtils.capitalizeFirstCodePoint(name, actualDisplayLocale)
+        if (displayLocale == null && !containsExtraValueKey(ExtraValue.IS_ADDITIONAL_SUBTYPE))
+            resourceSubtypeDisplayNameCache[hashCode()] = displayName
+        return displayName
     }
 
     fun getMainLayoutDisplayName(layoutName: String): String? =
         if (LayoutUtilsCustom.isCustomLayout(layoutName)) LayoutUtilsCustom.getDisplayName(layoutName)
         else keyboardLayoutToDisplayName[layoutName]
 
-    fun InputMethodSubtype.displayName(): String {
-        val layoutName = mainLayoutNameOrQwerty()
-        if (LayoutUtilsCustom.isCustomLayout(layoutName))
-            return "${locale().localizedDisplayName(resources)} (${LayoutUtilsCustom.getDisplayName(layoutName)})"
-        return getSubtypeDisplayNameInSystemLocale(this)
+    fun getLayoutDisplayNameInSystemLocale(mainLayoutName: String, locale: Locale): String {
+        getMainLayoutDisplayName(mainLayoutName)?.let { return it } // works for custom and latin layouts
+
+        // we have some locale-specific layout, use the subtype name
+        for (subtype in SubtypeSettings.getResourceSubtypesForLocale(locale)) {
+            if (mainLayoutName == getMainLayoutFromExtraValue(subtype.extraValue))
+                return subtype.displayName()
+        }
+        return mainLayoutName // should never happen...
     }
 
     @JvmStatic
@@ -248,7 +227,6 @@ object SubtypeLocaleUtils {
     const val EMOJI = "emoji"
     val UNKNOWN_KEYBOARD_LAYOUT  = R.string.subtype_generic
 
-    private val TAG = SubtypeLocaleUtils::class.java.simpleName
     private const val SUBTYPE_NAME_RESOURCE_PREFIX = "string/subtype_"
     private const val SUBTYPE_NAME_RESOURCE_GENERIC_PREFIX = "string/subtype_generic_"
     private const val SUBTYPE_NAME_RESOURCE_WITH_LAYOUT_PREFIX = "string/subtype_with_layout_"

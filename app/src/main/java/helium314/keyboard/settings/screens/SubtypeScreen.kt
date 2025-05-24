@@ -407,7 +407,7 @@ private fun MainLayoutRow(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.widthIn(min = 200.dp).fillMaxWidth()
             ) {
-                Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
+                Text(SubtypeLocaleUtils.getLayoutDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
                     IconButton({ showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
                     if (it in customLayouts)

@@ -17,7 +17,6 @@ import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import java.util.Locale
 
 /**
@@ -42,21 +41,9 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
 
     val isCustom: Boolean get() = LayoutUtilsCustom.isCustomLayout(mainLayoutName)
 
-    val fullDisplayName: String get() {
-            if (isNoLanguage) {
-                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype.mainLayoutNameOrQwerty())!!
-            }
-            return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(locale)
-        }
+    val fullDisplayName: String get() = SubtypeLocaleUtils.getSubtypeLocaleDisplayName(locale)
 
-    val middleDisplayName: String
-        // Get the RichInputMethodSubtype's middle display name in its locale.
-        get() {
-            if (isNoLanguage) {
-                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype.mainLayoutNameOrQwerty())!!
-            }
-            return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(locale)
-        }
+    val middleDisplayName: String get() = SubtypeLocaleUtils.getSubtypeLanguageDisplayName(locale)
 
     override fun equals(other: Any?): Boolean {
         if (other !is RichInputMethodSubtype) return false
