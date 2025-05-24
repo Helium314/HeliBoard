@@ -17,6 +17,7 @@ import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import java.util.Locale
 
 /**
@@ -43,7 +44,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
 
     val fullDisplayName: String get() {
             if (isNoLanguage) {
-                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype)!!
+                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype.mainLayoutNameOrQwerty())!!
             }
             return SubtypeLocaleUtils.getSubtypeLocaleDisplayName(locale)
         }
@@ -52,7 +53,7 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
         // Get the RichInputMethodSubtype's middle display name in its locale.
         get() {
             if (isNoLanguage) {
-                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype)!!
+                return SubtypeLocaleUtils.getMainLayoutDisplayName(rawSubtype.mainLayoutNameOrQwerty())!!
             }
             return SubtypeLocaleUtils.getSubtypeLanguageDisplayName(locale)
         }

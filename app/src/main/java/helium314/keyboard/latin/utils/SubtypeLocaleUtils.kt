@@ -17,7 +17,6 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.utils.LayoutType.Companion.getMainLayoutFromExtraValue
 import helium314.keyboard.latin.utils.LayoutUtilsCustom.getDisplayName
 import helium314.keyboard.latin.utils.LayoutUtilsCustom.isCustomLayout
-import helium314.keyboard.latin.utils.SubtypeSettings.getResourceSubtypesForLocale
 import java.util.Locale
 import kotlin.concurrent.Volatile
 
@@ -189,7 +188,7 @@ object SubtypeLocaleUtils {
         getMainLayoutDisplayName(mainLayoutName)?.let { return it } // works for custom and latin layouts
 
         // we have some locale-specific layout
-        for (subtype in getResourceSubtypesForLocale(locale)) {
+        for (subtype in SubtypeSettings.getResourceSubtypesForLocale(locale)) {
             if (mainLayoutName == getMainLayoutFromExtraValue(subtype.extraValue))
                 return getSubtypeDisplayNameInSystemLocale(subtype)
         }
@@ -216,7 +215,7 @@ object SubtypeLocaleUtils {
         if (subtype == null) {
             return "<null subtype>"
         }
-        return subtype.locale().toString() + "/" + getMainLayoutName(subtype)
+        return subtype.locale().toString() + "/" + subtype.mainLayoutNameOrQwerty()
     }
 
     private fun getSubtypeDisplayNameInternal(subtype: InputMethodSubtype, displayLocale: Locale): String {
@@ -231,23 +230,12 @@ object SubtypeLocaleUtils {
         }
     }
 
-    fun getMainLayoutDisplayName(subtype: InputMethodSubtype): String? =
-        getMainLayoutDisplayName(getMainLayoutName(subtype))
-
     fun getMainLayoutDisplayName(layoutName: String): String? =
         if (isCustomLayout(layoutName)) getDisplayName(layoutName)
         else keyboardLayoutToDisplayName[layoutName]
 
     @JvmStatic
-    fun getMainLayoutName(subtype: InputMethodSubtype): String {
-        subtype.mainLayoutName()?.let { return it }
-        if (!subtype.isAsciiCapable)
-            Log.w(TAG, "KeyboardLayoutSet not found, use QWERTY: locale=${subtype.locale()} extraValue=${subtype.extraValue}")
-        return QWERTY
-    }
-
-    @JvmStatic
-    fun getCombiningRulesExtraValue(subtype: InputMethodSubtype): String = subtype.getExtraValueOf(ExtraValue.COMBINING_RULES)
+    fun getCombiningRulesExtraValue(subtype: InputMethodSubtype): String? = subtype.getExtraValueOf(ExtraValue.COMBINING_RULES)
 
     // Special language code to represent "no language".
     const val NO_LANGUAGE = "zz"
