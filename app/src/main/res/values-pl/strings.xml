@@ -492,4 +492,10 @@
     <string name="timestamp_format_title">Format klawisza znacznika czasu</string>
     <string name="subtype_dag">dagbani</string>
     <string name="subtype_st">sesotho</string>
+    <string name="prefs_emoji_key_fit">Skaluj rozmiar emotikonów w zależności od rozmiaru czcionki</string>
+    <string name="backup_restored">Kopia zapasowa przywrócona</string>
+    <string name="use_apps_dict_summary">Używaj nazw zainstalowanych aplikacji do sugestii i poprawek</string>
+    <string name="use_apps_dict">Przeszukaj nazwy aplikacji</string>
+    <string name="prefs_emoji_skin_tone">Domyślny odcień skóry emoji</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutralny</string>
 </resources>

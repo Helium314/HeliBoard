@@ -69,7 +69,7 @@
     <string name="remove">"Remover"</string>
     <string name="save">"Guardar"</string>
     <string name="subtype_locale">"Idioma"</string>
-    <string name="keyboard_layout_set">"Esquema"</string>
+    <string name="keyboard_layout_set">Layout</string>
     <string name="prefs_keypress_vibration_duration_settings">"Duração vibr. ao premir teclas"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume do som ao premir teclas"</string>
     <string name="prefs_key_longpress_timeout_settings">"Atraso ao manter tecla premida"</string>
@@ -232,7 +232,7 @@
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Mudar o lado do modo de uma mão</string>
     <string name="file_read_error">Não foi possível ler o ficheiro</string>
-    <string name="button_copy_existing_layout">Copiar esquema existente</string>
+    <string name="button_copy_existing_layout">Copiar layout existente</string>
     <string name="prefs_space_bar_text">Texto personalizado na barra de espaço</string>
     <string name="subtype_mns">Mansi</string>
     <string name="customize_currencies">Personalizar moedas</string>
@@ -270,7 +270,7 @@
     <string name="url_detection_summary">Tenta detetar URLs e similares como uma única palavra</string>
     <string name="hint_source">Selecionar fonte de dicas</string>
     <string name="prefs_bottom_padding_scale">Escala do espaço inferior</string>
-    <string name="delete_layout">Excluir realmente o layout customizado %s?</string>
+    <string name="delete_layout">Excluir realmente o layout personalizado%s?</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Linha de números (básica)</string>
     <string name="customize_background_image">Definir imagem de fundo</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Não-conector de zero largura</string>
@@ -278,7 +278,7 @@
     <string name="dictionary_file_wrong_locale_ok">Ainda usar</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Claro</string>
     <string name="select_color_accent">Destaque</string>
-    <string name="button_title_add_custom_layout">Adicionar esquema personalizado</string>
+    <string name="button_title_add_custom_layout">Adicionar layout personalizado</string>
     <string name="button_select_language">Selecionar língua</string>
     <string name="replace_dictionary_message">"Substituir realmente  o dicionário \"%1$s\" adicionado pelo utilizador?\n\nDicionário atual:\n%2$s \n\nDicionário novo:\n%3$s"</string>
     <string name="add_dictionary">Selecione um dicionário para adicionar. Dicionários no formato .dict podem ser descarregados%s.</string>

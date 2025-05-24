@@ -448,4 +448,9 @@
     <string name="subtype_st">সেসুতু</string>
     <string name="subtype_dag">ডাগবানি</string>
     <string name="prefs_emoji_key_fit">ফন্টের আকারের সাথে ইমোজি বোতামের আকারের সমন্বয়</string>
+    <string name="backup_restored">ব্যাকআপ পুনরুদ্ধার হয়েছে</string>
+    <string name="use_apps_dict">অ্যাপের নামে সন্ধান</string>
+    <string name="use_apps_dict_summary">পরামর্শ ও সংশোধনের জন্য ইন্সটলকৃত অ্যাপের নাম ব্যবহার</string>
+    <string name="prefs_emoji_skin_tone">ডিফল্ট ইমোজির ত্বকের রং</string>
+    <string name="prefs_emoji_skin_tone_neutral">নিরপেক্ষ</string>
 </resources>

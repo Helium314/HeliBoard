@@ -44,7 +44,7 @@
     <string name="gesture_floating_preview_text">"Dynamisch zwevend voorbeeld"</string>
     <string name="gesture_space_aware">Woordgroepen gebaren</string>
     <string name="gesture_space_aware_summary">Spaties invoeren door te vegen over de spatiebalk</string>
-    <string name="subtype_en_GB">"Engels (GB)"</string>
+    <string name="subtype_en_GB">Engels (VK)</string>
     <string name="subtype_en_US">"Engels (VS)"</string>
     <string name="subtype_es_US">"Spaans (VS)"</string>
     <string name="subtype_hi_Latn">"Hindi-Engels"</string>
@@ -81,11 +81,11 @@
     <string name="setup_next_action">"Volgende stap"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> instellen</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> inschakelen</string>
-    <string name="setup_step1_instruction">Vink <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aan in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
+    <string name="setup_step1_instruction">Selecteer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> in de instellingen bij \'Talen &amp; invoer\'. De app kan dan worden uitgevoerd op dit apparaat.</string>
     <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is al ingeschakeld in de instellingen bij \'Talen &amp; invoer\', dus deze stap is voltooid. Op naar de volgende!</string>
     <string name="setup_step1_action">"Inschakelen in \'Instellingen\'"</string>
     <string name="setup_step2_title">Overschakelen naar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Selecteer vervolgens <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als \"actieve tekstinvoermethode.\"</string>
+    <string name="setup_step2_instruction">Selecteer vervolgens <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> als actieve methode voor tekstinvoer.</string>
     <string name="setup_step2_action">"Schakelen tussen invoermethoden"</string>
     <string name="setup_step3_title">Gefeliciteerd, je kunt nu aan de slag!</string>
     <string name="setup_step3_instruction">Je kunt nu in al je favoriete apps typen met <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -493,4 +493,9 @@
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="prefs_emoji_key_fit">Emoji-toetsgrootte schalen met lettergrootte</string>
+    <string name="backup_restored">Back-up hersteld</string>
+    <string name="use_apps_dict">App-namen opzoeken</string>
+    <string name="use_apps_dict_summary">Gebruik de namen van geïnstalleerde apps voor suggesties en correcties</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutraal</string>
+    <string name="prefs_emoji_skin_tone">Standaard emoji-huidskleur</string>
 </resources>

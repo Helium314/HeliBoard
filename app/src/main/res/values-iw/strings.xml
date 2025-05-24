@@ -85,7 +85,7 @@
     <string name="setup_step1_finished_instruction">"האפליקציה <xliff:g id="APPLICATION_NAME">%s</xliff:g> כבר פועלת בהגדרות השפה והקלט שלך, אז השלב הזה הסתיים. ממשיכים הלאה לשלב הבא!"</string>
     <string name="setup_step1_action">"הפעל בהגדרות"</string>
     <string name="setup_step2_title">"עבור אל <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">בשלב הבא, יש לבחור ב-<xliff:g id="APPLICATION_NAME">%s</xliff:g>\' כשיטת ההזנה הפעילה להזנת מלל.\"</string>
+    <string name="setup_step2_instruction">בשלב הבא, יש לבחור ב-\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" כשיטת ההזנה הפעילה להזנת מלל.</string>
     <string name="setup_step2_action">החלפת שיטת הזנה</string>
     <string name="setup_step3_title">"ברכותינו, הכל מוכן!"</string>
     <string name="setup_step3_instruction">"כעת תוכל להקליד בכל האפליקציות המועדפות עליך באמצעות <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
@@ -217,8 +217,7 @@
     <string name="file_read_error">הקובץ אינו ניתן לקריאה</string>
     <string name="title_layout_name_select">הגדרת שם הפריסה</string>
     <string name="remove_dictionary_message">באמת להסיר את המילון שנוסף ע\"י המשתמש \"%s\"?</string>
-    <string name="no_dictionary_message">"ללא מילון, תקבלו הצעות למלל שהקלדתם בעבר בלבד.&lt;br&gt;
-\n        באפשרותך להוריד מילונים %1$s, או לבדוק אם מילון עבור \"%2$s\" ניתן להורדה ישירות %3$s."</string>
+    <string name="no_dictionary_message">"ללא מילון, תקבלו הצעות למלל שהקלדתם בעבר בלבד.&lt;br&gt;\n        באפשרותך להוריד מילונים %1$s, או לבדוק אם מילון עבור \"%2$s\" ניתן להורדה ישירות %3$s."</string>
     <string name="no_dictionary_dont_show_again_button">לא להציג שוב</string>
     <string name="add_dictionary">בחירת המילון להוספה. מילונים בפורמט .dict ניתנים להורדה %s.</string>
     <string name="dictionary_link_text">כאן</string>
@@ -456,4 +455,9 @@
     <string name="subtype_dag">דאגבני</string>
     <string name="subtype_st">ססוטו</string>
     <string name="prefs_emoji_key_fit">התאמת גודל מקש האמוג\'י לגודל הגופן</string>
+    <string name="backup_restored">הגיבוי שוחזר</string>
+    <string name="use_apps_dict">רשימת שמות יישומים לאיתור</string>
+    <string name="prefs_emoji_skin_tone">גוון עור ברירת-מחדל לאמוג\'י</string>
+    <string name="prefs_emoji_skin_tone_neutral">נייטרלי</string>
+    <string name="use_apps_dict_summary">שימוש בשמות יישומים מותקנים להצעות ולתיקונים</string>
 </resources>

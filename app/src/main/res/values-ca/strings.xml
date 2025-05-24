@@ -81,11 +81,11 @@
     <string name="setup_next_action">"Pas següent"</string>
     <string name="setup_steps_title">S\'està configurant <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
     <string name="setup_step1_title">Habilitar <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Comproveu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.\"</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idiomes i entrada, així que ja s\'ha acabat aquest pas. Cap al següent!\"</string>
+    <string name="setup_step1_instruction">Comproveu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» a la configuració d\'idiomes i entrada. Això li permetrà executar-se al vostre dispositiu.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ja està activada a la configuració d\'idiomes i entrada, així que ja s\'ha acabat aquest pas. Cap al següent!</string>
     <string name="setup_step1_action">Habilita a la configuració</string>
     <string name="setup_step2_title">Canviar a <xliff:g id="APPLICATION_NAME" example="Teclat Android">%s</xliff:g></string>
-    <string name="setup_step2_instruction">A continuació, seleccioneu \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" com a mètode d\'entrada de text actiu.\"</string>
+    <string name="setup_step2_instruction">A continuació, seleccioneu «<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>» com a mètode d\'entrada de text actiu.</string>
     <string name="setup_step2_action">Canvia els mètodes d\'entrada</string>
     <string name="setup_step3_title">"Enhorabona, ja has acabat!"</string>
     <string name="setup_step3_instruction">Ara ja podeu escriure en totes les vostres aplicacions preferides amb <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
@@ -447,4 +447,9 @@
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="prefs_emoji_key_fit">Escala la mida de la tecla emoji amb la de la font</string>
+    <string name="prefs_emoji_skin_tone">Tema d\'emoji predeterminat</string>
+    <string name="backup_restored">Còpia de seguretat restaurada</string>
+    <string name="use_apps_dict">Cercar noms d\'aplicacions</string>
+    <string name="use_apps_dict_summary">Utilitzar els noms de les aplicacions instal·lades per a suggeriments i correccions</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
 </resources>

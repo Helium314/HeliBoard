@@ -81,11 +81,11 @@
     <string name="setup_next_action">"Järgmine toiming"</string>
     <string name="setup_steps_title">"Rakenduse <xliff:g id="APPLICATION_NAME">%s</xliff:g> seadistamine"</string>
     <string name="setup_step1_title">Võta <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> kasutusele</string>
-    <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“ lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME">%s</xliff:g> on sinu nutiseadme keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
+    <string name="setup_step1_instruction">Palun märgi nutiseadme keele- ja sisendiseadetes „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ lubatuks. See võimaldab rakenduse kasutamist sinu nutiseadmes.</string>
+    <string name="setup_step1_finished_instruction">xliff:g id=\"APPLICATION_NAME\" example=\"Android Keyboard\"&gt;%s&lt;/xliff:g&gt; on sinu nutiseadme keele- ja sisendiseadetes juba lubatud, seega on see toiming tehtud. Asu järgmise toimingu juurde!</string>
     <string name="setup_step1_action">"Luba seadetes"</string>
     <string name="setup_step2_title">Võta <xliff:g id="APPLICATION_NAME">%s</xliff:g> kõikjal kasutusele</string>
-    <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME">%s</xliff:g>“.</string>
+    <string name="setup_step2_instruction">Järgmisena vali aktiivseks tekstisisestusmeetodiks rakendus „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“.</string>
     <string name="setup_step2_action">"Vaheta sisestusmeetodeid"</string>
     <string name="setup_step3_title">"Õnnitleme. Kõik on valmis!"</string>
     <string name="setup_step3_instruction">Nüüd saad rakendusega <xliff:g id="APPLICATION_NAME">%s</xliff:g> sisestada kõikides oma lemmikrakendustes.</string>
@@ -484,4 +484,9 @@
     <string name="subtype_dag">dagbani</string>
     <string name="subtype_st">sotho</string>
     <string name="prefs_emoji_key_fit">Kohenda emoji klahvi suurust tavateksti klahvide suuruste järgi</string>
+    <string name="backup_restored">Varukoopiast taastamine õnnestus</string>
+    <string name="use_apps_dict">Otsi välja rakenduste nimed</string>
+    <string name="use_apps_dict_summary">Otsi soovituste ja paranduste jaoks välja paigaldatud rakenduste nimed</string>
+    <string name="prefs_emoji_skin_tone">Emoji vaikimisi taustavärv</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutraalne</string>
 </resources>

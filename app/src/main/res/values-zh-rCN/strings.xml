@@ -81,11 +81,11 @@
     <string name="setup_next_action">"下一步"</string>
     <string name="setup_steps_title">设置 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">启用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">请检查您的语言和输入设置中的 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>。这将授权它在您的设备上运行。</string>
-    <string name="setup_step1_finished_instruction">您已在语言和输入设置中启用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>，因此这一步已完成。下一步！</string>
+    <string name="setup_step1_instruction">请在“语言和输入法”设置中选中“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”，授权该应用在您的设备上运行。</string>
+    <string name="setup_step1_finished_instruction">您已在“语言和输入法”中启用了 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>，因此这一步骤已完成。继续下一步吧！</string>
     <string name="setup_step1_action">"在设置中启用"</string>
     <string name="setup_step2_title">切换到 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">接下来，选择 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 作为您要使用的文本输入法。</string>
+    <string name="setup_step2_instruction">接下来，请选择“<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>”作为您要使用的文本输入法。</string>
     <string name="setup_step2_action">"切换输入法"</string>
     <string name="setup_step3_title">"恭喜，您已完成了设置！"</string>
     <string name="setup_step3_instruction">现在，您可以在您喜欢的所有应用中使用 <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> 输入内容了。</string>
@@ -450,4 +450,9 @@
     <string name="subtype_st">索托语</string>
     <string name="subtype_dag">达巴尼语</string>
     <string name="prefs_emoji_key_fit">根据字体大小缩放表情符号键大小</string>
+    <string name="backup_restored">备份已还原</string>
+    <string name="use_apps_dict">查找应用名称</string>
+    <string name="use_apps_dict_summary">使用已安装应用的名称进行建议和更正</string>
+    <string name="prefs_emoji_skin_tone_neutral">中性</string>
+    <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
 </resources>
