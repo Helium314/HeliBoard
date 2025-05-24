@@ -5,7 +5,7 @@ Features:
 <ul>
    <li>Wörterbücher für Vorschläge und Rechtschreibprüfung hinzufügen</li>
    <ul>
-     <li>Erstelle deine eigenen oder hole sie dir <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hier</a> oder im <a href="https:// codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimentellen</a> Bereich (Qualität kann variieren)</li>
+     <li>Erstelle deine eigenen oder hole sie dir <a href="https://codeberg.org/Helium314/aosp-dictionaries#dictionaries">hier</a> oder im <a href="https://codeberg.org/Helium314/aosp-dictionaries#experimental-dictionaries">experimentellen</a> Bereich (Qualität kann variieren)</li>
      <li>Zusätzliche Wörterbücher für Emojis oder wissenschaftliche Symbole können zur Bereitstellung von Vorschlägen genutzt werden (ähnlich wie bei der „Emoji-Suche“)</li>
      <li>Beachte, dass die Vorschläge für koreanische Layouts nur mit <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">diesem Wörterbuch</a> funktionieren, die Werkzeuge im Wörterbuch-Repository können keine funktionierenden Wörterbücher erstellen</li>
    </ul>
