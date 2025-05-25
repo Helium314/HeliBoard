@@ -564,53 +564,41 @@ fun checkVersionUpgrade(context: Context) {
         }
     }
     if (oldVersion <= 3100) {
-        // todo: migrate to new style
-        //  also one-handed mode?
-        if (prefs.contains("side_padding_scale")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("side_padding_scale", 0f))
-                remove("side_padding_scale")
+        val e = prefs.edit()
+        prefs.all.toMap().forEach { (key, value) ->
+            if (key == "side_padding_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "side_padding_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "bottom_padding_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "bottom_padding_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "split_spacer_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "split_spacer_scale_landscape") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "one_handed_mode_enabled_p_true") {
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 0, 1), value as Boolean)
+            } else if (key == "one_handed_mode_enabled_p_false") {
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 1, 1), value as Boolean)
+            } else if (key == "one_handed_mode_scale_p_true") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 0, 1), value as Float)
+            } else if (key == "one_handed_mode_scale_p_false") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 1, 1), value as Float)
+            } else if (key == "one_handed_mode_gravity_p_true") {
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 0, 1), value as Int)
+            } else if (key == "one_handed_mode_gravity_p_false") {
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 1, 1), value as Int)
+            } else if (key == "keyboard_height_scale") {
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value)
+            } else {
+                return@forEach
             }
+            e.remove(key)
         }
-        if (prefs.contains("side_padding_scale_landscape")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("side_padding_scale_landscape", 0f))
-                remove("side_padding_scale_landscape")
-            }
-        }
-        if (prefs.contains("bottom_padding_scale")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 0, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("bottom_padding_scale", 0f))
-                remove("bottom_padding_scale")
-            }
-        }
-        if (prefs.contains("bottom_padding_scale_landscape")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 1, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("bottom_padding_scale_landscape", 0f))
-                remove("bottom_padding_scale_landscape")
-            }
-        }
-        if (prefs.contains("split_spacer_scale")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 0, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("split_spacer_scale", 0f))
-                remove("split_spacer_scale")
-            }
-        }
-        if (prefs.contains("split_spacer_scale_landscape")) {
-            val key = createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 1, 1)
-            prefs.edit {
-                putFloat(key, prefs.getFloat("split_spacer_scale_landscape", 0f))
-                remove("split_spacer_scale_landscape")
-            }
-        }
-        if (prefs.contains("height_scale")) {
-
-        }
+        e.apply()
     }
     upgradeToolbarPrefs(prefs)
     LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
