@@ -32,7 +32,7 @@ object DictionaryFactory {
             checkAndAddDictionaryToListNewType(it, dictList, locale)
         }
         nonExtracted.forEach { filename ->
-            val type = filename.substringBefore(".")
+            val type = filename.substringBefore("_")
             if (dictList.any { it.mDictType == type }) return@forEach
             val extractedFile = DictionaryInfoUtils.extractAssetsDictionary(filename, locale, context)
             checkAndAddDictionaryToListNewType(extractedFile, dictList, locale)

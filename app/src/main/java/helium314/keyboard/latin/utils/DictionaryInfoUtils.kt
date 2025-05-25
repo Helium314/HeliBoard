@@ -136,7 +136,7 @@ object DictionaryInfoUtils {
     }
 
     fun extractAssetsDictionary(dictionaryFileName: String, locale: Locale, context: Context): File {
-        val targetFile = File(getCacheDirectoryForLocale(locale, context), "$dictionaryFileName.dict")
+        val targetFile = File(getCacheDirectoryForLocale(locale, context), "${dictionaryFileName.substringBefore("_")}.dict")
         FileUtils.copyStreamToNewFile(
             context.assets.open(ASSETS_DICTIONARY_FOLDER + File.separator + dictionaryFileName),
             targetFile
