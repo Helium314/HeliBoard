@@ -15,8 +15,12 @@ fun customIconIds(context: Context, prefs: SharedPreferences) = customIconNames(
         id?.let { entry.key to it }
     }
 
-// get index from booleans, use to access correct default value in settings
-fun settingIndex(vararg boolean: Boolean): Int {
+/** Derive an index from a number of boolean [settingValues], used to access the matching default value in a defaults arraY */
+fun findIndexOfDefaultSetting(vararg settingValues: Boolean): Int {
     var i = -1
-    return boolean.sumOf { i++; if (it) 1.shl(i) else 0 }
+    return settingValues.sumOf { i++; if (it) 1.shl(i) else 0 }
 }
+
+/** Create pref key that is derived from a [number] of boolean conditions. The [index] is as created by [findIndexOfDefaultSetting]. */
+fun createPrefKeyForBooleanSettings(prefix: String, index: Int, number: Int): String =
+    "${prefix}_${Array(number) { index.shr(it) % 2 == 1 }.joinToString("_")}"

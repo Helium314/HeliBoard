@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.preferences
 
 import androidx.compose.animation.AnimatedVisibility
@@ -32,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.SpacedTokens
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.Theme
@@ -164,13 +166,13 @@ private fun DimensionCheckbox(checked: Boolean, dimension: String, onCheckedChan
 
 private fun createVariantsAndKeys(dimensions: List<String>, baseKey: String): Pair<List<String>, List<String>> {
     val variants = mutableListOf("")
-    val keys = mutableListOf(baseKey + "_" + List(dimensions.size) { false }.joinToString("_"))
+    val keys = mutableListOf(createPrefKeyForBooleanSettings(baseKey, 0, dimensions.size))
     var i = 1
     dimensions.forEach { dimension ->
         variants.toList().forEach { variant ->
             if (variant.isEmpty()) variants.add(dimension)
             else variants.add("$variant / $dimension")
-            keys.add(baseKey + "_" + List(dimensions.size) { i.shr(it) % 2 == 1 }.joinToString("_"))
+            keys.add(createPrefKeyForBooleanSettings(baseKey, i, dimensions.size))
             i++
         }
     }

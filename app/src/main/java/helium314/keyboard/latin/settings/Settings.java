@@ -405,10 +405,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, Defaults.PREF_BOTTOM_PADDING_SCALE);
     }
 
-    // needs to be aligned with MultiSliderPreference of that base key, see AppearanceScreen (also add to other relevant settings)
+    // default value array must have 2**<number_of_boolean_args> elements
     public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        final float defaultValue = Defaults.INSTANCE.getPREF_SIDE_PADDING_SCALE()[SettingsKt.settingIndex(landscape)];
-        return prefs.getFloat(PREF_SIDE_PADDING_SCALE_PREFIX + "_" + landscape, defaultValue);
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_SIDE_PADDING_SCALE;
+        final float defaultValue = Defaults.PREF_SIDE_PADDING_SCALE[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, defaults.length), defaultValue);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {

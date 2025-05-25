@@ -85,6 +85,7 @@ object Defaults {
     const val PREF_KEYBOARD_HEIGHT_SCALE =  SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_BOTTOM_PADDING_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = 0f
+    @JvmField
     val PREF_SIDE_PADDING_SCALE = arrayOf(0f, 0f)
     const val PREF_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
