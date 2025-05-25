@@ -122,10 +122,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_USE_APPS = "use_apps";
     public static final String PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD = "long_press_symbols_for_numpad";
 
-    // one-handed mode gravity, enablement and scale, stored separately per orientation
-    public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled_p_";
-    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "one_handed_mode_gravity_p_";
-    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale_p_";
+    public static final String PREF_ONE_HANDED_MODE_PREFIX = "one_handed_mode_enabled";
+    public static final String PREF_ONE_HANDED_GRAVITY_PREFIX = "one_handed_mode_gravity";
+    public static final String PREF_ONE_HANDED_SCALE_PREFIX = "one_handed_mode_scale";
 
     public static final String PREF_SHOW_NUMBER_ROW = "show_number_row";
     public static final String PREF_LOCALIZED_NUMBER_ROW = "localized_number_row";
@@ -355,31 +354,40 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, Defaults.PREF_SHOW_SETUP_WIZARD_ICON);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getBoolean(PREF_ONE_HANDED_MODE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_MODE);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 1);
+        return prefs.getBoolean(key, Defaults.PREF_ONE_HANDED_MODE);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), enabled).apply();
+        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 1);
+        mPrefs.edit().putBoolean(key, enabled).apply();
     }
 
-    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getFloat(PREF_ONE_HANDED_SCALE_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_SCALE);
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 1);
+        return prefs.getFloat(key, Defaults.PREF_ONE_HANDED_SCALE);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        mPrefs.edit().putFloat(PREF_ONE_HANDED_SCALE_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), scale).apply();
+        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 1);
+        mPrefs.edit().putFloat(key, scale).apply();
     }
 
-    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean isLandscape) {
-        return prefs.getInt(PREF_ONE_HANDED_GRAVITY_PREFIX + !isLandscape, Defaults.PREF_ONE_HANDED_GRAVITY);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 1);
+        return prefs.getInt(key, Defaults.PREF_ONE_HANDED_GRAVITY);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY_PREFIX +
-                (mSettingsValues.mDisplayOrientation != Configuration.ORIENTATION_LANDSCAPE), gravity).apply();
+        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 1);
+        mPrefs.edit().putInt(key, gravity).apply();
     }
 
     public void writeSplitKeyboardEnabled(final boolean enabled, final boolean isLandscape) {
