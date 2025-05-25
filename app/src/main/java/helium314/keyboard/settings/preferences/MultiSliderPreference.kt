@@ -53,6 +53,8 @@ fun MultiSliderPreference(
     description: (Float) -> String,
     onDone: () -> Unit
 ) {
+    if (defaults.size != 1.shl(dimensions.size))
+        throw ArithmeticException("defaults size does not match with dimensions, expected ${1.shl(dimensions.size)}, got ${defaults.size}")
     var showDialog by remember { mutableStateOf(false) }
     Preference(
         name = name,
