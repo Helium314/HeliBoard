@@ -18,6 +18,7 @@ import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
+import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
 import helium314.keyboard.latin.utils.DeviceProtectedUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.DictionaryInfoUtils.USER_DICTIONARY_SUFFIX
@@ -566,16 +567,46 @@ fun checkVersionUpgrade(context: Context) {
         // todo: migrate to new style
         //  also one-handed mode?
         if (prefs.contains("side_padding_scale")) {
-
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("side_padding_scale", 0f))
+                remove("side_padding_scale")
+            }
         }
         if (prefs.contains("side_padding_scale_landscape")) {
-
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("side_padding_scale_landscape", 0f))
+                remove("side_padding_scale_landscape")
+            }
         }
         if (prefs.contains("bottom_padding_scale")) {
-
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 0, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("bottom_padding_scale", 0f))
+                remove("bottom_padding_scale")
+            }
         }
         if (prefs.contains("bottom_padding_scale_landscape")) {
-
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 1, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("bottom_padding_scale_landscape", 0f))
+                remove("bottom_padding_scale_landscape")
+            }
+        }
+        if (prefs.contains("split_spacer_scale")) {
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 0, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("split_spacer_scale", 0f))
+                remove("split_spacer_scale")
+            }
+        }
+        if (prefs.contains("split_spacer_scale_landscape")) {
+            val key = createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 1, 1)
+            prefs.edit {
+                putFloat(key, prefs.getFloat("split_spacer_scale_landscape", 0f))
+                remove("split_spacer_scale_landscape")
+            }
         }
         if (prefs.contains("height_scale")) {
 
