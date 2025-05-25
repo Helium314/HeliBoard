@@ -41,8 +41,6 @@ import java.util.Locale;
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
-    public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
-
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
     public final long mDoubleSpacePeriodTimeout;

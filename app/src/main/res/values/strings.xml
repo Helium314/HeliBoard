@@ -51,7 +51,7 @@
     <string name="enable_split_keyboard_landscape">Enable split keyboard (landscape)</string>
     <!--  Option for setting distance for split keyboard in portrait mode -->
     <string name="split_spacer_scale">Split distance</string>
-    <!--  Option for setting distance for split keyboard in landscape mode -->
+    <!--  Option for setting distance for split keyboard in landscape mode, todo: remove after merge -->
     <string name="split_spacer_scale_landscape">Split distance (landscape)</string>
     <!-- Option name for including other IMEs in the language key switch list -->
     <string name="language_switch_key_switch_input_method">Switch to other input methods</string>
@@ -343,12 +343,12 @@
     <string name="prefs_keyboard_height_scale">Keyboard height scale</string>
     <!-- Title of the setting for setting bottom padding height -->
     <string name="prefs_bottom_padding_scale">Bottom padding scale</string>
-    <!-- Title of the setting for setting bottom padding height in landscape mode -->
+    <!-- Title of the setting for setting bottom padding height in landscape mode, todo: remove after merge -->
     <string name="prefs_bottom_padding_scale_landscape">Bottom padding scale (landscape)</string>
     <!-- Title of the setting for adjusting font size on the keyboard -->
     <!-- Title of the setting for setting side padding -->
     <string name="prefs_side_padding_scale">Side padding scale</string>
-    <!-- Title of the setting for setting side padding in landscape mode -->
+    <!-- Title of the setting for setting side padding in landscape mode, todo: remove after merge -->
     <string name="prefs_side_padding_scale_landscape">Side padding scale (landscape)</string>
     <string name="prefs_font_scale">Keyboard font scale</string>
     <!-- Title of the setting for adjusting font size in emoji view -->

@@ -86,11 +86,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
-    public static final String PREF_SPLIT_SPACER_SCALE = "split_spacer_scale";
-    public static final String PREF_SPLIT_SPACER_SCALE_LANDSCAPE = "split_spacer_scale_landscape";
+    public static final String PREF_SPLIT_SPACER_SCALE_PREFIX = "split_spacer_scale";
     public static final String PREF_KEYBOARD_HEIGHT_SCALE = "keyboard_height_scale";
-    public static final String PREF_BOTTOM_PADDING_SCALE = "bottom_padding_scale";
-    public static final String PREF_BOTTOM_PADDING_SCALE_LANDSCAPE = "bottom_padding_scale_landscape";
+    public static final String PREF_BOTTOM_PADDING_SCALE_PREFIX = "bottom_padding_scale";
     public static final String PREF_SIDE_PADDING_SCALE_PREFIX = "side_padding_scale";
     public static final String PREF_FONT_SCALE = "font_scale";
     public static final String PREF_EMOJI_FONT_SCALE = "emoji_font_scale";
@@ -394,22 +392,24 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(pref, isLandscape ? Defaults.PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE : Defaults.PREF_ENABLE_SPLIT_KEYBOARD);
     }
 
-    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean isLandscape) {
-        final String pref = isLandscape ? PREF_SPLIT_SPACER_SCALE_LANDSCAPE : PREF_SPLIT_SPACER_SCALE;
-        return prefs.getFloat(pref, isLandscape ? Defaults.PREF_SPLIT_SPACER_SCALE_LANDSCAPE : Defaults.PREF_SPLIT_SPACER_SCALE);
+    public static float readSplitSpacerScale(final SharedPreferences prefs, final boolean landscape) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_SPLIT_SPACER_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SPLIT_SPACER_SCALE_PREFIX, index, defaults.length), defaultValue);
     }
 
     public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        if (landscape)
-            return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE_LANDSCAPE, Defaults.PREF_BOTTOM_PADDING_SCALE_LANDSCAPE);
-        return prefs.getFloat(PREF_BOTTOM_PADDING_SCALE, Defaults.PREF_BOTTOM_PADDING_SCALE);
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+        final Float[] defaults = Defaults.PREF_BOTTOM_PADDING_SCALE;
+        final float defaultValue = defaults[index];
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_PADDING_SCALE_PREFIX, index, defaults.length), defaultValue);
     }
 
-    // default value array must have 2**<number_of_boolean_args> elements
     public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
         final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
         final Float[] defaults = Defaults.PREF_SIDE_PADDING_SCALE;
-        final float defaultValue = Defaults.PREF_SIDE_PADDING_SCALE[index];
+        final float defaultValue = defaults[index];
         return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, defaults.length), defaultValue);
     }
 
