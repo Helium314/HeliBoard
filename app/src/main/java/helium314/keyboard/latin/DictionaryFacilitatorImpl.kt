@@ -469,18 +469,16 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val proximityInfoHandle = keyboard.proximityInfo.nativeProximityInfo
         val weightOfLangModelVsSpatialModel = floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
 
-        val deferredSuggestions = dictionaryGroups.map {
-            scope.async {
+        val suggestions = dictionaryGroups.map {
                 // todo: if the order does not matter, we could add the suggestions right away without awaitAll first
                 getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
                     proximityInfoHandle, weightOfLangModelVsSpatialModel, it)
             }
-        }
         val suggestionResults = SuggestionResults(
             SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext,
             false
         )
-        runBlocking { deferredSuggestions.awaitAll() }.forEach {
+        suggestions.forEach {
             suggestionResults.addAll(it)
             suggestionResults.mRawSuggestions?.addAll(it)
         }
