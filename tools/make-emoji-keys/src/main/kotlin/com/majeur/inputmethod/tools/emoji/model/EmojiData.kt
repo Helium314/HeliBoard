@@ -2,6 +2,8 @@
 
 package com.majeur.inputmethod.tools.emoji.model
 
+import kotlin.collections.mutableSetOf
+
 class EmojiData {
 
     var unicodeVersion = ""
@@ -61,29 +63,26 @@ class EmojiData {
             insertEmoji(group, intArrayOf(CP_REGIONAL_INDICATOR_SYMBOL_LETTER_Z), 2.0f, "regional indicator symbol letter z")
         }
 
-        if (hasMultipleSkinModifiers(emoji.codes)) {
-            // For now Openboard implementation is not robust enough to handle such complicated sequences.
-            // Emoji palettes get polluted with too much emoji variations, so we'll ignore them.
-            return false
-        }
-
-        return true
+        return ! hasMultipleSkinModifiers(emoji.codes)
     }
 
+    // For now Openboard implementation is not robust enough to handle such complicated sequences.
+    // Emoji palettes get polluted with too much emoji variations, so we'll ignore them.
     private fun hasMultipleSkinModifiers(codes: IntArray): Boolean {
-        var count = 0
+        val tones = mutableSetOf<Int>()
         codes.forEach {
             when (it) {
                 CP_LIGHT_SKIN_TONE, CP_MEDIUM_LIGHT_SKIN_TONE, CP_MEDIUM_SKIN_TONE,
                 CP_MEDIUM_DARK_SKIN_TONE, CP_DARK_SKIN_TONE ->
-                    count += 1
+                    tones.add(it)
             }
         }
-        return count > 1
+        return tones.size > 1
     }
 
     private fun onEmojiVariantInserted(group: EmojiGroup, baseSpec: EmojiSpec, emojiSpec: EmojiSpec): Boolean {
-        return true
+        // Changing this to return true results in multi-skin-tone variants added to some emojis
+        return ! hasMultipleSkinModifiers(emojiSpec.codes)
     }
 
     private fun findBaseEmoji(group: EmojiGroup, emoji: EmojiSpec): EmojiSpec? {
@@ -110,14 +109,18 @@ class EmojiData {
     }
 
     private fun withoutComponentCodes(codes: IntArray) : Pair<IntArray, Int> {
+        var res = codes
+        var tone = CP_NUL
         codes.forEach { code ->
             when (code) {
                 CP_LIGHT_SKIN_TONE, CP_MEDIUM_LIGHT_SKIN_TONE, CP_MEDIUM_SKIN_TONE,
-                CP_MEDIUM_DARK_SKIN_TONE, CP_DARK_SKIN_TONE ->
-                    return codes.asList().minus(code).toIntArray() to code
+                CP_MEDIUM_DARK_SKIN_TONE, CP_DARK_SKIN_TONE -> {
+                    res = res.asList().minus(code).toIntArray()
+                    tone = code
+                }
             }
         }
-        return codes to CP_NUL
+        return res to tone
     }
 
     companion object {
