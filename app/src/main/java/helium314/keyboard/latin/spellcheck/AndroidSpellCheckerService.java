@@ -6,7 +6,6 @@
 
 package helium314.keyboard.latin.spellcheck;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.service.textservice.SpellCheckerService;
@@ -190,32 +189,31 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public Keyboard getKeyboardForLocale(final Locale locale) {
         Keyboard keyboard = mKeyboardCache.get(locale);
         if (keyboard == null) {
-            keyboard = createKeyboardForLocale(locale, this);
+            keyboard = createKeyboardForLocale(locale);
             mKeyboardCache.put(locale, keyboard);
         }
         return keyboard;
     }
 
-    public static Keyboard createKeyboardForLocale(final Locale locale, Context context) {
+    private Keyboard createKeyboardForLocale(final Locale locale) {
         if (Settings.getValues() == null) {
             // creating a keyboard reads SettingsValues from Settings instance
             // maybe it would be "more correct" to create an instance of SettingsValues and use that one instead
             // but creating a global one if not existing should be fine too
             final EditorInfo editorInfo = new EditorInfo();
             editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
-            Settings.getInstance().loadSettings(context, locale, new InputAttributes(editorInfo, false,
-                                                                                     context.getPackageName()));
+            Settings.getInstance().loadSettings(this, locale, new InputAttributes(editorInfo, false, getPackageName()));
         }
         final String mainLayoutName = SubtypeSettings.INSTANCE.getMatchingMainLayoutNameForLocale(locale);
         final InputMethodSubtype subtype = SubtypeUtilsAdditional.INSTANCE.createDummyAdditionalSubtype(locale, mainLayoutName);
-        final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype, context);
+        final KeyboardLayoutSet keyboardLayoutSet = createKeyboardSetForSpellChecker(subtype);
         return keyboardLayoutSet.getKeyboard(KeyboardId.ELEMENT_ALPHABET);
     }
 
-    private static KeyboardLayoutSet createKeyboardSetForSpellChecker(final InputMethodSubtype subtype, Context context) {
+    private KeyboardLayoutSet createKeyboardSetForSpellChecker(final InputMethodSubtype subtype) {
         final EditorInfo editorInfo = new EditorInfo();
         editorInfo.inputType = InputType.TYPE_CLASS_TEXT;
-        final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(context, editorInfo);
+        final KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(this, editorInfo);
         return builder
                 .setKeyboardGeometry(SPELLCHECKER_DUMMY_KEYBOARD_WIDTH, SPELLCHECKER_DUMMY_KEYBOARD_HEIGHT)
                 .setSubtype(RichInputMethodSubtype.Companion.get(subtype))

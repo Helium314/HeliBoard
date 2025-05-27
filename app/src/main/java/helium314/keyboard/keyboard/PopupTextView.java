@@ -29,8 +29,10 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
     private Controller mController = EMPTY_CONTROLLER;
     private int mOriginX;
     private int mOriginY;
+    private Key mKey;
+    private OnKeyEventListener mListener;
 
-  public PopupTextView(final Context context, final AttributeSet attrs) {
+    public PopupTextView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.popupKeysKeyboardViewStyle);
     }
 
@@ -40,7 +42,8 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
         mTypeface = Settings.getInstance().getCustomTypeface();
     }
 
-    public void setDrawParams(Key key, KeyDrawParams drawParams) {
+    public void setKeyDrawParams(Key key, KeyDrawParams drawParams) {
+        mKey = key;
         Settings.getValues().mColors.setBackground(this, ColorType.KEY_PREVIEW_BACKGROUND);
         setTextColor(drawParams.mPreviewTextColor);
         setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -57,6 +60,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
     @Override
     public void showPopupKeysPanel(final View parentView, final Controller controller,
             final int pointX, final int pointY, final OnKeyEventListener listener) {
+        mListener = listener;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -93,6 +97,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
 
     @Override
     public void onUpEvent(final int x, final int y, final int pointerId, final long eventTime) {
+        mListener.onReleaseKey(mKey);
     }
 
     @Override

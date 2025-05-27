@@ -16,15 +16,11 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import helium314.keyboard.keyboard.PopupTextView;
-import helium314.keyboard.latin.DictionaryFacilitator;
-import helium314.keyboard.latin.DictionaryFacilitatorLruCache;
-import helium314.keyboard.latin.NgramContext;
+import helium314.keyboard.latin.DictionaryFactory;
 import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.SuggestedWords;
-import helium314.keyboard.latin.common.ComposedData;
-import helium314.keyboard.latin.common.InputPointers;
-import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
-import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -95,8 +91,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     // More keys panel (used by popup keys keyboard view)
     // TODO: Consider extending to support multiple popup keys panels
     private PopupKeysPanel mPopupKeysPanel;
-    private final DictionaryFacilitator mDictionaryFacilitator;
-    private final Keyboard mKeyboard;
+    private final SingleDictionaryFacilitator mDictionaryFacilitator;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -121,16 +116,16 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mPopupKeysKeyboardContainer = inflater.inflate(popupKeysKeyboardLayoutId, null);
         mDescriptionView = mPopupKeysKeyboardContainer.findViewById(R.id.description_view);
         mPopupKeysKeyboardView = mPopupKeysKeyboardContainer.findViewById(R.id.popup_keys_keyboard_view);
-        var dictionaryFacilitatorLruCache = new DictionaryFacilitatorLruCache(context, "");
         var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-        mDictionaryFacilitator = dictionaryFacilitatorLruCache.get(locale);
-        mKeyboard = AndroidSpellCheckerService.createKeyboardForLocale(locale, context);
-        var params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", context);
+        mDictionaryFacilitator = dictFile != null?
+                        new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
+        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                                    ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
-        mPopupKeysKeyboardContainer.setLayoutParams(params);
-        mDescriptionView.setLayoutParams(params);
-        mPopupKeysKeyboardView.setLayoutParams(params);
+        layoutParams.gravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
+        mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
+        mDescriptionView.setLayoutParams(layoutParams);
+        mPopupKeysKeyboardView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -341,26 +336,23 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     private PopupKeysPanel showDescription(Key key) {
         mDescriptionView.setVisibility(GONE);
 
-        if (! Settings.getValues().mShowsEmojiDescriptions) {
+        if (mDictionaryFacilitator == null || ! Settings.getValues().mShowsEmojiDescriptions) {
             return null;
         }
 
-        var results = mDictionaryFacilitator.getSuggestionResults(
-                        new ComposedData(new InputPointers(key.getLabel().length()), false, key.getLabel()),
-                        new NgramContext(0), mKeyboard, new SettingsValuesForSuggestion(false, false), 0,
-                        SuggestedWords.INPUT_STYLE_TYPING);
+        var results = mDictionaryFacilitator.getSuggestions(key.getLabel());
         if (results.isEmpty()) {
             return null;
         }
 
         var result = results.first();
         if (! result.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_WHITELIST)
-                        && ! (result.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT) && result.mScore > 0)) {
+                      && ! (result.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT) && result.mScore > 0)) {
             return null;
         }
 
         mDescriptionView.setText(result.mWord);
-        mDescriptionView.setDrawParams(key, getKeyDrawParams());
+        mDescriptionView.setKeyDrawParams(key, getKeyDrawParams());
         mDescriptionView.setVisibility(VISIBLE);
         return mDescriptionView;
     }
