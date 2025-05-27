@@ -87,11 +87,11 @@
     <string name="setup_next_action">Далее</string>
     <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Убедитесь, что \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включен в настройках языка и ввода. Это позволит ему работать на вашем устройстве.\"</string>
-    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода. Перейдите к следующему шагу!\"</string>
+    <string name="setup_step1_instruction">Убедитесь, что приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
+    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода, так что этот шаг выполнен. Переходим к следующему!</string>
     <string name="setup_step1_action">Включить в настройках</string>
     <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Теперь выберите \\<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.\"</string>
+    <string name="setup_step2_instruction">Теперь выберите \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
     <string name="setup_step3_instruction">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
@@ -232,7 +232,7 @@
     <string name="hidden_features_text">хранилище, защищённое устройством</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Лес</string>
     <string name="load_gesture_library_message">Вам понадобится библиотека для \'%s\'. Несовместимые библиотеки могут привести к сбою при использовании набора текста с помощью жестов. \n\nВнимание: загрузка внешнего кода может представлять угрозу безопасности. Используйте библиотеку только из источника, которому вы доверяете.</string>
-    <string name="load_gesture_library_button_delete">Удалить библиотеку</string>
+    <string name="load_gesture_library_button_delete">Удалить</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Язык</string>
     <string name="localized_number_row_summary">Предпочитать локализованные латинские цифры</string>
     <string name="checksum_mismatch_message">Неизвестный файл библиотеки. Вы уверены, что получили его из надёжного источника и оно предназначено для \'%s\'?</string>
@@ -274,7 +274,7 @@
     <string name="day_or_night_night">Ночь</string>
     <string name="no_dictionary_dont_show_again_button">Больше не показывать</string>
     <string name="disable_personalized_dicts_message">Предупреждение: Отключение этого параметра приведёт к удалению изученных данных</string>
-    <string name="load_gesture_library_button_load">Загрузить библиотеку</string>
+    <string name="load_gesture_library_button_load">Загрузить</string>
     <string name="prefs_bottom_padding_scale">Высота нижнего отступа</string>
     <string name="select_color_gesture">Ввод жестами</string>
     <string name="show_popup_keys_title">Показывать больше букв с диакритическими знаками в всплывающем окне</string>
@@ -448,4 +448,9 @@
     <string name="subtype_dag">Дагбани</string>
     <string name="subtype_st">Сесото</string>
     <string name="prefs_emoji_key_fit">Масштабировать размер клавиш эмодзи вместе с размером шрифта</string>
+    <string name="backup_restored">Резервная копия восстановлена</string>
+    <string name="use_apps_dict">Использовать названия приложений</string>
+    <string name="use_apps_dict_summary">Использовать названия установленных приложений для предложений и исправлений</string>
+    <string name="prefs_emoji_skin_tone">Тон кожи эмодзи по умолчанию</string>
+    <string name="prefs_emoji_skin_tone_neutral">Нейтральный</string>
 </resources>

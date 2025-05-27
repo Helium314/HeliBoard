@@ -81,7 +81,7 @@
     <string name="setup_next_action">"Ďalší krok"</string>
     <string name="setup_steps_title">"Nastavenie aplikácie <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
     <string name="setup_step1_title">"Povoľte aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">V nastaveniach Jazyky a vstup začiarknite políčko<xliff:g id="APPLICATION_NAME">%s</xliff:g>. Týmto aplikácii povolíte spustenie v zariadení.\"</string>
+    <string name="setup_step1_instruction">V nastaveniach Jazyky a vstup začiarknite políčko<xliff:g id="APPLICATION_NAME">%s</xliff:g>. Týmto aplikácii povolíte spustenie v zariadení.\"</string>
     <string name="setup_step1_finished_instruction">"Aplikácia <xliff:g id="APPLICATION_NAME">%s</xliff:g> je už v nastaveniach Jazyky a vstup povolená. Prejdite na ďalší krok."</string>
     <string name="setup_step1_action">"Povoliť v Nastaveniach"</string>
     <string name="setup_step2_title">"Prepnite na aplikáciu <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>

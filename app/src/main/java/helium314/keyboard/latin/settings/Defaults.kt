@@ -91,6 +91,7 @@ object Defaults {
     const val PREF_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = SettingsValues.DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true
+    const val PREF_EMOJI_SKIN_TONE = ""
     const val PREF_SPACE_HORIZONTAL_SWIPE = "move_cursor"
     const val PREF_SPACE_VERTICAL_SWIPE = "none"
     const val PREF_DELETE_SWIPE = true

@@ -6,30 +6,35 @@
 
 package helium314.keyboard.latin;
 
-import helium314.keyboard.latin.utils.Log;
-
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.common.ComposedData;
 import helium314.keyboard.latin.settings.SettingsValuesForSuggestion;
+import helium314.keyboard.latin.utils.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Class for a collection of dictionaries that behave like one dictionary.
  */
 public final class DictionaryCollection extends Dictionary {
     private final String TAG = DictionaryCollection.class.getSimpleName();
-    private final CopyOnWriteArrayList<Dictionary> mDictionaries;
+    private final ArrayList<Dictionary> mDictionaries;
+    private final float[] mWeights;
 
     public DictionaryCollection(final String dictType, final Locale locale,
-            final Collection<Dictionary> dictionaries) {
+            final Collection<Dictionary> dictionaries, final float[] weights) {
         super(dictType, locale);
-        mDictionaries = new CopyOnWriteArrayList<>(dictionaries);
+        mDictionaries = new ArrayList<>(dictionaries);
         mDictionaries.removeAll(Collections.singleton(null));
+        if (mDictionaries.size() > weights.length) {
+            mWeights = new float[mDictionaries.size()];
+            Arrays.fill(mWeights, 1f);
+            Log.w(TAG, "got weights array of length " + weights.length + ", expected "+mDictionaries.size());
+        } else mWeights = weights;
     }
 
     @Override
@@ -38,19 +43,19 @@ public final class DictionaryCollection extends Dictionary {
             final SettingsValuesForSuggestion settingsValuesForSuggestion,
             final int sessionId, final float weightForLocale,
             final float[] inOutWeightOfLangModelVsSpatialModel) {
-        final CopyOnWriteArrayList<Dictionary> dictionaries = mDictionaries;
+        final ArrayList<Dictionary> dictionaries = mDictionaries;
         if (dictionaries.isEmpty()) return null;
         // To avoid creating unnecessary objects, we get the list out of the first
         // dictionary and add the rest to it if not null, hence the get(0)
         ArrayList<SuggestedWordInfo> suggestions = dictionaries.get(0).getSuggestions(composedData,
                 ngramContext, proximityInfoHandle, settingsValuesForSuggestion, sessionId,
-                weightForLocale, inOutWeightOfLangModelVsSpatialModel);
+                weightForLocale * mWeights[0], inOutWeightOfLangModelVsSpatialModel);
         if (null == suggestions) suggestions = new ArrayList<>();
         final int length = dictionaries.size();
         for (int i = 1; i < length; ++ i) {
             final ArrayList<SuggestedWordInfo> sugg = dictionaries.get(i).getSuggestions(
                     composedData, ngramContext, proximityInfoHandle, settingsValuesForSuggestion,
-                    sessionId, weightForLocale, inOutWeightOfLangModelVsSpatialModel);
+                    sessionId, weightForLocale * mWeights[i], inOutWeightOfLangModelVsSpatialModel);
             if (null != sugg) suggestions.addAll(sugg);
         }
         return suggestions;
@@ -92,23 +97,5 @@ public final class DictionaryCollection extends Dictionary {
     public void close() {
         for (final Dictionary dict : mDictionaries)
             dict.close();
-    }
-
-    // Warning: this is not thread-safe. Take necessary precaution when calling.
-    public void addDictionary(final Dictionary newDict) {
-        if (null == newDict) return;
-        if (mDictionaries.contains(newDict)) {
-            Log.w(TAG, "This collection already contains this dictionary: " + newDict);
-        }
-        mDictionaries.add(newDict);
-    }
-
-    // Warning: this is not thread-safe. Take necessary precaution when calling.
-    public void removeDictionary(final Dictionary dict) {
-        if (mDictionaries.contains(dict)) {
-            mDictionaries.remove(dict);
-        } else {
-            Log.w(TAG, "This collection does not contain this dictionary: " + dict);
-        }
     }
 }

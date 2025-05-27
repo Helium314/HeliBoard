@@ -1,0 +1,11 @@
+* Layouts hinzugefügt: Arabisch Hija'i, Hebräisch 1452-2, Hindi Phonetic, Dargwa (Urakhi), Baishakhi, Kurdisch
+* einige Layouts aktualisiert
+* Unterstützung der Kombination von Akzenten
+* geteilte Tastatursymbolleisten-Taste
+* Hinzufügen von .com-Popups
+* Einstellung einer benutzerdefinierten Schriftart ermöglicht
+* Einstellung des Schriftgrades hinzugefügt
+* Verbesserung der automatischen Sprachumschaltung
+* Überarbeitung der Einstellungen
+* Einstellungen für mehr Tuning von Tastaturauffüllung, Auto-Leerzeichen, Auto-Korrektur, Zahlenreihe hinzugefügt
+* weitere Funktionen und Korrekturen

@@ -11,7 +11,6 @@ object SupportedEmojis {
 
     fun load(context: Context) {
         val maxSdk = context.prefs().getInt(Settings.PREF_EMOJI_MAX_SDK, Defaults.PREF_EMOJI_MAX_SDK)
-        Log.i("test", "max $maxSdk")
         unsupportedEmojis.clear()
         context.assets.open("emoji/minApi.txt").reader().readLines().forEach {
             val s = it.split(" ")
@@ -19,8 +18,7 @@ object SupportedEmojis {
             if (minApi > maxSdk)
                 unsupportedEmojis.addAll(s.drop(1))
         }
-        Log.i("test", "have ${unsupportedEmojis.size}, longest emoji: ${unsupportedEmojis.maxOfOrNull { it.length }}")
     }
 
-    fun isSupported(emoji: String) = emoji !in unsupportedEmojis
+    fun isUnsupported(emoji: String) = emoji in unsupportedEmojis
 }

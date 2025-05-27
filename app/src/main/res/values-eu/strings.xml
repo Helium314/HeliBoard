@@ -405,4 +405,57 @@
     <string name="customize_toolbar_key_codes">Pertsonalizatu tresna-barrako tekla-kodeak</string>
     <string name="key_code">Tekla-kodea</string>
     <string name="long_press_code">Sakatze luzeko kodea</string>
+    <string name="prefs_always_show_suggestions_except_web_text">Ez erakutsi beti iradokizunik web edizioko eremuetarako</string>
+    <string name="split_spacer_scale_landscape">Banatze-tartea (horizontala)</string>
+    <string name="settings_category_space">Zuriunea</string>
+    <string name="use_apps_dict_summary">Erabili instalatutako aplikazioen izenak iradokizunak eta zuzenketak egiteko</string>
+    <string name="enable_split_keyboard_landscape">Gaitu teklatu banatua (horizontala)</string>
+    <string name="vibrate_in_dnd_mode">Egin dar-dar ez molestatzeko moduan</string>
+    <string name="prefs_always_show_suggestions_except_web_text_summary">Web ediziorako eremuak (batez ere nabigatzaileetan aurkitzen direnak) oso ohiko arrazoia dira iradokizunen konfigurazioa beti erakusten duten arazoetarako</string>
+    <string name="auto_correct_shortcuts">Zuzenketa automatikorako lasterbideak</string>
+    <string name="backspace_reverts_autocorrect">Atzera-espazioak autozuzenketa desegiten du</string>
+    <string name="autospace_after_suggestion">Txertatu zuriunea iradokizun bat aukeratu ondoren</string>
+    <string name="timestamp_format_title">Denbora-zigilu gakoaren formatua</string>
+    <string name="shift_removes_autospace_summary">Mayus-ek kentzen du zuriune automatikoa</string>
+    <string name="auto_correct_shortcuts_summary">Gaituta dagoenean, lasterbideak autozuzenketaren bidez zabal daitezke</string>
+    <string name="use_apps_dict">Bilatu aplikazioen izenak</string>
+    <string name="backup_restored">Babeskopia berrezarri da</string>
+    <string name="autospace_before_gesture_typing">Txertatu zuriunea hitz bat idazteko keinuaren aurretik</string>
+    <string name="autospace_after_gesture_typing">Txertatu zuriunea hitz bat idazteko keinuaren ondoren</string>
+    <string name="shift_removes_autospace">Ez txertatu zuriunerik Mayus sakatzean</string>
+    <string name="number_row_hints">Erakutsi zenbaki-errenkadako argibideak</string>
+    <string name="locales_with_dict">Hiztegiak dituzten hizkuntzak</string>
+    <string name="show_tld_popup_keys">Erakutsi TLD popup teklak</string>
+    <string name="custom_subtype">Azpimota pertsonalizatua</string>
+    <string name="show_tld_popup_keys_summary">URLak eta helbide elektronikoak idaztean, periodoen teklen popupak lehen mailako domeinuekin ordeztu</string>
+    <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Zenbakien errenkada (oinarrizkoa)</string>
+    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
+    <string name="get_colors_message">%s-n koloreak aurki eta parteka ditzakezu.</string>
+    <string name="prefs_key_emoji_max_sdk">Override Emoji bertsioa</string>
+    <string name="prefs_emoji_skin_tone">Emojien azalaren tonu lehenetsia</string>
+    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
+    <string name="after_numpad_and_space">Sartu edo zuriunea sakatuta, numpad-eko beste teklen ondoren</string>
+    <string name="delete_confirmation">Seguru %s ezabatu nahi duzula?</string>
+    <string name="custom_font">Ezarri letra-tipo pertsonalizatua fitxategitik</string>
+    <string name="subtype_dag">Dagbani</string>
+    <string name="subtype_st">Sesotho</string>
+    <string name="prefs_emoji_key_fit">Eskalatu emojiak karaktereen tamainarekin</string>
+    <string name="settings_screen_secondary_layouts">Bigarren mailako diseinuak</string>
+    <string name="layout_in_use">Abisua: hori da une honetan erabiltzen ari den diseinua</string>
+    <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tekla funtzionalak (pantaila handia)</string>
+    <string name="prefs_bottom_padding_scale_landscape">Beheko betegarriaren eskala (horizontala)</string>
+    <string name="prefs_side_padding_scale_landscape">Alboko betegarriaren eskala (horizontala)</string>
+    <string name="prefs_side_padding_scale">Alboko betegarriaren eskala</string>
+    <string name="customize_background_image_landscape">Ezarri atzeko planoko irudia (horizontala)</string>
+    <string name="summary_customize_background_image_landscape">Ezartzen ez bada, irudia bertikala erabiliko da</string>
+    <string name="customize_icons_reset_message">Seguru berrezarri nahi duzula ikono pertsonalizatu guztiak?</string>
+    <string name="split" tools:keep="@string/split">Banatu teklatua</string>
+    <string name="prefs_font_scale">Teklatuko karaktereen eskala</string>
+    <string name="prefs_emoji_font_scale">Emojien eskala</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutroa</string>
+    <string name="subtype_dru">Dargwa (Urakhi)</string>
+    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="get_layouts_message">% s-n diseinuak aurki eta parteka ditzakezu.</string>
+    <string name="discussion_section_link">eztabaiden atala</string>
+    <string name="name_invalid">Izen baliogabea</string>
 </resources>

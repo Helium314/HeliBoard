@@ -129,7 +129,7 @@ private fun dictsAvailable(locale: Locale, context: Context): Boolean {
 private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
     val systemLocales = SubtypeSettings.getSystemLocales()
     val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
-    val localesWithDictionary = DictionaryInfoUtils.getCachedDirectoryList(context)?.mapNotNull { dir ->
+    val localesWithDictionary = DictionaryInfoUtils.getCacheDirectories(context)?.mapNotNull { dir ->
         if (!dir.isDirectory)
             return@mapNotNull null
         if (dir.list()?.any { it.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX) } == true)

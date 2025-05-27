@@ -85,8 +85,7 @@ fun checkVersionUpgrade(context: Context) {
     if (oldVersion == BuildConfig.VERSION_CODE)
         return
     // clear extracted dictionaries, in case updated version contains newer ones
-    DictionaryInfoUtils.getCachedDirectoryList(context)?.forEach {
-        if (!it.isDirectory) return@forEach
+    DictionaryInfoUtils.getCacheDirectories(context).forEach {
         val files = it.listFiles() ?: return@forEach
         for (file in files) {
             if (!file.name.endsWith(USER_DICTIONARY_SUFFIX))

@@ -1,13 +1,12 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization") version "2.0.21"
+    kotlin("plugin.serialization") version "2.1.21"
     kotlin("plugin.compose") version "2.0.0"
 }
 
 android {
     compileSdk = 35
-    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "helium314.keyboard"
@@ -108,17 +107,18 @@ dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.autofill:autofill:1.1.0")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 
     // kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 
     // compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-    implementation(platform("androidx.compose:compose-bom:2025.04.01"))
+    implementation(platform("androidx.compose:compose-bom:2025.05.00"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.navigation:navigation-compose:2.8.9")
+    implementation("androidx.navigation:navigation-compose:2.9.0")
     implementation("sh.calvin.reorderable:reorderable:2.4.3") // for easier re-ordering
     implementation("com.github.skydoves:colorpicker-compose:1.1.2") // for user-defined colors
 

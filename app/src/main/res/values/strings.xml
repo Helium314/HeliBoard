@@ -360,6 +360,10 @@
     <string name="prefs_emoji_font_scale">Emoji view font scale</string>
     <!-- Title of the setting for adjusting emoji key size to fit emoji size in emoji view -->
     <string name="prefs_emoji_key_fit">Scale emoji key size with font size</string>
+    <!-- Title of the setting for setting default emoji skin tone -->
+    <string name="prefs_emoji_skin_tone">Default emoji skin tone</string>
+    <!-- Name of the neutral / yellow skin tone -->
+    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Title of the setting for adding / removing custom font file -->

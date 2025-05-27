@@ -95,7 +95,7 @@
     <string name="prefs_keypress_vibration_duration_settings">"Durée de vibration des touches"</string>
     <string name="prefs_keypress_sound_volume_settings">"Volume du son des touches"</string>
     <string name="prefs_key_longpress_timeout_settings">"Délai d\'un appui long sur les touches"</string>
-    <string name="prefs_enable_emoji_alt_physical_key">"Emojis pour clavier physique"</string>
+    <string name="prefs_enable_emoji_alt_physical_key">Émojis pour clavier physique</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"La touche Alt physique permet d\'afficher la palette d\'emoji"</string>
     <string name="button_default">"Par défaut"</string>
     <string name="setup_welcome_title">Bienvenue sur <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
@@ -105,7 +105,7 @@
     <string name="setup_steps_title">Configurer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_title">Activer <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step1_instruction">Veuillez vérifier que <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est activé dans vos paramètres de langue et de saisie. Cela autorisera son fonctionnement sur votre appareil.</string>
-    <string name="setup_step1_finished_instruction">L’application <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est déjà activée dans vos paramètres « Langues et saisie ». Passez à l’étape suivante !</string>
+    <string name="setup_step1_finished_instruction">L’application <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> est déjà activée dans vos paramètres « Langues et saisie ». Passez à l’étape suivante !</string>
     <string name="setup_step1_action">"Activer le clavier dans les paramètres"</string>
     <string name="setup_step2_title">Basculer vers <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
     <string name="setup_step2_instruction">Sélectionnez ensuite « <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> » comme méthode de saisie active.</string>
@@ -371,8 +371,8 @@ Nouveau dictionnaire:
     <string name="space_swipe_toggle_numpad_entry">Basculer vers le pavé numérique</string>
     <string name="switch_keyboard_after">Passer au clavier principal après avoir…</string>
     <string name="after_clip">Sélectionné une entrée dans l\'historique du presse-papiers</string>
-    <string name="after_symbol_and_space">Appuyé sur Entrée ou sur Espace après la sélection d\'un symbole dans la vue des symboles</string>
-    <string name="after_emoji">Sélectionné un emoji dans la vue des emojis</string>
+    <string name="after_symbol_and_space">Appuyé sur Entrée ou sur la barre d\'espace après la sélection d\'un symbole dans la vue des symboles</string>
+    <string name="after_emoji">Sélectionné un émoji dans la vue des émojis</string>
     <string name="show_popup_keys_main">Ajouter les variantes les plus courantes (par défaut)</string>
     <string name="remove_redundant_popups_summary">Supprimer les touches pop-up déjà présentes dans la disposition de base</string>
     <string name="remove_redundant_popups">Supprimer les pop-ups redondants</string>
@@ -384,7 +384,7 @@ Nouveau dictionnaire:
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Rangée de chiffres</string>
     <string name="prefs_space_bar_text">Texte personnalisé sur la barre d\'espace</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rangée inférieure du presse-papier</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rangée inférieure des emojis</string>
+    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rangée inférieure des émojis</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulation</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Supprimer</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Majuscule</string>
@@ -407,7 +407,7 @@ Nouveau dictionnaire:
     <string name="label_bin" tools:keep="@string/label_bin">Corbeille</string>
     <string name="vibrate_in_dnd_mode">Vibrer en mode Ne pas déranger</string>
     <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonétique)</string>
-    <string name="prefs_key_emoji_max_sdk">Remplacer la version des Emojis</string>
+    <string name="prefs_key_emoji_max_sdk">Remplacer la version des émojis</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="auto_correct_shortcuts">Correction automatique des raccourcis</string>
@@ -439,7 +439,7 @@ Nouveau dictionnaire:
     <string name="discussion_section_link">Section de discussion</string>
     <string name="show_tld_popup_keys">Afficher les suggestions de domaines (TLD)</string>
     <string name="show_tld_popup_keys_summary">Remplacer les suggestions de la touche point par des extensions de domaine (TLD) lors de la saisie d’URL ou d’adresses e-mail</string>
-    <string name="after_numpad_and_space">Appuyer sur Entrée ou sur la barre d\'espace après d\'autres touches du pavé numérique</string>
+    <string name="after_numpad_and_space">Appuyé sur Entrée ou sur la barre d\'espace après d\'autres touches du pavé numérique</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Les champs d\'édition Web (principalement présents dans les navigateurs) sont une cause très courante de problèmes avec le paramètre « Toujours afficher les suggestions »</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rangée numérique (standard)</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ne pas forcer l\'affichage des suggestions pour les champs de saisie web</string>
@@ -454,4 +454,9 @@ Nouveau dictionnaire:
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="prefs_emoji_key_fit">Ajuster la taille des touches emoji à la taille de la police</string>
+    <string name="backup_restored">Sauvegarde restaurée</string>
+    <string name="use_apps_dict">Rechercher les noms des applications</string>
+    <string name="use_apps_dict_summary">Utiliser les noms des applications installées pour les suggestions et les corrections</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
+    <string name="prefs_emoji_skin_tone">Teint de peau par défaut des emojis</string>
 </resources>

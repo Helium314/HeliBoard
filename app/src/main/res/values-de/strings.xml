@@ -9,7 +9,7 @@
     <string name="sound_on_keypress">"Ton bei Tastendruck"</string>
     <string name="popup_on_keypress">Popup bei Tastendruck</string>
     <string name="settings_screen_preferences">Optionen</string>
-    <string name="settings_screen_gesture">"Gesteneingabe"</string>
+    <string name="settings_screen_gesture">Gesten-Tippen</string>
     <string name="settings_screen_correction">"Textkorrektur"</string>
     <string name="settings_screen_advanced">"Erweitert"</string>
     <string name="settings_screen_theme">"Design"</string>
@@ -38,7 +38,7 @@
     <string name="auto_correction_threshold_mode_very_aggressive">"Sehr stark"</string>
     <string name="bigram_prediction">"Vorschläge für nächstes Wort"</string>
     <string name="bigram_prediction_summary">"Anhand des vorherigen Wortes Vorschläge machen"</string>
-    <string name="gesture_input">Gesteneingabe aktivieren</string>
+    <string name="gesture_input">Gesten-Tippen aktivieren</string>
     <string name="gesture_input_summary">Gib ein Wort ein, indem du durch die Buchstaben gleitest</string>
     <string name="gesture_preview_trail">Gestenspur anzeigen</string>
     <string name="gesture_floating_preview_text">Schwebender Echtzeit-Vorschlag</string>
@@ -76,16 +76,16 @@
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Emoji-Palette auf physischen Tastaturen über Alt-Taste aufrufen"</string>
     <string name="button_default">"Standard"</string>
     <string name="setup_welcome_title">Willkommen bei <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_welcome_additional_description">"mit Gesteneingabe"</string>
+    <string name="setup_welcome_additional_description">mit Gesten-Tippen</string>
     <string name="setup_start_action">"Jetzt starten"</string>
     <string name="setup_next_action">"Nächster Schritt"</string>
     <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> einrichten</string>
     <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> aktivieren</string>
-    <string name="setup_step1_instruction">Bitte aktiviere <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" unter der Systemeinstellung „Sprachen und Eingabe“, damit die App auf deinem Gerät verwendet werden darf.\"</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in deiner Systemeinstellung „Sprachen und Eingabe“ aktiviert. Weiter mit dem nächsten Schritt!\"</string>
+    <string name="setup_step1_instruction">Bitte aktiviere <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" unter der Systemeinstellung „Sprachen und Eingabe“.</string>
+    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> ist bereits in Ihren Sprachen &amp; Eingabeeinstellungen aktiviert, so dass dieser Schritt abgeschlossen ist. Weiter zum nächsten Schritt!</string>
     <string name="setup_step1_action">"In den Einstellungen aktivieren"</string>
     <string name="setup_step2_title">Zu <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> wechseln</string>
-    <string name="setup_step2_instruction">Wähle als nächstes <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" als deine aktive Bildschirmtastatur.\"</string>
+    <string name="setup_step2_instruction">Wähle als nächstes <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" als deine aktive Bildschirmtastatur.</string>
     <string name="setup_step2_action">"Eingabemethode wechseln"</string>
     <string name="setup_step3_title">Hurra, die Einrichtung ist abgeschlossen!</string>
     <string name="setup_step3_instruction">Jetzt kannst du in all deinen Lieblingsapps mit <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> schreiben.</string>
@@ -201,9 +201,7 @@
     <string name="theme_navbar">Navigationsleiste einfärben</string>
     <string name="dictionary_file_wrong_locale_ok">Trotzdem benutzen</string>
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Wald</string>
-    <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen bei der Gesteneingabe führen.
-\n
-\nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
+    <string name="load_gesture_library_message">Du benötigst die Bibliothek für „%s“. Inkompatible Bibliotheken können zu Abstürzen beim Gesten-Tippen führen. \n \nWarnung: Das Laden von externem Code kann ein Sicherheitsrisiko darstellen. Verwende nur Bibliotheken aus Quellen, denen du vertraust.</string>
     <string name="add_dictionary">Wörterbuch zum Hinzufügen auswählen. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="load_gesture_library_button_delete">Bibliothek löschen</string>
     <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Sprache</string>
@@ -232,12 +230,12 @@
     <string name="popup_order">Popup-Tastenreihenfolge wählen</string>
     <string name="version">Version</string>
     <string name="hint_source">Hinweis-Quelle wählen</string>
-    <string name="load_gesture_library_summary">Native Bibliothek bereitstellen, um Gesteneingabe zu aktivieren</string>
+    <string name="load_gesture_library_summary">Native Bibliothek bereitstellen, um Gesten-Tippen zu aktivieren</string>
     <string name="layout_symbols_shifted">Mehr Symbole</string>
     <string name="url_detection_summary">Versuche URLs und Ähnliches als einzelnes Wort zu erkennen</string>
     <string name="button_select_language">Sprache auswählen</string>
     <string name="select_color_key">Tastenbeschriftung</string>
-    <string name="load_gesture_library">Gesteneingabe-Bibliothek laden</string>
+    <string name="load_gesture_library">Gesten-Tippen-Bibliothek laden</string>
     <string name="select_color_spacebar_background">Leertastenhintergrund</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Dunkler</string>
     <string name="day_or_night_image">Bild für den Tag- oder Nachtmodus festlegen?</string>
@@ -363,7 +361,7 @@
     <string name="page_down" tools:keep="@string/page_down">Seite runter</string>
     <string name="page_start" tools:keep="@string/page_start">Seitenanfang</string>
     <string name="suggest_clipboard_content_summary">Zuletzt kopierte Inhalte der Zwischenablage als Vorschlag anzeigen</string>
-    <string name="suggest_clipboard_content">Schlage Zwischenablagen-Inhalt vor</string>
+    <string name="suggest_clipboard_content">Zwischenablagen-Inhalt vorschlagen</string>
     <string name="after_symbol_and_space">Drücken der Eingabetaste oder der Leertaste nach anderen Tasten in der Symbolansicht</string>
     <string name="after_clip">Auswählen eines Eintrags des Zwischenablagenverlaufs</string>
     <string name="after_emoji">Auswählen eines Emojis in der Emojiansicht</string>
@@ -441,13 +439,18 @@
     <string name="after_numpad_and_space">Drücken der Eingabetaste oder der Leertaste nach anderen Tasten im Ziffernblock</string>
     <string name="settings_category_space">Leertaste</string>
     <string name="shift_removes_autospace_summary">Shift entfernt anstehende automatische Leerzeichen</string>
-    <string name="autospace_after_gesture_typing">Leerzeichen nach Wörtern bei Gesten-Eingabe</string>
+    <string name="autospace_after_gesture_typing">Leerzeichen nach Wörtern bei Gesten-Tippen</string>
     <string name="shift_removes_autospace">Kein automatisches Leerzeichen beim drücken von Shift</string>
-    <string name="autospace_before_gesture_typing">Leerzeichen vor Wörtern bei Gesten-Eingabe</string>
+    <string name="autospace_before_gesture_typing">Leerzeichen vor Wörtern bei Gesten-Tippen</string>
     <string name="timestamp_format_title">Format der Timestamp-Taste</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="backspace_reverts_autocorrect">Rücktaste macht Autokorrektur rückgängig</string>
     <string name="autospace_after_suggestion">Automatische Leerzeichen nach Auswählen eines Vorschlags</string>
     <string name="prefs_emoji_key_fit">Skaliere den Emoji-Knopf mit der Schriftgröße</string>
+    <string name="backup_restored">Backup wiederhergestellt</string>
+    <string name="use_apps_dict">App-Namen nachschlagen</string>
+    <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
+    <string name="prefs_emoji_skin_tone">Standard-Emoji-Hautton</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
 </resources>

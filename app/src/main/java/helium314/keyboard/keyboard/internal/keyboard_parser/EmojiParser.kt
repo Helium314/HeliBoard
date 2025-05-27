@@ -11,8 +11,12 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.splitOnWhitespace
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
+import helium314.keyboard.latin.utils.prefs
+import java.util.Collections
 import kotlin.math.sqrt
 
 class EmojiParser(private val params: KeyboardParams, private val context: Context) {
@@ -38,6 +42,20 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
             )
         } else {
             context.assets.open("emoji/$emojiFileName").reader().use { it.readLines() }
+        }
+        val defaultSkinTone = context.prefs().getString(Settings.PREF_EMOJI_SKIN_TONE, Defaults.PREF_EMOJI_SKIN_TONE)!!
+        if (params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY2 && defaultSkinTone != "") {
+            // adjust PEOPLE_AND_BODY if we have a non-yellow default skin tone
+            val modifiedLines = emojiLines.map {
+                val split = it.splitOnWhitespace().toMutableList()
+                // find the line containing the skin tone, and swap with first
+                val foundIndex = split.indexOfFirst { it.contains(defaultSkinTone) }
+                if (foundIndex > 0) {
+                    Collections.swap(split, 0, foundIndex)
+                }
+                split.joinToString(" ")
+            }
+            return parseLines(modifiedLines)
         }
         return parseLines(emojiLines)
     }
@@ -78,13 +96,13 @@ class EmojiParser(private val params: KeyboardParams, private val context: Conte
     private fun parseEmojiKeyNew(line: String): KeyParams? {
         if (!line.contains(" ") || params.mId.mElementId == KeyboardId.ELEMENT_EMOJI_CATEGORY10) {
             // single emoji without popups, or emoticons (there is one that contains space...)
-            return if (!SupportedEmojis.isSupported(line)) null
+            return if (SupportedEmojis.isUnsupported(line)) null
             else KeyParams(line, line.getCode(), null, null, Key.LABEL_FLAGS_FONT_NORMAL, params)
         }
         val split = line.split(" ")
         val label = split.first()
-        if (!SupportedEmojis.isSupported(label)) return null
-        val popupKeysSpec = split.drop(1).filter { SupportedEmojis.isSupported(it) }
+        if (SupportedEmojis.isUnsupported(label)) return null
+        val popupKeysSpec = split.drop(1).filterNot { SupportedEmojis.isUnsupported(it) }
             .takeIf { it.isNotEmpty() }?.joinToString(",")
         return KeyParams(
             label,
