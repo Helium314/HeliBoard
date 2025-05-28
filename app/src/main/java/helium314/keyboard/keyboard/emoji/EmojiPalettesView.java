@@ -42,6 +42,7 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
 
@@ -213,7 +214,7 @@ public final class EmojiPalettesView extends LinearLayout
         // The main keyboard expands to the entire this {@link KeyboardView}.
         final int width = ResourceUtils.getKeyboardWidth(getContext(), Settings.getValues())
                 + getPaddingLeft() + getPaddingRight();
-        final int height = ResourceUtils.getEffectiveKeyboardHeight(res, Settings.getValues())
+        final int height = ResourceUtils.getSecondaryKeyboardHeight(res, Settings.getValues())
                 + getPaddingTop() + getPaddingBottom();
         mEmojiCategoryPageIndicatorView.mWidth = width;
         setMeasuredDimension(width, height);
@@ -237,8 +238,10 @@ public final class EmojiPalettesView extends LinearLayout
         if (initialized) return;
         mEmojiCategory.initialize();
         mTabStrip = (LinearLayout) KeyboardSwitcher.getInstance().getEmojiTabStrip();
-        for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
-            addTab(mTabStrip, properties.mCategoryId);
+        if (isToolbarVisible()) {
+            for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
+                addTab(mTabStrip, properties.mCategoryId);
+            }
         }
 
         mPager = findViewById(R.id.emoji_pager);
@@ -398,13 +401,15 @@ public final class EmojiPalettesView extends LinearLayout
                                 mEmojiCategory.getCurrentCategoryId()), ! initial);
             }
 
-            final View old = mTabStrip.findViewWithTag((long) oldCategoryId);
-            final View current = mTabStrip.findViewWithTag((long) categoryId);
+            if (isToolbarVisible()) {
+                final View old = mTabStrip.findViewWithTag((long) oldCategoryId);
+                final View current = mTabStrip.findViewWithTag((long) categoryId);
 
-            if (old instanceof ImageView)
-                Settings.getValues().mColors.setColor((ImageView) old, ColorType.EMOJI_CATEGORY);
-            if (current instanceof ImageView)
-                Settings.getValues().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
+                if (old instanceof ImageView)
+                    Settings.getValues().mColors.setColor((ImageView) old, ColorType.EMOJI_CATEGORY);
+                if (current instanceof ImageView)
+                    Settings.getValues().mColors.setColor((ImageView) current, ColorType.EMOJI_CATEGORY_SELECTED);
+            }
         }
     }
 
@@ -415,5 +420,9 @@ public final class EmojiPalettesView extends LinearLayout
 
         mEmojiCategory.clearKeyboardCache();
         mPager.getAdapter().notifyDataSetChanged();
+    }
+
+    private static boolean isToolbarVisible() {
+        return Settings.getValues().mToolbarMode != ToolbarMode.HIDDEN || ! Settings.getValues().mToolbarHidingGlobal;
     }
 }

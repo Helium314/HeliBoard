@@ -55,9 +55,9 @@ public final class ResourceUtils {
         return windowBounds.width() - insets.left - insets.right;
     }
 
-    public static int getEffectiveKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
+    public static int getSecondaryKeyboardHeight(final Resources res, final SettingsValues settingsValues) {
         final int keyboardHeight = getKeyboardHeight(res, settingsValues);
-        if (settingsValues.mToolbarMode == ToolbarMode.HIDDEN) {
+        if (settingsValues.mToolbarMode == ToolbarMode.HIDDEN && ! settingsValues.mToolbarHidingGlobal) {
             // Small adjustment to match the height of the main keyboard which has a hidden strip container.
             return keyboardHeight - (int) res.getDimension(R.dimen.config_suggestions_strip_height);
         }

@@ -57,6 +57,7 @@ fun ToolbarScreen(
     val toolbarMode = Settings.readToolbarMode(prefs)
     val items = listOf(
         Settings.PREF_TOOLBAR_MODE,
+        if (toolbarMode == ToolbarMode.HIDDEN) Settings.PREF_TOOLBAR_HIDING_GLOBAL else null,
         if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.TOOLBAR_KEYS))
             Settings.PREF_TOOLBAR_KEYS else null,
         if (toolbarMode in listOf(ToolbarMode.EXPANDABLE, ToolbarMode.SUGGESTION_STRIP))
@@ -87,6 +88,11 @@ fun createToolbarSettings(context: Context) = listOf(
             items,
             Defaults.PREF_TOOLBAR_MODE
         ) {
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+        }
+    },
+    Setting(context, Settings.PREF_TOOLBAR_HIDING_GLOBAL, R.string.toolbar_hiding_global) {
+        SwitchPreference(it, Defaults.PREF_TOOLBAR_HIDING_GLOBAL) {
             KeyboardSwitcher.getInstance().setThemeNeedsReload()
         }
     },
