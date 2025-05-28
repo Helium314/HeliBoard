@@ -37,8 +37,8 @@ import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.MissingDictionaryDialog
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 import helium314.keyboard.latin.utils.SubtypeSettings
-import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
@@ -75,7 +75,7 @@ fun LanguageScreen(
         },
         filteredItems = { term ->
             sortedSubtypes.filter {
-                it.displayName(ctx).replace("(", "")
+                it.displayName().replace("(", "")
                     .splitOnWhitespace().any { it.startsWith(term, true) }
             }
         },
@@ -91,10 +91,10 @@ fun LanguageScreen(
             ) {
                 var showNoDictDialog by remember { mutableStateOf(false) }
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(item.displayName(ctx), style = MaterialTheme.typography.bodyLarge)
+                    Text(item.displayName(), style = MaterialTheme.typography.bodyLarge)
                     val description = if (SubtypeSettings.isAdditionalSubtype(item)) {
                         val secondaryLocales = item.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)?.split(Separators.KV)
-                            ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx) }
+                            ?.joinToString(", ") { it.constructLocale().localizedDisplayName(ctx.resources) }
                         stringResource(R.string.custom_subtype) + (secondaryLocales?.let { "\n$it" } ?: "")
                     } else null
                     if (description != null)
@@ -153,7 +153,7 @@ private fun getSortedSubtypes(context: Context): List<InputMethodSubtype> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) it.languageTag == SubtypeLocaleUtils.NO_LANGUAGE
             else it.locale == SubtypeLocaleUtils.NO_LANGUAGE
         },
-        { it.displayName(context) }
+        { it.displayName() }
     )
     return SubtypeSettings.getAllAvailableSubtypes().sortedWith(subtypeSortComparator)
 }

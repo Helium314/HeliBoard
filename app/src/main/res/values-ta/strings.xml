@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"பிரிக்கப்பட்ட விசைப்பலகையை இயக்கு"</string>
     <string name="language_switch_key_switch_input_method">"பிற உள்ளீட்டு முறைகளுக்கு மாறு"</string>
     <string name="show_language_switch_key">"மொழி மாற்ற விசை"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>மி.வி."</string>
+    <string name="abbreviation_unit_milliseconds">"%sமி.வி."</string>
     <string name="settings_system_default">"அமைப்பின் இயல்புநிலை"</string>
     <string name="use_contacts_dict_summary">"பரிந்துரைகள், திருத்தங்கள் ஆகியவற்றிற்கு தொடர்புகளிலிருந்து பெயர்களை பயன்படுத்து"</string>
     <string name="use_personalized_dicts">"தனிப்பட்ட பரிந்துரைகள்"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"ஸ்பானிஷ் (யூஎஸ்)"</string>
     <string name="subtype_hi_Latn">"ஹிங்கிலிஷ்"</string>
     <string name="subtype_sr_Latn">"செர்பியன் (லத்தீன்)"</string>
-    <string name="subtype_with_layout_en_GB">"ஆங்கிலம் (யூகே) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ஆங்கிலம் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ஸ்பானிஷ் (யூஎஸ்) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ஹிங்கிலிஷ் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"செர்பியன் (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (பாரம்பரியமானது)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (வசதியான)"</string>
-    <string name="subtype_no_language">"மொழியில்லை (அகரவரிசை)"</string>
-    <string name="subtype_no_language_qwerty">"அகரவரிசை (க்வெர்டி)"</string>
-    <string name="subtype_no_language_qwertz">"அகரவரிசை (க்வெர்ட்ச்)"</string>
-    <string name="subtype_no_language_azerty">"அகரவரிசை (எசெர்டி)"</string>
-    <string name="subtype_no_language_dvorak">"அகரவரிசை (ட்வொராக்)"</string>
-    <string name="subtype_no_language_colemak">"அகரவரிசை (கொல்மக்)"</string>
-    <string name="subtype_no_language_pcqwerty">"அகரவரிசை (பிசி)"</string>
+    <string name="subtype_generic_traditional">"%s (பாரம்பரியமானது)"</string>
+    <string name="subtype_generic_compact">"%s (வசதியான)"</string>
+    <string name="subtype_no_language">"மொழியில்லை"</string>
     <string name="subtype_emoji">"எமோஜி"</string>
     <string name="add">"சேர்"</string>
     <string name="remove">"அகற்று"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"கைமுறை விசைப்பலகைக்கான ஈமோஜி"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ஈமோஜி பலகத்தைக் காட்டும் கைமுறை Alt விசை"</string>
     <string name="button_default">"இயல்புநிலை"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> பயன்பாட்டிற்கு வரவேற்கிறோம்\"</string>
+    <string name="setup_welcome_title">%s பயன்பாட்டிற்கு வரவேற்கிறோம்\"</string>
     <string name="setup_welcome_additional_description">"ஸ்வைப் உள்ளீடு மூலம்"</string>
     <string name="setup_start_action">"தொடங்குக"</string>
-    <string name="setup_next_action">"அடுத்த கட்டம்"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை அமைக்கிறது\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸை இயக்கவும்\"</string>
-    <string name="setup_step1_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ஆப்ஸைத் தேர்வு செய்யவும். இதனால், சாதனத்தில் ஆப்ஸை இயக்கலாம்."</string>
-    <string name="setup_step1_finished_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் <xliff:g id="APPLICATION_NAME">%s</xliff:g> ஏற்கனவே இயக்கப்பட்டுள்ளதால் இப்படிமுறை முடிந்தது. அடுத்த படிமுறைக்குச் செல்லவும்!"</string>
+    <string name="setup_steps_title">%s ஆப்ஸை அமைக்கிறது\"</string>
+    <string name="setup_step1_title">%s ஆப்ஸை இயக்கவும்\"</string>
+    <string name="setup_step1_instruction">"மொழி &amp; உள்ளீட்டு அமைப்புகளில் \"%s\" ஆப்ஸைத் தேர்வு செய்யவும். இதனால், சாதனத்தில் ஆப்ஸை இயக்கலாம்."</string>
     <string name="setup_step1_action">"அமைப்புகளில் இயக்கு"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> க்கு மாறவும்\"</string>
-    <string name="setup_step2_instruction">"அடுத்து, உங்கள் செயலில் உள்ள உரை உள்ளீட்டு முறையாக \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" பயன்பாட்டைத் தேர்ந்தெடுக்கவும்."</string>
+    <string name="setup_step2_title">%s க்கு மாறவும்\"</string>
+    <string name="setup_step2_instruction">"அடுத்து, உங்கள் செயலில் உள்ள உரை உள்ளீட்டு முறையாக \"%s\" பயன்பாட்டைத் தேர்ந்தெடுக்கவும்."</string>
     <string name="setup_step2_action">"உள்ளீட்டு முறைகளை மாற்றவும்"</string>
     <string name="setup_step3_title">"வாழ்த்துகள், தயாராகிவிட்டீர்கள்!"</string>
-    <string name="setup_step3_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ஆப்ஸ் மூலம் உங்களுக்கு விருப்பமான எல்லா ஆப்ஸ்களிலும் நீங்கள் உள்ளிடலாம்."</string>
+    <string name="setup_step3_instruction">"%s ஆப்ஸ் மூலம் உங்களுக்கு விருப்பமான எல்லா ஆப்ஸ்களிலும் நீங்கள் உள்ளிடலாம்."</string>
     <string name="setup_finish_action">"முடிந்தது"</string>
     <string name="show_setup_wizard_icon">"ஆப்ஸ் ஐகானைக் காட்டு"</string>
     <string name="show_setup_wizard_icon_summary">"துவக்கியில் ஆப்ஸ் ஐகானைக் காட்டும்"</string>
-    <string name="dictionary_settings_title">"துணை அகராதிகள்"</string>
+    <string name="dictionary_category_title">"துணை அகராதிகள்"</string>
     <string name="dictionary_available">"அகராதி கிடைக்கிறது"</string>
-    <string name="no_dictionaries_available">"அகராதிகள் எதுவும் இல்லை"</string>
     <string name="last_update">"இறுதியாகப் புதுப்பித்தது"</string>
     <string name="settings">"அமைப்பு"</string>
     <string name="delete">"நீக்கு"</string>
-    <string name="version_text">"<xliff:g id="VERSION_NUMBER">%1$s</xliff:g> பதிப்பு"</string>
-    <string name="user_dict_settings_add_menu_title">"சேர்"</string>
+    <string name="version_text">"%1$s பதிப்பு"</string>
     <string name="user_dict_settings_add_dialog_title">"அகராதியில் சேர்"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ஷார்ட்கட்:"</string>
     <string name="user_dict_settings_add_locale_option_name">"மொழி:"</string>
     <string name="user_dict_settings_add_word_hint">"வார்த்தையை உள்ளிடவும்"</string>
     <string name="user_dict_settings_add_shortcut_hint">"விருப்பத்திற்குரிய ஷார்ட்கட்"</string>
     <string name="user_dict_settings_edit_dialog_title">"வார்த்தையைத் திருத்து"</string>
-    <string name="user_dict_settings_empty_text">"பயனர் அகராதியில் எந்தச் சொற்களும் இல்லை. சொல்லைச் சேர்க்க, சேர் (+) எனும் பொத்தானைத் தட்டவும்."</string>
     <string name="user_dict_settings_all_languages">"எல்லா மொழிகளுக்கும்"</string>
     <string name="user_dict_settings_more_languages">"மேலும் மொழிகள்…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

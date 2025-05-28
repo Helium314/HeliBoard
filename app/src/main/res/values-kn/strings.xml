@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"ಬೇರ್ಪಡೆ ಕೀಬೋರ್ಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"</string>
     <string name="language_switch_key_switch_input_method">"ಇತರೆ ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳಿಗೆ ಬದಲಾಯಿಸು"</string>
     <string name="show_language_switch_key">"ಭಾಷೆ ಬದಲಾವಣೆ ಕೀ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ಮಿ.ಸೆ."</string>
+    <string name="abbreviation_unit_milliseconds">"%sಮಿ.ಸೆ."</string>
     <string name="settings_system_default">"ಸಿಸ್ಟಂ ಡಿಫಾಲ್ಟ್"</string>
     <string name="use_contacts_dict_summary">"ಸಲಹೆಗಳು ಮತ್ತು ತಿದ್ದುಪಡಿಗಳಿಗಾಗಿ ಸಂಪರ್ಕಗಳಲ್ಲಿನ ಹೆಸರುಗಳನ್ನು ಬಳಸಿ"</string>
     <string name="use_personalized_dicts">"ವೈಯುಕ್ತೀಕರಿಸಿದ ಸಲಹೆಗಳು"</string>
@@ -49,21 +49,10 @@
     <string name="subtype_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US)"</string>
     <string name="subtype_hi_Latn">"ಹಿಂಗ್ಲಿಷ್"</string>
     <string name="subtype_sr_Latn">"ಸರ್ಬಿಯನ್ (ಲ್ಯಾಟಿನ್)"</string>
-    <string name="subtype_with_layout_en_GB">"ಇಂಗ್ಲಿಷ್ (ಯುಕೆ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ಇಂಗ್ಲಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ಸ್ಪ್ಯಾನಿಷ್ (US) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ಹಿಂಗ್ಲಿಷ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_extended">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ವಿಸ್ತರಿಸಲಾಗಿದೆ)"</string>
-    <string name="subtype_with_layout_sr_Latn">"ಸರ್ಬಿಯನ್ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
-    <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ (ವರ್ಣಮಾಲೆ)"</string>
-    <string name="subtype_no_language_qwerty">"ವರ್ಣಮಾಲೆ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ವರ್ಣಮಾಲೆ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ವರ್ಣಮಾಲೆ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ವರ್ಣಮಾಲೆ (ಡ್ವೊರಕ್)"</string>
-    <string name="subtype_no_language_colemak">"ವರ್ಣಮಾಲೆ (ಕೋಲ್‌ಮ್ಯಾಕ್)"</string>
-    <string name="subtype_no_language_pcqwerty">"ವರ್ಣಮಾಲೆ (PC)"</string>
+    <string name="subtype_generic_extended">"%s (ವಿಸ್ತರಿಸಲಾಗಿದೆ)"</string>
+    <string name="subtype_generic_traditional">"%s (ಸಾಂಪ್ರದಾಯಿಕ)"</string>
+    <string name="subtype_generic_compact">"%s (ಕಾಂಪ್ಯಾಕ್ಟ್‌‌)"</string>
+    <string name="subtype_no_language">"ಯಾವುದೇ ಭಾಷೆಯಿಲ್ಲ"</string>
     <string name="subtype_emoji">"ಎಮೋಜಿ"</string>
     <string name="add">"ಸೇರಿಸು"</string>
     <string name="remove">"ತೆಗೆದುಹಾಕಿ"</string>
@@ -76,38 +65,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"ಭೌತಿಕ ಕೀಬೋರ್ಡ್‌ಗೆ ಎಮೋಜಿ"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ಭೌತಿಕ Alt ಕೀ ಎಮೋಜಿ ಪ್ಯಾಲೆಟ್ ತೋರಿಸುತ್ತದೆ"</string>
     <string name="button_default">"ಡಿಫಾಲ್ಟ್"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಸುಸ್ವಾಗತ\"</string>
+    <string name="setup_welcome_title">%s ಗೆ ಸುಸ್ವಾಗತ\"</string>
     <string name="setup_welcome_additional_description">"ಗೆಶ್ಚರ್ ಟೈಪಿಂಗ್‌ನೊಂದಿಗೆ"</string>
     <string name="setup_start_action">"ಪ್ರಾರಂಭ"</string>
-    <string name="setup_next_action">"ಮುಂದಿನ ಹಂತ"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಸಕ್ರಿಯಗೊಳಿಸಿ\"</string>
-    <string name="setup_step1_instruction">"ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ದಯವಿಟ್ಟು \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಪರಿಶೀಲಿಸಿ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅದನ್ನು ರನ್ ಮಾಡಲು ಅದು ಅನುಮತಿ ನೀಡುತ್ತದೆ."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ಅನ್ನು ಈಗಾಗಲೇ ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ, ಹೀಗಾಗಿ ಈ ಹಂತ ಮುಗಿದಿದೆ. ಮುಂದಿನದಕ್ಕೆ ತೆರಳಿ!"</string>
+    <string name="setup_steps_title">%s ಅನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ\"</string>
+    <string name="setup_step1_title">%s ಸಕ್ರಿಯಗೊಳಿಸಿ\"</string>
+    <string name="setup_step1_instruction">"ನಿಮ್ಮ ಭಾಷೆಗಳು &amp; ಇನ್‌ಪುಟ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ದಯವಿಟ್ಟು \"%s\" ಅನ್ನು ಪರಿಶೀಲಿಸಿ. ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಅದನ್ನು ರನ್ ಮಾಡಲು ಅದು ಅನುಮತಿ ನೀಡುತ್ತದೆ."</string>
     <string name="setup_step1_action">"ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸು"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g> ಗೆ ಬದಲಾಯಿಸಿ\"</string>
-    <string name="setup_step2_instruction">"ಮುಂದೆ, ನಿಮ್ಮ ಸಕ್ರಿಯ ಪಠ್ಯ-ಇನ್‌ಪುಟ್ ವಿಧಾನವಾಗಿ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."</string>
+    <string name="setup_step2_title">%s ಗೆ ಬದಲಾಯಿಸಿ\"</string>
+    <string name="setup_step2_instruction">"ಮುಂದೆ, ನಿಮ್ಮ ಸಕ್ರಿಯ ಪಠ್ಯ-ಇನ್‌ಪುಟ್ ವಿಧಾನವಾಗಿ \"%s\" ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."</string>
     <string name="setup_step2_action">"ಇನ್‌ಪುಟ್ ವಿಧಾನಗಳನ್ನು ಬದಲಾಯಿಸು"</string>
     <string name="setup_step3_title">"ಅಭಿನಂದನೆಗಳು, ನೀವೀಗ ಎಲ್ಲವನ್ನೂ ಹೊಂದಿಸಿರುವಿರಿ!"</string>
-    <string name="setup_step3_instruction">"ಈಗ ನೀವು <xliff:g id="APPLICATION_NAME">%s</xliff:g> ನೊಂದಿಗೆ ನಿಮ್ಮ ಎಲ್ಲ ಮೆಚ್ಚಿನ ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿ ಟೈಪ್ ಮಾಡಬಹುದು."</string>
+    <string name="setup_step3_instruction">"ಈಗ ನೀವು %s ನೊಂದಿಗೆ ನಿಮ್ಮ ಎಲ್ಲ ಮೆಚ್ಚಿನ ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿ ಟೈಪ್ ಮಾಡಬಹುದು."</string>
     <string name="setup_finish_action">"ಮುಕ್ತಾಯಗೊಂಡಿದೆ"</string>
     <string name="show_setup_wizard_icon">"ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ತೋರಿಸು"</string>
     <string name="show_setup_wizard_icon_summary">"ಲಾಂಚರ್‌ನಲ್ಲಿ ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್ ಪ್ರದರ್ಶಿಸು"</string>
-    <string name="dictionary_settings_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
+    <string name="dictionary_category_title">"ಆಡ್-ಆನ್ ನಿಘಂಟುಗಳು"</string>
     <string name="dictionary_available">"ನಿಘಂಟು ಲಭ್ಯವಿದೆ"</string>
-    <string name="no_dictionaries_available">"ನಿಘಂಟುಗಳು ಲಭ್ಯವಿಲ್ಲ"</string>
     <string name="last_update">"ಕೊನೆಯದಾಗಿ ನವೀಕರಿಸಿರುವುದು"</string>
     <string name="settings">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="delete">"ಅಳಿಸಿ"</string>
-    <string name="version_text">"ಆವೃತ್ತಿ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"ಸೇರಿಸು"</string>
+    <string name="version_text">"ಆವೃತ್ತಿ %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"ನಿಘಂಟಿಗೆ ಸೇರಿಸಿ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ಶಾರ್ಟ್‌ಕಟ್:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ಭಾಷೆ:"</string>
     <string name="user_dict_settings_add_word_hint">"ಪದವನ್ನು ಟೈಪ್ ಮಾಡಿ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ಐಚ್ಛಿಕ ಶಾರ್ಟ್‌ಕಟ್"</string>
     <string name="user_dict_settings_edit_dialog_title">"ಪದವನ್ನು ಎಡಿಟ್ ಮಾಡಿ"</string>
-    <string name="user_dict_settings_empty_text">"ಬಳಕೆದಾರರ ನಿಘಂಟಿನಲ್ಲಿ ನೀವು ಯಾವುದೇ ಪದಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಪದವನ್ನು ಸೇರಿಸಲು, ಸೇರಿಸು (+) ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ."</string>
     <string name="user_dict_settings_all_languages">"ಎಲ್ಲ ಭಾಷೆಗಳಿಗೆ"</string>
     <string name="user_dict_settings_more_languages">"ಇನ್ನಷ್ಟು ಭಾಷೆಗಳು…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

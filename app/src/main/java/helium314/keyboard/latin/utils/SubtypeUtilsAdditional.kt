@@ -113,8 +113,6 @@ object SubtypeUtilsAdditional {
         }
 
     private fun getNameResId(locale: Locale, mainLayoutName: String): Int {
-        val nameId = SubtypeLocaleUtils.getSubtypeNameResId(locale, mainLayoutName)
-        if (nameId != SubtypeLocaleUtils.UNKNOWN_KEYBOARD_LAYOUT) return nameId
         SubtypeSettings.getResourceSubtypesForLocale(locale).forEach {
             if (it.mainLayoutName() == mainLayoutName) return it.nameResId
         }
@@ -163,15 +161,17 @@ object SubtypeUtilsAdditional {
         val extraValueItems = mutableListOf<String>()
         if (isAsciiCapable)
             extraValueItems.add(ExtraValue.ASCII_CAPABLE)
-        if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
+/*        if (SubtypeLocaleUtils.isExceptionalLocale(locale)) {
             // this seems to be for shorter names (e.g. English (US) instead English (United States))
             // but is now also used for languages that are not known by Android (at least older versions)
             // todo: actually this should never contain a custom layout name, because it may contain any
             //  characters including , and = which may break extra values
+            // todo: disabled for now, not necessary with the more generic subtype name
+            //  might become necessary again when exposing subtypes to the system
             extraValueItems.add(
                 ExtraValue.UNTRANSLATABLE_STRING_IN_SUBTYPE_NAME + "=" + SubtypeLocaleUtils.getMainLayoutDisplayName(mainLayoutName)
             )
-        }
+        }*/
         if (isEmojiCapable)
             extraValueItems.add(ExtraValue.EMOJI_CAPABLE)
         extraValueItems.add(ExtraValue.IS_ADDITIONAL_SUBTYPE)

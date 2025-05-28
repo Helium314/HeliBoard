@@ -276,7 +276,7 @@
         android:isAsciiCapable="false"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_with_layout_bn_BD"
+        android:label="@string/subtype_akkhor_bn_BD"
         android:subtypeId="0xa2144b0d"
         android:imeSubtypeLocale="bn_BD"
         android:languageTag="bn-BD"
@@ -1263,7 +1263,7 @@
         android:isAsciiCapable="true"
     />
     <subtype android:icon="@drawable/ic_ime_switcher"
-        android:label="@string/subtype_no_language_qwerty"
+        android:label="@string/subtype_no_language"
         android:subtypeId="0xa239ebad"
         android:imeSubtypeLocale="zz"
         android:languageTag="zz"

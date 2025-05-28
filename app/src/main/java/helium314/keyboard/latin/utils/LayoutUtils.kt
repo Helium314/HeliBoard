@@ -17,7 +17,7 @@ object LayoutUtils {
             return context.assets.list(layoutType.folder)?.map { it.substringBefore(".") }.orEmpty()
         if (locale == null)
             return SubtypeSettings.getAllAvailableSubtypes()
-                .mapTo(HashSet()) { it.mainLayoutName()?.substringBefore("+") ?: "qwerty" }
+                .mapTo(HashSet()) { it.mainLayoutNameOrQwerty().substringBefore("+") }
                 .apply { addAll(context.resources.getStringArray(R.array.predefined_layouts)) }
         val layouts = SubtypeSettings.getResourceSubtypesForLocale(locale).mapNotNullTo(mutableSetOf()) { it.mainLayoutName() }
         if (locale.script() == ScriptUtils.SCRIPT_LATIN)

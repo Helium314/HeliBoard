@@ -7,7 +7,6 @@
     <string name="settings_screen_preferences">Imenyafen</string>
     <string name="ime_settings">Iɣewwaren n HeliBoard</string>
     <string name="settings_category_miscellaneous">Wiyyaḍ</string>
-    <string name="user_dict_settings_add_menu_title">Rnu</string>
     <string name="user_dict_settings_add_locale_option_name">Tutlayt :</string>
     <string name="user_dict_settings_edit_dialog_title">Beddel awal-a</string>
     <string name="save">Sekles</string>
@@ -51,13 +50,8 @@
     <string name="label_done_key">Immed</string>
     <string name="layout_number" tools:keep="@string/layout_number">Uṭṭunen</string>
     <string name="subtype_en_GB">Taglizit (Tagelda Yedduklen)</string>
-    <string name="subtype_no_language_azerty" tools:keep="@string/subtype_no_language_azerty">Agemmay alatini (AZERTY)</string>
-    <string name="subtype_no_language_colemak" tools:keep="@string/subtype_no_language_colemak">Agemmay alatini (Colemak)</string>
-    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Agemmay (Workman)</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Agemmay (Bépo)</string>
-    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Agemmay (Colemak Mod-DH)</string>
     <string name="select_input_method">Fren tarrayt n usekcem</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <string name="settings_no_limit">Ulac tilisa</string>
     <string name="edit_personal_dictionary">Amawal udmawan</string>
     <string name="autocorrect">Aseɣti awurman</string>
@@ -65,11 +59,9 @@
     <string name="prefs_show_suggestions">Ssken-d isumar n useɣti</string>
     <string name="day_or_night_night">Iḍ</string>
     <string name="no_dictionary_dont_show_again_button">Ur ttεawad ara ad d-tsekneḍ</string>
-    <string name="no_dictionaries_available">Ulac imawalen yellan</string>
     <string name="settings_screen_correction">Aseɣti n uḍris</string>
     <string name="settings_category_correction">Iseɣtiyen</string>
     <string name="show_language_switch_key">Taqeffalt n ubeddel n tutlayin</string>
-    <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Agemmay alatini (aselkim)</string>
     <string name="bigram_prediction">Assuter i wawal i d-iteddun</string>
     <string name="day_or_night_day">Ass</string>
     <string name="show_setup_wizard_icon">Ssken-d tignit n usnas</string>
@@ -90,8 +82,7 @@
     <string name="secondary_locale">Asekcem agetlan</string>
     <string name="subtype_es_US">Taspenyulit (Iwunak Yeddukklen)</string>
     <string name="subtype_en_US">Taglizit (Iwunak Yeddukklen)</string>
-    <string name="subtype_no_language">War tutlayt (Agemmay)</string>
-    <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Agemmay alatini (DVORAK)</string>
+    <string name="subtype_no_language">War tutlayt</string>
     <string name="user_dict_settings_add_dialog_title">Rnu ɣer umawal</string>
     <string name="more_colors">Sken ugar n yiniten</string>
     <string name="use_system_language_to_select_input_method_subtypes">Seqdec tutlayin n unagraw</string>
@@ -99,7 +90,6 @@
     <string name="voice" tools:keep="@string/voice">Anekcam n taɣect</string>
     <string name="language_and_layouts_title">Tutlayin akked tneɣrufin</string>
     <string name="more_keys_strip_description">Tiqeffalin nniḍen</string>
-    <string name="subtype_no_language_qwerty">Agemmay alatini (QWERTY)</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Aberkan</string>
     <string name="select_color_key">Aḍris n tqeffalin</string>
     <string name="button_load_custom">Ɛebbi afaylu</string>
@@ -109,7 +99,6 @@
     <string name="select_word" tools:keep="@string/select_word">Fren awal</string>
     <string name="left" tools:keep="@string/left">Zelmaḍ</string>
     <string name="right" tools:keep="@string/right">Yeffus</string>
-    <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Agemmay alatini (QWERTZ)</string>
     <string name="down" tools:keep="@string/down">Adda</string>
     <string name="last_update">Lqem aneggaru</string>
     <string name="load">Sali</string>
@@ -122,5 +111,5 @@
     <string name="settings_screen_toolbar">Afeggag n ifecka</string>
     <string name="theme_name_dark" tools:keep="@string/theme_name_dark">Ubrik</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="dictionary_settings_title">Imawalen nniḍen</string>
+    <string name="dictionary_category_title">Imawalen nniḍen</string>
 </resources>

@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Овозможи поделена тастатура"</string>
     <string name="language_switch_key_switch_input_method">"Префрли на други влезни методи"</string>
     <string name="show_language_switch_key">"Копче за промена на јазик"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">"Стандардно за системот"</string>
     <string name="use_contacts_dict_summary">"Употреби имиња од Контакти за предлози и корекции"</string>
     <string name="use_personalized_dicts">"Персонализирани предлози"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"шпански (САД)"</string>
     <string name="subtype_hi_Latn">"Хинглиш"</string>
     <string name="subtype_sr_Latn">"Српски (латиница)"</string>
-    <string name="subtype_with_layout_en_GB">"англиски (ОК) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"англиски (САД) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"шпански (САД) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"Хинглиш (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Српски (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (традиционален)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Компактна)"</string>
-    <string name="subtype_no_language">"Нема јазик (азбука)"</string>
-    <string name="subtype_no_language_qwerty">"Азбука (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Азбука (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Азбука (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Азбука (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Азбука (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Азбука (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (традиционален)"</string>
+    <string name="subtype_generic_compact">"%s (Компактна)"</string>
+    <string name="subtype_no_language">"Нема јазик"</string>
     <string name="subtype_emoji">"Емотикони"</string>
     <string name="add">"Додај"</string>
     <string name="remove">"Отстрани"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Емотикони за физичка тастатура"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Физичкото копче Alt ја прикажува палетата емотикони"</string>
     <string name="button_default">"Стандардно"</string>
-    <string name="setup_welcome_title">"Добре дојдовте во <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Добре дојдовте во %s"</string>
     <string name="setup_welcome_additional_description">"со Пишување со движење"</string>
     <string name="setup_start_action">"Започнете"</string>
-    <string name="setup_next_action">"Следен чекор"</string>
-    <string name="setup_steps_title">"Се поставува <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Овозможи <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">Означете ја апликацијата <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ во поставките за Јазици и внесување. Со тоа ќе авторизирате да се активира на уредот.\"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> веќе е овозможена во поставките за Jазици и внесување, така што завршивте со овој чекор. Одете на следниот."</string>
+    <string name="setup_steps_title">"Се поставува %s"</string>
+    <string name="setup_step1_title">"Овозможи %s"</string>
+    <string name="setup_step1_instruction">Означете ја апликацијата %s“ во поставките за Јазици и внесување. Со тоа ќе авторизирате да се активира на уредот.\"</string>
     <string name="setup_step1_action">"Овозможи во Поставки"</string>
-    <string name="setup_step2_title">"Префрлете се на <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">Следно, изберете <xliff:g id="APPLICATION_NAME">%s</xliff:g>“ како активен метод за внесување текст.\"</string>
+    <string name="setup_step2_title">"Префрлете се на %s"</string>
+    <string name="setup_step2_instruction">Следно, изберете %s“ како активен метод за внесување текст.\"</string>
     <string name="setup_step2_action">"Префрли се помеѓу методи на влез"</string>
     <string name="setup_step3_title">"Честитки, завршивте!"</string>
-    <string name="setup_step3_instruction">"Сега може да ги впишете сите омилени апликации со <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Сега може да ги впишете сите омилени апликации со %s."</string>
     <string name="setup_finish_action">"Завршено"</string>
     <string name="show_setup_wizard_icon">"Покажи икона на апликација"</string>
     <string name="show_setup_wizard_icon_summary">"Прикажи икона на апликација во стартувачот"</string>
-    <string name="dictionary_settings_title">"Додатоци за речници"</string>
+    <string name="dictionary_category_title">"Додатоци за речници"</string>
     <string name="dictionary_available">"Речникот е достапен"</string>
-    <string name="no_dictionaries_available">"Нема достапен речник"</string>
     <string name="last_update">"Последен пат ажурирано"</string>
     <string name="settings">"Поставки"</string>
     <string name="delete">"Избриши"</string>
-    <string name="version_text">"Верзија <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Додај"</string>
+    <string name="version_text">"Верзија %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Додај во речник"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Кратенка:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Јазик:"</string>
     <string name="user_dict_settings_add_word_hint">"Внесете збор"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Изборна кратенка"</string>
     <string name="user_dict_settings_edit_dialog_title">"Измени збор"</string>
-    <string name="user_dict_settings_empty_text">"Немате зборови во корисничкиот речник. За да додадете збор, допрете го копчето Додај (+)."</string>
     <string name="user_dict_settings_all_languages">"За сите јазици"</string>
     <string name="user_dict_settings_more_languages">"Повеќе јазици…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

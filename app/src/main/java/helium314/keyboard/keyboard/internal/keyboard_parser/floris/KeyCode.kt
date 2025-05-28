@@ -24,15 +24,15 @@ object KeyCode {
     const val UNSPECIFIED =                    0
 
     const val CTRL =                          -1
-    const val CTRL_LOCK =                     -2
+    //const val CTRL_LOCK =                     -2
     const val ALT =                           -3
-    const val ALT_LOCK =                      -4
+    //const val ALT_LOCK =                      -4
     const val FN =                            -5
-    const val FN_LOCK =                       -6
+    //const val FN_LOCK =                       -6
     const val DELETE =                        -7
-    const val DELETE_WORD =                   -8
-    const val FORWARD_DELETE =                -9
-    const val FORWARD_DELETE_WORD =          -10
+    //const val DELETE_WORD =                   -8
+    //const val FORWARD_DELETE =                -9
+    //const val FORWARD_DELETE_WORD =          -10
     const val SHIFT =                        -11
     const val CAPS_LOCK =                    -13
 
@@ -51,21 +51,21 @@ object KeyCode {
     const val CLIPBOARD_SELECT_WORD =        -34 // CLIPBOARD_SELECT
     const val CLIPBOARD_SELECT_ALL =         -35
     const val CLIPBOARD_CLEAR_HISTORY =      -36
-    const val CLIPBOARD_CLEAR_FULL_HISTORY = -37
-    const val CLIPBOARD_CLEAR_PRIMARY_CLIP = -38
+    //const val CLIPBOARD_CLEAR_FULL_HISTORY = -37
+    //const val CLIPBOARD_CLEAR_PRIMARY_CLIP = -38
 
-    const val COMPACT_LAYOUT_TO_LEFT =      -111
-    const val COMPACT_LAYOUT_TO_RIGHT =     -112
+    //const val COMPACT_LAYOUT_TO_LEFT =      -111
+    //const val COMPACT_LAYOUT_TO_RIGHT =     -112
     const val SPLIT_LAYOUT =                -113
-    const val MERGE_LAYOUT =                -114
+    //const val MERGE_LAYOUT =                -114
 
     const val UNDO =                        -131
     const val REDO =                        -132
 
     const val ALPHA =                       -201 // VIEW_CHARACTERS
     const val SYMBOL =                      -202 // VIEW_SYMBOLS
-    const val VIEW_SYMBOLS2 =               -203
-    const val VIEW_NUMERIC =                -204
+    //const val VIEW_SYMBOLS2 =               -203
+    //const val VIEW_NUMERIC =                -204
     const val NUMPAD =                      -205 // VIEW_NUMERIC_ADVANCED
     const val VIEW_PHONE =                  -206
     const val VIEW_PHONE2 =                 -207
@@ -74,21 +74,21 @@ object KeyCode {
     const val EMOJI =                       -212 // IME_UI_MODE_MEDIA
     const val CLIPBOARD =                   -213 // IME_UI_MODE_CLIPBOARD
 
-    const val SYSTEM_INPUT_METHOD_PICKER =  -221
-    const val SYSTEM_PREV_INPUT_METHOD =    -222
-    const val SYSTEM_NEXT_INPUT_METHOD =    -223
-    const val IME_SUBTYPE_PICKER =          -224
-    const val IME_PREV_SUBTYPE =            -225
-    const val IME_NEXT_SUBTYPE =            -226
+    //const val SYSTEM_INPUT_METHOD_PICKER =  -221
+    //const val SYSTEM_PREV_INPUT_METHOD =    -222
+    //const val SYSTEM_NEXT_INPUT_METHOD =    -223
+    //const val IME_SUBTYPE_PICKER =          -224
+    //const val IME_PREV_SUBTYPE =            -225
+    //const val IME_NEXT_SUBTYPE =            -226
     const val LANGUAGE_SWITCH =             -227
 
-    const val IME_SHOW_UI =                 -231
-    const val IME_HIDE_UI =                 -232
+    //const val IME_SHOW_UI =                 -231
+    //const val IME_HIDE_UI =                 -232
     const val VOICE_INPUT =                 -233
 
-    const val TOGGLE_SMARTBAR_VISIBILITY =  -241
-    const val TOGGLE_ACTIONS_OVERFLOW =     -242
-    const val TOGGLE_ACTIONS_EDITOR =       -243
+    //const val TOGGLE_SMARTBAR_VISIBILITY =  -241
+    //const val TOGGLE_ACTIONS_OVERFLOW =     -242
+    //const val TOGGLE_ACTIONS_EDITOR =       -243
     const val TOGGLE_INCOGNITO_MODE =       -244
     const val TOGGLE_AUTOCORRECT =          -245
 
@@ -104,18 +104,18 @@ object KeyCode {
     const val CURRENCY_SLOT_6 =             -806
 
     const val MULTIPLE_CODE_POINTS =        -902
-    const val DRAG_MARKER =                 -991
-    const val NOOP =                        -999
+    //const val DRAG_MARKER =                 -991
+    //const val NOOP =                        -999
 
-    const val CHAR_WIDTH_SWITCHER =        -9701
-    const val CHAR_WIDTH_FULL =            -9702
-    const val CHAR_WIDTH_HALF =            -9703
+    //const val CHAR_WIDTH_SWITCHER =        -9701
+    //const val CHAR_WIDTH_FULL =            -9702
+    //const val CHAR_WIDTH_HALF =            -9703
 
-    const val KANA_SMALL =                 12307
-    const val KANA_SWITCHER =              -9710
-    const val KANA_HIRA =                  -9711
-    const val KANA_KATA =                  -9712
-    const val KANA_HALF_KATA =             -9713
+    //const val KANA_SMALL =                 12307
+    //const val KANA_SWITCHER =              -9710
+    //const val KANA_HIRA =                  -9711
+    //const val KANA_KATA =                  -9712
+    //const val KANA_HALF_KATA =             -9713
 
     const val KESHIDA =                     1600
     const val ZWNJ =                        8204 // 0x200C, named HALF_SPACE in FlorisBoard
@@ -137,7 +137,7 @@ object KeyCode {
     const val PAGE_UP =                   -10010
     const val PAGE_DOWN =                 -10011
     const val META =                      -10012
-    const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
+    //const val META_LOCK =                 -10013 // to be consistent with the CTRL/ALT/FN LOCK codes, not sure whether this will be used
     const val TAB =                       -10014
     const val WORD_LEFT =                 -10015
     const val WORD_RIGHT =                -10016
@@ -165,8 +165,8 @@ object KeyCode {
     const val F11 =                       -10038
     const val F12 =                       -10039
     const val BACK =                      -10040
-    const val SELECT_LEFT =               -10041
-    const val SELECT_RIGHT =              -10042
+    //const val SELECT_LEFT =               -10041
+    //const val SELECT_RIGHT =              -10042
     const val TIMESTAMP =                 -10043
     const val CTRL_LEFT =                 -10044
     const val CTRL_RIGHT =                -10045

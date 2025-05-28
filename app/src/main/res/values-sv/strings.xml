@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"Aktivera delat tangentbord"</string>
     <string name="language_switch_key_switch_input_method">Byt till andra inmatningssätt</string>
     <string name="show_language_switch_key">Språkbytestangent</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
+    <string name="abbreviation_unit_milliseconds">%sms</string>
     <string name="settings_system_default">"Standardinställning"</string>
     <string name="use_contacts_dict_summary">"Använd namn från Kontakter för förslag och korrigeringar"</string>
     <string name="use_personalized_dicts">"Anpassade förslag"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">Spanska (USA)</string>
     <string name="subtype_hi_Latn">Hingelska</string>
     <string name="subtype_sr_Latn">"Serbiska (latinsk)"</string>
-    <string name="subtype_with_layout_en_GB">Engelska (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Engelska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanska (USA) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Hingelska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Serbiska (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (traditionell)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (kompakt)</string>
-    <string name="subtype_no_language">"Inget språk (alfabet)"</string>
-    <string name="subtype_no_language_qwerty">"Alfabet (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabet (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabet (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabet (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabet (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">Alfabet (pc)</string>
+    <string name="subtype_generic_traditional">%s (traditionell)</string>
+    <string name="subtype_generic_compact">%s (kompakt)</string>
+    <string name="subtype_no_language">"Inget språk"</string>
     <string name="subtype_emoji">Emoji</string>
     <string name="add">"Lägg till"</string>
     <string name="remove">"Ta bort"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji för fysiskt tangentbord"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Den fysiska Alt-tangenten visar emoji-paletten"</string>
     <string name="button_default">"Standard"</string>
-    <string name="setup_welcome_title">Välkommen till <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Välkommen till %s</string>
     <string name="setup_welcome_additional_description">"med svepskrivning"</string>
     <string name="setup_start_action">"Kom igång"</string>
-    <string name="setup_next_action">"Nästa steg"</string>
-    <string name="setup_steps_title">Konfigurerar <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Aktivera <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Markera \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" i dina Språk &amp; inmatning-inställningar. Detta kommer att tillåta att den körs på din enhet.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> är redan aktiverad i dina Språk &amp; inmatning-inställningar, så detta steg är färdigt. Vidare till nästa!</string>
+    <string name="setup_steps_title">Konfigurerar %s</string>
+    <string name="setup_step1_title">Aktivera %s</string>
+    <string name="setup_step1_instruction">Markera \"%s\" i dina Språk &amp; inmatning-inställningar. Detta kommer att tillåta att den körs på din enhet.</string>
     <string name="setup_step1_action">Aktivera i Inställningar</string>
-    <string name="setup_step2_title">Byt till <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Välj sedan \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" som din aktiva textinmatningsmetod.</string>
+    <string name="setup_step2_title">Byt till %s</string>
+    <string name="setup_step2_instruction">Välj sedan \"%s\" som din aktiva textinmatningsmetod.</string>
     <string name="setup_step2_action">"Byt inmatningsmetod"</string>
     <string name="setup_step3_title">Grattis, nu är allt klart!</string>
-    <string name="setup_step3_instruction">Nu kan du skriva i alla dina favoritappar med <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Nu kan du skriva i alla dina favoritappar med %s.</string>
     <string name="setup_finish_action">Slutförd</string>
     <string name="show_setup_wizard_icon">"Visa appikon"</string>
     <string name="show_setup_wizard_icon_summary">"Visa appikonen i startprogrammet"</string>
-    <string name="dictionary_settings_title">"Tilläggsordlistor"</string>
+    <string name="dictionary_category_title">"Tilläggsordlistor"</string>
     <string name="dictionary_available">Ordlista tillgänglig</string>
-    <string name="no_dictionaries_available">Inga ordlistor tillgängliga</string>
     <string name="last_update">"Informationen uppdaterades senast"</string>
     <string name="settings">"Inställningar"</string>
     <string name="delete">"Ta bort"</string>
-    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Lägg till"</string>
+    <string name="version_text">Version %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Lägg till i ordlista"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Genväg:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Språk:"</string>
     <string name="user_dict_settings_add_word_hint">"Skriv ett ord"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Valfri genväg"</string>
     <string name="user_dict_settings_edit_dialog_title">"Redigera ord"</string>
-    <string name="user_dict_settings_empty_text">"Du har inga ord i din egen ordlista. Tryck på knappen Lägg till (+) om du vill lägga till ett ord."</string>
     <string name="user_dict_settings_all_languages">"För alla språk"</string>
     <string name="user_dict_settings_more_languages">"Fler språk …"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -114,7 +98,7 @@
     <string name="settings_category_suggestions">Förslag</string>
     <string name="settings_category_experimental">Experimentella</string>
     <string name="settings_category_miscellaneous">Diverse</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <string name="settings_no_limit">Ingen gräns</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Långtryckning på mellanslagstangenten öppnar menyn för val av inmatningsmetod</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Ändra inmatningsmetod med mellanslagstangenten</string>
@@ -140,9 +124,7 @@
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
     <string name="more_keys_strip_description">Fler tangenter</string>
     <string name="prefs_keyboard_height_scale">Skala för tangentbordets höjd</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (akkhor)</string>
-    <string name="subtype_no_language_colemak_dh">Alfabet (Colemak Mod-DH)</string>
-    <string name="subtype_no_language_workman">Alfabet (Workman)</string>
+    <string name="subtype_akkhor_bn_BD">%s (akkhor)</string>
     <string name="key_borders">Kantlinjer runt tangenter</string>
     <string name="day_night_mode">Automatiskt dag-/nattläge</string>
     <string name="day_night_mode_summary">Utseendet kommer att följa systeminställningarna</string>

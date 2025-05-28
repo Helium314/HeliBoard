@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"เปิดใช้แป้นพิมพ์แยก"</string>
     <string name="language_switch_key_switch_input_method">"ใช้วิธีการป้อนข้อมูลอื่น"</string>
     <string name="show_language_switch_key">"แป้นสลับภาษา"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> มิลลิวิ"</string>
+    <string name="abbreviation_unit_milliseconds">"%s มิลลิวิ"</string>
     <string name="settings_system_default">"ค่าเริ่มต้นของระบบ"</string>
     <string name="use_contacts_dict_summary">"ใช้ชื่อจากรายชื่อติดต่อสำหรับคำแนะนำและการแก้ไข"</string>
     <string name="use_personalized_dicts">"คำแนะนำในแบบของคุณ"</string>
@@ -50,20 +50,9 @@
     <string name="subtype_es_US">"สเปน (สหรัฐอเมริกา)"</string>
     <string name="subtype_hi_Latn">"ภาษาอังกฤษผสมกับฮินดู"</string>
     <string name="subtype_sr_Latn">"เซอร์เบีย (ละติน)"</string>
-    <string name="subtype_with_layout_en_GB">"อังกฤษ (สหราชอาณาจักร) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"อังกฤษ (สหรัฐอเมริกา) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"สเปน (สหรัฐอเมริกา) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ภาษาอังกฤษผสมกับฮินดู (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"เซอร์เบีย (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ดั้งเดิม)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (แบบกะทัดรัด)"</string>
-    <string name="subtype_no_language">"ไม่มีภาษา (ตัวอักษรละติน)"</string>
-    <string name="subtype_no_language_qwerty">"ตัวอักษร (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ตัวอักษร (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ตัวอักษร (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ตัวอักษร (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ตัวอักษร (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ตัวอักษร (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (ดั้งเดิม)"</string>
+    <string name="subtype_generic_compact">"%s (แบบกะทัดรัด)"</string>
+    <string name="subtype_no_language">"ไม่มีภาษา"</string>
     <string name="subtype_emoji">"อีโมจิ"</string>
     <string name="add">"เพิ่ม"</string>
     <string name="remove">"ลบ"</string>
@@ -76,38 +65,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"อีโมจิสำหรับแป้นพิมพ์บนเครื่อง"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"แป้น Alt บนเครื่องแสดงชุดอีโมจิ"</string>
     <string name="button_default">"ค่าเริ่มต้น"</string>
-    <string name="setup_welcome_title">"ยินดีต้อนรับสู่ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"ยินดีต้อนรับสู่ %s"</string>
     <string name="setup_welcome_additional_description">"พร้อมการป้อนข้อมูลด้วยท่าทาง"</string>
     <string name="setup_start_action">"เริ่มต้นใช้งาน"</string>
-    <string name="setup_next_action">"ขั้นตอนถัดไป"</string>
-    <string name="setup_steps_title">"การตั้งค่า <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"เปิดใช้งาน <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"โปรดตรวจสอบ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ในการตั้งค่าภาษาและการป้อนข้อมูลของคุณ ซึ่งจะอนุญาตให้แอปทำงานบนอุปกรณ์ของคุณ"</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> เปิดใช้ในการตั้งค่าภาษาและการป้อนข้อมูลของคุณอยู่แล้ว ขั้นตอนนี้จึงเสร็จสิ้นแล้ว ไปยังขั้นตอนถัดไปเลย!"</string>
+    <string name="setup_steps_title">"การตั้งค่า %s"</string>
+    <string name="setup_step1_title">"เปิดใช้งาน %s"</string>
+    <string name="setup_step1_instruction">"โปรดตรวจสอบ \"%s\" ในการตั้งค่าภาษาและการป้อนข้อมูลของคุณ ซึ่งจะอนุญาตให้แอปทำงานบนอุปกรณ์ของคุณ"</string>
     <string name="setup_step1_action">"เปิดใช้งานในการตั้งค่า"</string>
-    <string name="setup_step2_title">"สลับไปใช้ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"ถัดไป เลือก \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" เป็นวิธีการป้อนข้อความที่ใช้งานของคุณ"</string>
+    <string name="setup_step2_title">"สลับไปใช้ %s"</string>
+    <string name="setup_step2_instruction">"ถัดไป เลือก \"%s\" เป็นวิธีการป้อนข้อความที่ใช้งานของคุณ"</string>
     <string name="setup_step2_action">"สลับวิธีการป้อนข้อมูล"</string>
     <string name="setup_step3_title">"ยินดีด้วย คุณพร้อมใช้งานแล้ว!"</string>
-    <string name="setup_step3_instruction">"ตอนนี้คุณสามารถพิมพ์ข้อมูลลงในแอปที่ชื่นชอบทั้งหมดด้วย <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_step3_instruction">"ตอนนี้คุณสามารถพิมพ์ข้อมูลลงในแอปที่ชื่นชอบทั้งหมดด้วย %s"</string>
     <string name="setup_finish_action">"เสร็จสิ้น"</string>
     <string name="show_setup_wizard_icon">"แสดงไอคอนแอป"</string>
     <string name="show_setup_wizard_icon_summary">"แสดงไอคอนแอปพลิเคชันในตัวเรียกใช้งาน"</string>
-    <string name="dictionary_settings_title">"พจนานุกรมส่วนเสริม"</string>
+    <string name="dictionary_category_title">"พจนานุกรมส่วนเสริม"</string>
     <string name="dictionary_available">"มีพจนานุกรมให้ใช้งาน"</string>
-    <string name="no_dictionaries_available">"ไม่มีพจนานุกรม"</string>
     <string name="last_update">"ปรับปรุงแก้ไขครั้งล่าสุด"</string>
     <string name="settings">"การตั้งค่า"</string>
     <string name="delete">"ลบ"</string>
-    <string name="version_text">"เวอร์ชัน <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"เพิ่ม"</string>
+    <string name="version_text">"เวอร์ชัน %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"เพิ่มในพจนานุกรม"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ทางลัด:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ภาษา:"</string>
     <string name="user_dict_settings_add_word_hint">"พิมพ์คำ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ทางลัดที่ไม่บังคับ"</string>
     <string name="user_dict_settings_edit_dialog_title">"แก้ไขคำ"</string>
-    <string name="user_dict_settings_empty_text">"คุณยังไม่มีคำในพจนานุกรมผู้ใช้ หากต้องการเพิ่มคำ ให้แตะปุ่มเพิ่ม (+)"</string>
     <string name="user_dict_settings_all_languages">"สำหรับทุกภาษา"</string>
     <string name="user_dict_settings_more_languages">"ภาษาเพิ่มเติม…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

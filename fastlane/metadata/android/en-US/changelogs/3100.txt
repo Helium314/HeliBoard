@@ -1,0 +1,10 @@
+* optionally suggest names of installed apps
+* swipe to switch emoji categories
+* display toast after restoring backup
+* larger toolbar button and icon
+* make comma accessible in popups when showing TLD popups
+* add setting for default emoji skin tone
+* add keycodes for left and right alt and ctrl keys
+* add key label "timestamp" for more accessible timestamp key
+* understand special key labels for popups in simple layouts
+* minor fixes and improvements

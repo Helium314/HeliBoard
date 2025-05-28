@@ -63,10 +63,10 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional
 import helium314.keyboard.latin.utils.appendLink
-import helium314.keyboard.latin.utils.displayName
 import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.getDictionaryLocales
 import helium314.keyboard.latin.utils.getSecondaryLocales
@@ -141,7 +141,7 @@ fun SubtypeScreen(
             SubtypeSettings.removeEnabledSubtype(ctx, currentSubtype.toAdditionalSubtype())
             onClickBack()
         } },
-        title = { Text(currentSubtype.toAdditionalSubtype().displayName(ctx)) },
+        title = { Text(currentSubtype.toAdditionalSubtype().displayName()) },
         itemContent = { },
         filteredItems = { emptyList<String>() }
     ) {
@@ -158,7 +158,7 @@ fun SubtypeScreen(
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
                         TextButton(onClick = { showSecondaryLocaleDialog = true }) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
-                                it.localizedDisplayName(ctx)
+                                it.localizedDisplayName(ctx.resources)
                             }.ifEmpty { stringResource(R.string.action_none) }
                             Text(text, Modifier.fillMaxWidth())
                         }
@@ -282,7 +282,7 @@ fun SubtypeScreen(
                 items = availableLocalesForScript,
                 initialSelection = currentSubtype.getExtraValueOf(ExtraValue.SECONDARY_LOCALES)
                     ?.split(Separators.KV)?.map { it.constructLocale() }.orEmpty(),
-                getItemName = { it.localizedDisplayName(ctx) }
+                getItemName = { it.localizedDisplayName(ctx.resources) }
             )
         if (showKeyOrderDialog) {
             val setting = currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER)
@@ -393,8 +393,12 @@ private fun MainLayoutRow(
         DropDownField(
             items = appLayouts + customLayouts,
             selectedItem = currentSubtype.mainLayoutName() ?: SubtypeLocaleUtils.QWERTY,
-            onSelected = {
-                setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, it))
+            onSelected = { layout ->
+                // if the locale defaults to qwerty, use it as implicit default to avoid creating unnecessary additional subtypes
+                if (layout == SubtypeLocaleUtils.QWERTY
+                    && SubtypeSettings.getResourceSubtypesForLocale(currentSubtype.locale).any { it.mainLayoutName() == null })
+                    setCurrentSubtype(currentSubtype.withoutLayout(LayoutType.MAIN))
+                else setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, layout))
             },
             extraButton = {
                 IconButton({ showAddLayoutDialog = true })
@@ -407,7 +411,7 @@ private fun MainLayoutRow(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.widthIn(min = 200.dp).fillMaxWidth()
             ) {
-                Text(SubtypeLocaleUtils.getDisplayNameInSystemLocale(it, currentSubtype.locale))
+                Text(SubtypeLocaleUtils.getLayoutDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
                     IconButton({ showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
                     if (it in customLayouts)
