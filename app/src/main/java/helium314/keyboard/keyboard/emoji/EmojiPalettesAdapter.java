@@ -6,8 +6,8 @@
 
 package helium314.keyboard.keyboard.emoji;
 
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.utils.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +25,14 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
     private final int mCategoryId;
     private final OnKeyEventListener mListener;
     private final EmojiCategory mEmojiCategory;
+    private final SingleDictionaryFacilitator mDictionaryFacilitator;
 
-    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener) {
+    public EmojiPalettesAdapter(final EmojiCategory emojiCategory, int categoryId, final OnKeyEventListener listener,
+                                SingleDictionaryFacilitator dictionaryFacilitator) {
         mEmojiCategory = emojiCategory;
         mCategoryId = categoryId;
         mListener = listener;
+        mDictionaryFacilitator = dictionaryFacilitator;
     }
 
     @NonNull
@@ -38,6 +41,8 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final EmojiPageKeyboardView keyboardView = (EmojiPageKeyboardView)inflater.inflate(
                 R.layout.emoji_keyboard_page, parent, false);
+        keyboardView.setOnKeyEventListener(mListener);
+        keyboardView.setDictionaryFacilitator(mDictionaryFacilitator);
         return new ViewHolder(keyboardView);
     }
 
@@ -50,7 +55,6 @@ final class EmojiPalettesAdapter extends RecyclerView.Adapter<EmojiPalettesAdapt
         final Keyboard keyboard =
                 mEmojiCategory.getKeyboardFromAdapterPosition(mCategoryId, position);
         holder.getKeyboardView().setKeyboard(keyboard);
-        holder.getKeyboardView().setOnKeyEventListener(mListener);
     }
 
     @Override

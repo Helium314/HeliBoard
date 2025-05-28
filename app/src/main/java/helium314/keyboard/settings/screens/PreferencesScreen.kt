@@ -112,9 +112,13 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_SOUND_ON, R.string.sound_on_keypress) {
         SwitchPreference(it, Defaults.PREF_SOUND_ON)
     },
-    Setting(context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,
-            R.string.show_emoji_descriptions_summary) {
-        SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS)
+    Setting(
+        context, Settings.PREF_SHOW_EMOJI_DESCRIPTIONS, R.string.show_emoji_descriptions,
+        R.string.show_emoji_descriptions_summary
+    ) {
+        SwitchPreference(it, Defaults.PREF_SHOW_EMOJI_DESCRIPTIONS) {
+            KeyboardSwitcher.getInstance().setThemeNeedsReload()
+        }
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
         R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)

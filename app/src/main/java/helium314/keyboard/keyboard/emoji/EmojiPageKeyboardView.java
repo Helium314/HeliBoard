@@ -91,7 +91,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     // More keys panel (used by popup keys keyboard view)
     // TODO: Consider extending to support multiple popup keys panels
     private PopupKeysPanel mPopupKeysPanel;
-    private final SingleDictionaryFacilitator mDictionaryFacilitator;
+    private SingleDictionaryFacilitator mDictionaryFacilitator;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -117,9 +117,6 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mDescriptionView = mPopupKeysKeyboardContainer.findViewById(R.id.description_view);
         mPopupKeysKeyboardView = mPopupKeysKeyboardContainer.findViewById(R.id.popup_keys_keyboard_view);
         var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
-        var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", context);
-        mDictionaryFacilitator = dictFile != null?
-                        new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null;
         var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                                    ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
@@ -172,6 +169,10 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     public void setOnKeyEventListener(final OnKeyEventListener listener) {
         mListener = listener;
+    }
+
+    void setDictionaryFacilitator(SingleDictionaryFacilitator dictionaryFacilitator) {
+        mDictionaryFacilitator = dictionaryFacilitator;
     }
 
     /**
@@ -336,7 +337,7 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     private PopupKeysPanel showDescription(Key key) {
         mDescriptionView.setVisibility(GONE);
 
-        if (mDictionaryFacilitator == null || ! Settings.getValues().mShowsEmojiDescriptions) {
+        if (mDictionaryFacilitator == null) {
             return null;
         }
 
