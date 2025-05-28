@@ -63,11 +63,11 @@ class EmojiData {
             insertEmoji(group, intArrayOf(CP_REGIONAL_INDICATOR_SYMBOL_LETTER_Z), 2.0f, "regional indicator symbol letter z")
         }
 
+        // Some multi-skin-tone variants use a different base code than their non-multi-skin-tone counterparts,
+        // so they don't get grouped. We drop them here, to prevent each variant from being displayed separately.
         return ! hasMultipleSkinModifiers(emoji.codes)
     }
 
-    // For now Openboard implementation is not robust enough to handle such complicated sequences.
-    // Emoji palettes get polluted with too much emoji variations, so we'll ignore them.
     private fun hasMultipleSkinModifiers(codes: IntArray): Boolean {
         val tones = mutableSetOf<Int>()
         codes.forEach {
@@ -81,8 +81,7 @@ class EmojiData {
     }
 
     private fun onEmojiVariantInserted(group: EmojiGroup, baseSpec: EmojiSpec, emojiSpec: EmojiSpec): Boolean {
-        // Changing this to return true results in multi-skin-tone variants added to some emojis
-        return ! hasMultipleSkinModifiers(emojiSpec.codes)
+        return true
     }
 
     private fun findBaseEmoji(group: EmojiGroup, emoji: EmojiSpec): EmojiSpec? {
