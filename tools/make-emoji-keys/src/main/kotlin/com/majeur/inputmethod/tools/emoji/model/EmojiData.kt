@@ -97,14 +97,9 @@ class EmojiData {
         val baseCodePoints3 = emoji.codes.toMutableList()
                 .apply { set(emoji.codes.indexOf(componentCode), CP_VARIANT_SELECTOR) }.toIntArray()
 
-        val base = emojiGroups[group]?.firstOrNull { it.codes contentEquals  baseCodePoints }
-                ?: emojiGroups[group]?.firstOrNull { it.codes contentEquals baseCodePoints2 }
-                ?: emojiGroups[group]?.firstOrNull { it.codes contentEquals baseCodePoints3 }
-
-        // We keep track the component modifier of this emoji
-        if (base != null) emoji.component = componentCode
-
-        return base
+        return emojiGroups[group]?.firstOrNull { it.codes contentEquals baseCodePoints }
+            ?: emojiGroups[group]?.firstOrNull { it.codes contentEquals baseCodePoints2 }
+            ?: emojiGroups[group]?.firstOrNull { it.codes contentEquals baseCodePoints3 }
     }
 
     private fun withoutComponentCodes(codes: IntArray) : Pair<IntArray, Int> {
