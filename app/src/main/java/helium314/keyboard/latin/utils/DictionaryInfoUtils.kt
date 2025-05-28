@@ -90,18 +90,19 @@ object DictionaryInfoUtils {
     fun getCacheDirectories(context: Context) = File(getWordListCacheDirectory(context)).listFiles().orEmpty()
 
     /** Find out the cache directory associated with a specific locale. */
-    fun getCacheDirectoryForLocale(locale: Locale, context: Context): String {
+    fun getCacheDirectoryForLocale(locale: Locale, context: Context): String? {
         val relativeDirectoryName = replaceFileNameDangerousCharacters(locale.toLanguageTag())
         val absoluteDirectoryName = getWordListCacheDirectory(context) + File.separator + relativeDirectoryName
         val directory = File(absoluteDirectoryName)
         if (!directory.exists() && !directory.mkdirs()) {
             Log.e(TAG, "Could not create the directory for locale $locale")
+            return null
         }
         return absoluteDirectoryName
     }
 
     fun getCachedDictsForLocale(locale: Locale, context: Context) =
-        File(getCacheDirectoryForLocale(locale, context)).listFiles().orEmpty()
+        getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty()
 
     fun getDictionaryFileHeaderOrNull(file: File, offset: Long, length: Long): DictionaryHeader? {
         return try {
@@ -135,12 +136,19 @@ object DictionaryInfoUtils {
         return dictionaryFileName.substringAfter("_").substringBefore(".").constructLocale()
     }
 
-    fun extractAssetsDictionary(dictionaryFileName: String, locale: Locale, context: Context): File {
-        val targetFile = File(getCacheDirectoryForLocale(locale, context), "${dictionaryFileName.substringBefore("_")}.dict")
-        FileUtils.copyStreamToNewFile(
-            context.assets.open(ASSETS_DICTIONARY_FOLDER + File.separator + dictionaryFileName),
-            targetFile
-        )
+    // actually we could extract assets dicts to unprotected storage
+    fun extractAssetsDictionary(dictionaryFileName: String, locale: Locale, context: Context): File? {
+        val cacheDir = getCacheDirectoryForLocale(locale, context) ?: return null
+        val targetFile = File(cacheDir, "${dictionaryFileName.substringBefore("_")}.dict")
+        try {
+            FileUtils.copyStreamToNewFile(
+                context.assets.open(ASSETS_DICTIONARY_FOLDER + File.separator + dictionaryFileName),
+                targetFile
+            )
+        } catch (e: IOException) {
+            Log.e(TAG, "Could not extract assets dictionary $dictionaryFileName")
+            return null
+        }
         return targetFile
     }
 

@@ -716,9 +716,12 @@ private class DictionaryGroup(
     private val scope = CoroutineScope(Dispatchers.IO)
 
     // words cannot be (permanently) removed from some dictionaries, so we use a blacklist for "removing" words
-    private val blacklistFile = context?.let {
-        File(it.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
-            .also { it.parentFile?.mkdirs() }
+    private val blacklistFile = if (context?.filesDir == null) null
+    else {
+        val file = File(context.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
+        if (file.isDirectory) file.delete() // this apparently was an issue in some versions
+        if (file.mkdirs()) file
+        else null
     }
 
     private val blacklist = hashSetOf<String>().apply {
