@@ -116,7 +116,6 @@ public class SettingsValues {
     public final float mBottomPaddingScale;
     public final float mSidePaddingScale;
     public final ToolbarMode mToolbarMode;
-    public final boolean mSecondaryStripVisible;
     public final boolean mToolbarHidingGlobal;
     public final boolean mAutoShowToolbar;
     public final boolean mAutoHideToolbar;
@@ -136,6 +135,7 @@ public class SettingsValues {
 
     // Deduced settings
     public final boolean mSuggestionStripHiddenPerUserSettings;
+    public final boolean mSecondaryStripVisible;
     public final int mKeypressVibrationDuration;
     public final float mKeypressSoundVolume;
     public final boolean mAutoCorrectionEnabledPerUserSettings;
@@ -166,7 +166,6 @@ public class SettingsValues {
 
         // Get the settings preferences
         mToolbarMode = Settings.readToolbarMode(prefs);
-        mSecondaryStripVisible = mToolbarMode != ToolbarMode.HIDDEN || ! Settings.getValues().mToolbarHidingGlobal;
         mToolbarHidingGlobal = prefs.getBoolean(Settings.PREF_TOOLBAR_HIDING_GLOBAL, Defaults.PREF_TOOLBAR_HIDING_GLOBAL);
         mAutoCap = prefs.getBoolean(Settings.PREF_AUTO_CAP, Defaults.PREF_AUTO_CAP) && ScriptUtils.scriptSupportsUppercase(mLocale);
         mVibrateOn = Settings.readVibrationEnabled(prefs);
@@ -240,6 +239,7 @@ public class SettingsValues {
         final boolean suggestionsEnabled = prefs.getBoolean(Settings.PREF_SHOW_SUGGESTIONS, Defaults.PREF_SHOW_SUGGESTIONS);
         mSuggestionsEnabledPerUserSettings = ((mInputAttributes.mShouldShowSuggestions && suggestionsEnabled)
                 || mOverrideShowingSuggestions) && !mSuggestionStripHiddenPerUserSettings;
+        mSecondaryStripVisible = mToolbarMode != ToolbarMode.HIDDEN || ! mToolbarHidingGlobal;
         mIncognitoModeEnabled = prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
         mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, Defaults.PREF_KEYBOARD_HEIGHT_SCALE);
