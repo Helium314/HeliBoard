@@ -46,8 +46,7 @@ public class PopupTextView extends TextView implements PopupKeysPanel {
         mKey = key;
         Settings.getValues().mColors.setBackground(this, ColorType.KEY_PREVIEW_BACKGROUND);
         setTextColor(drawParams.mPreviewTextColor);
-        setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    key.selectPreviewTextSize(drawParams) * Settings.getValues().mFontSizeMultiplierEmoji);
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, key.selectHintTextSize(drawParams) << 1);
         setTypeface(mTypeface == null ? key.selectTypeface(drawParams) : mTypeface);
     }
 
