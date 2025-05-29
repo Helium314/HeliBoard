@@ -6,6 +6,7 @@
 package helium314.keyboard.latin.common
 
 import helium314.keyboard.latin.WordComposer
+import kotlin.random.Random
 
 /** An immutable class that encapsulates a snapshot of word composition data. */
 class ComposedData(
@@ -47,7 +48,7 @@ class ComposedData(
             val codePoints = StringUtils.toCodePointArray(word)
             val coordinates = CoordinateUtils.newCoordinateArray(codePoints.size)
             for (i in codePoints.indices) {
-                CoordinateUtils.setXYInArray(coordinates, i, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE)
+                CoordinateUtils.setXYInArray(coordinates, i, Random.nextBits(2), Random.nextBits(2))
             }
             return WordComposer().apply { setComposingWord(codePoints, coordinates) }.composedDataSnapshot
         }
