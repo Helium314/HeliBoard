@@ -546,8 +546,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     private static int getSecondaryStripVisibility() {
-        return Settings.getValues().mToolbarMode == ToolbarMode.HIDDEN && Settings.getValues().mToolbarHidingGlobal?
-                        View.GONE : View.VISIBLE;
+        return Settings.getValues().mSecondaryStripVisible? View.VISIBLE : View.GONE;
     }
 
     // Displays a toast-like message with the provided text for a specified duration.

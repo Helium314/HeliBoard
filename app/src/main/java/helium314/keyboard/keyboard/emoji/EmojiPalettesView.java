@@ -42,7 +42,6 @@ import helium314.keyboard.latin.common.Colors;
 import helium314.keyboard.latin.settings.Settings;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.utils.ResourceUtils;
-import helium314.keyboard.latin.utils.ToolbarMode;
 
 import static helium314.keyboard.latin.common.Constants.NOT_A_COORDINATE;
 
@@ -238,7 +237,7 @@ public final class EmojiPalettesView extends LinearLayout
         if (initialized) return;
         mEmojiCategory.initialize();
         mTabStrip = (LinearLayout) KeyboardSwitcher.getInstance().getEmojiTabStrip();
-        if (isToolbarVisible()) {
+        if (Settings.getValues().mSecondaryStripVisible) {
             for (final EmojiCategory.CategoryProperties properties : mEmojiCategory.getShownCategories()) {
                 addTab(mTabStrip, properties.mCategoryId);
             }
@@ -401,7 +400,7 @@ public final class EmojiPalettesView extends LinearLayout
                                 mEmojiCategory.getCurrentCategoryId()), ! initial);
             }
 
-            if (isToolbarVisible()) {
+            if (Settings.getValues().mSecondaryStripVisible) {
                 final View old = mTabStrip.findViewWithTag((long) oldCategoryId);
                 final View current = mTabStrip.findViewWithTag((long) categoryId);
 
@@ -420,9 +419,5 @@ public final class EmojiPalettesView extends LinearLayout
 
         mEmojiCategory.clearKeyboardCache();
         mPager.getAdapter().notifyDataSetChanged();
-    }
-
-    private static boolean isToolbarVisible() {
-        return Settings.getValues().mToolbarMode != ToolbarMode.HIDDEN || ! Settings.getValues().mToolbarHidingGlobal;
     }
 }

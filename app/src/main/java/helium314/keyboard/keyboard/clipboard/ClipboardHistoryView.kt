@@ -102,7 +102,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
         val clipboardStrip = KeyboardSwitcher.getInstance().clipboardStrip
-        if (Settings.getValues().mToolbarMode != ToolbarMode.HIDDEN || !Settings.getValues().mToolbarHidingGlobal) {
+        if (Settings.getValues().mSecondaryStripVisible) {
             toolbarKeys.forEach {
                 clipboardStrip.addView(it)
                 it.setOnClickListener(this@ClipboardHistoryView)
