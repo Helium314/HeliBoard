@@ -17,6 +17,7 @@ import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.common.codePointAt
 import helium314.keyboard.latin.common.decapitalize
 import helium314.keyboard.latin.common.splitOnWhitespace
 import helium314.keyboard.latin.permissions.PermissionsUtil
@@ -521,6 +522,12 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     && !dictionary.isInDictionary(word)
                 )
                     continue
+
+                if (word.length == 1 && info.mSourceDict.mDictType == "emoji"
+                    && !StringUtils.mightBeEmoji(word.codePointAt(0))
+                )
+                    continue
+
                 suggestions.add(info)
             }
         }
