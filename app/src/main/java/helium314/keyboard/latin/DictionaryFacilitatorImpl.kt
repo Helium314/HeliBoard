@@ -523,9 +523,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                 )
                     continue
 
-                if (word.length == 1 && info.mSourceDict.mDictType == "emoji"
-                    && !StringUtils.mightBeEmoji(word.codePointAt(0))
-                )
+                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
                     continue
 
                 suggestions.add(info)
