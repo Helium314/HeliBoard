@@ -93,6 +93,13 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </receiver>
 
+        <!-- necessary for sending mail attachments -->
+        <provider android:name="helium314.keyboard.settings.screens.GestureFileProvider"
+            android:authorities="@string/gesture_data_provider_authority"
+            android:enabled="true"
+            android:exported="true"
+            android:grantUriPermissions="true" />
+
     </application>
 
     <queries>

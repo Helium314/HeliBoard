@@ -1,7 +1,11 @@
 package helium314.keyboard.settings.screens
 
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.ParcelFileDescriptor
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.layout.Arrangement
@@ -85,6 +89,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -233,10 +238,18 @@ fun GestureDataScreen(
                     )
                 }
             }
-            TextButton({ getDataPicker.launch(getDataIntent) }, enabled = (dataFile?.length() ?: 0) > 0) { Text(stringResource(R.string.gesture_data_get_data)) }
-            TextButton({ dataFile?.delete() }, enabled = (dataFile?.length() ?: 0) > 0) { Text(stringResource(R.string.gesture_data_delete_data)) }
-            // todo: test whether sending mail with attachment actually works (and if so: zip the data before sending!)
-            TextButton({ ctx.startActivity(sendMailIntent) }, enabled = (dataFile?.length() ?: 0) > 0) { Text(stringResource(R.string.gesture_data_send_mail)) }
+            TextButton({ getDataPicker.launch(getDataIntent) }, enabled = dataFile.length() > 0) { Text(stringResource(R.string.gesture_data_get_data)) }
+            TextButton({ dataFile.delete() }, enabled = dataFile.length() > 0) { Text(stringResource(R.string.gesture_data_delete_data)) }
+            TextButton(
+                onClick = {
+                    createZipFile(ctx)
+                    if (zippedDataPath.isNotEmpty())
+                        ctx.startActivity(sendMailIntent)
+                },
+                enabled = dataFile.length() > 0 && sendMailIntent.resolveActivity(ctx.packageManager) != null
+            ) {
+                Text(stringResource(R.string.gesture_data_send_mail))
+            }
         }
     }
     // showing at top left in preview, but correctly on device
@@ -321,17 +334,35 @@ private fun BinaryDictionary.getWords(): List<String> {
 const val dictTestImeOption = "useTestDictionaryFacilitator"
 
 var facilitator: SingleDictionaryFacilitator? = null
-private var lastData: WordData? = null
 private val getDataIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
     .addCategory(Intent.CATEGORY_OPENABLE)
     .putExtra(Intent.EXTRA_TITLE, "gesture_data_${SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)}.zip")
     .setType("application/zip")
 private val sendMailIntent = Intent(Intent.ACTION_SENDTO).apply {
     data = "mailto:".toUri()
-    putExtra(Intent.EXTRA_EMAIL, arrayOf("test@123.com"))
-    putExtra(Intent.EXTRA_SUBJECT, "Heliboard ${BuildConfig.VERSION_NAME} gesture data")
-    putExtra(Intent.EXTRA_TEXT, "this is some text")
-    putExtra(Intent.EXTRA_STREAM, "some absolute path") // todo: does this work from an app-private file?
+    putExtra(Intent.EXTRA_EMAIL, arrayOf(MAIL_ADDRESS))
+    putExtra(Intent.EXTRA_SUBJECT, MAIL_SUBJECT)
+    putExtra(Intent.EXTRA_TEXT, MAIL_TEXT)
+    putExtra(Intent.EXTRA_STREAM, MAIL_STREAM.toUri())
+}
+
+// necessary for giving the mail app access to an internal file
+class GestureFileProvider : ContentProvider() {
+    override fun onCreate() = true
+
+    @Throws(FileNotFoundException::class)
+    override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
+        // todo: this isn't called, possible issue with GESTURE_PROVIDER_AUTHORITY?
+        if (uri.toString() != MAIL_STREAM)
+            throw FileNotFoundException("Unsupported uri: $uri")
+        return ParcelFileDescriptor.open(File(zippedDataPath), ParcelFileDescriptor.MODE_READ_ONLY)
+    }
+
+    override fun update(uri: Uri, contentvalues: ContentValues?, s: String?, `as`: Array<String>?) = 0
+    override fun delete(uri: Uri, s: String?, `as`: Array<String>?) = 0
+    override fun insert(uri: Uri, contentvalues: ContentValues?) = null
+    override fun getType(uri: Uri) = null
+    override fun query(uri: Uri, projection: Array<String>?, s: String?, as1: Array<String>?, s1: String?) = null
 }
 
 private class WordData(
@@ -347,15 +378,9 @@ private class WordData(
     val keys = keyboard.sortedKeys
     val proxInfo = keyboard.proximityInfo
     val vGap = keyboard.mVerticalGap
-    // todo: which of the dimensions do we actually want? i guess occupied?
-    val baseHeight = keyboard.mBaseHeight
-    val baseWidth = keyboard.mBaseWidth
-    val occHeight = keyboard.mOccupiedHeight
-    val occWidth = keyboard.mOccupiedWidth
-    val height = keyboard.mId.mHeight
-    val width = keyboard.mId.mWidth
-    val topPadding = keyboard.mTopPadding
-    val locale = keyboard.mId.locale
+    val height = keyboard.mOccupiedHeight
+    val width = keyboard.mOccupiedWidth
+    val locale = keyboard.mId.locale // might differ from dict locale
     val mode = keyboard.mId.mMode
     val elementId = keyboard.mId.mElementId
     val numberRow = keyboard.mId.mNumberRowEnabled
@@ -365,25 +390,24 @@ private class WordData(
     val imeOptions = keyboard.mId.mEditorInfo.imeOptions
 
     fun save(dict: Dict, context: Context) {
-        // todo: userId, resettable
         // todo: guid / hash per gesture (could be hash of all other data)
-        val stillGliding = inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH
+        val stillGliding = inputStyle == SuggestedWords.INPUT_STYLE_UPDATE_BATCH // todo: use?
         val keyboardInfo = KeyboardInfo(
-            occWidth,
-            occHeight,
+            width, // baseHeight is without padding, but coordinates include padding
+            height,
             keys.map { KeyInfo(it.x + it.width / 2, it.y + it.height / 2, it.code) }
         )
         val data = GestureData(
             userId,
             targetWord,
-            listOf(), // todo: this is annoying to create...
+            listOf(), // todo: this is annoying to create... and currently not relevant
             listOf(DictInfo(dict.hash, dict.locale.toString())),
             suggestions.filter { it.mScore > 0 }.map { Suggestion(it.mWord, it.mScore) }, // todo: there is much more information available
             PointerData.fromPointers(composedData.mInputPointers),
             keyboardInfo
         )
         val string = Json.encodeToString(data)
-        getDataFile(context)?.appendText("$string,\n") // just need to remove trailing ,\n and put inside [ and ] to have an array
+        getDataFile(context).appendText("$string,\n") // just need to remove trailing ,\n and put inside [ and ] to have an array
     }
 }
 
@@ -404,7 +428,6 @@ private data class DictInfo(val hash: String, val name: String)
 @Serializable
 private data class Suggestion(val word: String, val score: Int)
 
-// todo: time is coming from getHistoricalEventTime, check actual output (milliseconds, but since when?)
 @Serializable
 private data class PointerData(val id: Int, val x: Int, val y: Int, val millis: Int) {
     companion object {
@@ -424,7 +447,7 @@ private data class PointerData(val id: Int, val x: Int, val y: Int, val millis: 
 }
 
 // gesture typing only works with code, not with arbitrary labels
-// todo: is the center of a key still ok when we have "holes", e.g. in a split keyboard
+// todo: is the center of a key still ok when we have "holes", e.g. in a split keyboard?
 @Serializable
 private data class KeyInfo(val centerX: Int, val centerY: Int, val codePoint: Int)
 
@@ -437,12 +460,12 @@ private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
     val ctx = LocalContext.current
     // check if file exists and not size 0, otherwise don't even offer the button
     return filePicker { uri ->
-        val file = getDataFile(ctx) ?: return@filePicker
+        val file = getDataFile(ctx)
         ctx.getActivity()?.contentResolver?.openOutputStream(uri)?.use { os ->
             val zipStream = ZipOutputStream(os)
             zipStream.setLevel(9)
             val fileStream = FileInputStream(file).buffered()
-            zipStream.putNextEntry(ZipEntry(file.path))
+            zipStream.putNextEntry(ZipEntry(file.name))
             fileStream.copyTo(zipStream, 1024)
             fileStream.close()
             zipStream.closeEntry()
@@ -451,9 +474,34 @@ private fun getData(): ManagedActivityResultLauncher<Intent, ActivityResult> {
     }
 }
 
-private fun getDataFile(context: Context) = context.filesDir?.let { File(it, "gesture_data.json") }
+private fun createZipFile(context: Context) {
+    zippedDataPath = ""
+    val dataFile = getDataFile(context)
+    val filename = "gesture_data.zip"
+    val zipfile = File(context.filesDir, filename)
+    zipfile.delete()
+    zipfile.outputStream().use { os ->
+        val zipStream = ZipOutputStream(os)
+        zipStream.setLevel(9)
+        val fileStream = FileInputStream(dataFile).buffered()
+        zipStream.putNextEntry(ZipEntry(dataFile.name))
+        fileStream.copyTo(zipStream, 1024)
+        fileStream.close()
+        zipStream.closeEntry()
+        zipStream.close()
+    }
+    zippedDataPath = zipfile.absolutePath
+}
+
+private fun getDataFile(context: Context) = File(context.filesDir, "gesture_data.json")
+private var zippedDataPath = "" // set after writing the file
 
 private const val PREF_GESTURE_USER_ID = "gesture_typing_screen_user_id"
+private const val MAIL_ADDRESS = "insert mail here"
+private const val MAIL_SUBJECT = "Heliboard ${BuildConfig.VERSION_NAME} gesture data"
+private const val MAIL_TEXT = "here is gesture data"
+private const val GESTURE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
+private const val MAIL_STREAM = "content://${GESTURE_PROVIDER_AUTHORITY}/gesture_data"
 
 @Preview
 @Composable

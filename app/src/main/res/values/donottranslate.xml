@@ -5,6 +5,7 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="gesture_data_provider_authority" translatable="false">helium314.keyboard.provider</string>
 
     <!-- Subtype locale whose name should be displayed in Locale.ROOT. -->
     <string-array name="subtype_locale_displayed_in_root_locale">
