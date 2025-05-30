@@ -469,18 +469,24 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val proximityInfoHandle = keyboard.proximityInfo.nativeProximityInfo
         val weightOfLangModelVsSpatialModel = floatArrayOf(Dictionary.NOT_A_WEIGHT_OF_LANG_MODEL_VS_SPATIAL_MODEL)
 
-        val deferredSuggestions = dictionaryGroups.map {
-            scope.async {
-                // todo: if the order does not matter, we could add the suggestions right away without awaitAll first
-                getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
-                    proximityInfoHandle, weightOfLangModelVsSpatialModel, it)
+        val waitForOtherDicts = if (dictionaryGroups.size == 1) null else CountDownLatch(dictionaryGroups.size - 1)
+        val suggestionsArray = Array<List<SuggestedWordInfo>?>(dictionaryGroups.size) { null }
+        for (i in 1..dictionaryGroups.lastIndex) {
+            scope.launch {
+                suggestionsArray[i] = getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
+                    proximityInfoHandle, weightOfLangModelVsSpatialModel, dictionaryGroups[i])
+                waitForOtherDicts?.countDown()
             }
         }
+        suggestionsArray[0] = getSuggestions(composedData, ngramContext, settingsValuesForSuggestion, sessionId,
+            proximityInfoHandle, weightOfLangModelVsSpatialModel, dictionaryGroups[0])
         val suggestionResults = SuggestionResults(
-            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext,
-            false
+            SuggestedWords.MAX_SUGGESTIONS, ngramContext.isBeginningOfSentenceContext, false
         )
-        runBlocking { deferredSuggestions.awaitAll() }.forEach {
+        waitForOtherDicts?.await()
+
+        suggestionsArray.forEach {
+            if (it == null) return@forEach
             suggestionResults.addAll(it)
             suggestionResults.mRawSuggestions?.addAll(it)
         }
