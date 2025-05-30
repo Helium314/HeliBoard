@@ -41,8 +41,6 @@ import java.util.Locale;
  */
 // Non-final for testing via mock library.
 public class SettingsValues {
-    public static final float DEFAULT_SIZE_SCALE = 1.0f; // 100%
-
     // From resources:
     public final SpacingAndPunctuations mSpacingAndPunctuations;
     public final long mDoubleSpacePeriodTimeout;
@@ -233,7 +231,7 @@ public class SettingsValues {
                 || mOverrideShowingSuggestions;
         mIncognitoModeEnabled = prefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE) || mInputAttributes.mNoLearning
                 || mInputAttributes.mIsPasswordField;
-        mKeyboardHeightScale = prefs.getFloat(Settings.PREF_KEYBOARD_HEIGHT_SCALE, Defaults.PREF_KEYBOARD_HEIGHT_SCALE);
+        mKeyboardHeightScale = Settings.readHeightScale(prefs, isLandscape);
         mSpaceSwipeHorizontal = Settings.readHorizontalSpaceSwipe(prefs);
         mSpaceSwipeVertical = Settings.readVerticalSpaceSwipe(prefs);
         mLanguageSwipeDistance = prefs.getInt(Settings.PREF_LANGUAGE_SWIPE_DISTANCE, Defaults.PREF_LANGUAGE_SWIPE_DISTANCE);

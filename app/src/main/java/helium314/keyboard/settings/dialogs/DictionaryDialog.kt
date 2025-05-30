@@ -109,7 +109,8 @@ private fun DictionaryDetails(dict: File) {
         DeleteButton { showDeleteDialog = true }
         ExpandButton { showDetails = !showDetails }
     }
-    AnimatedVisibility(showDetails, enter = fadeIn(), exit = fadeOut()) { // default animation looks better, but makes the dialog flash
+    // default animations look better but make the dialog flash, see also MultiSliderPreference
+    AnimatedVisibility(showDetails, enter = fadeIn(), exit = fadeOut()) {
         Text(
             header.info(LocalConfiguration.current.locale()),
             style = MaterialTheme.typography.bodyMedium,
