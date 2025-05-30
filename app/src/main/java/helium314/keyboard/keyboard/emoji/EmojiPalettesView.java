@@ -6,6 +6,9 @@
 
 package helium314.keyboard.keyboard.emoji;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -68,9 +71,21 @@ public final class EmojiPalettesView extends LinearLayout
 
     private final class PagerAdapter extends RecyclerView.Adapter<PagerViewHolder> {
         private boolean mInitialized;
+        private Map<Integer, RecyclerView> mViews = new HashMap<>(mEmojiCategory.getShownCategories().size());
 
-        private PagerAdapter() {
+        private PagerAdapter(ViewPager2 pager) {
             setHasStableIds(true);
+            pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    var categoryId = (int) getItemId(position);
+                    setCurrentCategoryId(categoryId, false);
+                    var recyclerView = mViews.get(position);
+                    if (recyclerView != null) {
+                        updateState(recyclerView, categoryId);
+                    }
+                }
+            });
         }
 
         @Override
@@ -94,7 +109,7 @@ public final class EmojiPalettesView extends LinearLayout
 
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    updateState(recyclerView, viewHolder);
+                    updateState(recyclerView, viewHolder.mCategoryId);
                 }
             });
 
@@ -106,6 +121,7 @@ public final class EmojiPalettesView extends LinearLayout
         public void onBindViewHolder(PagerViewHolder holder, int position) {
             holder.mCategoryId = getItemId(position);
             var recyclerView = getRecyclerView(holder.itemView);
+            mViews.put(position, recyclerView);
             recyclerView.setAdapter(new EmojiPalettesAdapter(mEmojiCategory, (int) holder.mCategoryId,
                                                                   EmojiPalettesView.this));
 
@@ -118,16 +134,6 @@ public final class EmojiPalettesView extends LinearLayout
         @Override
         public int getItemCount() {
             return mEmojiCategory.getShownCategories().size();
-        }
-
-        @Override
-        public void onViewAttachedToWindow(PagerViewHolder holder) {
-            if (mPager.getScrollState() == ViewPager2.SCROLL_STATE_DRAGGING // swipe
-                            || holder.getBindingAdapterPosition() == mPager.getCurrentItem() // tab
-            ) {
-                setCurrentCategoryId((int) getItemId(holder.getBindingAdapterPosition()), false);
-                updateState(getRecyclerView(holder.itemView), holder);
-            }
         }
 
         @Override
@@ -150,8 +156,8 @@ public final class EmojiPalettesView extends LinearLayout
             return view.findViewById(R.id.emoji_keyboard_list);
         }
 
-        private void updateState(@NonNull RecyclerView recyclerView, PagerViewHolder viewHolder) {
-            if (viewHolder.mCategoryId != mEmojiCategory.getCurrentCategoryId()) {
+        private void updateState(@NonNull RecyclerView recyclerView, long categoryId) {
+            if (categoryId != mEmojiCategory.getCurrentCategoryId()) {
                 return;
             }
 
@@ -242,7 +248,7 @@ public final class EmojiPalettesView extends LinearLayout
         }
 
         mPager = findViewById(R.id.emoji_pager);
-        mPager.setAdapter(new PagerAdapter());
+        mPager.setAdapter(new PagerAdapter(mPager));
         mEmojiLayoutParams.setEmojiListProperties(mPager);
         mEmojiCategoryPageIndicatorView = findViewById(R.id.emoji_category_page_id_view);
         mEmojiLayoutParams.setCategoryPageIdViewProperties(mEmojiCategoryPageIndicatorView);
