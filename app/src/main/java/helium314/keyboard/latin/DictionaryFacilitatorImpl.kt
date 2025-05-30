@@ -41,7 +41,6 @@ import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.Volatile
 
 /**
  * Facilitates interaction with different kinds of dictionaries. Provides APIs
@@ -527,6 +526,10 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     && !dictionary.isInDictionary(word)
                 )
                     continue
+
+                if (word.length == 1 && info.mSourceDict.mDictType == "emoji" && !StringUtils.mightBeEmoji(word[0].code))
+                    continue
+
                 suggestions.add(info)
             }
         }
