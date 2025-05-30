@@ -282,7 +282,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         updateKeys();
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                getContext(), mSuggestedWords, mSuggestionsStrip, this);
+                getContext(), mSuggestedWords, mSuggestionsStrip, mSuggestionsStrip);
     }
 
     public void setExternalSuggestionView(final View view) {
@@ -486,7 +486,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
                 mSuggestedWords.mSequenceNumber);
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+                getContext(), mSuggestedWords, mSuggestionsStrip, mSuggestionsStrip);
         mStripVisibilityGroup.showSuggestionsStrip();
         // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
         if (mSuggestedWords.isEmpty() && Settings.getValues().mAutoShowToolbar){
