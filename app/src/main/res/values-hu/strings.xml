@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">Kétoldali billentyűzet bekapcsolása</string>
     <string name="language_switch_key_switch_input_method">"Váltás más beviteli módra"</string>
     <string name="show_language_switch_key">Nyelvkapcsoló gomb</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%s ms"</string>
     <string name="settings_system_default">Rendszer alapértelmezett</string>
     <string name="use_contacts_dict_summary">Névjegyek használata javaslatokhoz és javításokhoz</string>
     <string name="use_personalized_dicts">"Testreszabott javaslatok"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">Spanyol (amerikai)</string>
     <string name="subtype_hi_Latn">"Hinglish (hindi-angol)"</string>
     <string name="subtype_sr_Latn">"Szerb (latin)"</string>
-    <string name="subtype_with_layout_en_GB">Angol (brit) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Angol (amerikai) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Spanyol (amerikai) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">"Hinglish (hindi-angol, <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">Szerb (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepáli">%s</xliff:g> (Hagyományos)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Kompakt)</string>
-    <string name="subtype_no_language">"Nincs nyelv (ábécé)"</string>
-    <string name="subtype_no_language_qwerty">"Ábécé (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Ábécé (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Ábécé (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Ábécé (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Ábécé (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Ábécé (PC)"</string>
+    <string name="subtype_generic_traditional">%s (Hagyományos)</string>
+    <string name="subtype_generic_compact">%s (Kompakt)</string>
+    <string name="subtype_no_language">"Nincs nyelv"</string>
     <string name="subtype_emoji">"Hangulatjel"</string>
     <string name="add">"Hozzáadás"</string>
     <string name="remove">"Eltávolítás"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">Hangulatjelek a fizikai billentyűhöz</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Fizikai Alt gomb megjeleníti a hangulatjel palettát</string>
     <string name="button_default">"Alapértelmezett"</string>
-    <string name="setup_welcome_title">Üdvözöljük a <xliff:g id="APPLICATION_NAME" example="Android Billentyű">%s</xliff:g></string>
+    <string name="setup_welcome_title">Üdvözöljük a %s</string>
     <string name="setup_welcome_additional_description">gesztusokkal történő bevitellel</string>
     <string name="setup_start_action">"Első lépések"</string>
-    <string name="setup_next_action">"Következő lépés"</string>
-    <string name="setup_steps_title">Beállítani a <xliff:g id="APPLICATION_NAME" example="Android Billentyű">%s</xliff:g>-t</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Billentyűzet">%s</xliff:g> engedélyezése</string>
-    <string name="setup_step1_instruction">Ellenőrizze a \"<xliff:g id="APPLICATION_NAME" example="Android Billentyűt">%s</xliff:g>\" saját nyelvén a beviteli beállításokban. Ezzel engedélyezheti, hogy fusson a készülékén.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Billentyűzet">%s</xliff:g> már engedélyezve van a nyelve beviteli beállításainál, így ez a lépés nem szükséges. Lépjen a következőre!</string>
+    <string name="setup_steps_title">Beállítani a %s-t</string>
+    <string name="setup_step1_title">%s engedélyezése</string>
+    <string name="setup_step1_instruction">Ellenőrizze a \"%s\" saját nyelvén a beviteli beállításokban. Ezzel engedélyezheti, hogy fusson a készülékén.</string>
     <string name="setup_step1_action">Engedélyezés a Beállításokban</string>
-    <string name="setup_step2_title">Váltás a <xliff:g id="APPLICATION_NAME" example="Android Billentyűre">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Válassza ki a \"<xliff:g id="APPLICATION_NAME" example="Android Billentyűt">%s</xliff:g>\" mint aktív szövegbeviteli eszközét.</string>
+    <string name="setup_step2_title">Váltás a %s</string>
+    <string name="setup_step2_instruction">Válassza ki a \"%s\" mint aktív szövegbeviteli eszközét.</string>
     <string name="setup_step2_action">"Váltás a beviteli módok között"</string>
     <string name="setup_step3_title">Gratulálunk, minden beállításra került!</string>
-    <string name="setup_step3_instruction">Immáron a kedvenc applikációjában gépelhet a <xliff:g id="APPLICATION_NAME" example="Android Billentyűzettel">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Immáron a kedvenc applikációjában gépelhet a %s.</string>
     <string name="setup_finish_action">"Befejeződött"</string>
     <string name="show_setup_wizard_icon">"Alkalmazásikon megjelenítése"</string>
     <string name="show_setup_wizard_icon_summary">"Alkalmazásikon megjelenítése az indítóban"</string>
-    <string name="dictionary_settings_title">Bővítmény szótárak</string>
+    <string name="dictionary_category_title">Bővítmény szótárak</string>
     <string name="dictionary_available">"Van rendelkezésre álló szótár"</string>
-    <string name="no_dictionaries_available">Nem elérhető szótár</string>
     <string name="last_update">"Legutóbb frissítve"</string>
     <string name="settings">"Beállítások"</string>
     <string name="delete">"Törlés"</string>
-    <string name="version_text">Verzió <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"Hozzáadás"</string>
+    <string name="version_text">Verzió %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"Hozzáadás a szótárhoz"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Gyorsparancs:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Nyelv:"</string>
     <string name="user_dict_settings_add_word_hint">"Írjon be egy szót"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Választható gyorsparancs"</string>
     <string name="user_dict_settings_edit_dialog_title">"Szó szerkesztése"</string>
-    <string name="user_dict_settings_empty_text">Nincsenek szavak a felhasználói szótárban. Új szavakat a Hozzáadás (+) gombra nyomva vehet fel.</string>
     <string name="user_dict_settings_all_languages">Minden nyelvhez</string>
     <string name="user_dict_settings_more_languages">"További nyelvek…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -127,11 +111,9 @@
     <string name="prefs_keyboard_height_scale">Billentyűzet magassági skála</string>
     <string name="number_row_summary">Mindig mutassa a számsort</string>
     <string name="show_hints">Kulcsfontosságú tippek megjelenítése</string>
-    <string name="subtype_no_language_colemak_dh">Ábécé (Colemak Mod-DH)</string>
     <string name="show_hints_summary">Hosszan-lenyomott tippek megjelenítése</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">A szóköz billentyű hosszan történő megnyomásával a beviteli módszer kiválasztási menüje jelenik meg</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Beviteli mód megváltoztatása a szóközzel</string>
-    <string name="subtype_no_language_workman">Ábécé (Munkás)</string>
     <string name="day_night_mode">Automatikus nappali/éjszakai üzemmód</string>
     <string name="spell_checker_service_name">HeliBoard helyesírás-ellenőrző</string>
     <string name="delete_swipe">Csúsztató törlése</string>
@@ -162,7 +144,7 @@
     <string name="auto_correction_confidence">Bizalom az automata javításban</string>
     <string name="prefs_always_show_suggestions_summary">Más appok javaslat tiltó kérelmét figyelmen kívül hagyja (hibákhoz vezethet)</string>
     <string name="switch_language">Nyelv váltás</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> perc</string>
+    <string name="abbreviation_unit_minutes">%s perc</string>
     <string name="disable_personalized_dicts_message">Vigyázat: Ezen beállítás kikapcsolása törli az eddigi tanult adatokat</string>
     <string name="add_to_personal_dictionary_summary">Használja az eszköz saját szótárát a megtanult szavak tárolására</string>
     <string name="backup_restore_message">Mentés vagy visszatöltés fájlból. Figyelem: a visszaállítás felülírja a jelenlegi adatot</string>
@@ -243,15 +225,13 @@
     <string name="undo" tools:keep="@string/undo">Visszavon</string>
     <string name="redo" tools:keep="@string/redo">Helyrehoz</string>
     <string name="show_popup_hints">Funkcionális gombok mutatása</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengáli">%s</xliff:g> (Akkhor)</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Koreai">%s</xliff:g> (Sebeolsik 390)</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Koreai">%s</xliff:g> (Sebeolsik Végleges)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Végleges)</string>
     <string name="message_add_custom_layout">Válasszon ki egy kompatibilis formájú fájlt. A formátumokról a következő helyen érhető el információ: %s.</string>
     <string name="button_load_custom">Fájl betöltése</string>
     <string name="file_read_error">Fájl nem olvasható</string>
     <string name="button_copy_existing_layout">Már létező elrendezés másolása</string>
-    <string name="title_layout_name_select">Elrendezés név beállítása</string>
     <string name="delete_layout">Törölni kívánja a %s egyéni elrendezést?</string>
     <string name="layout_error">Elrendezés hiba: %s</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Több szimbólum</string>
@@ -260,7 +240,6 @@
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Numerikus</string>
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numerikus (táj)</string>
     <string name="customize_background_image">Háttérkép beállítása</string>
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Ábécé (Bépo)</string>
     <string name="day_or_night_image">Legyen külön kép nappali és éjjeli módban?</string>
     <string name="day_or_night_day">Nappal</string>
     <string name="day_or_night_night">Éjjel</string>
@@ -306,7 +285,6 @@
     <string name="auto_user_color">Szín automatikus kiválasztása</string>
     <string name="main_colors">Csak fő színek mutatása</string>
     <string name="all_colors">Minden szín mutatása</string>
-    <string name="hint_show_keyboard">Nyomjon rá az előnézethez</string>
     <string name="select_color_background">Billentyűzet háttér</string>
     <string name="select_color_key">Gomb szöveg</string>
     <string name="select_color_key_hint">Gomb tipp szöveg</string>

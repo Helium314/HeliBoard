@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">Включить разделение клавиатуры</string>
     <string name="language_switch_key_switch_input_method">Смена методов ввода</string>
     <string name="show_language_switch_key">"Клавиша смены языка"</string>
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> мс.</string>
+    <string name="abbreviation_unit_milliseconds">%s мс.</string>
     <string name="settings_system_default">"По умолчанию"</string>
     <string name="use_contacts_dict_summary">Использовать имена из Контактов для предложений и исправлений</string>
     <string name="use_personalized_dicts">"Пользовательские словари"</string>
@@ -52,23 +52,9 @@
     <string name="subtype_mns">Мансийский</string>
     <string name="subtype_xdq">Кайтагский</string>
     <string name="subtype_sr_Latn">Сербский (латиница)</string>
-    <string name="subtype_with_layout_en_GB">Английский (Великобритания) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_en_US">Английский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">Испанский (США) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">Хинглиш (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_mns">Мансийский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_dru">Урахинский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq">Кайтагский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">Сербский (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Непальский">%s</xliff:g> (Традиционная)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Компактная)</string>
-    <string name="subtype_no_language">Стандартная (латиница)</string>
-    <string name="subtype_no_language_qwerty">Латиница (QWERTY)</string>
-    <string name="subtype_no_language_qwertz">Латиница (QWERTZ)</string>
-    <string name="subtype_no_language_azerty">Латиница (AZERTY)</string>
-    <string name="subtype_no_language_dvorak">Латиница (Dvorak)</string>
-    <string name="subtype_no_language_colemak">Латиница (Colemak)</string>
-    <string name="subtype_no_language_pcqwerty">Латиница (ПК)</string>
+    <string name="subtype_generic_traditional">%s (Традиционная)</string>
+    <string name="subtype_generic_compact">%s (Компактная)</string>
+    <string name="subtype_no_language">Стандартная</string>
     <string name="subtype_emoji">Эмодзи</string>
     <string name="add">Добавить</string>
     <string name="remove">Удалить</string>
@@ -81,38 +67,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">Эмодзи для физической клавиатуры</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">Физическая клавиша Alt показывает все доступные эмодзи</string>
     <string name="button_default">По умолчанию</string>
-    <string name="setup_welcome_title">Добро пожаловать в <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">Добро пожаловать в %s</string>
     <string name="setup_welcome_additional_description">с непрерывным вводом</string>
     <string name="setup_start_action">Начать работу</string>
-    <string name="setup_next_action">Далее</string>
-    <string name="setup_steps_title">Настроить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_title">Включить <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step1_instruction">Убедитесь, что приложение \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
-    <string name="setup_step1_finished_instruction">Приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> уже включено в настройках языка и ввода, так что этот шаг выполнен. Переходим к следующему!</string>
+    <string name="setup_steps_title">Настроить %s</string>
+    <string name="setup_step1_title">Включить %s</string>
+    <string name="setup_step1_instruction">Убедитесь, что приложение \"%s\" включено в настройках языка и ввода. Это позволит ему работать на вашем устройстве.</string>
     <string name="setup_step1_action">Включить в настройках</string>
-    <string name="setup_step2_title">Переключитесь на <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
-    <string name="setup_step2_instruction">Теперь выберите \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" в качестве активного метода ввода текста.</string>
+    <string name="setup_step2_title">Переключитесь на %s</string>
+    <string name="setup_step2_instruction">Теперь выберите \"%s\" в качестве активного метода ввода текста.</string>
     <string name="setup_step2_action">Другой способ ввода</string>
     <string name="setup_step3_title">Поздравляем, всё готово!</string>
-    <string name="setup_step3_instruction">Теперь вы можете использовать приложение <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> для набора текста.</string>
+    <string name="setup_step3_instruction">Теперь вы можете использовать приложение %s для набора текста.</string>
     <string name="setup_finish_action">Готово</string>
     <string name="show_setup_wizard_icon">Показывать значок приложения</string>
     <string name="show_setup_wizard_icon_summary">Отображать значок приложения на панели запуска</string>
-    <string name="dictionary_settings_title">Дополнительные словари</string>
+    <string name="dictionary_category_title">Дополнительные словари</string>
     <string name="dictionary_available">Доступный словарь</string>
-    <string name="no_dictionaries_available">Словарей нет</string>
     <string name="last_update">Последнее обновление</string>
     <string name="settings">Настройки</string>
     <string name="delete">Удалить</string>
-    <string name="version_text">Версия <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">Добавить</string>
+    <string name="version_text">Версия %1$s</string>
     <string name="user_dict_settings_add_dialog_title">Добавление в словарь</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Быстрые клавиши:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Язык:"</string>
     <string name="user_dict_settings_add_word_hint">Введите слово</string>
     <string name="user_dict_settings_add_shortcut_hint">Ярлык для фразы (необязательно)</string>
     <string name="user_dict_settings_edit_dialog_title">Изменение слова</string>
-    <string name="user_dict_settings_empty_text">В пользовательском словаре пока ничего нет. Добавлять слова можно с помощью кнопки Добавить (+).</string>
     <string name="user_dict_settings_all_languages">Для всех языков</string>
     <string name="user_dict_settings_more_languages">Другие языки…</string>
     <string name="user_dict_fast_scroll_alphabet">" АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"</string>
@@ -143,13 +124,12 @@
     <string name="enable_clipboard_history">Включить журнал буфера обмена</string>
     <string name="spell_checker_service_name">Проверка правописания HeliBoard</string>
     <string name="android_spell_checker_settings">Настройки проверки правописания</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> мин.</string>
+    <string name="abbreviation_unit_minutes">%s мин.</string>
     <string name="ime_settings">Настройки HeliBoard</string>
     <string name="settings_no_limit">Без ограничения</string>
     <string name="clipboard_history_retention_time">Время хранения журнала буфера обмена</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальский">%s</xliff:g> (Акхор)</string>
+    <string name="subtype_akkhor_bn_BD">%s (Акхор)</string>
     <string name="subtype_dru">Даргинский (Урахи)</string>
-    <string name="subtype_no_language_workman">Латиница (Workman)</string>
     <string name="key_borders">Контуры клавиш</string>
     <string name="day_night_mode">Использовать тему системы</string>
     <string name="theme_style">Стиль темы</string>
@@ -161,7 +141,6 @@
     <string name="enable_clipboard_history_summary">Если отключено, клавиша буфера обмена вставит содержимое буфера обмена, если оно есть</string>
     <string name="autospace_after_punctuation">Автоматически добавлять пробел после знаков препинания</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Изменять метод ввода с помощью пробела</string>
-    <string name="subtype_no_language_colemak_dh">Латиница (Colemak Mod-DH)</string>
     <string name="settings_category_experimental">Экспериментальные</string>
     <string name="settings_category_miscellaneous">Другие настройки (разное)</string>
     <string name="settings_category_correction">Исправления</string>
@@ -178,7 +157,6 @@
     <string name="theme_name_user">Пользовательская</string>
     <string name="theme_name_user_night">Пользовательская (тёмная тема)</string>
     <string name="auto_user_color">Автоматический выбор цвета</string>
-    <string name="hint_show_keyboard">Нажмите для предпросмотра</string>
     <string name="select_user_colors_summary">Выберите цвета для текста и фона</string>
     <string name="select_color_background">Фон клавиатуры</string>
     <string name="select_color_key">Текст клавиш</string>
@@ -217,9 +195,9 @@
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамические цвета</string>
     <string name="show_popup_hints">Показать функциональные подсказки</string>
     <string name="message_add_custom_layout">Выберите файл в совместимом формате. Информация о форматах доступна %s.</string>
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Корейский">%s</xliff:g> (Себольсик 390)</string>
+    <string name="subtype_generic_sebeolsik_390">%s (Себольсик 390)</string>
     <string name="add_to_personal_dictionary_summary">Использовать личный словарь устройства для хранения выученных слов</string>
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Корейский">%s</xliff:g> (Себольсик Финальная)</string>
+    <string name="subtype_generic_sebeolsik_final">%s (Себольсик Финальная)</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Облачная</string>
     <string name="day_or_night_day">День</string>
@@ -245,7 +223,6 @@
     <string name="clipboard" tools:keep="@string/clipboard">Буфер обмена</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Индиго</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд с цифрами</string>
-    <string name="subtype_no_language_bepo">Алфавит (Бепо)</string>
     <string name="popup_order">Выберите порядок всплывающих клавиш</string>
     <string name="hint_source">Выберите источник подсказки</string>
     <string name="button_select_language">Выберите язык</string>
@@ -298,7 +275,6 @@
     <string name="replace_dictionary_message">Заменить пользовательский словарь \"%1$s\"?\n\nТекущий словарь:\n%2$s\n\nНовый словарь:\n%3$s</string>
     <string name="full_right" tools:keep="@string/full_right">Полностью вправо</string>
     <string name="user_dict_settings_add_weight_value">Вес:</string>
-    <string name="title_layout_name_select">Задать имя раскладки</string>
     <string name="button_load_custom">Загрузить файл</string>
     <string name="button_copy_existing_layout">Скопировать текущую раскладку</string>
     <string name="layout_error">Ошибка раскладки: %s</string>
@@ -319,13 +295,13 @@
     <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции:&lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• сдвинуть курсор влево/вправо &amp;#65515; перейти на слово влево/вправо &lt;br&gt; \n\t• сдвинуть курсор вверх/вниз &amp;#65515; перейти на страницу вверх/вниз &lt;br&gt; \n\t• слово левее/правее &amp;#65515; перейти к началу/концу строки &lt;br&gt; \n\t• страница вверх/вниз &amp;#65515; перейти к началу/концу страниц&lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов полосы предложений - закрепляет их в полосе предложений. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавишу запятой - открывает Вид буфера обмена, Вид эмодзи, Режим одной руки, Настройки или Сменить язык: &lt;br&gt; \n\t• Вид эмодзи и Смена языка будут недоступны, если соответствующая клавиша уже включена; &lt;br&gt; \n\t• Для некоторых раскладок клавиатуры это не клавиша запятой, а клавиша, находящаяся в том же положении (например, это клавиша \"q\" для раскладки Dvorak). &lt;br&gt; &lt;br&gt; \n► Когда включен режим инкогнито, никакие слова не будут сохранены, и эмодзи не будут добавлены в список использованных. &lt;br&gt; &lt;br&gt; \n► Нажмите на иконку Инкогнито, чтобы получить доступ к панели инструментов.&lt;br&gt; &lt;br&gt; \n► Скользящий ввод клавиш: Проведите пальцем от клавиши Shift к другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Также это работает для клавиши \\\'?123\\\', чтобы ввести один символ из клавиатуры символов и для связанных с ней клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу Shift или клавишу символа, нажмите одну или несколько клавиш и затем отпустите клавишу Shift или клавишу символа, чтобы переключиться обратно на предыдущую клавиатуру. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на предложение в полосе предложений показывает ещё больше предложений и клавишу удаления для удаления этого предложения. &lt;br&gt; &lt;br&gt; \n► Проведите пальцем вверх от предложения, чтобы показать больше предложений и отпустите на нужном, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на запись в истории буфера обмена закрепляет её (сохраняет в буфере обмена до тех пор, пока вы не отмените закрепление). &lt;br&gt; &lt;br&gt; \n► Проведите пальцем влево в просмотре буфера обмена, чтобы удалить запись (кроме случаев, когда она закреплена). &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажмите клавишу Shift, чтобы переключаться между прописными, строчными буквами и капитализацией слов. &lt;br&gt; &lt;br&gt; \n► Вы можете добавить словари, открыв их в файловом менеджере: &lt;br&gt; \n\t• Это работает только с &lt;i&gt;content-uris&lt;/i&gt; и не работает с &lt;i&gt;file-uris&lt;/i&gt;, поэтому это может не работать с некоторыми файловыми менеджерами. &lt;br&gt; &lt;br&gt; \n► Для пользователей, создающих резервные копии вручную с правами суперпользователя (root): &lt;br&gt; \n\t• Начиная с Android 7, файл общих настроек находится в другом месте, поскольку приложение использует %s. Это необходимо, чтобы настройки можно было прочитать до разблокировки устройства, например, при запуске; &lt;br&gt; \n\t• Файл находится в /data/user_de/0/package_id/shared_prefs/, хотя это может зависеть от устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / отладочная версия APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку показывает исходный словарь. &lt;br&gt; &lt;br&gt; \n► Когда используется отладочная версия APK, можно найти в Настройки отладки в разделе Расширенные настройки, хотя их полезность ограничена, за исключением выгрузки словарей в журнал. &lt;br&gt; \n\t• Для релизной версии APK необходимо несколько раз нажать на версию в разделе &lt;i&gt;О программе&lt;/i&gt;, затем можно найти настройки отладки в разделе &lt;i&gt;Расширенные настройки&lt;/i&gt;. &lt;br&gt; \n\t• Когда включена опция &lt;i&gt;Показать информацию о подсказках&lt;/i&gt;, подсказки будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь. &lt;br&gt; &lt;br&gt; \n► В случае аварийного завершения работы приложения, вам будет предложено, получить журналы ошибок, когда вы откроете раздел Настройки. &lt;br&gt; &lt;br&gt; \n► Когда используется многоязычный ввод, клавиша пробела будет показывать значение достоверности, которое используется для определения текущего используемого языка. &lt;br&gt; &lt;br&gt; \n► Предложения будут иметь небольшие цифры вверху, которые показывают некоторые внутренние баллы и исходный словарь (это можно отключить).</string>
     <string name="var_toolbar_direction_summary">Обратное направление, если выбран подтип клавиатуры с письмом справа налево</string>
     <string name="var_toolbar_direction">Переменное направление панели инструментов</string>
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Бенгальский">%s</xliff:g> (Пробхат)</string>
+    <string name="subtype_probhat_bn_BD">%s (Пробхат)</string>
     <string name="show_horizontal_space_swipe">Горизонтальный свайп по пробелу</string>
     <string name="show_vertical_space_swipe">Вертикальный свайп по пробелу</string>
     <string name="action_none">Бездействие</string>
     <string name="space_swipe_move_cursor_entry">Перемещение курсора</string>
     <string name="prefs_long_press_symbol_for_numpad">Долгое нажатие клавиши символов для цифровой клавиатуры</string>
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Русский">%s</xliff:g> (Студенческая)</string>
+    <string name="subtype_generic_student">%s (Студенческая)</string>
     <string name="cut" tools:keep="@string/cut">Вырезать</string>
     <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
@@ -339,7 +315,7 @@
     <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет использовано среднее предложение</string>
     <string name="close_history" tools:keep="@string/close_history">Закрыть буфер обмена</string>
     <string name="clipboard_toolbar_keys">Выбрать клавиши панели буфера обмена</string>
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Расширенная)</string>
+    <string name="subtype_generic_extended">%s (Расширенная)</string>
     <string name="auto_hide_toolbar_summary">Скрывать панель инструментов при появлении предложений</string>
     <string name="settings_screen_toolbar">Панель инструментов</string>
     <string name="auto_show_toolbar_summary">Показывать панель инструментов при вводе или при выборе текста</string>
@@ -355,7 +331,6 @@
     <string name="load">Загрузить</string>
     <string name="button_save_file">Сохранить в файл</string>
     <string name="copy_to_clipboard">Скопировать в буфер обмена</string>
-    <string name="load_will_overwrite">Загрузка перезапишет текущую тему</string>
     <string name="page_start" tools:keep="@string/page_start">Начало страницы</string>
     <string name="page_end" tools:keep="@string/page_end">Конец страницы</string>
     <string name="word_left" tools:keep="@string/word_left">Слово левее</string>
@@ -402,7 +377,7 @@
     <string name="customize_icons_reset_message">Действительно сбросить все настроенные иконки?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Корзина</string>
     <string name="vibrate_in_dnd_mode">Вибрация в режиме Не беспокоить</string>
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Хинди">%s</xliff:g> (Фонетика)</string>
+    <string name="subtype_generic_phonetic">%s (Фонетика)</string>
     <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>
     <string name="prefs_bottom_padding_scale_landscape">Масштаб нижнего отступа (ландшафт)</string>
@@ -421,7 +396,7 @@
     <string name="enable_split_keyboard_landscape">Включить разделение клавиатуры (ландшафт)</string>
     <string name="split" tools:keep="@string/split">Разделение клавиатуры</string>
     <string name="custom_subtype">Пользовательский подтип</string>
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Бенгали">%s</xliff:g> (Байсахи)</string>
+    <string name="subtype_baishakhi_bn_IN">%s (Байсахи)</string>
     <string name="layout_in_use">Предупреждение: раскладка в данный момент используется</string>
     <string name="delete_confirmation">Действительно удалить %s?</string>
     <string name="settings_screen_secondary_layouts">Дополнительные раскладки</string>

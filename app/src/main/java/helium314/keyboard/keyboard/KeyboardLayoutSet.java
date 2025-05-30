@@ -96,7 +96,7 @@ public final class KeyboardLayoutSet {
     public static void onSystemLocaleChanged() {
         clearKeyboardCache();
         LocaleKeyboardInfosKt.clearCache();
-        SubtypeLocaleUtils.clearDisplayNameCache();
+        SubtypeLocaleUtils.clearSubtypeDisplayNameCache();
     }
 
     public static void onKeyboardThemeChanged() {

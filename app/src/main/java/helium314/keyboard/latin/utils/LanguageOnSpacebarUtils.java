@@ -43,16 +43,12 @@ public final class LanguageOnSpacebarUtils {
             return FORMAT_TYPE_NONE;
         }
         final Locale locale = subtype.getLocale();
-        if (locale == null) {
-            return FORMAT_TYPE_NONE;
-        }
         final String keyboardLanguage = locale.getLanguage();
         final String keyboardLayout = subtype.getMainLayoutName();
         int sameLanguageAndLayoutCount = 0;
         for (final InputMethodSubtype ims : sEnabledSubtypes) {
             final String language = SubtypeUtilsKt.locale(ims).getLanguage();
-            if (keyboardLanguage.equals(language) && keyboardLayout.equals(
-                    SubtypeLocaleUtils.getMainLayoutName(ims))) {
+            if (keyboardLanguage.equals(language) && keyboardLayout.equals(SubtypeUtilsKt.mainLayoutNameOrQwerty(ims))) {
                 sameLanguageAndLayoutCount++;
             }
         }

@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Aktivizo tastierën e ndarë"</string>
     <string name="language_switch_key_switch_input_method">"Kalo në metoda të tjera hyrjeje"</string>
     <string name="show_language_switch_key">"Tasti i ndryshimit të gjuhës"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g> milisek."</string>
+    <string name="abbreviation_unit_milliseconds">"%s milisek."</string>
     <string name="settings_system_default">"Parazgjedhja e sistemit"</string>
     <string name="use_contacts_dict_summary">"Përdor emra nga \"Kontaktet\" për sugjerime dhe korrigjime"</string>
     <string name="use_personalized_dicts">"Sugjerime të personalizuara"</string>
@@ -50,20 +50,9 @@
     <string name="subtype_es_US">"spanjisht (SHBA)"</string>
     <string name="subtype_hi_Latn">"hinglisht"</string>
     <string name="subtype_sr_Latn">"serbisht (latin)"</string>
-    <string name="subtype_with_layout_en_GB">"anglisht (MB) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"anglisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"spanjisht (SHBA) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"hinglisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"serbisht (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (tradicionale)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (kompakte)"</string>
-    <string name="subtype_no_language">"nuk ka gjuhë (alfabeti)"</string>
-    <string name="subtype_no_language_qwerty">"alfabeti (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"alfabeti (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"alfabeti (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"alfabeti (dvorak)"</string>
-    <string name="subtype_no_language_colemak">"alfabeti (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"alfabeti (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (tradicionale)"</string>
+    <string name="subtype_generic_compact">"%s (kompakte)"</string>
+    <string name="subtype_no_language">"nuk ka gjuhë"</string>
     <string name="subtype_emoji">"\"Emoji\""</string>
     <string name="add">"Shto"</string>
     <string name="remove">"Hiq"</string>
@@ -76,38 +65,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji për tastierën fizike"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Tasti fizik Alt shfaq paletën me emoji"</string>
     <string name="button_default">"I parazgjedhur"</string>
-    <string name="setup_welcome_title">"Mirë se erdhe në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Mirë se erdhe në %s"</string>
     <string name="setup_welcome_additional_description">"me \"Shkrimin me gjeste\""</string>
     <string name="setup_start_action">"Fillo"</string>
-    <string name="setup_next_action">"Hapi tjetër"</string>
-    <string name="setup_steps_title">"Po konfiguron <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Aktivizo <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Kontrollo \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" te \"Cilësimet e gjuhës dhe hyrjes\". Kjo do ta autorizojë atë që të ekzekutohet në pajisjen tënde."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> është i aktivizuar tashmë te \"Cilësimet e gjuhës dhe të hyrjes\", kështu që ky hap ka mbaruar. Vazhdo me hapin tjetër!"</string>
+    <string name="setup_steps_title">"Po konfiguron %s"</string>
+    <string name="setup_step1_title">"Aktivizo %s"</string>
+    <string name="setup_step1_instruction">"Kontrollo \"%s\" te \"Cilësimet e gjuhës dhe hyrjes\". Kjo do ta autorizojë atë që të ekzekutohet në pajisjen tënde."</string>
     <string name="setup_step1_action">"Aktivizo te \"Cilësimet\""</string>
-    <string name="setup_step2_title">"Kalo në <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"Më pas, përzgjidh \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" si metodën tënde aktive të hyrjes së tekstit."</string>
+    <string name="setup_step2_title">"Kalo në %s"</string>
+    <string name="setup_step2_instruction">"Më pas, përzgjidh \"%s\" si metodën tënde aktive të hyrjes së tekstit."</string>
     <string name="setup_step2_action">"Ndrysho metodat e hyrjes"</string>
     <string name="setup_step3_title">"Urime, tani je gati!"</string>
-    <string name="setup_step3_instruction">"Tani mund të shkruash të gjitha aplikacionet e tua të preferuara me <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Tani mund të shkruash të gjitha aplikacionet e tua të preferuara me %s."</string>
     <string name="setup_finish_action">"U përfundua"</string>
     <string name="show_setup_wizard_icon">"Shfaq ikonën e aplikacionit"</string>
     <string name="show_setup_wizard_icon_summary">"Shfaq ikonën e aplikacionit në mekanizimin e nisjes"</string>
-    <string name="dictionary_settings_title">"Fjalorë shtesë"</string>
+    <string name="dictionary_category_title">"Fjalorë shtesë"</string>
     <string name="dictionary_available">"Fjalor i përdorshëm"</string>
-    <string name="no_dictionaries_available">"Nuk mund të përdoret asnjë fjalor"</string>
     <string name="last_update">"Përditësimi i fundit"</string>
     <string name="settings">"Cilësimet"</string>
     <string name="delete">"Fshi"</string>
-    <string name="version_text">"Versioni <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Shto"</string>
+    <string name="version_text">"Versioni %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Shto në fjalor"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Shkurtorja:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Gjuha:"</string>
     <string name="user_dict_settings_add_word_hint">"Shkruaj një fjalë"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Shkurtore opsionale"</string>
     <string name="user_dict_settings_edit_dialog_title">"Redakto fjalën"</string>
-    <string name="user_dict_settings_empty_text">"Nuk ke asnjë fjalë në fjalorin e përdoruesit. Për të shtuar një fjalë, trokit te butoni \"Shto (+)\"."</string>
     <string name="user_dict_settings_all_languages">"Për të gjitha gjuhët"</string>
     <string name="user_dict_settings_more_languages">"Gjuhë të tjera…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

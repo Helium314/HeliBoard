@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"გაყოფილი კლავიატურის გააქტიურება"</string>
     <string name="language_switch_key_switch_input_method">"შეყვანის სხვა მეთოდებზე გადართვა"</string>
     <string name="show_language_switch_key">"ენის გადართვის კლავიში"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>მწმ"</string>
+    <string name="abbreviation_unit_milliseconds">"%sმწმ"</string>
     <string name="settings_system_default">"სისტემის ნაგულისხმევი"</string>
     <string name="use_contacts_dict_summary">"კონტაქტებიდან სახელების გამოყენება შეთავაზებებისთვის და კორექციისთვის"</string>
     <string name="use_personalized_dicts">"პერსონალიზებული შეთავაზებები"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"ესპანური (აშშ)"</string>
     <string name="subtype_hi_Latn">"ჰინგლისური"</string>
     <string name="subtype_sr_Latn">"სერბული (ლათინური)"</string>
-    <string name="subtype_with_layout_en_GB">ინგლისური (UK) <xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g></string>
-    <string name="subtype_with_layout_en_US">ინგლისური (აშშ) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_es_US">ესპანური (აშშ) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_hi_Latn">ჰინგლისური (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_sr_Latn">სერბული (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (ტრადიციული)</string>
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (კომპაქტური)</string>
-    <string name="subtype_no_language">"ენის გარეშე (ლათინური ანბანი)"</string>
-    <string name="subtype_no_language_qwerty">"ლათ. ანბანი (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ანბანი (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ანბანი (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ანბანი (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ანბანი (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ანბანი (PC)"</string>
+    <string name="subtype_generic_traditional">%s (ტრადიციული)</string>
+    <string name="subtype_generic_compact">%s (კომპაქტური)</string>
+    <string name="subtype_no_language">"ენის გარეშე"</string>
     <string name="subtype_emoji">"სიცილაკები"</string>
     <string name="add">"დამატება"</string>
     <string name="remove">"ამოშლა"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"სიცილაკები ფიზიკური კლავიატურისთვის"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ფიზიკური ღილაკი Alt აჩვენებს სიცილაკების პალიტრას"</string>
     <string name="button_default">"ნაგულისხმევი"</string>
-    <string name="setup_welcome_title">მოგესალმებათ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>
+    <string name="setup_welcome_title">მოგესალმებათ %s</string>
     <string name="setup_welcome_additional_description">"ჟესტებით წერით"</string>
     <string name="setup_start_action">"დაწყება"</string>
-    <string name="setup_next_action">"შემდეგი საფეხური"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ის მორგება</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ის ჩართვა</string>
-    <string name="setup_step1_instruction">შეყვანის პარამეტრებში გადაამოწმეთ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>&amp;. ეს თქვენს მოწყობილობაზე გაშვების ავტორიზაციას მოგცემთ.</string>
-    <string name="setup_step1_finished_instruction"><xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>&amp; თქვენი შეყვანის ენის პარამეტრებში უკვე ჩართულია. შემდეგ საფეხური!</string>
+    <string name="setup_steps_title">%s-ის მორგება</string>
+    <string name="setup_step1_title">%s-ის ჩართვა</string>
+    <string name="setup_step1_instruction">შეყვანის პარამეტრებში გადაამოწმეთ %s&amp;. ეს თქვენს მოწყობილობაზე გაშვების ავტორიზაციას მოგცემთ.</string>
     <string name="setup_step1_action">"პარამეტრებში გააქტიურება"</string>
-    <string name="setup_step2_title">გადაერთეთ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ზე</string>
-    <string name="setup_step2_instruction">შემდეგ, აირჩიეთ „<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>“ თქვენს აქტიურ შეყვანის მეთოდად.</string>
+    <string name="setup_step2_title">გადაერთეთ %s-ზე</string>
+    <string name="setup_step2_instruction">შემდეგ, აირჩიეთ „%s“ თქვენს აქტიურ შეყვანის მეთოდად.</string>
     <string name="setup_step2_action">"შეყვანის მეთოდების გადართვა"</string>
     <string name="setup_step3_title">"გილოცავთ, პროცესი დასრულდა!"</string>
-    <string name="setup_step3_instruction">ახლა თქვენს საყვარელ აპებში შეგიძლიათ <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>-ით აკრიფოთ.</string>
+    <string name="setup_step3_instruction">ახლა თქვენს საყვარელ აპებში შეგიძლიათ %s-ით აკრიფოთ.</string>
     <string name="setup_finish_action">"დასრულებული"</string>
     <string name="show_setup_wizard_icon">"აპის ხატულის ჩვენება"</string>
     <string name="show_setup_wizard_icon_summary">"აპის ხატულის ჩვენება გამშვებში"</string>
-    <string name="dictionary_settings_title">"დამატებითი ლექსიკონები"</string>
+    <string name="dictionary_category_title">"დამატებითი ლექსიკონები"</string>
     <string name="dictionary_available">"ხელმისაწვდომია ლექსიკონი"</string>
-    <string name="no_dictionaries_available">"ლექსიკონები მიუწვდომელია"</string>
     <string name="last_update">"ბოლო განახლება"</string>
     <string name="settings">"პარამეტრები"</string>
     <string name="delete">"წაშლა"</string>
-    <string name="version_text">ვერსია <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <string name="user_dict_settings_add_menu_title">"დამატება"</string>
+    <string name="version_text">ვერსია %1$s</string>
     <string name="user_dict_settings_add_dialog_title">"ლექსიკონში დამატება"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"მალსახმობი:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ენა:"</string>
     <string name="user_dict_settings_add_word_hint">"შიყვანეთ სიტყვა"</string>
     <string name="user_dict_settings_add_shortcut_hint">"არასავალდებულო მალსა"</string>
     <string name="user_dict_settings_edit_dialog_title">"სიტყვის შესწორება"</string>
-    <string name="user_dict_settings_empty_text">"მომხმარებლის ლექსიკონში სიტყვები არ არის. სიტყვის დასამატებლად, შეეხეთ დამატების (+) ღილაკს."</string>
     <string name="user_dict_settings_all_languages">"ყველა ენისთვის"</string>
     <string name="user_dict_settings_more_languages">"სხვა ენები…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
@@ -119,7 +103,7 @@
     <string name="autospace_after_punctuation">პუნქტუაციის შემდეგ ადგილის ავტომტური გამოტოვება</string>
     <string name="autospace_after_punctuation_summary">ახალი სიტყვის დაწყებისას პუნქტუაციის შემდეგ გამოტოვების ავტომატური ჩასმა</string>
     <string name="number_row">ციფრებანი მწკრივი</string>
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (აკხორი)</string>
+    <string name="subtype_akkhor_bn_BD">%s (აკხორი)</string>
     <string name="day_night_mode_summary">გარეგნობა სისტემურ პარამეტრებს დაეყრდნობა</string>
     <string name="settings_category_clipboard_history">ბუფერის ისტორია</string>
     <string name="settings_category_correction">შესწორებები</string>
@@ -142,13 +126,11 @@
     <string name="settings_category_suggestions">მინიშნებები</string>
     <string name="settings_category_experimental">ექსპერიმენტალური</string>
     <string name="number_row_summary">რიცხვებიანი მწკრივის ყოველთვის ჩვენება</string>
-    <string name="subtype_no_language_workman">ანბანი (Workman)</string>
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>წთ.</string>
+    <string name="abbreviation_unit_minutes">%sწთ.</string>
     <string name="clipboard_history_retention_time">ისტორიის შენახვის დრო</string>
     <string name="more_keys_strip_description">მეტი ღილაკი</string>
     <string name="prefs_keyboard_height_scale">კლავიატურის სიმაღლის მასშტაბი</string>
     <string name="key_borders">ღილაკის კონტურები</string>
-    <string name="subtype_no_language_colemak_dh">ანბანი (Colemak Mod-DH)</string>
     <string name="day_night_mode">დღის/ღამის ავტ. არჩევანი</string>
     <string name="undo">"დაბრუნება"</string>
     <string name="redo">"გამეორება"</string>

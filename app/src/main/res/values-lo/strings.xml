@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"ເປີດ​ນຳ​ໃຊ້​ແປ້ນ​ພິມ​ແຍກ​ຕົວ"</string>
     <string name="language_switch_key_switch_input_method">"ປ່ຽນໄປໃຊ້ການປ້ອນຂໍ້ມູນແບບອື່ນ"</string>
     <string name="show_language_switch_key">"ປຸ່ມປ່ຽນພາສາ"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"ຄ່າເລີ່ມຕົ້ນຂອງລະບົບ"</string>
     <string name="use_contacts_dict_summary">"ໃຊ້ຊື່ຈາກລາຍຊື່ຜູ່ຕິດຕໍ່ສຳລັບການແນະນຳ ແລະ ການຊ່ວຍແກ້ຄຳ"</string>
     <string name="use_personalized_dicts">"ຄຳແນະນຳຕາມການນຳໃຊ້ຂອງທ່ານ"</string>
@@ -50,20 +50,9 @@
     <string name="subtype_es_US">"ສະເປນ (ອາເມລິກາ)"</string>
     <string name="subtype_hi_Latn">"ຮິງ​ລິສ"</string>
     <string name="subtype_sr_Latn">"ເຊີ​ບຽນ (​ລາ​ຕິນ)"</string>
-    <string name="subtype_with_layout_en_GB">"ອັງ​ກິດ (ສະ​ຫະ​ລາດ​ຊະ​ອາ​ນາ​ຈັກ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_en_US">"ອັງ​ກິດ (ສະ​ຫະ​ລັດຯ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_es_US">"ສະ​ແປນ​ນິດ (ສະ​ຫະ​ລັດຯ) (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_hi_Latn">"ຮິງ​ລິສ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"ເຊີ​ບຽນ (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ດັ້ງ​ເດີມ)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (ກະ​ທັດ​ຮັດ)"</string>
-    <string name="subtype_no_language">"ບໍ່ມີພາສາ (ໂຕອັກສອນ)"</string>
-    <string name="subtype_no_language_qwerty">"ໂຕອັກສອນ (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"ໂຕອັກສອນ (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"ໂຕອັກສອນ (AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"ໂຕອັກສອນ (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"ໂຕອັກສອນ (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"ໂຕອັກສອນ (PC)"</string>
+    <string name="subtype_generic_traditional">"%s (ດັ້ງ​ເດີມ)"</string>
+    <string name="subtype_generic_compact">"%s (ກະ​ທັດ​ຮັດ)"</string>
+    <string name="subtype_no_language">"ບໍ່ມີພາສາ"</string>
     <string name="subtype_emoji">"ອີໂມຈິ"</string>
     <string name="add">"ເພີ່ມ"</string>
     <string name="remove">"ລຶບອອກ"</string>
@@ -76,38 +65,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"Emoji ສຳ​ລັບ​ແປ້ນ​ພິມ​ແທ້"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"ປຸ່ມ Alt ແທ້​ສະ​ແດງ​ແຜ່ນ​ຮອງ emoji"</string>
     <string name="button_default">"ຄ່າເລີ່ມຕົ້ນ"</string>
-    <string name="setup_welcome_title">"ຍິນ​ດີ​ຕ້ອນ​ຮັບສູ່ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"ຍິນ​ດີ​ຕ້ອນ​ຮັບສູ່ %s"</string>
     <string name="setup_welcome_additional_description">"ດ້ວຍການພິມແບບ Gesture"</string>
     <string name="setup_start_action">"ເລີ່ມຕົ້ນ"</string>
-    <string name="setup_next_action">"ຂັ້ນຕອນຕໍ່ໄປ"</string>
-    <string name="setup_steps_title">"ຕັ້ງຄ່າ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"ເປີດນຳໃຊ້ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"ກະລຸນາກວດເບິ່ງ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ໃນການຕັ້ງຄ່າພາສາ ແລະ ການປ້ອນຂໍ້ມູນຂອງທ່ານ. ນີ້ຈະເປັນການອະນຸຍາດໃຫ້ມັນເຮັດວຽກໃນອຸປະກອນຂອງທ່ານ."</string>
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME">%s</xliff:g> ຖືກເປີດນຳໃຊ້ໃນການຕັ້ງຄ່າພາສາ ແລະ ການປ້ອນຂໍ້ມູນຂອງທ່ານແລ້ວ, ສະນັ້ນຂັ້ນຕອນນີ້ແມ່ນສຳເລັດໄປແລ້ວ. ໄປທີ່ຂັ້ນຕອນຕໍ່ໄປ!"</string>
+    <string name="setup_steps_title">"ຕັ້ງຄ່າ %s"</string>
+    <string name="setup_step1_title">"ເປີດນຳໃຊ້ %s"</string>
+    <string name="setup_step1_instruction">"ກະລຸນາກວດເບິ່ງ \"%s\" ໃນການຕັ້ງຄ່າພາສາ ແລະ ການປ້ອນຂໍ້ມູນຂອງທ່ານ. ນີ້ຈະເປັນການອະນຸຍາດໃຫ້ມັນເຮັດວຽກໃນອຸປະກອນຂອງທ່ານ."</string>
     <string name="setup_step1_action">"ເປີດນຳໃຊ້ໃນການຕັ້ງຄ່າ"</string>
-    <string name="setup_step2_title">"ປ່ຽນເປັນ <xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step2_instruction">"ຕໍ່ໄປ, ເລືອກເອົາ \"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" ເປັນຮູບແບບການປ້ອນຂໍ້ມູນຂອງທ່ານ."</string>
+    <string name="setup_step2_title">"ປ່ຽນເປັນ %s"</string>
+    <string name="setup_step2_instruction">"ຕໍ່ໄປ, ເລືອກເອົາ \"%s\" ເປັນຮູບແບບການປ້ອນຂໍ້ມູນຂອງທ່ານ."</string>
     <string name="setup_step2_action">"ປ່ຽນຮູບແບບການປ້ອນຂໍ້ມູນ"</string>
     <string name="setup_step3_title">"ຍິນດີດ້ວຍ, ທ່ານເຮັດແລ້ວໆ!"</string>
-    <string name="setup_step3_instruction">"ຕອນນີ້ທ່ານສາມາດພິມໃນແອັບຯທີ່ທ່ານມັກໄດ້ທຸກແອັບຯດ້ວຍ <xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"ຕອນນີ້ທ່ານສາມາດພິມໃນແອັບຯທີ່ທ່ານມັກໄດ້ທຸກແອັບຯດ້ວຍ %s."</string>
     <string name="setup_finish_action">"ສຳເລັດແລ້ວ"</string>
     <string name="show_setup_wizard_icon">"ສະແດງໄອຄອນຂອງແອັບ"</string>
     <string name="show_setup_wizard_icon_summary">"ສະແດງໄອຄອນຂອງແອັບໃນ Launcher"</string>
-    <string name="dictionary_settings_title">"ໂຕເສີມວັດຈະນານຸກົມ"</string>
+    <string name="dictionary_category_title">"ໂຕເສີມວັດຈະນານຸກົມ"</string>
     <string name="dictionary_available">"ມີວັດຈະນານຸກົມ"</string>
-    <string name="no_dictionaries_available">"ບໍ່ມີວັດຈະນານຸກົມ"</string>
     <string name="last_update">"ອັບເດດຫຼ້າສຸດ"</string>
     <string name="settings">"ການຕັ້ງຄ່າ"</string>
     <string name="delete">"ລຶບ"</string>
-    <string name="version_text">"ເວີຊັນ <xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"ເພີ່ມ"</string>
+    <string name="version_text">"ເວີຊັນ %1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"ເພີ່ມໄປທີ່ວັດຈະນານຸກົມ"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ທາງລັດ:"</string>
     <string name="user_dict_settings_add_locale_option_name">"ພາສາ:"</string>
     <string name="user_dict_settings_add_word_hint">"ພິມ​ຄໍາ​ສັບ​ໃດ​ນຶ່ງ"</string>
     <string name="user_dict_settings_add_shortcut_hint">"ຕົວເລືອກທາງລັດ"</string>
     <string name="user_dict_settings_edit_dialog_title">"ແກ້ໄຂຄຳສັບ"</string>
-    <string name="user_dict_settings_empty_text">"ທ່ານບໍ່ມີຄຳສັບໃດໆໃນວັດຈະນານຸກົມຜູ້ໃຊ້ເທື່ອ. ເພື່ອເພີ່ມຄຳສັບ, ໃຫ້ແຕະປຸ່ມເພີ່ມ (+)."</string>
     <string name="user_dict_settings_all_languages">"ສໍາ​ລັບ​ທຸກໆ​ພາ​ສາ"</string>
     <string name="user_dict_settings_more_languages">"ພາສາອື່ນໆ…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

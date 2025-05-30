@@ -14,7 +14,7 @@ import android.view.MotionEvent
 import helium314.keyboard.accessibility.AccessibilityLongPressTimer.LongPressTimerCallback
 import helium314.keyboard.keyboard.*
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeLocaleUtils.displayName
 
 /**
  * This class represents a delegate that can be registered in [MainKeyboardView] to enhance
@@ -86,9 +86,7 @@ class MainKeyboardAccessibilityDelegate(
      * @param keyboard The new keyboard.
      */
     private fun announceKeyboardLanguage(keyboard: Keyboard) {
-        val languageText = SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(
-                keyboard.mId.mSubtype.rawSubtype)
-        sendWindowStateChanged(languageText)
+        sendWindowStateChanged(keyboard.mId.mSubtype.rawSubtype.displayName())
     }
 
     /**

@@ -16,7 +16,7 @@
     <string name="enable_split_keyboard">"スプリットキーボードを有効にする"</string>
     <string name="language_switch_key_switch_input_method">"他の入力方法に切り替え"</string>
     <string name="show_language_switch_key">"言語切り替えキー"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ミリ秒"</string>
+    <string name="abbreviation_unit_milliseconds">"%sミリ秒"</string>
     <string name="settings_system_default">"システムのデフォルト"</string>
     <string name="use_contacts_dict_summary">"連絡先の名前を使用して候補表示や自動修正を行う"</string>
     <string name="use_personalized_dicts">"入力候補のカスタマイズ"</string>
@@ -49,20 +49,9 @@
     <string name="subtype_es_US">"スペイン語 (米国)"</string>
     <string name="subtype_hi_Latn">"ヒングリッシュ"</string>
     <string name="subtype_sr_Latn">"セルビア語（ラテン文字）"</string>
-    <string name="subtype_with_layout_en_GB">"英語（英国）（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_en_US">"英語（米国）（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_es_US">"スペイン語（米国）（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_hi_Latn">"ヒングリッシュ（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_with_layout_sr_Latn">"セルビア語（<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>）"</string>
-    <string name="subtype_generic_traditional">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g>（伝統言語）"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g>（コンパクト）"</string>
+    <string name="subtype_generic_traditional">"%s（伝統言語）"</string>
+    <string name="subtype_generic_compact">"%s（コンパクト）"</string>
     <string name="subtype_no_language">"言語なし（アルファベット）"</string>
-    <string name="subtype_no_language_qwerty">"アルファベット（QWERTY）"</string>
-    <string name="subtype_no_language_qwertz">"アルファベット（QWERTZ）"</string>
-    <string name="subtype_no_language_azerty">"アルファベット（AZERTY）"</string>
-    <string name="subtype_no_language_dvorak">"アルファベット（Dvorak）"</string>
-    <string name="subtype_no_language_colemak">"アルファベット（Colemak）"</string>
-    <string name="subtype_no_language_pcqwerty">"アルファベット（PC）"</string>
     <string name="subtype_emoji">"絵文字"</string>
     <string name="add">"追加"</string>
     <string name="remove">"削除"</string>
@@ -75,38 +64,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"物理キーボードの絵文字"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"物理Altキーによって絵文字パレットが表示されます"</string>
     <string name="button_default">"デフォルト"</string>
-    <string name="setup_welcome_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>へようこそ\"</string>
+    <string name="setup_welcome_title">%sへようこそ\"</string>
     <string name="setup_welcome_additional_description">"新しいジェスチャー入力をお試しください"</string>
     <string name="setup_start_action">"開始"</string>
-    <string name="setup_next_action">"次のステップ"</string>
-    <string name="setup_steps_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>の設定\"</string>
-    <string name="setup_step1_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>の有効化\"</string>
-    <string name="setup_step1_instruction">[言語と入力] 設定で<xliff:g id="APPLICATION_NAME">%s</xliff:g>」のチェックボックスをオンにしてください。これで、このデバイスで利用できるようになります。\"</string>
-    <string name="setup_step1_finished_instruction">"[言語と入力] 設定で「<xliff:g id="APPLICATION_NAME">%s</xliff:g>」は既に有効になっているため、このステップは完了です。次のステップに進んでください。"</string>
+    <string name="setup_steps_title">%sの設定\"</string>
+    <string name="setup_step1_title">%sの有効化\"</string>
+    <string name="setup_step1_instruction">[言語と入力] 設定で%s」のチェックボックスをオンにしてください。これで、このデバイスで利用できるようになります。\"</string>
     <string name="setup_step1_action">"設定での有効化"</string>
-    <string name="setup_step2_title"><xliff:g id="APPLICATION_NAME">%s</xliff:g>への切り替え\"</string>
-    <string name="setup_step2_instruction">次に、有効なテキスト入力方法として<xliff:g id="APPLICATION_NAME">%s</xliff:g>」を選択します。\"</string>
+    <string name="setup_step2_title">%sへの切り替え\"</string>
+    <string name="setup_step2_instruction">次に、有効なテキスト入力方法として%s」を選択します。\"</string>
     <string name="setup_step2_action">"入力方法を切り替える"</string>
     <string name="setup_step3_title">"設定完了"</string>
-    <string name="setup_step3_instruction">"これで、お気に入りのすべてのアプリで<xliff:g id="APPLICATION_NAME">%s</xliff:g>を使用して入力できます。"</string>
+    <string name="setup_step3_instruction">"これで、お気に入りのすべてのアプリで%sを使用して入力できます。"</string>
     <string name="setup_finish_action">"完了"</string>
     <string name="show_setup_wizard_icon">"アプリアイコンを表示"</string>
     <string name="show_setup_wizard_icon_summary">"ランチャーにアプリアイコンを表示します"</string>
-    <string name="dictionary_settings_title">"アドオン辞書"</string>
+    <string name="dictionary_category_title">"アドオン辞書"</string>
     <string name="dictionary_available">"辞書を利用できます"</string>
-    <string name="no_dictionaries_available">"辞書はありません"</string>
     <string name="last_update">"最終更新"</string>
     <string name="settings">"設定"</string>
     <string name="delete">"削除"</string>
-    <string name="version_text">"バージョン<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"追加"</string>
+    <string name="version_text">"バージョン%1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"辞書に追加"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"ショートカット:"</string>
     <string name="user_dict_settings_add_locale_option_name">"言語:"</string>
     <string name="user_dict_settings_add_word_hint">"単語を入力します"</string>
     <string name="user_dict_settings_add_shortcut_hint">"オプションのショートカット"</string>
     <string name="user_dict_settings_edit_dialog_title">"語句の編集"</string>
-    <string name="user_dict_settings_empty_text">"単語リストに登録がありません。単語を追加するには、追加ボタン [+] をタップします。"</string>
     <string name="user_dict_settings_all_languages">"すべての言語用"</string>
     <string name="user_dict_settings_more_languages">"その他の言語…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>

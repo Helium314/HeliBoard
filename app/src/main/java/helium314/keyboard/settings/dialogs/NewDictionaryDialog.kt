@@ -81,7 +81,7 @@ fun NewDictionaryDialog(
                             selectedItem = locale,
                             onSelected = { locale = it },
                             items = locales
-                        ) { Text(it.localizedDisplayName(ctx)) }
+                        ) { Text(it.localizedDisplayName(ctx.resources)) }
                     }
                     if (locale.script() != dictLocale.script()) {
                         // whatever, still allow it if the user wants

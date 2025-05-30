@@ -5,13 +5,12 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">HeliBoard</string>
     <!-- Name of Android spell checker service. The app name should not be translated. -->
     <string name="spell_checker_service_name">HeliBoard Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
     <string name="ime_settings">HeliBoard Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
-    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string> <!-- todo: was used in top bar, but spell checker settings now don't have one -->
+    <string name="android_spell_checker_settings">HeliBoard Spell Checker Settings</string>
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
     <!-- Option to provide vibrate/haptic feedback on keypress even in do not disturb mode -->
@@ -71,9 +70,9 @@
     <!-- Option to show shortcut key to emoji palettes -->
     <string name="show_emoji_key">Emoji key</string>
     <!-- Units abbreviation for the duration (milliseconds) -->
-    <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g> ms</string>
+    <string name="abbreviation_unit_milliseconds">%s ms</string>
     <!-- Units abbreviation for the duration (minutes) -->
-    <string name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g> min</string>
+    <string name="abbreviation_unit_minutes">%s min</string>
     <!-- The text that represents the current settings value is the system default -->
     <string name="settings_system_default">System default</string>
     <!-- The text that represents an unlimited delay -->
@@ -285,7 +284,7 @@
     <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Language</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
@@ -377,6 +376,8 @@
     <!-- Description for Spanish (US) keyboard subtype
          (US) should be an abbreviation of United States. -->
     <string name="subtype_es_US">Spanish (US)</string>
+    <!-- Description for Serbian (Latin) keyboard subtype -->
+    <string name="subtype_sr_Latn">Serbian (Latin)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype -->
     <string name="subtype_hi_Latn">Hinglish</string>
     <!-- Description for Mansi (https://en.wikipedia.org/wiki/Mansi_languages) keyboard subtype -->
@@ -387,152 +388,33 @@
     <string name="subtype_dag">Dagbani</string>
     <!-- Description for Sesotho (https://en.wikipedia.org/wiki/Sesotho_language) keyboard subtype -->
     <string name="subtype_st">Sesotho</string>
-    <!-- Description for Serbian (Latin) keyboard subtype -->
-    <string name="subtype_sr_Latn">Serbian (Latin)</string>
-    <!-- Description for English (UK) keyboard subtype with explicit keyboard layout
-         (UK) should be an abbreviation of United Kingdom.
-         This should be identical to subtype_en_GB aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_GB" tools:keep="@string/subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for English (US) keyboard subtype with explicit keyboard layout
-         (US) should be an abbreviation of United States.
-         This should be identical to subtype_en_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_US" tools:keep="@string/subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout
-         (US) should be an abbreviation of United States.
-         This should be identical to subtype_es_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_es_US" tools:keep="@string/subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout
-         This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_hi_Latn" tools:keep="@string/subtype_with_layout_hi_Latn">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
-    <string name="subtype_generic_extended"><xliff:g id="LANGUAGE_NAME" example="Kannada">%s</xliff:g> (Extended)</string>
-    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout
-         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_mns" tools:keep="@string/subtype_with_layout_mns">Mansi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
-    <string name="subtype_with_layout_dru" tools:keep="@string/subtype_with_layout_dru">Urakhi (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <string name="subtype_with_layout_xdq" tools:keep="@string/subtype_with_layout_xdq">Kaitag (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
-    <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout
-         This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_sr_Latn" tools:keep="@string/subtype_with_layout_sr_Latn">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <!-- Description for a generic language / layout combination. %1$s is the language, %2$s is the layout -->
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <!-- Description for "LANGUAGE_NAME" (Extended) keyboard subtype -->
+    <string name="subtype_generic_extended">%s (Extended)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype -->
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <!-- Description for Bengali (Akkhor) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Akkhor)</string>
-    <!-- Description for Bengali (Probhat) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_probhat_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Probhat)</string>
-    <!-- Description for Bengali (Baishakhi) keyboard subtype with explicit keyboard layout -->
-    <string name="subtype_baishakhi_bn_IN"><xliff:g id="LANGUAGE_NAME" example="Bengali">%s</xliff:g> (Baishakhi)</string>
-    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype -->
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
-    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype -->
-    <string name="subtype_generic_phonetic"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Phonetic)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype -->
-    <string name="subtype_generic_sebeolsik_390"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik 390)</string>
-    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype -->
-    <string name="subtype_generic_sebeolsik_final"><xliff:g id="LANGUAGE_NAME" example="Korean">%s</xliff:g> (Sebeolsik Final)</string>
-    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype -->
-    <string name="subtype_generic_student"><xliff:g id="LANGUAGE_NAME" example="Russian">%s</xliff:g> (Student)</string>
+    <string name="subtype_generic_traditional">%s (Traditional)</string>
+    <!-- Description for "LANGUAGE_NAME" (Akkhor) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
+    <!-- Description for "LANGUAGE_NAME" (Probhat) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
+    <!-- Description for "LANGUAGE_NAME" (Baishakhi) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
+    <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_compact">%s (Compact)</string>
+    <!-- Description for "LANGUAGE_NAME" (Phonetic) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_phonetic">%s (Phonetic)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik 390) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
+    <!-- Description for "LANGUAGE_NAME" (Sebeolsik Final) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
+    <!-- Description for "LANGUAGE_NAME" (Student) keyboard subtype with explicit keyboard layout -->
+    <string name="subtype_generic_student">%s (Student)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
-language, hence "No language".
-As for the "alphabet" mention, it refers specifically to the Latin alphabet, as opposed to
-Cyrillic, Arabic, Hebrew or other scripts. This keyboard offers no suggestions, but it will
-be a QWERTY, or AZERTY, or any other disposition that only offers Latin characters, so
-you wouldn't be able to type, say, Arabic on it. Please translate it in a way that "alphabet"
-would be understood to mean specifically the Latin alphabet, rather than any other
-alphabet. -->
-    <string name="subtype_no_language">No language (Alphabet)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_qwerty">Alphabet (QWERTY)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the QWERTZ
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_qwertz" tools:keep="@string/subtype_no_language_qwertz">Alphabet (QWERTZ)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the AZERTY
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_azerty" tools:keep="@string/subtype_no_language_azerty">Alphabet (AZERTY)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the Dvorak
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_dvorak" tools:keep="@string/subtype_no_language_dvorak">Alphabet (Dvorak)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the Colemak
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_colemak" tools:keep="@string/subtype_no_language_colemak">Alphabet (Colemak)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the QWERTY PC
-disposition that offers additional keys, but smaller keys compared to other common dispositions for
-mobile devices. -->
-    <string name="subtype_no_language_colemak_dh" tools:keep="@string/subtype_no_language_colemak_dh">Alphabet (Colemak Mod-DH)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the Workman
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_workman" tools:keep="@string/subtype_no_language_workman">Alphabet (Workman)</string>
-    <!-- This string is displayed in the description for a keyboard type. It refers specifically to
-the Latin alphabet, as opposed to Cyrillic, Arabic, Hebrew or other scripts.
-When the device is configured to use a language using a script other than the Latin alphabet, the
-user still needs a keyboard that can input Latin characters for passwords or login names for
-example, and a way to switch to this Latin alphabet keyboard. This string is the description for
-this keyboard, so users of other scripts should understand when they read this that it represents a
-keyboard that is meant for them to be able to enter Latin characters as opposed to the script they
-are used to. This keyboard does not provide a dictionary, and it is not tied to any specific
-language among those that use the Latin alphabet. This keyboard is laid out in the Bépo
-disposition rather than other common dispositions for Latin languages. -->
-    <string name="subtype_no_language_bepo" tools:keep="@string/subtype_no_language_bepo">Alphabet (Bépo)</string>
-    <string name="subtype_no_language_pcqwerty" tools:keep="@string/subtype_no_language_pcqwerty">Alphabet (PC)</string>
+language, hence "No language". -->
+    <string name="subtype_no_language">No language</string>
     <!-- Description for Emoji keyboard subtype -->
     <string name="subtype_emoji">Emoji</string>
     <!-- Title of the button to add custom style entry in the settings dialog. Preferably 10 characters or less. -->
@@ -559,10 +441,8 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="copy_to_clipboard">Copy to Clipboard</string>
     <!-- Error message when file cannot be read -->
     <string name="file_read_error">Cannot read file</string>
-    <!-- Button text for copying an existing layout -->
+    <!-- (currently not used) Button text for copying an existing layout -->
     <string name="button_copy_existing_layout">Copy existing layout</string> <!-- todo: use it or remove it -->
-    <!-- Title text for choosing a layout name -->
-    <string name="title_layout_name_select">Set layout name</string> <!-- todo: use it or remove it -->
     <!-- Message when deleting a layout -->
     <string name="delete_layout">Really delete custom layout %s?</string>
     <!-- Message when layout to be deleted is in use -->
@@ -645,34 +525,30 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="prefs_enable_emoji_alt_physical_key_summary">Physical Alt key shows the emoji palette</string>
     <!-- Title of the button to revert to the default value of the device in the settings dialog. Preferably 10 characters or less. -->
     <string name="button_default">Default</string>
-    <!-- Title of the setup wizard welcome screen. -->
-    <string name="setup_welcome_title">"Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <!-- Title of the setup wizard welcome screen. %s is the application name. -->
+    <string name="setup_welcome_title">"Welcome to %s"</string>
     <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. -->
     <string name="setup_welcome_additional_description">with Gesture Typing</string>
     <!-- The label of the button that starts the setup wizard. -->
     <string name="setup_start_action">Get started</string>
-    <!-- The label of the button that navigates the user to the next step of the setup wizard. -->
-    <string name="setup_next_action">Next step</string> <!-- todo: use it or remove it -->
-    <!-- Title of the setup wizard. -->
-    <string name="setup_steps_title">"Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Title of the 1st step in the setup wizard. -->
-    <string name="setup_step1_title">"Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 1st step in the setup wizard. -->
-    <string name="setup_step1_instruction">"Please check \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
-    <!-- Detailed instruction of the already finished 1st step in the setup wizard. -->
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>  <!-- todo: use it or remove it -->
+    <!-- Title of the setup wizard. %s is the application name. -->
+    <string name="setup_steps_title">"Setting up %s"</string>
+    <!-- Title of the 1st step in the setup wizard. %s is the application name. -->
+    <string name="setup_step1_title">"Enable %s"</string>
+    <!-- Detailed instruction of the 1st step in the setup wizard. %s is the application name. -->
+    <string name="setup_step1_instruction">"Please check \"%s\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
     <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. -->
     <string name="setup_step1_action">Enable in Settings</string>
-    <!-- Title of the 2nd step in the setup wizard. -->
-    <string name="setup_step2_title">"Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
-    <!-- Detailed instruction of the 2nd step in the setup wizard. -->
-    <string name="setup_step2_instruction">"Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method."</string>
+    <!-- Title of the 2nd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step2_title">"Switch to %s"</string>
+    <!-- Detailed instruction of the 2nd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step2_instruction">"Next, select \"%s\" as your active text-input method."</string>
     <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. -->
     <string name="setup_step2_action">Switch input methods</string>
     <!-- Title of the 3rd step in the setup wizard. -->
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
-    <!-- Detailed instruction of the 3rd step in the setup wizard. -->
-    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <!-- Detailed instruction of the 3rd step in the setup wizard. %s is the application name. -->
+    <string name="setup_step3_instruction">Now you can type in all your favorite apps with %s.</string>
     <!-- The label of the button that triggers the settings screen for the keyboard. -->
     <string name="setup_step3_action">Configure the keyboard</string>
     <!-- The label of the button that finishes the setup wizard. -->
@@ -681,8 +557,8 @@ disposition rather than other common dispositions for Latin languages. -->
     <string name="show_setup_wizard_icon">Show app icon</string>
     <!-- Description for the option to show setup wizard application icon of this IME in the launcher. -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
-    <!-- Title and summary of the dictionary settings screen -->
-    <string name="dictionary_settings_title">Add-on dictionaries</string> <!-- todo: name and description should change -->
+    <!-- Headline for the section listing the user-added dictionaries for the language -->
+    <string name="dictionary_category_title">Add-on dictionaries</string>
     <!-- Title for dictionaries preference screen -->
     <string name="dictionary_settings_category">Dictionaries</string>
     <!-- Summary text for built-in dictionary -->
@@ -716,26 +592,22 @@ New dictionary:
     <string name="available_dictionary_experimental">"%s (experimental)"</string>
     <!-- Text shown when dictionary file could not be read -->
     <string name="dictionary_file_error">"Error: Selected file is not a valid dictionary file"</string>
-    <!-- Text shown when dictionary file is not for the selected locale -->
+    <!-- (currently not used) Text shown when dictionary file is not for the selected locale -->
     <string name="dictionary_file_wrong_locale">"The selected file is for %1$s, but %2$s was expected. Still use it for %2$s?"</string> <!-- todo: use it or remove it -->
     <!-- Text shown when dictionary file is has incompatible script with the keyboard -->
     <string name="dictionary_file_wrong_script">"Error: script not compatible with this keyboard"</string>
-    <!-- Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
+    <!-- (currently not used) Button text for confirm / yes to the dictionary_file_wrong_locale message (above) -->
     <string name="dictionary_file_wrong_locale_ok">"Still use"</string> <!-- todo: use it or remove it -->
     <!-- Text shown on other errors when loading dictionary file -->
     <string name="dictionary_load_error">"Error loading dictionary file"</string>
     <!-- Message about some dictionary indicating it can be downloaded, but hasn't been yet -->
     <string name="dictionary_available">Dictionary available</string>
-    <!-- Message to display in the dictionaries setting screen when we found that no dictionaries are available-->
-    <string name="no_dictionaries_available">No dictionaries available</string>
     <!-- Hint to tell when the data was last updated. Usage : "Last updated [date]", may contain a : or so. -->
     <string name="last_update">Last updated</string>
     <!-- Action to delete (a file) -->
     <string name="delete">Delete</string>
-    <!-- Version text-->
-    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
-    <!-- User dictionary settings. The title of the menu item to add a new word to the user dictionary. -->
-    <string name="user_dict_settings_add_menu_title">Add</string>
+    <!-- Text for application version -->
+    <string name="version_text">Version %s</string>
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
     <!-- User dictionary settings. Label to put before the shortcut field (once a shortcut is registered, the user can type the shortcut and get the word it points to in the suggestions). -->
@@ -750,8 +622,6 @@ New dictionary:
     <string name="user_dict_settings_add_shortcut_hint">Optional shortcut</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
-    <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_settings_empty_text">You don\'t have any words in the user dictionary. To add a word, tap the Add (+) button.</string>
     <!-- User dictionary settings. The list item to choose to insert a word into the user dictionary for all languages -->
     <string name="user_dict_settings_all_languages">For all languages</string>
     <!-- User dictionary settings. The text to show for the option that shows the entire list of supported locales to choose one -->
@@ -825,13 +695,9 @@ New dictionary:
     <string name="more_colors">Show more colors</string>
     <!-- Menu item for showing all colors -->
     <string name="all_colors">Show all colors</string>
-    <!-- Warning message displayed when loading theme colors -->
-    <string name="load_will_overwrite">Loading will overwrite the current theme</string> <!-- todo: use it or remove it -->
     <!-- Warning message displayed when showing all colors -->
     <string name="all_colors_warning">This setting exposes all colors that are used internally. The list of colors may change at any time. The default color is random, and the names will not be translated.</string>
-    <!-- Hint for text field just to show keyboard (in color settings) -->
-    <string name="hint_show_keyboard">Click for preview</string> <!-- todo: use it or remove it -->
-    <!-- Description for selection of user-defined colors. -->
+    <!-- (currently not used) Description for selection of user-defined colors. -->
     <string name="select_user_colors_summary">Select colors for text and backgrounds</string> <!-- todo: use it or remove it -->
     <!-- Selection: background color. -->
     <string name="select_color_background">Keyboard background</string>
@@ -873,8 +739,8 @@ New dictionary:
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable. Preferably 10 characters or less. -->
     <string name="dialog_close">Close</string>
-    <!-- Preference for selecting system locales -->
-    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> <!-- todo: use it (again) or remove it -->
+    <!-- (currently not used) Preference for selecting system locales -->
+    <string name="use_system_language_to_select_input_method_subtypes">"Use system languages"</string> <!--todo: use it (again) or remove it -->
     <!-- Hint for users to tap the languages for settings -->
     <string name="text_tap_languages">Tap the language to open settings</string>
     <!-- Title of internal InputMethodPicker, strings should be same as the ones from Android system -->

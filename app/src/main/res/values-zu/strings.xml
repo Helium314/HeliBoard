@@ -17,7 +17,7 @@
     <string name="enable_split_keyboard">"Nika amandla ikhibhodi yokuhlukanisa"</string>
     <string name="language_switch_key_switch_input_method">"Shintshela kwezinye izindlela zokungena"</string>
     <string name="show_language_switch_key">"Ukhiye wokushintsha ullimi"</string>
-    <string name="abbreviation_unit_milliseconds">"<xliff:g id="MILLISECONDS">%s</xliff:g>ms"</string>
+    <string name="abbreviation_unit_milliseconds">"%sms"</string>
     <string name="settings_system_default">"Okuzenzakalelayo kwesistimu"</string>
     <string name="use_contacts_dict_summary">"Amagama abasebenzisi kusuka Kothintana nabo bokusikisela nokulungisa"</string>
     <string name="use_personalized_dicts">"Iziphakamiso ezenziwe okomuntu siqu"</string>
@@ -50,20 +50,9 @@
     <string name="subtype_es_US">"I-Spanish (US)"</string>
     <string name="subtype_hi_Latn">"I-Hinglish"</string>
     <string name="subtype_sr_Latn">"Isi-Serbian (Latin)"</string>
-    <string name="subtype_with_layout_en_GB">"I-English (UK) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_en_US">"I-English (US) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_es_US">"Isi-Spanish (US) ( <xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g> )"</string>
-    <string name="subtype_with_layout_hi_Latn">"I-Hinglish (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_with_layout_sr_Latn">"Isi-Serbian (<xliff:g id="KEYBOARD_LAYOUT">%s</xliff:g>)"</string>
-    <string name="subtype_generic_traditional">"Isi-<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Tradition)"</string>
-    <string name="subtype_generic_compact">"<xliff:g id="LANGUAGE_NAME">%s</xliff:g> (Okuqoqene ndawonye)"</string>
-    <string name="subtype_no_language">"Alikho ulimi (Alfabhethi)"</string>
-    <string name="subtype_no_language_qwerty">"Alfabhethi (QWERTY)"</string>
-    <string name="subtype_no_language_qwertz">"Alfabhethi (QWERTZ)"</string>
-    <string name="subtype_no_language_azerty">"Alfabhethi (I-AZERTY)"</string>
-    <string name="subtype_no_language_dvorak">"Alfabhethi (Dvorak)"</string>
-    <string name="subtype_no_language_colemak">"Alfabhethi (Colemak)"</string>
-    <string name="subtype_no_language_pcqwerty">"Alfabhethi (PC)"</string>
+    <string name="subtype_generic_traditional">"Isi-%s (Tradition)"</string>
+    <string name="subtype_generic_compact">"%s (Okuqoqene ndawonye)"</string>
+    <string name="subtype_no_language">"Alikho ulimi"</string>
     <string name="subtype_emoji">"I-Emoji"</string>
     <string name="add">"Engeza"</string>
     <string name="remove">"Khipha"</string>
@@ -76,38 +65,33 @@
     <string name="prefs_enable_emoji_alt_physical_key">"I-Emoji wekhibhodi yangempela"</string>
     <string name="prefs_enable_emoji_alt_physical_key_summary">"Ukhiye we-Alt woqobo ubonisa i-emoji palette"</string>
     <string name="button_default">"Okuzenzakalelayo"</string>
-    <string name="setup_welcome_title">"Siyakwamukela ku-<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Siyakwamukela ku-%s"</string>
     <string name="setup_welcome_additional_description">"nokuthayipha ngokuthinta"</string>
     <string name="setup_start_action">"Qalisa"</string>
-    <string name="setup_next_action">"Isinyathelo esilandelayo"</string>
-    <string name="setup_steps_title">"Kusethwa i-<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_title">"Nika amandla i-<xliff:g id="APPLICATION_NAME">%s</xliff:g>"</string>
-    <string name="setup_step1_instruction">"Sicela uhlole i-\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" kulimi lwakho nezilungiselelo zokokufaka. Lokhu kuzoyigunyaza ukuthi isebenze kudivayisi yakho."</string>
-    <string name="setup_step1_finished_instruction">"I-<xliff:g id="APPLICATION_NAME">%s</xliff:g> isivele inikwe amandla kulimi lwakho nakuzilungiselelo zokufaka, ngakho-ke lesi sinyathelo senziwe. Qhubekela kwesilandelayo!"</string>
+    <string name="setup_steps_title">"Kusethwa i-%s"</string>
+    <string name="setup_step1_title">"Nika amandla i-%s"</string>
+    <string name="setup_step1_instruction">"Sicela uhlole i-\"%s\" kulimi lwakho nezilungiselelo zokokufaka. Lokhu kuzoyigunyaza ukuthi isebenze kudivayisi yakho."</string>
     <string name="setup_step1_action">"Nika amandla kuzilungiselelo"</string>
-    <string name="setup_step2_title">"Shintshela ku-<xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
-    <string name="setup_step2_instruction">"Okulandelayo, khetha i-\"<xliff:g id="APPLICATION_NAME">%s</xliff:g>\" njengendlela yakho yokufaka umbhalo osebenzayo."</string>
+    <string name="setup_step2_title">"Shintshela ku-%s."</string>
+    <string name="setup_step2_instruction">"Okulandelayo, khetha i-\"%s\" njengendlela yakho yokufaka umbhalo osebenzayo."</string>
     <string name="setup_step2_action">"Shintsha izindlela zokufaka"</string>
     <string name="setup_step3_title">"Siyakuhalalisela, usumi ngomumo!"</string>
-    <string name="setup_step3_instruction">"Manje usungathayipha ngokufaka zonke izinhlelo zokusebenza eziyizintandokazi zakho nge-<xliff:g id="APPLICATION_NAME">%s</xliff:g>."</string>
+    <string name="setup_step3_instruction">"Manje usungathayipha ngokufaka zonke izinhlelo zokusebenza eziyizintandokazi zakho nge-%s."</string>
     <string name="setup_finish_action">"Iqedile"</string>
     <string name="show_setup_wizard_icon">"Bonisa isithonjana sohlelo lokusebenza"</string>
     <string name="show_setup_wizard_icon_summary">"Bonisa isithonjana sohlelo lokusebenza kusiqalisi"</string>
-    <string name="dictionary_settings_title">"Izichazamazwi ezingezwayo"</string>
+    <string name="dictionary_category_title">"Izichazamazwi ezingezwayo"</string>
     <string name="dictionary_available">"Isichazamazwi siyatholakala"</string>
-    <string name="no_dictionaries_available">"Azikho izachazimazwi ezitholakalayo"</string>
     <string name="last_update">"Igcine ukulungiswa"</string>
     <string name="settings">"Izilungiselelo"</string>
     <string name="delete">"Susa"</string>
-    <string name="version_text">"Inguqulo engu-<xliff:g id="VERSION_NUMBER">%1$s</xliff:g>"</string>
-    <string name="user_dict_settings_add_menu_title">"Engeza"</string>
+    <string name="version_text">"Inguqulo engu-%1$s"</string>
     <string name="user_dict_settings_add_dialog_title">"Faka kusichazamazwi"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Isinqamulelo:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Ulimi:"</string>
     <string name="user_dict_settings_add_word_hint">"Thayipha igama"</string>
     <string name="user_dict_settings_add_shortcut_hint">"Ukunqamulela okukhethekayo"</string>
     <string name="user_dict_settings_edit_dialog_title">"Hlela igama"</string>
-    <string name="user_dict_settings_empty_text">"Awunawo amagama kwisichazamazwi somsebenzisi. Ukuze ungeze igama, thepha inkinobho (+)."</string>
     <string name="user_dict_settings_all_languages">"Okwazo zonke izilimi"</string>
     <string name="user_dict_settings_more_languages">"Izilimi eziningi…"</string>
     <string name="user_dict_fast_scroll_alphabet">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
