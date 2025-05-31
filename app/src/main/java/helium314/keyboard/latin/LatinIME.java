@@ -87,6 +87,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
 import kotlin.collections.CollectionsKt;
@@ -880,6 +881,10 @@ public class LatinIME extends InputMethodService implements
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
         mSuggestionStripView = view.findViewById(R.id.suggestion_strip_view);
+        if (mSuggestionStripView.getVisibility() == View.GONE) {
+            mSuggestionStripView = null;
+        }
+
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
@@ -1216,6 +1221,8 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
+        if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
+            mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
         if (TRACE) Debug.stopMethodTracing();
@@ -1634,7 +1641,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     private boolean hasSuggestionStripView() {
-        return null != mSuggestionStripView && mSuggestionStripView.getVisibility() == View.VISIBLE;
+        return null != mSuggestionStripView;
     }
 
     private void setSuggestedWords(final SuggestedWords suggestedWords) {
@@ -1644,7 +1651,7 @@ public class LatinIME extends InputMethodService implements
         if (!hasSuggestionStripView()) {
             return;
         }
-        if (!onEvaluateInputViewShown() || mSettings.getCurrent().mSuggestionStripHiddenPerUserSettings) {
+        if (!onEvaluateInputViewShown()) {
             return;
         }
 
