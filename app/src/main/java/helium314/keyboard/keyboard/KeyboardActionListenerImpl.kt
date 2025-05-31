@@ -150,7 +150,7 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
 
     private fun onLanguageSlide(steps: Int): Boolean {
         if (abs(steps) < settings.current.mLanguageSwipeDistance) return false
-        val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(false)
+        val subtypes = RichInputMethodManager.getInstance().getMyEnabledInputMethodSubtypeList(true)
         if (subtypes.size <= 1) { // only allow if we have more than one subtype
             return false
         }
