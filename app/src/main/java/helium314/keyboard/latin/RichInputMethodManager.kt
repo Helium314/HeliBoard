@@ -7,7 +7,7 @@ package helium314.keyboard.latin
 
 import android.content.Context
 import android.inputmethodservice.InputMethodService
-import android.os.AsyncTask
+import android.os.Build
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
@@ -23,6 +23,8 @@ import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 /** Enrichment class for InputMethodManager to simplify interaction and add functionality. */
@@ -125,16 +127,15 @@ class RichInputMethodManager private constructor() {
         updateShortcutIme()
     }
 
-    // todo: deprecated
     fun switchToShortcutIme(inputMethodService: InputMethodService) {
         val imiId = shortcutInputMethodInfo?.id ?: return
         val token = inputMethodService.window.window?.attributes?.token ?: return
-        object : AsyncTask<Void?, Void?, Void?>() {
-            override fun doInBackground(vararg params: Void?): Void? {
-                imm.setInputMethodAndSubtype(token, imiId, shortcutSubtype)
-                return null
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
+        GlobalScope.launch {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+                inputMethodService.switchInputMethod(imiId, shortcutSubtype)
+            else
+                @Suppress("Deprecation") imm.setInputMethodAndSubtype(token, imiId, shortcutSubtype)
+        }
     }
 
     // todo: is shortcutIme only voice input, or can it be something else?
