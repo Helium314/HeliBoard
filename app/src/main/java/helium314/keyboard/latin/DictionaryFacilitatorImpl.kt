@@ -729,12 +729,12 @@ private class DictionaryGroup(
     else {
         val file = File(context.filesDir.absolutePath + File.separator + "blacklists" + File.separator + locale.toLanguageTag() + ".txt")
         if (file.isDirectory) file.delete() // this apparently was an issue in some versions
-        if (file.mkdirs()) file
+        if (file.parentFile?.mkdirs() == true) file
         else null
     }
 
     private val blacklist = hashSetOf<String>().apply {
-        if (blacklistFile?.exists() != true) return@apply
+        if (blacklistFile?.isFile != true) return@apply
         scope.launch {
             synchronized(this) {
                 try {
