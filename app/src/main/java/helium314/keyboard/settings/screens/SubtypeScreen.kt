@@ -1,12 +1,14 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -21,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -156,26 +157,49 @@ fun SubtypeScreen(
                 MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
                 if (availableLocalesForScript.size > 1) {
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
-                        TextButton(onClick = { showSecondaryLocaleDialog = true }) {
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 44.dp)
+                            .clickable { showSecondaryLocaleDialog = true },
+                            verticalAlignment = Alignment.CenterVertically) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
                                 it.localizedDisplayName(ctx.resources)
                             }.ifEmpty { stringResource(R.string.action_none) }
-                            Text(text, Modifier.fillMaxWidth())
+                            Text(text, modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp)
+                            )
                         }
                     }
                 }
-                Row {
-                    TextButton(onClick = { showKeyOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.popup_order)) }
-                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
-                        setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
+                WithSmallTitle(stringResource(R.string.popup_order_and_hint_source)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 44.dp)
+                            .clickable { showKeyOrderDialog = true },
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.popup_order), modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 10.dp)
+                        )
+                        DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
+                            setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
+                        }
                     }
-                }
-                Row {
-                    TextButton(onClick = { showHintOrderDialog = true }, Modifier.weight(1f))
-                    { Text(stringResource(R.string.hint_source)) }
-                    DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
-                        setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 44.dp)
+                            .clickable { showHintOrderDialog = true },
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.hint_source), modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 10.dp)
+                        )
+                        DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
+                            setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
+                        }
                     }
                 }
                 if (currentSubtype.locale.script() == ScriptUtils.SCRIPT_LATIN) {
@@ -185,9 +209,15 @@ fun SubtypeScreen(
                             Settings.PREF_MORE_POPUP_KEYS,
                             Defaults.PREF_MORE_POPUP_KEYS
                         )!!
-                        Row {
-                            TextButton(onClick = { showMorePopupsDialog = true }, Modifier.weight(1f))
-                            { Text(stringResource(morePopupKeysResId(value))) }
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 44.dp)
+                            .clickable { showMorePopupsDialog = true },
+                            verticalAlignment = Alignment.CenterVertically) {
+                            Text(stringResource(morePopupKeysResId(value)), modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp)
+                            )
                             DefaultButton(explicitValue == null) {
                                 setCurrentSubtype(currentSubtype.without(ExtraValue.MORE_POPUPS))
                             }
@@ -195,20 +225,28 @@ fun SubtypeScreen(
                     }
                 }
                 if (hasLocalizedNumberRow(currentSubtype.locale, ctx)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
-                        Text(stringResource(R.string.localized_number_row), Modifier.weight(1f))
-                        Switch(
-                            checked = checked ?: prefs.getBoolean(
-                                Settings.PREF_LOCALIZED_NUMBER_ROW,
-                                Defaults.PREF_LOCALIZED_NUMBER_ROW
-                            ),
-                            onCheckedChange = {
-                                setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
+                    val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
+                    WithSmallTitle(stringResource(R.string.number_row)) {
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 44.dp),
+                            verticalAlignment = Alignment.CenterVertically) {
+                            Text(stringResource(R.string.localized_number_row), modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp)
+                            )
+                            Switch(
+                                checked = checked ?: prefs.getBoolean(
+                                    Settings.PREF_LOCALIZED_NUMBER_ROW,
+                                    Defaults.PREF_LOCALIZED_NUMBER_ROW
+                                ),
+                                onCheckedChange = {
+                                    setCurrentSubtype(currentSubtype.with(ExtraValue.LOCALIZED_NUMBER_ROW, it.toString()))
+                                }
+                            )
+                            DefaultButton(checked == null) {
+                                setCurrentSubtype(currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW))
                             }
-                        )
-                        DefaultButton(checked == null) {
-                            setCurrentSubtype(currentSubtype.without(ExtraValue.LOCALIZED_NUMBER_ROW))
                         }
                     }
                 }

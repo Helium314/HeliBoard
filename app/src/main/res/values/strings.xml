@@ -205,6 +205,8 @@
     <string name="timestamp_format_title">Format for timestamp key</string>
     <!-- Preferences item for choosing secondary language -->
     <string name="secondary_locale">Multilingual typing</string>
+    <!-- Preferences item to set popup key order and select hints source -->
+    <string name="popup_order_and_hint_source">Popup key order and hints source</string>
     <!-- Clarification which locales are available for multilingual typing -->
     <string name="locales_with_dict">Languages with dictionaries</string>
     <!-- Preferences item for loading an external gesture typing library -->
