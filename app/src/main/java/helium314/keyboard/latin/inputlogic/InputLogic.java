@@ -78,8 +78,13 @@ public final class InputLogic {
     private int mSpaceState;
     // Never null
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
-    public final Suggest mSuggest;
-    private final DictionaryFacilitator mDictionaryFacilitator;
+    public Suggest mSuggest;
+    public DictionaryFacilitator mDictionaryFacilitator;
+    public void setFacilitator(DictionaryFacilitator facilitator) {
+        if (mDictionaryFacilitator == facilitator) return;
+        mDictionaryFacilitator = facilitator;
+        mSuggest = new Suggest(mDictionaryFacilitator);
+    }
 
     public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.

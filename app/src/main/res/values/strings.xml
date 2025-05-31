@@ -881,4 +881,28 @@ New dictionary:
     <string name="name_invalid">Invalid name</string>
     <!-- Description indicating a subtype in Locales & Layouts has customizations -->
     <string name="custom_subtype">Custom subtype</string>
+    <!-- Title for screen to provide gesture data for library development todo: nicer name? -->
+    <string name="gesture_data_screen">Gesture data</string>
+    <!-- Descriptive text about the gesture data screen
+    todo: make it nice, and clarify whether data will be public, and if so (I think yes) what it will look like
+     -->
+    <string name="gesture_data_description">Tell the user why this screen exists, what they can do, ...</string>
+    <!-- Short button text for generating a new user id -->
+    <string name="gesture_data_new_user_id">New id</string>
+    <!-- Title about the user id -->
+    <string name="gesture_data_user_id">User id</string>
+    <!-- Button for getting the data file -->
+    <string name="gesture_data_get_data">Get gesture data file</string>
+    <!-- Button for deleting the data file -->
+    <string name="gesture_data_delete_data">Clear gesture data</string>
+    <!-- Button for sending the data file via mail -->
+    <string name="gesture_data_send_mail">Send data via mail</string>
+    <!-- Text requesting the user to gesture a word -->
+    <string name="gesture_data_please_type">Please gesture type: %s</string>
+    <!-- Information that fully loading a dictionary may take several seconds -->
+    <string name="gesture_data_please_wait">Loading dictionary, please wait…</string>
+    <!-- Button for saving data and go to next word -->
+    <string name="gesture_data_next_save">Save and next</string>
+    <!-- Button for next word without saving data -->
+    <string name="gesture_data_next">Next word</string>
 </resources>

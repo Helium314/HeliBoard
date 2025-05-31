@@ -89,6 +89,7 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
+import helium314.keyboard.settings.screens.GestureDataScreenKt;
 import kotlin.collections.CollectionsKt;
 
 import java.io.FileDescriptor;
@@ -128,8 +129,9 @@ public class LatinIME extends InputMethodService implements
     public final KeyboardActionListener mKeyboardActionListener;
     private int mOriginalNavBarColor = 0;
     private int mOriginalNavBarFlags = 0;
-    private final DictionaryFacilitator mDictionaryFacilitator =
+    private DictionaryFacilitator mDictionaryFacilitator =
             DictionaryFacilitatorProvider.getDictionaryFacilitator(false);
+    private final DictionaryFacilitator mOriginalDictionaryFacilitator = mDictionaryFacilitator;
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
     // We expect to have only one decoder in almost all cases, hence the default capacity of 1.
     // If it turns out we need several, it will get grown seamlessly.
@@ -953,6 +955,15 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+
+        if (GestureDataScreenKt.dictTestImeOption.equals(editorInfo.privateImeOptions)
+                && GestureDataScreenKt.getFacilitator() != null
+        ) {
+            mDictionaryFacilitator = GestureDataScreenKt.getFacilitator();
+        } else {
+            mDictionaryFacilitator = mOriginalDictionaryFacilitator;
+        }
+        mInputLogic.setFacilitator(mDictionaryFacilitator);
 
         mDictionaryFacilitator.onStartInput();
         // Switch to the null consumer to handle cases leading to early exit below, for which we
