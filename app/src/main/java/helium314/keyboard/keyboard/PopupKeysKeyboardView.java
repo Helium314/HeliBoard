@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
@@ -313,29 +312,5 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
             return accessibilityDelegate.onHoverEvent(event);
         }
         return super.onHoverEvent(event);
-    }
-
-    private View getContainerView() {
-        return (View)getParent();
-    }
-
-    @Override
-    public void showInParent(final ViewGroup parentView) {
-        removeFromParent();
-        parentView.addView(getContainerView());
-    }
-
-    @Override
-    public void removeFromParent() {
-        final View containerView = getContainerView();
-        final ViewGroup currentParent = (ViewGroup)containerView.getParent();
-        if (currentParent != null) {
-            currentParent.removeView(containerView);
-        }
-    }
-
-    @Override
-    public boolean isShowingInParent() {
-        return (getContainerView().getParent() != null);
     }
 }

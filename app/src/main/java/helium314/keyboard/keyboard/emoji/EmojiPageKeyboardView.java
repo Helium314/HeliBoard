@@ -13,6 +13,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.widget.LinearLayout;
+import helium314.keyboard.keyboard.PopupTextView;
+import helium314.keyboard.latin.DictionaryFactory;
+import helium314.keyboard.latin.RichInputMethodManager;
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
+import helium314.keyboard.latin.SuggestedWords;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,6 +47,7 @@ import helium314.keyboard.keyboard.internal.PopupKeySpec;
 import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.utils.ScriptUtils;
 
 import java.util.WeakHashMap;
 
@@ -74,12 +83,15 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
     // More keys keyboard
     private final View mPopupKeysKeyboardContainer;
+    private final PopupTextView mDescriptionView;
+    private final PopupKeysKeyboardView mPopupKeysKeyboardView;
     private final WeakHashMap<Key, Keyboard> mPopupKeysKeyboardCache = new WeakHashMap<>();
     private final boolean mConfigShowPopupKeysKeyboardAtTouchedPoint;
     private final ViewGroup mPopupKeysPlacerView;
     // More keys panel (used by popup keys keyboard view)
     // TODO: Consider extending to support multiple popup keys panels
     private PopupKeysPanel mPopupKeysPanel;
+    private SingleDictionaryFacilitator mDictionaryFacilitator;
 
     public EmojiPageKeyboardView(final Context context, final AttributeSet attrs) {
         this(context, attrs, R.attr.keyboardViewStyle);
@@ -102,6 +114,15 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
 
         final LayoutInflater inflater = LayoutInflater.from(getContext());
         mPopupKeysKeyboardContainer = inflater.inflate(popupKeysKeyboardLayoutId, null);
+        mDescriptionView = mPopupKeysKeyboardContainer.findViewById(R.id.description_view);
+        mPopupKeysKeyboardView = mPopupKeysKeyboardContainer.findViewById(R.id.popup_keys_keyboard_view);
+        var locale = RichInputMethodManager.getInstance().getCurrentSubtype().getLocale();
+        var layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                   ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = ScriptUtils.isScriptRtl(ScriptUtils.script(locale))? Gravity.RIGHT : Gravity.LEFT;
+        mPopupKeysKeyboardContainer.setLayoutParams(layoutParams);
+        mDescriptionView.setLayoutParams(layoutParams);
+        mPopupKeysKeyboardView.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -150,6 +171,10 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
         mListener = listener;
     }
 
+    void setDictionaryFacilitator(SingleDictionaryFacilitator dictionaryFacilitator) {
+        mDictionaryFacilitator = dictionaryFacilitator;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -169,7 +194,8 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
     }
 
     @Nullable
-    public PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key, final int lastX, final int lastY) {
+    private PopupKeysPanel showPopupKeysKeyboard(@NonNull final Key key) {
+        mPopupKeysKeyboardView.setVisibility(GONE);
         final PopupKeySpec[] popupKeys = key.getPopupKeys();
         if (popupKeys == null) {
             return null;
@@ -182,21 +208,9 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             mPopupKeysKeyboardCache.put(key, popupKeysKeyboard);
         }
 
-        final View container = mPopupKeysKeyboardContainer;
-        final PopupKeysKeyboardView popupKeysKeyboardView = container.findViewById(R.id.popup_keys_keyboard_view);
-        popupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
-        container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        final int[] lastCoords = CoordinateUtils.newCoordinateArray(1, lastX, lastY);
-        // The popup keys keyboard is usually horizontally aligned with the center of the parent key.
-        // If showPopupKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
-        // keys keyboard is placed at the touch point of the parent key.
-        final int pointX = mConfigShowPopupKeysKeyboardAtTouchedPoint
-                ? CoordinateUtils.x(lastCoords)
-                : key.getX() + key.getWidth() / 2;
-        final int pointY = key.getY();
-        popupKeysKeyboardView.showPopupKeysPanel(this, this, pointX, pointY, mListener);
-        return popupKeysKeyboardView;
+        mPopupKeysKeyboardView.setKeyboard(popupKeysKeyboard);
+        mPopupKeysKeyboardView.setVisibility(VISIBLE);
+        return mPopupKeysKeyboardView;
     }
 
     private void dismissPopupKeysPanel() {
@@ -290,9 +304,11 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             return;
         }
 
+        var descriptionPanel = showDescription(key);
+        final PopupKeysPanel popupKeysPanel = showPopupKeysKeyboard(key);
+
         final int x = mLastX;
         final int y = mLastY;
-        final PopupKeysPanel popupKeysPanel = showPopupKeysKeyboard(key, x, y);
         if (popupKeysPanel != null) {
             final int translatedX = popupKeysPanel.translateX(x);
             final int translatedY = popupKeysPanel.translateY(y);
@@ -301,6 +317,45 @@ public final class EmojiPageKeyboardView extends KeyboardView implements
             // want any scroll to append during this entire input.
             disallowParentInterceptTouchEvent(true);
         }
+
+        if (popupKeysPanel != null || descriptionPanel != null) {
+            mPopupKeysKeyboardContainer.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            final int[] lastCoords = CoordinateUtils.newCoordinateArray(1, x, y);
+            // The popup keys keyboard is usually horizontally aligned with the center of the parent key.
+            // If showPopupKeysKeyboardAtTouchedPoint is true and the key preview is disabled, the more
+            // keys keyboard is placed at the touch point of the parent key.
+            final int pointX = mConfigShowPopupKeysKeyboardAtTouchedPoint
+                    ? CoordinateUtils.x(lastCoords)
+                    : key.getX() + key.getWidth() / 2;
+            final int pointY = key.getY();
+            (popupKeysPanel != null? popupKeysPanel : descriptionPanel)
+                            .showPopupKeysPanel(this, this, pointX, pointY, mListener);
+        }
+    }
+
+    private PopupKeysPanel showDescription(Key key) {
+        mDescriptionView.setVisibility(GONE);
+
+        if (mDictionaryFacilitator == null) {
+            return null;
+        }
+
+        var results = mDictionaryFacilitator.getSuggestions(key.getLabel());
+        if (results.isEmpty()) {
+            return null;
+        }
+
+        var result = results.first();
+        if (! result.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_WHITELIST)
+                      && ! (result.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_SHORTCUT) && result.mScore > 0)) {
+            return null;
+        }
+
+        mDescriptionView.setText(result.mWord);
+        mDescriptionView.setKeyDrawParams(key, getKeyDrawParams());
+        mDescriptionView.setVisibility(VISIBLE);
+        return mDescriptionView;
     }
 
     private void registerPress(final Key key) {

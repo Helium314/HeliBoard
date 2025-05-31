@@ -64,10 +64,26 @@ object DictionaryFactory {
      * if the dictionary type already exists in [dicts], the [file] is skipped
      */
     private fun checkAndAddDictionaryToListNewType(file: File, dicts: MutableList<Dictionary>, locale: Locale) {
-        if (!file.isFile) return
-        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file) ?: return killDictionary(file)
+        val dictionary = getDictionary(file, locale) ?: return
+        if (dicts.any { it.mDictType == dictionary.mDictType }) {
+            dictionary.close()
+            return
+        }
+        dicts.add(dictionary)
+    }
+
+    @JvmStatic
+    fun getDictionary(
+        file: File,
+        locale: Locale
+    ): Dictionary? {
+        if (!file.isFile) return null
+        val header = DictionaryInfoUtils.getDictionaryFileHeaderOrNull(file)
+        if (header == null) {
+            killDictionary(file)
+            return null
+        }
         val dictType = header.mIdString.split(":").first()
-        if (dicts.any { it.mDictType == dictType }) return
         val readOnlyBinaryDictionary = ReadOnlyBinaryDictionary(
             file.absolutePath, 0, file.length(), false, locale, dictType
         )
@@ -75,14 +91,13 @@ object DictionaryFactory {
         if (readOnlyBinaryDictionary.isValidDictionary) {
             if (locale.language == "ko") {
                 // Use KoreanDictionary for Korean locale
-                dicts.add(KoreanDictionary(readOnlyBinaryDictionary))
-            } else {
-                dicts.add(readOnlyBinaryDictionary)
+                return KoreanDictionary(readOnlyBinaryDictionary)
             }
-        } else {
-            readOnlyBinaryDictionary.close()
-            killDictionary(file)
+            return readOnlyBinaryDictionary
         }
+        readOnlyBinaryDictionary.close()
+        killDictionary(file)
+        return null
     }
 
     private fun killDictionary(file: File) {
