@@ -162,8 +162,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS) {
             setToolbarVisibility(true);
-        } else if (mToolbarMode == ToolbarMode.SUGGESTION_STRIP){
-            setToolbarVisibility(false);
         }
 
         final Typeface customTypeface = Settings.getInstance().getCustomTypeface();
@@ -256,7 +254,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mMainKeyboardView = inputView.findViewById(R.id.keyboard_view);
     }
 
-    public void updateKeys() {
+    private void updateKeys() {
         final SettingsValues currentSettingsValues = Settings.getValues();
         final View toolbarVoiceKey = mToolbar.findViewWithTag(ToolbarKey.VOICE);
         if (toolbarVoiceKey != null)
@@ -295,8 +293,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mStripVisibilityGroup.setLayoutDirection(layoutDirection);
     }
 
-    public void setSuggestions(final SuggestedWords suggestedWords) {
+    public void setSuggestions(final SuggestedWords suggestedWords, final boolean isRtlLanguage) {
         clear();
+        setRtl(isRtlLanguage);
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
                 getContext(), mSuggestedWords, mSuggestionsStrip, this);
