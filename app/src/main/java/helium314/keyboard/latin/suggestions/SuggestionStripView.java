@@ -14,12 +14,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -214,8 +211,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mToolbarExpandKey.setOnClickListener(this);
         mToolbarExpandKey.setImageDrawable(Settings.getValues().mIncognitoModeEnabled ? mIncognitoIcon : mToolbarArrowIcon);
         colors.setColor(mToolbarExpandKey, ColorType.TOOL_BAR_EXPAND_KEY);
-        mToolbarExpandKey.setBackground(new ShapeDrawable(new OvalShape())); // ShapeDrawable color is black, need src_atop filter
-        mToolbarExpandKey.getBackground().setColorFilter(colors.get(ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND), PorterDuff.Mode.SRC_ATOP);
+        colors.setColor(mToolbarExpandKey.getBackground(), ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND);
 
         for (final ToolbarKey pinnedKey : ToolbarUtilsKt.getPinnedToolbarKeys(prefs)) {
             final ImageButton button = createToolbarKey(context, iconsSet, pinnedKey);
