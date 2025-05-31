@@ -84,7 +84,7 @@
     <string name="last_update">"Última actualització"</string>
     <string name="settings">"Configuració"</string>
     <string name="delete">"Suprimeix"</string>
-    <string name="version_text">Versió %1$s</string>
+    <string name="version_text">Versió %s</string>
     <string name="user_dict_settings_add_dialog_title">"Afegeix al diccionari"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Drecera:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Idioma:"</string>
@@ -179,7 +179,7 @@
     <string name="localized_number_row_summary">Prefereix els localitzats als nombres llatins</string>
     <string name="quick_pin_toolbar_keys">Fixa la tecla de la barra d\'eines en prémer llargament</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de nombres</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioritat)</string>
     <string name="hint_source">Selecciona l\'origen del consell</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Disposició</string>
@@ -427,4 +427,5 @@
     <string name="use_apps_dict">Cercar noms d\'aplicacions</string>
     <string name="use_apps_dict_summary">Utilitzar els noms de les aplicacions instal·lades per a suggeriments i correccions</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

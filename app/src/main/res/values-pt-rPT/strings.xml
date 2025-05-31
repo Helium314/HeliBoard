@@ -407,7 +407,7 @@
     <string name="prefs_side_padding_scale">Escala do espaço lateral</string>
     <string name="prefs_side_padding_scale_landscape">Escala do espaço lateral (paisagem)</string>
     <string name="label_bin" tools:keep="@string/label_bin">Reciclagem</string>
-    <string name="language_and_layouts_title">Idiomas e Layouts</string>
+    <string name="language_and_layouts_title">Idiomas &amp; Layouts</string>
     <string name="localized_number_row">Localizar linha de números</string>
     <string name="localized_number_row_summary">Preferir localizados em vez de números latinos</string>
     <string name="button_save_file">Guardar em ficheiro</string>

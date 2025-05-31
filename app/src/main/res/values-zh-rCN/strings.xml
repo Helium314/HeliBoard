@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"塞尔维亚语（拉丁语布局）"</string>
     <string name="subtype_generic_traditional">%s（传统）</string>
     <string name="subtype_generic_compact">%s （紧凑型）</string>
-    <string name="subtype_no_language">无语言（字母表）</string>
+    <string name="subtype_no_language">无语言</string>
     <string name="subtype_emoji">"表情符号"</string>
     <string name="add">"添加"</string>
     <string name="remove">移除</string>
@@ -178,7 +178,7 @@
     <string name="right" tools:keep="@string/right">右</string>
     <string name="up" tools:keep="@string/up">上</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">数字行</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">语言</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="down" tools:keep="@string/down">下</string>
     <string name="select_color_suggestion">建议条文本</string>
     <string name="split_spacer_scale">分离距离</string>
@@ -430,4 +430,5 @@
     <string name="use_apps_dict_summary">使用已安装应用的名称进行建议和更正</string>
     <string name="prefs_emoji_skin_tone_neutral">中性</string>
     <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
+    <string name="subtype_with_layout_generic">%1$s（%2$s）</string>
 </resources>

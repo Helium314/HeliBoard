@@ -51,7 +51,7 @@
     <string name="subtype_sr_Latn">"セルビア語（ラテン文字）"</string>
     <string name="subtype_generic_traditional">"%s（伝統言語）"</string>
     <string name="subtype_generic_compact">"%s（コンパクト）"</string>
-    <string name="subtype_no_language">"言語なし（アルファベット）"</string>
+    <string name="subtype_no_language">言語なし（アルファベット）</string>
     <string name="subtype_emoji">"絵文字"</string>
     <string name="add">"追加"</string>
     <string name="remove">"削除"</string>
