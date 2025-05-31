@@ -486,7 +486,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mSuggestedWords.mIsObsoleteSuggestions, mSuggestedWords.mInputStyle,
                 mSuggestedWords.mSequenceNumber);
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(
-                getContext(), mSuggestedWords, mSuggestionsStrip, SuggestionStripView.this);
+                getContext(), mSuggestedWords, mSuggestionsStrip, this);
         mStripVisibilityGroup.showSuggestionsStrip();
         // Show the toolbar if no suggestions are left and the "Auto show toolbar" setting is enabled
         if (mSuggestedWords.isEmpty() && Settings.getValues().mAutoShowToolbar){
@@ -705,6 +705,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             mSuggestionsStrip.setVisibility(VISIBLE);
             mPinnedKeys.setVisibility(VISIBLE);
         }
+
+        if (DEBUG_SUGGESTIONS) {
+            for (var view : mDebugInfoViews) {
+                view.setVisibility(mSuggestionsStrip.getVisibility());
+            }
+        }
+
         mToolbarExpandKey.setScaleX((visible && !locked ? -1f : 1f) * mRtl);
     }
 
