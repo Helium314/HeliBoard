@@ -22,7 +22,6 @@ import helium314.keyboard.latin.utils.SubtypeLocaleUtils
 import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.locale
-import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import helium314.keyboard.latin.utils.prefs
 import java.util.Locale
 
@@ -53,35 +52,21 @@ class RichInputMethodManager private constructor() {
 
     val isShortcutImeReady get() = shortcutInputMethodInfo != null
 
-    fun hasShortcutIme() = isShortcutImeReady // todo
+    fun getMyEnabledInputMethodSubtypes(allowsImplicitlySelectedSubtypes: Boolean) =
+        SubtypeSettings.getEnabledSubtypes(allowsImplicitlySelectedSubtypes)
 
-    fun checkIfSubtypeBelongsToThisImeAndEnabled(subtype: InputMethodSubtype?) =
-        getEnabledInputMethodSubtypeList(inputMethodInfoOfThisIme, true).contains(subtype)
-
-    // todo: same as SubtypeSettings.getEnabledSubtypes(allowsImplicitlySelectedSubtypes), right?
-    fun getMyEnabledInputMethodSubtypeList(allowsImplicitlySelectedSubtypes: Boolean) =
-        getEnabledInputMethodSubtypeList(inputMethodInfoOfThisIme, allowsImplicitlySelectedSubtypes)
-
-    fun getEnabledInputMethodSubtypeList(imi: InputMethodInfo, allowsImplicitlySelectedSubtypes: Boolean) =
+    fun getEnabledInputMethodSubtypes(imi: InputMethodInfo, allowsImplicitlySelectedSubtypes: Boolean) =
         inputMethodInfoCache.getEnabledInputMethodSubtypeList(imi, allowsImplicitlySelectedSubtypes)
-
-    // could also check SubtypeSettings.getEnabledSubtypes(allowsImplicitlySelectedSubtypes)
-    fun checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(subtype: InputMethodSubtype): Boolean {
-        val subtypeEnabled = checkIfSubtypeBelongsToThisImeAndEnabled(subtype)
-        val subtypeExplicitlyEnabled = getMyEnabledInputMethodSubtypeList(false)
-            .contains(subtype)
-        return subtypeEnabled && !subtypeExplicitlyEnabled
-    }
 
     fun hasMultipleEnabledIMEsOrSubtypes(shouldIncludeAuxiliarySubtypes: Boolean) =
         hasMultipleEnabledSubtypes(shouldIncludeAuxiliarySubtypes, imm.enabledInputMethodList)
 
     fun hasMultipleEnabledSubtypesInThisIme(shouldIncludeAuxiliarySubtypes: Boolean) =
-        hasMultipleEnabledSubtypes(shouldIncludeAuxiliarySubtypes, listOf(inputMethodInfoOfThisIme))
+        SubtypeSettings.getEnabledSubtypes(shouldIncludeAuxiliarySubtypes).size > 1
 
     fun getNextSubtypeInThisIme(onlyCurrentIme: Boolean): InputMethodSubtype? {
         val currentSubtype = currentSubtype.rawSubtype
-        val enabledSubtypes = getMyEnabledInputMethodSubtypeList(true)
+        val enabledSubtypes = getMyEnabledInputMethodSubtypes(true)
         val currentIndex = enabledSubtypes.indexOf(currentSubtype)
         if (currentIndex == -1) {
             Log.w(TAG, "Can't find current subtype in enabled subtypes: subtype=" +
@@ -97,22 +82,9 @@ class RichInputMethodManager private constructor() {
         return enabledSubtypes[nextIndex]
     }
 
-    // todo: this is about main layout, not layout set
-    fun findSubtypeByLocaleAndKeyboardLayoutSet(locale: Locale, keyboardLayoutSetName: String): InputMethodSubtype? {
-        val myImi = inputMethodInfoOfThisIme
-        val count = myImi.subtypeCount
-        for (i in 0..<count) {
-            val subtype = myImi.getSubtypeAt(i)
-            if (locale == subtype.locale() && keyboardLayoutSetName == subtype.mainLayoutNameOrQwerty()) {
-                return subtype
-            }
-        }
-        return null
-    }
-
     fun findSubtypeForHintLocale(locale: Locale): InputMethodSubtype? {
         // Find the best subtype based on a locale matching
-        val subtypes = getMyEnabledInputMethodSubtypeList(true)
+        val subtypes = getMyEnabledInputMethodSubtypes(true)
         var bestMatch = getBestMatch(locale, subtypes) { it.locale() }
         if (bestMatch != null) return bestMatch
 
@@ -173,10 +145,11 @@ class RichInputMethodManager private constructor() {
             Log.d(TAG, ("Update shortcut IME from: ${shortcutInputMethodInfo?.id ?: "<null>"}, $subtype"))
         }
         val richSubtype = currentRichInputMethodSubtype
-        val implicitlyEnabledSubtype = checkIfSubtypeBelongsToThisImeAndImplicitlyEnabled(richSubtype.rawSubtype)
+        val implicitlyEnabledSubtype = SubtypeSettings.isEnabled(richSubtype.rawSubtype)
+                && !SubtypeSettings.getEnabledSubtypes(false).contains(richSubtype.rawSubtype)
         val systemLocale = context.resources.configuration.locale()
         LanguageOnSpacebarUtils.onSubtypeChanged(richSubtype, implicitlyEnabledSubtype, systemLocale)
-        LanguageOnSpacebarUtils.setEnabledSubtypes(getMyEnabledInputMethodSubtypeList(true))
+        LanguageOnSpacebarUtils.setEnabledSubtypes(getMyEnabledInputMethodSubtypes(true))
 
         // TODO: Update an icon for shortcut IME
         val shortcuts = inputMethodManager.shortcutInputMethodsAndSubtypes
@@ -203,7 +176,7 @@ class RichInputMethodManager private constructor() {
         imiList.forEach { imi ->
             // We can return true immediately after we find two or more filtered IMEs.
             if (filteredImisCount > 1) return true
-            val subtypes = getEnabledInputMethodSubtypeList(imi, true)
+            val subtypes = getEnabledInputMethodSubtypes(imi, true)
             // IMEs that have no subtypes should be counted.
             if (subtypes.isEmpty()) {
                 ++filteredImisCount
@@ -230,7 +203,7 @@ class RichInputMethodManager private constructor() {
         if (filteredImisCount > 1) {
             return true
         }
-        val subtypes = getMyEnabledInputMethodSubtypeList(true)
+        val subtypes = getMyEnabledInputMethodSubtypes(true)
         // imm.getEnabledInputMethodSubtypeList(null, true) will return the current IME's
         // both explicitly and implicitly enabled input method subtype.
         // (The current IME should be LatinIME.)

@@ -608,7 +608,7 @@ public class LatinIME extends InputMethodService implements
                 mCurrentSubtypeHasBeenUsed = false;
             }
             if (currentSubtypeHasBeenUsed
-                    && richImm.checkIfSubtypeBelongsToThisImeAndEnabled(lastActiveSubtype)
+                    && SubtypeSettings.INSTANCE.isEnabled(lastActiveSubtype)
                     && !currentSubtype.equals(lastActiveSubtype)) {
                 switchToSubtype(lastActiveSubtype);
                 return;
@@ -1461,7 +1461,7 @@ public class LatinIME extends InputMethodService implements
         // switch IME if wanted and possible
         if (switchIme && !switchSubtype && switchInputMethod())
             return;
-        final boolean hasMoreThanOneSubtype = mRichImm.getMyEnabledInputMethodSubtypeList(true).size() > 1;
+        final boolean hasMoreThanOneSubtype = mRichImm.hasMultipleEnabledSubtypesInThisIme(true);
         // switch subtype if wanted, do nothing if no other subtype is available
         if (switchSubtype && !switchIme) {
             if (hasMoreThanOneSubtype)

@@ -16,7 +16,9 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils
+import helium314.keyboard.latin.utils.SubtypeSettings
 import helium314.keyboard.latin.utils.locale
+import helium314.keyboard.latin.utils.mainLayoutNameOrQwerty
 import java.util.Locale
 
 /**
@@ -104,11 +106,8 @@ class RichInputMethodSubtype private constructor(val rawSubtype: InputMethodSubt
         val noLanguageSubtype: RichInputMethodSubtype get() {
             sNoLanguageSubtype?.let { return it }
             var noLanguageSubtype = sNoLanguageSubtype
-            val rawNoLanguageSubtype = RichInputMethodManager.getInstance()
-                .findSubtypeByLocaleAndKeyboardLayoutSet(
-                    SubtypeLocaleUtils.NO_LANGUAGE.constructLocale(),
-                    SubtypeLocaleUtils.QWERTY
-                )
+            val rawNoLanguageSubtype = SubtypeSettings.getResourceSubtypesForLocale(SubtypeLocaleUtils.NO_LANGUAGE.constructLocale())
+                .firstOrNull { it.mainLayoutNameOrQwerty() == SubtypeLocaleUtils.QWERTY }
             if (rawNoLanguageSubtype != null) {
                 noLanguageSubtype = RichInputMethodSubtype(rawNoLanguageSubtype)
             }
