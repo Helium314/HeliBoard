@@ -284,6 +284,18 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
+    <!-- Title of the setting to set the toolbar mode -->
+    <string name="toolbar_mode">Toolbar mode</string>
+    <!-- Option to set the toolbar mode to show an expandable toolbar -->
+    <string name="toolbar_mode_expandable">Toolbar keys and suggestions</string>
+    <!-- Option to set the toolbar mode to show the toolbar keys only -->
+    <string name="toolbar_mode_toolbar_keys">Toolbar keys only</string>
+    <!-- Option to set the toolbar mode to show the suggestions strip only -->
+    <string name="toolbar_mode_suggestion_strip">Suggestions only</string>
+    <!-- Option to set the toolbar mode to hidden -->
+    <string name="toolbar_mode_hidden">Hidden</string>
+    <!-- Option to hide clipboard and emoji toolbars when main toolbar is hidden -->
+    <string name="toolbar_hiding_global">Hide clipboard and emoji toolbars too</string>
     <!-- Title of the setting to set toolbar keys -->
     <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
