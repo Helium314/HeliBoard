@@ -1282,7 +1282,7 @@ public class LatinIME extends InputMethodService implements
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int stripHeight = hasSuggestionStripView()? mSuggestionStripView.getHeight() : 0;
+        final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
         final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
         mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
         // Need to set expanded touchable region only if a keyboard view is being shown.
