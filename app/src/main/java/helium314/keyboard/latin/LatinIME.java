@@ -880,11 +880,8 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
-        mSuggestionStripView = view.findViewById(R.id.suggestion_strip_view);
-        if (mSuggestionStripView.getVisibility() == View.GONE) {
-            mSuggestionStripView = null;
-        }
-
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN?
+                        null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
@@ -1291,7 +1288,11 @@ public class LatinIME extends InputMethodService implements
         }
         final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
         final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
-        mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+        }
+
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
             final int touchLeft = 0;
