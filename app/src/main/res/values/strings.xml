@@ -280,7 +280,7 @@
     <string name="show_tld_popup_keys_summary">Replace period key popups with top level domains when typing URLs and email addresses</string>
     <!-- Names of the popup key classes -->
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Number row</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
+    <string name="popup_keys_language" translatable="false" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Language (priority)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
