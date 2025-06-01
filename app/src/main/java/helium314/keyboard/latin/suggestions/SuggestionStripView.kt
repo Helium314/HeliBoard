@@ -6,14 +6,12 @@
 package helium314.keyboard.latin.suggestions
 
 import android.annotation.SuppressLint
-import android.app.KeyguardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -31,6 +29,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import helium314.keyboard.accessibility.AccessibilityUtils
+import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.MainKeyboardView
 import helium314.keyboard.keyboard.PopupKeysPanel
@@ -249,11 +248,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     fun setToolbarVisibility(toolbarVisible: Boolean) {
         // avoid showing toolbar keys when locked
-        val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-        val locked = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) // todo: move this check to compat (also other uses)
-            km.isDeviceLocked
-        else
-            km.isKeyguardLocked
+        val locked = isDeviceLocked(context)
         pinnedKeys.isVisible = !locked && !toolbarVisible
         suggestionsStrip.isVisible = locked || !toolbarVisible
         toolbarContainer.isVisible = !locked && toolbarVisible
@@ -609,11 +604,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         // hide pinned keys if device is locked, and avoid expanding toolbar
-        val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-        val hideToolbarKeys = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
-            km.isDeviceLocked
-        else
-            km.isKeyguardLocked
+        val hideToolbarKeys = isDeviceLocked(context)
         toolbarExpandKey.setOnClickListener(if (hideToolbarKeys || !toolbarIsExpandable) null else this)
         pinnedKeys.visibility = if (hideToolbarKeys) GONE else suggestionsStrip.visibility
         isExternalSuggestionVisible = false
