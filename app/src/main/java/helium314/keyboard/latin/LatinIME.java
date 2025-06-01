@@ -1028,6 +1028,8 @@ public class LatinIME extends InputMethodService implements
                 !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
             loadSettings();
             currentSettingsValues = mSettings.getCurrent();
+            if (hasSuggestionStripView())
+                mSuggestionStripView.updateVoiceKey();
         }
         // ALERT: settings have not been reloaded and there is a chance they may be stale.
         // In the practice, if it is, we should have gotten onConfigurationChanged so it should

@@ -470,12 +470,15 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
     }
 
+    fun updateVoiceKey() {
+        val show = Settings.getValues().mShowsVoiceInputKey
+        toolbar.findViewWithTag<View>(ToolbarKey.VOICE)?.isVisible = show
+        pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE)?.isVisible = show
+    }
+
     private fun updateKeys() {
+        updateVoiceKey()
         val settingsValues = Settings.getValues()
-        val toolbarVoiceKey = toolbar.findViewWithTag<View>(ToolbarKey.VOICE)
-        if (toolbarVoiceKey != null) toolbarVoiceKey.isVisible = settingsValues.mShowsVoiceInputKey
-        val pinnedVoiceKey = pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE)
-        if (pinnedVoiceKey != null) pinnedVoiceKey.isVisible = settingsValues.mShowsVoiceInputKey
 
         val toolbarIsExpandable = settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE
         if (settingsValues.mIncognitoModeEnabled) {
