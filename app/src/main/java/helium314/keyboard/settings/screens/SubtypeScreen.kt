@@ -1,14 +1,12 @@
 package helium314.keyboard.settings.screens
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -74,6 +72,7 @@ import helium314.keyboard.latin.utils.getSecondaryLocales
 import helium314.keyboard.latin.utils.getStringResourceOrName
 import helium314.keyboard.latin.utils.mainLayoutName
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.settings.ActionRow
 import helium314.keyboard.settings.DefaultButton
 import helium314.keyboard.settings.DeleteButton
 import helium314.keyboard.settings.DropDownField
@@ -157,11 +156,7 @@ fun SubtypeScreen(
                 MainLayoutRow(currentSubtype, customMainLayouts) { setCurrentSubtype(it) }
                 if (availableLocalesForScript.size > 1) {
                     WithSmallTitle(stringResource(R.string.secondary_locale)) {
-                        Row(modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 44.dp)
-                            .clickable { showSecondaryLocaleDialog = true },
-                            verticalAlignment = Alignment.CenterVertically) {
+                        ActionRow(onClick = { showSecondaryLocaleDialog = true }) {
                             val text = getSecondaryLocales(currentSubtype.extraValues).joinToString(", ") {
                                 it.localizedDisplayName(ctx.resources)
                             }.ifEmpty { stringResource(R.string.action_none) }
@@ -173,29 +168,21 @@ fun SubtypeScreen(
                     }
                 }
                 WithSmallTitle(stringResource(R.string.popup_order_and_hint_source)) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 44.dp)
-                            .clickable { showKeyOrderDialog = true },
-                        verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.popup_order), modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 10.dp)
+                    ActionRow(onClick = { showKeyOrderDialog = true }) {
+                        Text(stringResource(R.string.popup_order),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp)
                         )
                         DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.POPUP_ORDER) == null) {
                             setCurrentSubtype(currentSubtype.without(ExtraValue.POPUP_ORDER))
                         }
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 44.dp)
-                            .clickable { showHintOrderDialog = true },
-                        verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.hint_source), modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 10.dp)
+                    ActionRow(onClick = { showHintOrderDialog = true }) {
+                        Text(stringResource(R.string.hint_source),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 10.dp)
                         )
                         DefaultButton(currentSubtype.getExtraValueOf(ExtraValue.HINT_ORDER) == null) {
                             setCurrentSubtype(currentSubtype.without(ExtraValue.HINT_ORDER))
@@ -209,14 +196,11 @@ fun SubtypeScreen(
                             Settings.PREF_MORE_POPUP_KEYS,
                             Defaults.PREF_MORE_POPUP_KEYS
                         )!!
-                        Row(modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 44.dp)
-                            .clickable { showMorePopupsDialog = true },
-                            verticalAlignment = Alignment.CenterVertically) {
-                            Text(stringResource(morePopupKeysResId(value)), modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 10.dp)
+                        ActionRow(onClick = { showMorePopupsDialog = true }) {
+                            Text(stringResource(morePopupKeysResId(value)),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(start = 10.dp)
                             )
                             DefaultButton(explicitValue == null) {
                                 setCurrentSubtype(currentSubtype.without(ExtraValue.MORE_POPUPS))
@@ -227,13 +211,11 @@ fun SubtypeScreen(
                 if (hasLocalizedNumberRow(currentSubtype.locale, ctx)) {
                     val checked = currentSubtype.getExtraValueOf(ExtraValue.LOCALIZED_NUMBER_ROW)?.toBoolean()
                     WithSmallTitle(stringResource(R.string.number_row)) {
-                        Row(modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 44.dp),
-                            verticalAlignment = Alignment.CenterVertically) {
-                            Text(stringResource(R.string.localized_number_row), modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 10.dp)
+                        ActionRow {
+                            Text(stringResource(R.string.localized_number_row),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(start = 10.dp)
                             )
                             Switch(
                                 checked = checked ?: prefs.getBoolean(
