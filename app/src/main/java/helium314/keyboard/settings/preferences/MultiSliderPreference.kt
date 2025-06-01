@@ -107,7 +107,7 @@ private fun MultiSliderDialog(
                 val state = rememberScrollState()
                 Column(Modifier.verticalScroll(state)) {
                     dimensions.forEach { dimension ->
-                        var checked by remember { mutableStateOf(shown[variants.indexOfFirst { SpacedTokens(it).contains(dimension) }]) }
+                        var checked by remember { mutableStateOf(shown[variants.indexOfFirst { it.split(SPLIT).contains(dimension) }]) }
                         DimensionCheckbox(checked, dimension) {
                             shown = shown.mapIndexed { i, checked ->
                                 if (SpacedTokens(variants[i]).contains(dimension)) it
@@ -173,13 +173,15 @@ private fun createVariantsAndKeys(dimensions: List<String>, baseKey: String): Pa
     dimensions.forEach { dimension ->
         variants.toList().forEach { variant ->
             if (variant.isEmpty()) variants.add(dimension)
-            else variants.add("$variant / $dimension")
+            else variants.add("$variant $SPLIT $dimension")
             keys.add(createPrefKeyForBooleanSettings(baseKey, i, dimensions.size))
             i++
         }
     }
     return variants to keys
 }
+
+private const val SPLIT = "/"
 
 @Preview
 @Composable
