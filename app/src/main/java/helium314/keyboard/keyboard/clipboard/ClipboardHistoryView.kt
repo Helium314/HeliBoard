@@ -30,7 +30,6 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
@@ -50,15 +49,14 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private val clipboardLayoutParams = ClipboardLayoutParams(context)
     private val pinIconId: Int
     private val keyBackgroundId: Int
-    private var initialized = false
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
     private lateinit var placeholderView: TextView
     private val toolbarKeys = mutableListOf<ImageButton>()
     private lateinit var clipboardAdapter: ClipboardAdapter
 
-    var keyboardActionListener: KeyboardActionListener? = null
-    var clipboardHistoryManager: ClipboardHistoryManager? = null
+    lateinit var keyboardActionListener: KeyboardActionListener
+    private var clipboardHistoryManager: ClipboardHistoryManager? = null
 
     init {
         val clipboardViewAttr = context.obtainStyledAttributes(attrs,
@@ -68,12 +66,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val keyboardViewAttr = context.obtainStyledAttributes(attrs, R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
-        val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
         if (Settings.getValues().mSecondaryStripVisible) {
             getEnabledClipboardToolbarKeys(context.prefs())
                 .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
         }
-        keyboardAttr.recycle()
         fitsSystemWindows = true
     }
 
@@ -88,7 +84,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initialize() { // needs to be delayed for access to ClipboardStrip, which is not a child of this view
-        if (initialized) return
+        if (this::clipboardAdapter.isInitialized) return
         val colors = Settings.getValues().mColors
         clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
             itemBackgroundId = keyBackgroundId
@@ -111,7 +107,6 @@ class ClipboardHistoryView @JvmOverloads constructor(
             colors.setColor(it, ColorType.TOOL_BAR_KEY)
             colors.setBackground(it, ColorType.STRIP_BACKGROUND)
         }
-        initialized = true
     }
 
     private fun setupClipKey(params: KeyDrawParams) {
@@ -192,7 +187,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     fun stopClipboardHistory() {
-        if (!initialized) return
+        if (!this::clipboardAdapter.isInitialized) return
         clipboardRecyclerView.adapter = null
         clipboardHistoryManager?.setHistoryChangeListener(null)
         clipboardHistoryManager = null
@@ -204,7 +199,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             val code = getCodeForToolbarKey(tag)
             if (code != KeyCode.UNSPECIFIED) {
-                keyboardActionListener?.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+                keyboardActionListener.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
                 return
             }
         }
@@ -215,7 +210,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         if (tag is ToolbarKey) {
             val longClickCode = getCodeForToolbarKeyLongClick(tag)
             if (longClickCode != KeyCode.UNSPECIFIED) {
-                keyboardActionListener?.onCodeInput(
+                keyboardActionListener.onCodeInput(
                     longClickCode,
                     Constants.NOT_A_COORDINATE,
                     Constants.NOT_A_COORDINATE,
@@ -228,15 +223,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
     }
 
     override fun onKeyDown(clipId: Long) {
-        keyboardActionListener?.onPressKey(KeyCode.NOT_SPECIFIED, 0, true)
+        keyboardActionListener.onPressKey(KeyCode.NOT_SPECIFIED, 0, true)
     }
 
     override fun onKeyUp(clipId: Long) {
         val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
-        keyboardActionListener?.onTextInput(clipContent?.content.toString())
-        keyboardActionListener?.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
+        keyboardActionListener.onTextInput(clipContent?.content.toString())
+        keyboardActionListener.onReleaseKey(KeyCode.NOT_SPECIFIED, false)
         if (Settings.getValues().mAlphaAfterClipHistoryEntry)
-            keyboardActionListener?.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
+            keyboardActionListener.onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false)
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {
