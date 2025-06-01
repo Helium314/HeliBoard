@@ -414,28 +414,28 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
         final Float[] defaults = Defaults.PREF_SPLIT_SPACER_SCALE;
         final float defaultValue = defaults[index];
-        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SPLIT_SPACER_SCALE_PREFIX, index, defaults.length), defaultValue);
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SPLIT_SPACER_SCALE_PREFIX, index, 1), defaultValue);
     }
 
     public static float readBottomPaddingScale(final SharedPreferences prefs, final boolean landscape) {
         final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
         final Float[] defaults = Defaults.PREF_BOTTOM_PADDING_SCALE;
         final float defaultValue = defaults[index];
-        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_PADDING_SCALE_PREFIX, index, defaults.length), defaultValue);
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_BOTTOM_PADDING_SCALE_PREFIX, index, 1), defaultValue);
     }
 
-    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
+    public static float readSidePaddingScale(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
         final Float[] defaults = Defaults.PREF_SIDE_PADDING_SCALE;
         final float defaultValue = defaults[index];
-        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, defaults.length), defaultValue);
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_SIDE_PADDING_SCALE_PREFIX, index, 2), defaultValue);
     }
 
     public static float readHeightScale(final SharedPreferences prefs, final boolean landscape) {
         final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
         final Float[] defaults = Defaults.PREF_KEYBOARD_HEIGHT_SCALE;
         final float defaultValue = defaults[index];
-        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, index, defaults.length), defaultValue);
+        return prefs.getFloat(SettingsKt.createPrefKeyForBooleanSettings(PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, index, 1), defaultValue);
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {

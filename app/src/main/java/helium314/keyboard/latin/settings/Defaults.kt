@@ -88,7 +88,7 @@ object Defaults {
     @JvmField
     val PREF_BOTTOM_PADDING_SCALE = arrayOf(DEFAULT_SIZE_SCALE, 0f)
     @JvmField
-    val PREF_SIDE_PADDING_SCALE = Array(2) { 0f }
+    val PREF_SIDE_PADDING_SCALE = Array(4) { 0f }
     const val PREF_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true

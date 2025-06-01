@@ -234,7 +234,7 @@ fun createAppearanceSettings(context: Context) = listOf(
         MultiSliderPreference(
             name = setting.title,
             baseKey = setting.key,
-            dimensions = listOf(stringResource(R.string.landscape)),
+            dimensions = listOf(stringResource(R.string.landscape), stringResource(R.string.split)),
             defaults = Defaults.PREF_SIDE_PADDING_SCALE,
             range = 0f..3f,
             description = { "${(100 * it).toInt()}%" }
