@@ -202,6 +202,12 @@ object KeyCode {
         else -> throw IllegalStateException("key code $this not yet supported")
     }
 
+    fun Int.isModifier() = when (this) {
+        SHIFT, SYMBOL_ALPHA, ALPHA, SYMBOL, NUMPAD, FN, CTRL, CTRL_LEFT, CTRL_RIGHT, ALT, ALT_LEFT, ALT_RIGHT,
+        META, META_LEFT, META_RIGHT -> true
+        else -> false
+    }
+
     // todo: there are many more keys, see near https://developer.android.com/reference/android/view/KeyEvent#KEYCODE_0
     /**
      *  Convert a keyCode / codePoint to a KeyEvent.KEYCODE_<xxx>.
