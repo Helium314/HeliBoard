@@ -70,7 +70,12 @@ public class ProximityInfo {
             return;
         }
         computeNearestNeighbors();
-        mNativeProximityInfo = createNativeProximityInfo(touchPositionCorrection);
+        try {
+            mNativeProximityInfo = createNativeProximityInfo(touchPositionCorrection);
+        } catch (Throwable e) {
+            Log.e(TAG, "could not create proximity info", e);
+            mNativeProximityInfo = 0;
+        }
     }
 
     private long mNativeProximityInfo;

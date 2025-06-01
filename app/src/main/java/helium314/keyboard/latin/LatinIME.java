@@ -755,9 +755,14 @@ public class LatinIME extends InputMethodService implements
     // TODO: make sure the current settings always have the right locales, and read from them.
     private void resetDictionaryFacilitator(@NonNull final Locale locale) {
         final SettingsValues settingsValues = mSettings.getCurrent();
-        mDictionaryFacilitator.resetDictionaries(this, locale,
+        try {
+            mDictionaryFacilitator.resetDictionaries(this, locale,
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
                 settingsValues.mUsePersonalizedDicts, false, "", this);
+        } catch (Throwable e) {
+            // this should not happen, but in case it does we at least want to show a keyboard
+            Log.e(TAG, "Could not reset dictionary facilitator, please fix ASAP", e);
+        }
         mInputLogic.mSuggest.setAutoCorrectionThreshold(settingsValues.mAutoCorrectionThreshold);
     }
 

@@ -31,10 +31,7 @@ import helium314.keyboard.latin.utils.locale
 import helium314.keyboard.latin.utils.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.IOException
 import java.util.Locale
@@ -231,23 +228,27 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val latchForWaitingLoadingMainDictionary = CountDownLatch(1)
         mLatchForWaitingLoadingMainDictionaries = latchForWaitingLoadingMainDictionary
         scope.launch {
-            val dictGroupsWithNewMainDict = locales.mapNotNull {
-                val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
-                if (dictionaryGroup == null) {
-                    Log.w(TAG, "Expected a dictionary group for $it but none found")
-                    return@mapNotNull null // This should never happen
+            try {
+                val dictGroupsWithNewMainDict = locales.mapNotNull {
+                    val dictionaryGroup = findDictionaryGroupWithLocale(dictionaryGroups, it)
+                    if (dictionaryGroup == null) {
+                        Log.w(TAG, "Expected a dictionary group for $it but none found")
+                        return@mapNotNull null // This should never happen
+                    }
+                    if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
+                    else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
                 }
-                if (dictionaryGroup.getDict(Dictionary.TYPE_MAIN)?.isInitialized == true) null
-                else dictionaryGroup to DictionaryFactory.createMainDictionaryCollection(context, it)
-            }
-            synchronized(this) {
-                dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
-                    dictGroup.setMainDict(mainDict)
+                synchronized(this) {
+                    dictGroupsWithNewMainDict.forEach { (dictGroup, mainDict) ->
+                        dictGroup.setMainDict(mainDict)
+                    }
                 }
-            }
 
-            listener?.onUpdateMainDictionaryAvailability(hasAtLeastOneInitializedMainDictionary())
-            latchForWaitingLoadingMainDictionary.countDown()
+                listener?.onUpdateMainDictionaryAvailability(hasAtLeastOneInitializedMainDictionary())
+                latchForWaitingLoadingMainDictionary.countDown()
+            } catch (e: Throwable) {
+                Log.e(TAG, "could not initialize main dictionaries for $locales", e)
+            }
         }
     }
 
