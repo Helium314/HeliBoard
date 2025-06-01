@@ -231,7 +231,6 @@
     <string name="hint_source">বোতামের ইঙ্গিতের উৎস</string>
     <string name="popup_order">পপআপ বোতামের ক্রমিক নির্ধারণ</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">নম্বর সারি</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">ভাষা (অগ্রাধিকার)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">লেআউট</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">প্রতীক</string>
