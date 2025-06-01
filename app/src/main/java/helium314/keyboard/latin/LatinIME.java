@@ -87,6 +87,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
+import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.latin.utils.ViewLayoutUtils;
 import helium314.keyboard.settings.SettingsActivity;
 import kotlin.collections.CollectionsKt;
@@ -879,7 +880,8 @@ public class LatinIME extends InputMethodService implements
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderUtilsKt.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
-        mSuggestionStripView = view.findViewById(R.id.suggestion_strip_view);
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN?
+                        null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
@@ -931,8 +933,9 @@ public class LatinIME extends InputMethodService implements
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
-        if (mSuggestionStripView != null)
+        if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
+        }
     }
 
     /** alias to onCurrentInputMethodSubtypeChanged with a better name, as it's also used for internal switching */
@@ -1215,7 +1218,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void hideWindow() {
-        if (mSuggestionStripView != null)
+        if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
             mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
@@ -1271,7 +1274,7 @@ public class LatinIME extends InputMethodService implements
             return;
         }
         final View visibleKeyboardView = mKeyboardSwitcher.getWrapperView();
-        if (visibleKeyboardView == null || !hasSuggestionStripView()) {
+        if (visibleKeyboardView == null) {
             return;
         }
         final int inputHeight = mInputView.getHeight();
@@ -1283,8 +1286,13 @@ public class LatinIME extends InputMethodService implements
             mInsetsUpdater.setInsets(outInsets);
             return;
         }
-        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - mSuggestionStripView.getHeight();
-        mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+        final int stripHeight = mKeyboardSwitcher.isShowingStripContainer() ? mKeyboardSwitcher.getStripContainer().getHeight() : 0;
+        final int visibleTopY = inputHeight - visibleKeyboardView.getHeight() - stripHeight;
+
+        if (hasSuggestionStripView()) {
+            mSuggestionStripView.setMoreSuggestionsHeight(visibleTopY);
+        }
+
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
             final int touchLeft = 0;
@@ -1368,6 +1376,10 @@ public class LatinIME extends InputMethodService implements
     @RequiresApi(api = Build.VERSION_CODES.R)
     public InlineSuggestionsRequest onCreateInlineSuggestionsRequest(@NonNull Bundle uiExtras) {
         Log.d(TAG,"onCreateInlineSuggestionsRequest called");
+        if (Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
+            return null;
+        }
+
         return InlineAutofillUtils.createInlineSuggestionRequest(mDisplayContext);
     }
 
@@ -1629,7 +1641,7 @@ public class LatinIME extends InputMethodService implements
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
     }
 
-    public boolean hasSuggestionStripView() {
+    private boolean hasSuggestionStripView() {
         return null != mSuggestionStripView;
     }
 

@@ -30,6 +30,7 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.ToolbarMode
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKey
 import helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick
@@ -68,8 +69,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyBackgroundId = keyboardViewAttr.getResourceId(R.styleable.KeyboardView_keyBackground, 0)
         keyboardViewAttr.recycle()
         val keyboardAttr = context.obtainStyledAttributes(attrs, R.styleable.Keyboard, defStyle, R.style.SuggestionStripView)
-        getEnabledClipboardToolbarKeys(context.prefs())
-            .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
+        if (Settings.getValues().mSecondaryStripVisible) {
+            getEnabledClipboardToolbarKeys(context.prefs())
+                .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
+        }
         keyboardAttr.recycle()
         fitsSystemWindows = true
     }
@@ -79,7 +82,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         val res = context.resources
         // The main keyboard expands to the entire this {@link KeyboardView}.
         val width = ResourceUtils.getKeyboardWidth(context, Settings.getValues()) + paddingLeft + paddingRight
-        val height = ResourceUtils.getKeyboardHeight(res, Settings.getValues()) + paddingTop + paddingBottom
+        val height = ResourceUtils.getSecondaryKeyboardHeight(res, Settings.getValues()) + paddingTop + paddingBottom
         setMeasuredDimension(width, height)
     }
 
