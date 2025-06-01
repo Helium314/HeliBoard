@@ -76,8 +76,7 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
             Settings.getInstance().loadSettings(this, resources.configuration.locale(), inputAttributes)
         }
         ExecutorUtils.getBackgroundExecutor(ExecutorUtils.KEYBOARD).execute { cleanUnusedMainDicts(this) }
-        if (BuildConfig.DEBUG || DebugFlags.DEBUG_ENABLED)
-            crashReportFiles.value = findCrashReports()
+        crashReportFiles.value = findCrashReports(!BuildConfig.DEBUG && !DebugFlags.DEBUG_ENABLED)
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         settingsContainer = SettingsContainer(this)
@@ -191,16 +190,18 @@ class SettingsActivity : ComponentActivity(), SharedPreferences.OnSharedPreferen
         KeyboardSwitcher.getInstance().setThemeNeedsReload()
     }
 
-    private fun findCrashReports(): List<File> {
-        // find crash report files
+    private fun findCrashReports(onlyUnprotected: Boolean): List<File> {
+        val unprotected = DeviceProtectedUtils.getFilesDir(this)?.listFiles().orEmpty()
+        if (onlyUnprotected)
+            return unprotected.filter { it.name.startsWith("crash_report") }
+
         val dir = getExternalFilesDir(null)
-        val unprotectedDir = DeviceProtectedUtils.getFilesDir(this)
-        val allFiles = dir?.listFiles()?.toList().orEmpty() + unprotectedDir?.listFiles().orEmpty()
+        val allFiles = dir?.listFiles()?.toList().orEmpty() + unprotected
         return allFiles.filter { it.name.startsWith("crash_report") }
     }
 
     private fun saveCrashReports(uri: Uri) {
-        val files = findCrashReports()
+        val files = findCrashReports(false)
         if (files.isEmpty()) return
         try {
             contentResolver.openOutputStream(uri)?.use {

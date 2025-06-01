@@ -113,7 +113,7 @@
     <string name="show_setup_wizard_icon_summary">Mostrar o ícone do app na launcher</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para %s</string>
-    <string name="setup_step2_instruction">Em seguida, selecione \"%s\" como o seu método de entrada ativo.</string>
+    <string name="setup_step2_instruction">Em seguida, selecione o \"%s\" como o seu método de entrada ativo.</string>
     <string name="setup_step3_instruction">Agora, você pode usar o %s para digitar nos seus apps favoritos.</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="version_text">Versão %1$s</string>
@@ -157,7 +157,7 @@
     <string name="hint_source">Selecionar fonte de dicas</string>
     <string name="popup_order">Selecionar ordem do pop-up de teclas</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Linha de números</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Idioma</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioridade)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
@@ -436,4 +436,5 @@
     <string name="use_apps_dict_summary">Usar nomes de apps instalados para sugestões e correções</string>
     <string name="prefs_emoji_skin_tone">Cor de pele padrão para os emojis</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

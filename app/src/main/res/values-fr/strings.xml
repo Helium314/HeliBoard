@@ -127,7 +127,7 @@ Nouveau dictionnaire:
     <string name="dictionary_available">"Dictionnaire disponible"</string>
     <string name="last_update">"Dernière mise à jour"</string>
     <string name="delete">"Supprimer"</string>
-    <string name="version_text">Version %1$s</string>
+    <string name="version_text">Version %s</string>
     <string name="user_dict_settings_add_dialog_title">"Ajouter au dictionnaire"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Raccourci :"</string>
     <string name="user_dict_settings_add_weight_value">Poids :</string>
@@ -178,7 +178,7 @@ Nouveau dictionnaire:
     <string name="hint_source">Sélectionner la source des indices</string>
     <string name="popup_order">Sélectionner l\'ordre des touches pop-up</string>
     <string name="popup_keys_number">Nombre</string>
-    <string name="popup_keys_language">Langue</string>
+    <string name="popup_keys_language">@string/subtype_locale</string>
     <string name="popup_keys_language_priority">Langue (prioritaire)</string>
     <string name="popup_keys_layout">Disposition</string>
     <string name="popup_keys_symbols">Symboles</string>
@@ -254,7 +254,7 @@ Nouveau dictionnaire:
     <string name="clipboard_history_retention_time">Temps de rétention de l\'historique</string>
     <string name="enable_clipboard_history_summary">Si désactivé, l\'appui sur la touche presse-papier collera l’éventuel contenu du presse-papier</string>
     <string name="enable_clipboard_history">Activer l\'historique</string>
-    <string name="abbreviation_unit_minutes">%smin.</string>
+    <string name="abbreviation_unit_minutes">%s min.</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="autospace_after_punctuation">Espace automatique après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
@@ -434,4 +434,5 @@ Nouveau dictionnaire:
     <string name="use_apps_dict_summary">Utiliser les noms des applications installées pour les suggestions et les corrections</string>
     <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
     <string name="prefs_emoji_skin_tone">Teint de peau par défaut des emojis</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

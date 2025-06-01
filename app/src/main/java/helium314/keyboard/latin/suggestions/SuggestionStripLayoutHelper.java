@@ -373,7 +373,7 @@ final class SuggestionStripLayoutHelper {
             x += wordView.getMeasuredWidth();
 
             if (SuggestionStripView.DEBUG_SUGGESTIONS) {
-                layoutDebugInfo(positionInStrip, placerView, x);
+                layoutDebugInfo(positionInStrip, placerView, (int) stripView.getX() + x);
             }
         }
         return startIndexOfMoreSuggestions;
@@ -436,8 +436,7 @@ final class SuggestionStripLayoutHelper {
         placerView.addView(debugInfoView);
         debugInfoView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int infoWidth = debugInfoView.getMeasuredWidth();
-        final int y = debugInfoView.getMeasuredHeight();
-        ViewLayoutUtils.placeViewAt(debugInfoView, x - infoWidth, y, infoWidth, debugInfoView.getMeasuredHeight());
+        ViewLayoutUtils.placeViewAt(debugInfoView, x - infoWidth, 0, infoWidth, debugInfoView.getMeasuredHeight());
     }
 
     private int getSuggestionWidth(final int positionInStrip, final int maxWidth) {

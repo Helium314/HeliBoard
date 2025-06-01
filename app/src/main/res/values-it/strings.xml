@@ -84,7 +84,7 @@
     <string name="last_update">"Ultimo aggiornamento"</string>
     <string name="settings">"Impostazioni"</string>
     <string name="delete">"Elimina"</string>
-    <string name="version_text">Versione %1$s</string>
+    <string name="version_text">Versione %s</string>
     <string name="user_dict_settings_add_dialog_title">"Aggiungi al dizionario"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Scorciatoia:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Lingua:"</string>
@@ -159,7 +159,7 @@
 \n
 \nAttenzione: il caricamento di codice esterno può essere un rischio per la sicurezza. Utilizzare solo librerie di provenienza affidabile.</string>
     <string name="load_gesture_library_button_delete">Elimina libreria</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Lingua</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="right" tools:keep="@string/right">Cursore a destra</string>
     <string name="localized_number_row_summary">Mostra i numeri in uso nella lingua attiva anziché quelli latini</string>
     <string name="checksum_mismatch_message">File di libreria sconosciuto. Verifica di averlo ottenuto da una fonte affidabile e che sia per \'%s\'.</string>
@@ -168,7 +168,7 @@
     <string name="clipboard" tools:keep="@string/clipboard">Appunti</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Riga dei numeri</string>
     <string name="button_restore">Ripristino</string>
-    <string name="popup_order">Ordine / priorità dei tasti popup</string>
+    <string name="popup_order">Ordine e priorità dei tasti popup</string>
     <string name="hint_source">Fonti degli indicatori</string>
     <string name="load_gesture_library_summary">Carica il file della libreria nativa per la digitazione gestuale</string>
     <string name="url_detection_summary">Cerca di rilevare URL e simili come una singola parola</string>
@@ -317,7 +317,7 @@
     <string name="auto_hide_toolbar_summary">Nasconde la barra degli strumenti quando è possibile mostrare le parole suggerite</string>
     <string name="auto_show_toolbar">Mostra automaticamente la barra degli strumenti</string>
     <string name="quick_pin_toolbar_keys_summary">Le azioni alternative su pressione lunga saranno disponibili solo sui tasti già fissati</string>
-    <string name="subtype_generic_extended">%s (Extended)</string>
+    <string name="subtype_generic_extended">%s (Estesa)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Tasti funzione (Simboli)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tasti funzione (Altri simboli)</string>
     <string name="settings_screen_toolbar">Barra degli strumenti</string>
@@ -353,7 +353,7 @@
     <string name="page_down" tools:keep="@string/page_down">Pagina giù</string>
     <string name="space_swipe_toggle_numpad_entry">Passa al tastierino numerico</string>
     <string name="remove_redundant_popups">Rimuovi i tasti popup ripetuti</string>
-    <string name="remove_redundant_popups_summary">Rimuovi i tasti popup già presenti nel layout base</string>
+    <string name="remove_redundant_popups_summary">Rimuove i tasti popup già presenti nel layout base</string>
     <string name="gesture_floating_preview_static_summary">Mostra dinamicamente le parole suggerite durante l\'inserimento</string>
     <string name="gesture_trail_fadeout_duration">Durata della traccia del gesto</string>
     <string name="gesture_floating_preview_static">Anteprima mobile dinamica</string>
@@ -431,4 +431,10 @@
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="prefs_emoji_key_fit">Scala la dimensione dei tasti con la dimensione dei caratteri</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
+    <string name="backup_restored">Backup ripristinato</string>
+    <string name="use_apps_dict">Suggerisci nomi delle app installate</string>
+    <string name="use_apps_dict_summary">Aggiunge i nomi delle app installate alla lista di suggerimenti e correzioni</string>
+    <string name="prefs_emoji_skin_tone">Tonalità di pelle predefinita per le emoji</string>
+    <string name="prefs_emoji_skin_tone_neutral">Neutro (giallo)</string>
 </resources>

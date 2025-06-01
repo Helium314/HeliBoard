@@ -216,7 +216,7 @@ fun createAppearanceSettings(context: Context) = listOf(
             baseKey = setting.key,
             dimensions = listOf(stringResource(R.string.landscape)),
             defaults = Defaults.PREF_KEYBOARD_HEIGHT_SCALE,
-            range = 0.5f..1.5f,
+            range = 0.3f..1.5f,
             description = { "${(100 * it).toInt()}%" }
         ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },

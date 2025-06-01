@@ -84,7 +84,7 @@
     <string name="last_update">Последна актуализация</string>
     <string name="settings">"Настройки"</string>
     <string name="delete">"Изтриване"</string>
-    <string name="version_text">"Версия %1$s"</string>
+    <string name="version_text">Версия %s</string>
     <string name="user_dict_settings_add_dialog_title">"Добавяне в речника"</string>
     <string name="user_dict_settings_add_shortcut_option_name">"Пряк път:"</string>
     <string name="user_dict_settings_add_locale_option_name">"Език:"</string>
@@ -137,7 +137,7 @@
     <string name="prefs_always_show_suggestions_summary">Игнорирайте искането на други приложения за деактивиране на предложенията (може да причини проблеми)</string>
     <string name="more_autocorrect">Повече автоматична корекция</string>
     <string name="load_gesture_library_button_delete">Изтриване на библиотека</string>
-    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">Език</string>
+    <string name="popup_keys_language" tools:keep="@string/popup_keys_language">@string/subtype_locale</string>
     <string name="language_switch_key_behavior">Поведение на клавиша за превключване на език</string>
     <string name="more_autocorrect_summary">Автоматично коригиране, дори когато не е изрично поискано от полето за въвеждане</string>
     <string name="auto_correction_confidence">Доверие за автоматично коригиране</string>
@@ -464,4 +464,5 @@
     <string name="use_apps_dict_summary">Използване на имената на инсталираните приложения за предложения и корекции</string>
     <string name="prefs_emoji_skin_tone">Тон на кожата на емотиконите по подразбиране</string>
     <string name="prefs_emoji_skin_tone_neutral">Неутрален</string>
+    <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
 </resources>

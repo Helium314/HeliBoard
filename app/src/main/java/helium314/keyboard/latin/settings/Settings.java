@@ -37,6 +37,7 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
+import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.io.File;
 import java.util.Arrays;
@@ -164,6 +165,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
     public static final String PREF_TIMESTAMP_FORMAT = "timestamp_format";
+    public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
+    public static final String PREF_TOOLBAR_HIDING_GLOBAL = "toolbar_hiding_global";
 
     // Emoji
     public static final String PREF_EMOJI_MAX_SDK = "emoji_max_sdk";
@@ -318,6 +321,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAlwaysIncognitoMode() {
         final boolean oldValue = mPrefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE);
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
+    }
+
+    public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
+        return ToolbarMode.valueOf(prefs.getString(PREF_TOOLBAR_MODE, Defaults.PREF_TOOLBAR_MODE));
     }
 
     public static int readHorizontalSpaceSwipe(final SharedPreferences prefs) {

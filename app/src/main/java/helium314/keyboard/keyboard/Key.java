@@ -518,11 +518,7 @@ public class Key implements Comparable<Key> {
     }
 
     public final boolean isModifier() {
-        return switch (mCode) {
-            case KeyCode.SHIFT, KeyCode.SYMBOL_ALPHA, KeyCode.ALPHA, KeyCode.SYMBOL, KeyCode.NUMPAD, KeyCode.CTRL,
-                    KeyCode.ALT, KeyCode.FN, KeyCode.META -> true;
-            default -> false;
-        };
+        return KeyCode.INSTANCE.isModifier(mCode);
     }
 
     public final boolean isRepeatable() {

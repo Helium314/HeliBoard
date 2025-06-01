@@ -142,8 +142,8 @@ fun DictionaryScreen(
 fun getUserAndInternalDictionaries(context: Context, locale: Locale): Pair<List<File>, Boolean> {
     val userDicts = mutableListOf<File>()
     var hasInternalDict = false
-    val userLocaleDir = File(DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context))
-    if (userLocaleDir.exists() && userLocaleDir.isDirectory) {
+    val userLocaleDir = DictionaryInfoUtils.getCacheDirectoryForLocale(locale, context)?.let { File(it) }
+    if (userLocaleDir?.exists() == true && userLocaleDir.isDirectory) {
         userLocaleDir.listFiles()?.forEach {
             if (it.name.endsWith(DictionaryInfoUtils.USER_DICTIONARY_SUFFIX))
                 userDicts.add(it)
