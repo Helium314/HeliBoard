@@ -6,8 +6,6 @@
 
 package helium314.keyboard.latin;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -183,7 +181,7 @@ public abstract class Dictionary {
      * Not a true dictionary. A placeholder used to indicate suggestions that don't come from any
      * real dictionary.
      */
-    static class PhonyDictionary extends Dictionary {
+    public static class PhonyDictionary extends Dictionary {
         PhonyDictionary(final String type) {
             super(type, null);
         }
