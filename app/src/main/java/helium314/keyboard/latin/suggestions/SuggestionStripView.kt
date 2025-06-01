@@ -47,7 +47,7 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.suggestions.PopupSuggestionsView.MoreSuggestionsListener
+import helium314.keyboard.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.ToolbarMode
@@ -180,7 +180,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     // related to more suggestions
     // todo: maybe put most of this in a separate class?
-    private val moreSuggestionsView: PopupSuggestionsView = moreSuggestionsContainer.findViewById(R.id.more_suggestions_view)
+    private val moreSuggestionsView: MoreSuggestionsView = moreSuggestionsContainer.findViewById(R.id.more_suggestions_view)
     private val moreSuggestionsBuilder = MoreSuggestions.Builder(context, moreSuggestionsView) // todo: why actually here?
     private val moreSuggestionsModalTolerance = context.resources.getDimensionPixelOffset(R.dimen.config_more_suggestions_modal_tolerance)
     private val moreSuggestionsListener = object : MoreSuggestionsListener() {
