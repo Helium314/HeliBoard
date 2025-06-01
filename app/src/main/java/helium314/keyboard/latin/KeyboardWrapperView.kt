@@ -78,12 +78,13 @@ class KeyboardWrapperView @JvmOverloads constructor(
                     val changePercent = 2 * sign * (x - motionEvent.rawX) / context.resources.displayMetrics.density
                     if (abs(changePercent) < 1) return@setOnTouchListener true
                     x = motionEvent.rawX
-                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE)
+                    val landscape = Settings.getValues().mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE
+                    val split = Settings.getValues().mIsSplitKeyboardEnabled
+                    val oldScale = Settings.readOneHandedModeScale(context.prefs(), landscape, split)
                     val newScale = (oldScale + changePercent / 100f).coerceAtMost(2.5f).coerceAtLeast(0.5f)
                     if (newScale == oldScale) return@setOnTouchListener true
                     Settings.getInstance().writeOneHandedModeScale(newScale)
-                    oneHandedModeEnabled = false // intentionally putting wrong value, so KeyboardSwitcher.setOneHandedModeEnabled does actually reload
-                    KeyboardSwitcher.getInstance().setOneHandedModeEnabled(true)
+                    KeyboardSwitcher.getInstance().setOneHandedModeEnabled(true, true)
                 }
                 else -> x = 0f
             }

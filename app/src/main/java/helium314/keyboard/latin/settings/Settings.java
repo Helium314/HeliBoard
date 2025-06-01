@@ -361,39 +361,42 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, Defaults.PREF_SHOW_SETUP_WIZARD_ICON);
     }
 
-    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean landscape) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 1);
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 2);
         return prefs.getBoolean(key, Defaults.PREF_ONE_HANDED_MODE);
     }
 
     public void writeOneHandedModeEnabled(final boolean enabled) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 1);
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_MODE_PREFIX, index, 2);
         mPrefs.edit().putBoolean(key, enabled).apply();
     }
 
-    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean landscape) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 1);
+    public static float readOneHandedModeScale(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 2);
         return prefs.getFloat(key, Defaults.PREF_ONE_HANDED_SCALE);
     }
 
     public void writeOneHandedModeScale(final Float scale) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 1);
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_SCALE_PREFIX, index, 2);
         mPrefs.edit().putFloat(key, scale).apply();
     }
 
-    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean landscape) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(landscape);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 1);
+    public static int readOneHandedModeGravity(final SharedPreferences prefs, final boolean landscape, final boolean split) {
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, split);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 2);
         return prefs.getInt(key, Defaults.PREF_ONE_HANDED_GRAVITY);
     }
 
     public void writeOneHandedModeGravity(final int gravity) {
-        final int index = SettingsKt.findIndexOfDefaultSetting(mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE);
-        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 1);
+        final boolean landscape = mSettingsValues.mDisplayOrientation == Configuration.ORIENTATION_LANDSCAPE;
+        final int index = SettingsKt.findIndexOfDefaultSetting(landscape, mSettingsValues.mIsSplitKeyboardEnabled);
+        final String key = SettingsKt.createPrefKeyForBooleanSettings(PREF_ONE_HANDED_GRAVITY_PREFIX, index, 2);
         mPrefs.edit().putInt(key, gravity).apply();
     }
 

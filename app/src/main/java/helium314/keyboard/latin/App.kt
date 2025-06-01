@@ -563,7 +563,7 @@ fun checkVersionUpgrade(context: Context) {
             prefs.edit().putString(it.key, newValue).apply()
         }
     }
-    if (oldVersion <= 3100) {
+    if (oldVersion <= 3101) {
         val e = prefs.edit()
         prefs.all.toMap().forEach { (key, value) ->
             if (key == "side_padding_scale") {
@@ -579,17 +579,17 @@ fun checkVersionUpgrade(context: Context) {
             } else if (key == "split_spacer_scale_landscape") {
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SPLIT_SPACER_SCALE_PREFIX, 1, 1), value as Float)
             } else if (key == "one_handed_mode_enabled_p_true") {
-                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 0, 1), value as Boolean)
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 0, 2), value as Boolean)
             } else if (key == "one_handed_mode_enabled_p_false") {
-                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 1, 1), value as Boolean)
+                e.putBoolean(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_MODE_PREFIX, 1, 2), value as Boolean)
             } else if (key == "one_handed_mode_scale_p_true") {
-                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 0, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 0, 2), value as Float)
             } else if (key == "one_handed_mode_scale_p_false") {
-                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 1, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_SCALE_PREFIX, 1, 2), value as Float)
             } else if (key == "one_handed_mode_gravity_p_true") {
-                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 0, 1), value as Int)
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 0, 2), value as Int)
             } else if (key == "one_handed_mode_gravity_p_false") {
-                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 1, 1), value as Int)
+                e.putInt(createPrefKeyForBooleanSettings(Settings.PREF_ONE_HANDED_GRAVITY_PREFIX, 1, 2), value as Int)
             } else if (key == "keyboard_height_scale") {
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value as Float)
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_KEYBOARD_HEIGHT_SCALE_PREFIX, 1, 1), value)
