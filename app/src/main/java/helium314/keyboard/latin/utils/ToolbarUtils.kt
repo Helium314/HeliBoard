@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import java.util.EnumMap
 import java.util.Locale
 
-fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarKey): ImageButton {
+fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
     button.scaleType = ImageView.ScaleType.CENTER
     button.tag = key
@@ -29,7 +29,7 @@ fun createToolbarKey(context: Context, iconsSet: KeyboardIconsSet, key: ToolbarK
     if (contentDescriptionId != 0)
         button.contentDescription = context.getString(contentDescriptionId)
     setToolbarButtonActivatedState(button)
-    button.setImageDrawable(iconsSet.getNewDrawable(key.name, context))
+    button.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
     return button
 }
 

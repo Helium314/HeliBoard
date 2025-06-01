@@ -149,7 +149,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         )
         if (mToolbarMode == ToolbarMode.TOOLBAR_KEYS || mToolbarMode == ToolbarMode.EXPANDABLE) {
             for (key in getEnabledToolbarKeys(context.prefs())) {
-                val button = createToolbarKey(context, KeyboardIconsSet.instance, key)
+                val button = createToolbarKey(context, key)
                 button.layoutParams = toolbarKeyLayoutParams
                 setupKey(button, colors)
                 toolbar.addView(button)
@@ -157,7 +157,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
         if (!Settings.getValues().mSuggestionStripHiddenPerUserSettings) {
             for (pinnedKey in getPinnedToolbarKeys(context.prefs())) {
-                val button = createToolbarKey(context, KeyboardIconsSet.instance, pinnedKey)
+                val button = createToolbarKey(context, pinnedKey)
                 button.layoutParams = toolbarKeyLayoutParams
                 setupKey(button, colors)
                 pinnedKeys.addView(button)

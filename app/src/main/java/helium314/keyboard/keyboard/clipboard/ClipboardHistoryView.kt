@@ -21,7 +21,6 @@ import helium314.keyboard.keyboard.MainKeyboardView
 import helium314.keyboard.keyboard.PointerTracker
 import helium314.keyboard.keyboard.internal.KeyDrawParams
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes
-import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ClipboardHistoryManager
 import helium314.keyboard.latin.R
@@ -68,7 +67,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardViewAttr.recycle()
         if (Settings.getValues().mSecondaryStripVisible) {
             getEnabledClipboardToolbarKeys(context.prefs())
-                .forEach { toolbarKeys.add(createToolbarKey(context, KeyboardIconsSet.instance, it)) }
+                .forEach { toolbarKeys.add(createToolbarKey(context, it)) }
         }
         fitsSystemWindows = true
     }
