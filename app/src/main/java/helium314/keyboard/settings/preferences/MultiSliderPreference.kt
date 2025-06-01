@@ -56,11 +56,18 @@ fun MultiSliderPreference(
     if (defaults.size != 1.shl(dimensions.size))
         throw ArithmeticException("defaults size does not match with dimensions, expected ${1.shl(dimensions.size)}, got ${defaults.size}")
     var showDialog by remember { mutableStateOf(false) }
+    val (vars, keys) = remember { createVariantsAndKeys(dimensions, baseKey) }
+    val prefs = LocalContext.current.prefs()
     Preference(
         name = name,
         onClick = { showDialog = true },
-        // description??
+        description = keys.mapIndexed { i, it -> description(prefs.getFloat(it, defaults[i])) }.joinToString(" $SPLIT ")
+        // todo: description is good, but just showing all values doesn't seem right
+        //  maybe if we store the checkbox state in a setting we could use it for determining what to show
     )
+    // todo: should the dimension checkboxes have any other effect than display?
+    // todo: background image and split layout switch should use the same multi-pref style
+    //  just expand scope of the PR, after all it's a preparation for folded / unfolded settings
     if (showDialog)
         MultiSliderDialog(
             onDismissRequest = { showDialog = false },
@@ -88,8 +95,6 @@ private fun MultiSliderDialog(
     positionString: (Float) -> String,
 ) {
     val (variants, keys) = createVariantsAndKeys(dimensions, baseKey)
-    // todo: store state in some activeDimensions setting?
-    //  probably should be a name -> bool map (bad on translation change, but that's ok)
     var shown by remember { mutableStateOf(List(variants.size) { true }) }
 
     val prefs = LocalContext.current.prefs()

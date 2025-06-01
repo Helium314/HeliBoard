@@ -567,9 +567,11 @@ fun checkVersionUpgrade(context: Context) {
         val e = prefs.edit()
         prefs.all.toMap().forEach { (key, value) ->
             if (key == "side_padding_scale") {
-                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 0, 2), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 2, 2), value)
             } else if (key == "side_padding_scale_landscape") {
-                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 1), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 1, 2), value as Float)
+                e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_SIDE_PADDING_SCALE_PREFIX, 3, 2), value)
             } else if (key == "bottom_padding_scale") {
                 e.putFloat(createPrefKeyForBooleanSettings(Settings.PREF_BOTTOM_PADDING_SCALE_PREFIX, 0, 1), value as Float)
             } else if (key == "bottom_padding_scale_landscape") {
