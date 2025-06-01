@@ -28,11 +28,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import helium314.keyboard.accessibility.AccessibilityUtils
 import helium314.keyboard.compat.isDeviceLocked
 import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.keyboard.MainKeyboardView
-import helium314.keyboard.keyboard.PopupKeysPanel
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
@@ -47,7 +44,6 @@ import helium314.keyboard.latin.define.DebugFlags
 import helium314.keyboard.latin.settings.DebugSettings
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
-import helium314.keyboard.latin.suggestions.MoreSuggestionsView.MoreSuggestionsListener
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ToolbarKey
 import helium314.keyboard.latin.utils.ToolbarMode
@@ -62,7 +58,6 @@ import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.abs
 import kotlin.math.min
 
 class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int) :
@@ -170,57 +165,22 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateKeys()
     }
 
-    private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
     private lateinit var listener: Listener
-    private lateinit var mainKeyboardView: MainKeyboardView
     private var suggestedWords = SuggestedWords.getEmptyInstance()
     private var startIndexOfMoreSuggestions = 0
     private var direction = 1 // 1 if LTR, -1 if RTL
     private var isExternalSuggestionVisible = false // Required to disable the more suggestions if other suggestions are visible
-
-    // related to more suggestions
-    // todo: maybe put most of this in a separate class?
-    private val moreSuggestionsView: MoreSuggestionsView = moreSuggestionsContainer.findViewById(R.id.more_suggestions_view)
-    private val moreSuggestionsBuilder = MoreSuggestions.Builder(context, moreSuggestionsView) // todo: why actually here?
-    private val moreSuggestionsModalTolerance = context.resources.getDimensionPixelOffset(R.dimen.config_more_suggestions_modal_tolerance)
-    private val moreSuggestionsListener = object : MoreSuggestionsListener() {
-        override fun onSuggestionSelected(wordInfo: SuggestedWordInfo) {
-            listener.pickSuggestionManually(wordInfo)
-            dismissMoreSuggestionsPanel()
+    private val layoutHelper = SuggestionStripLayoutHelper(context, attrs, defStyle, wordViews, dividerViews, debugInfoViews)
+    private val moreSuggestionsView = moreSuggestionsContainer.findViewById<MoreSuggestionsView>(R.id.more_suggestions_view).apply {
+        val slidingListener = object : SimpleOnGestureListener() {
+            override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
+                if (down == null) return false
+                val dy = me.y - down.y
+                return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < 0) showMoreSuggestions()
+                else false
+            }
         }
-
-        override fun onCancelInput() {
-            dismissMoreSuggestionsPanel()
-        }
-    }
-    private val moreSuggestionsSlidingListener = object : SimpleOnGestureListener() {
-        override fun onScroll(down: MotionEvent?, me: MotionEvent, deltaX: Float, deltaY: Float): Boolean {
-            if (down == null) return false
-            val dy = me.y - down.y
-            return if (toolbarContainer.visibility != VISIBLE && deltaY > 0 && dy < 0) showMoreSuggestions()
-            else false
-        }
-    }
-    private val moreSuggestionsSlidingDetector = GestureDetector(context, moreSuggestionsSlidingListener)
-    // Working variables for onInterceptTouchEvent(MotionEvent) and onTouchEvent(MotionEvent).
-    private var lastX = 0
-    private var lastY = 0
-    private var originX = 0
-    private var originY = 0
-    private var needsToTransformTouchEventToHoverEvent = false
-    private var isDispatchingHoverEventToMoreSuggestions = false
-    private val moreSuggestionsController: PopupKeysPanel.Controller = object : PopupKeysPanel.Controller {
-        override fun onDismissPopupKeysPanel() {
-            mainKeyboardView.onDismissPopupKeysPanel()
-        }
-
-        override fun onShowPopupKeysPanel(panel: PopupKeysPanel) {
-            mainKeyboardView.onShowPopupKeysPanel(panel)
-        }
-
-        override fun onCancelPopupKeysPanel() {
-            dismissMoreSuggestionsPanel()
-        }
+        gestureDetector = GestureDetector(context, slidingListener)
     }
 
     // public stuff
@@ -230,7 +190,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     /** A connection back to the input method. */
     fun setListener(newListener: Listener, inputView: View) {
         listener = newListener
-        mainKeyboardView = inputView.findViewById(R.id.keyboard_view)
+        moreSuggestionsView.listener = newListener
+        moreSuggestionsView.mainKeyboardView = inputView.findViewById(R.id.keyboard_view)
     }
 
     fun setRtl(isRtlLanguage: Boolean) {
@@ -316,84 +277,18 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         return true
     }
 
-    // this is only for moreSuggestionsView
     override fun onInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
         // Disable More Suggestions if external suggestions are visible
         if (isExternalSuggestionVisible) {
             return false
         }
-
         // Detecting sliding up finger to show MoreSuggestionsView.
-        if (!moreSuggestionsView.isShowingInParent) {
-            lastX = motionEvent.x.toInt()
-            lastY = motionEvent.y.toInt()
-            return moreSuggestionsSlidingDetector.onTouchEvent(motionEvent)
-        }
-        if (moreSuggestionsView.isInModalMode) {
-            return false
-        }
-
-        val index = motionEvent.actionIndex
-        if (abs((motionEvent.getX(index).toInt() - originX).toDouble()) >= moreSuggestionsModalTolerance
-            || originY - motionEvent.getY(index).toInt() >= moreSuggestionsModalTolerance
-        ) {
-            // Decided to be in the sliding suggestion mode only when the touch point has been moved
-            // upward. Further MotionEvents will be delivered to onTouchEvent(MotionEvent).
-            needsToTransformTouchEventToHoverEvent = AccessibilityUtils.instance.isTouchExplorationEnabled
-            isDispatchingHoverEventToMoreSuggestions = false
-            return true
-        }
-
-        if (motionEvent.action == MotionEvent.ACTION_UP || motionEvent.action == MotionEvent.ACTION_POINTER_UP) {
-            // Decided to be in the modal input mode.
-            moreSuggestionsView.setModalMode()
-        }
-        return false
+        return moreSuggestionsView.shouldInterceptTouchEvent(motionEvent)
     }
 
-    // this is only for moreSuggestionsView
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
-        if (!moreSuggestionsView.isShowingInParent) {
-            // Ignore any touch event while more suggestions panel hasn't been shown.
-            return true
-        }
-        // In the sliding input mode. {@link MotionEvent} should be forwarded to
-        // {@link MoreSuggestionsView}.
-        val index = motionEvent.actionIndex
-        val x = moreSuggestionsView.translateX(motionEvent.getX(index).toInt())
-        val y = moreSuggestionsView.translateY(motionEvent.getY(index).toInt())
-        motionEvent.setLocation(x.toFloat(), y.toFloat())
-        if (!needsToTransformTouchEventToHoverEvent) {
-            moreSuggestionsView.onTouchEvent(motionEvent)
-            return true
-        }
-        // In sliding suggestion mode with accessibility mode on, a touch event should be
-        // transformed to a hover event.
-        val width = moreSuggestionsView.width
-        val height = moreSuggestionsView.height
-        val onMoreSuggestions = x in 0..<width && y in 0..<height
-        if (!onMoreSuggestions && !isDispatchingHoverEventToMoreSuggestions) {
-            // Just drop this touch event because dispatching hover event isn't started yet and
-            // the touch event isn't on MoreSuggestionsView.
-            return true
-        }
-        val hoverAction: Int
-        if (onMoreSuggestions && !isDispatchingHoverEventToMoreSuggestions) {
-            // Transform this touch event to a hover enter event and start dispatching a hover event to MoreSuggestionsView.
-            isDispatchingHoverEventToMoreSuggestions = true
-            hoverAction = MotionEvent.ACTION_HOVER_ENTER
-        } else if (motionEvent.actionMasked == MotionEvent.ACTION_UP) {
-            // Transform this touch event to a hover exit event and stop dispatching a hover event after this.
-            isDispatchingHoverEventToMoreSuggestions = false
-            needsToTransformTouchEventToHoverEvent = false
-            hoverAction = MotionEvent.ACTION_HOVER_EXIT
-        } else {
-            // Transform this touch event to a hover move event.
-            hoverAction = MotionEvent.ACTION_HOVER_MOVE
-        }
-        motionEvent.action = hoverAction
-        moreSuggestionsView.onHoverEvent(motionEvent)
+        moreSuggestionsView.touchEvent(motionEvent)
         return true
     }
 
@@ -503,25 +398,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     private fun showMoreSuggestions(): Boolean {
-        val parentKeyboard = mainKeyboardView.keyboard ?: return false
         if (suggestedWords.size() <= startIndexOfMoreSuggestions) {
             return false
         }
-        val container = moreSuggestionsContainer
-        val maxWidth = width - container.paddingLeft - container.paddingRight
-        val keyboard = moreSuggestionsBuilder.layout(
-            suggestedWords, startIndexOfMoreSuggestions, maxWidth,
-            (maxWidth * layoutHelper.mMinMoreSuggestionsWidth).toInt(),
-            layoutHelper.maxMoreSuggestionsRow, parentKeyboard
-        ).build()
-        moreSuggestionsView.setKeyboard(keyboard)
-        container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-        val pointX = width / 2
-        val pointY = -layoutHelper.mMoreSuggestionsBottomGap
-        moreSuggestionsView.showPopupKeysPanel(this, moreSuggestionsController, pointX, pointY, moreSuggestionsListener)
-        originX = lastX
-        originY = lastY
+        if (!moreSuggestionsView.show(
+                suggestedWords, startIndexOfMoreSuggestions, moreSuggestionsContainer, layoutHelper, this
+        ))
+            return false
         for (i in 0..<startIndexOfMoreSuggestions) {
             wordViews[i].isPressed = false
         }

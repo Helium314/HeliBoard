@@ -7,14 +7,22 @@ package helium314.keyboard.latin.suggestions
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import helium314.keyboard.accessibility.AccessibilityUtils
 import helium314.keyboard.keyboard.Key
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardActionListener
+import helium314.keyboard.keyboard.MainKeyboardView
 import helium314.keyboard.keyboard.PopupKeysKeyboardView
+import helium314.keyboard.keyboard.PopupKeysPanel
 import helium314.keyboard.latin.R
-import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
+import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.suggestions.MoreSuggestions.MoreSuggestionKey
 import helium314.keyboard.latin.utils.Log
+import kotlin.math.abs
 
 /**
  * A view that renders a virtual [MoreSuggestions]. It handles rendering of keys and detecting
@@ -24,12 +32,43 @@ class MoreSuggestionsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?,
     defStyle: Int = R.attr.popupKeysKeyboardViewStyle
 ) : PopupKeysKeyboardView(context, attrs, defStyle) {
-    abstract class MoreSuggestionsListener : KeyboardActionListener.Adapter() {
-        abstract fun onSuggestionSelected(wordInfo: SuggestedWordInfo)
+
+    private val moreSuggestionsListener = object : KeyboardActionListener.Adapter() {
+        override fun onCancelInput() {
+            dismissPopupKeysPanel()
+        }
     }
 
-    var isInModalMode = false
-        private set
+    private val moreSuggestionsController: PopupKeysPanel.Controller = object : PopupKeysPanel.Controller {
+        override fun onDismissPopupKeysPanel() {
+            mainKeyboardView.onDismissPopupKeysPanel()
+        }
+
+        override fun onShowPopupKeysPanel(panel: PopupKeysPanel) {
+            mainKeyboardView.onShowPopupKeysPanel(panel)
+        }
+
+        override fun onCancelPopupKeysPanel() {
+            dismissPopupKeysPanel()
+        }
+    }
+
+    lateinit var listener: SuggestionStripView.Listener
+    lateinit var mainKeyboardView: MainKeyboardView
+
+    private val moreSuggestionsModalTolerance = context.resources.getDimensionPixelOffset(R.dimen.config_more_suggestions_modal_tolerance)
+    private val moreSuggestionsBuilder by lazy { MoreSuggestions.Builder(context, this) }
+
+    lateinit var gestureDetector: GestureDetector
+    private var isInModalMode = false
+
+    // Working variables for onInterceptTouchEvent(MotionEvent) and onTouchEvent(MotionEvent).
+    private var needsToTransformTouchEventToHoverEvent = false
+    private var isDispatchingHoverEventToMoreSuggestions = false
+    private var lastX = 0
+    private var lastY = 0
+    private var originX = 0
+    private var originY = 0
 
     // TODO: Remove redundant override method.
     override fun setKeyboard(keyboard: Keyboard) {
@@ -50,9 +89,9 @@ class MoreSuggestionsView @JvmOverloads constructor(
         updateKeyDrawParams(keyHeight)
     }
 
-    fun setModalMode() {
+    private fun setModalMode() {
         isInModalMode = true
-        // Set vertical correction to zero (Reset popup keys keyboard sliding allowance R#dimen.config_popup_keys_keyboard_slide_allowance).
+        // Set vertical correction to zero (Reset popup keys keyboard sliding allowance R.dimen.config_popup_keys_keyboard_slide_allowance).
         mKeyDetector.setKeyboard(keyboard, -paddingLeft.toFloat(), -paddingTop.toFloat())
     }
 
@@ -72,11 +111,96 @@ class MoreSuggestionsView @JvmOverloads constructor(
             Log.e(TAG, "Selected suggestion has an illegal index: $index")
             return
         }
-        if (mListener !is MoreSuggestionsListener) {
-            Log.e(TAG, "Expected mListener is MoreSuggestionsListener, but found " + mListener.javaClass.name)
+        listener.pickSuggestionManually(suggestedWords.getInfo(index))
+        dismissPopupKeysPanel()
+    }
+
+    internal fun show(
+        suggestedWords: SuggestedWords, fromIndex: Int, container: View,
+        layoutHelper: SuggestionStripLayoutHelper, parentView: View
+    ): Boolean {
+        val maxWidth = parentView.width - container.paddingLeft - container.paddingRight
+        val parentKeyboard = mainKeyboardView.keyboard ?: return false
+        val keyboard = moreSuggestionsBuilder.layout(
+            suggestedWords, fromIndex, maxWidth,
+            (maxWidth * layoutHelper.mMinMoreSuggestionsWidth).toInt(),
+            layoutHelper.maxMoreSuggestionsRow, parentKeyboard
+        ).build()
+        setKeyboard(keyboard)
+        container.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val pointX = parentView.width / 2
+        val pointY = -layoutHelper.mMoreSuggestionsBottomGap
+        showPopupKeysPanel(parentView, moreSuggestionsController, pointX, pointY, moreSuggestionsListener)
+        originX = lastX
+        originY = lastY
+        return true
+    }
+
+    fun shouldInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
+        if (!isShowingInParent) {
+            lastX = motionEvent.x.toInt()
+            lastY = motionEvent.y.toInt()
+            return gestureDetector.onTouchEvent(motionEvent)
+        }
+        if (isInModalMode) {
+            return false
+        }
+
+        val index = motionEvent.actionIndex
+        if (abs((motionEvent.getX(index).toInt() - originX).toDouble()) >= moreSuggestionsModalTolerance
+            || originY - motionEvent.getY(index).toInt() >= moreSuggestionsModalTolerance
+        ) {
+            // Decided to be in the sliding suggestion mode only when the touch point has been moved
+            // upward. Further MotionEvents will be delivered to SuggestionStripView.onTouchEvent.
+            needsToTransformTouchEventToHoverEvent = AccessibilityUtils.instance.isTouchExplorationEnabled
+            isDispatchingHoverEventToMoreSuggestions = false
+            return true
+        }
+
+        if (motionEvent.action == MotionEvent.ACTION_UP || motionEvent.action == MotionEvent.ACTION_POINTER_UP) {
+            // Decided to be in the modal input mode.
+            setModalMode()
+        }
+        return false
+    }
+
+    fun touchEvent(motionEvent: MotionEvent) {
+        if (!isShowingInParent) {
+            return // Ignore any touch event while more suggestions panel hasn't been shown.
+        }
+        // In the sliding input mode. MotionEvent should be forwarded to MoreSuggestionsView.
+        val index = motionEvent.actionIndex
+        val x = translateX(motionEvent.getX(index).toInt())
+        val y = translateY(motionEvent.getY(index).toInt())
+        motionEvent.setLocation(x.toFloat(), y.toFloat())
+        if (!needsToTransformTouchEventToHoverEvent) {
+            onTouchEvent(motionEvent)
             return
         }
-        (mListener as MoreSuggestionsListener).onSuggestionSelected(suggestedWords.getInfo(index))
+        // In sliding suggestion mode with accessibility mode on, a touch event should be transformed to a hover event.
+        val onMoreSuggestions = x in 0..<width && y in 0..<height
+        if (!onMoreSuggestions && !isDispatchingHoverEventToMoreSuggestions) {
+            // Just drop this touch event because dispatching hover event isn't started yet and
+            // the touch event isn't on MoreSuggestionsView.
+            return
+        }
+        val hoverAction: Int
+        if (onMoreSuggestions && !isDispatchingHoverEventToMoreSuggestions) {
+            // Transform this touch event to a hover enter event and start dispatching a hover event to MoreSuggestionsView.
+            isDispatchingHoverEventToMoreSuggestions = true
+            hoverAction = MotionEvent.ACTION_HOVER_ENTER
+        } else if (motionEvent.actionMasked == MotionEvent.ACTION_UP) {
+            // Transform this touch event to a hover exit event and stop dispatching a hover event after this.
+            isDispatchingHoverEventToMoreSuggestions = false
+            needsToTransformTouchEventToHoverEvent = false
+            hoverAction = MotionEvent.ACTION_HOVER_EXIT
+        } else {
+            // Transform this touch event to a hover move event.
+            hoverAction = MotionEvent.ACTION_HOVER_MOVE
+        }
+        motionEvent.action = hoverAction
+        onHoverEvent(motionEvent)
     }
 
     companion object {
