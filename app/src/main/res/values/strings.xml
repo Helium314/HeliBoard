@@ -270,6 +270,8 @@
     <string name="show_hints">Show key hints</string>
     <!-- Description of the settings to show hints -->
     <string name="show_hints_summary">Show long-press hints</string>
+    <!-- Preferences item to set popup key order and select hints source -->
+    <string name="popup_order_and_hint_source">Popup key order and hints source</string>
     <!-- Title of the setting to select key hints source -->
     <string name="hint_source">Select hint source</string>
     <!-- Title of the setting to set popup key order -->
