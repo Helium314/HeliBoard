@@ -33,6 +33,7 @@ import helium314.keyboard.latin.LastComposedWord;
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.NgramContext;
 import helium314.keyboard.latin.RichInputConnection;
+import helium314.keyboard.latin.SingleDictionaryFacilitator;
 import helium314.keyboard.latin.Suggest;
 import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.SuggestedWords;
@@ -80,6 +81,7 @@ public final class InputLogic {
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
     public final Suggest mSuggest;
     private final DictionaryFacilitator mDictionaryFacilitator;
+    private SingleDictionaryFacilitator mEmojiDictionaryFacilitator;
 
     public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
@@ -122,6 +124,10 @@ public final class InputLogic {
         mInputLogicHandler = InputLogicHandler.NULL_HANDLER;
         mSuggest = new Suggest(dictionaryFacilitator);
         mDictionaryFacilitator = dictionaryFacilitator;
+    }
+
+    public void setEmojiDictionaryFacilitator(SingleDictionaryFacilitator emojiDictionaryFacilitator) {
+        mEmojiDictionaryFacilitator = emojiDictionaryFacilitator;
     }
 
     /**
@@ -891,11 +897,9 @@ public final class InputLogic {
         final int codePoint = event.getMCodePoint();
         mSpaceState = SpaceState.NONE;
         final SettingsValues sv = inputTransaction.getMSettingsValues();
-        // don't treat separators as for handling URLs and similar
-        //  otherwise it would work too, but whenever a separator is entered, the word is not selected
-        //  until the next character is entered, and the word is added to history
-        //  -> the changing selection would be confusing, and adding partial URLs to history is probably bad
-        if (Character.getType(codePoint) == Character.OTHER_SYMBOL
+        if (isEmojiSearch(codePoint)) {
+            handleNonSeparatorEvent(event, sv, inputTransaction);
+        } else if (Character.getType(codePoint) == Character.OTHER_SYMBOL
                 || (Character.getType(codePoint) == Character.UNASSIGNED && StringUtils.mightBeEmoji(codePoint)) // outdated java doesn't detect some emojis
                 || (sv.isWordSeparator(codePoint)
                     && (Character.isWhitespace(codePoint) // whitespace is always a separator
@@ -904,6 +908,10 @@ public final class InputLogic {
                     )
                 )
         ) {
+            // don't treat separators as for handling URLs and similar
+            //  otherwise it would work too, but whenever a separator is entered, the word is not selected
+            //  until the next character is entered, and the word is added to history
+            //  -> the changing selection would be confusing, and adding partial URLs to history is probably bad
             handleSeparatorEvent(event, inputTransaction, handler);
             addToHistoryIfEmoji(StringUtils.newSingleCodePointString(codePoint), sv);
         } else {
@@ -1012,8 +1020,8 @@ public final class InputLogic {
         // We only start composing if we're not already composing.
         if (!isComposingWord
         // We only start composing if this is a word code point. Essentially that means it's a
-        // a letter or a word connector.
-                && settingsValues.isWordCodePoint(codePoint)
+        // a letter, a word connector, or the start of emoji search.
+                && (settingsValues.isWordCodePoint(codePoint) || isEmojiSearch(codePoint))
         // We never go into composing state if suggestions are not requested.
                 && settingsValues.needsToLookupSuggestions() &&
         // In languages with spaces, we only start composing a word when we are not already
@@ -1060,6 +1068,17 @@ public final class InputLogic {
             }
         }
         inputTransaction.setRequiresUpdateSuggestions();
+    }
+
+    private boolean isEmojiSearch(int codePoint) {
+        if (mEmojiDictionaryFacilitator == null) {
+            return false;
+        }
+
+        // Include all characters except whitespace in emoji search string
+        return ! mWordComposer.isComposingWord() && codePoint == ':'
+                        || mWordComposer.isComposingWord() && mWordComposer.getTypedWord().charAt(0) == ':'
+                        && ! Character.isWhitespace(codePoint);
     }
 
     /**
@@ -1750,7 +1769,7 @@ public final class InputLogic {
             mConnection.finishComposingText();
             return;
         }
-        final TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
+        TextRange range = mConnection.getWordRangeAtCursor(settingsValues.mSpacingAndPunctuations, currentKeyboardScript);
         if (null == range) return; // Happens if we don't have an input connection at all
         if (range.length() <= 0) {
             // Race condition, or touching a word in a non-supported script.
@@ -1770,6 +1789,11 @@ public final class InputLogic {
             // "unselect" the previous text
             mConnection.finishComposingText();
             return;
+        }
+        if (mEmojiDictionaryFacilitator != null && Character.valueOf(':').equals(range.getCharBeforeWord())) {
+            // Restart emoji search. Will only expand up to closest word separators, which should work in most cases.
+            range = new TextRange(":" + range.mWord, 0, range.length() + 1,
+                                  range.getNumberOfCharsInWordBeforeCursor() + 1, false);
         }
         restartSuggestions(range);
     }
@@ -2437,6 +2461,10 @@ public final class InputLogic {
     public void getSuggestedWords(final SettingsValues settingsValues,
             final Keyboard keyboard, final int keyboardShiftMode, final int inputStyle,
             final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+        if (searchForEmoji(inputStyle, sequenceNumber, callback)) {
+            return;
+        }
+
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, keyboardShiftMode));
         mSuggest.getSuggestedWords(mWordComposer,
@@ -2450,6 +2478,32 @@ public final class InputLogic {
                 settingsValues.mSettingsValuesForSuggestion,
                 settingsValues.mAutoCorrectEnabled,
                 inputStyle, sequenceNumber, callback);
+    }
+
+    private boolean searchForEmoji(int inputStyle, int sequenceNumber, OnGetSuggestedWordsCallback callback) {
+        if (mEmojiDictionaryFacilitator == null
+                        || mWordComposer.getTypedWord().isEmpty() || mWordComposer.getTypedWord().charAt(0) != ':') {
+            return false;
+        }
+
+        if (mWordComposer.getTypedWord().length() == 1) {
+            callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
+        } else {
+            var word = mWordComposer.getTypedWord().substring(1).replace('~', ' ');
+            var suggestions = mEmojiDictionaryFacilitator.getSuggestions(word);
+            var suggestedWordInfos = new ArrayList<SuggestedWordInfo>(suggestions.size());
+            for (var suggestion: suggestions) {
+                if (StringUtils.mightBeEmoji(suggestion.mWord)) {
+                    Suggest.addDebugInfo(suggestion, word);
+                    suggestedWordInfos.add(suggestion);
+                }
+            }
+            callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, null,
+                                                        false /* typedWordValid */, false /* willAutoCorrect */,
+                                                        false /* isObsoleteSuggestions */, inputStyle, sequenceNumber));
+        }
+
+        return true;
     }
 
     /**

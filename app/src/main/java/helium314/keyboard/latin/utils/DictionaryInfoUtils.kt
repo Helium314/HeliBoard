@@ -101,6 +101,16 @@ object DictionaryInfoUtils {
         return absoluteDirectoryName
     }
 
+    @JvmStatic
+    fun getCachedDictForLocaleAndType(locale: Locale, type: String, context: Context): File? {
+        val file = getCachedDictsForLocale(locale, context).firstOrNull { it.name.substringBefore("_") == type }
+        if (file != null) return file
+        if (locale.language != locale.toLanguageTag())
+            return getCachedDictsForLocale(Locale(locale.language), context)
+                .firstOrNull { it.name.substringBefore("_") == type }
+        return null
+    }
+
     fun getCachedDictsForLocale(locale: Locale, context: Context) =
         getCacheDirectoryForLocale(locale, context)?.let { File(it).listFiles() }.orEmpty()
 

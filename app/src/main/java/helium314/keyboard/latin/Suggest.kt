@@ -121,7 +121,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         if ((hasAutoCorrection || Settings.getValues().mCenterSuggestionTextToEnter)
             && suggestionsList.size >= indexOfTypedWord && !TextUtils.isEmpty(typedWordString)) {
             if (typedWordFirstOccurrenceWordInfo != null) {
-                if (SuggestionStripView.DEBUG_SUGGESTIONS) addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString)
+                addDebugInfo(typedWordFirstOccurrenceWordInfo, typedWordString)
                 suggestionsList.add(indexOfTypedWord, typedWordFirstOccurrenceWordInfo)
             } else {
                 suggestionsList.add(indexOfTypedWord,
@@ -428,7 +428,10 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             return suggestionsList
         }
 
-        private fun addDebugInfo(wordInfo: SuggestedWordInfo?, typedWord: String) {
+        @JvmStatic
+        public fun addDebugInfo(wordInfo: SuggestedWordInfo?, typedWord: String) {
+            if (!SuggestionStripView.DEBUG_SUGGESTIONS)
+                return
             val normalizedScore = BinaryDictionaryUtils.calcNormalizedScore(typedWord, wordInfo.toString(), wordInfo!!.mScore)
             val scoreInfoString: String
             val dict = wordInfo.mSourceDict.mDictType + ":" + wordInfo.mSourceDict.mLocale

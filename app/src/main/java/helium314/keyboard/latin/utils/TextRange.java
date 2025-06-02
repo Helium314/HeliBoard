@@ -109,4 +109,11 @@ public final class TextRange {
         mHasUrlSpans = hasUrlSpans;
         mWord = mTextAtCursor.subSequence(mWordAtCursorStartIndex, mWordAtCursorEndIndex);
     }
+
+    public Character getCharBeforeWord() {
+        if (mWordAtCursorStartIndex == 0) {
+            return null;
+        }
+        return mTextAtCursor.charAt(mWordAtCursorStartIndex - 1);
+    }
 }

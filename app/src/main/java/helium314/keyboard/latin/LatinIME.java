@@ -78,6 +78,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
 import helium314.keyboard.latin.touchinputconsumer.GestureConsumer;
 import helium314.keyboard.latin.utils.ColorUtilKt;
+import helium314.keyboard.latin.utils.DictionaryInfoUtils;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
@@ -695,6 +696,7 @@ public class LatinIME extends InputMethodService implements
         refreshPersonalizationDictionarySession(currentSettingsValues);
         mInputLogic.mSuggest.clearNextWordSuggestionsCache();
         mStatsUtilsManager.onLoadSettings(this, currentSettingsValues);
+        updateEmojiDictionary();
     }
 
     private void refreshPersonalizationDictionarySession(
@@ -2029,6 +2031,17 @@ public class LatinIME extends InputMethodService implements
         }
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.S && Build.MANUFACTURER.equals("HUAWEI")) {
             window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    private void updateEmojiDictionary() {
+        if (Settings.getValues().mInlineEmojiSearch) {
+            var locale = mRichImm.getCurrentSubtype().getLocale();
+            var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mDisplayContext);
+            mInputLogic.setEmojiDictionaryFacilitator(dictFile != null?
+                           new SingleDictionaryFacilitator(DictionaryFactory.getDictionary(dictFile, locale)) : null);
+        } else {
+            mInputLogic.setEmojiDictionaryFacilitator(null);
         }
     }
 
