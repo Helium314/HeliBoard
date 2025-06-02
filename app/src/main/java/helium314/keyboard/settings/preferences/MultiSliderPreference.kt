@@ -44,8 +44,8 @@ import helium314.keyboard.settings.previewDark
 // actual key for each setting is baseKey with one _true/_false appended per dimension (need to keep order!)
 // todo: possible adjustments, maybe depending on user feedback
 //  should dimension checkboxes have any other effect than just showing / hiding sliders?
-//   one could argue that e.g. when disabling split, then split mode should not affect the setting
-//  store checkboxes?
+//   one could argue that e.g. when disabling the split checkbox, then split mode should not affect the setting
+//  store checkbox states?
 //   if so, per setting or global?
 //  show a description? currently commented because it could get long, even without showing the variations
 //   maybe if we store the checkbox state in a setting, we could use it for determining what to show
